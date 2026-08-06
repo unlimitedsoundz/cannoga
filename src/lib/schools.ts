@@ -1,0 +1,58 @@
+export const STATIC_SCHOOLS = [
+  {
+    id: 'arts',
+    name: 'School of Arts, Design and Architecture',
+    slug: 'arts',
+    description: 'A multidisciplinary academic unit focused on creativity, innovation, and societal impact through art, design, architecture, film, and media.',
+    imageUrl: null,
+  },
+  {
+    id: 'business',
+    name: 'School of Business',
+    slug: 'business',
+    description: 'Developing leaders for the green economy and circular business models.',
+    imageUrl: null,
+  },
+  {
+    id: 'education-social-sciences',
+    name: 'School of Education and Social Sciences',
+    slug: 'education-social-sciences',
+    description: 'Empowering leaders in early childhood education, child youth care, and community justice.',
+    imageUrl: null,
+  },
+  {
+    id: 'health-community',
+    name: 'School of Health and Community Services',
+    slug: 'health-community',
+    description: 'Preparing compassionate professionals for healthcare, nursing, and community support roles.',
+    imageUrl: null,
+  },
+  {
+    id: 'hospitality-tourism',
+    name: 'School of Hospitality and Tourism',
+    slug: 'hospitality-tourism',
+    description: 'Providing hands-on education in culinary arts, baking, hotel, and tourism management.',
+    imageUrl: null,
+  },
+  {
+    id: 'science',
+    name: 'School of Science',
+    slug: 'science',
+    description: 'Advancing the frontiers of scientific knowledge through rigorous research and innovative global education.',
+    imageUrl: null,
+  },
+  {
+    id: 'technology',
+    name: 'School of Technology',
+    slug: 'technology',
+    description: 'Driving the development of next-generation systems and intelligent computing solutions.',
+    imageUrl: null,
+  },
+  {
+    id: 'transportation-aviation',
+    name: 'School of Transportation and Aviation',
+    slug: 'transportation-aviation',
+    description: 'Training professionals in aviation management, logistics, and automotive service technologies.',
+    imageUrl: null,
+  },
+];

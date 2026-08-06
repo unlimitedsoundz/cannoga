@@ -1,0 +1,5 @@
+ALTER TABLE public.admission_offers
+ADD COLUMN IF NOT EXISTS invoice_type TEXT DEFAULT 'TUITION_DEPOSIT';
+
+ALTER TABLE public.tuition_payments
+ADD COLUMN IF NOT EXISTS invoice_type TEXT DEFAULT 'TUITION_DEPOSIT';

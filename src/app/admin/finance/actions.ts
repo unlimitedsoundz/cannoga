@@ -1,0 +1,324 @@
+'use server';
+
+import { createServiceRoleClient } from '@/utils/supabase/server-admin';
+import { initializePalForStudent } from '@/utils/pal-status';
+
+export async function getAdminInvoiceData() {
+    const supabase = createServiceRoleClient();
+
+    const { data, error } = await supabase
+        .from('applications')
+        .select(`
+            id,
+            personal_info,
+            status,
+            user:profiles(first_name, last_name, email),
+            program:Course(title, duration),
+            offer:admission_offers(
+                id,
+                tuition_fee,
+                invoice_type,
+                invoice_pushed,
+                invoice_sent_at
+            )
+        `)
+        .in('status', ['OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ENROLLED', 'ADMISSION_LETTER_GENERATED']);
+
+    if (error) {
+        console.error("Error fetching admin invoice data:", error.message || error);
+        return [];
+    }
+
+    return data || [];
+}
+
+export async function getPendingPayments() {
+    const supabase = createServiceRoleClient();
+
+    const { data, error } = await supabase
+        .from('tuition_payments')
+        .select('id, amount, currency, invoice_type, transaction_reference, created_at, offer_id, status')
+        .eq('status', 'PENDING_VERIFICATION')
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        console.error("Error fetching pending payments:", error.message || error);
+        return [];
+    }
+
+    return data || [];
+}
+
+export async function pushInvoice(applicationId: string, customFee: number, invoiceType: string) {
+    const supabase = createServiceRoleClient();
+    const ANCILLARY_FEES_TOTAL = 700;
+    const ANCILLARY_FEES = [
+        { name: 'Student Activity Fee', amount: 100 },
+        { name: 'Technology Fee', amount: 100 },
+        { name: 'Athletics and Recreation Fee', amount: 100 },
+        { name: 'Convocation Fee', amount: 100 },
+        { name: 'Student Counselling Fee', amount: 100 },
+        { name: 'Program Transcript Fee', amount: 100 },
+        { name: 'Student Experience Fee', amount: 100 }
+    ];
+
+    // Verify application exists and is in a valid state
+    const { data: offer, error: offerError } = await supabase
+        .from('admission_offers')
+        .select('*')
+        .eq('application_id', applicationId)
+        .maybeSingle();
+
+    let finalOffer = offer;
+
+    if (offerError || !finalOffer) {
+        console.log(`[pushInvoice] No offer found for ${applicationId}, creating one automatically...`);
+        
+        // Fetch application with course data to create offer
+        const { data: application, error: appError } = await supabase
+            .from('applications')
+            .select(`
+                *,
+                course:Course(*, school:School(*))
+            `)
+            .eq('id', applicationId)
+            .single();
+
+        if (appError || !application) {
+            console.error('[pushInvoice] Application not found:', appError);
+            throw new Error('Application not found');
+        }
+
+        const courseData = (application as any).course;
+        const degreeLevel = courseData?.degreeLevel || 'BACHELOR';
+        const schoolSlug = courseData?.school?.slug || 'technology';
+
+        const { getTuitionFee, mapSchoolToTuitionField, getProgramYears } = await import('@/utils/tuition');
+        const tuitionField = mapSchoolToTuitionField(schoolSlug);
+        const personal = (application as any).personal_info || {};
+        const studentType = personal.studentType;
+        const isDomestic = studentType === 'domestic';
+        const annualFee = getTuitionFee(degreeLevel, tuitionField, isDomestic);
+
+        const { data: newOffer, error: createError } = await supabase
+            .from('admission_offers')
+            .insert({
+                application_id: applicationId,
+                tuition_fee: annualFee,
+                payment_deadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+                offer_type: 'FULL_TUITION',
+                status: 'PENDING'
+            })
+            .select('*')
+            .single();
+
+        if (createError || !newOffer) {
+            console.error('[pushInvoice] Failed to create offer:', createError);
+            throw new Error('Admission offer not found and could not be created');
+        }
+
+        finalOffer = newOffer;
+    }
+
+    // Update the offer with new custom fee and mark as invoiced
+    const { error: updateError } = await supabase
+        .from('admission_offers')
+        .update({
+            tuition_fee: customFee,
+            invoice_type: invoiceType,
+            invoice_pushed: true,
+            invoice_sent_at: new Date().toISOString()
+        })
+        .eq('application_id', applicationId);
+
+    if (updateError) {
+        console.error('Error updating admission offer:', updateError.message || updateError);
+        throw new Error('Failed to push invoice');
+    }
+
+    // Fetch application and user data to send email notification
+    const { data: application, error: appError } = await supabase
+        .from('applications')
+        .select(`
+            *,
+            course:Course(title),
+            user:profiles(first_name, last_name, email, id)
+        `)
+        .eq('id', applicationId)
+        .single();
+
+    if (appError || !application) {
+        console.error('Error fetching application data:', appError?.message || appError);
+        // Don't throw error here, invoice is already pushed
+        return { success: true };
+    }
+
+    // Trigger Invoice Ready via Edge Function instead of local sendEmail
+    try {
+        console.log(`[pushInvoice] Triggering notification for application: ${applicationId}`);
+        const { data, error } = await supabase.functions.invoke('send-notification', {
+            body: {
+                applicationId: applicationId,
+                type: 'INVOICE_READY',
+                additionalData: {
+                    amount: customFee,
+                    currency: 'CAD',
+                    invoiceType: invoiceType,
+                    ancillaryFees: ANCILLARY_FEES
+                }
+            }
+        });
+
+        if (error) {
+            console.error('[pushInvoice] Edge function error:', error.message || error);
+        } else {
+            console.log('[pushInvoice] Edge function triggered successfully:', data);
+        }
+    } catch (notifyError: any) {
+        console.error('[pushInvoice] Failed to invoke notification edge function:', notifyError.message || notifyError);
+        // Don't fail the push if notification fails
+    }
+
+    return { success: true };
+}
+
+// Verify and accept a subsequent (2nd, 3rd...) tuition invoice payment that the
+// student submitted through the checkout. Runs server-side with the service-role
+// client so it bypasses RLS and can UPDATE tuition_payments / applications /
+// profiles directly. No edge-function hop is needed.
+export async function verifyTuitionPayment(paymentId: string, applicationId: string) {
+    const supabase = createServiceRoleClient();
+
+    try {
+        // 1. Mark payment as verified. This fires the on_payment_status_update
+        // trigger which notifies the student (TUITION_PAYMENT_VERIFIED).
+        const { error: updateError } = await supabase
+            .from('tuition_payments')
+            .update({ status: 'verified' })
+            .eq('id', paymentId)
+            .eq('status', 'PENDING_VERIFICATION');
+
+        if (updateError) throw updateError;
+
+        // 2. Fetch application + user data
+        const { data: application, error: appError } = await supabase
+            .from('applications')
+            .select('*, user:profiles!user_id(*), course:Course(*)')
+            .eq('id', applicationId)
+            .single();
+
+        if (appError || !application) throw new Error('Application not found');
+
+        const appUser = application.user;
+        const currentYear = new Date().getFullYear();
+
+        // 3. Generate student id + institutional email
+        let studentId = appUser?.student_id;
+        if (!studentId || !studentId.startsWith('HU')) {
+            studentId = `CC${Math.floor(1000000 + Math.random() * 8999999)}`;
+        }
+
+        let institutionalEmail = `${appUser?.first_name ?? 'student'}.${appUser?.last_name ?? 'heffring'}@cannogacollege.ca`
+            .toLowerCase()
+            .replace(/\s+/g, '');
+
+        const { data: existingEmail } = await supabase
+            .from('students')
+            .select('institutional_email')
+            .eq('institutional_email', institutionalEmail)
+            .maybeSingle();
+
+        if (existingEmail) {
+            institutionalEmail = `${appUser?.first_name ?? 'student'}.${appUser?.last_name ?? 'heffring'}${Math.floor(Math.random() * 100)}@cannogacollege.ca`
+                .toLowerCase()
+                .replace(/\s+/g, '');
+        }
+
+        // 4. Upsert student record
+        const { error: studentError, data: newStudent } = await supabase
+            .from('students')
+            .upsert({
+                user_id: appUser?.id,
+                student_id: studentId,
+                application_id: application.id,
+                program_id: application.course_id,
+                institutional_email: institutionalEmail,
+                personal_email: appUser?.email,
+                enrollment_status: 'ACTIVE',
+                tuition_deposit_paid: true,
+                start_date: application.updated_at || new Date().toISOString(),
+                expected_graduation_date: new Date(new Date().setFullYear(currentYear + 3)).toISOString(),
+                updated_at: new Date().toISOString()
+            }, { onConflict: 'application_id' })
+            .select('id, pal_tal_required, pal_tal_status')
+            .single();
+
+        if (studentError) throw studentError;
+
+        // 4b. Initialize PAL status for international students
+        if (newStudent?.id) {
+            await initializePalForStudent(newStudent.id);
+        }
+
+        // 4c. Generate automatic tasks for the student
+        if (newStudent?.id) {
+            try {
+                const { generateAutomaticTasksForStudent } = await import('@/utils/tasks');
+                await generateAutomaticTasksForStudent(newStudent.id);
+            } catch (taskError) {
+                console.error('Task generation deferred:', taskError);
+            }
+        }
+
+        // 5. Mark application enrolled
+        const { error: enrollError } = await supabase
+            .from('applications')
+            .update({
+                status: 'ENROLLED',
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', applicationId);
+
+        if (enrollError) throw enrollError;
+
+        // 6. Update user profile role
+        await supabase
+            .from('profiles')
+            .update({ role: 'STUDENT', student_id: studentId })
+            .eq('id', appUser?.id);
+
+        return { success: true };
+    } catch (err: any) {
+        console.error('verifyTuitionPayment error:', err.message || err);
+        throw new Error(err.message || 'Failed to verify payment');
+    }
+}
+
+export async function getSystemSetting(key: string) {
+    const supabase = createServiceRoleClient();
+    const { data, error } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', key)
+        .single();
+
+    if (error) {
+        console.error(`Error fetching setting ${key}:`, error.message || error);
+        return null;
+    }
+    return data.value;
+}
+
+export async function updateSystemSetting(key: string, value: string) {
+    const supabase = createServiceRoleClient();
+    const { error } = await supabase
+        .from('system_settings')
+        .update({ value, updatedAt: new Date().toISOString() })
+        .eq('key', key);
+
+    if (error) {
+        console.error(`Error updating setting ${key}:`, error.message || error);
+        throw new Error(`Failed to update setting ${key}`);
+    }
+    return { success: true };
+}

@@ -1,0 +1,3 @@
+-- Disable RLS on FAQ tables for the dynamic FAQ system
+ALTER TABLE faq_pages DISABLE ROW LEVEL SECURITY;
+ALTER TABLE faq DISABLE ROW LEVEL SECURITY;
