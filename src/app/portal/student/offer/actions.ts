@@ -2,6 +2,7 @@
 
 import { createClient } from '@/utils/supabase/client';
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
+import { generateAndStoreLOA } from '@/utils/loa-pdf-generator';
 
 export async function respondToOffer(admissionId: string, decision: 'ACCEPTED' | 'REJECTED') {
     const supabase = createClient();
@@ -51,6 +52,26 @@ export async function respondToOffer(admissionId: string, decision: 'ACCEPTED' |
             .update({ status: 'OFFER_ACCEPTED' })
             .eq('user_id', user.id)
             .eq('status', 'ADMITTED');
+
+        try {
+            const { data: acceptedApp } = await supabase
+                .from('applications')
+                .select(`
+                    *,
+                    course:Course(*, school:School(*)),
+                    user:profiles(*),
+                    offer:admission_offers(*)
+                `)
+                .eq('user_id', user.id)
+                .eq('status', 'OFFER_ACCEPTED')
+                .single();
+
+            if (acceptedApp) {
+                await generateAndStoreLOA(acceptedApp.id, acceptedApp);
+            }
+        } catch (loaError) {
+            console.error('Failed to generate LOA on offer response:', loaError);
+        }
     } else {
         await supabase
             .from('applications')
@@ -163,8 +184,25 @@ export async function acceptApplicationOffer(applicationId: string, userId?: str
         throw new Error('Failed to update application status');
     }
 
-    // NOTE: Admission letter is NOT generated here.
-    // It is only generated after payment confirmation (see payment/actions.ts)
+    // Generate and store LOA PDF in document_records
+    try {
+        const { data: application, error: appFetchError } = await supabase
+            .from('applications')
+            .select(`
+                *,
+                course:Course(*, school:School(*)),
+                user:profiles(*),
+                offer:admission_offers(*)
+            `)
+            .eq('id', applicationId)
+            .single();
+
+        if (!appFetchError && application) {
+            await generateAndStoreLOA(applicationId, application);
+        }
+    } catch (loaError) {
+        console.error('Failed to generate LOA on offer acceptance:', loaError);
+    }
 
     // 5. Try updating legacy admissions table
     try {

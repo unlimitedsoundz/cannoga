@@ -1,7 +1,8 @@
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import AdminJourneyTimeline from '@/components/sis/AdminJourneyTimeline';
 
-export default async function AdminStudentJourneyPage({ params }: { params: { id: string } }) {
+export default async function AdminStudentJourneyPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const supabase = createServiceRoleClient();
 
   const { data: student, error } = await supabase
@@ -10,7 +11,7 @@ export default async function AdminStudentJourneyPage({ params }: { params: { id
       *,
       user:profiles(*)
     `)
-    .eq('id', params.id)
+    .eq('id', id)
     .single();
 
   if (error || !student) {
