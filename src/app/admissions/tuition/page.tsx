@@ -36,6 +36,12 @@ export default async function TuitionPaymentPage() {
         .select('*')
         .order('title');
 
+    const { data: tuitionInfo } = await supabase
+        .from('tuition_info')
+        .select('*')
+        .eq('status', 'active')
+        .order('credential_type', { ascending: true });
+
     // For static build, we use empty FAQs - they will be loaded client-side
     const faqs: any[] = [];
     const pageSlug = 'admissions/tuition';
@@ -47,6 +53,33 @@ export default async function TuitionPaymentPage() {
     } catch (error) {
         // Ignore errors
     }
+
+    // Helper to extract annual tuition from JSONB
+    const getAnnualTuition = (jsonb: any, fallback: number): number => {
+        if (!jsonb) return fallback;
+        const val = jsonb.annualTuition || jsonb.domesticTuition || jsonb.tuition || jsonb.amount || jsonb.value;
+        if (!val) return fallback;
+        const cleaned = String(val).replace(/[^0-9.]/g, '');
+        const num = parseFloat(cleaned);
+        return isNaN(num) ? fallback : num;
+    };
+
+    // Map credential types to display names
+    const credentialDisplay: Record<string, { label: string; duration: string; credits: string }> = {
+        CERTIFICATE: { label: 'Certificate', duration: '1 Year', credits: '30 Credits' },
+        DIPLOMA: { label: 'Ontario College Diploma', duration: '2 Years', credits: '60 Credits' },
+        BACHELOR: { label: "Bachelor's Degree", duration: '3 Years', credits: '90 Credits' },
+        MASTER: { label: "Master's Degree", duration: '2 Years', credits: '60 Credits' },
+    };
+
+    const fallbackRates: Record<string, { domestic: number; international: number }> = {
+        CERTIFICATE: { domestic: 2400, international: 4000 },
+        DIPLOMA: { domestic: 2400, international: 4000 },
+        BACHELOR: { domestic: 4000, international: 6400 },
+        MASTER: { domestic: 5600, international: 9600 },
+    };
+
+    const tuitionRates = tuitionInfo || [];
 
     return (
         <GuideSidebarLayout sections={sections}>
@@ -105,34 +138,22 @@ export default async function TuitionPaymentPage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className="bg-white">
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm font-bold text-black whitespace-nowrap">Certificate</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black whitespace-nowrap">1 Year</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black whitespace-nowrap">30 Credits</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black text-right whitespace-nowrap">$1,500/year</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black text-right whitespace-nowrap">$2,500/year</td>
-                                    </tr>
-                                    <tr className="bg-neutral-50">
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm font-bold text-black whitespace-nowrap">Ontario College Diploma</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black whitespace-nowrap">2 Years</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black whitespace-nowrap">60 Credits</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black text-right whitespace-nowrap">$1,500/year</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black text-right whitespace-nowrap">$2,500/year</td>
-                                    </tr>
-                                    <tr className="bg-white">
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm font-bold text-black whitespace-nowrap">Bachelor's Degree</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black whitespace-nowrap">3 Years</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black whitespace-nowrap">90 Credits</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black text-right whitespace-nowrap">$2,500/year</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black text-right whitespace-nowrap">$4,000/year</td>
-                                    </tr>
-                                    <tr className="bg-neutral-50">
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm font-bold text-black whitespace-nowrap">Master's Degree</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black whitespace-nowrap">2 Years</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black whitespace-nowrap">60 Credits</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black text-right whitespace-nowrap">$3,500/year</td>
-                                        <td className="border border-neutral-200 px-4 py-3 text-sm text-black text-right whitespace-nowrap">$6,000/year</td>
-                                    </tr>
+                                    {['CERTIFICATE', 'DIPLOMA', 'BACHELOR', 'MASTER'].map((credentialType, idx) => {
+                                        const info = tuitionRates.find((t: any) => t.credential_type === credentialType);
+                                        const display = credentialDisplay[credentialType] || { label: credentialType, duration: '—', credits: '—' };
+                                        const fallback = fallbackRates[credentialType] || { domestic: 0, international: 0 };
+                                        const domestic = info ? getAnnualTuition(info.domestic_tuition, fallback.domestic) : fallback.domestic;
+                                        const international = info ? getAnnualTuition(info.international_tuition, fallback.international) : fallback.international;
+                                        return (
+                                            <tr key={credentialType} className={idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50'}>
+                                                <td className="border border-neutral-200 px-4 py-3 text-sm font-bold text-black whitespace-nowrap">{display.label}</td>
+                                                <td className="border border-neutral-200 px-4 py-3 text-sm text-black whitespace-nowrap">{display.duration}</td>
+                                                <td className="border border-neutral-200 px-4 py-3 text-sm text-black whitespace-nowrap">{display.credits}</td>
+                                                <td className="border border-neutral-200 px-4 py-3 text-sm text-black text-right whitespace-nowrap">${domestic.toLocaleString()}/year</td>
+                                                <td className="border border-neutral-200 px-4 py-3 text-sm text-black text-right whitespace-nowrap">${international.toLocaleString()}/year</td>
+                                            </tr>
+                                        );
+                                    })}
                                 </tbody>
                             </table>
                         </div>

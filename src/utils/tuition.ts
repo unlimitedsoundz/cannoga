@@ -1,17 +1,18 @@
 import { DegreeLevel } from '@/types/database';
+import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 
 export type TuitionField = 'BUSINESS' | 'ARTS' | 'TECHNOLOGY' | 'SCIENCE';
 
 export const DOMESTIC_TUITION = {
-    CERTIFICATE_DIPLOMA: 2400,
-    BACHELOR: 4000,
-    MASTER: 5600
+    CERTIFICATE_DIPLOMA: 4800,
+    BACHELOR: 8000,
+    MASTER: 11200
 };
 
 export const INTERNATIONAL_TUITION = {
-    CERTIFICATE_DIPLOMA: 4000,
-    BACHELOR: 6400,
-    MASTER: 9600
+    CERTIFICATE_DIPLOMA: 8000,
+    BACHELOR: 12800,
+    MASTER: 19200
 };
 
 export const DOMESTIC_DEPOSIT = {
@@ -41,10 +42,51 @@ export function isWithinEarlyPaymentWindow(offerCreatedAt: string): boolean {
     return new Date() <= deadline;
 }
 
+function getCredentialType(level: string): string {
+    const lvl = (level || '').toUpperCase();
+    if (lvl.includes('MASTER') || lvl.includes('MSC')) return 'MASTER';
+    if (lvl.includes('BACHELOR') || lvl.includes('BSC')) return 'BACHELOR';
+    if (lvl.includes('DIPLOMA')) return 'DIPLOMA';
+    if (lvl.includes('CERTIFICATE')) return 'CERTIFICATE';
+    return 'BACHELOR';
+}
+
+function extractAnnualFee(jsonb: any, fallback: number): number {
+    if (!jsonb) return fallback;
+    const val = jsonb.annualTuition || jsonb.domesticTuition || jsonb.tuition || jsonb.amount || jsonb.value;
+    if (!val) return fallback;
+    const cleaned = String(val).replace(/[^0-9.]/g, '');
+    const num = parseFloat(cleaned);
+    return isNaN(num) ? fallback : num;
+}
+
 /**
  * Validates and gets the tuition fee based on degree level and residency (isDomestic).
+ * Fetches from tuition_info table; falls back to hardcoded values if DB is unavailable.
+ * Returns annual fee.
  */
-export function getTuitionFee(level: string, field?: string, isDomestic: boolean = false): number {
+export async function getTuitionFee(level: string, field?: string, isDomestic: boolean = false): Promise<number> {
+    const credentialType = getCredentialType(level);
+
+    try {
+        const supabase = createServiceRoleClient();
+        const { data } = await supabase
+            .from('tuition_info')
+            .select('domestic_tuition, international_tuition')
+            .eq('credential_type', credentialType)
+            .eq('status', 'active')
+            .single();
+
+        if (data) {
+            const jsonb = isDomestic ? data.domestic_tuition : data.international_tuition;
+            const fallback = isDomestic ? DOMESTIC_TUITION[credentialType as keyof typeof DOMESTIC_TUITION] || DOMESTIC_TUITION.BACHELOR : INTERNATIONAL_TUITION[credentialType as keyof typeof INTERNATIONAL_TUITION] || INTERNATIONAL_TUITION.BACHELOR;
+            const fee = extractAnnualFee(jsonb, fallback);
+            if (fee > 0) return fee;
+        }
+    } catch (error) {
+        console.error('Failed to fetch tuition from DB:', error);
+    }
+
     const lvl = (level || '').toUpperCase();
     if (lvl.includes('CERTIFICATE') || lvl.includes('DIPLOMA')) {
         return isDomestic ? DOMESTIC_TUITION.CERTIFICATE_DIPLOMA : INTERNATIONAL_TUITION.CERTIFICATE_DIPLOMA;
@@ -55,7 +97,6 @@ export function getTuitionFee(level: string, field?: string, isDomestic: boolean
     if (lvl.includes('MASTER') || lvl.includes('MSC')) {
         return isDomestic ? DOMESTIC_TUITION.MASTER : INTERNATIONAL_TUITION.MASTER;
     }
-    // Default fallback
     return isDomestic ? DOMESTIC_TUITION.BACHELOR : INTERNATIONAL_TUITION.BACHELOR;
 }
 

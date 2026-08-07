@@ -17,26 +17,14 @@ interface TuitionInfo {
     international_tuition: any;
 }
 
-// Helper to extract annual tuition from JSONB
-const getAnnualTuition = (jsonb: any, fallback: number): number => {
+// Helper to extract tuition from JSONB
+const extractTuition = (jsonb: any, fallback: number): number => {
     if (!jsonb) return fallback;
     const val = jsonb.annualTuition || jsonb.domesticTuition || jsonb.tuition || jsonb.amount || jsonb.value;
-    const num = parseFloat(val);
+    if (!val) return fallback;
+    const cleaned = String(val).replace(/[^0-9.]/g, '');
+    const num = parseFloat(cleaned);
     return isNaN(num) ? fallback : num;
-};
-
-const FALLBACK_DOMESTIC = {
-    CERTIFICATE: 1500,
-    DIPLOMA: 1500,
-    BACHELOR: 2500,
-    MASTER: 3500,
-};
-
-const FALLBACK_INTERNATIONAL = {
-    CERTIFICATE: 2500,
-    DIPLOMA: 2500,
-    BACHELOR: 4000,
-    MASTER: 6000,
 };
 
 const FEE_DESCRIPTIONS: Record<string, string> = {
@@ -48,6 +36,30 @@ const FEE_DESCRIPTIONS: Record<string, string> = {
     'Student Counselling Fee': 'Provides access to confidential, professional mental health counselling, academic guidance, stress management, and support resources.',
     'Program Transcript Fee': 'Covers the cost of printing, certifying, and sending official academic transcripts and enrollment letters throughout your study.',
     'Student Experience Fee': 'Funds campus-wide enrichment activities, workshops, career networking events, guest speaker series, and student engagement initiatives.'
+};
+
+const ANCILLARY_FEES = [
+    { name: 'Student Activity Fee', amount: 150, description: FEE_DESCRIPTIONS['Student Activity Fee'] },
+    { name: 'Technology Fee', amount: 100, description: FEE_DESCRIPTIONS['Technology Fee'] },
+    { name: 'Athletics and Recreation Fee', amount: 75, description: FEE_DESCRIPTIONS['Athletics and Recreation Fee'] },
+    { name: 'Convocation Fee', amount: 50, description: FEE_DESCRIPTIONS['Convocation Fee'] },
+    { name: 'Student Counselling Fee', amount: 50, description: FEE_DESCRIPTIONS['Student Counselling Fee'] },
+    { name: 'Program Transcript Fee', amount: 25, description: FEE_DESCRIPTIONS['Program Transcript Fee'] },
+    { name: 'Student Experience Fee', amount: 50, description: FEE_DESCRIPTIONS['Student Experience Fee'] },
+];
+
+const FALLBACK_DOMESTIC = {
+    CERTIFICATE: 2400,
+    DIPLOMA: 2400,
+    BACHELOR: 4000,
+    MASTER: 5600,
+};
+
+const FALLBACK_INTERNATIONAL = {
+    CERTIFICATE: 4000,
+    DIPLOMA: 4000,
+    BACHELOR: 6400,
+    MASTER: 9600,
 };
 
 export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
@@ -75,10 +87,10 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
             const supabase = createClient();
             const { data } = await supabase
                 .from('tuition_info')
-                .select('credential_type, domestic_tuition, international_tuition')
+                .select('id, credential_type, domestic_tuition, international_tuition')
                 .eq('status', 'active')
                 .order('credential_type', { ascending: true });
-            if (data) setTuitionInfo(data);
+            if (data) setTuitionInfo(data as TuitionInfo[]);
         };
         fetchTuitionInfo();
     }, []);
@@ -115,7 +127,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
 
         const getAnnualFeeFromDB = (level: string, domestic: boolean): number => {
             const upper = level.toUpperCase();
-            let credentialType = 'BACHELOR';
+            let credentialType: keyof typeof FALLBACK_DOMESTIC = 'BACHELOR';
             if (upper.includes('CERTIFICATE')) credentialType = 'CERTIFICATE';
             else if (upper.includes('DIPLOMA')) credentialType = 'DIPLOMA';
             else if (upper.includes('MASTER')) credentialType = 'MASTER';
@@ -124,7 +136,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
             if (info) {
                 const jsonb = domestic ? info.domestic_tuition : info.international_tuition;
                 const fallback = domestic ? FALLBACK_DOMESTIC[credentialType] : FALLBACK_INTERNATIONAL[credentialType];
-                return getAnnualTuition(jsonb, fallback);
+                return extractTuition(jsonb, fallback);
             }
 
             const fallback = domestic ? FALLBACK_DOMESTIC[credentialType] : FALLBACK_INTERNATIONAL[credentialType];
@@ -136,6 +148,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
 
         const totalSemesters = Math.ceil(years * 2);
         const programTuitionTotal = annualBase * years;
+        const ancillaryFeesTotal = ANCILLARY_FEES.reduce((sum, fee) => sum + fee.amount, 0);
 
         setSubmittedData({
             course,
@@ -146,6 +159,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
             totalSemesters,
             semesterBaseTuition,
             programTuitionTotal,
+            ancillaryFeesTotal,
         });
 
         // Initialize accordion with first semester open
@@ -315,25 +329,36 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                                             {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                                         </button>
 
-                                        {/* Accordion Content */}
-                                        {isOpen && (
-                                            <div className="p-4 bg-white divide-y divide-[#f3f4f6]">
-                                                {/* Tuition Base */}
-                                                <div className="flex justify-between py-2 text-xs items-center">
-                                                    <span className="font-semibold text-neutral-700 flex items-center gap-1">
-                                                        Program Tuition Fee
-                                                        <Tooltip text={FEE_DESCRIPTIONS['Program Tuition Fee']} />
-                                                    </span>
-                                                    <span className="font-bold">{formatCurrency(submittedData.semesterBaseTuition)}</span>
-                                                </div>
+                                         {/* Accordion Content */}
+                                         {isOpen && (
+                                             <div className="p-4 bg-white divide-y divide-[#f3f4f6]">
+                                                 {/* Tuition Base */}
+                                                 <div className="flex justify-between py-2 text-xs items-center">
+                                                     <span className="font-semibold text-neutral-700 flex items-center gap-1">
+                                                         Program Tuition Fee
+                                                         <Tooltip text={FEE_DESCRIPTIONS['Program Tuition Fee']} />
+                                                     </span>
+                                                     <span className="font-bold">{formatCurrency(submittedData.semesterBaseTuition)}</span>
+                                                 </div>
 
-                                                {/* Semester Total */}
-                                                <div className="flex justify-between pt-3 pb-1 text-sm font-black text-[#000000]">
-                                                    <span>SEMESTER {semNum} TOTAL</span>
-                                                    <span>{formatCurrency(submittedData.semesterBaseTuition)}</span>
-                                                </div>
-                                            </div>
-                                        )}
+                                                 {/* Ancillary Fees */}
+                                                 {ANCILLARY_FEES.map((fee) => (
+                                                     <div key={fee.name} className="flex justify-between py-2 text-xs items-center">
+                                                         <span className="font-semibold text-neutral-700 flex items-center gap-1">
+                                                             {fee.name}
+                                                             <Tooltip text={fee.description} />
+                                                         </span>
+                                                         <span className="font-bold">{formatCurrency(fee.amount)}</span>
+                                                     </div>
+                                                 ))}
+
+                                                 {/* Semester Total */}
+                                                 <div className="flex justify-between pt-3 pb-1 text-sm font-black text-[#000000]">
+                                                     <span>SEMESTER {semNum} TOTAL</span>
+                                                     <span>{formatCurrency(submittedData.semesterBaseTuition + submittedData.ancillaryFeesTotal)}</span>
+                                                 </div>
+                                             </div>
+                                         )}
                                     </div>
                                 );
                             })}
@@ -343,10 +368,10 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                         <div className="bg-[#f5f5f5] p-4 border border-[#e2e8f0] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                             <div>
                                 <h4 className="text-xs font-bold text-neutral-500 uppercase">Estimated Total Tuition</h4>
-                                <p className="text-[10px] text-neutral-400 font-semibold leading-tight mt-0.5">Based on {submittedData.years} year(s) at {formatCurrency(submittedData.semesterBaseTuition)} per semester</p>
+                                <p className="text-[10px] text-neutral-400 font-semibold leading-tight mt-0.5">Based on {submittedData.years} year(s) at {formatCurrency(submittedData.semesterBaseTuition)} per semester + ancillary fees</p>
                             </div>
                             <div className="text-xl font-black text-[#000000]">
-                                {formatCurrency(submittedData.programTuitionTotal)}
+                                {formatCurrency(submittedData.programTuitionTotal + (submittedData.ancillaryFeesTotal * submittedData.totalSemesters))}
                             </div>
                         </div>
 

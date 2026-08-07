@@ -25,7 +25,7 @@ interface ApplicationDetail {
   motivation?: any;
   language_proficiency?: any;
   course?: { title: string; slug: string; degreeLevel?: string; duration?: string; school?: { name: string; slug: string } };
-  user?: { first_name: string; last_name: string; email: string; phone?: string; date_of_birth?: string; address?: string };
+  user?: { first_name: string; last_name: string; email: string; phone_number?: string; phone_code?: string; date_of_birth?: string; address?: string; city?: string; state_province?: string; zipcode?: string; gender?: string; passport_number?: string; citizenship?: string };
   documents?: { id: string; type: string; name: string; url: string; created_at: string }[];
   offer?: { id: string; tuition_fee: number; payment_deadline: string; offer_type: string; status: string; document_url?: string; created_at: string };
 }
@@ -134,7 +134,7 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
       const personal = application?.personal_info || {};
       const studentType = personal.studentType;
       const isDomestic = studentType === 'domestic';
-      const annualFee = getTuitionFee(degreeLevel, tuitionField, isDomestic);
+      const annualFee = await getTuitionFee(degreeLevel, tuitionField, isDomestic);
       const duration = application?.course?.duration || '4 years';
       const years = getProgramYears(duration, degreeLevel);
       const tuitionFee = annualFee * years;
@@ -327,24 +327,24 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
           {/* Personal Information */}
           <div className="bg-white border border-neutral-200 p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Personal Information</h3>
-            <dl className="grid grid-cols-2 gap-4 text-sm">
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Full Name</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.firstName || user?.first_name} {personalInfo?.lastName || user?.last_name}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Passport Number</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.passportNumber || '—'}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Nationality</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.nationality || '—'}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Date of Birth</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.dateOfBirth || user?.date_of_birth || '—'}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Gender</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.gender || '—'}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Student Type</dt><dd className="font-medium text-neutral-900 mt-1 capitalize">{personalInfo?.studentType || '—'}</dd></div>
-            </dl>
+             <dl className="grid grid-cols-2 gap-4 text-sm">
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Full Name</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.firstName || user?.first_name} {personalInfo?.lastName || user?.last_name}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Passport Number</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.passportNumber || user?.passport_number || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Nationality</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.nationality || user?.citizenship || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Date of Birth</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.dateOfBirth || user?.date_of_birth || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Gender</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.gender || user?.gender || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Student Type</dt><dd className="font-medium text-neutral-900 mt-1 capitalize">{personalInfo?.studentType || '—'}</dd></div>
+             </dl>
           </div>
 
           {/* Contact Details */}
           <div className="bg-white border border-neutral-200 p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Contact Details</h3>
-            <dl className="grid grid-cols-2 gap-4 text-sm">
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Email</dt><dd className="font-medium text-neutral-900 mt-1">{contactDetails?.email || user?.email || '—'}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Phone</dt><dd className="font-medium text-neutral-900 mt-1">{contactDetails?.phone || user?.phone || '—'}</dd></div>
-              <div className="col-span-2"><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Address</dt><dd className="font-medium text-neutral-900 mt-1">{[contactDetails?.addressLine1, contactDetails?.city, contactDetails?.country].filter(Boolean).join(', ') || '—'}</dd></div>
-            </dl>
+             <dl className="grid grid-cols-2 gap-4 text-sm">
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Email</dt><dd className="font-medium text-neutral-900 mt-1">{contactDetails?.email || user?.email || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Phone</dt><dd className="font-medium text-neutral-900 mt-1">{contactDetails?.phoneCode && contactDetails?.phone ? `${contactDetails.phoneCode} ${contactDetails.phone}` : contactDetails?.phone || (user?.phone_code && user?.phone_number ? `${user.phone_code} ${user.phone_number}` : user?.phone_number || '—')}</dd></div>
+               <div className="col-span-2"><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Address</dt><dd className="font-medium text-neutral-900 mt-1">{[contactDetails?.addressLine1, contactDetails?.city, contactDetails?.country, user?.address, user?.city, user?.state_province, user?.zipcode].filter(Boolean).join(', ') || '—'}</dd></div>
+             </dl>
           </div>
 
           {/* Academic History */}

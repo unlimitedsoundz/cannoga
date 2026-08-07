@@ -123,7 +123,7 @@ export async function acceptApplicationOffer(applicationId: string, userId?: str
         const personal = (appData as any)?.personal_info || {};
         const studentType = personal.studentType;
         const isDomestic = studentType === 'domestic';
-        const annualFee = getTuitionFee(degreeLevel, tuitionField, isDomestic);
+        const annualFee = await getTuitionFee(degreeLevel, tuitionField, isDomestic);
 
         const duration = (appData as any)?.Course?.duration || '4 years';
         const years = getProgramYears(duration, degreeLevel as any);

@@ -52,7 +52,7 @@ function getVisaDeadlineForIntake(intake?: string | null): string | null {
   return visaDeadline.toLocaleDateString('en-CA');
 }
 
-function mapApplicationToTemplateData(application: any, logoUrl: string | null, signatureUrl: string | null) {
+async function mapApplicationToTemplateData(application: any, logoUrl: string | null, signatureUrl: string | null) {
   const course = application.course || {};
   const school = course.school || {};
   const user = application.user || {};
@@ -81,7 +81,7 @@ function mapApplicationToTemplateData(application: any, logoUrl: string | null, 
   const tuitionField = mapSchoolToTuitionField(schoolSlug);
   const studentType = (personalInfo.studentType || '').toLowerCase();
   const isDomestic = studentType === 'domestic';
-  const tuitionFee = getTuitionFee(degreeLevelRaw, tuitionField, isDomestic);
+  const tuitionFee = await getTuitionFee(degreeLevelRaw, tuitionField, isDomestic);
   const ancillaryFee = 700;
   const totalAnnual = tuitionFee + ancillaryFee;
   const deposit = 2000;
@@ -218,7 +218,7 @@ export async function GET(request: NextRequest) {
       getSystemSetting('letter_signature_url'),
     ]);
 
-    const templateData = mapApplicationToTemplateData(application, logoUrl, signatureUrl);
+    const templateData = await mapApplicationToTemplateData(application, logoUrl, signatureUrl);
 
     const templatePath = path.join(process.cwd(), 'src', 'app', 'api', 'portal', 'letter', 'pdf', 'loa-template.html');
     const templateHtml = await fs.readFile(templatePath, 'utf8');

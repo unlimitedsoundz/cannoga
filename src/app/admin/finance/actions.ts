@@ -98,7 +98,7 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
         const personal = (application as any).personal_info || {};
         const studentType = personal.studentType;
         const isDomestic = studentType === 'domestic';
-        const annualFee = getTuitionFee(degreeLevel, tuitionField, isDomestic);
+        const annualFee = await getTuitionFee(degreeLevel, tuitionField, isDomestic);
 
         const { data: newOffer, error: createError } = await supabase
             .from('admission_offers')
