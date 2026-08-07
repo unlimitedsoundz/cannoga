@@ -43,8 +43,7 @@ const tabs = [
 
 export default function AcademicRecordPage() {
   const params = useParams();
-  const resolvedParams = React.use(params);
-  const studentId = resolvedParams.id as string;
+  const studentId = params.id as string;
   const [selectedTerm, setSelectedTerm] = React.useState('Fall 2026');
   const [page, setPage] = React.useState(1);
 

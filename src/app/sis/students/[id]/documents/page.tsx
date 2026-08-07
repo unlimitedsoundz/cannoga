@@ -23,7 +23,7 @@ const mockDocuments = [
 
 export default function DocumentsPage() {
   const params = useParams();
-  const { id } = React.use(params);
+  const { id } = params;
   const [page, setPage] = React.useState(1);
 
   return (

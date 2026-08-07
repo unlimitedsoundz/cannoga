@@ -9,6 +9,7 @@ import { StatusBadge } from '@/components/sis/StatusBadge';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Add01Icon as Plus } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { getSISAcademicProgram } from '../../../actions';
 
 interface Program {
@@ -20,8 +21,9 @@ interface Program {
   status: string;
 }
 
-export default function ProgramsPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = React.use(params);
+export default function ProgramsPage() {
+  const params = useParams();
+  const id = params.id as string;
   const [program, setProgram] = useState<Program | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

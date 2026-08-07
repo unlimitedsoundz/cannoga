@@ -31,8 +31,9 @@ const documentTypeLabels: Record<string, string> = {
   other: 'Document',
 };
 
-export default function StudentDocumentsPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id: studentId } = React.use(params);
+export default function StudentDocumentsPage() {
+  const params = useParams();
+  const studentId = params.id as string;
   const [documents, setDocuments] = useState<DocumentRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);

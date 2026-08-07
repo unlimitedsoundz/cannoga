@@ -31,8 +31,7 @@ const registeredCourses = [
 
 export default function RegistrationPage() {
   const params = useParams();
-  const resolvedParams = React.use(params);
-  const studentId = resolvedParams.id as string;
+  const studentId = params.id as string;
   const [search, setSearch] = React.useState('');
   const [subjectFilter, setSubjectFilter] = React.useState('');
   const [statusFilter, setStatusFilter] = React.useState('');

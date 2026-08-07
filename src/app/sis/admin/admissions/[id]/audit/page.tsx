@@ -3,10 +3,12 @@
 export const dynamic = 'force-dynamic';
 
 import React from 'react';
+import { useParams } from 'next/navigation';
 import { PageHeader } from '@/components/sis/PageHeader';
 
-export default function AdmissionAuditPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = React.use(params);
+export default function AdmissionAuditPage() {
+  const params = useParams();
+  const { id } = params;
 
   return (
     <div className="space-y-6">

@@ -198,10 +198,10 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
                 version: 1,
                 issue_date: new Date().toISOString(),
                 metadata: {
-                    invoice_number,
+                    invoice_number: invoiceNumber,
                     amount: invoiceAmount,
                     due_date: dueDate.toISOString(),
-                    invoice_type,
+                    invoice_type: invoiceType,
                 },
             };
 
@@ -340,12 +340,15 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
 
         // 4d. Recalculate outstanding balance and update invoice
         if (newStudent?.id) {
+            let paymentRecord: any = null;
             try {
-                const { data: paymentRecord } = await supabase
+                const { data: paymentRecordData } = await supabase
                     .from('tuition_payments')
-                    .select('amount, invoice_type')
+                    .select('amount, invoice_type, transaction_reference, payment_method')
                     .eq('id', paymentId)
                     .single();
+
+                paymentRecord = paymentRecordData;
 
                 if (paymentRecord) {
                     const { data: existingInvoice } = await supabase

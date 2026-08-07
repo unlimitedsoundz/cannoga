@@ -9,6 +9,7 @@ import { StatusBadge } from '@/components/sis/StatusBadge';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Add01Icon as Plus } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { getSISAcademicModule } from '../../../actions';
 
 interface Module {
@@ -20,8 +21,9 @@ interface Module {
   status: string;
 }
 
-export default function ModulesPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = React.use(params);
+export default function ModulesPage() {
+  const params = useParams();
+  const id = params.id as string;
   const [module, setModule] = useState<Module | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

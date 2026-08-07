@@ -36,8 +36,7 @@ const tabs = [
 
 export default function FinancePage() {
   const params = useParams();
-  const resolvedParams = React.use(params);
-  const studentId = resolvedParams.id as string;
+  const studentId = params.id as string;
   const [page, setPage] = React.useState(1);
 
   return (

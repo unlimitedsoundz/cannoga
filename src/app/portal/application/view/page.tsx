@@ -171,7 +171,7 @@ function ViewApplicationContent() {
             }
 
             if (!docMetaResult?.success) {
-                throw new Error(docMetaResult?.error || 'Failed to save document record');
+                throw new Error('Failed to save document record');
             }
 
             // Step 4: Verify the document was saved by querying client-side
@@ -215,12 +215,12 @@ function ViewApplicationContent() {
         setActionLoading('accept');
         try {
             const result = await acceptOffer(id);
-            if ((result as any)?.success || !(result as any)?.error) {
+            if (result.success) {
                 toast.success('Congratulations! Your offer has been accepted. Next step: Tuition Deposit and PAL Issue.');
                 setIsOfferAccepted(true);
                 setRefreshFlag((count) => count + 1);
             } else {
-                toast.error((result as any)?.error || 'Failed to accept offer');
+                toast.error('Failed to accept offer');
             }
         } catch (err: any) {
             toast.error(err.message || 'Failed to accept offer');
@@ -234,12 +234,12 @@ function ViewApplicationContent() {
         setActionLoading('reject');
         try {
             const result = await rejectOffer(id);
-            if ((result as any)?.success || !(result as any)?.error) {
+            if (result.success) {
                 toast.success('You have declined the offer.');
                 setIsOfferAccepted(false);
                 setRefreshFlag((count) => count + 1);
             } else {
-                toast.error((result as any)?.error || 'Failed to decline offer');
+                toast.error('Failed to decline offer');
             }
         } catch (err: any) {
             toast.error(err.message || 'Failed to decline offer');

@@ -14,8 +14,7 @@ import { ArrowLeft, Save } from '@hugeicons/core-free-icons';
 
 export default function EditPagePage() {
     const params = useParams();
-    const resolvedParams = React.use(params);
-    const id = resolvedParams.id as string;
+    const id = params.id as string;
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);

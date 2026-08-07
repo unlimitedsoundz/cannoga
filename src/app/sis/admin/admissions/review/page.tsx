@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { PageHeader } from '@/components/sis/PageHeader';
 import { Tabs } from '@/components/sis/Tabs';
 import { StatusBadge } from '@/components/sis/StatusBadge';
@@ -41,8 +41,9 @@ const tabs = [
   { label: 'Audit', href: '/sis/admin/admissions/1/audit' },
 ];
 
-export default function AdmissionsReviewPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = React.use(params);
+export default function AdmissionsReviewPage() {
+  const params = useParams();
+  const id = params.id as string;
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [application, setApplication] = useState<ApplicationDetail | null>(null);

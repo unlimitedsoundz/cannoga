@@ -88,7 +88,11 @@ export default function AdminDocumentDetailPage() {
                     return;
                 }
 
-                setApplication(appData);
+                setApplication({
+                    ...appData,
+                    user: Array.isArray(appData.user) ? appData.user[0] : appData.user,
+                    course: Array.isArray(appData.course) ? appData.course[0] : appData.course,
+                } as ApplicationInfo);
 
                 // Fetch all documents uploaded during application
                 const { data: docsData, error: docsError } = await supabase
