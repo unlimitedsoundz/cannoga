@@ -253,21 +253,38 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
     return { success: true };
 }
 
-// Verify and accept a subsequent (2nd, 3rd...) tuition invoice payment that the
-// student submitted through the checkout. Runs server-side with the service-role
-// client so it bypasses RLS and can UPDATE tuition_payments / applications /
-// profiles directly. No edge-function hop is needed.
+// Verify and accept a tuition payment submitted through the checkout.
+// Runs server-side with the service-role client so it bypasses RLS and can
+// UPDATE tuition_payments / applications / profiles directly.
 export async function verifyTuitionPayment(paymentId: string, applicationId: string) {
     const supabase = createServiceRoleClient();
 
     try {
-        // 1. Mark payment as verified. This fires the on_payment_status_update
-        // trigger which notifies the student (TUITION_PAYMENT_VERIFIED).
+        // 0. Fetch payment record first so we know amount / type / reference
+        const { data: paymentRecord, error: paymentFetchError } = await supabase
+            .from('tuition_payments')
+            .select('amount, invoice_type, transaction_reference, payment_method, currency, status, offer_id')
+            .eq('id', paymentId)
+            .single();
+
+        if (paymentFetchError || !paymentRecord) {
+            throw new Error('Payment record not found');
+        }
+
+        const paymentAmount = Number(paymentRecord.amount || 0);
+        const isDeposit = paymentRecord.invoice_type === 'TUITION_DEPOSIT';
+        const isFullTuition = paymentRecord.invoice_type === 'TUITION_FULL';
+        const isAncillary = paymentRecord.invoice_type === 'ANCILLARY';
+
+        // 1. Mark payment as verified / completed
         const { error: updateError } = await supabase
             .from('tuition_payments')
-            .update({ status: 'verified' })
+            .update({
+                status: 'COMPLETED',
+                paid_at: new Date().toISOString(),
+            })
             .eq('id', paymentId)
-            .eq('status', 'PENDING_VERIFICATION');
+            .in('status', ['PENDING_VERIFICATION', 'verified']);
 
         if (updateError) throw updateError;
 
@@ -307,22 +324,33 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
                 .replace(/\s+/g, '');
         }
 
-        // 4. Upsert student record
+        // 4. Upsert student record with payment flags
+        const studentPayload: any = {
+            user_id: appUser?.id,
+            student_id: studentId,
+            application_id: application.id,
+            program_id: application.course_id,
+            institutional_email: institutionalEmail,
+            personal_email: appUser?.email,
+            enrollment_status: 'ACTIVE',
+            start_date: application.updated_at || new Date().toISOString(),
+            expected_graduation_date: new Date(new Date().setFullYear(currentYear + 3)).toISOString(),
+            updated_at: new Date().toISOString(),
+        };
+
+        if (isDeposit) {
+            studentPayload.tuition_deposit_paid = true;
+            studentPayload.tuition_deposit_paid_at = new Date().toISOString();
+        }
+
+        if (isFullTuition) {
+            studentPayload.full_tuition_paid = true;
+            studentPayload.full_tuition_paid_at = new Date().toISOString();
+        }
+
         const { error: studentError, data: newStudent } = await supabase
             .from('students')
-            .upsert({
-                user_id: appUser?.id,
-                student_id: studentId,
-                application_id: application.id,
-                program_id: application.course_id,
-                institutional_email: institutionalEmail,
-                personal_email: appUser?.email,
-                enrollment_status: 'ACTIVE',
-                tuition_deposit_paid: true,
-                start_date: application.updated_at || new Date().toISOString(),
-                expected_graduation_date: new Date(new Date().setFullYear(currentYear + 3)).toISOString(),
-                updated_at: new Date().toISOString()
-            }, { onConflict: 'application_id' })
+            .upsert(studentPayload, { onConflict: 'application_id' })
             .select('id, pal_tal_required, pal_tal_status')
             .single();
 
@@ -343,147 +371,157 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
             }
         }
 
-        // 4d. Recalculate outstanding balance and update invoice
+        // 4d. Recalculate outstanding balance and update/create invoice
         if (newStudent?.id) {
-            let paymentRecord: any = null;
             try {
-                const { data: paymentRecordData } = await supabase
-                    .from('tuition_payments')
-                    .select('amount, invoice_type, transaction_reference, payment_method')
-                    .eq('id', paymentId)
-                    .single();
+                const { data: existingInvoice } = await supabase
+                    .from('invoices')
+                    .select('*')
+                    .eq('student_id', newStudent.id)
+                    .eq('type', 'TUITION')
+                    .neq('status', 'PAID')
+                    .order('issued_date', { ascending: true })
+                    .limit(1)
+                    .maybeSingle();
 
-                paymentRecord = paymentRecordData;
+                if (existingInvoice) {
+                    const newPaid = Number(existingInvoice.paid || 0) + paymentAmount;
+                    const newBalance = Math.max(0, Number(existingInvoice.amount || 0) - newPaid);
+                    const newStatus = newBalance <= 0 ? 'PAID' : Number(existingInvoice.amount || 0) > 0 ? (newPaid > 0 ? 'PARTIAL' : 'OUTSTANDING') : 'PAID';
 
-                if (paymentRecord) {
-                    const { data: existingInvoice } = await supabase
+                    await supabase
                         .from('invoices')
-                        .select('*')
-                        .eq('student_id', newStudent.id)
-                        .eq('type', 'TUITION')
-                        .neq('status', 'PAID')
-                        .order('issued_date', { ascending: true })
-                        .limit(1)
+                        .update({
+                            paid: newPaid,
+                            balance: newBalance,
+                            status: newStatus,
+                            updated_at: new Date().toISOString(),
+                        })
+                        .eq('id', existingInvoice.id);
+                } else {
+                    const { data: offerForInvoice } = await supabase
+                        .from('admission_offers')
+                        .select('tuition_fee, invoice_type')
+                        .eq('application_id', applicationId)
                         .maybeSingle();
 
-                    if (existingInvoice) {
-                        const newPaid = Number(existingInvoice.paid || 0) + Number(paymentRecord.amount || 0);
-                        const newBalance = Math.max(0, Number(existingInvoice.amount || 0) - newPaid);
-                        const newStatus = newBalance <= 0 ? 'PAID' : Number(existingInvoice.amount || 0) > 0 ? (newPaid > 0 ? 'PARTIAL' : 'OUTSTANDING') : 'PAID';
+                    const invoiceAmount = Number(offerForInvoice?.tuition_fee || paymentAmount);
+                    const newBalance = Math.max(0, invoiceAmount - paymentAmount);
+                    const newStatus = newBalance <= 0 ? 'PAID' : 'PARTIAL';
 
-                        await supabase
-                            .from('invoices')
-                            .update({
-                                paid: newPaid,
-                                balance: newBalance,
-                                status: newStatus,
-                                updated_at: new Date().toISOString(),
-                            })
-                            .eq('id', existingInvoice.id);
-                    } else {
-                        const { data: offerForInvoice } = await supabase
-                            .from('admission_offers')
-                            .select('tuition_fee, invoice_type')
-                            .eq('application_id', applicationId)
-                            .maybeSingle();
-
-                        const invoiceAmount = Number(offerForInvoice?.tuition_fee || paymentRecord.amount || 0);
-                        const newPaid = Number(paymentRecord.amount || 0);
-                        const newBalance = Math.max(0, invoiceAmount - newPaid);
-                        const newStatus = newBalance <= 0 ? 'PAID' : 'PARTIAL';
-
-                        await supabase
-                            .from('invoices')
-                            .insert({
-                                student_id: newStudent.id,
-                                invoice_number: `INV-${applicationId.slice(0, 8).toUpperCase()}-${Date.now()}`,
-                                type: 'TUITION',
-                                term: application.intake || 'Current',
-                                amount: invoiceAmount,
-                                paid: newPaid,
-                                balance: newBalance,
-                                due_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-                                status: newStatus,
-                                issued_date: new Date().toISOString(),
-                            });
-                    }
+                    await supabase
+                        .from('invoices')
+                        .insert({
+                            student_id: newStudent.id,
+                            invoice_number: `INV-${applicationId.slice(0, 8).toUpperCase()}-${Date.now()}`,
+                            type: 'TUITION',
+                            term: application.intake || 'Current',
+                            amount: invoiceAmount,
+                            paid: paymentAmount,
+                            balance: newBalance,
+                            due_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+                            status: newStatus,
+                            issued_date: new Date().toISOString(),
+                        });
                 }
             } catch (invoiceError) {
                 console.error('Error updating invoice:', invoiceError);
             }
 
-            // 4e. Create receipt document record and upload PDF
-            if (paymentRecord) {
-                try {
-                    const pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(ReceiptPDF, { application, payment: paymentRecord }) as any));
-                    const fileName = `receipt-${paymentRecord.transaction_reference || paymentId}.pdf`;
-                    const storagePath = `student-documents/${application.user_id}/${fileName}`;
+            // 4e. Update admission_offers invoice tracking
+            try {
+                const { data: offer } = await supabase
+                    .from('admission_offers')
+                    .select('id')
+                    .eq('application_id', applicationId)
+                    .maybeSingle();
 
-                    const { error: uploadError } = await supabase.storage
-                        .from('application-documents')
-                        .upload(storagePath, pdfBuffer, {
-                            contentType: 'application/pdf',
-                            upsert: true,
-                        });
-
-                    if (uploadError) {
-                        console.error('Receipt upload error:', uploadError);
-                        throw new Error(`Failed to upload receipt: ${uploadError.message}`);
-                    }
-
-                    const { data: { publicUrl } } = supabase.storage
-                        .from('application-documents')
-                        .getPublicUrl(storagePath);
-
-                    const receiptPayload = {
-                        student_id: newStudent.id,
-                        document_type: 'tuition_receipt',
-                        title: `Tuition Receipt - ${paymentRecord.transaction_reference || paymentId}`,
-                        programme: (application as any).course?.title || '',
-                        status: 'issued',
-                        storage_path: publicUrl,
-                        is_official: true,
-                        is_student_visible: true,
-                        version: 1,
-                        issue_date: new Date().toISOString(),
-                        metadata: {
-                            payment_id: paymentId,
-                            transaction_reference: paymentRecord.transaction_reference,
-                            amount: paymentRecord.amount,
-                            invoice_type: paymentRecord.invoice_type,
-                            payment_method: paymentRecord.payment_method,
-                        },
-                    };
-
-                    const { data: existingReceipt } = await supabase
-                        .from('document_records')
-                        .select('id')
-                        .eq('student_id', newStudent.id)
-                        .eq('document_type', 'tuition_receipt')
-                        .eq('metadata->>payment_id', paymentId)
-                        .maybeSingle();
-
-                    if (existingReceipt?.id) {
-                        await supabase.from('document_records').update(receiptPayload).eq('id', existingReceipt.id);
-                    } else {
-                        await supabase.from('document_records').insert(receiptPayload);
-                    }
-                } catch (receiptError) {
-                    console.error('Error creating receipt document record:', receiptError);
+                if (offer?.id) {
+                    await supabase
+                        .from('admission_offers')
+                        .update({
+                            invoice_pushed: true,
+                            invoice_sent_at: new Date().toISOString(),
+                            updated_at: new Date().toISOString(),
+                        })
+                        .eq('id', offer.id);
                 }
+            } catch (offerError) {
+                console.error('Error updating admission offer:', offerError);
+            }
+
+            // 4f. Create receipt document record and upload PDF
+            try {
+                const pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(ReceiptPDF, { application, payment: paymentRecord }) as any));
+                const fileName = `receipt-${paymentRecord.transaction_reference || paymentId}.pdf`;
+                const storagePath = `student-documents/${application.user_id}/${fileName}`;
+
+                const { error: uploadError } = await supabase.storage
+                    .from('application-documents')
+                    .upload(storagePath, pdfBuffer, {
+                        contentType: 'application/pdf',
+                        upsert: true,
+                    });
+
+                if (uploadError) {
+                    console.error('Receipt upload error:', uploadError);
+                    throw new Error(`Failed to upload receipt: ${uploadError.message}`);
+                }
+
+                const { data: { publicUrl } } = supabase.storage
+                    .from('application-documents')
+                    .getPublicUrl(storagePath);
+
+                const receiptPayload = {
+                    student_id: newStudent.id,
+                    document_type: 'tuition_receipt',
+                    title: `Tuition Receipt - ${paymentRecord.transaction_reference || paymentId}`,
+                    programme: (application as any).course?.title || '',
+                    status: 'issued',
+                    storage_path: publicUrl,
+                    is_official: true,
+                    is_student_visible: true,
+                    version: 1,
+                    issue_date: new Date().toISOString(),
+                    metadata: {
+                        payment_id: paymentId,
+                        transaction_reference: paymentRecord.transaction_reference,
+                        amount: paymentRecord.amount,
+                        invoice_type: paymentRecord.invoice_type,
+                        payment_method: paymentRecord.payment_method,
+                    },
+                };
+
+                const { data: existingReceipt } = await supabase
+                    .from('document_records')
+                    .select('id')
+                    .eq('student_id', newStudent.id)
+                    .eq('document_type', 'tuition_receipt')
+                    .eq('metadata->>payment_id', paymentId)
+                    .maybeSingle();
+
+                if (existingReceipt?.id) {
+                    await supabase.from('document_records').update(receiptPayload).eq('id', existingReceipt.id);
+                } else {
+                    await supabase.from('document_records').insert(receiptPayload);
+                }
+            } catch (receiptError) {
+                console.error('Error creating receipt document record:', receiptError);
             }
         }
 
-        // 5. Mark application enrolled
-        const { error: enrollError } = await supabase
-            .from('applications')
-            .update({
-                status: 'ENROLLED',
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', applicationId);
+        // 5. Mark application enrolled if payment covers deposit or full tuition
+        if (isDeposit || isFullTuition) {
+            const { error: enrollError } = await supabase
+                .from('applications')
+                .update({
+                    status: 'ENROLLED',
+                    updated_at: new Date().toISOString()
+                })
+                .eq('id', applicationId);
 
-        if (enrollError) throw enrollError;
+            if (enrollError) throw enrollError;
+        }
 
         // 6. Update user profile role
         await supabase
