@@ -1,5 +1,5 @@
 import { DegreeLevel } from '@/types/database';
-import { createServiceRoleClient } from '@/utils/supabase/server-admin';
+import { createClient } from '@/utils/supabase/client';
 
 export type TuitionField = 'BUSINESS' | 'ARTS' | 'TECHNOLOGY' | 'SCIENCE';
 
@@ -69,7 +69,7 @@ export async function getTuitionFee(level: string, field?: string, isDomestic: b
     const credentialType = getCredentialType(level);
 
     try {
-        const supabase = createServiceRoleClient();
+        const supabase = createClient();
         const { data } = await supabase
             .from('tuition_info')
             .select('domestic_tuition, international_tuition')

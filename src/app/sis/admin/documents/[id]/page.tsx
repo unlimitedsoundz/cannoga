@@ -18,6 +18,12 @@ interface ApplicationDocument {
     uploaded_at: string;
 }
 
+interface AdmissionOffer {
+    id: string;
+    document_url: string | null;
+    status: string;
+}
+
 interface ApplicationInfo {
     id: string;
     status: string;
@@ -63,6 +69,7 @@ export default function AdminDocumentDetailPage() {
     const [error, setError] = useState<string | null>(null);
     const [application, setApplication] = useState<ApplicationInfo | null>(null);
     const [applicationDocuments, setApplicationDocuments] = useState<ApplicationDocument[]>([]);
+    const [admissionOffer, setAdmissionOffer] = useState<AdmissionOffer | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -106,6 +113,19 @@ export default function AdminDocumentDetailPage() {
                 }
 
                 setApplicationDocuments(docsData || []);
+
+                // Fetch admission offer for LOA PDF
+                const { data: offerData, error: offerError } = await supabase
+                    .from('admission_offers')
+                    .select('id, document_url, status')
+                    .eq('application_id', id)
+                    .maybeSingle();
+
+                if (offerError) {
+                    console.error('Error fetching admission offer:', offerError);
+                }
+
+                setAdmissionOffer(offerData || null);
             } catch (err: any) {
                 console.error('Error fetching data:', err);
                 setError(err.message || 'Failed to load application documents');
@@ -154,6 +174,19 @@ export default function AdminDocumentDetailPage() {
         return level.charAt(0) + level.slice(1).toLowerCase();
     };
 
+    // Combine uploaded documents with LOA from admission offer
+    const allDocuments: ApplicationDocument[] = [
+        ...applicationDocuments,
+        ...(admissionOffer?.document_url ? [{
+            id: `loa-${admissionOffer.id}`,
+            application_id: id,
+            type: 'loa',
+            url: admissionOffer.document_url,
+            name: `Letter of Acceptance - ${application?.course?.title || 'Program'}`,
+            uploaded_at: admissionOffer.status === 'ACCEPTED' ? new Date().toISOString() : '',
+        }] : []),
+    ];
+
     return (
         <div className="p-8">
             <PageHeader
@@ -191,12 +224,12 @@ export default function AdminDocumentDetailPage() {
                 <div className="p-4 border-b border-neutral-200 flex items-center justify-between">
                     <div>
                         <h3 className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Uploaded Documents</h3>
-                        <p className="text-xs text-neutral-400 mt-1">{applicationDocuments.length} document(s) uploaded during application</p>
+                        <p className="text-xs text-neutral-400 mt-1">{allDocuments.length} document(s) for this application</p>
                     </div>
                 </div>
-                {applicationDocuments.length > 0 ? (
+                {allDocuments.length > 0 ? (
                     <div className="divide-y divide-neutral-100">
-                        {applicationDocuments.map((doc) => (
+                        {allDocuments.map((doc) => (
                             <div key={doc.id} className="p-4 flex items-center justify-between hover:bg-neutral-50">
                                 <div className="flex items-center gap-3">
                                     <HugeiconsIcon icon={FileText} size={20} strokeWidth={2} className="text-neutral-400" />
