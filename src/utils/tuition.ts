@@ -3,27 +3,27 @@ import { DegreeLevel } from '@/types/database';
 export type TuitionField = 'BUSINESS' | 'ARTS' | 'TECHNOLOGY' | 'SCIENCE';
 
 export const DOMESTIC_TUITION = {
-    CERTIFICATE_DIPLOMA: 1500,
-    BACHELOR: 2500,
-    MASTER: 3500
+    CERTIFICATE_DIPLOMA: 2400,
+    BACHELOR: 4000,
+    MASTER: 5600
 };
 
 export const INTERNATIONAL_TUITION = {
-    CERTIFICATE_DIPLOMA: 2500,
-    BACHELOR: 4000,
-    MASTER: 6000
+    CERTIFICATE_DIPLOMA: 4000,
+    BACHELOR: 6400,
+    MASTER: 9600
 };
 
 export const DOMESTIC_DEPOSIT = {
-    CERTIFICATE_DIPLOMA: 750,
-    BACHELOR: 1250,
-    MASTER: 1750
+    CERTIFICATE_DIPLOMA: 2000,
+    BACHELOR: 2000,
+    MASTER: 2000
 };
 
 export const INTERNATIONAL_DEPOSIT = {
-    CERTIFICATE_DIPLOMA: 1250,
+    CERTIFICATE_DIPLOMA: 2000,
     BACHELOR: 2000,
-    MASTER: 3000
+    MASTER: 2000
 };
 
 
@@ -104,7 +104,7 @@ export function getAnnualFeeFromTotal(totalFee: number, discountAmount: number, 
  * Calculates the tuition deposit required to secure a place.
  */
 export function calculateTuitionDeposit(annualFee: number, field?: string, isEarlyBird?: boolean, level?: string, isDomestic?: boolean): number {
-    return Math.round(annualFee * 0.5);
+    return 2000;
 }
 
 /**

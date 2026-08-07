@@ -107,7 +107,7 @@ export default function AdminInvoicesPage() {
                 return Math.round(annual);
             case 'TUITION_DEPOSIT':
             default:
-                return Math.round(annual * 0.5);
+                return 2000;
         }
     };
 

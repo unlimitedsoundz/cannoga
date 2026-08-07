@@ -54,12 +54,17 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DECANER;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
-DROP TRIGGER IF EXISTS on_housing_payment_complete ON public.housing_payments;
-CREATE TRIGGER on_housing_payment_complete
-    AFTER INSERT OR UPDATE OF status ON public.housing_payments
-    FOR EACH ROW EXECUTE FUNCTION sync_housing_fee_status();
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'housing_payments') THEN
+        DROP TRIGGER IF EXISTS on_housing_payment_complete ON public.housing_payments;
+        CREATE TRIGGER on_housing_payment_complete
+            AFTER INSERT OR UPDATE OF status ON public.housing_payments
+            FOR EACH ROW EXECUTE FUNCTION sync_housing_fee_status();
+    END IF;
+END $$;
 
 -- 4. Backfill existing students from historical payment records
 UPDATE public.students s
@@ -78,14 +83,19 @@ WHERE EXISTS (
     WHERE a.id = s.application_id AND tp.status = 'COMPLETED'
 );
 
-UPDATE public.students s
-SET housing_fee_paid = TRUE,
-    housing_fee_paid_at = (
-        SELECT MIN(hp.created_at) FROM public.housing_payments hp
-        WHERE hp.student_id = s.id AND hp.status = 'COMPLETED'
-    ),
-    updated_at = NOW()
-WHERE EXISTS (
-    SELECT 1 FROM public.housing_payments hp
-    WHERE hp.student_id = s.id AND hp.status = 'COMPLETED'
-);
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'housing_payments') THEN
+        UPDATE public.students s
+        SET housing_fee_paid = TRUE,
+            housing_fee_paid_at = (
+                SELECT MIN(hp.created_at) FROM public.housing_payments hp
+                WHERE hp.student_id = s.id AND hp.status = 'COMPLETED'
+            ),
+            updated_at = NOW()
+        WHERE EXISTS (
+            SELECT 1 FROM public.housing_payments hp
+            WHERE hp.student_id = s.id AND hp.status = 'COMPLETED'
+        );
+    END IF;
+END $$;

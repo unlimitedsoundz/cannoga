@@ -6,7 +6,7 @@ import { Link } from "@aalto-dx/react-components";
 import { CaretRight as ChevronRight, CircleNotch as Loader2, UploadSimple, Trash, CheckCircle, Receipt, WarningCircle as AlertCircle, Clock } from "@phosphor-icons/react";
 import { formatToDDMMYYYY } from '@/utils/date';
 import { useState, useEffect, Suspense } from 'react';
-import { addApplicationDocument, deleteApplicationDocument, updateApplicationStatus } from '@/app/portal/actions';
+import { addApplicationDocument, deleteApplicationDocument, updateApplicationStatus, acceptOffer, rejectOffer } from '@/app/portal/actions';
 
 function ViewApplicationContent() {
     const searchParams = useSearchParams();
@@ -24,6 +24,8 @@ function ViewApplicationContent() {
     const [selectedRequirementId, setSelectedRequirementId] = useState('ACADEMIC_DOCUMENTS');
     const [offerExpanded, setOfferExpanded] = useState(true);
     const [invoicesExpanded, setInvoicesExpanded] = useState(true);
+    const [actionLoading, setActionLoading] = useState<string | null>(null);
+    const [actionMessage, setActionMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
     useEffect(() => {
         async function loadData() {
@@ -142,6 +144,46 @@ function ViewApplicationContent() {
             alert('Upload failed. Please try again.');
         } finally {
             setUploadingType(null);
+        }
+    };
+
+    const handleAcceptOffer = async () => {
+        if (!id) return;
+        setActionLoading('accept');
+        setActionMessage(null);
+        try {
+            const result = await acceptOffer(id);
+            if ((result as any)?.success || !(result as any)?.error) {
+                setActionMessage({ type: 'success', text: 'Congratulations! Your offer has been accepted. Next step: Tuition Deposit and PAL Issue.' });
+                setIsOfferAccepted(true);
+                setRefreshFlag((count) => count + 1);
+            } else {
+                setActionMessage({ type: 'error', text: (result as any)?.error || 'Failed to accept offer' });
+            }
+        } catch (err: any) {
+            setActionMessage({ type: 'error', text: err.message || 'Failed to accept offer' });
+        } finally {
+            setActionLoading(null);
+        }
+    };
+
+    const handleRejectOffer = async () => {
+        if (!id) return;
+        setActionLoading('reject');
+        setActionMessage(null);
+        try {
+            const result = await rejectOffer(id);
+            if ((result as any)?.success || !(result as any)?.error) {
+                setActionMessage({ type: 'success', text: 'You have declined the offer.' });
+                setIsOfferAccepted(false);
+                setRefreshFlag((count) => count + 1);
+            } else {
+                setActionMessage({ type: 'error', text: (result as any)?.error || 'Failed to decline offer' });
+            }
+        } catch (err: any) {
+            setActionMessage({ type: 'error', text: err.message || 'Failed to decline offer' });
+        } finally {
+            setActionLoading(null);
         }
     };
 
@@ -280,14 +322,6 @@ function ViewApplicationContent() {
                     </p>
                 </div>
                 <div className="flex items-center gap-3">
-                    {showOfferButton && (
-                        <Link
-                            href={`/portal/application/letter?id=${application.id}`}
-                            className="px-4 py-2 border border-[#9c27b3] text-black rounded-sm text-[11px] font-bold hover:bg-neutral-50 transition-all"
-                        >
-                            Offer Letter
-                        </Link>
-                    )}
                     {hasInvoice && (
                         <Link
                             href={`/portal/application/payment?id=${application.id}`}
@@ -314,20 +348,38 @@ function ViewApplicationContent() {
                 )}
 
                 {application.status === 'ADMITTED' && !isOfferAccepted && (
-                    <div className="border border-amber-200 bg-amber-50 p-3 rounded-xl flex items-start gap-3">
-                        <div className="text-amber-600 mt-0.5">
-                            <AlertCircle size={16} weight="bold" />
-                        </div>
-                        <div>
-                            <p className="text-[11px] font-black text-amber-900 uppercase tracking-wider">Offer Pending Acceptance</p>
-                            <p className="text-[11px] text-amber-800 font-medium mt-0.5">You have been admitted! Please accept your offer letter to proceed with enrollment.</p>
+                    <div className="p-3">
+                        <p className="text-[13px] font-bold text-black">Offer Pending Acceptance</p>
+                        <p className="text-[11px] text-black font-medium mt-0.5">You have been admitted! Please accept your offer letter to proceed with enrollment.</p>
+                        <div className="flex gap-2 mt-3">
+                            <Link
+                                href={`/portal/application/letter?id=${application.id}`}
+                                className="px-4 py-2 border border-neutral-300 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors inline-flex items-center"
+                            >
+                                View Offer
+                            </Link>
+                            <button
+                                onClick={handleAcceptOffer}
+                                disabled={actionLoading === 'accept'}
+                                className="px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-50"
+                            >
+                                {actionLoading === 'accept' ? 'Accepting...' : 'Accept Offer'}
+                            </button>
+                            <button
+                                onClick={handleRejectOffer}
+                                disabled={actionLoading === 'reject'}
+                                className="px-4 py-2 border border-neutral-300 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors disabled:opacity-50"
+                            >
+                                {actionLoading === 'reject' ? 'Declining...' : 'Decline Offer'}
+                            </button>
                         </div>
                     </div>
                 )}
 
                 {application.status === 'OFFER_ACCEPTED' && !hasInvoice && (
                     <div className="p-3">
-                        <p className="text-[13px] font-bold text-black">Your offer has been accepted. The Admissions Office is preparing your tuition invoice. You will be able to pay once it is sent.</p>
+                        <p className="text-[13px] font-bold text-black">Congratulations! Your offer has been accepted.</p>
+                        <p className="text-[11px] text-black font-medium mt-0.5">Next steps: Tuition Deposit and PAL Issue. You will be notified once the invoice is sent.</p>
                     </div>
                 )}
 
@@ -352,24 +404,24 @@ function ViewApplicationContent() {
 
             {/* Progress Tracker */}
             <section className="bg-white border border-neutral-200 rounded-xl shadow-sm p-3 md:p-4">
-                <div className="flex flex-col md:flex-row md:items-center">
+                <div className="relative">
                     {steps.map((step, index) => {
                         const isComplete = index < progressIndex;
                         const isActive = index === progressIndex;
-                        const isLast = step.title === 'Pre Orientation';
+                        const isLast = index === steps.length - 1;
                         return (
-                            <div key={step.title} className={`flex flex-col md:flex-row md:items-center flex-1 ${isActive ? 'bg-blue-500 -mx-2 px-2 py-1 rounded-md md:rounded-md' : ''}`}>
-                                <div className="flex items-center gap-2">
-                                    <div className={`h-4 w-4 md:h-5 md:w-5 rounded-full flex items-center justify-center text-[9px] md:text-[10px] font-black flex-shrink-0 ${isComplete ? 'bg-emerald-500 text-white' : isActive ? 'bg-white text-blue-500' : 'bg-neutral-100 text-neutral-500'}`}>
-                                        {isComplete ? <CheckCircle size={10} weight="bold" /> : index + 1}
-                                    </div>
-                                    <p className={`text-[10px] md:text-[12px] font-bold whitespace-nowrap ${isActive ? 'text-white' : isComplete ? 'text-emerald-600' : 'text-neutral-600'}`}>{step.title}</p>
-                                </div>
+                            <div key={step.title} className="relative flex gap-4 pb-6 last:pb-0">
                                 {!isLast && (
-                                    <div className="md:flex-1 md:h-[2px] md:mx-2 w-[2px] md:w-auto h-3 md:h-auto bg-neutral-200 relative mx-auto my-1 md:my-0">
+                                    <div className="absolute left-[7px] top-[18px] w-[2px] h-full bg-neutral-200">
                                         {isComplete && <div className="absolute inset-0 bg-emerald-500" />}
                                     </div>
                                 )}
+                                <div className={`h-4 w-4 rounded-full flex items-center justify-center text-[9px] font-black flex-shrink-0 z-10 ${isComplete ? 'bg-emerald-500 text-white' : isActive ? 'bg-blue-500 text-white' : 'bg-neutral-100 text-neutral-500'}`}>
+                                    {isComplete ? <CheckCircle size={10} weight="bold" /> : index + 1}
+                                </div>
+                                <div className="flex-1 pt-0.5">
+                                    <p className={`text-[11px] font-bold ${isActive ? 'text-blue-600' : isComplete ? 'text-emerald-600' : 'text-neutral-600'}`}>{step.title}</p>
+                                </div>
                             </div>
                         );
                     })}
@@ -631,32 +683,32 @@ function ViewApplicationContent() {
                     {/* Quick Links */}
                     <div className="bg-white border border-neutral-200 rounded-xl shadow-sm p-5">
                         {sectionHeader('Quick Links')}
-                        <div className="space-y-2">
-                            <Link href={`/portal/application/payment?id=${application.id}`} className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
-                                <div>
-                                    <p className="text-xs font-bold text-black">Tuition Payment</p>
-                                    <p className="text-[10px] text-neutral-500">View and pay fees</p>
-                                </div>
-                            </Link>
-                            <Link href="/portal/student/housing" className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
-                                <div>
-                                    <p className="text-xs font-bold text-black">Housing</p>
-                                    <p className="text-[10px] text-neutral-500">Find accommodation</p>
-                                </div>
-                            </Link>
-                            <Link href="/portal/student/courses" className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
-                                <div>
-                                    <p className="text-xs font-bold text-black">Student Portal</p>
-                                    <p className="text-[10px] text-neutral-500">Courses & resources</p>
-                                </div>
-                            </Link>
-                            <Link href="/portal/student" className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
-                                <div>
-                                    <p className="text-xs font-bold text-black">Academic Dashboard</p>
-                                    <p className="text-[10px] text-neutral-500">Your enrollment portal</p>
-                                </div>
-                            </Link>
-                        </div>
+                    <div className="space-y-1">
+                        <Link href={`/portal/application/payment?id=${application.id}`} className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
+                            <div>
+                                <p className="text-sm font-bold text-blue-600 underline">Tuition Payment</p>
+                                <p className="text-xs text-neutral-500">View and pay fees</p>
+                            </div>
+                        </Link>
+                        <Link href="/portal/student/housing" className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
+                            <div>
+                                <p className="text-sm font-bold text-blue-600 underline">Housing</p>
+                                <p className="text-xs text-neutral-500">Find accommodation</p>
+                            </div>
+                        </Link>
+                        <Link href="/portal/student/courses" className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
+                            <div>
+                                <p className="text-sm font-bold text-blue-600 underline">Student Portal</p>
+                                <p className="text-xs text-neutral-500">Courses & resources</p>
+                            </div>
+                        </Link>
+                        <Link href="/portal/student" className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
+                            <div>
+                                <p className="text-sm font-bold text-blue-600 underline">Academic Dashboard</p>
+                                <p className="text-xs text-neutral-500">Your enrollment portal</p>
+                            </div>
+                        </Link>
+                    </div>
                     </div>
 
                     </aside>

@@ -208,7 +208,7 @@ const ConditionalOfferPDF: React.FC<ConditionalOfferPDFProps> = ({ application, 
   const mandatoryFees = 700;
   const totalAnnualFees = tuitionFee + mandatoryFees;
   const totalDue1 = totalAnnualFees;
-  const totalDue2 = Math.round(totalDue1 * 0.5);
+  const totalDue2 = 2000;
   const totalDue3 = totalDue1 - totalDue2;
 
   const today = new Date();
@@ -356,7 +356,7 @@ const ConditionalOfferPDF: React.FC<ConditionalOfferPDFProps> = ({ application, 
                 <Text style={styles.fieldValue}>${totalAnnualFees.toLocaleString()} CAD</Text>
               </View>
               <View style={styles.tableCellLast}>
-                <Text style={styles.fieldLabel}>Tuition Deposit (50%)</Text>
+                <Text style={styles.fieldLabel}>Tuition Deposit</Text>
                 <Text style={styles.fieldValue}>${totalDue2.toLocaleString()} CAD</Text>
               </View>
             </View>

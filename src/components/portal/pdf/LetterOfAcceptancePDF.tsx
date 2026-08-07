@@ -1,7 +1,6 @@
-'use client';
-
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
+import { getProgramYears } from '@/utils/tuition';
 
 const styles = StyleSheet.create({
   page: {
@@ -9,8 +8,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     padding: 40,
     fontFamily: 'Helvetica',
-    fontSize: 10,
-    lineHeight: 1.5,
+    fontSize: 11,
+    lineHeight: 1.6,
   },
   header: {
     flexDirection: 'row',
@@ -22,20 +21,20 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   logo: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#1a1a1a',
   },
   documentType: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#666666',
     textAlign: 'right',
   },
   section: {
-    marginBottom: 15,
+    marginBottom: 18,
   },
   sectionTitle: {
-    fontSize: 11,
+    fontSize: 13,
     fontWeight: 'bold',
     marginBottom: 8,
     color: '#1a1a1a',
@@ -45,17 +44,17 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    marginBottom: 4,
+    marginBottom: 5,
   },
   label: {
     width: 140,
-    fontSize: 9,
+    fontSize: 10,
     color: '#666666',
     fontWeight: 'bold',
   },
   value: {
     flex: 1,
-    fontSize: 9,
+    fontSize: 10,
     color: '#1a1a1a',
   },
   twoColumn: {
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   programTitle: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: 'bold',
     marginBottom: 5,
   },
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 3,
-    fontSize: 9,
+    fontSize: 10,
   },
   feeTotal: {
     flexDirection: 'row',
@@ -90,10 +89,10 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#1a1a1a',
     fontWeight: 'bold',
-    fontSize: 10,
+    fontSize: 11,
   },
   condition: {
-    fontSize: 8,
+    fontSize: 9,
     color: '#666666',
     marginBottom: 3,
   },
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
     right: 40,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    fontSize: 8,
+    fontSize: 9,
     color: '#999999',
     borderTopWidth: 1,
     borderTopColor: '#e0e0e0',
@@ -119,7 +118,7 @@ const styles = StyleSheet.create({
     width: 200,
     marginTop: 40,
     paddingTop: 4,
-    fontSize: 8,
+    fontSize: 9,
   },
 });
 
@@ -132,12 +131,17 @@ const LetterOfAcceptancePDF: React.FC<LetterOfAcceptancePDFProps> = ({ applicati
   const course = application.course || {};
   const school = course.school || {};
   const user = application.user || {};
-  const offer = application.offer?.[0] || {};
+  const offer = application.offer || {};
   const personalInfo = application.personal_info || {};
 
   const tuitionFee = offer.tuition_fee || 0;
   const ancillaryFee = offer.ancillary_charged || 0;
   const totalFee = tuitionFee + ancillaryFee;
+
+  const programLength = getProgramYears(course.duration || '', course.degreeLevel);
+  const startDate = admissionDetails?.start_date ? new Date(admissionDetails.start_date) : new Date();
+  const completionDate = new Date(startDate);
+  completionDate.setFullYear(completionDate.getFullYear() + programLength);
 
   return (
     <Document>
@@ -154,7 +158,7 @@ const LetterOfAcceptancePDF: React.FC<LetterOfAcceptancePDFProps> = ({ applicati
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>To</Text>
-          <Text style={{ fontWeight: 'bold', fontSize: 11 }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 12 }}>
             {personalInfo.firstName || user.first_name} {personalInfo.lastName || user.last_name}
           </Text>
           <Text>{user.email || ''}</Text>
@@ -187,8 +191,16 @@ const LetterOfAcceptancePDF: React.FC<LetterOfAcceptancePDFProps> = ({ applicati
               <Text style={styles.value}>{course.duration || '—'}</Text>
             </View>
             <View style={styles.row}>
+              <Text style={styles.label}>Program Length:</Text>
+              <Text style={styles.value}>{programLength} {programLength === 1 ? 'Year' : 'Years'}</Text>
+            </View>
+            <View style={styles.row}>
               <Text style={styles.label}>Credential:</Text>
               <Text style={styles.value}>{course.degreeLevel || '—'}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.label}>Approx. Completion Date:</Text>
+              <Text style={styles.value}>{completionDate.toLocaleDateString('en-CA')}</Text>
             </View>
             {admissionDetails?.intake && (
               <View style={styles.row}>

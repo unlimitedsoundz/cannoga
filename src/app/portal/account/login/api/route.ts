@@ -32,15 +32,21 @@ export async function POST(request: NextRequest) {
     });
 
     if (authError) {
-        return NextResponse.redirect(
-            new URL(`/portal/account/login?error=${encodeURIComponent(authError.message)}`, request.url)
-        );
+        const redirectUrl = new URL(`/portal/account/login?error=${encodeURIComponent(authError.message)}`, request.url);
+        const response = NextResponse.redirect(redirectUrl);
+        supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
+            response.cookies.set(name, value, options);
+        });
+        return response;
     }
 
     if (!authData.user) {
-        return NextResponse.redirect(
-            new URL('/portal/account/login?error=login_failed', request.url)
-        );
+        const redirectUrl = new URL('/portal/account/login?error=login_failed', request.url);
+        const response = NextResponse.redirect(redirectUrl);
+        supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
+            response.cookies.set(name, value, options);
+        });
+        return response;
     }
 
     const serviceClient = createServiceRoleClient();
@@ -52,7 +58,12 @@ export async function POST(request: NextRequest) {
         .single();
 
     if (profile?.role === 'ADMIN') {
-        return NextResponse.redirect(new URL('/sis/admin', request.url), { headers: { 'x-auth-success': 'true' } });
+        const redirectUrl = new URL('/sis/admin', request.url);
+        const response = NextResponse.redirect(redirectUrl, { headers: { 'x-auth-success': 'true' } });
+        supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
+            response.cookies.set(name, value, options);
+        });
+        return response;
     }
 
     const { data: enrollment } = await serviceClient
@@ -62,8 +73,18 @@ export async function POST(request: NextRequest) {
         .single();
 
     if (enrollment?.enrollment_status === 'CONFIRMED' || enrollment?.enrollment_status === 'ACTIVE') {
-        return NextResponse.redirect(new URL('/sis', request.url));
+        const redirectUrl = new URL('/sis', request.url);
+        const response = NextResponse.redirect(redirectUrl);
+        supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
+            response.cookies.set(name, value, options);
+        });
+        return response;
     }
 
-    return NextResponse.redirect(new URL('/portal/dashboard', request.url));
+    const redirectUrl = new URL('/portal/dashboard', request.url);
+    const response = NextResponse.redirect(redirectUrl);
+    supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
+        response.cookies.set(name, value, options);
+    });
+    return response;
 }

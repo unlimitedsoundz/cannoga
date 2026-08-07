@@ -99,7 +99,7 @@ export function FinancialOfferForm({ applicationId, baseTuition, programYears, d
                     className={`flex-1 py-2 text-[9px] font-black uppercase tracking-tight rounded-lg transition-all ${offerType === 'DEPOSIT' ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-400 hover:text-neutral-600'
                         }`}
                 >
-                    Deposit (50%)
+                    Deposit
                 </button>
                 <button
                     type="button"

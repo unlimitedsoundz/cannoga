@@ -134,7 +134,7 @@ function ReceiptContent() {
     const field = application.course?.field || 'TECHNOLOGY';
     const isDomestic = application.personal_info?.studentType === 'domestic';
     const tuitionFee = getTuitionFee(level, field, isDomestic);
-    const depositAmount = Math.round(tuitionFee * 0.5);
+    const depositAmount = 2000;
     const isDeposit = Math.round(payment.amount) === depositAmount;
     const isPending = application.status === 'PAYMENT_SUBMITTED';
 

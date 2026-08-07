@@ -3,12 +3,28 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
+import { SISHeader } from '@/components/sis/SISHeader';
+import { SISSidebar } from '@/components/sis/SISSidebar';
+
+interface Profile {
+    id: string;
+    role: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    student_id?: string;
+}
 
 export default function SISLayout({ children }: { children: ReactNode }) {
     const [loading, setLoading] = useState(true);
     const [authorized, setAuthorized] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [profile, setProfile] = useState<Profile | null>(null);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const pathname = usePathname() || '';
+
+    const isAdminPath = pathname.startsWith('/sis/admin');
+    const isStudentDashboard = pathname === '/sis';
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -23,7 +39,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
 
                 const { data: prof, error: profError } = await supabase
                     .from('profiles')
-                    .select('id, role, email, first_name, last_name')
+                    .select('id, role, email, first_name, last_name, student_id')
                     .eq('id', sbUser.id)
                     .single();
 
@@ -33,12 +49,12 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                 }
 
                 if (prof.role === 'ADMIN') {
-                    if (!pathname.startsWith('/sis/admin') && pathname === '/sis') {
+                    if (!isAdminPath && !isStudentDashboard) {
                         window.location.href = '/sis/admin';
                         return;
                     }
                 } else if (prof.role === 'STUDENT' || prof.role === 'APPLICANT') {
-                    if (pathname.startsWith('/sis/admin')) {
+                    if (isAdminPath) {
                         window.location.href = '/portal/dashboard';
                         return;
                     }
@@ -47,6 +63,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                     return;
                 }
 
+                setProfile(prof);
                 setAuthorized(true);
                 setLoading(false);
             } catch (err) {
@@ -56,7 +73,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         };
 
         checkAuth();
-    }, [pathname]);
+    }, [pathname, isAdminPath, isStudentDashboard]);
 
     if (loading) {
         return (
@@ -83,8 +100,58 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         );
     }
 
-    if (!authorized) {
+    if (!authorized || !profile) {
         return null;
+    }
+
+    const adminNavItems = [
+        { label: 'DASHBOARD', href: '/sis/admin' },
+        { label: 'STUDENTS', href: '/sis/admin/students' },
+        { label: 'APPLICATIONS', href: '/sis/admin/applications' },
+        { label: 'ADMISSIONS', href: '/sis/admin/admissions' },
+        { label: 'FACULTY', href: '/sis/admin/faculty' },
+        { label: 'FINANCE', href: '/sis/admin/finance' },
+        { label: 'HOUSING', href: '/sis/admin/housing' },
+        { label: 'ACADEMICS', href: '/sis/admin/academics' },
+        { label: 'REGISTRATION', href: '/sis/admin/registration' },
+        { label: 'DOCUMENTS', href: '/sis/admin/documents' },
+        { label: 'REPORTS', href: '/sis/admin/reports' },
+        { label: 'AUDIT', href: '/sis/admin/audit' },
+        { label: 'NOTIFICATIONS', href: '/sis/admin/notifications' },
+        { label: 'SETTINGS', href: '/sis/admin/settings' },
+    ];
+
+    const websiteNavItems = [
+        { label: 'WEBSITE', href: '/sis/admin/website' },
+        { label: 'Pages', href: '/sis/admin/website/pages' },
+        { label: 'Schools', href: '/sis/admin/website/schools' },
+        { label: 'News', href: '/sis/admin/website/news' },
+        { label: 'FAQs', href: '/sis/admin/website/faqs' },
+        { label: 'Tuition', href: '/sis/admin/website/tuition' },
+        { label: 'Announcements', href: '/sis/admin/website/announcements' },
+    ];
+
+    const navItems = profile.role === 'ADMIN' ? [...adminNavItems, ...websiteNavItems] : [];
+
+    if (profile.role === 'ADMIN' && isAdminPath) {
+        return (
+            <div className="min-h-screen bg-[#f5f5f5] font-sans text-black flex flex-col" data-theme="sis">
+                <SISHeader onMenuToggle={() => setSidebarOpen(!sidebarOpen)} role={profile.role} profile={profile} />
+                <div className="flex flex-1 overflow-hidden">
+                    <SISSidebar
+                        items={navItems}
+                        pathname={pathname}
+                        open={sidebarOpen}
+                        onClose={() => setSidebarOpen(false)}
+                    />
+                    <main className="flex-1 overflow-y-auto">
+                        <div className="p-4 md:p-6 lg:p-8 max-w-[1400px] mx-auto">
+                            {children}
+                        </div>
+                    </main>
+                </div>
+            </div>
+        );
     }
 
     return (

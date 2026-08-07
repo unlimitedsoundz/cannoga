@@ -431,6 +431,56 @@ export interface Database {
           gender?: string | null
         }
       }
+      document_records: {
+        Row: {
+          id: string
+          student_id: string
+          document_type: string
+          title: string
+          programme: string | null
+          status: string
+          storage_path: string | null
+          version: number
+          issue_date: string | null
+          is_official: boolean
+          is_student_visible: boolean
+          metadata: any
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          student_id: string
+          document_type: string
+          title: string
+          programme?: string | null
+          status?: string
+          storage_path?: string | null
+          version?: number
+          issue_date?: string | null
+          is_official?: boolean
+          is_student_visible?: boolean
+          metadata?: any
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          student_id?: string
+          document_type?: string
+          title?: string
+          programme?: string | null
+          status?: string
+          storage_path?: string | null
+          version?: number
+          issue_date?: string | null
+          is_official?: boolean
+          is_student_visible?: boolean
+          metadata?: any
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
   }
 }
@@ -443,6 +493,7 @@ export type ClassSession = Database['public']['Tables']['class_sessions']['Row']
 export type ModuleEnrollment = Database['public']['Tables']['module_enrollments']['Row']
 export type Student = Database['public']['Tables']['students']['Row']
 export type Profile = Database['public']['Tables']['profiles']['Row']
+export type DocumentRecord = Database['public']['Tables']['document_records']['Row']
 
 export type School = {
   id: string;

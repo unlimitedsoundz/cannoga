@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
             const targetPath = url.pathname + url.search;
 
             toast.success('Login successful');
-            router.replace(targetPath);
+            window.location.href = targetPath;
         } catch (error: any) {
             setError('An unexpected error occurred. Please try again.');
             console.error('Admin login error:', error);

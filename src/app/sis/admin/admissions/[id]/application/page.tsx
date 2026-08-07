@@ -2,20 +2,566 @@
 
 export const dynamic = 'force-dynamic';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { PageHeader } from '@/components/sis/PageHeader';
+import { Tabs } from '@/components/sis/Tabs';
+import { StatusBadge } from '@/components/sis/StatusBadge';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { File01Icon as FileText, UserIcon as User, Mail01Icon as Mail, SmartPhone01Icon as Phone, MapPinIcon as MapPin, Calendar01Icon as Calendar, GraduationCapIcon as GraduationCap, Shield01Icon as Shield, Alert01Icon as AlertTriangle, CheckIcon as CheckCircle, CancelCircleIcon as XCircle, ChevronRightIcon as ArrowRight, Edit01Icon as Edit, Download01Icon as Download, PrinterIcon as Printer, Message01Icon as Message, ClockIcon as Clock, FileTypeIcon as DocumentIcon, Upload01Icon as Upload } from '@hugeicons/core-free-icons';
+import Link from 'next/link';
+import { getAdmissionApplicationDetail, updateApplicationStatus, updateInternalNotes, createAdmissionOffer, regenerateOfferLetter, generateAdmissionLetterAction, issuePal, sendMessage, updateApplication } from '@/app/admin/admissions/actions';
+
+interface ApplicationDetail {
+  id: string;
+  application_number?: string;
+  status: string;
+  submitted_at: string;
+  intake?: string;
+  personal_info?: any;
+  contact_details?: any;
+  education_history?: any;
+  motivation?: any;
+  language_proficiency?: any;
+  course?: { title: string; slug: string; degreeLevel?: string; duration?: string; school?: { name: string; slug: string } };
+  user?: { first_name: string; last_name: string; email: string; phone?: string; date_of_birth?: string; address?: string };
+  documents?: { id: string; type: string; name: string; url: string; created_at: string }[];
+  offer?: { id: string; tuition_fee: number; payment_deadline: string; offer_type: string; status: string; document_url?: string; created_at: string };
+}
+
+interface StudentInfo {
+  id: string;
+  student_id?: string;
+  enrollment_status?: string;
+  pal_status?: string;
+  pal_required?: boolean;
+  study_permit_status?: string;
+  current_stage?: string;
+}
+
+const formatDegreeLevel = (level: string) => {
+    if (!level) return '';
+    return level.charAt(0) + level.slice(1).toLowerCase();
+};
+
+const tabs = [
+  { label: 'Application', href: '#' },
+  { label: 'Documents', href: '#documents' },
+  { label: 'Review', href: '#review' },
+  { label: 'Notes', href: '#notes' },
+  { label: 'Audit', href: '#audit' },
+];
 
 export default function AdmissionApplicationPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = React.use(params);
+  const router = useRouter();
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [application, setApplication] = useState<ApplicationDetail | null>(null);
+  const [student, setStudent] = useState<StudentInfo | null>(null);
+  const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [notes, setNotes] = useState('');
+  const [status, setStatus] = useState('');
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [messageText, setMessageText] = useState('');
+  const [showMessageForm, setShowMessageForm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const result = await getAdmissionApplicationDetail(id);
+        if (!result.success) throw new Error(result.error);
+        const app = (result.data as any)?.application as ApplicationDetail;
+        const stu = (result.data as any)?.student as StudentInfo;
+        setApplication(app);
+        setStudent(stu || null);
+        setNotes((app as any)?.internal_notes || '');
+        setStatus(app?.status || '');
+      } catch (err: any) {
+        setError(err.message || 'Failed to load application');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  const handleStatusUpdate = async (newStatus: string) => {
+    setActionLoading('status');
+    setMessage(null);
+    try {
+      const result = await updateApplicationStatus(id, newStatus as any);
+      if ((result as any).success) {
+        setStatus(newStatus);
+        setApplication(prev => prev ? { ...prev, status: newStatus } : prev);
+        setMessage({ type: 'success', text: `Status updated to ${newStatus.replace('_', ' ')}` });
+      } else {
+        setMessage({ type: 'error', text: (result as any).error || 'Failed to update status' });
+      }
+    } catch (err: any) {
+      setMessage({ type: 'error', text: err.message || 'Failed to update status' });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleSaveNotes = async () => {
+    setActionLoading('notes');
+    setMessage(null);
+    try {
+      const result = await updateInternalNotes(id, notes);
+      if ((result as any).success) {
+        setMessage({ type: 'success', text: 'Notes saved successfully' });
+      } else {
+        setMessage({ type: 'error', text: (result as any).error || 'Failed to save notes' });
+      }
+    } catch (err: any) {
+      setMessage({ type: 'error', text: err.message || 'Failed to save notes' });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleIssueOffer = async () => {
+    setActionLoading('offer');
+    setMessage(null);
+    try {
+      const { getTuitionFee, mapSchoolToTuitionField, getProgramYears } = await import('@/utils/tuition');
+      const schoolSlug = application?.course?.school?.slug || 'technology';
+      const degreeLevel = application?.course?.degreeLevel || 'BACHELOR';
+      const tuitionField = mapSchoolToTuitionField(schoolSlug);
+      const personal = application?.personal_info || {};
+      const studentType = personal.studentType;
+      const isDomestic = studentType === 'domestic';
+      const annualFee = getTuitionFee(degreeLevel, tuitionField, isDomestic);
+      const duration = application?.course?.duration || '4 years';
+      const years = getProgramYears(duration, degreeLevel);
+      const tuitionFee = annualFee * years;
+      const result = await createAdmissionOffer(id, tuitionFee, new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString());
+      if ((result as any).success) {
+        setMessage({ type: 'success', text: 'Admission offer issued successfully' });
+        window.location.reload();
+      } else {
+        setMessage({ type: 'error', text: (result as any).error || 'Failed to issue offer' });
+      }
+    } catch (err: any) {
+      setMessage({ type: 'error', text: err.message || 'Failed to issue offer' });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleRegenerateLOA = async () => {
+    setActionLoading('loa');
+    setMessage(null);
+    try {
+      const result = await regenerateOfferLetter(id);
+      if ((result as any).success) {
+        setMessage({ type: 'success', text: 'Letter of Acceptance regenerated' });
+      } else {
+        setMessage({ type: 'error', text: (result as any).error || 'Failed to regenerate LOA' });
+      }
+    } catch (err: any) {
+      setMessage({ type: 'error', text: err.message || 'Failed to regenerate LOA' });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleGenerateAdmissionLetter = async () => {
+    setActionLoading('admission-letter');
+    setMessage(null);
+    try {
+      const result = await generateAdmissionLetterAction(id);
+      if ((result as any).success) {
+        setMessage({ type: 'success', text: 'Admission letter generated' });
+      } else {
+        setMessage({ type: 'error', text: (result as any).error || 'Failed to generate admission letter' });
+      }
+    } catch (err: any) {
+      setMessage({ type: 'error', text: err.message || 'Failed to generate admission letter' });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleIssuePAL = async () => {
+    setActionLoading('pal');
+    setMessage(null);
+    try {
+      const result = await issuePal(id);
+      if ((result as any).success) {
+        setMessage({ type: 'success', text: 'PAL issued successfully' });
+        window.location.reload();
+      } else {
+        setMessage({ type: 'error', text: (result as any).error || 'Failed to issue PAL' });
+      }
+    } catch (err: any) {
+      setMessage({ type: 'error', text: err.message || 'Failed to issue PAL' });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (!messageText.trim()) {
+      setMessage({ type: 'error', text: 'Please enter a message' });
+      return;
+    }
+    setActionLoading('message');
+    setMessage(null);
+    try {
+      const result = await sendMessage(id, messageText);
+      if ((result as any).success) {
+        setMessage({ type: 'success', text: 'Message sent to student' });
+        setMessageText('');
+        setShowMessageForm(false);
+      } else {
+        setMessage({ type: 'error', text: (result as any).error || 'Failed to send message' });
+      }
+    } catch (err: any) {
+      setMessage({ type: 'error', text: err.message || 'Failed to send message' });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleEditRecord = () => {
+    setEditForm({
+      personal_info: application?.personal_info || {},
+      contact_details: application?.contact_details || {},
+      education_history: application?.education_history || {},
+      motivation: application?.motivation || {},
+    });
+    setIsEditing(true);
+  };
+
+  const handleSaveEdit = async () => {
+    setActionLoading('edit');
+    setMessage(null);
+    try {
+      const result = await updateApplication(id, editForm);
+      if ((result as any).success) {
+        setMessage({ type: 'success', text: 'Record updated successfully' });
+        setIsEditing(false);
+        window.location.reload();
+      } else {
+        setMessage({ type: 'error', text: (result as any).error || 'Failed to update record' });
+      }
+    } catch (err: any) {
+      setMessage({ type: 'error', text: err.message || 'Failed to update record' });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div>
+      </div>
+    );
+  }
+
+  if (error || !application) {
+    return (
+      <div className="p-8">
+        <div className="mb-4">
+          <button onClick={() => router.back()} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-500 hover:text-neutral-900 transition-colors">
+            <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2} />
+            Back
+          </button>
+        </div>
+        <PageHeader title="Application Not Found" subtitle="The requested application could not be loaded." />
+        <div className="mt-6 p-8 bg-red-50 border border-red-100 text-center">
+          <p className="text-red-600 font-medium mb-4">{error}</p>
+          <button onClick={() => router.push('/sis/admin/admissions')} className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-medium rounded hover:bg-neutral-800 transition-colors">
+            <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2} />
+            Back to Admissions
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const personalInfo = application.personal_info || {};
+  const contactDetails = application.contact_details || {};
+  const educationHistory = application.education_history || {};
+  const motivation = application.motivation || {};
+  const languageProficiency = application.language_proficiency || {};
+  const course = application.course || undefined;
+  const user = application.user || undefined;
+  const documents = application.documents || [];
+  const offer = application.offer || null;
 
   return (
     <div className="space-y-6">
       <PageHeader
         title="Application Details"
-        subtitle={`Application #${id}`}
+        subtitle={`${application.application_number || application.id?.slice(0, 8)} — ${course?.title || 'Unknown Program'}${course?.degreeLevel ? ` — ${formatDegreeLevel(course?.degreeLevel)}` : ''}`}
+        actions={
+          <div className="flex gap-2">
+            <button className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors">
+              <HugeiconsIcon icon={Printer} size={14} strokeWidth={2.5} /> Print
+            </button>
+            <button className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors">
+              <HugeiconsIcon icon={Download} size={14} strokeWidth={2.5} /> Export
+            </button>
+          </div>
+        }
       />
-      <div className="bg-white border border-neutral-200 p-6">
-        <p className="text-sm text-neutral-600">Application details for admission {id}</p>
+
+      <Tabs tabs={tabs} />
+
+      {message && (
+        <div className={`p-4 rounded ${message.type === 'success' ? 'bg-emerald-50 border border-emerald-100 text-emerald-700' : 'bg-red-50 border border-red-100 text-red-700'}`}>
+          {message.text}
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-6">
+          {/* Application Information */}
+          <div className="bg-white border border-neutral-200 p-6">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Application Information</h3>
+            <dl className="grid grid-cols-2 gap-4 text-sm">
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Application ID</dt><dd className="font-mono font-medium text-neutral-900 mt-1">{application.application_number || application.id?.slice(0, 8)}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Status</dt><dd className="mt-1"><StatusBadge status={application.status?.replace('_', ' ') || 'DRAFT'} /></dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Program</dt><dd className="font-medium text-neutral-900 mt-1">{course?.title || '—'}{course?.degreeLevel ? ` — ${formatDegreeLevel(course?.degreeLevel)}` : ''}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Intake</dt><dd className="font-medium text-neutral-900 mt-1">{application.intake || '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Submitted</dt><dd className="font-medium text-neutral-900 mt-1">{application.submitted_at ? new Date(application.submitted_at).toLocaleDateString('en-CA') : '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Student ID</dt><dd className="font-medium text-neutral-900 mt-1">{student?.student_id || 'Not yet enrolled'}</dd></div>
+            </dl>
+          </div>
+
+          {/* Personal Information */}
+          <div className="bg-white border border-neutral-200 p-6">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Personal Information</h3>
+            <dl className="grid grid-cols-2 gap-4 text-sm">
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Full Name</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.firstName || user?.first_name} {personalInfo?.lastName || user?.last_name}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Passport Number</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.passportNumber || '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Nationality</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.nationality || '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Date of Birth</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.dateOfBirth || user?.date_of_birth || '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Gender</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.gender || '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Student Type</dt><dd className="font-medium text-neutral-900 mt-1 capitalize">{personalInfo?.studentType || '—'}</dd></div>
+            </dl>
+          </div>
+
+          {/* Contact Details */}
+          <div className="bg-white border border-neutral-200 p-6">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Contact Details</h3>
+            <dl className="grid grid-cols-2 gap-4 text-sm">
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Email</dt><dd className="font-medium text-neutral-900 mt-1">{contactDetails?.email || user?.email || '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Phone</dt><dd className="font-medium text-neutral-900 mt-1">{contactDetails?.phone || user?.phone || '—'}</dd></div>
+              <div className="col-span-2"><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Address</dt><dd className="font-medium text-neutral-900 mt-1">{[contactDetails?.addressLine1, contactDetails?.city, contactDetails?.country].filter(Boolean).join(', ') || '—'}</dd></div>
+            </dl>
+          </div>
+
+          {/* Academic History */}
+          <div className="bg-white border border-neutral-200 p-6">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Academic History</h3>
+            {educationHistory ? (
+              <dl className="grid grid-cols-2 gap-4 text-sm">
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">High School</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.highSchool || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Graduation Year</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.graduationYear || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">GPA</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.gpa || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Degree</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.degree || '—'}</dd></div>
+              </dl>
+            ) : (
+              <p className="text-sm text-neutral-500">No academic history provided</p>
+            )}
+          </div>
+
+          {/* Language Proficiency */}
+          {languageProficiency && (
+            <div className="bg-white border border-neutral-200 p-6">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Language Proficiency</h3>
+              <dl className="grid grid-cols-2 gap-4 text-sm">
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Test Type</dt><dd className="font-medium text-neutral-900 mt-1">{languageProficiency?.testType || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Score</dt><dd className="font-medium text-neutral-900 mt-1">{languageProficiency?.score || '—'}</dd></div>
+              </dl>
+            </div>
+          )}
+
+          {/* Motivation */}
+          {motivation && motivation?.statement && (
+            <div className="bg-white border border-neutral-200 p-6">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Motivation Statement</h3>
+              <p className="text-sm text-neutral-700 leading-relaxed">{motivation?.statement}</p>
+              {motivation?.extracurriculars && (
+                <div className="mt-4">
+                  <dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Extracurriculars</dt>
+                  <dd className="text-sm text-neutral-700 mt-1">{motivation?.extracurriculars}</dd>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Documents */}
+          <div className="bg-white border border-neutral-200 p-6" id="documents">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Uploaded Documents</h3>
+            {documents.length > 0 ? (
+              <div className="space-y-2">
+                {documents.map(doc => (
+                  <div key={doc.id} className="flex items-center justify-between p-3 bg-neutral-50 border border-neutral-100">
+                    <div className="flex items-center gap-2">
+                      <HugeiconsIcon icon={FileText} size={14} strokeWidth={2} className="text-neutral-400" />
+                      <span className="text-xs font-medium text-neutral-900">{doc?.name}</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">{doc?.type}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <a href={doc?.url} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline">View</a>
+                      <a href={doc?.url} download className="text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-neutral-600">Download</a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-neutral-500">No documents uploaded</p>
+            )}
+          </div>
+
+          {/* Review Notes */}
+          <div className="bg-white border border-neutral-200 p-6" id="notes">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Internal Review Notes</h3>
+            <textarea
+              value={notes}
+              onChange={e => setNotes(e.target.value)}
+              placeholder="Add review notes..."
+              className="w-full px-3 py-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none font-sans h-24 resize-none"
+            />
+            <button onClick={handleSaveNotes} disabled={actionLoading === 'notes'} className="mt-3 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-50">
+              {actionLoading === 'notes' ? 'Saving...' : 'Save Notes'}
+            </button>
+          </div>
+        </div>
+
+        {/* Sidebar Actions */}
+        <div className="space-y-6">
+          {/* Status Update */}
+          <div className="bg-white border border-neutral-200 p-4">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3">Update Status</h3>
+            <select
+              value={status}
+              onChange={e => setStatus(e.target.value)}
+              className="w-full px-3 py-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none mb-3"
+            >
+              <option value="SUBMITTED">Submitted</option>
+              <option value="UNDER_REVIEW">Under Review</option>
+              <option value="DOCS_REQUIRED">Documents Required</option>
+              <option value="ADMITTED">Admitted</option>
+              <option value="REJECTED">Rejected</option>
+            </select>
+            <button onClick={() => handleStatusUpdate(status)} disabled={actionLoading === 'status' || !status} className="w-full px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-50">
+              {actionLoading === 'status' ? 'Updating...' : 'Update Status'}
+            </button>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="bg-white border border-neutral-200 p-4">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3">Admission Actions</h3>
+            <div className="space-y-2">
+              <button onClick={handleIssueOffer} disabled={actionLoading === 'offer'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
+                <HugeiconsIcon icon={GraduationCap} size={14} strokeWidth={2} /> Issue Offer / LOA
+              </button>
+              <button onClick={handleRegenerateLOA} disabled={actionLoading === 'loa'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
+                <HugeiconsIcon icon={Printer} size={14} strokeWidth={2} /> Regenerate LOA
+              </button>
+              <button onClick={handleGenerateAdmissionLetter} disabled={actionLoading === 'admission-letter'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
+                <HugeiconsIcon icon={FileText} size={14} strokeWidth={2} /> Generate Admission Letter
+              </button>
+              <button onClick={handleIssuePAL} disabled={actionLoading === 'pal'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
+                <HugeiconsIcon icon={Shield} size={14} strokeWidth={2} /> Issue PAL
+              </button>
+              <button onClick={() => handleStatusUpdate('REJECTED')} disabled={actionLoading === 'status'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors disabled:opacity-50">
+                <HugeiconsIcon icon={XCircle} size={14} strokeWidth={2} /> Reject Application
+              </button>
+               <button onClick={() => setShowMessageForm(!showMessageForm)} disabled={actionLoading === 'message'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
+                 <HugeiconsIcon icon={Message} size={14} strokeWidth={2} /> Send Message
+               </button>
+               {showMessageForm && (
+                 <div className="space-y-2">
+                   <textarea
+                     value={messageText}
+                     onChange={e => setMessageText(e.target.value)}
+                     placeholder="Type your message to the student..."
+                     className="w-full px-3 py-2 text-xs border border-neutral-200 focus:border-neutral-400 focus:outline-none h-20 resize-none"
+                   />
+                   <div className="flex gap-2">
+                     <button onClick={handleSendMessage} disabled={actionLoading === 'message'} className="flex-1 px-3 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-50">
+                       {actionLoading === 'message' ? 'Sending...' : 'Send'}
+                     </button>
+                     <button onClick={() => setShowMessageForm(false)} className="flex-1 px-3 py-2 border border-neutral-200 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors">
+                       Cancel
+                     </button>
+                   </div>
+                 </div>
+               )}
+               {!isEditing ? (
+                 <button onClick={handleEditRecord} disabled={actionLoading === 'edit'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
+                   <HugeiconsIcon icon={Edit} size={14} strokeWidth={2} /> Edit Record
+                 </button>
+               ) : (
+                 <div className="space-y-2">
+                   <textarea
+                     value={editForm?.personal_info?.statement || ''}
+                     onChange={e => setEditForm({ ...editForm, personal_info: { ...editForm.personal_info, statement: e.target.value } })}
+                     placeholder="Edit record notes..."
+                     className="w-full px-3 py-2 text-xs border border-neutral-200 focus:border-neutral-400 focus:outline-none h-20 resize-none"
+                   />
+                   <div className="flex gap-2">
+                     <button onClick={handleSaveEdit} disabled={actionLoading === 'edit'} className="flex-1 px-3 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-50">
+                       {actionLoading === 'edit' ? 'Saving...' : 'Save'}
+                     </button>
+                     <button onClick={() => setIsEditing(false)} className="flex-1 px-3 py-2 border border-neutral-200 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors">
+                       Cancel
+                     </button>
+                   </div>
+                 </div>
+               )}
+            </div>
+          </div>
+
+          {/* Student Journey Status */}
+          {student && (
+            <div className="bg-white border border-neutral-200 p-4">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3">Student Journey</h3>
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between"><span className="text-neutral-500">Student ID</span><span className="font-medium text-neutral-900">{student?.student_id || '—'}</span></div>
+                <div className="flex justify-between"><span className="text-neutral-500">Enrollment</span><StatusBadge status={student?.enrollment_status || '—'} size="sm" /></div>
+                <div className="flex justify-between"><span className="text-neutral-500">PAL Required</span><span className="font-medium text-neutral-900">{student?.pal_required ? 'Yes' : 'No'}</span></div>
+                <div className="flex justify-between"><span className="text-neutral-500">PAL Status</span><span className="font-medium text-neutral-900">{student?.pal_status || '—'}</span></div>
+                <div className="flex justify-between"><span className="text-neutral-500">Study Permit</span><span className="font-medium text-neutral-900">{student?.study_permit_status || '—'}</span></div>
+                <div className="flex justify-between"><span className="text-neutral-500">Current Stage</span><span className="font-medium text-neutral-900">{student?.current_stage || '—'}</span></div>
+              </div>
+            </div>
+          )}
+
+          {/* Offer Information */}
+          {offer && (
+            <div className="bg-white border border-neutral-200 p-4">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3">Admission Offer</h3>
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between"><span className="text-neutral-500">Offer ID</span><span className="font-medium text-neutral-900">{offer?.id?.slice(0, 8)}</span></div>
+                <div className="flex justify-between"><span className="text-neutral-500">Tuition Fee</span><span className="font-medium text-neutral-900">${Number(offer?.tuition_fee).toLocaleString()} CAD</span></div>
+                <div className="flex justify-between"><span className="text-neutral-500">Payment Deadline</span><span className="font-medium text-neutral-900">{offer?.payment_deadline ? new Date(offer?.payment_deadline).toLocaleDateString('en-CA') : '—'}</span></div>
+                <div className="flex justify-between"><span className="text-neutral-500">Offer Type</span><span className="font-medium text-neutral-900">{offer?.offer_type || '—'}</span></div>
+                <div className="flex justify-between"><span className="text-neutral-500">Offer Status</span><StatusBadge status={offer?.status || 'PENDING'} size="sm" /></div>
+                {offer?.document_url && (
+                  <div className="mt-3">
+                    <a href={offer?.document_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-2 bg-neutral-900 text-white text-xs font-medium rounded hover:bg-neutral-800 transition-colors">
+                      <HugeiconsIcon icon={Download} size={12} strokeWidth={2} /> Download Offer Letter
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

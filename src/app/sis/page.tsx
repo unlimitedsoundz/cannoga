@@ -14,6 +14,7 @@ import {
     BellIcon as Bell,
     UserIcon as User,
     SearchIcon as Search,
+    Menu01Icon as Menu,
     CircleIcon as XCircle,
     ChevronRightIcon as ChevronRight,
     Clock01Icon as Clock,
@@ -444,6 +445,9 @@ export default function SISStudentDashboard() {
             <header className="bg-slate-900 text-white sticky top-0 z-50 border-b border-slate-800 shadow-md">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
                     <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+                        <button type="button" onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-slate-800 rounded-lg transition text-slate-300 hover:text-white focus:outline-none md:hidden">
+                            <HugeiconsIcon icon={Menu} size={20} strokeWidth={2} />
+                        </button>
                         <Link href="/sis" className="flex items-center space-x-2.5 py-1 shrink-0">
                             <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-9 w-auto object-contain brightness-0 invert" />
                             <div className="hidden sm:block border-l border-slate-700 pl-3">
@@ -481,11 +485,14 @@ export default function SISStudentDashboard() {
             <nav className="bg-white border-b border-slate-200 shadow-sm sticky top-16 z-40">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex space-x-1 sm:space-x-3 overflow-x-auto no-scrollbar text-xs font-medium text-slate-600">
-                        {navItems.map(item => (
-                            <button key={item.pageId} type="button" onClick={() => navigateTo(item.pageId)} className="order-b-2 py-3 px-3 whitespace-nowrap flex items-center space-x-1.5 transition ">
-                                <span>{item.label}</span>
-                            </button>
-                        ))}
+                        {navItems.map(item => {
+                            const isActive = currentPage === item.pageId;
+                            return (
+                                <button key={item.pageId} type="button" onClick={() => navigateTo(item.pageId)} className={`border-b-2 py-3 px-3 whitespace-nowrap flex items-center space-x-1.5 transition ${isActive ? 'border-slate-900 text-slate-900 font-semibold' : 'border-transparent hover:text-slate-900'}`}>
+                                    <span>{item.label}</span>
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
             </nav>
