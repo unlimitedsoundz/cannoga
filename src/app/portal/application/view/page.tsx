@@ -124,6 +124,17 @@ function ViewApplicationContent() {
         loadData();
     }, [id, refreshFlag]);
 
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible') {
+                setRefreshFlag(prev => prev + 1);
+            }
+        };
+
+        window.addEventListener('visibilitychange', handleVisibilityChange);
+        return () => window.removeEventListener('visibilitychange', handleVisibilityChange);
+    }, [id]);
+
     const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>, type: string) => {
         const file = event.target.files?.[0];
         if (!file) return;
