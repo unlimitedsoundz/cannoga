@@ -26,11 +26,13 @@ interface ApplicationInfo {
         first_name: string;
         last_name: string;
         email: string;
-    }[];
+        student_id?: string;
+        date_of_birth?: string;
+    };
     course?: {
         title: string;
         degreeLevel?: string;
-    }[];
+    };
 }
 
 const getDocumentTypeLabel = (type: string) => {
@@ -151,7 +153,7 @@ export default function AdminDocumentDetailPage() {
     return (
         <div className="p-8">
             <PageHeader
-                title={application?.course?.[0]?.title || 'Application Documents'}
+                title={application?.course?.title || 'Application Documents'}
                 subtitle={`Application ID: ${application?.id?.slice(0, 8)}`}
             />
 
@@ -161,16 +163,16 @@ export default function AdminDocumentDetailPage() {
                     <div>
                         <p className="text-[10px] font-medium text-neutral-400 uppercase">Student Name</p>
                         <p className="text-sm font-medium text-neutral-900">
-                            {application?.user?.[0]?.first_name} {application?.user?.[0]?.last_name}
+                            {application?.user?.first_name} {application?.user?.last_name}
                         </p>
                     </div>
                     <div>
                         <p className="text-[10px] font-medium text-neutral-400 uppercase">Email</p>
-                        <p className="text-sm text-neutral-700">{application?.user?.[0]?.email}</p>
+                        <p className="text-sm text-neutral-700">{application?.user?.email}</p>
                     </div>
                     <div>
                         <p className="text-[10px] font-medium text-neutral-400 uppercase">Programme</p>
-                        <p className="text-sm text-neutral-700">{application?.course?.[0]?.title}{application?.course?.[0]?.degreeLevel ? ` — ${formatDegreeLevel(application.course[0].degreeLevel)}` : ''}</p>
+                        <p className="text-sm text-neutral-700">{application?.course?.title}{application?.course?.degreeLevel ? ` — ${formatDegreeLevel(application.course.degreeLevel)}` : ''}</p>
                     </div>
                     <div>
                         <p className="text-[10px] font-medium text-neutral-400 uppercase">Status</p>

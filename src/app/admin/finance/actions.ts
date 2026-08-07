@@ -136,7 +136,7 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
         throw new Error('Failed to push invoice');
     }
 
-    // Fetch application and user data to send email notification
+    // Fetch application and user data
     const { data: application, error: appError } = await supabase
         .from('applications')
         .select(`
@@ -151,6 +151,73 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
         console.error('Error fetching application data:', appError?.message || appError);
         // Don't throw error here, invoice is already pushed
         return { success: true };
+    }
+
+    // Ensure the student has an invoice record for the SIS dashboard balance
+    const { data: studentForInvoice } = await supabase
+        .from('students')
+        .select('id')
+        .eq('application_id', applicationId)
+        .maybeSingle();
+
+    if (studentForInvoice?.id) {
+        const invoiceNumber = `INV-${applicationId.slice(0, 8).toUpperCase()}-${invoiceType}`;
+        const isFirstInvoice = !offer?.invoice_pushed;
+        const ancillaryTotal = isFirstInvoice ? ANCILLARY_FEES.reduce((acc, item) => acc + item.amount, 0) : 0;
+        const invoiceAmount = customFee + ancillaryTotal;
+        const dueDate = new Date();
+        dueDate.setDate(dueDate.getDate() + 30);
+
+        const { error: invoiceError } = await supabase
+            .from('invoices')
+            .upsert({
+                student_id: studentForInvoice.id,
+                invoice_number: invoiceNumber,
+                type: 'TUITION',
+                term: application.intake || 'Current',
+                amount: invoiceAmount,
+                paid: 0,
+                balance: invoiceAmount,
+                due_date: dueDate.toISOString(),
+                status: 'OUTSTANDING',
+            }, { onConflict: 'invoice_number' });
+
+        if (invoiceError) {
+            console.error('Error creating invoice record:', invoiceError.message || invoiceError);
+        } else {
+            const docPayload = {
+                student_id: studentForInvoice.id,
+                document_type: 'tuition_invoice',
+                title: `Tuition Invoice - ${application.intake || 'Current'}`,
+                programme: (application as any).course?.title || '',
+                status: 'pending',
+                storage_path: null,
+                is_official: true,
+                is_student_visible: true,
+                version: 1,
+                issue_date: new Date().toISOString(),
+                metadata: {
+                    invoice_number,
+                    amount: invoiceAmount,
+                    due_date: dueDate.toISOString(),
+                    invoice_type,
+                },
+            };
+
+            const { data: existingDoc } = await supabase
+                .from('document_records')
+                .select('id')
+                .eq('student_id', studentForInvoice.id)
+                .eq('document_type', 'tuition_invoice')
+                .eq('metadata->>invoice_number', invoiceNumber)
+                .maybeSingle();
+
+            if (existingDoc?.id) {
+                await supabase.from('document_records').update(docPayload).eq('id', existingDoc.id);
+            } else {
+                await supabase.from('document_records').insert(docPayload);
+            }
+        }
     }
 
     // Trigger Invoice Ready via Edge Function instead of local sendEmail
@@ -267,6 +334,113 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
                 await generateAutomaticTasksForStudent(newStudent.id);
             } catch (taskError) {
                 console.error('Task generation deferred:', taskError);
+            }
+        }
+
+        // 4d. Recalculate outstanding balance and update invoice
+        if (newStudent?.id) {
+            try {
+                const { data: paymentRecord } = await supabase
+                    .from('tuition_payments')
+                    .select('amount, invoice_type')
+                    .eq('id', paymentId)
+                    .single();
+
+                if (paymentRecord) {
+                    const { data: existingInvoice } = await supabase
+                        .from('invoices')
+                        .select('*')
+                        .eq('student_id', newStudent.id)
+                        .eq('type', 'TUITION')
+                        .neq('status', 'PAID')
+                        .order('issued_date', { ascending: true })
+                        .limit(1)
+                        .maybeSingle();
+
+                    if (existingInvoice) {
+                        const newPaid = Number(existingInvoice.paid || 0) + Number(paymentRecord.amount || 0);
+                        const newBalance = Math.max(0, Number(existingInvoice.amount || 0) - newPaid);
+                        const newStatus = newBalance <= 0 ? 'PAID' : Number(existingInvoice.amount || 0) > 0 ? (newPaid > 0 ? 'PARTIAL' : 'OUTSTANDING') : 'PAID';
+
+                        await supabase
+                            .from('invoices')
+                            .update({
+                                paid: newPaid,
+                                balance: newBalance,
+                                status: newStatus,
+                                updated_at: new Date().toISOString(),
+                            })
+                            .eq('id', existingInvoice.id);
+                    } else {
+                        const { data: offerForInvoice } = await supabase
+                            .from('admission_offers')
+                            .select('tuition_fee, invoice_type')
+                            .eq('application_id', applicationId)
+                            .maybeSingle();
+
+                        const invoiceAmount = Number(offerForInvoice?.tuition_fee || paymentRecord.amount || 0);
+                        const newPaid = Number(paymentRecord.amount || 0);
+                        const newBalance = Math.max(0, invoiceAmount - newPaid);
+                        const newStatus = newBalance <= 0 ? 'PAID' : 'PARTIAL';
+
+                        await supabase
+                            .from('invoices')
+                            .insert({
+                                student_id: newStudent.id,
+                                invoice_number: `INV-${applicationId.slice(0, 8).toUpperCase()}-${Date.now()}`,
+                                type: 'TUITION',
+                                term: application.intake || 'Current',
+                                amount: invoiceAmount,
+                                paid: newPaid,
+                                balance: newBalance,
+                                due_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+                                status: newStatus,
+                                issued_date: new Date().toISOString(),
+                            });
+                    }
+                }
+            } catch (invoiceError) {
+                console.error('Error updating invoice:', invoiceError);
+            }
+
+            // 4e. Create receipt document record
+            try {
+                const receiptUrl = `https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/receipt-${paymentId}.pdf`;
+                const receiptPayload = {
+                    student_id: newStudent.id,
+                    document_type: 'tuition_receipt',
+                    title: `Tuition Receipt - ${paymentRecord.transaction_reference || paymentId}`,
+                    programme: (application as any).course?.title || '',
+                    status: 'issued',
+                    storage_path: receiptUrl,
+                    is_official: true,
+                    is_student_visible: true,
+                    version: 1,
+                    issue_date: new Date().toISOString(),
+                    metadata: {
+                        payment_id: paymentId,
+                        transaction_reference: paymentRecord.transaction_reference,
+                        amount: paymentRecord.amount,
+                        invoice_type: paymentRecord.invoice_type,
+                        payment_method: paymentRecord.payment_method,
+                    },
+                };
+
+                const { data: existingReceipt } = await supabase
+                    .from('document_records')
+                    .select('id')
+                    .eq('student_id', newStudent.id)
+                    .eq('document_type', 'tuition_receipt')
+                    .eq('metadata->>payment_id', paymentId)
+                    .maybeSingle();
+
+                if (existingReceipt?.id) {
+                    await supabase.from('document_records').update(receiptPayload).eq('id', existingReceipt.id);
+                } else {
+                    await supabase.from('document_records').insert(receiptPayload);
+                }
+            } catch (receiptError) {
+                console.error('Error creating receipt document record:', receiptError);
             }
         }
 

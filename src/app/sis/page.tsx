@@ -162,7 +162,7 @@ const documentTypeLabels: Record<string, string> = {
     loa: 'Letter of Acceptance (LOA)',
     tuition_invoice: 'Tuition Invoice',
     tuition_receipt: 'Tuition Receipt',
-    enrollment_confirmation: 'Confirmation of Enrolment (COE)',
+    enrollment_confirmation: 'Letter of Acceptance (LOA)',
     transcript: 'Transcript',
     application_document: 'Application Document',
     other: 'Document',
@@ -377,10 +377,25 @@ export default function SISStudentDashboard() {
         }
     }, [pageParam]);
 
+    useEffect(() => {
+        const onPopState = () => {
+            const params = new URLSearchParams(window.location.search);
+            const page = params.get('page');
+            if (page && ['dashboard', 'documents', 'academics', 'registration', 'financials', 'grades', 'holds', 'news', 'directory', 'profile'].includes(page)) {
+                setCurrentPage(page as PageId);
+            }
+        };
+        window.addEventListener('popstate', onPopState);
+        return () => window.removeEventListener('popstate', onPopState);
+    }, []);
+
     const navigateTo = (pageId: PageId) => {
         setCurrentPage(pageId);
         setSidebarOpen(false);
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', pageId);
+        window.history.pushState({}, '', url);
     };
 
     const toggleModal = (id: string) => {
@@ -708,7 +723,7 @@ export default function SISStudentDashboard() {
                             <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-6 mb-6">
                                 <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Admissions & Visa/IRCC Documents</h4>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    {documents.filter(d => ['pal', 'loa', 'enrollment_confirmation'].includes(d.document_type)).length > 0 ? documents.filter(d => ['pal', 'loa', 'enrollment_confirmation'].includes(d.document_type)).map(doc => (
+                                    {documents.filter(d => ['pal', 'loa'].includes(d.document_type)).length > 0 ? documents.filter(d => ['pal', 'loa'].includes(d.document_type)).map(doc => (
                                         <div key={doc.id} className="p-4 border border-slate-200 rounded-lg bg-slate-50/50 hover:bg-slate-50 transition flex flex-col justify-between">
                                             <div>
                                                 <div className="flex items-center justify-between mb-2">
@@ -755,6 +770,33 @@ export default function SISStudentDashboard() {
                             </div>
                         </div>
                     )}
+
+                    {/* Document PDF Modal */}
+                    {Object.entries(activeModals).map(([modalId, isOpen]) => {
+                        if (!isOpen || !modalId.startsWith('doc-')) return null;
+                        const docId = modalId.replace('doc-', '');
+                        const doc = documents.find(d => d.id === docId);
+                        if (!doc || !doc.storage_path) return null;
+                        return (
+                            <div key={modalId} className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                                <div className="absolute inset-0 bg-black/60" onClick={() => toggleModal(modalId)}></div>
+                                <div className="relative bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] flex flex-col">
+                                    <div className="flex items-center justify-between p-4 border-b border-slate-200">
+                                        <h3 className="font-bold text-slate-900 text-sm">{documentTypeLabels[doc.document_type] || doc.title}</h3>
+                                        <div className="flex items-center gap-2">
+                                            <a href={doc.storage_path} download target="_blank" rel="noopener noreferrer" className="text-xs font-medium px-3 py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition">Download</a>
+                                            <button type="button" onClick={() => toggleModal(modalId)} className="text-slate-400 hover:text-slate-600">
+                                                <HugeiconsIcon icon={XCircle} size={20} strokeWidth={2.5} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="flex-1 overflow-auto p-4">
+                                        <iframe src={doc.storage_path} className="w-full h-[70vh] border border-slate-200 rounded" title={documentTypeLabels[doc.document_type] || doc.title}></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
 
                     {/* ================= ACADEMICS ================= */}
                     {currentPage === 'academics' && (

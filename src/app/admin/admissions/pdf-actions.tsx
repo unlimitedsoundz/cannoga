@@ -1,10 +1,7 @@
 'use server';
 
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
-import { pdf } from '@react-pdf/renderer';
-import LetterOfAcceptancePDF from '@/components/portal/pdf/LetterOfAcceptancePDF';
-import ConditionalOfferPDF from '@/components/portal/pdf/ConditionalOfferPDF';
-import React from 'react';
+import { generateAndStoreLOA } from '@/utils/loa-pdf-generator';
 
 export async function generateAndStoreOfferLetter(applicationId: string) {
     const supabase = createServiceRoleClient();
@@ -24,75 +21,13 @@ export async function generateAndStoreOfferLetter(applicationId: string) {
             throw new Error('Application not found');
         }
 
-        const pdfBlob = await pdf(
-            React.createElement(LetterOfAcceptancePDF, { application }) as React.ReactElement
-        ).toBlob();
+        const result = await generateAndStoreLOA(applicationId, application);
 
-        const fileName = `letter-of-acceptance-${application.course?.slug || application.id}.pdf`;
-        const storagePath = `student-documents/${application.user?.id}/${fileName}`;
-
-        const { error: uploadError } = await supabase.storage
-            .from('application-documents')
-            .upload(storagePath, pdfBlob, {
-                contentType: 'application/pdf',
-                upsert: true,
-            });
-
-        if (uploadError) {
-            console.error('PDF upload error:', uploadError);
+        if (!result.success) {
+            throw new Error(result.error || 'Failed to generate LOA');
         }
 
-        const { data: { publicUrl } } = supabase.storage
-            .from('application-documents')
-            .getPublicUrl(storagePath);
-
-        const { data: student } = await supabase
-            .from('students')
-            .select('id')
-            .eq('user_id', application.user_id)
-            .maybeSingle();
-
-        if (student) {
-            const { error: docError } = await supabase
-                .from('document_records')
-                .upsert({
-                    student_id: student.id,
-                    document_type: 'loa',
-                    title: `Letter of Acceptance - ${application.course?.title || 'Program'}`,
-                    programme: application.course?.title || '',
-                    status: 'active',
-                    storage_path: publicUrl,
-                    is_official: true,
-                    is_student_visible: true,
-                    metadata: {
-                        application_id: application.id,
-                        course_id: application.course?.id,
-                        degree_level: application.course?.degreeLevel,
-                        programme_slug: application.course?.slug,
-                    },
-                }, {
-                    onConflict: 'student_id,document_type',
-                });
-
-            if (docError) {
-                console.error('Document record creation error:', docError);
-            }
-        }
-
-        const { data: offer } = await supabase
-            .from('admission_offers')
-            .select('id')
-            .eq('application_id', applicationId)
-            .single();
-
-        if (offer) {
-            await supabase
-                .from('admission_offers')
-                .update({ document_url: publicUrl })
-                .eq('id', offer.id);
-        }
-
-        return { success: true, url: publicUrl };
+        return { success: true, url: result.url };
     } catch (e: any) {
         console.error('Error generating offer letter:', e);
         return { success: false, error: e.message };
@@ -117,75 +52,26 @@ export async function generateAndStoreAdmissionLetter(applicationId: string) {
             throw new Error('Application not found');
         }
 
-        const pdfBlob = await pdf(
-            React.createElement(LetterOfAcceptancePDF, { application, admissionDetails: application } as any) as React.ReactElement
-        ).toBlob();
+        const result = await generateAndStoreLOA(applicationId, application);
 
-        const fileName = `admission-letter-${application.course?.slug || application.id}.pdf`;
-        const storagePath = `student-documents/${application.user?.id}/${fileName}`;
-
-        const { error: uploadError } = await supabase.storage
-            .from('application-documents')
-            .upload(storagePath, pdfBlob, {
-                contentType: 'application/pdf',
-                upsert: true,
-            });
-
-        if (uploadError) {
-            console.error('PDF upload error:', uploadError);
+        if (!result.success) {
+            throw new Error(result.error || 'Failed to generate LOA');
         }
 
-        const { data: { publicUrl } } = supabase.storage
-            .from('application-documents')
-            .getPublicUrl(storagePath);
-
-        const { data: student } = await supabase
-            .from('students')
-            .select('id')
-            .eq('user_id', application.user_id)
-            .maybeSingle();
-
-        if (student) {
-            const { error: docError } = await supabase
-                .from('document_records')
-                .upsert({
-                    student_id: student.id,
-                    document_type: 'admission_letter',
-                    title: `Admission Letter - ${application.course?.title || 'Program'}`,
-                    programme: application.course?.title || '',
-                    status: 'active',
-                    storage_path: publicUrl,
-                    is_official: true,
-                    is_student_visible: true,
-                    metadata: {
-                        application_id: application.id,
-                        course_id: application.course?.id,
-                        degree_level: application.course?.degreeLevel,
-                        programme_slug: application.course?.slug,
-                    },
-                }, {
-                    onConflict: 'student_id,document_type',
-                });
-
-            if (docError) {
-                console.error('Document record creation error:', docError);
-            }
-        }
-
-        const { data: offer } = await supabase
+        const { data: offerRecord } = await supabase
             .from('admission_offers')
             .select('id')
             .eq('application_id', applicationId)
             .single();
 
-        if (offer) {
+        if (offerRecord) {
             await supabase
                 .from('admission_offers')
-                .update({ document_url: publicUrl })
-                .eq('id', offer.id);
+                .update({ document_url: result.url })
+                .eq('id', offerRecord.id);
         }
 
-        return { success: true, url: publicUrl };
+        return { success: true, url: result.url };
     } catch (e: any) {
         console.error('Error generating admission letter:', e);
         return { success: false, error: e.message };

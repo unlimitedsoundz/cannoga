@@ -419,3 +419,71 @@ export async function getSISCourseMap() {
     return { success: false, error: e.message };
   }
 }
+
+export async function uploadStudentDocument(studentId: string, file: File, documentType: string, title: string) {
+  const adminClient = createServiceRoleClient();
+
+  try {
+    const { data: student, error: studentError } = await adminClient
+      .from('students')
+      .select('user_id')
+      .eq('id', studentId)
+      .single();
+
+    if (studentError || !student) {
+      return { success: false, error: 'Student not found' };
+    }
+
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const fileName = `${documentType}-${Date.now()}-${file.name}`;
+    const storagePath = `student-documents/${student.user_id}/${fileName}`;
+
+    const { error: uploadError } = await adminClient.storage
+      .from('application-documents')
+      .upload(storagePath, buffer, {
+        contentType: file.type || 'application/pdf',
+        upsert: true,
+      });
+
+    if (uploadError) {
+      console.error('Upload error:', uploadError);
+      return { success: false, error: 'Failed to upload document' };
+    }
+
+    const { data: { publicUrl } } = adminClient.storage
+      .from('application-documents')
+      .getPublicUrl(storagePath);
+
+    const { error: docError } = await adminClient
+      .from('document_records')
+      .upsert({
+        student_id: studentId,
+        document_type: documentType,
+        title,
+        programme: '',
+        status: 'active',
+        storage_path: publicUrl,
+        is_official: true,
+        is_student_visible: true,
+        version: 1,
+        issue_date: new Date().toISOString(),
+        metadata: {
+          uploaded_by: 'admin',
+          uploaded_at: new Date().toISOString(),
+        },
+      }, {
+        onConflict: 'student_id,document_type',
+      });
+
+    if (docError) {
+      console.error('Document record error:', docError);
+      return { success: false, error: 'Failed to save document record' };
+    }
+
+    return { success: true, url: publicUrl };
+  } catch (e: any) {
+    console.error('uploadStudentDocument error:', e);
+    return { success: false, error: e.message };
+  }
+}

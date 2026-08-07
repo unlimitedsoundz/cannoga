@@ -38,8 +38,8 @@ export default function AdminLoginPage() {
                 return;
             }
 
-            const url = new URL(response.url);
-            const targetPath = url.pathname + url.search;
+            const data = await response.json();
+            const targetPath = data.redirect || '/sis/admin';
 
             toast.success('Login successful');
             window.location.href = targetPath;
