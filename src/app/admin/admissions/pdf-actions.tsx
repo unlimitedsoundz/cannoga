@@ -27,6 +27,19 @@ export async function generateAndStoreOfferLetter(applicationId: string) {
             throw new Error(result.error || 'Failed to generate LOA');
         }
 
+        const { data: offerRecord } = await supabase
+            .from('admission_offers')
+            .select('id')
+            .eq('application_id', applicationId)
+            .single();
+
+        if (offerRecord) {
+            await supabase
+                .from('admission_offers')
+                .update({ document_url: result.url })
+                .eq('id', offerRecord.id);
+        }
+
         return { success: true, url: result.url };
     } catch (e: any) {
         console.error('Error generating offer letter:', e);

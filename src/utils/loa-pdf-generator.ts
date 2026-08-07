@@ -215,6 +215,7 @@ export async function generateAndStoreLOA(applicationId: string, application: an
 
     if (uploadError) {
       console.error('PDF upload error:', uploadError);
+      throw new Error(`Failed to upload PDF: ${uploadError.message}`);
     }
 
     const { data: { publicUrl } } = supabase.storage
