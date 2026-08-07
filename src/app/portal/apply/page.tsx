@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
 import { Hero } from '@/components/layout/Hero';
 import { CANONICAL_INTAKES } from '@/lib/intakes';
+import { CaretDown } from '@phosphor-icons/react/dist/ssr';
 
 export default function ApplyPage() {
   const [courses, setCourses] = useState<any[]>([]);
@@ -160,139 +161,169 @@ export default function ApplyPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">Is English your First Language? *</label>
-                <select
-                  required
-                  value={englishFirstLanguage}
-                  onChange={(e) => setEnglishFirstLanguage(e.target.value)}
-                  className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black"
-                >
-                  <option value="YES">YES</option>
-                  <option value="NO">NO</option>
-                </select>
+                <div className="relative">
+                  <select
+                    required
+                    value={englishFirstLanguage}
+                    onChange={(e) => setEnglishFirstLanguage(e.target.value)}
+                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
+                  >
+                    <option value="YES">YES</option>
+                    <option value="NO">NO</option>
+                  </select>
+                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">Program Type *</label>
-                <select
-                  required
-                  value={programType}
-                  onChange={(e) => setProgramType(e.target.value)}
-                  className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black"
-                >
-                  <option value="Academic Program">Academic Program</option>
-                  <option value="English Language Program">English Language Program</option>
-                  <option value="Pathway Program">Pathway Program</option>
-                </select>
+                <div className="relative">
+                  <select
+                    required
+                    value={programType}
+                    onChange={(e) => setProgramType(e.target.value)}
+                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
+                  >
+                    <option value="Academic Program">Academic Program</option>
+                    <option value="English Language Program">English Language Program</option>
+                    <option value="Pathway Program">Pathway Program</option>
+                  </select>
+                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">Did you complete an English pathway program at a partner language school? *</label>
-                <select
-                  required
-                  value={englishPathway}
-                  onChange={(e) => setEnglishPathway(e.target.value)}
-                  className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black"
-                >
-                  <option value="NO">NO</option>
-                  <option value="YES">YES</option>
-                </select>
+                <div className="relative">
+                  <select
+                    required
+                    value={englishPathway}
+                    onChange={(e) => setEnglishPathway(e.target.value)}
+                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
+                  >
+                    <option value="NO">NO</option>
+                    <option value="YES">YES</option>
+                  </select>
+                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">Desired Academic Term *</label>
-                <select
-                  required
-                  value={desiredIntake}
-                  onChange={(e) => setDesiredIntake(e.target.value)}
-                  className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black"
-                >
-                  <option value="">Select term</option>
-                  {CANONICAL_INTAKES.map((it: any) => (
-                    <option key={it.id} value={it.label}>{it.label}</option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <select
+                    required
+                    value={desiredIntake}
+                    onChange={(e) => setDesiredIntake(e.target.value)}
+                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
+                  >
+                    <option value="">Select term</option>
+                    {CANONICAL_INTAKES.map((it: any) => (
+                      <option key={it.id} value={it.label}>{it.label}</option>
+                    ))}
+                  </select>
+                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">Academic Program Choice *</label>
-                <select
-                  required
-                  value={selectedCourseId}
-                  onChange={(e) => setSelectedCourseId(e.target.value)}
-                  className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black"
-                >
-                  <option value="">Select your programme</option>
-                  {courses.map((course) => (
-                    <option key={course.id} value={course.id}>{course.title}</option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <select
+                    required
+                    value={selectedCourseId}
+                    onChange={(e) => setSelectedCourseId(e.target.value)}
+                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
+                  >
+                    <option value="">Select your programme</option>
+                    {courses.map((course) => (
+                      <option key={course.id} value={course.id}>{course.title} — {course.degreeLevel}</option>
+                    ))}
+                  </select>
+                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">Alternate Program Choice *</label>
-                <select
-                  required
-                  value={alternateCourseId}
-                  onChange={(e) => setAlternateCourseId(e.target.value)}
-                  className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black"
-                >
-                  <option value="">Select an alternate programme</option>
-                  {courses.map((course) => (
-                    <option key={course.id} value={course.id}>{course.title}</option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <select
+                    required
+                    value={alternateCourseId}
+                    onChange={(e) => setAlternateCourseId(e.target.value)}
+                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
+                  >
+                    <option value="">Select an alternate programme</option>
+                    {courses.map((course) => (
+                      <option key={course.id} value={course.id}>{course.title} — {course.degreeLevel}</option>
+                    ))}
+                  </select>
+                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">Are you currently in Canada? *</label>
-                <select
-                  required
-                  value={isInCanada}
-                  onChange={(e) => setIsInCanada(e.target.value)}
-                  className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black"
-                >
-                  <option value="NO">NO</option>
-                  <option value="YES">YES</option>
-                </select>
+                <div className="relative">
+                  <select
+                    required
+                    value={isInCanada}
+                    onChange={(e) => setIsInCanada(e.target.value)}
+                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
+                  >
+                    <option value="NO">NO</option>
+                    <option value="YES">YES</option>
+                  </select>
+                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">Do you have a valid Study Permit or Approval Letter from IRCC? *</label>
-                <select
-                  required
-                  value={hasValidPermit}
-                  onChange={(e) => setHasValidPermit(e.target.value)}
-                  className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black"
-                >
-                  <option value="NO">NO</option>
-                  <option value="YES">YES</option>
-                </select>
+                <div className="relative">
+                  <select
+                    required
+                    value={hasValidPermit}
+                    onChange={(e) => setHasValidPermit(e.target.value)}
+                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
+                  >
+                    <option value="NO">NO</option>
+                    <option value="YES">YES</option>
+                  </select>
+                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">Have you ever received a Study Permit rejection from IRCC? *</label>
-                <select
-                  required
-                  value={hasRejection}
-                  onChange={(e) => setHasRejection(e.target.value)}
-                  className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black"
-                >
-                  <option value="NO">NO</option>
-                  <option value="YES">YES</option>
-                </select>
+                <div className="relative">
+                  <select
+                    required
+                    value={hasRejection}
+                    onChange={(e) => setHasRejection(e.target.value)}
+                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
+                  >
+                    <option value="NO">NO</option>
+                    <option value="YES">YES</option>
+                  </select>
+                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">Have you ever received a Provincial Attestation Letter (PAL)? *</label>
-                <select
-                  required
-                  value={hasPAL}
-                  onChange={(e) => setHasPAL(e.target.value)}
-                  className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black"
-                >
-                  <option value="NO">NO</option>
-                  <option value="YES">YES</option>
-                </select>
+                <div className="relative">
+                  <select
+                    required
+                    value={hasPAL}
+                    onChange={(e) => setHasPAL(e.target.value)}
+                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
+                  >
+                    <option value="NO">NO</option>
+                    <option value="YES">YES</option>
+                  </select>
+                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+                </div>
               </div>
 
               <div className="flex items-start gap-3">

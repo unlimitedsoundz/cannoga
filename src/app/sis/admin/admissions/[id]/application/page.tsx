@@ -11,6 +11,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { File01Icon as FileText, UserIcon as User, Mail01Icon as Mail, SmartPhone01Icon as Phone, MapPinIcon as MapPin, Calendar01Icon as Calendar, GraduationCapIcon as GraduationCap, Shield01Icon as Shield, Alert01Icon as AlertTriangle, CheckIcon as CheckCircle, CancelCircleIcon as XCircle, ChevronRightIcon as ArrowRight, Edit01Icon as Edit, Download01Icon as Download, PrinterIcon as Printer, Message01Icon as Message, ClockIcon as Clock, FileTypeIcon as DocumentIcon, Upload01Icon as Upload } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
 import { getAdmissionApplicationDetail, updateApplicationStatus, updateInternalNotes, createAdmissionOffer, regenerateOfferLetter, generateAdmissionLetterAction, issuePal, sendMessage, updateApplication } from '@/app/admin/admissions/actions';
+import { pushInvoice } from '@/app/admin/finance/actions';
 import { toast } from 'sonner';
 
 interface ApplicationDetail {
@@ -68,6 +69,8 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
   const [showMessageForm, setShowMessageForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState<any>(null);
+  const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+  const [invoiceType, setInvoiceType] = useState('TUITION_DEPOSIT');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -196,6 +199,25 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
       }
     } catch (err: any) {
       toast.error(err.message || 'Failed to issue PAL');
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleIssueInvoice = async () => {
+    setActionLoading('invoice');
+    try {
+      const amount = invoiceType === 'TUITION_DEPOSIT' ? 2000 : invoiceType === 'ANCILLARY' ? 700 : 0;
+      const result = await pushInvoice(id, amount, invoiceType);
+      if ((result as any).success) {
+        toast.success('Invoice issued successfully');
+        setShowInvoiceModal(false);
+        window.location.reload();
+      } else {
+        toast.error((result as any).error || 'Failed to issue invoice');
+      }
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to issue invoice');
     } finally {
       setActionLoading(null);
     }
@@ -463,6 +485,9 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
               <button onClick={handleIssuePAL} disabled={actionLoading === 'pal'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
                 <HugeiconsIcon icon={Shield} size={14} strokeWidth={2} /> Issue PAL
               </button>
+              <button onClick={() => setShowInvoiceModal(true)} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors">
+                <HugeiconsIcon icon={FileText} size={14} strokeWidth={2} /> Issue Invoice
+              </button>
               <button onClick={() => handleStatusUpdate('REJECTED')} disabled={actionLoading === 'status'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors disabled:opacity-50">
                 <HugeiconsIcon icon={XCircle} size={14} strokeWidth={2} /> Reject Application
               </button>
@@ -549,6 +574,53 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
           )}
         </div>
       </div>
+
+      {showInvoiceModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+            <h3 className="text-lg font-bold text-neutral-900 mb-4">Issue Invoice</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">Invoice Type</label>
+                <select
+                  value={invoiceType}
+                  onChange={e => setInvoiceType(e.target.value)}
+                  className="w-full px-3 py-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none"
+                >
+                  <option value="TUITION_DEPOSIT">Tuition Deposit</option>
+                  <option value="TUITION_FULL">Full Tuition</option>
+                  <option value="ANCILLARY">Ancillary Fees</option>
+                </select>
+              </div>
+              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4">
+                <p className="text-xs text-neutral-500 mb-1">Amount to Issue</p>
+                <p className="text-2xl font-bold text-neutral-900">
+                  {invoiceType === 'TUITION_DEPOSIT' ? '$2,000' : invoiceType === 'ANCILLARY' ? '$700' : 'Custom'} CAD
+                </p>
+                {invoiceType === 'TUITION_DEPOSIT' && (
+                  <p className="text-xs text-neutral-500 mt-1">Standard tuition deposit amount</p>
+                )}
+              </div>
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={handleIssueInvoice}
+                  disabled={actionLoading === 'invoice'}
+                  className="flex-1 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-50"
+                >
+                  {actionLoading === 'invoice' ? 'Issuing...' : 'Issue Invoice'}
+                </button>
+                <button
+                  onClick={() => setShowInvoiceModal(false)}
+                  disabled={actionLoading === 'invoice'}
+                  className="flex-1 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

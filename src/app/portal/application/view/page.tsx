@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -153,7 +153,7 @@ function ViewApplicationContent() {
             await addApplicationDocument(id!, type, publicUrl, file.name);
             setRefreshFlag((count) => count + 1);
 
-            const requiredAcademicTypes = ['TRANSCRIPT', 'CERTICACATE'];
+            const requiredAcademicTypes = ['TRANSCRIPT', 'CERTIFICATE'];
             const { data: docs } = await supabase
                 .from('application_documents')
                 .select('type')
@@ -169,9 +169,11 @@ function ViewApplicationContent() {
                 await updateApplicationStatus(id!, 'UNDER_REVIEW');
                 setRefreshFlag((count) => count + 1);
             }
-        } catch (uploadError) {
+        } catch (uploadError: any) {
             console.error('Document upload failed:', uploadError);
-            alert('Upload failed. Please try again.');
+            const message = uploadError?.message || 'Upload failed. Please try again.';
+            alert(message);
+            setUploadError(message);
         } finally {
             setUploadingType(null);
         }
@@ -267,7 +269,7 @@ function ViewApplicationContent() {
                 '3. Copy of Passport first page.',
             ],
             uploadType: 'TRANSCRIPT',
-            submitted: !!application.documents?.some((doc: any) => ['TRANSCRIPT', 'CERTICACATE'].includes(doc.type)),
+            submitted: !!application.documents?.some((doc: any) => ['TRANSCRIPT', 'CERTIFICATE'].includes(doc.type)),
         },
         {
             id: 'PASSPORT_COPY',
@@ -285,7 +287,7 @@ function ViewApplicationContent() {
     const selectedRequirement = requirements.find((req) => req.id === selectedRequirementId) || requirements[0];
     const selectedDocs = application.documents?.filter((doc: any) => {
         if (selectedRequirement.uploadType === 'TRANSCRIPT') {
-            return ['TRANSCRIPT', 'CERTICACATE'].includes(doc.type);
+            return ['TRANSCRIPT', 'CERTIFICATE'].includes(doc.type);
         }
         return doc.type === selectedRequirement.uploadType;
     }) || [];
@@ -309,7 +311,7 @@ function ViewApplicationContent() {
 
     const documentCount = selectedDocs.length;
 
-    const requiredAcademicTypes = ['TRANSCRIPT', 'CERTICACATE'];
+    const requiredAcademicTypes = ['TRANSCRIPT', 'CERTIFICATE'];
     const uploadedDocTypes = new Set((application.documents || []).map((d: any) => (d.type || '').toUpperCase()));
     const academicDocsUploaded = requiredAcademicTypes.some(type => uploadedDocTypes.has(type));
     const passportUploaded = uploadedDocTypes.has('PASSPORT');
@@ -788,3 +790,4 @@ export default function ViewApplicationPage() {
         </Suspense>
     );
 }
+

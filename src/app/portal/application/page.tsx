@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -147,7 +147,7 @@ function ApplicationWizardContent() {
         const step = stepsConf[index];
         if (step.key === 'instructions') return true;
         if (step.key === 'documents') {
-            const baseRequired = ['PASSPORT', 'TRANSCRIPT', 'CERTICACATE', 'CV', 'MOTIVATION_LETTER'];
+            const baseRequired = ['PASSPORT', 'TRANSCRIPT', 'CERTIFICATE', 'CV', 'MOTIVATION_LETTER'];
             const requested = application.requested_documents || [];
             const allRequired = Array.from(new Set([...baseRequired, ...requested]));
             const uploadedTypes = application.documents?.map(d => d.type) || [];
@@ -207,13 +207,13 @@ function ApplicationWizardContent() {
                 <h1 className="text-2xl font-black tracking-tighter leading-none mb-1">
                     {application.course?.title}
                     {application.course?.programType && (
-                        <span className="text-black font-bold"> — {application.course.programType}</span>
+                        <span className="text-black font-bold"> â€” {application.course.programType}</span>
                     )}
                     {application.course?.duration && (
-                        <span className="text-black font-bold"> — {application.course.duration}</span>
+                        <span className="text-black font-bold"> â€” {application.course.duration}</span>
                     )}
                     {application.course?.school && (
-                        <span className="text-black font-bold"> — {application.course.school.name}</span>
+                        <span className="text-black font-bold"> â€” {application.course.school.name}</span>
                     )}
                 </h1>
                 <div className="flex items-center justify-between gap-4">
@@ -402,7 +402,7 @@ function ApplicationWizardContent() {
                                     <span>Documents</span>
                                     <span className="flex items-center gap-1.5">
                                         {(() => {
-                                            const baseRequired = ['PASSPORT', 'TRANSCRIPT', 'CERTICACATE', 'CV', 'MOTIVATION_LETTER'];
+                                            const baseRequired = ['PASSPORT', 'TRANSCRIPT', 'CERTIFICATE', 'CV', 'MOTIVATION_LETTER'];
                                             const requested = application.requested_documents || [];
                                             const allRequired = Array.from(new Set([...baseRequired, ...requested]));
                                             const uploadedCount = application.documents?.filter(d => allRequired.includes(d.type)).length || 0;
@@ -425,7 +425,7 @@ function ApplicationWizardContent() {
                                         style={{
                                             width: `${Math.min(100, (
                                                 (() => {
-                                                    const baseRequired = ['PASSPORT', 'TRANSCRIPT', 'CERTICACATE', 'CV', 'MOTIVATION_LETTER'];
+                                                    const baseRequired = ['PASSPORT', 'TRANSCRIPT', 'CERTIFICATE', 'CV', 'MOTIVATION_LETTER'];
                                                     const requested = application.requested_documents || [];
                                                     const allRequired = Array.from(new Set([...baseRequired, ...requested]));
                                                     const uploadedCount = application.documents?.filter(d => allRequired.includes(d.type)).length || 0;
@@ -455,4 +455,5 @@ export default function ApplicationWizardPage() {
         </Suspense>
     );
 }
+
 

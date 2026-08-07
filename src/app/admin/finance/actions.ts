@@ -126,6 +126,7 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
         .update({
             tuition_fee: customFee,
             invoice_type: invoiceType,
+            offer_type: invoiceType === 'TUITION_DEPOSIT' ? 'TUITION_DEPOSIT' : invoiceType === 'ANCILLARY' ? 'FULL_TUITION' : invoiceType,
             invoice_pushed: true,
             invoice_sent_at: new Date().toISOString()
         })

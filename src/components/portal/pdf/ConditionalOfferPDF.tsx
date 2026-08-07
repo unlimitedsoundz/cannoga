@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
@@ -228,7 +228,7 @@ const ConditionalOfferPDF: React.FC<ConditionalOfferPDFProps> = ({ application, 
     degreeLevelRaw === 'MASTER' ? "Master's Degree"
       : degreeLevelRaw === 'BACHELOR' ? "Bachelor's Degree"
         : degreeLevelRaw === 'DIPLOMA' ? 'Ontario College Diploma'
-          : degreeLevelRaw === 'CERTICACATE' ? 'Ontario College Certificate'
+          : degreeLevelRaw === 'CERTIFICATE' ? 'Ontario College Certificate'
             : "Bachelor's Degree";
 
   const years = 4;
@@ -330,9 +330,9 @@ const ConditionalOfferPDF: React.FC<ConditionalOfferPDFProps> = ({ application, 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Conditions of Offer</Text>
           <Text style={styles.bodyText}>This offer is conditional upon acceptance and fulfillment of all stated requirements:</Text>
-          <Text style={styles.listItem}>• Formal acceptance of this offer via the student portal.</Text>
-          <Text style={styles.listItem}>• Payment of required tuition deposit by the specified deadline.</Text>
-          <Text style={styles.listItem}>• Submission of any outstanding original documents (if applicable).</Text>
+          <Text style={styles.listItem}>â€¢ Formal acceptance of this offer via the student portal.</Text>
+          <Text style={styles.listItem}>â€¢ Payment of required tuition deposit by the specified deadline.</Text>
+          <Text style={styles.listItem}>â€¢ Submission of any outstanding original documents (if applicable).</Text>
         </View>
 
         {/* Tuition & Financial Information */}
@@ -459,28 +459,28 @@ const ConditionalOfferPDF: React.FC<ConditionalOfferPDFProps> = ({ application, 
         <View style={styles.section}>
           <Text style={styles.sectionHeading}>Payment Options for International Students</Text>
           <Text style={styles.bodyText}>International students should use only payment methods officially authorized by Cannoga College. The following options are available:</Text>
-          <Text style={styles.listItem}>• Online payment: Through the official Cannoga College student portal using a certified payment provider.</Text>
-          <Text style={styles.listItem}>• Bank transfer: Contact the Admissions Office for official banking instructions. Do not transfer funds to personal accounts.</Text>
-          <Text style={styles.listItem}>• Other authorized method: As specified by the Finance Office in your official invoice.</Text>
+          <Text style={styles.listItem}>â€¢ Online payment: Through the official Cannoga College student portal using a certified payment provider.</Text>
+          <Text style={styles.listItem}>â€¢ Bank transfer: Contact the Admissions Office for official banking instructions. Do not transfer funds to personal accounts.</Text>
+          <Text style={styles.listItem}>â€¢ Other authorized method: As specified by the Finance Office in your official invoice.</Text>
         </View>
 
         {/* Payment Options for Students in Canada */}
         <View style={styles.section}>
           <Text style={styles.sectionHeading}>Payment Options for Students in Canada</Text>
-          <Text style={styles.listItem}>• Online payment through the official student portal.</Text>
-          <Text style={styles.listItem}>• Authorized bank payment at a recognized financial institution.</Text>
-          <Text style={styles.listItem}>• Other methods officially supported by Cannoga College.</Text>
+          <Text style={styles.listItem}>â€¢ Online payment through the official student portal.</Text>
+          <Text style={styles.listItem}>â€¢ Authorized bank payment at a recognized financial institution.</Text>
+          <Text style={styles.listItem}>â€¢ Other methods officially supported by Cannoga College.</Text>
         </View>
 
         {/* Student Portal */}
         <View style={styles.section}>
           <Text style={styles.sectionHeading}>Cannoga College Student Portal</Text>
           <Text style={styles.bodyText}>Students can use the official portal to:</Text>
-          <Text style={styles.listItem}>• Review admission information.</Text>
-          <Text style={styles.listItem}>• Submit required documents.</Text>
-          <Text style={styles.listItem}>• Monitor application status.</Text>
-          <Text style={styles.listItem}>• Review tuition information.</Text>
-          <Text style={styles.listItem}>• Access registration information.</Text>
+          <Text style={styles.listItem}>â€¢ Review admission information.</Text>
+          <Text style={styles.listItem}>â€¢ Submit required documents.</Text>
+          <Text style={styles.listItem}>â€¢ Monitor application status.</Text>
+          <Text style={styles.listItem}>â€¢ Review tuition information.</Text>
+          <Text style={styles.listItem}>â€¢ Access registration information.</Text>
           <Text style={styles.bodyText}>Portal URL: <Text style={{ fontWeight: 'bold' }}>portal.cannogacollege.ca</Text></Text>
         </View>
 
@@ -488,11 +488,11 @@ const ConditionalOfferPDF: React.FC<ConditionalOfferPDFProps> = ({ application, 
         <View style={styles.section}>
           <Text style={styles.sectionHeading}>Program Requirements</Text>
           <Text style={styles.bodyText}>Program-specific requirements must be completed before enrollment where applicable. These may include:</Text>
-          <Text style={styles.listItem}>• Academic documentation (transcripts, certificates).</Text>
-          <Text style={styles.listItem}>• English-language requirements (IELTS, TOEFL, or equivalent).</Text>
-          <Text style={styles.listItem}>• Prerequisite courses or bridging programs.</Text>
-          <Text style={styles.listItem}>• Identity documentation (valid passport).</Text>
-          <Text style={styles.listItem}>• Other program-specific requirements as specified in your offer.</Text>
+          <Text style={styles.listItem}>â€¢ Academic documentation (transcripts, certificates).</Text>
+          <Text style={styles.listItem}>â€¢ English-language requirements (IELTS, TOEFL, or equivalent).</Text>
+          <Text style={styles.listItem}>â€¢ Prerequisite courses or bridging programs.</Text>
+          <Text style={styles.listItem}>â€¢ Identity documentation (valid passport).</Text>
+          <Text style={styles.listItem}>â€¢ Other program-specific requirements as specified in your offer.</Text>
         </View>
 
         {/* Canadian Study Permit */}
@@ -526,3 +526,4 @@ const ConditionalOfferPDF: React.FC<ConditionalOfferPDFProps> = ({ application, 
 };
 
 export default ConditionalOfferPDF;
+

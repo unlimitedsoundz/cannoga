@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { useParams } from 'next/navigation';
@@ -23,14 +23,14 @@ const mockDocuments = [
 
 export default function DocumentsPage() {
   const params = useParams();
-  const studentId = params.id as string;
+  const { id } = React.use(params);
   const [page, setPage] = React.useState(1);
 
   return (
     <div className="space-y-6">
       <PageHeader
         title="Documents"
-        subtitle={`Student: CC10231 • Sarah Mitchell`}
+        subtitle={`Student: CC10231 â€¢ Sarah Mitchell`}
         actions={
           <button className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors">
             <HugeiconsIcon icon={Upload} size={14} strokeWidth={2} /> Upload Document
