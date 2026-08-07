@@ -119,10 +119,10 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                     .eq('id', application.id);
             }
 
-            console.log('PaymentView: Status reinforced. Redirecting to awaiting confirmation...');
-            // Redirect to the payment page so the student sees the explicit
-            // "Payment Verification Pending" (awaiting confirmation) screen.
-            window.location.href = `/portal/application/payment?id=${application.id}`;
+            console.log('PaymentView: Status reinforced. Redirecting to application view...');
+            // Redirect to application view with a clear message that the finance
+            // office is manually verifying the transfer.
+            window.location.href = `/portal/application/view?id=${application.id}`;
         } catch (e: any) {
             console.error('Payment Error (Caught in View):', e);
             const raw = e?.message || '';

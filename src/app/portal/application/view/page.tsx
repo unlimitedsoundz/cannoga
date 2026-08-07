@@ -503,13 +503,13 @@ function ViewApplicationContent() {
                 )}
 
                 {application.status === 'PAYMENT_SUBMITTED' && (
-                    <div className="border border-neutral-200 bg-neutral-50 p-3 rounded-xl flex items-start gap-3">
-                        <div className="text-neutral-600 mt-0.5">
+                    <div className="border border-amber-200 bg-amber-50 p-3 rounded-xl flex items-start gap-3">
+                        <div className="text-amber-600 mt-0.5">
                             <Clock size={16} weight="bold" />
                         </div>
                         <div>
-                            <p className="text-[11px] font-black text-neutral-900 uppercase tracking-wider">Payment Processing</p>
-                            <p className="text-[11px] text-neutral-700 font-medium mt-0.5">Your payment has been submitted and is being processed. You will be notified once it is confirmed.</p>
+                            <p className="text-[11px] font-black text-amber-900 uppercase tracking-wider">Finance Office Verification In Progress</p>
+                            <p className="text-[11px] text-amber-800 font-medium mt-0.5">Your payment has been recorded. The finance office is currently verifying the transfer and you will be notified once it is confirmed.</p>
                         </div>
                     </div>
                 )}
