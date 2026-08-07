@@ -282,8 +282,10 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
 
         // 3. Generate student id + institutional email
         let studentId = appUser?.student_id;
-        if (!studentId || !studentId.startsWith('HU')) {
+        if (!studentId) {
             studentId = `CC${Math.floor(1000000 + Math.random() * 8999999)}`;
+        } else if (!studentId.startsWith('CC')) {
+            studentId = studentId.replace(/^(SYK|KC|KU|HU)/, 'CC');
         }
 
         let institutionalEmail = `${appUser?.first_name ?? 'student'}.${appUser?.last_name ?? 'heffring'}@cannogacollege.ca`

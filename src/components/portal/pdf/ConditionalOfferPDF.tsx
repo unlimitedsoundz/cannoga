@@ -298,7 +298,7 @@ const ConditionalOfferPDF: React.FC<ConditionalOfferPDFProps> = ({ application, 
             <View style={styles.tableRow}>
               <View style={styles.tableCellHalf}>
                 <Text style={styles.fieldLabel}>Student ID #</Text>
-                <Text style={styles.fieldValue}>{user.student_id || application.id.slice(0, 8).toUpperCase()}</Text>
+                <Text style={styles.fieldValue}>{(user.student_id || application.id.slice(0, 8).toUpperCase()).replace(/^(SYK|KC|KU|HU)/, 'CC')}</Text>
               </View>
               <View style={styles.tableCellLast}>
                 <Text style={styles.fieldLabel}>Date of Birth</Text>

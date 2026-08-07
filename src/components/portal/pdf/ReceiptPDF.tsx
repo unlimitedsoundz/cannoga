@@ -139,7 +139,7 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ application, payment }) => {
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Student ID:</Text>
-            <Text style={styles.value}>{user.student_id || '—'}</Text>
+            <Text style={styles.value}>{(user.student_id || '—').replace(/^(SYK|KC|KU|HU)/, 'CC')}</Text>
           </View>
         </View>
 

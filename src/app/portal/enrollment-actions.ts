@@ -76,8 +76,14 @@ export async function confirmEnrollment(applicationId: string) {
         }
 
         // 3. Generate Student Identity (Format: CC + 7 random digits, e.g. CC1234567)
-        const studentId = `CC${Math.floor(1000000 + Math.random() * 8999999)}`;
         const studentUser = application.user;
+        let studentId = studentUser?.student_id;
+
+        if (!studentId) {
+            studentId = `CC${Math.floor(1000000 + Math.random() * 8999999)}`;
+        } else if (!studentId.startsWith('CC')) {
+            studentId = studentId.replace(/^(SYK|KC|KU|HU)/, 'CC');
+        }
 
         if (!studentUser) {
             throw new Error('Applicant profile not found');

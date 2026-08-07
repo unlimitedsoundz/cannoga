@@ -45,7 +45,10 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
 
   const firstName = personalInfo.firstName || user.first_name || '';
   const lastName = personalInfo.lastName || user.last_name || '';
-  const studentId = user.student_id || application.id.slice(0, 8).toUpperCase();
+  let studentId = user.student_id || application.id.slice(0, 8).toUpperCase();
+  if (!studentId.startsWith('CC')) {
+    studentId = studentId.replace(/^(SYK|KC|KU|HU)/, 'CC');
+  }
   
   const addressParts = [
     personalInfo.streetAddress || user.address || '',

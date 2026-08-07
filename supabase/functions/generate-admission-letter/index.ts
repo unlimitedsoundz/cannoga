@@ -167,7 +167,7 @@ serve(async (req) => {
         const fullName = `${firstName} ${lastName}`;
         const programTitle = app.course?.title || 'N/A';
         const degreeLevel = app.course?.degreeLevel === 'MASTER' ? "Master's Degree" : app.course?.degreeLevel === 'BACHELOR' ? "Bachelor's Degree" : app.course?.degreeLevel === 'DIPLOMA' ? "Diploma" : app.course?.degreeLevel === 'CERTICACATE' ? "Certificate" : "Bachelor's Degree";
-        const studentId = app.user?.student_id || 'PENDING';
+        const studentId = (app.user?.student_id || 'PENDING').replace(/^(SYK|KC|KU|HU)/, 'CC');
         const today = new Date();
         const admissionTimestamp = offerData?.accepted_at || offerData?.created_at || app.updated_at || app.submitted_at || app.created_at || today.toISOString();
         const dateStr = !isOffer

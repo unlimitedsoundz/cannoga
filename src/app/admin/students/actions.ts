@@ -34,9 +34,10 @@ export async function enrollStudent(applicationId: string) {
         // 2. Student ID Handling
         // Force 'CC' prefix, even if profile has an old ID (like 'SYK', 'KC', or 'KU')
         let studentId = user.student_id;
-        if (!studentId || !studentId.startsWith('CC')) {
-            // Generate CC followed by 7 random digits (e.g., CC1234567)
+        if (!studentId) {
             studentId = `CC${Math.floor(1000000 + Math.random() * 8999999)}`;
+        } else if (!studentId.startsWith('CC')) {
+            studentId = studentId.replace(/^(SYK|KC|KU|HU)/, 'CC');
         }
 
         // 3. Generate Unique Institutional Email
