@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -42,8 +42,8 @@ const tabs = [
 ];
 
 export default function AdmissionsReviewPage() {
-  const params = useParams();
-  const id = params.id as string;
+  const params = useParams() as { id: string };
+  const { id } = params;
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [application, setApplication] = useState<ApplicationDetail | null>(null);
@@ -82,7 +82,7 @@ export default function AdmissionsReviewPage() {
       } else if (decision === 'DOCS_REQUIRED') {
         result = await updateApplicationStatus(id, 'DOCS_REQUIRED');
       } else if (decision === 'OFFER_ISSUED') {
-        result = await createAdmissionOffer(id, 0, new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString());
+        result = await createAdmissionOffer(id, 0, new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString());
       }
       if ((result as any).success) {
         setMessage({ type: 'success', text: `Decision submitted: ${decision.replace('_', ' ')}` });
@@ -100,7 +100,7 @@ export default function AdmissionsReviewPage() {
     <div className="space-y-6">
       <PageHeader
         title="Application Review"
-        subtitle={application ? `${application.application_number} — ${application.course?.title}${application.course?.degreeLevel ? ` — ${formatDegreeLevel(application.course.degreeLevel)}` : ''}` : 'Loading...'}
+        subtitle={application ? `${application.application_number} â€” ${application.course?.title}${application.course?.degreeLevel ? ` â€” ${formatDegreeLevel(application.course.degreeLevel)}` : ''}` : 'Loading...'}
         actions={
           <div className="flex gap-2">
             <button className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors">
@@ -133,9 +133,9 @@ export default function AdmissionsReviewPage() {
             <dl className="grid grid-cols-2 gap-4 text-sm">
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Application ID</dt><dd className="font-mono font-medium text-neutral-900 mt-1">{application.application_number}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Status</dt><dd className="mt-1"><StatusBadge status={application.status?.replace('_', ' ') || 'DRAFT'} /></dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Program</dt><dd className="font-medium text-neutral-900 mt-1">{application.course?.title}{application.course?.degreeLevel ? ` — ${formatDegreeLevel(application.course.degreeLevel)}` : ''}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Intake</dt><dd className="font-medium text-neutral-900 mt-1">{application.intake || '—'}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Submitted</dt><dd className="font-medium text-neutral-900 mt-1">{application.submitted_at ? new Date(application.submitted_at).toLocaleDateString('en-CA') : '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Program</dt><dd className="font-medium text-neutral-900 mt-1">{application.course?.title}{application.course?.degreeLevel ? ` â€” ${formatDegreeLevel(application.course.degreeLevel)}` : ''}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Intake</dt><dd className="font-medium text-neutral-900 mt-1">{application.intake || 'â€”'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Submitted</dt><dd className="font-medium text-neutral-900 mt-1">{application.submitted_at ? new Date(application.submitted_at).toLocaleDateString('en-CA') : 'â€”'}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Assigned Officer</dt><dd className="font-medium text-neutral-900 mt-1">Admissions Team</dd></div>
             </dl>
           </div>

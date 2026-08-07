@@ -60,7 +60,7 @@ export async function updateApplicationStatus(applicationId: string, status: App
                 const totalFee = annualFee * years;
 
                 const deadline = new Date();
-                deadline.setDate(deadline.getDate() + 30);
+                deadline.setDate(deadline.getDate() + 14);
 
                 await supabase
                     .from('admission_offers')
@@ -143,6 +143,8 @@ export async function updateInternalNotes(applicationId: string, notes: string) 
 export async function createAdmissionOffer(applicationId: string, tuitionFee: number, deadline: string, offerType: 'TUITION_DEPOSIT' | 'FULL_TUITION' | '1ST_YEAR_FULL' = 'TUITION_DEPOSIT') {
     const supabase = createServiceRoleClient();
 
+    const finalTuitionFee = offerType === 'TUITION_DEPOSIT' ? 2000 : tuitionFee;
+
     const { data: existingOffer } = await supabase
         .from('admission_offers')
         .select('id')
@@ -153,7 +155,7 @@ export async function createAdmissionOffer(applicationId: string, tuitionFee: nu
         const { error: updateError } = await supabase
             .from('admission_offers')
             .update({
-                tuition_fee: tuitionFee,
+                tuition_fee: finalTuitionFee,
                 payment_deadline: deadline,
                 offer_type: offerType,
                 status: 'PENDING',
@@ -170,7 +172,7 @@ export async function createAdmissionOffer(applicationId: string, tuitionFee: nu
             .from('admission_offers')
             .insert({
                 application_id: applicationId,
-                tuition_fee: tuitionFee,
+                tuition_fee: finalTuitionFee,
                 payment_deadline: deadline,
                 offer_type: offerType,
                 status: 'PENDING'

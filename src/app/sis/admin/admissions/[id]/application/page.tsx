@@ -55,7 +55,7 @@ const tabs = [
 ];
 
 export default function AdmissionApplicationPage() {
-  const params = useParams();
+  const params = useParams() as { id: string };
   const id = params.id as string;
   const router = useRouter();
 
@@ -142,7 +142,7 @@ export default function AdmissionApplicationPage() {
       const duration = application?.course?.duration || '4 years';
       const years = getProgramYears(duration, degreeLevel);
       const tuitionFee = annualFee * years;
-      const result = await createAdmissionOffer(id, tuitionFee, new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString());
+      const result = await createAdmissionOffer(id, tuitionFee, new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString());
       if ((result as any).success) {
         toast.success('Admission offer issued successfully');
         window.location.reload();
