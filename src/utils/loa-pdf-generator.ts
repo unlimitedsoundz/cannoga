@@ -185,22 +185,26 @@ export async function generateAndStoreLOA(applicationId: string, application: an
     const compiledTemplate = Handlebars.compile(templateHtml);
     const finalHtml = compiledTemplate(templateData);
 
-    const browser = await puppeteer.launch({
-      headless: true,
-      executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--disable-dev-shm-usage']
-    });
+    try {
+      const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--disable-dev-shm-usage']
+      });
 
-    const page = await browser.newPage();
-    await page.setContent(finalHtml, { waitUntil: 'load' });
-    
-    const pdfBuffer = await page.pdf({
-      format: 'A4',
-      printBackground: true,
-      margin: { top: '0px', right: '0px', bottom: '0px', left: '0px' },
-    });
+      const page = await browser.newPage();
+      await page.setContent(finalHtml, { waitUntil: 'load' });
+      
+      const pdfBuffer = await page.pdf({
+        format: 'A4',
+        printBackground: true,
+        margin: { top: '0px', right: '0px', bottom: '0px', left: '0px' },
+      });
 
-    await browser.close();
+      await browser.close();
+    } catch (puppeteerError) {
+      console.error('Puppeteer/Chromium error:', puppeteerError);
+      throw new Error(`PDF generation failed: ${puppeteerError instanceof Error ? puppeteerError.message : 'Unknown error'}`);
+    }
 
     const fileName = `letter-of-acceptance-${application.course?.slug || application.id}.pdf`;
     const storagePath = `student-documents/${application.user?.id}/${fileName}`;
