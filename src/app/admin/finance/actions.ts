@@ -413,62 +413,64 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
             }
 
             // 4e. Create receipt document record and upload PDF
-            try {
-                const pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(ReceiptPDF, { application, payment: paymentRecord }) as any));
-                const fileName = `receipt-${paymentRecord.transaction_reference || paymentId}.pdf`;
-                const storagePath = `student-documents/${application.user_id}/${fileName}`;
+            if (paymentRecord) {
+                try {
+                    const pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(ReceiptPDF, { application, payment: paymentRecord }) as any));
+                    const fileName = `receipt-${paymentRecord.transaction_reference || paymentId}.pdf`;
+                    const storagePath = `student-documents/${application.user_id}/${fileName}`;
 
-                const { error: uploadError } = await supabase.storage
-                    .from('application-documents')
-                    .upload(storagePath, pdfBuffer, {
-                        contentType: 'application/pdf',
-                        upsert: true,
-                    });
+                    const { error: uploadError } = await supabase.storage
+                        .from('application-documents')
+                        .upload(storagePath, pdfBuffer, {
+                            contentType: 'application/pdf',
+                            upsert: true,
+                        });
 
-                if (uploadError) {
-                    console.error('Receipt upload error:', uploadError);
-                    throw new Error(`Failed to upload receipt: ${uploadError.message}`);
+                    if (uploadError) {
+                        console.error('Receipt upload error:', uploadError);
+                        throw new Error(`Failed to upload receipt: ${uploadError.message}`);
+                    }
+
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('application-documents')
+                        .getPublicUrl(storagePath);
+
+                    const receiptPayload = {
+                        student_id: newStudent.id,
+                        document_type: 'tuition_receipt',
+                        title: `Tuition Receipt - ${paymentRecord.transaction_reference || paymentId}`,
+                        programme: (application as any).course?.title || '',
+                        status: 'issued',
+                        storage_path: publicUrl,
+                        is_official: true,
+                        is_student_visible: true,
+                        version: 1,
+                        issue_date: new Date().toISOString(),
+                        metadata: {
+                            payment_id: paymentId,
+                            transaction_reference: paymentRecord.transaction_reference,
+                            amount: paymentRecord.amount,
+                            invoice_type: paymentRecord.invoice_type,
+                            payment_method: paymentRecord.payment_method,
+                        },
+                    };
+
+                    const { data: existingReceipt } = await supabase
+                        .from('document_records')
+                        .select('id')
+                        .eq('student_id', newStudent.id)
+                        .eq('document_type', 'tuition_receipt')
+                        .eq('metadata->>payment_id', paymentId)
+                        .maybeSingle();
+
+                    if (existingReceipt?.id) {
+                        await supabase.from('document_records').update(receiptPayload).eq('id', existingReceipt.id);
+                    } else {
+                        await supabase.from('document_records').insert(receiptPayload);
+                    }
+                } catch (receiptError) {
+                    console.error('Error creating receipt document record:', receiptError);
                 }
-
-                const { data: { publicUrl } } = supabase.storage
-                    .from('application-documents')
-                    .getPublicUrl(storagePath);
-
-                const receiptPayload = {
-                    student_id: newStudent.id,
-                    document_type: 'tuition_receipt',
-                    title: `Tuition Receipt - ${paymentRecord.transaction_reference || paymentId}`,
-                    programme: (application as any).course?.title || '',
-                    status: 'issued',
-                    storage_path: publicUrl,
-                    is_official: true,
-                    is_student_visible: true,
-                    version: 1,
-                    issue_date: new Date().toISOString(),
-                    metadata: {
-                        payment_id: paymentId,
-                        transaction_reference: paymentRecord.transaction_reference,
-                        amount: paymentRecord.amount,
-                        invoice_type: paymentRecord.invoice_type,
-                        payment_method: paymentRecord.payment_method,
-                    },
-                };
-
-                const { data: existingReceipt } = await supabase
-                    .from('document_records')
-                    .select('id')
-                    .eq('student_id', newStudent.id)
-                    .eq('document_type', 'tuition_receipt')
-                    .eq('metadata->>payment_id', paymentId)
-                    .maybeSingle();
-
-                if (existingReceipt?.id) {
-                    await supabase.from('document_records').update(receiptPayload).eq('id', existingReceipt.id);
-                } else {
-                    await supabase.from('document_records').insert(receiptPayload);
-                }
-            } catch (receiptError) {
-                console.error('Error creating receipt document record:', receiptError);
             }
         }
 

@@ -3,7 +3,7 @@
 export const dynamic = 'force-dynamic';
 
 import { createClient } from '@/utils/supabase/client';
-import { redirect, useSearchParams } from 'next/navigation';
+import { redirect, useSearchParams, useRouter } from 'next/navigation';
 import { Link } from "@aalto-dx/react-components";
 import { CaretRight as ChevronRight, CircleNotch as Loader2, UploadSimple, Trash, CheckCircle, Receipt, WarningCircle as AlertCircle, Clock } from "@phosphor-icons/react";
 import { formatToDDMMYYYY } from '@/utils/date';
@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 function ViewApplicationContent() {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
+    const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [application, setApplication] = useState<any>(null);
     const [offer, setOffer] = useState<any>(null);
@@ -30,6 +31,7 @@ function ViewApplicationContent() {
     const [actionLoading, setActionLoading] = useState<string | null>(null);
     const [actionMessage, setActionMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
     const [palDocument, setPalDocument] = useState<any>(null);
+    const [receiptDocument, setReceiptDocument] = useState<any>(null);
 
     useEffect(() => {
         async function loadData() {
@@ -104,6 +106,18 @@ function ViewApplicationContent() {
                         .maybeSingle();
 
                     setPalDocument(palData);
+
+                    const { data: receiptData } = await supabase
+                        .from('document_records')
+                        .select('*')
+                        .eq('student_id', studentData.id)
+                        .eq('document_type', 'tuition_receipt')
+                        .eq('is_student_visible', true)
+                        .order('issue_date', { ascending: false })
+                        .limit(1)
+                        .maybeSingle();
+
+                    setReceiptDocument(receiptData);
                 }
 
                 if (offerData && ['OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ENROLLED'].includes(applicationRaw.status)) {
@@ -123,6 +137,12 @@ function ViewApplicationContent() {
 
         loadData();
     }, [id, refreshFlag]);
+
+    useEffect(() => {
+        if (application?.status === 'ENROLLED') {
+            router.push('/sis');
+        }
+    }, [application?.status, router]);
 
     useEffect(() => {
         const handleVisibilityChange = () => {
@@ -522,6 +542,35 @@ function ViewApplicationContent() {
                         </div>
                     </div>
                 )}
+
+                {receiptDocument && (
+                    <div className="border border-blue-200 bg-blue-50 p-3 rounded-xl flex items-start gap-3">
+                        <div className="text-blue-600 mt-0.5">
+                            <Receipt size={16} weight="bold" />
+                        </div>
+                        <div>
+                            <p className="text-[11px] font-black text-blue-900 uppercase tracking-wider">Payment Receipt</p>
+                            <p className="text-[11px] text-blue-800 font-medium mt-0.5">Your tuition payment has been verified. Receipt is available.</p>
+                            <div className="flex gap-2 mt-2">
+                                <a
+                                    href={receiptDocument.storage_path}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-3 py-1.5 bg-neutral-900 text-white text-[11px] font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors inline-flex items-center"
+                                >
+                                    View Receipt
+                                </a>
+                                <a
+                                    href={receiptDocument.storage_path}
+                                    download
+                                    className="px-3 py-1.5 border border-neutral-300 text-neutral-700 text-[11px] font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors inline-flex items-center"
+                                >
+                                    Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Progress Tracker */}
@@ -639,9 +688,21 @@ function ViewApplicationContent() {
                                                         <p className="text-sm font-bold text-black">{payment.invoice_type?.replace(/_/g, ' ') || 'Payment'}</p>
                                                         <p className="text-xs text-neutral-500">{formatToDDMMYYYY(payment.created_at)}</p>
                                                     </div>
-                                                    <div className="text-right">
-                                                        <p className="text-sm font-bold text-black">${Number(payment.amount).toLocaleString()} {payment.currency || 'CAD'}</p>
-                                                        <p className="text-xs text-neutral-500">{payment.status?.replace(/_/g, ' ') || 'Pending'}</p>
+                                                    <div className="text-right flex items-center gap-3">
+                                                        <div>
+                                                            <p className="text-sm font-bold text-black">${Number(payment.amount).toLocaleString()} {payment.currency || 'CAD'}</p>
+                                                            <p className="text-xs text-neutral-500">{payment.status?.replace(/_/g, ' ') || 'Pending'}</p>
+                                                        </div>
+                                                        {payment.status === 'verified' && receiptDocument && (
+                                                            <a
+                                                                href={receiptDocument.storage_path}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="px-2 py-1 bg-neutral-900 text-white text-[10px] font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors inline-flex items-center"
+                                                            >
+                                                                Receipt
+                                                            </a>
+                                                        )}
                                                     </div>
                                                 </div>
                                             ))}
