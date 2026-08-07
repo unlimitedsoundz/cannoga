@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { SISHeader } from '@/components/sis/SISHeader';
 import { SISSidebar } from '@/components/sis/SISSidebar';
+import { Toaster } from 'sonner';
 
 interface Profile {
     id: string;
@@ -150,6 +151,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                         </div>
                     </main>
                 </div>
+                <Toaster position="top-right" />
             </div>
         );
     }
@@ -157,6 +159,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
     return (
         <div className="min-h-screen bg-[#f5f5f5] font-sans text-black" data-theme="sis">
             {children}
+            <Toaster position="top-right" />
         </div>
     );
 }
