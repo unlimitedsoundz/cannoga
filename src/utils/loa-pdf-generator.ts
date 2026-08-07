@@ -172,11 +172,17 @@ export async function generateAndStoreLOA(applicationId: string, application: an
 
   try {
     const offer = application.offer || {};
+    const [logoUrl, signatureUrl] = await Promise.all([
+      getSystemSetting('letter_logo_url'),
+      getSystemSetting('letter_signature_url'),
+    ]);
+
+    const templateData = await mapApplicationToTemplateData(application, logoUrl, signatureUrl);
 
     let pdfBuffer: Buffer;
 
     try {
-      pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(LetterOfAcceptancePDF, { application }) as any));
+      pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(LetterOfAcceptancePDF, { data: templateData }) as any));
     } catch (pdfError) {
       console.error('PDF generation error:', pdfError);
       return { success: false, error: `Failed to generate PDF: ${pdfError instanceof Error ? pdfError.message : 'Unknown error'}` };
