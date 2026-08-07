@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
     const isHtml = result.pdfBuffer.toString('utf8', 0, 100).includes('<!DOCTYPE html>') || result.pdfBuffer.toString('utf8', 0, 100).includes('<html');
 
     if (isHtml) {
-      return new NextResponse(result.pdfBuffer, {
+      return new NextResponse(new Uint8Array(result.pdfBuffer), {
         status: 200,
         headers: {
           'Content-Type': 'text/html',
@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    return new NextResponse(result.pdfBuffer, {
+    return new NextResponse(new Uint8Array(result.pdfBuffer), {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
