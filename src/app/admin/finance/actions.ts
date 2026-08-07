@@ -374,15 +374,36 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
         // 4d. Recalculate outstanding balance and update/create invoice
         if (newStudent?.id) {
             try {
-                const { data: existingInvoice } = await supabase
-                    .from('invoices')
-                    .select('*')
-                    .eq('student_id', newStudent.id)
-                    .eq('type', 'TUITION')
-                    .neq('status', 'PAID')
-                    .order('issued_date', { ascending: true })
-                    .limit(1)
-                    .maybeSingle();
+                let existingInvoice = null;
+
+                if (paymentRecord?.invoice_type) {
+                    const { data: invoiceByType } = await supabase
+                        .from('invoices')
+                        .select('*')
+                        .eq('student_id', newStudent.id)
+                        .eq('type', 'TUITION')
+                        .neq('status', 'PAID')
+                        .ilike('invoice_number', `%${paymentRecord.invoice_type}`)
+                        .order('issued_date', { ascending: true })
+                        .limit(1)
+                        .maybeSingle();
+
+                    existingInvoice = invoiceByType;
+                }
+
+                if (!existingInvoice) {
+                    const { data: fallbackInvoice } = await supabase
+                        .from('invoices')
+                        .select('*')
+                        .eq('student_id', newStudent.id)
+                        .eq('type', 'TUITION')
+                        .neq('status', 'PAID')
+                        .order('issued_date', { ascending: true })
+                        .limit(1)
+                        .maybeSingle();
+
+                    existingInvoice = fallbackInvoice;
+                }
 
                 if (existingInvoice) {
                     const newPaid = Number(existingInvoice.paid || 0) + paymentAmount;
@@ -401,11 +422,14 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
                 } else {
                     const { data: offerForInvoice } = await supabase
                         .from('admission_offers')
-                        .select('tuition_fee, invoice_type')
+                        .select('tuition_fee, invoice_type, invoice_pushed')
                         .eq('application_id', applicationId)
                         .maybeSingle();
 
-                    const invoiceAmount = Number(offerForInvoice?.tuition_fee || paymentAmount);
+                    const isFirstInvoice = !offerForInvoice?.invoice_pushed;
+                    const ancillaryTotal = isFirstInvoice ? 700 : 0;
+                    const baseFee = Number(offerForInvoice?.tuition_fee || paymentAmount);
+                    const invoiceAmount = baseFee + ancillaryTotal;
                     const newBalance = Math.max(0, invoiceAmount - paymentAmount);
                     const newStatus = newBalance <= 0 ? 'PAID' : 'PARTIAL';
 
@@ -413,7 +437,7 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
                         .from('invoices')
                         .insert({
                             student_id: newStudent.id,
-                            invoice_number: `INV-${applicationId.slice(0, 8).toUpperCase()}-${Date.now()}`,
+                            invoice_number: `INV-${applicationId.slice(0, 8).toUpperCase()}-${paymentRecord.invoice_type || 'TUITION'}-${Date.now()}`,
                             type: 'TUITION',
                             term: application.intake || 'Current',
                             amount: invoiceAmount,

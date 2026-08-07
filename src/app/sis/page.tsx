@@ -91,6 +91,7 @@ interface Payment {
     status: string;
     payment_date: string;
     payment_method: string;
+    invoice_type?: string;
 }
 
 interface Hold {
@@ -289,13 +290,36 @@ export default function SISStudentDashboard() {
 
                 if (invoiceData) setInvoices(invoiceData);
 
-                const { data: paymentData } = await supabase
-                    .from('payments')
-                    .select('*')
-                    .eq('student_id', studentId)
-                    .order('payment_date', { ascending: false });
+                let tuitionPayments: any[] = [];
+                try {
+                    const { data: studentApp } = await supabase
+                        .from('students')
+                        .select('application_id')
+                        .eq('id', studentId)
+                        .single();
 
-                if (paymentData) setPayments(paymentData);
+                    if (studentApp?.application_id) {
+                        const { data: offerData } = await supabase
+                            .from('admission_offers')
+                            .select('id')
+                            .eq('application_id', studentApp.application_id);
+
+                        const offerIds = (offerData || []).map((o: any) => o.id);
+                        if (offerIds.length > 0) {
+                            const { data: tpData } = await supabase
+                                .from('tuition_payments')
+                                .select('*')
+                                .in('offer_id', offerIds)
+                                .order('created_at', { ascending: false });
+
+                            tuitionPayments = tpData || [];
+                        }
+                    }
+                } catch (paymentErr) {
+                    console.error('Error fetching tuition payments:', paymentErr);
+                }
+
+                if (tuitionPayments.length > 0) setPayments(tuitionPayments);
 
                 const { data: holdData } = await supabase
                     .from('student_holds')
