@@ -8,7 +8,7 @@ import { Link } from "@aalto-dx/react-components";
 import { CaretRight as ChevronRight, CircleNotch as Loader2, UploadSimple, Trash, CheckCircle, Receipt, WarningCircle as AlertCircle, Clock } from "@phosphor-icons/react";
 import { formatToDDMMYYYY } from '@/utils/date';
 import { useState, useEffect, Suspense } from 'react';
-import { addApplicationDocument, deleteApplicationDocument, updateApplicationStatus, acceptOffer, rejectOffer } from '@/app/portal/actions';
+import { addApplicationDocument, deleteApplicationDocument, updateApplicationStatus, acceptOffer, rejectOffer, regenerateLOA } from '@/app/portal/actions';
 import { toast } from 'sonner';
 
 function ViewApplicationContent() {
@@ -104,6 +104,14 @@ function ViewApplicationContent() {
                         .maybeSingle();
 
                     setPalDocument(palData);
+                }
+
+                if (offerData && ['OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ENROLLED'].includes(applicationRaw.status)) {
+                    try {
+                        await regenerateLOA(applicationRaw.id);
+                    } catch (loaError) {
+                        console.error('Failed to sync LOA on view page:', loaError);
+                    }
                 }
             } catch (err: any) {
                 console.error("Error loading application:", err);
@@ -505,7 +513,9 @@ function ViewApplicationContent() {
                                         <p className="text-sm font-bold text-black">{offer.offer_type?.replace(/_/g, ' ') || 'Full Tuition'}</p>
                                     </div>
                                     <div>
-                                        <p className="text-[11px] font-black uppercase tracking-[0.22em] text-neutral-500 mb-1">Annual Tuition</p>
+                                        <p className="text-[11px] font-black uppercase tracking-[0.22em] text-neutral-500 mb-1">
+                                            {offer.offer_type === 'TUITION_DEPOSIT' ? 'Tuition Deposit' : 'Annual Tuition'}
+                                        </p>
                                         <p className="text-sm font-bold text-black">${Number(offer.tuition_fee).toLocaleString()} CAD</p>
                                     </div>
                                     <div>

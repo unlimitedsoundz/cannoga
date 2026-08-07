@@ -768,6 +768,29 @@ export async function processTuitionPayment(
     return { success: true, reference };
 }
 
+export async function regenerateLOA(applicationId: string) {
+    const supabase = createServiceRoleClient();
+
+    const { data: application, error } = await supabase
+        .from('applications')
+        .select(`
+            *,
+            course:Course(*, school:School(*)),
+            user:profiles(*),
+            offer:admission_offers(*)
+        `)
+        .eq('id', applicationId)
+        .single();
+
+    if (error || !application) {
+        return { success: false, error: 'Application not found' };
+    }
+
+    const { generateAndStoreLOA } = await import('@/utils/loa-pdf-generator');
+    const result = await generateAndStoreLOA(applicationId, application);
+    return result;
+}
+
 export async function deleteApplication(applicationId: string) {
     const { cookies } = await import('next/headers');
     const cookieStore = await cookies();
