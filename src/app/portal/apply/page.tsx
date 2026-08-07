@@ -45,7 +45,10 @@ export default function ApplyPage() {
             .order('title');
 
           if (error) throw error;
-          setCourses(data || []);
+          const uniqueCourses = (data || []).filter((course: any, index: number, self: any[]) =>
+            index === self.findIndex((c: any) => c.title === course.title)
+          );
+          setCourses(uniqueCourses);
         }
       } catch (err) {
         console.error('ApplyPage init error:', err);

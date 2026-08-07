@@ -144,6 +144,7 @@ export default function AdmissionApplicationPage() {
       const tuitionFee = annualFee * years;
       const result = await createAdmissionOffer(id, tuitionFee, new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString());
       if ((result as any).success) {
+        await updateApplicationStatus(id, 'ADMITTED');
         toast.success('Admission offer issued successfully');
         window.location.reload();
       } else {
