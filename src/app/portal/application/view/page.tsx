@@ -434,7 +434,7 @@ function ViewApplicationContent() {
                     </p>
                 </div>
                 <div className="flex items-center gap-3">
-                    {hasInvoice && (
+                    {hasInvoice && !hasPayments && application.status !== 'PAYMENT_SUBMITTED' && (
                         <Link
                             href={`/portal/application/payment?id=${application.id}`}
                             className="px-4 py-2 bg-neutral-900 text-white border border-neutral-900 rounded-sm text-[11px] font-bold hover:bg-neutral-800 transition-all"
@@ -495,7 +495,7 @@ function ViewApplicationContent() {
                     </div>
                 )}
 
-                {hasInvoice && !hasPayments && (
+                                        {hasInvoice && !hasPayments && application.status !== 'PAYMENT_SUBMITTED' && (
                     <div className="p-3">
                         <p className="text-[13px] font-bold text-black">Your invoice has been generated. Please complete your payment to secure your enrollment.</p>
                         <p className="text-[11px] text-neutral-700 font-medium mt-0.5">Please note: After tuition deposit has been paid and verified, please allow 6-12 days for Provincial Attestation Letter (PAL) issuance.</p>
@@ -503,14 +503,8 @@ function ViewApplicationContent() {
                 )}
 
                 {application.status === 'PAYMENT_SUBMITTED' && (
-                    <div className="border border-amber-200 bg-amber-50 p-3 rounded-xl flex items-start gap-3">
-                        <div className="text-amber-600 mt-0.5">
-                            <Clock size={16} weight="bold" />
-                        </div>
-                        <div>
-                            <p className="text-[11px] font-black text-amber-900 uppercase tracking-wider">Finance Office Verification In Progress</p>
-                            <p className="text-[11px] text-amber-800 font-medium mt-0.5">Your payment has been recorded. The finance office is currently verifying the transfer and you will be notified once it is confirmed.</p>
-                        </div>
+                    <div>
+                        <p className="text-[13px] font-bold text-black">Your payment has been recorded. The finance office is currently verifying the transfer and you will be notified once it is confirmed.</p>
                     </div>
                 )}
 
