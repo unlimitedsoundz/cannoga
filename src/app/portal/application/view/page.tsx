@@ -468,10 +468,10 @@ function ViewApplicationContent() {
                     </div>
                 )}
 
-                {application.status === 'OFFER_ACCEPTED' && !hasInvoice && (
-                    <div className="p-3">
-                        <p className="text-[13px] font-bold text-black">Congratulations! Your offer has been accepted.</p>
-                        <p className="text-[11px] text-black font-medium mt-0.5">Next steps: Tuition Deposit and PAL Issue. You will be notified once the invoice is sent.</p>
+                {application.status === 'OFFER_ACCEPTED' && (
+                    <div>
+                        <p>Congratulations! Your offer has been accepted.</p>
+                        <p>Next steps: Tuition Deposit and PAL Issue. You will be notified once the invoice is sent.</p>
                     </div>
                 )}
 
