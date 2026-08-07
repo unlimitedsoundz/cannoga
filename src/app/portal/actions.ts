@@ -424,42 +424,80 @@ export async function acceptOffer(applicationId: string) {
 
     if (!user) throw new Error('Unauthorized');
 
-    // 1. Verify Application & Offer
+    // 1. Verify Application
     const { data: app, error: fetchError } = await supabase
         .from('applications')
-        .select(`
-            id, 
-            status,
-            offer:admission_offers(id, status)
-        `)
+        .select('id, status, user_id')
         .eq('id', applicationId)
         .eq('user_id', user.id)
         .single();
 
     if (fetchError || !app) throw new Error('Application not found');
 
-    // Check if capable of accepting
     if (app.status !== 'ADMITTED') {
         throw new Error(`Cannot accept offer in current status: ${app.status}`);
     }
 
-    // Check if offer exists
-    const offer = Array.isArray(app.offer) ? app.offer[0] : app.offer;
-    if (!offer) throw new Error('No admission offer found to accept.');
-
-    // 2. Transaction: Update Offer -> ACCEPTED, Update App -> OFFER_ACCEPTED
-    // Note: Use Admin Client to bypass RLS for these status updates
     const adminSupabase = createServiceRoleClient();
 
-    // Update Offer
-    const { error: offerError } = await adminSupabase
+    // 2. Try to update existing offer, or create one if missing
+    const { error: offerError, count: offerCount } = await adminSupabase
         .from('admission_offers')
-        .update({ status: 'ACCEPTED' })
-        .eq('id', offer.id);
+        .update({
+            status: 'ACCEPTED',
+            accepted_at: new Date().toISOString()
+        })
+        .eq('application_id', applicationId)
+        .select('id');
 
-    if (offerError) throw new Error('Failed to update offer status');
+    if (offerError) {
+        console.error('Failed to update offer status:', offerError);
+    }
 
-    // Update Application
+    // If no offer was updated, create one
+    if (!offerCount || offerCount === 0) {
+        const { data: appData } = await adminSupabase
+            .from('applications')
+            .select('course_id, personal_info, Course:course_id(degreeLevel, school:schoolId(slug))')
+            .eq('id', applicationId)
+            .single();
+
+        const courseData = (appData as any)?.Course;
+        const degreeLevel = courseData?.degreeLevel || 'BACHELOR';
+        const schoolSlug = courseData?.school?.slug || 'technology';
+
+        const { getTuitionFee, mapSchoolToTuitionField, getProgramYears } = await import('@/utils/tuition');
+        const tuitionField = mapSchoolToTuitionField(schoolSlug);
+        const personal = (appData as any)?.personal_info || {};
+        const studentType = personal.studentType;
+        const isDomestic = studentType === 'domestic';
+        const annualFee = await getTuitionFee(degreeLevel, tuitionField, isDomestic);
+
+        const duration = (appData as any)?.Course?.duration || '4 years';
+        const years = getProgramYears(duration, degreeLevel as any);
+        const totalFee = annualFee * years;
+
+        const deadline = new Date();
+        deadline.setDate(deadline.getDate() + 30);
+
+        const { error: createOfferError } = await adminSupabase
+            .from('admission_offers')
+            .insert({
+                application_id: applicationId,
+                tuition_fee: totalFee,
+                payment_deadline: deadline.toISOString(),
+                offer_type: 'FULL_TUITION',
+                status: 'ACCEPTED',
+                accepted_at: new Date().toISOString()
+            });
+
+        if (createOfferError) {
+            console.error('Failed to create offer:', createOfferError);
+            throw new Error('Failed to create offer');
+        }
+    }
+
+    // 3. Update Application Status
     const { error: appError } = await adminSupabase
         .from('applications')
         .update({
@@ -468,9 +506,12 @@ export async function acceptOffer(applicationId: string) {
         })
         .eq('id', applicationId);
 
-    if (appError) throw new Error('Failed to update application status');
+    if (appError) {
+        console.error('Failed to update application status:', appError);
+        throw new Error('Failed to update application status');
+    }
 
-    // 3. Trigger Notification via Edge Function
+    // 4. Trigger Notification via Edge Function
     try {
         await supabase.functions.invoke('send-notification', {
             body: {
@@ -494,43 +535,80 @@ export async function rejectOffer(applicationId: string) {
 
     if (!user) throw new Error('Unauthorized');
 
-    // 1. Verify Application & Offer
+    // 1. Verify Application
     const { data: app, error: fetchError } = await supabase
         .from('applications')
-        .select(`
-            id, 
-            status,
-            user:profiles(first_name, email),
-            course:courses(title),
-            offer:admission_offers(id, status)
-        `)
+        .select('id, status, user_id')
         .eq('id', applicationId)
         .eq('user_id', user.id)
         .single();
 
     if (fetchError || !app) throw new Error('Application not found');
 
-    // Check if capable of rejecting
     if (app.status !== 'ADMITTED') {
         throw new Error(`Cannot decline offer in current status: ${app.status}`);
     }
 
-    // Check if offer exists
-    const offer = Array.isArray(app.offer) ? app.offer[0] : app.offer;
-    if (!offer) throw new Error('No admission offer found to decline.');
-
-    // 2. Transaction: Update Offer -> DECLINED, Update App -> OFFER_DECLINED
     const adminSupabase = createServiceRoleClient();
 
-    // Update Offer
-    const { error: offerError } = await adminSupabase
+    // 2. Try to update existing offer, or create one if missing
+    const { error: offerError, count: offerCount } = await adminSupabase
         .from('admission_offers')
-        .update({ status: 'DECLINED' })
-        .eq('id', offer.id);
+        .update({
+            status: 'DECLINED',
+            accepted_at: new Date().toISOString()
+        })
+        .eq('application_id', applicationId)
+        .select('id');
 
-    if (offerError) throw new Error('Failed to update offer status');
+    if (offerError) {
+        console.error('Failed to update offer status:', offerError);
+    }
 
-    // Update Application
+    // If no offer was updated, create one
+    if (!offerCount || offerCount === 0) {
+        const { data: appData } = await adminSupabase
+            .from('applications')
+            .select('course_id, personal_info, Course:course_id(degreeLevel, school:schoolId(slug))')
+            .eq('id', applicationId)
+            .single();
+
+        const courseData = (appData as any)?.Course;
+        const degreeLevel = courseData?.degreeLevel || 'BACHELOR';
+        const schoolSlug = courseData?.school?.slug || 'technology';
+
+        const { getTuitionFee, mapSchoolToTuitionField, getProgramYears } = await import('@/utils/tuition');
+        const tuitionField = mapSchoolToTuitionField(schoolSlug);
+        const personal = (appData as any)?.personal_info || {};
+        const studentType = personal.studentType;
+        const isDomestic = studentType === 'domestic';
+        const annualFee = await getTuitionFee(degreeLevel, tuitionField, isDomestic);
+
+        const duration = (appData as any)?.Course?.duration || '4 years';
+        const years = getProgramYears(duration, degreeLevel as any);
+        const totalFee = annualFee * years;
+
+        const deadline = new Date();
+        deadline.setDate(deadline.getDate() + 30);
+
+        const { error: createOfferError } = await adminSupabase
+            .from('admission_offers')
+            .insert({
+                application_id: applicationId,
+                tuition_fee: totalFee,
+                payment_deadline: deadline.toISOString(),
+                offer_type: 'FULL_TUITION',
+                status: 'DECLINED',
+                accepted_at: new Date().toISOString()
+            });
+
+        if (createOfferError) {
+            console.error('Failed to create offer:', createOfferError);
+            throw new Error('Failed to create offer');
+        }
+    }
+
+    // 3. Update Application Status
     const { error: appError } = await adminSupabase
         .from('applications')
         .update({
@@ -539,9 +617,12 @@ export async function rejectOffer(applicationId: string) {
         })
         .eq('id', applicationId);
 
-    if (appError) throw new Error('Failed to update application status');
+    if (appError) {
+        console.error('Failed to update application status:', appError);
+        throw new Error('Failed to update application status');
+    }
 
-    // 3. Send Notification via Supabase Edge Function
+    // 4. Send Notification via Supabase Edge Function
     try {
         await supabase.functions.invoke('send-notification', {
             body: {
