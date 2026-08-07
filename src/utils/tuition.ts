@@ -120,8 +120,8 @@ export function calculateFullProgramDiscountedFee(annualFee: number, years: numb
  */
 export function getProgramYears(duration: string, level?: string): number {
     const lvl = (level || '').toUpperCase();
-    if (lvl.includes('BACHELOR') || lvl.includes('BSC')) return 3;
     if (lvl.includes('MASTER') || lvl.includes('MSC')) return 2;
+    if (lvl.includes('BACHELOR') || lvl.includes('BSC')) return 4;
     if (lvl.includes('DIPLOMA')) return 2;
     if (lvl.includes('CERTIFICATE')) return 1;
 
