@@ -45,19 +45,20 @@ export default function PortalLoginPage() {
                 }).toString(),
             });
 
-            if (!response.ok) {
-                const text = await response.text();
-                setError('Login failed. Please try again.');
-                console.error('Login error:', text);
+            const data = await response.json();
+
+            if (!response.ok || data.error) {
+                const errorMsg = data.error || 'Login failed. Please try again.';
+                setError(errorMsg);
+                console.error('Login error:', errorMsg);
                 setIsLoading(false);
                 return;
             }
 
-            const url = new URL(response.url);
-            const targetPath = url.pathname + url.search;
-            
             toast.success('Login successful');
-            window.location.href = targetPath;
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            }
         } catch (error: any) {
             setError('An unexpected error occurred. Please try again.');
             console.error('Login error:', error);

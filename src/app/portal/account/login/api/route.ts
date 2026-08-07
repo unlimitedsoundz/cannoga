@@ -32,8 +32,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (authError) {
-        const redirectUrl = new URL(`/portal/account/login?error=${encodeURIComponent(authError.message)}`, request.url);
-        const response = NextResponse.redirect(redirectUrl);
+        const response = NextResponse.json({ error: authError.message }, { status: 401 });
         supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
             response.cookies.set(name, value, options);
         });
@@ -41,8 +40,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (!authData.user) {
-        const redirectUrl = new URL('/portal/account/login?error=login_failed', request.url);
-        const response = NextResponse.redirect(redirectUrl);
+        const response = NextResponse.json({ error: 'login_failed' }, { status: 401 });
         supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
             response.cookies.set(name, value, options);
         });
@@ -58,8 +56,7 @@ export async function POST(request: NextRequest) {
         .single();
 
     if (profile?.role === 'ADMIN') {
-        const redirectUrl = new URL('/sis/admin', request.url);
-        const response = NextResponse.redirect(redirectUrl, { headers: { 'x-auth-success': 'true' } });
+        const response = NextResponse.json({ success: true, redirect: '/sis/admin' }, { headers: { 'x-auth-success': 'true' } });
         supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
             response.cookies.set(name, value, options);
         });
@@ -73,16 +70,14 @@ export async function POST(request: NextRequest) {
         .single();
 
     if (enrollment?.enrollment_status === 'CONFIRMED' || enrollment?.enrollment_status === 'ACTIVE') {
-        const redirectUrl = new URL('/sis', request.url);
-        const response = NextResponse.redirect(redirectUrl);
+        const response = NextResponse.json({ success: true, redirect: '/sis' });
         supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
             response.cookies.set(name, value, options);
         });
         return response;
     }
 
-    const redirectUrl = new URL('/portal/dashboard', request.url);
-    const response = NextResponse.redirect(redirectUrl);
+    const response = NextResponse.json({ success: true, redirect: '/portal/dashboard' });
     supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
         response.cookies.set(name, value, options);
     });

@@ -467,7 +467,7 @@ async function main() {
             .upsert({
                 ...courseInfo,
                 duration: courseInfo.degreeLevel === "BACHELOR" ? "4 Years" : "2 Years",
-                credits: courseInfo.degreeLevel === "BACHELOR" ? 120 : 60,
+                credits: courseInfo.degreeLevel === "BACHELOR" ? 90 : 60,
                 description: `Official ${courseInfo.title} programme at Penkka University.`,
                 language: 'English',
                 careerPaths: "Diverse opportunities in global industries.",

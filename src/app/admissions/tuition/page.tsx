@@ -68,7 +68,7 @@ export default async function TuitionPaymentPage() {
     const credentialDisplay: Record<string, { label: string; duration: string; credits: string }> = {
         CERTIFICATE: { label: 'Certificate', duration: '1 Year', credits: '30 Credits' },
         DIPLOMA: { label: 'Ontario College Diploma', duration: '2 Years', credits: '60 Credits' },
-        BACHELOR: { label: "Bachelor's Degree", duration: '4 Years', credits: '120 Credits' },
+        BACHELOR: { label: "Bachelor's Degree", duration: '4 Years', credits: '90 Credits' },
         MASTER: { label: "Master's Degree", duration: '2 Years', credits: '60 Credits' },
     };
 
