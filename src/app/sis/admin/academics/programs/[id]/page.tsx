@@ -22,7 +22,7 @@ interface Program {
 }
 
 export default function ProgramsPage() {
-  const params = useParams();
+  const params = useParams() as { id: string };
   const id = params.id as string;
   const [program, setProgram] = useState<Program | null>(null);
   const [loading, setLoading] = useState(true);

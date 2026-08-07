@@ -32,7 +32,7 @@ const documentTypeLabels: Record<string, string> = {
 };
 
 export default function StudentDocumentsPage() {
-  const params = useParams();
+  const params = useParams() as { id: string };
   const studentId = params.id as string;
   const [documents, setDocuments] = useState<DocumentRecord[]>([]);
   const [loading, setLoading] = useState(true);

@@ -270,7 +270,7 @@ export async function generateAndStoreLOA(applicationId: string, application: an
       }
     }
 
-    return { success: true, url: publicUrl, pdfBuffer: Buffer.from(pdfBuffer) };
+    return { success: true, url: publicUrl, pdfBuffer };
   } catch (error) {
     console.error('PDF generation error:', error);
     return { success: false, error: error instanceof Error ? error.message : 'Failed to generate PDF' };

@@ -7,7 +7,7 @@ import { useParams } from 'next/navigation';
 import { PageHeader } from '@/components/sis/PageHeader';
 
 export default function AdmissionNotesPage() {
-  const params = useParams();
+  const params = useParams() as { id: string };
   const { id } = params;
 
   return (

@@ -22,7 +22,7 @@ interface Module {
 }
 
 export default function ModulesPage() {
-  const params = useParams();
+  const params = useParams() as { id: string };
   const id = params.id as string;
   const [module, setModule] = useState<Module | null>(null);
   const [loading, setLoading] = useState(true);
