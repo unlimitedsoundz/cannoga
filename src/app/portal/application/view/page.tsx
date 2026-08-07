@@ -135,6 +135,14 @@ function ViewApplicationContent() {
         return () => window.removeEventListener('visibilitychange', handleVisibilityChange);
     }, [id]);
 
+    useEffect(() => {
+        const pollInterval = setInterval(() => {
+            setRefreshFlag(prev => prev + 1);
+        }, 5000);
+
+        return () => clearInterval(pollInterval);
+    }, [id]);
+
     const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>, type: string) => {
         const file = event.target.files?.[0];
         if (!file) return;
