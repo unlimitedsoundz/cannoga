@@ -1,9 +1,8 @@
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import { getTuitionFee, mapSchoolToTuitionField, getProgramYears } from '@/utils/tuition';
-import puppeteer from 'puppeteer';
-import Handlebars from 'handlebars';
-import fs from 'fs/promises';
-import path from 'path';
+import { renderToBuffer } from '@react-pdf/renderer';
+import React from 'react';
+import LetterOfAcceptancePDF from '@/components/portal/pdf/LetterOfAcceptancePDF';
 
 async function getSystemSetting(key: string) {
   const supabase = createServiceRoleClient();
@@ -173,56 +172,29 @@ export async function generateAndStoreLOA(applicationId: string, application: an
 
   try {
     const offer = application.offer || {};
-    const [logoUrl, signatureUrl] = await Promise.all([
-      getSystemSetting('letter_logo_url'),
-      getSystemSetting('letter_signature_url'),
-    ]);
-
-    const templateData = await mapApplicationToTemplateData(application, logoUrl, signatureUrl);
-
-    const templatePath = path.join(process.cwd(), 'public', 'templates', 'loa-template.html');
-    const templateHtml = await fs.readFile(templatePath, 'utf8');
-    const compiledTemplate = Handlebars.compile(templateHtml);
-    const finalHtml = compiledTemplate(templateData);
 
     let pdfBuffer: Buffer;
 
     try {
-      const browser = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--disable-dev-shm-usage']
-      });
-
-      const page = await browser.newPage();
-      await page.setContent(finalHtml, { waitUntil: 'load' });
-      
-      const rawPdfBuffer = await page.pdf({
-        format: 'A4',
-        printBackground: true,
-        margin: { top: '0px', right: '0px', bottom: '0px', left: '0px' },
-      });
-
-      await browser.close();
-      pdfBuffer = Buffer.from(rawPdfBuffer);
-    } catch (puppeteerError) {
-      console.error('Puppeteer/Chromium error:', puppeteerError);
-      pdfBuffer = Buffer.from(finalHtml);
+      pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(LetterOfAcceptancePDF, { application }) as any));
+    } catch (pdfError) {
+      console.error('PDF generation error:', pdfError);
+      return { success: false, error: `Failed to generate PDF: ${pdfError instanceof Error ? pdfError.message : 'Unknown error'}` };
     }
 
     const fileName = `letter-of-acceptance-${application.course?.slug || application.id}.pdf`;
     const storagePath = `student-documents/${application.user?.id}/${fileName}`;
 
-    const pdfData = pdfBuffer;
     const { error: uploadError } = await supabase.storage
       .from('application-documents')
-      .upload(storagePath, pdfData, {
+      .upload(storagePath, pdfBuffer, {
         contentType: 'application/pdf',
         upsert: true,
       });
 
     if (uploadError) {
       console.error('PDF upload error:', uploadError);
-      throw new Error(`Failed to upload PDF: ${uploadError.message}`);
+      return { success: false, error: `Failed to upload PDF: ${uploadError.message}` };
     }
 
     const { data: { publicUrl } } = supabase.storage

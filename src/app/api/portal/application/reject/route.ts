@@ -77,10 +77,12 @@ export async function POST(request: NextRequest) {
         .insert({
           application_id: applicationId,
           tuition_fee: totalFee,
-          payment_deadline: deadline.toISOString(),
+          currency: 'CAD',
+          payment_deadline: deadline.toISOString().split('T')[0],
           offer_type: 'FULL_TUITION',
           status: 'DECLINED',
-          accepted_at: new Date().toISOString()
+          accepted_at: new Date().toISOString(),
+          ancillary_charged: false
         });
 
       if (createOfferError) {
