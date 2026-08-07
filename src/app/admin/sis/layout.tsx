@@ -8,7 +8,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { Layout01Icon as LayoutDashboard, UserGroupIcon as Users, File01Icon as FileText, BookOpenIcon as BookOpen, Calendar01Icon as Calendar, GraduationCapIcon as GraduationCap, CreditCardIcon as CreditCard, Shield01Icon as Shield, ArchiveIcon as Archive, Mail01Icon as Mail, BarChartIcon as BarChart, SettingsIcon as Settings, HelpCircleIcon as HelpCircle, BellIcon as Bell, ClipboardListIcon as ClipboardList, GlobeIcon as Globe, KeyIcon as Key, Activity01Icon as Activity, ArrowRightIcon as ArrowRight, Search01Icon as MagnifyingGlass, ChevronRightIcon as ChevronRight } from "@hugeicons/core-free-icons";
 import { Logo } from '@/components/ui/Logo';
 import { UserAvatar } from '@/components/ui/UserAvatar';
-import { ProgressIndicator } from "@aalto-dx/react-components";
+import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
 
 export default function AdminSISLayout({
   children,

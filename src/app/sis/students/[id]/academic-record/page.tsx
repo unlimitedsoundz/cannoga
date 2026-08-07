@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { useParams } from 'next/navigation';
@@ -43,7 +43,8 @@ const tabs = [
 
 export default function AcademicRecordPage() {
   const params = useParams();
-  const studentId = params.id as string;
+  const resolvedParams = React.use(params);
+  const studentId = resolvedParams.id as string;
   const [selectedTerm, setSelectedTerm] = React.useState('Fall 2026');
   const [page, setPage] = React.useState(1);
 

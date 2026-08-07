@@ -4,7 +4,7 @@ import { ReactNode, useState, useEffect, useMemo } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import PortalHeader from '@/components/portal/PortalHeader';
-import { ProgressIndicator } from "@aalto-dx/react-components";
+import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
 
 export default function PortalLayout({ children }: { children: ReactNode }) {
     const [loading, setLoading] = useState(true);

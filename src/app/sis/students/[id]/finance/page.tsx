@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { useParams } from 'next/navigation';
@@ -36,7 +36,8 @@ const tabs = [
 
 export default function FinancePage() {
   const params = useParams();
-  const studentId = params.id as string;
+  const resolvedParams = React.use(params);
+  const studentId = resolvedParams.id as string;
   const [page, setPage] = React.useState(1);
 
   return (

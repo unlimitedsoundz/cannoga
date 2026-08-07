@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,7 +14,8 @@ import { ArrowLeft, Save } from '@hugeicons/core-free-icons';
 
 export default function EditTuitionPage() {
     const params = useParams();
-    const id = params.id as string;
+    const resolvedParams = React.use(params);
+    const id = resolvedParams.id as string;
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);

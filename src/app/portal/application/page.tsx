@@ -15,7 +15,7 @@ import ReviewStep from '@/components/portal/wizard/ReviewStep';
 import WelcomeStep from '@/components/portal/wizard/WelcomeStep';
 import { getProgrammeInstructions } from '@/utils/programme-instructions';
 import { ensureStudentId } from '../profile-actions';
-import { ProgressIndicator } from "@aalto-dx/react-components";
+import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
 
 function ApplicationWizardContent() {
     const router = useRouter();

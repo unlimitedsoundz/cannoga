@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
@@ -48,6 +48,7 @@ interface StudentFinancialData {
 }
 
 export default function StudentFinancePage({ params }: { params: { id: string } }) {
+  const studentId = params.id;
   const [data, setData] = useState<StudentFinancialData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -56,7 +57,7 @@ export default function StudentFinancePage({ params }: { params: { id: string } 
     const fetchData = async () => {
       try {
         setLoading(true);
-        const result = await fetch(`/api/sis/admin/students/${params.id}/finance`).then(r => r.json());
+        const result = await fetch(`/api/sis/admin/students/${studentId}/finance`).then(r => r.json());
         if (!result.success) throw new Error(result.error);
         setData(result.data);
       } catch (err: any) {
@@ -66,7 +67,7 @@ export default function StudentFinancePage({ params }: { params: { id: string } 
       }
     };
     fetchData();
-  }, [params.id]);
+  }, [studentId]);
 
   if (loading) {
     return <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div></div>;
@@ -106,15 +107,15 @@ export default function StudentFinancePage({ params }: { params: { id: string } 
       <div className="bg-white border border-neutral-200 p-6">
         <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Account Summary</h3>
         <div className="space-y-3 text-sm">
-          <div className="flex justify-between"><span className="text-neutral-500">Student ID</span><span className="font-medium text-neutral-900">{student?.student_id || '—'}</span></div>
-          <div className="flex justify-between"><span className="text-neutral-500">Program</span><span className="font-medium text-neutral-900">{student?.course?.title || '—'}</span></div>
+          <div className="flex justify-between"><span className="text-neutral-500">Student ID</span><span className="font-medium text-neutral-900">{student?.student_id || 'â€”'}</span></div>
+          <div className="flex justify-between"><span className="text-neutral-500">Program</span><span className="font-medium text-neutral-900">{student?.course?.title || 'â€”'}</span></div>
           <div className="flex justify-between"><span className="text-neutral-500">Tuition Deposit</span>{summary.depositPaid ? <span className="text-emerald-600 font-bold">Paid</span> : <span className="text-red-600 font-bold">Pending</span>}</div>
           <div className="flex justify-between"><span className="text-neutral-500">Full Tuition</span>{summary.fullTuitionPaid ? <span className="text-emerald-600 font-bold">Paid</span> : <span className="text-amber-600 font-bold">Outstanding</span>}</div>
           <div className="flex justify-between"><span className="text-neutral-500">Housing</span>{summary.housingPaid ? <span className="text-emerald-600 font-bold">Paid</span> : <span className="text-neutral-400">N/A</span>}</div>
           {offer && (
             <>
               <div className="flex justify-between"><span className="text-neutral-500">Offer Status</span><StatusBadge status={offer.status} /></div>
-              <div className="flex justify-between"><span className="text-neutral-500">Payment Deadline</span><span className="font-medium text-neutral-900">{offer.payment_deadline ? new Date(offer.payment_deadline).toLocaleDateString('en-CA') : '—'}</span></div>
+              <div className="flex justify-between"><span className="text-neutral-500">Payment Deadline</span><span className="font-medium text-neutral-900">{offer.payment_deadline ? new Date(offer.payment_deadline).toLocaleDateString('en-CA') : 'â€”'}</span></div>
             </>
           )}
         </div>
@@ -139,8 +140,8 @@ export default function StudentFinancePage({ params }: { params: { id: string } 
                   <tr key={payment.id}>
                     <td className="px-4 py-3 text-neutral-900">{new Date(payment.created_at).toLocaleDateString('en-CA')}</td>
                     <td className="px-4 py-3 font-medium text-neutral-900">${Number(payment.amount).toLocaleString()}</td>
-                    <td className="px-4 py-3 text-neutral-600">{payment.payment_method || '—'}</td>
-                    <td className="px-4 py-3 font-mono text-neutral-600">{payment.transaction_reference || '—'}</td>
+                    <td className="px-4 py-3 text-neutral-600">{payment.payment_method || 'â€”'}</td>
+                    <td className="px-4 py-3 font-mono text-neutral-600">{payment.transaction_reference || 'â€”'}</td>
                     <td className="px-4 py-3"><StatusBadge status={payment.status} /></td>
                   </tr>
                 ))}
@@ -152,3 +153,4 @@ export default function StudentFinancePage({ params }: { params: { id: string } 
     </div>
   );
 }
+
