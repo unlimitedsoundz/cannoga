@@ -8,7 +8,7 @@ import { Link } from "@aalto-dx/react-components";
 import { CaretRight as ChevronRight, CircleNotch as Loader2, UploadSimple, Trash, CheckCircle, Receipt, WarningCircle as AlertCircle, Clock } from "@phosphor-icons/react";
 import { formatToDDMMYYYY } from '@/utils/date';
 import { useState, useEffect, Suspense } from 'react';
-import { addApplicationDocument, deleteApplicationDocument, updateApplicationStatus, acceptOffer, rejectOffer, regenerateLOA } from '@/app/portal/actions';
+import { addApplicationDocument, deleteApplicationDocument, updateApplicationStatus, regenerateLOA } from '@/app/portal/actions';
 import { toast } from 'sonner';
 
 function ViewApplicationContent() {
@@ -214,14 +214,20 @@ function ViewApplicationContent() {
         if (!id) return;
         setActionLoading('accept');
         try {
-            const result = await acceptOffer(id);
-            if (result.success) {
-                toast.success('Congratulations! Your offer has been accepted. Next step: Tuition Deposit and PAL Issue.');
-                setIsOfferAccepted(true);
-                setRefreshFlag((count) => count + 1);
-            } else {
-                toast.error('Failed to accept offer');
+            const response = await fetch(`/api/portal/application/accept?id=${id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || 'Failed to accept offer');
             }
+
+            toast.success('Congratulations! Your offer has been accepted. Next step: Tuition Deposit and PAL Issue.');
+            setIsOfferAccepted(true);
+            setRefreshFlag((count) => count + 1);
         } catch (err: any) {
             toast.error(err.message || 'Failed to accept offer');
         } finally {
@@ -233,14 +239,20 @@ function ViewApplicationContent() {
         if (!id) return;
         setActionLoading('reject');
         try {
-            const result = await rejectOffer(id);
-            if (result.success) {
-                toast.success('You have declined the offer.');
-                setIsOfferAccepted(false);
-                setRefreshFlag((count) => count + 1);
-            } else {
-                toast.error('Failed to decline offer');
+            const response = await fetch(`/api/portal/application/reject?id=${id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || 'Failed to decline offer');
             }
+
+            toast.success('You have declined the offer.');
+            setIsOfferAccepted(false);
+            setRefreshFlag((count) => count + 1);
         } catch (err: any) {
             toast.error(err.message || 'Failed to decline offer');
         } finally {

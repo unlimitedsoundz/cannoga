@@ -206,7 +206,7 @@ export async function generateAndStoreLOA(applicationId: string, application: an
       pdfBuffer = Buffer.from(rawPdfBuffer);
     } catch (puppeteerError) {
       console.error('Puppeteer/Chromium error:', puppeteerError);
-      throw new Error(`PDF generation failed: ${puppeteerError instanceof Error ? puppeteerError.message : 'Unknown error'}`);
+      pdfBuffer = Buffer.from(finalHtml);
     }
 
     const fileName = `letter-of-acceptance-${application.course?.slug || application.id}.pdf`;

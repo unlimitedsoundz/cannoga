@@ -41,8 +41,19 @@ export async function GET(request: NextRequest) {
     }
 
     const fileName = `letter-of-acceptance-${application.course?.slug || application.id}.pdf`;
+    const isHtml = result.pdfBuffer.toString('utf8', 0, 100).includes('<!DOCTYPE html>') || result.pdfBuffer.toString('utf8', 0, 100).includes('<html');
 
-    return new NextResponse(Buffer.from(result.pdfBuffer), {
+    if (isHtml) {
+      return new NextResponse(result.pdfBuffer, {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/html',
+          'Content-Disposition': `inline; filename="${fileName.replace('.pdf', '.html')}"`,
+        },
+      });
+    }
+
+    return new NextResponse(result.pdfBuffer, {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
