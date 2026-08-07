@@ -53,7 +53,7 @@ export function FinancialOfferForm({ applicationId, baseTuition, programYears, d
         setIsSubmitting(true);
         try {
             // Map internal types to DB tags
-            let mappedOfferType = 'DEPOSIT';
+            let mappedOfferType = 'TUITION_DEPOSIT';
             if (offerType === '1ST_YEAR') mappedOfferType = '1ST_YEAR_FULL';
             if (offerType === 'FULL_PROGRAM') mappedOfferType = 'FULL_TUITION';
 

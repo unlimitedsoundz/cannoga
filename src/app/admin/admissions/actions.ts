@@ -140,7 +140,7 @@ export async function updateInternalNotes(applicationId: string, notes: string) 
     return { success: true };
 }
 
-export async function createAdmissionOffer(applicationId: string, tuitionFee: number, deadline: string, offerType: 'DEPOSIT' | 'FULL_TUITION' | '1ST_YEAR_FULL' = 'DEPOSIT') {
+export async function createAdmissionOffer(applicationId: string, tuitionFee: number, deadline: string, offerType: 'TUITION_DEPOSIT' | 'FULL_TUITION' | '1ST_YEAR_FULL' = 'TUITION_DEPOSIT') {
     const supabase = createServiceRoleClient();
 
     const { error: offerError } = await supabase
