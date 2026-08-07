@@ -279,10 +279,7 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
         // 1. Mark payment as verified / completed
         const { error: updateError } = await supabase
             .from('tuition_payments')
-            .update({
-                status: 'COMPLETED',
-                paid_at: new Date().toISOString(),
-            })
+            .update({ status: 'COMPLETED' })
             .eq('id', paymentId)
             .in('status', ['PENDING_VERIFICATION', 'verified']);
 
