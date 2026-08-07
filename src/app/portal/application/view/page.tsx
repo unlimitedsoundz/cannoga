@@ -29,6 +29,7 @@ function ViewApplicationContent() {
     const [invoicesExpanded, setInvoicesExpanded] = useState(true);
     const [actionLoading, setActionLoading] = useState<string | null>(null);
     const [actionMessage, setActionMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+    const [palDocument, setPalDocument] = useState<any>(null);
 
     useEffect(() => {
         async function loadData() {
@@ -86,6 +87,24 @@ function ViewApplicationContent() {
                     .order('created_at', { ascending: false });
 
                 setPayments(paymentsData || []);
+
+                const { data: studentData } = await supabase
+                    .from('students')
+                    .select('id')
+                    .eq('user_id', user.id)
+                    .maybeSingle();
+
+                if (studentData) {
+                    const { data: palData } = await supabase
+                        .from('document_records')
+                        .select('*')
+                        .eq('student_id', studentData.id)
+                        .eq('document_type', 'pal')
+                        .eq('is_student_visible', true)
+                        .maybeSingle();
+
+                    setPalDocument(palData);
+                }
             } catch (err: any) {
                 console.error("Error loading application:", err);
                 setError(err.message || "Failed to load application");
@@ -399,6 +418,35 @@ function ViewApplicationContent() {
                         <div>
                             <p className="text-[11px] font-black text-neutral-900 uppercase tracking-wider">Payment Processing</p>
                             <p className="text-[11px] text-neutral-700 font-medium mt-0.5">Your payment has been submitted and is being processed. You will be notified once it is confirmed.</p>
+                        </div>
+                    </div>
+                )}
+
+                {palDocument && (
+                    <div className="border border-emerald-200 bg-emerald-50 p-3 rounded-xl flex items-start gap-3">
+                        <div className="text-emerald-600 mt-0.5">
+                            <CheckCircle size={16} weight="bold" />
+                        </div>
+                        <div>
+                            <p className="text-[11px] font-black text-emerald-900 uppercase tracking-wider">PAL Issued</p>
+                            <p className="text-[11px] text-emerald-800 font-medium mt-0.5">Your Provincial Attestation Letter (PAL) has been issued.</p>
+                            <div className="flex gap-2 mt-2">
+                                <a
+                                    href={palDocument.storage_path}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-3 py-1.5 bg-neutral-900 text-white text-[11px] font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors inline-flex items-center"
+                                >
+                                    View PAL
+                                </a>
+                                <a
+                                    href={palDocument.storage_path}
+                                    download
+                                    className="px-3 py-1.5 border border-neutral-300 text-neutral-700 text-[11px] font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors inline-flex items-center"
+                                >
+                                    Download
+                                </a>
+                            </div>
                         </div>
                     </div>
                 )}
