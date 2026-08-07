@@ -25,8 +25,10 @@ interface FinanceRow {
   full_tuition_paid_at: string | null;
   housing_fee_paid: boolean;
   housing_fee_paid_at: string | null;
+  account_type: 'student' | 'application';
   user?: { first_name: string; last_name: string; email: string }[];
-  course?: { title: string; school?: { name: string }[] }[];
+  course?: { title: string; school?: { name: string }[]; degreeLevel?: string; duration?: string }[];
+  offer?: { id: string; tuition_fee: number; payment_deadline: string; offer_type: string; status: string; invoice_type?: string; invoice_pushed?: boolean; invoice_sent_at?: string }[];
 }
 
 export default function FinancePage() {
@@ -93,7 +95,7 @@ export default function FinancePage() {
         </div>
       ),
     },
-    { key: 'program', header: 'Program', render: (s: FinanceRow) => courseMap[s.program_id] || s.program_id || '—' },
+    { key: 'program', header: 'Program', render: (s: FinanceRow) => courseMap[s.program_id] || s.course?.[0]?.title || '—' },
     {
       key: 'tuition_deposit',
       header: 'Deposit',
@@ -129,9 +131,20 @@ export default function FinancePage() {
     {
       key: 'actions',
       header: 'Actions',
-      render: (s: FinanceRow) => (
-        <Link href={`/sis/admin/students/${s.id}`} className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">View Account</Link>
-      ),
+      render: (s: FinanceRow) => {
+        if (s.account_type === 'student') {
+          return (
+            <Link href={`/sis/admin/students/${s.id}/finance`} className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">
+              View Financials
+            </Link>
+          );
+        }
+        return (
+          <Link href={`/sis/admin/admissions/${s.id}`} className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">
+            View Application
+          </Link>
+        );
+      },
     },
   ];
 
@@ -157,7 +170,7 @@ export default function FinancePage() {
         </div>
         <div className="bg-white border border-neutral-200 p-4">
           <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Outstanding</div>
-          <div className="text-2xl font-black text-red-600 mt-1">{data.filter(s => !s.full_tuition_paid).length}</div>
+          <div className="text-2xl font-black text-red-600 mt-1">{data.filter(s => !s.full_tuition_paid || s.account_type === 'application').length}</div>
         </div>
       </div>
 
@@ -166,13 +179,14 @@ export default function FinancePage() {
         filter={
           <FilterBar
                         filters={[
-              { key: 'status', label: 'Enrollment Status', value: statusFilter, onChange: setStatusFilter, options: [
+              { key: 'status', label: 'Status', value: statusFilter, onChange: setStatusFilter, options: [
                 { value: '', label: 'All Statuses' },
                 { value: 'ACTIVE', label: 'Active' },
                 { value: 'ON_LEAVE', label: 'On Leave' },
                 { value: 'PROBATION', label: 'Probation' },
                 { value: 'GRADUATED', label: 'Graduated' },
                 { value: 'WITHDRAWN', label: 'Withdrawn' },
+                { value: 'OFFER_ACCEPTED', label: 'Offer Accepted' },
               ]},
             ]}
           />}

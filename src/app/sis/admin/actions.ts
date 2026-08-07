@@ -173,22 +173,64 @@ export async function getSISFinanceAccounts() {
   const adminClient = createServiceRoleClient();
 
   try {
-    const { data, error } = await adminClient
-      .from('students')
-      .select(`
-        id, student_id, enrollment_status, program_id,
-        user:profiles(first_name, last_name, email),
-        course:Course(title, school:School(name), degreeLevel),
-        tuition_deposit_paid, tuition_deposit_paid_at,
-        full_tuition_paid, full_tuition_paid_at,
-        housing_fee_paid, housing_fee_paid_at
-      `)
-      .order('created_at', { ascending: false })
-      .limit(20);
+    const [studentsResult, applicationsResult] = await Promise.all([
+      adminClient
+        .from('students')
+        .select(`
+          id, student_id, enrollment_status, program_id,
+          user:profiles(first_name, last_name, email),
+          course:Course(title, school:School(name), degreeLevel),
+          tuition_deposit_paid, tuition_deposit_paid_at,
+          full_tuition_paid, full_tuition_paid_at,
+          housing_fee_paid, housing_fee_paid_at
+        `)
+        .order('created_at', { ascending: false })
+        .limit(20),
+      adminClient
+        .from('applications')
+        .select(`
+          id, application_number, status, course_id, user_id, submitted_at,
+          personal_info,
+          user:profiles(first_name, last_name, email),
+          course:Course(title, school:School(name), degreeLevel, duration),
+          offer:admission_offers(
+            id, tuition_fee, payment_deadline, offer_type, status, invoice_type, invoice_pushed, invoice_sent_at
+          )
+        `)
+        .eq('status', 'OFFER_ACCEPTED')
+        .order('submitted_at', { ascending: false })
+        .limit(20),
+    ]);
 
-    if (error) throw error;
+    if (studentsResult.error) throw studentsResult.error;
+    if (applicationsResult.error) throw applicationsResult.error;
 
-    return { success: true, data: data || [] };
+    const students = (studentsResult.data || []).map((s: any) => ({
+      ...s,
+      account_type: 'student' as const,
+    }));
+
+    const applications = (applicationsResult.data || []).map((a: any) => ({
+      ...a,
+      account_type: 'application' as const,
+      student_id: a.application_number,
+      enrollment_status: a.status,
+      program_id: a.course_id,
+      tuition_deposit_paid: false,
+      tuition_deposit_paid_at: null,
+      full_tuition_paid: false,
+      full_tuition_paid_at: null,
+      housing_fee_paid: false,
+      housing_fee_paid_at: null,
+    }));
+
+    const combined = [...students, ...applications].sort((a, b) => {
+      const dateA = new Date(a.submitted_at || a.created_at || 0).getTime();
+      const dateB = new Date(b.submitted_at || b.created_at || 0).getTime();
+      return dateB - dateA;
+    });
+
+    return { success: true, data: combined };
   } catch (e: any) {
     console.error('getSISFinanceAccounts Error:', e);
     return { success: false, error: e.message };
@@ -484,6 +526,86 @@ export async function uploadStudentDocument(studentId: string, file: File, docum
     return { success: true, url: publicUrl };
   } catch (e: any) {
     console.error('uploadStudentDocument error:', e);
+    return { success: false, error: e.message };
+  }
+}
+
+export async function getStudentFinancialDetails(studentId: string) {
+  const adminClient = createServiceRoleClient();
+
+  try {
+    const { data: student, error: studentError } = await adminClient
+      .from('students')
+      .select(`
+        *,
+        user:profiles(first_name, last_name, email, phone_number),
+        course:Course(title, school:School(name), degreeLevel, duration, credits),
+        application:applications(*, course:Course(title, slug))
+      `)
+      .eq('id', studentId)
+      .maybeSingle();
+
+    if (studentError) throw studentError;
+
+    const applicationId = student?.application?.id;
+
+    let offer = null;
+    let payments: any[] = [];
+    let invoices: any[] = [];
+
+    if (applicationId) {
+      const { data: offerData } = await adminClient
+        .from('admission_offers')
+        .select('*')
+        .eq('application_id', applicationId)
+        .maybeSingle();
+
+      offer = offerData;
+
+      if (offer?.id) {
+        const [paymentsResult, invoicesResult] = await Promise.all([
+          adminClient
+            .from('tuition_payments')
+            .select('*')
+            .eq('offer_id', offer.id)
+            .order('created_at', { ascending: false }),
+          adminClient
+            .from('tuition_payments')
+            .select('*')
+            .eq('offer_id', offer.id)
+            .order('created_at', { ascending: false }),
+        ]);
+
+        payments = paymentsResult.data || [];
+        invoices = invoicesResult.data || [];
+      }
+    }
+
+    const tuitionFee = offer?.tuition_fee || 0;
+    const totalPaid = payments
+      .filter((p: any) => p.status === 'COMPLETED')
+      .reduce((sum: number, p: any) => sum + Number(p.amount), 0);
+    const outstandingBalance = tuitionFee - totalPaid;
+
+    return {
+      success: true,
+      data: {
+        student,
+        offer,
+        payments,
+        invoices,
+        summary: {
+          tuitionFee,
+          totalPaid,
+          outstandingBalance,
+          depositPaid: student?.tuition_deposit_paid || false,
+          fullTuitionPaid: student?.full_tuition_paid || false,
+          housingPaid: student?.housing_fee_paid || false,
+        },
+      },
+    };
+  } catch (e: any) {
+    console.error('getStudentFinancialDetails Error:', e);
     return { success: false, error: e.message };
   }
 }
