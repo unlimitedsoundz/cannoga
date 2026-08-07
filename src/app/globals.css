@@ -415,8 +415,13 @@
   box-shadow: none !important;
   text-shadow: none !important;
   transition: none !important;
-  animation: none !important;
   backdrop-filter: none !important;
+}
+
+/* Ensure loading spinners can always animate */
+.loading-spinner,
+.loading-spinner * {
+  animation: inherit !important;
 }
 
 

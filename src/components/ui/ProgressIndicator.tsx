@@ -27,7 +27,7 @@ export function ProgressIndicator({
     return (
         <Loader2 
             size={size} 
-            className={`animate-spin ${variantClasses[variant]} ${className}`} 
+            className={`animate-spin loading-spinner ${variantClasses[variant]} ${className}`} 
             weight="bold"
         />
     );
