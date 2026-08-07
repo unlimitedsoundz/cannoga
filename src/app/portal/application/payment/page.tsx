@@ -69,16 +69,11 @@ function PaymentContent() {
                 // Handle both 1:1 (object) and 1:N (array) returns from Supabase
                 const offer = Array.isArray(application.offer) ? application.offer[0] : application.offer;
 
+                // Allow access if there is an offer; missing/invoice-prep states are handled below
                 if (!offer) {
                     console.error('Offer object is null or empty');
                     setError('Your tuition invoice is being prepared. Please check back later or contact the Admissions Office if you have questions.');
                     setLoading(false);
-                    return;
-                }
-
-                // Security Check: Only allow if OFFER_ACCEPTED, ADMISSION_LETTER_GENERATED, or if already ENROLLED (to view receipt)
-                if (application.status === 'ADMITTED') {
-                    router.push(`/portal/application/letter?id=${id}`);
                     return;
                 }
 
