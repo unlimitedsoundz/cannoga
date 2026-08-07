@@ -393,7 +393,7 @@ export default function ApplyPage() {
           <Link href="/portal/account/register?type=alumni" className="block bg-white border border-slate-200 hover:shadow-md rounded-md overflow-hidden">
             <div className="px-4 py-3 bg-primary text-white font-semibold">Alumni</div>
             <div className="p-4">
-              <img src="/images/student-story-2.jpg" alt="Alumni" className="w-full h-28 object-cover rounded-md mb-3" />
+              <img src="/images/alumni-hero.png" alt="Alumni" className="w-full h-28 object-cover rounded-md mb-3" />
               <p className="text-sm text-black">If you are alumni and know your student number, click "Alumni" to create an account.</p>
             </div>
           </Link>
@@ -401,7 +401,7 @@ export default function ApplyPage() {
           <Link href="/portal/account/register?type=other" className="block bg-white border border-slate-200 hover:shadow-md rounded-md overflow-hidden">
             <div className="px-4 py-3 bg-primary text-white font-semibold">Other</div>
             <div className="p-4">
-              <img src="/images/vibrant-community.png" alt="Other" className="w-full h-28 object-cover rounded-md mb-3" />
+              <img src="/images/student-story-2.jpg" alt="Other" className="w-full h-28 object-cover rounded-md mb-3" />
               <p className="text-sm text-black">If you do not fit into the other categories and would like to submit a case to Registrar's Office, choose "Other".</p>
             </div>
           </Link>
