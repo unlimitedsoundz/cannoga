@@ -475,7 +475,7 @@ function ViewApplicationContent() {
                     </div>
                 )}
 
-                {application.status === 'OFFER_ACCEPTED' && hasInvoice && !hasPayments && (
+                {hasInvoice && !hasPayments && (
                     <div className="p-3">
                         <p className="text-[13px] font-bold text-black">Your invoice has been generated. Please complete your payment to secure your enrollment.</p>
                         <p className="text-[11px] text-neutral-700 font-medium mt-0.5">Please note: After tuition deposit has been paid and verified, please allow 6-12 days for Provincial Attestation Letter (PAL) issuance.</p>
