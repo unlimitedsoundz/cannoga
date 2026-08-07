@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Kilo-Org/kilocode/main/packages/core/schema.json",
+  "version": "1.0.0",
+  "model": {
+    "provider": "kilo-auto/free",
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text"
+      ]
+    }
+  }
+}

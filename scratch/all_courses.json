@@ -1,0 +1,576 @@
+[
+  {
+    "id": "44aa0886-019f-475a-b616-9511729d1386",
+    "title": "Bachelor of Information Systems",
+    "slug": "information-systems-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "dd0c8f81-22d3-4ebe-9be4-ed7052ab6ff1",
+    "title": "Bachelor of Arts in Film, Television and Scenography",
+    "slug": "ba-film-tv",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "ac66b778-edde-4e2b-a240-7661ecf805f2",
+    "title": "Bachelor of Engineering in Electronics and Nanoengineering",
+    "slug": "beng-electronics-nano",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "6e409883-44cd-4411-abaf-9621c475141d",
+    "title": "Bachelor of Engineering in Electrical Engineering and Automation",
+    "slug": "beng-electrical-automation",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "9f5ee81d-7fea-458f-b0e7-fbbebfe44385",
+    "title": "Bachelor of Engineering in Mechanical and Energy Engineering",
+    "slug": "beng-mechanical-energy",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "43fa12ae-50e9-4671-8fac-6b3953d16af2",
+    "title": "Bachelor of Engineering in Industrial Engineering and Management",
+    "slug": "beng-industrial-engineering",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "3f62631c-a754-4732-b65a-128c6a45a5ff",
+    "title": "Bachelor of Engineering in Civil Engineering",
+    "slug": "beng-civil-engineering",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "3f5938a1-8882-4bbf-8766-ecd48880a054",
+    "title": "Master's in Economics",
+    "slug": "msc-economics",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "04d07ff3-8b5b-4423-92bb-35ea0f21b132",
+    "title": "Master of Engineering in Civil Engineering",
+    "slug": "meng-civil-engineering",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "ed3d86b2-3e4d-4836-8a1f-8b8ec19d2d59",
+    "title": "Bachelor's in Economics",
+    "slug": "bsc-economics",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "1c8e7234-9785-47aa-a838-b7db2cabae19",
+    "title": "MSc in Software Engineering",
+    "slug": "software-engineering-msc",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "e82ccc83-dc9b-4b90-a6e0-90689f49ad3a",
+    "title": "MSc in Global Business & Leadership",
+    "slug": "global-business-leadership-msc",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "2bbdb166-50b5-4d5e-a550-8f547a9614a4",
+    "title": "Master of Engineering in Electrical Engineering and Automation",
+    "slug": "meng-electrical-automation",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "76111223-8b47-4bab-aec6-08486b1ac08e",
+    "title": "MSc in Computer Science",
+    "slug": "computer-science-msc",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "cf82b5e1-82e1-4c91-b0e1-fba61408702b",
+    "title": "Bachelor's in Applied Physics",
+    "slug": "bsc-applied-physics-science",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "b02bf9f9-e1ad-4dd2-83f6-4d40a35082c6",
+    "title": "Master of Arts in Film, Television and Scenography",
+    "slug": "ma-film-tv",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "3b134c31-348b-47e2-a2c1-b5173f0a0dc3",
+    "title": "Master of Science in Computer Science",
+    "slug": "msc-computer-science",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "0a788bd6-ec83-4d79-a5b1-3f174d3393a8",
+    "title": "MSc in Entrepreneurship & Innovation",
+    "slug": "entrepreneurship-innovation-msc",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "a56f72b0-a3ce-4857-9355-66b6d12e6a27",
+    "title": "Master's in Mathematics and Systems Analysis",
+    "slug": "msc-math-systems",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "8d630322-3f05-4ee1-b109-ee2484a7d55e",
+    "title": "Bachelor of Science in Marketing",
+    "slug": "bsc-marketing",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "21011fa4-4c48-4b05-8a75-ebd7dc243ef3",
+    "title": "Bachelor of Architecture (B.Arch)",
+    "slug": "bachelor-architecture",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "ed80c1ca-7994-43bd-8e7a-e93623cdc334",
+    "title": "Master of Science in Information and Service Management",
+    "slug": "msc-info-service",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "ce5a8ff0-c53c-4155-be7a-07d3e92a9e3d",
+    "title": "Master of Art and Media (MA)",
+    "slug": "ma-art-media",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "d7492605-a04b-4103-8fa7-dd9e286b7396",
+    "title": "Bachelor of Science in Chemistry and Materials Science",
+    "slug": "bsc-chemistry-materials",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "842d2180-1cda-4e1e-88d8-9617045b8583",
+    "title": "BSc Accounting & Business Law",
+    "slug": "bsc-accounting-business-law",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "320ef958-ff93-4123-a436-8b1579bb6ffe",
+    "title": "Master of Science in Chemistry and Materials Science",
+    "slug": "msc-chemistry-materials",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "ff92abca-873a-4709-a2fb-5c1203433f71",
+    "title": "Master of Engineering in Information and Communications Engineering",
+    "slug": "meng-info-comms",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "0562214a-9a3e-42d2-a1b4-f6e365724f85",
+    "title": "Bachelor's in Management Studies",
+    "slug": "bsc-management-studies",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "e11cbb69-6915-4cc6-a110-05f8ab9577c7",
+    "title": "Master's in Management Studies",
+    "slug": "msc-management-studies",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "1df3d8b1-9133-4222-b033-a28f8e33851e",
+    "title": "MSc in International Business & Management",
+    "slug": "international-business-management-msc",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "4ac3c220-4f7f-4881-8bb8-c230976a8a96",
+    "title": "Bachelor of Science in Information and Service Management",
+    "slug": "bsc-info-service",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "b172c9d3-5e6f-4g2h-9i3d-3g8h9i0j1k22",
+    "title": "Master's in Marketing & Innovation",
+    "slug": "marketing-innovation",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "54c454e0-fc2d-4190-b562-7c9411b430e1",
+    "title": "MSc in Information Technology",
+    "slug": "information-technology-msc",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "cefbb6c1-d03f-4a94-9ce6-81389a3c5223",
+    "title": "MSc in Environmental & Sustainability Science",
+    "slug": "environmental-sustainability-science-msc",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "98857c40-e58f-4778-bd6b-9909d39f985b",
+    "title": "Bachelor of Business Management",
+    "slug": "business-management-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "b7575c72-6bc8-44af-b640-b3034575e851",
+    "title": "MSc in Strategic Management",
+    "slug": "strategic-management-msc",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "e95ba412-868a-4fa1-ad33-a731874d94dd",
+    "title": "Bachelor of Engineering in Chemical and Metallurgical Engineering",
+    "slug": "beng-chem-met",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "b12b8f83-ebf8-4616-8a60-c98215f3f417",
+    "title": "Master's in Strategic Management & Finance",
+    "slug": "strategic-management-finance",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "28089bec-e688-451e-88ae-e7f00158147f",
+    "title": "Bachelor's in Design",
+    "slug": "bachelor-design",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "f4fa2bd2-2596-460f-a6f8-2eb04bd77b76",
+    "title": "Bachelor of Science in Computer Science",
+    "slug": "bsc-computer-science",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "7d3e5f8a-1b2c-4e7d-9a3f-8c4e5d6b7f88",
+    "title": "Master's in Accounting & Finance",
+    "slug": "accounting-finance-master",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "0fd794fc-88a4-45aa-aa9d-e8b47921a23a",
+    "title": "Master's in Design",
+    "slug": "master-design",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "3cf65dd9-bc92-4b9f-aabf-383de5901327",
+    "title": "Bachelor of Human Resource Management",
+    "slug": "human-resource-management-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "24e9ab9d-d00c-4594-8825-0472992d3d0c",
+    "title": "Bachelor of Software Engineering",
+    "slug": "software-engineering-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "3f6633f5-6c7b-4bd8-afa1-6ff1d1eb7148",
+    "title": "Bachelor of Art and Media (BA)",
+    "slug": "ba-art-media",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "cb16b448-5c5d-4e94-8ada-5049a0f0be4e",
+    "title": "Bachelor of Project Management",
+    "slug": "project-management-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "2405df3e-4d58-4afd-826a-69aa5cde3f14",
+    "title": "Master of Science in Accounting & Business Law",
+    "slug": "msc-accounting-business-law",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "38e824e9-7495-417b-b4f1-d9d2718c9bca",
+    "title": "Bachelor of Engineering in Information and Communications Engineering",
+    "slug": "beng-info-comms",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "d394e1f5-7g8h-4i5j-9k6f-5i0j1k2l3m44",
+    "title": "Master's in Interdisciplinary / Joint",
+    "slug": "interdisciplinary-joint",
+    "degreeLevel": "MASTER",
+    "duration": "2-3 Years"
+  },
+  {
+    "id": "86e16012-9173-4c5c-bb66-8393e1ead703",
+    "title": "Bachelor of Operations & Logistics Management",
+    "slug": "operations-logistics-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "cd3b3eb9-6fd2-435c-9cb2-61c803195f21",
+    "title": "Bachelor of Information Technology",
+    "slug": "information-technology-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "10de7534-974b-44cc-b88b-8189cd3f302c",
+    "title": "Master of Science in Marketing",
+    "slug": "msc-marketing",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "80c90b67-bc14-4be9-9a3e-51bbc4553dcc",
+    "title": "Bachelor's in Mathematics and Systems Analysis",
+    "slug": "bsc-math-systems",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "e78c421f-8e56-49f8-9e8d-555f4c7b78a7",
+    "title": "Master of Architecture (M.Arch)",
+    "slug": "master-architecture",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "e78cd184-d70f-476d-8925-9a94d8754d16",
+    "title": "Bachelor of Entrepreneurship & Innovation",
+    "slug": "entrepreneurship-innovation-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "337cecf9-4132-4a60-8cdb-ed316a316b30",
+    "title": "MSc in Cybersecurity",
+    "slug": "cybersecurity-msc",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "51dab0f3-6f72-4d6c-ad23-ca4a35fe005b",
+    "title": "MSc in Project Management",
+    "slug": "project-management-msc",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "09892638-d4d8-4528-bc85-264f64a29474",
+    "title": "Bachelor of Digital Business Management",
+    "slug": "digital-business-management-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "e15ef57b-2f95-42a6-b766-aeef883af9d2",
+    "title": "BSc Accounting & Finance",
+    "slug": "accounting-and-finance-bsc",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "767ee2d0-be50-4a1b-bddd-81e20e29b3bf",
+    "title": "Bachelor of Business Administration (BBA)",
+    "slug": "bba",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "d6cee1e6-6abf-4825-8b7b-68975c563f77",
+    "title": "Master of Engineering in Electronics and Nanoengineering",
+    "slug": "meng-electronics-nano",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "48e55410-283c-40e1-b897-4d440ef27a19",
+    "title": "Bachelor of International Business",
+    "slug": "international-business-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "494308a0-3733-4c52-bc91-24d1f4308ae1",
+    "title": "Master of Engineering in Mechanical and Energy Engineering",
+    "slug": "meng-mechanical-energy",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "ab34b8d2-8c6e-4e24-a733-b5297c21f2da",
+    "title": "Master of Engineering in Industrial Engineering and Management",
+    "slug": "meng-industrial-engineering",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "8f871bf4-7191-45c5-8024-04ff19768e57",
+    "title": "Master of Engineering in Chemical and Metallurgical Engineering",
+    "slug": "meng-chem-met",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "b5cdd9f4-b525-4362-bb70-9b9e258fbf66",
+    "title": "Master's in Applied Physics",
+    "slug": "msc-applied-physics",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "a061b8c2-4d5e-4f1a-9b3c-2f7a8b9c1d11",
+    "title": "Master's in Management & Strategy",
+    "slug": "management-strategy",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "7b91fcb4-0c1d-4c3b-9e1a-5f9eab6f4d21",
+    "title": "Bachelor's in Finance",
+    "slug": "finance",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "c283d0e4-6f7g-4h3i-9j4e-4h9i0j1k2l33",
+    "title": "Master's in Entrepreneurship & Innovation",
+    "slug": "entrepreneurship-innovation",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "6a2d4f7e-5c1b-4e9f-9a2b-7d3e4f5a6b77",
+    "title": "Bachelor's in Language & Intercultural",
+    "slug": "language-intercultural",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "9f5a7b1c-3d4e-4f9b-9c2d-1e6f7a8b9c00",
+    "title": "Master's in Finance",
+    "slug": "finance-master",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "4c2e8f2a-1a9c-4b7e-9b19-2d8e7a3f4b11",
+    "title": "Bachelor's in Information Systems & Analytics",
+    "slug": "information-systems-analytics",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "5e9a3f7d-8c2b-4e8f-b9a1-3d2e4c1a6b55",
+    "title": "Bachelor's in Management",
+    "slug": "management",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "4f9a1e2b-2c8b-4d7e-9f1a-6b2c3d4f5a66",
+    "title": "Bachelor's in Marketing",
+    "slug": "marketing",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "29ae6600-245a-4e1b-afa8-127117f20969",
+    "title": "MSc in Data Science & Analytics",
+    "slug": "data-science-analytics-msc",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "586d3032-d371-4032-91c2-c964dba62488",
+    "title": "Bachelor of Artificial Intelligence",
+    "slug": "artificial-intelligence-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "c27fdf2a-f786-47d0-8c9c-c9c3e65b5580",
+    "title": "Bachelor of Environmental Science",
+    "slug": "environmental-science-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "49b84c9a-009f-4840-a61c-27abaf03fc07",
+    "title": "Bachelor of Data Science",
+    "slug": "data-science-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "34bd1ac7-e7d6-42e6-8888-c899fd0d5cea",
+    "title": "Master of Business Administration (MBA)",
+    "slug": "mba",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "3a0578ec-17d6-4b83-bdc6-da2742969869",
+    "title": "Bachelor of Computer Science",
+    "slug": "computer-science-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  },
+  {
+    "id": "00a6ad7f-68a7-4f79-b28b-2dc086365722",
+    "title": "MSc in Artificial Intelligence",
+    "slug": "artificial-intelligence-msc",
+    "degreeLevel": "MASTER",
+    "duration": "2 Years"
+  },
+  {
+    "id": "e037b19c-08f1-455c-9048-3548fe8a3c48",
+    "title": "Bachelor of Cybersecurity",
+    "slug": "cybersecurity-bachelor",
+    "degreeLevel": "BACHELOR",
+    "duration": "3 Years"
+  }
+]

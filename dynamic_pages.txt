@@ -1,0 +1,13 @@
+﻿src\app\admin\courses\[id]\page.tsx
+src\app\admin\departments\[id]\page.tsx
+src\app\admin\events\[id]\page.tsx
+src\app\admin\faculty\[id]\page.tsx
+src\app\admin\news\[id]\page.tsx
+src\app\admin\research\projects\[id]\page.tsx
+src\app\admin\subjects\[id]\page.tsx
+src\app\news\events\[slug]\page.tsx
+src\app\news\[slug]\page.tsx
+src\app\research\projects\[slug]\page.tsx
+src\app\schools\[slug]\page.tsx
+src\app\schools\[slug]\[dept_slug]\page.tsx
+src\app\studies\[slug]\page.tsx

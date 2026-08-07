@@ -1,0 +1,112 @@
+﻿node.exe : ΓÜá 
+Warning: Next.js 
+inferred your 
+workspace root, but it 
+may not be correct.
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Users\eltig\AppData
+\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (ΓÜá Warning:    
+ Ne...not be correc    
+t.:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+ We detected multiple 
+lockfiles and selected 
+the directory of C:\Use
+rs\eltig\package-lock.j
+son as the root 
+directory.
+ To silence this 
+warning, set 
+`turbopack.root` in 
+your Next.js config, 
+or consider removing 
+one of the lockfiles 
+if it's not needed.
+   See https://nextjs.o
+rg/docs/app/api-referen
+ce/config/next-config-j
+s/turbopack#root-direct
+ory for more 
+information.
+ Detected additional 
+lockfiles: 
+   * C:\Users\eltig\One
+Drive\Documents\syklico
+llege\package-lock.json
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 23.4s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+Error: export const 
+dynamic = 
+"force-static"/export 
+const revalidate not 
+configured on route 
+"/auth/callback" with 
+"output: export". See 
+more info here: https:/
+/nextjs.org/docs/advanc
+ed-features/static-html
+-export
+    at module 
+evaluation (C:\Users\el
+tig\OneDrive\Documents\
+syklicollege\.next\serv
+er\chunks\[root-of-the-
+server]__1c1f4189._.js:
+1:1659)
+    at 
+instantiateModule (C:\U
+sers\eltig\OneDrive\Doc
+uments\syklicollege\.ne
+xt\server\chunks\[turbo
+pack]_runtime.js:740:9)
+    at instantiateRunti
+meModule (C:\Users\elti
+g\OneDrive\Documents\sy
+klicollege\.next\server
+\chunks\[turbopack]_run
+time.js:768:12)
+    at getOrInstantiate
+RuntimeModule (C:\Users
+\eltig\OneDrive\Documen
+ts\syklicollege\.next\s
+erver\chunks\[turbopack
+]_runtime.js:781:12)
+    at Object.m (C:\Use
+rs\eltig\OneDrive\Docum
+ents\syklicollege\.next
+\server\chunks\[turbopa
+ck]_runtime.js:790:18)
+    at 
+Object.<anonymous> (C:\
+Users\eltig\OneDrive\Do
+cuments\syklicollege\.n
+ext\server\app\auth\cal
+lback\route.js:7:3)
+
+> Build error occurred
+Error: Failed to 
+collect page data for 
+/auth/callback
+    at ignore-listed 
+frames {
+  type: 'Error'
+}

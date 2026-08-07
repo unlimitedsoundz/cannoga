@@ -134,45 +134,76 @@ function ViewApplicationContent() {
         }
 
         setUploadingType(type);
+        setUploadError(null);
 
         try {
             const fileExt = file.name.split('.').pop();
             const storagePath = `${id}/${type}_${Date.now()}.${fileExt}`;
 
             const supabase = createClient();
+
+            // Step 1: Upload to storage
             const { error: uploadError } = await supabase.storage
                 .from('application-documents')
                 .upload(storagePath, file);
 
-            if (uploadError) throw uploadError;
+            if (uploadError) {
+                console.error('Storage upload error:', uploadError);
+                throw new Error(`Storage upload failed: ${uploadError.message}`);
+            }
 
+            // Step 2: Get public URL
             const { data: { publicUrl } } = supabase.storage
                 .from('application-documents')
                 .getPublicUrl(storagePath);
 
-            await addApplicationDocument(id!, type, publicUrl, file.name);
-            setRefreshFlag((count) => count + 1);
+            if (!publicUrl) {
+                throw new Error('Could not get public URL for uploaded file');
+            }
 
-            const requiredAcademicTypes = ['TRANSCRIPT', 'CERTIFICATE'];
-            const { data: docs } = await supabase
+            // Step 3: Save document metadata via server action
+            let docMetaResult;
+            try {
+                docMetaResult = await addApplicationDocument(id!, type, publicUrl, file.name);
+            } catch (metaError: any) {
+                console.error('Server action error:', metaError);
+                throw new Error(`Failed to save document record: ${metaError?.message || 'Unknown error'}`);
+            }
+
+            if (!docMetaResult?.success) {
+                throw new Error(docMetaResult?.error || 'Failed to save document record');
+            }
+
+            // Step 4: Verify the document was saved by querying client-side
+            const { data: docs, error: docsError } = await supabase
                 .from('application_documents')
                 .select('type')
                 .eq('application_id', id!);
 
+            if (docsError) {
+                console.error('Client-side query error:', docsError);
+                throw new Error(`Failed to verify upload: ${docsError.message}`);
+            }
+
+            const requiredAcademicTypes = ['TRANSCRIPT', 'CERTIFICATE'];
             const uploadedTypes = new Set((docs || []).map((d: any) => (d.type || '').toUpperCase()));
-            const academicDocsUploaded = requiredAcademicTypes.some(type => uploadedTypes.has(type));
+            const academicDocsUploaded = requiredAcademicTypes.some(t => uploadedTypes.has(t));
             const passportUploaded = uploadedTypes.has('PASSPORT');
             const allRequiredUploaded = academicDocsUploaded && passportUploaded;
 
+            // Step 5: Update status if all required docs uploaded
             if (allRequiredUploaded && application.status === 'DRAFT') {
                 const { updateApplicationStatus } = await import('@/app/portal/actions');
                 await updateApplicationStatus(id!, 'UNDER_REVIEW');
-                setRefreshFlag((count) => count + 1);
             }
-        } catch (uploadError: any) {
-            console.error('Document upload failed:', uploadError);
-            const message = uploadError?.message || 'Upload failed. Please try again.';
-            alert(message);
+
+            setRefreshFlag((count) => count + 1);
+            setUploadError(null);
+
+        } catch (err: any) {
+            console.error('Document upload failed:', err);
+            const message = err?.message || 'Upload failed. Please try again.';
+            alert(`Upload failed: ${message}`);
             setUploadError(message);
         } finally {
             setUploadingType(null);

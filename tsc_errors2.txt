@@ -1,0 +1,16 @@
+﻿.next/types/validator.ts(962,39): error TS2307: Cannot find module '../../src/app/api/admin/housing/assign-room/route.js' or its corresponding type declarations.
+.next/types/validator.ts(971,39): error TS2307: Cannot find module '../../src/app/api/departments/route.js' or its corresponding type declarations.
+.next/types/validator.ts(980,39): error TS2307: Cannot find module '../../src/app/api/events/route.js' or its corresponding type declarations.
+.next/types/validator.ts(989,39): error TS2307: Cannot find module '../../src/app/api/faculty/route.js' or its corresponding type declarations.
+.next/types/validator.ts(998,39): error TS2307: Cannot find module '../../src/app/api/news/route.js' or its corresponding type declarations.
+.next/types/validator.ts(1007,39): error TS2307: Cannot find module '../../src/app/auth/callback/route.js' or its corresponding type declarations.
+src/app/portal/account/login/page.tsx(33,43): error TS2339: Property 'session' does not exist on type '{ success: boolean; message: string; error?: undefined; }'.
+src/app/portal/account/login/page.tsx(38,90): error TS2339: Property 'session' does not exist on type '{ success: boolean; message: string; error?: undefined; }'.
+src/app/portal/actions.ts(18,19): error TS18047: 'user' is possibly 'null'.
+src/app/portal/actions.ts(22,64): error TS18047: 'user' is possibly 'null'.
+src/app/portal/actions.ts(26,21): error TS18047: 'user' is possibly 'null'.
+src/app/portal/actions.ts(27,24): error TS18047: 'user' is possibly 'null'.
+src/app/portal/actions.ts(28,29): error TS18047: 'user' is possibly 'null'.
+src/app/portal/actions.ts(29,28): error TS18047: 'user' is possibly 'null'.
+src/app/portal/actions.ts(30,24): error TS18047: 'user' is possibly 'null'.
+src/app/portal/actions.ts(43,22): error TS18047: 'user' is possibly 'null'.

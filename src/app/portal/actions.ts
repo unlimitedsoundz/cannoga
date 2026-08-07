@@ -134,7 +134,7 @@ export async function addApplicationDocument(applicationId: string, type: string
 
     if (error) {
         console.error('Error adding document meta:', error);
-        throw new Error('Failed to save document info');
+        throw new Error(`Failed to save document info: ${error.message || JSON.stringify(error)}`);
     }
     return { success: true };
 }

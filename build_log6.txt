@@ -1,0 +1,176 @@
+﻿node.exe : ΓÜá 
+turbopack.root should 
+be absolute, using: C:\
+Users\eltig\OneDrive\Do
+cuments\syklicollege
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Users\eltig\AppData
+\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (ΓÜá turbopack   
+ .r...ts\syklicolle    
+ge:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 21.8s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/184) ...
+  Generating static pages using 7 workers (46/184) 
+  Generating static pages using 7 workers (92/184) 
+  Generating static pages using 7 workers (138/184) 
+Γ£ô Generating static pages using 7 workers (184/184) in 7.3s
+  Finalizing page optimization ...
+
+Route (app)
+Γöî Γùï /
+Γö£ Γùï /_not-found
+Γö£ Γùï /about
+Γö£ Γùï /academic-regulations
+Γö£ Γùï /accessibility
+Γö£ Γùï /admin
+Γö£ Γùï /admin/admissions
+Γö£ Γùï /admin/admissions/review
+Γö£ Γùï /admin/courses
+Γö£ ΓùÅ /admin/courses/[id]
+Γöé Γöö /admin/courses/new
+Γö£ Γùï /admin/courses/edit
+Γö£ Γùï /admin/departments
+Γö£ ΓùÅ /admin/departments/[id]
+Γöé Γöö /admin/departments/new
+Γö£ Γùï /admin/departments/edit
+Γö£ Γùï /admin/events
+Γö£ ΓùÅ /admin/events/[id]
+Γöé Γöö /admin/events/new
+Γö£ Γùï /admin/events/edit
+Γö£ Γùï /admin/faculty
+Γö£ ΓùÅ /admin/faculty/[id]
+Γöé Γöö /admin/faculty/new
+Γö£ Γùï /admin/faculty/edit
+Γö£ Γùï /admin/housing
+Γö£ Γùï /admin/housing/finance
+Γö£ Γùï /admin/it
+Γö£ Γùï /admin/news
+Γö£ ΓùÅ /admin/news/[id]
+Γöé Γöö /admin/news/new
+Γö£ Γùï /admin/news/edit
+Γö£ Γùï /admin/registrar
+Γö£ Γùï /admin/research/projects
+Γö£ ΓùÅ /admin/research/projects/[id]
+Γöé Γöö /admin/research/projects/new
+Γö£ Γùï /admin/students
+Γö£ Γùï /admin/subjects
+Γö£ ΓùÅ /admin/subjects/[id]
+Γöé Γöö /admin/subjects/new
+Γö£ Γùï /admin/subjects/edit
+Γö£ Γùï /admissions
+Γö£ Γùï /admissions-policy
+Γö£ Γùï /admissions/application-process
+Γö£ Γùï /admissions/bachelor
+Γö£ Γùï /admissions/bachelor-fi
+Γö£ Γùï /admissions/master
+Γö£ Γùï /admissions/requirements
+Γö£ Γùï /admissions/tuition
+Γö£ Γùï /alumni
+Γö£ Γùï /art
+Γö£ Γùï /auth/callback
+Γö£ Γùï /code-of-conduct
+Γö£ Γùï /collaboration
+Γö£ Γùï /contact
+Γö£ Γùï /cookies
+Γö£ Γùï /debug
+Γö£ Γùï /innovation
+Γö£ Γùï /international
+Γö£ Γùï /login
+Γö£ Γùï /news
+Γö£ ΓùÅ /news/[slug]
+Γöé Γö£ /news/international-students
+Γöé Γö£ /news/applications-open-fall-2026
+Γöé Γö£ /news/students-employment
+Γöé Γöö /news/sykli-partners-greentech
+Γö£ ΓùÅ /news/events/[slug]
+Γöé Γöö /news/events/open-day
+Γö£ Γùï /news/why-study-in-finland
+Γö£ Γùï /portal
+Γö£ Γùï /portal/account
+Γö£ Γùï /portal/account/admin-login
+Γö£ Γùï /portal/account/admin-register
+Γö£ Γùï /portal/account/login
+Γö£ Γùï /portal/account/register
+Γö£ Γùï /portal/application
+Γö£ Γùï /portal/application/letter
+Γö£ Γùï /portal/application/offer
+Γö£ Γùï /portal/application/payment
+Γö£ Γùï /portal/application/receipt
+Γö£ Γùï /portal/application/view
+Γö£ Γùï /portal/apply
+Γö£ Γùï /portal/dashboard
+Γö£ Γùï /portal/enrollment
+Γö£ Γùï /portal/student
+Γö£ Γùï /portal/student/courses
+Γö£ Γùï /portal/student/housing
+Γö£ Γùï /portal/student/it-access
+Γö£ Γùï /portal/student/lms
+Γö£ Γùï /portal/student/offer
+Γö£ Γùï /portal/student/records
+Γö£ Γùï /portal/student/timetable
+Γö£ Γùï /portal/student/transcript
+Γö£ Γùï /portal/support
+Γö£ Γùï /privacy
+Γö£ Γùï /refund-withdrawal-policy
+Γö£ Γùï /research
+Γö£ Γùï /research/projects
+Γö£ ΓùÅ /research/projects/[slug]
+Γöé Γö£ /research/projects/urban-green-roofs-impact
+Γöé Γö£ /research/projects/ai-in-waste-sorting
+Γöé Γöö /research/projects/carbon-neutral-construction-2030
+Γö£ Γùï /research/publications
+Γö£ Γùï /robots.txt
+Γö£ Γùï /schools
+Γö£ ΓùÅ /schools/[slug]
+Γöé Γö£ /schools/business
+Γöé Γö£ /schools/arts
+Γöé Γö£ /schools/technology
+Γöé Γöö /schools/science
+Γö£ ΓùÅ /schools/[slug]/[dept_slug]
+Γöé Γö£ /schools/business/marketing
+Γöé Γö£ /schools/business/management
+Γöé Γö£ /schools/business/business
+Γöé Γöö [+15 more paths]
+Γö£ Γùï /site-index
+Γö£ Γùï /sitemap.xml
+Γö£ Γùï /student-guide
+Γö£ Γùï /student-guide/arrival
+Γö£ Γùï /student-guide/bachelor
+Γö£ Γùï /student-guide/exchange
+Γö£ Γùï /student-guide/international
+Γö£ Γùï /student-guide/master
+Γö£ Γùï /student-handbook
+Γö£ Γùï /student-life
+Γö£ Γùï /student-life/cafe
+Γö£ Γùï /studies
+Γö£ ΓùÅ /studies/[slug]
+Γöé Γö£ /studies/accounting-and-finance-bsc
+Γöé Γö£ /studies/accounting-finance-master
+Γöé Γö£ /studies/ba-art-media
+Γöé Γöö [+50 more paths]
+Γöö Γùï /terms
+
+
+Γùï  (Static)  prerendered as static content
+ΓùÅ  (SSG)     prerendered as static HTML (uses generateStaticParams)
+

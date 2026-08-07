@@ -68,9 +68,9 @@ export default function DocumentsForm({ applicationId, existingDocuments, reques
             if (onUpdate) await onUpdate();
             // Trigger parent refresh to update progress
             router.refresh();
-        } catch (error) {
+        } catch (error: any) {
             console.error('Upload failed:', error);
-            alert('Upload failed. Please try again.');
+            alert(`Upload failed: ${error?.message || 'Please try again.'}`);
         } finally {
             setUploading(null);
         }

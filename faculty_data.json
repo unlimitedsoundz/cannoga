@@ -1,0 +1,456 @@
+{
+  "departments": [
+    {
+      "id": "0cd264ab-2d6b-4c2c-9663-bacc1bdbbbd3",
+      "name": "Finance",
+      "headOfDepartmentId": "bd3031c4-446c-4eed-bbcf-8b33b83dbd7e",
+      "head": {
+        "id": "bd3031c4-446c-4eed-bbcf-8b33b83dbd7e",
+        "name": "Dr. Antti Juhani Lehtonen",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=lehtonen&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "d7c5058b-cb0e-40d7-8f29-07c845012260",
+      "name": "Art and Media",
+      "headOfDepartmentId": "1119cabd-2afc-4ba8-ab4f-56629021e71e",
+      "head": {
+        "id": "1119cabd-2afc-4ba8-ab4f-56629021e71e",
+        "name": "Dr. Elias Johannes Lehtinen",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=lehtinen&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "3d3d899f-a537-4b0c-991f-1c35996d5449",
+      "name": "Architecture",
+      "headOfDepartmentId": "8640df46-bcc9-4130-83b5-6a8934bd09cd",
+      "head": {
+        "id": "8640df46-bcc9-4130-83b5-6a8934bd09cd",
+        "name": "Dr. Sofia Alessandra Romano",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=romano&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "53f2bb00-e442-4543-a4b9-4904104471f6",
+      "name": "Design",
+      "headOfDepartmentId": "7ac22a4f-1738-44c9-84e6-4faf6b7790dd",
+      "head": {
+        "id": "7ac22a4f-1738-44c9-84e6-4faf6b7790dd",
+        "name": "Dr. Joonas Pekka Rantanen",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=rantanen&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "f8b84d66-1c62-44ee-9d53-ff441761303d",
+      "name": "Marketing",
+      "headOfDepartmentId": "0f58569b-73d7-4af6-bd21-144c2963eebb",
+      "head": {
+        "id": "0f58569b-73d7-4af6-bd21-144c2963eebb",
+        "name": "Dr. Francesca Luisa Galli",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=galli&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "c4549615-f6bb-43f1-8e84-f523065bb08a",
+      "name": "Business",
+      "headOfDepartmentId": "01060cce-8b16-44d7-a182-2b211b2e2756",
+      "head": {
+        "id": "01060cce-8b16-44d7-a182-2b211b2e2756",
+        "name": "Prof. Laura Elizabeth Bennett",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=bennett&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "6dd05580-6d57-4983-be24-e95a315cbab2",
+      "name": "Information and Service Management",
+      "headOfDepartmentId": "a5190a76-9cbb-4e8d-86e7-5e2d22faf9ba",
+      "head": {
+        "id": "a5190a76-9cbb-4e8d-86e7-5e2d22faf9ba",
+        "name": "Dr. Veera Linnea Koskinen",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=koskinen&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "a4e247de-8e3b-4bcb-8422-45f7672b29a9",
+      "name": "Management Studies",
+      "headOfDepartmentId": "240f5333-0a40-4147-9b68-fb32b233b6b9",
+      "head": {
+        "id": "240f5333-0a40-4147-9b68-fb32b233b6b9",
+        "name": "Prof. James Edward Thompson",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=thompson&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "8ed55fac-7d4a-41eb-a37a-a7b04ef3ce48",
+      "name": "Film, Television and Scenography",
+      "headOfDepartmentId": "fc9d05eb-7e5f-44f4-9a4f-47e89ae0fd6e",
+      "head": {
+        "id": "fc9d05eb-7e5f-44f4-9a4f-47e89ae0fd6e",
+        "name": "Dr. Chiara Elisabetta Moretti",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=moretti&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "e7916805-7852-413b-81a6-768470bd804d",
+      "name": "Economics",
+      "headOfDepartmentId": "c29046d6-e410-4ef9-8d39-ca5c25b8c949",
+      "head": {
+        "id": "c29046d6-e410-4ef9-8d39-ca5c25b8c949",
+        "name": "Prof. Emily Rose Carter",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=carter&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "a9577f4a-e5d7-4ddc-b323-52fbcb1a9089",
+      "name": "Accounting & Business Law",
+      "headOfDepartmentId": "d701c726-c1aa-4ec2-bc4b-7c1881389559",
+      "head": {
+        "id": "d701c726-c1aa-4ec2-bc4b-7c1881389559",
+        "name": "Dr. Aino Mäkinen",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=mäkinen&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "3886375a-fa81-4063-bcd6-cbaaa2970440",
+      "name": "Department of Applied Physics & Mathematics",
+      "headOfDepartmentId": "96d07c6e-c231-414d-9443-76d5a32c8b9f",
+      "head": {
+        "id": "96d07c6e-c231-414d-9443-76d5a32c8b9f",
+        "name": "Dr. Oskari Mikael Nieminen",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=nieminen&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "98ffe93b-b0c3-4dc5-91c4-c797e1d384a3",
+      "name": "Department of Chemical & Materials Engineering",
+      "headOfDepartmentId": "85b0af77-845c-4e8f-a99d-032ec79f8e83",
+      "head": {
+        "id": "85b0af77-845c-4e8f-a99d-032ec79f8e83",
+        "name": "Dr. Luca Antonio Ferraro",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=ferraro&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "6844c4bb-09b9-465a-b469-dd640f8c561c",
+      "name": "Department of Civil & Environmental Engineering",
+      "headOfDepartmentId": "532332d5-597d-4c58-8fa7-ec947e6e8282",
+      "head": {
+        "id": "532332d5-597d-4c58-8fa7-ec947e6e8282",
+        "name": "Dr. Helmi Sofia Salonen",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=salonen&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "36796002-4383-4129-942e-8d8d2ad07e38",
+      "name": "Department of Computer Science & Digital Systems",
+      "headOfDepartmentId": "d0985e42-bded-44c3-8c14-70a3ec8f4f9b",
+      "head": {
+        "id": "d0985e42-bded-44c3-8c14-70a3ec8f4f9b",
+        "name": "Prof. Daniel Christopher Moore",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=moore&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "5c1ff472-5837-4162-997d-6ead741e582d",
+      "name": "Department of Electrical & Electronics Engineering",
+      "headOfDepartmentId": "9f427bf4-8c05-4222-9b13-de4d4cb34b86",
+      "head": {
+        "id": "9f427bf4-8c05-4222-9b13-de4d4cb34b86",
+        "name": "Dr. Valentina Maria Ricci",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=ricci&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "41d4364d-4db1-4087-a7d5-0ea37a70d5c5",
+      "name": "Department of Automation & Control Engineering",
+      "headOfDepartmentId": "0b0cabe7-51a4-4558-aff8-8943e1833b16",
+      "head": {
+        "id": "0b0cabe7-51a4-4558-aff8-8943e1833b16",
+        "name": "Prof. Sarah Anne Collins",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=collins&backgroundColor=000000&textColor=ffffff"
+      }
+    },
+    {
+      "id": "8ccb3f7c-62f9-4376-95a8-cdfe4e29911d",
+      "name": "Energy and Mechanical Engineering",
+      "headOfDepartmentId": "981d5b79-7279-4690-a2b6-8a5dadd32927",
+      "head": {
+        "id": "981d5b79-7279-4690-a2b6-8a5dadd32927",
+        "name": "Prof. Benjamin Oliver Hughes",
+        "role": "Head of Department",
+        "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=hughes&backgroundColor=000000&textColor=ffffff"
+      }
+    }
+  ],
+  "faculty": [
+    {
+      "id": "5e7cc383-e510-4ad0-8fa5-9fb96e992253",
+      "name": "Anna Saaristo",
+      "role": "Head of Film",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf",
+      "imageUrl": "/images/faculty/anna-saaristo.png"
+    },
+    {
+      "id": "ce0e2381-e8d6-4009-a331-cc88c635dc0f",
+      "name": "Prof. Leo Mäkelä",
+      "role": "Head of Art & Media",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf",
+      "imageUrl": "/images/faculty/leo-makela.jpg"
+    },
+    {
+      "id": "9b64a2f2-0b75-4ec6-b742-00aa3113acad",
+      "name": "Prof. Sofia Haapala",
+      "role": "Head of Design",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf",
+      "imageUrl": "/images/faculty/sofia-haapala.png"
+    },
+    {
+      "id": "8640df46-bcc9-4130-83b5-6a8934bd09cd",
+      "name": "Dr. Sofia Alessandra Romano",
+      "role": "Head of Department",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=romano&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "1119cabd-2afc-4ba8-ab4f-56629021e71e",
+      "name": "Dr. Elias Johannes Lehtinen",
+      "role": "Head of Department",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=lehtinen&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "01060cce-8b16-44d7-a182-2b211b2e2756",
+      "name": "Prof. Laura Elizabeth Bennett",
+      "role": "Head of Department",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=bennett&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "96d07c6e-c231-414d-9443-76d5a32c8b9f",
+      "name": "Dr. Oskari Mikael Nieminen",
+      "role": "Head of Department",
+      "schoolId": "3592d39b-e747-44c4-ab63-2fa22a1cc49a",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=nieminen&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "462250e4-bc18-4897-97b8-3eb3d1d016e5",
+      "name": "Prof. Markus Keller",
+      "role": "Head of Economics",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "imageUrl": "https://mrqzlmkdhzwvbpljikjz.supabase.co/storage/v1/object/public/content/q4625fq0des.jpg"
+    },
+    {
+      "id": "46923670-830b-4b7b-8fd3-f0e0c0f91d80",
+      "name": "Dr. Teemu Virtanen",
+      "role": "Head of Energy & Mechanical Engineering",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://mrqzlmkdhzwvbpljikjz.supabase.co/storage/v1/object/public/content/pzacqr16s8.jpg"
+    },
+    {
+      "id": "e78319e5-fc88-4eec-ad24-53f3b5aca111",
+      "name": "Prof. Anna Korhonen",
+      "role": "Dean of School",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf",
+      "imageUrl": "/images/faculty/anna-korhonen.jpg"
+    },
+    {
+      "id": "0b0cabe7-51a4-4558-aff8-8943e1833b16",
+      "name": "Prof. Sarah Anne Collins",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=collins&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "85b0af77-845c-4e8f-a99d-032ec79f8e83",
+      "name": "Dr. Luca Antonio Ferraro",
+      "role": "Head of Department",
+      "schoolId": "3592d39b-e747-44c4-ab63-2fa22a1cc49a",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=ferraro&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "8bf402e9-f9c8-4b6e-ae4a-b82122ea28c2",
+      "name": "Dr. Matteo Lorenzo Bianchi",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=bianchi&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "3c224674-0937-4e70-a074-46fb5b76eea4",
+      "name": "Tero Lahti",
+      "role": "Finance Manager",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf",
+      "imageUrl": null
+    },
+    {
+      "id": "c032c3df-8a0e-4c86-92d6-8b289fccb28d",
+      "name": "Prof. Emilia Saarinen",
+      "role": "Head of Architecture",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf",
+      "imageUrl": "/images/faculty/emilia-saarinen.jpg"
+    },
+    {
+      "id": "d701c726-c1aa-4ec2-bc4b-7c1881389559",
+      "name": "Dr. Aino Mäkinen",
+      "role": "Head of Department",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=mäkinen&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "98f3eb13-706e-4386-8169-5c6ef42560a3",
+      "name": "Prof. Andrew Thomas Wilson",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=wilson&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "532332d5-597d-4c58-8fa7-ec947e6e8282",
+      "name": "Dr. Helmi Sofia Salonen",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=salonen&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "9f427bf4-8c05-4222-9b13-de4d4cb34b86",
+      "name": "Dr. Valentina Maria Ricci",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=ricci&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "c29046d6-e410-4ef9-8d39-ca5c25b8c949",
+      "name": "Prof. Emily Rose Carter",
+      "role": "Head of Department",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=carter&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "950d3d4d-2265-4315-ad7c-e83022beb4f4",
+      "name": "Dr. Noora Emilia Hämäläinen",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=hämäläinen&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "d0985e42-bded-44c3-8c14-70a3ec8f4f9b",
+      "name": "Prof. Daniel Christopher Moore",
+      "role": "Head of Department",
+      "schoolId": "3592d39b-e747-44c4-ab63-2fa22a1cc49a",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=moore&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "7ac22a4f-1738-44c9-84e6-4faf6b7790dd",
+      "name": "Dr. Joonas Pekka Rantanen",
+      "role": "Head of Department",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=rantanen&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "981d5b79-7279-4690-a2b6-8a5dadd32927",
+      "name": "Prof. Benjamin Oliver Hughes",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=hughes&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "fc9d05eb-7e5f-44f4-9a4f-47e89ae0fd6e",
+      "name": "Dr. Chiara Elisabetta Moretti",
+      "role": "Head of Department",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=moretti&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "bd3031c4-446c-4eed-bbcf-8b33b83dbd7e",
+      "name": "Dr. Antti Juhani Lehtonen",
+      "role": "Head of Department",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=lehtonen&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "a5190a76-9cbb-4e8d-86e7-5e2d22faf9ba",
+      "name": "Dr. Veera Linnea Koskinen",
+      "role": "Head of Department",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=koskinen&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "240f5333-0a40-4147-9b68-fb32b233b6b9",
+      "name": "Prof. James Edward Thompson",
+      "role": "Head of Department",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=thompson&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "0f58569b-73d7-4af6-bd21-144c2963eebb",
+      "name": "Dr. Francesca Luisa Galli",
+      "role": "Head of Department",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=galli&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "f5238fd8-b9b8-408d-9c31-6f68d2cb3316",
+      "name": "Prof. Michael Jonathan Reed",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=reed&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "39a3721e-3efb-4ce4-860a-a1c90feec353",
+      "name": "Dr. Emilia Kaarina Lahtinen",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=lahtinen&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "a5115bb2-dea0-4c97-88e1-fba61408702b",
+      "name": "Dr. Giulia Francesca Conti",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=conti&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "7b81fd34-dae2-4e21-bdd2-f87358869594",
+      "name": "Dr. Alessandro Marco DeLuca",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=deluca&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "dacd9086-6064-4b9b-b378-b50212a66522",
+      "name": "Dr. Federico Paolo Mancini",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=mancini&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "a61a7d9f-17ff-41c0-96c7-b60ff4b415ec",
+      "name": "Dr. Sami Aleksanteri Aaltonen",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=aaltonen&backgroundColor=000000&textColor=ffffff"
+    },
+    {
+      "id": "f7f3b786-47b7-4661-94a0-55d0ff69fc45",
+      "name": "Prof. Rebecca Louise Turner",
+      "role": "Head of Department",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "imageUrl": "https://api.dicebear.com/7.x/initials/svg?seed=turner&backgroundColor=000000&textColor=ffffff"
+    }
+  ]
+}
