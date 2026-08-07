@@ -1,9 +1,9 @@
-import React from 'react';
+'use server';
 
-import { createClient } from '@/utils/supabase/client';
-import { createAdminClient } from '@/utils/supabase/admin';
+import { createServerClient } from '@/utils/supabase/server';
+import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 export async function createApplication(courseId: string) {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
 
     // Get current user
     const { data: { user } } = await supabase.auth.getUser();
@@ -55,7 +55,7 @@ export async function createApplication(courseId: string) {
 }
 
 export async function updateApplicationStep(id: string, step: string, data: any) {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
 
     const { data: { user } } = await supabase.auth.getUser();
 
@@ -118,7 +118,7 @@ export async function updateApplicationStep(id: string, step: string, data: any)
 }
 
 export async function addApplicationDocument(applicationId: string, type: string, url: string, name: string) {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) throw new Error('Unauthorized');
@@ -140,7 +140,7 @@ export async function addApplicationDocument(applicationId: string, type: string
 }
 
 export async function deleteApplicationDocument(applicationId: string, documentId: string, storagePath: string) {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) throw new Error('Unauthorized');
@@ -170,7 +170,7 @@ export async function deleteApplicationDocument(applicationId: string, documentI
 }
 
 export async function submitApplication(applicationId: string) {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) throw new Error('Unauthorized');
@@ -222,7 +222,7 @@ export async function submitApplication(applicationId: string) {
 }
 
 export async function updateApplicationStatus(applicationId: string, status: 'SUBMITTED' | 'UNDER_REVIEW' | 'ADMITTED' | 'OFFER_ACCEPTED' | 'PAYMENT_SUBMITTED' | 'ENROLLED' | 'DRAFT') {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) throw new Error('Unauthorized');
@@ -245,14 +245,14 @@ export async function updateApplicationStatus(applicationId: string, status: 'SU
 }
 
 export async function getAdmissionLetterData(applicationId: string) {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     // If we have a user session, we use it for preliminary checks
     const targetUserId = user?.id;
 
     // Use Admin Client to bypass RLS and fetch full aggregated data
-    const adminSupabase = createAdminClient();
+    const adminSupabase = createServiceRoleClient();
 
     try {
         const { data: applicationRaw, error: appError } = await adminSupabase
@@ -295,12 +295,12 @@ export async function getAdmissionLetterData(applicationId: string) {
 }
 
 export async function getPortalDashboardData() {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) throw new Error('Unauthorized');
 
-    const adminSupabase = createAdminClient();
+    const adminSupabase = createServiceRoleClient();
 
     try {
         const [profileRes, appsRes, studentRes] = await Promise.all([
@@ -330,12 +330,12 @@ export async function getPortalDashboardData() {
 }
 
 export async function getPortalApplicationDetail(applicationId: string) {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) throw new Error('Unauthorized');
 
-    const adminSupabase = createAdminClient();
+    const adminSupabase = createServiceRoleClient();
 
     try {
         const { data: applicationRaw, error: appError } = await adminSupabase
@@ -366,12 +366,12 @@ export async function getPortalApplicationDetail(applicationId: string) {
 }
 
 export async function getStudentPortalData() {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) throw new Error('Unauthorized');
 
-    const adminSupabase = createAdminClient();
+    const adminSupabase = createServiceRoleClient();
 
     try {
         const { data: studentData, error } = await adminSupabase
@@ -400,7 +400,7 @@ export async function getStudentPortalData() {
 }
 
 export async function getAllCourses() {
-    const adminSupabase = createAdminClient();
+    const adminSupabase = createServiceRoleClient();
     try {
         const { data, error } = await adminSupabase
             .from('Course')
@@ -419,7 +419,7 @@ export async function getAllCourses() {
 }
 
 export async function acceptOffer(applicationId: string) {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) throw new Error('Unauthorized');
@@ -449,7 +449,7 @@ export async function acceptOffer(applicationId: string) {
 
     // 2. Transaction: Update Offer -> ACCEPTED, Update App -> OFFER_ACCEPTED
     // Note: Use Admin Client to bypass RLS for these status updates
-    const adminSupabase = createAdminClient();
+    const adminSupabase = createServiceRoleClient();
 
     // Update Offer
     const { error: offerError } = await adminSupabase
@@ -482,14 +482,14 @@ export async function acceptOffer(applicationId: string) {
         console.error('Failed to trigger offer acceptance notification:', notifyError);
     }
 
-    // Redirect to the payment/offer page to continue the flow
+    return { success: true };
 }
 
 
 import PaymentConfirmationEmail from '@/emails/PaymentConfirmationEmail';
 
 export async function rejectOffer(applicationId: string) {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) throw new Error('Unauthorized');
@@ -520,7 +520,7 @@ export async function rejectOffer(applicationId: string) {
     if (!offer) throw new Error('No admission offer found to decline.');
 
     // 2. Transaction: Update Offer -> DECLINED, Update App -> OFFER_DECLINED
-    const adminSupabase = createAdminClient();
+    const adminSupabase = createServiceRoleClient();
 
     // Update Offer
     const { error: offerError } = await adminSupabase
@@ -552,6 +552,8 @@ export async function rejectOffer(applicationId: string) {
     } catch (emailError) {
         console.error('Failed to trigger rejection notification via edge function:', emailError);
     }
+
+    return { success: true };
 }
 
 export async function processTuitionPayment(
@@ -563,8 +565,8 @@ export async function processTuitionPayment(
     currency?: string,
     fxMetadata: any = {}
 ) {
-    const supabase = await createClient();
-    const adminSupabase = createAdminClient();
+    const supabase = await createServerClient();
+    const adminSupabase = createServiceRoleClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) throw new Error('Unauthorized');
@@ -691,7 +693,7 @@ export async function deleteApplication(applicationId: string) {
     const allCookies = cookieStore.getAll().map(c => c.name);
     console.log('[deleteApplication] Available Cookies:', allCookies);
 
-    const supabase = await createClient();
+    const supabase = await createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     console.log('[deleteApplication] User check:', user?.id);
@@ -717,7 +719,7 @@ export async function deleteApplication(applicationId: string) {
 
     // 2. Delete the application (triggers/cascades should handle related documents/offers)
     // Use Admin Client to bypass RLS "No DELETE policy" restriction
-    const adminSupabase = await createAdminClient();
+    const adminSupabase = await createServiceRoleClient();
     const { error } = await adminSupabase
         .from('applications')
         .delete()

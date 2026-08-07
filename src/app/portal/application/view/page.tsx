@@ -9,6 +9,7 @@ import { CaretRight as ChevronRight, CircleNotch as Loader2, UploadSimple, Trash
 import { formatToDDMMYYYY } from '@/utils/date';
 import { useState, useEffect, Suspense } from 'react';
 import { addApplicationDocument, deleteApplicationDocument, updateApplicationStatus, acceptOffer, rejectOffer } from '@/app/portal/actions';
+import { toast } from 'sonner';
 
 function ViewApplicationContent() {
     const searchParams = useSearchParams();
@@ -152,18 +153,17 @@ function ViewApplicationContent() {
     const handleAcceptOffer = async () => {
         if (!id) return;
         setActionLoading('accept');
-        setActionMessage(null);
         try {
             const result = await acceptOffer(id);
             if ((result as any)?.success || !(result as any)?.error) {
-                setActionMessage({ type: 'success', text: 'Congratulations! Your offer has been accepted. Next step: Tuition Deposit and PAL Issue.' });
+                toast.success('Congratulations! Your offer has been accepted. Next step: Tuition Deposit and PAL Issue.');
                 setIsOfferAccepted(true);
                 setRefreshFlag((count) => count + 1);
             } else {
-                setActionMessage({ type: 'error', text: (result as any)?.error || 'Failed to accept offer' });
+                toast.error((result as any)?.error || 'Failed to accept offer');
             }
         } catch (err: any) {
-            setActionMessage({ type: 'error', text: err.message || 'Failed to accept offer' });
+            toast.error(err.message || 'Failed to accept offer');
         } finally {
             setActionLoading(null);
         }
@@ -172,18 +172,17 @@ function ViewApplicationContent() {
     const handleRejectOffer = async () => {
         if (!id) return;
         setActionLoading('reject');
-        setActionMessage(null);
         try {
             const result = await rejectOffer(id);
             if ((result as any)?.success || !(result as any)?.error) {
-                setActionMessage({ type: 'success', text: 'You have declined the offer.' });
+                toast.success('You have declined the offer.');
                 setIsOfferAccepted(false);
                 setRefreshFlag((count) => count + 1);
             } else {
-                setActionMessage({ type: 'error', text: (result as any)?.error || 'Failed to decline offer' });
+                toast.error((result as any)?.error || 'Failed to decline offer');
             }
         } catch (err: any) {
-            setActionMessage({ type: 'error', text: err.message || 'Failed to decline offer' });
+            toast.error(err.message || 'Failed to decline offer');
         } finally {
             setActionLoading(null);
         }
