@@ -30,11 +30,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Application not found' }, { status: 404 });
     }
 
-    if (app.status !== 'ADMITTED') {
+    if (app.status !== 'ADMITTED' && app.status !== 'OFFER_ACCEPTED') {
       return NextResponse.json({ error: `Cannot accept offer in current status: ${app.status}` }, { status: 400 });
     }
 
     const adminSupabase = createServiceRoleClient();
+
+    const { data: existingOffer } = await adminSupabase
+      .from('admission_offers')
+      .select('id, status')
+      .eq('application_id', applicationId)
+      .maybeSingle();
+
+    if (existingOffer?.status === 'ACCEPTED') {
+      await adminSupabase
+        .from('applications')
+        .update({ status: 'OFFER_ACCEPTED', updated_at: new Date().toISOString() })
+        .eq('id', applicationId)
+        .neq('status', 'OFFER_ACCEPTED');
+
+      return NextResponse.json({ success: true });
+    }
 
     const { error: offerError, count: offerCount } = await adminSupabase
       .from('admission_offers')
