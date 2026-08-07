@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @page {
+      size: A4;
+      margin: 12mm 15mm 12mm 15mm;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      color: #000;
+      line-height: 1.5;
+      margin: 0;
+      padding: 0;
+    }
+    .page {
+      page-break-after: always;
+    }
+    .page:last-child {
+      page-break-after: avoid;
+    }
+    /* Header */
+    .header-table {
+      width: 100%;
+      margin-bottom: 15px;
+      border-collapse: collapse;
+    }
+    .header-title {
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+    .logo-img {
+      max-height: 65px;
+      float: right;
+    }
+    .congrats {
+      font-weight: bold;
+      font-size: 11px;
+      margin-bottom: 10px;
+    }
+    
+    /* Section Tables */
+    .section-header {
+      font-size: 11px;
+      font-weight: bold;
+      background-color: #f2f2f2;
+      padding: 3px 5px;
+      border: 1px solid #000;
+      border-bottom: none;
+      text-transform: uppercase;
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 12px;
+    }
+    table.data-table td, table.data-table th {
+      border: 1px solid #000;
+      padding: 4px 6px;
+      vertical-align: top;
+    }
+    .label {
+      font-weight: bold;
+    }
+    
+    /* Disclaimer text */
+    .footer-note {
+      font-size: 8px;
+      color: #333;
+      line-height: 1.2;
+      margin-top: 4px;
+    }
+
+    /* Signatures */
+    .signature-block {
+      margin-top: 15px;
+    }
+    .signature-img {
+      max-height: 40px;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Page 2 Styling */
+    h3 {
+      font-size: 11px;
+      font-weight: bold;
+      margin-top: 12px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+    ol, ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1 ==================== -->
+  <div class="page">
+    <table class="header-table">
+      <tr>
+        <td style="vertical-align: top;">
+          <div class="header-title">LETTER OF ACCEPTANCE</div>
+          <div style="margin-top: 5px;">Date of Issue: {{issueDate}}</div>
+        </td>
+        <td style="text-align: right; vertical-align: top;">
+          <img src="{{college.logoUrl}}" class="logo-img" alt="Cannoga College Logo">
+        </td>
+      </tr>
+    </table>
+
+    <div class="congrats">Congratulations! You have been accepted to {{college.name}}!</div>
+
+    <!-- PERSONAL INFORMATION -->
+    <div class="section-header">Personal Information</div>
+    <table class="data-table">
+      <tr>
+        <td width="50%"><span class="label">Family Name:</span><br>{{student.familyName}}</td>
+        <td width="50%"><span class="label">CAQ:</span> {{student.caq}}</td>
+      </tr>
+      <tr>
+        <td><span class="label">Given Name:</span><br>{{student.givenName}}</td>
+        <td rowspan="2"><span class="label">Student's Full Mailing Address:</span><br>{{student.address}}</td>
+      </tr>
+      <tr>
+        <td><span class="label">Date of Birth:</span> {{student.dob}}</td>
+      </tr>
+      <tr>
+        <td><span class="label">Student ID #:</span> {{student.id}}</td>
+        <td><span class="label">Referring Agent (if applicable):</span> {{student.agent}}</td>
+      </tr>
+    </table>
+
+    <!-- INSTITUTIONAL INFORMATION -->
+    <div class="section-header">Institutional Information</div>
+    <table class="data-table">
+      <tr>
+        <td width="50%">
+          <span class="label">Name of Contact:</span> International Admissions and Records Office<br>
+          <span class="label">Phone:</span> {{college.phone}}<br>
+          <span class="label">Email:</span> {{college.email}}
+        </td>
+        <td width="50%">
+          <span class="label">Full Name and Address of Institution:</span><br>
+          {{college.name}} - {{college.campus}}<br>
+          {{college.address}}
+        </td>
+      </tr>
+      <tr>
+        <td><span class="label">Type of School/Institution:</span> {{college.type}}</td>
+        <td rowspan="2"><span class="label">Designated Learning Institution #:</span> {{college.dliNumber}}</td>
+      </tr>
+      <tr>
+        <td><span class="label">Website:</span> {{college.website}}</td>
+      </tr>
+    </table>
+
+    <!-- PROGRAM INFORMATION -->
+    <div class="section-header">Program Information</div>
+    <table class="data-table">
+      <tr>
+        <td width="50%">
+          <span class="label">Academic Status:</span> {{program.status}}<br>
+          <span class="label">Program of Study:</span><br>{{program.name}}<br>
+          <span class="label">Campus:</span> {{program.campus}}<br>
+          <span class="label">Program Length:</span><br>{{program.length}}<br>
+          <span class="label">Start Date:</span> {{program.startDate}}<br>
+          <span class="label">Approx. Completion Date:</span> {{program.completionDate}}<br>
+          <span class="label">Credential:</span> {{program.credential}}<br>
+          <span class="label">Level of Study:</span> {{program.level}}<br>
+          <span class="label">Hours of Instruction:</span> {{program.hoursPerWeek}}<br>
+          <span class="label">Exchange Program:</span> {{program.exchangeProgram}}
+        </td>
+        <td width="50%">
+          <span class="label">Fee Structure:</span><br>
+          <span class="label" style="text-decoration: underline;">TOTAL DUE:</span><br>
+          {{#each fees.payments}}
+            {{this.amount}} by {{this.dueDate}}<br>
+          {{/each}}
+          <br>
+          Tuition Fees: {{fees.tuition}}<br>
+          Mandatory Ancillary Fees: {{fees.ancillary}}<br>
+          <span class="label">Total Annual Fees: {{fees.totalAnnual}}*</span>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="label">Internship/Work practicum:</span> {{program.internship}}</td>
+        <td><span class="label">Scholarship/Teaching Assistantship/Other Financial Aid:</span> {{program.financialAid}}</td>
+      </tr>
+      <tr>
+        <td><span class="label">Conditions of Acceptance:</span><br>• {{program.conditions}}</td>
+        <td><span class="label">Expiry of Letter of Acceptance:</span><br>{{program.expiryDate}}</td>
+      </tr>
+    </table>
+
+    <div class="footer-note">
+       *Note: Tuition and fees quoted are for two semesters of the program and are subject to change. Tuition deposit of $3,200 CAD is non-refundable.<br>
+       {{college.name}} reserves the right to revoke an offer of admission should a student fail to meet the payment deadline.
+    </div>
+
+    <div class="footer-note" style="margin-top: 10px;">
+       <strong>Please note:</strong> After tuition deposit has been paid and verified, please allow 6-12 days for Provincial Attestation Letter (PAL) issuance.
+    </div>
+
+    <div class="signature-block">
+      {{#if registrar.signatureUrl}}
+        <img src="{{registrar.signatureUrl}}" class="signature-img">
+      {{/if}}
+      <div><strong>{{registrar.name}}</strong>, {{registrar.title}}</div>
+      <div>{{college.name}}</div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 2 ==================== -->
+  <div class="page">
+    <div class="header-title" style="margin-bottom: 10px;">LETTER OF ACCEPTANCE</div>
+    <div>Date of Issue: {{issueDate}}</div>
+
+    <h3>TO ACCEPT THIS LETTER OF ACCEPTANCE:</h3>
+    <ol>
+        <li>Your offer will be accepted upon receipt of payment. Your fees are due by the payment dates specified on your Letter of Acceptance (LOA). If a minimum of $2,000 is not received by the College by the specified due date, your offer will be withdrawn.</li>
+      <li>You must confirm receipt of your Student Visa by uploading a copy of it to your application portal no later than the date indicated below:
+        <ul>
+          <li>{{visaDeadlines.fall}} (September/Fall programs)</li>
+          <li>{{visaDeadlines.winter}} (January/Winter programs)</li>
+          <li>{{visaDeadlines.summer}} (May/Summer programs)</li>
+        </ul>
+      </li>
+      <li>Students are required to arrive on campus before the International Student Orientation. Contact <a href="mailto:{{college.email}}">{{college.email}}</a> to confirm details.</li>
+    </ol>
+
+    <h3>IMPORTANT INFORMATION</h3>
+    <p><strong>Canadian Study Permit:</strong> You should apply for a Canadian Study Permit as soon as possible. For guidance, visit <a href="https://www.cic.gc.ca/english/study">www.cic.gc.ca/english/study</a>.</p>
+
+    <br>
+    <div>We look forward to having you study at {{college.name}}!</div>
+    <br>
+    <div>Sincerely,</div>
+
+    <div class="signature-block">
+      {{#if registrar.signatureUrl}}
+        <img src="{{registrar.signatureUrl}}" class="signature-img">
+      {{/if}}
+      <div><strong>{{registrar.name}}</strong>, {{registrar.title}}</div>
+      <div>{{college.name}}</div>
+    </div>
+  </div>
+
+</body>
+</html>

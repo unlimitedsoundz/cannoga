@@ -180,10 +180,12 @@ export async function generateAndStoreLOA(applicationId: string, application: an
 
     const templateData = await mapApplicationToTemplateData(application, logoUrl, signatureUrl);
 
-    const templatePath = path.join(process.cwd(), 'src', 'app', 'api', 'portal', 'letter', 'pdf', 'loa-template.html');
+    const templatePath = path.join(process.cwd(), 'public', 'templates', 'loa-template.html');
     const templateHtml = await fs.readFile(templatePath, 'utf8');
     const compiledTemplate = Handlebars.compile(templateHtml);
     const finalHtml = compiledTemplate(templateData);
+
+    let pdfBuffer: Buffer;
 
     try {
       const browser = await puppeteer.launch({
@@ -194,13 +196,14 @@ export async function generateAndStoreLOA(applicationId: string, application: an
       const page = await browser.newPage();
       await page.setContent(finalHtml, { waitUntil: 'load' });
       
-      const pdfBuffer = await page.pdf({
+      const rawPdfBuffer = await page.pdf({
         format: 'A4',
         printBackground: true,
         margin: { top: '0px', right: '0px', bottom: '0px', left: '0px' },
       });
 
       await browser.close();
+      pdfBuffer = Buffer.from(rawPdfBuffer);
     } catch (puppeteerError) {
       console.error('Puppeteer/Chromium error:', puppeteerError);
       throw new Error(`PDF generation failed: ${puppeteerError instanceof Error ? puppeteerError.message : 'Unknown error'}`);
@@ -209,7 +212,7 @@ export async function generateAndStoreLOA(applicationId: string, application: an
     const fileName = `letter-of-acceptance-${application.course?.slug || application.id}.pdf`;
     const storagePath = `student-documents/${application.user?.id}/${fileName}`;
 
-    const pdfData = Buffer.from(pdfBuffer);
+    const pdfData = pdfBuffer;
     const { error: uploadError } = await supabase.storage
       .from('application-documents')
       .upload(storagePath, pdfData, {
