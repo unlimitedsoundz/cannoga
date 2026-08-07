@@ -3,7 +3,6 @@
 UPDATE public."Course"
 SET 
   duration = '4 Years',
-  credits = 90,
-  updated_at = NOW()
+  credits = 90
 WHERE "degreeLevel" = 'BACHELOR'
   AND (duration = '3 Years' OR duration = '3 year' OR credits = 90);
