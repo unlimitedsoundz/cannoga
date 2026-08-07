@@ -143,20 +143,43 @@ export async function updateInternalNotes(applicationId: string, notes: string) 
 export async function createAdmissionOffer(applicationId: string, tuitionFee: number, deadline: string, offerType: 'TUITION_DEPOSIT' | 'FULL_TUITION' | '1ST_YEAR_FULL' = 'TUITION_DEPOSIT') {
     const supabase = createServiceRoleClient();
 
-    const { error: offerError } = await supabase
+    const { data: existingOffer } = await supabase
         .from('admission_offers')
-        .upsert({
-            application_id: applicationId,
-            tuition_fee: tuitionFee,
-            payment_deadline: deadline,
-            offer_type: offerType,
-            status: 'PENDING',
-            updated_at: new Date().toISOString()
-        }, { onConflict: 'application_id' });
+        .select('id')
+        .eq('application_id', applicationId)
+        .maybeSingle();
 
-    if (offerError) {
-        console.error('Error creating/updating offer:', offerError);
-        throw new Error('Failed to create offer');
+    if (existingOffer) {
+        const { error: updateError } = await supabase
+            .from('admission_offers')
+            .update({
+                tuition_fee: tuitionFee,
+                payment_deadline: deadline,
+                offer_type: offerType,
+                status: 'PENDING',
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', existingOffer.id);
+
+        if (updateError) {
+            console.error('Error updating offer:', updateError);
+            throw new Error('Failed to update offer');
+        }
+    } else {
+        const { error: insertError } = await supabase
+            .from('admission_offers')
+            .insert({
+                application_id: applicationId,
+                tuition_fee: tuitionFee,
+                payment_deadline: deadline,
+                offer_type: offerType,
+                status: 'PENDING'
+            });
+
+        if (insertError) {
+            console.error('Error creating offer:', insertError);
+            throw new Error('Failed to create offer');
+        }
     }
 
     try {
