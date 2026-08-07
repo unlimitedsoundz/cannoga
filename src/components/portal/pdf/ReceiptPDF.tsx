@@ -1,7 +1,5 @@
-'use client';
-
 import React from 'react';
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { Document, Page, Text, View, Image, StyleSheet, Font } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   page: {
@@ -9,171 +7,286 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     padding: 40,
     fontFamily: 'Helvetica',
-    fontSize: 10,
-    lineHeight: 1.5,
+    fontSize: 11,
+    lineHeight: 1.4,
+    color: '#333333',
+  },
+  container: {
+    width: '100%',
+    maxWidth: 800,
+    margin: '0 auto',
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 20,
-    borderBottomWidth: 2,
-    borderBottomColor: '#1a1a1a',
-    paddingBottom: 10,
   },
-  logo: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#1a1a1a',
-  },
-  documentType: {
-    fontSize: 10,
-    color: '#666666',
-    textAlign: 'right',
-  },
-  section: {
-    marginBottom: 15,
-  },
-  sectionTitle: {
-    fontSize: 11,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: '#1a1a1a',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-    paddingBottom: 4,
-  },
-  row: {
+  collegeBranding: {
     flexDirection: 'row',
-    marginBottom: 4,
+    alignItems: 'center',
   },
-  label: {
-    width: 140,
-    fontSize: 9,
-    color: '#666666',
-    fontWeight: 'bold',
+  collegeLogo: {
+    width: 55,
+    height: 55,
+    objectFit: 'contain',
+    marginRight: 14,
   },
-  value: {
-    flex: 1,
-    fontSize: 9,
-    color: '#1a1a1a',
+  collegeName: {
+    fontSize: 22,
+    fontWeight: '500',
+    color: '#3a4252',
+    lineHeight: 1.15,
   },
-  feeRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 3,
-    fontSize: 9,
+  stamp: {
+    width: 75,
+    height: 75,
+    objectFit: 'contain',
   },
-  feeTotal: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 8,
-    paddingTop: 5,
-    borderTopWidth: 1,
-    borderTopColor: '#1a1a1a',
-    fontWeight: 'bold',
-    fontSize: 10,
-  },
-  footer: {
-    position: 'absolute',
-    bottom: 30,
-    left: 40,
-    right: 40,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    fontSize: 8,
-    color: '#999999',
+  divider: {
     borderTopWidth: 1,
     borderTopColor: '#e0e0e0',
-    paddingTop: 5,
+    marginVertical: 20,
+  },
+  subtitle: {
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 0.8,
+    color: '#4a5568',
+    textTransform: 'uppercase',
+    marginBottom: 24,
+  },
+  metaTable: {
+    width: '100%',
+    marginBottom: 10,
+  },
+  metaRow: {
+    flexDirection: 'row',
+    paddingVertical: 6,
+  },
+  metaLabel: {
+    width: 180,
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#4a5568',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  metaValue: {
+    flex: 1,
+    fontSize: 10,
+    color: '#2d3748',
+    fontWeight: '500',
+  },
+  detailsTable: {
+    width: '100%',
+    marginTop: 15,
+  },
+  detailsHeader: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+    paddingBottom: 12,
+    marginBottom: 4,
+  },
+  detailsRow: {
+    flexDirection: 'row',
+    paddingTop: 4,
+  },
+  colDesc: { width: '40%' },
+  colDate: { width: '20%' },
+  colOrig: { width: '22%' },
+  colRecv: { width: '18%' },
+  th: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#4a5568',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  td: {
+    fontSize: 12,
+    color: '#2d3748',
+  },
+  thankYou: {
+    textAlign: 'center',
+    color: '#718096',
+    fontSize: 12,
+    marginVertical: 60,
+  },
+  supportBox: {
+    borderWidth: 1,
+    borderColor: '#e2e8f0',
+    borderRadius: 6,
+    padding: 18,
+    backgroundColor: '#ffffff',
+    marginTop: 25,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  supportIcon: {
+    width: 32,
+    height: 32,
+    borderWidth: 1.5,
+    borderColor: '#3182ce',
+    borderRadius: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#3182ce',
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginRight: 12,
+  },
+  supportTitle: {
+    fontWeight: '700',
+    fontSize: 13,
+    color: '#2d3748',
+  },
+  supportSubtext: {
+    fontSize: 12,
+    color: '#718096',
+    marginTop: 2,
+  },
+  supportLink: {
+    color: '#0072ce',
+    fontSize: 12,
+    fontWeight: '700',
+    textDecoration: 'none',
+    marginLeft: 'auto',
+  },
+  footer: {
+    marginTop: 60,
+    alignItems: 'center',
+  },
+  poweredBy: {
+    fontSize: 9,
+    fontWeight: '700',
+    color: '#718096',
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+    marginBottom: 6,
+  },
+  flywireLogo: {
+    width: 100,
+    height: 28,
+    objectFit: 'contain',
+    marginBottom: 8,
+  },
+  footerAddress: {
+    fontSize: 11,
+    color: '#718096',
   },
 });
 
 interface ReceiptPDFProps {
-  application: any;
   payment: any;
+  application: any;
 }
 
-const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ application, payment }) => {
-  const course = application.course || {};
-  const user = application.user || {};
-  const personalInfo = application.personal_info || {};
+const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
+  const course = application?.course || {};
+  const user = application?.user || {};
+  const personalInfo = application?.personal_info || {};
+
+  const fullName = `${personalInfo.firstName || user.first_name || ''} ${personalInfo.lastName || user.last_name || ''}`.trim() || '—';
+  const studentId = (user.student_id || application.id || '—').toString().replace(/^(SYK|KC|KU|HU)/, 'CC');
+
+  const paymentId = payment?.id || '—';
+  const transactionRef = payment?.transaction_reference || '—';
+  const paidAt = payment?.paid_at || payment?.created_at || new Date().toISOString();
+  const amount = Number(payment?.amount || 0);
+  const currency = payment?.currency || 'CAD';
+  const method = payment?.payment_method || '—';
+  const status = payment?.status || '—';
+
+  const description = payment?.invoice_type?.replace(/_/g, ' ') || 'Tuition Payment';
+  const deliveryDate = new Date(paidAt).toLocaleDateString('en-CA');
+  const originatingAmount = `${currency} ${amount.toLocaleString()}`;
+  const receivedAmount = `${currency} ${amount.toLocaleString()}`;
+
+  const logoUrl = 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/logo-cannoga.png';
+  const stampUrl = 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/Paid%20stamp.png';
+  const flywireUrl = 'https://www.designyourway.net/blog/wp-content/uploads/2025/09/logo-5.jpg';
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <View style={styles.header}>
-          <Text style={styles.logo}>Cannoga College</Text>
-          <Text style={styles.documentType}>Tuition Receipt</Text>
-        </View>
+        <View style={styles.container}>
+          {/* Header */}
+          <View style={styles.header}>
+            <View style={styles.collegeBranding}>
+              <Image style={styles.collegeLogo} src={logoUrl} />
+              <View>
+                <Text style={styles.collegeName}>Cannoga College</Text>
+              </View>
+            </View>
+            <Image style={styles.stamp} src={stampUrl} />
+          </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Receipt Details</Text>
-          <View style={styles.row}>
-            <Text style={styles.label}>Receipt Ref:</Text>
-            <Text style={styles.value}>{payment?.transaction_reference || '—'}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Date:</Text>
-            <Text style={styles.value}>{payment?.paid_at ? new Date(payment.paid_at).toLocaleDateString('en-CA') : '—'}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Payment Type:</Text>
-            <Text style={styles.value}>{payment?.payment_method || '—'}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Status:</Text>
-            <Text style={styles.value}>{payment?.status || '—'}</Text>
-          </View>
-        </View>
+          <View style={styles.divider} />
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Student</Text>
-          <View style={styles.row}>
-            <Text style={styles.label}>Name:</Text>
-            <Text style={styles.value}>{personalInfo.firstName || user.first_name} {personalInfo.lastName || user.last_name}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Email:</Text>
-            <Text style={styles.value}>{user.email || ''}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Student ID:</Text>
-            <Text style={styles.value}>{(user.student_id || '—').replace(/^(SYK|KC|KU|HU)/, 'CC')}</Text>
-          </View>
-        </View>
+          {/* Subtitle */}
+          <Text style={styles.subtitle}>Flywire Payment Confirmation</Text>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Program</Text>
-          <View style={styles.row}>
-            <Text style={styles.label}>Program:</Text>
-            <Text style={styles.value}>{course.title || '—'}</Text>
+          {/* Meta Table */}
+          <View style={styles.metaTable}>
+            <View style={styles.metaRow}>
+              <Text style={styles.metaLabel}>PAYMENT ID</Text>
+              <Text style={styles.metaValue}>{paymentId}</Text>
+            </View>
+            <View style={styles.metaRow}>
+              <Text style={styles.metaLabel}>STUDENT ID</Text>
+              <Text style={styles.metaValue}>{studentId}</Text>
+            </View>
+            <View style={styles.metaRow}>
+              <Text style={styles.metaLabel}>FULL NAME</Text>
+              <Text style={styles.metaValue}>{fullName}</Text>
+            </View>
           </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>School:</Text>
-            <Text style={styles.value}>{course.school?.name || '—'}</Text>
-          </View>
-        </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Payment Breakdown</Text>
-          <View style={styles.feeRow}>
-            <Text>Tuition Fee</Text>
-            <Text>${(payment?.amount || 0).toLocaleString()}</Text>
-          </View>
-          <View style={styles.feeRow}>
-            <Text>Ancillary Fees</Text>
-            <Text>$0</Text>
-          </View>
-          <View style={styles.feeTotal}>
-            <Text>Total Paid</Text>
-            <Text>${(payment?.amount || 0).toLocaleString()}</Text>
-          </View>
-        </View>
+          <View style={styles.divider} />
 
-        <View style={styles.footer}>
-          <Text>Cannoga College | 81 Montreal Rd, Ottawa, Ontario, K1L 6E8</Text>
-          <Text>Official Receipt</Text>
+          {/* Details Table */}
+          <View style={styles.detailsTable}>
+            <View style={styles.detailsHeader}>
+              <Text style={[styles.th, styles.colDesc]}>DESCRIPTION</Text>
+              <Text style={[styles.th, styles.colDate]}>DELIVERY DATE</Text>
+              <Text style={[styles.th, styles.colOrig]}>ORIGINATING AMOUNT</Text>
+              <Text style={[styles.th, styles.colRecv]}>RECEIVED AMOUNT</Text>
+            </View>
+            <View style={styles.detailsRow}>
+              <Text style={[styles.td, styles.colDesc]}>{description}</Text>
+              <Text style={[styles.td, styles.colDate]}>{deliveryDate}</Text>
+              <Text style={[styles.td, styles.colOrig]}>{originatingAmount}</Text>
+              <Text style={[styles.td, styles.colRecv]}>{receivedAmount}</Text>
+            </View>
+          </View>
+
+          {/* Thank You */}
+          <Text style={styles.thankYou}>Thank you for completing your payment with us.</Text>
+
+          <View style={styles.divider} />
+
+          {/* Support Box */}
+          <View style={styles.supportBox}>
+            <View style={styles.supportIcon}>
+              <Text>?</Text>
+            </View>
+            <View>
+              <Text style={styles.supportTitle}>Flywire support</Text>
+              <Text style={styles.supportSubtext}>Do you need help with your payment?</Text>
+            </View>
+            <Text style={styles.supportLink}>https://help@flywire.com</Text>
+          </View>
+
+          <View style={styles.divider} />
+
+          {/* Footer */}
+          <View style={styles.footer}>
+            <Text style={styles.poweredBy}>PAYMENT POWERED BY</Text>
+            <Image style={styles.flywireLogo} src={flywireUrl} />
+            <Text style={styles.footerAddress}>41 Tremont Street - Boston, MA 02111</Text>
+          </View>
         </View>
       </Page>
     </Document>

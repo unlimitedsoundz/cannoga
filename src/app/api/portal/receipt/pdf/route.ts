@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/utils/supabase/server';
-import { PDFRenderer } from '@react-pdf/renderer';
+import { renderToBuffer } from '@react-pdf/renderer';
+import React from 'react';
 import ReceiptPDF from '@/components/portal/pdf/ReceiptPDF';
 
 export async function GET(request: NextRequest) {
@@ -37,11 +38,9 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Payment not found' }, { status: 404 });
     }
 
-    const pdfBuffer = await PDFRenderer.renderToBuffer(
-      ReceiptPDF({ application: payment.application, payment })
-    );
+    const pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(ReceiptPDF, { application: payment.application, payment }) as any));
 
-    return new NextResponse(pdfBuffer, {
+    return new NextResponse(new Uint8Array(pdfBuffer), {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',

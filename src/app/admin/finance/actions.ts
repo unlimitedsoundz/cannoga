@@ -2,6 +2,9 @@
 
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import { initializePalForStudent } from '@/utils/pal-status';
+import { renderToBuffer } from '@react-pdf/renderer';
+import React from 'react';
+import ReceiptPDF from '@/components/portal/pdf/ReceiptPDF';
 
 export async function getAdminInvoiceData() {
     const supabase = createServiceRoleClient();
@@ -409,16 +412,35 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
                 console.error('Error updating invoice:', invoiceError);
             }
 
-            // 4e. Create receipt document record
+            // 4e. Create receipt document record and upload PDF
             try {
-                const receiptUrl = `https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/receipt-${paymentId}.pdf`;
+                const pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(ReceiptPDF, { application, payment: paymentRecord }) as any));
+                const fileName = `receipt-${paymentRecord.transaction_reference || paymentId}.pdf`;
+                const storagePath = `student-documents/${application.user_id}/${fileName}`;
+
+                const { error: uploadError } = await supabase.storage
+                    .from('application-documents')
+                    .upload(storagePath, pdfBuffer, {
+                        contentType: 'application/pdf',
+                        upsert: true,
+                    });
+
+                if (uploadError) {
+                    console.error('Receipt upload error:', uploadError);
+                    throw new Error(`Failed to upload receipt: ${uploadError.message}`);
+                }
+
+                const { data: { publicUrl } } = supabase.storage
+                    .from('application-documents')
+                    .getPublicUrl(storagePath);
+
                 const receiptPayload = {
                     student_id: newStudent.id,
                     document_type: 'tuition_receipt',
                     title: `Tuition Receipt - ${paymentRecord.transaction_reference || paymentId}`,
                     programme: (application as any).course?.title || '',
                     status: 'issued',
-                    storage_path: receiptUrl,
+                    storage_path: publicUrl,
                     is_official: true,
                     is_student_visible: true,
                     version: 1,
