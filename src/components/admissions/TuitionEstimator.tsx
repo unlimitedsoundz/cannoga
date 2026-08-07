@@ -4,40 +4,40 @@ import { useState, useEffect } from 'react';
 import { Course } from '@/types/database';
 import { Info, ChevronDown, ChevronUp, RefreshCw } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
+import Tooltip from '@/components/ui/tooltip';
 
 interface TuitionEstimatorProps {
     courses: Course[];
 }
 
-interface TuitionRate {
-    degree_level: string;
-    annual_fee: number;
+interface TuitionInfo {
+    id: string;
+    credential_type: string;
+    domestic_tuition: any;
+    international_tuition: any;
 }
 
-// Interactive Tooltip Component
-function Tooltip({ text }: { text: string }) {
-    const [isOpen, setIsOpen] = useState(false);
+// Helper to extract annual tuition from JSONB
+const getAnnualTuition = (jsonb: any, fallback: number): number => {
+    if (!jsonb) return fallback;
+    const val = jsonb.annualTuition || jsonb.domesticTuition || jsonb.tuition || jsonb.amount || jsonb.value;
+    const num = parseFloat(val);
+    return isNaN(num) ? fallback : num;
+};
 
-    return (
-        <span className="relative inline-flex items-center">
-            <button
-                type="button"
-                onClick={() => setIsOpen(!isOpen)}
-                className="text-[#000000] hover:text-[#000000] transition-colors focus:outline-none focus:ring-1 focus:ring-[#000000] p-0.5"
-                aria-label="More info"
-            >
-                <Info size={14} className="cursor-help shrink-0" />
-            </button>
-            {isOpen && (
-                <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-[#9c27b3] text-[#f5f5f5] text-[11px] leading-relaxed font-normal shadow-xl border border-[#9c27b3] z-50 pointer-events-none transition-opacity duration-150">
-                    <span className="block">{text}</span>
-                    {/* Triangle Pointer */}
-                    <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#000000]"></span>
-                </span>
-            )}
-        </span>
-    );
-}
+const FALLBACK_DOMESTIC = {
+    CERTIFICATE: 1500,
+    DIPLOMA: 1500,
+    BACHELOR: 2500,
+    MASTER: 3500,
+};
+
+const FALLBACK_INTERNATIONAL = {
+    CERTIFICATE: 2500,
+    DIPLOMA: 2500,
+    BACHELOR: 4000,
+    MASTER: 6000,
+};
 
 const FEE_DESCRIPTIONS: Record<string, string> = {
     'Program Tuition Fee': 'The core instruction fee covering academic lectures, credits, and faculty instruction for the semester.',
@@ -51,7 +51,7 @@ const FEE_DESCRIPTIONS: Record<string, string> = {
 };
 
 export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
-    const [tuitionRates, setTuitionRates] = useState<TuitionRate[]>([]);
+    const [tuitionInfo, setTuitionInfo] = useState<TuitionInfo[]>([]);
     const [campus, setCampus] = useState('Ottawa');
     const [startTerm, setStartTerm] = useState('2026 Fall');
     const [residency, setResidency] = useState('International');
@@ -59,7 +59,6 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
     const [submittedData, setSubmittedData] = useState<any | null>(null);
     const [openSemesters, setOpenSemesters] = useState<Record<number, boolean>>({ 1: true });
 
-    // Map school slugs to tuition rate fields
     const schoolToFieldMap: Record<string, string> = {
         'arts': 'ARTS',
         'business': 'BUSINESS',
@@ -72,38 +71,20 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
     };
 
     useEffect(() => {
-        const fetchTuitionRates = async () => {
+        const fetchTuitionInfo = async () => {
             const supabase = createClient();
             const { data } = await supabase
-                .from('tuition_rates')
-                .select('degree_level, field, annual_fee');
-            if (data) setTuitionRates(data);
+                .from('tuition_info')
+                .select('credential_type, domestic_tuition, international_tuition')
+                .eq('status', 'active')
+                .order('credential_type', { ascending: true });
+            if (data) setTuitionInfo(data);
         };
-        fetchTuitionRates();
+        fetchTuitionInfo();
     }, []);
 
     // Handle course change
     const selectedCourse = courses.find(c => c.id === selectedCourseId);
-
-    // Fetch school field for selected course
-    const [schoolField, setSchoolField] = useState<string>('BUSINESS');
-    
-    useEffect(() => {
-        if (selectedCourse) {
-            const supabase = createClient();
-            supabase
-                .from('School')
-                .select('slug')
-                .eq('id', selectedCourse.schoolId)
-                .single()
-                .then(({ data }) => {
-                    if (data) {
-                        const field = schoolToFieldMap[data.slug] || 'BUSINESS';
-                        setSchoolField(field);
-                    }
-                });
-        }
-    }, [selectedCourse]);
 
     // Form submission
     const handleSubmit = (e: React.FormEvent) => {
@@ -132,14 +113,25 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
         const degreeLevel = course.degreeLevel;
         const isDomestic = residency === 'Domestic';
 
-        const getAnnualFeeFromDB = (level: string, isInternational: boolean): number => {
+        const getAnnualFeeFromDB = (level: string, domestic: boolean): number => {
             const upper = level.toUpperCase();
-            const field = isInternational ? schoolField + '_INTERNATIONAL' : schoolField;
-            const rate = tuitionRates.find(r => upper.includes(r.degree_level) && (r as any).field === field);
-            return rate ? parseFloat(rate.annual_fee.toString()) : 4000;
+            let credentialType = 'BACHELOR';
+            if (upper.includes('CERTIFICATE')) credentialType = 'CERTIFICATE';
+            else if (upper.includes('DIPLOMA')) credentialType = 'DIPLOMA';
+            else if (upper.includes('MASTER')) credentialType = 'MASTER';
+
+            const info = tuitionInfo.find((t: any) => t.credential_type === credentialType);
+            if (info) {
+                const jsonb = domestic ? info.domestic_tuition : info.international_tuition;
+                const fallback = domestic ? FALLBACK_DOMESTIC[credentialType] : FALLBACK_INTERNATIONAL[credentialType];
+                return getAnnualTuition(jsonb, fallback);
+            }
+
+            const fallback = domestic ? FALLBACK_DOMESTIC[credentialType] : FALLBACK_INTERNATIONAL[credentialType];
+            return fallback;
         };
 
-        const annualBase = getAnnualFeeFromDB(degreeLevel, !isDomestic);
+        const annualBase = getAnnualFeeFromDB(degreeLevel, isDomestic);
         const semesterBaseTuition = annualBase / 2;
 
         const totalSemesters = Math.ceil(years * 2);
