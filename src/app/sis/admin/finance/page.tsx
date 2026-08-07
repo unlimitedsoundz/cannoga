@@ -12,7 +12,7 @@ import { StatusBadge } from '@/components/sis/StatusBadge';
 import { CreditCardIcon as CreditCard, ArrowRightIcon as ArrowRight, FilterHorizontalIcon as Filter, Search01Icon as Search } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import Link from 'next/link';
-import { getSISFinanceAccounts, getSISCourseMap } from '../actions';
+import { getSISFinanceAccounts, getSISCourseMap, verifySISTuitionPayment } from '../actions';
 
 interface FinanceRow {
   id: string;
@@ -29,6 +29,14 @@ interface FinanceRow {
   user?: { first_name: string; last_name: string; email: string }[];
   course?: { title: string; school?: { name: string }[]; degreeLevel?: string; duration?: string }[];
   offer?: { id: string; tuition_fee: number; payment_deadline: string; offer_type: string; status: string; invoice_type?: string; invoice_pushed?: boolean; invoice_sent_at?: string }[];
+  payments?: {
+    id: string;
+    amount: number;
+    status: string;
+    transaction_reference?: string;
+    payment_method?: string;
+    created_at: string;
+  }[];
 }
 
 export default function FinancePage() {
@@ -39,6 +47,23 @@ export default function FinancePage() {
   const [courseMap, setCourseMap] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [verifyLoading, setVerifyLoading] = useState<string | null>(null);
+
+  const handleVerifyPayment = async (paymentId: string, applicationId: string) => {
+    setVerifyLoading(paymentId);
+    try {
+      const result = await verifySISTuitionPayment(paymentId, applicationId);
+      if (result.success) {
+        window.location.reload();
+      } else {
+        alert(result.error || 'Failed to verify payment');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Failed to verify payment');
+    } finally {
+      setVerifyLoading(null);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -129,6 +154,27 @@ export default function FinancePage() {
       render: (s: FinanceRow) => <StatusBadge status={s.enrollment_status} />,
     },
     {
+      key: 'payment',
+      header: 'Payment',
+      render: (s: FinanceRow) => {
+        if (s.account_type === 'student' || !s.payments || s.payments.length === 0) {
+          return <span className="text-neutral-400 text-xs">N/A</span>;
+        }
+        const latestPayment = s.payments[0];
+        return (
+          <div>
+            <p className="text-sm font-bold text-black">${Number(latestPayment.amount).toLocaleString()}</p>
+            <p className={`text-xs font-bold uppercase ${latestPayment.status === 'COMPLETED' || latestPayment.status === 'verified' ? 'text-emerald-600' : 'text-amber-600'}`}>
+              {latestPayment.status?.replace(/_/g, ' ') || 'Pending'}
+            </p>
+            {latestPayment.transaction_reference && (
+              <p className="text-[10px] text-neutral-500 font-mono">{latestPayment.transaction_reference}</p>
+            )}
+          </div>
+        );
+      },
+    },
+    {
       key: 'actions',
       header: 'Actions',
       render: (s: FinanceRow) => {
@@ -139,10 +185,22 @@ export default function FinancePage() {
             </Link>
           );
         }
+        const pendingPayment = s.payments?.find((p: any) => p.status === 'PENDING_VERIFICATION' || p.status === 'verified');
         return (
-          <Link href={`/sis/admin/admissions/${s.id}`} className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">
-            View Application
-          </Link>
+          <div className="flex flex-col gap-2">
+            <Link href={`/sis/admin/admissions/${s.id}`} className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">
+              View Application
+            </Link>
+            {pendingPayment && (
+              <button
+                onClick={() => handleVerifyPayment(pendingPayment.id, s.id)}
+                disabled={verifyLoading === pendingPayment.id}
+                className="text-xs font-bold uppercase tracking-wider text-white bg-neutral-900 hover:bg-neutral-800 px-2 py-1 rounded-sm disabled:opacity-50"
+              >
+                {verifyLoading === pendingPayment.id ? 'Verifying...' : 'Verify & Accept'}
+              </button>
+            )}
+          </div>
         );
       },
     },
@@ -187,6 +245,7 @@ export default function FinancePage() {
                 { value: 'GRADUATED', label: 'Graduated' },
                 { value: 'WITHDRAWN', label: 'Withdrawn' },
                 { value: 'OFFER_ACCEPTED', label: 'Offer Accepted' },
+                { value: 'PAYMENT_SUBMITTED', label: 'Payment Submitted' },
               ]},
             ]}
           />}

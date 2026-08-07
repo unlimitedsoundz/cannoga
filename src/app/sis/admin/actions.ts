@@ -173,7 +173,7 @@ export async function getSISFinanceAccounts() {
   const adminClient = createServiceRoleClient();
 
   try {
-    const [studentsResult, applicationsResult] = await Promise.all([
+    const [studentsResult, applicationsResult, paymentsResult] = await Promise.all([
       adminClient
         .from('students')
         .select(`
@@ -197,17 +197,37 @@ export async function getSISFinanceAccounts() {
             id, tuition_fee, payment_deadline, offer_type, status, invoice_type, invoice_pushed, invoice_sent_at
           )
         `)
-        .eq('status', 'OFFER_ACCEPTED')
+        .in('status', ['OFFER_ACCEPTED', 'PAYMENT_SUBMITTED'])
         .order('submitted_at', { ascending: false })
         .limit(20),
+      adminClient
+        .from('tuition_payments')
+        .select(`
+          id, offer_id, amount, status, transaction_reference, payment_method, created_at,
+          offer:admission_offers(application_id)
+        `)
+        .order('created_at', { ascending: false })
+        .limit(50),
     ]);
 
     if (studentsResult.error) throw studentsResult.error;
     if (applicationsResult.error) throw applicationsResult.error;
+    if (paymentsResult.error) throw paymentsResult.error;
+
+    const paymentsByApplicationId = new Map<string, any[]>();
+    for (const payment of paymentsResult.data || []) {
+      const appId = payment.offer?.application_id;
+      if (!appId) continue;
+      if (!paymentsByApplicationId.has(appId)) {
+        paymentsByApplicationId.set(appId, []);
+      }
+      paymentsByApplicationId.get(appId)!.push(payment);
+    }
 
     const students = (studentsResult.data || []).map((s: any) => ({
       ...s,
       account_type: 'student' as const,
+      payments: [],
     }));
 
     const applications = (applicationsResult.data || []).map((a: any) => ({
@@ -222,6 +242,7 @@ export async function getSISFinanceAccounts() {
       full_tuition_paid_at: null,
       housing_fee_paid: false,
       housing_fee_paid_at: null,
+      payments: paymentsByApplicationId.get(a.id) || [],
     }));
 
     const combined = [...students, ...applications].sort((a, b) => {
@@ -233,6 +254,42 @@ export async function getSISFinanceAccounts() {
     return { success: true, data: combined };
   } catch (e: any) {
     console.error('getSISFinanceAccounts Error:', e);
+    return { success: false, error: e.message };
+  }
+}
+
+export async function verifySISTuitionPayment(paymentId: string, applicationId: string) {
+  const supabase = createServiceRoleClient();
+
+  try {
+    const { data: paymentRecord, error: paymentFetchError } = await supabase
+      .from('tuition_payments')
+      .select('amount, invoice_type, transaction_reference, payment_method, currency, status, offer_id')
+      .eq('id', paymentId)
+      .single();
+
+    if (paymentFetchError || !paymentRecord) {
+      throw new Error('Payment record not found');
+    }
+
+    const { error: updateError } = await supabase
+      .from('tuition_payments')
+      .update({ status: 'COMPLETED' })
+      .eq('id', paymentId)
+      .in('status', ['PENDING_VERIFICATION', 'verified']);
+
+    if (updateError) throw updateError;
+
+    const { error: appError } = await supabase
+      .from('applications')
+      .update({ status: 'ENROLLED', updated_at: new Date().toISOString() })
+      .eq('id', applicationId);
+
+    if (appError) throw appError;
+
+    return { success: true };
+  } catch (e: any) {
+    console.error('verifySISTuitionPayment Error:', e);
     return { success: false, error: e.message };
   }
 }
@@ -538,7 +595,7 @@ export async function getStudentFinancialDetails(studentId: string) {
       .from('students')
       .select(`
         *,
-        user:profiles(first_name, last_name, email, phone_number),
+        user:profiles(first_name, last_name, email, phone_number, student_id),
         course:Course(title, school:School(name), degreeLevel, duration, credits),
         application:applications(*, course:Course(title, slug))
       `)
@@ -552,40 +609,52 @@ export async function getStudentFinancialDetails(studentId: string) {
     let offer = null;
     let payments: any[] = [];
     let invoices: any[] = [];
+    let financeDocuments: any[] = [];
 
     if (applicationId) {
-      const { data: offerData } = await adminClient
-        .from('admission_offers')
-        .select('*')
-        .eq('application_id', applicationId)
-        .maybeSingle();
+      const [{ data: offerData }, { data: invoiceData }, { data: documentData }] = await Promise.all([
+        adminClient
+          .from('admission_offers')
+          .select('*')
+          .eq('application_id', applicationId)
+          .maybeSingle(),
+        adminClient
+          .from('invoices')
+          .select('*')
+          .eq('student_id', studentId)
+          .order('issued_date', { ascending: false }),
+        adminClient
+          .from('document_records')
+          .select('*')
+          .eq('student_id', studentId)
+          .in('document_type', ['tuition_receipt', 'tuition_invoice', 'pal', 'loa'])
+          .order('issue_date', { ascending: false }),
+      ]);
 
       offer = offerData;
+      invoices = invoiceData || [];
+      financeDocuments = documentData || [];
 
       if (offer?.id) {
-        const [paymentsResult, invoicesResult] = await Promise.all([
-          adminClient
-            .from('tuition_payments')
-            .select('*')
-            .eq('offer_id', offer.id)
-            .order('created_at', { ascending: false }),
-          adminClient
-            .from('tuition_payments')
-            .select('*')
-            .eq('offer_id', offer.id)
-            .order('created_at', { ascending: false }),
-        ]);
+        const { data: paymentsData } = await adminClient
+          .from('tuition_payments')
+          .select('*')
+          .eq('offer_id', offer.id)
+          .order('created_at', { ascending: false });
 
-        payments = paymentsResult.data || [];
-        invoices = invoicesResult.data || [];
+        payments = paymentsData || [];
       }
     }
 
     const tuitionFee = offer?.tuition_fee || 0;
+    const ancillaryFee = 700;
+    const totalAnnual = tuitionFee + ancillaryFee;
     const totalPaid = payments
-      .filter((p: any) => p.status === 'COMPLETED')
+      .filter((p: any) => p.status === 'COMPLETED' || p.status === 'verified')
       .reduce((sum: number, p: any) => sum + Number(p.amount), 0);
-    const outstandingBalance = tuitionFee - totalPaid;
+    const totalInvoiced = invoices.reduce((sum: number, inv: any) => sum + Number(inv.amount || 0), 0);
+    const totalBalance = invoices.reduce((sum: number, inv: any) => sum + Number(inv.balance || 0), 0);
+    const outstandingBalance = Math.max(0, totalInvoiced - totalPaid);
 
     return {
       success: true,
@@ -594,13 +663,20 @@ export async function getStudentFinancialDetails(studentId: string) {
         offer,
         payments,
         invoices,
+        financeDocuments,
         summary: {
           tuitionFee,
+          ancillaryFee,
+          totalAnnual,
+          totalInvoiced,
           totalPaid,
+          totalBalance,
           outstandingBalance,
           depositPaid: student?.tuition_deposit_paid || false,
           fullTuitionPaid: student?.full_tuition_paid || false,
           housingPaid: student?.housing_fee_paid || false,
+          paymentCount: payments.filter((p: any) => p.status === 'COMPLETED' || p.status === 'verified').length,
+          pendingPayments: payments.filter((p: any) => p.status === 'PENDING_VERIFICATION' || p.status === 'PENDING').length,
         },
       },
     };
