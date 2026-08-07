@@ -19,14 +19,14 @@ export default function AdminInvoicesPage() {
     // Default global fees reference, we could fetch from DB but keeping simple for now
     // A production scenario would fetch these from tuition_rates table
     const defaultFees: Record<string, number> = {
-        'CERTIFICATE': 2500,
-        'DIPLOMA': 2500,
-        'ADVANCED_DIPLOMA': 2500,
-        'BSc': 4000,
-        'BACHELOR': 4000,
-        'PG_DIPLOMA': 2500,
-        'MASTERS': 6000,
-        'MASTER': 6000,
+        'CERTIFICATE': 4000,
+        'DIPLOMA': 4000,
+        'ADVANCED_DIPLOMA': 4000,
+        'BSc': 6400,
+        'BACHELOR': 6400,
+        'PG_DIPLOMA': 4000,
+        'MASTERS': 9600,
+        'MASTER': 9600,
     };
 
     const fetchApplications = async () => {
@@ -42,15 +42,15 @@ export default function AdminInvoicesPage() {
                 const nationality = app.personal_info?.nationality;
                 const isDomestic = nationality ? (nationality.toLowerCase().trim() === 'canada' || nationality.toLowerCase().trim() === 'canadian' || nationality.toLowerCase().trim() === 'domestic') : false;
 
-                let defaultFee = 2500;
+                let defaultFee = 4000;
                 if (title.includes('CERTIFICATE') || title.includes('DIPLOMA') || title.includes('ADVANCED')) {
-                    defaultFee = isDomestic ? 1500 : 2500;
+                    defaultFee = isDomestic ? 2400 : 4000;
                 } else if (title.includes('BACHELOR') || title.includes('BSC')) {
-                    defaultFee = isDomestic ? 2500 : 4000;
+                    defaultFee = isDomestic ? 4000 : 6400;
                 } else if (title.includes('MASTER') || title.includes('MSC')) {
-                    defaultFee = isDomestic ? 3500 : 6000;
+                    defaultFee = isDomestic ? 5600 : 9600;
                 } else if (title.includes('POSTGRADUATE') || title.includes('PG')) {
-                    defaultFee = isDomestic ? 3500 : 6000;
+                    defaultFee = isDomestic ? 5600 : 9600;
                 }
 
                 return {

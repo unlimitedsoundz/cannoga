@@ -136,7 +136,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
             const upper = level.toUpperCase();
             const field = isInternational ? schoolField + '_INTERNATIONAL' : schoolField;
             const rate = tuitionRates.find(r => upper.includes(r.degree_level) && (r as any).field === field);
-            return rate ? parseFloat(rate.annual_fee.toString()) : 2500;
+            return rate ? parseFloat(rate.annual_fee.toString()) : 4000;
         };
 
         const annualBase = getAnnualFeeFromDB(degreeLevel, !isDomestic);

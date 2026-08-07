@@ -11,6 +11,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { File01Icon as FileText, UserIcon as User, Mail01Icon as Mail, SmartPhone01Icon as Phone, MapPinIcon as MapPin, Calendar01Icon as Calendar, GraduationCapIcon as GraduationCap, Shield01Icon as Shield, Alert01Icon as AlertTriangle, CheckIcon as CheckCircle, CancelCircleIcon as XCircle, ChevronRightIcon as ArrowRight, Edit01Icon as Edit, Download01Icon as Download, PrinterIcon as Printer, Message01Icon as Message, ClockIcon as Clock, FileTypeIcon as DocumentIcon, Upload01Icon as Upload } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
 import { getAdmissionApplicationDetail, updateApplicationStatus, updateInternalNotes, createAdmissionOffer, regenerateOfferLetter, generateAdmissionLetterAction, issuePal, sendMessage, updateApplication } from '@/app/admin/admissions/actions';
+import { toast } from 'sonner';
 
 interface ApplicationDetail {
   id: string;
@@ -63,7 +64,6 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [notes, setNotes] = useState('');
   const [status, setStatus] = useState('');
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [messageText, setMessageText] = useState('');
   const [showMessageForm, setShowMessageForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -92,18 +92,17 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
 
   const handleStatusUpdate = async (newStatus: string) => {
     setActionLoading('status');
-    setMessage(null);
     try {
       const result = await updateApplicationStatus(id, newStatus as any);
       if ((result as any).success) {
         setStatus(newStatus);
         setApplication(prev => prev ? { ...prev, status: newStatus } : prev);
-        setMessage({ type: 'success', text: `Status updated to ${newStatus.replace('_', ' ')}` });
+        toast.success(`Status updated to ${newStatus.replace('_', ' ')}`);
       } else {
-        setMessage({ type: 'error', text: (result as any).error || 'Failed to update status' });
+        toast.error((result as any).error || 'Failed to update status');
       }
     } catch (err: any) {
-      setMessage({ type: 'error', text: err.message || 'Failed to update status' });
+      toast.error(err.message || 'Failed to update status');
     } finally {
       setActionLoading(null);
     }
@@ -111,16 +110,15 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
 
   const handleSaveNotes = async () => {
     setActionLoading('notes');
-    setMessage(null);
     try {
       const result = await updateInternalNotes(id, notes);
       if ((result as any).success) {
-        setMessage({ type: 'success', text: 'Notes saved successfully' });
+        toast.success('Notes saved successfully');
       } else {
-        setMessage({ type: 'error', text: (result as any).error || 'Failed to save notes' });
+        toast.error((result as any).error || 'Failed to save notes');
       }
     } catch (err: any) {
-      setMessage({ type: 'error', text: err.message || 'Failed to save notes' });
+      toast.error(err.message || 'Failed to save notes');
     } finally {
       setActionLoading(null);
     }
@@ -128,7 +126,6 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
 
   const handleIssueOffer = async () => {
     setActionLoading('offer');
-    setMessage(null);
     try {
       const { getTuitionFee, mapSchoolToTuitionField, getProgramYears } = await import('@/utils/tuition');
       const schoolSlug = application?.course?.school?.slug || 'technology';
@@ -143,13 +140,13 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
       const tuitionFee = annualFee * years;
       const result = await createAdmissionOffer(id, tuitionFee, new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString());
       if ((result as any).success) {
-        setMessage({ type: 'success', text: 'Admission offer issued successfully' });
+        toast.success('Admission offer issued successfully');
         window.location.reload();
       } else {
-        setMessage({ type: 'error', text: (result as any).error || 'Failed to issue offer' });
+        toast.error((result as any).error || 'Failed to issue offer');
       }
     } catch (err: any) {
-      setMessage({ type: 'error', text: err.message || 'Failed to issue offer' });
+      toast.error(err.message || 'Failed to issue offer');
     } finally {
       setActionLoading(null);
     }
@@ -157,16 +154,15 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
 
   const handleRegenerateLOA = async () => {
     setActionLoading('loa');
-    setMessage(null);
     try {
       const result = await regenerateOfferLetter(id);
       if ((result as any).success) {
-        setMessage({ type: 'success', text: 'Letter of Acceptance regenerated' });
+        toast.success('Letter of Acceptance regenerated');
       } else {
-        setMessage({ type: 'error', text: (result as any).error || 'Failed to regenerate LOA' });
+        toast.error((result as any).error || 'Failed to regenerate LOA');
       }
     } catch (err: any) {
-      setMessage({ type: 'error', text: err.message || 'Failed to regenerate LOA' });
+      toast.error(err.message || 'Failed to regenerate LOA');
     } finally {
       setActionLoading(null);
     }
@@ -174,16 +170,15 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
 
   const handleGenerateAdmissionLetter = async () => {
     setActionLoading('admission-letter');
-    setMessage(null);
     try {
       const result = await generateAdmissionLetterAction(id);
       if ((result as any).success) {
-        setMessage({ type: 'success', text: 'Admission letter generated' });
+        toast.success('Admission letter generated');
       } else {
-        setMessage({ type: 'error', text: (result as any).error || 'Failed to generate admission letter' });
+        toast.error((result as any).error || 'Failed to generate admission letter');
       }
     } catch (err: any) {
-      setMessage({ type: 'error', text: err.message || 'Failed to generate admission letter' });
+      toast.error(err.message || 'Failed to generate admission letter');
     } finally {
       setActionLoading(null);
     }
@@ -191,17 +186,16 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
 
   const handleIssuePAL = async () => {
     setActionLoading('pal');
-    setMessage(null);
     try {
       const result = await issuePal(id);
       if ((result as any).success) {
-        setMessage({ type: 'success', text: 'PAL issued successfully' });
+        toast.success('PAL issued successfully');
         window.location.reload();
       } else {
-        setMessage({ type: 'error', text: (result as any).error || 'Failed to issue PAL' });
+        toast.error((result as any).error || 'Failed to issue PAL');
       }
     } catch (err: any) {
-      setMessage({ type: 'error', text: err.message || 'Failed to issue PAL' });
+      toast.error(err.message || 'Failed to issue PAL');
     } finally {
       setActionLoading(null);
     }
@@ -209,22 +203,21 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
 
   const handleSendMessage = async () => {
     if (!messageText.trim()) {
-      setMessage({ type: 'error', text: 'Please enter a message' });
+      toast.error('Please enter a message');
       return;
     }
     setActionLoading('message');
-    setMessage(null);
     try {
       const result = await sendMessage(id, messageText);
       if ((result as any).success) {
-        setMessage({ type: 'success', text: 'Message sent to student' });
+        toast.success('Message sent to student');
         setMessageText('');
         setShowMessageForm(false);
       } else {
-        setMessage({ type: 'error', text: (result as any).error || 'Failed to send message' });
+        toast.error((result as any).error || 'Failed to send message');
       }
     } catch (err: any) {
-      setMessage({ type: 'error', text: err.message || 'Failed to send message' });
+      toast.error(err.message || 'Failed to send message');
     } finally {
       setActionLoading(null);
     }
@@ -242,18 +235,17 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
 
   const handleSaveEdit = async () => {
     setActionLoading('edit');
-    setMessage(null);
     try {
       const result = await updateApplication(id, editForm);
       if ((result as any).success) {
-        setMessage({ type: 'success', text: 'Record updated successfully' });
+        toast.success('Record updated successfully');
         setIsEditing(false);
         window.location.reload();
       } else {
-        setMessage({ type: 'error', text: (result as any).error || 'Failed to update record' });
+        toast.error((result as any).error || 'Failed to update record');
       }
     } catch (err: any) {
-      setMessage({ type: 'error', text: err.message || 'Failed to update record' });
+      toast.error(err.message || 'Failed to update record');
     } finally {
       setActionLoading(null);
     }
@@ -316,12 +308,6 @@ export default function AdmissionApplicationPage({ params }: { params: Promise<{
       />
 
       <Tabs tabs={tabs} />
-
-      {message && (
-        <div className={`p-4 rounded ${message.type === 'success' ? 'bg-emerald-50 border border-emerald-100 text-emerald-700' : 'bg-red-50 border border-red-100 text-red-700'}`}>
-          {message.text}
-        </div>
-      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">

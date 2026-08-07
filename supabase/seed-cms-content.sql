@@ -139,10 +139,10 @@ ON CONFLICT (id) DO UPDATE SET
 -- ============================================================
 INSERT INTO tuition_info (credential_type, domestic_tuition, international_tuition, application_fee, status)
 VALUES
-  ('CERTIFICATE', '{"domesticTuition": "$1,500 per semester", "domesticPerCredit": null, "terms": "Payment plans available"}', '{"annualTuition": "$2,500 per semester", "perCredit": null, "terms": "Payment plans available"}', 0.00, 'active'),
-  ('DIPLOMA', '{"domesticTuition": "$1,500 per semester", "domesticPerCredit": null, "terms": "Payment plans available"}', '{"annualTuition": "$2,500 per semester", "perCredit": null, "terms": "Payment plans available"}', 0.00, 'active'),
-  ('BACHELOR', '{"domesticTuition": "$2,500 per semester", "domesticPerCredit": null, "terms": "Payment plans available"}', '{"annualTuition": "$4,000 per semester", "perCredit": null, "terms": "Payment plans available"}', 0.00, 'active'),
-  ('MASTER', '{"domesticTuition": "$3,500 per semester", "domesticPerCredit": null, "terms": "Payment plans available"}', '{"annualTuition": "$6,000 per semester", "perCredit": null, "terms": "Payment plans available"}', 0.00, 'active')
+  ('CERTIFICATE', '{"domesticTuition": "$2,400 per semester", "domesticPerCredit": null, "terms": "Payment plans available"}', '{"annualTuition": "$4,000 per semester", "perCredit": null, "terms": "Payment plans available"}', 0.00, 'active'),
+  ('DIPLOMA', '{"domesticTuition": "$2,400 per semester", "domesticPerCredit": null, "terms": "Payment plans available"}', '{"annualTuition": "$4,000 per semester", "perCredit": null, "terms": "Payment plans available"}', 0.00, 'active'),
+  ('BACHELOR', '{"domesticTuition": "$4,000 per semester", "domesticPerCredit": null, "terms": "Payment plans available"}', '{"annualTuition": "$6,400 per semester", "perCredit": null, "terms": "Payment plans available"}', 0.00, 'active'),
+  ('MASTER', '{"domesticTuition": "$5,600 per semester", "domesticPerCredit": null, "terms": "Payment plans available"}', '{"annualTuition": "$9,600 per semester", "perCredit": null, "terms": "Payment plans available"}', 0.00, 'active')
 ON CONFLICT DO NOTHING;
 
 -- ============================================================

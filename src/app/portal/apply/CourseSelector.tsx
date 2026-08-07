@@ -251,7 +251,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                                      
                                      const getRate = (isInternational: boolean) => {
                                          const rateKey = isInternational ? `${field}_INTERNATIONAL` : field;
-                                         return tuitionRates[upper]?.[rateKey] || (isInternational ? 4000 : 2500);
+                                          return tuitionRates[upper]?.[rateKey] || (isInternational ? 6400 : 2400);
                                      };
                                      
                                      const domesticFee = getRate(false);

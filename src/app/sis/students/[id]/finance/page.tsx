@@ -12,19 +12,19 @@ import { CreditCardIcon as CreditCard, DollarSignIcon as DollarSign, Calendar01I
 import { HugeiconsIcon } from '@hugeicons/react';
 
 const mockInvoices = [
-  { id: '1', number: 'INV-2026-001', type: 'Tuition', term: 'Fall 2026', amount: 4275.00, paid: 2850.00, balance: 1425.00, dueDate: 'Dec 1, 2026', status: 'Partial', issuedDate: 'Aug 1, 2026' },
-  { id: '2', number: 'INV-2026-002', type: 'Lab Fees', term: 'Fall 2026', amount: 350.00, paid: 0, balance: 350.00, dueDate: 'Oct 15, 2026', status: 'Outstanding', issuedDate: 'Aug 1, 2026' },
-  { id: '3', number: 'INV-2025-045', type: 'Tuition', term: 'Winter 2026', amount: 4275.00, paid: 4275.00, balance: 0, dueDate: 'Jan 15, 2026', status: 'Paid', issuedDate: 'Dec 1, 2025' },
-  { id: '4', number: 'INV-2025-012', type: 'Tuition', term: 'Fall 2025', amount: 4125.00, paid: 4125.00, balance: 0, dueDate: 'Sep 15, 2025', status: 'Paid', issuedDate: 'Aug 1, 2025' },
+  { id: '1', number: 'INV-2026-001', type: 'Tuition', term: 'Fall 2026', amount: 7100.00, paid: 2000.00, balance: 5100.00, dueDate: 'Dec 1, 2026', status: 'Partial', issuedDate: 'Aug 1, 2026' },
+  { id: '2', number: 'INV-2026-002', type: 'Lab Fees', term: 'Fall 2026', amount: 700.00, paid: 0, balance: 700.00, dueDate: 'Oct 15, 2026', status: 'Outstanding', issuedDate: 'Aug 1, 2026' },
+  { id: '3', number: 'INV-2025-045', type: 'Tuition', term: 'Winter 2026', amount: 7100.00, paid: 7100.00, balance: 0, dueDate: 'Jan 15, 2026', status: 'Paid', issuedDate: 'Dec 1, 2025' },
+  { id: '4', number: 'INV-2025-012', type: 'Tuition', term: 'Fall 2025', amount: 7100.00, paid: 7100.00, balance: 0, dueDate: 'Sep 15, 2025', status: 'Paid', issuedDate: 'Aug 1, 2025' },
 ];
 
 const mockPayments = [
-  { id: '1', date: 'Aug 15, 2026', reference: 'TXN-2026-0815-001', method: 'Credit Card', amount: 1425.00, status: 'Completed', invoice: 'INV-2026-001' },
-  { id: '2', date: 'Aug 1, 2026', reference: 'TXN-2026-0801-001', method: 'Bank Transfer', amount: 1425.00, status: 'Completed', invoice: 'INV-2026-001' },
-  { id: '3', date: 'Jan 10, 2026', reference: 'TXN-2026-0110-001', method: 'Credit Card', amount: 2137.50, status: 'Completed', invoice: 'INV-2025-045' },
-  { id: '4', date: 'Dec 15, 2025', reference: 'TXN-2025-1215-001', method: 'Bank Transfer', amount: 2137.50, status: 'Completed', invoice: 'INV-2025-045' },
-  { id: '5', date: 'Sep 10, 2025', reference: 'TXN-2025-0910-001', method: 'Credit Card', amount: 2062.50, status: 'Completed', invoice: 'INV-2025-012' },
-  { id: '6', date: 'Aug 15, 2025', reference: 'TXN-2025-0815-001', method: 'Bank Transfer', amount: 2062.50, status: 'Completed', invoice: 'INV-2025-012' },
+  { id: '1', date: 'Aug 15, 2026', reference: 'TXN-2026-0815-001', method: 'Credit Card', amount: 2000.00, status: 'Completed', invoice: 'INV-2026-001' },
+  { id: '2', date: 'Aug 1, 2026', reference: 'TXN-2026-0801-001', method: 'Bank Transfer', amount: 2550.00, status: 'Completed', invoice: 'INV-2026-001' },
+  { id: '3', date: 'Jan 10, 2026', reference: 'TXN-2026-0110-001', method: 'Credit Card', amount: 3550.00, status: 'Completed', invoice: 'INV-2025-045' },
+  { id: '4', date: 'Dec 15, 2025', reference: 'TXN-2025-1215-001', method: 'Bank Transfer', amount: 3550.00, status: 'Completed', invoice: 'INV-2025-045' },
+  { id: '5', date: 'Sep 10, 2025', reference: 'TXN-2025-0910-001', method: 'Credit Card', amount: 3550.00, status: 'Completed', invoice: 'INV-2025-012' },
+  { id: '6', date: 'Aug 15, 2025', reference: 'TXN-2025-0815-001', method: 'Bank Transfer', amount: 3550.00, status: 'Completed', invoice: 'INV-2025-012' },
 ];
 
 const tabs = [

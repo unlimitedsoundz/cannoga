@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { createClient } from '@/utils/supabase/client';
 import { redirect, useSearchParams } from 'next/navigation';
 import { Link } from "@aalto-dx/react-components";
@@ -36,13 +38,13 @@ function ViewApplicationContent() {
 
             const supabase = createClient();
 
-            try {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (!user) {
-                    redirect('/portal/account/login');
-                    return;
-                }
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                redirect('/portal/account/login');
+                return;
+            }
 
+            try {
                 const { data: applicationRaw, error: appError } = await supabase
                     .from('applications')
                     .select(`
