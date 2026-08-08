@@ -5,6 +5,10 @@ import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 export async function registerForCourse(studentId: string, course: any, term: string) {
     const supabase = createServiceRoleClient();
 
+    if (!studentId || !course?.id) {
+        return { success: false, error: 'Missing student or course information.' };
+    }
+
     const { data: existing } = await supabase
         .from('module_enrollments')
         .select('id')
@@ -34,12 +38,14 @@ export async function registerForCourse(studentId: string, course: any, term: st
         .eq('code', course.code)
         .maybeSingle();
 
-    if (!existingModule) {
+    if (existingModule) {
+        moduleId = existingModule.id;
+    } else {
         const { data: newModule, error: moduleError } = await supabase
             .from('modules')
             .insert({
-                code: course.code,
-                title: course.title,
+                code: course.code || `MOD-${Date.now()}`,
+                title: course.title || 'Untitled Course',
                 description: course.description || '',
                 credits: course.credits || 3,
                 capacity: course.capacity || 30,
@@ -47,14 +53,12 @@ export async function registerForCourse(studentId: string, course: any, term: st
             .select('id')
             .single();
 
-        if (moduleError || !newModule) {
+        if (moduleError || !newModule?.id) {
             console.error('Module creation error:', moduleError);
-            return { success: false, error: 'Failed to create course module. Please contact registrar.' };
+            return { success: false, error: `Failed to create course module: ${moduleError?.message || 'Unknown error'}` };
         }
 
         moduleId = newModule.id;
-    } else {
-        moduleId = existingModule.id;
     }
 
     const { error } = await supabase
@@ -68,8 +72,8 @@ export async function registerForCourse(studentId: string, course: any, term: st
         });
 
     if (error) {
-        console.error('Registration error:', error);
-        return { success: false, error: error.message || 'Failed to register for course' };
+        console.error('Enrollment error:', error);
+        return { success: false, error: `Failed to register: ${error.message}` };
     }
 
     return { success: true };
