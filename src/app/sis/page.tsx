@@ -5,6 +5,7 @@ export const dynamic = 'force-dynamic';
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
+import { toast } from 'sonner';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
     FileTypeIcon as FileText,
@@ -1201,7 +1202,7 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
 
     const handleRegister = async (course: any) => {
         if (!studentId) {
-            alert('Please log in to register for courses.');
+            toast.error('Please log in to register for courses.');
             return;
         }
 
@@ -1210,18 +1211,18 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
             const result = await registerForCourse(studentId, course, termFilter);
 
             if (!result.success) {
-                alert(result.error || 'Failed to register for course');
+                toast.error(result.error || 'Failed to register for course');
                 return;
             }
 
-            alert(`Successfully registered for ${course.code} - ${course.title}`);
+            toast.success(`Successfully registered for ${course.code} - ${course.title}`);
             setCourses(prev => prev.map(c =>
                 c.id === course.id
                     ? { ...c, status: 'Registered', enrolled: (c.enrolled || 0) + 1 }
                     : c
             ));
         } catch (error: any) {
-            alert(error.message || 'Failed to register for course');
+            toast.error(error.message || 'Failed to register for course');
         } finally {
             setRegistering(null);
         }

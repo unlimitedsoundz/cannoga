@@ -7,6 +7,7 @@ import { CourseTable } from '@/components/sis/CourseTable';
 import { SearchBar } from '@/components/sis/SearchBar';
 import { FilterBar } from '@/components/sis/FilterBar';
 import { StatusBadge } from '@/components/sis/StatusBadge';
+import { toast } from 'sonner';
 import { 
   Calendar01Icon as Calendar, 
   Add01Icon as Plus,
@@ -216,7 +217,7 @@ export default function RegistrationPage() {
           <CourseTable
             courses={filteredAvailable}
             onRegister={(course) => {
-              alert(`Registering for ${course.code} - ${course.title}`);
+              toast.success(`Registering for ${course.code} - ${course.title}`);
             }}
             showRegister
             pagination={{

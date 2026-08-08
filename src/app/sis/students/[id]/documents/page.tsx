@@ -7,6 +7,7 @@ import { Tabs } from '@/components/sis/Tabs';
 import { StudentHeader } from '@/components/sis/StudentHeader';
 import { DocumentTable } from '@/components/sis/DocumentTable';
 import { StatusBadge } from '@/components/sis/StatusBadge';
+import { toast } from 'sonner';
 import { Upload01Icon as Upload } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
@@ -63,8 +64,8 @@ export default function DocumentsPage() {
 
       <DocumentTable
         documents={mockDocuments}
-        onView={(doc) => alert(`Viewing ${doc.name}`)}
-        onDownload={(doc) => alert(`Downloading ${doc.name}`)}
+        onView={(doc) => toast.success(`Viewing ${doc.name}`)}
+        onDownload={(doc) => toast.success(`Downloading ${doc.name}`)}
         pagination={{
           page,
           pageSize: 10,

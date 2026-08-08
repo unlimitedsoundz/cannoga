@@ -1,11 +1,11 @@
 'use client';
 
-import { ReactNode, useState, useEffect } from 'react';
+import { ReactNode, useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { SISHeader } from '@/components/sis/SISHeader';
 import { SISSidebar } from '@/components/sis/SISSidebar';
-import { Toaster } from 'sonner';
+import { Toaster, toast } from 'sonner';
 
 interface Profile {
     id: string;
@@ -75,6 +75,65 @@ export default function SISLayout({ children }: { children: ReactNode }) {
 
         checkAuth();
     }, [pathname, isAdminPath, isStudentDashboard]);
+
+    const handleLogout = useCallback(async () => {
+        try {
+            const supabase = createClient();
+            await supabase.auth.signOut();
+            toast.success('Signed out due to inactivity');
+            setTimeout(() => {
+                window.location.href = '/portal/account/login';
+            }, 1000);
+        } catch (error) {
+            console.error('Auto-logout error:', error);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!authorized || !profile) return;
+
+        const IDLE_TIMEOUT = 60 * 1000; // 1 minute
+        const WARNING_TIMEOUT = 50 * 1000; // 10 seconds before logout
+        let idleTimer: NodeJS.Timeout;
+        let warningTimer: NodeJS.Timeout;
+
+        const resetTimer = () => {
+            clearTimeout(idleTimer);
+            clearTimeout(warningTimer);
+
+            warningTimer = setTimeout(() => {
+                toast.warning('You will be logged out in 10 seconds due to inactivity', {
+                    duration: 10000,
+                    action: {
+                        label: 'Stay Signed In',
+                        onClick: () => {
+                            clearTimeout(idleTimer);
+                            resetTimer();
+                        },
+                    },
+                });
+            }, WARNING_TIMEOUT);
+
+            idleTimer = setTimeout(() => {
+                handleLogout();
+            }, IDLE_TIMEOUT);
+        };
+
+        const activityEvents = ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart', 'click'];
+        activityEvents.forEach(event => {
+            window.addEventListener(event, resetTimer);
+        });
+
+        resetTimer();
+
+        return () => {
+            clearTimeout(idleTimer);
+            clearTimeout(warningTimer);
+            activityEvents.forEach(event => {
+                window.removeEventListener(event, resetTimer);
+            });
+        };
+    }, [authorized, profile, handleLogout]);
 
     if (loading) {
         return (

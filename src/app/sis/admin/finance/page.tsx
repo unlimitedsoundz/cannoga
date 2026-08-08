@@ -9,6 +9,7 @@ import { DataTable } from '@/components/sis/DataTable';
 import { SearchBar } from '@/components/sis/SearchBar';
 import { FilterBar } from '@/components/sis/FilterBar';
 import { StatusBadge } from '@/components/sis/StatusBadge';
+import { toast } from 'sonner';
 import { CreditCardIcon as CreditCard, ArrowRightIcon as ArrowRight, FilterHorizontalIcon as Filter, Search01Icon as Search } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import Link from 'next/link';
@@ -54,12 +55,13 @@ export default function FinancePage() {
     try {
       const result = await verifySISTuitionPayment(paymentId, applicationId);
       if (result.success) {
+        toast.success('Payment verified successfully');
         window.location.reload();
       } else {
-        alert(result.error || 'Failed to verify payment');
+        toast.error(result.error || 'Failed to verify payment');
       }
     } catch (err: any) {
-      alert(err.message || 'Failed to verify payment');
+      toast.error(err.message || 'Failed to verify payment');
     } finally {
       setVerifyLoading(null);
     }
