@@ -6,6 +6,15 @@ import { ApplicationStatus } from '@/types/database';
 import { getTuitionFee, mapSchoolToTuitionField, getProgramYears } from '@/utils/tuition';
 
 export async function updateApplicationStatus(applicationId: string, status: ApplicationStatus, requestedDocuments: any = null, documentRequestNote: string | null = null) {
+    if (status === 'ENROLLED') {
+        const { enrollStudent } = await import('@/app/admin/students/actions');
+        const result = await enrollStudent(applicationId);
+        if (!result.success) {
+            throw new Error(result.error || 'Failed to enroll student');
+        }
+        return { success: true };
+    }
+
     const supabase = createServiceRoleClient();
 
     const updateData: any = {

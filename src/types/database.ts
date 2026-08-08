@@ -567,7 +567,7 @@ export type Faculty = {
 
 export type DegreeLevel = 'BACHELOR' | 'MASTER';
 
-export type ApplicationStatus = 'DRAFT' | 'SUBMITTED' | 'UNDER_REVIEW' | 'REJECTED' | 'DOCS_REQUIRED' | 'ADMITTED' | 'OFFER_ACCEPTED' | 'PAYMENT_SUBMITTED';
+export type ApplicationStatus = 'DRAFT' | 'SUBMITTED' | 'UNDER_REVIEW' | 'REJECTED' | 'DOCS_REQUIRED' | 'ADMITTED' | 'OFFER_ACCEPTED' | 'PAYMENT_SUBMITTED' | 'ENROLLED';
 
 export type Application = {
   id: string;
