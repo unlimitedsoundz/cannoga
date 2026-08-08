@@ -1208,13 +1208,25 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
             const { createClient } = await import('@/utils/supabase/client');
             const supabase = createClient();
 
-            const { error } = await supabase.from('enrollments').insert({
+            // Look up semester_id from the semesters table using the term filter
+            const { data: semester } = await supabase
+                .from('semesters')
+                .select('id')
+                .eq('name', termFilter)
+                .maybeSingle();
+
+            if (!semester) {
+                alert(`No active semester found for "${termFilter}". Please contact registrar.`);
+                setRegistering(null);
+                return;
+            }
+
+            const { error } = await supabase.from('module_enrollments').insert({
                 student_id: studentId,
-                course_id: course.courseId || course.id,
-                subject_id: course.id,
-                term: termFilter,
+                module_id: course.id,
+                semester_id: semester.id,
                 status: 'REGISTERED',
-                enrolled_at: new Date().toISOString(),
+                grade_status: 'PROVISIONAL',
             });
 
             if (error) throw error;
