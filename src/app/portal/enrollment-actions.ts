@@ -4,6 +4,10 @@ import { createAdminClient } from '@/utils/supabase/admin';
 import { provisionLmsAccount } from './lms-actions';
 import { provisionItMaterials } from './it-actions';
 import { initializePalForStudent } from '@/utils/pal-status';
+import { generateAndStoreLOA } from '@/utils/loa-pdf-generator';
+import ReceiptPDF from '@/components/portal/pdf/ReceiptPDF';
+import { renderToBuffer } from '@react-pdf/renderer';
+import React from 'react';
 
 export async function confirmEnrollment(applicationId: string) {
     const supabase = await createClient();
@@ -60,7 +64,7 @@ export async function confirmEnrollment(applicationId: string) {
         // 2b. Check if already enrolled (Idempotency)
         const { data: existingStudent } = await adminClient
             .from('students')
-            .select('student_id, pal_tal_required, pal_tal_status')
+            .select('id, student_id, pal_tal_required, pal_tal_status')
             .eq('application_id', applicationId)
             .single();
 
@@ -72,6 +76,72 @@ export async function confirmEnrollment(applicationId: string) {
             if (application.status !== 'ENROLLED') {
                 await adminClient.from('applications').update({ status: 'ENROLLED' }).eq('id', applicationId);
             }
+
+            // Ensure LOA document exists for already-enrolled students
+            try {
+                await generateAndStoreLOA(application.id, application as any);
+            } catch (loaError) {
+                console.error('Failed to generate LOA for existing student:', loaError);
+            }
+
+            // Ensure receipt document exists if payment exists
+            if (payment) {
+                try {
+                    const pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(ReceiptPDF, { application: application as any, payment }) as any));
+                    const fileName = `receipt-${payment.transaction_reference || payment.id}.pdf`;
+                    const storagePath = `student-documents/${application.user_id}/${fileName}`;
+
+                    const { error: uploadError } = await supabase.storage
+                        .from('application-documents')
+                        .upload(storagePath, pdfBuffer, {
+                            contentType: 'application/pdf',
+                            upsert: true,
+                        });
+
+                    if (!uploadError) {
+                        const { data: { publicUrl } } = supabase.storage
+                            .from('application-documents')
+                            .getPublicUrl(storagePath);
+
+                        const receiptPayload = {
+                            student_id: existingStudent.id,
+                            document_type: 'tuition_receipt',
+                            title: `Tuition Receipt - ${payment.transaction_reference || payment.id}`,
+                            programme: (application as any).course?.title || '',
+                            status: 'issued',
+                            storage_path: publicUrl,
+                            is_official: true,
+                            is_student_visible: true,
+                            version: 1,
+                            issue_date: new Date().toISOString(),
+                            metadata: {
+                                payment_id: payment.id,
+                                transaction_reference: payment.transaction_reference,
+                                amount: payment.amount,
+                                invoice_type: payment.invoice_type,
+                                payment_method: payment.payment_method,
+                            },
+                        };
+
+                        const { data: existingReceipt } = await supabase
+                            .from('document_records')
+                            .select('id')
+                            .eq('student_id', existingStudent.id)
+                            .eq('document_type', 'tuition_receipt')
+                            .eq('metadata->>payment_id', payment.id)
+                            .maybeSingle();
+
+                        if (existingReceipt?.id) {
+                            await supabase.from('document_records').update(receiptPayload).eq('id', existingReceipt.id);
+                        } else {
+                            await supabase.from('document_records').insert(receiptPayload);
+                        }
+                    }
+                } catch (receiptError) {
+                    console.error('Error creating receipt document for existing student:', receiptError);
+                }
+            }
+
             return { success: true, studentId: existingStudent.student_id, message: 'Student was already enrolled.' };
         }
 
@@ -146,6 +216,73 @@ export async function confirmEnrollment(applicationId: string) {
 
         if (updatedStudent?.pal_tal_required && updatedStudent.pal_tal_status !== 'verified') {
             throw new Error(`PAL/TAL verification is required before enrollment. Current status: ${updatedStudent.pal_tal_status}`);
+        }
+
+        // 4d. Generate LOA document
+        try {
+            await generateAndStoreLOA(application.id, application as any);
+        } catch (loaError) {
+            console.error('Failed to generate LOA during enrollment:', loaError);
+        }
+
+        // 4e. Generate receipt document if payment exists
+        if (payment) {
+            try {
+                const pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(ReceiptPDF, { application: application as any, payment }) as any));
+                const fileName = `receipt-${payment.transaction_reference || payment.id}.pdf`;
+                const storagePath = `student-documents/${application.user_id}/${fileName}`;
+
+                const { error: uploadError } = await supabase.storage
+                    .from('application-documents')
+                    .upload(storagePath, pdfBuffer, {
+                        contentType: 'application/pdf',
+                        upsert: true,
+                    });
+
+                if (uploadError) {
+                    console.error('Receipt upload error during enrollment:', uploadError);
+                } else {
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('application-documents')
+                        .getPublicUrl(storagePath);
+
+                    const receiptPayload = {
+                        student_id: newStudent.id,
+                        document_type: 'tuition_receipt',
+                        title: `Tuition Receipt - ${payment.transaction_reference || payment.id}`,
+                        programme: (application as any).course?.title || '',
+                        status: 'issued',
+                        storage_path: publicUrl,
+                        is_official: true,
+                        is_student_visible: true,
+                        version: 1,
+                        issue_date: new Date().toISOString(),
+                        metadata: {
+                            payment_id: payment.id,
+                            transaction_reference: payment.transaction_reference,
+                            amount: payment.amount,
+                            invoice_type: payment.invoice_type,
+                            payment_method: payment.payment_method,
+                        },
+                    };
+
+                    const { data: existingReceipt } = await supabase
+                        .from('document_records')
+                        .select('id')
+                        .eq('student_id', newStudent.id)
+                        .eq('document_type', 'tuition_receipt')
+                        .eq('metadata->>payment_id', payment.id)
+                        .maybeSingle();
+
+                    if (existingReceipt?.id) {
+                        await supabase.from('document_records').update(receiptPayload).eq('id', existingReceipt.id);
+                    } else {
+                        await supabase.from('document_records').insert(receiptPayload);
+                    }
+                }
+            } catch (receiptError) {
+                console.error('Error creating receipt document during enrollment:', receiptError);
+            }
         }
 
         // 5. Lock Admissions & Propagate Student ID to Profile

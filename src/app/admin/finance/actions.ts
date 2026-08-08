@@ -2,6 +2,7 @@
 
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import { initializePalForStudent } from '@/utils/pal-status';
+import { generateAndStoreLOA } from '@/utils/loa-pdf-generator';
 import { renderToBuffer } from '@react-pdf/renderer';
 import React from 'react';
 import ReceiptPDF from '@/components/portal/pdf/ReceiptPDF';
@@ -358,7 +359,16 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
             await initializePalForStudent(newStudent.id);
         }
 
-        // 4c. Generate automatic tasks for the student
+        // 4c. Generate LOA document
+        if (newStudent?.id) {
+            try {
+                await generateAndStoreLOA(applicationId, application as any);
+            } catch (loaError) {
+                console.error('Failed to generate LOA during payment verification:', loaError);
+            }
+        }
+
+        // 4d. Generate automatic tasks for the student
         if (newStudent?.id) {
             try {
                 const { generateAutomaticTasksForStudent } = await import('@/utils/tasks');
