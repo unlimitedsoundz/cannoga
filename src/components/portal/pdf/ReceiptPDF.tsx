@@ -38,6 +38,12 @@ const styles = StyleSheet.create({
     color: '#3a4252',
     lineHeight: 1.15,
   },
+  subtitle: {
+    fontSize: 27,
+    fontWeight: '500',
+    color: '#3a4252',
+    lineHeight: 1.15,
+  },
   stamp: {
     width: 80,
     height: 80,
@@ -48,11 +54,13 @@ const styles = StyleSheet.create({
     borderTopColor: '#e0e0e0',
     marginVertical: 12,
   },
-  subtitle: {
-    fontSize: 27,
-    fontWeight: '500',
-    color: '#3a4252',
-    lineHeight: 1.15,
+  metaLabel: {
+    fontSize: 9,
+    fontWeight: '700',
+    color: '#4a5568',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: 8,
   },
   metaTable: {
     width: '100%',
@@ -62,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 4,
   },
-  metaLabel: {
+  metaLabelCell: {
     width: 160,
     fontSize: 9,
     fontWeight: '700',
@@ -237,15 +245,15 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
           {/* Meta Table */}
           <View style={styles.metaTable}>
             <View style={styles.metaRow}>
-              <Text style={styles.metaLabel}>PAYMENT ID</Text>
+              <Text style={styles.metaLabelCell}>PAYMENT ID</Text>
               <Text style={styles.metaValue}>{paymentId}</Text>
             </View>
             <View style={styles.metaRow}>
-              <Text style={styles.metaLabel}>STUDENT ID</Text>
+              <Text style={styles.metaLabelCell}>STUDENT ID</Text>
               <Text style={styles.metaValue}>{studentId}</Text>
             </View>
             <View style={styles.metaRow}>
-              <Text style={styles.metaLabel}>FULL NAME</Text>
+              <Text style={styles.metaLabelCell}>FULL NAME</Text>
               <Text style={styles.metaValue}>{fullName}</Text>
             </View>
           </View>
