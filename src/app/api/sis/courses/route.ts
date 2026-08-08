@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
       .from('Subject')
       .select(`
         id,
+        code,
         name,
         creditUnits,
         semester,
@@ -48,17 +49,11 @@ export async function GET(request: NextRequest) {
       const school = course.School || {};
       const department = course.Department || {};
       
-      const subjectName = subject.name || '';
-      const parts = subjectName.split(':');
-      const code = parts[0]?.trim() || subject.id.slice(0, 8).toUpperCase();
-      const title = parts.length > 1 ? parts.slice(1).join(':').trim() : subjectName;
-      const subjectCategory = parts[0]?.trim() || 'General';
-
       return {
         id: subject.id,
-        code,
-        title,
-        subject: subjectCategory,
+        code: subject.code || subject.id,
+        title: subject.name || 'Untitled',
+        subject: subject.name || 'General',
         credits: subject.creditUnits,
         term: term || 'Fall 2026',
         semester: subject.semester,
