@@ -2,6 +2,7 @@
 
 import { createServerClient } from '@/utils/supabase/server';
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
+import { generateTransactionReference } from '@/utils/transactions';
 export async function createApplication(courseId: string) {
     const supabase = await createServerClient();
 
@@ -457,7 +458,7 @@ export async function processTuitionPayment(
     }
 
     // 2. Create Payment Record
-    const reference = `TXN_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+    const reference = generateTransactionReference();
     const { error: paymentError } = await adminSupabase
         .from('tuition_payments')
         .insert({

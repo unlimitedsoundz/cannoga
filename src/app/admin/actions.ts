@@ -3,6 +3,7 @@
 import { createServerClient } from '@/utils/supabase/server';
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import { revalidatePath } from 'next/cache';
+import { generateTransactionReference } from '@/utils/transactions';
 // --- HELPERS ---
 
 async function uploadFile(file: File, bucket: string = 'content') {
@@ -350,7 +351,7 @@ export async function adminApproveTuition(applicationId: string) {
             amount: offer.tuition_fee, // Full amount
             status: 'COMPLETED',
             payment_method: 'MANUAL_ADMIN_OVERRIDE',
-            transaction_reference: `MANUAL-${new Date().getTime()}`
+            transaction_reference: generateTransactionReference()
         });
     } else if (existingPayment.status !== 'COMPLETED') {
         // Update to completed
