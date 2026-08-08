@@ -458,6 +458,7 @@ export default function SISStudentDashboard() {
     if (invoices.length === 0 && tuitionFee > 0) {
         totalBalance = Math.max(0, tuitionFee - totalPaid);
     }
+    const totalRequiredCredits = studentCourse?.credits || (studentCourse?.degreeLevel === 'MASTER' ? 60 : studentCourse?.degreeLevel === 'DIPLOMA' ? 90 : studentCourse?.degreeLevel === 'CERTIFICATE' ? 30 : 120);
     const activeHolds = holds.filter(h => h.status === 'active');
     const activeTasks = tasks.filter(t => t.status === 'pending' || t.status === 'in_progress');
     const activeEnrollments = enrollments.filter(e => e.status === 'REGISTERED' || e.status === 'ACTIVE');
@@ -853,10 +854,10 @@ export default function SISStudentDashboard() {
                                 <div className="mt-4">
                                     <div className="flex justify-between text-xs font-medium text-slate-600 mb-1">
                                         <span>{totalCredits} Credits Earned</span>
-                                        <span>120 Total Required</span>
+                                        <span>{totalRequiredCredits} Total Required</span>
                                     </div>
                                     <div className="w-full bg-slate-200 rounded-full h-2.5">
-                                        <div className="bg-slate-900 h-2.5 rounded-full" style={{ width: `${Math.min((totalCredits / 120) * 100, 100)}%` }}></div>
+                                        <div className="bg-slate-900 h-2.5 rounded-full" style={{ width: `${Math.min((totalCredits / totalRequiredCredits) * 100, 100)}%` }}></div>
                                     </div>
                                 </div>
                             </div>
