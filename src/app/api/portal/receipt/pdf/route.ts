@@ -20,7 +20,10 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { data: payment, error: paymentError } = await supabase
+    let payment = null;
+    let paymentError = null;
+
+    const { data: paymentById, error: errorById } = await supabase
       .from('tuition_payments')
       .select(`
         *,
@@ -32,9 +35,31 @@ export async function GET(request: NextRequest) {
         )
       `)
       .eq('id', paymentId)
-      .single();
+      .maybeSingle();
 
-    if (paymentError || !payment) {
+    if (paymentById && !errorById) {
+      payment = paymentById;
+    } else {
+      const { data: paymentByRef, error: errorByRef } = await supabase
+        .from('tuition_payments')
+        .select(`
+          *,
+          application:applications(
+            *,
+            course:Course(*, school:School(*)),
+            user:profiles(*),
+            personal_info:profiles(*)
+          )
+        `)
+        .eq('transaction_reference', paymentId)
+        .maybeSingle();
+
+      if (paymentByRef && !errorByRef) {
+        payment = paymentByRef;
+      }
+    }
+
+    if (!payment) {
       return NextResponse.json({ error: 'Payment not found' }, { status: 404 });
     }
 
