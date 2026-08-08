@@ -190,7 +190,7 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
   const fullName = `${personalInfo.firstName || user.first_name || ''} ${personalInfo.lastName || user.last_name || ''}`.trim() || '—';
   const studentId = (user.student_id || application.id || '—').toString().replace(/^(SYK|KC|KU|HU)/, 'CC');
 
-  const paymentId = payment?.id || '—';
+  const paymentId = payment?.transaction_reference || '—';
   const transactionRef = payment?.transaction_reference || '—';
   const paidAt = payment?.paid_at || payment?.created_at || new Date().toISOString();
   const amount = Number(payment?.amount || 0);
