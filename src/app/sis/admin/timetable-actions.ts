@@ -13,7 +13,7 @@ export async function getSISTimetables(filters: { semesterId?: string; subjectId
         subject:Subject(id, name, code, creditUnits),
         semester:semesters(id, name, start_date, end_date),
         course:Course(id, title, slug),
-        instructor:profiles(id, first_name, last_name, email)
+        instructor:profiles!class_schedules_instructor_id_fkey(id, first_name, last_name, email)
       `)
       .order('day_of_week', { ascending: true })
       .order('start_time', { ascending: true });
@@ -25,7 +25,7 @@ export async function getSISTimetables(filters: { semesterId?: string; subjectId
         subject:Subject(id, name, code, creditUnits),
         semester:semesters(id, name, start_date, end_date),
         course:Course(id, title, slug),
-        instructor:profiles(id, first_name, last_name, email),
+        instructor:profiles!class_sessions_instructor_id_fkey(id, first_name, last_name, email),
         schedule:class_schedules(id, day_of_week, start_time, end_time, recurrence_pattern)
       `)
       .order('session_date', { ascending: true })

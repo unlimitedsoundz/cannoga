@@ -55,7 +55,7 @@ export default function StudentTimetablePage() {
         .select(`
           *,
           subject:Subject(id, name, code, creditUnits),
-          instructor:profiles(first_name, last_name)
+          instructor:profiles!class_sessions_instructor_id_fkey(first_name, last_name)
         `)
         .in('subject_id', moduleIds)
         .in('semester_id', semesterIds)

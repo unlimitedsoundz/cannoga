@@ -430,7 +430,7 @@ export default function SISStudentDashboard() {
                                 .select(`
                                     *,
                                     subject:Subject(id, name, code, creditUnits),
-                                    instructor:profiles(first_name, last_name)
+                                    instructor:profiles!class_sessions_instructor_id_fkey(first_name, last_name)
                                 `)
                                 .in('subject_id', subjectIds)
                                 .gte('session_date', today)
