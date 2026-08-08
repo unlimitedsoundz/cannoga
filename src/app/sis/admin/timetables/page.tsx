@@ -16,9 +16,9 @@ import {
     Clock01Icon as Clock,
     MapPinIcon as MapPin,
     UserIcon as User,
-    Plus01Icon as Plus,
-    Delete01Icon as Trash,
-    SettingsIcon as Settings,
+    Add01Icon as Plus,
+    Task01Icon as Trash,
+    Settings01Icon as Settings,
     PlayCircleIcon as Play,
     CancelCircleIcon as Cancel,
 } from '@hugeicons/core-free-icons';
@@ -123,8 +123,8 @@ export default function TimetablesPage() {
       if (!timetablesResult.success) throw new Error(timetablesResult.error);
       if (!lookupsResult.success) throw new Error(lookupsResult.error);
 
-      setSchedules(timetablesResult.data.schedules);
-      setSessions(timetablesResult.data.sessions);
+      setSchedules(timetablesResult.data?.schedules || []);
+      setSessions(timetablesResult.data?.sessions || []);
       setLookups(lookupsResult.data);
     } catch (err: any) {
       toast.error(err.message || 'Failed to load timetable data');
@@ -348,9 +348,9 @@ export default function TimetablesPage() {
       key: 'day_time',
       header: 'Day & Time',
       render: (s: ScheduleRow) => (
-        <div className="flex items-center gap-2">
-          <Clock size={12} weight="bold" />
-          <span className="font-medium">{DAYS[s.day_of_week]}</span>
+          <div className="flex items-center gap-2">
+            <HugeiconsIcon icon={Clock} size={12} strokeWidth={2.5} />
+            <span className="font-medium">{DAYS[s.day_of_week]}</span>
           <span className="text-neutral-400">{s.start_time.slice(0, 5)} - {s.end_time.slice(0, 5)}</span>
         </div>
       ),
@@ -359,10 +359,10 @@ export default function TimetablesPage() {
       key: 'location',
       header: 'Location',
       render: (s: ScheduleRow) => (
-        <div className="flex items-center gap-1 text-neutral-600">
-          <MapPin size={12} weight="regular" />
-          <span className="text-xs">{s.room}{s.building ? `, ${s.building}` : ''}</span>
-        </div>
+          <div className="flex items-center gap-1 text-neutral-600">
+            <HugeiconsIcon icon={MapPin} size={12} strokeWidth={2} />
+            <span className="text-xs">{s.room}{s.building ? `, ${s.building}` : ''}</span>
+          </div>
       ),
     },
     {
@@ -400,25 +400,25 @@ export default function TimetablesPage() {
       header: 'Actions',
       render: (s: ScheduleRow) => (
         <div className="flex justify-end gap-2">
-          <button
-            onClick={() => handleAutoGenerate(s.id)}
-            className="p-1.5 hover:bg-neutral-100 rounded text-neutral-500 hover:text-green-600"
-            title="Auto-generate sessions"
-          >
-            <Play size={14} weight="bold" />
-          </button>
-          <button
-            onClick={() => openScheduleModal(s)}
-            className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-black"
-          >
-            <Settings size={14} weight="bold" />
-          </button>
-          <button
-            onClick={() => handleDeleteSchedule(s.id)}
-            className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-red-600"
-          >
-            <Trash size={14} weight="bold" />
-          </button>
+            <button
+              onClick={() => handleAutoGenerate(s.id)}
+              className="p-1.5 hover:bg-neutral-100 rounded text-neutral-500 hover:text-green-600"
+              title="Auto-generate sessions"
+            >
+              <HugeiconsIcon icon={Play} size={14} strokeWidth={2.5} />
+            </button>
+            <button
+              onClick={() => openScheduleModal(s)}
+              className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-black"
+            >
+              <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
+            </button>
+            <button
+              onClick={() => handleDeleteSchedule(s.id)}
+              className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-red-600"
+            >
+              <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
+            </button>
         </div>
       ),
     },
@@ -447,7 +447,7 @@ export default function TimetablesPage() {
       header: 'Time',
       render: (s: SessionRow) => (
         <div className="flex items-center gap-2 text-neutral-600 font-medium">
-          <Clock size={12} weight="bold" />
+          <HugeiconsIcon icon={Clock} size={12} strokeWidth={2.5} />
           {s.start_time.slice(0, 5)} - {s.end_time.slice(0, 5)}
         </div>
       ),
@@ -456,10 +456,10 @@ export default function TimetablesPage() {
       key: 'location',
       header: 'Location',
       render: (s: SessionRow) => (
-        <div className="flex items-center gap-1 text-neutral-600">
-          <MapPin size={12} weight="regular" />
-          <span className="text-xs">{s.room}{s.building ? `, ${s.building}` : ''}</span>
-        </div>
+          <div className="flex items-center gap-1 text-neutral-600">
+            <HugeiconsIcon icon={MapPin} size={12} strokeWidth={2} />
+            <span className="text-xs">{s.room}{s.building ? `, ${s.building}` : ''}</span>
+          </div>
       ),
     },
     {
@@ -502,13 +502,13 @@ export default function TimetablesPage() {
             onClick={() => openSessionModal(s)}
             className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-black"
           >
-            <Settings size={14} weight="bold" />
+            <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
           </button>
           <button
             onClick={() => handleDeleteSession(s.id)}
             className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-red-600"
           >
-            <Trash size={14} weight="bold" />
+            <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
           </button>
         </div>
       ),
@@ -569,7 +569,7 @@ export default function TimetablesPage() {
               onClick={() => activeTab === 'schedules' ? openScheduleModal() : openSessionModal()}
               className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
             >
-              <Plus size={14} weight="bold" />
+              <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} />
               {activeTab === 'schedules' ? 'Add Schedule' : 'Add Session'}
             </button>
           </div>

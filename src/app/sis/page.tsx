@@ -275,12 +275,12 @@ export default function SISStudentDashboard() {
                     }
                 }
 
-                const studentId = studentData?.id || '';
+                const currentStudentId = studentData?.id || '';
 
                 const { data: enrollmentData } = await supabase
                     .from('module_enrollments')
                     .select('*, module:modules(code, title, credits), semester:semesters(name, start_date, end_date)')
-                    .eq('student_id', studentId);
+                    .eq('student_id', currentStudentId);
 
                 if (enrollmentData) {
                     setEnrollments(enrollmentData);
@@ -300,7 +300,7 @@ export default function SISStudentDashboard() {
                 const { data: invoiceData } = await supabase
                     .from('invoices')
                     .select('*')
-                    .eq('student_id', studentId)
+                    .eq('student_id', currentStudentId)
                     .order('issued_date', { ascending: false });
 
                 if (invoiceData) setInvoices(invoiceData);
@@ -312,7 +312,7 @@ export default function SISStudentDashboard() {
                     const { data: studentApp } = await supabase
                         .from('students')
                         .select('application_id')
-                        .eq('id', studentId)
+                        .eq('id', currentStudentId)
                         .single();
 
                     if (studentApp?.application_id) {
@@ -349,7 +349,7 @@ export default function SISStudentDashboard() {
                 const { data: holdData } = await supabase
                     .from('student_holds')
                     .select('*')
-                    .eq('student_id', studentId)
+                    .eq('student_id', currentStudentId)
                     .order('created_at', { ascending: false });
 
                 if (holdData) setHolds(holdData);
@@ -357,7 +357,7 @@ export default function SISStudentDashboard() {
                 const { data: taskData } = await supabase
                     .from('student_tasks')
                     .select('*')
-                    .eq('student_id', studentId)
+                    .eq('student_id', currentStudentId)
                     .order('due_date', { ascending: true });
 
                 if (taskData) setTasks(taskData);
@@ -365,7 +365,7 @@ export default function SISStudentDashboard() {
                 const { data: docData } = await supabase
                     .from('document_records')
                     .select('*')
-                    .eq('student_id', studentId)
+                    .eq('student_id', currentStudentId)
                     .eq('is_student_visible', true)
                     .order('issue_date', { ascending: false });
 
@@ -414,8 +414,7 @@ export default function SISStudentDashboard() {
                     }
                 }
 
-                const studentId = studentData?.id || '';
-                if (studentId) {
+                if (currentStudentId) {
                     try {
                         const { data: subjects } = await supabase
                             .from('Subject')
@@ -989,7 +988,7 @@ export default function SISStudentDashboard() {
 
                             {timetableSessions.length === 0 ? (
                                 <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-12 text-center">
-                                    <Calendar size={48} weight="thin" className="mx-auto text-slate-300 mb-4" />
+                                    <HugeiconsIcon icon={Calendar} size={48} strokeWidth={1.5} className="mx-auto text-slate-300 mb-4" />
                                     <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">No timetable entries yet</p>
                                     <p className="text-xs text-slate-400 mt-2">Your class schedule will appear here once registered.</p>
                                 </div>
@@ -1019,7 +1018,7 @@ export default function SISStudentDashboard() {
                                                             <td className="p-3">{dayName}</td>
                                                             <td className="p-3">
                                                                 <div className="flex items-center gap-1.5">
-                                                                    <Clock size={12} weight="bold" className="text-slate-400" />
+                                                                    <HugeiconsIcon icon={Clock} size={12} strokeWidth={2.5} className="text-slate-400" />
                                                                     {session.start_time?.slice(0, 5)} - {session.end_time?.slice(0, 5)}
                                                                 </div>
                                                             </td>
@@ -1037,7 +1036,7 @@ export default function SISStudentDashboard() {
                                                             <td className="p-3">
                                                                 {session.room ? (
                                                                     <div className="flex items-center gap-1 text-slate-600">
-                                                                        <MapPin size={12} weight="regular" />
+                                                                        <HugeiconsIcon icon={MapPin} size={12} strokeWidth={2} />
                                                                         <span>{session.room}{session.building ? `, ${session.building}` : ''}</span>
                                                                     </div>
                                                                 ) : 'TBD'}
