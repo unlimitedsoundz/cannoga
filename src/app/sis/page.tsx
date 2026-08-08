@@ -199,7 +199,6 @@ export default function SISStudentDashboard() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [documents, setDocuments] = useState<DocumentRecord[]>([]);
     const [faculty, setFaculty] = useState<Faculty[]>([]);
-    const [announcements, setAnnouncements] = useState<Announcement[]>([]);
     const [news, setNews] = useState<Announcement[]>([]);
 
     const [activeModals, setActiveModals] = useState<Record<string, boolean>>({});
@@ -718,7 +717,7 @@ export default function SISStudentDashboard() {
                                     </div>
                             </div>
                             </div>
-                            {announcements.length > 0 && (
+                            {news.length > 0 && (
                                 <div className="mt-6 bg-white rounded-lg border border-slate-200 shadow-sm p-6">
                                     <div className="flex items-center justify-between mb-4">
                                         <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
@@ -727,7 +726,7 @@ export default function SISStudentDashboard() {
                                         </h2>
                                     </div>
                                     <div className="space-y-3">
-                                        {announcements.map(announcement => (
+                                        {news.map(announcement => (
                                             <div key={announcement.id} className="flex items-start gap-4 p-4 bg-slate-50 border border-slate-100">
                                                 <div className="flex-1 min-w-0">
                                                     <div className="flex items-center gap-2 mb-1">
