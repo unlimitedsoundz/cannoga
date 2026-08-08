@@ -40,6 +40,53 @@ export async function GET(request: NextRequest) {
 
     const pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(ReceiptPDF, { application: payment.application, payment }) as any));
 
+    try {
+        const fileName = `receipt-${payment.transaction_reference || payment.id}.pdf`;
+        const storagePath = `student-documents/${payment.application.user_id}/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+            .from('application-documents')
+            .upload(storagePath, pdfBuffer, {
+                contentType: 'application/pdf',
+                upsert: true,
+            });
+
+        if (!uploadError) {
+            const { data: { publicUrl } } = supabase.storage
+                .from('application-documents')
+                .getPublicUrl(storagePath);
+
+            const { data: student } = await supabase
+                .from('students')
+                .select('id')
+                .eq('user_id', payment.application.user_id)
+                .maybeSingle();
+
+            if (student) {
+                await supabase.from('document_records').upsert({
+                    student_id: student.id,
+                    document_type: 'tuition_receipt',
+                    title: `Tuition Receipt - ${payment.transaction_reference || payment.id}`,
+                    programme: payment.application.course?.title || '',
+                    status: 'issued',
+                    storage_path: publicUrl,
+                    is_official: true,
+                    is_student_visible: true,
+                    issue_date: new Date().toISOString(),
+                    metadata: {
+                        payment_id: payment.id,
+                        transaction_reference: payment.transaction_reference,
+                        amount: payment.amount,
+                        invoice_type: payment.invoice_type,
+                        payment_method: payment.payment_method,
+                    },
+                }, { onConflict: 'student_id,document_type' });
+            }
+        }
+    } catch (dbError) {
+        console.error('Receipt DB update error:', dbError);
+    }
+
     return new NextResponse(new Uint8Array(pdfBuffer), {
       status: 200,
       headers: {
