@@ -23,6 +23,7 @@ import {
 } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
 import { getDocumentUrl } from '@/utils/document';
+import { StatusBadge } from '@/components/sis/StatusBadge';
 
 interface Announcement {
     id: string;
@@ -200,6 +201,9 @@ export default function SISStudentDashboard() {
     const [documents, setDocuments] = useState<DocumentRecord[]>([]);
     const [faculty, setFaculty] = useState<Faculty[]>([]);
     const [news, setNews] = useState<Announcement[]>([]);
+    const [registrationCourses, setRegistrationCourses] = useState<any[]>([]);
+    const [registrationSubjects, setRegistrationSubjects] = useState<string[]>([]);
+    const [registrationLoading, setRegistrationLoading] = useState(false);
 
     const [activeModals, setActiveModals] = useState<Record<string, boolean>>({});
     const [profileForm, setProfileForm] = useState({ fullName: '', preferredName: '', phone: '', address: '' });
@@ -894,30 +898,10 @@ export default function SISStudentDashboard() {
                     {/* ================= REGISTRATION ================= */}
                     {currentPage === 'registration' && (
                         <div>
-                            <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm mb-6">
-                                <h3 className="text-base font-bold text-slate-900 mb-1">Course Registration</h3>
-                                <p className="text-xs text-slate-500 mb-4">Search and register for available courses.</p>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div>
-                                        <label className="block text-xs font-semibold text-slate-600 mb-1">Subject</label>
-                                        <select className="w-full border border-slate-300 rounded p-2 text-xs sm:text-sm">
-                                            <option>Computer Science (CS)</option>
-                                            <option>Mathematics (MATH)</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="block text-xs font-semibold text-slate-600 mb-1">Course Number</label>
-                                        <input type="text" placeholder="e.g. 490" className="w-full border border-slate-300 rounded p-2 text-xs sm:text-sm" />
-                                    </div>
-                                    <div className="flex items-end">
-                                        <button type="button" className="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-2 rounded text-xs sm:text-sm transition">Search Catalog</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-6">
-                                <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Available Courses</h4>
-                                <div className="text-center py-8 text-slate-500 text-sm">No additional courses available for registration at this time.</div>
-                            </div>
+                            <RegistrationSection 
+                                studentId={student?.id}
+                                programId={student?.program_id}
+                            />
                         </div>
                     )}
 
@@ -1166,6 +1150,219 @@ export default function SISStudentDashboard() {
                         </div>
                     )}
                 </main>
+            </div>
+        </div>
+    );
+}
+
+interface RegistrationSectionProps {
+    studentId?: string;
+    programId?: string;
+}
+
+function RegistrationSection({ studentId, programId }: RegistrationSectionProps) {
+    const [search, setSearch] = useState('');
+    const [subjectFilter, setSubjectFilter] = useState('');
+    const [statusFilter, setStatusFilter] = useState('');
+    const [termFilter, setTermFilter] = useState('Fall 2026');
+    const [courses, setCourses] = useState<any[]>([]);
+    const [subjects, setSubjects] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [registering, setRegistering] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            setLoading(true);
+            try {
+                const params = new URLSearchParams();
+                if (programId) params.set('courseId', programId);
+                if (search) params.set('search', search);
+                if (subjectFilter) params.set('subject', subjectFilter);
+                if (statusFilter) params.set('status', statusFilter);
+                if (termFilter) params.set('term', termFilter);
+
+                const res = await fetch(`/api/sis/courses?${params.toString()}`);
+                const data = await res.json();
+                if (data.courses) {
+                    setCourses(data.courses);
+                    setSubjects(data.subjects || []);
+                }
+            } catch (error) {
+                console.error('Error fetching courses:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCourses();
+    }, [programId, search, subjectFilter, statusFilter, termFilter]);
+
+    const handleRegister = async (course: any) => {
+        if (!studentId) {
+            alert('Please log in to register for courses.');
+            return;
+        }
+
+        setRegistering(course.id);
+        try {
+            const { createClient } = await import('@/utils/supabase/client');
+            const supabase = createClient();
+
+            const { error } = await supabase.from('enrollments').insert({
+                student_id: studentId,
+                course_id: course.courseId || course.id,
+                subject_id: course.id,
+                term: termFilter,
+                status: 'REGISTERED',
+                enrolled_at: new Date().toISOString(),
+            });
+
+            if (error) throw error;
+
+            alert(`Successfully registered for ${course.code} - ${course.title}`);
+            setCourses(prev => prev.map(c => 
+                c.id === course.id 
+                    ? { ...c, status: 'Registered', enrolled: (c.enrolled || 0) + 1 }
+                    : c
+            ));
+        } catch (error: any) {
+            alert(error.message || 'Failed to register for course');
+        } finally {
+            setRegistering(null);
+        }
+    };
+
+    return (
+        <div>
+            <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm mb-6">
+                <h3 className="text-base font-bold text-slate-900 mb-4">Course Registration</h3>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label className="block text-xs font-semibold text-slate-600 mb-1">Subject</label>
+                        <select
+                            value={subjectFilter}
+                            onChange={e => setSubjectFilter(e.target.value)}
+                            className="w-full border border-slate-300 rounded p-2 text-xs sm:text-sm"
+                        >
+                            <option value="">All Subjects</option>
+                            {subjects.map(s => (
+                                <option key={s} value={s}>{s}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-xs font-semibold text-slate-600 mb-1">Term</label>
+                        <select
+                            value={termFilter}
+                            onChange={e => setTermFilter(e.target.value)}
+                            className="w-full border border-slate-300 rounded p-2 text-xs sm:text-sm"
+                        >
+                            <option value="Fall 2026">Fall 2026</option>
+                            <option value="Winter 2027">Winter 2027</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-xs font-semibold text-slate-600 mb-1">Search</label>
+                        <input
+                            type="text"
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                            placeholder="Search by code, title, subject..."
+                            className="w-full border border-slate-300 rounded p-2 text-xs sm:text-sm"
+                        />
+                    </div>
+                    <div className="flex items-end">
+                        <button
+                            type="button"
+                            onClick={() => setSearch('')}
+                            className="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-2 rounded text-xs sm:text-sm transition"
+                        >
+                            Search Catalog
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-6">
+                <div className="flex items-center justify-between mb-4">
+                    <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider border-b border-slate-100 pb-2">
+                        Available Courses ({courses.length})
+                    </h4>
+                    <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Filter by status:</span>
+                        <select
+                            value={statusFilter}
+                            onChange={e => setStatusFilter(e.target.value)}
+                            className="border border-slate-300 rounded p-1 text-xs"
+                        >
+                            <option value="">All</option>
+                            <option value="Open">Open</option>
+                            <option value="Full">Full</option>
+                            <option value="Waitlist">Waitlist</option>
+                        </select>
+                    </div>
+                </div>
+
+                {loading ? (
+                    <div className="flex items-center justify-center py-8">
+                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-slate-900"></div>
+                    </div>
+                ) : courses.length === 0 ? (
+                    <div className="text-center py-8 text-slate-500 text-sm">No courses found matching your criteria.</div>
+                ) : (
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left text-xs sm:text-sm">
+                            <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                                <tr>
+                                    <th className="p-3">Code</th>
+                                    <th className="p-3">Title</th>
+                                    <th className="p-3">Subject</th>
+                                    <th className="p-3">Credits</th>
+                                    <th className="p-3">Term</th>
+                                    <th className="p-3">Status</th>
+                                    <th className="p-3">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-200">
+                                {courses.map((course) => (
+                                    <tr key={course.id} className="hover:bg-slate-50">
+                                        <td className="p-3 font-mono font-medium text-slate-900">{course.code}</td>
+                                        <td className="p-3 text-slate-700">{course.title}</td>
+                                        <td className="p-3">
+                                            <span className="px-2 py-1 bg-slate-100 text-slate-700 rounded text-xs font-medium">
+                                                {course.subject}
+                                            </span>
+                                        </td>
+                                        <td className="p-3 text-slate-600">{course.credits}</td>
+                                        <td className="p-3 text-slate-600">{course.term}</td>
+                                        <td className="p-3">
+                                            <StatusBadge status={course.status} />
+                                        </td>
+                                        <td className="p-3">
+                                            {course.status === 'Open' ? (
+                                                <button
+                                                    onClick={() => handleRegister(course)}
+                                                    disabled={registering === course.id}
+                                                    className="px-3 py-1.5 bg-slate-900 text-white text-xs font-bold uppercase tracking-wider rounded hover:bg-slate-800 transition disabled:opacity-50"
+                                                >
+                                                    {registering === course.id ? 'Registering...' : 'Register'}
+                                                </button>
+                                            ) : course.status === 'Full' ? (
+                                                <button className="px-3 py-1.5 border border-slate-300 text-slate-500 text-xs font-bold uppercase tracking-wider rounded cursor-not-allowed">
+                                                    Full
+                                                </button>
+                                            ) : (
+                                                <button className="px-3 py-1.5 border border-slate-300 text-slate-500 text-xs font-bold uppercase tracking-wider rounded hover:bg-slate-50 transition">
+                                                    Waitlist
+                                                </button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </div>
         </div>
     );
