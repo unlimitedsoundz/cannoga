@@ -24,6 +24,7 @@ import {
 import Link from 'next/link';
 import { getDocumentUrl } from '@/utils/document';
 import { StatusBadge } from '@/components/sis/StatusBadge';
+import { registerForCourse } from '@/app/sis/registration-actions';
 
 interface Announcement {
     id: string;
