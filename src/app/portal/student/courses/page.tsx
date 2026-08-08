@@ -74,7 +74,7 @@ export default function CourseRegistrationPage() {
             // Map subjects to match RegistrationClient's expected "module" structure
             const mappedModules = (subjects || []).map((s: any) => ({
                 id: s.id,
-                code: s.name,
+                code: s.code || s.name,
                 title: s.name,
                 credits: s.creditUnits,
                 description: `Curriculum subject for ${student.program?.title || 'your program'}.`,

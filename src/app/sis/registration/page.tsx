@@ -69,9 +69,9 @@ export default function RegistrationPage() {
           if (subjects) {
             const mappedAvailable: Course[] = subjects.map((subject: any) => ({
               id: subject.id,
-              code: subject.name.split(':')[0]?.trim() || subject.id,
+              code: subject.code || subject.name.split(':')[0]?.trim() || subject.id,
               title: subject.name.split(':').slice(1).join(':').trim() || subject.name,
-              subject: subject.name.split(':')[0]?.trim() || 'General',
+              subject: subject.code || subject.name.split(':')[0]?.trim() || 'General',
               credits: subject.creditUnits,
               term: selectedTerm,
               status: 'Open',

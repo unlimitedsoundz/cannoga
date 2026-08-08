@@ -111,7 +111,7 @@ function SubjectEditorContent() {
                                 name="code"
                                 defaultValue={subject?.code || ''}
                                 className="w-full p-3 bg-neutral-50 border border-neutral-200 rounded-xl outline-none"
-                                placeholder="e.g. RE101"
+                                placeholder="e.g. RE 101"
                             />
                         </div>
 
