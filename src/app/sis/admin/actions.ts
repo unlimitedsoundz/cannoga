@@ -92,7 +92,7 @@ export async function getSISStudentDetail(studentId: string) {
       .select(`
         *,
         user:profiles(first_name, last_name, email, phone_number, date_of_birth, address, city, country_of_residence),
-        course:Course(title, school:School(name)),
+        program:Course(title, school:School(name)),
         application:applications(*, course:Course(title, slug)),
         enrollments:module_enrollments(*, module:modules(code, title), semester:semesters(name))
       `)
@@ -401,6 +401,30 @@ export async function getSISAcademicModule(id: string) {
     return { success: true, data: mapped };
   } catch (e: any) {
     console.error('getSISAcademicModule Error:', e);
+    return { success: false, error: e.message };
+  }
+}
+
+export async function getSISRegistrationById(id: string) {
+  const adminClient = createServiceRoleClient();
+
+  try {
+    const { data, error } = await adminClient
+      .from('module_enrollments')
+      .select(`
+        *,
+        student:students(student_id, enrollment_status, user:profiles(first_name, last_name, email)),
+        module:modules(code, title, creditUnits, description),
+        semester:semesters(name, start_date, end_date)
+      `)
+      .eq('id', id)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    return { success: true, data: data || null };
+  } catch (e: any) {
+    console.error('getSISRegistrationById Error:', e);
     return { success: false, error: e.message };
   }
 }

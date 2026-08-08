@@ -38,7 +38,7 @@ interface StudentDetail {
   start_date: string;
   expected_graduation: string;
   institutional_email?: string;
-  course?: { title: string; school?: { name: string }[] }[];
+  course?: { title: string; school?: { name: string } };
 }
 
 export default function AdminStudentDetailPage() {
@@ -56,8 +56,8 @@ export default function AdminStudentDetailPage() {
         if (!result.success) throw new Error(result.error);
         if (!result.data) throw new Error('Student not found');
         const s = result.data;
-        const courseTitle = s.course?.[0]?.title || s.program_id || '—';
-        const schoolName = s.course?.[0]?.school?.[0]?.name || '—';
+        const courseTitle = s.program?.title || s.program_id || '—';
+        const schoolName = s.program?.school?.name || '—';
         setStudent({
           id: s.id,
           student_id: s.student_id,
@@ -82,7 +82,7 @@ export default function AdminStudentDetailPage() {
           payment_status: 'Paid',
           start_date: s.start_date || '',
           expected_graduation: '',
-          course: s.course,
+          course: s.program,
         });
       } catch (err: any) {
         setError(err.message || 'Failed to load student details');
@@ -150,7 +150,7 @@ export default function AdminStudentDetailPage() {
       dateOfBirth: student.date_of_birth,
       address: student.address,
       program: student.program,
-      school: student.course?.[0]?.school?.[0]?.name || '—',
+      school: student.course?.school?.name || '—',
       academicLevel: student.academic_standing,
       startTerm: student.start_date ? new Date(student.start_date).toLocaleDateString('en-CA') : '',
       status: student.enrollment_status,
