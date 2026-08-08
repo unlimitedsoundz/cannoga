@@ -208,7 +208,7 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
   const rawType = payment?.invoice_type?.replace(/_/g, ' ') || 'Tuition Payment';
   const formattedType = rawType.charAt(0) + rawType.slice(1).toLowerCase();
   const description = `Payment to Cannoga College ${formattedType}`;
-  const deliveryDate = new Date(paidAt).toISOString().split('T')[0];
+  const deliveryDate = new Date(paidAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
   const localCurrency = payment?.fx_metadata?.localCurrency || payment?.currency || 'CAD';
   const localAmount = payment?.fx_metadata?.localAmount;
@@ -217,7 +217,7 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
     ? `${localCurrency} ${Number(localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
     : `CAD ${amount.toLocaleString()}`;
 
-  const receivedAmount = `CAD ${amount.toLocaleString()}`;
+  const receivedAmount = `CAD ${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
   const logoUrl = 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/logo-cannoga.png';
   const stampUrl = 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/Paid%20stamp.png';
@@ -292,7 +292,7 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
               <Text style={styles.supportTitle}>Flywire support</Text>
               <Text style={styles.supportSubtext}>Do you need help with your payment?</Text>
             </View>
-            <Text style={styles.supportLink}>https://help@flywire.com</Text>
+            <Text style={styles.supportLink}>https://help.flywire.com</Text>
           </View>
 
           <View style={styles.divider} />
@@ -301,7 +301,7 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
           <View style={styles.footer}>
             <Text style={styles.poweredBy}>PAYMENT POWERED BY</Text>
             <Image style={styles.flywireLogo} src={flywireUrl} />
-            <Text style={styles.footerAddress}>41 Tremont Street - Boston, MA 02111</Text>
+            <Text style={styles.footerAddress}>141 Tremont Street - Boston, MA 02111</Text>
           </View>
         </View>
       </Page>
