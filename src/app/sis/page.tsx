@@ -402,6 +402,8 @@ export default function SISStudentDashboard() {
         };
 
         fetchData();
+        const interval = setInterval(fetchData, 5000);
+        return () => clearInterval(interval);
     }, []);
 
     const searchParams = useSearchParams();
