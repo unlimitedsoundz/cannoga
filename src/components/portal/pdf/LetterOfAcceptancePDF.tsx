@@ -110,7 +110,11 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginTop: 20,
     marginBottom: 20,
-  }
+  },
+  link: {
+    color: '#0000FF',
+    textDecoration: 'underline',
+  },
 });
 
 interface LetterOfAcceptancePDFProps {
@@ -334,17 +338,7 @@ const LetterOfAcceptancePDF: React.FC<LetterOfAcceptancePDFProps> = ({ data }) =
         </Text>
 
         <Text style={styles.paragraph}>
-          2. You must confirm receipt of your Student Visa by uploading a copy of it to your application portal no later than the date indicated below:
-        </Text>
-
-        <View style={styles.bulletList}>
-          <Text style={styles.bulletItem}>2026-08-15 (September/Fall programs)</Text>
-          <Text style={styles.bulletItem}>2026-12-22 (January/Winter programs)</Text>
-          <Text style={styles.bulletItem}>April 15, 2026 (May/Summer programs)</Text>
-        </View>
-
-        <Text style={styles.paragraph}>
-          3. Students are required to arrive on campus before the International Student Orientation. Contact {college.email || "admissions@cannogacollege.ca"} to confirm details.
+          2. Students are required to arrive on campus before the International Student Orientation. Contact {college.email || "admissions@cannogacollege.ca"} to confirm details.
         </Text>
 
         <Text style={styles.h3}>IMPORTANT INFORMATION</Text>
