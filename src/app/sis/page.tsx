@@ -192,6 +192,8 @@ export default function SISStudentDashboard() {
     const [grades, setGrades] = useState<GradeRecord[]>([]);
     const [invoices, setInvoices] = useState<Invoice[]>([]);
     const [payments, setPayments] = useState<Payment[]>([]);
+    const [tuitionFee, setTuitionFee] = useState<number>(0);
+    const [paymentDeadline, setPaymentDeadline] = useState<string>('');
     const [holds, setHolds] = useState<Hold[]>([]);
     const [tasks, setTasks] = useState<Task[]>([]);
     const [documents, setDocuments] = useState<DocumentRecord[]>([]);
@@ -291,6 +293,8 @@ export default function SISStudentDashboard() {
                 if (invoiceData) setInvoices(invoiceData);
 
                 let tuitionPayments: any[] = [];
+                let fetchedTuitionFee = 0;
+                let fetchedPaymentDeadline = '';
                 try {
                     const { data: studentApp } = await supabase
                         .from('students')
@@ -301,10 +305,16 @@ export default function SISStudentDashboard() {
                     if (studentApp?.application_id) {
                         const { data: offerData } = await supabase
                             .from('admission_offers')
-                            .select('id')
-                            .eq('application_id', studentApp.application_id);
+                            .select('id, tuition_fee, payment_deadline')
+                            .eq('application_id', studentApp.application_id)
+                            .maybeSingle();
 
-                        const offerIds = (offerData || []).map((o: any) => o.id);
+                        if (offerData) {
+                            fetchedTuitionFee = Number(offerData.tuition_fee || 0);
+                            fetchedPaymentDeadline = offerData.payment_deadline || '';
+                        }
+
+                        const offerIds = offerData ? [offerData.id] : [];
                         if (offerIds.length > 0) {
                             const { data: tpData } = await supabase
                                 .from('tuition_payments')
@@ -320,6 +330,8 @@ export default function SISStudentDashboard() {
                 }
 
                 if (tuitionPayments.length > 0) setPayments(tuitionPayments);
+                setTuitionFee(fetchedTuitionFee);
+                setPaymentDeadline(fetchedPaymentDeadline);
 
                 const { data: holdData } = await supabase
                     .from('student_holds')
@@ -439,7 +451,15 @@ export default function SISStudentDashboard() {
         ? `${studentCourse.title} — ${studentCourse.degreeLevel?.charAt(0) + studentCourse.degreeLevel?.slice(1).toLowerCase() || ''}`
         : student?.program_id || 'Your Program';
 
-    const totalBalance = invoices.reduce((sum, inv) => sum + (inv.balance || 0), 0);
+    const totalPaid = payments
+        .filter((p: any) => p.status === 'COMPLETED' || p.status === 'verified')
+        .reduce((sum: number, p: any) => sum + Number(p.amount), 0);
+
+    let totalBalance = invoices.reduce((sum, inv) => sum + (inv.balance || 0), 0);
+
+    if (invoices.length === 0 && tuitionFee > 0) {
+        totalBalance = Math.max(0, tuitionFee - totalPaid);
+    }
     const activeHolds = holds.filter(h => h.status === 'active');
     const activeTasks = tasks.filter(t => t.status === 'pending' || t.status === 'in_progress');
     const activeEnrollments = enrollments.filter(e => e.status === 'REGISTERED' || e.status === 'ACTIVE');
@@ -687,11 +707,15 @@ export default function SISStudentDashboard() {
                                         <div className="p-4">
                                             <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total Balance Due (CAD)</p>
                                             <p className="text-2xl sm:text-3xl font-bold text-slate-900 mt-0.5">${totalBalance.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
-                                            {invoices.length > 0 && (
-                                                <div className="mt-3 p-2 bg-slate-50 border border-slate-200 rounded text-xs text-slate-700">
-                                                    <strong>Next Due:</strong> {invoices[0].due_date ? new Date(invoices[0].due_date).toLocaleDateString('en-CA') : 'N/A'}
-                                                </div>
-                                            )}
+                                             {invoices.length > 0 && invoices[0].due_date ? (
+                                                 <div className="mt-3 p-2 bg-slate-50 border border-slate-200 rounded text-xs text-slate-700">
+                                                     <strong>Next Due:</strong> {new Date(invoices[0].due_date).toLocaleDateString('en-CA')}
+                                                 </div>
+                                             ) : paymentDeadline ? (
+                                                 <div className="mt-3 p-2 bg-slate-50 border border-slate-200 rounded text-xs text-slate-700">
+                                                     <strong>Next Due:</strong> {new Date(paymentDeadline).toLocaleDateString('en-CA')}
+                                                 </div>
+                                             ) : null}
                                         </div>
                                     </div>
                                     <div className="p-3 bg-slate-50/50 border-t border-slate-100 rounded-b-lg flex items-center justify-between">
