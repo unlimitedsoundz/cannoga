@@ -216,7 +216,8 @@ export async function getSISFinanceAccounts() {
 
     const paymentsByApplicationId = new Map<string, any[]>();
     for (const payment of paymentsResult.data || []) {
-      const appId = payment.offer?.application_id;
+      const offer = Array.isArray(payment.offer) ? payment.offer[0] : payment.offer;
+      const appId = offer?.application_id;
       if (!appId) continue;
       if (!paymentsByApplicationId.has(appId)) {
         paymentsByApplicationId.set(appId, []);
