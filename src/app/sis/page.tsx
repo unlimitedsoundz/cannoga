@@ -13,6 +13,7 @@ import {
     Calendar01Icon as Calendar,
     CreditCardIcon as CreditCard,
     BellIcon as Bell,
+    Mail01Icon as Mail,
     UserIcon as User,
     SearchIcon as Search,
     Menu01Icon as Menu,
@@ -26,6 +27,8 @@ import Link from 'next/link';
 import { getDocumentUrl } from '@/utils/document';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { registerForCourse } from '@/app/sis/registration-actions';
+import { getUnreadMessageCount } from '@/app/sis/student-life-actions';
+import StudentLifePage from '@/app/sis/student-life';
 
 interface Announcement {
     id: string;
@@ -151,7 +154,7 @@ interface Faculty {
     };
 }
 
-type PageId = 'dashboard' | 'documents' | 'academics' | 'registration' | 'financials' | 'grades' | 'holds' | 'news' | 'directory' | 'profile';
+type PageId = 'dashboard' | 'documents' | 'academics' | 'registration' | 'financials' | 'grades' | 'holds' | 'news' | 'directory' | 'profile' | 'student-life';
 
 interface GradeRecord {
     module_code: string;
@@ -206,6 +209,8 @@ export default function SISStudentDashboard() {
     const [registrationCourses, setRegistrationCourses] = useState<any[]>([]);
     const [registrationSubjects, setRegistrationSubjects] = useState<string[]>([]);
     const [registrationLoading, setRegistrationLoading] = useState(false);
+    const [studentLifeData, setStudentLifeData] = useState<any>(null);
+    const [unreadMessageCount, setUnreadMessageCount] = useState(0);
 
     const [activeModals, setActiveModals] = useState<Record<string, boolean>>({});
     const [profileForm, setProfileForm] = useState({ fullName: '', preferredName: '', phone: '', address: '' });
@@ -258,7 +263,7 @@ export default function SISStudentDashboard() {
                     if (studentData.program_id) {
                         const { data: courseData } = await supabase
                             .from('Course')
-                            .select('id, title, degreeLevel, schoolId, departmentId')
+                            .select('id, title, degreeLevel, schoolId, departmentId, school:School(name), department:Department(name)')
                             .eq('id', studentData.program_id)
                             .single();
 
@@ -390,6 +395,23 @@ export default function SISStudentDashboard() {
 
                 if (newsData) setNews(newsData);
 
+                const studentIdForLife = studentData?.id || '';
+                if (studentIdForLife) {
+                    try {
+                        const lifeResult = await getStudentLifeData(studentIdForLife);
+                        if (lifeResult.success && lifeResult.data) {
+                            setStudentLifeData(lifeResult.data);
+                            setUnreadMessageCount(lifeResult.data.unreadCount || 0);
+                        }
+                        const unreadResult = await getUnreadMessageCount(studentIdForLife);
+                        if (unreadResult.success) {
+                            setUnreadMessageCount(unreadResult.count || 0);
+                        }
+                    } catch (lifeErr) {
+                        console.error('Error fetching student life data:', lifeErr);
+                    }
+                }
+
             } catch (e) {
                 console.error('Error fetching data:', e);
                 setError('Failed to load data');
@@ -407,7 +429,7 @@ export default function SISStudentDashboard() {
     const pageParam = searchParams.get('page');
 
     useEffect(() => {
-        if (pageParam && ['dashboard', 'documents', 'academics', 'registration', 'financials', 'grades', 'holds', 'news', 'directory', 'profile'].includes(pageParam)) {
+        if (pageParam && ['dashboard', 'documents', 'academics', 'registration', 'financials', 'grades', 'holds', 'news', 'directory', 'profile', 'student-life'].includes(pageParam)) {
             setCurrentPage(pageParam as PageId);
         }
     }, [pageParam]);
@@ -416,7 +438,7 @@ export default function SISStudentDashboard() {
         const onPopState = () => {
             const params = new URLSearchParams(window.location.search);
             const page = params.get('page');
-            if (page && ['dashboard', 'documents', 'academics', 'registration', 'financials', 'grades', 'holds', 'news', 'directory', 'profile'].includes(page)) {
+            if (page && ['dashboard', 'documents', 'academics', 'registration', 'financials', 'grades', 'holds', 'news', 'directory', 'profile', 'student-life'].includes(page)) {
                 setCurrentPage(page as PageId);
             }
         };
@@ -450,6 +472,8 @@ export default function SISStudentDashboard() {
         ? `${studentCourse.title} — ${studentCourse.degreeLevel?.charAt(0) + studentCourse.degreeLevel?.slice(1).toLowerCase() || ''}`
         : student?.program_id || 'Your Program';
 
+    const schoolName = studentCourse?.department?.name || studentCourse?.school?.name || 'Cannoga College';
+
     const totalPaid = payments
         .filter((p: any) => p.status === 'COMPLETED' || p.status === 'verified')
         .reduce((sum: number, p: any) => sum + Number(p.amount), 0);
@@ -476,6 +500,7 @@ export default function SISStudentDashboard() {
         { label: 'HOLDS & TASKS', pageId: 'holds' as PageId },
         { label: 'NEWS', pageId: 'news' as PageId },
         { label: 'DIRECTORY', pageId: 'directory' as PageId },
+        { label: 'STUDENT LIFE & SUPPORT', pageId: 'student-life' as PageId },
         { label: 'MY PROFILE', pageId: 'profile' as PageId },
     ];
 
@@ -522,6 +547,10 @@ export default function SISStudentDashboard() {
                         </div>
                     </div>
                     <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
+                        <button type="button" onClick={() => navigateTo('student-life')} className="relative p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition flex items-center justify-center" title="Messages">
+                            <HugeiconsIcon icon={Mail} size={18} strokeWidth={2} />
+                            {unreadMessageCount > 0 && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-blue-400 rounded-full border-2 border-slate-900"></span>}
+                        </button>
                         <button type="button" onClick={() => navigateTo('holds')} className="relative p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition flex items-center justify-center">
                             <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} />
                             {activeHolds.length > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-400 rounded-full"></span>}
@@ -848,7 +877,7 @@ export default function SISStudentDashboard() {
                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                     <div>
                                         <h3 className="text-base font-bold text-slate-900">Degree Progress: {programName}</h3>
-                                        <p className="text-xs text-slate-500 mt-0.5">Cannoga College — Faculty of Technology</p>
+                                        <p className="text-xs text-slate-500 mt-0.5">Cannoga College — {schoolName}</p>
                                     </div>
                                     <span className="inline-block bg-slate-100 text-slate-800 text-xs font-semibold px-3 py-1 rounded border border-slate-200 self-start md:self-auto">Expected Graduation: {student?.expected_graduation_date ? new Date(student.expected_graduation_date).toLocaleDateString('en-CA') : 'N/A'}</span>
                                 </div>
@@ -1101,6 +1130,13 @@ export default function SISStudentDashboard() {
                                     <div className="col-span-full text-center py-8 text-slate-500">No faculty members found</div>
                                 )}
                             </div>
+                        </div>
+                    )}
+
+                    {/* ================= STUDENT LIFE & SUPPORT ================= */}
+                    {currentPage === 'student-life' && (
+                        <div>
+                            <StudentLifePage studentId={student?.id || ''} />
                         </div>
                     )}
 
