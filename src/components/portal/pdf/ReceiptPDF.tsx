@@ -202,7 +202,6 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
   const transactionRef = payment?.transaction_reference || '—';
   const paidAt = payment?.paid_at || payment?.created_at || new Date().toISOString();
   const amount = Number(payment?.amount || 0);
-  const currency = payment?.currency || 'CAD';
   const method = payment?.payment_method || '—';
   const status = payment?.status || '—';
 
@@ -211,9 +210,12 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
   const description = `Payment to Cannoga College ${formattedType}`;
   const deliveryDate = new Date(paidAt).toLocaleDateString('en-CA');
 
-  const originatingAmount = payment?.fx_metadata?.localAmount
-    ? `${currency} ${Number(payment.fx_metadata.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-    : `${currency} ${amount.toLocaleString()}`;
+  const localCurrency = payment?.fx_metadata?.localCurrency || payment?.currency || 'CAD';
+  const localAmount = payment?.fx_metadata?.localAmount;
+
+  const originatingAmount = localAmount
+    ? `${localCurrency} ${Number(localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+    : `CAD ${amount.toLocaleString()}`;
 
   const receivedAmount = `CAD ${amount.toLocaleString()}`;
 

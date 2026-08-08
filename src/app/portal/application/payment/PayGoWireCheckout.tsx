@@ -236,6 +236,7 @@ export default function PayGoWireCheckout({
                 rate: fxData.rate,
                 originalAmount: amount,
                 localAmount: fxData.localAmount,
+                localCurrency: fxData.localCurrency,
                 timestamp: new Date().toISOString()
             }
         });
