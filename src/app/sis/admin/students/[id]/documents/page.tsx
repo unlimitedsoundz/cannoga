@@ -8,6 +8,7 @@ import { PageHeader } from '@/components/sis/PageHeader';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { File01Icon as FileText, Download01Icon as Download, EyeIcon as Eye, Upload01Icon as Upload, Trash as Trash } from '@hugeicons/core-free-icons';
+import { getDocumentUrl } from '@/utils/document';
 import { uploadStudentDocument } from '@/app/sis/admin/actions';
 
 interface DocumentRecord {
@@ -149,12 +150,12 @@ export default function StudentDocumentsPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <StatusBadge status={doc.status} />
-                  {doc.storage_path && (
+                  {getDocumentUrl(doc) !== '#' && (
                     <>
-                      <a href={doc.storage_path} target="_blank" rel="noopener noreferrer" className="p-1.5 text-neutral-400 hover:text-neutral-600 transition-colors" title="View">
+                      <a href={getDocumentUrl(doc)} target="_blank" rel="noopener noreferrer" className="p-1.5 text-neutral-400 hover:text-neutral-600 transition-colors" title="View">
                         <HugeiconsIcon icon={Eye} size={14} strokeWidth={2} />
                       </a>
-                      <a href={doc.storage_path} download className="p-1.5 text-neutral-400 hover:text-neutral-600 transition-colors" title="Download">
+                      <a href={getDocumentUrl(doc)} download className="p-1.5 text-neutral-400 hover:text-neutral-600 transition-colors" title="Download">
                         <HugeiconsIcon icon={Download} size={14} strokeWidth={2} />
                       </a>
                     </>

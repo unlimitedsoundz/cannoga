@@ -3,6 +3,7 @@
 export const dynamic = 'force-dynamic';
 
 import { createClient } from '@/utils/supabase/client';
+import { getDocumentUrl } from '@/utils/document';
 import { redirect, useSearchParams, useRouter } from 'next/navigation';
 import { Link } from "@aalto-dx/react-components";
 import { CaretRight as ChevronRight, CircleNotch as Loader2, UploadSimple, Trash, CheckCircle, Receipt, WarningCircle as AlertCircle, Clock } from "@phosphor-icons/react";
@@ -547,7 +548,7 @@ function ViewApplicationContent() {
                             <p className="text-[11px] text-blue-800 font-medium mt-0.5">Your tuition payment has been verified. Receipt is available.</p>
                             <div className="flex gap-2 mt-2">
                                 <a
-                                    href={receiptDocument.storage_path}
+                                    href={getDocumentUrl(receiptDocument)}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="px-3 py-1.5 bg-neutral-900 text-white text-[11px] font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors inline-flex items-center"
@@ -555,7 +556,7 @@ function ViewApplicationContent() {
                                     View Receipt
                                 </a>
                                 <a
-                                    href={receiptDocument.storage_path}
+                                    href={getDocumentUrl(receiptDocument)}
                                     download
                                     className="px-3 py-1.5 border border-neutral-300 text-neutral-700 text-[11px] font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors inline-flex items-center"
                                 >
@@ -689,7 +690,7 @@ function ViewApplicationContent() {
                                                         </div>
                                                         {payment.status === 'verified' && receiptDocument && (
                                                             <a
-                                                                href={receiptDocument.storage_path}
+                                                                href={getDocumentUrl(receiptDocument)}
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"
                                                                 className="px-2 py-1 bg-neutral-900 text-white text-[10px] font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors inline-flex items-center"

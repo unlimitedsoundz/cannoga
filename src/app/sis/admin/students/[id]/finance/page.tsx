@@ -7,6 +7,7 @@ import { StudentHeader } from '@/components/sis/StudentHeader';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { CreditCardIcon as CreditCard, FileText, CheckCircle, AlertTriangle, Download, Eye } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { getDocumentUrl } from '@/utils/document';
 
 export const dynamic = 'force-dynamic';
 
@@ -386,12 +387,12 @@ export default function StudentFinancePage({ params }: { params: { id: string } 
                     <td className="px-4 py-3"><span className={`px-2 py-1 rounded text-xs font-bold border ${getStatusColor(doc.status)}`}>{doc.status}</span></td>
                     <td className="px-4 py-3 text-neutral-600">{formatDate(doc.issue_date)}</td>
                     <td className="px-4 py-3">
-                      {doc.storage_path && (
+                      {getDocumentUrl(doc) !== '#' && (
                         <div className="flex gap-2">
-                          <a href={doc.storage_path} target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-neutral-900">
+                          <a href={getDocumentUrl(doc)} target="_blank" rel="noopener noreferrer" className="text-neutral-600 hover:text-neutral-900">
                             <HugeiconsIcon icon={Eye} size={16} strokeWidth={2.5} />
                           </a>
-                          <a href={doc.storage_path} download className="text-neutral-600 hover:text-neutral-900">
+                          <a href={getDocumentUrl(doc)} download className="text-neutral-600 hover:text-neutral-900">
                             <HugeiconsIcon icon={Download} size={16} strokeWidth={2.5} />
                           </a>
                         </div>

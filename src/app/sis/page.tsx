@@ -22,6 +22,7 @@ import {
     UserWarning02Icon as Warning,
 } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
+import { getDocumentUrl } from '@/utils/document';
 
 interface Announcement {
     id: string;
@@ -715,11 +716,35 @@ export default function SISStudentDashboard() {
                                         <button type="button" onClick={() => navigateTo('financials')} className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium px-3 py-1.5 rounded transition">Make Payment</button>
                                         <button type="button" onClick={() => navigateTo('financials')} className="text-xs font-semibold text-slate-800 hover:underline">View Ledger &rarr;</button>
                                     </div>
-                                </div>
                             </div>
+                            </div>
+                            {announcements.length > 0 && (
+                                <div className="mt-6 bg-white rounded-lg border border-slate-200 shadow-sm p-6">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+                                            <HugeiconsIcon icon={Bell} size={18} strokeWidth={2.5} className="text-slate-700" />
+                                            Announcements
+                                        </h2>
+                                    </div>
+                                    <div className="space-y-3">
+                                        {announcements.map(announcement => (
+                                            <div key={announcement.id} className="flex items-start gap-4 p-4 bg-slate-50 border border-slate-100">
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <span className="text-sm font-bold text-slate-900">{announcement.title}</span>
+                                                        {announcement.priority === 'urgent' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-600">Urgent</span>}
+                                                        {announcement.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600">High</span>}
+                                                    </div>
+                                                    <p className="text-xs text-slate-500 line-clamp-2">{announcement.excerpt || announcement.content}</p>
+                                                    <span className="text-[10px] text-slate-400 mt-1 block">{new Date(announcement.created_at).toLocaleDateString('en-CA')}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     )}
-                    {/* ================= DOCUMENTS ================= */}
                     {currentPage === 'documents' && (
                         <div>
                             <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -812,7 +837,7 @@ export default function SISStudentDashboard() {
                         if (!isOpen || !modalId.startsWith('doc-')) return null;
                         const docId = modalId.replace('doc-', '');
                         const doc = documents.find(d => d.id === docId);
-                        if (!doc || !doc.storage_path) return null;
+                        if (!doc || getDocumentUrl(doc) === '#') return null;
                         return (
                             <div key={modalId} className="fixed inset-0 z-50 flex items-center justify-center p-4">
                                 <div className="absolute inset-0 bg-black/60" onClick={() => toggleModal(modalId)}></div>
@@ -820,14 +845,14 @@ export default function SISStudentDashboard() {
                                     <div className="flex items-center justify-between p-4 border-b border-slate-200">
                                         <h3 className="font-bold text-slate-900 text-sm">{documentTypeLabels[doc.document_type] || doc.title}</h3>
                                         <div className="flex items-center gap-2">
-                                            <a href={doc.storage_path} download target="_blank" rel="noopener noreferrer" className="text-xs font-medium px-3 py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition">Download</a>
+                                            <a href={getDocumentUrl(doc)} download target="_blank" rel="noopener noreferrer" className="text-xs font-medium px-3 py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition">Download</a>
                                             <button type="button" onClick={() => toggleModal(modalId)} className="text-slate-400 hover:text-slate-600">
                                                 <HugeiconsIcon icon={XCircle} size={20} strokeWidth={2.5} />
                                             </button>
                                         </div>
                                     </div>
                                     <div className="flex-1 overflow-auto p-4">
-                                        <iframe src={doc.storage_path} className="w-full h-[70vh] border border-slate-200 rounded" title={documentTypeLabels[doc.document_type] || doc.title}></iframe>
+                                        <iframe src={getDocumentUrl(doc)} className="w-full h-[70vh] border border-slate-200 rounded" title={documentTypeLabels[doc.document_type] || doc.title}></iframe>
                                     </div>
                                 </div>
                             </div>
