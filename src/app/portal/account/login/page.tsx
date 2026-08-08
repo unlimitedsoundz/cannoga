@@ -79,6 +79,7 @@ export default function PortalLoginPage() {
                     lightText={true}
                     image={{ src: '/images/international-students-hero.png', alt: 'Cannoga students' }}
                     breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Portal', href: '/portal' }, { label: 'Login' }]}
+                    className="min-h-[250px] lg:min-h-[350px]"
                 />
 
                 <div className="cc-container max-w-3xl mx-auto py-10">

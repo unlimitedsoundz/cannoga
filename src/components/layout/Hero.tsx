@@ -23,6 +23,7 @@ interface HeroProps {
     breadcrumbs?: Array<{ label: string; href?: string }>;
     imagePosition?: string;
     children?: ReactNode;
+    className?: string;
 }
 
 export function Hero({ 
@@ -34,14 +35,15 @@ export function Hero({
     lightText = true,
     breadcrumbs,
     imagePosition = 'object-center',
-    children 
+    children,
+    className
 }: HeroProps) {
     const textColorClass = lightText ? 'text-white' : 'text-black';
     const bodyColorClass = lightText ? 'text-white' : 'text-neutral-700';
     return (
         <>
         <section 
-            className="relative overflow-hidden transition-all duration-700 ease-aalto-in-out border-b border-[#9c27b3]/5 min-h-[400px] lg:h-[600px] lg:min-h-[600px] flex items-center"
+            className={`relative overflow-hidden transition-all duration-700 ease-aalto-in-out border-b border-[#9c27b3]/5 min-h-[400px] lg:h-[600px] lg:min-h-[600px] flex items-center ${className || ''}`}
             style={{ backgroundColor: backgroundColor }}
         >
             {/* Background Image */}
