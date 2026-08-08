@@ -198,7 +198,6 @@ export default function SISStudentDashboard() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [documents, setDocuments] = useState<DocumentRecord[]>([]);
     const [faculty, setFaculty] = useState<Faculty[]>([]);
-    const [announcements, setAnnouncements] = useState<Announcement[]>([]);
     const [news, setNews] = useState<Announcement[]>([]);
 
     const [activeModals, setActiveModals] = useState<Record<string, boolean>>({});
@@ -374,15 +373,6 @@ export default function SISStudentDashboard() {
                 const { data: facultyData } = await facultyQuery;
 
                 if (facultyData) setFaculty(facultyData);
-
-                const { data: announcementData } = await supabase
-                    .from('announcements')
-                    .select('*')
-                    .eq('status', 'published')
-                    .order('display_order', { ascending: true })
-                    .limit(5);
-
-                if (announcementData) setAnnouncements(announcementData);
 
                 const { data: newsData } = await supabase
                     .from('announcements')
@@ -726,35 +716,6 @@ export default function SISStudentDashboard() {
                                     </div>
                                 </div>
                             </div>
-
-                            {announcements.length > 0 && (
-                                <div className="mt-6 bg-white rounded-lg border border-slate-200 shadow-sm p-6">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
-                                            <HugeiconsIcon icon={Bell} size={18} strokeWidth={2.5} className="text-slate-700" />
-                                            Announcements
-                                        </h2>
-                                    </div>
-                                    <div className="space-y-3">
-                                        {announcements.map(announcement => (
-                                            <div key={announcement.id} className="flex items-start gap-4 p-4 bg-slate-50 border border-slate-100">
-                                                <div className="w-16 h-16 bg-slate-200 border border-slate-300 flex items-center justify-center shrink-0">
-                                                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Info</span>
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <div className="flex items-center gap-2 mb-1">
-                                                        <span className="text-sm font-bold text-slate-900">{announcement.title}</span>
-                                                        {announcement.priority === 'urgent' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-600">Urgent</span>}
-                                                        {announcement.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600">High</span>}
-                                                    </div>
-                                                    <p className="text-xs text-slate-500 line-clamp-2">{announcement.excerpt || announcement.content}</p>
-                                                    <span className="text-[10px] text-slate-400 mt-1 block">{new Date(announcement.created_at).toLocaleDateString('en-CA')}</span>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     )}
                     {/* ================= DOCUMENTS ================= */}
@@ -816,6 +777,30 @@ export default function SISStudentDashboard() {
                                     )) : (
                                         <div className="col-span-full text-center py-8 text-sm text-slate-500">No financial documents available</div>
                                     )}
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-6 mb-6">
+                                <div className="flex items-center justify-between mb-4">
+                                    <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+                                        <HugeiconsIcon icon={Bell} size={18} strokeWidth={2.5} className="text-slate-700" />
+                                        Announcements
+                                    </h2>
+                                </div>
+                                <div className="space-y-3">
+                                    {announcements.map(announcement => (
+                                        <div key={announcement.id} className="flex items-start gap-4 p-4 bg-slate-50 border border-slate-100">
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <span className="text-sm font-bold text-slate-900">{announcement.title}</span>
+                                                    {announcement.priority === 'urgent' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-600">Urgent</span>}
+                                                    {announcement.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600">High</span>}
+                                                </div>
+                                                <p className="text-xs text-slate-500 line-clamp-2">{announcement.excerpt || announcement.content}</p>
+                                                <span className="text-[10px] text-slate-400 mt-1 block">{new Date(announcement.created_at).toLocaleDateString('en-CA')}</span>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
