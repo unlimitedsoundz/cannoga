@@ -2,7 +2,7 @@
 -- Run this in Supabase SQL Editor if no subjects exist
 
 -- Nursing subjects for Bachelor of Science in Nursing (81236fc9-a2d7-4d8c-8160-750e9dca90c8)
-INSERT INTO "Subject" (id, name, creditUnits, semester, courseId) VALUES
+INSERT INTO "Subject" ("id", "name", "creditUnits", "semester", "courseId") VALUES
   ('nurs-101', 'NURS 101: Introduction to Nursing Practice', 3, 1, '81236fc9-a2d7-4d8c-8160-750e9dca90c8'),
   ('nurs-102', 'NURS 102: Human Anatomy and Physiology I', 4, 1, '81236fc9-a2d7-4d8c-8160-750e9dca90c8'),
   ('nurs-103', 'NURS 103: Nursing Fundamentals', 3, 1, '81236fc9-a2d7-4d8c-8160-750e9dca90c8'),
@@ -19,8 +19,7 @@ INSERT INTO "Subject" (id, name, creditUnits, semester, courseId) VALUES
   ('bioc-201', 'BIOL 201: Biochemistry Fundamentals', 3, 2, '81236fc9-a2d7-4d8c-8160-750e9dca90c8'),
   ('stat-201', 'STAT 201: Statistics for Health Sciences', 3, 3, '81236fc9-a2d7-4d8c-8160-750e9dca90c8'),
   ('ethc-200', 'ETHC 200: Healthcare Ethics', 3, 4, '81236fc9-a2d7-4d8c-8160-750e9dca90c8')
-ON CONFLICT (id) DO UPDATE SET
-  name = EXCLUDED.name,
-  creditUnits = EXCLUDED.creditUnits,
-  semester = EXCLUDED.semester,
-  updatedAt = CURRENT_TIMESTAMP;
+ON CONFLICT ("id") DO UPDATE SET
+  "name" = EXCLUDED."name",
+  "creditUnits" = EXCLUDED."creditUnits",
+  "semester" = EXCLUDED."semester";
