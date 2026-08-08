@@ -123,19 +123,9 @@ export async function confirmEnrollment(applicationId: string) {
                             },
                         };
 
-                        const { data: existingReceipt } = await supabase
-                            .from('document_records')
-                            .select('id')
-                            .eq('student_id', existingStudent.id)
-                            .eq('document_type', 'tuition_receipt')
-                            .eq('metadata->>payment_id', payment.id)
-                            .maybeSingle();
-
-                        if (existingReceipt?.id) {
-                            await supabase.from('document_records').update(receiptPayload).eq('id', existingReceipt.id);
-                        } else {
-                            await supabase.from('document_records').insert(receiptPayload);
-                        }
+                        await supabase.from('document_records').upsert(receiptPayload, {
+                            onConflict: 'student_id,document_type',
+                        });
                     }
                 } catch (receiptError) {
                     console.error('Error creating receipt document for existing student:', receiptError);
@@ -266,19 +256,9 @@ export async function confirmEnrollment(applicationId: string) {
                         },
                     };
 
-                    const { data: existingReceipt } = await supabase
-                        .from('document_records')
-                        .select('id')
-                        .eq('student_id', newStudent.id)
-                        .eq('document_type', 'tuition_receipt')
-                        .eq('metadata->>payment_id', payment.id)
-                        .maybeSingle();
-
-                    if (existingReceipt?.id) {
-                        await supabase.from('document_records').update(receiptPayload).eq('id', existingReceipt.id);
-                    } else {
-                        await supabase.from('document_records').insert(receiptPayload);
-                    }
+                    await supabase.from('document_records').upsert(receiptPayload, {
+                        onConflict: 'student_id,document_type',
+                    });
                 }
             } catch (receiptError) {
                 console.error('Error creating receipt document during enrollment:', receiptError);

@@ -523,19 +523,9 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
                     },
                 };
 
-                const { data: existingReceipt } = await supabase
-                    .from('document_records')
-                    .select('id')
-                    .eq('student_id', newStudent.id)
-                    .eq('document_type', 'tuition_receipt')
-                    .eq('metadata->>payment_id', paymentId)
-                    .maybeSingle();
-
-                if (existingReceipt?.id) {
-                    await supabase.from('document_records').update(receiptPayload).eq('id', existingReceipt.id);
-                } else {
-                    await supabase.from('document_records').insert(receiptPayload);
-                }
+                await supabase.from('document_records').upsert(receiptPayload, {
+                    onConflict: 'student_id,document_type',
+                });
             } catch (receiptError) {
                 console.error('Error creating receipt document record:', receiptError);
             }
