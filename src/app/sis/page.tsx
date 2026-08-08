@@ -1205,35 +1205,16 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
 
         setRegistering(course.id);
         try {
-            const { createClient } = await import('@/utils/supabase/client');
-            const supabase = createClient();
+            const result = await registerForCourse(studentId, course.id, termFilter, course.semester);
 
-            // Look up semester_id from the semesters table using the term filter
-            const { data: semester } = await supabase
-                .from('semesters')
-                .select('id')
-                .eq('name', termFilter)
-                .maybeSingle();
-
-            if (!semester) {
-                alert(`No active semester found for "${termFilter}". Please contact registrar.`);
-                setRegistering(null);
+            if (!result.success) {
+                alert(result.error || 'Failed to register for course');
                 return;
             }
 
-            const { error } = await supabase.from('module_enrollments').insert({
-                student_id: studentId,
-                module_id: course.id,
-                semester_id: semester.id,
-                status: 'REGISTERED',
-                grade_status: 'PROVISIONAL',
-            });
-
-            if (error) throw error;
-
             alert(`Successfully registered for ${course.code} - ${course.title}`);
-            setCourses(prev => prev.map(c => 
-                c.id === course.id 
+            setCourses(prev => prev.map(c =>
+                c.id === course.id
                     ? { ...c, status: 'Registered', enrolled: (c.enrolled || 0) + 1 }
                     : c
             ));
