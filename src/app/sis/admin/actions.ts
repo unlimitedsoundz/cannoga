@@ -37,7 +37,12 @@ export async function getSISAdminDashboardStats() {
       adminClient.from('audit_logs').select('*', { count: 'exact', head: true }),
       adminClient.from('students').select('id, student_id, enrollment_status, start_date, program_id, user_id, current_stage, pal_status, pal_required, study_permit_status, arrival_status, checkin_status, orientation_status, registration_status').order('created_at', { ascending: false }).limit(5),
       adminClient.from('applications').select('id, application_number, status, course_id, user_id, submitted_at').order('submitted_at', { ascending: false }).limit(5).neq('status', 'DRAFT'),
-      adminClient.from('module_enrollments').select('id, student_id, module_id, semester_id, status, grade').order('created_at', { ascending: false }).limit(5),
+      adminClient.from('module_enrollments').select(`
+        id, student_id, module_id, semester_id, status, grade,
+        student:students(student_id, enrollment_status, user:profiles(first_name, last_name)),
+        module:modules(code, title),
+        semester:semesters(name)
+      `).order('created_at', { ascending: false }).limit(5),
       adminClient.from('applications').select('*, status', { count: 'exact' }),
       adminClient.from('module_enrollments').select('*, status', { count: 'exact' }),
     ]);
@@ -414,7 +419,7 @@ export async function getSISRegistrationById(id: string) {
       .select(`
         *,
         student:students(student_id, enrollment_status, user:profiles(first_name, last_name, email)),
-        module:modules(code, title, creditUnits, description),
+        module:modules(code, title, credits, description),
         semester:semesters(name, start_date, end_date)
       `)
       .eq('id', id)
