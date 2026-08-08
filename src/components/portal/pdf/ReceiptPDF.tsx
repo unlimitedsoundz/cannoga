@@ -198,7 +198,9 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
   const method = payment?.payment_method || '—';
   const status = payment?.status || '—';
 
-  const description = payment?.invoice_type?.replace(/_/g, ' ') || 'Tuition Payment';
+  const rawType = payment?.invoice_type?.replace(/_/g, ' ') || 'Tuition Payment';
+  const formattedType = rawType.charAt(0) + rawType.slice(1).toLowerCase();
+  const description = `Payment to Cannoga College ${formattedType}`;
   const deliveryDate = new Date(paidAt).toLocaleDateString('en-CA');
 
   const originatingAmount = payment?.fx_metadata?.localAmount
