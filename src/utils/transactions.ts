@@ -1,4 +1,12 @@
 export function generateTransactionReference(): string {
-    const random = Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
-    return `CAN${random}`;
+    const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const selected: number[] = [];
+    
+    while (selected.length < 9 && digits.length > 0) {
+        const idx = Math.floor(Math.random() * digits.length);
+        selected.push(digits[idx]);
+        digits.splice(idx, 1);
+    }
+    
+    return `CAN${selected.join('')}`;
 }
