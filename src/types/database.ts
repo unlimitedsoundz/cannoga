@@ -228,36 +228,128 @@ export interface Database {
           created_at?: string
         }
       }
-      class_sessions: {
+      class_schedules: {
         Row: {
           id: string
-          module_id: string
+          subject_id: string
           semester_id: string
+          course_id: string | null
+          instructor_id: string | null
           day_of_week: number
           start_time: string
           end_time: string
-          location_type: 'CAMPUS' | 'ONLINE'
-          location_detail: string | null
+          room: string | null
+          building: string | null
+          session_type: string
+          recurrence_pattern: string
+          start_date: string | null
+          end_date: string | null
+          notes: string | null
+          is_active: boolean
+          created_at: string
+          updated_at: string
         }
         Insert: {
           id?: string
-          module_id: string
+          subject_id: string
           semester_id: string
+          course_id?: string | null
+          instructor_id?: string | null
           day_of_week: number
           start_time: string
           end_time: string
-          location_type?: 'CAMPUS' | 'ONLINE'
-          location_detail?: string | null
+          room?: string | null
+          building?: string | null
+          session_type?: string
+          recurrence_pattern?: string
+          start_date?: string | null
+          end_date?: string | null
+          notes?: string | null
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
         }
         Update: {
           id?: string
-          module_id?: string
+          subject_id?: string
           semester_id?: string
+          course_id?: string | null
+          instructor_id?: string | null
           day_of_week?: number
           start_time?: string
           end_time?: string
-          location_type?: 'CAMPUS' | 'ONLINE'
-          location_detail?: string | null
+          room?: string | null
+          building?: string | null
+          session_type?: string
+          recurrence_pattern?: string
+          start_date?: string | null
+          end_date?: string | null
+          notes?: string | null
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      class_sessions: {
+        Row: {
+          id: string
+          schedule_id: string | null
+          subject_id: string
+          semester_id: string
+          course_id: string | null
+          instructor_id: string | null
+          session_date: string
+          start_time: string
+          end_time: string
+          room: string | null
+          building: string | null
+          session_type: string
+          status: string
+          cancellation_reason: string | null
+          substitute_instructor_id: string | null
+          notes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          schedule_id?: string | null
+          subject_id: string
+          semester_id: string
+          course_id?: string | null
+          instructor_id?: string | null
+          session_date: string
+          start_time: string
+          end_time: string
+          room?: string | null
+          building?: string | null
+          session_type?: string
+          status?: string
+          cancellation_reason?: string | null
+          substitute_instructor_id?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          schedule_id?: string | null
+          subject_id?: string
+          semester_id?: string
+          course_id?: string | null
+          instructor_id?: string | null
+          session_date?: string
+          start_time?: string
+          end_time?: string
+          room?: string | null
+          building?: string | null
+          session_type?: string
+          status?: string
+          cancellation_reason?: string | null
+          substitute_instructor_id?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
         }
       }
       module_enrollments: {
@@ -489,6 +581,7 @@ export type News = Database['public']['Tables']['News']['Row']
 export type Event = Database['public']['Tables']['Event']['Row']
 export type AuditLog = Database['public']['Tables']['AuditLog']['Row']
 export type Module = Database['public']['Tables']['modules']['Row']
+export type ClassSchedule = Database['public']['Tables']['class_schedules']['Row']
 export type ClassSession = Database['public']['Tables']['class_sessions']['Row']
 export type ModuleEnrollment = Database['public']['Tables']['module_enrollments']['Row']
 export type Student = Database['public']['Tables']['students']['Row']

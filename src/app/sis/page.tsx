@@ -22,12 +22,13 @@ import {
     Clock01Icon as Clock,
     CheckmarkCircle01Icon as CheckCircle,
     UserWarning02Icon as Warning,
+    MapPinIcon as MapPin,
 } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
 import { getDocumentUrl } from '@/utils/document';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { registerForCourse } from '@/app/sis/registration-actions';
-import { getUnreadMessageCount } from '@/app/sis/student-life-actions';
+import { getStudentLifeData, getUnreadMessageCount } from '@/app/sis/student-life-actions';
 import StudentLifePage from '@/app/sis/student-life';
 
 interface Announcement {
@@ -154,7 +155,7 @@ interface Faculty {
     };
 }
 
-type PageId = 'dashboard' | 'documents' | 'academics' | 'registration' | 'financials' | 'grades' | 'holds' | 'news' | 'directory' | 'profile' | 'student-life';
+type PageId = 'dashboard' | 'documents' | 'academics' | 'timetable' | 'registration' | 'financials' | 'grades' | 'holds' | 'news' | 'directory' | 'profile' | 'student-life';
 
 interface GradeRecord {
     module_code: string;
@@ -211,6 +212,7 @@ export default function SISStudentDashboard() {
     const [registrationLoading, setRegistrationLoading] = useState(false);
     const [studentLifeData, setStudentLifeData] = useState<any>(null);
     const [unreadMessageCount, setUnreadMessageCount] = useState(0);
+    const [timetableSessions, setTimetableSessions] = useState<any[]>([]);
 
     const [activeModals, setActiveModals] = useState<Record<string, boolean>>({});
     const [profileForm, setProfileForm] = useState({ fullName: '', preferredName: '', phone: '', address: '' });
@@ -412,6 +414,36 @@ export default function SISStudentDashboard() {
                     }
                 }
 
+                const studentId = studentData?.id || '';
+                if (studentId) {
+                    try {
+                        const { data: subjects } = await supabase
+                            .from('Subject')
+                            .select('id')
+                            .eq('courseId', studentData.program_id);
+
+                        const subjectIds = subjects?.map(s => s.id) || [];
+
+                        if (subjectIds.length > 0) {
+                            const today = new Date().toISOString().split('T')[0];
+                            const { data: sessions } = await supabase
+                                .from('class_sessions')
+                                .select(`
+                                    *,
+                                    subject:Subject(id, name, code, creditUnits),
+                                    instructor:profiles(first_name, last_name)
+                                `)
+                                .in('subject_id', subjectIds)
+                                .gte('session_date', today)
+                                .order('session_date', { ascending: true })
+                                .order('start_time', { ascending: true });
+                            setTimetableSessions(sessions || []);
+                        }
+                    } catch (timetableErr) {
+                        console.error('Error fetching timetable:', timetableErr);
+                    }
+                }
+
             } catch (e) {
                 console.error('Error fetching data:', e);
                 setError('Failed to load data');
@@ -429,7 +461,7 @@ export default function SISStudentDashboard() {
     const pageParam = searchParams.get('page');
 
     useEffect(() => {
-        if (pageParam && ['dashboard', 'documents', 'academics', 'registration', 'financials', 'grades', 'holds', 'news', 'directory', 'profile', 'student-life'].includes(pageParam)) {
+        if (pageParam && ['dashboard', 'documents', 'academics', 'timetable', 'registration', 'financials', 'grades', 'holds', 'news', 'directory', 'profile', 'student-life'].includes(pageParam)) {
             setCurrentPage(pageParam as PageId);
         }
     }, [pageParam]);
@@ -438,7 +470,7 @@ export default function SISStudentDashboard() {
         const onPopState = () => {
             const params = new URLSearchParams(window.location.search);
             const page = params.get('page');
-            if (page && ['dashboard', 'documents', 'academics', 'registration', 'financials', 'grades', 'holds', 'news', 'directory', 'profile', 'student-life'].includes(page)) {
+            if (page && ['dashboard', 'documents', 'academics', 'timetable', 'registration', 'financials', 'grades', 'holds', 'news', 'directory', 'profile', 'student-life'].includes(page)) {
                 setCurrentPage(page as PageId);
             }
         };
@@ -494,6 +526,7 @@ export default function SISStudentDashboard() {
         { label: 'DASHBOARD', pageId: 'dashboard' as PageId },
         { label: 'MY DOCUMENTS', pageId: 'documents' as PageId },
         { label: 'ACADEMIC PROFILE', pageId: 'academics' as PageId },
+        { label: 'TIMETABLE', pageId: 'timetable' as PageId },
         { label: 'REGISTRATION', pageId: 'registration' as PageId },
         { label: 'FINANCIAL AID & PAY', pageId: 'financials' as PageId },
         { label: 'TRANSCRIPTS & GRADES', pageId: 'grades' as PageId },
@@ -673,23 +706,38 @@ export default function SISStudentDashboard() {
                                                 <HugeiconsIcon icon={Calendar} size={16} strokeWidth={2} className="text-slate-700" />
                                                 <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Today&apos;s Schedule</h3>
                                             </div>
-                                            <span className="text-[11px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded">{activeEnrollments.length} Classes</span>
+                                            <span className="text-[11px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded">{timetableSessions.filter(s => s.session_date === new Date().toISOString().split('T')[0]).length} Classes</span>
                                         </div>
                                         <div className="p-4 space-y-2.5">
-                                            {activeEnrollments.slice(0, 3).map(enrollment => (
-                                                <div key={enrollment.id} className="p-3 bg-slate-50 rounded border border-slate-200 flex justify-between items-center">
-                                                    <div>
-                                                        <p className="text-[10px] font-bold text-slate-500 uppercase">{enrollment.semester?.name || 'Current Term'}</p>
-                                                        <p className="text-xs font-semibold text-slate-800 mt-0.5">{enrollment.module?.code}: {enrollment.module?.title}</p>
+                                            {timetableSessions.filter(s => s.session_date === new Date().toISOString().split('T')[0]).length > 0 ? 
+                                                timetableSessions.filter(s => s.session_date === new Date().toISOString().split('T')[0]).slice(0, 3).map(session => (
+                                                    <div key={session.id} className="p-3 bg-slate-50 rounded border border-slate-200 flex justify-between items-center">
+                                                        <div>
+                                                            <p className="text-[10px] font-bold text-slate-500 uppercase">{session.session_type}</p>
+                                                            <p className="text-xs font-semibold text-slate-800 mt-0.5">{session.subject?.name || session.subject?.code || 'Class'}</p>
+                                                        </div>
+                                                        <div className="text-right">
+                                                            <span className="text-[11px] font-medium text-slate-600 block">{session.start_time?.slice(0, 5)} - {session.end_time?.slice(0, 5)}</span>
+                                                            {session.room && <span className="text-[10px] text-slate-500">{session.room}{session.building ? `, ${session.building}` : ''}</span>}
+                                                        </div>
                                                     </div>
-                                                    <span className="text-[11px] font-medium text-slate-600 border border-slate-300 bg-white px-2 py-0.5 rounded">{enrollment.module?.credits} cr</span>
-                                                </div>
-                                            ))}
-                                            {activeEnrollments.length === 0 && <div className="text-center py-6 text-xs text-slate-500">No active classes</div>}
+                                                )) : (
+                                                    activeEnrollments.slice(0, 3).map(enrollment => (
+                                                        <div key={enrollment.id} className="p-3 bg-slate-50 rounded border border-slate-200 flex justify-between items-center">
+                                                            <div>
+                                                                <p className="text-[10px] font-bold text-slate-500 uppercase">{enrollment.semester?.name || 'Current Term'}</p>
+                                                                <p className="text-xs font-semibold text-slate-800 mt-0.5">{enrollment.module?.code}: {enrollment.module?.title}</p>
+                                                            </div>
+                                                            <span className="text-[11px] font-medium text-slate-600 border border-slate-300 bg-white px-2 py-0.5 rounded">{enrollment.module?.credits} cr</span>
+                                                        </div>
+                                                    ))
+                                                )
+                                            }
+                                            {(timetableSessions.filter(s => s.session_date === new Date().toISOString().split('T')[0]).length === 0 && activeEnrollments.length === 0) && <div className="text-center py-6 text-xs text-slate-500">No classes scheduled for today</div>}
                                         </div>
                                     </div>
                                     <div className="p-3 bg-slate-50/50 border-t border-slate-100 rounded-b-lg text-right">
-                                        <button type="button" onClick={() => navigateTo('academics')} className="text-xs font-semibold text-slate-800 hover:underline">View Full Schedule &rarr;</button>
+                                        <button type="button" onClick={() => navigateTo('timetable')} className="text-xs font-semibold text-slate-800 hover:underline">View Full Timetable &rarr;</button>
                                     </div>
                                 </div>
 
@@ -925,6 +973,86 @@ export default function SISStudentDashboard() {
                                     </table>
                                 </div>
                             </div>
+                        </div>
+                    )}
+                    {/* ================= TIMETABLE ================= */}
+                    {currentPage === 'timetable' && (
+                        <div>
+                            <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm mb-6">
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                    <div>
+                                        <h3 className="text-base font-bold text-slate-900">My Timetable</h3>
+                                        <p className="text-xs text-slate-500 mt-0.5">Class schedule and session details</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {timetableSessions.length === 0 ? (
+                                <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-12 text-center">
+                                    <Calendar size={48} weight="thin" className="mx-auto text-slate-300 mb-4" />
+                                    <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">No timetable entries yet</p>
+                                    <p className="text-xs text-slate-400 mt-2">Your class schedule will appear here once registered.</p>
+                                </div>
+                            ) : (
+                                <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                    <div className="overflow-x-auto">
+                                        <table className="w-full text-left text-xs sm:text-sm text-slate-600">
+                                            <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                                                <tr>
+                                                    <th className="p-3">Date</th>
+                                                    <th className="p-3">Day</th>
+                                                    <th className="p-3">Time</th>
+                                                    <th className="p-3">Subject</th>
+                                                    <th className="p-3">Type</th>
+                                                    <th className="p-3">Location</th>
+                                                    <th className="p-3">Instructor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-slate-100">
+                                                {timetableSessions.map(session => {
+                                                    const sessionDate = new Date(session.session_date + 'T00:00:00');
+                                                    const dayName = sessionDate.toLocaleDateString('en-US', { weekday: 'long' });
+                                                    const formattedDate = sessionDate.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' });
+                                                    return (
+                                                        <tr key={session.id} className="hover:bg-slate-50">
+                                                            <td className="p-3 font-medium text-slate-900">{formattedDate}</td>
+                                                            <td className="p-3">{dayName}</td>
+                                                            <td className="p-3">
+                                                                <div className="flex items-center gap-1.5">
+                                                                    <Clock size={12} weight="bold" className="text-slate-400" />
+                                                                    {session.start_time?.slice(0, 5)} - {session.end_time?.slice(0, 5)}
+                                                                </div>
+                                                            </td>
+                                                            <td className="p-3">
+                                                                <div>
+                                                                    <p className="font-semibold text-slate-900">{session.subject?.name}</p>
+                                                                    <p className="text-[10px] text-slate-400 font-mono">{session.subject?.code}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td className="p-3">
+                                                                <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest ${session.session_type === 'Online' ? 'bg-blue-50 text-blue-700' : 'bg-slate-100 text-slate-700'}`}>
+                                                                    {session.session_type}
+                                                                </span>
+                                                            </td>
+                                                            <td className="p-3">
+                                                                {session.room ? (
+                                                                    <div className="flex items-center gap-1 text-slate-600">
+                                                                        <MapPin size={12} weight="regular" />
+                                                                        <span>{session.room}{session.building ? `, ${session.building}` : ''}</span>
+                                                                    </div>
+                                                                ) : 'TBD'}
+                                                            </td>
+                                                            <td className="p-3">
+                                                                {session.instructor ? `${session.instructor.first_name} ${session.instructor.last_name}` : 'TBD'}
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     )}
                     {/* ================= REGISTRATION ================= */}

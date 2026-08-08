@@ -92,8 +92,8 @@ export default function SISLayout({ children }: { children: ReactNode }) {
     useEffect(() => {
         if (!authorized || !profile) return;
 
-        const IDLE_TIMEOUT = 60 * 1000; // 1 minute
-        const WARNING_TIMEOUT = 50 * 1000; // 10 seconds before logout
+        const IDLE_TIMEOUT = 15 * 60 * 1000; // 15 minutes
+        const WARNING_TIMEOUT = 14.5 * 60 * 1000; // 30 seconds before logout
         let idleTimer: NodeJS.Timeout;
         let warningTimer: NodeJS.Timeout;
 
@@ -102,8 +102,8 @@ export default function SISLayout({ children }: { children: ReactNode }) {
             clearTimeout(warningTimer);
 
             warningTimer = setTimeout(() => {
-                toast.warning('You will be logged out in 10 seconds due to inactivity', {
-                    duration: 10000,
+                toast.warning('You will be logged out in 30 seconds due to inactivity', {
+                    duration: 30000,
                     action: {
                         label: 'Stay Signed In',
                         onClick: () => {
@@ -173,6 +173,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         { label: 'FINANCE', href: '/sis/admin/finance' },
         { label: 'HOUSING', href: '/sis/admin/housing' },
         { label: 'ACADEMICS', href: '/sis/admin/academics' },
+        { label: 'TIMETABLES', href: '/sis/admin/timetables' },
         { label: 'REGISTRATION', href: '/sis/admin/registration' },
         { label: 'DOCUMENTS', href: '/sis/admin/documents' },
         { label: 'REPORTS', href: '/sis/admin/reports' },
@@ -196,7 +197,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
     if (profile.role === 'ADMIN' && isAdminPath) {
         return (
             <div className="min-h-screen bg-[#f5f5f5] font-sans text-black flex flex-col" data-theme="sis">
-                <SISHeader onMenuToggle={() => setSidebarOpen(!sidebarOpen)} role={profile.role} profile={profile} />
+                <SISHeader onMenuToggle={() => setSidebarOpen(!sidebarOpen)} role={profile.role} profile={profile} studentId={profile.student_id || ''} />
                 <div className="flex flex-1 overflow-hidden">
                     <SISSidebar
                         items={navItems}

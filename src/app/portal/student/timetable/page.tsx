@@ -6,40 +6,37 @@ import { useRouter } from 'next/navigation';
 import { Link } from "@aalto-dx/react-components";
 import { CaretLeft as ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import TimetableClient from './TimetableClient';
+import { ClassSession, Subject } from '@/types/database';
 
 export default function TimetablePage() {
     const [loading, setLoading] = useState(true);
-    const [sessions, setSessions] = useState<any[]>([]);
+    const [sessions, setSessions] = useState<(ClassSession & { subject: Subject })[]>([]);
     const router = useRouter();
     const supabase = createClient();
 
     useEffect(() => {
         const fetchTimetableData = async () => {
             try {
-                // 1. Primary Auth Check (Supabase)
                 const { data: { user: sbUser } } = await supabase.auth.getUser();
-                let currentUserEmail = sbUser?.email;
                 let currentUserId = sbUser?.id;
 
-                // 2. Secondary Auth Check (LocalStorage Fallback)
                 if (!sbUser) {
                     const savedUser = localStorage.getItem('Cannoga_user');
                     if (savedUser) {
                         const localProfile = JSON.parse(savedUser);
-                        currentUserEmail = localProfile.email;
                         currentUserId = localProfile.id;
                     }
                 }
 
-                if (!currentUserEmail) {
+                if (!currentUserId) {
                     router.push('/portal/account/login');
                     return;
                 }
 
                 const { data: student } = await supabase
                     .from('students')
-                    .select('id')
-                    .eq('user_id', currentUserId || '')
+                    .select('id, program_id')
+                    .eq('user_id', currentUserId)
                     .maybeSingle();
 
                 if (!student) {
@@ -47,23 +44,23 @@ export default function TimetablePage() {
                     return;
                 }
 
-                // 2. Fetch Sessions for modules the student is registered for
-                const { data: enrollments } = await supabase
-                    .from('module_enrollments')
-                    .select('module_id')
-                    .eq('student_id', student.id)
-                    .eq('status', 'REGISTERED');
+                const { data: subjects } = await supabase
+                    .from('Subject')
+                    .select('id')
+                    .eq('courseId', student.program_id);
 
-                const moduleIds = enrollments?.map(e => e.module_id) || [];
+                const subjectIds = subjects?.map(s => s.id) || [];
 
-                if (moduleIds.length > 0) {
+                if (subjectIds.length > 0) {
                     const { data: sessionsData } = await supabase
                         .from('class_sessions')
                         .select(`
                             *,
-                            module:modules(*)
+                            subject:Subject(*)
                         `)
-                        .in('module_id', moduleIds);
+                        .in('subject_id', subjectIds)
+                        .order('session_date', { ascending: true })
+                        .order('start_time', { ascending: true });
                     setSessions(sessionsData || []);
                 }
             } catch (err) {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -14,6 +14,7 @@ import {
   ChevronDownIcon as ChevronDown, 
   Menu01Icon as Menu 
 } from '@hugeicons/core-free-icons';
+import { getUnreadMessageCount } from '@/app/sis/student-life-actions';
 
 interface Notification {
   id: string;
@@ -32,7 +33,9 @@ interface SISHeaderProps {
     last_name?: string | null;
     email?: string | null;
     role?: string | null;
+    student_id?: string | null;
   };
+  studentId?: string;
 }
 
 const ROLE_LABELS: Record<string, string> = {
@@ -53,18 +56,37 @@ function getRoleLabel(role: string | undefined | null): string {
   return 'Student';
 }
 
-export function SISHeader({ onMenuToggle, role, profile }: SISHeaderProps) {
+export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [unreadMessageCount, setUnreadMessageCount] = useState(0);
 
   const displayName = profile?.first_name || profile?.last_name 
     ? `${profile?.first_name || ''} ${profile?.last_name || ''}`.trim()
     : profile?.email || 'User';
   const roleLabel = profile?.role ? getRoleLabel(profile.role) : (role === 'ADMIN' ? 'Admin' : 'Student');
   const userEmail = profile?.email || 'user@example.com';
+
+  useEffect(() => {
+    const fetchUnreadCount = async () => {
+      const sid = studentId || profile?.student_id;
+      if (!sid) return;
+      try {
+        const result = await getUnreadMessageCount(sid);
+        if (result.success) {
+          setUnreadMessageCount(result.count || 0);
+        }
+      } catch (e) {
+        console.error('Error fetching unread message count:', e);
+      }
+    };
+    fetchUnreadCount();
+    const interval = setInterval(fetchUnreadCount, 30000);
+    return () => clearInterval(interval);
+  }, [studentId, profile?.student_id]);
 
   const handleLogout = async () => {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -117,8 +139,9 @@ export function SISHeader({ onMenuToggle, role, profile }: SISHeaderProps) {
               <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} />
               {unreadCount > 0 && <span className="absolute top-1 right-1 w-2 h-2 bg-[#9c27b3] rounded-full" />}
             </button>
-            <button className="relative p-2 text-neutral-600 hover:text-black hover:bg-neutral-100 transition-colors" title="Messages">
+            <button className="relative p-2 text-neutral-600 hover:text-black hover:bg-neutral-100 transition-colors" title="Messages" onClick={() => router.push('/sis?page=student-life')}>
               <HugeiconsIcon icon={Envelope} size={18} strokeWidth={2} />
+              {unreadMessageCount > 0 && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-blue-500 rounded-full border-2 border-white" />}
             </button>
             <button className="p-2 text-neutral-600 hover:text-black hover:bg-neutral-100 transition-colors" title="Help">
               <HugeiconsIcon icon={HelpCircle} size={18} strokeWidth={2} />

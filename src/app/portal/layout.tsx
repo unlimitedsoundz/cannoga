@@ -121,6 +121,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
     if (isPublicPath) {
         return (
             <div className={`min-h-screen bg-white flex flex-col font-sans text-base`} data-theme="portal">
+                <PortalHeader />
                 <main className="flex-1">
                     {children}
                 </main>
