@@ -25,4 +25,4 @@ WHERE document_type = 'tuition_receipt'
     metadata->>'transaction_reference' = 'CAN001000002'
     OR title LIKE '%CAN001000002%'
     OR storage_path LIKE '%CAN001000002%'
-  );
+  )
