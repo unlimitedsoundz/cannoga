@@ -16,6 +16,7 @@ import {
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { createClient } from '@/utils/supabase/client';
+import { registerForCourse } from '@/app/sis/registration-actions';
 
 interface Course {
   id: string;
@@ -44,6 +45,8 @@ export default function RegistrationPage() {
   const [availableCourses, setAvailableCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [studentProgramId, setStudentProgramId] = useState<string | null>(null);
+  const [studentId, setStudentId] = useState<string | null>(null);
+  const [registering, setRegistering] = useState<string | null>(null);
   const supabase = createClient();
 
   useEffect(() => {
@@ -54,11 +57,12 @@ export default function RegistrationPage() {
 
         const { data: student } = await supabase
           .from('students')
-          .select('program_id')
+          .select('id, program_id')
           .eq('user_id', user.id)
           .single();
 
-        if (student?.program_id) {
+        if (student) {
+          setStudentId(student.id);
           setStudentProgramId(student.program_id);
 
           const { data: subjects } = await supabase
@@ -216,8 +220,29 @@ export default function RegistrationPage() {
 
           <CourseTable
             courses={filteredAvailable}
-            onRegister={(course) => {
-              toast.success(`Registering for ${course.code} - ${course.title}`);
+            onRegister={async (course) => {
+              if (!studentId) {
+                toast.error('Please log in to register for courses.');
+                return;
+              }
+
+              setRegistering(course.id);
+              try {
+                const result = await registerForCourse(studentId, course, selectedTerm);
+
+                if (!result.success) {
+                  toast.error(result.error || 'Failed to register for course');
+                  return;
+                }
+
+                toast.success(`Successfully registered for ${course.code} - ${course.title}`);
+                setAvailableCourses(prev => prev.filter(c => c.id !== course.id));
+                setRegisteredCourses(prev => [...prev, { ...course, status: 'Registered', enrolled: course.capacity || 30 }]);
+              } catch (error: any) {
+                toast.error(error.message || 'Failed to register for course');
+              } finally {
+                setRegistering(null);
+              }
             }}
             showRegister
             pagination={{

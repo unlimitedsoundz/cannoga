@@ -1216,11 +1216,7 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
             }
 
             toast.success(`Successfully registered for ${course.code} - ${course.title}`);
-            setCourses(prev => prev.map(c =>
-                c.id === course.id
-                    ? { ...c, status: 'Registered', enrolled: (c.enrolled || 0) + 1 }
-                    : c
-            ));
+            setCourses(prev => prev.filter(c => c.id !== course.id));
         } catch (error: any) {
             toast.error(error.message || 'Failed to register for course');
         } finally {
