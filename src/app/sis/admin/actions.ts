@@ -686,3 +686,47 @@ export async function getStudentFinancialDetails(studentId: string) {
     return { success: false, error: e.message };
   }
 }
+
+export async function getSISStudents() {
+  const adminClient = createServiceRoleClient();
+
+  try {
+    const { data: students, error } = await adminClient
+      .from('students')
+      .select(`
+        id,
+        student_id,
+        enrollment_status,
+        start_date,
+        user_id,
+        program_id,
+        profiles(first_name, last_name, email),
+        course:Course(title, school:School(name))
+      `)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    const formattedStudents = (students || []).map((s: any) => {
+      const course = Array.isArray(s.course) ? s.course[0] : s.course;
+      return {
+        id: s.id,
+        student_id: s.student_id,
+        first_name: s.profiles?.first_name || '',
+        last_name: s.profiles?.last_name || '',
+        email: s.profiles?.email || '',
+        program: course?.title || s.program_id || '—',
+        school: course?.school?.name || '—',
+        status: s.enrollment_status || 'UNKNOWN',
+        enrollment_status: s.enrollment_status || 'UNKNOWN',
+        advisor: '—',
+        hold: false,
+      };
+    });
+
+    return { success: true, data: formattedStudents };
+  } catch (e: any) {
+    console.error('getSISStudents Error:', e);
+    return { success: false, error: e.message };
+  }
+}

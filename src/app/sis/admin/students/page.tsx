@@ -12,7 +12,7 @@ import { StatusBadge } from '@/components/sis/StatusBadge';
 import { Add01Icon as Plus, FilterHorizontalIcon as Filter, Download01Icon as Download, UserAdd01Icon as UserPlus } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import Link from 'next/link';
-import { getSISAdminDashboardStats, getSISCourseMap } from '../actions';
+import { getSISStudents } from '../actions';
 
 interface StudentRow {
   id: string;
@@ -36,7 +36,6 @@ export default function AdminStudentsPage() {
   const [page, setPage] = useState(1);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [data, setData] = useState<StudentRow[]>([]);
-  const [courseMap, setCourseMap] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,28 +43,9 @@ export default function AdminStudentsPage() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [statsResult, courseResult] = await Promise.all([
-          getSISAdminDashboardStats(),
-          getSISCourseMap()
-        ]);
-        if (!statsResult.success) throw new Error(statsResult.error);
-        setCourseMap(courseResult.data || {});
-
-        const students: StudentRow[] = (statsResult.recentStudents || []).map((s: any) => ({
-          id: s.id,
-          student_id: s.student_id,
-          first_name: s.user?.first_name || '',
-          last_name: s.user?.last_name || '',
-          email: s.user?.email || '',
-          program: (courseResult.data || {})[s.program_id] || s.program_id || '—',
-          school: '—',
-          status: s.enrollment_status || 'UNKNOWN',
-          enrollment_status: s.enrollment_status || 'UNKNOWN',
-          advisor: '—',
-          hold: false,
-        }));
-
-        setData(students);
+        const result = await getSISStudents();
+        if (!result.success) throw new Error(result.error);
+        setData(result.data || []);
       } catch (err: any) {
         setError(err.message || 'Failed to load students');
       } finally {
