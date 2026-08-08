@@ -605,7 +605,8 @@ export async function getStudentFinancialDetails(studentId: string) {
 
     if (studentError) throw studentError;
 
-    const applicationId = student?.application?.id;
+    const application = Array.isArray(student?.application) ? student.application[0] : student?.application;
+    const applicationId = application?.id;
 
     let offer = null;
     let payments: any[] = [];
@@ -701,14 +702,14 @@ export async function getSISStudents() {
         user_id,
         program_id,
         profiles(first_name, last_name, email),
-        course:Course(title, school:School(name))
+        program:Course(title, school:School(name))
       `)
       .order('created_at', { ascending: false });
 
     if (error) throw error;
 
     const formattedStudents = (students || []).map((s: any) => {
-      const course = Array.isArray(s.course) ? s.course[0] : s.course;
+      const course = Array.isArray(s.program) ? s.program[0] : s.program;
       return {
         id: s.id,
         student_id: s.student_id,

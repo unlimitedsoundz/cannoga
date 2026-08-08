@@ -26,7 +26,7 @@ interface StudentRow {
   enrollment_status: string;
   advisor: string;
   hold: boolean;
-  course?: { title: string; school?: { name: string }[] }[];
+  course?: { title: string; school?: { name: string }[] };
 }
 
 export default function AdminStudentsPage() {
