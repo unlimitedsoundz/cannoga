@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { PageHeader } from '@/components/sis/PageHeader';
 import { ActionToolbar } from '@/components/sis/ActionToolbar';
 import { CourseTable } from '@/components/sis/CourseTable';
@@ -47,9 +47,12 @@ export default function RegistrationPage() {
   const [studentProgramId, setStudentProgramId] = useState<string | null>(null);
   const [studentId, setStudentId] = useState<string | null>(null);
   const [registering, setRegistering] = useState<string | null>(null);
-  const supabase = createClient();
+  const [registeredCourseIds, setRegisteredCourseIds] = useState<Set<string>>(new Set());
+  const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
+    let cancelled = false;
+
     const fetchRegistrationData = async () => {
       try {
         const { data: { user } } = await supabase.auth.getUser();
@@ -71,7 +74,7 @@ export default function RegistrationPage() {
             .eq('courseId', student.program_id)
             .order('semester', { ascending: true });
 
-          if (subjects) {
+          if (!cancelled && subjects) {
             const mappedAvailable: Course[] = subjects.map((subject: any) => ({
               id: subject.id,
               code: subject.code || subject.name.split(':')[0]?.trim() || subject.id,
@@ -92,11 +95,17 @@ export default function RegistrationPage() {
       } catch (error) {
         console.error('Error fetching registration data:', error);
       } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     };
 
     fetchRegistrationData();
+
+    return () => {
+      cancelled = true;
+    };
   }, [supabase, selectedTerm]);
 
   const filteredAvailable = availableCourses.filter(c => {
@@ -219,7 +228,7 @@ export default function RegistrationPage() {
           />
 
           <CourseTable
-            courses={filteredAvailable}
+            courses={filteredAvailable.filter(c => !registeredCourseIds.has(c.id))}
             onRegister={async (course) => {
               if (!studentId) {
                 toast.error('Please log in to register for courses.');
@@ -238,6 +247,11 @@ export default function RegistrationPage() {
                 toast.success(`Successfully registered for ${course.code} - ${course.title}`);
                 setAvailableCourses(prev => prev.filter(c => c.id !== course.id));
                 setRegisteredCourses(prev => [...prev, { ...course, status: 'Registered', enrolled: course.capacity || 30 }]);
+                setRegisteredCourseIds(prev => {
+                  const next = new Set(prev);
+                  next.add(course.id);
+                  return next;
+                });
               } catch (error: any) {
                 toast.error(error.message || 'Failed to register for course');
               } finally {
