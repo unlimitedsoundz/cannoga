@@ -61,6 +61,13 @@ export async function getSISAdminDashboardStats() {
       FAILED: allEnrollments?.filter((e: any) => e.status === 'FAILED').length || 0,
     };
 
+    const normalizedRecentEnrollments = (recentEnrollments || []).map((enrollment: any) => ({
+      ...enrollment,
+      module: Array.isArray(enrollment.module) ? enrollment.module[0] : enrollment.module,
+      student: Array.isArray(enrollment.student) ? enrollment.student[0] : enrollment.student,
+      semester: Array.isArray(enrollment.semester) ? enrollment.semester[0] : enrollment.semester,
+    }));
+
     return {
       success: true,
       stats: {
@@ -80,7 +87,7 @@ export async function getSISAdminDashboardStats() {
       },
       recentStudents: recentStudents || [],
       pendingApplications: pendingApplications || [],
-      recentEnrollments: recentEnrollments || [],
+      recentEnrollments: normalizedRecentEnrollments,
     };
   } catch (e: any) {
     console.error('getSISAdminDashboardStats Error:', e);
