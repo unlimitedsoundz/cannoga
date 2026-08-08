@@ -4,8 +4,7 @@
 
 WITH updated_payment AS (
   UPDATE public.tuition_payments
-  SET transaction_reference = 'CAN' || LPAD(floor(random() * 900000000 + 100000000)::text, 9, '0'),
-      updated_at = CURRENT_TIMESTAMP
+  SET transaction_reference = 'CAN' || LPAD(floor(random() * 900000000 + 100000000)::text, 9, '0')
   WHERE transaction_reference = 'CAN001000002'
   RETURNING transaction_reference AS new_txn_ref
 )
@@ -17,8 +16,7 @@ SET
     metadata,
     '{transaction_reference}',
     to_jsonb(updated_payment.new_txn_ref)
-  ),
-  updated_at = CURRENT_TIMESTAMP
+  )
 FROM updated_payment
 WHERE document_type = 'tuition_receipt'
   AND (
