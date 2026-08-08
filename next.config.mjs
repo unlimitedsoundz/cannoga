@@ -29,8 +29,11 @@ const nextConfig = {
             },
         ],
     },
-    // Dynamic Next.js server mode — no static export
+    output: 'standalone',
     serverExternalPackages: [],
+    generateBuildId: async () => {
+        return Date.now().toString();
+    },
 
     typescript: {
         ignoreBuildErrors: false,
