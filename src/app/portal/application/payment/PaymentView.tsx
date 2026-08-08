@@ -287,7 +287,11 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                                     </div>
                                     <div className="text-right flex items-center justify-end gap-3">
                                         <div>
-                                            <p className="text-sm font-bold text-black">${Number(payment.amount).toLocaleString()} {payment.currency || 'CAD'}</p>
+                                            <p className="text-sm font-bold text-black">
+                                                {payment.fx_metadata?.localAmount
+                                                    ? `${payment.currency || 'CAD'} ${Number(payment.fx_metadata.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                                                    : `${Number(payment.amount).toLocaleString()} ${payment.currency || 'CAD'}`}
+                                            </p>
                                             <p className="text-[11px] text-neutral-500 capitalize">{(payment.status?.replaceAll('_', ' ') || 'Pending').replace('VERICACATION', 'VERIFICATION')}</p>
                                         </div>
                                         {(payment.status === 'COMPLETED' || payment.status === 'verified') && (

@@ -62,7 +62,10 @@ Deno.serve(async (req) => {
                 status: 'PENDING_VERIFICATION',
                 payment_method: details.method,
                 transaction_reference: reference,
-                invoice_type: invoiceType || 'TUITION_DEPOSIT'
+                invoice_type: invoiceType || 'TUITION_DEPOSIT',
+                country: details.country,
+                currency: details.currency,
+                fx_metadata: details.fxMetadata || {}
             });
 
         if (paymentError) throw paymentError;

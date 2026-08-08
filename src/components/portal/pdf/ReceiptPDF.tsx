@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
     lineHeight: 1.15,
   },
   stamp: {
-    width: 60,
-    height: 60,
+    width: 80,
+    height: 80,
     objectFit: 'contain',
   },
   divider: {
@@ -50,11 +50,9 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 27,
-    fontWeight: '700',
-    letterSpacing: 0.8,
-    color: '#4a5568',
-    textTransform: 'uppercase',
-    marginBottom: 16,
+    fontWeight: '500',
+    color: '#3a4252',
+    lineHeight: 1.15,
   },
   metaTable: {
     width: '100%',
@@ -202,8 +200,12 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
 
   const description = payment?.invoice_type?.replace(/_/g, ' ') || 'Tuition Payment';
   const deliveryDate = new Date(paidAt).toLocaleDateString('en-CA');
-  const originatingAmount = `${currency} ${amount.toLocaleString()}`;
-  const receivedAmount = `${currency} ${amount.toLocaleString()}`;
+
+  const originatingAmount = payment?.fx_metadata?.localAmount
+    ? `${currency} ${Number(payment.fx_metadata.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+    : `${currency} ${amount.toLocaleString()}`;
+
+  const receivedAmount = `CAD ${amount.toLocaleString()}`;
 
   const logoUrl = 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/logo-cannoga.png';
   const stampUrl = 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/Paid%20stamp.png';
@@ -219,6 +221,7 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
               <Image style={styles.collegeLogo} src={logoUrl} />
               <View>
                 <Text style={styles.collegeName}>Cannoga College</Text>
+                <Text style={styles.subtitle}>Tuition Fees</Text>
               </View>
             </View>
             <Image style={styles.stamp} src={stampUrl} />
@@ -227,7 +230,7 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
           <View style={styles.divider} />
 
           {/* Subtitle */}
-          <Text style={styles.subtitle}>Flywire Payment Confirmation</Text>
+          <Text style={styles.metaLabel}>Flywire Payment Confirmation</Text>
 
           {/* Meta Table */}
           <View style={styles.metaTable}>
