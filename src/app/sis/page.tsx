@@ -1206,7 +1206,7 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
 
         setRegistering(course.id);
         try {
-            const result = await registerForCourse(studentId, course.id, termFilter, course.semester);
+            const result = await registerForCourse(studentId, course, termFilter);
 
             if (!result.success) {
                 alert(result.error || 'Failed to register for course');
