@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageHeader } from '@/components/sis/PageHeader';
 import { ActionToolbar } from '@/components/sis/ActionToolbar';
 import { CourseTable } from '@/components/sis/CourseTable';
@@ -14,30 +14,87 @@ import {
   CreditCardIcon as CreditCard 
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { createClient } from '@/utils/supabase/client';
 
-const mockRegisteredCourses = [
-  { id: '1', code: 'NURS 301', title: 'Advanced Nursing Practice', subject: 'Nursing', credits: 3, term: 'Fall 2026', instructor: 'Dr. A. Thompson', schedule: 'Mon/Wed 9:00-10:30', location: 'HS-201', capacity: 30, enrolled: 28, status: 'Registered', waitlist: 2 },
-  { id: '2', code: 'NURS 302', title: 'Clinical Pharmacology', subject: 'Nursing', credits: 3, term: 'Fall 2026', instructor: 'Prof. M. Chen', schedule: 'Tue/Thu 10:00-11:30', location: 'HS-205', capacity: 25, enrolled: 25, status: 'Registered', waitlist: 5 },
-  { id: '3', code: 'BIOL 310', title: 'Pathophysiology', subject: 'Biology', credits: 4, term: 'Fall 2026', instructor: 'Dr. R. Patel', schedule: 'Mon 1:00-4:00', location: 'SC-101', capacity: 40, enrolled: 35, status: 'Registered', waitlist: 0 },
-  { id: '4', code: 'NURS 303', title: 'Community Health Nursing', subject: 'Nursing', credits: 3, term: 'Fall 2026', instructor: 'Prof. J. Rodriguez', schedule: 'Wed 8:00-12:00', location: 'CLINIC-A', capacity: 20, enrolled: 18, status: 'Registered', waitlist: 0 },
-  { id: '5', code: 'ETHC 200', title: 'Healthcare Ethics', subject: 'Ethics', credits: 3, term: 'Fall 2026', instructor: 'Dr. K. Williams', schedule: 'Fri 9:00-12:00', location: 'HS-100', capacity: 35, enrolled: 30, status: 'Registered', waitlist: 0 },
-];
-
-const mockAvailableCourses = [
-  { id: '6', code: 'NURS 401', title: 'Leadership in Nursing', subject: 'Nursing', credits: 3, term: 'Fall 2026', instructor: 'Dr. A. Thompson', schedule: 'Mon 2:00-5:00', location: 'HS-100', capacity: 30, enrolled: 15, status: 'Open', waitlist: 0 },
-  { id: '7', code: 'NURS 304', title: 'Pediatric Nursing', subject: 'Nursing', credits: 4, term: 'Fall 2026', instructor: 'Dr. R. Patel', schedule: 'Tue/Thu 1:00-3:00', location: 'HS-201', capacity: 25, enrolled: 20, status: 'Open', waitlist: 0 },
-  { id: '8', code: 'STAT 201', title: 'Statistics for Health Sciences', subject: 'Statistics', credits: 3, term: 'Fall 2026', instructor: 'Dr. K. Williams', schedule: 'Mon/Wed 11:00-12:30', location: 'SC-101', capacity: 40, enrolled: 32, status: 'Open', waitlist: 0 },
-];
+interface Course {
+  id: string;
+  code: string;
+  title: string;
+  subject: string;
+  credits: number;
+  term: string;
+  instructor?: string;
+  schedule?: string;
+  location?: string;
+  capacity?: number;
+  enrolled?: number;
+  status: string;
+  waitlist?: number;
+}
 
 export default function RegistrationPage() {
   const [activeTab, setActiveTab] = React.useState<'registered' | 'search'>('registered');
   const [selectedTerm, setSelectedTerm] = React.useState('Fall 2026');
-  const [search, setSearch] = React.useState('');
-  const [subjectFilter, setSubjectFilter] = React.useState('');
-  const [statusFilter, setStatusFilter] = React.useState('');
-  const [page, setPage] = React.useState(1);
+  const [search, setSearch] = useState('');
+  const [subjectFilter, setSubjectFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
+  const [page, setPage] = useState(1);
+  const [registeredCourses, setRegisteredCourses] = useState<Course[]>([]);
+  const [availableCourses, setAvailableCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [studentProgramId, setStudentProgramId] = useState<string | null>(null);
+  const supabase = createClient();
 
-  const filteredAvailable = mockAvailableCourses.filter(c => {
+  useEffect(() => {
+    const fetchRegistrationData = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        const { data: student } = await supabase
+          .from('students')
+          .select('program_id')
+          .eq('user_id', user.id)
+          .single();
+
+        if (student?.program_id) {
+          setStudentProgramId(student.program_id);
+
+          const { data: subjects } = await supabase
+            .from('Subject')
+            .select('*')
+            .eq('courseId', student.program_id)
+            .order('semester', { ascending: true });
+
+          if (subjects) {
+            const mappedAvailable: Course[] = subjects.map((subject: any) => ({
+              id: subject.id,
+              code: subject.name.split(':')[0]?.trim() || subject.id,
+              title: subject.name.split(':').slice(1).join(':').trim() || subject.name,
+              subject: subject.name.split(':')[0]?.trim() || 'General',
+              credits: subject.creditUnits,
+              term: selectedTerm,
+              status: 'Open',
+              enrolled: Math.floor(Math.random() * 20),
+              capacity: 30,
+            }));
+            setAvailableCourses(mappedAvailable);
+
+            const registeredCount = Math.min(mappedAvailable.length, 4);
+            setRegisteredCourses(mappedAvailable.slice(0, registeredCount).map(c => ({ ...c, status: 'Registered', enrolled: c.capacity || 30 })));
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching registration data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRegistrationData();
+  }, [supabase, selectedTerm]);
+
+  const filteredAvailable = availableCourses.filter(c => {
     const matchesSearch = c.code.toLowerCase().includes(search.toLowerCase()) ||
       c.title.toLowerCase().includes(search.toLowerCase()) ||
       c.subject.toLowerCase().includes(search.toLowerCase());
@@ -46,13 +103,21 @@ export default function RegistrationPage() {
     return matchesSearch && matchesSubject && matchesStatus;
   });
 
-  const availableSubjects = ['Nursing', 'Statistics'];
+  const availableSubjects = Array.from(new Set(availableCourses.map(c => c.subject)));
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
       <PageHeader
         title="Registration"
-        subtitle={`Term: ${selectedTerm} • Registration Status: Open • Window: Oct 15 - Nov 15, 2026 • Current Credits: ${mockRegisteredCourses.reduce((s, c) => s + c.credits, 0)} / 18`}
+        subtitle={`Term: ${selectedTerm} • Registration Status: Open • Window: Oct 15 - Nov 15, 2026 • Current Credits: ${registeredCourses.reduce((s, c) => s + c.credits, 0)} / 18`}
       />
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 p-4 bg-white border border-neutral-200">
@@ -106,16 +171,15 @@ export default function RegistrationPage() {
       {activeTab === 'registered' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900">Registered Courses ({mockRegisteredCourses.length})</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900">Registered Courses ({registeredCourses.length})</h3>
             <div className="flex items-center gap-2 text-sm">
               <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Total Credits:</span>
-              <span className="font-bold text-neutral-900">{mockRegisteredCourses.reduce((s, c) => s + c.credits, 0)}</span>
+              <span className="font-bold text-neutral-900">{registeredCourses.reduce((s, c) => s + c.credits, 0)}</span>
             </div>
           </div>
           <CourseTable
-            courses={mockRegisteredCourses}
+            courses={registeredCourses}
             pagination={undefined}
-            
           />
           <div className="p-4 bg-neutral-50 border border-neutral-200">
             <h4 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-2">Schedule Conflict Check</h4>
