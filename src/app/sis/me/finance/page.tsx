@@ -43,6 +43,8 @@ export default function MyFinancePage() {
   const [student, setStudent] = useState<any>(null);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [payments, setPayments] = useState<Payment[]>([]);
+  const [tuitionFee, setTuitionFee] = useState<number>(0);
+  const [paymentDeadline, setPaymentDeadline] = useState<string>('');
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = useState(true);
 
@@ -96,6 +98,8 @@ export default function MyFinancePage() {
         }
 
         let tuitionPayments: any[] = [];
+        let fetchedTuitionFee = 0;
+        let fetchedPaymentDeadline = '';
         try {
             const { data: studentApp } = await supabase
                 .from('students')
@@ -106,10 +110,16 @@ export default function MyFinancePage() {
             if (studentApp?.application_id) {
                 const { data: offerData } = await supabase
                     .from('admission_offers')
-                    .select('id')
-                    .eq('application_id', studentApp.application_id);
+                    .select('id, tuition_fee, payment_deadline')
+                    .eq('application_id', studentApp.application_id)
+                    .maybeSingle();
 
-                const offerIds = (offerData || []).map((o: any) => o.id);
+                if (offerData) {
+                    fetchedTuitionFee = Number(offerData.tuition_fee || 0);
+                    fetchedPaymentDeadline = offerData.payment_deadline || '';
+                }
+
+                const offerIds = offerData ? [offerData.id] : [];
                 if (offerIds.length > 0) {
                     const { data: tpData } = await supabase
                         .from('tuition_payments')
@@ -136,6 +146,8 @@ export default function MyFinancePage() {
             invoice_type: pay.invoice_type,
           })) as Payment[]);
         }
+        setTuitionFee(fetchedTuitionFee);
+        setPaymentDeadline(fetchedPaymentDeadline);
       } catch (e) {
         console.error('Error fetching student record:', e);
         router.replace('/portal/dashboard');
@@ -180,10 +192,19 @@ const tabs = [
 ];
 
   // Financial summary from real data
-  const totalBalance = invoices.reduce((sum, inv) => sum + (inv.balance || 0), 0);
+  const totalPaidFromPayments = payments
+    .filter((p: any) => p.status === 'COMPLETED' || p.status === 'verified')
+    .reduce((sum: number, p: any) => sum + Number(p.amount), 0);
+
+  let totalBalance = invoices.reduce((sum, inv) => sum + (inv.balance || 0), 0);
+
+  if (invoices.length === 0 && tuitionFee > 0) {
+    totalBalance = Math.max(0, tuitionFee - totalPaidFromPayments);
+  }
+
   const totalPaid = invoices.reduce((sum, inv) => sum + (inv.paid || 0), 0);
-  const nextDueDate = invoices.length > 0 ? invoices[0].due_date : 'N/A';
-  const nextDueAmount = invoices.length > 0 ? invoices[0].balance : 0;
+  const nextDueDate = invoices.length > 0 ? invoices[0].due_date : (paymentDeadline || 'N/A');
+  const nextDueAmount = invoices.length > 0 ? invoices[0].balance : totalBalance;
   const lastPaymentDate = payments.length > 0 ? payments[0].date : 'N/A';
   const lastPaymentAmount = payments.length > 0 ? payments[0].amount : 0;
   const paymentStatus = totalBalance > 0 ? 'Outstanding' : 'Current';

@@ -654,7 +654,7 @@ function ViewApplicationContent() {
                             </button>
                             {invoicesExpanded && (
                                 <>
-                                    {hasInvoice && (
+                                    {hasInvoice && application.status !== 'PAYMENT_SUBMITTED' && application.status !== 'ENROLLED' && (
                                         <div className="mb-4 p-4 bg-neutral-50 border border-neutral-200 rounded-xl">
                                             <div className="flex items-center justify-between">
                                                 <div>
@@ -863,12 +863,14 @@ function ViewApplicationContent() {
                     <div className="bg-white border border-neutral-200 rounded-xl shadow-sm p-5">
                         {sectionHeader('Quick Links')}
                     <div className="space-y-1">
-                        <Link href={`/portal/application/payment?id=${application.id}`} className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
-                            <div>
-                                <p className="text-sm font-bold text-blue-600 underline">Tuition Payment</p>
-                                <p className="text-xs text-neutral-500">View and pay fees</p>
-                            </div>
-                        </Link>
+                        {application.status !== 'PAYMENT_SUBMITTED' && application.status !== 'ENROLLED' && (
+                            <Link href={`/portal/application/payment?id=${application.id}`} className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
+                                <div>
+                                    <p className="text-sm font-bold text-blue-600 underline">Tuition Payment</p>
+                                    <p className="text-xs text-neutral-500">View and pay fees</p>
+                                </div>
+                            </Link>
+                        )}
                         <Link href="/portal/student/housing" className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
                             <div>
                                 <p className="text-sm font-bold text-blue-600 underline">Housing</p>
