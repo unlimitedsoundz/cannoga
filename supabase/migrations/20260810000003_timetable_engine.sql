@@ -108,7 +108,44 @@ CREATE INDEX IF NOT EXISTS idx_instructor_availability_instructor ON public.inst
 CREATE INDEX IF NOT EXISTS idx_instructor_availability_day ON public.instructor_availability(day_of_week);
 
 -- =============================================
--- 6. COURSE SECTIONS
+-- 6. STUDENT GROUPS
+-- =============================================
+
+CREATE TABLE IF NOT EXISTS public.student_groups (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    code TEXT NOT NULL UNIQUE,
+    description TEXT,
+    program_id TEXT REFERENCES public."Course"(id) ON DELETE SET NULL,
+    department_id TEXT REFERENCES public."Department"(id) ON DELETE SET NULL,
+    cohort_year INTEGER,
+    semester INTEGER,
+    total_students INTEGER DEFAULT 0,
+    is_active BOOLEAN NOT NULL DEFAULT true,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_student_groups_program ON public.student_groups(program_id);
+CREATE INDEX IF NOT EXISTS idx_student_groups_department ON public.student_groups(department_id);
+
+-- =============================================
+-- 7. COHORT MEMBERS
+-- =============================================
+
+CREATE TABLE IF NOT EXISTS public.cohort_members (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    group_id UUID NOT NULL REFERENCES public.student_groups(id) ON DELETE CASCADE,
+    student_id TEXT NOT NULL REFERENCES public.students(id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    UNIQUE(group_id, student_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_cohort_members_group ON public.cohort_members(group_id);
+CREATE INDEX IF NOT EXISTS idx_cohort_members_student ON public.cohort_members(student_id);
+
+-- =============================================
+-- 8. COURSE SECTIONS
 -- =============================================
 
 CREATE TABLE IF NOT EXISTS public.course_sections (
@@ -177,43 +214,6 @@ CREATE TABLE IF NOT EXISTS public.course_section_meetings (
 CREATE INDEX IF NOT EXISTS idx_course_section_meetings_section ON public.course_section_meetings(section_id);
 CREATE INDEX IF NOT EXISTS idx_course_section_meetings_room ON public.course_section_meetings(room_id);
 CREATE INDEX IF NOT EXISTS idx_course_section_meetings_instructor ON public.course_section_meetings(instructor_id);
-
--- =============================================
--- 8. STUDENT GROUPS
--- =============================================
-
-CREATE TABLE IF NOT EXISTS public.student_groups (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name TEXT NOT NULL,
-    code TEXT NOT NULL UNIQUE,
-    description TEXT,
-    program_id TEXT REFERENCES public."Course"(id) ON DELETE SET NULL,
-    department_id TEXT REFERENCES public."Department"(id) ON DELETE SET NULL,
-    cohort_year INTEGER,
-    semester INTEGER,
-    total_students INTEGER DEFAULT 0,
-    is_active BOOLEAN NOT NULL DEFAULT true,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE INDEX IF NOT EXISTS idx_student_groups_program ON public.student_groups(program_id);
-CREATE INDEX IF NOT EXISTS idx_student_groups_department ON public.student_groups(department_id);
-
--- =============================================
--- 9. COHORT MEMBERS
--- =============================================
-
-CREATE TABLE IF NOT EXISTS public.cohort_members (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    group_id UUID NOT NULL REFERENCES public.student_groups(id) ON DELETE CASCADE,
-    student_id TEXT NOT NULL REFERENCES public.students(id) ON DELETE CASCADE,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    UNIQUE(group_id, student_id)
-);
-
-CREATE INDEX IF NOT EXISTS idx_cohort_members_group ON public.cohort_members(group_id);
-CREATE INDEX IF NOT EXISTS idx_cohort_members_student ON public.cohort_members(student_id);
 
 -- =============================================
 -- 10. ACADEMIC DAYS (Configurable)

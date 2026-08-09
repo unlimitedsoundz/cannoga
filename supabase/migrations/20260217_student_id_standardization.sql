@@ -11,8 +11,7 @@ BEGIN
         -- Check for collisions across all ID-holding tables
         IF NOT EXISTS (SELECT 1 FROM public.profiles WHERE student_id = new_id) AND
            NOT EXISTS (SELECT 1 FROM public.applications WHERE application_number = new_id) AND
-           NOT EXISTS (SELECT 1 FROM public.students WHERE student_id = new_id) AND
-           NOT EXISTS (SELECT 1 FROM public.admissions WHERE student_id = new_id) THEN
+           NOT EXISTS (SELECT 1 FROM public.students WHERE student_id = new_id) THEN
             done := TRUE;
         END IF;
     END LOOP;
@@ -64,7 +63,6 @@ BEGIN
         
         -- Sync to other related tables
         UPDATE public.applications SET application_number = new_id WHERE user_id = row_record.id;
-        UPDATE public.admissions SET student_id = new_id WHERE user_id = row_record.id;
         UPDATE public.students SET student_id = new_id WHERE user_id = row_record.id;
     END LOOP;
 END $$;

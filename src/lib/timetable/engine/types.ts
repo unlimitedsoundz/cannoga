@@ -79,6 +79,12 @@ export interface TimeSlot {
   breakName?: string
 }
 
+export interface RoomFeature {
+  featureId: string
+  name: string
+  category: string
+}
+
 export interface Room {
   id: string
   name: string
@@ -92,7 +98,7 @@ export interface Room {
   equipment?: Record<string, any>
   status: string
   notes?: string
-  features: string[]
+  features: RoomFeature[]
 }
 
 export interface InstructorAvailabilitySlot {
@@ -299,7 +305,7 @@ export interface SchedulingConstraint {
   parameters: ConstraintParameters
 }
 
-export function dbRoomToRoom(row: DbRoom, featureIds: string[]): Room {
+export function dbRoomToRoom(row: DbRoom, features: { featureId: string; name: string; category: string }[]): Room {
   return {
     id: row.id,
     name: row.name,
@@ -313,7 +319,7 @@ export function dbRoomToRoom(row: DbRoom, featureIds: string[]): Room {
     equipment: row.equipment,
     status: row.status,
     notes: row.notes ?? undefined,
-    features: featureIds,
+    features: features.map(f => ({ featureId: f.featureId, name: f.name, category: f.category })),
   }
 }
 

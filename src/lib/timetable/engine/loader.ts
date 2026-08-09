@@ -129,10 +129,14 @@ export async function loadSchedulingData(termId: string): Promise<SchedulingProb
     featureIdToName.set(f.id, f.name)
   }
 
-  const roomFeatureMap = new Map<string, string[]>()
+  const roomFeatureMap = new Map<string, { featureId: string; name: string; category: string }[]>()
   for (const fa of rawFeatureAssignments) {
     const existing = roomFeatureMap.get(fa.room_id) || []
-    existing.push(fa.feature_id)
+    existing.push({
+      featureId: fa.feature_id,
+      name: featureIdToName.get(fa.feature_id) || fa.feature_id,
+      category: rawFeatures.find(f => f.id === fa.feature_id)?.category || 'GENERAL',
+    })
     roomFeatureMap.set(fa.room_id, existing)
   }
 

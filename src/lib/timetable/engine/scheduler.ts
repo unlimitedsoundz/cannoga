@@ -83,7 +83,16 @@ function computeCandidates(
     eligibleRooms = eligibleRooms.filter((r) => r.roomType === section.requiredRoomType)
   }
   if (section.requiredFeatures.length > 0) {
-    eligibleRooms = eligibleRooms.filter((r) => section.requiredFeatures.every((f) => r.features.includes(f)))
+    eligibleRooms = eligibleRooms.filter((r) => {
+      const roomFeatureIds = r.features.map(f => f.featureId)
+      return section.requiredFeatures.every((req) => {
+        const featureName = req.toLowerCase().replace(/[^a-z0-9_]+/g, '_').replace(/^_+|_+$/g, '')
+        return roomFeatureIds.some(fid => {
+          const feature = problem.roomFeatures.find(rf => rf.id === fid)
+          return feature?.name.toLowerCase().includes(featureName) || featureName.includes(feature?.name.toLowerCase() || '')
+        })
+      })
+    })
   }
 
   const eligibleSlots = problem.timeSlots.filter((ts) => {
