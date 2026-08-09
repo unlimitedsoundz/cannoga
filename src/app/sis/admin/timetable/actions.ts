@@ -281,14 +281,13 @@ export async function getInstructors(): Promise<Profile[]> {
 
   try {
     const { data: instructors, error } = await adminClient
-      .from('profiles')
-      .select('id, first_name, last_name, email')
-      .in('role', ['FACULTY', 'ADMIN', 'REGISTRAR'])
-      .order('first_name', { ascending: true });
+      .from('Faculty')
+      .select('id, name, email')
+      .order('name', { ascending: true });
 
     if (error) throw error;
 
-    return instructors as Profile[];
+    return instructors as any[];
   } catch (e: any) {
     console.error('getInstructors Error:', e);
     throw new Error(e.message || 'Failed to load instructors');

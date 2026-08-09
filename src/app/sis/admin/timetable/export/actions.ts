@@ -121,7 +121,7 @@ export async function exportTimetableCSV(versionId: string, type: 'master' | 'st
         section.code || '',
         room.name || '',
         room.building || '',
-        instructor ? `${instructor.first_name} ${instructor.last_name}` : 'TBD',
+        instructor ? `${instructor.name}` : 'TBD',
         room.campus || '',
       ]);
     }
@@ -195,7 +195,7 @@ export async function exportTimetableExcel(versionId: string, type: 'master' | '
         section.code || '',
         room.name || '',
         room.building || '',
-        instructor ? `${instructor.first_name} ${instructor.last_name}` : 'TBD',
+        instructor ? `${instructor.name}` : 'TBD',
         room.campus || '',
       ]);
     }
@@ -317,7 +317,7 @@ const TimetablePDF = ({ version, semester, assignments, exportType }: any) => {
               section.code || '—',
               room.name || '—',
               room.building || '—',
-              instructor ? `${instructor.first_name} ${instructor.last_name}` : 'TBD',
+              instructor ? `${instructor.name}` : 'TBD',
               room.campus || '—',
             ].map((cell, cellIdx) =>
               React.createElement('Text', { key: cellIdx, style: { flex: 1, padding: 6, fontSize: 9, color: '#1a1a1a' } }, cell)
