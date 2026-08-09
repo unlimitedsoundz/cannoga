@@ -47,6 +47,28 @@ export async function POST(request: NextRequest) {
     const hardViolations = conflicts.filter(c => c.severity === 'HARD').length;
     const softViolations = conflicts.filter(c => c.severity === 'SOFT').length;
 
+    const existingVersions = await adminClient
+      .from('timetable_versions')
+      .select('id')
+      .eq('semester_id', termId)
+      .eq('version_number', 1);
+
+    if (!existingVersions.error && existingVersions.data && existingVersions.data.length > 0) {
+      const idsToDelete = existingVersions.data.map(v => v.id);
+      await adminClient
+        .from('timetable_assignments')
+        .delete()
+        .in('version_id', idsToDelete);
+      await adminClient
+        .from('timetable_conflicts')
+        .delete()
+        .in('version_id', idsToDelete);
+      await adminClient
+        .from('timetable_versions')
+        .delete()
+        .in('id', idsToDelete);
+    }
+
     const versionResult = await adminClient
       .from('timetable_versions')
       .insert({
