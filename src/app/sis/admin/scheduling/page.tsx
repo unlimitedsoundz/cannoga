@@ -284,14 +284,22 @@ export default function SchedulingPage() {
                     Status: <StatusBadge status={(stats.latestVersion as any)?.status || 'DRAFT'} />
                   </div>
                 </div>
-                {(stats.latestVersion as any)?.status === 'APPROVED' && !(stats.latestVersion as any)?.is_published && (
-                  <button
-                    onClick={() => handlePublish((stats.latestVersion as TimetableVersion)!.id)}
-                    className="px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800"
+                <div className="flex items-center gap-2">
+                  <Link
+                    href="/sis/admin/timetable"
+                    className="px-4 py-2 border border-neutral-200 text-neutral-700 rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-50"
                   >
-                    Publish
-                  </button>
-                )}
+                    View Timetable
+                  </Link>
+                  {(stats.latestVersion as any)?.status === 'APPROVED' && !(stats.latestVersion as any)?.is_published && (
+                    <button
+                      onClick={() => handlePublish((stats.latestVersion as TimetableVersion)!.id)}
+                      className="px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800"
+                    >
+                      Publish
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           )}
