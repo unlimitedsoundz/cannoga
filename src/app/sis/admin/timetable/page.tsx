@@ -20,6 +20,7 @@ import {
   BuildingIcon as Building,
   BookOpenIcon as BookOpen,
   Move01Icon as Move,
+  PlayCircleIcon as Play,
 } from '@hugeicons/core-free-icons';
 import type { TimetableAssignment, TimetableVersion, Room, Profile, Semester, CourseSection, Module } from '@/types/database';
 import {
@@ -33,6 +34,7 @@ import {
   getRooms,
   getInstructors,
 } from './actions';
+import { generateTimetable, getGenerationProgress } from '../scheduling/actions';
 
 type ViewTab = 'week' | 'day' | 'room' | 'instructor' | 'program';
 
@@ -111,6 +113,10 @@ export default function TimetablePage() {
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [draggingAssignment, setDraggingAssignment] = useState<EnrichedAssignment | null>(null);
   const [dragOverSlot, setDragOverSlot] = useState<{ day: number; time: string } | null>(null);
+  const [autoAssigning, setAutoAssigning] = useState(false);
+  const [autoAssignProgress, setAutoAssignProgress] = useState<any>(null);
+  const [autoAssignStartTime, setAutoAssignStartTime] = useState<number | null>(null);
+  const [elapsedTime, setElapsedTime] = useState('00:00');
 
   useEffect(() => {
     fetchLookups();
@@ -121,6 +127,19 @@ export default function TimetablePage() {
       fetchTimetableData();
     }
   }, [selectedTerm]);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (autoAssigning && autoAssignStartTime) {
+      interval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - autoAssignStartTime) / 1000);
+        const minutes = Math.floor(elapsed / 60).toString().padStart(2, '0');
+        const seconds = (elapsed % 60).toString().padStart(2, '0');
+        setElapsedTime(`${minutes}:${seconds}`);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [autoAssigning, autoAssignStartTime]);
 
   const fetchLookups = async () => {
     try {
@@ -153,6 +172,49 @@ export default function TimetablePage() {
       toast.error(err.message || 'Failed to load timetable data');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAutoAssign = async () => {
+    if (!selectedTerm) {
+      toast.error('Please select a term first');
+      return;
+    }
+    setAutoAssigning(true);
+    setAutoAssignStartTime(Date.now());
+    setAutoAssignProgress({ progress: 0, status: 'PENDING', currentStage: 'Starting...' });
+
+    try {
+      const result = await generateTimetable(selectedTerm);
+      if (result.success && result.runId) {
+        const pollInterval = setInterval(async () => {
+          try {
+            const progressResult = await getGenerationProgress(result.runId);
+            if (progressResult.success && progressResult.data) {
+              setAutoAssignProgress(progressResult.data);
+              if (['COMPLETED', 'PARTIAL', 'FAILED', 'CANCELLED'].includes(progressResult.data.status)) {
+                clearInterval(pollInterval);
+                setAutoAssigning(false);
+                setAutoAssignStartTime(null);
+                if (progressResult.data.status === 'COMPLETED') {
+                  toast.success('Timetable generated successfully');
+                  fetchTimetableData();
+                } else if (progressResult.data.status === 'FAILED') {
+                  toast.error(progressResult.data.error_message || 'Generation failed');
+                }
+              }
+            }
+          } catch (err) {
+            console.error('Polling error:', err);
+          }
+        }, 2000);
+      } else {
+        throw new Error(result.error || 'Failed to start generation');
+      }
+    } catch (err: any) {
+      toast.error(err.message || 'Auto-assign failed');
+      setAutoAssigning(false);
+      setAutoAssignStartTime(null);
     }
   };
 
@@ -656,6 +718,14 @@ export default function TimetablePage() {
                 <option key={s.id} value={s.id}>{s.name}</option>
               ))}
             </select>
+            <button
+              onClick={handleAutoAssign}
+              disabled={!selectedTerm || autoAssigning}
+              className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 transition-all"
+            >
+              <HugeiconsIcon icon={Play} size={14} strokeWidth={2.5} />
+              {autoAssigning ? 'Assigning...' : 'Auto Assign'}
+            </button>
           </div>
         }
       />
@@ -902,6 +972,59 @@ export default function TimetablePage() {
             </button>
           </div>
         )}
+      </Modal>
+
+      <Modal
+        isOpen={autoAssigning}
+        onClose={() => {}}
+        title="Auto Assigning Timetable..."
+        size="md"
+        footer={
+          autoAssignProgress && ['COMPLETED', 'PARTIAL', 'FAILED', 'CANCELLED'].includes(autoAssignProgress.status) ? (
+            <button onClick={() => { setAutoAssigning(false); fetchTimetableData(); }} className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
+              Close
+            </button>
+          ) : null
+        }
+      >
+        <div className="space-y-4">
+          <div className="w-full bg-neutral-200 h-2">
+            <div className="bg-[#9c27b3] h-2 transition-all duration-500" style={{ width: `${autoAssignProgress?.progress || 0}%` }} />
+          </div>
+          <div className="text-center">
+            <div className="text-lg font-bold text-neutral-900">{autoAssignProgress?.currentStage || 'Initializing'}</div>
+            <div className="text-xs text-neutral-500 mt-1">{autoAssignProgress?.progress || 0}% complete</div>
+          </div>
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="border border-neutral-200 p-2">
+              <div className="text-neutral-500">Sections</div>
+              <div className="font-bold">{autoAssignProgress?.sectionsCount || 0}</div>
+            </div>
+            <div className="border border-neutral-200 p-2">
+              <div className="text-neutral-500">Assignments</div>
+              <div className="font-bold">{autoAssignProgress?.assignmentsCount || 0}</div>
+            </div>
+            <div className="border border-neutral-200 p-2">
+              <div className="text-neutral-500">Conflicts</div>
+              <div className="font-bold text-red-600">{autoAssignProgress?.hardViolations || 0}</div>
+            </div>
+            <div className="border border-neutral-200 p-2">
+              <div className="text-neutral-500">Status</div>
+              <div className="font-bold">{autoAssignProgress?.status || 'RUNNING'}</div>
+            </div>
+          </div>
+          {autoAssignProgress?.status === 'RUNNING' && (
+            <div className="text-center">
+              <div className="inline-flex items-center gap-2 text-xs text-neutral-500">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9c27b3] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#9c27b3]"></span>
+                </span>
+                Running optimization engine...
+              </div>
+            </div>
+          )}
+        </div>
       </Modal>
     </div>
   );
