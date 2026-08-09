@@ -1,7 +1,7 @@
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import { NextRequest, NextResponse } from 'next/server';
 import { loadSchedulingData } from '@/lib/timetable/engine/loader';
-import { TimetableScheduler } from '@/lib/timetable/engine/scheduler';
+import { TimetableScheduler, SchedulingSolution } from '@/lib/timetable/engine/scheduler';
 import { detectConflicts } from '@/lib/timetable/engine/conflicts';
 import { validateSolution } from '@/lib/timetable/engine/validator';
 
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 
     await adminClient
       .from('timetable_runs')
-      .update({ status: 'RUNNING', started_at: new Date().toISOString() })
+      .update({ status: 'RUNNING', started_at: new Date().toISOString(), progress: 5 })
       .eq('id', runId);
 
     console.log('[TimetableGeneration] Loading scheduling data...');
@@ -32,14 +32,51 @@ export async function POST(request: NextRequest) {
       meetings: problem.sections.reduce((sum, s) => sum + s.meetings.length, 0),
     });
 
+    await adminClient
+      .from('timetable_runs')
+      .update({ progress: 15 })
+      .eq('id', runId);
+
     console.log('[TimetableGeneration] Running scheduler...');
     const scheduler = new TimetableScheduler();
-    const solution = await scheduler.schedule(problem);
+    
+    let solution: SchedulingSolution;
+    try {
+      solution = await Promise.race([
+        scheduler.schedule(problem),
+        new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('Scheduler timeout: took longer than 30 seconds')), 30000)
+        ),
+      ]);
+    } catch (schedulerError: any) {
+      console.error('[TimetableGeneration] Scheduler error:', schedulerError);
+      await adminClient
+        .from('timetable_runs')
+        .update({
+          status: 'FAILED',
+          completed_at: new Date().toISOString(),
+          progress: 100,
+          error_message: schedulerError.message || 'Scheduler failed',
+        })
+        .eq('id', runId);
+      
+      return NextResponse.json({
+        success: false,
+        runId,
+        error: `Scheduler failed: ${schedulerError.message}`,
+      }, { status: 500 });
+    }
+    
     console.log('[TimetableGeneration] Scheduler completed', {
       assignments: solution.assignments.length,
       conflicts: solution.conflicts.length,
       unschedulable: solution.unschedulableSections.length,
     });
+
+    await adminClient
+      .from('timetable_runs')
+      .update({ progress: 75 })
+      .eq('id', runId);
 
     const conflicts = detectConflicts(solution, problem);
     const validation = validateSolution(solution, problem);
