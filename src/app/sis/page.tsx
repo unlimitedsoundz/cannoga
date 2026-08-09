@@ -30,6 +30,7 @@ import { StatusBadge } from '@/components/sis/StatusBadge';
 import { registerForCourse } from '@/app/sis/registration-actions';
 import { getStudentLifeData, getUnreadMessageCount } from '@/app/sis/student-life-actions';
 import StudentLifePage from '@/app/sis/student-life';
+import { DAYS_OF_WEEK } from '@/types/database';
 
 interface Announcement {
     id: string;
@@ -213,6 +214,7 @@ export default function SISStudentDashboard() {
     const [studentLifeData, setStudentLifeData] = useState<any>(null);
     const [unreadMessageCount, setUnreadMessageCount] = useState(0);
     const [timetableSessions, setTimetableSessions] = useState<any[]>([]);
+    const [timetableAssignments, setTimetableAssignments] = useState<any[]>([]);
 
     const [activeModals, setActiveModals] = useState<Record<string, boolean>>({});
     const [profileForm, setProfileForm] = useState({ fullName: '', preferredName: '', phone: '', address: '' });
@@ -421,22 +423,43 @@ export default function SISStudentDashboard() {
                             .select('id')
                             .eq('courseId', studentData.program_id);
 
-                        const subjectIds = subjects?.map(s => s.id) || [];
+                        const subjectIds = subjects?.map((s: { id: string }) => s.id) || [];
 
-                        if (subjectIds.length > 0) {
-                            const today = new Date().toISOString().split('T')[0];
-                            const { data: sessions } = await supabase
-                                .from('class_sessions')
-                                .select(`
-                                    *,
-                                    subject:Subject(id, name, code, creditUnits),
-                                    instructor:profiles!class_sessions_instructor_id_fkey(first_name, last_name)
-                                `)
-                                .in('subject_id', subjectIds)
-                                .gte('session_date', today)
-                                .order('session_date', { ascending: true })
-                                .order('start_time', { ascending: true });
-                            setTimetableSessions(sessions || []);
+                        if (studentData.current_semester_id) {
+                            const { data: enrollments } = await supabase
+                                .from('module_enrollments')
+                                .select('module_id')
+                                .eq('student_id', currentStudentId)
+                                .eq('status', 'REGISTERED');
+
+                            const moduleIds = enrollments?.map((e: { module_id: string }) => e.module_id) || [];
+
+                            if (moduleIds.length > 0) {
+                                const { data: versions } = await supabase
+                                    .from('timetable_versions')
+                                    .select('id')
+                                    .eq('semester_id', studentData.current_semester_id)
+                                    .eq('status', 'PUBLISHED')
+                                    .order('version_number', { ascending: false })
+                                    .limit(1);
+
+                                if (versions && versions.length > 0) {
+                                    const { data: assignments } = await supabase
+                                        .from('timetable_assignments')
+                                        .select(`
+                                            *,
+                                            module:modules(id, code, title, credits),
+                                            room:rooms(id, name, building, room_number),
+                                            instructor:profiles!timetable_assignments_instructor_id_fkey(first_name, last_name),
+                                            section:course_sections(id, code, session_type, delivery_mode)
+                                        `)
+                                        .eq('version_id', versions[0].id)
+                                        .in('section_id', moduleIds)
+                                        .order('day_of_week', { ascending: true })
+                                        .order('start_time', { ascending: true });
+                                    setTimetableSessions(assignments || []);
+                                }
+                            }
                         }
                     } catch (timetableErr) {
                         console.error('Error fetching timetable:', timetableErr);
@@ -705,19 +728,19 @@ export default function SISStudentDashboard() {
                                                 <HugeiconsIcon icon={Calendar} size={16} strokeWidth={2} className="text-slate-700" />
                                                 <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Today&apos;s Schedule</h3>
                                             </div>
-                                            <span className="text-[11px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded">{timetableSessions.filter(s => s.session_date === new Date().toISOString().split('T')[0]).length} Classes</span>
+                                            <span className="text-[11px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded">{timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length} Classes</span>
                                         </div>
                                         <div className="p-4 space-y-2.5">
-                                            {timetableSessions.filter(s => s.session_date === new Date().toISOString().split('T')[0]).length > 0 ? 
-                                                timetableSessions.filter(s => s.session_date === new Date().toISOString().split('T')[0]).slice(0, 3).map(session => (
+                                            {timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length > 0 ? 
+                                                timetableSessions.filter(s => s.day_of_week === new Date().getDay()).slice(0, 3).map(session => (
                                                     <div key={session.id} className="p-3 bg-slate-50 rounded border border-slate-200 flex justify-between items-center">
                                                         <div>
-                                                            <p className="text-[10px] font-bold text-slate-500 uppercase">{session.session_type}</p>
-                                                            <p className="text-xs font-semibold text-slate-800 mt-0.5">{session.subject?.name || session.subject?.code || 'Class'}</p>
+                                                            <p className="text-[10px] font-bold text-slate-500 uppercase">{session.section?.session_type || 'Class'}</p>
+                                                            <p className="text-xs font-semibold text-slate-800 mt-0.5">{session.module?.title || session.module?.code || 'Class'}</p>
                                                         </div>
                                                         <div className="text-right">
                                                             <span className="text-[11px] font-medium text-slate-600 block">{session.start_time?.slice(0, 5)} - {session.end_time?.slice(0, 5)}</span>
-                                                            {session.room && <span className="text-[10px] text-slate-500">{session.room}{session.building ? `, ${session.building}` : ''}</span>}
+                                                            {session.room && <span className="text-[10px] text-slate-500">{session.room.name}{session.room.building ? `, ${session.room.building}` : ''}</span>}
                                                         </div>
                                                     </div>
                                                 )) : (
@@ -998,7 +1021,6 @@ export default function SISStudentDashboard() {
                                         <table className="w-full text-left text-xs sm:text-sm text-slate-600">
                                             <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
                                                 <tr>
-                                                    <th className="p-3">Date</th>
                                                     <th className="p-3">Day</th>
                                                     <th className="p-3">Time</th>
                                                     <th className="p-3">Subject</th>
@@ -1009,13 +1031,10 @@ export default function SISStudentDashboard() {
                                             </thead>
                                             <tbody className="divide-y divide-slate-100">
                                                 {timetableSessions.map(session => {
-                                                    const sessionDate = new Date(session.session_date + 'T00:00:00');
-                                                    const dayName = sessionDate.toLocaleDateString('en-US', { weekday: 'long' });
-                                                    const formattedDate = sessionDate.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' });
+                                                    const dayName = DAYS_OF_WEEK[session.day_of_week] || 'TBD';
                                                     return (
                                                         <tr key={session.id} className="hover:bg-slate-50">
-                                                            <td className="p-3 font-medium text-slate-900">{formattedDate}</td>
-                                                            <td className="p-3">{dayName}</td>
+                                                            <td className="p-3 font-medium text-slate-900">{dayName}</td>
                                                             <td className="p-3">
                                                                 <div className="flex items-center gap-1.5">
                                                                     <HugeiconsIcon icon={Clock} size={12} strokeWidth={2.5} className="text-slate-400" />
@@ -1024,20 +1043,20 @@ export default function SISStudentDashboard() {
                                                             </td>
                                                             <td className="p-3">
                                                                 <div>
-                                                                    <p className="font-semibold text-slate-900">{session.subject?.name}</p>
-                                                                    <p className="text-[10px] text-slate-400 font-mono">{session.subject?.code}</p>
+                                                                    <p className="font-semibold text-slate-900">{session.module?.title || 'Class'}</p>
+                                                                    <p className="text-[10px] text-slate-400 font-mono">{session.module?.code}</p>
                                                                 </div>
                                                             </td>
                                                             <td className="p-3">
-                                                                <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest ${session.session_type === 'Online' ? 'bg-blue-50 text-blue-700' : 'bg-slate-100 text-slate-700'}`}>
-                                                                    {session.session_type}
+                                                                <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest ${session.section?.session_type === 'Online' ? 'bg-blue-50 text-blue-700' : 'bg-slate-100 text-slate-700'}`}>
+                                                                    {session.section?.session_type || 'Class'}
                                                                 </span>
                                                             </td>
                                                             <td className="p-3">
                                                                 {session.room ? (
                                                                     <div className="flex items-center gap-1 text-slate-600">
                                                                         <HugeiconsIcon icon={MapPin} size={12} strokeWidth={2} />
-                                                                        <span>{session.room}{session.building ? `, ${session.building}` : ''}</span>
+                                                                        <span>{session.room.name}{session.room.building ? `, ${session.room.building}` : ''}</span>
                                                                     </div>
                                                                 ) : 'TBD'}
                                                             </td>

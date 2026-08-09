@@ -573,6 +573,788 @@ export interface Database {
           updated_at?: string
         }
       }
+      rooms: {
+        Row: {
+          id: string
+          name: string
+          building: string
+          floor: string | null
+          room_number: string
+          capacity: number
+          room_type: string
+          campus: string
+          accessibility: boolean
+          equipment: any
+          status: string
+          notes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          building: string
+          floor?: string | null
+          room_number: string
+          capacity: number
+          room_type?: string
+          campus?: string
+          accessibility?: boolean
+          equipment?: any
+          status?: string
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          building?: string
+          floor?: string | null
+          room_number?: string
+          capacity?: number
+          room_type?: string
+          campus?: string
+          accessibility?: boolean
+          equipment?: any
+          status?: string
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      room_features: {
+        Row: {
+          id: string
+          name: string
+          description: string | null
+          category: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          description?: string | null
+          category?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          description?: string | null
+          category?: string
+          created_at?: string
+        }
+      }
+      room_feature_assignments: {
+        Row: {
+          id: string
+          room_id: string
+          feature_id: string
+          notes: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          room_id: string
+          feature_id: string
+          notes?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          room_id?: string
+          feature_id?: string
+          notes?: string | null
+          created_at?: string
+        }
+      }
+      room_availability: {
+        Row: {
+          id: string
+          room_id: string
+          block_type: string
+          start_datetime: string
+          end_datetime: string
+          reason: string | null
+          created_by: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          room_id: string
+          block_type?: string
+          start_datetime: string
+          end_datetime: string
+          reason?: string | null
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          room_id?: string
+          block_type?: string
+          start_datetime?: string
+          end_datetime?: string
+          reason?: string | null
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      instructor_availability: {
+        Row: {
+          id: string
+          instructor_id: string
+          day_of_week: number
+          start_time: string
+          end_time: string
+          availability_type: string
+          effective_date: string
+          expiry_date: string | null
+          notes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          instructor_id: string
+          day_of_week: number
+          start_time: string
+          end_time: string
+          availability_type?: string
+          effective_date: string
+          expiry_date?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          instructor_id?: string
+          day_of_week?: number
+          start_time?: string
+          end_time?: string
+          availability_type?: string
+          effective_date?: string
+          expiry_date?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      course_sections: {
+        Row: {
+          id: string
+          code: string
+          module_id: string
+          semester_id: string
+          instructor_id: string | null
+          capacity: number
+          enrolled_count: number
+          session_type: string
+          delivery_mode: string
+          required_room_type: string | null
+          required_features: any
+          duration_minutes: number
+          meetings_per_week: number
+          consecutive_sessions: boolean
+          max_daily_sessions: number | null
+          preferred_days: number[]
+          blocked_days: number[]
+          preferred_times: string[]
+          blocked_times: string[]
+          student_group_id: string | null
+          department_id: string | null
+          notes: string | null
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          code: string
+          module_id: string
+          semester_id: string
+          instructor_id?: string | null
+          capacity?: number
+          enrolled_count?: number
+          session_type?: string
+          delivery_mode?: string
+          required_room_type?: string | null
+          required_features?: any
+          duration_minutes?: number
+          meetings_per_week?: number
+          consecutive_sessions?: boolean
+          max_daily_sessions?: number | null
+          preferred_days?: number[]
+          blocked_days?: number[]
+          preferred_times?: string[]
+          blocked_times?: string[]
+          student_group_id?: string | null
+          department_id?: string | null
+          notes?: string | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          code?: string
+          module_id?: string
+          semester_id?: string
+          instructor_id?: string | null
+          capacity?: number
+          enrolled_count?: number
+          session_type?: string
+          delivery_mode?: string
+          required_room_type?: string | null
+          required_features?: any
+          duration_minutes?: number
+          meetings_per_week?: number
+          consecutive_sessions?: boolean
+          max_daily_sessions?: number | null
+          preferred_days?: number[]
+          blocked_days?: number[]
+          preferred_times?: string[]
+          blocked_times?: string[]
+          student_group_id?: string | null
+          department_id?: string | null
+          notes?: string | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      course_section_meetings: {
+        Row: {
+          id: string
+          section_id: string
+          meeting_index: number
+          day_of_week: number
+          start_time: string
+          end_time: string
+          duration_minutes: number
+          room_id: string | null
+          instructor_id: string | null
+          is_fixed: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          section_id: string
+          meeting_index: number
+          day_of_week: number
+          start_time: string
+          end_time: string
+          duration_minutes: number
+          room_id?: string | null
+          instructor_id?: string | null
+          is_fixed?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          section_id?: string
+          meeting_index?: number
+          day_of_week?: number
+          start_time?: string
+          end_time?: string
+          duration_minutes?: number
+          room_id?: string | null
+          instructor_id?: string | null
+          is_fixed?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      student_groups: {
+        Row: {
+          id: string
+          name: string
+          code: string
+          description: string | null
+          program_id: string | null
+          department_id: string | null
+          cohort_year: number | null
+          semester: number | null
+          total_students: number
+          is_active: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          code: string
+          description?: string | null
+          program_id?: string | null
+          department_id?: string | null
+          cohort_year?: number | null
+          semester?: number | null
+          total_students?: number
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          code?: string
+          description?: string | null
+          program_id?: string | null
+          department_id?: string | null
+          cohort_year?: number | null
+          semester?: number | null
+          total_students?: number
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      cohort_members: {
+        Row: {
+          id: string
+          group_id: string
+          student_id: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          group_id: string
+          student_id: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          group_id?: string
+          student_id?: string
+          created_at?: string
+        }
+      }
+      academic_days: {
+        Row: {
+          id: string
+          day_of_week: number
+          name: string
+          abbreviation: string
+          is_teaching_day: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          day_of_week: number
+          name: string
+          abbreviation: string
+          is_teaching_day?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          day_of_week?: number
+          name?: string
+          abbreviation?: string
+          is_teaching_day?: boolean
+          created_at?: string
+        }
+      }
+      time_slots: {
+        Row: {
+          id: string
+          slot_index: number
+          day_of_week: number
+          start_time: string
+          end_time: string
+          slot_duration: number
+          is_break: boolean
+          break_name: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          slot_index: number
+          day_of_week: number
+          start_time: string
+          end_time: string
+          slot_duration: number
+          is_break?: boolean
+          break_name?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          slot_index?: number
+          day_of_week?: number
+          start_time?: string
+          end_time?: string
+          slot_duration?: number
+          is_break?: boolean
+          break_name?: string | null
+          created_at?: string
+        }
+      }
+      holidays: {
+        Row: {
+          id: string
+          name: string
+          start_date: string
+          end_date: string
+          block_type: string
+          affects_scheduling: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          start_date: string
+          end_date: string
+          block_type?: string
+          affects_scheduling?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          start_date?: string
+          end_date?: string
+          block_type?: string
+          affects_scheduling?: boolean
+          created_at?: string
+        }
+      }
+      timetable_runs: {
+        Row: {
+          id: string
+          semester_id: string
+          status: string
+          started_at: string | null
+          completed_at: string | null
+          progress: number
+          courses_count: number
+          sections_count: number
+          assignments_count: number
+          hard_violations: number
+          soft_score: number | null
+          error_message: string | null
+          metadata: any
+          created_by: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          semester_id: string
+          status?: string
+          started_at?: string | null
+          completed_at?: string | null
+          progress?: number
+          courses_count?: number
+          sections_count?: number
+          assignments_count?: number
+          hard_violations?: number
+          soft_score?: number | null
+          error_message?: string | null
+          metadata?: any
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          semester_id?: string
+          status?: string
+          started_at?: string | null
+          completed_at?: string | null
+          progress?: number
+          courses_count?: number
+          sections_count?: number
+          assignments_count?: number
+          hard_violations?: number
+          soft_score?: number | null
+          error_message?: string | null
+          metadata?: any
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      timetable_versions: {
+        Row: {
+          id: string
+          semester_id: string
+          run_id: string | null
+          version_number: number
+          label: string | null
+          status: string
+          is_published: boolean
+          published_at: string | null
+          published_by: string | null
+          notes: string | null
+          metadata: any
+          created_by: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          semester_id: string
+          run_id?: string | null
+          version_number: number
+          label?: string | null
+          status?: string
+          is_published?: boolean
+          published_at?: string | null
+          published_by?: string | null
+          notes?: string | null
+          metadata?: any
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          semester_id?: string
+          run_id?: string | null
+          version_number?: number
+          label?: string | null
+          status?: string
+          is_published?: boolean
+          published_at?: string | null
+          published_by?: string | null
+          notes?: string | null
+          metadata?: any
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      timetable_assignments: {
+        Row: {
+          id: string
+          version_id: string
+          run_id: string | null
+          section_id: string
+          meeting_id: string | null
+          room_id: string
+          instructor_id: string | null
+          day_of_week: number
+          start_time: string
+          end_time: string
+          start_date: string
+          end_date: string
+          is_override: boolean
+          override_reason: string | null
+          override_by: string | null
+          override_at: string | null
+          metadata: any
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          version_id: string
+          run_id?: string | null
+          section_id: string
+          meeting_id?: string | null
+          room_id: string
+          instructor_id?: string | null
+          day_of_week: number
+          start_time: string
+          end_time: string
+          start_date: string
+          end_date: string
+          is_override?: boolean
+          override_reason?: string | null
+          override_by?: string | null
+          override_at?: string | null
+          metadata?: any
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          version_id?: string
+          run_id?: string | null
+          section_id?: string
+          meeting_id?: string | null
+          room_id?: string
+          instructor_id?: string | null
+          day_of_week?: number
+          start_time?: string
+          end_time?: string
+          start_date?: string
+          end_date?: string
+          is_override?: boolean
+          override_reason?: string | null
+          override_by?: string | null
+          override_at?: string | null
+          metadata?: any
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      timetable_conflicts: {
+        Row: {
+          id: string
+          version_id: string
+          run_id: string | null
+          conflict_type: string
+          severity: string
+          assignment_a_id: string
+          assignment_b_id: string
+          description: string
+          resolution: string | null
+          resolved_at: string | null
+          resolved_by: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          version_id: string
+          run_id?: string | null
+          conflict_type: string
+          severity?: string
+          assignment_a_id: string
+          assignment_b_id: string
+          description: string
+          resolution?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          version_id?: string
+          run_id?: string | null
+          conflict_type?: string
+          severity?: string
+          assignment_a_id?: string
+          assignment_b_id?: string
+          description?: string
+          resolution?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          created_at?: string
+        }
+      }
+      timetable_scores: {
+        Row: {
+          id: string
+          run_id: string
+          version_id: string | null
+          overall_score: number
+          hard_violation_count: number
+          soft_violation_count: number
+          student_gap_score: number
+          instructor_gap_score: number
+          room_utilization_score: number
+          building_change_score: number
+          preference_score: number
+          details: any
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          run_id: string
+          version_id?: string | null
+          overall_score: number
+          hard_violation_count?: number
+          soft_violation_count?: number
+          student_gap_score?: number
+          instructor_gap_score?: number
+          room_utilization_score?: number
+          building_change_score?: number
+          preference_score?: number
+          details?: any
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          run_id?: string
+          version_id?: string | null
+          overall_score?: number
+          hard_violation_count?: number
+          soft_violation_count?: number
+          student_gap_score?: number
+          instructor_gap_score?: number
+          room_utilization_score?: number
+          building_change_score?: number
+          preference_score?: number
+          details?: any
+          created_at?: string
+        }
+      }
+      timetable_constraints: {
+        Row: {
+          id: string
+          name: string
+          constraint_type: string
+          is_enabled: boolean
+          weight: number
+          parameters: any
+          description: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          constraint_type: string
+          is_enabled?: boolean
+          weight?: number
+          parameters?: any
+          description?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          constraint_type?: string
+          is_enabled?: boolean
+          weight?: number
+          parameters?: any
+          description?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      timetable_preferences: {
+        Row: {
+          id: string
+          name: string
+          weight: number
+          is_enabled: boolean
+          parameters: any
+          description: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          weight: number
+          is_enabled?: boolean
+          parameters?: any
+          description?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          weight?: number
+          is_enabled?: boolean
+          parameters?: any
+          description?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
   }
 }
@@ -812,3 +1594,32 @@ export type ItAssetType = 'LMS' | 'EMAIL' | 'VPN' | 'VIRTUAL_LAB' | 'LIBRARY' | 
 export type ItAccessStatus = 'PENDING' | 'ACTIVE' | 'EXPIRED' | 'DEACTIVATED';
 
 export type UserRole = 'APPLICANT' | 'ADMISSIONS' | 'ADMIN';
+
+export type Room = Database['public']['Tables']['rooms']['Row']
+export type RoomFeature = Database['public']['Tables']['room_features']['Row']
+export type RoomFeatureAssignment = Database['public']['Tables']['room_feature_assignments']['Row']
+export type RoomAvailability = Database['public']['Tables']['room_availability']['Row']
+export type InstructorAvailability = Database['public']['Tables']['instructor_availability']['Row']
+export type CourseSection = Database['public']['Tables']['course_sections']['Row']
+export type CourseSectionMeeting = Database['public']['Tables']['course_section_meetings']['Row']
+export type StudentGroup = Database['public']['Tables']['student_groups']['Row']
+export type CohortMember = Database['public']['Tables']['cohort_members']['Row']
+export type AcademicDay = Database['public']['Tables']['academic_days']['Row']
+export type TimeSlot = Database['public']['Tables']['time_slots']['Row']
+export type Holiday = Database['public']['Tables']['holidays']['Row']
+export type TimetableRun = Database['public']['Tables']['timetable_runs']['Row']
+export type TimetableVersion = Database['public']['Tables']['timetable_versions']['Row']
+export type TimetableAssignment = Database['public']['Tables']['timetable_assignments']['Row']
+export type TimetableConflict = Database['public']['Tables']['timetable_conflicts']['Row']
+export type TimetableScore = Database['public']['Tables']['timetable_scores']['Row']
+export type TimetableConstraint = Database['public']['Tables']['timetable_constraints']['Row']
+export type TimetablePreference = Database['public']['Tables']['timetable_preferences']['Row']
+
+export type SessionType = 'LECTURE' | 'LAB' | 'SEMINAR' | 'TUTORIAL' | 'PRACTICAL' | 'CLINICAL' | 'ONLINE' | 'HYBRID'
+export type DeliveryMode = 'IN_PERSON' | 'ONLINE' | 'HYBRID' | 'SYNC_ONLINE'
+export type RoomType = 'LECTURE_ROOM' | 'LAB' | 'COMPUTER_LAB' | 'SCIENCE_LAB' | 'SEMINAR_ROOM' | 'AUDITORIUM' | 'CLINICAL_LAB' | 'SPECIALIZED_ROOM' | 'ONLINE'
+export type TimetableStatus = 'DRAFT' | 'UNDER_REVIEW' | 'APPROVED' | 'PUBLISHED' | 'ARCHIVED'
+export type RunStatus = 'PENDING' | 'RUNNING' | 'COMPLETED' | 'PARTIAL' | 'FAILED' | 'CANCELLED'
+export type ConflictSeverity = 'HARD' | 'SOFT'
+export const DAYS_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as const
+export type DayOfWeek = typeof DAYS_OF_WEEK[number]

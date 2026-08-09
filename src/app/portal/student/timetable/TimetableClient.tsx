@@ -2,10 +2,17 @@
 
 import React from 'react';
 import { Calendar, MapPin, VideoCamera as Video, Clock, CaretLeft as ChevronLeft, CaretRight as ChevronRight, DownloadSimple as Download } from "@phosphor-icons/react/dist/ssr";
-import { ClassSession, Subject } from '@/types/database';
+import { TimetableAssignment, Module, Room } from '@/types/database';
+
+interface SessionRow extends TimetableAssignment {
+  module: { code: string; title: string; credits: number } | null;
+  room: Room | null;
+  instructor: { first_name: string; last_name: string } | null;
+  section: { session_type: string; delivery_mode: string } | null;
+}
 
 interface TimetableClientProps {
-    sessions: (ClassSession & { subject: Subject })[];
+    sessions: SessionRow[];
 }
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -35,18 +42,17 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
         let icsContent = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Cannoga College//Timetable//EN\nCALSCALE:GREGORIAN\nMETHOD:PUBLISH\n';
         
         sessions.forEach(session => {
-            const dateStr = session.session_date.replace(/-/g, '');
+            const dateStr = session.start_date.replace(/-/g, '');
             const startTime = session.start_time.replace(/:/g, '') + '00';
             const endTime = session.end_time.replace(/:/g, '') + '00';
-            const subjectName = session.subject?.name || 'Class';
-            const location = session.room ? `${session.room}${session.building ? ', ' + session.building : ''}` : 'TBD';
+            const subjectName = session.module?.title || 'Class';
+            const location = session.room ? `${session.room.name}${session.room.building ? ', ' + session.room.building : ''}` : 'TBD';
             
             icsContent += 'BEGIN:VEVENT\n';
             icsContent += `DTSTART:${dateStr}T${startTime}\n`;
             icsContent += `DTEND:${dateStr}T${endTime}\n`;
-            icsContent += `SUMMARY:${subjectName} - ${session.session_type}\n`;
+            icsContent += `SUMMARY:${subjectName}\n`;
             icsContent += `LOCATION:${location}\n`;
-            icsContent += `DESCRIPTION:Session Type: ${session.session_type}\n`;
             icsContent += 'END:VEVENT\n';
         });
 
@@ -61,10 +67,12 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
         document.body.removeChild(link);
     };
 
-    const weekSessions = sessions.filter(s => {
-        const sessionDate = new Date(s.session_date);
-        return weekDates.some(d => d.toDateString() === sessionDate.toDateString());
-    });
+    const getSessionDate = (session: SessionRow, dayIndex: number) => {
+        const weekStart = weekDates[0];
+        const sessionDate = new Date(weekStart);
+        sessionDate.setDate(weekStart.getDate() + dayIndex);
+        return sessionDate.toISOString().split('T')[0];
+    };
 
     return (
         <div className="space-y-6">
@@ -115,7 +123,7 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
                         <div className="min-w-[800px]">
                             <div className="grid grid-cols-8 border-b-2 border-[#9c27b3] bg-neutral-50 font-black italic">
                                 <div className="p-2 border-r-2 border-[#9c27b3]"></div>
-                                {DAYS.map((day, i) => {
+                                {DAYS.slice(0, 5).map((day, i) => {
                                     const date = weekDates[i];
                                     const isToday = date.toDateString() === new Date().toDateString();
                                     return (
@@ -132,13 +140,11 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
                                     <div className="p-1 border-r-2 border-[#9c27b3] bg-neutral-50 flex items-start justify-center">
                                         <span className="text-[10px] font-bold text-neutral-400">{hour}:00</span>
                                     </div>
-                                    {DAYS.map((_, dayIndex) => {
+                                    {DAYS.slice(0, 5).map((_, dayIndex) => {
                                         const dayDate = weekDates[dayIndex];
                                         const dateStr = dayDate.toISOString().split('T')[0];
-                                        const daySessions = weekSessions.filter(s => {
-                                            const sessionDay = new Date(s.session_date).getDay();
-                                            const sessionHour = parseInt(s.start_time.split(':')[0]);
-                                            return sessionDay === dayIndex && sessionHour === hour;
+                                        const daySessions = sessions.filter(s => {
+                                            return s.day_of_week === dayIndex + 1 && parseInt(s.start_time.split(':')[0]) === hour;
                                         });
 
                                         return (
@@ -147,23 +153,28 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
                                                     <div
                                                         key={session.id}
                                                         className={`p-2 rounded-sm border-l-4 shadow-sm transition-all hover:scale-[1.02] cursor-default
-                                                            ${session.session_type === 'Online'
+                                                            ${(session.section?.delivery_mode === 'ONLINE' || session.section?.session_type === 'ONLINE')
                                                                 ? 'bg-blue-50 border-blue-600 text-blue-900'
                                                                 : 'bg-neutral-50 border-neutral-600 text-neutral-900'}`}
                                                     >
                                                         <div className="flex items-center justify-between gap-1">
-                                                            <span className="text-[9px] font-black uppercase truncate">{session.subject?.code}</span>
-                                                            {session.session_type === 'Online' ? <Video size={10} weight="regular" /> : <MapPin size={10} weight="regular" />}
+                                                            <span className="text-[9px] font-black uppercase truncate">{session.module?.code}</span>
+                                                            {(session.section?.delivery_mode === 'ONLINE' || session.section?.session_type === 'ONLINE') ? <Video size={10} weight="regular" /> : <MapPin size={10} weight="regular" />}
                                                         </div>
                                                         <div className="text-[10px] font-bold leading-tight mt-1 line-clamp-2">
-                                                            {session.subject?.name}
+                                                            {session.module?.title}
                                                         </div>
                                                         <div className="flex items-center gap-1 mt-1 text-[8px] font-bold opacity-70">
                                                             <Clock size={8} weight="regular" /> {session.start_time.slice(0, 5)} - {session.end_time.slice(0, 5)}
                                                         </div>
                                                         {session.room && (
                                                             <div className="mt-1 text-[8px] font-black uppercase tracking-tighter truncate">
-                                                                {session.room}{session.building ? `, ${session.building}` : ''}
+                                                                {session.room.name}{session.room.building ? `, ${session.room.building}` : ''}
+                                                            </div>
+                                                        )}
+                                                        {session.instructor && (
+                                                            <div className="mt-0.5 text-[8px] font-medium opacity-80 truncate">
+                                                                {session.instructor.first_name} {session.instructor.last_name}
                                                             </div>
                                                         )}
                                                     </div>

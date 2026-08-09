@@ -6,11 +6,18 @@ import { useRouter } from 'next/navigation';
 import { Link } from "@aalto-dx/react-components";
 import { CaretLeft as ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import TimetableClient from './TimetableClient';
-import { ClassSession, Subject } from '@/types/database';
+import { TimetableAssignment, Module, Room } from '@/types/database';
+
+interface SessionRow extends TimetableAssignment {
+  module: { code: string; title: string; credits: number } | null;
+  room: Room | null;
+  instructor: { first_name: string; last_name: string } | null;
+  section: { session_type: string; delivery_mode: string } | null;
+}
 
 export default function TimetablePage() {
     const [loading, setLoading] = useState(true);
-    const [sessions, setSessions] = useState<(ClassSession & { subject: Subject })[]>([]);
+    const [sessions, setSessions] = useState<SessionRow[]>([]);
     const router = useRouter();
     const supabase = createClient();
 
@@ -35,7 +42,7 @@ export default function TimetablePage() {
 
                 const { data: student } = await supabase
                     .from('students')
-                    .select('id, program_id')
+                    .select('id, current_semester_id')
                     .eq('user_id', currentUserId)
                     .maybeSingle();
 
@@ -44,25 +51,50 @@ export default function TimetablePage() {
                     return;
                 }
 
-                const { data: subjects } = await supabase
-                    .from('Subject')
-                    .select('id')
-                    .eq('courseId', student.program_id);
+                const { data: enrollments } = await supabase
+                    .from('module_enrollments')
+                    .select('module_id, semester_id')
+                    .eq('student_id', student.id)
+                    .eq('status', 'REGISTERED');
 
-                const subjectIds = subjects?.map(s => s.id) || [];
+                const moduleIds = enrollments?.map((e: { module_id: string }) => e.module_id) || [];
+                const semesterIds = [...new Set(enrollments?.map((e: { semester_id: string }) => e.semester_id) || [])];
 
-                if (subjectIds.length > 0) {
-                    const { data: sessionsData } = await supabase
-                        .from('class_sessions')
-                        .select(`
-                            *,
-                            subject:Subject(*)
-                        `)
-                        .in('subject_id', subjectIds)
-                        .order('session_date', { ascending: true })
-                        .order('start_time', { ascending: true });
-                    setSessions(sessionsData || []);
+                if (moduleIds.length === 0 || semesterIds.length === 0) {
+                    setSessions([]);
+                    setLoading(false);
+                    return;
                 }
+
+                const { data: versions } = await supabase
+                    .from('timetable_versions')
+                    .select('id')
+                    .eq('semester_id', semesterIds[0])
+                    .eq('status', 'PUBLISHED')
+                    .order('version_number', { ascending: false })
+                    .limit(1);
+
+                if (!versions || versions.length === 0) {
+                    setSessions([]);
+                    setLoading(false);
+                    return;
+                }
+
+                const { data: assignments } = await supabase
+                    .from('timetable_assignments')
+                    .select(`
+                        *,
+                        section:course_sections(session_type, delivery_mode),
+                        module:modules(id, code, title, credits),
+                        room:rooms(id, name, building, room_number, capacity, room_type),
+                        instructor:profiles!timetable_assignments_instructor_id_fkey(first_name, last_name)
+                    `)
+                    .eq('version_id', versions[0].id)
+                    .in('section_id', moduleIds)
+                    .order('day_of_week', { ascending: true })
+                    .order('start_time', { ascending: true });
+
+                setSessions(assignments || []);
             } catch (err) {
                 console.error('CRITICAL: Fetching timetable data failed', err);
             } finally {

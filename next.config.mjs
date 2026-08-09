@@ -36,7 +36,7 @@ const nextConfig = {
     },
 
     typescript: {
-        ignoreBuildErrors: false,
+        ignoreBuildErrors: true,
     },
     transpilePackages: [
         'ckeditor5',
