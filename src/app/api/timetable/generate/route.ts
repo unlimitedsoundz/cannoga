@@ -9,8 +9,11 @@ export async function POST(request: NextRequest) {
   console.log('[TimetableGeneration] API route hit');
   const adminClient = createServiceRoleClient();
 
+  let runId: string | null = null;
+
   try {
-    const { termId, runId, constraintWeights } = await request.json();
+    const { termId, runId: rid, constraintWeights } = await request.json();
+    runId = rid;
 
     console.log('[TimetableGeneration] Starting generation', { termId, runId });
 
@@ -221,17 +224,19 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('[TimetableGeneration] Error:', error);
 
-    try {
-      await adminClient
-        .from('timetable_runs')
-        .update({
-          status: 'FAILED',
-          completed_at: new Date().toISOString(),
-          error_message: error.message || 'Generation failed',
-        })
-        .eq('id', runId);
-    } catch (updateError) {
-      console.error('[TimetableGeneration] Failed to update run status:', updateError);
+    if (runId) {
+      try {
+        await adminClient
+          .from('timetable_runs')
+          .update({
+            status: 'FAILED',
+            completed_at: new Date().toISOString(),
+            error_message: error.message || 'Generation failed',
+          })
+          .eq('id', runId);
+      } catch (updateError) {
+        console.error('[TimetableGeneration] Failed to update run status:', updateError);
+      }
     }
 
     return NextResponse.json(
