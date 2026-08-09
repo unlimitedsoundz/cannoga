@@ -302,7 +302,8 @@ FROM modules m
 JOIN semesters s ON s.name = 'Fall 2026' AND s.status IN ('ACTIVE', 'UPCOMING')
 JOIN "Department" d ON d.id = m.department_id
 LEFT JOIN "Faculty" f ON f."departmentId" = d.id
-LIMIT 100;
+LIMIT 100
+ON CONFLICT (module_id, semester_id, code) DO NOTHING;
 
 -- =============================================
 -- 8. SEED COURSE SECTION MEETINGS
