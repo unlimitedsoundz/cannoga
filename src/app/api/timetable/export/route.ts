@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
         section:course_sections(
           *,
           module:modules(code, title, credits),
-          instructor:profiles!course_sections_instructor_id_fkey(first_name, last_name, email),
+          instructor:Faculty!course_sections_instructor_id_fkey(name, email),
           enrollments:module_enrollments(student_id, student:students(institutional_email, user:profiles(first_name, last_name)))
         ),
         room:rooms(id, name, building, campus)

@@ -29,7 +29,7 @@ export async function getAllSections(termId: string, filters: { status?: string;
       .select(`
         *,
         module:modules(id, code, title, credits),
-        instructor:profiles!course_sections_instructor_id_fkey(id, first_name, last_name, email),
+        instructor:Faculty!course_sections_instructor_id_fkey(id, name, email),
         student_group:student_groups(id, name, code)
       `)
       .eq('semester_id', termId)
@@ -60,7 +60,7 @@ export async function getSectionById(id: string) {
       .select(`
         *,
         module:modules(id, code, title, credits),
-        instructor:profiles!course_sections_instructor_id_fkey(id, first_name, last_name, email),
+        instructor:Faculty!course_sections_instructor_id_fkey(id, name, email),
         student_group:student_groups(id, name, code)
       `)
       .eq('id', id)
@@ -232,13 +232,12 @@ export async function getInstructors() {
 
   try {
     const { data, error } = await adminClient
-      .from('profiles')
-      .select('id, first_name, last_name, email')
-      .in('role', ['FACULTY', 'ADMIN', 'REGISTRAR'])
-      .order('first_name', { ascending: true });
+      .from('Faculty')
+      .select('id, name, email')
+      .order('name', { ascending: true });
 
     if (error) throw error;
-    return { success: true, data: (data || []) as Profile[] };
+    return { success: true, data: (data || []) as any[] };
   } catch (e: any) {
     console.error('getInstructors Error:', e);
     return { success: false, error: e.message, data: [] };

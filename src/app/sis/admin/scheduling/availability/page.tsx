@@ -27,8 +27,9 @@ import {
   updateInstructorAvailability,
   deleteInstructorAvailability,
   bulkSetAvailability,
+  getInstructors,
 } from './actions';
-import { InstructorAvailability, Profile } from '@/types/database';
+import { InstructorAvailability } from '@/types/database';
 
 const AVAILABILITY_TYPES = ['AVAILABLE', 'UNAVAILABLE', 'PREFERRED'];
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -41,7 +42,7 @@ const TIME_SLOTS = Array.from({ length: 19 }, (_, i) => {
 export default function AvailabilityPage() {
   const [loading, setLoading] = useState(true);
   const [availability, setAvailability] = useState<any[]>([]);
-  const [instructors, setInstructors] = useState<Profile[]>([]);
+  const [instructors, setInstructors] = useState<any[]>([]);
   const [search, setSearch] = useState('');
   const [instructorFilter, setInstructorFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
@@ -68,13 +69,8 @@ export default function AvailabilityPage() {
   }, [instructorFilter, typeFilter, search]);
 
   const fetchInstructors = async () => {
-    try {
-      const res = await fetch('/api/profiles?role=FACULTY');
-      const data = await res.json();
-      if (data.success) setInstructors(data.data || []);
-    } catch (e: any) {
-      console.error('Failed to load instructors', e);
-    }
+    const result = await getInstructors();
+    setInstructors(result.data);
   };
 
   const fetchData = async () => {
@@ -89,7 +85,7 @@ export default function AvailabilityPage() {
           if (typeFilter && a.availability_type !== typeFilter) return false;
           if (search) {
             const instructor = instructors.find(i => i.id === a.instructor_id);
-            const name = instructor ? `${instructor.first_name} ${instructor.last_name}`.toLowerCase() : '';
+            const name = instructor ? `${instructor.name}`.toLowerCase() : '';
             return name.includes(search.toLowerCase()) || a.notes?.toLowerCase().includes(search.toLowerCase());
           }
           return true;
@@ -199,7 +195,7 @@ export default function AvailabilityPage() {
 
   const getInstructorName = (instructorId: string) => {
     const instructor = instructors.find(i => i.id === instructorId);
-    return instructor ? `${instructor.first_name} ${instructor.last_name}` : 'Unknown';
+    return instructor ? `${instructor.name}` : 'Unknown';
   };
 
   const columns = [
@@ -265,7 +261,7 @@ export default function AvailabilityPage() {
             <SearchBar value={search} onChange={setSearch} placeholder="Search availability..." />
             <select value={instructorFilter} onChange={(e) => setInstructorFilter(e.target.value)} className="px-3 py-2 border border-neutral-200 rounded text-xs font-medium text-neutral-700 bg-white">
               <option value="">All Instructors</option>
-              {instructors.map((i: any) => <option key={i.id} value={i.id}>{i.first_name} {i.last_name}</option>)}
+              {instructors.map((i: any) => <option key={i.id} value={i.id}>{i.name}</option>)}
             </select>
             <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} className="px-3 py-2 border border-neutral-200 rounded text-xs font-medium text-neutral-700 bg-white">
               <option value="">All Types</option>
@@ -297,7 +293,7 @@ export default function AvailabilityPage() {
             <label className="block text-[10px] font-black uppercase tracking-widest text-neutral-500 mb-1">Instructor *</label>
             <select value={form.instructor_id} onChange={(e) => setForm({ ...form, instructor_id: e.target.value })} className="w-full px-3 py-2 border border-neutral-200 rounded text-sm">
               <option value="">Select instructor</option>
-              {instructors.map((i: any) => <option key={i.id} value={i.id}>{i.first_name} {i.last_name}</option>)}
+              {instructors.map((i: any) => <option key={i.id} value={i.id}>{i.name}</option>)}
             </select>
           </div>
           <div>
@@ -350,7 +346,7 @@ export default function AvailabilityPage() {
               <label className="block text-[10px] font-black uppercase tracking-widest text-neutral-500 mb-1">Instructor *</label>
               <select value={bulkForm.instructor_id} onChange={(e) => setBulkForm({ ...bulkForm, instructor_id: e.target.value })} className="w-full px-3 py-2 border border-neutral-200 rounded text-sm">
                 <option value="">Select instructor</option>
-                {instructors.map((i: any) => <option key={i.id} value={i.id}>{i.first_name} {i.last_name}</option>)}
+                {instructors.map((i: any) => <option key={i.id} value={i.id}>{i.name}</option>)}
               </select>
             </div>
             <div>

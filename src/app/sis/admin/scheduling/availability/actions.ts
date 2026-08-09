@@ -9,7 +9,7 @@ export async function getInstructorAvailability(filters: { instructorId?: string
   try {
     let query = adminClient
       .from('instructor_availability')
-      .select('*, instructor:profiles!instructor_availability_instructor_id_fkey(id, first_name, last_name, email)')
+      .select('*, instructor:Faculty!instructor_availability_instructor_id_fkey(id, name, email)')
       .order('day_of_week', { ascending: true })
       .order('start_time', { ascending: true });
 
@@ -114,6 +114,23 @@ export async function deleteInstructorAvailability(id: string) {
   } catch (e: any) {
     console.error('deleteInstructorAvailability Error:', e);
     return { success: false, error: e.message };
+  }
+}
+
+export async function getInstructors() {
+  const adminClient = createServiceRoleClient();
+
+  try {
+    const { data, error } = await adminClient
+      .from('Faculty')
+      .select('id, name, email')
+      .order('name', { ascending: true });
+
+    if (error) throw error;
+    return { success: true, data: (data || []) as any[] };
+  } catch (e: any) {
+    console.error('getInstructors Error:', e);
+    return { success: false, error: e.message, data: [] };
   }
 }
 

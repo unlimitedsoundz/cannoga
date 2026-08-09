@@ -290,7 +290,7 @@ export default function SectionsPage() {
           className="px-2 py-1 border border-neutral-200 rounded text-xs font-medium text-neutral-700 bg-white"
         >
           <option value="">Unassigned</option>
-          {instructors.map((i: any) => <option key={i.id} value={i.id}>{i.first_name} {i.last_name}</option>)}
+          {instructors.map((i: any) => <option key={i.id} value={i.id}>{i.name}</option>)}
         </select>
       </div>
     )},
@@ -409,7 +409,7 @@ export default function SectionsPage() {
             <label className="block text-[10px] font-black uppercase tracking-widest text-neutral-500 mb-1">Instructor</label>
             <select value={sectionForm.instructor_id} onChange={(e) => setSectionForm({ ...sectionForm, instructor_id: e.target.value })} className="w-full px-3 py-2 border border-neutral-200 rounded text-sm">
               <option value="">Unassigned</option>
-              {instructors.map((i: any) => <option key={i.id} value={i.id}>{i.first_name} {i.last_name}</option>)}
+              {instructors.map((i: any) => <option key={i.id} value={i.id}>{i.name}</option>)}
             </select>
           </div>
           <div>

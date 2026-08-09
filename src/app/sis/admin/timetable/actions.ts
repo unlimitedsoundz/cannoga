@@ -24,7 +24,7 @@ export async function getPublishedTimetable(termId: string): Promise<TimetableAs
         section:course_sections(
           *,
           module:modules(code, title, credits),
-          instructor:profiles!course_sections_instructor_id_fkey(first_name, last_name, email),
+           instructor:Faculty!course_sections_instructor_id_fkey(name, email),
           student_group:student_groups(id, name, code)
         ),
         room:rooms(id, name, building, room_number, capacity, room_type)
