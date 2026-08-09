@@ -7,7 +7,8 @@ import { StudentHeader } from '@/components/sis/StudentHeader';
 
 export const dynamic = 'force-dynamic';
 
-export default function AuditPage({ params }: { params: { id: string } }) {
+export default function AuditPage() {
+  const { id } = useParams();
   return (
     <div className="space-y-6">
       <PageHeader title="Audit History" subtitle="Student record change log" />

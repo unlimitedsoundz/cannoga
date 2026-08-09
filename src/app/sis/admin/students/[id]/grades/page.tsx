@@ -8,7 +8,8 @@ import { StatusBadge } from '@/components/sis/StatusBadge';
 
 export const dynamic = 'force-dynamic';
 
-export default function GradesPage({ params }: { params: { id: string } }) {
+export default function GradesPage() {
+  const { id } = useParams();
   return (
     <div className="space-y-6">
       <PageHeader title="Grades" subtitle="Student grade summary" />

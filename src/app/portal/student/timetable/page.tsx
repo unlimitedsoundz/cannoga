@@ -66,6 +66,19 @@ export default function TimetablePage() {
                     return;
                 }
 
+                const { data: sections } = await supabase
+                    .from('course_sections')
+                    .select('id')
+                    .eq('semester_id', semesterIds[0])
+                    .in('module_id', moduleIds);
+
+                const sectionIds = sections?.map((s: { id: string }) => s.id) || [];
+                if (sectionIds.length === 0) {
+                    setSessions([]);
+                    setLoading(false);
+                    return;
+                }
+
                 const { data: versions } = await supabase
                     .from('timetable_versions')
                     .select('id')
@@ -86,11 +99,11 @@ export default function TimetablePage() {
                         *,
                         section:course_sections(session_type, delivery_mode),
                         module:modules(id, code, title, credits),
-                        room:rooms(id, name, building, room_number, capacity, room_type),
+                        room:rooms(id, name, building, room_number),
                         instructor:profiles!timetable_assignments_instructor_id_fkey(first_name, last_name)
                     `)
                     .eq('version_id', versions[0].id)
-                    .in('section_id', moduleIds)
+                    .in('section_id', sectionIds)
                     .order('day_of_week', { ascending: true })
                     .order('start_time', { ascending: true });
 

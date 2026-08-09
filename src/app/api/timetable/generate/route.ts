@@ -54,8 +54,8 @@ export async function POST(request: NextRequest) {
         run_id: runId,
         version_number: 1,
         label: `Generated ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`,
-        status: solution.conflicts.length === 0 ? 'APPROVED' : 'UNDER_REVIEW',
-        is_published: false,
+        status: solution.conflicts.length === 0 ? 'PUBLISHED' : 'UNDER_REVIEW',
+        is_published: solution.conflicts.length === 0,
         metadata: { constraintWeights },
       })
       .select('id')

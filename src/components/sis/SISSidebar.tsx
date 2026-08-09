@@ -71,12 +71,12 @@ export function SISSidebar({ items, pathname, open, onClose }: SISSidebarProps) 
       {open && (
         <div className="fixed inset-0 bg-black/30 z-40 lg:hidden" onClick={onClose} />
       )}
-      <aside className={`
-        w-64 bg-white border-r border-neutral-200 flex-shrink-0 flex flex-col overflow-y-auto
-        fixed lg:sticky top-14 bottom-0 z-30 transition-transform duration-200
-        ${open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `}>
-        <nav className="flex-1 py-4 px-2 space-y-1">
+       <aside className={`
+         w-64 bg-white border-r border-neutral-200 flex-shrink-0 flex flex-col
+         fixed top-14 bottom-0 lg:sticky lg:top-14 lg:h-[calc(100vh-3.5rem)] z-30 transition-transform duration-200
+         ${open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+       `}>
+         <nav className="flex-1 py-4 px-2 space-y-1 overflow-y-auto">
           <ul className="space-y-0.5">
             {items.map((item, idx) => (
               <NavItemComponent key={item.href || item.label || idx} item={item} pathname={pathname} depth={0} />

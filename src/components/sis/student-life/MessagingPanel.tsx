@@ -110,14 +110,6 @@ export default function MessagingPanel({ messages, unreadCount, onBack, studentI
         }
     };
 
-    const getPriorityColor = (priority: string) => {
-        switch (priority) {
-            case 'urgent': return 'text-red-700 bg-red-50 border-red-200';
-            case 'high': return 'text-orange-700 bg-orange-50 border-orange-200';
-            default: return 'text-slate-700 bg-slate-100 border-slate-200';
-        }
-    };
-
     const getCategoryLabel = (cat: string) => {
         switch (cat) {
             case 'ACADEMIC': return 'Academic';
@@ -228,7 +220,7 @@ export default function MessagingPanel({ messages, unreadCount, onBack, studentI
                     <div className="flex items-center gap-2">
                         <HugeiconsIcon icon={Mail} size={18} strokeWidth={2} className="text-slate-700" />
                         <h4 className="font-bold text-slate-900 text-sm">Messages</h4>
-                        {unreadCount > 0 && <span className="text-[10px] font-bold bg-red-100 text-red-700 px-2 py-0.5 rounded-full">{unreadCount} unread</span>}
+                        {unreadCount > 0 && <span className="text-[10px] font-bold text-slate-700">{unreadCount} unread</span>}
                     </div>
                 </div>
 
@@ -240,7 +232,7 @@ export default function MessagingPanel({ messages, unreadCount, onBack, studentI
                         <div className="border-b border-slate-100 pb-4 mb-4">
                             <h5 className="font-bold text-slate-900 text-sm">{selectedThread.subject}</h5>
                             <div className="flex items-center gap-2 mt-1">
-                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${getPriorityColor(selectedThread.priority)}`}>{selectedThread.priority}</span>
+                                <span className="text-[10px] font-bold text-slate-700 uppercase">{selectedThread.priority}</span>
                                 <span className="text-[10px] text-slate-500">{getCategoryLabel(selectedThread.category)}</span>
                                 <span className="text-[10px] text-slate-400 flex items-center gap-1">
                                     <HugeiconsIcon icon={Clock} size={12} strokeWidth={2} /> {formatDate(selectedThread.created_at)}
@@ -277,15 +269,15 @@ export default function MessagingPanel({ messages, unreadCount, onBack, studentI
                                         key={msg.id}
                                         type="button"
                                         onClick={() => handleSelectThread(msg)}
-                                        className={`w-full text-left p-4 hover:bg-slate-50 transition flex items-start gap-3 ${isUnread ? 'bg-blue-50/50' : ''}`}
+                                        className="w-full text-left p-4 hover:bg-slate-50 transition flex items-start gap-3"
                                     >
-                                        <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center shrink-0">
-                                            <HugeiconsIcon icon={User} size={14} strokeWidth={2} className="text-slate-500" />
+                                        <div className="shrink-0 pt-0.5">
+                                            <HugeiconsIcon icon={User} size={14} strokeWidth={2} className="text-slate-600" />
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center justify-between gap-2">
                                                 <span className="text-xs font-bold text-slate-900 truncate">{msg.subject}</span>
-                                                {isUnread && <span className="w-2 h-2 bg-blue-500 rounded-full shrink-0"></span>}
+                                                {isUnread && <span className="w-2 h-2 bg-slate-900 rounded-full shrink-0"></span>}
                                             </div>
                                             <p className="text-[11px] text-slate-500 mt-0.5 truncate">
                                                 {msg.sender_id === studentId ? 'To: ' : 'From: '}
@@ -293,7 +285,7 @@ export default function MessagingPanel({ messages, unreadCount, onBack, studentI
                                             </p>
                                             <p className="text-[10px] text-slate-400 mt-0.5 truncate">{msg.body}</p>
                                             <div className="flex items-center gap-2 mt-1">
-                                                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border ${getPriorityColor(msg.priority)}`}>{msg.priority}</span>
+                                                <span className="text-[10px] font-bold text-slate-700 uppercase">{msg.priority}</span>
                                                 <span className="text-[10px] text-slate-400">{formatDate(msg.created_at)}</span>
                                             </div>
                                         </div>

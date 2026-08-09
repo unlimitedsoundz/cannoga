@@ -11,7 +11,8 @@ import { HugeiconsIcon } from '@hugeicons/react';
 
 export const dynamic = 'force-dynamic';
 
-export default function AcademicRecordPage({ params }: { params: { id: string } }) {
+export default function AcademicRecordPage() {
+  const { id } = useParams();
   const mockGrades = [
     { id: '1', courseCode: 'NURS 101', courseTitle: 'Introduction to Nursing', subject: 'Nursing', credits: 3, term: 'Fall 2024', grade: 'A', gradePoints: 12.0, status: 'Posted', instructor: 'Dr. A. Thompson' },
     { id: '2', courseCode: 'BIOL 101', courseTitle: 'Human Anatomy & Physiology I', subject: 'Biology', credits: 4, term: 'Fall 2024', grade: 'A-', gradePoints: 14.8, status: 'Posted', instructor: 'Dr. R. Patel' },

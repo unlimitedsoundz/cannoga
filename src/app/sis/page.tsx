@@ -435,29 +435,39 @@ export default function SISStudentDashboard() {
                             const moduleIds = enrollments?.map((e: { module_id: string }) => e.module_id) || [];
 
                             if (moduleIds.length > 0) {
-                                const { data: versions } = await supabase
-                                    .from('timetable_versions')
+                                const { data: sections } = await supabase
+                                    .from('course_sections')
                                     .select('id')
                                     .eq('semester_id', studentData.current_semester_id)
-                                    .eq('status', 'PUBLISHED')
-                                    .order('version_number', { ascending: false })
-                                    .limit(1);
+                                    .in('module_id', moduleIds);
 
-                                if (versions && versions.length > 0) {
-                                    const { data: assignments } = await supabase
-                                        .from('timetable_assignments')
-                                        .select(`
-                                            *,
-                                            module:modules(id, code, title, credits),
-                                            room:rooms(id, name, building, room_number),
-                                            instructor:profiles!timetable_assignments_instructor_id_fkey(first_name, last_name),
-                                            section:course_sections(id, code, session_type, delivery_mode)
-                                        `)
-                                        .eq('version_id', versions[0].id)
-                                        .in('section_id', moduleIds)
-                                        .order('day_of_week', { ascending: true })
-                                        .order('start_time', { ascending: true });
-                                    setTimetableSessions(assignments || []);
+                                const sectionIds = sections?.map((s: { id: string }) => s.id) || [];
+
+                                if (sectionIds.length > 0) {
+                                    const { data: versions } = await supabase
+                                        .from('timetable_versions')
+                                        .select('id')
+                                        .eq('semester_id', studentData.current_semester_id)
+                                        .eq('status', 'PUBLISHED')
+                                        .order('version_number', { ascending: false })
+                                        .limit(1);
+
+                                    if (versions && versions.length > 0) {
+                                        const { data: assignments } = await supabase
+                                            .from('timetable_assignments')
+                                            .select(`
+                                                *,
+                                                module:modules(id, code, title, credits),
+                                                room:rooms(id, name, building, room_number),
+                                                instructor:profiles!timetable_assignments_instructor_id_fkey(first_name, last_name),
+                                                section:course_sections(id, code, session_type, delivery_mode)
+                                            `)
+                                            .eq('version_id', versions[0].id)
+                                            .in('section_id', sectionIds)
+                                            .order('day_of_week', { ascending: true })
+                                            .order('start_time', { ascending: true });
+                                        setTimetableSessions(assignments || []);
+                                    }
                                 }
                             }
                         }

@@ -110,7 +110,6 @@ export default function StudentLifePage({ studentId }: StudentLifePageProps) {
             description: 'Communicate with faculty, staff, and administration. View announcements and direct messages.',
             icon: Mail,
             stats: `${data.unreadCount} unread messages`,
-            color: 'bg-blue-50 text-blue-700 border-blue-200',
         },
         {
             id: 'compliance' as SubPage,
@@ -118,7 +117,6 @@ export default function StudentLifePage({ studentId }: StudentLifePageProps) {
             description: 'Track study permit, visa, and IRCC compliance requirements and deadlines.',
             icon: Shield,
             stats: `${data.compliance.filter(c => c.status === 'pending').length} pending items`,
-            color: 'bg-amber-50 text-amber-700 border-amber-200',
         },
         {
             id: 'library' as SubPage,
@@ -126,7 +124,6 @@ export default function StudentLifePage({ studentId }: StudentLifePageProps) {
             description: 'Manage book holds, view borrowing history, and check account status.',
             icon: Book,
             stats: `${data.library.filter(h => h.status === 'active').length} active holds`,
-            color: 'bg-emerald-50 text-emerald-700 border-emerald-200',
         },
         {
             id: 'health' as SubPage,
@@ -134,7 +131,6 @@ export default function StudentLifePage({ studentId }: StudentLifePageProps) {
             description: 'Book appointments with campus health, counseling, and academic advising services.',
             icon: Heart,
             stats: `${data.health.filter(b => b.status === 'scheduled').length} upcoming appointments`,
-            color: 'bg-rose-50 text-rose-700 border-rose-200',
         },
     ];
 
@@ -144,26 +140,24 @@ export default function StudentLifePage({ studentId }: StudentLifePageProps) {
                 <h3 className="text-base font-bold text-slate-900">Student Life & Support</h3>
                 <p className="text-xs text-slate-500 mt-0.5">Access campus services, messaging, and support resources.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-3">
                 {features.map(feature => (
                     <button
                         key={feature.id}
                         type="button"
                         onClick={() => navigateTo(feature.id)}
-                        className="bg-white rounded-lg border border-slate-200 shadow-sm p-6 text-left hover:border-slate-300 hover:shadow-md transition flex flex-col justify-between group"
+                        className="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-slate-50 transition"
                     >
-                        <div>
-                            <div className="flex items-center justify-between mb-4">
-                                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${feature.color}`}>
-                                    <HugeiconsIcon icon={feature.icon} size={20} strokeWidth={2} />
-                                </div>
-                                <HugeiconsIcon icon={ChevronRight} size={18} strokeWidth={2} className="text-slate-400 group-hover:text-slate-600 transition" />
+                        <div className="flex items-center gap-3">
+                            <HugeiconsIcon icon={feature.icon} size={18} strokeWidth={2} className="text-slate-600" />
+                            <div>
+                                <h4 className="font-bold text-slate-900 text-sm">{feature.title}</h4>
+                                <p className="text-xs text-slate-500">{feature.description}</p>
                             </div>
-                            <h4 className="font-bold text-slate-900 text-sm mb-1">{feature.title}</h4>
-                            <p className="text-xs text-slate-500 leading-relaxed">{feature.description}</p>
                         </div>
-                        <div className="mt-4 pt-3 border-t border-slate-100">
+                        <div className="flex items-center gap-3">
                             <span className="text-[11px] font-semibold text-slate-600">{feature.stats}</span>
+                            <HugeiconsIcon icon={ChevronRight} size={16} strokeWidth={2} className="text-slate-400" />
                         </div>
                     </button>
                 ))}

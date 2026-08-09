@@ -8,7 +8,8 @@ import { StatusBadge } from '@/components/sis/StatusBadge';
 
 export const dynamic = 'force-dynamic';
 
-export default function RegistrationPage({ params }: { params: { id: string } }) {
+export default function RegistrationPage() {
+  const { id } = useParams();
   return (
     <div className="space-y-6">
       <PageHeader title="Class Schedule" subtitle="Student registration and class schedule" />

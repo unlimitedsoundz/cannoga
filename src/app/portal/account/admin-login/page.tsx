@@ -52,80 +52,80 @@ export default function AdminLoginPage() {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-12 bg-white p-8 rounded-2xl shadow-sm border border-neutral-100 relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-neutral-900 text-white text-[10px] font-black px-4 py-1 rounded-bl-xl uppercase tracking-widest">
-                Admin Access
-            </div>
-
-            <div className="flex items-center gap-3 mb-6 mt-2">
-                <div className="w-12 h-12 bg-neutral-900 rounded-xl flex items-center justify-center text-white shadow-xl shadow-neutral-200">
-                    <Shield size={24} weight="bold" />
-                </div>
-                <div>
-                    <h1 className="text-2xl font-bold leading-tight">Admin Login</h1>
-                    <p className="text-neutral-500 text-xs font-medium uppercase tracking-wider">Cannoga College SIS</p>
-                </div>
-            </div>
-
-            <div className="bg-amber-50 border border-amber-100 p-3 rounded-xl mb-8 flex items-start gap-3">
-                <div className="text-amber-600 mt-0.5">
-                    <Shield size={16} weight="bold" />
-                </div>
-                <p className="text-[11px] text-amber-800 font-bold uppercase leading-relaxed">
-                    Administrative Personnel Only. Unauthorized access is strictly prohibited and logged.
-                </p>
-            </div>
-
-            {error && (
-                <div className="bg-red-50 border border-red-100 p-3 rounded-lg mb-6 text-xs text-red-700">
-                    {error}
-                </div>
-            )}
-
-            <form onSubmit={handleLogin} className="space-y-5">
-                <div>
-                    <label className="block text-[10px] font-black uppercase text-neutral-400 mb-2 ml-1">Work Email Address</label>
-                    <div className="relative">
-                        <Envelope size={20} weight="bold" className="absolute left-4 top-1/2 transform -translate-y-1/2 text-neutral-400" />
-                        <input
-                            type="email"
-                            required
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full pl-12 pr-4 py-3 bg-neutral-50 border border-neutral-100 rounded-xl focus:ring-2 focus:ring-black focus:bg-white outline-none transition-all font-bold text-sm"
-                            placeholder="name@cannogacollege.ca"
-                        />
+        <div className="min-h-screen bg-white flex items-center justify-center px-4">
+            <Toaster position="top-right" />
+            <div className="w-full max-w-md">
+                <div className="flex items-center gap-3 mb-8">
+                    <div className="w-12 h-12 bg-neutral-900 rounded-lg flex items-center justify-center text-white">
+                        <Shield size={24} weight="bold" />
+                    </div>
+                    <div>
+                        <h1 className="text-2xl font-bold leading-tight text-neutral-900">Admin Login</h1>
+                        <p className="text-neutral-500 text-xs font-medium uppercase tracking-wider">Cannoga College SIS</p>
                     </div>
                 </div>
 
-                <div>
-                    <label className="block text-[10px] font-black uppercase text-neutral-400 mb-2 ml-1">Administrative Password</label>
-                    <div className="relative">
-                        <Lock size={20} weight="bold" className="absolute left-4 top-1/2 transform -translate-y-1/2 text-neutral-400" />
-                        <input
-                            type="password"
-                            required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full pl-12 pr-4 py-3 bg-neutral-50 border border-neutral-100 rounded-xl focus:ring-2 focus:ring-black focus:bg-white outline-none transition-all font-bold text-sm"
-                            placeholder="••••••••••••"
-                        />
-                    </div>
+                <div className="bg-neutral-50 border border-neutral-200 p-4 mb-8">
+                    <p className="text-xs text-neutral-600 font-medium leading-relaxed">
+                        Restricted to administrative personnel only. Unauthorized access is prohibited and logged.
+                    </p>
                 </div>
 
-                <Button
-                    type="primary"
-                    htmlType="submit"
-                    label={isLoading ? 'Authenticating...' : 'Authenticate Access'}
-                    isLoading={isLoading}
-                    className="w-full"
-                />
-            </form>
+                {error && (
+                    <div className="bg-red-50 border border-red-200 p-3 rounded-lg mb-6 text-xs text-red-700">
+                        {error}
+                    </div>
+                )}
 
-            <div className="mt-8 pt-6 border-t border-neutral-100 flex flex-col gap-4">
-                <a href="/portal/account/login" className="text-neutral-400 text-[10px] font-black uppercase tracking-widest hover:text-black text-center transition-colors">
-                    Student Portal Login
-                </a>
+                <form onSubmit={handleLogin} className="space-y-5">
+                    <div>
+                        <label className="block text-[10px] font-black uppercase text-neutral-400 mb-2 ml-1">Work Email Address</label>
+                        <div className="relative">
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                                <Envelope size={18} weight="bold" />
+                            </span>
+                            <input
+                                type="email"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full pl-10 pr-4 py-2.5 bg-white border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent outline-none transition-all text-sm"
+                                placeholder="name@cannogacollege.ca"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-[10px] font-black uppercase text-neutral-400 mb-2 ml-1">Administrative Password</label>
+                        <div className="relative">
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                                <Lock size={18} weight="bold" />
+                            </span>
+                            <input
+                                type="password"
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full pl-10 pr-4 py-2.5 bg-white border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent outline-none transition-all text-sm"
+                                placeholder="••••••••••••"
+                            />
+                        </div>
+                    </div>
+
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        label={isLoading ? 'Authenticating...' : 'Authenticate Access'}
+                        isLoading={isLoading}
+                        className="w-full !bg-neutral-900 !border-neutral-900 hover:!bg-neutral-800"
+                    />
+                </form>
+
+                <div className="mt-8 pt-6 border-t border-neutral-100">
+                    <a href="/portal/account/login" className="text-neutral-400 text-[10px] font-black uppercase tracking-widest hover:text-black text-center transition-colors block">
+                        Student Portal Login
+                    </a>
+                </div>
             </div>
         </div>
     );

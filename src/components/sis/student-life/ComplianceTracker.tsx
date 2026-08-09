@@ -38,16 +38,6 @@ export default function ComplianceTracker({ items, onBack, studentId }: Complian
         setLocalItems(items);
     }, [items]);
 
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'completed': return 'text-emerald-700 bg-emerald-50 border-emerald-200';
-            case 'in_progress': return 'text-blue-700 bg-blue-50 border-blue-200';
-            case 'pending': return 'text-amber-700 bg-amber-50 border-amber-200';
-            case 'overdue': return 'text-red-700 bg-red-50 border-red-200';
-            default: return 'text-slate-700 bg-slate-100 border-slate-200';
-        }
-    };
-
     const getTypeLabel = (type: string) => {
         switch (type) {
             case 'STUDY_PERMIT': return 'Study Permit';
@@ -139,16 +129,16 @@ export default function ComplianceTracker({ items, onBack, studentId }: Complian
                             {pendingItems.map(item => {
                                 const overdue = isOverdue(item.due_date, item.status);
                                 return (
-                                    <div key={item.id} className={`p-4 rounded-md border flex flex-col md:flex-row md:items-center justify-between gap-4 ${overdue ? 'bg-red-50 border-red-200' : 'bg-slate-50 border-slate-200'}`}>
+                                    <div key={item.id} className="p-4 rounded-md border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                         <div className="flex items-start gap-3">
-                                            <div className={`w-8 h-8 rounded flex items-center justify-center shrink-0 ${overdue ? 'bg-red-100 text-red-700' : 'bg-slate-200 text-slate-600'}`}>
-                                                <HugeiconsIcon icon={getTypeIcon(item.tracker_type)} size={16} strokeWidth={2} />
+                                            <div className="shrink-0 pt-0.5">
+                                                <HugeiconsIcon icon={getTypeIcon(item.tracker_type)} size={16} strokeWidth={2} className="text-slate-600" />
                                             </div>
                                             <div>
                                                 <div className="flex items-center gap-2 mb-0.5">
-                                                    <span className="text-[10px] font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded uppercase">{getTypeLabel(item.tracker_type)}</span>
-                                                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${getStatusColor(item.status)}`}>{item.status.replace(/_/g, ' ')}</span>
-                                                    {overdue && <span className="text-[10px] font-bold text-red-600 flex items-center gap-0.5"><HugeiconsIcon icon={Warning} size={12} strokeWidth={2} /> Overdue</span>}
+                                                    <span className="text-[10px] font-bold text-slate-700 uppercase">{getTypeLabel(item.tracker_type)}</span>
+                                                    <span className="text-[10px] font-semibold text-slate-600 uppercase">{item.status.replace(/_/g, ' ')}</span>
+                                                    {overdue && <span className="text-[10px] font-bold text-slate-900 flex items-center gap-0.5"><HugeiconsIcon icon={Warning} size={12} strokeWidth={2} /> Overdue</span>}
                                                 </div>
                                                 <h6 className="font-bold text-slate-900 text-xs">{item.title}</h6>
                                                 <p className="text-[11px] text-slate-500 mt-0.5">{item.description}</p>
@@ -192,12 +182,12 @@ export default function ComplianceTracker({ items, onBack, studentId }: Complian
                         <h5 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">Completed</h5>
                         <div className="space-y-2">
                             {completedItems.map(item => (
-                                <div key={item.id} className="p-3 bg-emerald-50 border border-emerald-200 rounded-md flex items-center justify-between">
+                                <div key={item.id} className="p-3 border border-slate-200 rounded-md flex items-center justify-between">
                                     <div className="flex items-center gap-2">
-                                        <HugeiconsIcon icon={CheckCircle} size={14} strokeWidth={2} className="text-emerald-600" />
+                                        <HugeiconsIcon icon={CheckCircle} size={14} strokeWidth={2} className="text-slate-600" />
                                         <span className="text-xs font-medium text-slate-800">{item.title}</span>
                                     </div>
-                                    <span className="text-[10px] text-emerald-600 font-semibold">Completed</span>
+                                    <span className="text-[10px] text-slate-600 font-semibold">Completed</span>
                                 </div>
                             ))}
                         </div>

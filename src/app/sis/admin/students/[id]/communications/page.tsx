@@ -7,7 +7,8 @@ import { StudentHeader } from '@/components/sis/StudentHeader';
 
 export const dynamic = 'force-dynamic';
 
-export default function CommunicationsPage({ params }: { params: { id: string } }) {
+export default function CommunicationsPage() {
+  const { id } = useParams();
   return (
     <div className="space-y-6">
       <PageHeader title="Communications" subtitle="Student messages and notifications" />

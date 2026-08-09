@@ -55,6 +55,18 @@ export default function StudentTimetablePage() {
         return;
       }
 
+      const { data: sections } = await supabase
+        .from('course_sections')
+        .select('id')
+        .eq('semester_id', student.current_semester_id)
+        .in('module_id', moduleIds);
+
+      const sectionIds = sections?.map((s: { id: string }) => s.id) || [];
+      if (sectionIds.length === 0) {
+        setLoading(false);
+        return;
+      }
+
       const { data: versions } = await supabase
         .from('timetable_versions')
         .select('id')
@@ -78,7 +90,7 @@ export default function StudentTimetablePage() {
           instructor:profiles!timetable_assignments_instructor_id_fkey(first_name, last_name)
         `)
         .eq('version_id', versions[0].id)
-        .in('section_id', moduleIds)
+        .in('section_id', sectionIds)
         .order('day_of_week', { ascending: true })
         .order('start_time', { ascending: true });
 

@@ -92,16 +92,6 @@ export default function HealthBookings({ bookings, onBack, studentId }: HealthBo
         }
     };
 
-    const getTypeColor = (type: string) => {
-        switch (type) {
-            case 'counseling': return 'bg-purple-50 text-purple-700 border-purple-200';
-            case 'health': return 'bg-red-50 text-red-700 border-red-200';
-            case 'advising': return 'bg-blue-50 text-blue-700 border-blue-200';
-            case 'wellness': return 'bg-green-50 text-green-700 border-green-200';
-            default: return 'bg-slate-100 text-slate-700 border-slate-200';
-        }
-    };
-
     const formatDate = (dateStr: string) => {
         return new Date(dateStr).toLocaleDateString('en-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     };
@@ -228,14 +218,14 @@ export default function HealthBookings({ bookings, onBack, studentId }: HealthBo
                         <div className="p-8 text-center text-xs text-slate-500">No upcoming appointments. Book one to get started.</div>
                     ) : (
                         upcomingBookings.map(booking => (
-                            <div key={booking.id} className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div key={booking.id} className="p-4 border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div className="flex items-start gap-3">
-                                    <div className={`w-8 h-8 rounded flex items-center justify-center shrink-0 ${getTypeColor(booking.booking_type)}`}>
-                                        <HugeiconsIcon icon={Heart} size={14} strokeWidth={2} />
+                                    <div className="shrink-0 pt-0.5">
+                                        <HugeiconsIcon icon={Heart} size={14} strokeWidth={2} className="text-slate-600" />
                                     </div>
                                     <div>
                                         <div className="flex items-center gap-2 mb-0.5">
-                                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${getTypeColor(booking.booking_type)}`}>{getTypeLabel(booking.booking_type)}</span>
+                                            <span className="text-[10px] font-bold text-slate-700 uppercase">{getTypeLabel(booking.booking_type)}</span>
                                             <span className="text-[10px] text-slate-500 font-medium flex items-center gap-1">
                                                 <HugeiconsIcon icon={CheckCircle} size={12} strokeWidth={2} /> Scheduled
                                             </span>
@@ -257,7 +247,7 @@ export default function HealthBookings({ bookings, onBack, studentId }: HealthBo
                                     type="button"
                                     onClick={() => handleCancel(booking.id)}
                                     disabled={cancelling === booking.id}
-                                    className="text-[11px] font-medium px-3 py-1.5 border border-red-300 text-red-700 rounded hover:bg-red-50 disabled:opacity-50 self-start md:self-center"
+                                    className="text-[11px] font-medium px-3 py-1.5 border border-slate-300 rounded hover:bg-slate-50 disabled:opacity-50 self-start md:self-center"
                                 >
                                     {cancelling === booking.id ? 'Cancelling...' : 'Cancel'}
                                 </button>

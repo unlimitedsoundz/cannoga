@@ -7,6 +7,43 @@ function toMinutesFrom(time: string): number {
   return hours * 60 + minutes
 }
 
+function findConsecutiveSlotBlocks(slots: TimeSlot[], duration: number): { startTime: string; endTime: string; slotIds: string[] }[] {
+  const blocks: { startTime: string; endTime: string; slotIds: string[] }[] = []
+  const sorted = [...slots].sort((a, b) => toMinutesFrom(a.startTime) - toMinutesFrom(b.startTime))
+
+  for (let i = 0; i < sorted.length; i++) {
+    const blockStart = toMinutesFrom(sorted[i].startTime)
+    const blockSlots: TimeSlot[] = [sorted[i]]
+    let blockEnd = toMinutesFrom(sorted[i].endTime)
+
+    for (let j = i + 1; j < sorted.length; j++) {
+      if (toMinutesFrom(sorted[j].startTime) === blockEnd) {
+        blockSlots.push(sorted[j])
+        blockEnd = toMinutesFrom(sorted[j].endTime)
+        if (blockEnd - blockStart >= duration) {
+          blocks.push({
+            startTime: sorted[i].startTime,
+            endTime: sorted[j].endTime,
+            slotIds: blockSlots.map(s => s.id),
+          })
+        }
+      } else {
+        break
+      }
+    }
+
+    if (blockEnd - blockStart >= duration && blocks.length === 0) {
+      blocks.push({
+        startTime: sorted[i].startTime,
+        endTime: sorted[i].endTime,
+        slotIds: [sorted[i].id],
+      })
+    }
+  }
+
+  return blocks
+}
+
 function isHolidayDate(dateStr: string, holidays: SchedulingProblem['holidays']): boolean {
   const date = new Date(dateStr + 'T00:00:00')
   return holidays.some((h) => {
@@ -63,7 +100,9 @@ function isInstructorAvailable(
 
 interface Candidate {
   roomId: string
-  timeSlot: TimeSlot
+  dayOfWeek: number
+  startTime: string
+  endTime: string
   score: number
 }
 
@@ -95,55 +134,66 @@ function computeCandidates(
     })
   }
 
-  const eligibleSlots = problem.timeSlots.filter((ts) => {
-    if (ts.isBreak) return false
-    if (section.blockedDays.includes(ts.dayOfWeek)) return false
-    if (section.preferredDays.length > 0 && !section.preferredDays.includes(ts.dayOfWeek)) return false
-    const slotEnd = toMinutesFrom(ts.endTime)
-    const slotStart = toMinutesFrom(ts.startTime)
-    if (slotEnd - slotStart < duration) return false
-    return true
-  })
+  const daySlots = new Map<number, TimeSlot[]>()
+  for (const ts of problem.timeSlots) {
+    if (ts.isBreak) continue
+    if (section.blockedDays.includes(ts.dayOfWeek)) continue
+    if (section.preferredDays.length > 0 && !section.preferredDays.includes(ts.dayOfWeek)) continue
+    const list = daySlots.get(ts.dayOfWeek) || []
+    list.push(ts)
+    daySlots.set(ts.dayOfWeek, list)
+  }
+
+  const slotBlocks: { dayOfWeek: number; startTime: string; endTime: string; slotIds: string[] }[] = []
+  for (const [day, slots] of daySlots) {
+    const blocks = findConsecutiveSlotBlocks(slots, duration)
+    for (const block of blocks) {
+      slotBlocks.push({ dayOfWeek: day, ...block })
+    }
+  }
 
   const instructorId = meeting.fixedInstructorId || section.instructorId
 
   for (const room of eligibleRooms) {
     if (room.capacity < section.enrolledCount) continue
-    for (const slot of eligibleSlots) {
-      if (isHolidayDate(slot.startTime, problem.holidays)) continue
-      if (!isRoomAvailable(room.id, slot.dayOfWeek, slot.startTime, slot.endTime, problem)) continue
-      if (instructorId && !isInstructorAvailable(instructorId, slot.dayOfWeek, slot.startTime, slot.endTime, problem)) continue
+    for (const block of slotBlocks) {
+      const slotStart = toMinutesFrom(block.startTime)
+      const slotEnd = toMinutesFrom(block.endTime)
+
+      if (isHolidayDate(block.startTime, problem.holidays)) continue
+      if (!isRoomAvailable(room.id, block.dayOfWeek, block.startTime, block.endTime, problem)) continue
+      if (instructorId && !isInstructorAvailable(instructorId, block.dayOfWeek, block.startTime, block.endTime, problem)) continue
 
       let hardViolations = 0
       const dummyAssignment: Assignment = {
-        id: `temp-${meeting.id}-${room.id}-${slot.id}`,
+        id: `temp-${meeting.id}-${room.id}-${block.startTime}`,
         sectionId: section.id,
         meetingId: meeting.id,
         roomId: room.id,
         instructorId,
-        dayOfWeek: slot.dayOfWeek,
-        startTime: slot.startTime,
-        endTime: slot.endTime,
+        dayOfWeek: block.dayOfWeek,
+        startTime: block.startTime,
+        endTime: block.endTime,
         startDate: problem.termId,
         endDate: problem.termId,
         isOverride: false,
       }
 
       for (const existing of assignedSoFar) {
-        if (existing.roomId === room.id && existing.dayOfWeek === slot.dayOfWeek) {
+        if (existing.roomId === room.id && existing.dayOfWeek === block.dayOfWeek) {
           const es = toMinutesFrom(existing.startTime)
           const ee = toMinutesFrom(existing.endTime)
-          const ns = toMinutesFrom(slot.startTime)
-          const ne = toMinutesFrom(slot.endTime)
+          const ns = toMinutesFrom(block.startTime)
+          const ne = toMinutesFrom(block.endTime)
           if (ns < ee && es < ne) {
             hardViolations++
           }
         }
-        if (instructorId && existing.instructorId === instructorId && existing.dayOfWeek === slot.dayOfWeek) {
+        if (instructorId && existing.instructorId === instructorId && existing.dayOfWeek === block.dayOfWeek) {
           const es = toMinutesFrom(existing.startTime)
           const ee = toMinutesFrom(existing.endTime)
-          const ns = toMinutesFrom(slot.startTime)
-          const ne = toMinutesFrom(slot.endTime)
+          const ns = toMinutesFrom(block.startTime)
+          const ne = toMinutesFrom(block.endTime)
           if (ns < ee && es < ne) {
             hardViolations++
           }
@@ -151,12 +201,12 @@ function computeCandidates(
       }
 
       let preferenceScore = 100
-      if (section.preferredDays.includes(slot.dayOfWeek)) {
+      if (section.preferredDays.includes(block.dayOfWeek)) {
         preferenceScore += 10
       }
       if (section.preferredTimes.some((pt) => {
         const [ph, pm] = pt.split(':').map(Number)
-        const sh = Math.floor(toMinutesFrom(slot.startTime) / 60)
+        const sh = Math.floor(toMinutesFrom(block.startTime) / 60)
         return Math.abs(sh - ph) <= 1
       })) {
         preferenceScore += 10
@@ -170,7 +220,9 @@ function computeCandidates(
 
       candidates.push({
         roomId: room.id,
-        timeSlot: slot,
+        dayOfWeek: block.dayOfWeek,
+        startTime: block.startTime,
+        endTime: block.endTime,
         score: preferenceScore - hardViolations * 1000,
       })
     }
@@ -336,9 +388,9 @@ export class TimetableScheduler {
           meetingId: meeting.id,
           roomId: candidate.roomId,
           instructorId,
-          dayOfWeek: candidate.timeSlot.dayOfWeek,
-          startTime: candidate.timeSlot.startTime,
-          endTime: candidate.timeSlot.endTime,
+          dayOfWeek: candidate.dayOfWeek,
+          startTime: candidate.startTime,
+          endTime: candidate.endTime,
           startDate: problem.termStartDate,
           endDate: problem.termEndDate,
           isOverride: false,

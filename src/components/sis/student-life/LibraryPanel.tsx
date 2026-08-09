@@ -171,9 +171,9 @@ export default function LibraryPanel({ holds, onBack, studentId }: LibraryPanelP
                         activeHolds.map(hold => {
                             const expired = isExpired(hold.expiry_date);
                             return (
-                                <div key={hold.id} className={`p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 ${expired ? 'bg-amber-50' : ''}`}>
+                                <div key={hold.id} className="p-4 border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                     <div className="flex items-start gap-3">
-                                        <div className="w-8 h-8 rounded bg-slate-200 flex items-center justify-center shrink-0">
+                                        <div className="shrink-0 pt-0.5">
                                             <HugeiconsIcon icon={Book} size={14} strokeWidth={2} className="text-slate-600" />
                                         </div>
                                         <div>
@@ -185,7 +185,7 @@ export default function LibraryPanel({ holds, onBack, studentId }: LibraryPanelP
                                                     <HugeiconsIcon icon={Clock} size={12} strokeWidth={2} /> Placed: {formatDate(hold.hold_date)}
                                                 </span>
                                                 {hold.expiry_date && (
-                                                    <span className={`text-[10px] font-medium flex items-center gap-1 ${expired ? 'text-red-600' : 'text-slate-500'}`}>
+                                                    <span className="text-[10px] font-medium text-slate-500 flex items-center gap-1">
                                                         Expires: {formatDate(hold.expiry_date)}
                                                         {expired && <HugeiconsIcon icon={Warning} size={12} strokeWidth={2} />}
                                                     </span>
@@ -197,7 +197,7 @@ export default function LibraryPanel({ holds, onBack, studentId }: LibraryPanelP
                                         type="button"
                                         onClick={() => handleCancel(hold.id)}
                                         disabled={cancelling === hold.id}
-                                        className="text-[11px] font-medium px-3 py-1.5 border border-red-300 text-red-700 rounded hover:bg-red-50 disabled:opacity-50 self-start md:self-center"
+                                        className="text-[11px] font-medium px-3 py-1.5 border border-slate-300 rounded hover:bg-slate-50 disabled:opacity-50 self-start md:self-center"
                                     >
                                         {cancelling === hold.id ? 'Cancelling...' : 'Cancel Hold'}
                                     </button>

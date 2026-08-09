@@ -86,8 +86,7 @@ interface RecentEnrollment {
   status: string;
   grade: number | null;
   module?: { code: string; title: string };
-  student?: { student_id: string; user_id: string };
-  user?: { first_name: string; last_name: string };
+  student?: { student_id: string; enrollment_status: string; user?: { first_name: string; last_name: string } };
 }
 
 export default function AdminDashboardPage() {
@@ -114,7 +113,7 @@ export default function AdminDashboardPage() {
         setStats(statsResult.stats as any);
         setRecentStudents(statsResult.recentStudents || []);
         setPendingApplications(statsResult.pendingApplications || []);
-        setRecentEnrollments(statsResult.recentEnrollments || []);
+        setRecentEnrollments((statsResult.recentEnrollments || []) as any);
         setCourseMap(courseResult.data || {});
       } catch (err: any) {
         console.error('Error fetching dashboard data:', err);
@@ -212,15 +211,15 @@ export default function AdminDashboardPage() {
       key: 'student_id',
       header: 'Student',
       render: (e: RecentEnrollment) => (
-        <span className="font-mono font-medium text-neutral-900">{e.student?.student_id || e.student_id}</span>
+        <span className="font-mono font-medium text-neutral-900">{(e.student as any)?.student_id || e.student_id}</span>
       ),
     },
     {
       key: 'module',
       header: 'Module',
-      render: (e: RecentEnrollment) => e.module?.code || e.module_id,
+      render: (e: RecentEnrollment) => (e.module as any)?.code || e.module_id,
     },
-    { key: 'title', header: 'Title', render: (e: RecentEnrollment) => e.module?.title || '—' },
+    { key: 'title', header: 'Title', render: (e: RecentEnrollment) => (e.module as any)?.title || '—' },
     { key: 'status', header: 'Status', render: (e: RecentEnrollment) => <StatusBadge status={e.status} /> },
     { key: 'grade', header: 'Grade', render: (e: RecentEnrollment) => e.grade !== null ? e.grade.toFixed(2) : '—' },
   ];

@@ -81,8 +81,9 @@ interface StudentFinancialData {
   summary: FinancialSummary;
 }
 
-export default function StudentFinancePage({ params }: { params: { id: string } }) {
-  const studentId = params.id;
+export default function StudentFinancePage() {
+  const params = useParams();
+  const studentId = params.id as string;
   const [data, setData] = useState<StudentFinancialData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

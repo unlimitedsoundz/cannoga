@@ -98,6 +98,11 @@ export default function SchedulingPage() {
     if (result.success && result.runId) {
       setRunId(result.runId);
       setShowProgressModal(true);
+      fetch('/api/timetable/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ termId, runId: result.runId }),
+      }).catch(err => console.error('Generation API error:', err));
       pollProgress(result.runId);
     } else {
       toast.error(result.error || 'Failed to start generation');
