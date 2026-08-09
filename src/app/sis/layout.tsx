@@ -174,7 +174,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         { label: 'HOUSING', href: '/sis/admin/housing' },
         { label: 'ACADEMICS', href: '/sis/admin/academics' },
         { label: 'SCHEDULING', href: '/sis/admin/scheduling' },
-        { label: 'TIMETABLES', href: '/sis/admin/timetables' },
+        { label: 'TIMETABLE', href: '/sis/admin/timetable' },
         { label: 'REGISTRATION', href: '/sis/admin/registration' },
         { label: 'DOCUMENTS', href: '/sis/admin/documents' },
         { label: 'REPORTS', href: '/sis/admin/reports' },

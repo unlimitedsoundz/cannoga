@@ -71,7 +71,7 @@ export default function SchedulingPage() {
       const data = await res.json();
       if (data.success) {
         setTerms(data.data || []);
-        const current = (data.data || []).find((t: any) => t.isCurrent || t.isActive);
+        const current = (data.data || []).find((t: any) => t.status === 'ACTIVE' || t.status === 'UPCOMING');
         if (current) setTermId(current.id);
       }
     } catch (e: any) {
