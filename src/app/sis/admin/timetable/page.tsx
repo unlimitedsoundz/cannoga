@@ -41,7 +41,7 @@ type ViewTab = 'week' | 'day' | 'room' | 'instructor' | 'program';
 interface EnrichedAssignment extends TimetableAssignment {
   section: CourseSection & {
     module: Module;
-    instructor?: Profile;
+    instructor?: { id: string; name: string; email: string };
     student_group?: { id: string; name: string; code: string } | null;
   };
   room: Room;
@@ -95,7 +95,7 @@ export default function TimetablePage() {
   const [versions, setVersions] = useState<TimetableVersion[]>([]);
   const [semesters, setSemesters] = useState<Semester[]>([]);
   const [rooms, setRooms] = useState<Room[]>([]);
-  const [instructors, setInstructors] = useState<Profile[]>([]);
+  const [instructors, setInstructors] = useState<any[]>([]);
   const [selectedDay, setSelectedDay] = useState(1);
   const [roomFilter, setRoomFilter] = useState('');
   const [instructorFilter, setInstructorFilter] = useState('');
@@ -187,6 +187,12 @@ export default function TimetablePage() {
     try {
       const result = await generateTimetable(selectedTerm);
       if (result.success && result.runId) {
+        fetch('/api/timetable/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ termId: selectedTerm, runId: result.runId }),
+        }).catch(err => console.error('Generation API error:', err));
+
         const pollInterval = setInterval(async () => {
           try {
             const progressResult = await getGenerationProgress(result.runId);
@@ -269,6 +275,34 @@ export default function TimetablePage() {
     });
     return map;
   }, [filteredAssignments]);
+
+  const groupedViews = useMemo(() => {
+    if (viewTab !== 'room' && viewTab !== 'instructor' && viewTab !== 'program') {
+      return null;
+    }
+    const map = new Map<string, { key: string; label: string; assignments: EnrichedAssignment[] }>();
+    filteredAssignments.forEach(a => {
+      let key: string;
+      let label: string;
+      if (viewTab === 'room') {
+        key = a.room_id;
+        label = `${a.room?.name} (${a.room?.building})`;
+      } else if (viewTab === 'instructor') {
+        key = a.instructor_id || 'unassigned';
+        label = a.section?.instructor ? `${a.section.instructor.name}` : 'Unassigned';
+      } else {
+        key = a.section?.student_group_id || 'ungrouped';
+        label = a.section?.student_group?.name || a.section?.student_group?.code || 'Ungrouped';
+      }
+      const existing = map.get(key);
+      if (existing) {
+        existing.assignments.push(a);
+      } else {
+        map.set(key, { key, label, assignments: [a] });
+      }
+    });
+    return Array.from(map.values()).sort((a, b) => a.label.localeCompare(b.label));
+  }, [filteredAssignments, viewTab]);
 
   const openDetailModal = (assignment: EnrichedAssignment) => {
     setSelectedAssignment(assignment);
@@ -391,7 +425,7 @@ export default function TimetablePage() {
   }, [assignments]);
 
   const instructorOptions = useMemo(() => {
-    const uniqueInstructors = new Map<string, Profile>();
+    const uniqueInstructors = new Map<string, { id: string; name: string; email: string }>();
     assignments.forEach(a => {
       if (a.section?.instructor) {
         uniqueInstructors.set(a.section.instructor.id, a.section.instructor);
@@ -601,32 +635,7 @@ export default function TimetablePage() {
     );
   };
 
-  const renderGroupedView = (groupKey: 'room' | 'instructor' | 'program') => {
-    const groups = useMemo(() => {
-      const map = new Map<string, { key: string; label: string; assignments: EnrichedAssignment[] }>();
-      filteredAssignments.forEach(a => {
-        let key: string;
-        let label: string;
-        if (groupKey === 'room') {
-          key = a.room_id;
-          label = `${a.room?.name} (${a.room?.building})`;
-        } else if (groupKey === 'instructor') {
-          key = a.instructor_id || 'unassigned';
-          label = a.section?.instructor ? `${a.section.instructor.name}` : 'Unassigned';
-        } else {
-          key = a.section?.student_group_id || 'ungrouped';
-          label = a.section?.student_group?.name || a.section?.student_group?.code || 'Ungrouped';
-        }
-        const existing = map.get(key);
-        if (existing) {
-          existing.assignments.push(a);
-        } else {
-          map.set(key, { key, label, assignments: [a] });
-        }
-      });
-      return Array.from(map.values()).sort((a, b) => a.label.localeCompare(b.label));
-    }, [filteredAssignments, groupKey]);
-
+  const renderGroupedView = (groups: { key: string; label: string; assignments: EnrichedAssignment[] }[]) => {
     return (
       <div className="space-y-4">
         {groups.map(group => (
@@ -691,11 +700,9 @@ export default function TimetablePage() {
       case 'day':
         return renderDayGrid();
       case 'room':
-        return renderGroupedView('room');
       case 'instructor':
-        return renderGroupedView('instructor');
       case 'program':
-        return renderGroupedView('program');
+        return renderGroupedView(groupedViews || []);
       default:
         return renderWeekGrid();
     }
