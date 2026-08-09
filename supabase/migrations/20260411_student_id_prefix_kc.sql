@@ -9,7 +9,7 @@ DECLARE
     id_exists BOOLEAN;
 BEGIN
     LOOP
-        new_id := 'HU' || LPAD(floor(random() * 10000000)::text, 7, '0');
+        new_id := 'CC' || LPAD(floor(random() * 10000000)::text, 7, '0');
 
         -- Check all unique constraints across ALL tables
         SELECT EXISTS (
@@ -32,7 +32,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION set_profile_student_id()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.student_id IS NULL OR NEW.student_id NOT LIKE 'HU%' OR LENGTH(NEW.student_id) != 9 THEN
+    IF NEW.student_id IS NULL OR NEW.student_id NOT LIKE 'CC%' OR LENGTH(NEW.student_id) != 9 THEN
         NEW.student_id := generate_student_id();
     END IF;
     RETURN NEW;
@@ -71,11 +71,12 @@ BEGIN
             OR student_id LIKE 'SK%'
             OR student_id LIKE 'KC%'
             OR student_id LIKE 'KU%'
-            OR student_id NOT LIKE 'HU%'
+            OR student_id LIKE 'HU%'
+            OR LENGTH(student_id) != 9
             OR LENGTH(student_id) != 9
     LOOP
         -- Determine new ID
-        IF row_record.student_id LIKE 'SK%' OR row_record.student_id LIKE 'KC%' OR row_record.student_id LIKE 'KU%' OR LENGTH(row_record.student_id) != 9 OR row_record.student_id NOT LIKE 'HU%' THEN
+        IF row_record.student_id LIKE 'SK%' OR row_record.student_id LIKE 'KC%' OR row_record.student_id LIKE 'KU%' OR row_record.student_id LIKE 'HU%' OR LENGTH(row_record.student_id) != 9 THEN
             new_val := generate_student_id();
         ELSE
             new_val := row_record.student_id; -- Keep if already correct
@@ -110,7 +111,7 @@ BEGIN
         SELECT id, user_id, student_id FROM public.students
     LOOP
         -- If this record needs updating
-        IF row_record.student_id NOT LIKE 'HU%' OR LENGTH(row_record.student_id) != 9 THEN
+        IF row_record.student_id NOT LIKE 'CC%' OR LENGTH(row_record.student_id) != 9 THEN
             -- Check if we have a map for this user
             SELECT new_id INTO new_val FROM id_map WHERE user_id = row_record.user_id;
             

@@ -14,15 +14,15 @@ BEGIN
     END IF;
 END $$;
 
--- 3. Function to generate random SK number (SK + 7 digits)
+-- 3. Function to generate random student number (CC + 7 digits)
 CREATE OR REPLACE FUNCTION public.generate_sk_id() RETURNS TEXT AS $$
 DECLARE
     new_id TEXT;
     done BOOL := FALSE;
 BEGIN
     WHILE NOT done LOOP
-        -- KU + 7 random digits
-        new_id := 'KU' || LPAD(FLOOR(RANDOM() * 10000000)::TEXT, 7, '0');
+        -- CC + 7 random digits
+        new_id := 'CC' || LPAD(FLOOR(RANDOM() * 10000000)::TEXT, 7, '0');
         
         -- Check if it exists in either profiles or applications
         IF NOT EXISTS (SELECT 1 FROM public.profiles WHERE student_id = new_id) AND
