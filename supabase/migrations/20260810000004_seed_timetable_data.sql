@@ -160,7 +160,12 @@ VALUES
   ('Educational Media Studio', 'Education & Learning Building', '2', 'EL-250', 30, 'SPECIALIZED_ROOM', 'MAIN', true, '{"cameras":true,"microphones":true,"editing_workstation":true,"lighting_equipment":true}', 'ACTIVE', 'Instructional media production'),
   ('Classroom Innovation Lab', 'Education & Learning Building', '3', 'EL-350', 35, 'SPECIALIZED_ROOM', 'MAIN', true, '{"interactive_technology":true,"flexible_classroom_furniture":true,"educational_devices":true}', 'ACTIVE', 'Innovative teaching methods'),
   ('Education Practicum Room', 'Education & Learning Building', '2', 'EL-260', 30, 'SEMINAR_ROOM', 'MAIN', true, '{"teaching_stations":true,"classroom_furniture":true,"recording_equipment":true,"interactive_display":true}', 'ACTIVE', 'Teaching practicum')
-;
+ON CONFLICT (name, building, room_number) DO UPDATE SET
+  capacity = EXCLUDED.capacity,
+  room_type = EXCLUDED.room_type,
+  equipment = EXCLUDED.equipment,
+  status = EXCLUDED.status,
+  notes = EXCLUDED.notes;
 
 
 
