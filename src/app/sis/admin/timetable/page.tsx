@@ -432,7 +432,7 @@ export default function TimetablePage() {
                             <div className="flex items-center gap-1 mt-1 text-[10px] text-neutral-600">
                               <HugeiconsIcon icon={User} size={10} strokeWidth={2.5} />
                               <span className="truncate">
-                                {assignment.section?.instructor ? `${assignment.section.instructor.first_name} ${assignment.section.instructor.last_name}` : 'TBD'}
+                                {assignment.section?.instructor ? `${assignment.section.instructor.name}` : 'TBD'}
                               </span>
                             </div>
                             <div className="flex items-center gap-1 mt-0.5 text-[10px] text-neutral-600">
@@ -518,7 +518,7 @@ export default function TimetablePage() {
                     <div className="flex items-center gap-1.5 mt-2 text-xs text-neutral-600">
                       <HugeiconsIcon icon={User} size={12} strokeWidth={2.5} />
                       <span>
-                        {assignment.section?.instructor ? `${assignment.section.instructor.first_name} ${assignment.section.instructor.last_name}` : 'TBD'}
+                        {assignment.section?.instructor ? `${assignment.section.instructor.name}` : 'TBD'}
                       </span>
                     </div>
                     <div className="flex items-center gap-1.5 mt-1 text-xs text-neutral-600">
@@ -550,7 +550,7 @@ export default function TimetablePage() {
           label = `${a.room?.name} (${a.room?.building})`;
         } else if (groupKey === 'instructor') {
           key = a.instructor_id || 'unassigned';
-          label = a.section?.instructor ? `${a.section.instructor.first_name} ${a.section.instructor.last_name}` : 'Unassigned';
+          label = a.section?.instructor ? `${a.section.instructor.name} ${a.section.instructor.last_name}` : 'Unassigned';
         } else {
           key = a.section?.student_group_id || 'ungrouped';
           label = a.section?.student_group?.name || a.section?.student_group?.code || 'Ungrouped';
@@ -604,7 +604,7 @@ export default function TimetablePage() {
                         <div className="flex items-center gap-2 text-xs text-neutral-600">
                           <HugeiconsIcon icon={User} size={12} strokeWidth={2.5} />
                           <span>
-                            {assignment.section?.instructor ? `${assignment.section.instructor.first_name} ${assignment.section.instructor.last_name}` : 'TBD'}
+                            {assignment.section?.instructor ? `${assignment.section.instructor.name}` : 'TBD'}
                           </span>
                         </div>
                       </div>
@@ -769,7 +769,7 @@ export default function TimetablePage() {
               <div>
                 <label className="block text-[10px] font-black uppercase tracking-widest text-neutral-500 mb-1">Instructor</label>
                 <div className="text-sm font-medium text-neutral-700">
-                  {selectedAssignment.section?.instructor ? `${selectedAssignment.section.instructor.first_name} ${selectedAssignment.section.instructor.last_name}` : 'TBD'}
+                  {selectedAssignment.section?.instructor ? `${selectedAssignment.section.instructor.name} ${selectedAssignment.section.instructor.last_name}` : 'TBD'}
                 </div>
               </div>
               <div>

@@ -26,6 +26,89 @@ export async function POST(request: NextRequest) {
       .update({ status: 'RUNNING', started_at: new Date().toISOString(), progress: 5 })
       .eq('id', runId);
 
+    console.log('[TimetableGeneration] Ensuring sections exist for all enrolled modules...');
+    const { data: enrollments } = await adminClient
+      .from('module_enrollments')
+      .select('module_id, semester_id')
+      .eq('semester_id', termId)
+      .eq('status', 'REGISTERED');
+
+    if (enrollments && enrollments.length > 0) {
+      const moduleIds = [...new Set(enrollments.map(e => e.module_id))];
+
+      const { data: existingSections } = await adminClient
+        .from('course_sections')
+        .select('module_id')
+        .eq('semester_id', termId)
+        .in('module_id', moduleIds);
+
+      const existingModuleIds = new Set((existingSections || []).map(s => s.module_id));
+      const missingModuleIds = moduleIds.filter(id => !existingModuleIds.has(id));
+
+      if (missingModuleIds.length > 0) {
+        console.log(`[TimetableGeneration] Creating sections for ${missingModuleIds.length} modules without sections`);
+        const { data: modules } = await adminClient
+          .from('modules')
+          .select('id, code, title, credits')
+          .in('id', missingModuleIds);
+
+        const sectionRows = (modules || []).map(m => ({
+          code: `${m.code || 'MOD'}-A`,
+          module_id: m.id,
+          semester_id: termId,
+          capacity: 30,
+          enrolled_count: 0,
+          status: 'PENDING',
+          required_room_type: 'LECTURE_ROOM',
+          delivery_mode: 'IN_PERSON',
+          session_type: 'LECTURE',
+        }));
+
+        const { error: sectionError } = await adminClient
+          .from('course_sections')
+          .insert(sectionRows);
+
+        if (sectionError) {
+          console.error('[TimetableGeneration] Failed to create missing sections:', sectionError);
+        } else {
+          console.log(`[TimetableGeneration] Created ${sectionRows.length} missing sections`);
+
+          if (sectionRows.length > 0) {
+            const createdSections = await adminClient
+              .from('course_sections')
+              .select('id')
+              .eq('semester_id', termId)
+              .in('module_id', missingModuleIds);
+
+            const sectionIds = (createdSections.data || []).map((s: any) => s.id);
+            if (sectionIds.length > 0) {
+              const meetingRows = sectionIds.map(sectionId => ({
+                section_id: sectionId,
+                meeting_index: 0,
+                day_of_week: 1,
+                start_time: '09:00:00',
+                end_time: '10:30:00',
+                duration_minutes: 90,
+                room_id: null,
+                instructor_id: null,
+                is_fixed: false,
+              }));
+
+              const { error: meetingError } = await adminClient
+                .from('course_section_meetings')
+                .insert(meetingRows);
+
+              if (meetingError) {
+                console.error('[TimetableGeneration] Failed to create default meetings:', meetingError);
+              } else {
+                console.log(`[TimetableGeneration] Created ${meetingRows.length} default meetings`);
+              }
+            }
+          }
+        }
+      }
+    }
+
     console.log('[TimetableGeneration] Loading scheduling data...');
     const problem = await loadSchedulingData(termId);
     console.log('[TimetableGeneration] Data loaded', {
