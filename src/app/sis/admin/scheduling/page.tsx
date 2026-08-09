@@ -95,14 +95,29 @@ export default function SchedulingPage() {
     setShowGenerateModal(false);
     setGenerating(true);
     const result = await generateTimetable(termId);
+    console.log('[Generate] Server action result:', result);
     if (result.success && result.runId) {
       setRunId(result.runId);
       setShowProgressModal(true);
-      fetch('/api/timetable/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ termId, runId: result.runId }),
-      }).catch(err => console.error('Generation API error:', err));
+      try {
+        console.log('[Generate] Calling API:', { termId, runId: result.runId });
+        const response = await fetch('/api/timetable/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ termId, runId: result.runId }),
+        });
+        const data = await response.json();
+        console.log('[Generate] API response:', { status: response.status, data });
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || 'Generation failed');
+        }
+      } catch (err: any) {
+        console.error('[Generate] API error:', err);
+        toast.error(err.message || 'Generation failed to start');
+        setGenerating(false);
+        setShowProgressModal(false);
+        return;
+      }
       pollProgress(result.runId);
     } else {
       toast.error(result.error || 'Failed to start generation');
