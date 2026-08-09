@@ -6,6 +6,7 @@ import { detectConflicts } from '@/lib/timetable/engine/conflicts';
 import { validateSolution } from '@/lib/timetable/engine/validator';
 
 export async function POST(request: NextRequest) {
+  console.log('[TimetableGeneration] API route hit');
   const adminClient = createServiceRoleClient();
 
   try {

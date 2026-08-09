@@ -109,11 +109,15 @@ export async function generateTimetable(termId: string, options: { constraintWei
 
     if (error) throw error;
 
-    adminClient.channel('timetable-run').send({
-      type: 'broadcast',
-      event: 'new-run',
-      payload: { runId: run.id },
-    });
+    try {
+      adminClient.channel('timetable-run').send({
+        type: 'broadcast',
+        event: 'new-run',
+        payload: { runId: run.id },
+      });
+    } catch (broadcastError) {
+      console.error('Broadcast error:', broadcastError);
+    }
 
     return { success: true, runId: (run as any).id };
   } catch (e: any) {
