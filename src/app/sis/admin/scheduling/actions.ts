@@ -55,7 +55,7 @@ export async function getSchedulingDashboard(termId: string): Promise<DashboardS
       adminClient.from('course_sections').select('id', { count: 'exact', head: true }).eq('semester_id', termId),
       adminClient.from('course_sections').select('id', { count: 'exact', head: true }).eq('semester_id', termId).in('status', ['SCHEDULED', 'PUBLISHED']),
       adminClient.from('rooms').select('id', { count: 'exact', head: true }).eq('status', 'ACTIVE'),
-      adminClient.from('profiles').select('id', { count: 'exact', head: true }).in('role', ['FACULTY', 'ADMIN', 'REGISTRAR']),
+      adminClient.from('Faculty').select('id', { count: 'exact', head: true }),
       adminClient.from('students').select('id', { count: 'exact', head: true }),
       adminClient.from('timetable_conflicts').select('id', { count: 'exact', head: true }),
       adminClient.from('timetable_scores').select('*').order('created_at', { ascending: false }).limit(1).maybeSingle(),
