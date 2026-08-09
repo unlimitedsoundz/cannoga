@@ -594,38 +594,38 @@ export default function TimetablePage() {
                  const { top, height } = getCardPosition(assignment.start_time, assignment.end_time);
                  const colors = SESSION_COLORS[assignment.section?.session_type] || SESSION_COLORS.LECTURE;
                  return (
-                   <div
-                     key={assignment.id}
-                     draggable
-                     onDragStart={() => handleDragStart(assignment)}
-                     onClick={() => openDetailModal(assignment)}
-                     className={`absolute left-2 right-2 ${colors.bg} ${colors.border} border rounded p-3 cursor-pointer hover:shadow-md transition-shadow z-10 ${draggingAssignment?.id === assignment.id ? 'opacity-50' : ''}`}
-                     style={{ top: `${top}px`, height: `${height - 4}px` }}
-                   >
-                    <div className={`text-[10px] font-black uppercase tracking-widest ${colors.text} mb-1`}>
-                      {assignment.section?.module?.code}
-                    </div>
-                    <div className="text-sm font-bold text-neutral-900">
-                      {assignment.section?.module?.title}
-                    </div>
-                    <div className="text-xs text-neutral-500 mt-1">
-                      {assignment.section?.code}
-                    </div>
-                    <div className="flex items-center gap-1.5 mt-2 text-xs text-neutral-600">
-                      <HugeiconsIcon icon={User} size={12} strokeWidth={2.5} />
-                      <span>
-                        {assignment.section?.instructor ? `${assignment.section.instructor.name}` : 'TBD'}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1.5 mt-1 text-xs text-neutral-600">
-                      <HugeiconsIcon icon={MapPin} size={12} strokeWidth={2.5} />
-                      <span>{assignment.room?.name} ({assignment.room?.building})</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 mt-1 text-xs text-neutral-600">
-                      <HugeiconsIcon icon={Clock} size={12} strokeWidth={2.5} />
-                      <span>{formatTime(assignment.start_time)} - {formatTime(assignment.end_time)}</span>
-                    </div>
-                  </div>
+                    <div
+                      key={assignment.id}
+                      draggable
+                      onDragStart={() => handleDragStart(assignment)}
+                      onClick={() => openDetailModal(assignment)}
+                      className={`absolute left-2 right-2 ${colors.bg} ${colors.border} border rounded p-3 cursor-pointer hover:shadow-md transition-shadow z-10 overflow-hidden ${draggingAssignment?.id === assignment.id ? 'opacity-50' : ''}`}
+                      style={{ top: `${top}px`, height: `${height - 4}px` }}
+                    >
+                     <div className={`text-[10px] font-black uppercase tracking-widest ${colors.text} mb-1 truncate`}>
+                       {assignment.section?.module?.code}
+                     </div>
+                     <div className="text-sm font-bold text-neutral-900 truncate">
+                       {assignment.section?.module?.title}
+                     </div>
+                     <div className="text-xs text-neutral-500 mt-1 truncate">
+                       {assignment.section?.code}
+                     </div>
+                     <div className="flex items-center gap-1.5 mt-2 text-xs text-neutral-600">
+                       <HugeiconsIcon icon={User} size={12} strokeWidth={2.5} />
+                       <span className="truncate">
+                         {assignment.section?.instructor ? `${assignment.section.instructor.name}` : 'TBD'}
+                       </span>
+                     </div>
+                     <div className="flex items-center gap-1.5 mt-1 text-xs text-neutral-600">
+                       <HugeiconsIcon icon={MapPin} size={12} strokeWidth={2.5} />
+                       <span className="truncate">{assignment.room?.name} ({assignment.room?.building})</span>
+                     </div>
+                     <div className="flex items-center gap-1.5 mt-1 text-xs text-neutral-600">
+                       <HugeiconsIcon icon={Clock} size={12} strokeWidth={2.5} />
+                       <span className="truncate">{formatTime(assignment.start_time)} - {formatTime(assignment.end_time)}</span>
+                     </div>
+                   </div>
                 );
               })}
             </div>
