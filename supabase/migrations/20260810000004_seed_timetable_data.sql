@@ -323,7 +323,8 @@ SELECT
   false
 FROM course_sections cs
 WHERE cs.status = 'PENDING'
-  AND cs.semester_id = (SELECT id FROM semesters WHERE name = 'Fall 2026' AND status IN ('ACTIVE', 'UPCOMING') LIMIT 1);
+  AND cs.semester_id = (SELECT id FROM semesters WHERE name = 'Fall 2026' AND status IN ('ACTIVE', 'UPCOMING') LIMIT 1)
+ON CONFLICT (section_id, meeting_index) DO NOTHING;
 
 -- =============================================
 -- 9. SEED STUDENT GROUPS
