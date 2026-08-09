@@ -627,11 +627,11 @@ export default function SISStudentDashboard() {
             {/* SECONDARY TABS */}
             <nav className="bg-white border-b border-slate-200 shadow-sm sticky top-16 z-40">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex space-x-1 sm:space-x-3 overflow-x-auto no-scrollbar text-xs font-medium text-slate-600">
+                    <div className="flex flex-wrap gap-2 sm:gap-3 text-xs font-medium text-slate-600">
                         {navItems.map(item => {
                             const isActive = currentPage === item.pageId;
                             return (
-                                <button key={item.pageId} type="button" onClick={() => navigateTo(item.pageId)} className={`border-b-2 py-3 px-3 whitespace-nowrap flex items-center space-x-1.5 transition ${isActive ? 'border-slate-900 text-slate-900 font-semibold' : 'border-transparent hover:text-slate-900'}`}>
+                                <button key={item.pageId} type="button" onClick={() => navigateTo(item.pageId)} className={`border-b-2 py-2 px-3 flex items-center transition whitespace-nowrap ${isActive ? 'border-slate-900 text-slate-900 font-semibold' : 'border-transparent hover:text-slate-900'}`}>
                                     <span>{item.label}</span>
                                 </button>
                             );
