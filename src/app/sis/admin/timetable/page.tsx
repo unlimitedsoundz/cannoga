@@ -993,7 +993,7 @@ export default function TimetablePage() {
           </div>
           <div className="text-center">
             <div className="text-lg font-bold text-neutral-900">{autoAssignProgress?.currentStage || 'Initializing'}</div>
-            <div className="text-xs text-neutral-500 mt-1">{autoAssignProgress?.progress || 0}% complete</div>
+            <div className="text-xs text-neutral-500 mt-1">{autoAssignProgress?.progress || 0}% complete · {elapsedTime} elapsed</div>
           </div>
           <div className="grid grid-cols-2 gap-3 text-xs">
             <div className="border border-neutral-200 p-2">
