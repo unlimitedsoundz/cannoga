@@ -150,6 +150,14 @@ export async function POST(request: NextRequest) {
 
     if (assignmentsError) throw assignmentsError;
 
+    const scheduledSectionIds = [...new Set(solution.assignments.map(a => a.sectionId))];
+    if (scheduledSectionIds.length > 0) {
+      await adminClient
+        .from('course_sections')
+        .update({ status: 'SCHEDULED' })
+        .in('id', scheduledSectionIds);
+    }
+
     const conflictRows = conflicts.map(c => ({
       version_id: versionId,
       run_id: runId,
