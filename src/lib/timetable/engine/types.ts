@@ -216,6 +216,8 @@ export interface Score {
 
 export interface SchedulingProblem {
   termId: string
+  termStartDate: string
+  termEndDate: string
   rooms: Room[]
   roomFeatures: DbRoomFeature[]
   roomFeatureAssignments: DbRoomFeatureAssignment[]

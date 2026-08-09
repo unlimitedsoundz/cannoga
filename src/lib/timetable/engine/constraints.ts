@@ -42,6 +42,34 @@ function isHolidayDate(dateStr: string, holidays: SchedulingProblem['holidays'])
   })
 }
 
+function isDayOfWeekInHolidayPeriod(
+  dayOfWeek: number,
+  termStart: string,
+  termEnd: string,
+  holidays: SchedulingProblem['holidays'],
+): boolean {
+  const termStartDate = new Date(termStart + 'T00:00:00')
+  const termEndDate = new Date(termEnd + 'T00:00:00')
+
+  for (const h of holidays) {
+    if (!h.affects_scheduling) continue
+    const holidayStart = new Date(h.start_date + 'T00:00:00')
+    const holidayEnd = new Date(h.end_date + 'T00:00:00')
+
+    if (holidayStart > termEndDate || holidayEnd < termStartDate) continue
+
+    const checkDate = new Date(holidayStart)
+    while (checkDate <= holidayEnd) {
+      if (checkDate >= termStartDate && checkDate <= termEndDate && checkDate.getDay() === dayOfWeek) {
+        return true
+      }
+      checkDate.setDate(checkDate.getDate() + 1)
+    }
+  }
+
+  return false
+}
+
 function isRoomAvailable(
   roomId: string,
   dayOfWeek: number,
@@ -364,13 +392,12 @@ export class HolidayBlock implements Constraint {
   check(solution: SchedulingSolution, problem: SchedulingProblem): ConstraintResult[] {
     const results: ConstraintResult[] = []
     for (const a of solution.assignments) {
-      const dateStr = a.startDate
-      if (isHolidayDate(dateStr, problem.holidays)) {
+      if (isDayOfWeekInHolidayPeriod(a.dayOfWeek, problem.termStartDate, problem.termEndDate, problem.holidays)) {
         results.push({
           constraintName: this.name,
           passed: false,
           severity: Severity.HARD,
-          description: `Assignment on ${dateStr} falls on a holiday`,
+          description: `Assignment on day ${a.dayOfWeek} falls during a holiday period`,
           affectedAssignmentIds: [a.id],
           weight: this.weight,
         })

@@ -330,8 +330,8 @@ export class TimetableScheduler {
           dayOfWeek: candidate.timeSlot.dayOfWeek,
           startTime: candidate.timeSlot.startTime,
           endTime: candidate.timeSlot.endTime,
-          startDate: problem.termId,
-          endDate: problem.termId,
+          startDate: problem.termStartDate,
+          endDate: problem.termEndDate,
           isOverride: false,
         }
 

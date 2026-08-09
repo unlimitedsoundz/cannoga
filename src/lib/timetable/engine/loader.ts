@@ -79,6 +79,7 @@ export async function loadSchedulingData(termId: string): Promise<SchedulingProb
     enrollmentsRes,
     profilesRes,
     studentsRes,
+    semesterRes,
   ] = await Promise.all([
     supabase.from('rooms').select('*'),
     supabase.from('room_features').select('*'),
@@ -93,6 +94,7 @@ export async function loadSchedulingData(termId: string): Promise<SchedulingProb
     supabase.from('module_enrollments').select('*').eq('semester_id', termId),
     supabase.from('profiles').select('*'),
     supabase.from('students').select('*'),
+    supabase.from('semesters').select('start_date, end_date').eq('id', termId).single(),
   ])
 
   const sectionIds = (sectionsRes.data as DbCourseSection[] | null)?.map((s) => s.id) || []
@@ -283,7 +285,6 @@ export async function loadSchedulingData(termId: string): Promise<SchedulingProb
 
   for (const section of sections) {
     if (section.studentGroupId && !section.requiredFeatures.includes(section.studentGroupId)) {
-      section.requiredFeatures.push(section.studentGroupId)
     }
   }
 
@@ -296,6 +297,8 @@ export async function loadSchedulingData(termId: string): Promise<SchedulingProb
 
   return {
     termId,
+    termStartDate: semesterRes.data?.start_date || new Date().toISOString().split('T')[0],
+    termEndDate: semesterRes.data?.end_date || new Date().toISOString().split('T')[0],
     rooms,
     roomFeatures: rawFeatures,
     roomFeatureAssignments: rawFeatureAssignments,

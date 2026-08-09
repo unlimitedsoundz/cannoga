@@ -109,6 +109,8 @@ export default function TimetablePage() {
     reason: '',
   });
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [draggingAssignment, setDraggingAssignment] = useState<EnrichedAssignment | null>(null);
+  const [dragOverSlot, setDragOverSlot] = useState<{ day: number; time: string } | null>(null);
 
   useEffect(() => {
     fetchLookups();
@@ -266,6 +268,51 @@ export default function TimetablePage() {
     }
   };
 
+  const handleDragStart = (assignment: EnrichedAssignment) => {
+    setDraggingAssignment(assignment);
+  };
+
+  const handleDragOver = (e: React.DragEvent, day: number, time: string) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    setDragOverSlot({ day, time });
+  };
+
+  const handleDragLeave = () => {
+    setDragOverSlot(null);
+  };
+
+  const handleDrop = async (day: number, time: string) => {
+    if (!draggingAssignment) return;
+    
+    const duration = timeToMinutes(draggingAssignment.end_time) - timeToMinutes(draggingAssignment.start_time);
+    const startTime = time;
+    const [hours, minutes] = time.split(':').map(Number);
+    const endMinutes = hours * 60 + minutes + duration;
+    const endTime = `${Math.floor(endMinutes / 60).toString().padStart(2, '0')}:${(endMinutes % 60).toString().padStart(2, '0')}`;
+
+    setDraggingAssignment(null);
+    setDragOverSlot(null);
+
+    try {
+      setMoving(true);
+      await moveAssignment(
+        draggingAssignment.id,
+        day,
+        startTime,
+        endTime,
+        draggingAssignment.room_id,
+        `Drag and drop from day ${draggingAssignment.day_of_week} at ${draggingAssignment.start_time}`
+      );
+      toast.success('Assignment moved successfully');
+      fetchTimetableData();
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to move assignment');
+    } finally {
+      setMoving(false);
+    }
+  };
+
   const handleResolveConflict = async (conflictId: string, resolution: string) => {
     try {
       await resolveConflict(conflictId, resolution);
@@ -341,20 +388,36 @@ export default function TimetablePage() {
                 <div className="h-[40px] border-b border-neutral-200 flex items-center justify-center bg-neutral-50">
                   <span className="text-xs font-bold uppercase tracking-wider text-neutral-600">{DAY_ABBREV[day - 1]}</span>
                 </div>
-                <div className="relative" style={{ height: `${TOTAL_SLOTS * ROW_HEIGHT}px` }}>
-                  {Array.from({ length: TOTAL_SLOTS }, (_, i) => (
-                    <div key={i} className="absolute left-0 right-0 border-b border-neutral-100" style={{ top: `${i * ROW_HEIGHT}px`, height: `${ROW_HEIGHT}px` }}></div>
-                  ))}
-                  {dayAssignments.map(assignment => {
-                    const { top, height } = getCardPosition(assignment.start_time, assignment.end_time);
-                    const colors = SESSION_COLORS[assignment.section?.session_type] || SESSION_COLORS.LECTURE;
-                    return (
-                      <div
-                        key={assignment.id}
-                        onClick={() => openDetailModal(assignment)}
-                        className={`absolute left-1 right-1 ${colors.bg} ${colors.border} border rounded p-1.5 cursor-pointer hover:shadow-md transition-shadow z-10 overflow-hidden`}
-                        style={{ top: `${top}px`, height: `${height - 2}px` }}
-                      >
+                 <div className="relative" style={{ height: `${TOTAL_SLOTS * ROW_HEIGHT}px` }}>
+                   {Array.from({ length: TOTAL_SLOTS }, (_, i) => {
+                     const slotMinutes = START_HOUR * 60 + i * SLOT_DURATION;
+                     const slotHours = Math.floor(slotMinutes / 60);
+                     const slotMins = slotMinutes % 60;
+                     const slotTime = `${slotHours.toString().padStart(2, '0')}:${slotMins.toString().padStart(2, '0')}`;
+                     const isDragOver = dragOverSlot?.day === day && dragOverSlot?.time === slotTime;
+                     return (
+                       <div
+                         key={i}
+                         onDragOver={(e) => handleDragOver(e, day, slotTime)}
+                         onDragLeave={handleDragLeave}
+                         onDrop={() => handleDrop(day, slotTime)}
+                         className={`absolute left-0 right-0 border-b border-neutral-100 transition-colors ${isDragOver ? 'bg-purple-100' : ''}`}
+                         style={{ top: `${i * ROW_HEIGHT}px`, height: `${ROW_HEIGHT}px` }}
+                       ></div>
+                     );
+                   })}
+                   {dayAssignments.map(assignment => {
+                     const { top, height } = getCardPosition(assignment.start_time, assignment.end_time);
+                     const colors = SESSION_COLORS[assignment.section?.session_type] || SESSION_COLORS.LECTURE;
+                     return (
+                       <div
+                         key={assignment.id}
+                         draggable
+                         onDragStart={() => handleDragStart(assignment)}
+                         onClick={() => openDetailModal(assignment)}
+                         className={`absolute left-1 right-1 ${colors.bg} ${colors.border} border rounded p-1.5 cursor-pointer hover:shadow-md transition-shadow z-10 overflow-hidden ${draggingAssignment?.id === assignment.id ? 'opacity-50' : ''}`}
+                         style={{ top: `${top}px`, height: `${height - 2}px` }}
+                       >
                         <div className={`text-[10px] font-black uppercase tracking-widest ${colors.text} mb-0.5 truncate`}>
                           {assignment.section?.module?.code}
                         </div>
@@ -413,20 +476,36 @@ export default function TimetablePage() {
             <div className="h-[40px] border-b border-neutral-200 flex items-center justify-center bg-neutral-50">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-600">{DAYS[selectedDay - 1]}</span>
             </div>
-            <div className="relative" style={{ height: `${TOTAL_SLOTS * ROW_HEIGHT}px` }}>
-              {Array.from({ length: TOTAL_SLOTS }, (_, i) => (
-                <div key={i} className="absolute left-0 right-0 border-b border-neutral-100" style={{ top: `${i * ROW_HEIGHT}px`, height: `${ROW_HEIGHT}px` }}></div>
-              ))}
-              {dayAssignments.map(assignment => {
-                const { top, height } = getCardPosition(assignment.start_time, assignment.end_time);
-                const colors = SESSION_COLORS[assignment.section?.session_type] || SESSION_COLORS.LECTURE;
-                return (
-                  <div
-                    key={assignment.id}
-                    onClick={() => openDetailModal(assignment)}
-                    className={`absolute left-2 right-2 ${colors.bg} ${colors.border} border rounded p-3 cursor-pointer hover:shadow-md transition-shadow z-10`}
-                    style={{ top: `${top}px`, height: `${height - 4}px` }}
-                  >
+             <div className="relative" style={{ height: `${TOTAL_SLOTS * ROW_HEIGHT}px` }}>
+               {Array.from({ length: TOTAL_SLOTS }, (_, i) => {
+                 const slotMinutes = START_HOUR * 60 + i * SLOT_DURATION;
+                 const slotHours = Math.floor(slotMinutes / 60);
+                 const slotMins = slotMinutes % 60;
+                 const slotTime = `${slotHours.toString().padStart(2, '0')}:${slotMins.toString().padStart(2, '0')}`;
+                 const isDragOver = dragOverSlot?.day === selectedDay && dragOverSlot?.time === slotTime;
+                 return (
+                   <div
+                     key={i}
+                     onDragOver={(e) => handleDragOver(e, selectedDay, slotTime)}
+                     onDragLeave={handleDragLeave}
+                     onDrop={() => handleDrop(selectedDay, slotTime)}
+                     className={`absolute left-0 right-0 border-b border-neutral-100 transition-colors ${isDragOver ? 'bg-purple-100' : ''}`}
+                     style={{ top: `${i * ROW_HEIGHT}px`, height: `${ROW_HEIGHT}px` }}
+                   ></div>
+                 );
+               })}
+               {dayAssignments.map(assignment => {
+                 const { top, height } = getCardPosition(assignment.start_time, assignment.end_time);
+                 const colors = SESSION_COLORS[assignment.section?.session_type] || SESSION_COLORS.LECTURE;
+                 return (
+                   <div
+                     key={assignment.id}
+                     draggable
+                     onDragStart={() => handleDragStart(assignment)}
+                     onClick={() => openDetailModal(assignment)}
+                     className={`absolute left-2 right-2 ${colors.bg} ${colors.border} border rounded p-3 cursor-pointer hover:shadow-md transition-shadow z-10 ${draggingAssignment?.id === assignment.id ? 'opacity-50' : ''}`}
+                     style={{ top: `${top}px`, height: `${height - 4}px` }}
+                   >
                     <div className={`text-[10px] font-black uppercase tracking-widest ${colors.text} mb-1`}>
                       {assignment.section?.module?.code}
                     </div>

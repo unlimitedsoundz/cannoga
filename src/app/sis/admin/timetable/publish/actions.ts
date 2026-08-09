@@ -131,6 +131,16 @@ export async function publishTimetableVersion(versionId: string, notes: string) 
 
     if (archiveError) throw archiveError;
 
+    try {
+      const notifyPromises = [];
+      const studentNotify = notifyStrandedStudents(versionId);
+      const facultyNotify = notifyFaculty(versionId);
+      notifyPromises.push(studentNotify, facultyNotify);
+      await Promise.all(notifyPromises);
+    } catch (notificationError) {
+      console.error('Notification error:', notificationError);
+    }
+
     return { success: true };
   } catch (e: any) {
     console.error('publishTimetableVersion Error:', e);
