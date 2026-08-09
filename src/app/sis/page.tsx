@@ -180,7 +180,7 @@ const documentTypeLabels: Record<string, string> = {
 
 const getDocumentStatusColor = (status: string) => {
     switch (status) {
-        case 'active': return 'text-emerald-700 bg-emerald-50 border-emerald-200';
+        case 'active': return 'text-slate-700 bg-slate-100 border-slate-200';
         case 'archived': return 'text-slate-700 bg-slate-100 border-slate-200';
         case 'revoked': return 'text-red-700 bg-red-50 border-red-200';
         default: return 'text-slate-700 bg-slate-100 border-slate-200';
