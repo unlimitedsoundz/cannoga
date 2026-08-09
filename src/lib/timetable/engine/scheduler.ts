@@ -358,69 +358,81 @@ export class TimetableScheduler {
       }
     }
 
-    sectionMeetings.sort((a, b) => {
-      const candidatesA = computeCandidates(a.meeting, a.section, problem, assignments).length
-      const candidatesB = computeCandidates(b.meeting, b.section, problem, assignments).length
-      if (candidatesA !== candidatesB) return candidatesA - candidatesB
-      return a.meeting.id.localeCompare(b.meeting.id)
-    })
+  sectionMeetings.sort((a, b) => {
+    const candidatesA = computeCandidates(a.meeting, a.section, problem, assignments).length
+    const candidatesB = computeCandidates(b.meeting, b.section, problem, assignments).length
+    if (candidatesA !== candidatesB) return candidatesA - candidatesB
+    return a.meeting.id.localeCompare(b.meeting.id)
+  })
 
-    const maxIterations = sectionMeetings.length * 10
-    let iteration = 0
+  console.log('[Scheduler] Section meetings to schedule:', sectionMeetings.length)
+  for (const sm of sectionMeetings) {
+    const candidates = computeCandidates(sm.meeting, sm.section, problem, assignments)
+    console.log(`[Scheduler] Section ${sm.section.code}: ${candidates.length} candidates`)
+  }
 
-    function backtrack(index: number): boolean {
-      if (index >= sectionMeetings.length) return true
-      if (iteration > maxIterations) return false
-      iteration++
+  const maxIterations = sectionMeetings.length * 10
+  let iteration = 0
 
-      const { section, meeting } = sectionMeetings[index]
-      const candidates = computeCandidates(meeting, section, problem, assignments)
-
-      if (candidates.length === 0) {
-        return false
-      }
-
-      for (const candidate of candidates) {
-        const instructorId = meeting.fixedInstructorId || section.instructorId
-        const newAssignment: Assignment = {
-          id: `assignment-${meeting.id}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-          sectionId: section.id,
-          meetingId: meeting.id,
-          roomId: candidate.roomId,
-          instructorId,
-          dayOfWeek: candidate.dayOfWeek,
-          startTime: candidate.startTime,
-          endTime: candidate.endTime,
-          startDate: problem.termStartDate,
-          endDate: problem.termEndDate,
-          isOverride: false,
-        }
-
-        const testAssignments = [...assignments, newAssignment]
-        let hardViolationFound = false
-
-        for (const constraint of HARD_CONSTRAINTS) {
-          const results = constraint.check(
-            { problem, assignments: testAssignments } as unknown as SchedulingSolution,
-            problem,
-          )
-          if (results.some((r) => !r.passed && r.severity === Severity.HARD)) {
-            hardViolationFound = true
-            break
-          }
-        }
-
-        if (!hardViolationFound) {
-          assignments.push(newAssignment)
-          if (backtrack(index + 1)) {
-            return true
-          }
-          assignments.pop()
-        }
-      }
-
+  function backtrack(index: number): boolean {
+    if (index >= sectionMeetings.length) return true
+    if (iteration > maxIterations) {
+      console.log('[Scheduler] Backtracking hit max iterations')
       return false
     }
+    iteration++
+
+    const { section, meeting } = sectionMeetings[index]
+    const candidates = computeCandidates(meeting, section, problem, assignments)
+
+    if (candidates.length === 0) {
+      console.log(`[Scheduler] No candidates for section ${section.code} meeting ${meeting.meetingIndex}`)
+      return false
+    }
+
+    for (const candidate of candidates) {
+      const instructorId = meeting.fixedInstructorId || section.instructorId
+      const newAssignment: Assignment = {
+        id: `assignment-${meeting.id}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        sectionId: section.id,
+        meetingId: meeting.id,
+        roomId: candidate.roomId,
+        instructorId,
+        dayOfWeek: candidate.dayOfWeek,
+        startTime: candidate.startTime,
+        endTime: candidate.endTime,
+        startDate: problem.termStartDate,
+        endDate: problem.termEndDate,
+        isOverride: false,
+      }
+
+      const testAssignments = [...assignments, newAssignment]
+      let hardViolationFound = false
+
+      for (const constraint of HARD_CONSTRAINTS) {
+        const results = constraint.check(
+          { problem, assignments: testAssignments } as unknown as SchedulingSolution,
+          problem,
+        )
+        if (results.some((r) => !r.passed && r.severity === Severity.HARD)) {
+          hardViolationFound = true
+          break
+        }
+      }
+
+      if (!hardViolationFound) {
+        assignments.push(newAssignment)
+        if (backtrack(index + 1)) {
+          return true
+        }
+        assignments.pop()
+      }
+    }
+
+    return false
+  }
+
+  backtrack(0)
 
     const scheduledSectionIds = new Set<string>()
     for (const a of assignments) {

@@ -124,6 +124,19 @@ export async function loadSchedulingData(termId: string): Promise<SchedulingProb
   const rawProfiles = (profilesRes.data as DbProfile[]) || []
   const rawStudents = (studentsRes.data as DbStudent[]) || []
 
+  console.log('[TimetableLoader] Raw data loaded', {
+    rooms: rawRooms.length,
+    sections: rawSections.length,
+    meetings: rawMeetings.length,
+    timeSlots: rawTimeSlots.length,
+    holidays: rawHolidays.length,
+    enrollments: rawEnrollments.length,
+    cohorts: rawStudentGroups.length,
+    cohortMembers: rawCohortMembers.length,
+    instructors: rawProfiles.length,
+    students: rawStudents.length,
+  })
+
   const featureIdToName = new Map<string, string>()
   for (const f of rawFeatures) {
     featureIdToName.set(f.id, f.name)

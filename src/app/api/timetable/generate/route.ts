@@ -7,10 +7,12 @@ import { validateSolution } from '@/lib/timetable/engine/validator';
 
 export async function POST(request: NextRequest) {
   const adminClient = createServiceRoleClient();
-  
+
   try {
     const { termId, runId, constraintWeights } = await request.json();
-    
+
+    console.log('[TimetableGeneration] Starting generation', { termId, runId });
+
     if (!termId || !runId) {
       return NextResponse.json({ error: 'termId and runId are required' }, { status: 400 });
     }
@@ -20,26 +22,23 @@ export async function POST(request: NextRequest) {
       .update({ status: 'RUNNING', started_at: new Date().toISOString() })
       .eq('id', runId);
 
-    const stages = [
-      { name: 'Loading scheduling data...', progress: 10 },
-      { name: 'Building constraints...', progress: 30 },
-      { name: 'Running optimization engine...', progress: 50 },
-      { name: 'Validating solution...', progress: 70 },
-      { name: 'Saving results...', progress: 90 },
-    ];
-
-    for (const stage of stages) {
-      await adminClient
-        .from('timetable_runs')
-        .update({ progress: stage.progress })
-        .eq('id', runId);
-      
-      await new Promise(resolve => setTimeout(resolve, 500));
-    }
-
+    console.log('[TimetableGeneration] Loading scheduling data...');
     const problem = await loadSchedulingData(termId);
+    console.log('[TimetableGeneration] Data loaded', {
+      sections: problem.sections.length,
+      rooms: problem.rooms.length,
+      timeSlots: problem.timeSlots.length,
+      meetings: problem.sections.reduce((sum, s) => sum + s.meetings.length, 0),
+    });
+
+    console.log('[TimetableGeneration] Running scheduler...');
     const scheduler = new TimetableScheduler();
     const solution = await scheduler.schedule(problem);
+    console.log('[TimetableGeneration] Scheduler completed', {
+      assignments: solution.assignments.length,
+      conflicts: solution.conflicts.length,
+      unschedulable: solution.unschedulableSections.length,
+    });
 
     const conflicts = detectConflicts(solution, problem);
     const validation = validateSolution(solution, problem);
@@ -79,6 +78,8 @@ export async function POST(request: NextRequest) {
       is_override: a.isOverride,
       override_reason: a.overrideReason,
     }));
+
+    console.log('[TimetableGeneration] Inserting assignments', { count: assignmentRows.length });
 
     const { error: assignmentsError } = await adminClient
       .from('timetable_assignments')
@@ -138,6 +139,8 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', runId);
 
+    console.log('[TimetableGeneration] Completed successfully', { status, assignments: solution.assignments.length });
+
     return NextResponse.json({
       success: true,
       runId,
@@ -156,8 +159,8 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('Generation error:', error);
-    
+    console.error('[TimetableGeneration] Error:', error);
+
     try {
       await adminClient
         .from('timetable_runs')
@@ -168,7 +171,7 @@ export async function POST(request: NextRequest) {
         })
         .eq('id', runId);
     } catch (updateError) {
-      console.error('Failed to update run status:', updateError);
+      console.error('[TimetableGeneration] Failed to update run status:', updateError);
     }
 
     return NextResponse.json(
