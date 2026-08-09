@@ -36,7 +36,7 @@ export function FilterBar({ filters, onClearAll }: FilterBarProps) {
           >
             <option value="">{filter.placeholder || filter.label}</option>
             {filter.options.map(opt => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
+              <option key={`${filter.key}-${opt.value}`} value={opt.value}>{opt.label}</option>
             ))}
           </select>
           <HugeiconsIcon icon={ChevronDown} size={12} strokeWidth={2.5} className="absolute right-2 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
