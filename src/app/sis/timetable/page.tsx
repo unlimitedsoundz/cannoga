@@ -4,14 +4,25 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
-import { Calendar, DownloadSimple as Download, MapPin, VideoCamera as Video, Clock, CaretLeft as ChevronLeft, CaretRight as ChevronRight } from '@phosphor-icons/react/dist/ssr';
-import { ClassSession, Subject } from '@/types/database';
+import { Calendar, MapPin, Users, Clock, CaretLeft as ChevronLeft, CaretRight as ChevronRight } from '@phosphor-icons/react/dist/ssr';
+import { TimetableAssignment } from '@/types/database';
+
+interface SessionRow extends TimetableAssignment {
+  room: { name: string; building: string; room_number: string } | null;
+  section: {
+    code: string;
+    session_type: string;
+    delivery_mode: string;
+    module: { code: string; title: string; credits: number } | null;
+  } | null;
+  instructor: { first_name: string; last_name: string } | null;
+}
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const HOURS = Array.from({ length: 14 }, (_, i) => i + 8);
 
 export default function StudentTimetablePage() {
-  const [sessions, setSessions] = useState<(ClassSession & { subject: Subject; instructor?: { first_name: string; last_name: string } })[]>([]);
+  const [sessions, setSessions] = useState<SessionRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [weekOffset, setWeekOffset] = useState(0);
@@ -35,38 +46,63 @@ export default function StudentTimetablePage() {
 
       if (!student) throw new Error('Student record not found');
 
-      const { data: subjects } = await supabase
-        .from('Subject')
-        .select('id')
-        .eq('courseId', student.program_id);
+      const { data: enrollments } = await supabase
+        .from('module_enrollments')
+        .select('module_id, semester_id')
+        .eq('student_id', student.id)
+        .eq('status', 'REGISTERED');
 
-      const subjectIds = subjects?.map((s: { id: string }) => s.id) || [];
+      const moduleIds = enrollments?.map((e: { module_id: string }) => e.module_id) || [];
+      const semesterIds = [...new Set(enrollments?.map((e: { semester_id: string }) => e.semester_id) || [])];
 
-      if (subjectIds.length === 0) {
+      if (moduleIds.length === 0 || semesterIds.length === 0) {
         setSessions([]);
         setLoading(false);
         return;
       }
 
-      let query = supabase
-        .from('class_sessions')
-        .select(`
-          *,
-          subject:Subject(id, name, code, creditUnits),
-          instructor:profiles!class_sessions_instructor_id_fkey(first_name, last_name)
-        `)
-        .in('subject_id', subjectIds)
-        .order('session_date', { ascending: true })
-        .order('start_time', { ascending: true });
+      const { data: sections } = await supabase
+        .from('course_sections')
+        .select('id, semester_id')
+        .in('module_id', moduleIds);
 
-      if (student.current_semester_id) {
-        query = query.eq('semester_id', student.current_semester_id);
+      const sectionIds = sections?.map((s: { id: string }) => s.id) || [];
+      const uniqueSemesterIds = [...new Set(sections?.map((s: { semester_id: string }) => s.semester_id) || [])];
+
+      if (sectionIds.length === 0 || uniqueSemesterIds.length === 0) {
+        setSessions([]);
+        setLoading(false);
+        return;
       }
 
-      const { data: sessionsData, error } = await query;
+      const { data: versions } = await supabase
+        .from('timetable_versions')
+        .select('id, semester_id')
+        .in('semester_id', uniqueSemesterIds)
+        .eq('status', 'PUBLISHED')
+        .order('version_number', { ascending: false })
+        .limit(1);
 
-      if (error) throw error;
-      setSessions(sessionsData || []);
+      if (!versions || versions.length === 0) {
+        setSessions([]);
+        setLoading(false);
+        return;
+      }
+
+      const { data: assignments } = await supabase
+        .from('timetable_assignments')
+        .select(`
+          *,
+          room:rooms(id, name, building, room_number),
+          section:course_sections(id, code, session_type, delivery_mode, module:modules(id, code, title, credits)),
+          instructor:profiles!timetable_assignments_instructor_id_fkey(first_name, last_name)
+        `)
+        .eq('version_id', versions[0].id)
+        .in('section_id', sectionIds)
+        .order('day_of_week', { ascending: true })
+        .order('start_time', { ascending: true });
+
+      setSessions(assignments || []);
     } catch (err: any) {
       setError(err.message || 'Failed to load timetable');
     } finally {
@@ -88,28 +124,28 @@ export default function StudentTimetablePage() {
   };
 
   const weekDates = getWeekDates();
-  const weekSessions = sessions.filter(s => {
-    const sessionDate = new Date(s.session_date);
-    return weekDates.some(d => d.toDateString() === sessionDate.toDateString());
-  });
 
   const handleExport = () => {
     let icsContent = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Cannoga College//Timetable//EN\nCALSCALE:GREGORIAN\nMETHOD:PUBLISH\n';
-    
+
     sessions.forEach(session => {
-      const dateStr = session.session_date.replace(/-/g, '');
+      const dayIndex = session.day_of_week - 1;
+      const sessionDate = weekDates[dayIndex];
+      if (!sessionDate) return;
+      const dateStr = sessionDate.toISOString().split('T')[0].replace(/-/g, '');
       const startTime = session.start_time.replace(/:/g, '') + '00';
       const endTime = session.end_time.replace(/:/g, '') + '00';
-      const subjectName = session.subject?.name || 'Class';
-      const location = session.room ? `${session.room}${session.building ? ', ' + session.building : ''}` : 'TBD';
+      const subjectName = session.section?.module?.title || 'Class';
+      const moduleCode = session.section?.module?.code || '';
+      const location = session.room ? `${session.room.room_number}${session.room.building ? ', ' + session.room.building : ''}` : 'TBD';
       const instructor = session.instructor ? `${session.instructor.first_name} ${session.instructor.last_name}` : 'TBD';
-      
+
       icsContent += 'BEGIN:VEVENT\n';
       icsContent += `DTSTART:${dateStr}T${startTime}\n`;
       icsContent += `DTEND:${dateStr}T${endTime}\n`;
-      icsContent += `SUMMARY:${subjectName} - ${session.session_type}\n`;
+      icsContent += `SUMMARY:${moduleCode} - ${subjectName}\n`;
       icsContent += `LOCATION:${location}\n`;
-      icsContent += `DESCRIPTION:Instructor: ${instructor}\\nSession Type: ${session.session_type}\n`;
+      icsContent += `DESCRIPTION:Instructor: ${instructor}\\nType: ${session.section?.session_type || 'Lecture'}\n`;
       icsContent += 'END:VEVENT\n';
     });
 
@@ -142,29 +178,11 @@ export default function StudentTimetablePage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setWeekOffset(w => w - 1)}
-            className="p-2 border border-neutral-200 rounded hover:bg-neutral-50"
-          >
-            <ChevronLeft size={16} weight="bold" />
-          </button>
-          <button
-            onClick={() => setWeekOffset(0)}
-            className="px-3 py-2 border border-neutral-200 rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-50"
-          >
-            Today
-          </button>
-          <button
-            onClick={() => setWeekOffset(w => w + 1)}
-            className="p-2 border border-neutral-200 rounded hover:bg-neutral-50"
-          >
-            <ChevronRight size={16} weight="bold" />
-          </button>
-          <button
-            onClick={handleExport}
-            className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all shadow-sm"
-          >
-            <Download size={14} weight="bold" /> Export .ics
+          <button onClick={() => setWeekOffset(w => w - 1)} className="p-2 border border-neutral-200 rounded hover:bg-neutral-50"><ChevronLeft size={16} weight="bold" /></button>
+          <button onClick={() => setWeekOffset(0)} className="px-3 py-2 border border-neutral-200 rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-50">Today</button>
+          <button onClick={() => setWeekOffset(w => w + 1)} className="p-2 border border-neutral-200 rounded hover:bg-neutral-50"><ChevronRight size={16} weight="bold" /></button>
+          <button onClick={handleExport} className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all shadow-sm">
+            <Calendar size={14} weight="bold" /> Export .ics
           </button>
         </div>
       </div>
@@ -199,12 +217,8 @@ export default function StudentTimetablePage() {
                     <span className="text-[10px] font-bold text-neutral-400">{hour}:00</span>
                   </div>
                   {DAYS.map((_, dayIndex) => {
-                    const dayDate = weekDates[dayIndex];
-                    const dateStr = dayDate.toISOString().split('T')[0];
-                    const daySessions = weekSessions.filter(s => {
-                      const sessionDay = new Date(s.session_date).getDay();
-                      const sessionHour = parseInt(s.start_time.split(':')[0]);
-                      return sessionDay === dayIndex && sessionHour === hour;
+                    const daySessions = sessions.filter(s => {
+                      return s.day_of_week === dayIndex + 1 && parseInt(s.start_time.split(':')[0]) === hour;
                     });
 
                     return (
@@ -213,23 +227,23 @@ export default function StudentTimetablePage() {
                           <div
                             key={session.id}
                             className={`p-2 rounded-sm border-l-4 shadow-sm transition-all hover:scale-[1.02] cursor-default
-                              ${session.session_type === 'Online'
+                              ${session.section?.delivery_mode === 'ONLINE'
                                 ? 'bg-blue-50 border-blue-600 text-blue-900'
                                 : 'bg-neutral-50 border-neutral-600 text-neutral-900'}`}
                           >
                             <div className="flex items-center justify-between gap-1">
-                              <span className="text-[9px] font-black uppercase truncate">{session.subject?.code}</span>
-                              {session.session_type === 'Online' ? <Video size={10} weight="regular" /> : <MapPin size={10} weight="regular" />}
+                              <span className="text-[9px] font-black uppercase truncate">{session.section?.module?.code}</span>
+                              {session.section?.delivery_mode === 'ONLINE' ? <span className="text-[8px] font-bold uppercase">Online</span> : <MapPin size={10} weight="regular" />}
                             </div>
                             <div className="text-[10px] font-bold leading-tight mt-1 line-clamp-2">
-                              {session.subject?.name}
+                              {session.section?.module?.title}
                             </div>
                             <div className="flex items-center gap-1 mt-1 text-[8px] font-bold opacity-70">
                               <Clock size={8} weight="regular" /> {session.start_time.slice(0, 5)} - {session.end_time.slice(0, 5)}
                             </div>
                             {session.room && (
                               <div className="mt-1 text-[8px] font-black uppercase tracking-tighter truncate">
-                                {session.room}{session.building ? `, ${session.building}` : ''}
+                                {session.room.room_number}{session.room.building ? `, ${session.room.building}` : ''}
                               </div>
                             )}
                             {session.instructor && (
