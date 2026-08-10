@@ -1,0 +1,103 @@
+/* Core Layout Container */
+.timetable-container {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Grid Wrapper: 1 Header Column + 5 Days */
+.timetable-grid {
+  display: grid;
+  grid-template-columns: 80px repeat(5, minmax(180px, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* Section Headings */
+.grid-header {
+  background-color: #1a365d;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+/* Time Axis Column Styling */
+.time-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #4a5568;
+  background-color: #e2e8f0;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+/* Universal Course Card Styling */
+.course-card {
+  background-color: #ffffff;
+  border-left: 5px solid #3182ce;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.course-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Dynamic Card Metadata Elements */
+.course-code {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #2b6cb0;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.course-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.course-meta {
+  font-size: 0.8rem;
+  color: #718096;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Visual Conflict State Indicator */
+.course-card.conflict {
+  border-left-color: #e53e3e;
+  background-color: #fff5f5;
+}
+.course-card.conflict .course-code {
+  color: #c53030;
+}
+
+/* Responsive Breakpoint for Mobile Screens */
+@media (max-width: 768px) {
+  .timetable-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .time-label {
+    justify-content: flex-start;
+    background-color: #cbd5e0;
+  }
+}
