@@ -34,7 +34,7 @@ import {
   getRooms,
   getInstructors,
 } from './actions';
-import { generateTimetable, getGenerationProgress } from '../scheduling/actions';
+import { generateTimetable, getGenerationProgress, ProgressUpdate } from '../scheduling/actions';
 
 type ViewTab = 'week' | 'day' | 'room' | 'instructor' | 'program';
 
@@ -195,18 +195,18 @@ export default function TimetablePage() {
 
         const pollInterval = setInterval(async () => {
           try {
-            const progressResult = await getGenerationProgress(result.runId);
-            if (progressResult.success && progressResult.data) {
-              setAutoAssignProgress(progressResult.data);
-              if (['COMPLETED', 'PARTIAL', 'FAILED', 'CANCELLED'].includes(progressResult.data.status)) {
+            const progressResult: ProgressUpdate = await getGenerationProgress(result.runId!);
+            if (progressResult) {
+              setAutoAssignProgress(progressResult);
+              if (['COMPLETED', 'PARTIAL', 'FAILED', 'CANCELLED'].includes(progressResult.status)) {
                 clearInterval(pollInterval);
                 setAutoAssigning(false);
                 setAutoAssignStartTime(null);
-                if (progressResult.data.status === 'COMPLETED') {
+                if (progressResult.status === 'COMPLETED') {
                   toast.success('Timetable generated successfully');
                   fetchTimetableData();
-                } else if (progressResult.data.status === 'FAILED') {
-                  toast.error(progressResult.data.error_message || 'Generation failed');
+                } else if (progressResult.status === 'FAILED') {
+                  toast.error(progressResult.errorMessage || 'Generation failed');
                 }
               }
             }

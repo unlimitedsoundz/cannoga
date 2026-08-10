@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: studentsError.message }, { status: 500 });
         }
 
-        targetStudentIds = allStudents?.map(s => s.id) || [];
+        targetStudentIds = allStudents?.map((s: { id: string }) => s.id) || [];
     } else if (recipient_type === 'program' && recipient_ids && Array.isArray(recipient_ids)) {
         const { data: programStudents, error: programError } = await supabase
             .from('students')
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: programError.message }, { status: 500 });
         }
 
-        targetStudentIds = programStudents?.map(s => s.id) || [];
+        targetStudentIds = programStudents?.map((s: { id: string }) => s.id) || [];
     } else if (recipient_type === 'individual' && recipient_ids && Array.isArray(recipient_ids)) {
         targetStudentIds = recipient_ids;
     }

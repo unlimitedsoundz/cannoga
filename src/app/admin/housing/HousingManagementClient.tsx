@@ -144,7 +144,7 @@ export default function HousingManagementClient({
             // 1. Free up room if assigned (before deletion)
             const { data: assignments } = await supabase.from('housing_assignments').select('room_id').eq('application_id', id);
             if (assignments && assignments.length > 0) {
-                const roomIds = assignments.map(a => a.room_id);
+                const roomIds = assignments.map((a: { room_id: string }) => a.room_id);
                 await supabase.from('housing_rooms').update({ status: 'AVAILABLE' }).in('id', roomIds);
             }
 

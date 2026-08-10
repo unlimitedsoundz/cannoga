@@ -17,13 +17,13 @@ export async function POST(request: NextRequest) {
                 getAll() {
                     return request.cookies.getAll();
                 },
-                setAll(cookiesToSet) {
+                setAll(cookiesToSet: { name: string; value: string; options?: any }[]) {
                     cookiesToSet.forEach(({ name, value, options }) =>
                         supabaseResponse.cookies.set(name, value, options)
                     );
                 },
             },
-        }
+        } as any
     );
 
     let email = identifier.trim();

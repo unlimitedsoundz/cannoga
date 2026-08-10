@@ -1,7 +1,8 @@
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import { NextRequest, NextResponse } from 'next/server';
 import { loadSchedulingData } from '@/lib/timetable/engine/loader';
-import { TimetableScheduler, SchedulingSolution } from '@/lib/timetable/engine/scheduler';
+import { TimetableScheduler } from '@/lib/timetable/engine/scheduler';
+import { SchedulingSolution, Assignment } from '@/lib/timetable/engine/types';
 import { detectConflicts } from '@/lib/timetable/engine/conflicts';
 import { validateSolution } from '@/lib/timetable/engine/validator';
 
@@ -209,7 +210,7 @@ export async function POST(request: NextRequest) {
     if (versionResult.error) throw versionResult.error;
     const versionId = versionResult.data.id;
 
-    const assignmentRows = solution.assignments.map(a => ({
+    const assignmentRows = solution.assignments.map((a: Assignment) => ({
       version_id: versionId,
       run_id: runId,
       section_id: a.sectionId,
@@ -233,7 +234,7 @@ export async function POST(request: NextRequest) {
 
     if (assignmentsError) throw assignmentsError;
 
-    const scheduledSectionIds = [...new Set(solution.assignments.map(a => a.sectionId))];
+    const scheduledSectionIds = [...new Set(solution.assignments.map((a: Assignment) => a.sectionId))];
     if (scheduledSectionIds.length > 0) {
       await adminClient
         .from('course_sections')
@@ -285,8 +286,8 @@ export async function POST(request: NextRequest) {
         status,
         completed_at: new Date().toISOString(),
         progress: 100,
-        courses_count: new Set(solution.assignments.map(a => a.sectionId)).size,
-        sections_count: new Set(solution.assignments.map(a => a.sectionId)).size,
+        courses_count: new Set(solution.assignments.map((a: Assignment) => a.sectionId)).size,
+        sections_count: new Set(solution.assignments.map((a: Assignment) => a.sectionId)).size,
         assignments_count: solution.assignments.length,
         hard_violations: hardViolations,
         soft_score: solution.score.overallScore,
