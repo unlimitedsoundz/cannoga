@@ -358,7 +358,7 @@ function ApplicationWizardContent() {
                                 <div className="space-y-1">
                                     <p className="text-[13px] font-semibold text-black tracking-tight">Applicant</p>
                                     <p className="text-sm font-semibold text-black leading-tight">
-                                        {application.personal_info.firstName} {application.personal_info.lastName}
+                                        {application.personal_info.firstName} {application.personal_info.middleName ? `${application.personal_info.middleName} ` : ''}{application.personal_info.lastName}
                                     </p>
                                 </div>
                             )}

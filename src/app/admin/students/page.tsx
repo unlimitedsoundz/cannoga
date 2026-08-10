@@ -40,7 +40,7 @@ export default function AdminStudentsPage() {
                 .from('students')
                 .select(`
                     *,
-                    user:profiles(first_name, last_name, email),
+                     user:profiles(first_name, middle_name, last_name, email),
                     program:Course(title),
                     application:applications!application_id(personal_info, status)
                 `)
@@ -55,7 +55,7 @@ export default function AdminStudentsPage() {
                 .from('applications')
                 .select(`
                     *,
-                    user:profiles(first_name, last_name, email),
+                     user:profiles(first_name, middle_name, last_name, email),
                     program:Course(title),
                     offer:admission_offers(
                         id,
@@ -277,7 +277,7 @@ export default function AdminStudentsPage() {
                                 {pendingApplications.map((app: any) => (
                                     <tr key={app.id} className="hover:bg-neutral-50 transition-colors block md:table-row p-4 md:p-0">
                                         <td className="block md:table-cell py-2 md:p-4">
-                                            <div className="font-bold text-neutral-900 text-sm">{app.user?.first_name || app.personal_info?.firstName} {app.user?.last_name || app.personal_info?.lastName}</div>
+                                            <div className="font-bold text-neutral-900 text-sm">{app.user?.first_name || app.personal_info?.firstName} {app.user?.middle_name || app.personal_info?.middleName ? `${app.user?.middle_name || app.personal_info?.middleName} ` : ''}{app.user?.last_name || app.personal_info?.lastName}</div>
                                             <div className="text-xs text-neutral-500">{app.user?.email || app.personal_info?.email || 'No Email'}</div>
                                         </td>
                                         <td className="block md:table-cell py-1 md:p-4 text-xs font-medium text-neutral-600">
@@ -359,7 +359,7 @@ export default function AdminStudentsPage() {
                                 </td>
                                 <td className="block md:table-cell py-1 md:p-4">
                                     <div>
-                                        <div className="font-bold text-neutral-900 text-sm">{student.user?.first_name || student.application?.personal_info?.firstName} {student.user?.last_name || student.application?.personal_info?.lastName}</div>
+                                        <div className="font-bold text-neutral-900 text-sm">{student.user?.first_name || student.application?.personal_info?.firstName} {student.user?.middle_name || student.application?.personal_info?.middleName ? `${student.user?.middle_name || student.application?.personal_info?.middleName} ` : ''}{student.user?.last_name || student.application?.personal_info?.lastName}</div>
                                     </div>
                                 </td>
                                 <td className="block md:table-cell py-1 md:p-4">

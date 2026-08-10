@@ -250,7 +250,7 @@ function ReceiptContent() {
                     <div>
                         <div className="text-[10px] uppercase text-neutral-500 mb-1">Student Details</div>
                         <div className="text-base">
-                            {application.personal_info?.firstName} {application.personal_info?.lastName}<br />
+                            {application.personal_info?.firstName} {application.personal_info?.middleName ? `${application.personal_info.middleName} ` : ''}{application.personal_info?.lastName}<br />
                             Passport: {application.personal_info?.passportNumber || 'N/A'}<br />
                             {application.contact_details?.city}, {application.contact_details?.country}
                         </div>

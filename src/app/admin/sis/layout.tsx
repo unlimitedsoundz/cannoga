@@ -34,7 +34,7 @@ export default function AdminSISLayout({
           setUser(sbUser);
           const { data: prof } = await supabase
             .from('profiles')
-            .select('first_name, last_name, role, department, email')
+            .select('first_name, middle_name, last_name, role, department, email')
             .eq('id', sbUser.id)
             .single();
 

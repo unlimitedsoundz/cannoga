@@ -15,6 +15,7 @@ import { Controller } from 'react-hook-form';
 const personalInfoSchema = z.object({
     firstName: z.string().min(2, 'First name is required'),
     lastName: z.string().min(2, 'Last name is required'),
+    middleName: z.string().optional(),
     dateOfBirth: z.string().min(1, 'Date of birth is required'),
     nationality: z.string().min(2, 'Nationality is required'),
     passportNumber: z.string().min(5, 'Passport number is required'),
@@ -39,6 +40,7 @@ export default function PersonalInfoForm({ applicationId, initialData, onUpdate 
         defaultValues: initialData || {
             firstName: '',
             lastName: '',
+            middleName: '',
             dateOfBirth: '',
             nationality: '',
             passportNumber: '',
@@ -77,6 +79,14 @@ export default function PersonalInfoForm({ applicationId, initialData, onUpdate 
                     {form.formState.errors.firstName && (
                         <p className="text-red-500 text-xs font-semibold mt-1">{form.formState.errors.firstName.message}</p>
                     )}
+                </div>
+
+                <div>
+                    <label className="block text-[13px] font-semibold text-black mb-1">Middle Name <span className="text-neutral-400 font-normal">(optional)</span></label>
+                    <input
+                        {...form.register('middleName')}
+                        className="w-full px-3 py-1.5 bg-neutral-50 rounded text-sm focus:ring-1 focus:ring-black outline-none font-medium"
+                    />
                 </div>
 
                 <div>

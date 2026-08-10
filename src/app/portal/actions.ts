@@ -99,6 +99,7 @@ export async function updateApplicationStep(id: string, step: string, data: any)
                 .from('profiles')
                 .update({
                     first_name: data.firstName,
+                    middle_name: data.middleName || null,
                     last_name: data.lastName,
                     date_of_birth: data.dateOfBirth
                 })

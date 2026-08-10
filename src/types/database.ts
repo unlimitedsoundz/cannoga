@@ -458,46 +458,48 @@ export interface Database {
           updated_at?: string
         }
       }
-      profiles: {
-        Row: {
-          id: string
-          email: string
-          first_name: string | null
-          last_name: string | null
-          role: UserRole
-          country_of_residence: string | null
-          created_at: string
-          updated_at: string
-          avatar_url: string | null
-          student_id: string | null
-          date_of_birth: string | null
-          phone_code: string | null
-          phone_number: string | null
-          citizenship: string | null
-          address: string | null
-          city: string | null
-          state_province: string | null
-          zipcode: string | null
-          gender: string | null
-        }
-        Insert: {
-          id: string
-          email: string
-          first_name?: string | null
-          last_name?: string | null
-          role?: UserRole
-          country_of_residence?: string | null
-          created_at?: string
-          updated_at?: string
-          avatar_url?: string | null
-          student_id?: string | null
-          date_of_birth?: string | null
-          phone_code?: string | null
-          phone_number?: string | null
-          citizenship?: string | null
-          address?: string | null
-          city?: string | null
-          state_province?: string | null
+       profiles: {
+         Row: {
+           id: string
+           email: string
+           first_name: string | null
+           middle_name: string | null
+           last_name: string | null
+           role: UserRole
+           country_of_residence: string | null
+           created_at: string
+           updated_at: string
+           avatar_url: string | null
+           student_id: string | null
+           date_of_birth: string | null
+           phone_code: string | null
+           phone_number: string | null
+           citizenship: string | null
+           address: string | null
+           city: string | null
+           state_province: string | null
+           zipcode: string | null
+           gender: string | null
+         }
+         Insert: {
+           id: string
+           email: string
+           first_name?: string | null
+           middle_name?: string | null
+           last_name?: string | null
+           role?: UserRole
+           country_of_residence?: string | null
+           created_at?: string
+           updated_at?: string
+           avatar_url?: string | null
+           student_id?: string | null
+           date_of_birth?: string | null
+           phone_code?: string | null
+           phone_number?: string | null
+           citizenship?: string | null
+           address?: string | null
+           city?: string | null
+           state_province?: string | null
           zipcode?: string | null
           gender?: string | null
         }
@@ -1452,6 +1454,7 @@ export type Application = {
   status: ApplicationStatus;
   personal_info: {
     firstName: string;
+    middleName?: string;
     lastName: string;
     passportNumber?: string;
     dateOfBirth?: string;

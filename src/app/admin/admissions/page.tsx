@@ -135,8 +135,8 @@ export default function AdmissionsPage() {
                                             <div className="flex flex-col">
                                                 <div className="font-semibold text-sm md:text-base uppercase tracking-tight">
                                                     {(!app.user?.first_name || app.user?.first_name === 'Applicant') && app.personal_info?.firstName
-                                                        ? `${app.personal_info.firstName} ${app.personal_info.lastName || ''}`
-                                                        : `${app.user?.first_name || ''} ${app.user?.last_name || ''}`}
+                                                        ? `${app.personal_info.firstName}${app.personal_info.middleName ? ` ${app.personal_info.middleName}` : ''} ${app.personal_info.lastName || ''}`
+                                                        : `${app.user?.first_name || ''}${app.user?.middle_name ? ` ${app.user.middle_name}` : ''} ${app.user?.last_name || ''}`}
                                                 </div>
                                                 <div className="text-[10px] md:text-xs font-semibold text-neutral-400">
                                                     {app.user?.email}

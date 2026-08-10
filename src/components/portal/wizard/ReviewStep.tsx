@@ -89,7 +89,7 @@ export default function ReviewStep({ application }: Props) {
                     </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <SummaryItem label="Full Name" value={`${personal.firstName} ${personal.lastName}`} />
+                            <SummaryItem label="Full Name" value={`${personal.firstName}${personal.middleName ? ` ${personal.middleName}` : ''} ${personal.lastName}`} />
                             <SummaryItem label="Student ID" value={(application.user as any)?.student_id} />
 
                             <SummaryItem label="Date of Birth" value={personal.dateOfBirth} />

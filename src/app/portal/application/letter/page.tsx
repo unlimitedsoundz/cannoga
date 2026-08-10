@@ -16,6 +16,7 @@ interface ApplicationData {
     };
     user?: {
         first_name: string;
+        middle_name?: string;
         last_name: string;
         email: string;
     };
@@ -51,7 +52,7 @@ export default function AdmissionLetterPage() {
                         id,
                         status,
                         course:Course(title, degreeLevel, school:School(name)),
-                        user:profiles(first_name, last_name, email)
+                        user:profiles(first_name, middle_name, last_name, email)
                     `)
                     .eq('id', id)
                     .eq('user_id', user.id)
@@ -127,7 +128,7 @@ export default function AdmissionLetterPage() {
                             <div className="flex justify-between">
                                 <span className="text-neutral-600">Student</span>
                             <span className="font-medium text-neutral-900">
-                                {application.user?.first_name} {application.user?.last_name}
+                                {application.user?.first_name} {application.user?.middle_name ? `${application.user.middle_name} ` : ''}{application.user?.last_name}
                             </span>
                             </div>
                             <div className="flex justify-between">

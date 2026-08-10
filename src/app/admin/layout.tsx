@@ -32,7 +32,7 @@ export default function AdminLayout({
                     setUser(sbUser);
                     const { data: prof } = await supabase
                         .from('profiles')
-                        .select('first_name, role')
+                        .select('first_name, middle_name, role')
                         .eq('id', sbUser.id)
                         .single();
 
@@ -53,7 +53,7 @@ export default function AdminLayout({
                     // Verify against DATABASE on every load - NO SIMULATION
                     const { data: dbProfile, error } = await supabase
                         .from('profiles')
-                        .select('id, first_name, role, email')
+                        .select('id, first_name, middle_name, role, email')
                         .eq('email', localProfile.email)
                         .eq('role', 'ADMIN')
                         .single();

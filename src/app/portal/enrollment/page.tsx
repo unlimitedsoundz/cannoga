@@ -143,7 +143,7 @@ function EnrollmentContent() {
                     <div className="grid grid-cols-2 gap-y-6">
                         <div>
                             <div className="text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1">Student Name</div>
-                            <div className="text-sm font-bold text-neutral-900 uppercase">{application.personal_info?.firstName} {application.personal_info?.lastName}</div>
+                            <div className="text-sm font-bold text-neutral-900 uppercase">{application.personal_info?.firstName} {application.personal_info?.middleName ? `${application.personal_info.middleName} ` : ''}{application.personal_info?.lastName}</div>
                         </div>
                         <div>
                             <div className="text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1">Date of Birth</div>

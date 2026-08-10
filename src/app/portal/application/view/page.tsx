@@ -849,7 +849,7 @@ function ViewApplicationContent() {
                         </div>
                         <div>
                             {dataRow('Admission Name', application.application_number || application.id.slice(0, 8))}
-                            {dataRow('Contact Name', application.user?.first_name && application.user?.last_name ? `${application.user.first_name} ${application.user.last_name}` : application.personal_info?.firstName && application.personal_info?.lastName ? `${application.personal_info.firstName} ${application.personal_info.lastName}` : application.user?.email)}
+                            {dataRow('Contact Name', application.user?.first_name && application.user?.last_name ? `${application.user.first_name}${application.user.middle_name ? ` ${application.user.middle_name}` : ''} ${application.user.last_name}` : application.personal_info?.firstName && application.personal_info?.lastName ? `${application.personal_info.firstName}${application.personal_info.middleName ? ` ${application.personal_info.middleName}` : ''} ${application.personal_info.lastName}` : application.user?.email)}
                             {dataRow('EAP Start Date', application.intake || 'TBD')}
                             {dataRow('Academic Program Choice', application.course?.title)}
                             {dataRow('Alternate Program Choice', application.alternate_course?.title || 'Not selected')}
