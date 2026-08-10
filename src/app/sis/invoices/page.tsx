@@ -9,6 +9,7 @@ import { DataTable } from '@/components/sis/DataTable';
 import { SearchBar } from '@/components/sis/SearchBar';
 import { File01Icon as FileText, CreditCardIcon as CreditCard } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { createClient } from '@/utils/supabase/client';
 
 interface Invoice {
     id: string;
@@ -24,11 +25,44 @@ export default function InvoicesPage() {
     const [search, setSearch] = React.useState('');
     const [invoices, setInvoices] = useState<Invoice[]>([]);
     const [loading, setLoading] = useState(true);
+    const [applicationId, setApplicationId] = useState<string | null>(null);
+    const [invoicePushed, setInvoicePushed] = useState(false);
 
     useEffect(() => {
         const fetchInvoices = async () => {
             setLoading(true);
             try {
+                const supabase = createClient();
+                const { data: { user }, error: authError } = await supabase.auth.getUser();
+                if (authError || !user) {
+                    router.replace('/portal/account/login');
+                    return;
+                }
+
+                const { data: studentData, error: studentError } = await supabase
+                    .from('students')
+                    .select('application_id')
+                    .eq('user_id', user.id)
+                    .single();
+
+                if (studentError || !studentData) {
+                    return;
+                }
+
+                setApplicationId(studentData.application_id);
+
+                if (studentData.application_id) {
+                    const { data: offerData } = await supabase
+                        .from('admission_offers')
+                        .select('invoice_pushed')
+                        .eq('application_id', studentData.application_id)
+                        .maybeSingle();
+
+                    if (offerData) {
+                        setInvoicePushed(offerData.invoice_pushed || false);
+                    }
+                }
+
                 const response = await fetch('/api/sis/student-invoices');
                 if (response.ok) {
                     const data = await response.json();
@@ -42,7 +76,7 @@ export default function InvoicesPage() {
         };
 
         fetchInvoices();
-    }, []);
+    }, [router]);
 
     const filtered = invoices.filter(s =>
         s.reference_number.toLowerCase().includes(search.toLowerCase()) ||
@@ -104,9 +138,21 @@ export default function InvoicesPage() {
             />
 
             {filtered.length > 0 && (
-                <button className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-600 text-white text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-neutral-700 transition-colors">
+                <button 
+                    onClick={() => {
+                        if (invoicePushed && applicationId) {
+                            window.location.href = `/portal/application/payment?id=${applicationId}`;
+                        }
+                    }}
+                    disabled={!invoicePushed}
+                    className={`inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors ${
+                        invoicePushed
+                            ? 'bg-[#9c27b3] text-white hover:bg-neutral-800 cursor-pointer'
+                            : 'bg-neutral-200 text-neutral-500 cursor-not-allowed'
+                    }`}
+                >
                     <HugeiconsIcon icon={CreditCard} size={14} strokeWidth={2.5} />
-                    Pay Now
+                    {invoicePushed ? 'Pay Now' : 'Invoice Not Ready'}
                 </button>
             )}
         </div>

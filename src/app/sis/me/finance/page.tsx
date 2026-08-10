@@ -45,6 +45,7 @@ export default function MyFinancePage() {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [tuitionFee, setTuitionFee] = useState<number>(0);
   const [paymentDeadline, setPaymentDeadline] = useState<string>('');
+  const [admissionOffer, setAdmissionOffer] = useState<any>(null);
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = useState(true);
 
@@ -110,13 +111,14 @@ export default function MyFinancePage() {
             if (studentApp?.application_id) {
                 const { data: offerData } = await supabase
                     .from('admission_offers')
-                    .select('id, tuition_fee, payment_deadline')
+                    .select('id, tuition_fee, payment_deadline, invoice_pushed')
                     .eq('application_id', studentApp.application_id)
                     .maybeSingle();
 
                 if (offerData) {
                     fetchedTuitionFee = Number(offerData.tuition_fee || 0);
                     fetchedPaymentDeadline = offerData.payment_deadline || '';
+                    setAdmissionOffer(offerData);
                 }
 
                 const offerIds = offerData ? [offerData.id] : [];
@@ -303,7 +305,21 @@ const tabs = [
       <div className="p-4 bg-neutral-50 border border-neutral-200">
         <h4 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-2">Payment Options</h4>
         <div className="flex flex-wrap gap-3">
-          <button className="px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800">Make Payment</button>
+          <button 
+            onClick={() => {
+              if (admissionOffer?.invoice_pushed && student?.application_id) {
+                window.location.href = `/portal/application/payment?id=${student.application_id}`;
+              }
+            }}
+            disabled={!admissionOffer?.invoice_pushed}
+            className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition ${
+              admissionOffer?.invoice_pushed
+                ? 'bg-[#9c27b3] text-white hover:bg-neutral-800 cursor-pointer'
+                : 'bg-neutral-200 text-neutral-500 cursor-not-allowed'
+            }`}
+          >
+            Make Payment
+          </button>
           <button className="px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-100">Set Up Payment Plan</button>
           <button className="px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-100">View Tax Forms (T2202)</button>
         </div>

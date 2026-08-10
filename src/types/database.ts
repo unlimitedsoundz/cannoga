@@ -1357,6 +1357,478 @@ export interface Database {
           updated_at?: string
         }
       }
+      invoices: {
+        Row: {
+          id: string
+          student_id: string
+          invoice_number: string
+          type: string
+          term: string
+          amount: number
+          paid: number
+          balance: number
+          due_date: string | null
+          status: string
+          issued_date: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          student_id: string
+          invoice_number: string
+          type: string
+          term: string
+          amount: number
+          paid?: number
+          balance?: number
+          due_date?: string | null
+          status?: string
+          issued_date?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          student_id?: string
+          invoice_number?: string
+          type?: string
+          term?: string
+          amount?: number
+          paid?: number
+          balance?: number
+          due_date?: string | null
+          status?: string
+          issued_date?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      payments: {
+        Row: {
+          id: string
+          invoice_id: string
+          student_id: string
+          transaction_reference: string
+          payment_method: string
+          amount: number
+          status: string
+          payment_date: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          invoice_id: string
+          student_id: string
+          transaction_reference: string
+          payment_method: string
+          amount: number
+          status?: string
+          payment_date?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          invoice_id?: string
+          student_id?: string
+          transaction_reference?: string
+          payment_method?: string
+          amount?: number
+          status?: string
+          payment_date?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      tuition_payments: {
+        Row: {
+          id: string
+          offer_id: string
+          amount: number
+          status: string
+          transaction_reference: string | null
+          payment_method: string | null
+          created_at: string
+          updated_at: string
+          student_id: string | null
+          invoice_id: string | null
+          country: string | null
+          currency: string
+          fx_metadata: any
+          invoice_type: string | null
+        }
+        Insert: {
+          id?: string
+          offer_id: string
+          amount: number
+          status?: string
+          transaction_reference?: string | null
+          payment_method?: string | null
+          created_at?: string
+          updated_at?: string
+          student_id?: string | null
+          invoice_id?: string | null
+          country?: string | null
+          currency?: string
+          fx_metadata?: any
+          invoice_type?: string | null
+        }
+        Update: {
+          id?: string
+          offer_id?: string
+          amount?: number
+          status?: string
+          transaction_reference?: string | null
+          payment_method?: string | null
+          created_at?: string
+          updated_at?: string
+          student_id?: string | null
+          invoice_id?: string | null
+          country?: string | null
+          currency?: string
+          fx_metadata?: any
+          invoice_type?: string | null
+        }
+      }
+      admission_offers: {
+        Row: {
+          id: string
+          application_id: string
+          tuition_fee: number
+          currency: string
+          payment_deadline: string | null
+          document_url: string | null
+          status: string
+          created_at: string
+          invoice_pushed: boolean
+          invoice_sent_at: string | null
+          invoice_type: string
+        }
+        Insert: {
+          id?: string
+          application_id: string
+          tuition_fee: number
+          currency?: string
+          payment_deadline?: string | null
+          document_url?: string | null
+          status?: string
+          created_at?: string
+          invoice_pushed?: boolean
+          invoice_sent_at?: string | null
+          invoice_type?: string
+        }
+        Update: {
+          id?: string
+          application_id?: string
+          tuition_fee?: number
+          currency?: string
+          payment_deadline?: string | null
+          document_url?: string | null
+          status?: string
+          created_at?: string
+          invoice_pushed?: boolean
+          invoice_sent_at?: string | null
+          invoice_type?: string
+        }
+      }
+      tuition_info: {
+        Row: {
+          id: string
+          credential_type: string
+          domestic_tuition: any
+          international_tuition: any
+          application_fee: number | null
+          additional_fees: any
+          effective_from: string
+          effective_to: string | null
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          credential_type: string
+          domestic_tuition: any
+          international_tuition: any
+          application_fee?: number | null
+          additional_fees?: any
+          effective_from?: string
+          effective_to?: string | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          credential_type?: string
+          domestic_tuition?: any
+          international_tuition?: any
+          application_fee?: number | null
+          additional_fees?: any
+          effective_from?: string
+          effective_to?: string | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      financial_aid: {
+        Row: {
+          id: string
+          student_id: string
+          aid_type: string
+          provider: string
+          amount: number
+          currency: string
+          status: string
+          disbursement_date: string | null
+          expected_date: string | null
+          term: string | null
+          metadata: any
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          student_id: string
+          aid_type: string
+          provider: string
+          amount: number
+          currency?: string
+          status?: string
+          disbursement_date?: string | null
+          expected_date?: string | null
+          term?: string | null
+          metadata?: any
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          student_id?: string
+          aid_type?: string
+          provider?: string
+          amount?: number
+          currency?: string
+          status?: string
+          disbursement_date?: string | null
+          expected_date?: string | null
+          term?: string | null
+          metadata?: any
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      scholarships: {
+        Row: {
+          id: string
+          name: string
+          description: string | null
+          amount: number
+          currency: string
+          provider: string | null
+          eligibility_criteria: string | null
+          application_deadline: string | null
+          term: string | null
+          status: string
+          is_emergency: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          description?: string | null
+          amount: number
+          currency?: string
+          provider?: string | null
+          eligibility_criteria?: string | null
+          application_deadline?: string | null
+          term?: string | null
+          status?: string
+          is_emergency?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          description?: string | null
+          amount?: number
+          currency?: string
+          provider?: string | null
+          eligibility_criteria?: string | null
+          application_deadline?: string | null
+          term?: string | null
+          status?: string
+          is_emergency?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      scholarship_applications: {
+        Row: {
+          id: string
+          scholarship_id: string
+          student_id: string
+          status: string
+          submitted_at: string
+          reviewed_at: string | null
+          reviewer_notes: string | null
+          metadata: any
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          scholarship_id: string
+          student_id: string
+          status?: string
+          submitted_at?: string
+          reviewed_at?: string | null
+          reviewer_notes?: string | null
+          metadata?: any
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          scholarship_id?: string
+          student_id?: string
+          status?: string
+          submitted_at?: string
+          reviewed_at?: string | null
+          reviewer_notes?: string | null
+          metadata?: any
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      installment_plans: {
+        Row: {
+          id: string
+          student_id: string
+          invoice_id: string | null
+          total_amount: number
+          number_of_installments: number
+          installment_amount: number
+          start_date: string
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          student_id: string
+          invoice_id?: string | null
+          total_amount: number
+          number_of_installments?: number
+          installment_amount: number
+          start_date: string
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          student_id?: string
+          invoice_id?: string | null
+          total_amount?: number
+          number_of_installments?: number
+          installment_amount?: number
+          start_date?: string
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      installment_payments: {
+        Row: {
+          id: string
+          installment_plan_id: string
+          student_id: string
+          amount: number
+          due_date: string
+          paid_date: string | null
+          status: string
+          payment_method: string | null
+          transaction_reference: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          installment_plan_id: string
+          student_id: string
+          amount: number
+          due_date: string
+          paid_date?: string | null
+          status?: string
+          payment_method?: string | null
+          transaction_reference?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          installment_plan_id?: string
+          student_id?: string
+          amount?: number
+          due_date?: string
+          paid_date?: string | null
+          status?: string
+          payment_method?: string | null
+          transaction_reference?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      bank_accounts: {
+        Row: {
+          id: string
+          student_id: string
+          bank_name: string
+          branch_number: string | null
+          institution_number: string | null
+          account_number: string
+          account_holder_name: string
+          account_type: string | null
+          is_verified: boolean
+          is_active: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          student_id: string
+          bank_name: string
+          branch_number?: string | null
+          institution_number?: string | null
+          account_number: string
+          account_holder_name: string
+          account_type?: string | null
+          is_verified?: boolean
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          student_id?: string
+          bank_name?: string
+          branch_number?: string | null
+          institution_number?: string | null
+          account_number?: string
+          account_holder_name?: string
+          account_type?: string | null
+          is_verified?: boolean
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
   }
 }
@@ -1371,6 +1843,17 @@ export type ModuleEnrollment = Database['public']['Tables']['module_enrollments'
 export type Student = Database['public']['Tables']['students']['Row']
 export type Profile = Database['public']['Tables']['profiles']['Row']
 export type DocumentRecord = Database['public']['Tables']['document_records']['Row']
+export type Invoice = Database['public']['Tables']['invoices']['Row']
+export type Payment = Database['public']['Tables']['payments']['Row']
+export type TuitionPayment = Database['public']['Tables']['tuition_payments']['Row']
+export type AdmissionOffer = Database['public']['Tables']['admission_offers']['Row']
+export type TuitionInfo = Database['public']['Tables']['tuition_info']['Row']
+export type FinancialAid = Database['public']['Tables']['financial_aid']['Row']
+export type Scholarship = Database['public']['Tables']['scholarships']['Row']
+export type ScholarshipApplication = Database['public']['Tables']['scholarship_applications']['Row']
+export type InstallmentPlan = Database['public']['Tables']['installment_plans']['Row']
+export type InstallmentPayment = Database['public']['Tables']['installment_payments']['Row']
+export type BankAccount = Database['public']['Tables']['bank_accounts']['Row']
 
 export type School = {
   id: string;

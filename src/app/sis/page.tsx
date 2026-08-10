@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { toast } from 'sonner';
@@ -21,6 +21,7 @@ import {
     CheckmarkCircle01Icon as CheckCircle,
     UserWarning02Icon as Warning,
     MapPinIcon as MapPin,
+    Download01Icon as Download,
 } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
 import { getDocumentUrl } from '@/utils/document';
@@ -99,6 +100,7 @@ interface Payment {
     payment_date: string;
     payment_method: string;
     invoice_type?: string;
+    invoice_id?: string;
 }
 
 interface Hold {
@@ -154,6 +156,69 @@ interface Faculty {
     };
 }
 
+interface FinancialAid {
+    id: string;
+    aid_type: string;
+    provider: string;
+    amount: number;
+    currency: string;
+    status: string;
+    disbursement_date: string | null;
+    expected_date: string | null;
+    term: string | null;
+}
+
+interface Scholarship {
+    id: string;
+    name: string;
+    description: string | null;
+    amount: number;
+    provider: string | null;
+    application_deadline: string | null;
+    term: string | null;
+    status: string;
+    is_emergency: boolean;
+}
+
+interface ScholarshipApplication {
+    id: string;
+    scholarship_id: string;
+    student_id: string;
+    status: string;
+    submitted_at: string;
+}
+
+interface InstallmentPlan {
+    id: string;
+    total_amount: number;
+    number_of_installments: number;
+    installment_amount: number;
+    start_date: string;
+    status: string;
+}
+
+interface InstallmentPayment {
+    id: string;
+    installment_plan_id: string;
+    amount: number;
+    due_date: string;
+    paid_date: string | null;
+    status: string;
+    payment_method: string | null;
+}
+
+interface BankAccount {
+    id: string;
+    bank_name: string;
+    branch_number: string | null;
+    institution_number: string | null;
+    account_number: string;
+    account_holder_name: string;
+    account_type: string | null;
+    is_verified: boolean;
+    is_active: boolean;
+}
+
 type PageId = 'dashboard' | 'documents' | 'academics' | 'timetable' | 'registration' | 'financials' | 'grades' | 'holds' | 'news' | 'directory' | 'profile' | 'student-life';
 
 interface GradeRecord {
@@ -185,6 +250,42 @@ const getDocumentStatusColor = (status: string) => {
     }
 };
 
+const AID_TYPE_LABELS: Record<string, string> = {
+    OSAP: 'OSAP',
+    FEDERAL_LOAN: 'Federal Loan',
+    PROVINCIAL_LOAN: 'Provincial Loan',
+    BURSARY: 'Bursary',
+    SCHOLARSHIP: 'Scholarship',
+    EMERGENCY_FUND: 'Emergency Fund',
+    OTHER: 'Other Aid',
+};
+
+const PAYMENT_METHOD_LABELS: Record<string, string> = {
+    CREDIT_CARD: 'Credit Card',
+    BANK_TRANSFER: 'Bank Transfer',
+    CHECK: 'Check',
+    CASH: 'Cash',
+    OTHER: 'Other',
+};
+
+const INVOICE_TYPE_LABELS: Record<string, string> = {
+    TUITION: 'Tuition',
+    LAB_FEE: 'Lab Fee',
+    STUDENT_UNION: 'Student Union',
+    HEALTH_INSURANCE: 'Health Insurance',
+    HOUSING: 'Housing',
+    OTHER: 'Other',
+};
+
+function formatCurrency(amount: number, currency = 'CAD') {
+    return new Intl.NumberFormat('en-CA', { style: 'currency', currency }).format(amount || 0);
+}
+
+function formatDate(date: string | null | undefined) {
+    if (!date) return 'N/A';
+    return new Date(date).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
 export default function SISStudentDashboard() {
     const router = useRouter();
     const [profile, setProfile] = useState<any>(null);
@@ -213,9 +314,48 @@ export default function SISStudentDashboard() {
     const [unreadMessageCount, setUnreadMessageCount] = useState(0);
     const [timetableSessions, setTimetableSessions] = useState<any[]>([]);
     const [timetableAssignments, setTimetableAssignments] = useState<any[]>([]);
+    const [financialAid, setFinancialAid] = useState<FinancialAid[]>([]);
+    const [scholarships, setScholarships] = useState<Scholarship[]>([]);
+    const [scholarshipApplications, setScholarshipApplications] = useState<ScholarshipApplication[]>([]);
+    const [installmentPlans, setInstallmentPlans] = useState<InstallmentPlan[]>([]);
+    const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
+    const [admissionOffers, setAdmissionOffers] = useState<any[]>([]);
 
     const [activeModals, setActiveModals] = useState<Record<string, boolean>>({});
     const [profileForm, setProfileForm] = useState({ fullName: '', preferredName: '', phone: '', address: '' });
+    const [uploadingDocType, setUploadingDocType] = useState<string | null>(null);
+    const uploadFileRef = React.useRef<HTMLInputElement>(null);
+
+    const handleDocumentUpload = async (file: File, documentType: string, title: string) => {
+        if (!student) return;
+        setUploadingDocType(documentType);
+        try {
+            const fileExt = file.name.split('.').pop();
+            const filePath = `${student.id}/${documentType}/${Date.now()}.${fileExt}`;
+            const supabase = createClient();
+            const { error: uploadError } = await supabase.storage.from('student-documents').upload(filePath, file);
+            if (uploadError) throw uploadError;
+
+            const { error: dbError } = await supabase.from('document_records').insert({
+                student_id: student.id,
+                document_type: documentType,
+                title,
+                status: 'pending',
+                storage_path: filePath,
+                is_student_visible: true,
+                metadata: { size: file.size, uploaded_via: 'sis_financials_portal' },
+            });
+            if (dbError) throw dbError;
+            toast.success('Document uploaded successfully');
+            const refreshedSupabase = createClient();
+            const { data: refreshedDocs } = await refreshedSupabase.from('document_records').select('*').eq('student_id', student.id).eq('is_student_visible', true).order('issue_date', { ascending: false });
+            if (refreshedDocs) setDocuments(refreshedDocs);
+        } catch (err: any) {
+            toast.error(err.message || 'Upload failed');
+        } finally {
+            setUploadingDocType(null);
+        }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -284,6 +424,11 @@ export default function SISStudentDashboard() {
                     docResult,
                     facultyResult,
                     newsResult,
+                    financialAidResult,
+                    scholarshipsResult,
+                    scholarshipAppsResult,
+                    installmentPlansResult,
+                    bankAccountsResult,
                 ] = await Promise.all([
                     supabase.from('module_enrollments').select('*, module:modules(code, title, credits), semester:semesters(name, start_date, end_date)').eq('student_id', currentStudentId),
                     supabase.from('invoices').select('*').eq('student_id', currentStudentId).order('issued_date', { ascending: false }),
@@ -292,6 +437,11 @@ export default function SISStudentDashboard() {
                     supabase.from('document_records').select('*').eq('student_id', currentStudentId).eq('is_student_visible', true).order('issue_date', { ascending: false }),
                     studentCourse?.schoolId || studentCourse?.departmentId ? supabase.from('Faculty').select('*').eq('schoolId', studentCourse?.schoolId || '').eq('departmentId', studentCourse?.departmentId || '').limit(20) : Promise.resolve({ data: null }),
                     supabase.from('announcements').select('id, title, excerpt, content, priority, status, publish_start, publish_end, display_order, created_at').eq('status', 'published').order('publish_start', { ascending: false }).limit(10),
+                    supabase.from('financial_aid').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
+                    supabase.from('scholarships').select('*').eq('status', 'ACTIVE').order('application_deadline', { ascending: true }),
+                    supabase.from('scholarship_applications').select('*').eq('student_id', currentStudentId).order('submitted_at', { ascending: false }),
+                    supabase.from('installment_plans').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
+                    supabase.from('bank_accounts').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
                 ]);
 
                 const enrollmentData = enrollmentResult.data;
@@ -316,10 +466,16 @@ export default function SISStudentDashboard() {
                 if (docResult.data) setDocuments(docResult.data);
                 if (facultyResult.data) setFaculty(facultyResult.data);
                 if (newsResult.data) setNews(newsResult.data);
+                if (financialAidResult.data) setFinancialAid(financialAidResult.data as FinancialAid[]);
+                if (scholarshipsResult.data) setScholarships(scholarshipsResult.data as Scholarship[]);
+                if (scholarshipAppsResult.data) setScholarshipApplications(scholarshipAppsResult.data as ScholarshipApplication[]);
+                if (installmentPlansResult.data) setInstallmentPlans(installmentPlansResult.data as InstallmentPlan[]);
+                if (bankAccountsResult.data) setBankAccounts(bankAccountsResult.data as BankAccount[]);
 
                 let tuitionPayments: any[] = [];
                 let fetchedTuitionFee = 0;
                 let fetchedPaymentDeadline = '';
+                let fetchedAdmissionOffers: any[] = [];
                 try {
                     const { data: studentApp } = await supabase
                         .from('students')
@@ -330,13 +486,14 @@ export default function SISStudentDashboard() {
                     if (studentApp?.application_id) {
                         const { data: offerData } = await supabase
                             .from('admission_offers')
-                            .select('id, tuition_fee, payment_deadline')
+                            .select('id, tuition_fee, payment_deadline, invoice_pushed, invoice_type, status')
                             .eq('application_id', studentApp.application_id)
                             .maybeSingle();
 
                         if (offerData) {
                             fetchedTuitionFee = Number(offerData.tuition_fee || 0);
                             fetchedPaymentDeadline = offerData.payment_deadline || '';
+                            fetchedAdmissionOffers = offerData ? [offerData] : [];
                         }
 
                         const offerIds = offerData ? [offerData.id] : [];
@@ -357,6 +514,7 @@ export default function SISStudentDashboard() {
                 if (tuitionPayments.length > 0) setPayments(tuitionPayments);
                 setTuitionFee(fetchedTuitionFee);
                 setPaymentDeadline(fetchedPaymentDeadline);
+                if (fetchedAdmissionOffers.length > 0) setAdmissionOffers(fetchedAdmissionOffers);
 
                 const studentIdForLife = studentData?.id || '';
                 if (studentIdForLife) {
@@ -796,7 +954,20 @@ export default function SISStudentDashboard() {
                                         </div>
                                     </div>
                                     <div className="p-3 bg-slate-50/50 border-t border-slate-100 rounded-b-lg flex items-center justify-between">
-                                        <button type="button" onClick={() => navigateTo('financials')} className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium px-3 py-1.5 rounded transition">Make Payment</button>
+                                        <button 
+                                            type="button" 
+                                            onClick={() => {
+                                                const hasPushedInvoice = admissionOffers.some((o: any) => o.invoice_pushed && student?.application_id);
+                                                if (hasPushedInvoice && student?.application_id) {
+                                                    window.location.href = `/portal/application/payment?id=${student.application_id}`;
+                                                } else {
+                                                    navigateTo('financials');
+                                                }
+                                            }} 
+                                            className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium px-3 py-1.5 rounded transition"
+                                        >
+                                            Make Payment
+                                        </button>
                                         <button type="button" onClick={() => navigateTo('financials')} className="text-xs font-semibold text-slate-800 hover:underline">View Ledger &rarr;</button>
                                     </div>
                             </div>
@@ -1067,63 +1238,346 @@ export default function SISStudentDashboard() {
 
                     {/* ================= FINANCIAL AID & PAY ================= */}
                     {currentPage === 'financials' && (
-                        <div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                                <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
-                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Total Charges (Fall 2026)</p>
-                                    <p className="text-2xl font-bold text-slate-900 mt-1">${invoices.reduce((sum, inv) => sum + (inv.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD</p>
+                        <div className="space-y-6">
+                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
+                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
+                                    <div className="flex items-center space-x-2">
+                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Account Summary</h3>
+                                    </div>
+                                    <span className="text-[11px] text-slate-500">All Terms</span>
                                 </div>
-                                <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
-                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Payments Received</p>
-                                    <p className="text-2xl font-bold text-slate-900 mt-1">${payments.reduce((sum, p) => sum + (p.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD</p>
-                                </div>
-                                <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm border-l-4 border-l-slate-900">
-                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Net Balance Due</p>
-                                    <p className="text-2xl font-bold text-slate-900 mt-1">${totalBalance.toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD</p>
+                                <div className="p-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        <div>
+                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total Charges</p>
+                                            <p className="text-xl font-bold text-slate-900 mt-0.5">${invoices.reduce((sum, inv) => sum + (inv.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Payments Received</p>
+                                            <p className="text-xl font-bold text-slate-900 mt-0.5">${payments.reduce((sum, p) => sum + (p.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Net Balance Due</p>
+                                            <p className={`text-xl font-bold mt-0.5 ${totalBalance > 0 ? 'text-slate-900' : 'text-slate-700'}`}>${totalBalance.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-6 mb-6">
-                                <div className="flex justify-between items-center mb-4">
-                                    <h3 className="font-bold text-slate-800 text-sm">Itemized Student Account Ledger</h3>
+                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
+                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
+                                    <div className="flex items-center space-x-2">
+                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Itemized Account Breakdown</h3>
+                                    </div>
                                 </div>
-                                <table className="w-full text-left text-xs sm:text-sm text-slate-600">
-                                    <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
-                                        <tr>
-                                            <th className="p-3">Description</th>
-                                            <th className="p-3">Date</th>
-                                            <th className="p-3 text-right">Amount (CAD)</th>
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left text-xs sm:text-sm text-slate-600">
+                                        <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                                            <tr>
+                                                <th className="p-3">Type</th>
+                                                <th className="p-3">Invoice #</th>
+                                                <th className="p-3">Term</th>
+                                                <th className="p-3 text-right">Amount</th>
+                                                <th className="p-3 text-right">Paid</th>
+                                                <th className="p-3 text-right">Balance</th>
+                                            <th className="p-3">Due Date</th>
+                                            <th className="p-3">Status</th>
                                             <th className="p-3 text-right">Receipt</th>
                                         </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-slate-100">
-                                        {invoices.map(invoice => {
-                                            const matchingDoc = documents.find(d => {
-                                                if (!['tuition_receipt', 'tuition_invoice'].includes(d.document_type)) return false;
-                                                if (d.metadata?.amount && Number(d.metadata.amount) !== invoice.amount) return false;
-                                                if (d.issue_date && new Date(d.issue_date).toDateString() !== new Date(invoice.issued_date).toDateString()) return false;
-                                                return true;
-                                            });
-                                            return (
-                                                <tr key={invoice.id}>
-                                                    <td className="p-3 font-medium text-slate-800">{invoice.type} - {invoice.term}</td>
-                                                    <td className="p-3">{invoice.issued_date ? new Date(invoice.issued_date).toLocaleDateString('en-CA') : 'N/A'}</td>
-                                                    <td className="p-3 text-right font-medium">${invoice.amount.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</td>
-                                                    <td className="p-3 text-right">
-                                                        {matchingDoc && getDocumentUrl(matchingDoc) !== '#' ? (
-                                                            <a href={getDocumentUrl(matchingDoc)} download target="_blank" rel="noopener noreferrer" className="text-xs font-medium px-3 py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition">View Receipt</a>
-                                                        ) : (
-                                                            <span className="text-[11px] text-slate-400">Not available</span>
-                                                        )}
-                                                    </td>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-100">
+                                            {invoices.map(invoice => {
+                                                const matchingDoc = documents.find(d => {
+                                                    if (!['tuition_receipt', 'tuition_invoice'].includes(d.document_type)) return false;
+                                                    if (d.metadata?.amount && Number(d.metadata.amount) !== invoice.amount) return false;
+                                                    if (d.issue_date && new Date(d.issue_date).toDateString() !== new Date(invoice.issued_date).toDateString()) return false;
+                                                    return true;
+                                                });
+                                                return (
+                                                    <tr key={invoice.id}>
+                                                        <td className="p-3 font-medium text-slate-900">{INVOICE_TYPE_LABELS[invoice.type] || invoice.type}</td>
+                                                        <td className="p-3 font-mono text-xs">{invoice.invoice_number}</td>
+                                                        <td className="p-3">{invoice.term}</td>
+                                                        <td className="p-3 text-right font-mono text-slate-900">{formatCurrency(invoice.amount)}</td>
+                                                        <td className="p-3 text-right font-mono text-slate-700">{formatCurrency(invoice.paid)}</td>
+                                                        <td className="p-3 text-right font-mono text-slate-900">{formatCurrency(invoice.balance)}</td>
+                                                        <td className="p-3">{formatDate(invoice.due_date)}</td>
+                                                        <td className="p-3"><StatusBadge status={invoice.status} /></td>
+                                                        <td className="p-3 text-right">
+                                                            {matchingDoc && getDocumentUrl(matchingDoc) !== '#' ? (
+                                                                <a href={getDocumentUrl(matchingDoc)} download target="_blank" rel="noopener noreferrer" className="text-xs font-medium px-3 py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition">View Receipt</a>
+                                                            ) : (
+                                                                <span className="text-[11px] text-slate-400">Not available</span>
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })}
+                                            {invoices.length === 0 && (
+                                                <tr><td colSpan={9} className="p-6 text-center text-slate-500">No invoices found</td></tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
+                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
+                                    <div className="flex items-center space-x-2">
+                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Financial Aid & Awards</h3>
+                                    </div>
+                                </div>
+                                <div className="p-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                        <div className="bg-slate-50 border border-slate-200 p-4 rounded">
+                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total Aid Received</p>
+                                            <p className="text-lg font-bold text-slate-900">${financialAid.filter(a => a.status === 'DISBURSED' || a.status === 'APPROVED').reduce((sum, a) => sum + (a.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
+                                        </div>
+                                        <div className="bg-slate-50 border border-slate-200 p-4 rounded">
+                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Pending Disbursement</p>
+                                            <p className="text-lg font-bold text-slate-900">${financialAid.filter(a => a.status === 'PENDING').reduce((sum, a) => sum + (a.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
+                                        </div>
+                                        <div className="bg-slate-50 border border-slate-200 p-4 rounded">
+                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Active Awards</p>
+                                            <p className="text-lg font-bold text-slate-900">{financialAid.filter(a => a.status === 'DISBURSED').length}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left text-xs sm:text-sm text-slate-600">
+                                        <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                                            <tr>
+                                                <th className="p-3">Type</th>
+                                                <th className="p-3">Provider</th>
+                                                <th className="p-3 text-right">Amount</th>
+                                                <th className="p-3">Expected Date</th>
+                                                <th className="p-3">Disbursed</th>
+                                                <th className="p-3">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-100">
+                                            {financialAid.map(aid => (
+                                                <tr key={aid.id}>
+                                                    <td className="p-3 font-medium text-slate-900">{AID_TYPE_LABELS[aid.aid_type] || aid.aid_type}</td>
+                                                    <td className="p-3">{aid.provider}</td>
+                                                    <td className="p-3 text-right font-mono">{formatCurrency(aid.amount, aid.currency)}</td>
+                                                    <td className="p-3">{formatDate(aid.expected_date)}</td>
+                                                    <td className="p-3">{formatDate(aid.disbursement_date)}</td>
+                                                    <td className="p-3"><StatusBadge status={aid.status} /></td>
                                                 </tr>
+                                            ))}
+                                            {financialAid.length === 0 && (
+                                                <tr><td colSpan={6} className="p-6 text-center text-slate-500">No financial aid records</td></tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
+                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
+                                    <div className="flex items-center space-x-2">
+                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Document Upload Portal</h3>
+                                    </div>
+                                </div>
+                                <div className="p-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        {['tax_document', 'parent_signature', 'income_verification'].map(docType => (
+                                            <div key={docType} className="border border-dashed border-slate-300 rounded-lg p-4 text-center hover:border-slate-400 transition">
+                                                <div className="text-xs font-bold text-slate-700 mb-1">{docType.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</div>
+                                                <input
+                                                    type="file"
+                                                    className="hidden"
+                                                    id={`upload-${docType}`}
+                                                    onChange={(e) => {
+                                                        const file = e.target.files?.[0];
+                                                        if (file) {
+                                                            handleDocumentUpload(file, docType, file.name);
+                                                        }
+                                                    }}
+                                                />
+                                                <button
+                                                    onClick={() => document.getElementById(`upload-${docType}`)?.click()}
+                                                    disabled={uploadingDocType === docType}
+                                                    className="mt-2 px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-medium uppercase tracking-wider rounded transition disabled:opacity-50"
+                                                >
+                                                    {uploadingDocType === docType ? 'Uploading...' : 'Upload'}
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
+                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
+                                    <div className="flex items-center space-x-2">
+                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Scholarship Marketplace</h3>
+                                    </div>
+                                </div>
+                                <div className="p-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        {scholarships.filter(s => s.status === 'ACTIVE').map(scholarship => {
+                                            const applied = scholarshipApplications.some(sa => sa.scholarship_id === scholarship.id);
+                                            return (
+                                                <div key={scholarship.id} className="border border-slate-200 rounded-lg p-4 hover:shadow-md transition">
+                                                    <div className="flex items-start justify-between mb-2">
+                                                        <div>
+                                                            <h4 className="text-sm font-bold text-slate-900">{scholarship.name}</h4>
+                                                            <p className="text-xs text-slate-500 mt-1">{scholarship.provider}</p>
+                                                        </div>
+                                                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${scholarship.is_emergency ? 'bg-slate-100 text-slate-800 border-slate-200' : 'bg-slate-100 text-slate-800 border-slate-200'}`}>
+                                                            {scholarship.is_emergency ? 'Emergency' : 'Bursary'}
+                                                        </span>
+                                                    </div>
+                                                    <div className="text-lg font-bold text-slate-900 mb-2">{formatCurrency(scholarship.amount)}</div>
+                                                    <p className="text-xs text-slate-500 mb-3 line-clamp-2">{scholarship.description}</p>
+                                                    <div className="text-[10px] text-slate-400 mb-3">Deadline: {formatDate(scholarship.application_deadline)}</div>
+                                                    <button
+                                                        disabled={applied}
+                                                        className={`w-full px-3 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider transition ${
+                                                            applied ? 'bg-slate-100 text-slate-500 cursor-not-allowed' : 'bg-slate-900 hover:bg-slate-800 text-white'
+                                                        }`}
+                                                    >
+                                                        {applied ? 'Applied' : 'Apply Now'}
+                                                    </button>
+                                                </div>
                                             );
                                         })}
-                                        {invoices.length === 0 && (
-                                            <tr><td colSpan={4} className="p-6 text-center text-slate-500">No invoices available</td></tr>
+                                        {scholarships.filter(s => s.status === 'ACTIVE').length === 0 && (
+                                            <div className="col-span-full text-center py-8 text-slate-500 text-sm">No active scholarships available</div>
                                         )}
-                                    </tbody>
-                                </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
+                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
+                                    <div className="flex items-center space-x-2">
+                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Payments & Setup</h3>
+                                    </div>
+                                </div>
+                                <div className="p-4 space-y-6">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                        <div>
+                                            <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">Secure Payment Gateway</h4>
+                                            <div className="grid grid-cols-4 gap-3 mb-4">
+                                                {['CREDIT_CARD', 'BANK_TRANSFER', 'CONVERA', 'FLYWIRE'].map(method => (
+                                                    <div key={method} className="border border-slate-200 rounded-lg p-3 text-center hover:border-slate-300 transition">
+                                                        <div className="text-xs font-bold text-slate-700">{method.replace('_', ' ')}</div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <button
+                                                onClick={() => {
+                                                    const hasPushed = admissionOffers.some((o: any) => o.invoice_pushed);
+                                                    if (hasPushed && student?.application_id) {
+                                                        window.location.href = `/portal/application/payment?id=${student.application_id}`;
+                                                    } else {
+                                                        toast.error('Your invoice has not been sent yet. Please contact the Admissions Office.');
+                                                    }
+                                                }}
+                                                className="w-full px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded text-xs font-bold uppercase tracking-wider transition"
+                                            >
+                                                Make a Payment
+                                            </button>
+                                        </div>
+
+                                        <div>
+                                            <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">Direct Deposit Setup</h4>
+                                            {bankAccounts.length > 0 ? (
+                                                <div className="space-y-3">
+                                                    {bankAccounts.map(account => (
+                                                        <div key={account.id} className="border border-slate-200 rounded-lg p-4 flex items-center justify-between">
+                                                            <div>
+                                                                <div className="text-sm font-bold text-slate-900">{account.bank_name}</div>
+                                                                <div className="text-xs text-slate-500">****{account.account_number.slice(-4)} • {account.account_holder_name}</div>
+                                                            </div>
+                                                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${account.is_verified ? 'bg-slate-100 text-slate-800 border-slate-200' : 'bg-slate-100 text-slate-800 border-slate-200'}`}>
+                                                                {account.is_verified ? 'Verified' : 'Pending'}
+                                                            </span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            ) : (
+                                                <p className="text-xs text-slate-500 mb-4">No bank accounts on file. Add one to receive refunds quickly.</p>
+                                            )}
+                                            <button className="mt-4 px-4 py-2 border border-slate-200 rounded text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 transition">Add Bank Account</button>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">Payment History</h4>
+                                        <div className="overflow-x-auto">
+                                            <table className="w-full text-left text-xs sm:text-sm text-slate-600">
+                                                <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                                                    <tr>
+                                                        <th className="p-3">Date</th>
+                                                        <th className="p-3">Reference</th>
+                                                        <th className="p-3">Method</th>
+                                                        <th className="p-3 text-right">Amount</th>
+                                                        <th className="p-3">Status</th>
+                                                        <th className="p-3 text-right">Receipt</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="divide-y divide-slate-100">
+                                                    {payments.map(payment => (
+                                                        <tr key={payment.id}>
+                                                            <td className="p-3">{formatDate(payment.payment_date)}</td>
+                                                            <td className="p-3 font-mono text-xs">{payment.transaction_reference}</td>
+                                                            <td className="p-3">{PAYMENT_METHOD_LABELS[payment.payment_method] || payment.payment_method}</td>
+                                                            <td className="p-3 text-right font-mono text-slate-900">{formatCurrency(payment.amount)}</td>
+                                                            <td className="p-3"><StatusBadge status={payment.status} /></td>
+                                                            <td className="p-3 text-right">
+                                                                {(() => {
+                                                                    const receiptDoc = documents.find(d => {
+                                                                        if (!['tuition_receipt', 'tuition_invoice'].includes(d.document_type)) return false;
+                                                                        if (d.metadata?.amount && Number(d.metadata.amount) !== payment.amount) return false;
+                                                                        if (d.issue_date && payment.payment_date && new Date(d.issue_date).toDateString() !== new Date(payment.payment_date).toDateString()) return false;
+                                                                        return true;
+                                                                    });
+                                                                    if (receiptDoc && getDocumentUrl(receiptDoc) !== '#') {
+                                                                        return <a href={getDocumentUrl(receiptDoc)} download target="_blank" rel="noopener noreferrer" className="text-xs font-medium px-3 py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition">View</a>;
+                                                                    }
+                                                                    return <span className="text-[11px] text-slate-400">N/A</span>;
+                                                                })()}
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                    {payments.length === 0 && (
+                                                        <tr><td colSpan={6} className="p-6 text-center text-slate-500">No payments recorded</td></tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
+                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
+                                    <div className="flex items-center space-x-2">
+                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Official Tax Receipts</h3>
+                                    </div>
+                                </div>
+                                <div className="p-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {documents.filter(d => ['tuition_receipt', 't2202', 'tax_receipt'].includes(d.document_type)).map(doc => (
+                                            <div key={doc.id} className="border border-slate-200 rounded-lg p-4 flex items-center justify-between">
+                                                <div>
+                                                    <div className="text-sm font-medium text-slate-900">{doc.title}</div>
+                                                    <div className="text-xs text-slate-500">{formatDate(doc.issue_date)} • v{doc.version}</div>
+                                                </div>
+                                                <button className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold uppercase tracking-wider rounded transition">
+                                                    Download
+                                                </button>
+                                            </div>
+                                        ))}
+                                        {documents.filter(d => ['tuition_receipt', 't2202', 'tax_receipt'].includes(d.document_type)).length === 0 && (
+                                            <div className="col-span-full text-center py-8 text-slate-500 text-sm">No tax documents available</div>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}
