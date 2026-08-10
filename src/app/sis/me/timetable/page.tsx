@@ -105,14 +105,17 @@ export default function StudentTimetablePage() {
 
       if (instructorIds.length > 0) {
         const { data: instructors } = await supabase
-          .from('profiles')
-          .select('id, first_name, last_name')
+          .from('Faculty')
+          .select('id, name, email')
           .in('id', instructorIds);
 
         const instructorMap = new Map((instructors || []).map(i => [i.id, i]));
         enrichedData = enrichedData.map(a => ({
           ...a,
-          instructor: instructorMap.get(a.instructor_id || a.section?.instructor_id) || null,
+          instructor: instructorMap.get(a.instructor_id || a.section?.instructor_id) ? {
+            name: instructorMap.get(a.instructor_id || a.section?.instructor_id)!.name,
+            email: instructorMap.get(a.instructor_id || a.section?.instructor_id)!.email,
+          } : null,
         }));
       }
 

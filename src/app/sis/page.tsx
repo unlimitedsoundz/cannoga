@@ -469,14 +469,17 @@ export default function SISStudentDashboard() {
 
                                     if (instructorIds.length > 0) {
                                         const { data: instructors } = await supabase
-                                            .from('profiles')
-                                            .select('id, first_name, last_name')
+                                            .from('Faculty')
+                                            .select('id, name, email')
                                             .in('id', instructorIds);
 
                                         const instructorMap = new Map((instructors || []).map(i => [i.id, i]));
                                         enrichedAssignments = enrichedAssignments.map(a => ({
                                             ...a,
-                                            instructor: instructorMap.get(a.instructor_id || a.section?.instructor_id) || null,
+                                            instructor: instructorMap.get(a.instructor_id || a.section?.instructor_id) ? {
+                                                name: instructorMap.get(a.instructor_id || a.section?.instructor_id)!.name,
+                                                email: instructorMap.get(a.instructor_id || a.section?.instructor_id)!.email,
+                                            } : null,
                                         }));
                                     }
 
@@ -1074,10 +1077,10 @@ export default function SISStudentDashboard() {
                                                                 ) : 'TBD'}
                                                             </td>
                                                             <td className="p-3">
-                                                                {session.instructor ? (
+                                                                {session.instructor?.name ? (
                                                                     <div className="flex items-center gap-1 text-slate-600">
                                                                         <HugeiconsIcon icon={User} size={12} strokeWidth={2} />
-                                                                        <span>{session.instructor.first_name} {session.instructor.last_name}</span>
+                                                                        <span>{session.instructor.name}</span>
                                                                     </div>
                                                                 ) : 'TBD'}
                                                             </td>

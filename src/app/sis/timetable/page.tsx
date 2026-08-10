@@ -113,14 +113,17 @@ export default function StudentTimetablePage() {
 
       if (instructorIds.length > 0) {
         const { data: instructors } = await supabase
-          .from('profiles')
-          .select('id, first_name, last_name')
+          .from('Faculty')
+          .select('id, name, email')
           .in('id', instructorIds);
 
         const instructorMap = new Map((instructors || []).map(i => [i.id, i]));
         enrichedAssignments = enrichedAssignments.map(a => ({
           ...a,
-          instructor: instructorMap.get(a.instructor_id || a.section?.instructor_id) || null,
+          instructor: instructorMap.get(a.instructor_id || a.section?.instructor_id) ? {
+            name: instructorMap.get(a.instructor_id || a.section?.instructor_id)!.name,
+            email: instructorMap.get(a.instructor_id || a.section?.instructor_id)!.email,
+          } : null,
         }));
       }
 
@@ -160,7 +163,7 @@ export default function StudentTimetablePage() {
       const subjectName = session.section?.module?.title || 'Class';
       const moduleCode = session.section?.module?.code || '';
       const location = session.room ? `${session.room.room_number}${session.room.building ? ', ' + session.room.building : ''}` : 'TBD';
-      const instructor = session.instructor ? `${session.instructor.first_name} ${session.instructor.last_name}` : 'TBD';
+      const instructor = session.instructor?.name || 'TBD';
 
       icsContent += 'BEGIN:VEVENT\n';
       icsContent += `DTSTART:${dateStr}T${startTime}\n`;
@@ -268,9 +271,9 @@ export default function StudentTimetablePage() {
                                 {session.room.room_number}{session.room.building ? `, ${session.room.building}` : ''}
                               </div>
                             )}
-                            {session.instructor && (
+                            {session.instructor?.name && (
                               <div className="mt-0.5 text-[8px] font-medium opacity-80 truncate">
-                                {session.instructor.first_name} {session.instructor.last_name}
+                                {session.instructor.name}
                               </div>
                             )}
                           </div>
