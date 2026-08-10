@@ -576,12 +576,12 @@ export default function SISStudentDashboard() {
                                         .order('day_of_week', { ascending: true })
                                         .order('start_time', { ascending: true });
 
-                                    let enrichedAssignments = assignments || [];
+                                    let enrichedAssignments: any[] = assignments || [];
 
                                     const instructorIds = [
                                         ...new Set(
                                             enrichedAssignments
-                                                .map(a => a.instructor_id || a.section?.instructor_id)
+                                                .map((a: any) => a.instructor_id || a.section?.instructor_id)
                                                 .filter(Boolean)
                                         )
                                     ];
@@ -592,8 +592,8 @@ export default function SISStudentDashboard() {
                                             .select('id, name, email')
                                             .in('id', instructorIds);
 
-                                        const instructorMap = new Map((instructors || []).map(i => [i.id, i]));
-                                        enrichedAssignments = enrichedAssignments.map(a => ({
+                                        const instructorMap = new Map<string, { name: string; email: string | null }>((instructors || []).map((i: any) => [i.id, i]));
+                                        enrichedAssignments = enrichedAssignments.map((a: any) => ({
                                             ...a,
                                             instructor: instructorMap.get(a.instructor_id || a.section?.instructor_id) ? {
                                                 name: instructorMap.get(a.instructor_id || a.section?.instructor_id)!.name,
