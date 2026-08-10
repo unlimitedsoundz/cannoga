@@ -244,6 +244,7 @@ export default function RoomsPage() {
 
   const openRoomManagement = (room: Room) => {
     setSelectedRoomId(room.id);
+    setViewTab('features');
     fetchAvailability(room.id);
     fetchAssignments(room.id);
   };
