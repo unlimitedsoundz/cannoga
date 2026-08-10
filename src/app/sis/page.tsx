@@ -852,51 +852,50 @@ export default function SISStudentDashboard() {
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-6 mb-6">
-                                <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Admissions & Visa/IRCC Documents</h4>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4 mb-6">
+                                <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3 border-b border-slate-100 pb-2">Admissions & Visa/IRCC Documents</h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                                     {documents.filter(d => ['pal', 'loa'].includes(d.document_type)).length > 0 ? documents.filter(d => ['pal', 'loa'].includes(d.document_type)).map(doc => (
-                                        <div key={doc.id} className="p-4 border border-slate-200 rounded-lg bg-slate-50/50 hover:bg-slate-50 transition flex flex-col justify-between">
+                                        <div key={doc.id} className="p-3 border border-slate-200 rounded bg-slate-50/50 hover:bg-slate-50 transition flex flex-col justify-between">
                                             <div>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <span className="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">{doc.id.slice(0, 8).toUpperCase()}</span>
-                                                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${getDocumentStatusColor(doc.status)}`}>{doc.status}</span>
+                                                <div className="flex items-center justify-between mb-1.5">
+                                                    <span className="text-[10px] font-bold bg-slate-200 text-slate-800 px-1.5 py-0.5 rounded">{doc.id.slice(0, 8).toUpperCase()}</span>
+                                                    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border ${getDocumentStatusColor(doc.status)}`}>{doc.status}</span>
                                                 </div>
-                                                <h5 className="font-bold text-slate-900 text-sm">{documentTypeLabels[doc.document_type] || doc.title}</h5>
-                                                <p className="text-xs text-slate-500 mt-1">{doc.issue_date ? `Issued: ${new Date(doc.issue_date).toLocaleDateString('en-CA')}` : 'Pending'}</p>
-                                                <p className="text-xs text-slate-600 mt-2">{doc.metadata?.description || 'Official document issued by Cannoga College.'}</p>
+                                                <h5 className="font-bold text-slate-900 text-xs">{documentTypeLabels[doc.document_type] || doc.title}</h5>
+                                                <p className="text-[11px] text-slate-500 mt-0.5">{doc.issue_date ? `Issued: ${new Date(doc.issue_date).toLocaleDateString('en-CA')}` : 'Pending'}</p>
                                             </div>
-                                            <div className="mt-4 pt-3 border-t border-slate-200 flex justify-between items-center">
-                                                <span className="text-[11px] text-slate-500">PDF Document</span>
-                                                <button type="button" onClick={() => toggleModal(`doc-${doc.id}`)} className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium px-3 py-1.5 rounded transition">View / Download</button>
+                                            <div className="mt-2 pt-2 border-t border-slate-200 flex justify-between items-center">
+                                                <span className="text-[10px] text-slate-500">PDF</span>
+                                                <button type="button" onClick={() => toggleModal(`doc-${doc.id}`)} className="bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-medium px-2 py-1 rounded transition">View</button>
                                             </div>
                                         </div>
                                     )) : (
-                                        <div className="col-span-full text-center py-8 text-sm text-slate-500">No admissions documents available</div>
+                                        <div className="col-span-full text-center py-6 text-xs text-slate-500">No admissions documents available</div>
                                     )}
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-6">
-                                <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Tuition Receipts & Tax Certificates</h4>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4">
+                                <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3 border-b border-slate-100 pb-2">Tuition Receipts & Tax Certificates</h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                                     {documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).length > 0 ? documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).map(doc => (
-                                        <div key={doc.id} className="p-4 border border-slate-200 rounded-lg bg-slate-50/50 hover:bg-slate-50 transition flex flex-col justify-between">
+                                        <div key={doc.id} className="p-3 border border-slate-200 rounded bg-slate-50/50 hover:bg-slate-50 transition flex flex-col justify-between">
                                             <div>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <span className="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">{doc.id.slice(0, 8).toUpperCase()}</span>
-                                                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${getDocumentStatusColor(doc.status)}`}>{doc.status}</span>
+                                                <div className="flex items-center justify-between mb-1.5">
+                                                    <span className="text-[10px] font-bold bg-slate-200 text-slate-800 px-1.5 py-0.5 rounded">{doc.id.slice(0, 8).toUpperCase()}</span>
+                                                    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border ${getDocumentStatusColor(doc.status)}`}>{doc.status}</span>
                                                 </div>
-                                                <h5 className="font-bold text-slate-900 text-sm">{documentTypeLabels[doc.document_type] || doc.title}</h5>
-                                                <p className="text-xs text-slate-500 mt-1">{doc.issue_date ? `Issued: ${new Date(doc.issue_date).toLocaleDateString('en-CA')}` : 'Pending'}</p>
+                                                <h5 className="font-bold text-slate-900 text-xs">{documentTypeLabels[doc.document_type] || doc.title}</h5>
+                                                <p className="text-[11px] text-slate-500 mt-0.5">{doc.issue_date ? `Issued: ${new Date(doc.issue_date).toLocaleDateString('en-CA')}` : 'Pending'}</p>
                                             </div>
-                                            <div className="mt-4 pt-3 border-t border-slate-200 flex justify-between items-center">
-                                                <span className="text-[11px] text-slate-500">PDF Document</span>
-                                                <button type="button" onClick={() => toggleModal(`doc-${doc.id}`)} className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium px-3 py-1.5 rounded transition">View / Download</button>
+                                            <div className="mt-2 pt-2 border-t border-slate-200 flex justify-between items-center">
+                                                <span className="text-[10px] text-slate-500">PDF</span>
+                                                <button type="button" onClick={() => toggleModal(`doc-${doc.id}`)} className="bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-medium px-2 py-1 rounded transition">View</button>
                                             </div>
                                         </div>
                                     )) : (
-                                        <div className="col-span-full text-center py-8 text-sm text-slate-500">No financial documents available</div>
+                                        <div className="col-span-full text-center py-6 text-xs text-slate-500">No financial documents available</div>
                                     )}
                                 </div>
                             </div>
