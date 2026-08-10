@@ -7,7 +7,7 @@ import { Eye, EyeSlash } from "@phosphor-icons/react";
 import { Toaster, toast } from 'sonner';
 
 export default function PortalLoginPage() {
-    const [email, setEmail] = useState('');
+    const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +40,7 @@ export default function PortalLoginPage() {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: new URLSearchParams({
-                    email,
+                    identifier,
                     password,
                 }).toString(),
             });
@@ -101,14 +101,14 @@ export default function PortalLoginPage() {
 
                         <form onSubmit={handleLogin} className="space-y-4">
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Email Address</label>
+                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Email or Student ID</label>
                                 <input
-                                    type="email"
+                                    type="text"
                                     required
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    value={identifier}
+                                    onChange={(e) => setIdentifier(e.target.value)}
                                     className="w-full px-4 py-2 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
-                                    placeholder="student@studentmail.cannogacollege.ca"
+                                    placeholder="email@email.com or CC1234567"
                                 />
                             </div>
 
