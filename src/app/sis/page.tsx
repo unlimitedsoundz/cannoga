@@ -1125,31 +1125,6 @@ export default function SISStudentDashboard() {
                                     </tbody>
                                 </table>
                             </div>
-
-                            {documents.filter(d => d.document_type === 'tuition_receipt').length > 0 && (
-                                <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-6">
-                                    <h3 className="font-bold text-slate-800 text-sm mb-4">Tuition Receipts</h3>
-                                    <div className="space-y-2">
-                                        {documents.filter(d => d.document_type === 'tuition_receipt').map(doc => (
-                                            <div key={doc.id} className="flex items-center justify-between p-3 border border-slate-200 rounded hover:bg-slate-50 transition">
-                                                <div>
-                                                    <p className="text-xs font-bold text-slate-900">{documentTypeLabels[doc.document_type] || doc.title}</p>
-                                                    <p className="text-[11px] text-slate-500">
-                                                        {doc.issue_date ? new Date(doc.issue_date).toLocaleDateString('en-CA') : 'Pending'}
-                                                        {doc.metadata?.amount && <span> - ${Number(doc.metadata.amount).toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD</span>}
-                                                    </p>
-                                                </div>
-                                                <div className="flex items-center gap-2">
-                                                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${getDocumentStatusColor(doc.status)}`}>{doc.status}</span>
-                                                    {getDocumentUrl(doc) !== '#' && (
-                                                        <a href={getDocumentUrl(doc)} download target="_blank" rel="noopener noreferrer" className="text-xs font-medium px-3 py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition">Download</a>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     )}
 
