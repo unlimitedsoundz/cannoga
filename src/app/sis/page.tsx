@@ -1093,18 +1093,34 @@ export default function SISStudentDashboard() {
                                             <th className="p-3">Description</th>
                                             <th className="p-3">Date</th>
                                             <th className="p-3 text-right">Amount (CAD)</th>
+                                            <th className="p-3 text-right">Receipt</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-slate-100">
-                                        {invoices.map(invoice => (
-                                            <tr key={invoice.id}>
-                                                <td className="p-3 font-medium text-slate-800">{invoice.type} - {invoice.term}</td>
-                                                <td className="p-3">{invoice.issued_date ? new Date(invoice.issued_date).toLocaleDateString('en-CA') : 'N/A'}</td>
-                                                <td className="p-3 text-right font-medium">${invoice.amount.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</td>
-                                            </tr>
-                                        ))}
+                                        {invoices.map(invoice => {
+                                            const matchingDoc = documents.find(d => {
+                                                if (!['tuition_receipt', 'tuition_invoice'].includes(d.document_type)) return false;
+                                                if (d.metadata?.amount && Number(d.metadata.amount) !== invoice.amount) return false;
+                                                if (d.issue_date && new Date(d.issue_date).toDateString() !== new Date(invoice.issued_date).toDateString()) return false;
+                                                return true;
+                                            });
+                                            return (
+                                                <tr key={invoice.id}>
+                                                    <td className="p-3 font-medium text-slate-800">{invoice.type} - {invoice.term}</td>
+                                                    <td className="p-3">{invoice.issued_date ? new Date(invoice.issued_date).toLocaleDateString('en-CA') : 'N/A'}</td>
+                                                    <td className="p-3 text-right font-medium">${invoice.amount.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</td>
+                                                    <td className="p-3 text-right">
+                                                        {matchingDoc && getDocumentUrl(matchingDoc) !== '#' ? (
+                                                            <a href={getDocumentUrl(matchingDoc)} download target="_blank" rel="noopener noreferrer" className="text-xs font-medium px-3 py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition">View Receipt</a>
+                                                        ) : (
+                                                            <span className="text-[11px] text-slate-400">Not available</span>
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
                                         {invoices.length === 0 && (
-                                            <tr><td colSpan={3} className="p-6 text-center text-slate-500">No invoices available</td></tr>
+                                            <tr><td colSpan={4} className="p-6 text-center text-slate-500">No invoices available</td></tr>
                                         )}
                                     </tbody>
                                 </table>
