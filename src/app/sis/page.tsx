@@ -1,7 +1,5 @@
 'use client';
 
-export const dynamic = 'force-dynamic';
-
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
@@ -263,7 +261,6 @@ export default function SISStudentDashboard() {
                 if (studentData) {
                     setStudent(studentData);
 
-                    // Fetch course details for program name and directory filtering
                     if (studentData.program_id) {
                         const { data: courseData } = await supabase
                             .from('Course')
@@ -279,11 +276,25 @@ export default function SISStudentDashboard() {
 
                 const currentStudentId = studentData?.id || '';
 
-                const { data: enrollmentData } = await supabase
-                    .from('module_enrollments')
-                    .select('*, module:modules(code, title, credits), semester:semesters(name, start_date, end_date)')
-                    .eq('student_id', currentStudentId);
+                const [
+                    enrollmentResult,
+                    invoiceResult,
+                    holdResult,
+                    taskResult,
+                    docResult,
+                    facultyResult,
+                    newsResult,
+                ] = await Promise.all([
+                    supabase.from('module_enrollments').select('*, module:modules(code, title, credits), semester:semesters(name, start_date, end_date)').eq('student_id', currentStudentId),
+                    supabase.from('invoices').select('*').eq('student_id', currentStudentId).order('issued_date', { ascending: false }),
+                    supabase.from('student_holds').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
+                    supabase.from('student_tasks').select('*').eq('student_id', currentStudentId).order('due_date', { ascending: true }),
+                    supabase.from('document_records').select('*').eq('student_id', currentStudentId).eq('is_student_visible', true).order('issue_date', { ascending: false }),
+                    studentCourse?.schoolId || studentCourse?.departmentId ? supabase.from('Faculty').select('*').eq('schoolId', studentCourse?.schoolId || '').eq('departmentId', studentCourse?.departmentId || '').limit(20) : Promise.resolve({ data: null }),
+                    supabase.from('announcements').select('id, title, excerpt, content, priority, status, publish_start, publish_end, display_order, created_at').eq('status', 'published').order('publish_start', { ascending: false }).limit(10),
+                ]);
 
+                const enrollmentData = enrollmentResult.data;
                 if (enrollmentData) {
                     setEnrollments(enrollmentData);
                     const gradeRecords: GradeRecord[] = enrollmentData
@@ -299,13 +310,12 @@ export default function SISStudentDashboard() {
                     setGrades(gradeRecords);
                 }
 
-                const { data: invoiceData } = await supabase
-                    .from('invoices')
-                    .select('*')
-                    .eq('student_id', currentStudentId)
-                    .order('issued_date', { ascending: false });
-
-                if (invoiceData) setInvoices(invoiceData);
+                if (invoiceResult.data) setInvoices(invoiceResult.data);
+                if (holdResult.data) setHolds(holdResult.data);
+                if (taskResult.data) setTasks(taskResult.data);
+                if (docResult.data) setDocuments(docResult.data);
+                if (facultyResult.data) setFaculty(facultyResult.data);
+                if (newsResult.data) setNews(newsResult.data);
 
                 let tuitionPayments: any[] = [];
                 let fetchedTuitionFee = 0;
@@ -348,66 +358,17 @@ export default function SISStudentDashboard() {
                 setTuitionFee(fetchedTuitionFee);
                 setPaymentDeadline(fetchedPaymentDeadline);
 
-                const { data: holdData } = await supabase
-                    .from('student_holds')
-                    .select('*')
-                    .eq('student_id', currentStudentId)
-                    .order('created_at', { ascending: false });
-
-                if (holdData) setHolds(holdData);
-
-                const { data: taskData } = await supabase
-                    .from('student_tasks')
-                    .select('*')
-                    .eq('student_id', currentStudentId)
-                    .order('due_date', { ascending: true });
-
-                if (taskData) setTasks(taskData);
-
-                const { data: docData } = await supabase
-                    .from('document_records')
-                    .select('*')
-                    .eq('student_id', currentStudentId)
-                    .eq('is_student_visible', true)
-                    .order('issue_date', { ascending: false });
-
-                if (docData) setDocuments(docData);
-
-                let facultyQuery = supabase
-                    .from('Faculty')
-                    .select('*')
-                    .limit(20);
-
-                if (studentCourse?.schoolId) {
-                    facultyQuery = facultyQuery.eq('schoolId', studentCourse.schoolId);
-                }
-
-                if (studentCourse?.departmentId) {
-                    facultyQuery = facultyQuery.eq('departmentId', studentCourse.departmentId);
-                }
-
-                const { data: facultyData } = await facultyQuery;
-
-                if (facultyData) setFaculty(facultyData);
-
-                const { data: newsData } = await supabase
-                    .from('announcements')
-                    .select('id, title, excerpt, content, priority, status, publish_start, publish_end, display_order, created_at')
-                    .eq('status', 'published')
-                    .order('publish_start', { ascending: false })
-                    .limit(10);
-
-                if (newsData) setNews(newsData);
-
                 const studentIdForLife = studentData?.id || '';
                 if (studentIdForLife) {
                     try {
-                        const lifeResult = await getStudentLifeData(studentIdForLife);
+                        const [lifeResult, unreadResult] = await Promise.all([
+                            getStudentLifeData(studentIdForLife),
+                            getUnreadMessageCount(studentIdForLife),
+                        ]);
                         if (lifeResult.success && lifeResult.data) {
                             setStudentLifeData(lifeResult.data);
                             setUnreadMessageCount(lifeResult.data.unreadCount || 0);
                         }
-                        const unreadResult = await getUnreadMessageCount(studentIdForLife);
                         if (unreadResult.success) {
                             setUnreadMessageCount(unreadResult.count || 0);
                         }
@@ -501,7 +462,7 @@ export default function SISStudentDashboard() {
         };
 
         fetchData();
-        const interval = setInterval(fetchData, 5000);
+        const interval = setInterval(fetchData, 30000);
         return () => clearInterval(interval);
     }, []);
 
