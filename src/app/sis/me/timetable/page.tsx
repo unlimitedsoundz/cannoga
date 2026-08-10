@@ -93,7 +93,23 @@ export default function StudentTimetablePage() {
         .order('day_of_week', { ascending: true })
         .order('start_time', { ascending: true });
 
-      setSessions(data || []);
+      let enrichedData = data || [];
+
+      const instructorIds = [...new Set(enrichedData.map(a => a.instructor_id).filter(Boolean))];
+      if (instructorIds.length > 0) {
+        const { data: instructors } = await supabase
+          .from('profiles')
+          .select('id, first_name, last_name')
+          .in('id', instructorIds);
+
+        const instructorMap = new Map((instructors || []).map(i => [i.id, i]));
+        enrichedData = enrichedData.map(a => ({
+          ...a,
+          instructor: instructorMap.get(a.instructor_id) || null,
+        }));
+      }
+
+      setSessions(enrichedData);
     } catch (err) {
       console.error('Failed to load timetable:', err);
     } finally {

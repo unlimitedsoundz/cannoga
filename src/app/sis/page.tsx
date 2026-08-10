@@ -456,7 +456,24 @@ export default function SISStudentDashboard() {
                                         .in('section_id', sectionIds)
                                         .order('day_of_week', { ascending: true })
                                         .order('start_time', { ascending: true });
-                                    setTimetableSessions(assignments || []);
+
+                                    let enrichedAssignments = assignments || [];
+
+                                    const instructorIds = [...new Set(enrichedAssignments.map(a => a.instructor_id).filter(Boolean))];
+                                    if (instructorIds.length > 0) {
+                                        const { data: instructors } = await supabase
+                                            .from('profiles')
+                                            .select('id, first_name, last_name')
+                                            .in('id', instructorIds);
+
+                                        const instructorMap = new Map((instructors || []).map(i => [i.id, i]));
+                                        enrichedAssignments = enrichedAssignments.map(a => ({
+                                            ...a,
+                                            instructor: instructorMap.get(a.instructor_id) || null,
+                                        }));
+                                    }
+
+                                    setTimetableSessions(enrichedAssignments);
                                 }
                             }
                         }
@@ -1050,7 +1067,12 @@ export default function SISStudentDashboard() {
                                                                 ) : 'TBD'}
                                                             </td>
                                                             <td className="p-3">
-                                                                TBD
+                                                                {session.instructor ? (
+                                                                    <div className="flex items-center gap-1 text-slate-600">
+                                                                        <HugeiconsIcon icon={User} size={12} strokeWidth={2} />
+                                                                        <span>{session.instructor.first_name} {session.instructor.last_name}</span>
+                                                                    </div>
+                                                                ) : 'TBD'}
                                                             </td>
                                                         </tr>
                                                     );

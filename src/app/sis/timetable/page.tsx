@@ -94,15 +94,30 @@ export default function StudentTimetablePage() {
         .select(`
           *,
           room:rooms(id, name, building, room_number),
-          section:course_sections(id, code, session_type, delivery_mode, module:modules(id, code, title, credits)),
-          instructor:profiles!timetable_assignments_instructor_id_fkey(first_name, last_name)
+          section:course_sections(id, code, session_type, delivery_mode, module:modules(id, code, title, credits))
         `)
         .eq('version_id', versions[0].id)
         .in('section_id', sectionIds)
         .order('day_of_week', { ascending: true })
         .order('start_time', { ascending: true });
 
-      setSessions(assignments || []);
+      let enrichedAssignments = assignments || [];
+
+      const instructorIds = [...new Set(enrichedAssignments.map(a => a.instructor_id).filter(Boolean))];
+      if (instructorIds.length > 0) {
+        const { data: instructors } = await supabase
+          .from('profiles')
+          .select('id, first_name, last_name')
+          .in('id', instructorIds);
+
+        const instructorMap = new Map((instructors || []).map(i => [i.id, i]));
+        enrichedAssignments = enrichedAssignments.map(a => ({
+          ...a,
+          instructor: instructorMap.get(a.instructor_id) || null,
+        }));
+      }
+
+      setSessions(enrichedAssignments);
     } catch (err: any) {
       setError(err.message || 'Failed to load timetable');
     } finally {
