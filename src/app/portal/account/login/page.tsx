@@ -108,7 +108,7 @@ export default function PortalLoginPage() {
                                     value={identifier}
                                     onChange={(e) => setIdentifier(e.target.value)}
                                     className="w-full px-4 py-2 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
-                                    placeholder="email@email.com or CC1234567"
+                                    placeholder="email or student ID"
                                 />
                             </div>
 
