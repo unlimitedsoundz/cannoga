@@ -735,7 +735,7 @@ export default function SISStudentDashboard() {
                                                     <div key={session.id} className="p-3 bg-slate-50 rounded border border-slate-200 flex justify-between items-center">
                                                         <div>
                                                             <p className="text-[10px] font-bold text-slate-500 uppercase">{session.section?.session_type || 'Class'}</p>
-                                                            <p className="text-xs font-semibold text-slate-800 mt-0.5">{session.module?.title || session.module?.code || 'Class'}</p>
+                                                            <p className="text-xs font-semibold text-slate-800 mt-0.5">{session.section?.module?.title || session.section?.module?.code || 'Class'}</p>
                                                         </div>
                                                         <div className="text-right">
                                                             <span className="text-[11px] font-medium text-slate-600 block">{session.start_time?.slice(0, 5)} - {session.end_time?.slice(0, 5)}</span>
@@ -743,18 +743,9 @@ export default function SISStudentDashboard() {
                                                         </div>
                                                     </div>
                                                 )) : (
-                                                    activeEnrollments.slice(0, 3).map(enrollment => (
-                                                        <div key={enrollment.id} className="p-3 bg-slate-50 rounded border border-slate-200 flex justify-between items-center">
-                                                            <div>
-                                                                <p className="text-[10px] font-bold text-slate-500 uppercase">{enrollment.semester?.name || 'Current Term'}</p>
-                                                                <p className="text-xs font-semibold text-slate-800 mt-0.5">{enrollment.module?.code}: {enrollment.module?.title}</p>
-                                                            </div>
-                                                            <span className="text-[11px] font-medium text-slate-600 border border-slate-300 bg-white px-2 py-0.5 rounded">{enrollment.module?.credits} cr</span>
-                                                        </div>
-                                                    ))
+                                                    <div className="text-center py-6 text-xs text-slate-500">No classes scheduled for today</div>
                                                 )
                                             }
-                                            {(timetableSessions.filter(s => s.session_date === new Date().toISOString().split('T')[0]).length === 0 && activeEnrollments.length === 0) && <div className="text-center py-6 text-xs text-slate-500">No classes scheduled for today</div>}
                                         </div>
                                     </div>
                                     <div className="p-3 bg-slate-50/50 border-t border-slate-100 rounded-b-lg text-right">

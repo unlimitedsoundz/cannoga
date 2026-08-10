@@ -171,6 +171,7 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
                                                             <div className="mt-1 text-[8px] font-black uppercase tracking-tighter truncate">
                                                                 {session.room.name}{session.room.building ? `, ${session.room.building}` : ''}
                                                             </div>
+                                                        )}
                                                     </div>
                                                 ))}
                                             </div>

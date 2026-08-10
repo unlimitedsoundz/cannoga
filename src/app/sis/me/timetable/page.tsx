@@ -204,10 +204,10 @@ export default function StudentTimetablePage() {
                               ? 'bg-blue-50 border-blue-600 text-blue-900'
                               : 'bg-neutral-50 border-neutral-600 text-neutral-900'}`}>
                             <div className="flex items-center justify-between gap-1">
-                              <span className="text-[9px] font-black uppercase truncate">{session.module?.code}</span>
+                              <span className="text-[9px] font-black uppercase truncate">{session.section?.module?.code}</span>
                               {(session.section?.delivery_mode === 'ONLINE' || session.section?.session_type === 'ONLINE') ? <Video size={10} weight="regular" /> : <MapPin size={10} weight="regular" />}
                             </div>
-                            <div className="text-[10px] font-bold leading-tight mt-1 line-clamp-2">{session.module?.title}</div>
+                            <div className="text-[10px] font-bold leading-tight mt-1 line-clamp-2">{session.section?.module?.title}</div>
                             <div className="flex items-center gap-1 mt-1 text-[8px] font-bold opacity-70">
                               <Clock size={8} weight="regular" /> {session.start_time.slice(0, 5)} - {session.end_time.slice(0, 5)}
                             </div>
