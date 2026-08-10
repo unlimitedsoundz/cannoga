@@ -29,38 +29,41 @@ export default function StudentTimetablePage() {
 
       const { data: student } = await supabase
         .from('students')
-        .select('id, current_semester_id')
+        .select('id, program_id, current_semester_id')
         .eq('user_id', user.id)
         .maybeSingle();
 
       if (!student) throw new Error('Student record not found');
 
-      const { data: enrollments } = await supabase
-        .from('module_enrollments')
-        .select('module_id, semester_id')
-        .eq('student_id', student.id)
-        .eq('status', 'REGISTERED');
+      const { data: subjects } = await supabase
+        .from('Subject')
+        .select('id')
+        .eq('courseId', student.program_id);
 
-      const moduleIds = enrollments?.map((e: { module_id: string }) => e.module_id) || [];
-      const semesterIds = [...new Set(enrollments?.map((e: { semester_id: string }) => e.semester_id) || [])];
+      const subjectIds = subjects?.map((s: { id: string }) => s.id) || [];
 
-      if (moduleIds.length === 0) {
+      if (subjectIds.length === 0) {
         setSessions([]);
         setLoading(false);
         return;
       }
 
-      const { data: sessionsData, error } = await supabase
+      let query = supabase
         .from('class_sessions')
         .select(`
           *,
           subject:Subject(id, name, code, creditUnits),
           instructor:profiles!class_sessions_instructor_id_fkey(first_name, last_name)
         `)
-        .in('subject_id', moduleIds)
-        .in('semester_id', semesterIds)
+        .in('subject_id', subjectIds)
         .order('session_date', { ascending: true })
         .order('start_time', { ascending: true });
+
+      if (student.current_semester_id) {
+        query = query.eq('semester_id', student.current_semester_id);
+      }
+
+      const { data: sessionsData, error } = await query;
 
       if (error) throw error;
       setSessions(sessionsData || []);
