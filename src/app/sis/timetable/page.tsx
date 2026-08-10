@@ -94,7 +94,7 @@ export default function StudentTimetablePage() {
         .select(`
           *,
           room:rooms(id, name, building, room_number),
-          section:course_sections(id, code, session_type, delivery_mode, module:modules(id, code, title, credits))
+          section:course_sections(id, code, session_type, delivery_mode, module:modules(id, code, title, credits), instructor_id)
         `)
         .eq('version_id', versions[0].id)
         .in('section_id', sectionIds)
@@ -103,7 +103,14 @@ export default function StudentTimetablePage() {
 
       let enrichedAssignments = assignments || [];
 
-      const instructorIds = [...new Set(enrichedAssignments.map(a => a.instructor_id).filter(Boolean))];
+      const instructorIds = [
+        ...new Set(
+          enrichedAssignments
+            .map(a => a.instructor_id || a.section?.instructor_id)
+            .filter(Boolean)
+        )
+      ];
+
       if (instructorIds.length > 0) {
         const { data: instructors } = await supabase
           .from('profiles')
@@ -113,7 +120,7 @@ export default function StudentTimetablePage() {
         const instructorMap = new Map((instructors || []).map(i => [i.id, i]));
         enrichedAssignments = enrichedAssignments.map(a => ({
           ...a,
-          instructor: instructorMap.get(a.instructor_id) || null,
+          instructor: instructorMap.get(a.instructor_id || a.section?.instructor_id) || null,
         }));
       }
 
