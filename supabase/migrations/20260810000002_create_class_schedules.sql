@@ -6,7 +6,7 @@
 CREATE TABLE IF NOT EXISTS public.class_schedules (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     subject_id TEXT NOT NULL REFERENCES public."Subject"(id) ON DELETE CASCADE,
-    semester_id UUID NOT NULL REFERENCES public.semesters(id) ON DELETE CASCADE,
+    semester_id TEXT NOT NULL REFERENCES public.semesters(id) ON DELETE CASCADE,
     course_id TEXT REFERENCES public."Course"(id) ON DELETE CASCADE,
     instructor_id UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
     day_of_week INTEGER NOT NULL CHECK (day_of_week >= 0 AND day_of_week <= 6),

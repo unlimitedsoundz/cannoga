@@ -22,7 +22,7 @@ import {
   Move01Icon as Move,
   PlayCircleIcon as Play,
 } from '@hugeicons/core-free-icons';
-import type { TimetableAssignment, TimetableVersion, Room, Profile, Semester, CourseSection, Module } from '@/types/database';
+import type { TimetableAssignment, TimetableVersion, Room, Profile, Semester, CourseSection, Module, TimetableConflict } from '@/types/database';
 import {
   getPublishedTimetable,
   getTimetableVersions,
@@ -94,6 +94,7 @@ export default function TimetablePage() {
   const [loading, setLoading] = useState(true);
   const [assignments, setAssignments] = useState<EnrichedAssignment[]>([]);
   const [versions, setVersions] = useState<TimetableVersion[]>([]);
+  const [conflicts, setConflicts] = useState<TimetableConflict[]>([]);
   const [semesters, setSemesters] = useState<Semester[]>([]);
   const [rooms, setRooms] = useState<Room[]>([]);
   const [instructors, setInstructors] = useState<any[]>([]);
@@ -163,12 +164,14 @@ export default function TimetablePage() {
   const fetchTimetableData = async () => {
     try {
       setLoading(true);
-      const [assignmentsData, versionsData] = await Promise.all([
+      const [assignmentsData, versionsData, conflictsData] = await Promise.all([
         getPublishedTimetable(selectedTerm),
         getTimetableVersions(selectedTerm),
+        getConflicts(selectedTerm),
       ]);
       setAssignments(assignmentsData as EnrichedAssignment[]);
       setVersions(versionsData);
+      setConflicts(conflictsData);
     } catch (err: any) {
       toast.error(err.message || 'Failed to load timetable data');
     } finally {
@@ -480,55 +483,79 @@ export default function TimetablePage() {
             <React.Fragment key={slot}>
               <div className={styles.timeLabel}>{slot}</div>
               {daysToShow.map(day => {
-                const dayAssignments = assignmentsByDay.get(day) || [];
                 const slotMinutes = START_HOUR * 60 + i * SLOT_DURATION;
                 const slotHours = Math.floor(slotMinutes / 60);
                 const slotMins = slotMinutes % 60;
                 const slotTime = `${slotHours.toString().padStart(2, '0')}:${slotMins.toString().padStart(2, '0')}`;
                 const isDragOver = dragOverSlot?.day === day && dragOverSlot?.time === slotTime;
-                const assignment = dayAssignments.find(a => {
-                  const start = timeToMinutes(a.start_time);
-                  const end = timeToMinutes(a.end_time);
-                  const current = START_HOUR * 60 + i * SLOT_DURATION;
-                  return current >= start && current < end;
-                });
                 return (
                   <div
                     key={`${day}-${slot}`}
                     onDragOver={(e) => handleDragOver(e, day, slotTime)}
                     onDragLeave={handleDragLeave}
                     onDrop={() => handleDrop(day, slotTime)}
-                    className={`border-b border-neutral-100 transition-colors ${isDragOver ? 'bg-purple-100' : ''}`}
-                    style={{ minHeight: `${ROW_HEIGHT}px` }}
-                  >
-                    {assignment && (
-                      <div
-                        draggable
-                        onDragStart={() => handleDragStart(assignment)}
-                        onClick={() => openDetailModal(assignment)}
-                        className={`${styles.courseCard} ${draggingAssignment?.id === assignment.id ? 'opacity-50' : ''}`}
-                        style={{ margin: '2px 0' }}
-                      >
-                        <div className={styles.courseCode}>
-                          {assignment.section?.module?.code}
-                        </div>
-                        <div className={styles.courseTitle}>
-                          {assignment.section?.module?.title}
-                        </div>
-                        <div className={styles.courseMeta}>
-                          <span>{assignment.section?.code}</span>
-                          {assignment.section?.instructor && (
-                            <span>{assignment.section.instructor.name}</span>
-                          )}
-                          <span>{assignment.room?.name} ({assignment.room?.building})</span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                    className={`border-b border-neutral-100 transition-colors ${isDragOver ? styles.dragOverSlot : ''}`}
+                    style={{ height: `${ROW_HEIGHT}px` }}
+                  ></div>
                 );
               })}
             </React.Fragment>
           ))}
+          {daysToShow.map(day => {
+            const dayAssignments = assignmentsByDay.get(day) || [];
+            return (
+              <div key={day} className="relative" style={{ gridColumn: day + 1, gridRow: '2 / -1', height: `${TOTAL_SLOTS * ROW_HEIGHT}px` }}>
+                {dayAssignments.map(assignment => {
+                  const { top, height } = getCardPosition(assignment.start_time, assignment.end_time);
+                  const colors = SESSION_COLORS[assignment.section?.session_type] || SESSION_COLORS.LECTURE;
+                   const isConflict = conflicts.some(c => 
+                     (c.assignment_a_id === assignment.id || c.assignment_b_id === assignment.id) && c.resolution === null
+                   );
+                   return (
+                     <div
+                       key={assignment.id}
+                       draggable
+                       onDragStart={() => handleDragStart(assignment)}
+                       onClick={() => openDetailModal(assignment)}
+                       className={`${styles.courseCard} ${isConflict ? styles.conflict : ''} ${draggingAssignment?.id === assignment.id ? 'opacity-60' : ''}`}
+                       data-session={assignment.section?.session_type || 'LECTURE'}
+                       style={{ 
+                         position: 'absolute',
+                         left: '4px',
+                         right: '4px',
+                         top: `${top}px`, 
+                         height: `${height - 4}px`,
+                       }}
+                     >
+                       <div className={styles.courseBadge}>
+                         <span className={styles.courseDot}></span>
+                         {assignment.section?.session_type}
+                       </div>
+                       <div className={styles.courseCode}>
+                         {assignment.section?.module?.code}
+                       </div>
+                       <div className={styles.courseTitle}>
+                         {assignment.section?.module?.title}
+                       </div>
+                       <div className={styles.courseMeta}>
+                         <div className={styles.courseMetaRow}>
+                           <span>{formatTime(assignment.start_time)} - {formatTime(assignment.end_time)}</span>
+                         </div>
+                         <div className={styles.courseMetaRow}>
+                           <span>{assignment.room?.name} ({assignment.room?.building})</span>
+                         </div>
+                         {assignment.section?.instructor && (
+                           <div className={styles.courseMetaRow}>
+                             <span>{assignment.section.instructor.name}</span>
+                           </div>
+                         )}
+                       </div>
+                     </div>
+                   );
+                })}
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -552,48 +579,60 @@ export default function TimetablePage() {
               const slotHours = Math.floor(slotMinutes / 60);
               const slotMins = slotMinutes % 60;
               const slotTime = `${slotHours.toString().padStart(2, '0')}:${slotMins.toString().padStart(2, '0')}`;
-              const isDragOver = dragOverSlot?.day === selectedDay && dragOverSlot?.time === slotTime;
-              const assignment = dayAssignments.find(a => {
-                const start = timeToMinutes(a.start_time);
-                const end = timeToMinutes(a.end_time);
-                const current = START_HOUR * 60 + i * SLOT_DURATION;
-                return current >= start && current < end;
-              });
-              return (
-                <div
-                  key={i}
-                  onDragOver={(e) => handleDragOver(e, selectedDay, slotTime)}
-                  onDragLeave={handleDragLeave}
-                  onDrop={() => handleDrop(selectedDay, slotTime)}
-                  className={`border-b border-neutral-100 transition-colors ${isDragOver ? 'bg-purple-100' : ''}`}
-                  style={{ minHeight: `${ROW_HEIGHT}px` }}
-                >
-                  {assignment && (
-                    <div
-                      draggable
-                      onDragStart={() => handleDragStart(assignment)}
-                      onClick={() => openDetailModal(assignment)}
-                      className={`${styles.courseCard} ${draggingAssignment?.id === assignment.id ? 'opacity-50' : ''}`}
-                      style={{ margin: '2px 0' }}
-                    >
-                      <div className={styles.courseCode}>
-                        {assignment.section?.module?.code}
-                      </div>
-                      <div className={styles.courseTitle}>
-                        {assignment.section?.module?.title}
-                      </div>
-                      <div className={styles.courseMeta}>
-                        <span>{assignment.section?.code}</span>
-                        {assignment.section?.instructor && (
-                          <span>{assignment.section.instructor.name}</span>
-                        )}
-                        <span>{assignment.room?.name} ({assignment.room?.building})</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
+               const isDragOver = dragOverSlot?.day === selectedDay && dragOverSlot?.time === slotTime;
+                return (
+                  <div
+                    key={i}
+                    onDragOver={(e) => handleDragOver(e, selectedDay, slotTime)}
+                    onDragLeave={handleDragLeave}
+                    onDrop={() => handleDrop(selectedDay, slotTime)}
+                    className={`border-b border-neutral-100 transition-colors ${isDragOver ? styles.dragOverSlot : ''}`}
+                    style={{ position: 'absolute', left: 0, right: 0, top: `${i * ROW_HEIGHT}px`, height: `${ROW_HEIGHT}px`, boxSizing: 'border-box' }}
+                  ></div>
+                );
             })}
+             {dayAssignments.map(assignment => {
+               const { top, height } = getCardPosition(assignment.start_time, assignment.end_time);
+               const colors = SESSION_COLORS[assignment.section?.session_type] || SESSION_COLORS.LECTURE;
+               const isConflict = conflicts.some(c => 
+                 (c.assignment_a_id === assignment.id || c.assignment_b_id === assignment.id) && c.resolution === null
+               );
+               return (
+                 <div
+                   key={assignment.id}
+                   draggable
+                   onDragStart={() => handleDragStart(assignment)}
+                   onClick={() => openDetailModal(assignment)}
+                   className={`${styles.courseCard} ${isConflict ? styles.conflict : ''} ${draggingAssignment?.id === assignment.id ? 'opacity-60' : ''}`}
+                   data-session={assignment.section?.session_type || 'LECTURE'}
+                   style={{ position: 'absolute', left: '4px', right: '4px', top: `${top}px`, height: `${height - 4}px` }}
+                 >
+                   <div className={styles.courseBadge}>
+                     <span className={styles.courseDot}></span>
+                     {assignment.section?.session_type}
+                   </div>
+                   <div className={styles.courseCode}>
+                     {assignment.section?.module?.code}
+                   </div>
+                   <div className={styles.courseTitle}>
+                     {assignment.section?.module?.title}
+                   </div>
+                   <div className={styles.courseMeta}>
+                     <div className={styles.courseMetaRow}>
+                       <span>{formatTime(assignment.start_time)} - {formatTime(assignment.end_time)}</span>
+                     </div>
+                     <div className={styles.courseMetaRow}>
+                       <span>{assignment.room?.name} ({assignment.room?.building})</span>
+                     </div>
+                     {assignment.section?.instructor && (
+                       <div className={styles.courseMetaRow}>
+                         <span>{assignment.section.instructor.name}</span>
+                       </div>
+                     )}
+                   </div>
+                 </div>
+               );
+             })}
           </div>
         </div>
       </div>
@@ -604,22 +643,26 @@ export default function TimetablePage() {
     return (
       <div className={styles.timetableContainer}>
         {groups.map(group => (
-          <div key={group.key} className="border border-neutral-200 bg-white rounded-lg overflow-hidden">
-            <div className="px-4 py-3 border-b border-neutral-200 bg-neutral-50">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900">{group.label}</h3>
-              <p className="text-[10px] text-neutral-500 mt-0.5">{group.assignments.length} session{group.assignments.length !== 1 ? 's' : ''}</p>
+          <div key={group.key} className={styles.groupCard}>
+            <div className={styles.groupHeader}>
+              <div className={styles.groupTitle}>{group.label}</div>
+              <div className={styles.groupMeta}>{group.assignments.length} session{group.assignments.length !== 1 ? 's' : ''}</div>
             </div>
-            <div className="p-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className={styles.groupBody}>
+              <div className={styles.groupGrid}>
                 {group.assignments.map(assignment => {
                   const colors = SESSION_COLORS[assignment.section?.session_type] || SESSION_COLORS.LECTURE;
                   return (
                     <div
                       key={assignment.id}
                       onClick={() => openDetailModal(assignment)}
-                      className={`${styles.courseCard} ${draggingAssignment?.id === assignment.id ? 'opacity-50' : ''}`}
-                      style={{ borderLeftColor: colors.border.replace('border-', '') }}
+                      className={`${styles.courseCard} ${draggingAssignment?.id === assignment.id ? 'opacity-60' : ''}`}
+                      data-session={assignment.section?.session_type || 'LECTURE'}
                     >
+                      <div className={styles.courseBadge}>
+                        <span className={styles.courseDot}></span>
+                        {assignment.section?.session_type}
+                      </div>
                       <div className={styles.courseCode}>
                         {assignment.section?.module?.code}
                       </div>
@@ -627,11 +670,19 @@ export default function TimetablePage() {
                         {assignment.section?.module?.title}
                       </div>
                       <div className={styles.courseMeta}>
-                        <span>Section {assignment.section?.code}</span>
-                        <span>{formatTime(assignment.start_time)} - {formatTime(assignment.end_time)}</span>
-                        <span>{assignment.room?.name} ({assignment.room?.building})</span>
+                        <div className={styles.courseMetaRow}>
+                          <span>Section {assignment.section?.code}</span>
+                        </div>
+                        <div className={styles.courseMetaRow}>
+                          <span>{formatTime(assignment.start_time)} - {formatTime(assignment.end_time)}</span>
+                        </div>
+                        <div className={styles.courseMetaRow}>
+                          <span>{assignment.room?.name} ({assignment.room?.building})</span>
+                        </div>
                         {assignment.section?.instructor && (
-                          <span>{assignment.section.instructor.name}</span>
+                          <div className={styles.courseMetaRow}>
+                            <span>{assignment.section.instructor.name}</span>
+                          </div>
                         )}
                       </div>
                     </div>

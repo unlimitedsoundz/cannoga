@@ -418,7 +418,7 @@ CREATE TABLE IF NOT EXISTS housing_rooms (
 CREATE TABLE IF NOT EXISTS housing_applications (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     student_id UUID NOT NULL REFERENCES students(id) ON DELETE CASCADE,
-    semester_id UUID NOT NULL REFERENCES semesters(id),
+    semester_id TEXT NOT NULL REFERENCES semesters(id),
     preferred_building_id UUID REFERENCES housing_buildings(id),
     move_in_date DATE NOT NULL,
     move_out_date DATE NOT NULL,
