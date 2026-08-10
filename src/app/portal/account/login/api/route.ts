@@ -4,7 +4,7 @@ import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 
 export async function POST(request: NextRequest) {
     const formData = await request.formData();
-    const email = formData.get('email') as string;
+    const identifier = (formData.get('identifier') || formData.get('email')) as string;
     const password = formData.get('password') as string;
 
     const supabaseResponse = NextResponse.next({ request });
@@ -25,6 +25,44 @@ export async function POST(request: NextRequest) {
             },
         }
     );
+
+    let email = identifier.trim();
+
+    if (!email) {
+        const response = NextResponse.json({ error: 'Email or identifier is required.' }, { status: 400 });
+        supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
+            response.cookies.set(name, value, options);
+        });
+        return response;
+    }
+
+    if (!email.includes('@')) {
+        const serviceClient = createServiceRoleClient();
+        const { data: student } = await serviceClient
+            .from('students')
+            .select('user_id')
+            .eq('student_id', identifier.trim().toUpperCase())
+            .maybeSingle();
+
+        if (!student?.user_id) {
+            const response = NextResponse.json({ error: 'Student ID not found. Please check and try again.' }, { status: 401 });
+            supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
+                response.cookies.set(name, value, options);
+            });
+            return response;
+        }
+
+        const { data: authUser } = await serviceClient.auth.admin.getUserById(student.user_id);
+        if (!authUser?.user?.email) {
+            const response = NextResponse.json({ error: 'Unable to retrieve account email. Please contact support.' }, { status: 401 });
+            supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
+                response.cookies.set(name, value, options);
+            });
+            return response;
+        }
+
+        email = authUser.user.email;
+    }
 
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email: email.toLowerCase().trim(),
