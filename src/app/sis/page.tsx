@@ -375,7 +375,7 @@ export default function SISStudentDashboard() {
 
                 let facultyQuery = supabase
                     .from('Faculty')
-                    .select('*, department:Departments(name, school:Schools(name))')
+                    .select('*')
                     .limit(20);
 
                 if (studentCourse?.schoolId) {
@@ -1258,8 +1258,7 @@ export default function SISStudentDashboard() {
                                         <div>
                                             <h4 className="font-bold text-slate-900 text-xs sm:text-sm">{member.name}</h4>
                                             <p className="text-xs text-slate-500">{member.role}</p>
-                                            <p className="text-xs text-slate-600 mt-1">{member.department?.name}{member.department?.school?.name ? `, ${member.department.school.name}` : ''}</p>
-                                            {member.email && <p className="text-xs text-slate-500 mt-1">{member.email}</p>}
+                                            {member.email && <p className="text-xs text-slate-600 mt-1">{member.email}</p>}
                                         </div>
                                     </div>
                                 )) : (
