@@ -8,7 +8,7 @@ interface SessionRow extends TimetableAssignment {
   module: { code: string; title: string; credits: number } | null;
   room: Room | null;
   instructor: { first_name: string; last_name: string } | null;
-  section: { session_type: string; delivery_mode: string } | null;
+  section: { session_type: string; delivery_mode: string; module: { code: string; title: string; credits: number } | null } | null;
 }
 
 interface TimetableClientProps {
@@ -45,7 +45,7 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
             const dateStr = session.start_date.replace(/-/g, '');
             const startTime = session.start_time.replace(/:/g, '') + '00';
             const endTime = session.end_time.replace(/:/g, '') + '00';
-            const subjectName = session.module?.title || 'Class';
+            const subjectName = session.section?.module?.title || 'Class';
             const location = session.room ? `${session.room.name}${session.room.building ? ', ' + session.room.building : ''}` : 'TBD';
             
             icsContent += 'BEGIN:VEVENT\n';
@@ -158,11 +158,11 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
                                                                 : 'bg-neutral-50 border-neutral-600 text-neutral-900'}`}
                                                     >
                                                         <div className="flex items-center justify-between gap-1">
-                                                            <span className="text-[9px] font-black uppercase truncate">{session.module?.code}</span>
+                                                            <span className="text-[9px] font-black uppercase truncate">{session.section?.module?.code}</span>
                                                             {(session.section?.delivery_mode === 'ONLINE' || session.section?.session_type === 'ONLINE') ? <Video size={10} weight="regular" /> : <MapPin size={10} weight="regular" />}
                                                         </div>
                                                         <div className="text-[10px] font-bold leading-tight mt-1 line-clamp-2">
-                                                            {session.module?.title}
+                                                            {session.section?.module?.title}
                                                         </div>
                                                         <div className="flex items-center gap-1 mt-1 text-[8px] font-bold opacity-70">
                                                             <Clock size={8} weight="regular" /> {session.start_time.slice(0, 5)} - {session.end_time.slice(0, 5)}
@@ -171,12 +171,6 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
                                                             <div className="mt-1 text-[8px] font-black uppercase tracking-tighter truncate">
                                                                 {session.room.name}{session.room.building ? `, ${session.room.building}` : ''}
                                                             </div>
-                                                        )}
-                                                        {session.instructor && (
-                                                            <div className="mt-0.5 text-[8px] font-medium opacity-80 truncate">
-                                                                {session.instructor.first_name} {session.instructor.last_name}
-                                                            </div>
-                                                        )}
                                                     </div>
                                                 ))}
                                             </div>

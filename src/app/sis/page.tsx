@@ -418,56 +418,45 @@ export default function SISStudentDashboard() {
 
                 if (currentStudentId) {
                     try {
-                        const { data: subjects } = await supabase
-                            .from('Subject')
-                            .select('id')
-                            .eq('courseId', studentData.program_id);
+                        const { data: enrollments } = await supabase
+                            .from('module_enrollments')
+                            .select('module_id, semester_id')
+                            .eq('student_id', currentStudentId)
+                            .eq('status', 'REGISTERED');
 
-                        const subjectIds = subjects?.map((s: { id: string }) => s.id) || [];
+                        const moduleIds = enrollments?.map((e: { module_id: string }) => e.module_id) || [];
 
-                        if (studentData.current_semester_id) {
-                            const { data: enrollments } = await supabase
-                                .from('module_enrollments')
-                                .select('module_id')
-                                .eq('student_id', currentStudentId)
-                                .eq('status', 'REGISTERED');
+                        if (moduleIds.length > 0) {
+                            const { data: sections } = await supabase
+                                .from('course_sections')
+                                .select('id, semester_id')
+                                .in('module_id', moduleIds);
 
-                            const moduleIds = enrollments?.map((e: { module_id: string }) => e.module_id) || [];
+                            const sectionIds = sections?.map((s: { id: string }) => s.id) || [];
+                            const semesterIds = [...new Set(sections?.map((s: { semester_id: string }) => s.semester_id) || [])];
 
-                            if (moduleIds.length > 0) {
-                                const { data: sections } = await supabase
-                                    .from('course_sections')
-                                    .select('id')
-                                    .eq('semester_id', studentData.current_semester_id)
-                                    .in('module_id', moduleIds);
+                            if (sectionIds.length > 0 && semesterIds.length > 0) {
+                                const { data: versions } = await supabase
+                                    .from('timetable_versions')
+                                    .select('id, semester_id')
+                                    .in('semester_id', semesterIds)
+                                    .eq('status', 'PUBLISHED')
+                                    .order('version_number', { ascending: false })
+                                    .limit(1);
 
-                                const sectionIds = sections?.map((s: { id: string }) => s.id) || [];
-
-                                if (sectionIds.length > 0) {
-                                    const { data: versions } = await supabase
-                                        .from('timetable_versions')
-                                        .select('id')
-                                        .eq('semester_id', studentData.current_semester_id)
-                                        .eq('status', 'PUBLISHED')
-                                        .order('version_number', { ascending: false })
-                                        .limit(1);
-
-                                    if (versions && versions.length > 0) {
-                                        const { data: assignments } = await supabase
-                                            .from('timetable_assignments')
-                                            .select(`
-                                                *,
-                                                module:modules(id, code, title, credits),
-                                                room:rooms(id, name, building, room_number),
-                                                instructor:profiles!timetable_assignments_instructor_id_fkey(first_name, last_name),
-                                                section:course_sections(id, code, session_type, delivery_mode)
-                                            `)
-                                            .eq('version_id', versions[0].id)
-                                            .in('section_id', sectionIds)
-                                            .order('day_of_week', { ascending: true })
-                                            .order('start_time', { ascending: true });
-                                        setTimetableSessions(assignments || []);
-                                    }
+                                if (versions && versions.length > 0) {
+                                    const { data: assignments } = await supabase
+                                        .from('timetable_assignments')
+                                        .select(`
+                                            *,
+                                            room:rooms(id, name, building, room_number),
+                                            section:course_sections(id, code, session_type, delivery_mode, module:modules(id, code, title, credits))
+                                        `)
+                                        .eq('version_id', versions[0].id)
+                                        .in('section_id', sectionIds)
+                                        .order('day_of_week', { ascending: true })
+                                        .order('start_time', { ascending: true });
+                                    setTimetableSessions(assignments || []);
                                 }
                             }
                         }
@@ -1053,8 +1042,8 @@ export default function SISStudentDashboard() {
                                                             </td>
                                                             <td className="p-3">
                                                                 <div>
-                                                                    <p className="font-semibold text-slate-900">{session.module?.title || 'Class'}</p>
-                                                                    <p className="text-[10px] text-slate-400 font-mono">{session.module?.code}</p>
+                                <p className="font-semibold text-slate-900">{session.section?.module?.title || 'Class'}</p>
+                                <p className="text-[10px] text-slate-400 font-mono">{session.section?.module?.code}</p>
                                                                 </div>
                                                             </td>
                                                             <td className="p-3">
@@ -1071,7 +1060,7 @@ export default function SISStudentDashboard() {
                                                                 ) : 'TBD'}
                                                             </td>
                                                             <td className="p-3">
-                                                                {session.instructor ? `${session.instructor.first_name} ${session.instructor.last_name}` : 'TBD'}
+                                                                TBD
                                                             </td>
                                                         </tr>
                                                     );

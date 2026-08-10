@@ -125,7 +125,7 @@ export default function PortalLoginPage() {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black transition-colors"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-neutral-400 hover:text-black transition-colors"
                                 >
                                     {showPassword ? <EyeSlash size={20} /> : <Eye size={20} />}
                                 </button>

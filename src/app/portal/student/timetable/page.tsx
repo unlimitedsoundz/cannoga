@@ -12,7 +12,7 @@ interface SessionRow extends TimetableAssignment {
   module: { code: string; title: string; credits: number } | null;
   room: Room | null;
   instructor: { first_name: string; last_name: string } | null;
-  section: { session_type: string; delivery_mode: string } | null;
+  section: { session_type: string; delivery_mode: string; module: { code: string; title: string; credits: number } | null } | null;
 }
 
 export default function TimetablePage() {
@@ -97,10 +97,8 @@ export default function TimetablePage() {
                     .from('timetable_assignments')
                     .select(`
                         *,
-                        section:course_sections(session_type, delivery_mode),
-                        module:modules(id, code, title, credits),
-                        room:rooms(id, name, building, room_number),
-                        instructor:profiles!timetable_assignments_instructor_id_fkey(first_name, last_name)
+                        section:course_sections(session_type, delivery_mode, module:modules(id, code, title, credits)),
+                        room:rooms(id, name, building, room_number)
                     `)
                     .eq('version_id', versions[0].id)
                     .in('section_id', sectionIds)

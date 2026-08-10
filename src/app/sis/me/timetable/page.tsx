@@ -10,7 +10,7 @@ interface SessionRow extends TimetableAssignment {
   module: { code: string; title: string; credits: number } | null;
   room: Room | null;
   instructor: { first_name: string; last_name: string } | null;
-  section: { session_type: string; delivery_mode: string } | null;
+  section: { session_type: string; delivery_mode: string; module: { code: string; title: string; credits: number } | null } | null;
 }
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -34,18 +34,18 @@ export default function StudentTimetablePage() {
 
       const { data: student } = await supabase
         .from('students')
-        .select('id, current_semester_id')
+        .select('id')
         .eq('user_id', user.id)
         .maybeSingle();
 
-      if (!student || !student.current_semester_id) {
+      if (!student) {
         setLoading(false);
         return;
       }
 
       const { data: enrollments } = await supabase
         .from('module_enrollments')
-        .select('module_id')
+        .select('module_id, semester_id')
         .eq('student_id', student.id)
         .eq('status', 'REGISTERED');
 
@@ -57,12 +57,13 @@ export default function StudentTimetablePage() {
 
       const { data: sections } = await supabase
         .from('course_sections')
-        .select('id')
-        .eq('semester_id', student.current_semester_id)
+        .select('id, semester_id')
         .in('module_id', moduleIds);
 
       const sectionIds = sections?.map((s: { id: string }) => s.id) || [];
-      if (sectionIds.length === 0) {
+      const semesterIds = [...new Set(sections?.map((s: { semester_id: string }) => s.semester_id) || [])];
+
+      if (sectionIds.length === 0 || semesterIds.length === 0) {
         setLoading(false);
         return;
       }
@@ -70,7 +71,7 @@ export default function StudentTimetablePage() {
       const { data: versions } = await supabase
         .from('timetable_versions')
         .select('id')
-        .eq('semester_id', student.current_semester_id)
+        .in('semester_id', semesterIds)
         .eq('status', 'PUBLISHED')
         .order('version_number', { ascending: false })
         .limit(1);
@@ -84,10 +85,8 @@ export default function StudentTimetablePage() {
         .from('timetable_assignments')
         .select(`
           *,
-          section:course_sections(session_type, delivery_mode),
-          module:modules(id, code, title, credits),
-          room:rooms(id, name, building, room_number),
-          instructor:profiles!timetable_assignments_instructor_id_fkey(first_name, last_name)
+          section:course_sections(session_type, delivery_mode, module:modules(id, code, title, credits)),
+          room:rooms(id, name, building, room_number)
         `)
         .eq('version_id', versions[0].id)
         .in('section_id', sectionIds)
@@ -122,7 +121,7 @@ export default function StudentTimetablePage() {
       const dateStr = session.start_date.replace(/-/g, '');
       const startTime = session.start_time.replace(/:/g, '') + '00';
       const endTime = session.end_time.replace(/:/g, '') + '00';
-      const summary = session.module?.title || 'Class';
+      const summary = session.section?.module?.title || 'Class';
       const location = session.room ? `${session.room.name}${session.room.building ? ', ' + session.room.building : ''}` : 'TBD';
       icsContent += 'BEGIN:VEVENT\n';
       icsContent += `DTSTART:${dateStr}T${startTime}\n`;
@@ -216,12 +215,7 @@ export default function StudentTimetablePage() {
                               <div className="mt-1 text-[8px] font-black uppercase tracking-tighter truncate">
                                 {session.room.name}{session.room.building ? `, ${session.room.building}` : ''}
                               </div>
-                            )}
-                            {session.instructor && (
-                              <div className="mt-0.5 text-[8px] font-medium opacity-80 truncate">
-                                {session.instructor.first_name} {session.instructor.last_name}
-                              </div>
-                            )}
+                              )}
                           </div>
                         ))}
                       </div>

@@ -21,8 +21,7 @@ export async function getFacultyTimetable(facultyId: string, termId: string): Pr
       .from('timetable_assignments')
       .select(`
         *,
-        section:course_sections(id, code, session_type, capacity, enrolled_count),
-        module:modules(id, code, title, credits),
+        section:course_sections(id, code, session_type, capacity, enrolled_count, module:modules(id, code, title, credits)),
         room:rooms(id, name, building, room_number, capacity)
       `)
       .eq('version_id', versions[0].id)

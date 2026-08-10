@@ -169,8 +169,8 @@ export default function FacultyTimetablePage() {
                       <div key={dayIndex} className="p-1 border-r last:border-r-0 border-neutral-100 flex flex-col gap-1 relative">
                         {daySessions.map(session => (
                           <div key={session.id} className="p-2 rounded-sm border-l-4 border-[#c084fc] bg-purple-50 text-purple-900 shadow-sm">
-                            <div className="text-[9px] font-black uppercase truncate">{session.module?.code}</div>
-                            <div className="text-[10px] font-bold leading-tight mt-1 line-clamp-2">{session.module?.title}</div>
+                            <div className="text-[9px] font-black uppercase truncate">{session.section?.module?.code}</div>
+                            <div className="text-[10px] font-bold leading-tight mt-1 line-clamp-2">{session.section?.module?.title}</div>
                             <div className="flex items-center gap-1 mt-1 text-[8px] font-bold opacity-70">
                               <Clock size={8} weight="regular" /> {session.start_time.slice(0, 5)} - {session.end_time.slice(0, 5)}
                             </div>
