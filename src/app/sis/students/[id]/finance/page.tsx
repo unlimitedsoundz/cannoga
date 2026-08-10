@@ -131,7 +131,12 @@ export default function FinancePage() {
       <div className="p-4 bg-neutral-50 border border-neutral-200">
         <h4 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-2">Payment Options</h4>
         <div className="flex flex-wrap gap-3">
-          <button className="px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800">Make Payment</button>
+          <button 
+            onClick={() => window.location.href = '/portal/application/payment'}
+            className="px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition"
+          >
+            Make Payment
+          </button>
           <button className="px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-100">Set Up Payment Plan</button>
           <button className="px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-100">View Tax Forms (T2202)</button>
         </div>
