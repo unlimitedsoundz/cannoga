@@ -1036,12 +1036,9 @@ export default function SISStudentDashboard() {
                                     {/* STUDENT MAIL */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                                <div className="flex items-center space-x-2">
-                                                    <HugeiconsIcon icon={Mail} size={16} strokeWidth={2} className="text-slate-700" />
-                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Student Mail</h3>
-                                                </div>
-                                                <button type="button" onClick={() => navigateTo('student-life')} className="text-xs text-slate-800 hover:text-slate-700">
+                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                                <h3 className="font-semibold text-white text-sm">Student Mail</h3>
+                                                <button type="button" onClick={() => navigateTo('student-life')} className="text-xs text-slate-200 hover:text-white">
                                                     <HugeiconsIcon icon={Clock} size={14} strokeWidth={2} />
                                                 </button>
                                             </div>
@@ -1073,12 +1070,9 @@ export default function SISStudentDashboard() {
                                     {/* ANNOUNCEMENTS */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                                <div className="flex items-center space-x-2">
-                                                    <HugeiconsIcon icon={Bell} size={16} strokeWidth={2} className="text-slate-700" />
-                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Announcements</h3>
-                                                </div>
-                                                <span className="text-[11px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded">{news.length} News</span>
+                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                                <h3 className="font-semibold text-white text-sm">Announcements</h3>
+                                                <span className="text-[11px] bg-white/10 text-white font-medium px-2 py-0.5 rounded">{news.length} News</span>
                                             </div>
                                             <div className="p-4 space-y-2.5">
                                                 {news.length > 0 ? news.slice(0, 2).map(announcement => (
@@ -1102,13 +1096,10 @@ export default function SISStudentDashboard() {
                                     </div>
 
                                     {/* ATTENDANCE RATE */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4 overflow-hidden">
-                                        <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
-                                            <div className="flex items-center space-x-2">
-                                                <HugeiconsIcon icon={CheckCircle} size={16} strokeWidth={2} className="text-slate-700" />
-                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Attendance Rate</h3>
-                                            </div>
-                                            <span className="text-[10px] bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded">Fall 2026</span>
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                        <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center mb-2">
+                                            <h3 className="font-semibold text-white text-sm">Attendance Rate</h3>
+                                            <span className="text-[10px] bg-white/10 text-white font-bold px-2 py-0.5 rounded">Fall 2026</span>
                                         </div>
                                         <div className="flex flex-col items-center justify-center py-2">
                                             {(() => {
@@ -1155,12 +1146,9 @@ export default function SISStudentDashboard() {
                                     {/* ENROLLED COURSES (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                                <div className="flex items-center space-x-2">
-                                                    <HugeiconsIcon icon={BookOpen} size={16} strokeWidth={2} className="text-slate-700" />
-                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Enrolled Courses</h3>
-                                                </div>
-                                                <button type="button" onClick={() => navigateTo('academics')} className="text-xs font-semibold text-slate-800 hover:underline">Manage</button>
+                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                                <h3 className="font-semibold text-white text-sm">Enrolled Courses</h3>
+                                                <button type="button" onClick={() => navigateTo('academics')} className="text-xs font-semibold text-white/90 hover:text-white hover:underline">Manage</button>
                                             </div>
                                             <div className="p-3 space-y-2 text-xs">
                                                 {enrollments.length > 0 ? (
@@ -1192,12 +1180,9 @@ export default function SISStudentDashboard() {
                                     {/* TIMETABLE / TODAY'S SCHEDULE */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                                <div className="flex items-center space-x-2">
-                                                    <HugeiconsIcon icon={Calendar} size={16} strokeWidth={2} className="text-slate-700" />
-                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Timetable & Schedule</h3>
-                                                </div>
-                                                <span className="text-[11px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded">{timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length} Classes</span>
+                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                                <h3 className="font-semibold text-white text-sm">Timetable & Schedule</h3>
+                                                <span className="text-[11px] bg-white/10 text-white font-medium px-2 py-0.5 rounded">{timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length} Classes</span>
                                             </div>
                                             <div className="p-4 space-y-2.5">
                                                 {timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length > 0 ? 
@@ -1232,11 +1217,9 @@ export default function SISStudentDashboard() {
                                     {/* REAL-TIME ONTARIO LIVE NEWS WIDGET */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                                <div className="flex items-center space-x-2">
-                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Real-Time Ontario News</h3>
-                                                </div>
-                                                <span className="text-[10px] bg-slate-100 text-slate-600 font-bold px-2 py-0.5 rounded border border-slate-200 uppercase tracking-wider">Live Feed</span>
+                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                                <h3 className="font-semibold text-white text-sm">Real-Time Ontario News</h3>
+                                                <span className="text-[10px] bg-white/10 text-white font-bold px-2 py-0.5 rounded border border-white/20 uppercase tracking-wider">Live Feed</span>
                                             </div>
                                             <div className="p-3 space-y-2 text-xs">
                                                 {ontarioLiveNews.length > 0 ? (
@@ -1263,12 +1246,9 @@ export default function SISStudentDashboard() {
                                     {/* STAFF DIRECTORY / ADVISOR CONTACT (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                                <div className="flex items-center space-x-2">
-                                                    <HugeiconsIcon icon={User} size={16} strokeWidth={2} className="text-slate-700" />
-                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Staff Directory</h3>
-                                                </div>
-                                                <span className="text-[10px] text-slate-500">Academic Faculty</span>
+                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                                <h3 className="font-semibold text-white text-sm">Staff Directory</h3>
+                                                <span className="text-[10px] text-white/80">Academic Faculty</span>
                                             </div>
                                             {faculty.length > 0 ? (
                                                 <div className="p-4 flex items-center space-x-4 bg-slate-50/50 border-b border-slate-100">
@@ -1338,11 +1318,11 @@ export default function SISStudentDashboard() {
                                     </div>
 
                                     {/* SOCIAL MEDIA / CAMPUS CONNECT */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4 overflow-hidden">
-                                        <div className="pb-3 border-b border-slate-100 mb-3">
-                                            <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Campus Connect & Channels</h3>
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                        <div className="bg-[#2D3748] px-4 py-2.5 mb-3">
+                                            <h3 className="font-semibold text-white text-sm">Campus Connect & Channels</h3>
                                         </div>
-                                        <div className="grid grid-cols-2 gap-2 text-xs">
+                                        <div className="grid grid-cols-2 gap-2 text-xs p-4 pt-0">
                                             {/* YouTube Official Channel */}
                                             <a 
                                                 href="https://www.youtube.com/@CannogaCollege" 
@@ -1392,11 +1372,8 @@ export default function SISStudentDashboard() {
                                 <div className="space-y-6">
                                     {/* STUDENT PROFILE QUICK VIEW */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                            <div className="flex items-center space-x-2">
-                                                <HugeiconsIcon icon={User} size={16} strokeWidth={2} className="text-slate-700" />
-                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Student Profile</h3>
-                                            </div>
+                                        <div className="bg-[#2D3748] px-4 py-2.5">
+                                            <h3 className="font-semibold text-white text-sm">Student Profile</h3>
                                         </div>
                                         <div className="p-4 space-y-3">
                                             <div className="flex items-center space-x-3">
@@ -1418,11 +1395,8 @@ export default function SISStudentDashboard() {
 
                                     {/* ASSIGNMENT DEADLINES (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                            <div className="flex items-center space-x-2">
-                                                <HugeiconsIcon icon={Clock} size={16} strokeWidth={2} className="text-slate-700" />
-                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Assignment Deadlines</h3>
-                                            </div>
+                                        <div className="bg-[#2D3748] px-4 py-2.5">
+                                            <h3 className="font-semibold text-white text-sm">Assignment Deadlines</h3>
                                         </div>
                                         <div className="p-4 space-y-3 text-xs">
                                             {tasks.length > 0 ? (
@@ -1469,9 +1443,9 @@ export default function SISStudentDashboard() {
                                     </div>
 
                                     {/* COLLEGE SERVICES & PORTALS (REAL CANADIAN ONTARIO SERVICE LOGOS) */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4 overflow-hidden">
-                                        <div className="pb-3 border-b border-slate-100 mb-3">
-                                            <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Ontario College Services & Portals</h3>
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                        <div className="bg-[#2D3748] px-4 py-2.5 mb-2">
+                                            <h3 className="font-semibold text-white text-sm">Ontario College Services & Portals</h3>
                                         </div>
                                          <div className="flex items-center justify-around sm:justify-start sm:space-x-8 py-2">
                                              {/* PAL Letter Card (Ontario Government / IRCC) */}
@@ -1530,11 +1504,8 @@ export default function SISStudentDashboard() {
 
                                     {/* FILE MANAGER / DOCUMENT REPOSITORY (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                            <div className="flex items-center space-x-2">
-                                                <HugeiconsIcon icon={FileText} size={16} strokeWidth={2} className="text-slate-700" />
-                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm">File Manager & Repository</h3>
-                                            </div>
+                                        <div className="bg-[#2D3748] px-4 py-2.5">
+                                            <h3 className="font-semibold text-white text-sm">File Manager & Repository</h3>
                                         </div>
                                         <div className="p-3 space-y-2 text-xs">
                                             {documents.length > 0 ? (
@@ -1574,12 +1545,9 @@ export default function SISStudentDashboard() {
                                     {/* ACCOUNT SUMMARY */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                                <div className="flex items-center space-x-2">
-                                                    <HugeiconsIcon icon={CreditCard} size={16} strokeWidth={2} className="text-slate-700" />
-                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Account Summary</h3>
-                                                </div>
-                                                <span className="text-[11px] text-slate-500">Fall 2026</span>
+                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                                <h3 className="font-semibold text-white text-sm">Account Summary</h3>
+                                                <span className="text-[11px] text-white/80">Fall 2026</span>
                                             </div>
                                             <div className="p-4">
                                                 <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total Balance Due (CAD)</p>
