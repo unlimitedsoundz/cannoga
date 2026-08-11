@@ -40,13 +40,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'callId is required' }, { status: 400 });
     }
 
-    const { data: call, error: callError } = await adminClient
+    let { data: call } = await adminClient
       .from('voice_calls')
       .select('id, status, agent_id')
-      .eq('provider_call_id', callId)
+      .eq('id', callId)
       .maybeSingle();
 
-    if (callError || !call) {
+    if (!call) {
+      const { data: pCall } = await adminClient
+        .from('voice_calls')
+        .select('id, status, agent_id')
+        .eq('provider_call_id', callId)
+        .maybeSingle();
+      call = pCall;
+    }
+
+    if (!call) {
       return NextResponse.json({ error: 'Call not found' }, { status: 404 });
     }
 
