@@ -1401,66 +1401,59 @@ export default function SISStudentDashboard() {
                                             </div>
                                             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Canada Verified</span>
                                         </div>
-                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                            {/* PAL Letter Card (Ontario Government / IRCC) */}
-                                            <button 
-                                                type="button" 
-                                                onClick={() => navigateTo('documents')} 
-                                                className="flex items-center space-x-3 p-3 bg-gradient-to-br from-red-50/60 via-white to-slate-50 border border-red-200 hover:border-red-400 rounded-lg hover:shadow-md transition text-left group cursor-pointer"
-                                            >
-                                                <svg className="w-9 h-9 shrink-0 group-hover:scale-105 transition-transform" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <rect width="40" height="40" rx="8" fill="#C8102E" />
-                                                    <path d="M20 7L22.2 12.8L25.5 11.2L24.2 16.5L29 17.5L25.8 21.2L28 25.5L22.8 24.2L20 33L17.2 24.2L12 25.5L14.2 21.2L11 17.5L15.8 16.5L14.5 11.2L17.8 12.8L20 7Z" fill="white" />
-                                                </svg>
-                                                <div className="min-w-0 flex-1">
-                                                    <div className="flex items-center space-x-1">
-                                                        <span className="font-bold text-slate-900 text-xs truncate group-hover:text-red-700 transition">PAL Letter</span>
-                                                        <span className="text-[9px] bg-red-100 text-red-700 font-extrabold px-1 rounded">IRCC</span>
-                                                    </div>
-                                                    <p className="text-[10px] text-slate-500 font-medium truncate">Ontario Attestation</p>
-                                                </div>
-                                            </button>
+                                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                             {/* PAL Letter Card (Ontario Government / IRCC) */}
+                                             <button 
+                                                 type="button" 
+                                                 onClick={() => navigateTo('documents')} 
+                                                 className="flex items-center justify-center p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-lg shadow-sm hover:shadow transition group cursor-pointer h-16"
+                                                 title="PAL IRCC Attestation Portal"
+                                             >
+                                                 <img 
+                                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw_rQ8pJzrHe4IaKsqhyQr534rOGnoQK_fAB28L-T-wOSslGjjPxllh-s&s=10" 
+                                                     alt="PAL IRCC" 
+                                                     className="h-10 max-h-10 w-auto object-contain group-hover:scale-105 transition-transform rounded" 
+                                                 />
+                                             </button>
 
-                                            {/* Blackboard Learn LMS Card */}
-                                            <button 
-                                                type="button" 
-                                                onClick={() => navigateTo('academics')} 
-                                                className="flex items-center space-x-3 p-3 bg-gradient-to-br from-amber-50/60 via-white to-slate-50 border border-amber-200 hover:border-amber-400 rounded-lg hover:shadow-md transition text-left group cursor-pointer"
-                                            >
-                                                <svg className="w-9 h-9 shrink-0 group-hover:scale-105 transition-transform" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <rect width="40" height="40" rx="8" fill="#0F172A" />
-                                                    <path d="M11 11H21C23.8 11 26 12.8 26 15.2C26 16.8 24.8 18.2 23.2 18.8C25.2 19.5 26.5 21.1 26.5 23C26.5 25.8 24 28 21 28H11V11ZM16 17.5H20.5C21.6 17.5 22.5 16.8 22.5 14.1H16V17.5ZM16 25H21C22.2 25 23.2 24.1 23.2 23C23.2 21.9 22.2 21 21 21H16V25Z" fill="#F59E0B" />
-                                                    <rect x="28" y="11" width="3" height="17" rx="1.5" fill="#F59E0B" />
-                                                </svg>
-                                                <div className="min-w-0 flex-1">
-                                                    <div className="flex items-center space-x-1">
-                                                        <span className="font-bold text-slate-900 text-xs truncate group-hover:text-amber-700 transition">Blackboard</span>
-                                                        <span className="text-[9px] bg-amber-100 text-amber-800 font-extrabold px-1 rounded">LMS</span>
-                                                    </div>
-                                                    <p className="text-[10px] text-slate-500 font-medium truncate">Course Materials</p>
-                                                </div>
-                                            </button>
+                                             {/* Blackboard Learn LMS Card */}
+                                             <button 
+                                                 type="button" 
+                                                 onClick={() => navigateTo('academics')} 
+                                                 className="flex items-center justify-center p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-lg shadow-sm hover:shadow transition group cursor-pointer h-16"
+                                                 title="Blackboard Learn LMS"
+                                             >
+                                                 <img 
+                                                     src="https://w7.pngwing.com/pngs/340/809/png-transparent-blackboard-learn-student-educational-technology-learning-management-system-student-text-people-logo.png" 
+                                                     alt="Blackboard Learn" 
+                                                     className="h-10 max-h-10 w-auto object-contain group-hover:scale-105 transition-transform" 
+                                                 />
+                                             </button>
 
-                                            {/* OntarioColleges.ca (OCAS) Card */}
-                                            <button 
-                                                type="button" 
-                                                onClick={() => navigateTo('documents')} 
-                                                className="flex items-center space-x-3 p-3 bg-gradient-to-br from-sky-50/60 via-white to-slate-50 border border-sky-200 hover:border-sky-400 rounded-lg hover:shadow-md transition text-left group cursor-pointer"
-                                            >
-                                                <svg className="w-9 h-9 shrink-0 group-hover:scale-105 transition-transform" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <rect width="40" height="40" rx="8" fill="#0284C7" />
-                                                    <circle cx="20" cy="20" r="10" stroke="white" strokeWidth="2.5" fill="none" />
-                                                    <path d="M20 13.5L21.2 16.8L24.5 17.5L22 19.8L22.8 23.2L20 21.5L17.2 23.2L18 19.8L15.5 17.5L18.8 16.8L20 13.5Z" fill="#38BDF8" />
-                                                </svg>
-                                                <div className="min-w-0 flex-1">
-                                                    <div className="flex items-center space-x-1">
-                                                        <span className="font-bold text-slate-900 text-xs truncate group-hover:text-sky-700 transition">OntarioColleges</span>
-                                                        <span className="text-[9px] bg-sky-100 text-sky-800 font-extrabold px-1 rounded">OCAS</span>
-                                                    </div>
-                                                    <p className="text-[10px] text-slate-500 font-medium truncate">Ontario App Docs</p>
-                                                </div>
-                                            </button>
-                                        </div>
+                                             {/* OCAS Card */}
+                                             <button 
+                                                 type="button" 
+                                                 onClick={() => navigateTo('documents')} 
+                                                 className="flex items-center justify-center p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-lg shadow-sm hover:shadow transition group cursor-pointer h-16"
+                                                 title="OCAS OntarioColleges Portal"
+                                             >
+                                                 <img 
+                                                     src="https://upload.wikimedia.org/wikipedia/en/3/36/OCAS_Logo_2026.png" 
+                                                     alt="OCAS OntarioColleges" 
+                                                     className="h-10 max-h-10 w-auto object-contain group-hover:scale-105 transition-transform" 
+                                                     onError={(e) => {
+                                                         const target = e.currentTarget;
+                                                         target.style.display = 'none';
+                                                         const fallback = target.nextElementSibling as HTMLElement;
+                                                         if (fallback) fallback.style.display = 'flex';
+                                                     }}
+                                                 />
+                                                 <div className="hidden items-center space-x-2 font-bold text-sky-700 text-xs">
+                                                     <svg className="w-6 h-6 shrink-0" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#0284C7"/><circle cx="20" cy="20" r="10" stroke="white" strokeWidth="2.5"/><path d="M20 13.5L21.2 16.8L24.5 17.5L22 19.8L22.8 23.2L20 21.5L17.2 23.2L18 19.8L15.5 17.5L18.8 16.8L20 13.5Z" fill="#38BDF8"/></svg>
+                                                     <span>OCAS</span>
+                                                 </div>
+                                             </button>
+                                         </div>
                                     </div>
 
                                     {/* FILE MANAGER / DOCUMENT REPOSITORY (FETCHED FROM DB) */}
