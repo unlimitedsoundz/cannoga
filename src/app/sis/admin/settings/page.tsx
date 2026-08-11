@@ -8,7 +8,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import {
   UserIcon as User,
   Shield01Icon as Security,
-  Setting01Icon as SettingsIcon,
+  Settings01Icon as SettingsIcon,
   CheckCircle as CheckCircle,
   Alert01Icon as AlertCircle,
   Logout01Icon as Logout,
