@@ -24,6 +24,7 @@ import {
     Download01Icon as Download,
 } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
+import { TiktokLogo, YoutubeLogo } from '@phosphor-icons/react';
 import { getDocumentUrl } from '@/utils/document';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { registerForCourse } from '@/app/sis/registration-actions';
@@ -1300,21 +1301,39 @@ export default function SISStudentDashboard() {
                                         </div>
                                     </div>
 
-                                    {/* LIVE ONTARIO WEATHER */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4 overflow-hidden">
-                                        <div className="flex justify-between items-center pb-3 border-b border-slate-100 mb-3">
-                                            <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Campus Weather (Real-Time)</h3>
-                                            <span className="text-[10px] bg-slate-100 text-slate-700 font-semibold px-2 py-0.5 rounded">Ontario, CA</span>
+                                    {/* LIVE ONTARIO WEATHER - MATCHING EXACT DESIGN SPEC */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                        {/* Dark Header Bar */}
+                                        <div className="bg-[#2D3748] px-4 py-2.5">
+                                            <h3 className="font-semibold text-white text-sm">Weather</h3>
                                         </div>
-                                        <div className="flex items-center justify-between">
-                                            <div>
-                                                <p className="text-2xl font-extrabold text-slate-900">{ontarioWeather ? `${ontarioWeather.temp}°C` : '18°C'}</p>
-                                                <p className="text-xs text-slate-500 font-medium">{ontarioWeather ? ontarioWeather.condition : 'Partly Cloudy'}</p>
+                                        {/* Card Body */}
+                                        <div className="p-4 sm:p-5">
+                                            <p className="text-slate-600 text-xs sm:text-sm font-medium mb-1">
+                                                Today in Ottawa, Canada
+                                            </p>
+                                            <div className="flex items-center justify-between my-2">
+                                                {/* Golden Degree */}
+                                                <span className="text-5xl sm:text-6xl font-light text-[#D97706] tracking-tight">
+                                                    {ontarioWeather ? `${ontarioWeather.temp}°` : '8°'}
+                                                </span>
+                                                {/* Weather Icon (Sun & Rain Cloud) */}
+                                                <div className="shrink-0">
+                                                    <svg className="w-14 h-14 sm:w-16 sm:h-16 text-[#2D3748]" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                        {/* Sun circle outline behind cloud */}
+                                                        <circle cx="24" cy="22" r="8" />
+                                                        {/* Cloud body */}
+                                                        <path d="M 20 42 C 15 42 12 38 13 33 C 14 28 19 26 23 27 C 25 21 32 19 37 23 C 42 21 48 25 48 30 C 51 32 52 37 49 40 C 47 42 45 42 42 42 Z" fill="white" />
+                                                        {/* Rain dashes */}
+                                                        <line x1="24" y1="46" x2="21" y2="51" strokeWidth="2.5" />
+                                                        <line x1="32" y1="46" x2="29" y2="51" strokeWidth="2.5" />
+                                                        <line x1="40" y1="46" x2="37" y2="51" strokeWidth="2.5" />
+                                                    </svg>
+                                                </div>
                                             </div>
-                                            <div className="text-right text-xs text-slate-800">
-                                                <p>Humidity: {ontarioWeather ? `${ontarioWeather.humidity}%` : '55%'}</p>
-                                                <p>Wind: {ontarioWeather ? `${ontarioWeather.wind} km/h` : '14 km/h'}</p>
-                                            </div>
+                                            <p className="text-slate-700 text-xs sm:text-sm font-medium mt-2">
+                                                {ontarioWeather ? ontarioWeather.condition : 'Sun & Light Showers'}
+                                            </p>
                                         </div>
                                     </div>
 
@@ -1344,9 +1363,7 @@ export default function SISStudentDashboard() {
                                                 rel="noopener noreferrer" 
                                                 className="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded flex items-center space-x-2 font-medium text-slate-700 hover:text-slate-900 transition group"
                                             >
-                                                <svg className="w-5 h-5 fill-slate-900 shrink-0 group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
-                                                    <path d="M12.525 0h3.08c.012 1.016.3 2.053.86 2.923.633.985 1.558 1.76 2.652 2.181.826.32 1.71.488 2.603.498V8.71c-1.68-.026-3.32-.497-4.747-1.365a7.19 7.19 0 0 1-1.365-1.071v9.33c0 1.956-.566 3.865-1.637 5.502a9.155 9.155 0 0 1-4.475 3.498 9.337 9.337 0 0 1-5.69.28 9.176 9.176 0 0 1-4.63-3.238 9.07 9.07 0 0 1-1.748-5.32c0-2.457.974-4.814 2.712-6.552A9.208 9.208 0 0 1 8.79 7.378v3.18a5.986 5.986 0 0 0-3.66 1.251 5.983 5.983 0 0 0-2.073 3.398 6.012 6.012 0 0 0 .741 4.295 5.992 5.992 0 0 0 3.012 2.607 6.05 6.05 0 0 0 4.103.104 5.996 5.996 0 0 0 3.167-2.316 6.027 6.027 0 0 0 .945-3.326V0z"/>
-                                                </svg>
+                                                <TiktokLogo className="w-5 h-5 text-slate-900 shrink-0 group-hover:scale-110 transition-transform" weight="bold" />
                                                 <span className="truncate">TikTok</span>
                                             </a>
 
