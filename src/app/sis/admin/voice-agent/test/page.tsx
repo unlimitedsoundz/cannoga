@@ -14,22 +14,33 @@ import {
   ClockIcon as Clock,
   X as X,
 } from '@hugeicons/core-free-icons';
-import { getMockVoiceProvider } from '@/lib/voice/mock-provider';
-import type { VoiceEvent, VoiceMessage, VoiceToolEvent } from '@/lib/voice/types';
+
+interface MessageItem {
+  id: string;
+  role: 'caller' | 'assistant' | 'system';
+  content: string;
+  timestamp: Date;
+}
+
+interface ToolEventItem {
+  id: string;
+  toolName: string;
+  result: unknown;
+  success: boolean;
+}
 
 export default function VoiceAgentTestPage() {
   const [callId, setCallId] = useState<string | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [status, setStatus] = useState<'idle' | 'starting' | 'active' | 'ended'>('idle');
-  const [transcript, setTranscript] = useState<VoiceMessage[]>([]);
-  const [toolEvents, setToolEvents] = useState<VoiceToolEvent[]>([]);
+  const [transcript, setTranscript] = useState<MessageItem[]>([]);
+  const [toolEvents, setToolEvents] = useState<ToolEventItem[]>([]);
   const [errors, setErrors] = useState<string[]>([]);
   const [userInput, setUserInput] = useState('');
   const [duration, setDuration] = useState(0);
   const [callSummary, setCallSummary] = useState<string | null>(null);
 
   const transcriptEndRef = useRef<HTMLDivElement>(null);
-  const providerRef = useRef(getMockVoiceProvider());
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const scrollToBottom = useCallback(() => {
@@ -56,8 +67,6 @@ export default function VoiceAgentTestPage() {
     setCallSummary(null);
 
     try {
-      const provider = providerRef.current;
-
       const greetingRes = await fetch('/api/voice/incoming', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -74,36 +83,25 @@ export default function VoiceAgentTestPage() {
 
       const greetingData = await greetingRes.json();
       const newCallId = greetingData.callId;
-      const newSessionId = greetingData.sessionId || `session-${Date.now()}`;
+      const newSessionId = `session-${Date.now()}`;
 
-      const mockCall = {
-        id: newCallId,
-        agentId: '00000000-0000-0000-0000-000000000001',
-        callerPhone: '+1-416-555-0199',
-        calledPhone: '+1-416-555-0100',
-        direction: 'inbound' as const,
-        metadata: { sessionId: newSessionId },
-      };
-
-      const session = await provider.startCall(mockCall);
       setCallId(newCallId);
-      setSessionId(session.id);
+      setSessionId(newSessionId);
       setStatus('active');
 
       timerRef.current = setInterval(() => {
         setDuration(d => d + 1);
       }, 1000);
 
-      if (greetingData.greeting) {
-        const greetingMsg: VoiceMessage = {
+      const initialGreeting = greetingData.greeting || 'Hello! Welcome to Cannoga College International Admissions. How can I help you today?';
+      setTranscript([
+        {
           id: `msg-${Date.now()}-greeting`,
           role: 'assistant',
-          content: greetingData.greeting,
+          content: initialGreeting,
           timestamp: new Date(),
-          sequence: 0,
-        };
-        setTranscript([greetingMsg]);
-      }
+        },
+      ]);
     } catch (err) {
       setStatus('idle');
       setErrors([err instanceof Error ? err.message : 'Failed to start call']);
@@ -111,15 +109,16 @@ export default function VoiceAgentTestPage() {
   };
 
   const endCall = async () => {
-    if (!callId || !sessionId) return;
+    if (!callId) {
+      setStatus('ended');
+      return;
+    }
 
     try {
       if (timerRef.current) {
         clearInterval(timerRef.current);
         timerRef.current = null;
       }
-
-      await providerRef.current.endCall(sessionId);
 
       await fetch('/api/voice/events', {
         method: 'POST',
@@ -132,7 +131,7 @@ export default function VoiceAgentTestPage() {
       });
 
       setStatus('ended');
-      setCallSummary(`Call ended. Duration: ${Math.floor(duration / 60)}m ${duration % 60}s. Messages: ${transcript.length}.`);
+      setCallSummary(`Call ended. Duration: ${Math.floor(duration / 60)}m ${duration % 60}s. Total Messages: ${transcript.length}.`);
     } catch (err) {
       setErrors(prev => [...prev, err instanceof Error ? err.message : 'Failed to end call']);
       setStatus('ended');
@@ -140,17 +139,22 @@ export default function VoiceAgentTestPage() {
   };
 
   const sendMessage = async () => {
-    if (!userInput.trim() || !callId || !sessionId || status !== 'active') return;
-
     const text = userInput.trim();
+    if (!text || status !== 'active') return;
+
     setUserInput('');
 
+    // 1. Immediately append user's message to transcript state
+    const userMsg: MessageItem = {
+      id: `msg-${Date.now()}-user`,
+      role: 'caller',
+      content: text,
+      timestamp: new Date(),
+    };
+
+    setTranscript(prev => [...prev, userMsg]);
+
     try {
-      const provider = providerRef.current;
-
-      // 1. Send user text to provider (which triggers transcript.update event handler automatically)
-      await provider.sendText(sessionId, text);
-
       // 2. Query knowledge base/FAQs for intelligent response
       const toolRes = await fetch('/api/voice/tools', {
         method: 'POST',
@@ -163,30 +167,39 @@ export default function VoiceAgentTestPage() {
         }),
       });
 
+      let assistantText = "I don't want to give you incorrect information. Let me connect you with our admissions team or arrange a callback for detailed program inquiries.";
+      let toolResults: unknown = [];
+
       if (toolRes.ok) {
         const toolData = await toolRes.json();
-        const results = toolData.data || [];
-
-        provider.appendToolEvent(sessionId, {
-          callId,
-          sessionId,
-          toolName: 'search_faq',
-          arguments: { query: text },
-          result: results,
-          success: true,
-        });
-
-        if (results.length > 0 && results[0].answer) {
-          provider.appendAssistantMessage(sessionId, results[0].answer);
-        } else {
-          provider.appendAssistantMessage(
-            sessionId,
-            "I don't want to give you incorrect information. Let me connect you with our admissions team or arrange a callback for detailed program inquiries."
-          );
+        toolResults = toolData.data || [];
+        if (Array.isArray(toolResults) && toolResults.length > 0 && toolResults[0].answer) {
+          assistantText = toolResults[0].answer;
         }
       }
+
+      // 3. Append tool call event to tool events list
+      setToolEvents(prev => [
+        ...prev,
+        {
+          id: `tool-${Date.now()}`,
+          toolName: 'search_faq',
+          result: toolResults,
+          success: toolRes.ok,
+        },
+      ]);
+
+      // 4. Append assistant's response to transcript state
+      const assistantMsg: MessageItem = {
+        id: `msg-${Date.now()}-assistant`,
+        role: 'assistant',
+        content: assistantText,
+        timestamp: new Date(),
+      };
+
+      setTranscript(prev => [...prev, assistantMsg]);
     } catch (err) {
-      setErrors(prev => [...prev, err instanceof Error ? err.message : 'Failed to send message']);
+      setErrors(prev => [...prev, err instanceof Error ? err.message : 'Failed to process message']);
     }
   };
 
@@ -198,32 +211,6 @@ export default function VoiceAgentTestPage() {
   };
 
   useEffect(() => {
-    const provider = providerRef.current;
-    const handler = (event: VoiceEvent) => {
-      if (event.type === 'transcript.update') {
-        const message = event.data.message as VoiceMessage;
-        if (message) {
-          setTranscript(prev => {
-            const exists = prev.some(m => m.id === message.id || (m.role === message.role && m.content === message.content && Math.abs(new Date(m.timestamp).getTime() - new Date(message.timestamp).getTime()) < 1000));
-            if (exists) return prev;
-            return [...prev, message];
-          });
-        }
-      } else if (event.type === 'tool.result') {
-        const toolEvent = event.data.toolEvent as VoiceToolEvent;
-        if (toolEvent) {
-          setToolEvents(prev => {
-            if (prev.some(t => t.id === toolEvent.id)) return prev;
-            return [...prev, toolEvent];
-          });
-        }
-      } else if (event.type === 'error') {
-        setErrors(prev => [...prev, event.data.message || 'Unknown error']);
-      }
-    };
-
-    provider.onEvent(handler);
-
     return () => {
       if (timerRef.current) {
         clearInterval(timerRef.current);
@@ -382,7 +369,6 @@ export default function VoiceAgentTestPage() {
                       <span className="text-xs font-bold uppercase tracking-wider text-neutral-200">{tool.toolName}</span>
                       <span className={`text-[10px] font-bold ${tool.success ? 'text-emerald-400' : 'text-red-400'}`}>{tool.success ? 'SUCCESS' : 'FAILED'}</span>
                     </div>
-                    {tool.error && <p className="text-xs text-red-400 mt-1">{tool.error}</p>}
                     {tool.result && typeof tool.result === 'object' && (
                       <pre className="text-xs text-neutral-300 mt-2 p-3 bg-neutral-900 rounded-lg overflow-x-auto">{JSON.stringify(tool.result, null, 2)}</pre>
                     )}
