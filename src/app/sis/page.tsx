@@ -319,6 +319,7 @@ export default function SISStudentDashboard() {
     const [scholarships, setScholarships] = useState<Scholarship[]>([]);
     const [scholarshipApplications, setScholarshipApplications] = useState<ScholarshipApplication[]>([]);
     const [installmentPlans, setInstallmentPlans] = useState<InstallmentPlan[]>([]);
+    const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
     const [admissionOffers, setAdmissionOffers] = useState<any[]>([]);
     const [ontarioWeather, setOntarioWeather] = useState<{ temp: number; condition: string; wind: number; humidity: number } | null>(null);
     const [ontarioLiveNews, setOntarioLiveNews] = useState<{ title: string; link: string; pubDate: string; source: string }[]>([]);
@@ -1947,7 +1948,7 @@ export default function SISStudentDashboard() {
                                         <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">Direct Deposit Setup</h4>
                                         {bankAccounts.length > 0 ? (
                                             <div className="space-y-3">
-                                                {bankAccounts.map(account => (
+                                                {bankAccounts.map((account: any) => (
                                                     <div key={account.id} className="border border-slate-200 rounded-lg p-4 flex items-center justify-between">
                                                         <div>
                                                             <div className="text-sm font-bold text-slate-900">{account.bank_name}</div>
