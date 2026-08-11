@@ -1324,22 +1324,49 @@ export default function SISStudentDashboard() {
                                             <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Campus Connect & Channels</h3>
                                         </div>
                                         <div className="grid grid-cols-2 gap-2 text-xs">
-                                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-50 border border-slate-200 rounded flex items-center space-x-2 font-medium text-slate-700 hover:bg-slate-100 transition">
-                                                <span className="w-5 h-5 bg-slate-900 text-white rounded-full flex items-center justify-center text-[10px] font-bold">f</span>
-                                                <span>Facebook</span>
+                                            {/* YouTube Official Channel */}
+                                            <a 
+                                                href="https://www.youtube.com/@CannogaCollege" 
+                                                target="_blank" 
+                                                rel="noopener noreferrer" 
+                                                className="p-2.5 bg-slate-50 hover:bg-red-50/60 border border-slate-200 hover:border-red-200 rounded flex items-center space-x-2 font-medium text-slate-700 hover:text-red-700 transition group"
+                                            >
+                                                <svg className="w-5 h-5 fill-red-600 shrink-0 group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                                </svg>
+                                                <span className="truncate">YouTube</span>
                                             </a>
-                                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-50 border border-slate-200 rounded flex items-center space-x-2 font-medium text-slate-700 hover:bg-slate-100 transition">
-                                                <span className="w-5 h-5 bg-slate-900 text-white rounded-full flex items-center justify-center text-[10px] font-bold">X</span>
-                                                <span>Twitter</span>
+
+                                            {/* TikTok Official Channel */}
+                                            <a 
+                                                href="https://www.tiktok.com/@cannogacollege" 
+                                                target="_blank" 
+                                                rel="noopener noreferrer" 
+                                                className="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded flex items-center space-x-2 font-medium text-slate-700 hover:text-slate-900 transition group"
+                                            >
+                                                <svg className="w-5 h-5 fill-slate-900 shrink-0 group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                                                    <path d="M12.525 0h3.08c.012 1.016.3 2.053.86 2.923.633.985 1.558 1.76 2.652 2.181.826.32 1.71.488 2.603.498V8.71c-1.68-.026-3.32-.497-4.747-1.365a7.19 7.19 0 0 1-1.365-1.071v9.33c0 1.956-.566 3.865-1.637 5.502a9.155 9.155 0 0 1-4.475 3.498 9.337 9.337 0 0 1-5.69.28 9.176 9.176 0 0 1-4.63-3.238 9.07 9.07 0 0 1-1.748-5.32c0-2.457.974-4.814 2.712-6.552A9.208 9.208 0 0 1 8.79 7.378v3.18a5.986 5.986 0 0 0-3.66 1.251 5.983 5.983 0 0 0-2.073 3.398 6.012 6.012 0 0 0 .741 4.295 5.992 5.992 0 0 0 3.012 2.607 6.05 6.05 0 0 0 4.103.104 5.996 5.996 0 0 0 3.167-2.316 6.027 6.027 0 0 0 .945-3.326V0z"/>
+                                                </svg>
+                                                <span className="truncate">TikTok</span>
                                             </a>
-                                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-50 border border-slate-200 rounded flex items-center space-x-2 font-medium text-slate-700 hover:bg-slate-100 transition">
-                                                <span className="w-5 h-5 bg-slate-900 text-white rounded-full flex items-center justify-center text-[10px] font-bold">in</span>
-                                                <span>LinkedIn</span>
+
+                                            {/* College Email */}
+                                            <a 
+                                                href="mailto:info@cannogacollege.ca" 
+                                                className="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded flex items-center space-x-2 font-medium text-slate-700 hover:text-slate-900 transition group"
+                                            >
+                                                <HugeiconsIcon icon={Mail} size={16} strokeWidth={2} className="text-slate-700 shrink-0 group-hover:scale-110 transition-transform" />
+                                                <span className="truncate">College Email</span>
                                             </a>
-                                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-50 border border-slate-200 rounded flex items-center space-x-2 font-medium text-slate-700 hover:bg-slate-100 transition">
-                                                <span className="w-5 h-5 bg-slate-900 text-white rounded-full flex items-center justify-center text-[10px] font-bold">ig</span>
-                                                <span>Instagram</span>
-                                            </a>
+
+                                            {/* Ottawa Campus / Contact */}
+                                            <Link 
+                                                href="/contact" 
+                                                className="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded flex items-center space-x-2 font-medium text-slate-700 hover:text-slate-900 transition group"
+                                            >
+                                                <HugeiconsIcon icon={MapPin} size={16} strokeWidth={2} className="text-slate-700 shrink-0 group-hover:scale-110 transition-transform" />
+                                                <span className="truncate">Ottawa Campus</span>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
