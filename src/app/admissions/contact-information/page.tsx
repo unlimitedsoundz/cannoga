@@ -137,7 +137,7 @@ export default function AdmissionsContactInfo() {
                                                         <Phone size={18} weight="fill" />
                                                         Talk to Admissions (+1 227 250 0427)
                                                     </a>
-                                                </div>v>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
