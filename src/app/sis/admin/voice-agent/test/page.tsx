@@ -73,18 +73,18 @@ export default function VoiceAgentTestPage() {
       const newCallId = greetingData.callId;
       const newSessionId = greetingData.sessionId || `session-${Date.now()}`;
 
-      setCallId(newCallId);
-      setSessionId(newSessionId);
-
       const mockCall = {
         id: newCallId,
         agentId: '00000000-0000-0000-0000-000000000001',
         callerPhone: '+1-416-555-0199',
         calledPhone: '+1-416-555-0100',
         direction: 'inbound' as const,
+        metadata: { sessionId: newSessionId },
       };
 
-      await provider.startCall(mockCall);
+      const session = await provider.startCall(mockCall);
+      setCallId(newCallId);
+      setSessionId(session.id);
       setStatus('active');
 
       timerRef.current = setInterval(() => {
@@ -141,23 +141,19 @@ export default function VoiceAgentTestPage() {
     const text = userInput.trim();
     setUserInput('');
 
+    const userMessage: VoiceMessage = {
+      id: `msg-${Date.now()}-user`,
+      role: 'caller',
+      content: text,
+      timestamp: new Date(),
+      sequence: transcript.length,
+    };
+
+    setTranscript(prev => [...prev, userMessage]);
+
     try {
       const provider = providerRef.current;
       await provider.sendText(sessionId, text);
-
-      const callRes = await fetch(`/api/voice/incoming?callId=${callId}`, { cache: 'no-store' });
-      if (callRes.ok) {
-        const data = await callRes.json();
-        if (data.toolEvents && data.toolEvents.length > 0) {
-          const newToolEvents = data.toolEvents.filter((te: { id: string }) => !toolEvents.some(te2 => te2.id === te.id));
-          if (newToolEvents.length > 0) {
-            setToolEvents(prev => [...prev, ...newToolEvents.map((te: { id: string; created_at: string; [key: string]: unknown }) => ({
-              ...te,
-              createdAt: new Date(te.created_at),
-            }))]);
-          }
-        }
-      }
 
       const toolRes = await fetch('/api/voice/tools', {
         method: 'POST',
@@ -172,21 +168,35 @@ export default function VoiceAgentTestPage() {
 
       if (toolRes.ok) {
         const toolData = await toolRes.json();
-        if (toolData.data && toolData.data.length > 0) {
-          const matchedFaq = toolData.data[0];
+        const results = toolData.data || [];
+
+        const toolEvent: VoiceToolEvent = {
+          id: `tool-${Date.now()}`,
+          toolName: 'search_faq',
+          arguments: { query: text },
+          result: results,
+          success: true,
+          error: null,
+          createdAt: new Date(),
+        };
+        setToolEvents(prev => [...prev, toolEvent]);
+
+        if (results.length > 0 && results[0].answer) {
+          const matchedFaq = results[0];
           const assistantMsg = provider.appendAssistantMessage(sessionId, matchedFaq.answer);
           if (assistantMsg) {
-            setTranscript(prev => [...prev, assistantMsg]);
+            setTranscript(prev => [...prev.filter(m => m.id !== assistantMsg.id), assistantMsg]);
           }
         } else {
-          const fallbackMsg = provider.appendAssistantMessage(sessionId, "I don't want to give you incorrect information. Let me connect you with our admissions team or arrange a callback.");
+          const fallbackText = "I don't want to give you incorrect information. Let me connect you with our admissions team or arrange a callback for detailed program inquiries.";
+          const fallbackMsg = provider.appendAssistantMessage(sessionId, fallbackText);
           if (fallbackMsg) {
-            setTranscript(prev => [...prev, fallbackMsg]);
+            setTranscript(prev => [...prev.filter(m => m.id !== fallbackMsg.id), fallbackMsg]);
           }
         }
       }
     } catch (err) {
-      setErrors([...errors, err instanceof Error ? err.message : 'Failed to send message']);
+      setErrors(prev => [...prev, err instanceof Error ? err.message : 'Failed to send message']);
     }
   };
 

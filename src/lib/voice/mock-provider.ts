@@ -14,7 +14,7 @@ export class MockVoiceProvider implements VoiceProvider {
   }
 
   async startCall(call: VoiceCall): Promise<VoiceSession> {
-    const sessionId = `mock-session-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const sessionId = (call.metadata?.sessionId as string) || `mock-session-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     const session: VoiceSession = {
       id: sessionId,
       callId: call.id,
