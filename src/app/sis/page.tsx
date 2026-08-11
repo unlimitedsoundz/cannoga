@@ -808,9 +808,9 @@ export default function SISStudentDashboard() {
                         </button>
                         <Link href="/sis" className="flex items-center space-x-2.5 py-1 shrink-0">
                             <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-9 w-auto object-contain brightness-0 invert" />
-                            <div className="hidden sm:block border-l border-slate-700 pl-3">
-                                <span className="font-bold text-xs sm:text-sm tracking-tight block leading-none text-slate-100">CANNOGA COLLEGE</span>
-                                <span className="text-[10px] text-slate-400 font-medium">Student Portal</span>
+                            <div className="hidden sm:flex flex-col justify-center border-l border-slate-700 pl-3 py-0.5">
+                                <span className="font-extrabold text-xs sm:text-sm tracking-wider uppercase leading-tight text-white">CANNOGA COLLEGE</span>
+                                <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider leading-none mt-0.5">Student Portal</span>
                             </div>
                         </Link>
                     </div>
@@ -928,7 +928,6 @@ export default function SISStudentDashboard() {
                                     <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/80 shadow-md">
                                         <img src="/images/president-evelyn-vance.png" alt="Dr. Evelyn Vance" className="w-full h-full object-cover" />
                                     </div>
-                                    <span className="absolute -bottom-1 -right-1 bg-white text-slate-950 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full shadow">President</span>
                                 </div>
                                 <div className="flex-1 space-y-2 text-center md:text-left">
                                     <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">

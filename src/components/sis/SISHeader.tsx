@@ -237,9 +237,9 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
             </button>
             <Link href="/sis" className="flex items-center gap-3 shrink-0">
               <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-8 w-auto object-contain" />
-              <div className="hidden md:block">
-                <div className="text-xs font-black uppercase tracking-widest text-neutral-900">Cannoga College</div>
-                <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">Student Information System</div>
+              <div className="hidden md:flex flex-col justify-center border-l border-neutral-200 pl-3 py-0.5">
+                <div className="text-xs font-black uppercase tracking-wider text-neutral-900 leading-tight">Cannoga College</div>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 leading-none mt-0.5">Student Information System</div>
               </div>
             </Link>
           </div>
