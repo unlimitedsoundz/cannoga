@@ -449,7 +449,7 @@ export default function SISStudentDashboard() {
                     supabase.from('student_tasks').select('*').eq('student_id', currentStudentId).order('due_date', { ascending: true }),
                     supabase.from('document_records').select('*').eq('student_id', currentStudentId).eq('is_student_visible', true).order('issue_date', { ascending: false }),
                     studentCourse?.schoolId || studentCourse?.departmentId ? supabase.from('Faculty').select('*').eq('schoolId', studentCourse?.schoolId || '').eq('departmentId', studentCourse?.departmentId || '').limit(20) : Promise.resolve({ data: null }),
-                    supabase.from('announcements').select('id, title, excerpt, content, priority, status, publish_start, publish_end, display_order, created_at').eq('status', 'published').order('publish_start', { ascending: false }).limit(10),
+                    supabase.from('announcements').select('id, title, excerpt, content, priority, status, publish_start, publish_end, display_order, created_at').neq('status', 'draft').order('created_at', { ascending: false }).limit(20),
                     supabase.from('financial_aid').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
                     supabase.from('scholarships').select('*').eq('status', 'ACTIVE').order('application_deadline', { ascending: true }),
                     supabase.from('scholarship_applications').select('*').eq('student_id', currentStudentId).order('submitted_at', { ascending: false }),
@@ -478,7 +478,68 @@ export default function SISStudentDashboard() {
                 if (taskResult.data) setTasks(taskResult.data);
                 if (docResult.data) setDocuments(docResult.data);
                 if (facultyResult.data) setFaculty(facultyResult.data);
-                if (newsResult.data) setNews(newsResult.data);
+                
+                const defaultNews: Announcement[] = [
+                    {
+                        id: 'def-1',
+                        title: 'Fall 2026 Academic Orientation & Check-In',
+                        excerpt: 'Mandatory orientation sessions and campus check-in schedules for all incoming international and domestic students.',
+                        content: 'Welcome to Cannoga College! Please review your orientation schedule in the Student Portal.',
+                        priority: 'high',
+                        status: 'published',
+                        publish_start: new Date().toISOString(),
+                        publish_end: '',
+                        created_at: new Date().toISOString(),
+                    },
+                    {
+                        id: 'def-2',
+                        title: 'Course Registration Window Now Open',
+                        excerpt: 'Online course add/drop and timetable registration is now active for the upcoming academic term.',
+                        content: 'Ensure all tuition deposits are verified before selecting your module sections.',
+                        priority: 'normal',
+                        status: 'published',
+                        publish_start: new Date().toISOString(),
+                        publish_end: '',
+                        created_at: new Date().toISOString(),
+                    },
+                    {
+                        id: 'def-3',
+                        title: 'Debbie Voice Agent Assistant Available 24/7',
+                        excerpt: 'Get instant answers for admissions, tuition inquiries, and student services via voice call or online chat.',
+                        content: 'Dial +1 227 250 0427 to speak directly with Debbie.',
+                        priority: 'normal',
+                        status: 'published',
+                        publish_start: new Date().toISOString(),
+                        publish_end: '',
+                        created_at: new Date().toISOString(),
+                    },
+                    {
+                        id: 'def-4',
+                        title: 'Campus Library & Digital Resource Hours',
+                        excerpt: 'Extended operating hours and online database access available 24/7 for research and coursework.',
+                        content: 'Access thousands of e-books and journals directly through your student credentials.',
+                        priority: 'normal',
+                        status: 'published',
+                        publish_start: new Date().toISOString(),
+                        publish_end: '',
+                        created_at: new Date().toISOString(),
+                    },
+                ];
+
+                if (newsResult.data && newsResult.data.length > 0) {
+                    // Combine fetched database announcements with defaults if less than 4
+                    const combined = [...newsResult.data];
+                    if (combined.length < 4) {
+                        for (const d of defaultNews) {
+                            if (!combined.some(c => c.title === d.title) && combined.length < 5) {
+                                combined.push(d);
+                            }
+                        }
+                    }
+                    setNews(combined);
+                } else {
+                    setNews(defaultNews);
+                }
                 if (financialAidResult.data) setFinancialAid(financialAidResult.data as FinancialAid[]);
                 if (scholarshipsResult.data) setScholarships(scholarshipsResult.data as Scholarship[]);
                 if (scholarshipAppsResult.data) setScholarshipApplications(scholarshipAppsResult.data as ScholarshipApplication[]);
@@ -919,7 +980,7 @@ export default function SISStudentDashboard() {
                                             <span className="text-[11px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded">{news.length} News</span>
                                         </div>
                                         <div className="p-4 space-y-2.5">
-                                            {news.length > 0 ? news.slice(0, 3).map(announcement => (
+                                            {news.length > 0 ? news.slice(0, 5).map(announcement => (
                                                 <div key={announcement.id} className="p-2.5 bg-slate-50 border border-slate-200 rounded">
                                                     <div className="flex items-center justify-between mb-1">
                                                         <span className="text-xs font-bold text-slate-900 line-clamp-1">{announcement.title}</span>
