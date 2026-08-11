@@ -94,7 +94,7 @@ export async function loadSchedulingData(termId: string): Promise<SchedulingProb
     supabase.from('module_enrollments').select('*').eq('semester_id', termId),
     supabase.from('profiles').select('*'),
     supabase.from('students').select('*'),
-    supabase.from('semesters').select('start_date, end_date').eq('id', termId).single(),
+    (supabase as any).from('semesters').select('start_date, end_date').eq('id', termId).single(),
   ])
 
   const sectionIds = (sectionsRes.data as DbCourseSection[] | null)?.map((s) => s.id) || []
@@ -312,10 +312,12 @@ export async function loadSchedulingData(termId: string): Promise<SchedulingProb
 
   const holidays: DbHoliday[] = rawHolidays.filter((h) => h.affects_scheduling)
 
+  const semesterData = semesterRes.data as { start_date: string; end_date: string } | null
+
   return {
     termId,
-    termStartDate: semesterRes.data?.start_date || new Date().toISOString().split('T')[0],
-    termEndDate: semesterRes.data?.end_date || new Date().toISOString().split('T')[0],
+    termStartDate: semesterData?.start_date || new Date().toISOString().split('T')[0],
+    termEndDate: semesterData?.end_date || new Date().toISOString().split('T')[0],
     rooms,
     roomFeatures: rawFeatures,
     roomFeatureAssignments: rawFeatureAssignments,

@@ -13,7 +13,7 @@ export function Footer() {
     if (isPortalOrAdmin) return null;
     return (
         <>
-            <footer className="bg-[#9c27b3] text-white">
+            <footer className="bg-[#191919] text-white">
             {/* Main Footer Content */}
             <div className="container mx-auto px-4 pt-16 pb-10">
 
