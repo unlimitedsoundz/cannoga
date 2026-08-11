@@ -1,3 +1,5 @@
+'use server';
+
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import type { KnowledgeEntry, FAQEntry, CreateKnowledgePayload, UpdateKnowledgePayload, CreateFAQPayload, UpdateFAQPayload } from './types';
 
@@ -19,7 +21,7 @@ export async function getActiveKnowledgeEntries(): Promise<KnowledgeEntry[]> {
       title: row.title as string,
       category: row.category as string,
       content: row.content as string,
-      sourceType: row.source_type as string,
+      sourceType: (row.source_type as 'manual' | 'cms' | 'database') || 'manual',
       sourceReference: row.source_reference as string | undefined,
       active: row.active as boolean,
       priority: row.priority as number,
@@ -56,7 +58,7 @@ export async function searchKnowledgeEntries(query: string, category?: string): 
       title: row.title,
       category: row.category,
       content: row.content,
-      sourceType: row.source_type,
+      sourceType: (row.source_type as 'manual' | 'cms' | 'database') || 'manual',
       sourceReference: row.source_reference,
       active: row.active,
       priority: row.priority,
@@ -98,7 +100,7 @@ export async function getKnowledgeEntryById(id: string): Promise<KnowledgeEntry 
       title: data.title,
       category: data.category,
       content: data.content,
-      sourceType: data.source_type,
+      sourceType: (data.source_type as 'manual' | 'cms' | 'database') || 'manual',
       sourceReference: data.source_reference,
       active: data.active,
       priority: data.priority,
@@ -136,7 +138,7 @@ export async function createKnowledgeEntry(payload: CreateKnowledgePayload): Pro
       title: data.title,
       category: data.category,
       content: data.content,
-      sourceType: data.source_type,
+      sourceType: (data.source_type as 'manual' | 'cms' | 'database') || 'manual',
       sourceReference: data.source_reference,
       active: data.active,
       priority: data.priority,
