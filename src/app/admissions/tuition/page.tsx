@@ -110,8 +110,8 @@ export default async function TuitionPaymentPage() {
                     { label: 'Tuition' }
                 ]}
                 image={{
-                    src: "/images/admissions/tuition-hero.jpg",
-                    alt: "Tuition Hero"
+                    src: "/images/16c50757-90b9-46a7-9f37-b9cd5d4f4314.png",
+                    alt: "Tuition Fees, Payment Plans & Scholarships"
                 }}
             >
                 <Link href="#payment-methods" className="text-aalto-3 font-bold underline underline-offset-8 decoration-black hover:opacity-70 transition-colors text-black inline-flex items-center gap-2">
