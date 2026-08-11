@@ -1200,10 +1200,9 @@ export default function SISStudentDashboard() {
                                         <div>
                                             <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                                                 <div className="flex items-center space-x-2">
-                                                    <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                                                     <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Real-Time Ontario News</h3>
                                                 </div>
-                                                <span className="text-[10px] bg-red-50 text-red-600 font-bold px-2 py-0.5 rounded border border-red-100 uppercase tracking-wider">Live Feed</span>
+                                                <span className="text-[10px] bg-slate-100 text-slate-600 font-bold px-2 py-0.5 rounded border border-slate-200 uppercase tracking-wider">Live Feed</span>
                                             </div>
                                             <div className="p-3 space-y-2 text-xs">
                                                 {ontarioLiveNews.length > 0 ? (
@@ -1394,12 +1393,8 @@ export default function SISStudentDashboard() {
 
                                     {/* COLLEGE SERVICES & PORTALS (REAL CANADIAN ONTARIO SERVICE LOGOS) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4 overflow-hidden">
-                                        <div className="pb-3 border-b border-slate-100 mb-3 flex items-center justify-between">
-                                            <div className="flex items-center space-x-2">
-                                                <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
-                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm uppercase tracking-wider">Ontario College Services & Portals</h3>
-                                            </div>
-                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Canada Verified</span>
+                                        <div className="pb-3 border-b border-slate-100 mb-3">
+                                            <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Ontario College Services & Portals</h3>
                                         </div>
                                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                              {/* PAL Letter Card (Ontario Government / IRCC) */}
