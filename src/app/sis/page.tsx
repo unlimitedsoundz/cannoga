@@ -1110,10 +1110,43 @@ export default function SISStudentDashboard() {
                                             <span className="text-[10px] bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded">Fall 2026</span>
                                         </div>
                                         <div className="flex flex-col items-center justify-center py-2">
-                                            <div className="w-24 h-24 rounded-full border-4 border-slate-900 border-t-amber-500 flex items-center justify-center bg-slate-50 shadow-inner">
-                                                <span className="text-xl font-extrabold text-slate-900">{studentLifeData?.attendancePercentage ?? 94}%</span>
-                                            </div>
-                                            <p className="text-xs font-bold text-slate-800 mt-3">Good Academic Standing</p>
+                                            {(() => {
+                                                const pct = studentLifeData?.attendancePercentage ?? 94;
+                                                const strokeDashoffset = 238.76 * (1 - Math.min(Math.max(pct, 0), 100) / 100);
+                                                return (
+                                                    <div className="relative w-28 h-28 flex items-center justify-center my-1">
+                                                        <svg className="w-full h-full transform -rotate-90 drop-shadow-sm" viewBox="0 0 90 90">
+                                                            {/* Track circle */}
+                                                            <circle
+                                                                cx="45"
+                                                                cy="45"
+                                                                r="38"
+                                                                stroke="#F1F5F9"
+                                                                strokeWidth="7"
+                                                                fill="transparent"
+                                                            />
+                                                            {/* Orange Progress Ring */}
+                                                            <circle
+                                                                cx="45"
+                                                                cy="45"
+                                                                r="38"
+                                                                stroke="#F97316"
+                                                                strokeWidth="7"
+                                                                strokeDasharray="238.76"
+                                                                strokeDashoffset={strokeDashoffset}
+                                                                strokeLinecap="round"
+                                                                fill="transparent"
+                                                                className="transition-all duration-1000 ease-out"
+                                                            />
+                                                        </svg>
+                                                        <div className="absolute flex flex-col items-center justify-center text-center">
+                                                            <span className="text-2xl font-black text-slate-900">{pct}%</span>
+                                                            <span className="text-[9px] font-bold text-orange-600 uppercase tracking-wider">Rate</span>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })()}
+                                            <p className="text-xs font-bold text-slate-800 mt-2">Good Academic Standing</p>
                                             <p className="text-[11px] text-slate-500 text-center mt-0.5">Satisfactory attendance across all registered modules</p>
                                         </div>
                                     </div>
