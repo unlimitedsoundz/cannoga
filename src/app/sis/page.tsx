@@ -1452,7 +1452,7 @@ export default function SISStudentDashboard() {
                                                  title="Blackboard Learn LMS"
                                              >
                                                  <img 
-                                                     src="https://w7.pngwing.com/pngs/340/809/png-transparent-blackboard-learn-student-educational-technology-learning-management-system-student-text-people-logo.png" 
+                                                     src="https://upload.wikimedia.org/wikipedia/commons/7/77/Blackboard_Inc._logo.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" 
                                                      alt="Blackboard Learn" 
                                                      className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform" 
                                                  />
