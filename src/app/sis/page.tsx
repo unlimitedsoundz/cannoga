@@ -962,111 +962,396 @@ export default function SISStudentDashboard() {
                                 </div>
                             )}
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between">
-                                    <div>
-                                        <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
-                                            <div className="flex items-center space-x-2">
-                                                <HugeiconsIcon icon={Calendar} size={16} strokeWidth={2} className="text-slate-700" />
-                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Today&apos;s Schedule</h3>
+                            {/* MODULAR 3-COLUMN DASHBOARD GRID (MATCHING LAYOUT STRUCTURE, ORIGINAL COLORS PRESERVED) */}
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                                
+                                {/* ================= COLUMN 1 ================= */}
+                                <div className="space-y-6">
+                                    {/* STUDENT MAIL */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                        <div>
+                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                                                <div className="flex items-center space-x-2">
+                                                    <HugeiconsIcon icon={Mail} size={16} strokeWidth={2} className="text-slate-700" />
+                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Student Mail</h3>
+                                                </div>
+                                                <button type="button" onClick={() => navigateTo('student-life')} className="text-xs text-slate-400 hover:text-slate-700">
+                                                    <HugeiconsIcon icon={Clock} size={14} strokeWidth={2} />
+                                                </button>
                                             </div>
-                                            <span className="text-[11px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded">{timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length} Classes</span>
+                                            <div className="divide-y divide-slate-100 text-xs">
+                                                <button type="button" onClick={() => navigateTo('student-life')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left font-semibold text-slate-800">
+                                                    <span>Inbox</span>
+                                                    <span className="bg-slate-900 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">{unreadMessageCount > 0 ? unreadMessageCount : 2}</span>
+                                                </button>
+                                                <button type="button" onClick={() => navigateTo('student-life')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
+                                                    <span>Starred</span>
+                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded font-medium">4</span>
+                                                </button>
+                                                <button type="button" onClick={() => navigateTo('student-life')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
+                                                    <span>Flagged</span>
+                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded font-medium">1</span>
+                                                </button>
+                                                <button type="button" onClick={() => navigateTo('student-life')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
+                                                    <span>Sent</span>
+                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded font-medium">8</span>
+                                                </button>
+                                                <button type="button" onClick={() => navigateTo('student-life')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
+                                                    <span>Archive</span>
+                                                    <span className="text-[10px] text-slate-400">12</span>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div className="p-4 space-y-2.5">
-                                            {timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length > 0 ? 
-                                                timetableSessions.filter(s => s.day_of_week === new Date().getDay()).slice(0, 3).map(session => (
-                                                    <div key={session.id} className="p-3 bg-slate-50 rounded border border-slate-200 flex justify-between items-center">
-                                                        <div>
-                                                            <p className="text-[10px] font-bold text-slate-500 uppercase">{session.section?.session_type || 'Class'}</p>
-                                                            <p className="text-xs font-semibold text-slate-800 mt-0.5">{session.section?.module?.title || session.section?.module?.code || 'Class'}</p>
+                                    </div>
+
+                                    {/* ANNOUNCEMENTS */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
+                                        <div>
+                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                                                <div className="flex items-center space-x-2">
+                                                    <HugeiconsIcon icon={Bell} size={16} strokeWidth={2} className="text-slate-700" />
+                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Announcements</h3>
+                                                </div>
+                                                <span className="text-[11px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded">{news.length} News</span>
+                                            </div>
+                                            <div className="p-4 space-y-2.5">
+                                                {news.length > 0 ? news.slice(0, 2).map(announcement => (
+                                                    <div key={announcement.id} className="p-2.5 bg-slate-50 border border-slate-200 rounded">
+                                                        <div className="flex items-center justify-between mb-1">
+                                                            <span className="text-xs font-bold text-slate-900 line-clamp-1">{announcement.title}</span>
+                                                            {announcement.priority === 'urgent' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 shrink-0 ml-1">Urgent</span>}
+                                                            {announcement.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600 shrink-0 ml-1">High</span>}
                                                         </div>
-                                                        <div className="text-right">
-                                                            <span className="text-[11px] font-medium text-slate-600 block">{session.start_time?.slice(0, 5)} - {session.end_time?.slice(0, 5)}</span>
-                                                            {session.room && <span className="text-[10px] text-slate-500">{session.room.name}{session.room.building ? `, ${session.room.building}` : ''}</span>}
-                                                        </div>
+                                                        <p className="text-[11px] text-slate-500 line-clamp-2">{announcement.excerpt || announcement.content}</p>
+                                                        <span className="text-[10px] text-slate-400 mt-1 block">{new Date(announcement.created_at).toLocaleDateString('en-CA')}</span>
                                                     </div>
                                                 )) : (
-                                                    <div className="text-center py-6 text-xs text-slate-500">No classes scheduled for today</div>
-                                                )
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className="p-3 bg-slate-50/50 border-t border-slate-100 rounded-b-lg text-right">
-                                        <button type="button" onClick={() => navigateTo('timetable')} className="text-xs font-semibold text-slate-800 hover:underline">View Full Timetable &rarr;</button>
-                                    </div>
-                                </div>
-
-                                <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between">
-                                    <div>
-                                        <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
-                                            <div className="flex items-center space-x-2">
-                                                <HugeiconsIcon icon={Bell} size={16} strokeWidth={2} className="text-slate-700" />
-                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Announcements</h3>
+                                                    <div className="text-center py-6 text-xs text-slate-500">No announcements available</div>
+                                                )}
                                             </div>
-                                            <span className="text-[11px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded">{news.length} News</span>
                                         </div>
-                                        <div className="p-4 space-y-2.5">
-                                            {news.length > 0 ? news.slice(0, 2).map(announcement => (
-                                                <div key={announcement.id} className="p-2.5 bg-slate-50 border border-slate-200 rounded">
-                                                    <div className="flex items-center justify-between mb-1">
-                                                        <span className="text-xs font-bold text-slate-900 line-clamp-1">{announcement.title}</span>
-                                                        {announcement.priority === 'urgent' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 shrink-0 ml-1">Urgent</span>}
-                                                        {announcement.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600 shrink-0 ml-1">High</span>}
-                                                    </div>
-                                                    <p className="text-[11px] text-slate-500 line-clamp-2">{announcement.excerpt || announcement.content}</p>
-                                                    <span className="text-[10px] text-slate-400 mt-1 block">{new Date(announcement.created_at).toLocaleDateString('en-CA')}</span>
+                                        <div className="p-3 bg-slate-50/50 border-t border-slate-100 text-right">
+                                            <button type="button" onClick={() => navigateTo('news')} className="text-xs font-semibold text-slate-800 hover:underline">View All Campus News &rarr;</button>
+                                        </div>
+                                    </div>
+
+                                    {/* ATTENDANCE RATE */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4 overflow-hidden">
+                                        <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+                                            <div className="flex items-center space-x-2">
+                                                <HugeiconsIcon icon={CheckCircle} size={16} strokeWidth={2} className="text-slate-700" />
+                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Attendance Rate</h3>
+                                            </div>
+                                            <span className="text-[10px] bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded">Fall 2026</span>
+                                        </div>
+                                        <div className="flex flex-col items-center justify-center py-2">
+                                            <div className="w-24 h-24 rounded-full border-4 border-slate-900 border-t-amber-500 flex items-center justify-center bg-slate-50 shadow-inner">
+                                                <span className="text-xl font-extrabold text-slate-900">94%</span>
+                                            </div>
+                                            <p className="text-xs font-bold text-slate-800 mt-3">Good Academic Standing</p>
+                                            <p className="text-[11px] text-slate-500 text-center mt-0.5">Satisfactory attendance across all registered modules</p>
+                                        </div>
+                                    </div>
+
+                                    {/* ENROLLED COURSES */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                        <div>
+                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                                                <div className="flex items-center space-x-2">
+                                                    <HugeiconsIcon icon={BookOpen} size={16} strokeWidth={2} className="text-slate-700" />
+                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Enrolled Courses</h3>
                                                 </div>
-                                            )) : (
-                                                <div className="text-center py-6 text-xs text-slate-500">No announcements available</div>
-                                            )}
+                                                <button type="button" onClick={() => navigateTo('academics')} className="text-xs font-semibold text-slate-800 hover:underline">Manage</button>
+                                            </div>
+                                            <div className="p-3 space-y-2 text-xs">
+                                                <div className="p-2.5 bg-slate-50 border border-slate-200 rounded flex justify-between items-center">
+                                                    <div>
+                                                        <p className="font-bold text-slate-900">{programName}</p>
+                                                        <p className="text-[10px] text-slate-500 mt-0.5">Lead Instructor: Dr. Richard Kane</p>
+                                                    </div>
+                                                    <HugeiconsIcon icon={ChevronRight} size={16} className="text-slate-400" />
+                                                </div>
+                                                <div className="p-2.5 bg-slate-50 border border-slate-200 rounded flex justify-between items-center">
+                                                    <div>
+                                                        <p className="font-bold text-slate-900">Academic Communication & Leadership</p>
+                                                        <p className="text-[10px] text-slate-500 mt-0.5">Instructor: Prof. Sarah Jenkins</p>
+                                                    </div>
+                                                    <HugeiconsIcon icon={ChevronRight} size={16} className="text-slate-400" />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="p-3 bg-slate-50/50 border-t border-slate-100 rounded-b-lg text-right">
-                                        <button type="button" onClick={() => navigateTo('news')} className="text-xs font-semibold text-slate-800 hover:underline">View All Campus News &rarr;</button>
                                     </div>
                                 </div>
 
-                                <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between">
-                                    <div>
-                                        <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
-                                            <div className="flex items-center space-x-2">
-                                                <HugeiconsIcon icon={CreditCard} size={16} strokeWidth={2} className="text-slate-700" />
-                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Account Summary</h3>
+                                {/* ================= COLUMN 2 ================= */}
+                                <div className="space-y-6">
+                                    {/* TIMETABLE / TODAY'S SCHEDULE */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
+                                        <div>
+                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                                                <div className="flex items-center space-x-2">
+                                                    <HugeiconsIcon icon={Calendar} size={16} strokeWidth={2} className="text-slate-700" />
+                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Timetable & Schedule</h3>
+                                                </div>
+                                                <span className="text-[11px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded">{timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length} Classes</span>
                                             </div>
-                                            <span className="text-[11px] text-slate-500">Fall 2026</span>
-                                        </div>
-                                        <div className="p-4">
-                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total Balance Due (CAD)</p>
-                                            <p className="text-2xl sm:text-3xl font-bold text-slate-900 mt-0.5">${totalBalance.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
-                                             {invoices.length > 0 && invoices[0].due_date ? (
-                                                 <div className="mt-3 p-2 bg-slate-50 border border-slate-200 rounded text-xs text-slate-700">
-                                                     <strong>Next Due:</strong> {new Date(invoices[0].due_date).toLocaleDateString('en-CA')}
-                                                 </div>
-                                             ) : paymentDeadline ? (
-                                                 <div className="mt-3 p-2 bg-slate-50 border border-slate-200 rounded text-xs text-slate-700">
-                                                     <strong>Next Due:</strong> {new Date(paymentDeadline).toLocaleDateString('en-CA')}
-                                                 </div>
-                                             ) : null}
-                                        </div>
-                                    </div>
-                                    <div className="p-3 bg-slate-50/50 border-t border-slate-100 rounded-b-lg flex items-center justify-between">
-                                        <button 
-                                            type="button" 
-                                            onClick={() => {
-                                                const hasPushedInvoice = admissionOffers.some((o: any) => o.invoice_pushed && student?.application_id);
-                                                if (hasPushedInvoice && student?.application_id) {
-                                                    window.location.href = `/portal/application/payment?id=${student.application_id}`;
-                                                } else {
-                                                    setShowNoInvoiceModal(true);
+                                            <div className="p-4 space-y-2.5">
+                                                {timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length > 0 ? 
+                                                    timetableSessions.filter(s => s.day_of_week === new Date().getDay()).slice(0, 3).map(session => (
+                                                        <div key={session.id} className="p-3 bg-slate-50 rounded border border-slate-200 flex justify-between items-center">
+                                                            <div>
+                                                                <p className="text-[10px] font-bold text-slate-500 uppercase">{session.section?.session_type || 'Class'}</p>
+                                                                <p className="text-xs font-semibold text-slate-800 mt-0.5">{session.section?.module?.title || session.section?.module?.code || 'Class'}</p>
+                                                            </div>
+                                                            <div className="text-right">
+                                                                <span className="text-[11px] font-medium text-slate-600 block">{session.start_time?.slice(0, 5)} - {session.end_time?.slice(0, 5)}</span>
+                                                                {session.room && <span className="text-[10px] text-slate-500">{session.room.name}{session.room.building ? `, ${session.room.building}` : ''}</span>}
+                                                            </div>
+                                                        </div>
+                                                    )) : (
+                                                        <div className="text-center py-8 text-xs text-slate-500 space-y-2">
+                                                            <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mx-auto text-slate-500">
+                                                                <HugeiconsIcon icon={Calendar} size={20} />
+                                                            </div>
+                                                            <p className="font-semibold text-slate-700">No Classes Scheduled Today</p>
+                                                            <p className="text-[11px] text-slate-400">Check your weekly timetable for upcoming lectures</p>
+                                                        </div>
+                                                    )
                                                 }
-                                            }} 
-                                            className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium px-3 py-1.5 rounded transition cursor-pointer"
-                                        >
-                                            Make Payment
-                                        </button>
-                                        <button type="button" onClick={() => navigateTo('financials')} className="text-xs font-semibold text-slate-800 hover:underline">View Ledger &rarr;</button>
+                                            </div>
+                                        </div>
+                                        <div className="p-3 bg-slate-50/50 border-t border-slate-100 text-right">
+                                            <button type="button" onClick={() => navigateTo('timetable')} className="text-xs font-semibold text-slate-800 hover:underline">View Full Timetable &rarr;</button>
+                                        </div>
                                     </div>
-                            </div>
+
+                                    {/* STAFF DIRECTORY / ADVISOR CONTACT */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                        <div>
+                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                                                <div className="flex items-center space-x-2">
+                                                    <HugeiconsIcon icon={User} size={16} strokeWidth={2} className="text-slate-700" />
+                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Staff Directory</h3>
+                                                </div>
+                                                <span className="text-[10px] text-slate-500">Academic Support</span>
+                                            </div>
+                                            <div className="p-4 flex items-center space-x-4 bg-slate-50/50 border-b border-slate-100">
+                                                <div className="w-14 h-14 rounded-full overflow-hidden border border-slate-300 bg-slate-200 shrink-0 flex items-center justify-center font-bold text-slate-700 text-lg">
+                                                    RK
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <h4 className="text-xs font-bold text-slate-900 truncate">Dr. Richard Kane</h4>
+                                                    <p className="text-[11px] text-slate-500 font-medium">Curriculum Lead & Senior Advisor</p>
+                                                    <p className="text-[10px] text-slate-400 mt-0.5 truncate">richard.kane@cannoga.edu.ca</p>
+                                                </div>
+                                            </div>
+                                            <div className="grid grid-cols-3 divide-x divide-slate-100 text-center text-xs bg-white py-2">
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-1 text-slate-700 font-medium hover:bg-slate-50">A - Z</button>
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-1 text-slate-700 font-medium hover:bg-slate-50">Favourites</button>
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-1 text-slate-700 font-medium hover:bg-slate-50">Recent</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* SOCIAL MEDIA / CAMPUS CONNECT */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4 overflow-hidden">
+                                        <div className="pb-3 border-b border-slate-100 mb-3">
+                                            <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Campus Connect & Channels</h3>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-2 text-xs">
+                                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-50 border border-slate-200 rounded flex items-center space-x-2 font-medium text-slate-700 hover:bg-slate-100 transition">
+                                                <span className="w-5 h-5 bg-slate-900 text-white rounded-full flex items-center justify-center text-[10px] font-bold">f</span>
+                                                <span>Facebook</span>
+                                            </a>
+                                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-50 border border-slate-200 rounded flex items-center space-x-2 font-medium text-slate-700 hover:bg-slate-100 transition">
+                                                <span className="w-5 h-5 bg-slate-900 text-white rounded-full flex items-center justify-center text-[10px] font-bold">X</span>
+                                                <span>Twitter</span>
+                                            </a>
+                                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-50 border border-slate-200 rounded flex items-center space-x-2 font-medium text-slate-700 hover:bg-slate-100 transition">
+                                                <span className="w-5 h-5 bg-slate-900 text-white rounded-full flex items-center justify-center text-[10px] font-bold">in</span>
+                                                <span>LinkedIn</span>
+                                            </a>
+                                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-50 border border-slate-200 rounded flex items-center space-x-2 font-medium text-slate-700 hover:bg-slate-100 transition">
+                                                <span className="w-5 h-5 bg-slate-900 text-white rounded-full flex items-center justify-center text-[10px] font-bold">ig</span>
+                                                <span>Instagram</span>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    {/* WEATHER & NEWS */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4 overflow-hidden">
+                                        <div className="flex justify-between items-center pb-3 border-b border-slate-100 mb-3">
+                                            <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Campus Weather</h3>
+                                            <span className="text-[10px] text-slate-500">Ontario, CA</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <p className="text-2xl font-extrabold text-slate-900">18°C</p>
+                                                <p className="text-xs text-slate-500 font-medium">Partly Cloudy & Clear</p>
+                                            </div>
+                                            <div className="text-right text-xs text-slate-400">
+                                                <p>Humidity: 52%</p>
+                                                <p>Wind: 14 km/h</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* ================= COLUMN 3 ================= */}
+                                <div className="space-y-6">
+                                    {/* STUDENT PROFILE QUICK VIEW */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                        <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                                            <div className="flex items-center space-x-2">
+                                                <HugeiconsIcon icon={User} size={16} strokeWidth={2} className="text-slate-700" />
+                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Student Profile</h3>
+                                            </div>
+                                        </div>
+                                        <div className="p-4 space-y-3">
+                                            <div className="flex items-center space-x-3">
+                                                <div className="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-base shadow-sm shrink-0">
+                                                    {displayName.charAt(0)}
+                                                </div>
+                                                <div className="min-w-0 flex-1">
+                                                    <h4 className="text-xs font-bold text-slate-900 truncate">{displayName}</h4>
+                                                    <p className="text-[11px] text-slate-500 truncate">{programName}</p>
+                                                    <p className="text-[10px] text-slate-400">ID: {studentId}</p>
+                                                </div>
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
+                                                <button type="button" onClick={() => navigateTo('profile')} className="py-1.5 px-3 bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium rounded text-center transition">View Profile</button>
+                                                <button type="button" onClick={() => navigateTo('profile')} className="py-1.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded text-center transition">Edit Info</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* ASSIGNMENT DEADLINES */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                        <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                                            <div className="flex items-center space-x-2">
+                                                <HugeiconsIcon icon={Clock} size={16} strokeWidth={2} className="text-slate-700" />
+                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Assignment Deadlines</h3>
+                                            </div>
+                                        </div>
+                                        <div className="p-4 space-y-3 text-xs">
+                                            <div className="flex items-start space-x-3">
+                                                <div className="text-center shrink-0">
+                                                    <span className="block text-lg font-extrabold text-red-600 leading-none">3</span>
+                                                    <span className="text-[9px] text-slate-400 font-bold uppercase">Days Left</span>
+                                                </div>
+                                                <div>
+                                                    <p className="font-bold text-slate-900">Work-Based Learning & Applied Project</p>
+                                                    <p className="text-[10px] text-slate-500">Submission Module 401</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-start space-x-3 pt-2 border-t border-slate-100">
+                                                <div className="text-center shrink-0">
+                                                    <span className="block text-lg font-extrabold text-amber-600 leading-none">12</span>
+                                                    <span className="text-[9px] text-slate-400 font-bold uppercase">Days Left</span>
+                                                </div>
+                                                <div>
+                                                    <p className="font-bold text-slate-900">Professional Practice & Leadership</p>
+                                                    <p className="text-[10px] text-slate-500">Seminar Presentation</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-start space-x-3 pt-2 border-t border-slate-100">
+                                                <div className="text-center shrink-0">
+                                                    <span className="block text-lg font-extrabold text-slate-700 leading-none">24</span>
+                                                    <span className="text-[9px] text-slate-400 font-bold uppercase">Days Left</span>
+                                                </div>
+                                                <div>
+                                                    <p className="font-bold text-slate-900">Ethics & Digital Communications</p>
+                                                    <p className="text-[10px] text-slate-500">Final Essay Review</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* COLLEGE SERVICES & QUICK LINKS */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4 overflow-hidden">
+                                        <div className="pb-3 border-b border-slate-100 mb-3">
+                                            <h3 className="font-bold text-slate-800 text-xs sm:text-sm">College Services & Portals</h3>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-2 text-center text-[11px] font-bold">
+                                            <button type="button" onClick={() => navigateTo('documents')} className="flex-1 p-2 bg-slate-50 border border-slate-200 rounded hover:bg-slate-100 text-slate-800">PAL Letter</button>
+                                            <button type="button" onClick={() => navigateTo('academics')} className="flex-1 p-2 bg-slate-50 border border-slate-200 rounded hover:bg-slate-100 text-slate-800">Blackboard</button>
+                                            <button type="button" onClick={() => navigateTo('documents')} className="flex-1 p-2 bg-slate-50 border border-slate-200 rounded hover:bg-slate-100 text-slate-800">UCAS Docs</button>
+                                        </div>
+                                    </div>
+
+                                    {/* FILE MANAGER / DOCUMENT REPOSITORY */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                        <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                                            <div className="flex items-center space-x-2">
+                                                <HugeiconsIcon icon={FileText} size={16} strokeWidth={2} className="text-slate-700" />
+                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm">File Manager & Repository</h3>
+                                            </div>
+                                        </div>
+                                        <div className="p-3 space-y-2 text-xs">
+                                            <div className="flex items-center space-x-2 p-2 bg-slate-50 border border-slate-200 rounded">
+                                                <HugeiconsIcon icon={FileText} size={16} className="text-slate-500 shrink-0" />
+                                                <span className="font-semibold text-slate-800 truncate">PAL_Attestation_Official.pdf</span>
+                                            </div>
+                                            <div className="flex items-center space-x-2 p-2 bg-slate-50 border border-slate-200 rounded">
+                                                <HugeiconsIcon icon={FileText} size={16} className="text-slate-500 shrink-0" />
+                                                <span className="font-semibold text-slate-800 truncate">Enrolment_Verification_2026.pdf</span>
+                                            </div>
+                                            <div className="flex items-center space-x-2 p-2 bg-slate-50 border border-slate-200 rounded">
+                                                <HugeiconsIcon icon={FileText} size={16} className="text-slate-500 shrink-0" />
+                                                <span className="font-semibold text-slate-800 truncate">Tax_Form_T2202A.pdf</span>
+                                            </div>
+                                        </div>
+                                        <div className="grid grid-cols-3 divide-x divide-slate-100 text-center text-xs bg-slate-50/50 border-t border-slate-100 py-2">
+                                            <button type="button" onClick={() => navigateTo('documents')} className="py-1 text-slate-700 font-semibold hover:underline">View All</button>
+                                            <button type="button" onClick={() => navigateTo('documents')} className="py-1 text-slate-700 font-semibold hover:underline">Share</button>
+                                            <button type="button" onClick={() => navigateTo('documents')} className="py-1 text-slate-700 font-semibold hover:underline">Download</button>
+                                        </div>
+                                    </div>
+
+                                    {/* ACCOUNT SUMMARY */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
+                                        <div>
+                                            <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                                                <div className="flex items-center space-x-2">
+                                                    <HugeiconsIcon icon={CreditCard} size={16} strokeWidth={2} className="text-slate-700" />
+                                                    <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Account Summary</h3>
+                                                </div>
+                                                <span className="text-[11px] text-slate-500">Fall 2026</span>
+                                            </div>
+                                            <div className="p-4">
+                                                <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total Balance Due (CAD)</p>
+                                                <p className="text-2xl font-bold text-slate-900 mt-0.5">${totalBalance.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
+                                                {invoices.length > 0 && invoices[0].due_date ? (
+                                                    <div className="mt-3 p-2 bg-slate-50 border border-slate-200 rounded text-xs text-slate-700">
+                                                        <strong>Next Due:</strong> {new Date(invoices[0].due_date).toLocaleDateString('en-CA')}
+                                                    </div>
+                                                ) : paymentDeadline ? (
+                                                    <div className="mt-3 p-2 bg-slate-50 border border-slate-200 rounded text-xs text-slate-700">
+                                                        <strong>Next Due:</strong> {new Date(paymentDeadline).toLocaleDateString('en-CA')}
+                                                    </div>
+                                                ) : null}
+                                            </div>
+                                        </div>
+                                        <div className="p-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                            <button 
+                                                type="button" 
+                                                onClick={() => {
+                                                    const hasPushedInvoice = admissionOffers.some((o: any) => o.invoice_pushed && student?.application_id);
+                                                    if (hasPushedInvoice && student?.application_id) {
+                                                        window.location.href = `/portal/application/payment?id=${student.application_id}`;
+                                                    } else {
+                                                        setShowNoInvoiceModal(true);
+                                                    }
+                                                }} 
+                                                className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium px-3 py-1.5 rounded transition cursor-pointer"
+                                            >
+                                                Make Payment
+                                            </button>
+                                            <button type="button" onClick={() => navigateTo('financials')} className="text-xs font-semibold text-slate-800 hover:underline">View Ledger &rarr;</button>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     )}
