@@ -822,8 +822,19 @@ export default function SISStudentDashboard() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-                <div className="animate-spin rounded-full border-2 border-t-transparent border-slate-900 h-8 w-8"></div>
+            <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-4">
+                <div className="flex flex-col items-center max-w-sm w-full text-center space-y-6">
+                    <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-12 w-auto object-contain brightness-0 invert" />
+                    <div className="space-y-1">
+                        <h2 className="text-white font-extrabold text-sm sm:text-base tracking-widest uppercase">CANNOGA COLLEGE</h2>
+                        <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider">Student Information System</p>
+                    </div>
+                    <div className="relative flex items-center justify-center py-2">
+                        <div className="w-12 h-12 rounded-full border-2 border-slate-800 border-t-amber-500 animate-spin"></div>
+                        <div className="w-8 h-8 rounded-full border-2 border-slate-800 border-b-white animate-spin absolute" style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}></div>
+                    </div>
+                    <p className="text-slate-400 text-xs font-medium animate-pulse">Loading student records & live campus portal...</p>
+                </div>
             </div>
         );
     }
