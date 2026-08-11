@@ -24,6 +24,7 @@ export class MockVoiceProvider implements VoiceProvider {
       transcript: [],
       toolEvents: [],
       metadata: call.metadata || {},
+      lastActivityAt: new Date(),
     };
 
     this.sessions.set(sessionId, session);

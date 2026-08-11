@@ -176,7 +176,7 @@ export default function VoiceAgentTestPage() {
           arguments: { query: text },
           result: results,
           success: true,
-          error: null,
+          error: undefined,
           createdAt: new Date(),
         };
         setToolEvents(prev => [...prev, toolEvent]);
