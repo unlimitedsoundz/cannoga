@@ -324,9 +324,9 @@ export default function SISStudentDashboard() {
     const [admissionOffers, setAdmissionOffers] = useState<any[]>([]);
     const [ontarioWeather, setOntarioWeather] = useState<{ temp: number; condition: string; wind: number; humidity: number } | null>(null);
     const [ontarioLiveNews, setOntarioLiveNews] = useState<{ title: string; link: string; pubDate: string; source: string }[]>([
-        { title: 'Ontario Govt Announces $1.3B Post-Secondary Sector Investment', link: 'https://news.ontario.ca/en/release/1004183/ontario-investing-13-billion-to-stabilize-postsecondary-education', pubDate: 'Today', source: 'Ontario Newsroom' },
-        { title: 'Ottawa Higher Education Colleges Expand Applied Research Facilities', link: 'https://news.ontario.ca/en/bulletin/1004200/ontario-supports-college-applied-research', pubDate: '2h ago', source: 'CBC Ottawa' },
-        { title: 'Ontario Colleges Launch Digital Credentials & Credit Transfer System', link: 'https://news.ontario.ca/en/release/1004150/ontario-launches-new-digital-postsecondary-credentials', pubDate: '4h ago', source: 'Ontario Colleges' },
+        { title: 'Global Climate Summit Reaches Accord on Clean Energy Transition', link: 'https://www.bbc.com/news/world', pubDate: 'Live', source: 'BBC World News' },
+        { title: 'International Space Agency Prepares Next Moon Exploration Launch', link: 'https://edition.cnn.com/world', pubDate: '1h ago', source: 'CNN World' },
+        { title: 'Global Tech Leaders Announce Unified AI Governance Guidelines', link: 'https://www.bbc.com/news/technology', pubDate: '3h ago', source: 'BBC News' },
     ]);
 
     const [showPresidentMessage, setShowPresidentMessage] = useState(true);
@@ -734,23 +734,23 @@ export default function SISStudentDashboard() {
                 console.warn('Live Weather fetch note:', wErr);
             }
 
-            // Live Ontario Real-Time News Fetch
+            // World News Fetch (BBC & CNN World RSS)
             try {
                 const rssUrls = [
-                    'https://news.ontario.ca/en/rss',
-                    'https://www.cbc.ca/cxml/rss/news/canada/ottawa'
+                    { url: 'http://feeds.bbci.co.uk/news/world/rss.xml', source: 'BBC World News' },
+                    { url: 'http://rss.cnn.com/rss/edition_world.rss', source: 'CNN World' }
                 ];
                 let liveItems: any[] = [];
-                for (const rssUrl of rssUrls) {
+                for (const feed of rssUrls) {
                     try {
-                        const nRes = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`);
+                        const nRes = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`);
                         const nData = await nRes.json();
                         if (nData?.items && nData.items.length > 0) {
                             liveItems = nData.items.slice(0, 3).map((item: any) => ({
                                 title: item.title,
                                 link: item.link,
                                 pubDate: item.pubDate ? new Date(item.pubDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Live',
-                                source: rssUrl.includes('ontario.ca') ? 'Ontario Newsroom' : 'CBC Ottawa',
+                                source: feed.source,
                             }));
                             break;
                         }
@@ -760,7 +760,7 @@ export default function SISStudentDashboard() {
                     setOntarioLiveNews(liveItems);
                 }
             } catch (nErr) {
-                console.warn('Ontario Live News fetch note:', nErr);
+                console.warn('World News fetch note:', nErr);
             }
         };
 
@@ -1228,7 +1228,7 @@ export default function SISStudentDashboard() {
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
                                             <div className="bg-[#2D3748] px-4 py-2.5">
-                                                <h3 className="font-semibold text-white text-sm">Real-Time Ontario News</h3>
+                                                <h3 className="font-semibold text-white text-sm">World News</h3>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
                                                 {ontarioLiveNews.map((item, idx) => (
