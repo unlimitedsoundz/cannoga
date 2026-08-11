@@ -3,7 +3,7 @@
 import { Link } from "@aalto-dx/react-components"
 import { usePathname } from "next/navigation"
 import { Logo } from "@/components/ui/Logo"
-import { EnvelopeSimple, MapPin, Phone, TiktokLogo, InstagramLogo } from "@phosphor-icons/react"
+import { EnvelopeSimple, MapPin, Phone, TiktokLogo, YoutubeLogo } from "@phosphor-icons/react"
 
 export function Footer() {
     const pathname = usePathname();
@@ -24,8 +24,8 @@ export function Footer() {
                               <Logo className="h-14 md:h-16 text-white mb-3" />
                          </div>
                           <div className="flex space-x-4">
-                               <a href="https://www.instagram.com/cannogacollege" target="_blank" rel="noopener noreferrer" className="text-white hover:text-opacity-75 transition-colors">
-                                  <InstagramLogo className="h-6 w-6" />
+                               <a href="https://youtube.com/cannogacollege" target="_blank" rel="noopener noreferrer" className="text-white hover:text-opacity-75 transition-colors">
+                                  <YoutubeLogo className="h-6 w-6" />
                               </a>
                                <a href="https://www.tiktok.com/@cannogacollege" target="_blank" rel="noopener noreferrer" className="text-white hover:text-opacity-75 transition-colors">
                                   <TiktokLogo className="h-6 w-6" />
@@ -36,8 +36,6 @@ export function Footer() {
 
                  {/* Link Columns */}
                  <div className="grid grid-cols-2 md:grid-cols-5 gap-y-10 gap-x-6 mb-12">
-
-                    {/* Study */}
                     <div>
                         <h3 className="font-bold text-sm uppercase tracking-widest mb-5 text-white">Study</h3>
                         <ul className="space-y-3">
