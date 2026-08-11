@@ -980,7 +980,7 @@ export default function SISStudentDashboard() {
                                             <span className="text-[11px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded">{news.length} News</span>
                                         </div>
                                         <div className="p-4 space-y-2.5">
-                                            {news.length > 0 ? news.slice(0, 5).map(announcement => (
+                                            {news.length > 0 ? news.slice(0, 2).map(announcement => (
                                                 <div key={announcement.id} className="p-2.5 bg-slate-50 border border-slate-200 rounded">
                                                     <div className="flex items-center justify-between mb-1">
                                                         <span className="text-xs font-bold text-slate-900 line-clamp-1">{announcement.title}</span>
