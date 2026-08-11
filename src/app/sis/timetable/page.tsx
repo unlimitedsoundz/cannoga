@@ -15,7 +15,7 @@ interface SessionRow extends TimetableAssignment {
     delivery_mode: string;
     module: { code: string; title: string; credits: number } | null;
   } | null;
-  instructor: { first_name: string; last_name: string } | null;
+  instructor: { name: string; email?: string } | null;
 }
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -101,12 +101,12 @@ export default function StudentTimetablePage() {
         .order('day_of_week', { ascending: true })
         .order('start_time', { ascending: true });
 
-      let enrichedAssignments = assignments || [];
+      let enrichedAssignments: any[] = assignments || [];
 
       const instructorIds = [
         ...new Set(
           enrichedAssignments
-            .map(a => a.instructor_id || a.section?.instructor_id)
+            .map((a: any) => a.instructor_id || a.section?.instructor_id)
             .filter(Boolean)
         )
       ];
@@ -117,14 +117,17 @@ export default function StudentTimetablePage() {
           .select('id, name, email')
           .in('id', instructorIds);
 
-        const instructorMap = new Map((instructors || []).map(i => [i.id, i]));
-        enrichedAssignments = enrichedAssignments.map(a => ({
-          ...a,
-          instructor: instructorMap.get(a.instructor_id || a.section?.instructor_id) ? {
-            name: instructorMap.get(a.instructor_id || a.section?.instructor_id)!.name,
-            email: instructorMap.get(a.instructor_id || a.section?.instructor_id)!.email,
-          } : null,
-        }));
+        const instructorMap = new Map<string, any>((instructors || []).map((i: any) => [i.id, i]));
+        enrichedAssignments = enrichedAssignments.map((a: any) => {
+          const inst = instructorMap.get(a.instructor_id || a.section?.instructor_id);
+          return {
+            ...a,
+            instructor: inst ? {
+              name: inst.name,
+              email: inst.email,
+            } : null,
+          };
+        });
       }
 
       setSessions(enrichedAssignments);
@@ -251,28 +254,25 @@ export default function StudentTimetablePage() {
                         {daySessions.map(session => (
                           <div
                             key={session.id}
-                            className={`p-2 rounded-sm border-l-4 shadow-sm transition-all hover:scale-[1.02] cursor-default
-                              ${session.section?.delivery_mode === 'ONLINE'
-                                ? 'bg-blue-50 border-blue-600 text-blue-900'
-                                : 'bg-neutral-50 border-neutral-600 text-neutral-900'}`}
+                            className="p-1.5 rounded-xl bg-blue-600 shadow-sm text-white transition-all hover:scale-[1.02] cursor-default leading-none"
                           >
                             <div className="flex items-center justify-between gap-1">
-                              <span className="text-[9px] font-black uppercase truncate">{session.section?.module?.code}</span>
-                              {session.section?.delivery_mode === 'ONLINE' ? <span className="text-[8px] font-bold uppercase">Online</span> : <MapPin size={10} weight="regular" />}
+                              <span className="text-[9px] font-black uppercase tracking-wider text-blue-200 truncate leading-none">{session.section?.module?.code}</span>
+                              {session.section?.delivery_mode === 'ONLINE' ? <span className="text-[8px] font-bold uppercase text-blue-200 leading-none">Online</span> : <MapPin size={9} className="text-blue-200" weight="regular" />}
                             </div>
-                            <div className="text-[10px] font-bold leading-tight mt-1 line-clamp-2">
+                            <div className="text-[11px] font-bold leading-tight mt-0.5 text-white line-clamp-2">
                               {session.section?.module?.title}
                             </div>
-                            <div className="flex items-center gap-1 mt-1 text-[8px] font-bold opacity-70">
-                              <Clock size={8} weight="regular" /> {session.start_time.slice(0, 5)} - {session.end_time.slice(0, 5)}
+                            <div className="flex items-center gap-1 mt-0.5 text-[8px] font-medium text-blue-100 leading-none">
+                              <Clock size={8} className="text-blue-200" weight="regular" /> {session.start_time.slice(0, 5)} - {session.end_time.slice(0, 5)}
                             </div>
                             {session.room && (
-                              <div className="mt-1 text-[8px] font-black uppercase tracking-tighter truncate">
+                              <div className="mt-0.5 text-[8px] font-black uppercase tracking-tighter text-blue-200 truncate leading-none">
                                 {session.room.room_number}{session.room.building ? `, ${session.room.building}` : ''}
                               </div>
                             )}
                             {session.instructor?.name && (
-                              <div className="mt-0.5 text-[8px] font-medium opacity-80 truncate">
+                              <div className="mt-0.5 text-[8px] font-medium text-blue-100 truncate leading-none">
                                 {session.instructor.name}
                               </div>
                             )}

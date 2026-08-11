@@ -10,7 +10,7 @@ import { SearchBar } from '@/components/sis/SearchBar';
 import { FilterBar } from '@/components/sis/FilterBar';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { File01Icon as FileText, ClockIcon as Clock, CircleCheckIcon as CheckCircle, Alert01Icon as AlertCircle, ArrowRightIcon as ArrowRight, FilterHorizontalIcon as Filter, Search01Icon as Search } from '@hugeicons/core-free-icons';
+import { File01Icon as FileText } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
 import { getSISAdmissionsApplications } from '../actions';
 
@@ -53,11 +53,19 @@ export default function AdmissionsPage() {
   }, []);
 
   if (loading) {
-    return <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div></div>;
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="p-8 bg-red-50 border border-red-100 rounded-none text-center"><p className="text-red-600 font-medium text-sm">{error}</p></div>;
+    return (
+      <div className="p-8 bg-white/4 border border-white/10 rounded-2xl text-center">
+        <p className="text-neutral-400 font-medium text-sm">{error}</p>
+      </div>
+    );
   }
 
   const filtered = data.filter(a => {
@@ -76,30 +84,30 @@ export default function AdmissionsPage() {
     {
       key: 'application_number',
       header: 'Application #',
-      render: (a: ApplicationRow) => <span className="font-mono font-medium text-neutral-900">{a.application_number || a.id}</span>,
+      render: (a: ApplicationRow) => <span className="font-mono text-xs text-neutral-200">{a.application_number || a.id}</span>,
     },
     {
       key: 'applicant',
       header: 'Applicant',
       render: (a: ApplicationRow) => (
         <div>
-          <div className="font-medium text-neutral-900">{a.user?.first_name} {a.user?.last_name}</div>
-          <div className="text-xs text-neutral-500 font-mono">{a.user?.email}</div>
+          <div className="font-bold text-xs text-neutral-200">{a.user?.first_name} {a.user?.last_name}</div>
+          <div className="text-[10px] text-neutral-500 font-mono">{a.user?.email}</div>
         </div>
       ),
     },
-    { key: 'program', header: 'Program', render: (a: ApplicationRow) => `${a.course?.title || '—'}${a.course?.degreeLevel ? ` — ${formatDegreeLevel(a.course.degreeLevel)}` : ''}` },
+    { key: 'program', header: 'Program', render: (a: ApplicationRow) => <span className="text-xs text-neutral-400">{`${a.course?.title || '—'}${a.course?.degreeLevel ? ` — ${formatDegreeLevel(a.course.degreeLevel)}` : ''}`}</span> },
     {
       key: 'submitted_at',
       header: 'Submitted',
-      render: (a: ApplicationRow) => a.submitted_at ? new Date(a.submitted_at).toLocaleDateString('en-CA') : '—',
+      render: (a: ApplicationRow) => <span className="text-xs text-neutral-500">{a.submitted_at ? new Date(a.submitted_at).toLocaleDateString('en-CA') : '—'}</span>,
     },
     { key: 'status', header: 'Status', render: (a: ApplicationRow) => <StatusBadge status={a.status.replace('_', ' ')} /> },
     {
       key: 'actions',
       header: 'Actions',
       render: (a: ApplicationRow) => (
-        <Link href={`/sis/admin/admissions/${a.id}`} className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">Review</Link>
+        <Link href={`/sis/admin/admissions/${a.id}`} className="text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white transition-colors no-underline">Review</Link>
       ),
     },
   ];
@@ -110,28 +118,28 @@ export default function AdmissionsPage() {
         title="Admissions"
         subtitle="Review and process admissions applications"
         actions={
-          <Link href="/sis/admin/admissions/new" className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
+          <Link href="/sis/admin/admissions/new" className="inline-flex items-center gap-2 px-4 py-2 bg-white text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-neutral-200 transition-colors no-underline">
             <HugeiconsIcon icon={FileText} size={14} strokeWidth={2.5} /> New Application
           </Link>
         }
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Total Applications</div>
-          <div className="text-2xl font-black text-neutral-900 mt-1">{data.length}</div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-[#1a1a1a] border border-white/8 rounded-2xl p-5">
+          <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-600">Total Applications</div>
+          <div className="text-2xl font-black text-white mt-1">{data.length}</div>
         </div>
-        <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Under Review</div>
-          <div className="text-2xl font-black text-amber-600 mt-1">{data.filter(a => a.status === 'UNDER_REVIEW' || a.status === 'DOCS_REQUIRED').length}</div>
+        <div className="bg-[#1a1a1a] border border-white/8 rounded-2xl p-5">
+          <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-600">Under Review</div>
+          <div className="text-2xl font-black text-white mt-1">{data.filter(a => a.status === 'UNDER_REVIEW' || a.status === 'DOCS_REQUIRED').length}</div>
         </div>
-        <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Admitted</div>
-          <div className="text-2xl font-black text-emerald-600 mt-1">{data.filter(a => a.status === 'ADMITTED' || a.status === 'OFFER_ACCEPTED').length}</div>
+        <div className="bg-[#1a1a1a] border border-white/8 rounded-2xl p-5">
+          <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-600">Admitted</div>
+          <div className="text-2xl font-black text-white mt-1">{data.filter(a => a.status === 'ADMITTED' || a.status === 'OFFER_ACCEPTED').length}</div>
         </div>
-        <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Rejected</div>
-          <div className="text-2xl font-black text-red-600 mt-1">{data.filter(a => a.status === 'REJECTED' || a.status === 'OFFER_DECLINED').length}</div>
+        <div className="bg-[#1a1a1a] border border-white/8 rounded-2xl p-5">
+          <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-600">Rejected</div>
+          <div className="text-2xl font-black text-neutral-400 mt-1">{data.filter(a => a.status === 'REJECTED' || a.status === 'OFFER_DECLINED').length}</div>
         </div>
       </div>
 

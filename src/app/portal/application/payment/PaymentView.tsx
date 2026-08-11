@@ -143,12 +143,12 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
     const currentInvoicePayments = payments.filter(
         (p: any) => p.invoice_type === rawInvoiceType
     );
-    const currentInvoicePaid = currentInvoicePayments.some(
+    const currentInvoicePaid = Boolean(admissionOffer?.invoice_pushed) && currentInvoicePayments.some(
         (p: any) => p.status === 'COMPLETED' || p.status === 'verified'
     );
-        const currentInvoicePending = currentInvoicePayments.some(
-            (p: any) => p.status === 'PENDING_VERIFICATION'
-        );
+    const currentInvoicePending = Boolean(admissionOffer?.invoice_pushed) && currentInvoicePayments.some(
+        (p: any) => p.status === 'PENDING_VERIFICATION'
+    );
 
     if (!paymentsLoaded) {
         return (

@@ -137,21 +137,21 @@ export default function SISLayout({ children }: { children: ReactNode }) {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-[#f5f5f5] flex items-center justify-center font-sans">
-                <div className="animate-spin rounded-full border-2 border-t-transparent border-neutral-900 h-8 w-8"></div>
+            <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center font-sans">
+                <div className="animate-spin rounded-full border-2 border-t-transparent border-white h-8 w-8"></div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="min-h-screen bg-[#f5f5f5] flex items-center justify-center font-sans flex-col items-center gap-4">
+            <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center font-sans">
                 <div className="text-center p-6">
-                    <h2 className="text-xl font-bold text-neutral-900 mb-2">Authentication Error</h2>
-                    <p className="text-neutral-600 mb-4">{error}</p>
+                    <h2 className="text-xl font-bold text-white mb-2">Authentication Error</h2>
+                    <p className="text-neutral-400 mb-4">{error}</p>
                     <button
                         onClick={() => window.location.href = '/portal/account/login'}
-                        className="px-6 py-2 bg-neutral-600 text-white rounded-lg hover:bg-neutral-700 transition-colors"
+                        className="px-6 py-2 bg-white text-neutral-900 rounded-lg hover:bg-neutral-200 transition-colors font-bold text-sm"
                     >
                         Return to Login
                     </button>
@@ -181,6 +181,8 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         { label: 'AUDIT', href: '/sis/admin/audit' },
         { label: 'NOTIFICATIONS', href: '/sis/admin/notifications' },
         { label: 'SETTINGS', href: '/sis/admin/settings' },
+        { label: 'DEBBIE VOICE', href: '/sis/admin/debbie' },
+        { label: 'VOICE AGENT', href: '/sis/admin/voice-agent' },
     ];
 
     const websiteNavItems = [
@@ -197,7 +199,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
 
     if (profile.role === 'ADMIN' && isAdminPath) {
         return (
-            <div className="min-h-screen bg-[#f5f5f5] font-sans text-black flex flex-col" data-theme="sis">
+            <div className="min-h-screen bg-[#0f0f0f] font-sans text-white flex flex-col" data-theme="sis-dark">
                 <SISHeader onMenuToggle={() => setSidebarOpen(!sidebarOpen)} role={profile.role} profile={profile} studentId={profile.student_id || ''} />
                 <div className="flex flex-1 overflow-hidden">
                     <SISSidebar
@@ -212,7 +214,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                         </div>
                     </main>
                 </div>
-                <Toaster position="top-right" />
+                <Toaster position="top-right" theme="dark" />
             </div>
         );
     }

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ChevronDownIcon as ChevronDown, Search01Icon as SearchIcon, X as X } from '@hugeicons/core-free-icons';
+import { ChevronDownIcon as ChevronDown } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
 interface DataTableColumn<T> {
@@ -51,10 +51,7 @@ export function DataTable<T extends Record<string, any>>({
   const [sortDirection, setSortDirection] = React.useState<'asc' | 'desc'>(sortConfig?.direction || 'asc');
 
   const handleSort = (key: string) => {
-    if (onSort) {
-      onSort(key);
-      return;
-    }
+    if (onSort) { onSort(key); return; }
     if (sortKey === key) {
       setSortDirection(d => d === 'asc' ? 'desc' : 'asc');
     } else {
@@ -77,15 +74,15 @@ export function DataTable<T extends Record<string, any>>({
   }, [data, sortKey, sortDirection, sortConfig]);
 
   return (
-    <div className={`overflow-x-auto border border-neutral-200 ${className}`}>
-      <table className="w-full text-left text-sm font-sans">
-        <thead className="bg-neutral-50 border-b border-neutral-200">
+    <div className={`overflow-x-auto rounded-2xl bg-[#1a1a1a] shadow-sm ${className}`}>
+      <table className="w-full text-left text-sm font-sans min-w-[480px]">
+        <thead className="bg-white/4">
           <tr>
             {selection && (
               <th className="p-3 w-10">
                 <input
                   type="checkbox"
-                  className="w-4 h-4 text-[#9c27b3] border-neutral-300 rounded focus:ring-[#9c27b3]"
+                  className="w-4 h-4 rounded bg-white/10 accent-white outline-none"
                   onChange={(e) => {
                     const newSelected = new Set(selection.selected);
                     if (e.target.checked) {
@@ -96,33 +93,32 @@ export function DataTable<T extends Record<string, any>>({
                     selection.onChange(newSelected);
                   }}
                   checked={selection.selected.size === data.length && data.length > 0}
-                  data-indeterminate="true"
                 />
               </th>
             )}
             {columns.map(col => (
               <th
                 key={col.key}
-                className={`p-3 text-xs font-bold uppercase tracking-wider text-neutral-600 ${col.className || ''} ${col.sortable ? 'cursor-pointer hover:text-neutral-900 select-none' : ''}`}
+                className={`p-3 text-[10px] font-bold uppercase tracking-wider text-neutral-400 ${col.className || ''} ${col.sortable ? 'cursor-pointer hover:text-neutral-200 select-none transition-colors' : ''}`}
                 onClick={() => col.sortable && handleSort(col.key)}
               >
                 <div className="flex items-center gap-1">
                   {col.header}
                   {col.sortable && sortKey === col.key && (
-                    <span>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                    <span className="text-neutral-400">{sortDirection === 'asc' ? '↑' : '↓'}</span>
                   )}
                 </div>
               </th>
             ))}
             {rowActions && (
-              <th className="p-3 text-xs font-bold uppercase tracking-wider text-neutral-600">Actions</th>
+              <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-neutral-400">Actions</th>
             )}
           </tr>
         </thead>
-        <tbody className="divide-y divide-neutral-100">
+        <tbody className="divide-y divide-white/5">
           {sortedData.length === 0 ? (
             <tr>
-              <td colSpan={columns.length + (selection ? 1 : 0) + (rowActions ? 1 : 0)} className="p-8 text-center text-neutral-400 text-sm">
+              <td colSpan={columns.length + (selection ? 1 : 0) + (rowActions ? 1 : 0)} className="p-10 text-center text-neutral-500 text-sm">
                 {emptyMessage}
               </td>
             </tr>
@@ -130,14 +126,14 @@ export function DataTable<T extends Record<string, any>>({
             sortedData.map(row => (
               <tr
                 key={row[keyField]}
-                className={onRowClick ? 'hover:bg-neutral-50 cursor-pointer transition-colors' : ''}
+                className={`transition-colors ${onRowClick ? 'hover:bg-white/4 cursor-pointer' : ''}`}
                 onClick={() => onRowClick?.(row)}
               >
                 {selection && (
                   <td className="p-3">
                     <input
                       type="checkbox"
-                      className="w-4 h-4 text-[#9c27b3] border-neutral-300 rounded focus:ring-[#9c27b3]"
+                      className="w-4 h-4 rounded bg-white/10 accent-white outline-none"
                       checked={selection.selected.has(String(row[keyField]))}
                       onChange={(e) => {
                         const newSelected = new Set(selection.selected);
@@ -150,7 +146,7 @@ export function DataTable<T extends Record<string, any>>({
                   </td>
                 )}
                 {columns.map(col => (
-                  <td key={col.key} className={`p-3 ${col.className || ''}`}>
+                  <td key={col.key} className={`p-3 text-neutral-300 ${col.className || ''}`}>
                     {col.render ? col.render(row) : row[col.key]}
                   </td>
                 ))}
@@ -165,22 +161,22 @@ export function DataTable<T extends Record<string, any>>({
         </tbody>
       </table>
       {pagination && (
-        <div className="px-4 py-3 border-t border-neutral-200 bg-white flex items-center justify-between">
+        <div className="px-4 py-3 bg-white/2 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-xs text-neutral-500">
-            Showing {(pagination.page - 1) * pagination.pageSize + 1} to {Math.min(pagination.page * pagination.pageSize, pagination.total)} of {pagination.total} results
+            Showing {(pagination.page - 1) * pagination.pageSize + 1}–{Math.min(pagination.page * pagination.pageSize, pagination.total)} of {pagination.total} results
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => pagination.onPageChange(pagination.page - 1)}
               disabled={pagination.page === 1}
-              className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-neutral-200 hover:border-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-neutral-400 bg-white/5 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors rounded-lg"
             >
               Previous
             </button>
             <button
               onClick={() => pagination.onPageChange(pagination.page + 1)}
               disabled={pagination.page * pagination.pageSize >= pagination.total}
-              className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-neutral-200 hover:border-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-neutral-400 bg-white/5 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors rounded-lg"
             >
               Next
             </button>

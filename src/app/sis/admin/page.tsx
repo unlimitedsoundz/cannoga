@@ -4,23 +4,15 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '@/components/sis/PageHeader';
-import { ActionToolbar } from '@/components/sis/ActionToolbar';
 import { DataTable } from '@/components/sis/DataTable';
-import { SearchBar } from '@/components/sis/SearchBar';
-import { FilterBar } from '@/components/sis/FilterBar';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { 
-  UserGroupIcon as Users, 
-  File01Icon as FileText, 
-  BookOpenIcon as BookOpen, 
-  CreditCardIcon as CreditCard, 
-  Calendar01Icon as Calendar, 
-  ChevronRightIcon as ArrowRight, 
-  Add01Icon as Plus, 
-  Search01Icon as SearchIcon, 
-  FilterHorizontalIcon as FilterIcon, 
-  Download01Icon as Download,
+import {
+  UserGroupIcon as Users,
+  File01Icon as FileText,
+  BookOpenIcon as BookOpen,
+  Calendar01Icon as Calendar,
+  ChevronRightIcon as ArrowRight,
   Alert01Icon as AlertCircle,
   CircleCheckIcon as CheckCircle,
   ClockIcon as Clock,
@@ -42,18 +34,8 @@ interface DashboardStats {
   totalDepartments: number;
   totalSchools: number;
   totalAuditLogs: number;
-  statusCounts: {
-    SUBMITTED: number;
-    UNDER_REVIEW: number;
-    ADMITTED: number;
-    REJECTED: number;
-  };
-  enrollmentStatusCounts: {
-    REGISTERED: number;
-    DROPPED: number;
-    COMPLETED: number;
-    FAILED: number;
-  };
+  statusCounts: { SUBMITTED: number; UNDER_REVIEW: number; ADMITTED: number; REJECTED: number };
+  enrollmentStatusCounts: { REGISTERED: number; DROPPED: number; COMPLETED: number; FAILED: number };
 }
 
 interface RecentStudent {
@@ -89,60 +71,62 @@ interface RecentEnrollment {
   student?: { student_id: string; enrollment_status: string; user?: { first_name: string; last_name: string } };
 }
 
+function PipelineRow({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="flex justify-between items-center px-4 py-3 bg-white/4 rounded-xl hover:bg-white/6 transition-colors">
+      <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">{label}</span>
+      <span className="text-lg font-black text-white">{value}</span>
+    </div>
+  );
+}
+
 export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [stats, setStats] = useState<DashboardStats | null>(null as any);
+  const [stats, setStats] = useState<DashboardStats | null>(null);
   const [recentStudents, setRecentStudents] = useState<RecentStudent[]>([]);
   const [pendingApplications, setPendingApplications] = useState<PendingApplication[]>([]);
   const [recentEnrollments, setRecentEnrollments] = useState<RecentEnrollment[]>([]);
   const [courseMap, setCourseMap] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
         const [statsResult, courseResult] = await Promise.all([
           getSISAdminDashboardStats(),
-          getSISCourseMap()
+          getSISCourseMap(),
         ]);
-
-        if (!statsResult.success) {
-          throw new Error(statsResult.error);
-        }
-
+        if (!statsResult.success) throw new Error(statsResult.error);
         setStats(statsResult.stats as any);
         setRecentStudents(statsResult.recentStudents || []);
         setPendingApplications(statsResult.pendingApplications || []);
         setRecentEnrollments((statsResult.recentEnrollments || []) as any);
         setCourseMap(courseResult.data || {});
       } catch (err: any) {
-        console.error('Error fetching dashboard data:', err);
         setError(err.message || 'Failed to load dashboard data');
       } finally {
         setLoading(false);
       }
-    };
-
-    fetchData();
+    })();
   }, []);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#f5f5f5] flex items-center justify-center font-sans">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div>
+      <div className="flex items-center justify-center min-h-[40vh]">
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="p-8 bg-red-50 border border-red-100 rounded-none text-center">
-        <HugeiconsIcon icon={AlertCircle} size={40} className="text-red-500 mx-auto mb-4" />
-        <h3 className="text-lg font-bold text-red-900 uppercase">Fetch Error</h3>
-        <p className="text-red-600 font-medium text-sm mt-1">{error}</p>
+      <div className="p-8 bg-white/4 rounded-2xl text-center">
+        <HugeiconsIcon icon={AlertCircle} size={36} className="text-neutral-500 mx-auto mb-4" />
+        <h3 className="text-base font-bold text-white uppercase tracking-wider mb-1">Fetch Error</h3>
+        <p className="text-neutral-500 text-sm mb-5">{error}</p>
         <button
           onClick={() => window.location.reload()}
-          className="mt-6 px-6 py-2 bg-red-600 text-white rounded-none text-xs font-bold uppercase tracking-widest hover:bg-red-700 transition-colors"
+          className="px-6 py-2 bg-white text-neutral-900 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors"
         >
           Retry
         </button>
@@ -153,55 +137,79 @@ export default function AdminDashboardPage() {
   const s = stats!;
 
   const statCards = [
-    { label: 'Total Students', count: s.totalStudents, icon: Users, color: 'bg-blue-500', href: '/sis/admin/students' },
-    { label: 'Active Students', count: s.activeStudents, icon: CheckCircle, color: 'bg-emerald-500', href: '/sis/admin/students' },
-    { label: 'Pending Applications', count: s.pendingApplications, icon: Clock, color: 'bg-amber-500', href: '/sis/admin/applications' },
-    { label: 'Total Applications', count: s.totalApplications, icon: FileText, color: 'bg-purple-500', href: '/sis/admin/applications' },
-    { label: 'Courses This Term', count: s.totalCourses, icon: BookOpen, color: 'bg-teal-500', href: '/sis/courses' },
-    { label: 'Total Enrollments', count: s.totalEnrollments, icon: Activity, color: 'bg-indigo-500', href: '/sis/admin/registration' },
-    { label: 'Faculty', count: s.totalFaculty, icon: Shield, color: 'bg-neutral-800', href: '/sis/admin/faculty' },
-    { label: 'Audit Logs', count: s.totalAuditLogs, icon: Activity, color: 'bg-neutral-500', href: '/sis/admin/audit' },
+    { label: 'Total Students',        count: s.totalStudents,        icon: Users,       href: '/sis/admin/students' },
+    { label: 'Active Students',        count: s.activeStudents,       icon: CheckCircle, href: '/sis/admin/students' },
+    { label: 'Pending Applications',   count: s.pendingApplications,  icon: Clock,       href: '/sis/admin/applications' },
+    { label: 'Total Applications',     count: s.totalApplications,    icon: FileText,    href: '/sis/admin/applications' },
+    { label: 'Courses This Term',      count: s.totalCourses,         icon: BookOpen,    href: '/sis/courses' },
+    { label: 'Total Enrollments',      count: s.totalEnrollments,     icon: Activity,    href: '/sis/admin/registration' },
+    { label: 'Faculty',                count: s.totalFaculty,         icon: Shield,      href: '/sis/admin/faculty' },
+    { label: 'Audit Logs',             count: s.totalAuditLogs,       icon: Activity,    href: '/sis/admin/audit' },
   ];
 
   const studentColumns = [
     {
       key: 'student_id',
       header: 'Student ID',
-      render: (s: RecentStudent) => <span className="font-mono font-medium text-neutral-900">{s.student_id}</span>,
+      render: (s: RecentStudent) => (
+        <span className="font-mono text-xs text-neutral-200">{s.student_id}</span>
+      ),
     },
     {
       key: 'name',
       header: 'Student',
       render: (s: RecentStudent) => (
         <div>
-          <div className="font-medium text-neutral-900">{s.user?.[0]?.first_name} {s.user?.[0]?.last_name}</div>
-          <div className="text-xs text-neutral-500 font-mono">{s.user?.[0]?.email}</div>
+          <div className="font-bold text-xs text-neutral-200">{s.user?.[0]?.first_name} {s.user?.[0]?.last_name}</div>
+          <div className="text-[10px] text-neutral-600 font-mono">{s.user?.[0]?.email}</div>
         </div>
       ),
     },
-    { key: 'program', header: 'Program', render: (s: RecentStudent) => courseMap[s.program_id] || s.program_id || '—' },
+    {
+      key: 'program',
+      header: 'Program',
+      render: (s: RecentStudent) => (
+        <span className="text-xs text-neutral-400">{courseMap[s.program_id] || s.program_id || '—'}</span>
+      ),
+    },
     { key: 'status', header: 'Status', render: (s: RecentStudent) => <StatusBadge status={s.enrollment_status} /> },
-    { key: 'start_date', header: 'Start Date', render: (s: RecentStudent) => s.start_date ? new Date(s.start_date).toLocaleDateString('en-CA') : '—' },
+    {
+      key: 'start_date',
+      header: 'Start Date',
+      render: (s: RecentStudent) => (
+        <span className="text-xs text-neutral-500">{s.start_date ? new Date(s.start_date).toLocaleDateString('en-CA') : '—'}</span>
+      ),
+    },
   ];
 
   const applicationColumns = [
     {
       key: 'application_number',
       header: 'Application #',
-      render: (a: PendingApplication) => <span className="font-mono font-medium text-neutral-900">{a.application_number || a.id}</span>,
+      render: (a: PendingApplication) => (
+        <span className="font-mono text-xs text-neutral-200">{a.application_number || a.id}</span>
+      ),
     },
     {
       key: 'name',
       header: 'Applicant',
       render: (a: PendingApplication) => (
-        <div className="font-medium text-neutral-900">{a.user?.first_name} {a.user?.last_name}</div>
+        <span className="font-bold text-xs text-neutral-200">{a.user?.first_name} {a.user?.last_name}</span>
       ),
     },
-    { key: 'course', header: 'Program', render: (a: PendingApplication) => courseMap[a.course_id] || a.course?.title || '—' },
+    {
+      key: 'course',
+      header: 'Program',
+      render: (a: PendingApplication) => (
+        <span className="text-xs text-neutral-400">{courseMap[a.course_id] || a.course?.title || '—'}</span>
+      ),
+    },
     {
       key: 'submitted_at',
       header: 'Submitted',
-      render: (a: PendingApplication) => a.submitted_at ? new Date(a.submitted_at).toLocaleDateString('en-CA') : '—',
+      render: (a: PendingApplication) => (
+        <span className="text-xs text-neutral-500">{a.submitted_at ? new Date(a.submitted_at).toLocaleDateString('en-CA') : '—'}</span>
+      ),
     },
     { key: 'status', header: 'Status', render: (a: PendingApplication) => <StatusBadge status={a.status.replace('_', ' ')} /> },
   ];
@@ -211,17 +219,37 @@ export default function AdminDashboardPage() {
       key: 'student_id',
       header: 'Student',
       render: (e: RecentEnrollment) => (
-        <span className="font-mono font-medium text-neutral-900">{(e.student as any)?.student_id || e.student_id}</span>
+        <span className="font-mono text-xs text-neutral-200">{(e.student as any)?.student_id || e.student_id}</span>
       ),
     },
     {
       key: 'module',
       header: 'Module',
-      render: (e: RecentEnrollment) => (e.module as any)?.code || e.module_id,
+      render: (e: RecentEnrollment) => (
+        <span className="font-bold text-xs text-neutral-300">{(e.module as any)?.code || e.module_id}</span>
+      ),
     },
-    { key: 'title', header: 'Title', render: (e: RecentEnrollment) => (e.module as any)?.title || '—' },
+    {
+      key: 'title',
+      header: 'Title',
+      render: (e: RecentEnrollment) => (
+        <span className="text-xs text-neutral-500">{(e.module as any)?.title || '—'}</span>
+      ),
+    },
     { key: 'status', header: 'Status', render: (e: RecentEnrollment) => <StatusBadge status={e.status} /> },
-    { key: 'grade', header: 'Grade', render: (e: RecentEnrollment) => e.grade !== null ? e.grade.toFixed(2) : '—' },
+    {
+      key: 'grade',
+      header: 'Grade',
+      render: (e: RecentEnrollment) => (
+        <span className="font-mono text-xs text-neutral-400">{e.grade !== null ? e.grade.toFixed(2) : '—'}</span>
+      ),
+    },
+  ];
+
+  const quickLinks = [
+    { href: '/sis/admin/students',    icon: Users,    title: 'Student Management',  desc: 'View, edit, and manage student records',       cta: 'Manage Students' },
+    { href: '/sis/admin/applications',icon: FileText,  title: 'Admissions',          desc: 'Review and process applications',               cta: 'Manage Admissions' },
+    { href: '/sis/courses',           icon: BookOpen,  title: 'Course Management',   desc: 'Manage courses, sections, and schedules',      cta: 'Manage Courses' },
   ];
 
   return (
@@ -231,181 +259,113 @@ export default function AdminDashboardPage() {
         subtitle="System overview and quick access to administrative functions"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* ── Stat Cards ── */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {statCards.map((stat, idx) => (
-          <Link key={idx} href={stat.href} className="bg-white border border-neutral-200 p-6 hover:border-[#9c27b3] transition-colors no-underline group">
-            <div className="flex justify-between items-start mb-4">
-              <div className={`p-3 rounded-none ${stat.color} text-white`}>
-                <HugeiconsIcon icon={stat.icon} size={24} strokeWidth={2} />
+          <Link
+            key={idx}
+            href={stat.href}
+            className="group bg-[#1a1a1a] rounded-2xl p-5 hover:bg-[#1f1f1f] transition-all no-underline shadow-sm"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-8 h-8 rounded-lg bg-white/8 flex items-center justify-center group-hover:bg-white/12 transition-colors">
+                <HugeiconsIcon icon={stat.icon} size={16} className="text-neutral-400" />
               </div>
-              <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-300 group-hover:text-black transform group-hover:translate-x-1 transition-all" />
+              <HugeiconsIcon icon={ArrowRight} size={13} className="text-neutral-700 group-hover:text-neutral-400 group-hover:translate-x-0.5 transition-all" />
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-neutral-500 font-bold uppercase text-xs tracking-widest">{stat.label}</span>
-              <span className="text-2xl font-black text-neutral-900">{stat.count}</span>
-            </div>
+            <div className="text-2xl font-black text-white mb-1">{stat.count}</div>
+            <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">{stat.label}</div>
           </Link>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-6">
+      {/* ── Tables Row ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <h2 className="text-lg font-bold flex items-center gap-2">
-              <HugeiconsIcon icon={Users} size={20} strokeWidth={2} className="text-blue-500" /> Recent Enrollments
+            <h2 className="text-xs font-bold text-neutral-400 uppercase tracking-widest flex items-center gap-2">
+              <HugeiconsIcon icon={Users} size={14} className="text-neutral-600" /> Recent Enrollments
             </h2>
-            <Link href="/sis/admin/students" className="text-xs font-bold text-neutral-400 hover:text-black transition-colors uppercase tracking-widest">
-              View All →
-            </Link>
+            <Link href="/sis/admin/students" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
           </div>
-          <div className="bg-white border border-neutral-200 overflow-hidden">
-            <DataTable
-              columns={enrollmentColumns}
-              data={recentEnrollments}
-              keyField="id"
-              pagination={undefined}
-              emptyMessage="No recent enrollments"
-            />
-          </div>
+          <DataTable columns={enrollmentColumns} data={recentEnrollments} keyField="id" emptyMessage="No recent enrollments" />
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <h2 className="text-lg font-bold flex items-center gap-2">
-              <HugeiconsIcon icon={FileText} size={20} strokeWidth={2} className="text-amber-500" /> Pending Applications
+            <h2 className="text-xs font-bold text-neutral-400 uppercase tracking-widest flex items-center gap-2">
+              <HugeiconsIcon icon={FileText} size={14} className="text-neutral-600" /> Pending Applications
             </h2>
-            <Link href="/sis/admin/applications" className="text-xs font-bold text-neutral-400 hover:text-black transition-colors uppercase tracking-widest">
-              View All →
-            </Link>
+            <Link href="/sis/admin/applications" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
           </div>
-          <div className="bg-white border border-neutral-200 overflow-hidden">
-            <DataTable
-              columns={applicationColumns}
-              data={pendingApplications}
-              keyField="id"
-              pagination={undefined}
-              emptyMessage="No pending applications"
-            />
-          </div>
+          <DataTable columns={applicationColumns} data={pendingApplications} keyField="id" emptyMessage="No pending applications" />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-6">
+      {/* ── Second Tables Row ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <h2 className="text-lg font-bold flex items-center gap-2">
-              <HugeiconsIcon icon={Users} size={20} strokeWidth={2} className="text-blue-500" /> Recent Students
+            <h2 className="text-xs font-bold text-neutral-400 uppercase tracking-widest flex items-center gap-2">
+              <HugeiconsIcon icon={Users} size={14} className="text-neutral-600" /> Recent Students
             </h2>
-            <Link href="/sis/admin/students" className="text-xs font-bold text-neutral-400 hover:text-black transition-colors uppercase tracking-widest">
-              View All →
-            </Link>
+            <Link href="/sis/admin/students" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
           </div>
-          <div className="bg-white border border-neutral-200 overflow-hidden">
-            <DataTable
-              columns={studentColumns}
-              data={recentStudents}
-              keyField="id"
-              pagination={undefined}
-              emptyMessage="No recent students"
-            />
-          </div>
+          <DataTable columns={studentColumns} data={recentStudents} keyField="id" emptyMessage="No recent students" />
         </div>
 
-        <div className="space-y-6">
-          <h2 className="text-lg font-bold flex items-center gap-2">
-            <HugeiconsIcon icon={Activity} size={20} strokeWidth={2} className="text-purple-500" /> Application Pipeline
-          </h2>
-          <div className="bg-white border border-neutral-200 p-6 space-y-4">
-            <div className="flex justify-between items-center p-3 bg-neutral-50">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Submitted</span>
-              <span className="text-lg font-black text-neutral-900">{s.statusCounts.SUBMITTED}</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-neutral-50">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Under Review</span>
-              <span className="text-lg font-black text-neutral-900">{s.statusCounts.UNDER_REVIEW}</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-neutral-50">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Admitted</span>
-              <span className="text-lg font-black text-neutral-900">{s.statusCounts.ADMITTED}</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-neutral-50">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Rejected</span>
-              <span className="text-lg font-black text-neutral-900">{s.statusCounts.REJECTED}</span>
+        <div className="space-y-5">
+          {/* Application Pipeline */}
+          <div>
+            <h2 className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <HugeiconsIcon icon={Activity} size={14} className="text-neutral-600" /> Application Pipeline
+            </h2>
+            <div className="bg-[#1a1a1a] rounded-2xl p-4 space-y-2">
+              <PipelineRow label="Submitted"   value={s.statusCounts.SUBMITTED} />
+              <PipelineRow label="Under Review" value={s.statusCounts.UNDER_REVIEW} />
+              <PipelineRow label="Admitted"    value={s.statusCounts.ADMITTED} />
+              <PipelineRow label="Rejected"    value={s.statusCounts.REJECTED} />
             </div>
           </div>
 
-          <h2 className="text-lg font-bold flex items-center gap-2 pt-4">
-            <HugeiconsIcon icon={BookOpen} size={20} strokeWidth={2} className="text-emerald-500" /> Enrollment Status
-          </h2>
-          <div className="bg-white border border-neutral-200 p-6 space-y-4">
-            <div className="flex justify-between items-center p-3 bg-neutral-50">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Registered</span>
-              <span className="text-lg font-black text-neutral-900">{s.enrollmentStatusCounts.REGISTERED}</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-neutral-50">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Dropped</span>
-              <span className="text-lg font-black text-neutral-900">{s.enrollmentStatusCounts.DROPPED}</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-neutral-50">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Completed</span>
-              <span className="text-lg font-black text-neutral-900">{s.enrollmentStatusCounts.COMPLETED}</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-neutral-50">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Failed</span>
-              <span className="text-lg font-black text-neutral-900">{s.enrollmentStatusCounts.FAILED}</span>
+          {/* Enrollment Status */}
+          <div>
+            <h2 className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <HugeiconsIcon icon={BookOpen} size={14} className="text-neutral-600" /> Enrollment Status
+            </h2>
+            <div className="bg-[#1a1a1a] rounded-2xl p-4 space-y-2">
+              <PipelineRow label="Registered" value={s.enrollmentStatusCounts.REGISTERED} />
+              <PipelineRow label="Dropped"    value={s.enrollmentStatusCounts.DROPPED} />
+              <PipelineRow label="Completed"  value={s.enrollmentStatusCounts.COMPLETED} />
+              <PipelineRow label="Failed"     value={s.enrollmentStatusCounts.FAILED} />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Link href="/sis/admin/students" className="bg-white border border-neutral-200 p-6 hover:border-[#9c27b3] transition-colors no-underline group">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-neutral-100 rounded-none">
-              <HugeiconsIcon icon={Users} size={24} strokeWidth={1.5} className="text-neutral-600 group-hover:text-[#9c27b3] transition-colors" />
+      {/* ── Quick Links ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {quickLinks.map((ql, idx) => (
+          <Link
+            key={idx}
+            href={ql.href}
+            className="group bg-[#1a1a1a] rounded-2xl p-5 hover:bg-[#1f1f1f] transition-all no-underline shadow-sm"
+          >
+            <div className="flex items-start gap-3 mb-4">
+              <div className="p-2.5 bg-white/8 rounded-xl group-hover:bg-white/12 transition-colors shrink-0">
+                <HugeiconsIcon icon={ql.icon} size={18} className="text-neutral-400" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-white">{ql.title}</h3>
+                <p className="text-[11px] text-neutral-400 mt-0.5">{ql.desc}</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900">Student Management</h3>
-              <p className="text-xs text-neutral-500">View, edit, and manage student records</p>
+            <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 group-hover:text-white flex items-center gap-1 transition-colors">
+              {ql.cta}
+              <HugeiconsIcon icon={ArrowRight} size={10} className="group-hover:translate-x-0.5 transition-transform" />
             </div>
-          </div>
-          <div className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] flex items-center gap-1">
-            Manage Students
-            <HugeiconsIcon icon={ArrowRight} size={12} strokeWidth={2.5} className="group-hover:translate-x-1 transition-transform" />
-          </div>
-        </Link>
-
-        <Link href="/sis/admin/applications" className="bg-white border border-neutral-200 p-6 hover:border-[#9c27b3] transition-colors no-underline group">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-neutral-100 rounded-none">
-              <HugeiconsIcon icon={FileText} size={24} strokeWidth={1.5} className="text-neutral-600 group-hover:text-[#9c27b3] transition-colors" />
-            </div>
-            <div>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900">Admissions</h3>
-              <p className="text-xs text-neutral-500">Review and process applications</p>
-            </div>
-          </div>
-          <div className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] flex items-center gap-1">
-            Manage Admissions
-            <HugeiconsIcon icon={ArrowRight} size={12} strokeWidth={2.5} className="group-hover:translate-x-1 transition-transform" />
-          </div>
-        </Link>
-
-        <Link href="/sis/courses" className="bg-white border border-neutral-200 p-6 hover:border-[#9c27b3] transition-colors no-underline group">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-neutral-100 rounded-none">
-              <HugeiconsIcon icon={BookOpen} size={24} strokeWidth={1.5} className="text-neutral-600 group-hover:text-[#9c27b3] transition-colors" />
-            </div>
-            <div>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900">Course Management</h3>
-              <p className="text-xs text-neutral-500">Manage courses, sections, and schedules</p>
-            </div>
-          </div>
-          <div className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] flex items-center gap-1">
-            Manage Courses
-            <HugeiconsIcon icon={ArrowRight} size={12} strokeWidth={2.5} className="group-hover:translate-x-1 transition-transform" />
-          </div>
-        </Link>
+          </Link>
+        ))}
       </div>
     </div>
   );

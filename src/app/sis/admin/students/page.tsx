@@ -9,7 +9,7 @@ import { DataTable } from '@/components/sis/DataTable';
 import { SearchBar } from '@/components/sis/SearchBar';
 import { FilterBar } from '@/components/sis/FilterBar';
 import { StatusBadge } from '@/components/sis/StatusBadge';
-import { Add01Icon as Plus, FilterHorizontalIcon as Filter, Download01Icon as Download, UserAdd01Icon as UserPlus } from '@hugeicons/core-free-icons';
+import { UserAdd01Icon as UserPlus } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import Link from 'next/link';
 import { getSISStudents } from '../actions';
@@ -59,16 +59,16 @@ export default function AdminStudentsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="p-8 bg-red-50 border border-red-100 rounded-none text-center">
-        <p className="text-red-600 font-medium text-sm">{error}</p>
-        <button onClick={() => window.location.reload()} className="mt-4 px-4 py-2 bg-red-600 text-white rounded-none text-xs font-bold uppercase tracking-widest">Retry</button>
+      <div className="p-8 bg-white/4 border border-white/10 rounded-2xl text-center">
+        <p className="text-neutral-400 font-medium text-sm">{error}</p>
+        <button onClick={() => window.location.reload()} className="mt-4 px-4 py-2 bg-white text-neutral-900 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors">Retry</button>
       </div>
     );
   }
@@ -89,37 +89,37 @@ export default function AdminStudentsPage() {
     {
       key: 'student_id',
       header: 'Student ID',
-      render: (s: StudentRow) => <span className="font-mono font-medium text-neutral-900">{s.student_id}</span>,
+      render: (s: StudentRow) => <span className="font-mono text-xs text-neutral-200">{s.student_id}</span>,
     },
     {
       key: 'name',
       header: 'Student',
       render: (s: StudentRow) => (
         <div>
-          <div className="font-medium text-neutral-900">{s.first_name} {s.last_name}</div>
-          <div className="text-xs text-neutral-500 font-mono">{s.email}</div>
+          <div className="font-bold text-xs text-neutral-200">{s.first_name} {s.last_name}</div>
+          <div className="text-[10px] text-neutral-500 font-mono">{s.email}</div>
         </div>
       ),
     },
-    { key: 'program', header: 'Program' },
-    { key: 'school', header: 'School' },
+    { key: 'program', header: 'Program', render: (s: StudentRow) => <span className="text-xs text-neutral-400">{s.program || '—'}</span> },
+    { key: 'school', header: 'School', render: (s: StudentRow) => <span className="text-xs text-neutral-400">{s.school || '—'}</span> },
     { key: 'status', header: 'Status', render: (s: StudentRow) => <StatusBadge status={s.status} /> },
     { key: 'enrollment_status', header: 'Enrollment', render: (s: StudentRow) => <StatusBadge status={s.enrollment_status} /> },
-    { key: 'advisor', header: 'Advisor' },
+    { key: 'advisor', header: 'Advisor', render: (s: StudentRow) => <span className="text-xs text-neutral-400">{s.advisor || '—'}</span> },
     {
       key: 'hold',
       header: 'Hold',
       render: (s: StudentRow) => s.hold ? (
-        <span className="px-2 py-1 bg-red-50 text-red-700 rounded-none text-[10px] font-bold uppercase">Yes</span>
+        <span className="px-2 py-0.5 bg-white/10 text-white border border-white/20 rounded-md text-[10px] font-bold uppercase">Yes</span>
       ) : (
-        <span className="text-neutral-400 text-[10px]">No</span>
+        <span className="text-neutral-600 text-[10px]">No</span>
       ),
     },
     {
       key: 'actions',
       header: 'Actions',
       render: (s: StudentRow) => (
-        <Link href={`/sis/admin/students/${s.id}`} className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">
+        <Link href={`/sis/admin/students/${s.id}`} className="text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white transition-colors no-underline">
           View
         </Link>
       ),
@@ -132,7 +132,7 @@ export default function AdminStudentsPage() {
         title="Student Administration"
         subtitle="Manage all student records, enrollment, and academic standing"
         actions={
-          <Link href="/sis/admin/students/new" className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
+          <Link href="/sis/admin/students/new" className="inline-flex items-center gap-2 px-4 py-2 bg-white text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-neutral-200 transition-colors no-underline">
             <HugeiconsIcon icon={UserPlus} size={14} strokeWidth={2.5} /> New Student
           </Link>
         }
@@ -179,11 +179,11 @@ export default function AdminStudentsPage() {
       />
 
       {selected.size > 0 && (
-        <div className="flex items-center justify-between p-4 bg-neutral-50 border border-neutral-200">
-          <span className="text-sm font-medium text-neutral-700">{selected.size} selected</span>
+        <div className="flex items-center justify-between p-4 bg-[#1a1a1a] border border-white/8 rounded-2xl">
+          <span className="text-sm font-medium text-neutral-300">{selected.size} selected</span>
           <div className="flex gap-2">
-            <button className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-neutral-200 text-neutral-700 hover:bg-neutral-100">Export</button>
-            <button className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider bg-red-600 text-white hover:bg-red-700">Bulk Action</button>
+            <button className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-white/10 text-neutral-300 hover:text-white rounded-lg transition-colors">Export</button>
+            <button className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider bg-white/10 text-white border border-white/20 rounded-lg hover:bg-white/20 transition-colors">Bulk Action</button>
           </div>
         </div>
       )}

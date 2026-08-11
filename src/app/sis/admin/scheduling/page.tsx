@@ -71,7 +71,12 @@ export default function SchedulingPage() {
       const data = await res.json();
       if (data.success) {
         setTerms(data.data || []);
-        const current = (data.data || []).find((t: any) => t.status === 'ACTIVE' || t.status === 'UPCOMING');
+        const fall2026 = (data.data || []).find((t: any) => 
+          t.name?.toLowerCase().includes('fall 2026') || 
+          t.code?.toLowerCase().includes('fall-2026') ||
+          t.name === 'Fall 2026'
+        );
+        const current = fall2026 || (data.data || []).find((t: any) => t.status === 'ACTIVE' || t.status === 'UPCOMING') || data.data?.[0];
         if (current) setTermId(current.id);
       }
     } catch (e: any) {
@@ -171,14 +176,14 @@ export default function SchedulingPage() {
   };
 
   const statCards = [
-    { label: 'Total Sections', value: stats?.totalSections || 0, icon: Bookmark, color: 'bg-blue-50 text-blue-700' },
-    { label: 'Scheduled', value: stats?.scheduledSections || 0, icon: Calendar, color: 'bg-green-50 text-green-700' },
-    { label: 'Unscheduled', value: stats?.unscheduledSections || 0, icon: Cancel, color: 'bg-red-50 text-red-700' },
-    { label: 'Rooms', value: stats?.totalRooms || 0, icon: Door, color: 'bg-purple-50 text-purple-700' },
-    { label: 'Faculty', value: stats?.totalFaculty || 0, icon: User, color: 'bg-orange-50 text-orange-700' },
-    { label: 'Students', value: stats?.totalStudents || 0, icon: User, color: 'bg-teal-50 text-teal-700' },
-    { label: 'Conflicts', value: stats?.totalConflicts || 0, icon: Settings, color: 'bg-red-50 text-red-700' },
-    { label: 'Optimization Score', value: stats?.optimizationScore != null ? `${stats.optimizationScore}%` : 'N/A', icon: Slider, color: 'bg-neutral-100 text-neutral-700' },
+    { label: 'Total Sections', value: stats?.totalSections || 0, icon: Bookmark, color: 'bg-neutral-800 text-white' },
+    { label: 'Scheduled', value: stats?.scheduledSections || 0, icon: Calendar, color: 'bg-neutral-800 text-white' },
+    { label: 'Unscheduled', value: stats?.unscheduledSections || 0, icon: Cancel, color: 'bg-neutral-800 text-white' },
+    { label: 'Rooms', value: stats?.totalRooms || 0, icon: Door, color: 'bg-neutral-800 text-white' },
+    { label: 'Faculty', value: stats?.totalFaculty || 0, icon: User, color: 'bg-neutral-800 text-white' },
+    { label: 'Students', value: stats?.totalStudents || 0, icon: User, color: 'bg-neutral-800 text-white' },
+    { label: 'Conflicts', value: stats?.totalConflicts || 0, icon: Settings, color: 'bg-neutral-800 text-white' },
+    { label: 'Optimization Score', value: stats?.optimizationScore != null ? `${stats.optimizationScore}%` : 'N/A', icon: Slider, color: 'bg-neutral-800 text-white' },
   ];
 
   return (
@@ -191,7 +196,7 @@ export default function SchedulingPage() {
             <select
               value={termId}
               onChange={(e) => setTermId(e.target.value)}
-              className="px-3 py-2 border border-neutral-200 rounded text-xs font-medium text-neutral-700 bg-white"
+              className="px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-neutral-900 outline-none"
             >
               <option value="">Select term</option>
               {terms.map((t: any) => (
@@ -201,7 +206,7 @@ export default function SchedulingPage() {
             <button
               onClick={() => setShowGenerateModal(true)}
               disabled={!termId || generating}
-              className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700 disabled:opacity-50 transition-all shadow-sm"
             >
               <HugeiconsIcon icon={Play} size={14} strokeWidth={2.5} />
               Generate Timetable
@@ -212,89 +217,90 @@ export default function SchedulingPage() {
 
       {loading ? (
         <div className="flex items-center justify-center py-20">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
         </div>
       ) : !termId ? (
-        <div className="text-center py-20 text-neutral-400 text-sm">Select a term to view scheduling data</div>
+        <div className="text-center py-20 text-neutral-400 text-sm font-medium">Select a term to view scheduling data</div>
       ) : (
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {statCards.map((card) => (
-              <div key={card.label} className="border border-neutral-200 p-4">
-                <div className={`inline-flex p-2 rounded ${card.color} mb-3`}>
+              <div key={card.label} className="bg-neutral-900 rounded-2xl p-4 shadow-sm transition-all">
+                <div className={`inline-flex p-2 rounded-xl ${card.color} mb-3`}>
                   <HugeiconsIcon icon={card.icon} size={16} strokeWidth={2} />
                 </div>
-                <div className="text-2xl font-black text-neutral-900">{card.value}</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mt-1">{card.label}</div>
+                <div className="text-2xl font-black text-white">{card.value}</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mt-1">{card.label}</div>
               </div>
             ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link href="/sis/admin/scheduling/rooms" className="border border-neutral-200 p-6 hover:border-neutral-300 transition-colors">
+            <Link href="/sis/admin/scheduling/rooms" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
               <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-neutral-100 text-neutral-700">
+                <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
                   <HugeiconsIcon icon={Door} size={20} strokeWidth={2} />
                 </div>
-                <h3 className="text-sm font-bold uppercase tracking-wider">Rooms</h3>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-white">Rooms</h3>
               </div>
-              <p className="text-xs text-neutral-500">Manage rooms, features, and availability blocks</p>
+              <p className="text-xs text-neutral-400">Manage rooms, features, and availability blocks</p>
             </Link>
 
-            <Link href="/sis/admin/scheduling/sections" className="border border-neutral-200 p-6 hover:border-neutral-300 transition-colors">
+            <Link href="/sis/admin/scheduling/sections" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
               <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-neutral-100 text-neutral-700">
+                <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
                   <HugeiconsIcon icon={Bookmark} size={20} strokeWidth={2} />
                 </div>
-                <h3 className="text-sm font-bold uppercase tracking-wider">Sections</h3>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-white">Sections</h3>
               </div>
-              <p className="text-xs text-neutral-500">Create and configure course sections and requirements</p>
+              <p className="text-xs text-neutral-400">Create and configure course sections and requirements</p>
             </Link>
 
-            <Link href="/sis/admin/scheduling/availability" className="border border-neutral-200 p-6 hover:border-neutral-300 transition-colors">
+            <Link href="/sis/admin/scheduling/availability" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
               <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-neutral-100 text-neutral-700">
+                <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
                   <HugeiconsIcon icon={Calendar} size={20} strokeWidth={2} />
                 </div>
-                <h3 className="text-sm font-bold uppercase tracking-wider">Availability</h3>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-white">Availability</h3>
               </div>
-              <p className="text-xs text-neutral-500">Manage instructor availability and time preferences</p>
+              <p className="text-xs text-neutral-400">Manage instructor availability and time preferences</p>
             </Link>
 
-            <Link href="/sis/admin/scheduling/settings" className="border border-neutral-200 p-6 hover:border-neutral-300 transition-colors">
+            <Link href="/sis/admin/scheduling/settings" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
               <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-neutral-100 text-neutral-700">
+                <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
                   <HugeiconsIcon icon={Settings} size={20} strokeWidth={2} />
                 </div>
-                <h3 className="text-sm font-bold uppercase tracking-wider">Settings</h3>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-white">Settings</h3>
               </div>
-              <p className="text-xs text-neutral-500">Configure constraints, preferences, time slots, and holidays</p>
+              <p className="text-xs text-neutral-400">Configure constraints, preferences, time slots, and holidays</p>
             </Link>
           </div>
 
           {stats?.latestVersion && (
-            <div className="border border-neutral-200 p-6">
-              <h3 className="text-sm font-bold uppercase tracking-wider mb-4">Latest Version</h3>
+            <div className="bg-neutral-900 rounded-2xl p-6">
+              <h3 className="text-sm font-bold uppercase tracking-wider mb-4 text-white">Latest Version</h3>
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-medium text-neutral-900">
+                  <div className="text-sm font-bold text-white">
                     Version {(stats.latestVersion as any)?.version_number} - {(stats.latestVersion as any)?.label || 'Untitled'}
                   </div>
-                  <div className="text-xs text-neutral-500 mt-1">
-                    Status: <StatusBadge status={(stats.latestVersion as any)?.status || 'DRAFT'} />
+                  <div className="text-xs text-neutral-400 mt-1 flex items-center gap-2">
+                    <span>Status:</span>
+                    <StatusBadge status={(stats.latestVersion as any)?.status || 'DRAFT'} />
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <Link
                     href="/sis/admin/timetable"
-                    className="px-4 py-2 border border-neutral-200 text-neutral-700 rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-50"
+                    className="px-4 py-2 text-white bg-neutral-800 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-neutral-700 transition-all"
                   >
                     View Timetable
                   </Link>
                   {(stats.latestVersion as any)?.status === 'APPROVED' && !(stats.latestVersion as any)?.is_published && (
                     <button
                       onClick={() => handlePublish((stats.latestVersion as TimetableVersion)!.id)}
-                      className="px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800"
+                      className="px-4 py-2 bg-[#9c27b3] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700 transition-all"
                     >
                       Publish
                     </button>
@@ -305,14 +311,14 @@ export default function SchedulingPage() {
           )}
 
           {unscheduled.length > 0 && (
-            <div className="border border-neutral-200 p-6">
-              <h3 className="text-sm font-bold uppercase tracking-wider mb-4">Unscheduled Sections</h3>
+            <div className="bg-neutral-900 rounded-2xl p-6">
+              <h3 className="text-sm font-bold uppercase tracking-wider mb-4 text-white">Unscheduled Sections</h3>
               <div className="space-y-2">
                 {unscheduled.slice(0, 10).map((section) => (
-                  <div key={section.id} className="flex items-center justify-between py-2 border-b border-neutral-100 last:border-0">
+                  <div key={section.id} className="flex items-center justify-between py-2.5 border-b border-neutral-800/50 last:border-0">
                     <div>
-                      <div className="text-sm font-medium text-neutral-900">{section.code}</div>
-                      <div className="text-xs text-neutral-500">Status: {(section as any).status}</div>
+                      <div className="text-sm font-bold text-white">{section.code}</div>
+                      <div className="text-xs text-neutral-400">Status: {(section as any).status}</div>
                     </div>
                     <StatusBadge status={(section as any).status} />
                   </div>
@@ -331,18 +337,18 @@ export default function SchedulingPage() {
         size="md"
         footer={
           <div className="flex justify-end gap-3">
-            <button onClick={() => setShowGenerateModal(false)} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-neutral-600 hover:text-black">Cancel</button>
-            <button onClick={handleGenerate} disabled={generating} className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
+            <button onClick={() => setShowGenerateModal(false)} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-neutral-400 hover:text-white">Cancel</button>
+            <button onClick={handleGenerate} disabled={generating} className="px-6 py-2 bg-[#9c27b3] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700 disabled:opacity-50">
               {generating ? 'Starting...' : 'Start Generation'}
             </button>
           </div>
         }
       >
-        <div className="space-y-4">
-          <p className="text-sm text-neutral-600">This will run the constraint-based scheduling engine for the selected term. This process may take several minutes.</p>
-          <div className="border border-neutral-200 p-4">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-neutral-700 mb-2">What happens:</h4>
-            <ul className="text-xs text-neutral-600 space-y-1 list-disc list-inside">
+        <div className="space-y-4 text-neutral-200">
+          <p className="text-sm text-neutral-300">This will run the constraint-based scheduling engine for the selected term. This process may take several minutes.</p>
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-neutral-300 mb-2">What happens:</h4>
+            <ul className="text-xs text-neutral-400 space-y-1 list-disc list-inside">
               <li>Analyzes all sections, rooms, and instructor availability</li>
               <li>Applies hard constraints (no double bookings, room types, etc.)</li>
               <li>Optimizes soft preferences (gaps, building changes, utilization)</li>
@@ -361,36 +367,36 @@ export default function SchedulingPage() {
         size="md"
         footer={
           progress && ['COMPLETED', 'PARTIAL', 'FAILED', 'CANCELLED'].includes(progress.status) ? (
-            <button onClick={() => { setShowProgressModal(false); setShowResultsModal(true); }} className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
+            <button onClick={() => { setShowProgressModal(false); setShowResultsModal(true); }} className="px-6 py-2 bg-[#9c27b3] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700">
               View Results
             </button>
           ) : null
         }
       >
-        <div className="space-y-4">
-          <div className="w-full bg-neutral-200 h-2">
+        <div className="space-y-4 text-neutral-200">
+          <div className="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
             <div className="bg-[#9c27b3] h-2 transition-all duration-500" style={{ width: `${progress?.progress || 0}%` }} />
           </div>
           <div className="text-center">
-            <div className="text-lg font-bold text-neutral-900">{progress?.currentStage || 'Initializing'}</div>
-            <div className="text-xs text-neutral-500 mt-1">{progress?.progress || 0}% complete</div>
+            <div className="text-lg font-bold text-white">{progress?.currentStage || 'Initializing'}</div>
+            <div className="text-xs text-neutral-400 mt-1">{progress?.progress || 0}% complete</div>
           </div>
           <div className="grid grid-cols-2 gap-3 text-xs">
-            <div className="border border-neutral-200 p-2">
-              <div className="text-neutral-500">Courses</div>
-              <div className="font-bold">{progress?.coursesCount || 0}</div>
+            <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3">
+              <div className="text-neutral-400">Courses</div>
+              <div className="font-bold text-white text-sm">{progress?.coursesCount || 0}</div>
             </div>
-            <div className="border border-neutral-200 p-2">
-              <div className="text-neutral-500">Sections</div>
-              <div className="font-bold">{progress?.sectionsCount || 0}</div>
+            <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3">
+              <div className="text-neutral-400">Sections</div>
+              <div className="font-bold text-white text-sm">{progress?.sectionsCount || 0}</div>
             </div>
-            <div className="border border-neutral-200 p-2">
-              <div className="text-neutral-500">Assignments</div>
-              <div className="font-bold">{progress?.assignmentsCount || 0}</div>
+            <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3">
+              <div className="text-neutral-400">Assignments</div>
+              <div className="font-bold text-white text-sm">{progress?.assignmentsCount || 0}</div>
             </div>
-            <div className="border border-neutral-200 p-2">
-              <div className="text-neutral-500">Hard Violations</div>
-              <div className="font-bold text-red-600">{progress?.hardViolations || 0}</div>
+            <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3">
+              <div className="text-neutral-400">Hard Violations</div>
+              <div className="font-bold text-red-400 text-sm">{progress?.hardViolations || 0}</div>
             </div>
           </div>
           {progress?.softScore != null && (

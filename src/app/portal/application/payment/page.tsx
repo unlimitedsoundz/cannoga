@@ -70,15 +70,8 @@ function PaymentContent() {
                 const offer = Array.isArray(application.offer) ? application.offer[0] : application.offer;
 
                 // Allow access if there is an offer; missing/invoice-prep states are handled below
-                if (!offer) {
-                    console.error('Offer object is null or empty');
-                    setError('Your tuition invoice is being prepared. Please check back later or contact the Admissions Office if you have questions.');
-                    setLoading(false);
-                    return;
-                }
-
-                if (application.status === 'OFFER_ACCEPTED' && !offer.invoice_pushed) {
-                    setError('Your tuition invoice is being prepared. Please check back later or contact the Admissions Office if you have questions.');
+                if (!offer || !offer.invoice_pushed) {
+                    setError('No payment invoice available yet. Your tuition invoice is being prepared by the finance office.');
                     setLoading(false);
                     return;
                 }

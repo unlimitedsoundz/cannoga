@@ -213,6 +213,8 @@ const tabs = [
   const holdAmount = 0;
   const refundAmount = 0;
 
+  const [showNoInvoiceModal, setShowNoInvoiceModal] = useState(false);
+
   return (
     <div className="space-y-6">
       <PageHeader
@@ -309,14 +311,11 @@ const tabs = [
             onClick={() => {
               if (admissionOffer?.invoice_pushed && student?.application_id) {
                 window.location.href = `/portal/application/payment?id=${student.application_id}`;
+              } else {
+                setShowNoInvoiceModal(true);
               }
             }}
-            disabled={!admissionOffer?.invoice_pushed}
-            className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition ${
-              admissionOffer?.invoice_pushed
-                ? 'bg-[#9c27b3] text-white hover:bg-neutral-800 cursor-pointer'
-                : 'bg-neutral-200 text-neutral-500 cursor-not-allowed'
-            }`}
+            className="px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition cursor-pointer"
           >
             Make Payment
           </button>
@@ -324,6 +323,26 @@ const tabs = [
           <button className="px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-100">View Tax Forms (T2202)</button>
         </div>
       </div>
+
+      {showNoInvoiceModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white border border-neutral-200 p-6 sm:p-8 max-w-md w-full rounded-2xl shadow-xl text-center">
+            <div className="w-12 h-12 bg-amber-50 text-amber-600 border border-amber-200 rounded-full flex items-center justify-center mx-auto mb-4">
+              <HugeiconsIcon icon={FileText} size={24} strokeWidth={2} />
+            </div>
+            <h3 className="text-lg font-bold text-neutral-900 mb-2">No Payment Invoice Available Yet</h3>
+            <p className="text-sm text-neutral-600 leading-relaxed mb-6">
+              Your payment invoice has not been prepared or issued by the finance department yet. Please check back later or contact the Student Financial Services office.
+            </p>
+            <button
+              onClick={() => setShowNoInvoiceModal(false)}
+              className="w-full py-2.5 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-neutral-800 transition"
+            >
+              Understood
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Shield, Envelope, Lock } from '@phosphor-icons/react';
+import { Shield, Eye, EyeSlash } from '@phosphor-icons/react';
 import { Button } from '@aalto-dx/react-components';
 import { useRouter } from 'next/navigation';
 import { Toaster, toast } from 'sonner';
@@ -9,6 +9,7 @@ import { Toaster, toast } from 'sonner';
 export default function AdminLoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
@@ -79,36 +80,39 @@ export default function AdminLoginPage() {
 
                 <form onSubmit={handleLogin} className="space-y-5">
                     <div>
-                        <label className="block text-[10px] font-black uppercase text-neutral-400 mb-2 ml-1">Work Email Address</label>
-                        <div className="relative">
-                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
-                                <Envelope size={18} weight="bold" />
-                            </span>
-                            <input
-                                type="email"
-                                required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2.5 bg-white border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent outline-none transition-all text-sm"
-                                placeholder="name@cannogacollege.ca"
-                            />
-                        </div>
+                        <label className="block text-[10px] font-black uppercase tracking-wider text-neutral-500 mb-1.5 ml-0.5">
+                            Work Email Address
+                        </label>
+                        <input
+                            type="email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full px-4 py-2.5 bg-white border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent outline-none transition-all text-sm text-neutral-900 placeholder-neutral-400"
+                            placeholder="name@cannogacollege.ca"
+                        />
                     </div>
 
                     <div>
-                        <label className="block text-[10px] font-black uppercase text-neutral-400 mb-2 ml-1">Administrative Password</label>
-                        <div className="relative">
-                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
-                                <Lock size={18} weight="bold" />
-                            </span>
+                        <label className="block text-[10px] font-black uppercase tracking-wider text-neutral-500 mb-1.5 ml-0.5">
+                            Administrative Password
+                        </label>
+                        <div className="relative flex items-center">
                             <input
-                                type="password"
+                                type={showPassword ? 'text' : 'password'}
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2.5 bg-white border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent outline-none transition-all text-sm"
+                                className="w-full pl-4 pr-11 py-2.5 bg-white border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent outline-none transition-all text-sm text-neutral-900 placeholder-neutral-400"
                                 placeholder="••••••••••••"
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3.5 text-neutral-400 hover:text-neutral-900 transition-colors p-1"
+                            >
+                                {showPassword ? <EyeSlash size={18} weight="bold" /> : <Eye size={18} weight="bold" />}
+                            </button>
                         </div>
                     </div>
 

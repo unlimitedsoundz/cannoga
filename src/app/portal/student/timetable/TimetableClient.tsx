@@ -152,23 +152,20 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
                                                 {daySessions.map(session => (
                                                     <div
                                                         key={session.id}
-                                                        className={`p-2 rounded-sm border-l-4 shadow-sm transition-all hover:scale-[1.02] cursor-default
-                                                            ${(session.section?.delivery_mode === 'ONLINE' || session.section?.session_type === 'ONLINE')
-                                                                ? 'bg-blue-50 border-blue-600 text-blue-900'
-                                                                : 'bg-neutral-50 border-neutral-600 text-neutral-900'}`}
+                                                        className="p-2.5 rounded-2xl bg-blue-600 border border-blue-500 shadow-md text-white transition-all hover:scale-[1.02] cursor-default"
                                                     >
                                                         <div className="flex items-center justify-between gap-1">
-                                                            <span className="text-[9px] font-black uppercase truncate">{session.section?.module?.code}</span>
-                                                            {(session.section?.delivery_mode === 'ONLINE' || session.section?.session_type === 'ONLINE') ? <Video size={10} weight="regular" /> : <MapPin size={10} weight="regular" />}
+                                                            <span className="text-[10px] font-black uppercase text-blue-200 truncate">{session.section?.module?.code}</span>
+                                                            {(session.section?.delivery_mode === 'ONLINE' || session.section?.session_type === 'ONLINE') ? <Video size={10} className="text-blue-200" weight="regular" /> : <MapPin size={10} className="text-blue-200" weight="regular" />}
                                                         </div>
-                                                        <div className="text-[10px] font-bold leading-tight mt-1 line-clamp-2">
+                                                        <div className="text-xs font-bold leading-tight mt-1 text-white line-clamp-2">
                                                             {session.section?.module?.title}
                                                         </div>
-                                                        <div className="flex items-center gap-1 mt-1 text-[8px] font-bold opacity-70">
-                                                            <Clock size={8} weight="regular" /> {session.start_time.slice(0, 5)} - {session.end_time.slice(0, 5)}
+                                                        <div className="flex items-center gap-1 mt-1 text-[9px] font-medium text-blue-100">
+                                                            <Clock size={10} className="text-blue-200" weight="regular" /> {session.start_time.slice(0, 5)} - {session.end_time.slice(0, 5)}
                                                         </div>
                                                         {session.room && (
-                                                            <div className="mt-1 text-[8px] font-black uppercase tracking-tighter truncate">
+                                                            <div className="mt-1 text-[9px] font-black uppercase tracking-tighter text-blue-200 truncate">
                                                                 {session.room.name}{session.room.building ? `, ${session.room.building}` : ''}
                                                             </div>
                                                         )}

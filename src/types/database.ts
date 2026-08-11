@@ -1829,6 +1829,422 @@ export interface Database {
           updated_at?: string
         }
       }
+      voice_agents: {
+        Row: {
+          id: string
+          name: string
+          slug: string
+          role: string
+          description: string | null
+          active: boolean
+          voice_provider: string
+          voice_id: string | null
+          system_prompt: string
+          greeting: string
+          language: string
+          timezone: string
+          business_hours: any
+          transfer_enabled: boolean
+          transfer_number: string | null
+          fallback_text: string
+          max_call_duration_seconds: number
+          recording_enabled: boolean
+          recording_consent_text: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name?: string
+          slug?: string
+          role?: string
+          description?: string | null
+          active?: boolean
+          voice_provider?: string
+          voice_id?: string | null
+          system_prompt?: string
+          greeting?: string
+          language?: string
+          timezone?: string
+          business_hours?: any
+          transfer_enabled?: boolean
+          transfer_number?: string | null
+          fallback_text?: string
+          max_call_duration_seconds?: number
+          recording_enabled?: boolean
+          recording_consent_text?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          slug?: string
+          role?: string
+          description?: string | null
+          active?: boolean
+          voice_provider?: string
+          voice_id?: string | null
+          system_prompt?: string
+          greeting?: string
+          language?: string
+          timezone?: string
+          business_hours?: any
+          transfer_enabled?: boolean
+          transfer_number?: string | null
+          fallback_text?: string
+          max_call_duration_seconds?: number
+          recording_enabled?: boolean
+          recording_consent_text?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      voice_agent_settings: {
+        Row: {
+          id: string
+          agent_id: string
+          setting_key: string
+          setting_value: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          agent_id: string
+          setting_key: string
+          setting_value?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          agent_id?: string
+          setting_key?: string
+          setting_value?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      voice_calls: {
+        Row: {
+          id: string
+          agent_id: string
+          provider: string
+          provider_call_id: string | null
+          caller_phone: string | null
+          called_phone: string | null
+          direction: string
+          status: string
+          started_at: string
+          answered_at: string | null
+          ended_at: string | null
+          duration_seconds: number | null
+          transferred: boolean
+          transfer_target: string | null
+          intent: string | null
+          summary: string | null
+          student_id: string | null
+          application_id: string | null
+          metadata: any
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          agent_id: string
+          provider?: string
+          provider_call_id?: string | null
+          caller_phone?: string | null
+          called_phone?: string | null
+          direction?: string
+          status?: string
+          started_at?: string
+          answered_at?: string | null
+          ended_at?: string | null
+          duration_seconds?: number | null
+          transferred?: boolean
+          transfer_target?: string | null
+          intent?: string | null
+          summary?: string | null
+          student_id?: string | null
+          application_id?: string | null
+          metadata?: any
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          agent_id?: string
+          provider?: string
+          provider_call_id?: string | null
+          caller_phone?: string | null
+          called_phone?: string | null
+          direction?: string
+          status?: string
+          started_at?: string
+          answered_at?: string | null
+          ended_at?: string | null
+          duration_seconds?: number | null
+          transferred?: boolean
+          transfer_target?: string | null
+          intent?: string | null
+          summary?: string | null
+          student_id?: string | null
+          application_id?: string | null
+          metadata?: any
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      voice_call_messages: {
+        Row: {
+          id: string
+          call_id: string
+          role: string
+          message: string
+          timestamp: string
+          sequence: number
+          metadata: any
+        }
+        Insert: {
+          id?: string
+          call_id: string
+          role: string
+          message: string
+          timestamp?: string
+          sequence: number
+          metadata?: any
+        }
+        Update: {
+          id?: string
+          call_id?: string
+          role?: string
+          message?: string
+          timestamp?: string
+          sequence?: number
+          metadata?: any
+        }
+      }
+      voice_call_tool_events: {
+        Row: {
+          id: string
+          call_id: string
+          tool_name: string
+          arguments: any
+          result: any
+          success: boolean
+          error: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          call_id: string
+          tool_name: string
+          arguments?: any
+          result?: any
+          success?: boolean
+          error?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          call_id?: string
+          tool_name?: string
+          arguments?: any
+          result?: any
+          success?: boolean
+          error?: string | null
+          created_at?: string
+        }
+      }
+      voice_call_summaries: {
+        Row: {
+          id: string
+          call_id: string
+          summary: string
+          intent: string | null
+          topics: any
+          next_action: string | null
+          follow_up_required: boolean
+          follow_up_date: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          call_id: string
+          summary: string
+          intent?: string | null
+          topics?: any
+          next_action?: string | null
+          follow_up_required?: boolean
+          follow_up_date?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          call_id?: string
+          summary?: string
+          intent?: string | null
+          topics?: any
+          next_action?: string | null
+          follow_up_required?: boolean
+          follow_up_date?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      voice_agent_knowledge: {
+        Row: {
+          id: string
+          title: string
+          category: string
+          content: string
+          source_type: string
+          source_reference: string | null
+          active: boolean
+          priority: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          category: string
+          content: string
+          source_type?: string
+          source_reference?: string | null
+          active?: boolean
+          priority?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          category?: string
+          content?: string
+          source_type?: string
+          source_reference?: string | null
+          active?: boolean
+          priority?: number
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      voice_agent_faqs: {
+        Row: {
+          id: string
+          question: string
+          answer: string
+          category: string
+          active: boolean
+          priority: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          question: string
+          answer: string
+          category: string
+          active?: boolean
+          priority?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          question?: string
+          category?: string
+          answer?: string
+          active?: boolean
+          priority?: number
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      voice_agent_transfers: {
+        Row: {
+          id: string
+          call_id: string
+          reason: string
+          department: string | null
+          destination: string
+          status: string
+          created_at: string
+          completed_at: string | null
+        }
+        Insert: {
+          id?: string
+          call_id: string
+          reason: string
+          department?: string | null
+          destination: string
+          status?: string
+          created_at?: string
+          completed_at?: string | null
+        }
+        Update: {
+          id?: string
+          call_id?: string
+          reason?: string
+          department?: string | null
+          destination?: string
+          status?: string
+          created_at?: string
+          completed_at?: string | null
+        }
+      }
+      voice_agent_callbacks: {
+        Row: {
+          id: string
+          call_id: string | null
+          caller_name: string | null
+          phone: string
+          email: string | null
+          preferred_time: string | null
+          timezone: string
+          reason: string
+          status: string
+          assigned_to: string | null
+          notes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          call_id?: string | null
+          caller_name?: string | null
+          phone: string
+          email?: string | null
+          preferred_time?: string | null
+          timezone?: string
+          reason: string
+          status?: string
+          assigned_to?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          call_id?: string | null
+          caller_name?: string | null
+          phone?: string
+          email?: string | null
+          preferred_time?: string | null
+          timezone?: string
+          reason?: string
+          status?: string
+          assigned_to?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
   }
 }
@@ -1854,6 +2270,16 @@ export type ScholarshipApplication = Database['public']['Tables']['scholarship_a
 export type InstallmentPlan = Database['public']['Tables']['installment_plans']['Row']
 export type InstallmentPayment = Database['public']['Tables']['installment_payments']['Row']
 export type BankAccount = Database['public']['Tables']['bank_accounts']['Row']
+export type VoiceAgent = Database['public']['Tables']['voice_agents']['Row']
+export type VoiceAgentSetting = Database['public']['Tables']['voice_agent_settings']['Row']
+export type VoiceCall = Database['public']['Tables']['voice_calls']['Row']
+export type VoiceCallMessage = Database['public']['Tables']['voice_call_messages']['Row']
+export type VoiceCallToolEvent = Database['public']['Tables']['voice_call_tool_events']['Row']
+export type VoiceCallSummary = Database['public']['Tables']['voice_call_summaries']['Row']
+export type VoiceAgentKnowledge = Database['public']['Tables']['voice_agent_knowledge']['Row']
+export type VoiceAgentFaq = Database['public']['Tables']['voice_agent_faqs']['Row']
+export type VoiceAgentTransfer = Database['public']['Tables']['voice_agent_transfers']['Row']
+export type VoiceAgentCallback = Database['public']['Tables']['voice_agent_callbacks']['Row']
 
 export type School = {
   id: string;

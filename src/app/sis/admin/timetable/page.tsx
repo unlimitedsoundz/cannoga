@@ -151,8 +151,14 @@ export default function TimetablePage() {
       setSemesters(semestersData);
       setRooms(roomsData);
       setInstructors(instructorsData);
-      if (semestersData.length > 0 && !selectedTerm) {
-        setSelectedTerm(semestersData[0].id);
+      if (semestersData.length > 0) {
+        const fall2026 = semestersData.find(s => 
+          s.name?.toLowerCase().includes('fall 2026') || 
+          (s as any).code?.toLowerCase().includes('fall-2026') || 
+          (s as any).code?.toLowerCase().includes('2026-fall') ||
+          s.name === 'Fall 2026'
+        );
+        setSelectedTerm(fall2026 ? fall2026.id : semestersData[0].id);
       }
     } catch (err: any) {
       toast.error(err.message || 'Failed to load lookups');
@@ -467,7 +473,7 @@ export default function TimetablePage() {
     }
 
     return (
-      <div className="overflow-x-auto border border-neutral-200 bg-white">
+      <div className="overflow-hidden border border-neutral-200 bg-white rounded-2xl shadow-sm">
         <div className="flex min-w-[900px]">
           <div className="w-[60px] flex-shrink-0 border-r border-neutral-200 bg-neutral-50">
             <div className="h-[40px] border-b border-neutral-200"></div>
@@ -504,38 +510,39 @@ export default function TimetablePage() {
                    })}
                    {dayAssignments.map(assignment => {
                      const { top, height } = getCardPosition(assignment.start_time, assignment.end_time);
-                     const colors = SESSION_COLORS[assignment.section?.session_type] || SESSION_COLORS.LECTURE;
                      return (
                        <div
                          key={assignment.id}
                          draggable
                          onDragStart={() => handleDragStart(assignment)}
                          onClick={() => openDetailModal(assignment)}
-                         className={`absolute left-1 right-1 ${colors.bg} ${colors.border} border rounded p-1.5 cursor-pointer hover:shadow-md transition-shadow z-10 overflow-hidden ${draggingAssignment?.id === assignment.id ? 'opacity-50' : ''}`}
+                         className={`absolute left-1 right-1 bg-blue-600 hover:bg-blue-700 rounded-xl p-1.5 cursor-pointer shadow-sm hover:shadow-lg transition-all z-10 overflow-hidden text-white flex flex-col justify-between ${draggingAssignment?.id === assignment.id ? 'opacity-50' : ''}`}
                          style={{ top: `${top}px`, height: `${height - 2}px` }}
                        >
-                        <div className={`text-[10px] font-black uppercase tracking-widest ${colors.text} mb-0.5 truncate`}>
-                          {assignment.section?.module?.code}
+                        <div>
+                          <div className="text-[9px] font-black uppercase tracking-wider text-blue-200 leading-none truncate">
+                            {assignment.section?.module?.code}
+                          </div>
+                          <div className="text-[10px] font-bold text-white truncate leading-tight mt-0.5">
+                            {assignment.section?.module?.title}
+                          </div>
+                          <div className="text-[9px] text-blue-100 truncate mt-0.5">
+                            Sec {assignment.section?.code}
+                          </div>
                         </div>
-                        <div className="text-[11px] font-bold text-neutral-900 truncate leading-tight">
-                          {assignment.section?.module?.title}
-                        </div>
-                        <div className="text-[10px] text-neutral-500 truncate mt-0.5">
-                          {assignment.section?.code}
-                        </div>
-                        {height > 50 && (
-                          <>
-                            <div className="flex items-center gap-1 mt-1 text-[10px] text-neutral-600">
-                              <HugeiconsIcon icon={User} size={10} strokeWidth={2.5} />
+                        {height > 55 && (
+                          <div className="mt-0.5 pt-0.5 border-t border-blue-500/50 space-y-0.5">
+                            <div className="flex items-center gap-1 text-[9px] text-blue-100 leading-none">
+                              <HugeiconsIcon icon={User} size={9} strokeWidth={2.5} />
                               <span className="truncate">
                                 {assignment.section?.instructor ? `${assignment.section.instructor.name}` : 'TBD'}
                               </span>
                             </div>
-                            <div className="flex items-center gap-1 mt-0.5 text-[10px] text-neutral-600">
-                              <HugeiconsIcon icon={MapPin} size={10} strokeWidth={2.5} />
+                            <div className="flex items-center gap-1 text-[9px] text-blue-200 leading-none">
+                              <HugeiconsIcon icon={MapPin} size={9} strokeWidth={2.5} />
                               <span className="truncate">{assignment.room?.name} ({assignment.room?.building})</span>
                             </div>
-                          </>
+                          </div>
                         )}
                       </div>
                     );
@@ -558,7 +565,7 @@ export default function TimetablePage() {
     const dayAssignments = assignmentsByDay.get(selectedDay) || [];
 
     return (
-      <div className="overflow-x-auto border border-neutral-200 bg-white">
+      <div className="overflow-hidden border border-neutral-200 bg-white rounded-2xl shadow-sm">
         <div className="flex min-w-[400px]">
           <div className="w-[60px] flex-shrink-0 border-r border-neutral-200 bg-neutral-50">
             <div className="h-[40px] border-b border-neutral-200"></div>
@@ -592,38 +599,39 @@ export default function TimetablePage() {
                })}
                {dayAssignments.map(assignment => {
                  const { top, height } = getCardPosition(assignment.start_time, assignment.end_time);
-                 const colors = SESSION_COLORS[assignment.section?.session_type] || SESSION_COLORS.LECTURE;
                  return (
                     <div
                       key={assignment.id}
                       draggable
                       onDragStart={() => handleDragStart(assignment)}
                       onClick={() => openDetailModal(assignment)}
-                      className={`absolute left-2 right-2 ${colors.bg} ${colors.border} border rounded p-3 cursor-pointer hover:shadow-md transition-shadow z-10 overflow-hidden ${draggingAssignment?.id === assignment.id ? 'opacity-50' : ''}`}
+                      className={`absolute left-2 right-2 bg-blue-600 hover:bg-blue-700 rounded-xl p-2 cursor-pointer shadow-sm hover:shadow-lg transition-all z-10 overflow-hidden text-white ${draggingAssignment?.id === assignment.id ? 'opacity-50' : ''}`}
                       style={{ top: `${top}px`, height: `${height - 4}px` }}
                     >
-                     <div className={`text-[10px] font-black uppercase tracking-widest ${colors.text} mb-1 truncate`}>
+                     <div className="text-[9px] font-black uppercase tracking-wider text-blue-200 leading-none truncate">
                        {assignment.section?.module?.code}
                      </div>
-                     <div className="text-sm font-bold text-neutral-900 truncate">
+                     <div className="text-xs font-bold text-white truncate leading-tight mt-0.5">
                        {assignment.section?.module?.title}
                      </div>
-                     <div className="text-xs text-neutral-500 mt-1 truncate">
-                       {assignment.section?.code}
+                     <div className="text-[10px] text-blue-100 mt-0.5 truncate">
+                       Section {assignment.section?.code}
                      </div>
-                     <div className="flex items-center gap-1.5 mt-2 text-xs text-neutral-600">
-                       <HugeiconsIcon icon={User} size={12} strokeWidth={2.5} />
-                       <span className="truncate">
-                         {assignment.section?.instructor ? `${assignment.section.instructor.name}` : 'TBD'}
-                       </span>
-                     </div>
-                     <div className="flex items-center gap-1.5 mt-1 text-xs text-neutral-600">
-                       <HugeiconsIcon icon={MapPin} size={12} strokeWidth={2.5} />
-                       <span className="truncate">{assignment.room?.name} ({assignment.room?.building})</span>
-                     </div>
-                     <div className="flex items-center gap-1.5 mt-1 text-xs text-neutral-600">
-                       <HugeiconsIcon icon={Clock} size={12} strokeWidth={2.5} />
-                       <span className="truncate">{formatTime(assignment.start_time)} - {formatTime(assignment.end_time)}</span>
+                     <div className="mt-1 space-y-0.5">
+                       <div className="flex items-center gap-1 text-[10px] text-blue-100">
+                         <HugeiconsIcon icon={User} size={10} strokeWidth={2.5} />
+                         <span className="truncate">
+                           {assignment.section?.instructor ? `${assignment.section.instructor.name}` : 'TBD'}
+                         </span>
+                       </div>
+                       <div className="flex items-center gap-1 text-[10px] text-blue-200">
+                         <HugeiconsIcon icon={MapPin} size={10} strokeWidth={2.5} />
+                         <span className="truncate">{assignment.room?.name} ({assignment.room?.building})</span>
+                       </div>
+                       <div className="flex items-center gap-1 text-[10px] text-blue-200">
+                         <HugeiconsIcon icon={Clock} size={10} strokeWidth={2.5} />
+                         <span className="truncate">{formatTime(assignment.start_time)} - {formatTime(assignment.end_time)}</span>
+                       </div>
                      </div>
                    </div>
                 );
@@ -639,7 +647,7 @@ export default function TimetablePage() {
     return (
       <div className="space-y-4">
         {groups.map(group => (
-          <div key={group.key} className="border border-neutral-200 bg-white">
+          <div key={group.key} className="border border-neutral-200 bg-white rounded-2xl overflow-hidden shadow-sm">
             <div className="px-4 py-3 border-b border-neutral-200 bg-neutral-50">
               <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900">{group.label}</h3>
               <p className="text-[10px] text-neutral-500 mt-0.5">{group.assignments.length} session{group.assignments.length !== 1 ? 's' : ''}</p>
@@ -647,32 +655,31 @@ export default function TimetablePage() {
             <div className="p-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {group.assignments.map(assignment => {
-                  const colors = SESSION_COLORS[assignment.section?.session_type] || SESSION_COLORS.LECTURE;
                   return (
                     <div
                       key={assignment.id}
                       onClick={() => openDetailModal(assignment)}
-                      className={`${colors.bg} ${colors.border} border rounded p-3 cursor-pointer hover:shadow-md transition-shadow`}
+                      className="bg-blue-600 hover:bg-blue-700 border border-blue-500/80 rounded-2xl p-4 cursor-pointer shadow-sm hover:shadow-lg transition-all text-white"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest ${colors.text} bg-white/50`}>
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-blue-700/80 text-blue-100 border border-blue-400/30">
                           {assignment.section?.session_type}
                         </span>
-                        <StatusBadge status={colors.text.includes('emerald') ? 'active' : 'pending'} size="sm" />
+                        <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
                       </div>
-                      <div className="text-sm font-bold text-neutral-900">{assignment.section?.module?.code}</div>
-                      <div className="text-xs text-neutral-600 mt-0.5">{assignment.section?.module?.title}</div>
-                      <div className="text-xs text-neutral-500 mt-1">Section {assignment.section?.code}</div>
+                      <div className="text-sm font-bold text-white">{assignment.section?.module?.code}</div>
+                      <div className="text-xs text-blue-100 mt-0.5">{assignment.section?.module?.title}</div>
+                      <div className="text-xs text-blue-200 mt-1">Section {assignment.section?.code}</div>
                       <div className="mt-3 space-y-1.5">
-                        <div className="flex items-center gap-2 text-xs text-neutral-600">
+                        <div className="flex items-center gap-2 text-xs text-blue-100">
                           <HugeiconsIcon icon={Clock} size={12} strokeWidth={2.5} />
                           <span>{formatTime(assignment.start_time)} - {formatTime(assignment.end_time)}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-neutral-600">
+                        <div className="flex items-center gap-2 text-xs text-blue-100">
                           <HugeiconsIcon icon={MapPin} size={12} strokeWidth={2.5} />
                           <span>{assignment.room?.name} ({assignment.room?.building})</span>
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-neutral-600">
+                        <div className="flex items-center gap-2 text-xs text-blue-100">
                           <HugeiconsIcon icon={User} size={12} strokeWidth={2.5} />
                           <span>
                             {assignment.section?.instructor ? `${assignment.section.instructor.name}` : 'TBD'}
@@ -718,7 +725,7 @@ export default function TimetablePage() {
             <select
               value={selectedTerm}
               onChange={e => setSelectedTerm(e.target.value)}
-              className="px-3 py-2 border border-neutral-200 rounded text-xs font-bold uppercase tracking-wider text-neutral-700 bg-white"
+              className="px-3 py-2 border border-neutral-200 rounded-xl text-xs font-bold uppercase tracking-wider text-neutral-700 bg-white"
             >
               <option value="">Select Term</option>
               {semesters.map(s => (
@@ -728,7 +735,7 @@ export default function TimetablePage() {
             <button
               onClick={handleAutoAssign}
               disabled={!selectedTerm || autoAssigning}
-              className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 transition-all"
             >
               <HugeiconsIcon icon={Play} size={14} strokeWidth={2.5} />
               {autoAssigning ? 'Assigning...' : 'Auto Assign'}
