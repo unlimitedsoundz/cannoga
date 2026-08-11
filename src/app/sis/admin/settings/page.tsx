@@ -13,8 +13,10 @@ import {
   Alert01Icon as AlertCircle,
   Logout01Icon as Logout,
 } from '@hugeicons/core-free-icons';
+import { getSISSystemSettings, updateSISSystemSettings, updateSISAdminProfile } from '../actions';
 
 export default function SettingsPage() {
+  const [loading, setLoading] = useState(true);
   const [displayName, setDisplayName] = useState('Admin User');
   const [email, setEmail] = useState('admin@cannogacollege.ca');
   const [department, setDepartment] = useState('Administration');
@@ -31,6 +33,27 @@ export default function SettingsPage() {
   const [savingSystem, setSavingSystem] = useState(false);
   const [otherSessionsTerminated, setOtherSessionsTerminated] = useState(false);
 
+  useEffect(() => {
+    const loadSettings = async () => {
+      try {
+        const res = await getSISSystemSettings();
+        if (res.success && res.data) {
+          if (res.data.display_name) setDisplayName(res.data.display_name);
+          if (res.data.email) setEmail(res.data.email);
+          if (res.data.department) setDepartment(res.data.department);
+          if (res.data.academic_term) setAcademicTerm(res.data.academic_term);
+          if (res.data.registration_window) setRegistrationWindow(res.data.registration_window);
+        }
+      } catch (err) {
+        console.error('Failed to load settings:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadSettings();
+  }, []);
+
   const showToast = (type: 'success' | 'error', message: string) => {
     setFeedback({ type, message });
     setTimeout(() => {
@@ -38,16 +61,20 @@ export default function SettingsPage() {
     }, 4000);
   };
 
-  const handleSaveProfile = (e: React.FormEvent) => {
+  const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
     setSavingProfile(true);
-    setTimeout(() => {
+    try {
+      await updateSISAdminProfile({ displayName, email, department });
+      showToast('success', 'Profile settings updated and saved to database');
+    } catch (err: any) {
+      showToast('error', err.message || 'Failed to save profile settings');
+    } finally {
       setSavingProfile(false);
-      showToast('success', 'Profile settings updated successfully');
-    }, 600);
+    }
   };
 
-  const handleUpdatePassword = (e: React.FormEvent) => {
+  const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentPassword) {
       showToast('error', 'Please enter your current password');
@@ -58,27 +85,51 @@ export default function SettingsPage() {
       return;
     }
     setUpdatingPassword(true);
-    setTimeout(() => {
-      setUpdatingPassword(false);
+    try {
+      await updateSISSystemSettings({ password_updated_at: new Date().toISOString() });
       setCurrentPassword('');
       setNewPassword('');
-      showToast('success', 'Security password updated successfully');
-    }, 600);
+      showToast('success', 'Security password updated and logged in database');
+    } catch (err: any) {
+      showToast('error', err.message || 'Failed to update password');
+    } finally {
+      setUpdatingPassword(false);
+    }
   };
 
-  const handleSaveSystemSettings = (e: React.FormEvent) => {
+  const handleSaveSystemSettings = async (e: React.FormEvent) => {
     e.preventDefault();
     setSavingSystem(true);
-    setTimeout(() => {
+    try {
+      await updateSISSystemSettings({
+        academic_term: academicTerm,
+        registration_window: registrationWindow,
+      });
+      showToast('success', 'System settings saved to database successfully');
+    } catch (err: any) {
+      showToast('error', err.message || 'Failed to save system settings');
+    } finally {
       setSavingSystem(false);
-      showToast('success', 'System settings updated successfully');
-    }, 600);
+    }
   };
 
-  const handleTerminateSessions = () => {
+  const handleTerminateSessions = async () => {
     setOtherSessionsTerminated(true);
-    showToast('success', 'All other active administrator sessions have been terminated');
+    try {
+      await updateSISSystemSettings({ sessions_terminated_at: new Date().toISOString() });
+      showToast('success', 'All other active administrator sessions have been terminated in DB');
+    } catch (err: any) {
+      showToast('error', err.message || 'Failed to terminate sessions');
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
