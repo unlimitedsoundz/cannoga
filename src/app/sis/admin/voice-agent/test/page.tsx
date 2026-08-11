@@ -40,8 +40,11 @@ export default function VoiceAgentTestPage() {
     scrollToBottom();
   }, [transcript, scrollToBottom]);
 
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const formatTime = (date: Date | string | undefined) => {
+    if (!date) return '';
+    const d = typeof date === 'string' ? new Date(date) : date;
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
   };
 
   const startCall = async () => {
@@ -92,13 +95,14 @@ export default function VoiceAgentTestPage() {
       }, 1000);
 
       if (greetingData.greeting) {
-        setTranscript([{
+        const greetingMsg: VoiceMessage = {
           id: `msg-${Date.now()}-greeting`,
           role: 'assistant',
           content: greetingData.greeting,
           timestamp: new Date(),
           sequence: 0,
-        }]);
+        };
+        setTranscript([greetingMsg]);
       }
     } catch (err) {
       setStatus('idle');
@@ -130,7 +134,7 @@ export default function VoiceAgentTestPage() {
       setStatus('ended');
       setCallSummary(`Call ended. Duration: ${Math.floor(duration / 60)}m ${duration % 60}s. Messages: ${transcript.length}.`);
     } catch (err) {
-      setErrors([...errors, err instanceof Error ? err.message : 'Failed to end call']);
+      setErrors(prev => [...prev, err instanceof Error ? err.message : 'Failed to end call']);
       setStatus('ended');
     }
   };
@@ -141,20 +145,13 @@ export default function VoiceAgentTestPage() {
     const text = userInput.trim();
     setUserInput('');
 
-    const userMessage: VoiceMessage = {
-      id: `msg-${Date.now()}-user`,
-      role: 'caller',
-      content: text,
-      timestamp: new Date(),
-      sequence: transcript.length,
-    };
-
-    setTranscript(prev => [...prev, userMessage]);
-
     try {
       const provider = providerRef.current;
+
+      // 1. Send user text to provider (which triggers transcript.update event handler automatically)
       await provider.sendText(sessionId, text);
 
+      // 2. Query knowledge base/FAQs for intelligent response
       const toolRes = await fetch('/api/voice/tools', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -170,29 +167,22 @@ export default function VoiceAgentTestPage() {
         const toolData = await toolRes.json();
         const results = toolData.data || [];
 
-        const toolEvent: VoiceToolEvent = {
-          id: `tool-${Date.now()}`,
+        provider.appendToolEvent(sessionId, {
+          callId,
+          sessionId,
           toolName: 'search_faq',
           arguments: { query: text },
           result: results,
           success: true,
-          error: undefined,
-          createdAt: new Date(),
-        };
-        setToolEvents(prev => [...prev, toolEvent]);
+        });
 
         if (results.length > 0 && results[0].answer) {
-          const matchedFaq = results[0];
-          const assistantMsg = provider.appendAssistantMessage(sessionId, matchedFaq.answer);
-          if (assistantMsg) {
-            setTranscript(prev => [...prev.filter(m => m.id !== assistantMsg.id), assistantMsg]);
-          }
+          provider.appendAssistantMessage(sessionId, results[0].answer);
         } else {
-          const fallbackText = "I don't want to give you incorrect information. Let me connect you with our admissions team or arrange a callback for detailed program inquiries.";
-          const fallbackMsg = provider.appendAssistantMessage(sessionId, fallbackText);
-          if (fallbackMsg) {
-            setTranscript(prev => [...prev.filter(m => m.id !== fallbackMsg.id), fallbackMsg]);
-          }
+          provider.appendAssistantMessage(
+            sessionId,
+            "I don't want to give you incorrect information. Let me connect you with our admissions team or arrange a callback for detailed program inquiries."
+          );
         }
       }
     } catch (err) {
@@ -214,7 +204,8 @@ export default function VoiceAgentTestPage() {
         const message = event.data.message as VoiceMessage;
         if (message) {
           setTranscript(prev => {
-            if (prev.some(m => m.id === message.id)) return prev;
+            const exists = prev.some(m => m.id === message.id || (m.role === message.role && m.content === message.content && Math.abs(new Date(m.timestamp).getTime() - new Date(message.timestamp).getTime()) < 1000));
+            if (exists) return prev;
             return [...prev, message];
           });
         }
@@ -276,7 +267,7 @@ export default function VoiceAgentTestPage() {
                 {status === 'idle' && (
                   <button
                     onClick={startCall}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors cursor-pointer"
                   >
                     <HugeiconsIcon icon={Phone} size={16} strokeWidth={2.5} /> Start Call
                   </button>
@@ -284,7 +275,7 @@ export default function VoiceAgentTestPage() {
                 {(status === 'active' || status === 'starting') && (
                   <button
                     onClick={endCall}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-red-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-red-700 transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-red-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-red-700 transition-colors cursor-pointer"
                   >
                     <HugeiconsIcon icon={Stop} size={16} strokeWidth={2.5} /> End Call
                   </button>
@@ -292,7 +283,7 @@ export default function VoiceAgentTestPage() {
                 {status === 'ended' && (
                   <button
                     onClick={() => { setStatus('idle'); setCallId(null); setSessionId(null); setTranscript([]); setToolEvents([]); setDuration(0); setCallSummary(null); }}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors cursor-pointer"
                   >
                     <HugeiconsIcon icon={Phone} size={16} strokeWidth={2.5} /> New Call
                   </button>
@@ -364,7 +355,7 @@ export default function VoiceAgentTestPage() {
                 <button
                   onClick={sendMessage}
                   disabled={status !== 'active' || !userInput.trim()}
-                  className="px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <HugeiconsIcon icon={Send} size={16} strokeWidth={2.5} />
                 </button>
