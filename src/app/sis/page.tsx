@@ -1392,15 +1392,74 @@ export default function SISStudentDashboard() {
                                         </div>
                                     </div>
 
-                                    {/* COLLEGE SERVICES & QUICK LINKS */}
+                                    {/* COLLEGE SERVICES & PORTALS (REAL CANADIAN ONTARIO SERVICE LOGOS) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4 overflow-hidden">
-                                        <div className="pb-3 border-b border-slate-100 mb-3">
-                                            <h3 className="font-bold text-slate-800 text-xs sm:text-sm">College Services & Portals</h3>
+                                        <div className="pb-3 border-b border-slate-100 mb-3 flex items-center justify-between">
+                                            <div className="flex items-center space-x-2">
+                                                <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                                                <h3 className="font-bold text-slate-800 text-xs sm:text-sm uppercase tracking-wider">Ontario College Services & Portals</h3>
+                                            </div>
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Canada Verified</span>
                                         </div>
-                                        <div className="flex items-center justify-between gap-2 text-center text-[11px] font-bold">
-                                            <button type="button" onClick={() => navigateTo('documents')} className="flex-1 p-2 bg-slate-50 border border-slate-200 rounded hover:bg-slate-100 text-slate-800">PAL Letter</button>
-                                            <button type="button" onClick={() => navigateTo('academics')} className="flex-1 p-2 bg-slate-50 border border-slate-200 rounded hover:bg-slate-100 text-slate-800">Blackboard</button>
-                                            <button type="button" onClick={() => navigateTo('documents')} className="flex-1 p-2 bg-slate-50 border border-slate-200 rounded hover:bg-slate-100 text-slate-800">UCAS Docs</button>
+                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                            {/* PAL Letter Card (Ontario Government / IRCC) */}
+                                            <button 
+                                                type="button" 
+                                                onClick={() => navigateTo('documents')} 
+                                                className="flex items-center space-x-3 p-3 bg-gradient-to-br from-red-50/60 via-white to-slate-50 border border-red-200 hover:border-red-400 rounded-lg hover:shadow-md transition text-left group cursor-pointer"
+                                            >
+                                                <svg className="w-9 h-9 shrink-0 group-hover:scale-105 transition-transform" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect width="40" height="40" rx="8" fill="#C8102E" />
+                                                    <path d="M20 7L22.2 12.8L25.5 11.2L24.2 16.5L29 17.5L25.8 21.2L28 25.5L22.8 24.2L20 33L17.2 24.2L12 25.5L14.2 21.2L11 17.5L15.8 16.5L14.5 11.2L17.8 12.8L20 7Z" fill="white" />
+                                                </svg>
+                                                <div className="min-w-0 flex-1">
+                                                    <div className="flex items-center space-x-1">
+                                                        <span className="font-bold text-slate-900 text-xs truncate group-hover:text-red-700 transition">PAL Letter</span>
+                                                        <span className="text-[9px] bg-red-100 text-red-700 font-extrabold px-1 rounded">IRCC</span>
+                                                    </div>
+                                                    <p className="text-[10px] text-slate-500 font-medium truncate">Ontario Attestation</p>
+                                                </div>
+                                            </button>
+
+                                            {/* Blackboard Learn LMS Card */}
+                                            <button 
+                                                type="button" 
+                                                onClick={() => navigateTo('academics')} 
+                                                className="flex items-center space-x-3 p-3 bg-gradient-to-br from-amber-50/60 via-white to-slate-50 border border-amber-200 hover:border-amber-400 rounded-lg hover:shadow-md transition text-left group cursor-pointer"
+                                            >
+                                                <svg className="w-9 h-9 shrink-0 group-hover:scale-105 transition-transform" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect width="40" height="40" rx="8" fill="#0F172A" />
+                                                    <path d="M11 11H21C23.8 11 26 12.8 26 15.2C26 16.8 24.8 18.2 23.2 18.8C25.2 19.5 26.5 21.1 26.5 23C26.5 25.8 24 28 21 28H11V11ZM16 17.5H20.5C21.6 17.5 22.5 16.8 22.5 14.1H16V17.5ZM16 25H21C22.2 25 23.2 24.1 23.2 23C23.2 21.9 22.2 21 21 21H16V25Z" fill="#F59E0B" />
+                                                    <rect x="28" y="11" width="3" height="17" rx="1.5" fill="#F59E0B" />
+                                                </svg>
+                                                <div className="min-w-0 flex-1">
+                                                    <div className="flex items-center space-x-1">
+                                                        <span className="font-bold text-slate-900 text-xs truncate group-hover:text-amber-700 transition">Blackboard</span>
+                                                        <span className="text-[9px] bg-amber-100 text-amber-800 font-extrabold px-1 rounded">LMS</span>
+                                                    </div>
+                                                    <p className="text-[10px] text-slate-500 font-medium truncate">Course Materials</p>
+                                                </div>
+                                            </button>
+
+                                            {/* OntarioColleges.ca (OCAS) Card */}
+                                            <button 
+                                                type="button" 
+                                                onClick={() => navigateTo('documents')} 
+                                                className="flex items-center space-x-3 p-3 bg-gradient-to-br from-sky-50/60 via-white to-slate-50 border border-sky-200 hover:border-sky-400 rounded-lg hover:shadow-md transition text-left group cursor-pointer"
+                                            >
+                                                <svg className="w-9 h-9 shrink-0 group-hover:scale-105 transition-transform" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect width="40" height="40" rx="8" fill="#0284C7" />
+                                                    <circle cx="20" cy="20" r="10" stroke="white" strokeWidth="2.5" fill="none" />
+                                                    <path d="M20 13.5L21.2 16.8L24.5 17.5L22 19.8L22.8 23.2L20 21.5L17.2 23.2L18 19.8L15.5 17.5L18.8 16.8L20 13.5Z" fill="#38BDF8" />
+                                                </svg>
+                                                <div className="min-w-0 flex-1">
+                                                    <div className="flex items-center space-x-1">
+                                                        <span className="font-bold text-slate-900 text-xs truncate group-hover:text-sky-700 transition">OntarioColleges</span>
+                                                        <span className="text-[9px] bg-sky-100 text-sky-800 font-extrabold px-1 rounded">OCAS</span>
+                                                    </div>
+                                                    <p className="text-[10px] text-slate-500 font-medium truncate">Ontario App Docs</p>
+                                                </div>
+                                            </button>
                                         </div>
                                     </div>
 
