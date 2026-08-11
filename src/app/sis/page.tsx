@@ -324,6 +324,7 @@ export default function SISStudentDashboard() {
     const [ontarioWeather, setOntarioWeather] = useState<{ temp: number; condition: string; wind: number; humidity: number } | null>(null);
     const [ontarioLiveNews, setOntarioLiveNews] = useState<{ title: string; link: string; pubDate: string; source: string }[]>([]);
 
+    const [showPresidentMessage, setShowPresidentMessage] = useState(true);
     const [showNoInvoiceModal, setShowNoInvoiceModal] = useState(false);
     const [activeModals, setActiveModals] = useState<Record<string, boolean>>({});
     const [profileForm, setProfileForm] = useState({ fullName: '', preferredName: '', phone: '', address: '' });
@@ -976,31 +977,42 @@ export default function SISStudentDashboard() {
                                 </div>
                             </div>
                             {/* PRESIDENT'S WELCOME WIDGET */}
-                            <div className="mb-6 bg-slate-900 border border-slate-800 rounded-xl p-5 sm:p-6 text-white shadow-md relative overflow-hidden flex flex-col md:flex-row items-center gap-6">
-                                <div className="relative shrink-0">
-                                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/80 shadow-md">
-                                        <img src="/images/president-luke-schaffner.jpg" alt="Dr. Luke Schaffner" className="w-full h-full object-cover" />
-                                    </div>
-                                </div>
-                                <div className="flex-1 space-y-2 text-center md:text-left">
-                                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                                        <h3 className="text-sm sm:text-base font-bold text-white uppercase tracking-wider">Welcome Message from the President</h3>
-                                        <span className="text-[10px] bg-slate-800 text-slate-200 border border-slate-700 font-medium px-2 py-0.5 rounded-full">Academic Year 2026-2027</span>
-                                    </div>
-                                    <blockquote className="text-xs sm:text-sm text-slate-100 italic font-serif leading-relaxed">
-                                        &ldquo;Welcome to Cannoga College! We are committed to fostering academic excellence, innovative research, and a supportive community. Together, we empower you to achieve your personal and professional aspirations.&rdquo;
-                                    </blockquote>
-                                    <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-slate-800">
-                                        <div>
-                                            <p className="text-xs font-bold text-white">Dr. Luke Schaffner</p>
-                                            <p className="text-[10px] text-slate-300 font-medium">President & Vice-Chancellor, Cannoga College</p>
+                            {showPresidentMessage && (
+                                <div className="mb-6 bg-slate-900 border border-slate-800 rounded-xl p-5 sm:p-6 text-white shadow-md relative overflow-hidden flex flex-col md:flex-row items-center gap-6">
+                                    <button 
+                                        type="button" 
+                                        onClick={() => setShowPresidentMessage(false)} 
+                                        className="absolute top-3 right-3 text-slate-400 hover:text-white p-1 rounded-full hover:bg-slate-800 transition z-20 cursor-pointer"
+                                        title="Dismiss message"
+                                        aria-label="Dismiss President's Welcome Message"
+                                    >
+                                        <HugeiconsIcon icon={XCircle} size={18} strokeWidth={2} />
+                                    </button>
+                                    <div className="relative shrink-0">
+                                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/80 shadow-md">
+                                            <img src="/images/president-luke-schaffner.jpg" alt="Dr. Luke Schaffner" className="w-full h-full object-cover" />
                                         </div>
-                                        <button type="button" onClick={() => navigateTo('news')} className="text-xs font-semibold text-white hover:text-slate-200 hover:underline transition">
-                                            Read Full Address & Campus Updates &rarr;
-                                        </button>
+                                    </div>
+                                    <div className="flex-1 space-y-2 text-center md:text-left pr-6 md:pr-4">
+                                        <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
+                                            <h3 className="text-sm sm:text-base font-bold text-white uppercase tracking-wider">Welcome Message from the President</h3>
+                                            <span className="text-[10px] bg-slate-800 text-slate-200 border border-slate-700 font-medium px-2 py-0.5 rounded-full">Academic Year 2026-2027</span>
+                                        </div>
+                                        <blockquote className="text-xs sm:text-sm text-slate-100 italic font-serif leading-relaxed">
+                                            &ldquo;Welcome to Cannoga College! We are committed to fostering academic excellence, innovative research, and a supportive community. Together, we empower you to achieve your personal and professional aspirations.&rdquo;
+                                        </blockquote>
+                                        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-slate-800">
+                                            <div>
+                                                <p className="text-xs font-bold text-white">Dr. Luke Schaffner</p>
+                                                <p className="text-[10px] text-slate-300 font-medium">President & Vice-Chancellor, Cannoga College</p>
+                                            </div>
+                                            <button type="button" onClick={() => navigateTo('news')} className="text-xs font-semibold text-white hover:text-slate-200 hover:underline transition">
+                                                Read Full Address & Campus Updates &rarr;
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
 
                             {activeHolds.length > 0 && (
                                 <div className="mb-6 bg-slate-100 border-l-4 border-slate-700 p-4 rounded-r-md flex items-start justify-between">
