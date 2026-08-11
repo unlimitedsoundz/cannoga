@@ -926,7 +926,7 @@ export default function SISStudentDashboard() {
                             <div className="mb-6 bg-slate-900 border border-slate-800 rounded-xl p-5 sm:p-6 text-white shadow-md relative overflow-hidden flex flex-col md:flex-row items-center gap-6">
                                 <div className="relative shrink-0">
                                     <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/80 shadow-md">
-                                        <img src="/images/president-evelyn-vance.png" alt="Dr. Evelyn Vance" className="w-full h-full object-cover" />
+                                        <img src="/images/president-evelyn-vance.jpg" alt="Dr. Evelyn Vance" className="w-full h-full object-cover" />
                                     </div>
                                 </div>
                                 <div className="flex-1 space-y-2 text-center md:text-left">
