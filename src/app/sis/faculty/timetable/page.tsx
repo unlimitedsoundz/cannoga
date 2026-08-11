@@ -136,7 +136,7 @@ export default function FacultyTimetablePage() {
         <div className="bg-white border-2 border-neutral-200 rounded-sm p-12 text-center">
           <Calendar size={48} weight="thin" className="mx-auto text-neutral-300 mb-4" />
           <p className="text-sm font-bold text-neutral-500 uppercase tracking-widest">No classes scheduled</p>
-          <p className="text-xs text-neutral-400 mt-2">Your teaching schedule will appear here.</p>
+          <p className="text-xs text-slate-800 mt-2">Your teaching schedule will appear here.</p>
         </div>
       ) : (
         <div className="bg-white border-2 border-[#9c27b3] rounded-sm overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
@@ -159,7 +159,7 @@ export default function FacultyTimetablePage() {
               {HOURS.map(hour => (
                 <div key={hour} className="grid grid-cols-6 border-b last:border-b-0 border-neutral-200 min-h-[60px]">
                   <div className="p-1 border-r-2 border-[#c084fc] bg-neutral-50 flex items-start justify-center">
-                    <span className="text-[10px] font-bold text-neutral-400">{hour}:00</span>
+                    <span className="text-[10px] font-bold text-slate-800">{hour}:00</span>
                   </div>
                   {DAYS.map((_, dayIndex) => {
                     const daySessions = sessions.filter(s => {
@@ -203,7 +203,7 @@ export default function FacultyTimetablePage() {
             {sections.map(section => (
               <div key={section.id} className="border border-neutral-200 rounded-sm p-4">
                 <div className="font-bold text-neutral-900">{section.module?.code} - {section.module?.title}</div>
-                <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mt-1">Section {section.code}</div>
+                <div className="text-[10px] font-bold text-slate-800 uppercase tracking-widest mt-1">Section {section.code}</div>
                 <div className="flex items-center gap-2 mt-2 text-xs text-neutral-600">
                   <Users size={12} weight="regular" /> {section.enrolled_count || 0} / {section.capacity} students
                 </div>

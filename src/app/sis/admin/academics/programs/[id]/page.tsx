@@ -63,7 +63,7 @@ export default function ProgramsPage() {
   }
 
   if (!program) {
-    return <div className="p-8 text-center text-neutral-400">Program not found</div>;
+    return <div className="p-8 text-center text-slate-800">Program not found</div>;
   }
 
   const columns = [

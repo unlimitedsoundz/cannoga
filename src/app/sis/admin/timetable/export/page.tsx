@@ -157,7 +157,7 @@ export default function ExportTimetablePage() {
                   onClick={() => setExportType(card.type as ExportType)}
                   className={`flex items-center gap-3 p-4 border text-left transition-colors ${exportType === card.type ? 'border-[#9c27b3] bg-purple-50' : 'border-neutral-200 hover:border-neutral-400'}`}
                 >
-                  <HugeiconsIcon icon={card.icon} size={20} strokeWidth={2.5} className={exportType === card.type ? 'text-[#9c27b3]' : 'text-neutral-400'} />
+                  <HugeiconsIcon icon={card.icon} size={20} strokeWidth={2.5} className={exportType === card.type ? 'text-[#9c27b3]' : 'text-slate-800'} />
                   <div>
                     <div className="text-xs font-bold text-neutral-900">{card.label}</div>
                     <div className="text-[10px] text-neutral-500">{card.desc}</div>

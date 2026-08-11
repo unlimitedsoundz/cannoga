@@ -150,7 +150,7 @@ export default function SettingsPage() {
           { key: 'academic_days', label: 'Academic Days' },
           { key: 'holidays', label: 'Holidays' },
         ].map(tab => (
-          <button key={tab.key} onClick={() => setActiveTab(tab.key as any)} className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === tab.key ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-neutral-400 hover:text-neutral-600'}`}>
+          <button key={tab.key} onClick={() => setActiveTab(tab.key as any)} className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === tab.key ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-800 hover:text-neutral-600'}`}>
             {tab.label}
           </button>
         ))}
@@ -174,7 +174,7 @@ export default function SettingsPage() {
                   { key: 'name', header: 'Name', render: (c: TimetableConstraint) => (
                     <div>
                       <div className="font-bold text-neutral-900">{c.name}</div>
-                      <div className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest">{c.constraint_type}</div>
+                      <div className="text-[10px] text-slate-800 font-bold uppercase tracking-widest">{c.constraint_type}</div>
                     </div>
                   )},
                   { key: 'weight', header: 'Weight', render: (c: TimetableConstraint) => c.weight },
@@ -182,10 +182,10 @@ export default function SettingsPage() {
                   { key: 'description', header: 'Description', render: (c: TimetableConstraint) => c.description || '—' },
                   { key: 'actions', header: 'Actions', render: (c: TimetableConstraint) => (
                     <div className="flex justify-end gap-2">
-                      <button onClick={() => openModal(c)} className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-black">
+                      <button onClick={() => openModal(c)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black">
                         <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
                       </button>
-                      <button onClick={() => setDeleteConfirm({ type: 'constraint', id: c.id })} className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-red-600">
+                      <button onClick={() => setDeleteConfirm({ type: 'constraint', id: c.id })} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-red-600">
                         <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
                       </button>
                     </div>
@@ -210,17 +210,17 @@ export default function SettingsPage() {
                   { key: 'name', header: 'Name', render: (p: TimetablePreference) => (
                     <div>
                       <div className="font-bold text-neutral-900">{p.name}</div>
-                      {p.description && <div className="text-[10px] text-neutral-400">{p.description}</div>}
+                      {p.description && <div className="text-[10px] text-slate-800">{p.description}</div>}
                     </div>
                   )},
                   { key: 'weight', header: 'Weight', render: (p: TimetablePreference) => p.weight },
                   { key: 'is_enabled', header: 'Enabled', render: (p: TimetablePreference) => <StatusBadge status={p.is_enabled ? 'ACTIVE' : 'INACTIVE'} /> },
                   { key: 'actions', header: 'Actions', render: (p: TimetablePreference) => (
                     <div className="flex justify-end gap-2">
-                      <button onClick={() => openModal(p)} className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-black">
+                      <button onClick={() => openModal(p)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black">
                         <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
                       </button>
-                      <button onClick={() => setDeleteConfirm({ type: 'preference', id: p.id })} className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-red-600">
+                      <button onClick={() => setDeleteConfirm({ type: 'preference', id: p.id })} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-red-600">
                         <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
                       </button>
                     </div>
@@ -252,10 +252,10 @@ export default function SettingsPage() {
                   { key: 'is_break', header: 'Break', render: (t: TimeSlot) => <StatusBadge status={t.is_break ? 'INACTIVE' : 'ACTIVE'} /> },
                   { key: 'actions', header: 'Actions', render: (t: TimeSlot) => (
                     <div className="flex justify-end gap-2">
-                      <button onClick={() => openModal(t)} className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-black">
+                      <button onClick={() => openModal(t)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black">
                         <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
                       </button>
-                      <button onClick={() => setDeleteConfirm({ type: 'timeSlot', id: t.id })} className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-red-600">
+                      <button onClick={() => setDeleteConfirm({ type: 'timeSlot', id: t.id })} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-red-600">
                         <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
                       </button>
                     </div>
@@ -275,7 +275,7 @@ export default function SettingsPage() {
                   { key: 'name', header: 'Day', render: (d: AcademicDay) => (
                     <div>
                       <div className="font-bold text-neutral-900">{d.name}</div>
-                      <div className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest">{d.abbreviation}</div>
+                      <div className="text-[10px] text-slate-800 font-bold uppercase tracking-widest">{d.abbreviation}</div>
                     </div>
                   )},
                   { key: 'day_of_week', header: 'Index', render: (d: AcademicDay) => d.day_of_week },
@@ -307,7 +307,7 @@ export default function SettingsPage() {
                   { key: 'name', header: 'Name', render: (h: Holiday) => (
                     <div>
                       <div className="font-bold text-neutral-900">{h.name}</div>
-                      <div className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest">{h.block_type}</div>
+                      <div className="text-[10px] text-slate-800 font-bold uppercase tracking-widest">{h.block_type}</div>
                     </div>
                   )},
                   { key: 'start_date', header: 'Start', render: (h: Holiday) => h.start_date },
@@ -315,10 +315,10 @@ export default function SettingsPage() {
                   { key: 'affects_scheduling', header: 'Blocks', render: (h: Holiday) => <StatusBadge status={h.affects_scheduling ? 'ACTIVE' : 'INACTIVE'} /> },
                   { key: 'actions', header: 'Actions', render: (h: Holiday) => (
                     <div className="flex justify-end gap-2">
-                      <button onClick={() => openModal(h)} className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-black">
+                      <button onClick={() => openModal(h)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black">
                         <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
                       </button>
-                      <button onClick={() => setDeleteConfirm({ type: 'holiday', id: h.id })} className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-red-600">
+                      <button onClick={() => setDeleteConfirm({ type: 'holiday', id: h.id })} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-red-600">
                         <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
                       </button>
                     </div>

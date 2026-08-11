@@ -74,7 +74,7 @@ export default function SettingsPage() {
             </h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">First Name</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">First Name</label>
                 <input
                   type="text"
                   value={profile.firstName}
@@ -83,7 +83,7 @@ export default function SettingsPage() {
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Last Name</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Last Name</label>
                 <input
                   type="text"
                   value={profile.lastName}
@@ -92,7 +92,7 @@ export default function SettingsPage() {
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Email</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Email</label>
                 <input
                   type="email"
                   value={profile.email}
@@ -101,7 +101,7 @@ export default function SettingsPage() {
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Phone</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Phone</label>
                 <input
                   type="tel"
                   value={profile.phone}
@@ -110,7 +110,7 @@ export default function SettingsPage() {
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Title</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Title</label>
                 <input
                   type="text"
                   value={profile.title}
@@ -119,7 +119,7 @@ export default function SettingsPage() {
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Department</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Department</label>
                 <input
                   type="text"
                   value={profile.department}
@@ -163,7 +163,7 @@ export default function SettingsPage() {
                 </div>
               ))}
               <div className="border-t border-neutral-200 pt-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-3">Notification Categories</h4>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-3">Notification Categories</h4>
                 <div className="grid grid-cols-2 gap-4">
                   {[
                     { key: 'finance', label: 'Finance & Billing' },
@@ -226,7 +226,7 @@ export default function SettingsPage() {
                 </label>
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Session Timeout (minutes)</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Session Timeout (minutes)</label>
                 <select
                   value={security.sessionTimeout}
                   onChange={e => setSecurity({...security, sessionTimeout: Number(e.target.value)})}
@@ -253,7 +253,7 @@ export default function SettingsPage() {
             </h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Theme</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Theme</label>
                 <select
                   value={preferences.theme}
                   onChange={e => setPreferences({...preferences, theme: e.target.value})}
@@ -265,7 +265,7 @@ export default function SettingsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Language</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Language</label>
                 <select
                   value={preferences.language}
                   onChange={e => setPreferences({...preferences, language: e.target.value})}
@@ -276,7 +276,7 @@ export default function SettingsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Timezone</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Timezone</label>
                 <select
                   value={preferences.timezone}
                   onChange={e => setPreferences({...preferences, timezone: e.target.value})}
@@ -291,7 +291,7 @@ export default function SettingsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Date Format</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Date Format</label>
                 <select
                   value={preferences.dateFormat}
                   onChange={e => setPreferences({...preferences, dateFormat: e.target.value})}
@@ -303,7 +303,7 @@ export default function SettingsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Items Per Page</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Items Per Page</label>
                 <select
                   value={preferences.itemsPerPage}
                   onChange={e => setPreferences({...preferences, itemsPerPage: Number(e.target.value)})}

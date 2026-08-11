@@ -136,7 +136,7 @@ export default function RegistrationPage() {
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 p-4 bg-white border border-neutral-200">
         <div className="flex items-center gap-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-neutral-400">Term:</label>
+          <label className="text-xs font-bold uppercase tracking-wider text-slate-800">Term:</label>
           <select
             value={selectedTerm}
             onChange={e => setSelectedTerm(e.target.value)}
@@ -153,7 +153,7 @@ export default function RegistrationPage() {
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">Registration Open</span>
           </div>
           <div className="flex items-center gap-2">
-            <HugeiconsIcon icon={Calendar} size={14} strokeWidth={2.5} className="text-neutral-400" />
+            <HugeiconsIcon icon={Calendar} size={14} strokeWidth={2.5} className="text-slate-800" />
             <span className="text-neutral-600">Deadline: Nov 15, 2026</span>
           </div>
           <div className="flex items-center gap-2">
@@ -187,7 +187,7 @@ export default function RegistrationPage() {
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900">Registered Courses ({registeredCourses.length})</h3>
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Total Credits:</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Total Credits:</span>
               <span className="font-bold text-neutral-900">{registeredCourses.reduce((s, c) => s + c.credits, 0)}</span>
             </div>
           </div>

@@ -85,7 +85,7 @@ export default function AcademicRecordPage() {
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-neutral-400">Term:</label>
+          <label className="text-xs font-bold uppercase tracking-wider text-slate-800">Term:</label>
           <select
             value={selectedTerm}
             onChange={e => setSelectedTerm(e.target.value)}
@@ -98,15 +98,15 @@ export default function AcademicRecordPage() {
         </div>
         <div className="flex items-center gap-4 text-sm">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Attempted:</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Attempted:</span>
             <span className="font-bold text-neutral-900">{termGrades.reduce((sum, g) => sum + g.credits, 0)}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Completed:</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Completed:</span>
             <span className="font-bold text-neutral-900">{termGrades.filter(g => g.status === 'Posted').reduce((sum, g) => sum + g.credits, 0)}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Term GPA:</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Term GPA:</span>
             <span className="font-bold text-neutral-900">{termGrades.filter(g => g.status === 'Posted').length > 0 
               ? (termGrades.filter(g => g.status === 'Posted').reduce((sum, g) => sum + g.gradePoints, 0) / 
                  termGrades.filter(g => g.status === 'Posted').reduce((sum, g) => sum + g.credits, 0)).toFixed(2)

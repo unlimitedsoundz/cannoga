@@ -147,7 +147,7 @@ export default function NotificationsPage() {
           </div>
           <div className={`text-sm text-neutral-500 line-clamp-2 ${!n.read ? 'text-neutral-700' : ''}`}>{n.message}</div>
           <div className="flex items-center gap-2 mt-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">{new Date(n.created_at).toLocaleString()}</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">{new Date(n.created_at).toLocaleString()}</span>
             <span className={`px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-none ${n.category === 'Finance' ? 'bg-emerald-50 text-emerald-700' : n.category === 'Registration' ? 'bg-blue-50 text-blue-700' : n.category === 'Admissions' ? 'bg-amber-50 text-amber-700' : n.category === 'Academics' ? 'bg-purple-50 text-purple-700' : n.category === 'Advising' ? 'bg-red-50 text-red-700' : 'bg-neutral-50 text-neutral-700'}`}>
               {n.category}
             </span>
@@ -161,7 +161,7 @@ export default function NotificationsPage() {
       render: (n: Notification) => (
         <div className="flex items-center gap-1">
           {!n.read && (
-            <button onClick={() => markAsRead(n.id)} className="p-1.5 text-neutral-400 hover:text-emerald-600" title="Mark as read">
+            <button onClick={() => markAsRead(n.id)} className="p-1.5 text-slate-800 hover:text-emerald-600" title="Mark as read">
               <HugeiconsIcon icon={iconConfig.CheckCircle} size={16} strokeWidth={2} />
             </button>
           )}

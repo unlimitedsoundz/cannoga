@@ -97,10 +97,10 @@ export default function StudentDetailPage() {
 
       <StudentHeader student={mockStudent} actions={
         <div className="flex gap-2">
-          <button className="p-2 text-neutral-400 hover:text-neutral-600" title="View Documents"><HugeiconsIcon icon={FileText} size={16} strokeWidth={2} /></button>
-          <button className="p-2 text-neutral-400 hover:text-neutral-600" title="View Application"><HugeiconsIcon icon={Eye} size={16} strokeWidth={2} /></button>
-          <button className="p-2 text-neutral-400 hover:text-neutral-600" title="View Finance"><HugeiconsIcon icon={ShieldCheck} size={16} strokeWidth={2} /></button>
-          <button className="p-2 text-neutral-400 hover:text-neutral-600" title="View Academic Record"><HugeiconsIcon icon={GraduationCap} size={16} strokeWidth={2} /></button>
+          <button className="p-2 text-slate-800 hover:text-neutral-600" title="View Documents"><HugeiconsIcon icon={FileText} size={16} strokeWidth={2} /></button>
+          <button className="p-2 text-slate-800 hover:text-neutral-600" title="View Application"><HugeiconsIcon icon={Eye} size={16} strokeWidth={2} /></button>
+          <button className="p-2 text-slate-800 hover:text-neutral-600" title="View Finance"><HugeiconsIcon icon={ShieldCheck} size={16} strokeWidth={2} /></button>
+          <button className="p-2 text-slate-800 hover:text-neutral-600" title="View Academic Record"><HugeiconsIcon icon={GraduationCap} size={16} strokeWidth={2} /></button>
         </div>
       } />
 
@@ -109,34 +109,34 @@ export default function StudentDetailPage() {
           <div className="bg-white border border-neutral-200 p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Personal Information</h3>
             <dl className="grid grid-cols-2 gap-4 text-sm">
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Legal First Name</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.firstName}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Legal Middle Name</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.middleName}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Legal Last Name</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.lastName}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Preferred Name</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.preferredName}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Date of Birth</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.dateOfBirth}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Address</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.address}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Legal First Name</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.firstName}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Legal Middle Name</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.middleName}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Legal Last Name</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.lastName}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Preferred Name</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.preferredName}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Date of Birth</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.dateOfBirth}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Address</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.address}</dd></div>
             </dl>
           </div>
 
           <div className="bg-white border border-neutral-200 p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Contact Information</h3>
             <dl className="grid grid-cols-2 gap-4 text-sm">
-              <div className="flex items-center gap-2"><HugeiconsIcon icon={Envelope} size={14} strokeWidth={2.5} className="text-neutral-400" /><div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Email</dt><dd className="font-medium text-neutral-900 mt-1 font-mono text-xs">{mockStudent.email}</dd></div></div>
-              <div className="flex items-center gap-2"><HugeiconsIcon icon={Phone} size={14} strokeWidth={2.5} className="text-neutral-400" /><div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Phone</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.phone}</dd></div></div>
-              <div className="flex items-center gap-2"><HugeiconsIcon icon={MapPin} size={14} strokeWidth={2.5} className="text-neutral-400" /><div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Address</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.address}</dd></div></div>
-              <div className="flex items-center gap-2"><HugeiconsIcon icon={Calendar} size={14} strokeWidth={2.5} className="text-neutral-400" /><div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Institutional Email</dt><dd className="font-medium text-neutral-900 mt-1 font-mono text-xs">{mockStudent.institutionalEmail}</dd></div></div>
+              <div className="flex items-center gap-2"><HugeiconsIcon icon={Envelope} size={14} strokeWidth={2.5} className="text-slate-800" /><div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Email</dt><dd className="font-medium text-neutral-900 mt-1 font-mono text-xs">{mockStudent.email}</dd></div></div>
+              <div className="flex items-center gap-2"><HugeiconsIcon icon={Phone} size={14} strokeWidth={2.5} className="text-slate-800" /><div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Phone</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.phone}</dd></div></div>
+              <div className="flex items-center gap-2"><HugeiconsIcon icon={MapPin} size={14} strokeWidth={2.5} className="text-slate-800" /><div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Address</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.address}</dd></div></div>
+              <div className="flex items-center gap-2"><HugeiconsIcon icon={Calendar} size={14} strokeWidth={2.5} className="text-slate-800" /><div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Institutional Email</dt><dd className="font-medium text-neutral-900 mt-1 font-mono text-xs">{mockStudent.institutionalEmail}</dd></div></div>
             </dl>
           </div>
 
           <div className="bg-white border border-neutral-200 p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Academic Information</h3>
             <dl className="grid grid-cols-2 gap-4 text-sm">
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Program</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.program}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">School</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.school}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Credential</dt><dd className="font-medium text-neutral-900 mt-1">Bachelor of Science</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Academic Level</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.academicLevel}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Start Term</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.startTerm}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Expected Graduation</dt><dd className="font-medium text-neutral-900 mt-1">Spring 2028</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Program</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.program}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">School</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.school}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Credential</dt><dd className="font-medium text-neutral-900 mt-1">Bachelor of Science</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Academic Level</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.academicLevel}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Start Term</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.startTerm}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Expected Graduation</dt><dd className="font-medium text-neutral-900 mt-1">Spring 2028</dd></div>
             </dl>
           </div>
         </div>

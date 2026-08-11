@@ -193,7 +193,7 @@ export default function StudentTimetablePage() {
         <div className="bg-white border-2 border-neutral-200 rounded-sm p-12 text-center">
           <Calendar size={48} weight="thin" className="mx-auto text-neutral-300 mb-4" />
           <p className="text-sm font-bold text-neutral-500 uppercase tracking-widest">No timetable entries yet</p>
-          <p className="text-xs text-neutral-400 mt-2">Your class schedule will appear here once enrolled.</p>
+          <p className="text-xs text-slate-800 mt-2">Your class schedule will appear here once enrolled.</p>
         </div>
       ) : (
         <div className="bg-white border-2 border-[#9c27b3] rounded-sm overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
@@ -216,7 +216,7 @@ export default function StudentTimetablePage() {
               {HOURS.map(hour => (
                 <div key={hour} className="grid grid-cols-6 border-b last:border-b-0 border-neutral-200 min-h-[60px]">
                   <div className="p-1 border-r-2 border-[#9c27b3] bg-neutral-50 flex items-start justify-center">
-                    <span className="text-[10px] font-bold text-neutral-400">{hour}:00</span>
+                    <span className="text-[10px] font-bold text-slate-800">{hour}:00</span>
                   </div>
                   {DAYS.map((_, dayIndex) => {
                     const daySessions = sessions.filter(s => {

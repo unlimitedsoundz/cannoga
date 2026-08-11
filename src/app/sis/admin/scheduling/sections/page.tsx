@@ -278,7 +278,7 @@ export default function SectionsPage() {
     { key: 'code', header: 'Section', render: (s: any) => (
       <div>
         <div className="font-bold text-neutral-900">{s.code}</div>
-        <div className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest">{s.module?.code} - {s.module?.title}</div>
+        <div className="text-[10px] text-slate-800 font-bold uppercase tracking-widest">{s.module?.code} - {s.module?.title}</div>
       </div>
     )},
     { key: 'instructor', header: 'Instructor', render: (s: any) => (
@@ -304,13 +304,13 @@ export default function SectionsPage() {
     { key: 'status', header: 'Status', render: (s: any) => <StatusBadge status={s.status} /> },
     { key: 'actions', header: 'Actions', render: (s: any) => (
       <div className="flex justify-end gap-2">
-        <button onClick={(e) => { e.stopPropagation(); openMeetingsPanel(s.id); }} className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-black" title="Manage meetings">
+        <button onClick={(e) => { e.stopPropagation(); openMeetingsPanel(s.id); }} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black" title="Manage meetings">
           <HugeiconsIcon icon={Calendar} size={14} strokeWidth={2.5} />
         </button>
-        <button onClick={(e) => { e.stopPropagation(); openSectionModal(s); }} className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-black">
+        <button onClick={(e) => { e.stopPropagation(); openSectionModal(s); }} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black">
           <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
         </button>
-        <button onClick={(e) => { e.stopPropagation(); setDeleteConfirm({ type: 'section', id: s.id }); }} className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-red-600">
+        <button onClick={(e) => { e.stopPropagation(); setDeleteConfirm({ type: 'section', id: s.id }); }} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-red-600">
           <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
         </button>
       </div>
@@ -327,7 +327,7 @@ export default function SectionsPage() {
     { key: 'fixed', header: 'Fixed', render: (m: CourseSectionMeeting) => m.is_fixed ? <StatusBadge status="ACTIVE" /> : <StatusBadge status="INACTIVE" /> },
     { key: 'actions', header: 'Actions', render: (m: CourseSectionMeeting) => (
       <div className="flex justify-end">
-        <button onClick={() => handleDeleteMeeting(m.id)} className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-red-600">
+        <button onClick={() => handleDeleteMeeting(m.id)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-red-600">
           <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
         </button>
       </div>

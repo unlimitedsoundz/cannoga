@@ -828,13 +828,13 @@ export default function SISStudentDashboard() {
                     <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-12 w-auto object-contain brightness-0 invert" />
                     <div className="space-y-1">
                         <h2 className="text-white font-extrabold text-sm sm:text-base tracking-widest uppercase">CANNOGA COLLEGE</h2>
-                        <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider">Student Information System</p>
+                        <p className="text-slate-800 text-xs font-semibold uppercase tracking-wider">Student Information System</p>
                     </div>
                     <div className="relative flex items-center justify-center py-2">
                         <div className="w-12 h-12 rounded-full border-2 border-slate-800 border-t-amber-500 animate-spin"></div>
                         <div className="w-8 h-8 rounded-full border-2 border-slate-800 border-b-white animate-spin absolute" style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}></div>
                     </div>
-                    <p className="text-slate-400 text-xs font-medium animate-pulse">Loading student records & live campus portal...</p>
+                    <p className="text-slate-800 text-xs font-medium animate-pulse">Loading student records & live campus portal...</p>
                 </div>
             </div>
         );
@@ -864,7 +864,7 @@ export default function SISStudentDashboard() {
                             <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-9 w-auto object-contain brightness-0 invert" />
                             <div className="hidden sm:flex flex-col justify-center border-l border-slate-700 pl-3 py-0.5">
                                 <span className="font-extrabold text-xs sm:text-sm tracking-wider uppercase leading-tight text-white">CANNOGA COLLEGE</span>
-                                <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider leading-none mt-0.5">Student Portal</span>
+                                <span className="text-[10px] text-slate-800 font-semibold uppercase tracking-wider leading-none mt-0.5">Student Portal</span>
                             </div>
                         </Link>
                     </div>
@@ -887,7 +887,7 @@ export default function SISStudentDashboard() {
                             </div>
                             <div className="hidden lg:block text-left">
                                 <p className="text-xs font-semibold leading-tight text-slate-200">{displayName}</p>
-                                <p className="text-[10px] text-slate-400">{studentId}</p>
+                                <p className="text-[10px] text-slate-800">{studentId}</p>
                             </div>
                         </div>
                     </div>
@@ -925,7 +925,7 @@ export default function SISStudentDashboard() {
                                 <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-6 w-auto object-contain brightness-0 invert" />
                                 <span className="font-bold text-white text-xs">Cannoga College</span>
                             </div>
-                            <button type="button" onClick={() => setSidebarOpen(false)} className="text-slate-400 hover:text-white">
+                            <button type="button" onClick={() => setSidebarOpen(false)} className="text-slate-800 hover:text-white">
                                 <HugeiconsIcon icon={XCircle} size={20} strokeWidth={2.5} />
                             </button>
                         </div>
@@ -965,12 +965,12 @@ export default function SISStudentDashboard() {
                                     </div>
                                     <div className="flex items-center space-x-3 bg-slate-900/80 backdrop-blur-md p-3 rounded-lg border border-slate-700/80 self-start md:self-auto">
                                         <div>
-                                            <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Student ID</p>
+                                            <p className="text-[10px] text-slate-800 uppercase font-bold tracking-wider">Student ID</p>
                                             <p className="text-xs font-bold text-slate-100">{studentId}</p>
                                         </div>
                                         <div className="h-6 w-px bg-slate-700"></div>
                                         <div>
-                                            <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Active Term</p>
+                                            <p className="text-[10px] text-slate-800 uppercase font-bold tracking-wider">Active Term</p>
                                             <p className="text-xs font-bold text-slate-100">Fall 2026</p>
                                         </div>
                                     </div>
@@ -982,7 +982,7 @@ export default function SISStudentDashboard() {
                                     <button 
                                         type="button" 
                                         onClick={() => setShowPresidentMessage(false)} 
-                                        className="absolute top-3 right-3 text-slate-400 hover:text-white p-1 rounded-full hover:bg-slate-800 transition z-20 cursor-pointer"
+                                        className="absolute top-3 right-3 text-slate-800 hover:text-white p-1 rounded-full hover:bg-slate-800 transition z-20 cursor-pointer"
                                         title="Dismiss message"
                                         aria-label="Dismiss President's Welcome Message"
                                     >
@@ -1040,7 +1040,7 @@ export default function SISStudentDashboard() {
                                                     <HugeiconsIcon icon={Mail} size={16} strokeWidth={2} className="text-slate-700" />
                                                     <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Student Mail</h3>
                                                 </div>
-                                                <button type="button" onClick={() => navigateTo('student-life')} className="text-xs text-slate-400 hover:text-slate-700">
+                                                <button type="button" onClick={() => navigateTo('student-life')} className="text-xs text-slate-800 hover:text-slate-700">
                                                     <HugeiconsIcon icon={Clock} size={14} strokeWidth={2} />
                                                 </button>
                                             </div>
@@ -1063,7 +1063,7 @@ export default function SISStudentDashboard() {
                                                 </button>
                                                 <button type="button" onClick={() => navigateTo('student-life')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
                                                     <span>Archive</span>
-                                                    <span className="text-[10px] text-slate-400">{studentLifeData?.archiveCount ?? 0}</span>
+                                                    <span className="text-[10px] text-slate-800">{studentLifeData?.archiveCount ?? 0}</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -1088,7 +1088,7 @@ export default function SISStudentDashboard() {
                                                             {announcement.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600 shrink-0 ml-1">High</span>}
                                                         </div>
                                                         <p className="text-[11px] text-slate-500 line-clamp-2">{announcement.excerpt || announcement.content}</p>
-                                                        <span className="text-[10px] text-slate-400 mt-1 block">{new Date(announcement.created_at).toLocaleDateString('en-CA')}</span>
+                                                        <span className="text-[10px] text-slate-800 mt-1 block">{new Date(announcement.created_at).toLocaleDateString('en-CA')}</span>
                                                     </div>
                                                 )) : (
                                                     <div className="text-center py-6 text-xs text-slate-500">No announcements available</div>
@@ -1169,7 +1169,7 @@ export default function SISStudentDashboard() {
                                                                 <p className="font-bold text-slate-900 truncate">{e.module?.code ? `${e.module.code}: ${e.module.title}` : e.module?.title || 'Enrolled Module'}</p>
                                                                 <p className="text-[10px] text-slate-500 mt-0.5">{e.semester?.name || 'Academic Term'}</p>
                                                             </div>
-                                                            <HugeiconsIcon icon={ChevronRight} size={16} className="text-slate-400 shrink-0" />
+                                                            <HugeiconsIcon icon={ChevronRight} size={16} className="text-slate-800 shrink-0" />
                                                         </div>
                                                     ))
                                                 ) : (
@@ -1178,7 +1178,7 @@ export default function SISStudentDashboard() {
                                                             <p className="font-bold text-slate-900 truncate">{programName}</p>
                                                             <p className="text-[10px] text-slate-500 mt-0.5">Primary Enrolled Program</p>
                                                         </div>
-                                                        <HugeiconsIcon icon={ChevronRight} size={16} className="text-slate-400 shrink-0" />
+                                                        <HugeiconsIcon icon={ChevronRight} size={16} className="text-slate-800 shrink-0" />
                                                     </div>
                                                 )}
                                             </div>
@@ -1217,7 +1217,7 @@ export default function SISStudentDashboard() {
                                                                 <HugeiconsIcon icon={Calendar} size={20} />
                                                             </div>
                                                             <p className="font-semibold text-slate-700">No Classes Scheduled Today</p>
-                                                            <p className="text-[11px] text-slate-400">Check your weekly timetable for upcoming lectures</p>
+                                                            <p className="text-[11px] text-slate-800">Check your weekly timetable for upcoming lectures</p>
                                                         </div>
                                                     )
                                                 }
@@ -1244,7 +1244,7 @@ export default function SISStudentDashboard() {
                                                             <div className="flex justify-between items-start">
                                                                 <p className="font-semibold text-slate-800 group-hover:text-slate-900 line-clamp-2">{item.title}</p>
                                                             </div>
-                                                            <div className="flex justify-between items-center mt-1.5 text-[10px] text-slate-400">
+                                                            <div className="flex justify-between items-center mt-1.5 text-[10px] text-slate-800">
                                                                 <span className="font-medium text-slate-600">{item.source}</span>
                                                                 <span>{item.pubDate}</span>
                                                             </div>
@@ -1277,7 +1277,7 @@ export default function SISStudentDashboard() {
                                                     <div className="flex-1 min-w-0">
                                                         <h4 className="text-xs font-bold text-slate-900 truncate">{faculty[0].name}</h4>
                                                         <p className="text-[11px] text-slate-500 font-medium">{faculty[0].role || 'Academic Lead & Advisor'}</p>
-                                                        <p className="text-[10px] text-slate-400 mt-0.5 truncate">{faculty[0].email || 'faculty@cannoga.edu.ca'}</p>
+                                                        <p className="text-[10px] text-slate-800 mt-0.5 truncate">{faculty[0].email || 'faculty@cannoga.edu.ca'}</p>
                                                     </div>
                                                 </div>
                                             ) : (
@@ -1288,7 +1288,7 @@ export default function SISStudentDashboard() {
                                                     <div className="flex-1 min-w-0">
                                                         <h4 className="text-xs font-bold text-slate-900 truncate">Dr. Richard Kane</h4>
                                                         <p className="text-[11px] text-slate-500 font-medium">Curriculum Lead & Senior Advisor</p>
-                                                        <p className="text-[10px] text-slate-400 mt-0.5 truncate">richard.kane@cannoga.edu.ca</p>
+                                                        <p className="text-[10px] text-slate-800 mt-0.5 truncate">richard.kane@cannoga.edu.ca</p>
                                                     </div>
                                                 </div>
                                             )}
@@ -1311,7 +1311,7 @@ export default function SISStudentDashboard() {
                                                 <p className="text-2xl font-extrabold text-slate-900">{ontarioWeather ? `${ontarioWeather.temp}°C` : '18°C'}</p>
                                                 <p className="text-xs text-slate-500 font-medium">{ontarioWeather ? ontarioWeather.condition : 'Partly Cloudy'}</p>
                                             </div>
-                                            <div className="text-right text-xs text-slate-400">
+                                            <div className="text-right text-xs text-slate-800">
                                                 <p>Humidity: {ontarioWeather ? `${ontarioWeather.humidity}%` : '55%'}</p>
                                                 <p>Wind: {ontarioWeather ? `${ontarioWeather.wind} km/h` : '14 km/h'}</p>
                                             </div>
@@ -1389,7 +1389,7 @@ export default function SISStudentDashboard() {
                                                 <div className="min-w-0 flex-1">
                                                     <h4 className="text-xs font-bold text-slate-900 truncate">{displayName}</h4>
                                                     <p className="text-[11px] text-slate-500 truncate">{programName}</p>
-                                                    <p className="text-[10px] text-slate-400">ID: {studentId}</p>
+                                                    <p className="text-[10px] text-slate-800">ID: {studentId}</p>
                                                 </div>
                                             </div>
                                             <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
@@ -1415,7 +1415,7 @@ export default function SISStudentDashboard() {
                                                         <div key={task.id} className="flex items-start space-x-3 pt-2 first:pt-0 border-t first:border-t-0 border-slate-100">
                                                             <div className="text-center shrink-0">
                                                                 <span className={`block text-lg font-extrabold leading-none ${daysLeft <= 3 ? 'text-red-600' : daysLeft <= 7 ? 'text-amber-600' : 'text-slate-700'}`}>{daysLeft}</span>
-                                                                <span className="text-[9px] text-slate-400 font-bold uppercase">Days Left</span>
+                                                                <span className="text-[9px] text-slate-800 font-bold uppercase">Days Left</span>
                                                             </div>
                                                             <div>
                                                                 <p className="font-bold text-slate-900">{task.title}</p>
@@ -1429,7 +1429,7 @@ export default function SISStudentDashboard() {
                                                     <div className="flex items-start space-x-3">
                                                         <div className="text-center shrink-0">
                                                             <span className="block text-lg font-extrabold text-amber-600 leading-none">5</span>
-                                                            <span className="text-[9px] text-slate-400 font-bold uppercase">Days Left</span>
+                                                            <span className="text-[9px] text-slate-800 font-bold uppercase">Days Left</span>
                                                         </div>
                                                         <div>
                                                             <p className="font-bold text-slate-900">Applied Academic Project Proposal</p>
@@ -1439,7 +1439,7 @@ export default function SISStudentDashboard() {
                                                     <div className="flex items-start space-x-3 pt-2 border-t border-slate-100">
                                                         <div className="text-center shrink-0">
                                                             <span className="block text-lg font-extrabold text-slate-700 leading-none">14</span>
-                                                            <span className="text-[9px] text-slate-400 font-bold uppercase">Days Left</span>
+                                                            <span className="text-[9px] text-slate-800 font-bold uppercase">Days Left</span>
                                                         </div>
                                                         <div>
                                                             <p className="font-bold text-slate-900">Mid-Term Assessment & Review</p>
@@ -1677,7 +1677,7 @@ export default function SISStudentDashboard() {
                                         <h3 className="font-bold text-slate-900 text-sm">{documentTypeLabels[doc.document_type] || doc.title}</h3>
                                         <div className="flex items-center gap-2">
                                             <a href={getDocumentUrl(doc)} download target="_blank" rel="noopener noreferrer" className="text-xs font-medium px-3 py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition">Download</a>
-                                            <button type="button" onClick={() => toggleModal(modalId)} className="text-slate-400 hover:text-slate-600">
+                                            <button type="button" onClick={() => toggleModal(modalId)} className="text-slate-800 hover:text-slate-600">
                                                 <HugeiconsIcon icon={XCircle} size={20} strokeWidth={2.5} />
                                             </button>
                                         </div>
@@ -1763,7 +1763,7 @@ export default function SISStudentDashboard() {
                                 <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-12 text-center">
                                     <HugeiconsIcon icon={Calendar} size={48} strokeWidth={1.5} className="mx-auto text-slate-300 mb-4" />
                                     <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">No timetable entries yet</p>
-                                    <p className="text-xs text-slate-400 mt-2">Your class schedule will appear here once registered.</p>
+                                    <p className="text-xs text-slate-800 mt-2">Your class schedule will appear here once registered.</p>
                                 </div>
                             ) : (
                                 <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
@@ -1787,14 +1787,14 @@ export default function SISStudentDashboard() {
                                                             <td className="p-3 font-medium text-slate-900">{dayName}</td>
                                                             <td className="p-3">
                                                                 <div className="flex items-center gap-1.5">
-                                                                    <HugeiconsIcon icon={Clock} size={12} strokeWidth={2.5} className="text-slate-400" />
+                                                                    <HugeiconsIcon icon={Clock} size={12} strokeWidth={2.5} className="text-slate-800" />
                                                                     {session.start_time?.slice(0, 5)} - {session.end_time?.slice(0, 5)}
                                                                 </div>
                                                             </td>
                                                             <td className="p-3">
                                                                 <div>
                                 <p className="font-semibold text-slate-900">{session.section?.module?.title || 'Class'}</p>
-                                <p className="text-[10px] text-slate-400 font-mono">{session.section?.module?.code}</p>
+                                <p className="text-[10px] text-slate-800 font-mono">{session.section?.module?.code}</p>
                                                                 </div>
                                                             </td>
                                                             <td className="p-3">
@@ -1909,7 +1909,7 @@ export default function SISStudentDashboard() {
                                                             {matchingDoc && getDocumentUrl(matchingDoc) !== '#' ? (
                                                                 <a href={getDocumentUrl(matchingDoc)} download target="_blank" rel="noopener noreferrer" className="inline-block text-[11px] sm:text-xs font-semibold px-2.5 py-1 sm:px-3 sm:py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition whitespace-nowrap">View Receipt</a>
                                                             ) : (
-                                                                <span className="text-[11px] text-slate-400 whitespace-nowrap">Not available</span>
+                                                                <span className="text-[11px] text-slate-800 whitespace-nowrap">Not available</span>
                                                             )}
                                                         </td>
                                                     </tr>
@@ -2048,7 +2048,7 @@ export default function SISStudentDashboard() {
                                                     </div>
                                                     <div className="text-lg font-bold text-slate-900 mb-2">{formatCurrency(scholarship.amount)}</div>
                                                     <p className="text-xs text-slate-500 mb-3 line-clamp-2">{scholarship.description}</p>
-                                                    <div className="text-[10px] text-slate-400 mb-3">Deadline: {formatDate(scholarship.application_deadline)}</div>
+                                                    <div className="text-[10px] text-slate-800 mb-3">Deadline: {formatDate(scholarship.application_deadline)}</div>
                                                     <button
                                                         disabled={applied}
                                                         className={`w-full px-3 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider transition ${
@@ -2129,7 +2129,7 @@ export default function SISStudentDashboard() {
                                                                     if (receiptDoc && getDocumentUrl(receiptDoc) !== '#') {
                                                                         return <a href={getDocumentUrl(receiptDoc)} download target="_blank" rel="noopener noreferrer" className="text-xs font-medium px-3 py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition">View</a>;
                                                                     }
-                                                                    return <span className="text-[11px] text-slate-400">N/A</span>;
+                                                                    return <span className="text-[11px] text-slate-800">N/A</span>;
                                                                 })()}
                                                             </td>
                                                         </tr>
@@ -2285,7 +2285,7 @@ export default function SISStudentDashboard() {
                                     <div key={item.id} className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-slate-300 cursor-pointer transition">
                                         <span className="text-[10px] font-bold text-slate-600 uppercase bg-slate-100 px-2 py-0.5 rounded">{item.priority || 'News'}</span>
                                         <h3 className="text-sm font-bold text-slate-900 mt-2">{item.title}</h3>
-                                        <p className="text-xs text-slate-400 mt-1">{item.publish_start ? new Date(item.publish_start).toLocaleDateString('en-CA') : ''}</p>
+                                        <p className="text-xs text-slate-800 mt-1">{item.publish_start ? new Date(item.publish_start).toLocaleDateString('en-CA') : ''}</p>
                                     </div>
                                 )) : (
                                     <div className="col-span-full text-center py-8 text-slate-500">No news available</div>
@@ -2336,7 +2336,7 @@ export default function SISStudentDashboard() {
                                     <div className="flex flex-col items-center text-center border-b lg:border-b-0 lg:border-r border-slate-100 pb-6 lg:pb-0 lg:pr-8">
                                         <div className="relative group cursor-pointer mb-3">
                                             <div className="w-28 h-28 rounded-full border-2 border-slate-300 bg-slate-100 flex items-center justify-center">
-                                                <HugeiconsIcon icon={User} size={40} strokeWidth={2} className="text-slate-400" />
+                                                <HugeiconsIcon icon={User} size={40} strokeWidth={2} className="text-slate-800" />
                                             </div>
                                         </div>
                                         <h4 className="font-bold text-slate-900 text-base">{profileForm.fullName}</h4>
@@ -2505,7 +2505,7 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
                         Available Courses ({courses.length})
                     </h4>
                     <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Filter by status:</span>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Filter by status:</span>
                         <select
                             value={statusFilter}
                             onChange={e => setStatusFilter(e.target.value)}

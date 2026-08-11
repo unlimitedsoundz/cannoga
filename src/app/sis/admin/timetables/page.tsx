@@ -330,7 +330,7 @@ export default function TimetablesPage() {
       render: (s: ScheduleRow) => (
         <div>
           <div className="font-bold text-neutral-900">{s.subject?.name || '—'}</div>
-          <div className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest">{s.subject?.code || '—'}</div>
+          <div className="text-[10px] text-slate-800 font-bold uppercase tracking-widest">{s.subject?.code || '—'}</div>
         </div>
       ),
     },
@@ -351,7 +351,7 @@ export default function TimetablesPage() {
           <div className="flex items-center gap-2">
             <HugeiconsIcon icon={Clock} size={12} strokeWidth={2.5} />
             <span className="font-medium">{DAYS[s.day_of_week]}</span>
-          <span className="text-neutral-400">{s.start_time.slice(0, 5)} - {s.end_time.slice(0, 5)}</span>
+          <span className="text-slate-800">{s.start_time.slice(0, 5)} - {s.end_time.slice(0, 5)}</span>
         </div>
       ),
     },
@@ -409,13 +409,13 @@ export default function TimetablesPage() {
             </button>
             <button
               onClick={() => openScheduleModal(s)}
-              className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-black"
+              className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black"
             >
               <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
             </button>
             <button
               onClick={() => handleDeleteSchedule(s.id)}
-              className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-red-600"
+              className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-red-600"
             >
               <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
             </button>
@@ -438,7 +438,7 @@ export default function TimetablesPage() {
       render: (s: SessionRow) => (
         <div>
           <div className="font-bold text-neutral-900">{s.subject?.name || '—'}</div>
-          <div className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest">{s.subject?.code || '—'}</div>
+          <div className="text-[10px] text-slate-800 font-bold uppercase tracking-widest">{s.subject?.code || '—'}</div>
         </div>
       ),
     },
@@ -500,13 +500,13 @@ export default function TimetablesPage() {
         <div className="flex justify-end gap-2">
           <button
             onClick={() => openSessionModal(s)}
-            className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-black"
+            className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black"
           >
             <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
           </button>
           <button
             onClick={() => handleDeleteSession(s.id)}
-            className="p-1.5 hover:bg-neutral-100 rounded text-neutral-400 hover:text-red-600"
+            className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-red-600"
           >
             <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
           </button>
@@ -525,13 +525,13 @@ export default function TimetablesPage() {
       <div className="flex gap-4 border-b border-neutral-200">
         <button
           onClick={() => setActiveTab('schedules')}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'schedules' ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-neutral-400 hover:text-neutral-600'}`}
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'schedules' ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-800 hover:text-neutral-600'}`}
         >
           Class Schedules
         </button>
         <button
           onClick={() => setActiveTab('sessions')}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'sessions' ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-neutral-400 hover:text-neutral-600'}`}
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'sessions' ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-800 hover:text-neutral-600'}`}
         >
           Class Sessions
         </button>

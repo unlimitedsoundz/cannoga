@@ -148,7 +148,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
             <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center font-sans">
                 <div className="text-center p-6">
                     <h2 className="text-xl font-bold text-white mb-2">Authentication Error</h2>
-                    <p className="text-neutral-400 mb-4">{error}</p>
+                    <p className="text-slate-800 mb-4">{error}</p>
                     <button
                         onClick={() => window.location.href = '/portal/account/login'}
                         className="px-6 py-2 bg-white text-neutral-900 rounded-lg hover:bg-neutral-200 transition-colors font-bold text-sm"

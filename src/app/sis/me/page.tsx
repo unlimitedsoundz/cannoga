@@ -145,10 +145,10 @@ export default function MyStudentRecordPage() {
                 creditsRemaining: 0,
             }} actions={
                 <div className="flex gap-2">
-                    <button className="p-2 text-neutral-400 hover:text-neutral-600" title="View Documents"><HugeiconsIcon icon={FileText} size={16} strokeWidth={2} /></button>
-                    <button className="p-2 text-neutral-400 hover:text-neutral-600" title="View Application"><HugeiconsIcon icon={Eye} size={16} strokeWidth={2} /></button>
-                    <button className="p-2 text-neutral-400 hover:text-neutral-600" title="View Finance"><HugeiconsIcon icon={ShieldCheck} size={16} strokeWidth={2} /></button>
-                    <button className="p-2 text-neutral-400 hover:text-neutral-600" title="View Academic Record"><HugeiconsIcon icon={GraduationCap} size={16} strokeWidth={2} /></button>
+                    <button className="p-2 text-slate-800 hover:text-neutral-600" title="View Documents"><HugeiconsIcon icon={FileText} size={16} strokeWidth={2} /></button>
+                    <button className="p-2 text-slate-800 hover:text-neutral-600" title="View Application"><HugeiconsIcon icon={Eye} size={16} strokeWidth={2} /></button>
+                    <button className="p-2 text-slate-800 hover:text-neutral-600" title="View Finance"><HugeiconsIcon icon={ShieldCheck} size={16} strokeWidth={2} /></button>
+                    <button className="p-2 text-slate-800 hover:text-neutral-600" title="View Academic Record"><HugeiconsIcon icon={GraduationCap} size={16} strokeWidth={2} /></button>
                 </div>
             } />
 
@@ -184,10 +184,10 @@ export default function MyStudentRecordPage() {
                     <div className="bg-white border border-neutral-200 p-6">
                         <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Personal Information</h3>
                         <dl className="grid grid-cols-2 gap-4 text-sm">
-                            <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Student ID</dt><dd className="font-medium text-neutral-900 mt-1 font-mono">{studentId}</dd></div>
-                            <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Email</dt><dd className="font-medium text-neutral-900 mt-1 font-mono text-xs">{email}</dd></div>
-                            <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Program</dt><dd className="font-medium text-neutral-900 mt-1">{program}</dd></div>
-                            <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Enrollment Status</dt><dd className="font-medium text-neutral-900 mt-1"><StatusBadge status={status} /></dd></div>
+                            <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Student ID</dt><dd className="font-medium text-neutral-900 mt-1 font-mono">{studentId}</dd></div>
+                            <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Email</dt><dd className="font-medium text-neutral-900 mt-1 font-mono text-xs">{email}</dd></div>
+                            <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Program</dt><dd className="font-medium text-neutral-900 mt-1">{program}</dd></div>
+                            <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Enrollment Status</dt><dd className="font-medium text-neutral-900 mt-1"><StatusBadge status={status} /></dd></div>
                         </dl>
                     </div>
                 </div>

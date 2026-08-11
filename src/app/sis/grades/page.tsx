@@ -77,7 +77,7 @@ export default function GradesPage() {
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-neutral-400">Term:</label>
+          <label className="text-xs font-bold uppercase tracking-wider text-slate-800">Term:</label>
           <select
             value={selectedTerm}
             onChange={e => setSelectedTerm(e.target.value)}
@@ -91,15 +91,15 @@ export default function GradesPage() {
         </div>
         <div className="flex items-center gap-4 text-sm">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Cumulative GPA:</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Cumulative GPA:</span>
             <span className="font-bold text-neutral-900 text-lg">{overallStats.cumulativeGpa.toFixed(2)}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Credits Earned:</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Credits Earned:</span>
             <span className="font-bold text-neutral-900">{overallStats.totalCompleted} / {overallStats.totalAttempted}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Degree Progress:</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Degree Progress:</span>
             <span className="font-bold text-[#9c27b3]">{overallStats.degreeProgress}%</span>
           </div>
         </div>

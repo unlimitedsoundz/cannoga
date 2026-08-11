@@ -56,16 +56,16 @@ export default function AuditPage() {
   }
 
   const columns = [
-    { key: 'timestamp', header: 'Timestamp', render: (l: AuditLogRow) => <span className="text-xs text-neutral-400">{new Date(l.timestamp).toLocaleString('en-CA')}</span> },
+    { key: 'timestamp', header: 'Timestamp', render: (l: AuditLogRow) => <span className="text-xs text-slate-800">{new Date(l.timestamp).toLocaleString('en-CA')}</span> },
     { key: 'action', header: 'Action', render: (l: AuditLogRow) => <span className="font-mono text-xs font-bold text-white">{l.action}</span> },
     { key: 'entity_table', header: 'Module', render: (l: AuditLogRow) => <span className="text-xs text-neutral-300">{l.entity_table}</span> },
-    { key: 'entity_id', header: 'Record', render: (l: AuditLogRow) => <span className="font-mono text-xs text-neutral-400">{l.entity_id}</span> },
+    { key: 'entity_id', header: 'Record', render: (l: AuditLogRow) => <span className="font-mono text-xs text-slate-800">{l.entity_id}</span> },
     { key: 'actor', header: 'Administrator', render: (l: AuditLogRow) => <span className="text-xs text-neutral-300">{l.actor_id || 'System'}</span> },
     {
       key: 'metadata',
       header: 'Details',
       render: (l: AuditLogRow) => l.metadata ? (
-        <pre className="text-[10px] text-neutral-400 max-w-xs overflow-hidden truncate font-mono">{JSON.stringify(l.metadata)}</pre>
+        <pre className="text-[10px] text-slate-800 max-w-xs overflow-hidden truncate font-mono">{JSON.stringify(l.metadata)}</pre>
       ) : (
         <span className="text-neutral-500 text-xs">—</span>
       ),

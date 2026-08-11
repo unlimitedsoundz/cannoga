@@ -42,10 +42,10 @@ export default function RegistrationPage() {
       <div className="bg-white border border-neutral-200 p-6">
         <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Registration Status</h3>
         <div className="grid grid-cols-2 gap-4 text-sm">
-          <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Status</dt><dd className="font-medium text-neutral-900 mt-1"><StatusBadge status="active" /></dd></div>
-          <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Total Credits</dt><dd className="font-medium text-neutral-900 mt-1">12</dd></div>
-          <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Term</dt><dd className="font-medium text-neutral-900 mt-1">Fall 2026</dd></div>
-          <div><dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Last Updated</dt><dd className="font-medium text-neutral-900 mt-1">Aug 4, 2026</dd></div>
+          <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Status</dt><dd className="font-medium text-neutral-900 mt-1"><StatusBadge status="active" /></dd></div>
+          <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Total Credits</dt><dd className="font-medium text-neutral-900 mt-1">12</dd></div>
+          <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Term</dt><dd className="font-medium text-neutral-900 mt-1">Fall 2026</dd></div>
+          <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Last Updated</dt><dd className="font-medium text-neutral-900 mt-1">Aug 4, 2026</dd></div>
         </div>
       </div>
     </div>

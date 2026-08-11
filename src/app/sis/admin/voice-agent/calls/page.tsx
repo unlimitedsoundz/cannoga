@@ -123,12 +123,12 @@ export default function VoiceAgentCallsPage() {
     {
       key: 'started_at',
       header: 'Started',
-      render: (call: VoiceCallRow) => <span className="text-neutral-400 text-xs">{formatDate(call.started_at)}</span>,
+      render: (call: VoiceCallRow) => <span className="text-slate-800 text-xs">{formatDate(call.started_at)}</span>,
     },
     {
       key: 'duration_seconds',
       header: 'Duration',
-      render: (call: VoiceCallRow) => <span className="text-neutral-400 text-xs">{formatDuration(call.duration_seconds)}</span>,
+      render: (call: VoiceCallRow) => <span className="text-slate-800 text-xs">{formatDuration(call.duration_seconds)}</span>,
     },
     {
       key: 'transferred',
@@ -187,39 +187,39 @@ export default function VoiceAgentCallsPage() {
           <div className="bg-neutral-900 rounded-2xl max-w-3xl w-full max-h-[80vh] overflow-y-auto text-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="p-6 flex justify-between items-center">
               <h3 className="text-sm font-bold uppercase tracking-wider text-white">Call Details</h3>
-              <button onClick={() => setSelectedCall(null)} className="text-neutral-400 hover:text-white">
+              <button onClick={() => setSelectedCall(null)} className="text-slate-800 hover:text-white">
                 <HugeiconsIcon icon={X} size={20} strokeWidth={2} />
               </button>
             </div>
             <div className="p-6 space-y-6">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Caller</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-800">Caller</span>
                   <p className="text-sm font-mono mt-1 text-white">{selectedCall.caller_phone || '—'}</p>
                 </div>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Status</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-800">Status</span>
                   <p className="text-sm mt-1"><StatusBadge status={selectedCall.status} /></p>
                 </div>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Duration</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-800">Duration</span>
                   <p className="text-sm mt-1 text-white">{formatDuration(selectedCall.duration_seconds)}</p>
                 </div>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Transferred</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-800">Transferred</span>
                   <p className="text-sm mt-1 text-white">{selectedCall.transferred ? 'Yes' : 'No'}</p>
                 </div>
               </div>
 
               {selectedCall.summary && (
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Summary</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-800">Summary</span>
                   <p className="text-sm text-neutral-300 mt-1 p-4 bg-white/4 rounded-xl">{selectedCall.summary}</p>
                 </div>
               )}
 
               <div>
-                <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-3">Transcript</h4>
+                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3">Transcript</h4>
                 {loadingDetails ? (
                   <div className="flex items-center justify-center py-8"><div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div></div>
                 ) : (
@@ -227,7 +227,7 @@ export default function VoiceAgentCallsPage() {
                     {(callDetails?.messages || []).map((msg: CallMessage) => (
                       <div key={msg.id} className={`p-3 rounded-xl ${msg.role === 'caller' ? 'bg-neutral-800 ml-8' : msg.role === 'assistant' ? 'bg-white/5 mr-8' : 'bg-neutral-800'}`}>
                         <div className="flex justify-between items-center mb-1">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">{msg.role}</span>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">{msg.role}</span>
                           <span className="text-[10px] text-neutral-500">{formatDate(msg.timestamp)}</span>
                         </div>
                         <p className="text-xs text-white">{msg.message}</p>
@@ -241,7 +241,7 @@ export default function VoiceAgentCallsPage() {
               </div>
 
               <div>
-                <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-3">Tool Events</h4>
+                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3">Tool Events</h4>
                 <div className="space-y-2 max-h-60 overflow-y-auto">
                   {(callDetails?.toolEvents || []).map((tool: CallToolEvent) => (
                     <div key={tool.id} className="p-4 bg-white/4 rounded-xl">

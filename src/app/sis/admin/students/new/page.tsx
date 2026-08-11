@@ -33,7 +33,7 @@ export default function NewStudentPage() {
       <form onSubmit={handleSubmit} className="bg-white border border-neutral-200 p-6 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">First Name</label>
+            <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">First Name</label>
             <input
               type="text"
               value={formData.firstName}
@@ -43,7 +43,7 @@ export default function NewStudentPage() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Last Name</label>
+            <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Last Name</label>
             <input
               type="text"
               value={formData.lastName}
@@ -53,7 +53,7 @@ export default function NewStudentPage() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Email</label>
+            <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Email</label>
             <input
               type="email"
               value={formData.email}
@@ -63,7 +63,7 @@ export default function NewStudentPage() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Phone</label>
+            <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Phone</label>
             <input
               type="tel"
               value={formData.phone}
@@ -72,7 +72,7 @@ export default function NewStudentPage() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Program</label>
+            <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Program</label>
             <input
               type="text"
               value={formData.program}
@@ -82,7 +82,7 @@ export default function NewStudentPage() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Intake</label>
+            <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Intake</label>
             <input
               type="text"
               value={formData.intake}

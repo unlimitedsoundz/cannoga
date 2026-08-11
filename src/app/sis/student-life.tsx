@@ -157,7 +157,7 @@ export default function StudentLifePage({ studentId }: StudentLifePageProps) {
                         </div>
                         <div className="flex items-center gap-3">
                             <span className="text-[11px] font-semibold text-slate-600">{feature.stats}</span>
-                            <HugeiconsIcon icon={ChevronRight} size={16} strokeWidth={2} className="text-slate-400" />
+                            <HugeiconsIcon icon={ChevronRight} size={16} strokeWidth={2} className="text-slate-800" />
                         </div>
                     </button>
                 ))}

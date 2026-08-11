@@ -92,7 +92,7 @@ export default function DocumentsPage() {
       render: (d: DocumentRow) => (
         <div>
           <div className="font-bold text-xs text-white">{d.user?.first_name} {d.user?.last_name}</div>
-          <div className="text-[10px] text-neutral-400 font-mono">{d.user?.email}</div>
+          <div className="text-[10px] text-slate-800 font-mono">{d.user?.email}</div>
         </div>
       ),
     },

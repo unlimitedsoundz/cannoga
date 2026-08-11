@@ -58,7 +58,7 @@ export default function CoursesPage() {
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 p-4 bg-white border border-neutral-200">
         <div className="flex items-center gap-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-neutral-400">Term:</label>
+          <label className="text-xs font-bold uppercase tracking-wider text-slate-800">Term:</label>
           <select
             value={termFilter}
             onChange={e => setTermFilter(e.target.value)}
@@ -71,7 +71,7 @@ export default function CoursesPage() {
         </div>
         <div className="flex items-center gap-4 text-sm">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Total:</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Total:</span>
             <span className="font-bold text-neutral-900">{termCourses.length} courses</span>
           </div>
         </div>

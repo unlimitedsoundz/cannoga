@@ -145,7 +145,7 @@ export default function AdminNotificationsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-1">
                     <form onSubmit={handleSubmit} className="bg-neutral-900 rounded-2xl p-6 space-y-4 text-white shadow-sm">
-                        <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4 flex items-center gap-2">
+                        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-4 flex items-center gap-2">
                             <HugeiconsIcon icon={Bell} size={16} strokeWidth={2} /> New Notification
                         </h3>
 
@@ -267,7 +267,7 @@ export default function AdminNotificationsPage() {
                 <div className="lg:col-span-2">
                     <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-sm">
                         <div className="p-4 border-b border-white/5">
-                            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400">Sent Notifications</h3>
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">Sent Notifications</h3>
                         </div>
                         <div className="p-4 space-y-2 bg-black/20">
                             {notifications.length === 0 ? (
@@ -285,8 +285,8 @@ export default function AdminNotificationsPage() {
                                                 <div className="text-xs text-neutral-300 line-clamp-2">{notification.message}</div>
                                                 <div className="flex items-center gap-2 mt-2">
                                                     <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400 bg-purple-950/60 px-2 py-0.5 rounded-full">{notification.category}</span>
-                                                    <span className="text-[10px] text-neutral-400">{new Date(notification.created_at).toLocaleString()}</span>
-                                                    <span className="text-[10px] text-neutral-400">• {notification.recipient_type}</span>
+                                                    <span className="text-[10px] text-slate-800">{new Date(notification.created_at).toLocaleString()}</span>
+                                                    <span className="text-[10px] text-slate-800">• {notification.recipient_type}</span>
                                                 </div>
                                             </div>
                                             <button

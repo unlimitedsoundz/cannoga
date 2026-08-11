@@ -290,25 +290,25 @@ export default function VoiceAgentTestPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1 space-y-4">
           <div className="bg-neutral-900 rounded-2xl p-6 text-white shadow-sm">
-            <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-4">Call Controls</h3>
+            <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-4">Call Controls</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Status</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-800">Status</span>
                 <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-bold uppercase tracking-wider rounded-lg ${status === 'active' ? 'bg-emerald-950 text-emerald-300' : status === 'ended' ? 'bg-red-950 text-red-300' : status === 'starting' ? 'bg-amber-950 text-amber-300' : 'bg-neutral-800 text-neutral-300'}`}>
                   <HugeiconsIcon icon={status === 'active' ? CheckCircle : status === 'ended' ? X : Clock} size={12} />
                   {status}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Duration</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-800">Duration</span>
                 <span className="text-sm font-mono text-white">{Math.floor(duration / 60)}m {duration % 60}s</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Messages</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-800">Messages</span>
                 <span className="text-sm font-mono text-white">{transcript.length}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Tool Calls</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-800">Tool Calls</span>
                 <span className="text-sm font-mono text-white">{toolEvents.length}</span>
               </div>
 
@@ -362,7 +362,7 @@ export default function VoiceAgentTestPage() {
         <div className="lg:col-span-2 space-y-4">
           <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-sm">
             <div className="p-4 flex items-center justify-between border-b border-white/5">
-              <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider flex items-center gap-2">
+              <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
                 <HugeiconsIcon icon={Activity} size={16} strokeWidth={2} /> Live Transcript
               </h3>
               {transcript.length > 0 && (
@@ -423,7 +423,7 @@ export default function VoiceAgentTestPage() {
 
           <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-sm">
             <div className="p-4 flex items-center justify-between border-b border-white/5">
-              <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider flex items-center gap-2">
+              <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
                 <HugeiconsIcon icon={Shield} size={16} strokeWidth={2} /> Tool Calls
               </h3>
               {toolEvents.length > 0 && (

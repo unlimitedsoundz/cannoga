@@ -67,7 +67,7 @@ export default function AdminStudentsPage() {
   if (error) {
     return (
       <div className="p-8 bg-white/4 border border-white/10 rounded-2xl text-center">
-        <p className="text-neutral-400 font-medium text-sm">{error}</p>
+        <p className="text-slate-800 font-medium text-sm">{error}</p>
         <button onClick={() => window.location.reload()} className="mt-4 px-4 py-2 bg-white text-neutral-900 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors">Retry</button>
       </div>
     );
@@ -101,11 +101,11 @@ export default function AdminStudentsPage() {
         </div>
       ),
     },
-    { key: 'program', header: 'Program', render: (s: StudentRow) => <span className="text-xs text-neutral-400">{s.program || '—'}</span> },
-    { key: 'school', header: 'School', render: (s: StudentRow) => <span className="text-xs text-neutral-400">{s.school || '—'}</span> },
+    { key: 'program', header: 'Program', render: (s: StudentRow) => <span className="text-xs text-slate-800">{s.program || '—'}</span> },
+    { key: 'school', header: 'School', render: (s: StudentRow) => <span className="text-xs text-slate-800">{s.school || '—'}</span> },
     { key: 'status', header: 'Status', render: (s: StudentRow) => <StatusBadge status={s.status} /> },
     { key: 'enrollment_status', header: 'Enrollment', render: (s: StudentRow) => <StatusBadge status={s.enrollment_status} /> },
-    { key: 'advisor', header: 'Advisor', render: (s: StudentRow) => <span className="text-xs text-neutral-400">{s.advisor || '—'}</span> },
+    { key: 'advisor', header: 'Advisor', render: (s: StudentRow) => <span className="text-xs text-slate-800">{s.advisor || '—'}</span> },
     {
       key: 'hold',
       header: 'Hold',

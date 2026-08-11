@@ -105,19 +105,19 @@ export default function RegistrationPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Total Registrations</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Total Registrations</div>
           <div className="text-2xl font-black text-neutral-900 mt-1">{data.length}</div>
         </div>
         <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Registered</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Registered</div>
           <div className="text-2xl font-black text-blue-600 mt-1">{data.filter(r => r.status === 'REGISTERED').length}</div>
         </div>
         <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Completed</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Completed</div>
           <div className="text-2xl font-black text-emerald-600 mt-1">{data.filter(r => r.status === 'COMPLETED').length}</div>
         </div>
         <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Dropped</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Dropped</div>
           <div className="text-2xl font-black text-red-600 mt-1">{data.filter(r => r.status === 'DROPPED').length}</div>
         </div>
       </div>

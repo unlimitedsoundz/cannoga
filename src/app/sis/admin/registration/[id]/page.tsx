@@ -88,7 +88,7 @@ export default function RegistrationDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white border border-neutral-200 p-6">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4">Module Information</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-4">Module Information</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <div className="p-2 bg-neutral-100 rounded text-neutral-500">
@@ -102,11 +102,11 @@ export default function RegistrationDetailPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Credits</div>
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Credits</div>
                   <div className="text-sm font-bold text-neutral-900">{data.module?.credits || '—'}</div>
                 </div>
                 <div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Semester</div>
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Semester</div>
                   <div className="text-sm font-bold text-neutral-900">{data.semester?.name || '—'}</div>
                 </div>
               </div>
@@ -114,14 +114,14 @@ export default function RegistrationDetailPage() {
           </div>
 
           <div className="bg-white border border-neutral-200 p-6">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4">Enrollment Status</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-4">Enrollment Status</h3>
             <div className="flex items-center gap-4">
               <StatusBadge status={data.status} />
               <span className="text-sm text-neutral-600">Grade Status: <span className="font-bold text-neutral-900">{data.grade_status || '—'}</span></span>
             </div>
             {data.grade !== null && (
               <div className="mt-4">
-                <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">Grade</div>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800 mb-1">Grade</div>
                 <div className="text-2xl font-black text-neutral-900">{data.grade.toFixed(2)}</div>
               </div>
             )}
@@ -130,7 +130,7 @@ export default function RegistrationDetailPage() {
 
         <div className="space-y-6">
           <div className="bg-white border border-neutral-200 p-6">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4">Student</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-4">Student</h3>
             <div className="flex items-center gap-3">
               <div className="p-2 bg-neutral-100 rounded text-neutral-500">
                 <HugeiconsIcon icon={User} size={18} strokeWidth={2} />
@@ -144,18 +144,18 @@ export default function RegistrationDetailPage() {
           </div>
 
           <div className="bg-white border border-neutral-200 p-6">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4">Record Info</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-4">Record Info</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <HugeiconsIcon icon={Hash} size={14} strokeWidth={2} className="text-neutral-400" />
+                <HugeiconsIcon icon={Hash} size={14} strokeWidth={2} className="text-slate-800" />
                 <span className="text-xs text-neutral-500 font-mono">{data.id}</span>
               </div>
               <div className="flex items-center gap-2">
-                <HugeiconsIcon icon={Calendar} size={14} strokeWidth={2} className="text-neutral-400" />
+                <HugeiconsIcon icon={Calendar} size={14} strokeWidth={2} className="text-slate-800" />
                 <span className="text-xs text-neutral-600">Created: {new Date(data.created_at).toLocaleDateString()}</span>
               </div>
               <div className="flex items-center gap-2">
-                <HugeiconsIcon icon={Calendar} size={14} strokeWidth={2} className="text-neutral-400" />
+                <HugeiconsIcon icon={Calendar} size={14} strokeWidth={2} className="text-slate-800" />
                 <span className="text-xs text-neutral-600">Updated: {new Date(data.updated_at).toLocaleDateString()}</span>
               </div>
             </div>
