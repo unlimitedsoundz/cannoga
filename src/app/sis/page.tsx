@@ -921,6 +921,32 @@ export default function SISStudentDashboard() {
                                         </div>
                                     </div>
                                 </div>
+                            {/* PRESIDENT'S WELCOME WIDGET */}
+                            <div className="mb-6 bg-gradient-to-r from-slate-900 via-purple-950 to-slate-900 border border-slate-800 rounded-xl p-5 sm:p-6 text-white shadow-lg relative overflow-hidden flex flex-col md:flex-row items-center gap-6">
+                                <div className="relative shrink-0">
+                                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-amber-400/80 shadow-md">
+                                        <img src="/images/president-evelyn-vance.png" alt="Dr. Evelyn Vance" className="w-full h-full object-cover" />
+                                    </div>
+                                    <span className="absolute -bottom-1 -right-1 bg-amber-400 text-slate-950 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full shadow">President</span>
+                                </div>
+                                <div className="flex-1 space-y-2 text-center md:text-left">
+                                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
+                                        <h3 className="text-sm sm:text-base font-bold text-amber-300 uppercase tracking-wider">Welcome Message from the President</h3>
+                                        <span className="text-[10px] bg-amber-400/10 text-amber-300 border border-amber-400/30 font-medium px-2 py-0.5 rounded-full">Academic Year 2026-2027</span>
+                                    </div>
+                                    <blockquote className="text-xs sm:text-sm text-slate-200 italic font-serif leading-relaxed">
+                                        &ldquo;Welcome to Cannoga College! We are committed to fostering academic excellence, innovative research, and a supportive community. Together, we empower you to achieve your personal and professional aspirations.&rdquo;
+                                    </blockquote>
+                                    <div className="pt-1 flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-slate-800">
+                                        <div>
+                                            <p className="text-xs font-bold text-white">Dr. Evelyn Vance</p>
+                                            <p className="text-[10px] text-slate-400 font-medium">President & Vice-Chancellor, Cannoga College</p>
+                                        </div>
+                                        <button type="button" onClick={() => navigateTo('news')} className="text-xs font-semibold text-amber-300 hover:text-amber-200 hover:underline transition">
+                                            Read Full Address & Campus Updates &rarr;
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
 
                             {activeHolds.length > 0 && (
