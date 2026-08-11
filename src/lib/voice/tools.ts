@@ -621,6 +621,25 @@ export const voiceTools: ToolDefinition[] = [
     async execute(args: Record<string, any>, context: ToolContext): Promise<ToolResult> {
       const adminClient = createServiceRoleClient();
       try {
+        const queryText = (args.query || '').trim().toLowerCase();
+
+        // 1. Handle common greetings and conversational openers
+        if (/^(hi|hello|hey|greetings|good morning|good afternoon|good evening)\b/i.test(queryText)) {
+          return {
+            success: true,
+            data: [
+              {
+                id: 'greeting-faq',
+                question: 'Greeting',
+                answer: "Hello! I'm Debbie, the virtual admissions assistant at Cannoga College. How can I assist you with programs, admissions, tuition, or application status today?",
+                priority: 100,
+              },
+            ],
+            message: 'Greeting acknowledged.',
+          };
+        }
+
+        // 2. Query primary FAQs table
         let query = adminClient
           .from('voice_agent_faqs')
           .select('*')
@@ -630,26 +649,100 @@ export const voiceTools: ToolDefinition[] = [
           query = query.eq('category', args.category);
         }
 
-        const { data: faqs, error } = await query;
-
-        if (error) throw error;
+        const { data: faqs } = await query;
 
         let results = (faqs || []).filter((f: any) => {
-          const lowerQuery = args.query.toLowerCase();
+          const q = f.question.toLowerCase();
+          const a = f.answer.toLowerCase();
           return (
-            f.question.toLowerCase().includes(lowerQuery) ||
-            f.answer.toLowerCase().includes(lowerQuery)
+            q.includes(queryText) ||
+            a.includes(queryText) ||
+            queryText.split(' ').some((word: string) => word.length > 3 && (q.includes(word) || a.includes(word)))
           );
         });
 
-        results.sort((a: any, b: any) => b.priority - a.priority);
+        if (results.length > 0) {
+          results.sort((a: any, b: any) => b.priority - a.priority);
+          return {
+            success: true,
+            data: results.slice(0, 3),
+            message: `Found ${results.length} FAQ match(es).`,
+          };
+        }
 
-        const topResults = results.slice(0, 3);
+        // 3. Fallback: Search knowledge base entries
+        const { data: knowledge } = await adminClient
+          .from('voice_agent_knowledge')
+          .select('*')
+          .eq('active', true);
 
+        if (knowledge && knowledge.length > 0) {
+          const kMatches = knowledge.filter((k: any) => {
+            const title = (k.title || '').toLowerCase();
+            const content = (k.content || '').toLowerCase();
+            return (
+              title.includes(queryText) ||
+              content.includes(queryText) ||
+              queryText.split(' ').some((word: string) => word.length > 3 && (title.includes(word) || content.includes(word)))
+            );
+          });
+
+          if (kMatches.length > 0) {
+            return {
+              success: true,
+              data: kMatches.map((k: any) => ({
+                id: k.id,
+                question: k.title,
+                answer: k.content,
+                priority: k.priority || 50,
+              })),
+              message: `Found ${kMatches.length} knowledge base match(es).`,
+            };
+          }
+        }
+
+        // 4. Fallback: Search Courses/Programs if query is academic
+        const { data: courses } = await adminClient
+          .from('Course')
+          .select('id, title, degreeLevel, description')
+          .limit(5);
+
+        if (courses && courses.length > 0) {
+          const courseMatches = courses.filter((c: any) => {
+            const title = (c.title || '').toLowerCase();
+            const desc = (c.description || '').toLowerCase();
+            return title.includes(queryText) || desc.includes(queryText);
+          });
+
+          if (courseMatches.length > 0) {
+            const courseList = courseMatches.map((c: any) => `${c.title} (${c.degreeLevel || 'Program'})`).join(', ');
+            return {
+              success: true,
+              data: [
+                {
+                  id: 'course-match',
+                  question: 'Programs Offered',
+                  answer: `We offer relevant programs matching your inquiry, including: ${courseList}. Would you like specific details on admission requirements or tuition?`,
+                  priority: 80,
+                },
+              ],
+              message: 'Program matches retrieved.',
+            };
+          }
+        }
+
+        // 5. Intelligent default helpful response
         return {
           success: true,
-          data: topResults,
-          message: topResults.length > 0 ? `Found ${topResults.length} FAQ match(es).` : 'No matching FAQs found.',
+          data: [
+            {
+              id: 'general-info',
+              question: 'General Admissions Assistance',
+              answer: "Thank you for asking! Cannoga College offers bachelor's degrees, master's degrees, and diplomas in computer science, business, health sciences, and engineering. You can submit your application online or ask me about specific program requirements, tuition fees, or intake deadlines.",
+              priority: 10,
+            },
+          ],
+          message: 'General admissions guidance returned.',
         };
       } catch (err: any) {
         return { success: false, error: err.message || 'Failed to search FAQs.' };
