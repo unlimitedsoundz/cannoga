@@ -819,13 +819,7 @@ export async function getSISSystemSettings() {
   }
 }
 
-export async function updateSISSystemSettings(settings: {
-  academic_term?: string;
-  registration_window?: string;
-  display_name?: string;
-  email?: string;
-  department?: string;
-}) {
+export async function updateSISSystemSettings(settings: Record<string, string | undefined>) {
   const adminClient = createServiceRoleClient();
 
   try {
