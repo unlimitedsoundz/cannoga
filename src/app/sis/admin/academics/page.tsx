@@ -123,13 +123,13 @@ export default function AcademicsPage() {
       <div className="flex gap-4 border-b border-neutral-200">
         <button
           onClick={() => setActiveTab('programs')}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'programs' ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-800 hover:text-neutral-600'}`}
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'programs' ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
         >
           Programs
         </button>
         <button
           onClick={() => setActiveTab('modules')}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'modules' ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-800 hover:text-neutral-600'}`}
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'modules' ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
         >
           Modules
         </button>

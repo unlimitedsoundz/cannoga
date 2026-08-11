@@ -339,12 +339,12 @@ export default function AdmissionApplicationPage() {
           <div className="bg-white border border-neutral-200 p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Application Information</h3>
             <dl className="grid grid-cols-2 gap-4 text-sm">
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Application ID</dt><dd className="font-mono font-medium text-neutral-900 mt-1">{application.application_number || application.id?.slice(0, 8)}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Status</dt><dd className="mt-1"><StatusBadge status={application.status?.replace('_', ' ') || 'DRAFT'} /></dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Program</dt><dd className="font-medium text-neutral-900 mt-1">{course?.title || '—'}{course?.degreeLevel ? ` — ${formatDegreeLevel(course?.degreeLevel)}` : ''}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Intake</dt><dd className="font-medium text-neutral-900 mt-1">{application.intake || '—'}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Submitted</dt><dd className="font-medium text-neutral-900 mt-1">{application.submitted_at ? new Date(application.submitted_at).toLocaleDateString('en-CA') : '—'}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Student ID</dt><dd className="font-medium text-neutral-900 mt-1">{student?.student_id || 'Not yet enrolled'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Application ID</dt><dd className="font-mono font-medium text-neutral-900 mt-1">{application.application_number || application.id?.slice(0, 8)}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Status</dt><dd className="mt-1"><StatusBadge status={application.status?.replace('_', ' ') || 'DRAFT'} /></dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Program</dt><dd className="font-medium text-neutral-900 mt-1">{course?.title || '—'}{course?.degreeLevel ? ` — ${formatDegreeLevel(course?.degreeLevel)}` : ''}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Intake</dt><dd className="font-medium text-neutral-900 mt-1">{application.intake || '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Submitted</dt><dd className="font-medium text-neutral-900 mt-1">{application.submitted_at ? new Date(application.submitted_at).toLocaleDateString('en-CA') : '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student ID</dt><dd className="font-medium text-neutral-900 mt-1">{student?.student_id || 'Not yet enrolled'}</dd></div>
             </dl>
           </div>
 
@@ -352,12 +352,12 @@ export default function AdmissionApplicationPage() {
           <div className="bg-white border border-neutral-200 p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Personal Information</h3>
              <dl className="grid grid-cols-2 gap-4 text-sm">
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Full Name</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.firstName || user?.first_name} {personalInfo?.lastName || user?.last_name}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Passport Number</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.passportNumber || user?.passport_number || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Nationality</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.nationality || user?.citizenship || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Date of Birth</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.dateOfBirth || user?.date_of_birth || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Gender</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.gender || user?.gender || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Student Type</dt><dd className="font-medium text-neutral-900 mt-1 capitalize">{personalInfo?.studentType || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Full Name</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.firstName || user?.first_name} {personalInfo?.lastName || user?.last_name}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Passport Number</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.passportNumber || user?.passport_number || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Nationality</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.nationality || user?.citizenship || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Date of Birth</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.dateOfBirth || user?.date_of_birth || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Gender</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.gender || user?.gender || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student Type</dt><dd className="font-medium text-neutral-900 mt-1 capitalize">{personalInfo?.studentType || '—'}</dd></div>
              </dl>
           </div>
 
@@ -365,9 +365,9 @@ export default function AdmissionApplicationPage() {
           <div className="bg-white border border-neutral-200 p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Contact Details</h3>
              <dl className="grid grid-cols-2 gap-4 text-sm">
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Email</dt><dd className="font-medium text-neutral-900 mt-1">{contactDetails?.email || user?.email || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Phone</dt><dd className="font-medium text-neutral-900 mt-1">{contactDetails?.phoneCode && contactDetails?.phone ? `${contactDetails.phoneCode} ${contactDetails.phone}` : contactDetails?.phone || (user?.phone_code && user?.phone_number ? `${user.phone_code} ${user.phone_number}` : user?.phone_number || '—')}</dd></div>
-               <div className="col-span-2"><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Address</dt><dd className="font-medium text-neutral-900 mt-1">{[contactDetails?.addressLine1, contactDetails?.city, contactDetails?.country, user?.address, user?.city, user?.state_province, user?.zipcode].filter(Boolean).join(', ') || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Email</dt><dd className="font-medium text-neutral-900 mt-1">{contactDetails?.email || user?.email || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Phone</dt><dd className="font-medium text-neutral-900 mt-1">{contactDetails?.phoneCode && contactDetails?.phone ? `${contactDetails.phoneCode} ${contactDetails.phone}` : contactDetails?.phone || (user?.phone_code && user?.phone_number ? `${user.phone_code} ${user.phone_number}` : user?.phone_number || '—')}</dd></div>
+               <div className="col-span-2"><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Address</dt><dd className="font-medium text-neutral-900 mt-1">{[contactDetails?.addressLine1, contactDetails?.city, contactDetails?.country, user?.address, user?.city, user?.state_province, user?.zipcode].filter(Boolean).join(', ') || '—'}</dd></div>
              </dl>
           </div>
 
@@ -376,10 +376,10 @@ export default function AdmissionApplicationPage() {
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Academic History</h3>
             {educationHistory ? (
               <dl className="grid grid-cols-2 gap-4 text-sm">
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">High School</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.highSchool || '—'}</dd></div>
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Graduation Year</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.graduationYear || '—'}</dd></div>
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">GPA</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.gpa || '—'}</dd></div>
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Degree</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.degree || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">High School</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.highSchool || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Graduation Year</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.graduationYear || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">GPA</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.gpa || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Degree</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.degree || '—'}</dd></div>
               </dl>
             ) : (
               <p className="text-sm text-neutral-500">No academic history provided</p>
@@ -391,8 +391,8 @@ export default function AdmissionApplicationPage() {
             <div className="bg-white border border-neutral-200 p-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Language Proficiency</h3>
               <dl className="grid grid-cols-2 gap-4 text-sm">
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Test Type</dt><dd className="font-medium text-neutral-900 mt-1">{languageProficiency?.testType || '—'}</dd></div>
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Score</dt><dd className="font-medium text-neutral-900 mt-1">{languageProficiency?.score || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Test Type</dt><dd className="font-medium text-neutral-900 mt-1">{languageProficiency?.testType || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</dt><dd className="font-medium text-neutral-900 mt-1">{languageProficiency?.score || '—'}</dd></div>
               </dl>
             </div>
           )}
@@ -404,7 +404,7 @@ export default function AdmissionApplicationPage() {
               <p className="text-sm text-neutral-700 leading-relaxed">{motivation?.statement}</p>
               {motivation?.extracurriculars && (
                 <div className="mt-4">
-                  <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Extracurriculars</dt>
+                  <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Extracurriculars</dt>
                   <dd className="text-sm text-neutral-700 mt-1">{motivation?.extracurriculars}</dd>
                 </div>
               )}
@@ -419,13 +419,13 @@ export default function AdmissionApplicationPage() {
                 {documents.map(doc => (
                   <div key={doc.id} className="flex items-center justify-between p-3 bg-neutral-50 border border-neutral-100">
                     <div className="flex items-center gap-2">
-                      <HugeiconsIcon icon={FileText} size={14} strokeWidth={2} className="text-slate-800" />
+                      <HugeiconsIcon icon={FileText} size={14} strokeWidth={2} className="text-slate-400" />
                       <span className="text-xs font-medium text-neutral-900">{doc?.name}</span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">{doc?.type}</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{doc?.type}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <a href={doc?.url} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline">View</a>
-                      <a href={doc?.url} download className="text-xs font-bold uppercase tracking-wider text-slate-800 hover:text-neutral-600">Download</a>
+                      <a href={doc?.url} download className="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-neutral-600">Download</a>
                     </div>
                   </div>
                 ))}

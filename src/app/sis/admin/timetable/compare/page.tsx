@@ -221,7 +221,7 @@ export default function CompareTimetablePage() {
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key as any)}
-                  className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === tab.key ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-800 hover:text-neutral-600'}`}
+                  className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === tab.key ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
                 >
                   {tab.label} ({tab.count})
                 </button>
@@ -242,7 +242,7 @@ export default function CompareTimetablePage() {
 
       {!comparison && !loading && (
         <div className="bg-white border border-neutral-200 p-12 text-center">
-          <div className="text-slate-800 mb-2">
+          <div className="text-slate-400 mb-2">
             <HugeiconsIcon icon={ArrowRight} size={40} strokeWidth={1.5} className="mx-auto" />
           </div>
           <p className="text-sm text-neutral-500">Enter two version IDs and click Compare to see differences</p>

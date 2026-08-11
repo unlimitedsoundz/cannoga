@@ -63,7 +63,7 @@ export default function AdmissionsPage() {
   if (error) {
     return (
       <div className="p-8 bg-white/4 border border-white/10 rounded-2xl text-center">
-        <p className="text-slate-800 font-medium text-sm">{error}</p>
+        <p className="text-slate-400 font-medium text-sm">{error}</p>
       </div>
     );
   }
@@ -96,7 +96,7 @@ export default function AdmissionsPage() {
         </div>
       ),
     },
-    { key: 'program', header: 'Program', render: (a: ApplicationRow) => <span className="text-xs text-slate-800">{`${a.course?.title || '—'}${a.course?.degreeLevel ? ` — ${formatDegreeLevel(a.course.degreeLevel)}` : ''}`}</span> },
+    { key: 'program', header: 'Program', render: (a: ApplicationRow) => <span className="text-xs text-slate-400">{`${a.course?.title || '—'}${a.course?.degreeLevel ? ` — ${formatDegreeLevel(a.course.degreeLevel)}` : ''}`}</span> },
     {
       key: 'submitted_at',
       header: 'Submitted',
@@ -139,7 +139,7 @@ export default function AdmissionsPage() {
         </div>
         <div className="bg-[#1a1a1a] border border-white/8 rounded-2xl p-5">
           <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-600">Rejected</div>
-          <div className="text-2xl font-black text-slate-800 mt-1">{data.filter(a => a.status === 'REJECTED' || a.status === 'OFFER_DECLINED').length}</div>
+          <div className="text-2xl font-black text-slate-400 mt-1">{data.filter(a => a.status === 'REJECTED' || a.status === 'OFFER_DECLINED').length}</div>
         </div>
       </div>
 

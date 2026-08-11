@@ -219,16 +219,16 @@ export default function AvailabilityPage() {
     { key: 'effective', header: 'Effective', render: (a: any) => (
       <div className="text-xs">
         <div>{a.effective_date}</div>
-        {a.expiry_date && <div className="text-slate-800">to {a.expiry_date}</div>}
+        {a.expiry_date && <div className="text-slate-400">to {a.expiry_date}</div>}
       </div>
     )},
     { key: 'notes', header: 'Notes', render: (a: any) => a.notes || '—' },
     { key: 'actions', header: 'Actions', render: (a: any) => (
       <div className="flex justify-end gap-2">
-        <button onClick={() => openModal(a)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black">
+        <button onClick={() => openModal(a)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-400 hover:text-black">
           <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
         </button>
-        <button onClick={() => setDeleteConfirm(a.id)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-red-600">
+        <button onClick={() => setDeleteConfirm(a.id)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-400 hover:text-red-600">
           <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
         </button>
       </div>

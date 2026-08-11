@@ -63,7 +63,7 @@ export default function ModulesPage() {
   }
 
   if (!module) {
-    return <div className="p-8 text-center text-slate-800">Module not found</div>;
+    return <div className="p-8 text-center text-slate-400">Module not found</div>;
   }
 
   const columns = [

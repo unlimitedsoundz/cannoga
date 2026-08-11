@@ -163,12 +163,12 @@ export default function SettingsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <form onSubmit={handleSaveProfile} className="bg-neutral-900 rounded-2xl p-6 space-y-4 text-white shadow-sm">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
             <HugeiconsIcon icon={User} size={16} strokeWidth={2} /> Profile Settings
           </h3>
           <div className="space-y-4">
             <div>
-              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Display Name</label>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Display Name</label>
               <input
                 type="text"
                 value={displayName}
@@ -178,7 +178,7 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Email</label>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Email</label>
               <input
                 type="email"
                 value={email}
@@ -188,7 +188,7 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Department</label>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Department</label>
               <input
                 type="text"
                 value={department}
@@ -208,12 +208,12 @@ export default function SettingsPage() {
         </form>
 
         <form onSubmit={handleUpdatePassword} className="bg-neutral-900 rounded-2xl p-6 space-y-4 text-white shadow-sm">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
             <HugeiconsIcon icon={Security} size={16} strokeWidth={2} /> Security & Authentication
           </h3>
           <div className="space-y-4">
             <div>
-              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Current Password</label>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Current Password</label>
               <input
                 type="password"
                 value={currentPassword}
@@ -223,7 +223,7 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">New Password</label>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">New Password</label>
               <input
                 type="password"
                 value={newPassword}
@@ -243,12 +243,12 @@ export default function SettingsPage() {
         </form>
 
         <form onSubmit={handleSaveSystemSettings} className="bg-neutral-900 rounded-2xl p-6 space-y-4 text-white shadow-sm">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
             <HugeiconsIcon icon={SettingsIcon} size={16} strokeWidth={2} /> System Configuration
           </h3>
           <div className="space-y-4">
             <div>
-              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Active Academic Term</label>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Active Academic Term</label>
               <select
                 value={academicTerm}
                 onChange={e => setAcademicTerm(e.target.value)}
@@ -260,7 +260,7 @@ export default function SettingsPage() {
               </select>
             </div>
             <div>
-              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Course Registration Window</label>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Course Registration Window</label>
               <input
                 type="text"
                 value={registrationWindow}
@@ -279,14 +279,14 @@ export default function SettingsPage() {
         </form>
 
         <div className="bg-neutral-900 rounded-2xl p-6 space-y-4 text-white shadow-sm">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
             <HugeiconsIcon icon={Logout} size={16} strokeWidth={2} /> Session Management
           </h3>
           <div className="space-y-3">
             <div className="p-4 bg-neutral-800 rounded-xl flex justify-between items-center">
               <div>
                 <div className="text-xs font-bold text-white">Current Session</div>
-                <div className="text-[10px] text-slate-800 mt-0.5 font-mono">Active Browser • Ottawa, ON</div>
+                <div className="text-[10px] text-slate-400 mt-0.5 font-mono">Active Browser • Ottawa, ON</div>
               </div>
               <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 px-2.5 py-1 rounded-full uppercase tracking-wider">Active</span>
             </div>

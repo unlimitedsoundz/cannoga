@@ -166,19 +166,19 @@ export default function StudentFinancePage() {
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Base Tuition</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Base Tuition</div>
           <div className="text-2xl font-black text-neutral-900 mt-1">{formatCurrency(summary.tuitionFee)}</div>
         </div>
         <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Ancillary Fees</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Ancillary Fees</div>
           <div className="text-2xl font-black text-neutral-900 mt-1">{formatCurrency(summary.ancillaryFee)}</div>
         </div>
         <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Total Paid</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Paid</div>
           <div className="text-2xl font-black text-emerald-600 mt-1">{formatCurrency(summary.totalPaid)}</div>
         </div>
         <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Outstanding Balance</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Outstanding Balance</div>
           <div className={`text-2xl font-black mt-1 ${summary.outstandingBalance > 0 ? 'text-red-600' : 'text-emerald-600'}`}>
             {formatCurrency(summary.outstandingBalance)}
           </div>
@@ -260,7 +260,7 @@ export default function StudentFinancePage() {
             {summary.housingPaid ? (
               <span className="text-emerald-600 font-bold">Paid</span>
             ) : (
-              <span className="text-slate-800">N/A</span>
+              <span className="text-slate-400">N/A</span>
             )}
           </div>
         </div>

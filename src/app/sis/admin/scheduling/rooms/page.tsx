@@ -265,7 +265,7 @@ export default function RoomsPage() {
     { key: 'name', header: 'Room', render: (r: Room) => (
       <div>
         <div className="font-bold text-neutral-900">{r.name}</div>
-        <div className="text-[10px] text-slate-800 font-bold uppercase tracking-widest">{r.building} - {r.room_number}</div>
+        <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{r.building} - {r.room_number}</div>
       </div>
     )},
     { key: 'floor', header: 'Floor', render: (r: Room) => r.floor || '—' },
@@ -276,13 +276,13 @@ export default function RoomsPage() {
     { key: 'status', header: 'Status', render: (r: Room) => <StatusBadge status={r.status} /> },
     { key: 'actions', header: 'Actions', render: (r: Room) => (
       <div className="flex justify-end gap-2">
-        <button onClick={() => openRoomManagement(r)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black" title="Manage features & availability">
+        <button onClick={() => openRoomManagement(r)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-400 hover:text-black" title="Manage features & availability">
           <HugeiconsIcon icon={Door} size={14} strokeWidth={2.5} />
         </button>
-        <button onClick={() => openRoomModal(r)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black">
+        <button onClick={() => openRoomModal(r)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-400 hover:text-black">
           <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
         </button>
-        <button onClick={() => setDeleteConfirm({ type: 'room', id: r.id })} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-red-600">
+        <button onClick={() => setDeleteConfirm({ type: 'room', id: r.id })} className="p-1.5 hover:bg-neutral-100 rounded text-slate-400 hover:text-red-600">
           <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
         </button>
       </div>
@@ -293,16 +293,16 @@ export default function RoomsPage() {
     { key: 'name', header: 'Feature', render: (f: RoomFeature) => (
       <div>
         <div className="font-bold text-neutral-900">{f.name}</div>
-        <div className="text-[10px] text-slate-800 font-bold uppercase tracking-widest">{f.category}</div>
+        <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{f.category}</div>
       </div>
     )},
     { key: 'description', header: 'Description', render: (f: RoomFeature) => f.description || '—' },
     { key: 'actions', header: 'Actions', render: (f: RoomFeature) => (
       <div className="flex justify-end gap-2">
-        <button onClick={() => openFeatureModal(f)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black">
+        <button onClick={() => openFeatureModal(f)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-400 hover:text-black">
           <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
         </button>
-        <button onClick={() => setDeleteConfirm({ type: 'feature', id: f.id })} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-red-600">
+        <button onClick={() => setDeleteConfirm({ type: 'feature', id: f.id })} className="p-1.5 hover:bg-neutral-100 rounded text-slate-400 hover:text-red-600">
           <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
         </button>
       </div>
@@ -320,10 +320,10 @@ export default function RoomsPage() {
     { key: 'reason', header: 'Reason', render: (a: RoomAvailability) => a.reason || '—' },
     { key: 'actions', header: 'Actions', render: (a: RoomAvailability) => (
       <div className="flex justify-end gap-2">
-        <button onClick={() => openAvailabilityModal(a)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-black">
+        <button onClick={() => openAvailabilityModal(a)} className="p-1.5 hover:bg-neutral-100 rounded text-slate-400 hover:text-black">
           <HugeiconsIcon icon={Settings} size={14} strokeWidth={2.5} />
         </button>
-        <button onClick={() => setDeleteConfirm({ type: 'availability', id: a.id })} className="p-1.5 hover:bg-neutral-100 rounded text-slate-800 hover:text-red-600">
+        <button onClick={() => setDeleteConfirm({ type: 'availability', id: a.id })} className="p-1.5 hover:bg-neutral-100 rounded text-slate-400 hover:text-red-600">
           <HugeiconsIcon icon={Trash} size={14} strokeWidth={2.5} />
         </button>
       </div>
@@ -358,7 +358,7 @@ export default function RoomsPage() {
 
       <div className="flex gap-4 border-b border-neutral-200">
         {['rooms', 'features', 'availability'].map(tab => (
-          <button key={tab} onClick={() => setViewTab(tab as any)} className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${viewTab === tab ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-800 hover:text-neutral-600'}`}>
+          <button key={tab} onClick={() => setViewTab(tab as any)} className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${viewTab === tab ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}>
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
           </button>
         ))}

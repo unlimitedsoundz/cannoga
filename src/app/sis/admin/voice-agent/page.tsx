@@ -105,7 +105,7 @@ export default function VoiceAgentDashboardPage() {
       <div className="p-8 bg-neutral-900 rounded-2xl text-center">
         <HugeiconsIcon icon={AlertCircle} size={36} className="text-neutral-500 mx-auto mb-4" />
         <p className="text-white font-bold text-sm uppercase tracking-wider mb-1">Voice Agent Error</p>
-        <p className="text-slate-800 text-xs">{error}</p>
+        <p className="text-slate-400 text-xs">{error}</p>
       </div>
     );
   }
@@ -171,7 +171,7 @@ export default function VoiceAgentDashboardPage() {
               <HugeiconsIcon icon={ArrowRight} size={13} strokeWidth={2.5} className="text-neutral-600 group-hover:text-white transform group-hover:translate-x-0.5 transition-all" />
             </div>
             <div className="text-2xl font-black text-white">{stat.count}</div>
-            <div className="text-[10px] font-bold uppercase tracking-widest text-slate-800 mt-1">{stat.label}</div>
+            <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">{stat.label}</div>
           </Link>
         ))}
       </div>
@@ -179,7 +179,7 @@ export default function VoiceAgentDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div className="flex justify-between items-center px-1">
-            <h2 className="text-xs font-bold text-slate-800 uppercase tracking-widest flex items-center gap-2">
+            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
               <HugeiconsIcon icon={Phone} size={14} className="text-neutral-500" /> Recent Calls
             </h2>
             <Link href="/sis/admin/voice-agent/calls" className="text-xs font-bold text-neutral-500 hover:text-white transition-colors uppercase tracking-wider no-underline">
@@ -190,10 +190,10 @@ export default function VoiceAgentDashboardPage() {
             <table className="w-full text-left text-sm font-sans">
               <thead className="bg-white/4">
                 <tr>
-                  <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-slate-800">Phone</th>
-                  <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-slate-800">Status</th>
-                  <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-slate-800">Started</th>
-                  <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-slate-800">Duration</th>
+                  <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Phone</th>
+                  <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Status</th>
+                  <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Started</th>
+                  <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Duration</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
@@ -204,8 +204,8 @@ export default function VoiceAgentDashboardPage() {
                     <tr key={call.id} className="hover:bg-white/4 transition-colors">
                       <td className="p-3 font-mono text-xs text-neutral-200">{call.caller_phone || '—'}</td>
                       <td className="p-3"><span className="inline-flex items-center px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-neutral-800 text-white">{call.status}</span></td>
-                      <td className="p-3 text-xs text-slate-800">{formatDate(call.started_at)}</td>
-                      <td className="p-3 text-xs text-slate-800">{formatDuration(call.duration_seconds)}</td>
+                      <td className="p-3 text-xs text-slate-400">{formatDate(call.started_at)}</td>
+                      <td className="p-3 text-xs text-slate-400">{formatDuration(call.duration_seconds)}</td>
                     </tr>
                   ))
                 )}
@@ -215,7 +215,7 @@ export default function VoiceAgentDashboardPage() {
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-xs font-bold text-slate-800 uppercase tracking-widest px-1 flex items-center gap-2">
+          <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest px-1 flex items-center gap-2">
             <HugeiconsIcon icon={CheckCircle} size={14} className="text-neutral-500" /> Quick Actions
           </h2>
           <div className="bg-neutral-900 rounded-2xl p-5 space-y-3 shadow-sm">
@@ -225,7 +225,7 @@ export default function VoiceAgentDashboardPage() {
               </div>
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-white">Test Voice Agent</h3>
-                <p className="text-[11px] text-slate-800 mt-0.5">Open browser-based voice testing interface</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">Open browser-based voice testing interface</p>
               </div>
               <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-600 group-hover:text-white ml-auto group-hover:translate-x-0.5 transition-transform" />
             </Link>
@@ -235,7 +235,7 @@ export default function VoiceAgentDashboardPage() {
               </div>
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-white">Call History</h3>
-                <p className="text-[11px] text-slate-800 mt-0.5">View and search complete call logs and transcripts</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">View and search complete call logs and transcripts</p>
               </div>
               <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-600 group-hover:text-white ml-auto group-hover:translate-x-0.5 transition-transform" />
             </Link>
@@ -245,7 +245,7 @@ export default function VoiceAgentDashboardPage() {
               </div>
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-white">Knowledge Base</h3>
-                <p className="text-[11px] text-slate-800 mt-0.5">Configure approved admissions knowledge and FAQs</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">Configure approved admissions knowledge and FAQs</p>
               </div>
               <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-600 group-hover:text-white ml-auto group-hover:translate-x-0.5 transition-transform" />
             </Link>

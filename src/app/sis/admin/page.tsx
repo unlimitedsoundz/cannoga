@@ -74,7 +74,7 @@ interface RecentEnrollment {
 function PipelineRow({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex justify-between items-center px-4 py-3 bg-white/4 rounded-xl hover:bg-white/6 transition-colors">
-      <span className="text-xs font-bold uppercase tracking-wider text-slate-800">{label}</span>
+      <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{label}</span>
       <span className="text-lg font-black text-white">{value}</span>
     </div>
   );
@@ -169,7 +169,7 @@ export default function AdminDashboardPage() {
       key: 'program',
       header: 'Program',
       render: (s: RecentStudent) => (
-        <span className="text-xs text-slate-800">{courseMap[s.program_id] || s.program_id || '—'}</span>
+        <span className="text-xs text-slate-400">{courseMap[s.program_id] || s.program_id || '—'}</span>
       ),
     },
     { key: 'status', header: 'Status', render: (s: RecentStudent) => <StatusBadge status={s.enrollment_status} /> },
@@ -201,7 +201,7 @@ export default function AdminDashboardPage() {
       key: 'course',
       header: 'Program',
       render: (a: PendingApplication) => (
-        <span className="text-xs text-slate-800">{courseMap[a.course_id] || a.course?.title || '—'}</span>
+        <span className="text-xs text-slate-400">{courseMap[a.course_id] || a.course?.title || '—'}</span>
       ),
     },
     {
@@ -241,7 +241,7 @@ export default function AdminDashboardPage() {
       key: 'grade',
       header: 'Grade',
       render: (e: RecentEnrollment) => (
-        <span className="font-mono text-xs text-slate-800">{e.grade !== null ? e.grade.toFixed(2) : '—'}</span>
+        <span className="font-mono text-xs text-slate-400">{e.grade !== null ? e.grade.toFixed(2) : '—'}</span>
       ),
     },
   ];
@@ -269,9 +269,9 @@ export default function AdminDashboardPage() {
           >
             <div className="flex items-center justify-between mb-3">
               <div className="w-8 h-8 rounded-lg bg-white/8 flex items-center justify-center group-hover:bg-white/12 transition-colors">
-                <HugeiconsIcon icon={stat.icon} size={16} className="text-slate-800" />
+                <HugeiconsIcon icon={stat.icon} size={16} className="text-slate-400" />
               </div>
-              <HugeiconsIcon icon={ArrowRight} size={13} className="text-neutral-700 group-hover:text-slate-800 group-hover:translate-x-0.5 transition-all" />
+              <HugeiconsIcon icon={ArrowRight} size={13} className="text-neutral-700 group-hover:text-slate-400 group-hover:translate-x-0.5 transition-all" />
             </div>
             <div className="text-2xl font-black text-white mb-1">{stat.count}</div>
             <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">{stat.label}</div>
@@ -283,7 +283,7 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <h2 className="text-xs font-bold text-slate-800 uppercase tracking-widest flex items-center gap-2">
+            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
               <HugeiconsIcon icon={Users} size={14} className="text-neutral-600" /> Recent Enrollments
             </h2>
             <Link href="/sis/admin/students" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
@@ -293,7 +293,7 @@ export default function AdminDashboardPage() {
 
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <h2 className="text-xs font-bold text-slate-800 uppercase tracking-widest flex items-center gap-2">
+            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
               <HugeiconsIcon icon={FileText} size={14} className="text-neutral-600" /> Pending Applications
             </h2>
             <Link href="/sis/admin/applications" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
@@ -306,7 +306,7 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <h2 className="text-xs font-bold text-slate-800 uppercase tracking-widest flex items-center gap-2">
+            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
               <HugeiconsIcon icon={Users} size={14} className="text-neutral-600" /> Recent Students
             </h2>
             <Link href="/sis/admin/students" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
@@ -317,7 +317,7 @@ export default function AdminDashboardPage() {
         <div className="space-y-5">
           {/* Application Pipeline */}
           <div>
-            <h2 className="text-xs font-bold text-slate-800 uppercase tracking-widest mb-3 flex items-center gap-2">
+            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
               <HugeiconsIcon icon={Activity} size={14} className="text-neutral-600" /> Application Pipeline
             </h2>
             <div className="bg-[#1a1a1a] rounded-2xl p-4 space-y-2">
@@ -330,7 +330,7 @@ export default function AdminDashboardPage() {
 
           {/* Enrollment Status */}
           <div>
-            <h2 className="text-xs font-bold text-slate-800 uppercase tracking-widest mb-3 flex items-center gap-2">
+            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
               <HugeiconsIcon icon={BookOpen} size={14} className="text-neutral-600" /> Enrollment Status
             </h2>
             <div className="bg-[#1a1a1a] rounded-2xl p-4 space-y-2">
@@ -353,14 +353,14 @@ export default function AdminDashboardPage() {
           >
             <div className="flex items-start gap-3 mb-4">
               <div className="p-2.5 bg-white/8 rounded-xl group-hover:bg-white/12 transition-colors shrink-0">
-                <HugeiconsIcon icon={ql.icon} size={18} className="text-slate-800" />
+                <HugeiconsIcon icon={ql.icon} size={18} className="text-slate-400" />
               </div>
               <div className="min-w-0">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-white">{ql.title}</h3>
-                <p className="text-[11px] text-slate-800 mt-0.5">{ql.desc}</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">{ql.desc}</p>
               </div>
             </div>
-            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800 group-hover:text-white flex items-center gap-1 transition-colors">
+            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-white flex items-center gap-1 transition-colors">
               {ql.cta}
               <HugeiconsIcon icon={ArrowRight} size={10} className="group-hover:translate-x-0.5 transition-transform" />
             </div>

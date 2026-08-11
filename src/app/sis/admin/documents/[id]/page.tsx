@@ -146,7 +146,7 @@ export default function AdminDocumentDetailPage() {
         return (
             <div className="space-y-6">
                 <div>
-                    <button onClick={() => router.back()} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-800 hover:text-white transition-colors cursor-pointer">
+                    <button onClick={() => router.back()} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-colors cursor-pointer">
                         <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2} />
                         Back
                     </button>
@@ -186,7 +186,7 @@ export default function AdminDocumentDetailPage() {
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
-                <button onClick={() => router.back()} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-800 hover:text-white transition-colors cursor-pointer">
+                <button onClick={() => router.back()} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-colors cursor-pointer">
                     <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2} />
                     Back to Documents
                 </button>
@@ -198,24 +198,24 @@ export default function AdminDocumentDetailPage() {
             />
 
             <div className="bg-neutral-900 rounded-2xl p-6 text-white shadow-sm">
-                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-4">Application Information</h3>
+                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Application Information</h3>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="p-3 bg-neutral-800 rounded-xl">
-                        <p className="text-[10px] font-bold text-slate-800 uppercase tracking-wider">Student Name</p>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Student Name</p>
                         <p className="text-sm font-bold text-white mt-1">
                             {application?.user?.first_name} {application?.user?.last_name}
                         </p>
                     </div>
                     <div className="p-3 bg-neutral-800 rounded-xl">
-                        <p className="text-[10px] font-bold text-slate-800 uppercase tracking-wider">Email</p>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Email</p>
                         <p className="text-xs font-mono text-neutral-300 mt-1">{application?.user?.email}</p>
                     </div>
                     <div className="p-3 bg-neutral-800 rounded-xl">
-                        <p className="text-[10px] font-bold text-slate-800 uppercase tracking-wider">Programme</p>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Programme</p>
                         <p className="text-xs font-bold text-neutral-200 mt-1">{application?.course?.title}{application?.course?.degreeLevel ? ` — ${formatDegreeLevel(application.course.degreeLevel)}` : ''}</p>
                     </div>
                     <div className="p-3 bg-neutral-800 rounded-xl">
-                        <p className="text-[10px] font-bold text-slate-800 uppercase tracking-wider mb-1">Status</p>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Status</p>
                         <span className={`inline-block text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider ${application?.status === 'ADMITTED' ? 'bg-emerald-950 text-emerald-300' : application?.status === 'REJECTED' ? 'bg-red-950 text-red-300' : 'bg-neutral-700 text-neutral-200'}`}>
                             {application?.status?.replace('_', ' ')}
                         </span>
@@ -226,7 +226,7 @@ export default function AdminDocumentDetailPage() {
             <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-sm">
                 <div className="p-4 border-b border-white/5 flex items-center justify-between">
                     <div>
-                        <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Uploaded Documents</h3>
+                        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Uploaded Documents</h3>
                         <p className="text-xs text-neutral-500 mt-0.5">{allDocuments.length} document(s) for this application</p>
                     </div>
                 </div>
@@ -240,7 +240,7 @@ export default function AdminDocumentDetailPage() {
                                     </div>
                                     <div>
                                         <p className="text-xs font-bold text-white">{doc.name}</p>
-                                        <p className="text-[10px] text-slate-800 font-mono mt-0.5">{getDocumentTypeLabel(doc.type)}</p>
+                                        <p className="text-[10px] text-slate-400 font-mono mt-0.5">{getDocumentTypeLabel(doc.type)}</p>
                                     </div>
                                 </div>
                                 <a

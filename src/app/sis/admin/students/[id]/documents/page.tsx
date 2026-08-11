@@ -140,7 +140,7 @@ export default function StudentDocumentsPage() {
             {documents.map((doc) => (
               <div key={doc.id} className="flex items-center justify-between p-4 hover:bg-neutral-50 transition-colors">
                 <div className="flex items-center gap-3">
-                  <HugeiconsIcon icon={FileText} size={18} strokeWidth={2} className="text-slate-800" />
+                  <HugeiconsIcon icon={FileText} size={18} strokeWidth={2} className="text-slate-400" />
                   <div>
                     <p className="text-sm font-medium text-neutral-900">{documentTypeLabels[doc.document_type] || doc.title}</p>
                     <p className="text-xs text-neutral-500">
@@ -152,15 +152,15 @@ export default function StudentDocumentsPage() {
                   <StatusBadge status={doc.status} />
                   {getDocumentUrl(doc) !== '#' && (
                     <>
-                      <a href={getDocumentUrl(doc)} target="_blank" rel="noopener noreferrer" className="p-1.5 text-slate-800 hover:text-neutral-600 transition-colors" title="View">
+                      <a href={getDocumentUrl(doc)} target="_blank" rel="noopener noreferrer" className="p-1.5 text-slate-400 hover:text-neutral-600 transition-colors" title="View">
                         <HugeiconsIcon icon={Eye} size={14} strokeWidth={2} />
                       </a>
-                      <a href={getDocumentUrl(doc)} download className="p-1.5 text-slate-800 hover:text-neutral-600 transition-colors" title="Download">
+                      <a href={getDocumentUrl(doc)} download className="p-1.5 text-slate-400 hover:text-neutral-600 transition-colors" title="Download">
                         <HugeiconsIcon icon={Download} size={14} strokeWidth={2} />
                       </a>
                     </>
                   )}
-                  <button onClick={() => handleDelete(doc.id)} className="p-1.5 text-slate-800 hover:text-red-600 transition-colors" title="Delete">
+                  <button onClick={() => handleDelete(doc.id)} className="p-1.5 text-slate-400 hover:text-red-600 transition-colors" title="Delete">
                     <HugeiconsIcon icon={Trash} size={14} strokeWidth={2} />
                   </button>
                 </div>

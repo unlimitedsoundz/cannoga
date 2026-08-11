@@ -307,7 +307,7 @@ export default function PublishTimetablePage() {
             </div>
             <div className="p-4 bg-neutral-50 border border-neutral-200">
               <div className="text-[10px] font-black uppercase tracking-widest text-neutral-500 mb-1">Score</div>
-              <div className={`text-2xl font-black ${summary.score ? summary.score.overall_score >= 80 ? 'text-emerald-600' : 'text-amber-600' : 'text-slate-800'}`}>
+              <div className={`text-2xl font-black ${summary.score ? summary.score.overall_score >= 80 ? 'text-emerald-600' : 'text-amber-600' : 'text-slate-400'}`}>
                 {summary.score ? `${summary.score.overall_score}/100` : '—'}
               </div>
             </div>

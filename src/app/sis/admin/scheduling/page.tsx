@@ -220,7 +220,7 @@ export default function SchedulingPage() {
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
         </div>
       ) : !termId ? (
-        <div className="text-center py-20 text-slate-800 text-sm font-medium">Select a term to view scheduling data</div>
+        <div className="text-center py-20 text-slate-400 text-sm font-medium">Select a term to view scheduling data</div>
       ) : (
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -230,7 +230,7 @@ export default function SchedulingPage() {
                   <HugeiconsIcon icon={card.icon} size={16} strokeWidth={2} />
                 </div>
                 <div className="text-2xl font-black text-white">{card.value}</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-slate-800 mt-1">{card.label}</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">{card.label}</div>
               </div>
             ))}
           </div>
@@ -243,7 +243,7 @@ export default function SchedulingPage() {
                 </div>
                 <h3 className="text-sm font-bold uppercase tracking-wider text-white">Rooms</h3>
               </div>
-              <p className="text-xs text-slate-800">Manage rooms, features, and availability blocks</p>
+              <p className="text-xs text-slate-400">Manage rooms, features, and availability blocks</p>
             </Link>
 
             <Link href="/sis/admin/scheduling/sections" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
@@ -253,7 +253,7 @@ export default function SchedulingPage() {
                 </div>
                 <h3 className="text-sm font-bold uppercase tracking-wider text-white">Sections</h3>
               </div>
-              <p className="text-xs text-slate-800">Create and configure course sections and requirements</p>
+              <p className="text-xs text-slate-400">Create and configure course sections and requirements</p>
             </Link>
 
             <Link href="/sis/admin/scheduling/availability" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
@@ -263,7 +263,7 @@ export default function SchedulingPage() {
                 </div>
                 <h3 className="text-sm font-bold uppercase tracking-wider text-white">Availability</h3>
               </div>
-              <p className="text-xs text-slate-800">Manage instructor availability and time preferences</p>
+              <p className="text-xs text-slate-400">Manage instructor availability and time preferences</p>
             </Link>
 
             <Link href="/sis/admin/scheduling/settings" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
@@ -273,7 +273,7 @@ export default function SchedulingPage() {
                 </div>
                 <h3 className="text-sm font-bold uppercase tracking-wider text-white">Settings</h3>
               </div>
-              <p className="text-xs text-slate-800">Configure constraints, preferences, time slots, and holidays</p>
+              <p className="text-xs text-slate-400">Configure constraints, preferences, time slots, and holidays</p>
             </Link>
           </div>
 
@@ -285,7 +285,7 @@ export default function SchedulingPage() {
                   <div className="text-sm font-bold text-white">
                     Version {(stats.latestVersion as any)?.version_number} - {(stats.latestVersion as any)?.label || 'Untitled'}
                   </div>
-                  <div className="text-xs text-slate-800 mt-1 flex items-center gap-2">
+                  <div className="text-xs text-slate-400 mt-1 flex items-center gap-2">
                     <span>Status:</span>
                     <StatusBadge status={(stats.latestVersion as any)?.status || 'DRAFT'} />
                   </div>
@@ -318,7 +318,7 @@ export default function SchedulingPage() {
                   <div key={section.id} className="flex items-center justify-between py-2.5 border-b border-neutral-800/50 last:border-0">
                     <div>
                       <div className="text-sm font-bold text-white">{section.code}</div>
-                      <div className="text-xs text-slate-800">Status: {(section as any).status}</div>
+                      <div className="text-xs text-slate-400">Status: {(section as any).status}</div>
                     </div>
                     <StatusBadge status={(section as any).status} />
                   </div>
@@ -337,7 +337,7 @@ export default function SchedulingPage() {
         size="md"
         footer={
           <div className="flex justify-end gap-3">
-            <button onClick={() => setShowGenerateModal(false)} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-slate-800 hover:text-white">Cancel</button>
+            <button onClick={() => setShowGenerateModal(false)} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white">Cancel</button>
             <button onClick={handleGenerate} disabled={generating} className="px-6 py-2 bg-[#9c27b3] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700 disabled:opacity-50">
               {generating ? 'Starting...' : 'Start Generation'}
             </button>
@@ -348,7 +348,7 @@ export default function SchedulingPage() {
           <p className="text-sm text-neutral-300">This will run the constraint-based scheduling engine for the selected term. This process may take several minutes.</p>
           <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
             <h4 className="text-xs font-bold uppercase tracking-widest text-neutral-300 mb-2">What happens:</h4>
-            <ul className="text-xs text-slate-800 space-y-1 list-disc list-inside">
+            <ul className="text-xs text-slate-400 space-y-1 list-disc list-inside">
               <li>Analyzes all sections, rooms, and instructor availability</li>
               <li>Applies hard constraints (no double bookings, room types, etc.)</li>
               <li>Optimizes soft preferences (gaps, building changes, utilization)</li>
@@ -379,23 +379,23 @@ export default function SchedulingPage() {
           </div>
           <div className="text-center">
             <div className="text-lg font-bold text-white">{progress?.currentStage || 'Initializing'}</div>
-            <div className="text-xs text-slate-800 mt-1">{progress?.progress || 0}% complete</div>
+            <div className="text-xs text-slate-400 mt-1">{progress?.progress || 0}% complete</div>
           </div>
           <div className="grid grid-cols-2 gap-3 text-xs">
             <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3">
-              <div className="text-slate-800">Courses</div>
+              <div className="text-slate-400">Courses</div>
               <div className="font-bold text-white text-sm">{progress?.coursesCount || 0}</div>
             </div>
             <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3">
-              <div className="text-slate-800">Sections</div>
+              <div className="text-slate-400">Sections</div>
               <div className="font-bold text-white text-sm">{progress?.sectionsCount || 0}</div>
             </div>
             <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3">
-              <div className="text-slate-800">Assignments</div>
+              <div className="text-slate-400">Assignments</div>
               <div className="font-bold text-white text-sm">{progress?.assignmentsCount || 0}</div>
             </div>
             <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3">
-              <div className="text-slate-800">Hard Violations</div>
+              <div className="text-slate-400">Hard Violations</div>
               <div className="font-bold text-red-400 text-sm">{progress?.hardViolations || 0}</div>
             </div>
           </div>

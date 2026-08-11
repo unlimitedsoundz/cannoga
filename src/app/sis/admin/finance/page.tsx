@@ -147,7 +147,7 @@ export default function FinancePage() {
       render: (s: FinanceRow) => s.housing_fee_paid ? (
         <span className="text-emerald-600 text-xs font-bold uppercase">Paid</span>
       ) : (
-        <span className="text-slate-800 text-xs">N/A</span>
+        <span className="text-slate-400 text-xs">N/A</span>
       ),
     },
     {
@@ -160,7 +160,7 @@ export default function FinancePage() {
       header: 'Payment',
       render: (s: FinanceRow) => {
         if (s.account_type === 'student' || !s.payments || s.payments.length === 0) {
-          return <span className="text-slate-800 text-xs">N/A</span>;
+          return <span className="text-slate-400 text-xs">N/A</span>;
         }
         const latestPayment = s.payments[0];
         return (
@@ -217,19 +217,19 @@ export default function FinancePage() {
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Total Accounts</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Accounts</div>
           <div className="text-2xl font-black text-neutral-900 mt-1">{data.length}</div>
         </div>
         <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Deposit Paid</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Deposit Paid</div>
           <div className="text-2xl font-black text-emerald-600 mt-1">{data.filter(s => s.tuition_deposit_paid).length}</div>
         </div>
         <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Full Tuition Paid</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Full Tuition Paid</div>
           <div className="text-2xl font-black text-emerald-600 mt-1">{data.filter(s => s.full_tuition_paid).length}</div>
         </div>
         <div className="bg-white border border-neutral-200 p-4">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Outstanding</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Outstanding</div>
           <div className="text-2xl font-black text-red-600 mt-1">{data.filter(s => !s.full_tuition_paid || s.account_type === 'application').length}</div>
         </div>
       </div>

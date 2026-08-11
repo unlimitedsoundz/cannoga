@@ -479,7 +479,7 @@ export default function TimetablePage() {
             <div className="h-[40px] border-b border-neutral-200"></div>
             {timeSlots.map(slot => (
               <div key={slot} className="h-[40px] border-b border-neutral-100 flex items-start justify-end pr-2 pt-1">
-                <span className="text-[10px] text-slate-800 font-medium leading-none">{slot}</span>
+                <span className="text-[10px] text-slate-400 font-medium leading-none">{slot}</span>
               </div>
             ))}
           </div>
@@ -571,7 +571,7 @@ export default function TimetablePage() {
             <div className="h-[40px] border-b border-neutral-200"></div>
             {timeSlots.map(slot => (
               <div key={slot} className="h-[40px] border-b border-neutral-100 flex items-start justify-end pr-2 pt-1">
-                <span className="text-[10px] text-slate-800 font-medium leading-none">{slot}</span>
+                <span className="text-[10px] text-slate-400 font-medium leading-none">{slot}</span>
               </div>
             ))}
           </div>
@@ -694,7 +694,7 @@ export default function TimetablePage() {
           </div>
         ))}
         {groups.length === 0 && (
-          <div className="text-center py-12 text-slate-800 text-sm">No assignments found for this view</div>
+          <div className="text-center py-12 text-slate-400 text-sm">No assignments found for this view</div>
         )}
       </div>
     );
@@ -759,7 +759,7 @@ export default function TimetablePage() {
               className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
                 viewTab === tab.key
                   ? 'border-[#9c27b3] text-[#9c27b3]'
-                  : 'border-transparent text-slate-800 hover:text-neutral-600'
+                  : 'border-transparent text-slate-400 hover:text-neutral-600'
               }`}
             >
               <HugeiconsIcon icon={tab.icon} size={14} strokeWidth={2.5} />
@@ -798,7 +798,7 @@ export default function TimetablePage() {
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div>
         </div>
       ) : !selectedTerm ? (
-        <div className="text-center py-20 text-slate-800 text-sm">Please select a term to view the timetable</div>
+        <div className="text-center py-20 text-slate-400 text-sm">Please select a term to view the timetable</div>
       ) : (
         renderGridView()
       )}

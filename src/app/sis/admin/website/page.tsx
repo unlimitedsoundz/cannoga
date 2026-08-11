@@ -45,7 +45,7 @@ export default function WebsiteDashboardPage() {
                 {section.label}
               </h3>
             </div>
-            <p className="text-xs text-slate-800 leading-relaxed">{section.description}</p>
+            <p className="text-xs text-slate-400 leading-relaxed">{section.description}</p>
           </Link>
         ))}
       </div>
