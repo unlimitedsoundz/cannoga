@@ -265,13 +265,13 @@ export default function VoiceAgentKnowledgePage() {
     {
       key: 'title',
       header: 'Title',
-      render: (entry: KnowledgeEntry) => <span className="font-medium text-neutral-900">{entry.title}</span>,
+      render: (entry: KnowledgeEntry) => <span className="font-medium text-white">{entry.title}</span>,
     },
-    { key: 'category', header: 'Category', render: (entry: KnowledgeEntry) => <span className="text-xs uppercase tracking-wider">{entry.category}</span> },
+    { key: 'category', header: 'Category', render: (entry: KnowledgeEntry) => <span className="text-xs uppercase tracking-wider text-neutral-400">{entry.category}</span> },
     {
       key: 'content',
       header: 'Content Preview',
-      render: (entry: KnowledgeEntry) => <span className="text-xs text-neutral-500 line-clamp-2">{entry.content.slice(0, 100)}...</span>,
+      render: (entry: KnowledgeEntry) => <span className="text-xs text-neutral-400 line-clamp-2">{entry.content.slice(0, 100)}...</span>,
     },
     {
       key: 'active',
@@ -281,15 +281,15 @@ export default function VoiceAgentKnowledgePage() {
     {
       key: 'source_type',
       header: 'Source',
-      render: (entry: KnowledgeEntry) => <span className="text-xs text-neutral-500">{entry.sourceType}</span>,
+      render: (entry: KnowledgeEntry) => <span className="text-xs text-neutral-400">{entry.sourceType}</span>,
     },
     {
       key: 'actions',
       header: 'Actions',
       render: (entry: KnowledgeEntry) => (
         <div className="flex items-center gap-2">
-          <button onClick={() => startEditKnowledge(entry)} className="text-neutral-400 hover:text-neutral-600"><HugeiconsIcon icon={Edit} size={16} /></button>
-          <button onClick={() => handleDeleteKnowledge(entry.id)} className="text-neutral-400 hover:text-red-600"><HugeiconsIcon icon={Trash} size={16} /></button>
+          <button onClick={() => startEditKnowledge(entry)} className="text-neutral-400 hover:text-white transition-colors"><HugeiconsIcon icon={Edit} size={16} /></button>
+          <button onClick={() => handleDeleteKnowledge(entry.id)} className="text-neutral-400 hover:text-red-400 transition-colors"><HugeiconsIcon icon={Trash} size={16} /></button>
         </div>
       ),
     },
@@ -299,14 +299,14 @@ export default function VoiceAgentKnowledgePage() {
     {
       key: 'question',
       header: 'Question',
-      render: (faq: FAQEntry) => <span className="font-medium text-neutral-900">{faq.question}</span>,
+      render: (faq: FAQEntry) => <span className="font-medium text-white">{faq.question}</span>,
     },
     {
       key: 'answer',
       header: 'Answer Preview',
-      render: (faq: FAQEntry) => <span className="text-xs text-neutral-500 line-clamp-2">{faq.answer.slice(0, 120)}...</span>,
+      render: (faq: FAQEntry) => <span className="text-xs text-neutral-400 line-clamp-2">{faq.answer.slice(0, 120)}...</span>,
     },
-    { key: 'category', header: 'Category', render: (faq: FAQEntry) => <span className="text-xs uppercase tracking-wider">{faq.category}</span> },
+    { key: 'category', header: 'Category', render: (faq: FAQEntry) => <span className="text-xs uppercase tracking-wider text-neutral-400">{faq.category}</span> },
     {
       key: 'active',
       header: 'Status',
@@ -317,15 +317,15 @@ export default function VoiceAgentKnowledgePage() {
       header: 'Actions',
       render: (faq: FAQEntry) => (
         <div className="flex items-center gap-2">
-          <button onClick={() => startEditFAQ(faq)} className="text-neutral-400 hover:text-neutral-600"><HugeiconsIcon icon={Edit} size={16} /></button>
-          <button onClick={() => handleDeleteFAQ(faq.id)} className="text-neutral-400 hover:text-red-600"><HugeiconsIcon icon={Trash} size={16} /></button>
+          <button onClick={() => startEditFAQ(faq)} className="text-neutral-400 hover:text-white transition-colors"><HugeiconsIcon icon={Edit} size={16} /></button>
+          <button onClick={() => handleDeleteFAQ(faq.id)} className="text-neutral-400 hover:text-red-400 transition-colors"><HugeiconsIcon icon={Trash} size={16} /></button>
         </div>
       ),
     },
   ];
 
   if (loading) {
-    return <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div></div>;
+    return <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div></div>;
   }
 
   return (
@@ -335,11 +335,11 @@ export default function VoiceAgentKnowledgePage() {
         subtitle="Manage voice agent knowledge entries and FAQs"
         actions={
           activeTab === 'knowledge' ? (
-            <button onClick={startCreateKnowledge} className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors">
+            <button onClick={startCreateKnowledge} className="inline-flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors">
               <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Knowledge
             </button>
           ) : (
-            <button onClick={startCreateFAQ} className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors">
+            <button onClick={startCreateFAQ} className="inline-flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors">
               <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add FAQ
             </button>
           )
@@ -347,21 +347,21 @@ export default function VoiceAgentKnowledgePage() {
       />
 
       {message && (
-        <div className={`p-4 border ${message.type === 'success' ? 'bg-green-50 border-green-100 text-green-700' : 'bg-red-50 border-red-100 text-red-700'}`}>
-          <p className="text-sm font-medium">{message.text}</p>
+        <div className={`p-4 rounded-xl ${message.type === 'success' ? 'bg-emerald-950/60 text-emerald-300' : 'bg-red-950/60 text-red-300'}`}>
+          <p className="text-xs font-bold uppercase tracking-wider">{message.text}</p>
         </div>
       )}
 
-      <div className="flex items-center gap-1 border-b border-neutral-200">
+      <div className="flex items-center gap-2 border-b border-white/5 pb-2">
         <button
           onClick={() => { setActiveTab('knowledge'); setSearchQuery(''); }}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider ${activeTab === 'knowledge' ? 'border-b-2 border-[#9c27b3] text-neutral-900' : 'text-neutral-400 hover:text-neutral-600'}`}
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-xl transition-colors ${activeTab === 'knowledge' ? 'bg-white/10 text-white' : 'text-neutral-400 hover:text-white'}`}
         >
           Knowledge Entries
         </button>
         <button
           onClick={() => { setActiveTab('faqs'); setSearchQuery(''); }}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider ${activeTab === 'faqs' ? 'border-b-2 border-[#9c27b3] text-neutral-900' : 'text-neutral-400 hover:text-neutral-600'}`}
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-xl transition-colors ${activeTab === 'faqs' ? 'bg-white/10 text-white' : 'text-neutral-400 hover:text-white'}`}
         >
           FAQs
         </button>
@@ -372,16 +372,16 @@ export default function VoiceAgentKnowledgePage() {
       </div>
 
       {(isCreating || editingEntry) && activeTab === 'knowledge' && (
-        <div className="bg-white border border-neutral-200 p-6 space-y-4">
-          <h3 className="text-sm font-bold text-neutral-900 uppercase tracking-wider">{editingEntry ? 'Edit Knowledge Entry' : 'New Knowledge Entry'}</h3>
+        <div className="bg-neutral-900 rounded-2xl p-6 space-y-4 shadow-sm text-white">
+          <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider">{editingEntry ? 'Edit Knowledge Entry' : 'New Knowledge Entry'}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">Title</label>
-              <input type="text" value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} className="w-full p-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none" />
+              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">Title</label>
+              <input type="text" value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} className="w-full p-3 text-sm bg-white/5 text-white rounded-xl focus:outline-none focus:bg-white/10" />
             </div>
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">Category</label>
-              <select value={formData.category} onChange={e => setFormData({ ...formData, category: e.target.value })} className="w-full p-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none">
+              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">Category</label>
+              <select value={formData.category} onChange={e => setFormData({ ...formData, category: e.target.value })} className="w-full p-3 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none">
                 <option value="general">General</option>
                 <option value="admissions">Admissions</option>
                 <option value="programs">Programs</option>
@@ -400,36 +400,36 @@ export default function VoiceAgentKnowledgePage() {
             </div>
           </div>
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">Content</label>
-            <textarea value={formData.content} onChange={e => setFormData({ ...formData, content: e.target.value })} rows={4} className="w-full p-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none" />
+            <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">Content</label>
+            <textarea value={formData.content} onChange={e => setFormData({ ...formData, content: e.target.value })} rows={4} className="w-full p-3 text-sm bg-white/5 text-white rounded-xl focus:outline-none focus:bg-white/10" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">Source Type</label>
-              <select value={formData.sourceType} onChange={e => setFormData({ ...formData, sourceType: e.target.value })} className="w-full p-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none">
+              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">Source Type</label>
+              <select value={formData.sourceType} onChange={e => setFormData({ ...formData, sourceType: e.target.value })} className="w-full p-3 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none">
                 <option value="manual">Manual</option>
                 <option value="cms">CMS</option>
                 <option value="database">Database</option>
               </select>
             </div>
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">Priority</label>
-              <input type="number" value={formData.priority} onChange={e => setFormData({ ...formData, priority: parseInt(e.target.value) || 0 })} className="w-full p-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none" />
+              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">Priority</label>
+              <input type="number" value={formData.priority} onChange={e => setFormData({ ...formData, priority: parseInt(e.target.value) || 0 })} className="w-full p-3 text-sm bg-white/5 text-white rounded-xl focus:outline-none focus:bg-white/10" />
             </div>
             <div className="flex items-center gap-2 mt-6">
-              <input type="checkbox" id="active" checked={formData.active} onChange={e => setFormData({ ...formData, active: e.target.checked })} className="w-4 h-4 text-[#9c27b3] border-neutral-300 rounded focus:ring-[#9c27b3]" />
-              <label htmlFor="active" className="text-xs font-bold uppercase tracking-wider text-neutral-500">Active</label>
+              <input type="checkbox" id="active" checked={formData.active} onChange={e => setFormData({ ...formData, active: e.target.checked })} className="w-4 h-4 text-[#9c27b3] rounded" />
+              <label htmlFor="active" className="text-xs font-bold uppercase tracking-wider text-neutral-400">Active</label>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 pt-2">
             <button
               onClick={() => editingEntry ? handleUpdateKnowledge({ id: editingEntry.id, ...formData }) : handleCreateKnowledge(formData)}
               disabled={saving}
-              className="px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-50"
             >
               {saving ? 'Saving...' : editingEntry ? 'Update' : 'Create'}
             </button>
-            <button onClick={cancelEdit} className="px-4 py-2 bg-white border border-neutral-200 text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-sm hover:border-neutral-400 transition-colors">
+            <button onClick={cancelEdit} className="px-4 py-2 bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-neutral-700 transition-colors">
               Cancel
             </button>
           </div>
@@ -437,20 +437,20 @@ export default function VoiceAgentKnowledgePage() {
       )}
 
       {(isCreating || editingFAQ) && activeTab === 'faqs' && (
-        <div className="bg-white border border-neutral-200 p-6 space-y-4">
-          <h3 className="text-sm font-bold text-neutral-900 uppercase tracking-wider">{editingFAQ ? 'Edit FAQ' : 'New FAQ'}</h3>
+        <div className="bg-neutral-900 rounded-2xl p-6 space-y-4 shadow-sm text-white">
+          <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider">{editingFAQ ? 'Edit FAQ' : 'New FAQ'}</h3>
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">Question</label>
-            <input type="text" value={faqFormData.question} onChange={e => setFaqFormData({ ...faqFormData, question: e.target.value })} className="w-full p-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none" />
+            <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">Question</label>
+            <input type="text" value={faqFormData.question} onChange={e => setFaqFormData({ ...faqFormData, question: e.target.value })} className="w-full p-3 text-sm bg-white/5 text-white rounded-xl focus:outline-none focus:bg-white/10" />
           </div>
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">Answer</label>
-            <textarea value={faqFormData.answer} onChange={e => setFaqFormData({ ...faqFormData, answer: e.target.value })} rows={3} className="w-full p-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none" />
+            <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">Answer</label>
+            <textarea value={faqFormData.answer} onChange={e => setFaqFormData({ ...faqFormData, answer: e.target.value })} rows={3} className="w-full p-3 text-sm bg-white/5 text-white rounded-xl focus:outline-none focus:bg-white/10" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">Category</label>
-              <select value={faqFormData.category} onChange={e => setFaqFormData({ ...faqFormData, category: e.target.value })} className="w-full p-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none">
+              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">Category</label>
+              <select value={faqFormData.category} onChange={e => setFaqFormData({ ...faqFormData, category: e.target.value })} className="w-full p-3 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none">
                 <option value="general">General</option>
                 <option value="admissions">Admissions</option>
                 <option value="programs">Programs</option>
@@ -460,23 +460,23 @@ export default function VoiceAgentKnowledgePage() {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">Priority</label>
-              <input type="number" value={faqFormData.priority} onChange={e => setFaqFormData({ ...faqFormData, priority: parseInt(e.target.value) || 0 })} className="w-full p-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none" />
+              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">Priority</label>
+              <input type="number" value={faqFormData.priority} onChange={e => setFaqFormData({ ...faqFormData, priority: parseInt(e.target.value) || 0 })} className="w-full p-3 text-sm bg-white/5 text-white rounded-xl focus:outline-none focus:bg-white/10" />
             </div>
             <div className="flex items-center gap-2 mt-6">
-              <input type="checkbox" id="faq-active" checked={faqFormData.active} onChange={e => setFaqFormData({ ...faqFormData, active: e.target.checked })} className="w-4 h-4 text-[#9c27b3] border-neutral-300 rounded focus:ring-[#9c27b3]" />
-              <label htmlFor="faq-active" className="text-xs font-bold uppercase tracking-wider text-neutral-500">Active</label>
+              <input type="checkbox" id="faq-active" checked={faqFormData.active} onChange={e => setFaqFormData({ ...faqFormData, active: e.target.checked })} className="w-4 h-4 text-[#9c27b3] rounded" />
+              <label htmlFor="faq-active" className="text-xs font-bold uppercase tracking-wider text-neutral-400">Active</label>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 pt-2">
             <button
               onClick={() => editingFAQ ? handleUpdateFAQ({ id: editingFAQ.id, ...faqFormData }) : handleCreateFAQ(faqFormData)}
               disabled={saving}
-              className="px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-50"
             >
               {saving ? 'Saving...' : editingFAQ ? 'Update' : 'Create'}
             </button>
-            <button onClick={cancelEdit} className="px-4 py-2 bg-white border border-neutral-200 text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-sm hover:border-neutral-400 transition-colors">
+            <button onClick={cancelEdit} className="px-4 py-2 bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-neutral-700 transition-colors">
               Cancel
             </button>
           </div>

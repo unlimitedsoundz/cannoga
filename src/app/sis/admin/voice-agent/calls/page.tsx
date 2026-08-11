@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { PageHeader } from '@/components/sis/PageHeader';
 import { DataTable } from '@/components/sis/DataTable';
 import { SearchBar } from '@/components/sis/SearchBar';
@@ -56,8 +56,6 @@ export default function VoiceAgentCallsPage() {
   const [loadingDetails, setLoadingDetails] = useState(false);
 
   useEffect(() => {
-    const cancelled = false;
-
     async function load() {
       setLoading(true);
       try {
@@ -115,7 +113,7 @@ export default function VoiceAgentCallsPage() {
     {
       key: 'caller_phone',
       header: 'Caller',
-      render: (call: VoiceCallRow) => <span className="font-mono text-xs">{call.caller_phone || '—'}</span>,
+      render: (call: VoiceCallRow) => <span className="font-mono text-xs text-neutral-200">{call.caller_phone || '—'}</span>,
     },
     {
       key: 'status',
@@ -125,17 +123,17 @@ export default function VoiceAgentCallsPage() {
     {
       key: 'started_at',
       header: 'Started',
-      render: (call: VoiceCallRow) => formatDate(call.started_at),
+      render: (call: VoiceCallRow) => <span className="text-neutral-400 text-xs">{formatDate(call.started_at)}</span>,
     },
     {
       key: 'duration_seconds',
       header: 'Duration',
-      render: (call: VoiceCallRow) => formatDuration(call.duration_seconds),
+      render: (call: VoiceCallRow) => <span className="text-neutral-400 text-xs">{formatDuration(call.duration_seconds)}</span>,
     },
     {
       key: 'transferred',
       header: 'Transferred',
-      render: (call: VoiceCallRow) => call.transferred ? <span className="text-xs font-bold text-amber-600">Yes</span> : <span className="text-xs text-neutral-400">No</span>,
+      render: (call: VoiceCallRow) => call.transferred ? <span className="text-xs font-bold text-amber-400">Yes</span> : <span className="text-xs text-neutral-500">No</span>,
     },
     {
       key: 'id',
@@ -143,7 +141,7 @@ export default function VoiceAgentCallsPage() {
       render: (call: VoiceCallRow) => (
         <button
           onClick={(e) => { e.stopPropagation(); handleViewCall(call); }}
-          className="text-xs font-bold text-[#9c27b3] hover:underline"
+          className="text-xs font-bold text-white hover:text-neutral-300 transition-colors uppercase tracking-wider"
         >
           View
         </button>
@@ -152,7 +150,7 @@ export default function VoiceAgentCallsPage() {
   ];
 
   if (loading) {
-    return <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div></div>;
+    return <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div></div>;
   }
 
   return (
@@ -163,7 +161,7 @@ export default function VoiceAgentCallsPage() {
         actions={
           <button
             onClick={() => handleSearchChange('')}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-sm hover:border-neutral-400 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-neutral-700 transition-colors"
           >
             <HugeiconsIcon icon={X} size={14} strokeWidth={2.5} /> Clear
           </button>
@@ -185,80 +183,80 @@ export default function VoiceAgentCallsPage() {
       />
 
       {selectedCall && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelectedCall(null)}>
-          <div className="bg-white border border-neutral-200 max-w-3xl w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <div className="p-6 border-b border-neutral-200 flex justify-between items-center">
-              <h3 className="text-lg font-bold text-neutral-900">Call Details</h3>
-              <button onClick={() => setSelectedCall(null)} className="text-neutral-400 hover:text-neutral-600">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 flex items-center justify-center p-4" onClick={() => setSelectedCall(null)}>
+          <div className="bg-neutral-900 rounded-2xl max-w-3xl w-full max-h-[80vh] overflow-y-auto text-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="p-6 flex justify-between items-center">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white">Call Details</h3>
+              <button onClick={() => setSelectedCall(null)} className="text-neutral-400 hover:text-white">
                 <HugeiconsIcon icon={X} size={20} strokeWidth={2} />
               </button>
             </div>
             <div className="p-6 space-y-6">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Caller</span>
-                  <p className="text-sm font-mono mt-1">{selectedCall.caller_phone || '—'}</p>
+                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Caller</span>
+                  <p className="text-sm font-mono mt-1 text-white">{selectedCall.caller_phone || '—'}</p>
                 </div>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Status</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Status</span>
                   <p className="text-sm mt-1"><StatusBadge status={selectedCall.status} /></p>
                 </div>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Duration</span>
-                  <p className="text-sm mt-1">{formatDuration(selectedCall.duration_seconds)}</p>
+                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Duration</span>
+                  <p className="text-sm mt-1 text-white">{formatDuration(selectedCall.duration_seconds)}</p>
                 </div>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Transferred</span>
-                  <p className="text-sm mt-1">{selectedCall.transferred ? 'Yes' : 'No'}</p>
+                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Transferred</span>
+                  <p className="text-sm mt-1 text-white">{selectedCall.transferred ? 'Yes' : 'No'}</p>
                 </div>
               </div>
 
               {selectedCall.summary && (
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Summary</span>
-                  <p className="text-sm text-neutral-700 mt-1 p-3 bg-neutral-50">{selectedCall.summary}</p>
+                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Summary</span>
+                  <p className="text-sm text-neutral-300 mt-1 p-4 bg-white/4 rounded-xl">{selectedCall.summary}</p>
                 </div>
               )}
 
               <div>
-                <h4 className="text-sm font-bold text-neutral-900 mb-3">Transcript</h4>
+                <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-3">Transcript</h4>
                 {loadingDetails ? (
-                  <div className="flex items-center justify-center py-8"><div className="animate-spin rounded-full h-6 w-6 border-b-2 border-neutral-900"></div></div>
+                  <div className="flex items-center justify-center py-8"><div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div></div>
                 ) : (
                   <div className="space-y-3 max-h-60 overflow-y-auto">
                     {(callDetails?.messages || []).map((msg: CallMessage) => (
-                      <div key={msg.id} className={`p-3 ${msg.role === 'caller' ? 'bg-blue-50 ml-8' : msg.role === 'assistant' ? 'bg-neutral-50 mr-8' : 'bg-neutral-100'}`}>
+                      <div key={msg.id} className={`p-3 rounded-xl ${msg.role === 'caller' ? 'bg-neutral-800 ml-8' : msg.role === 'assistant' ? 'bg-white/5 mr-8' : 'bg-neutral-800'}`}>
                         <div className="flex justify-between items-center mb-1">
-                          <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">{msg.role}</span>
-                          <span className="text-xs text-neutral-400">{formatDate(msg.timestamp)}</span>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">{msg.role}</span>
+                          <span className="text-[10px] text-neutral-500">{formatDate(msg.timestamp)}</span>
                         </div>
-                        <p className="text-sm text-neutral-800">{msg.message}</p>
+                        <p className="text-xs text-white">{msg.message}</p>
                       </div>
                     ))}
                     {(callDetails?.messages || []).length === 0 && (
-                      <p className="text-xs text-neutral-400 text-center py-4">No transcript available</p>
+                      <p className="text-xs text-neutral-500 text-center py-4">No transcript available</p>
                     )}
                   </div>
                 )}
               </div>
 
               <div>
-                <h4 className="text-sm font-bold text-neutral-900 mb-3">Tool Events</h4>
+                <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-3">Tool Events</h4>
                 <div className="space-y-2 max-h-60 overflow-y-auto">
                   {(callDetails?.toolEvents || []).map((tool: CallToolEvent) => (
-                    <div key={tool.id} className="p-3 border border-neutral-200">
+                    <div key={tool.id} className="p-4 bg-white/4 rounded-xl">
                       <div className="flex justify-between items-center mb-1">
-                        <span className="text-xs font-bold uppercase tracking-wider text-neutral-700">{tool.tool_name}</span>
-                        <span className={`text-xs font-bold ${tool.success ? 'text-emerald-600' : 'text-red-600'}`}>{tool.success ? 'SUCCESS' : 'FAILED'}</span>
+                        <span className="text-xs font-bold uppercase tracking-wider text-neutral-200">{tool.tool_name}</span>
+                        <span className={`text-[10px] font-bold ${tool.success ? 'text-emerald-400' : 'text-red-400'}`}>{tool.success ? 'SUCCESS' : 'FAILED'}</span>
                       </div>
-                      {tool.error && <p className="text-xs text-red-600 mt-1">{tool.error}</p>}
+                      {tool.error && <p className="text-xs text-red-400 mt-1">{tool.error}</p>}
                       {tool.result != null && (
-                        <pre className="text-xs text-neutral-600 mt-2 p-2 bg-neutral-50 overflow-x-auto">{JSON.stringify(tool.result, null, 2)}</pre>
+                        <pre className="text-xs text-neutral-300 mt-2 p-3 bg-neutral-900 rounded-lg overflow-x-auto">{JSON.stringify(tool.result, null, 2)}</pre>
                       )}
                     </div>
                   ))}
                   {(callDetails?.toolEvents || []).length === 0 && (
-                    <p className="text-xs text-neutral-400 text-center py-4">No tool events recorded</p>
+                    <p className="text-xs text-neutral-500 text-center py-4">No tool events recorded</p>
                   )}
                 </div>
               </div>

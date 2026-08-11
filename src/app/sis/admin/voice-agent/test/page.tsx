@@ -239,34 +239,34 @@ export default function VoiceAgentTestPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1 space-y-4">
-          <div className="bg-white border border-neutral-200 p-6">
-            <h3 className="text-sm font-bold text-neutral-900 uppercase tracking-wider mb-4">Call Controls</h3>
+          <div className="bg-neutral-900 rounded-2xl p-6 text-white shadow-sm">
+            <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-4">Call Controls</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Status</span>
-                <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-bold uppercase tracking-wider rounded-sm ${status === 'active' ? 'bg-green-100 text-green-700' : status === 'ended' ? 'bg-red-100 text-red-700' : status === 'starting' ? 'bg-amber-100 text-amber-700' : 'bg-neutral-100 text-neutral-600'}`}>
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Status</span>
+                <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-bold uppercase tracking-wider rounded-lg ${status === 'active' ? 'bg-emerald-950 text-emerald-300' : status === 'ended' ? 'bg-red-950 text-red-300' : status === 'starting' ? 'bg-amber-950 text-amber-300' : 'bg-neutral-800 text-neutral-300'}`}>
                   <HugeiconsIcon icon={status === 'active' ? CheckCircle : status === 'ended' ? X : Clock} size={12} />
                   {status}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Duration</span>
-                <span className="text-sm font-mono text-neutral-900">{Math.floor(duration / 60)}m {duration % 60}s</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Duration</span>
+                <span className="text-sm font-mono text-white">{Math.floor(duration / 60)}m {duration % 60}s</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Messages</span>
-                <span className="text-sm font-mono text-neutral-900">{transcript.length}</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Messages</span>
+                <span className="text-sm font-mono text-white">{transcript.length}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Tool Calls</span>
-                <span className="text-sm font-mono text-neutral-900">{toolEvents.length}</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Tool Calls</span>
+                <span className="text-sm font-mono text-white">{toolEvents.length}</span>
               </div>
 
               <div className="flex items-center gap-2 pt-2">
                 {status === 'idle' && (
                   <button
                     onClick={startCall}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors"
                   >
                     <HugeiconsIcon icon={Phone} size={16} strokeWidth={2.5} /> Start Call
                   </button>
@@ -274,7 +274,7 @@ export default function VoiceAgentTestPage() {
                 {(status === 'active' || status === 'starting') && (
                   <button
                     onClick={endCall}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-red-600 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-red-700 transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-red-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-red-700 transition-colors"
                   >
                     <HugeiconsIcon icon={Stop} size={16} strokeWidth={2.5} /> End Call
                   </button>
@@ -282,7 +282,7 @@ export default function VoiceAgentTestPage() {
                 {status === 'ended' && (
                   <button
                     onClick={() => { setStatus('idle'); setCallId(null); setSessionId(null); setTranscript([]); setToolEvents([]); setDuration(0); setCallSummary(null); }}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors"
                   >
                     <HugeiconsIcon icon={Phone} size={16} strokeWidth={2.5} /> New Call
                   </button>
@@ -292,17 +292,17 @@ export default function VoiceAgentTestPage() {
           </div>
 
           {callSummary && (
-            <div className="bg-green-50 border border-green-100 p-4">
-              <p className="text-xs font-medium text-green-700">{callSummary}</p>
+            <div className="bg-emerald-950/60 p-4 rounded-xl text-emerald-300">
+              <p className="text-xs font-medium">{callSummary}</p>
             </div>
           )}
 
           {errors.length > 0 && (
-            <div className="bg-red-50 border border-red-100 p-4 space-y-2">
+            <div className="bg-red-950/60 p-4 rounded-xl space-y-2">
               {errors.map((err, i) => (
                 <div key={i} className="flex items-start gap-2">
-                  <HugeiconsIcon icon={AlertCircle} size={16} className="text-red-500 mt-0.5" />
-                  <p className="text-xs text-red-700 font-medium">{err}</p>
+                  <HugeiconsIcon icon={AlertCircle} size={16} className="text-red-400 mt-0.5" />
+                  <p className="text-xs text-red-300 font-medium">{err}</p>
                 </div>
               ))}
             </div>
@@ -310,37 +310,37 @@ export default function VoiceAgentTestPage() {
         </div>
 
         <div className="lg:col-span-2 space-y-4">
-          <div className="bg-white border border-neutral-200">
-            <div className="p-4 border-b border-neutral-200 flex items-center justify-between">
-              <h3 className="text-sm font-bold text-neutral-900 uppercase tracking-wider flex items-center gap-2">
+          <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-sm">
+            <div className="p-4 flex items-center justify-between border-b border-white/5">
+              <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider flex items-center gap-2">
                 <HugeiconsIcon icon={Activity} size={16} strokeWidth={2} /> Live Transcript
               </h3>
               {transcript.length > 0 && (
-                <span className="text-xs text-neutral-400">{transcript.length} messages</span>
+                <span className="text-xs text-neutral-500">{transcript.length} messages</span>
               )}
             </div>
-            <div className="p-4 h-96 overflow-y-auto space-y-3 bg-neutral-50">
+            <div className="p-4 h-96 overflow-y-auto space-y-3 bg-black/20">
               {transcript.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full text-neutral-400">
+                <div className="flex flex-col items-center justify-center h-full text-neutral-500">
                   <HugeiconsIcon icon={Phone} size={32} className="mb-2" />
-                  <p className="text-sm">Start a call to see the live transcript</p>
+                  <p className="text-xs uppercase tracking-wider font-bold">Start a call to see live transcript</p>
                 </div>
               ) : (
                 transcript.map((msg) => (
                   <div key={msg.id} className={`flex ${msg.role === 'caller' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[80%] p-3 ${msg.role === 'caller' ? 'bg-blue-100 text-blue-900' : msg.role === 'assistant' ? 'bg-white border border-neutral-200 text-neutral-900' : 'bg-neutral-200 text-neutral-700'}`}>
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="text-xs font-bold uppercase tracking-wider opacity-70">{msg.role}</span>
-                        <span className="text-xs opacity-50">{formatTime(msg.timestamp)}</span>
+                    <div className={`max-w-[80%] p-3.5 rounded-2xl ${msg.role === 'caller' ? 'bg-[#9c27b3] text-white' : msg.role === 'assistant' ? 'bg-neutral-800 text-white' : 'bg-neutral-800 text-neutral-300'}`}>
+                      <div className="flex justify-between items-center mb-1 gap-4">
+                        <span className="text-[10px] font-bold uppercase tracking-wider opacity-70">{msg.role}</span>
+                        <span className="text-[10px] opacity-50">{formatTime(msg.timestamp)}</span>
                       </div>
-                      <p className="text-sm">{msg.content}</p>
+                      <p className="text-xs leading-relaxed">{msg.content}</p>
                     </div>
                   </div>
                 ))
               )}
               <div ref={transcriptEndRef} />
             </div>
-            <div className="p-4 border-t border-neutral-200">
+            <div className="p-4 border-t border-white/5">
               <div className="flex items-center gap-2">
                 <input
                   type="text"
@@ -349,12 +349,12 @@ export default function VoiceAgentTestPage() {
                   onKeyDown={handleKeyDown}
                   placeholder={status === 'active' ? 'Type a message and press Enter...' : 'Start a call first...'}
                   disabled={status !== 'active'}
-                  className="flex-1 p-2 text-sm border border-neutral-200 bg-white focus:border-neutral-400 focus:outline-none disabled:bg-neutral-100 disabled:text-neutral-400"
+                  className="flex-1 p-3 text-sm bg-white/5 text-white rounded-xl focus:outline-none focus:bg-white/10 disabled:opacity-40"
                 />
                 <button
                   onClick={sendMessage}
                   disabled={status !== 'active' || !userInput.trim()}
-                  className="px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <HugeiconsIcon icon={Send} size={16} strokeWidth={2.5} />
                 </button>
@@ -362,31 +362,31 @@ export default function VoiceAgentTestPage() {
             </div>
           </div>
 
-          <div className="bg-white border border-neutral-200">
-            <div className="p-4 border-b border-neutral-200 flex items-center justify-between">
-              <h3 className="text-sm font-bold text-neutral-900 uppercase tracking-wider flex items-center gap-2">
+          <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-sm">
+            <div className="p-4 flex items-center justify-between border-b border-white/5">
+              <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider flex items-center gap-2">
                 <HugeiconsIcon icon={Shield} size={16} strokeWidth={2} /> Tool Calls
               </h3>
               {toolEvents.length > 0 && (
-                <span className="text-xs text-neutral-400">{toolEvents.length} events</span>
+                <span className="text-xs text-neutral-500">{toolEvents.length} events</span>
               )}
             </div>
-            <div className="p-4 h-64 overflow-y-auto space-y-2 bg-neutral-50">
+            <div className="p-4 h-64 overflow-y-auto space-y-2 bg-black/20">
               {toolEvents.length === 0 ? (
-                <p className="text-sm text-neutral-400 text-center py-8">No tool calls yet</p>
+                <p className="text-xs text-neutral-500 text-center py-8">No tool calls recorded yet</p>
               ) : (
                 toolEvents.map((tool) => (
-                  <div key={tool.id} className="p-3 bg-white border border-neutral-200">
+                  <div key={tool.id} className="p-3 bg-neutral-800 rounded-xl">
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-xs font-bold uppercase tracking-wider text-neutral-700">{tool.toolName}</span>
-                      <span className={`text-xs font-bold ${tool.success ? 'text-emerald-600' : 'text-red-600'}`}>{tool.success ? 'SUCCESS' : 'FAILED'}</span>
+                      <span className="text-xs font-bold uppercase tracking-wider text-neutral-200">{tool.toolName}</span>
+                      <span className={`text-[10px] font-bold ${tool.success ? 'text-emerald-400' : 'text-red-400'}`}>{tool.success ? 'SUCCESS' : 'FAILED'}</span>
                     </div>
-                    {tool.error && <p className="text-xs text-red-600 mt-1">{tool.error}</p>}
+                    {tool.error && <p className="text-xs text-red-400 mt-1">{tool.error}</p>}
                     {tool.result && typeof tool.result === 'object' && (
-                      <pre className="text-xs text-neutral-600 mt-2 p-2 bg-neutral-50 overflow-x-auto">{JSON.stringify(tool.result, null, 2)}</pre>
+                      <pre className="text-xs text-neutral-300 mt-2 p-3 bg-neutral-900 rounded-lg overflow-x-auto">{JSON.stringify(tool.result, null, 2)}</pre>
                     )}
                     {typeof tool.result === 'string' && (
-                      <p className="text-xs text-neutral-600 mt-1">{tool.result}</p>
+                      <p className="text-xs text-neutral-300 mt-1">{tool.result}</p>
                     )}
                   </div>
                 ))

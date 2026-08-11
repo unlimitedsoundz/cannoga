@@ -93,23 +93,33 @@ export default function VoiceAgentDashboardPage() {
   }, []);
 
   if (loading) {
-    return <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div></div>;
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="p-8 bg-red-50 border border-red-100 rounded-none text-center"><p className="text-red-600 font-medium text-sm">{error}</p></div>;
+    return (
+      <div className="p-8 bg-neutral-900 rounded-2xl text-center">
+        <HugeiconsIcon icon={AlertCircle} size={36} className="text-neutral-500 mx-auto mb-4" />
+        <p className="text-white font-bold text-sm uppercase tracking-wider mb-1">Voice Agent Error</p>
+        <p className="text-neutral-400 text-xs">{error}</p>
+      </div>
+    );
   }
 
   const s = stats!;
 
   const statCards = [
-    { label: 'Calls Today', count: s.callsToday, icon: Phone, color: 'bg-blue-500', href: '/sis/admin/voice-agent/calls' },
-    { label: 'Calls This Week', count: s.callsThisWeek, icon: Calendar, color: 'bg-indigo-500', href: '/sis/admin/voice-agent/calls' },
-    { label: 'Total Calls', count: s.totalCalls, icon: Activity, color: 'bg-purple-500', href: '/sis/admin/voice-agent/calls' },
-    { label: 'Avg Duration', count: `${Math.floor(s.avgDurationSeconds / 60)}m ${s.avgDurationSeconds % 60}s`, icon: Clock, color: 'bg-teal-500', href: '/sis/admin/voice-agent/calls' },
-    { label: 'Transfer Rate', count: `${s.transferRate}%`, icon: Transfer, color: 'bg-amber-500', href: '/sis/admin/voice-agent/calls' },
-    { label: 'Callback Requests', count: s.callbackRequests, icon: Message, color: 'bg-emerald-500', href: '/sis/admin/voice-agent/calls' },
-    { label: 'Unresolved Calls', count: s.unresolvedCalls, icon: AlertCircle, color: 'bg-red-500', href: '/sis/admin/voice-agent/calls' },
+    { label: 'Calls Today', count: s.callsToday, icon: Phone, href: '/sis/admin/voice-agent/calls' },
+    { label: 'Calls This Week', count: s.callsThisWeek, icon: Calendar, href: '/sis/admin/voice-agent/calls' },
+    { label: 'Total Calls', count: s.totalCalls, icon: Activity, href: '/sis/admin/voice-agent/calls' },
+    { label: 'Avg Duration', count: `${Math.floor(s.avgDurationSeconds / 60)}m ${s.avgDurationSeconds % 60}s`, icon: Clock, href: '/sis/admin/voice-agent/calls' },
+    { label: 'Transfer Rate', count: `${s.transferRate}%`, icon: Transfer, href: '/sis/admin/voice-agent/calls' },
+    { label: 'Callback Requests', count: s.callbackRequests, icon: Message, href: '/sis/admin/voice-agent/calls' },
+    { label: 'Unresolved Calls', count: s.unresolvedCalls, icon: AlertCircle, href: '/sis/admin/voice-agent/calls' },
   ];
 
   const formatDate = (dateStr: string | null) => {
@@ -125,69 +135,77 @@ export default function VoiceAgentDashboardPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <PageHeader
         title="Voice Agent — Debbie"
         subtitle="International Admissions Voice Assistant monitoring and management"
         actions={
-          <div className="flex items-center gap-2">
-            <Link href="/sis/admin/voice-agent/test" className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors no-underline">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/sis/admin/voice-agent/test"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-purple-700 transition-all no-underline shadow-sm"
+            >
               <HugeiconsIcon icon={Shield} size={14} strokeWidth={2.5} /> Test Voice
             </Link>
-            <Link href="/sis/admin/voice-agent/knowledge" className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-sm hover:border-neutral-400 transition-colors no-underline">
+            <Link
+              href="/sis/admin/voice-agent/knowledge"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-800 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-neutral-700 transition-all no-underline shadow-sm"
+            >
               Manage Knowledge
             </Link>
           </div>
         }
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {statCards.map((stat, idx) => (
-          <Link key={idx} href={stat.href} className="bg-white border border-neutral-200 p-6 hover:border-[#9c27b3] transition-colors no-underline group">
-            <div className="flex justify-between items-start mb-4">
-              <div className={`p-3 rounded-none ${stat.color} text-white`}>
-                <HugeiconsIcon icon={stat.icon} size={24} strokeWidth={2} />
+          <Link
+            key={idx}
+            href={stat.href}
+            className="bg-neutral-900 rounded-2xl p-5 hover:bg-neutral-800/80 transition-all no-underline group shadow-sm"
+          >
+            <div className="flex justify-between items-start mb-3">
+              <div className="p-2.5 rounded-xl bg-neutral-800 text-white">
+                <HugeiconsIcon icon={stat.icon} size={18} strokeWidth={2} />
               </div>
-              <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-300 group-hover:text-black transform group-hover:translate-x-1 transition-all" />
+              <HugeiconsIcon icon={ArrowRight} size={13} strokeWidth={2.5} className="text-neutral-600 group-hover:text-white transform group-hover:translate-x-0.5 transition-all" />
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-neutral-500 font-bold uppercase text-xs tracking-widest">{stat.label}</span>
-              <span className="text-2xl font-black text-neutral-900">{stat.count}</span>
-            </div>
+            <div className="text-2xl font-black text-white">{stat.count}</div>
+            <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mt-1">{stat.label}</div>
           </Link>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-lg font-bold flex items-center gap-2">
-              <HugeiconsIcon icon={Phone} size={20} strokeWidth={2} className="text-blue-500" /> Recent Calls
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="space-y-4">
+          <div className="flex justify-between items-center px-1">
+            <h2 className="text-xs font-bold text-neutral-400 uppercase tracking-widest flex items-center gap-2">
+              <HugeiconsIcon icon={Phone} size={14} className="text-neutral-500" /> Recent Calls
             </h2>
-            <Link href="/sis/admin/voice-agent/calls" className="text-xs font-bold text-neutral-400 hover:text-black transition-colors uppercase tracking-widest">
+            <Link href="/sis/admin/voice-agent/calls" className="text-xs font-bold text-neutral-500 hover:text-white transition-colors uppercase tracking-wider no-underline">
               View All →
             </Link>
           </div>
-          <div className="bg-white border border-neutral-200 overflow-hidden">
+          <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-sm">
             <table className="w-full text-left text-sm font-sans">
-              <thead className="bg-neutral-50 border-b border-neutral-200">
+              <thead className="bg-white/4">
                 <tr>
-                  <th className="p-3 text-xs font-bold uppercase tracking-wider text-neutral-600">Phone</th>
-                  <th className="p-3 text-xs font-bold uppercase tracking-wider text-neutral-600">Status</th>
-                  <th className="p-3 text-xs font-bold uppercase tracking-wider text-neutral-600">Started</th>
-                  <th className="p-3 text-xs font-bold uppercase tracking-wider text-neutral-600">Duration</th>
+                  <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-neutral-400">Phone</th>
+                  <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-neutral-400">Status</th>
+                  <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-neutral-400">Started</th>
+                  <th className="p-3 text-[10px] font-bold uppercase tracking-wider text-neutral-400">Duration</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-neutral-100">
+              <tbody className="divide-y divide-white/5">
                 {recentCalls.length === 0 ? (
-                  <tr><td colSpan={4} className="p-8 text-center text-neutral-400 text-sm">No calls yet</td></tr>
+                  <tr><td colSpan={4} className="p-8 text-center text-neutral-500 text-sm">No calls recorded yet</td></tr>
                 ) : (
                   recentCalls.slice(0, 10).map((call) => (
-                    <tr key={call.id} className="hover:bg-neutral-50">
-                      <td className="p-3 font-mono text-xs">{call.caller_phone || '—'}</td>
-                      <td className="p-3"><span className="inline-flex items-center px-2 py-1 text-xs font-bold uppercase tracking-wider rounded-sm bg-neutral-100 text-neutral-700">{call.status}</span></td>
-                      <td className="p-3 text-xs">{formatDate(call.started_at)}</td>
-                      <td className="p-3 text-xs">{formatDuration(call.duration_seconds)}</td>
+                    <tr key={call.id} className="hover:bg-white/4 transition-colors">
+                      <td className="p-3 font-mono text-xs text-neutral-200">{call.caller_phone || '—'}</td>
+                      <td className="p-3"><span className="inline-flex items-center px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-neutral-800 text-white">{call.status}</span></td>
+                      <td className="p-3 text-xs text-neutral-400">{formatDate(call.started_at)}</td>
+                      <td className="p-3 text-xs text-neutral-400">{formatDuration(call.duration_seconds)}</td>
                     </tr>
                   ))
                 )}
@@ -196,40 +214,40 @@ export default function VoiceAgentDashboardPage() {
           </div>
         </div>
 
-        <div className="space-y-6">
-          <h2 className="text-lg font-bold flex items-center gap-2">
-            <HugeiconsIcon icon={CheckCircle} size={20} strokeWidth={2} className="text-emerald-500" /> Quick Actions
+        <div className="space-y-4">
+          <h2 className="text-xs font-bold text-neutral-400 uppercase tracking-widest px-1 flex items-center gap-2">
+            <HugeiconsIcon icon={CheckCircle} size={14} className="text-neutral-500" /> Quick Actions
           </h2>
-          <div className="bg-white border border-neutral-200 p-6 space-y-4">
-            <Link href="/sis/admin/voice-agent/test" className="flex items-center gap-4 p-4 bg-neutral-50 hover:bg-neutral-100 transition-colors no-underline group">
-              <div className="p-3 bg-blue-500 text-white">
-                <HugeiconsIcon icon={Phone} size={20} strokeWidth={2} />
+          <div className="bg-neutral-900 rounded-2xl p-5 space-y-3 shadow-sm">
+            <Link href="/sis/admin/voice-agent/test" className="flex items-center gap-4 p-4 bg-neutral-800/60 hover:bg-neutral-800 rounded-xl transition-colors no-underline group">
+              <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
+                <HugeiconsIcon icon={Phone} size={18} strokeWidth={2} />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-neutral-900">Test Voice Agent</h3>
-                <p className="text-xs text-neutral-500">Open browser-based voice testing UI</p>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-white">Test Voice Agent</h3>
+                <p className="text-[11px] text-neutral-400 mt-0.5">Open browser-based voice testing interface</p>
               </div>
-              <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-300 group-hover:text-black ml-auto" />
+              <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-600 group-hover:text-white ml-auto group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/sis/admin/voice-agent/calls" className="flex items-center gap-4 p-4 bg-neutral-50 hover:bg-neutral-100 transition-colors no-underline group">
-              <div className="p-3 bg-purple-500 text-white">
-                <HugeiconsIcon icon={Activity} size={20} strokeWidth={2} />
+            <Link href="/sis/admin/voice-agent/calls" className="flex items-center gap-4 p-4 bg-neutral-800/60 hover:bg-neutral-800 rounded-xl transition-colors no-underline group">
+              <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
+                <HugeiconsIcon icon={Activity} size={18} strokeWidth={2} />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-neutral-900">Call History</h3>
-                <p className="text-xs text-neutral-500">View and search all voice calls</p>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-white">Call History</h3>
+                <p className="text-[11px] text-neutral-400 mt-0.5">View and search complete call logs and transcripts</p>
               </div>
-              <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-300 group-hover:text-black ml-auto" />
+              <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-600 group-hover:text-white ml-auto group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/sis/admin/voice-agent/knowledge" className="flex items-center gap-4 p-4 bg-neutral-50 hover:bg-neutral-100 transition-colors no-underline group">
-              <div className="p-3 bg-emerald-500 text-white">
-                <HugeiconsIcon icon={Message} size={20} strokeWidth={2} />
+            <Link href="/sis/admin/voice-agent/knowledge" className="flex items-center gap-4 p-4 bg-neutral-800/60 hover:bg-neutral-800 rounded-xl transition-colors no-underline group">
+              <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
+                <HugeiconsIcon icon={Message} size={18} strokeWidth={2} />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-neutral-900">Knowledge Base</h3>
-                <p className="text-xs text-neutral-500">Manage knowledge entries and FAQs</p>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-white">Knowledge Base</h3>
+                <p className="text-[11px] text-neutral-400 mt-0.5">Configure approved admissions knowledge and FAQs</p>
               </div>
-              <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-300 group-hover:text-black ml-auto" />
+              <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-600 group-hover:text-white ml-auto group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
         </div>
