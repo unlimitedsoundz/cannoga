@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -82,7 +82,6 @@ export default function AdminDocumentDetailPage() {
             try {
                 const supabase = createClient();
 
-                // Fetch application with user and course info
                 const { data: appData, error: appError } = await supabase
                     .from('applications')
                     .select('id, status, submitted_at, user:profiles(first_name, last_name, email), course:Course(title, degreeLevel)')
@@ -101,7 +100,6 @@ export default function AdminDocumentDetailPage() {
                     course: Array.isArray(appData.course) ? appData.course[0] : appData.course,
                 } as ApplicationInfo);
 
-                // Fetch all documents uploaded during application
                 const { data: docsData, error: docsError } = await supabase
                     .from('application_documents')
                     .select('id, application_id, type, url, name, uploaded_at')
@@ -114,7 +112,6 @@ export default function AdminDocumentDetailPage() {
 
                 setApplicationDocuments(docsData || []);
 
-                // Fetch admission offer for LOA PDF
                 const { data: offerData, error: offerError } = await supabase
                     .from('admission_offers')
                     .select('id, document_url, status')
@@ -140,26 +137,26 @@ export default function AdminDocumentDetailPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center py-20">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="p-8">
-                <div className="mb-4">
-                    <button onClick={() => router.back()} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-500 hover:text-neutral-900 transition-colors">
+            <div className="space-y-6">
+                <div>
+                    <button onClick={() => router.back()} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white transition-colors cursor-pointer">
                         <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2} />
                         Back
                     </button>
                 </div>
                 <PageHeader title="Application Not Found" subtitle="The requested application could not be loaded." />
-                <div className="mt-6 p-8 bg-red-50 border border-red-100 text-center">
-                    <p className="text-red-600 font-medium mb-4">{error}</p>
+                <div className="p-8 bg-red-950/60 rounded-2xl text-center">
+                    <p className="text-red-300 font-medium mb-4 text-sm">{error}</p>
                     <button
                         onClick={() => router.push('/sis/admin/documents')}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-medium rounded hover:bg-neutral-800 transition-colors"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-neutral-700 transition-colors cursor-pointer"
                     >
                         <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2} />
                         Back to Documents
@@ -174,7 +171,6 @@ export default function AdminDocumentDetailPage() {
         return level.charAt(0) + level.slice(1).toLowerCase();
     };
 
-    // Combine uploaded documents with LOA from admission offer
     const allDocuments: ApplicationDocument[] = [
         ...applicationDocuments,
         ...(admissionOffer?.document_url ? [{
@@ -188,73 +184,81 @@ export default function AdminDocumentDetailPage() {
     ];
 
     return (
-        <div className="p-8">
+        <div className="space-y-6">
+            <div className="flex items-center justify-between">
+                <button onClick={() => router.back()} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white transition-colors cursor-pointer">
+                    <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2} />
+                    Back to Documents
+                </button>
+            </div>
+
             <PageHeader
                 title={application?.course?.title || 'Application Documents'}
                 subtitle={`Application ID: ${application?.id?.slice(0, 8)}`}
             />
 
-            <div className="mt-6 bg-white border border-neutral-200 rounded-lg p-6 mb-6">
-                <h3 className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-4">Application Information</h3>
+            <div className="bg-neutral-900 rounded-2xl p-6 text-white shadow-sm">
+                <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-4">Application Information</h3>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div>
-                        <p className="text-[10px] font-medium text-neutral-400 uppercase">Student Name</p>
-                        <p className="text-sm font-medium text-neutral-900">
+                    <div className="p-3 bg-neutral-800 rounded-xl">
+                        <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">Student Name</p>
+                        <p className="text-sm font-bold text-white mt-1">
                             {application?.user?.first_name} {application?.user?.last_name}
                         </p>
                     </div>
-                    <div>
-                        <p className="text-[10px] font-medium text-neutral-400 uppercase">Email</p>
-                        <p className="text-sm text-neutral-700">{application?.user?.email}</p>
+                    <div className="p-3 bg-neutral-800 rounded-xl">
+                        <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">Email</p>
+                        <p className="text-xs font-mono text-neutral-300 mt-1">{application?.user?.email}</p>
                     </div>
-                    <div>
-                        <p className="text-[10px] font-medium text-neutral-400 uppercase">Programme</p>
-                        <p className="text-sm text-neutral-700">{application?.course?.title}{application?.course?.degreeLevel ? ` â€” ${formatDegreeLevel(application.course.degreeLevel)}` : ''}</p>
+                    <div className="p-3 bg-neutral-800 rounded-xl">
+                        <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">Programme</p>
+                        <p className="text-xs font-bold text-neutral-200 mt-1">{application?.course?.title}{application?.course?.degreeLevel ? ` — ${formatDegreeLevel(application.course.degreeLevel)}` : ''}</p>
                     </div>
-                    <div>
-                        <p className="text-[10px] font-medium text-neutral-400 uppercase">Status</p>
-                        <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded ${application?.status === 'ADMITTED' ? 'bg-emerald-50 text-emerald-700' : application?.status === 'REJECTED' ? 'bg-red-50 text-red-700' : 'bg-slate-100 text-slate-700'}`}>
+                    <div className="p-3 bg-neutral-800 rounded-xl">
+                        <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1">Status</p>
+                        <span className={`inline-block text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider ${application?.status === 'ADMITTED' ? 'bg-emerald-950 text-emerald-300' : application?.status === 'REJECTED' ? 'bg-red-950 text-red-300' : 'bg-neutral-700 text-neutral-200'}`}>
                             {application?.status?.replace('_', ' ')}
                         </span>
                     </div>
                 </div>
             </div>
 
-            <div className="bg-white border border-neutral-200 rounded-lg overflow-hidden">
-                <div className="p-4 border-b border-neutral-200 flex items-center justify-between">
+            <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-sm">
+                <div className="p-4 border-b border-white/5 flex items-center justify-between">
                     <div>
-                        <h3 className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Uploaded Documents</h3>
-                        <p className="text-xs text-neutral-400 mt-1">{allDocuments.length} document(s) for this application</p>
+                        <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Uploaded Documents</h3>
+                        <p className="text-xs text-neutral-500 mt-0.5">{allDocuments.length} document(s) for this application</p>
                     </div>
                 </div>
-                {allDocuments.length > 0 ? (
-                    <div className="divide-y divide-neutral-100">
-                        {allDocuments.map((doc) => (
-                            <div key={doc.id} className="p-4 flex items-center justify-between hover:bg-neutral-50">
+                <div className="p-4 space-y-2 bg-black/20">
+                    {allDocuments.length > 0 ? (
+                        allDocuments.map((doc) => (
+                            <div key={doc.id} className="p-4 bg-neutral-800 rounded-xl flex items-center justify-between hover:bg-neutral-800/80 transition-colors">
                                 <div className="flex items-center gap-3">
-                                    <HugeiconsIcon icon={FileText} size={20} strokeWidth={2} className="text-neutral-400" />
+                                    <div className="p-2.5 bg-neutral-900 text-purple-400 rounded-xl">
+                                        <HugeiconsIcon icon={FileText} size={18} strokeWidth={2} />
+                                    </div>
                                     <div>
-                                        <p className="text-sm font-medium text-neutral-900">{doc.name}</p>
-                                        <p className="text-xs text-neutral-500">{getDocumentTypeLabel(doc.type)}</p>
+                                        <p className="text-xs font-bold text-white">{doc.name}</p>
+                                        <p className="text-[10px] text-neutral-400 font-mono mt-0.5">{getDocumentTypeLabel(doc.type)}</p>
                                     </div>
                                 </div>
                                 <a
                                     href={doc.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 px-3 py-1.5 bg-neutral-900 text-white text-xs font-medium rounded hover:bg-neutral-800 transition-colors"
+                                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors no-underline"
                                 >
-                                    <HugeiconsIcon icon={Download} size={12} strokeWidth={2} />
+                                    <HugeiconsIcon icon={Download} size={12} strokeWidth={2.5} />
                                     View
                                 </a>
                             </div>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="p-8 text-center text-neutral-500 text-sm">No documents uploaded for this application</div>
-                )}
+                        ))
+                    ) : (
+                        <div className="p-8 text-center text-neutral-500 text-xs font-bold uppercase tracking-wider">No documents uploaded for this application</div>
+                    )}
+                </div>
             </div>
         </div>
     );
 }
-
