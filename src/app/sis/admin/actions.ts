@@ -772,40 +772,44 @@ export async function getSISSystemSettings() {
   const adminClient = createServiceRoleClient();
 
   try {
-    const { data, error } = await adminClient
+    // 1. Fetch system_settings key-value pairs
+    const { data: settingsData, error: settingsError } = await adminClient
       .from('system_settings')
       .select('*');
 
-    if (error) {
-      console.warn('system_settings table query warning:', error.message);
-      return {
-        success: true,
-        data: {
-          academic_term: 'Fall 2026',
-          registration_window: 'Nov 1 - Dec 15, 2026',
-          display_name: 'Admin User',
-          email: 'admin@cannogacollege.ca',
-          department: 'Administration',
-        },
-      };
+    const settingsMap: Record<string, string> = {};
+    if (!settingsError && settingsData) {
+      settingsData.forEach((row: any) => {
+        if (row.key && row.value !== undefined) {
+          settingsMap[row.key] = row.value;
+        }
+      });
     }
 
-    const settingsMap: Record<string, string> = {};
-    (data || []).forEach((row: any) => {
-      settingsMap[row.key] = row.value;
-    });
+    // 2. Fetch admin profile from profiles table if available
+    const { data: adminProfile } = await adminClient
+      .from('profiles')
+      .select('first_name, last_name, email, role')
+      .or('role.eq.ADMIN,role.eq.admin,role.eq.SUPER_ADMIN')
+      .limit(1)
+      .maybeSingle();
+
+    const fullName = adminProfile
+      ? `${adminProfile.first_name || ''} ${adminProfile.last_name || ''}`.trim()
+      : '';
 
     return {
       success: true,
       data: {
         academic_term: settingsMap.academic_term || 'Fall 2026',
         registration_window: settingsMap.registration_window || 'Nov 1 - Dec 15, 2026',
-        display_name: settingsMap.display_name || 'Admin User',
-        email: settingsMap.email || 'admin@cannogacollege.ca',
+        display_name: settingsMap.display_name || fullName || 'Admin User',
+        email: settingsMap.email || adminProfile?.email || 'admin@cannogacollege.ca',
         department: settingsMap.department || 'Administration',
       },
     };
   } catch (e: any) {
+    console.error('getSISSystemSettings Error:', e);
     return {
       success: true,
       data: {
@@ -823,13 +827,23 @@ export async function updateSISSystemSettings(settings: Record<string, string | 
   const adminClient = createServiceRoleClient();
 
   try {
-    const updates = Object.entries(settings).map(([key, value]) => ({
-      key,
-      value: value || '',
-      updated_at: new Date().toISOString(),
-    }));
+    const updates = Object.entries(settings)
+      .filter(([_, value]) => value !== undefined)
+      .map(([key, value]) => ({
+        key,
+        value: String(value),
+        updated_at: new Date().toISOString(),
+      }));
 
-    await adminClient.from('system_settings').upsert(updates, { onConflict: 'key' });
+    if (updates.length > 0) {
+      const { error: upsertError } = await adminClient
+        .from('system_settings')
+        .upsert(updates, { onConflict: 'key' });
+
+      if (upsertError) {
+        console.warn('system_settings upsert error:', upsertError.message);
+      }
+    }
 
     await adminClient.from('audit_logs').insert({
       action: 'UPDATE_SYSTEM_SETTINGS',
@@ -842,7 +856,7 @@ export async function updateSISSystemSettings(settings: Record<string, string | 
     return { success: true };
   } catch (e: any) {
     console.error('updateSISSystemSettings Error:', e);
-    return { success: true }; // graceful fallback for admin UI confirmation
+    return { success: false, error: e.message || 'Failed to update system settings in database' };
   }
 }
 
@@ -850,11 +864,42 @@ export async function updateSISAdminProfile(payload: { displayName: string; emai
   const adminClient = createServiceRoleClient();
 
   try {
-    await updateSISSystemSettings({
+    // Save to key-value settings table
+    const settingsRes = await updateSISSystemSettings({
       display_name: payload.displayName,
       email: payload.email,
       department: payload.department,
     });
+
+    if (!settingsRes.success) {
+      throw new Error(settingsRes.error || 'Failed to save system settings');
+    }
+
+    // Split name for profiles table update
+    const parts = payload.displayName.trim().split(/\s+/);
+    const firstName = parts[0] || 'Admin';
+    const lastName = parts.slice(1).join(' ') || 'User';
+
+    // Update matching admin profiles
+    const { data: adminProfiles } = await adminClient
+      .from('profiles')
+      .select('id')
+      .or('role.eq.ADMIN,role.eq.admin,role.eq.SUPER_ADMIN')
+      .limit(5);
+
+    if (adminProfiles && adminProfiles.length > 0) {
+      for (const p of adminProfiles) {
+        await adminClient
+          .from('profiles')
+          .update({
+            first_name: firstName,
+            last_name: lastName,
+            email: payload.email,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', p.id);
+      }
+    }
 
     await adminClient.from('audit_logs').insert({
       action: 'UPDATE_ADMIN_PROFILE',
@@ -867,7 +912,8 @@ export async function updateSISAdminProfile(payload: { displayName: string; emai
     return { success: true };
   } catch (e: any) {
     console.error('updateSISAdminProfile Error:', e);
-    return { success: true };
+    return { success: false, error: e.message || 'Failed to update admin profile' };
   }
 }
+
 

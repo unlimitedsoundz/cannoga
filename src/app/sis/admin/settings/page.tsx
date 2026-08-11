@@ -65,8 +65,12 @@ export default function SettingsPage() {
     e.preventDefault();
     setSavingProfile(true);
     try {
-      await updateSISAdminProfile({ displayName, email, department });
-      showToast('success', 'Profile settings updated and saved to database');
+      const res = await updateSISAdminProfile({ displayName, email, department });
+      if (res.success) {
+        showToast('success', 'Profile settings updated and saved to database');
+      } else {
+        showToast('error', res.error || 'Failed to save profile settings');
+      }
     } catch (err: any) {
       showToast('error', err.message || 'Failed to save profile settings');
     } finally {
@@ -86,10 +90,14 @@ export default function SettingsPage() {
     }
     setUpdatingPassword(true);
     try {
-      await updateSISSystemSettings({ password_updated_at: new Date().toISOString() });
-      setCurrentPassword('');
-      setNewPassword('');
-      showToast('success', 'Security password updated and logged in database');
+      const res = await updateSISSystemSettings({ password_updated_at: new Date().toISOString() });
+      if (res.success) {
+        setCurrentPassword('');
+        setNewPassword('');
+        showToast('success', 'Security password updated and logged in database');
+      } else {
+        showToast('error', res.error || 'Failed to update password');
+      }
     } catch (err: any) {
       showToast('error', err.message || 'Failed to update password');
     } finally {
@@ -101,11 +109,15 @@ export default function SettingsPage() {
     e.preventDefault();
     setSavingSystem(true);
     try {
-      await updateSISSystemSettings({
+      const res = await updateSISSystemSettings({
         academic_term: academicTerm,
         registration_window: registrationWindow,
       });
-      showToast('success', 'System settings saved to database successfully');
+      if (res.success) {
+        showToast('success', 'System settings saved to database successfully');
+      } else {
+        showToast('error', res.error || 'Failed to save system settings');
+      }
     } catch (err: any) {
       showToast('error', err.message || 'Failed to save system settings');
     } finally {
@@ -114,10 +126,14 @@ export default function SettingsPage() {
   };
 
   const handleTerminateSessions = async () => {
-    setOtherSessionsTerminated(true);
     try {
-      await updateSISSystemSettings({ sessions_terminated_at: new Date().toISOString() });
-      showToast('success', 'All other active administrator sessions have been terminated in DB');
+      const res = await updateSISSystemSettings({ sessions_terminated_at: new Date().toISOString() });
+      if (res.success) {
+        setOtherSessionsTerminated(true);
+        showToast('success', 'All other active administrator sessions have been terminated in DB');
+      } else {
+        showToast('error', res.error || 'Failed to terminate sessions');
+      }
     } catch (err: any) {
       showToast('error', err.message || 'Failed to terminate sessions');
     }
