@@ -1273,10 +1273,10 @@ export default function SISStudentDashboard() {
                                                     </div>
                                                 </div>
                                             )}
-                                            <div className="grid grid-cols-3 gap-2 p-2.5 bg-slate-50 border-t border-slate-100 text-center text-xs">
-                                                <button type="button" onClick={() => navigateTo('directory')} className="py-1.5 px-2 bg-[#2D3748] hover:bg-slate-900 text-white font-semibold rounded shadow-sm transition">A - Z</button>
-                                                <button type="button" onClick={() => navigateTo('directory')} className="py-1.5 px-2 bg-[#D97706] hover:bg-amber-700 text-white font-semibold rounded shadow-sm transition">Favourites</button>
-                                                <button type="button" onClick={() => navigateTo('directory')} className="py-1.5 px-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold rounded shadow-sm transition">Recent</button>
+                                            <div className="grid grid-cols-3 divide-x divide-white/20 text-center text-xs border-t border-slate-100 overflow-hidden">
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 bg-[#2D3748] hover:bg-slate-900 text-white font-semibold transition">A - Z</button>
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 bg-[#D97706] hover:bg-amber-700 text-white font-semibold transition">Favourites</button>
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold transition">Recent</button>
                                             </div>
                                         </div>
                                     </div>
