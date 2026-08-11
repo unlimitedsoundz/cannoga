@@ -24,7 +24,7 @@ export default function WebsiteDashboardPage() {
         title="Website CMS"
         subtitle="Manage public website content"
         actions={
-          <Link href="/sis/admin/website/pages/new" className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors no-underline">
+          <Link href="/sis/admin/website/pages/new" className="inline-flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors no-underline">
             <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> New Page
           </Link>
         }
@@ -35,15 +35,17 @@ export default function WebsiteDashboardPage() {
           <Link
             key={section.href}
             href={section.href}
-            className="bg-white border border-neutral-200 p-6 hover:border-[#9c27b3] transition-colors no-underline block group"
+            className="bg-neutral-900 rounded-2xl p-6 hover:bg-neutral-800 transition-all no-underline block group shadow-sm"
           >
             <div className="flex items-center gap-3 mb-3">
-              <HugeiconsIcon icon={section.icon} size={20} strokeWidth={2.5} className="text-[#9c27b3]" />
-              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 group-hover:text-[#9c27b3] transition-colors">
+              <div className="p-2.5 bg-neutral-800 text-purple-400 rounded-xl group-hover:bg-[#9c27b3] group-hover:text-white transition-colors">
+                <HugeiconsIcon icon={section.icon} size={20} strokeWidth={2.5} />
+              </div>
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white group-hover:text-purple-300 transition-colors">
                 {section.label}
               </h3>
             </div>
-            <p className="text-xs text-neutral-500">{section.description}</p>
+            <p className="text-xs text-neutral-400 leading-relaxed">{section.description}</p>
           </Link>
         ))}
       </div>

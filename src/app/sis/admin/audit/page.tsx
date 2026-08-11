@@ -40,26 +40,34 @@ export default function AuditPage() {
   }, []);
 
   if (loading) {
-    return <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div></div>;
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="p-8 bg-red-50 border border-red-100 rounded-none text-center"><p className="text-red-600 font-medium text-sm">{error}</p></div>;
+    return (
+      <div className="p-8 bg-red-950/60 rounded-2xl text-center">
+        <p className="text-red-300 font-medium text-sm">{error}</p>
+      </div>
+    );
   }
 
   const columns = [
-    { key: 'timestamp', header: 'Timestamp', render: (l: AuditLogRow) => new Date(l.timestamp).toLocaleString('en-CA') },
-    { key: 'action', header: 'Action', render: (l: AuditLogRow) => <span className="font-mono text-xs font-bold text-neutral-900">{l.action}</span> },
-    { key: 'entity_table', header: 'Module', render: (l: AuditLogRow) => <span className="text-xs text-neutral-600">{l.entity_table}</span> },
-    { key: 'entity_id', header: 'Record', render: (l: AuditLogRow) => <span className="font-mono text-xs text-neutral-500">{l.entity_id}</span> },
-    { key: 'actor', header: 'Administrator', render: (l: AuditLogRow) => <span className="text-xs text-neutral-600">{l.actor_id || 'System'}</span> },
+    { key: 'timestamp', header: 'Timestamp', render: (l: AuditLogRow) => <span className="text-xs text-neutral-400">{new Date(l.timestamp).toLocaleString('en-CA')}</span> },
+    { key: 'action', header: 'Action', render: (l: AuditLogRow) => <span className="font-mono text-xs font-bold text-white">{l.action}</span> },
+    { key: 'entity_table', header: 'Module', render: (l: AuditLogRow) => <span className="text-xs text-neutral-300">{l.entity_table}</span> },
+    { key: 'entity_id', header: 'Record', render: (l: AuditLogRow) => <span className="font-mono text-xs text-neutral-400">{l.entity_id}</span> },
+    { key: 'actor', header: 'Administrator', render: (l: AuditLogRow) => <span className="text-xs text-neutral-300">{l.actor_id || 'System'}</span> },
     {
       key: 'metadata',
       header: 'Details',
       render: (l: AuditLogRow) => l.metadata ? (
-        <pre className="text-[10px] text-neutral-400 max-w-xs overflow-hidden truncate">{JSON.stringify(l.metadata)}</pre>
+        <pre className="text-[10px] text-neutral-400 max-w-xs overflow-hidden truncate font-mono">{JSON.stringify(l.metadata)}</pre>
       ) : (
-        <span className="text-neutral-400 text-xs">—</span>
+        <span className="text-neutral-500 text-xs">—</span>
       ),
     },
   ];
@@ -71,7 +79,7 @@ export default function AuditPage() {
         subtitle="Enterprise audit log of all administrative actions"
       />
 
-      <div className="bg-white border border-neutral-200 overflow-hidden">
+      <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-sm">
         <DataTable
           columns={columns}
           data={data}
