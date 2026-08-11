@@ -24,7 +24,7 @@ export function Footer() {
                               <Logo className="h-14 md:h-16 text-white mb-3" />
                          </div>
                           <div className="flex space-x-4">
-                               <a href="https://youtube.com/cannogacollege" target="_blank" rel="noopener noreferrer" className="text-white hover:text-opacity-75 transition-colors">
+                               <a href="https://www.youtube.com/@CannogaCollege" target="_blank" rel="noopener noreferrer" className="text-white hover:text-opacity-75 transition-colors">
                                   <YoutubeLogo className="h-6 w-6" />
                               </a>
                                <a href="https://www.tiktok.com/@cannogacollege" target="_blank" rel="noopener noreferrer" className="text-white hover:text-opacity-75 transition-colors">
