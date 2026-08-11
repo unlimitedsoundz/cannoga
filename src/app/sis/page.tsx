@@ -921,6 +921,7 @@ export default function SISStudentDashboard() {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             {/* PRESIDENT'S WELCOME WIDGET */}
                             <div className="mb-6 bg-gradient-to-r from-slate-900 via-purple-950 to-slate-900 border border-slate-800 rounded-xl p-5 sm:p-6 text-white shadow-lg relative overflow-hidden flex flex-col md:flex-row items-center gap-6">
                                 <div className="relative shrink-0">
