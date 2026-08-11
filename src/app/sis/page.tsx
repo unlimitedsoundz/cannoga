@@ -1266,20 +1266,20 @@ export default function SISStudentDashboard() {
                                                         {faculty[0].name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
                                                     </div>
                                                     <div className="flex-1 min-w-0">
-                                                        <h4 className="text-xs font-bold text-slate-900 truncate">{faculty[0].name}</h4>
-                                                        <p className="text-[11px] text-slate-500 font-medium">{faculty[0].role || 'Academic Lead & Advisor'}</p>
-                                                        <p className="text-[10px] text-slate-800 mt-0.5 truncate">{faculty[0].email || 'faculty@cannoga.edu.ca'}</p>
+                                                        <h4 className="text-sm font-bold text-slate-900 truncate">{faculty[0].name}</h4>
+                                                        <p className="text-xs text-slate-600 font-medium mt-0.5">{faculty[0].role || 'Dean'}</p>
+                                                        <p className="text-xs text-slate-800 font-semibold mt-1 truncate">{faculty[0].email || 'emily.johansson@cannogacollege.ca'}</p>
                                                     </div>
                                                 </div>
                                             ) : (
                                                 <div className="p-4 flex items-center space-x-4 bg-slate-50/50 border-b border-slate-100">
                                                     <div className="w-14 h-14 rounded-full overflow-hidden border border-slate-300 bg-slate-200 shrink-0 flex items-center justify-center font-bold text-slate-700 text-lg">
-                                                        RK
+                                                        EJ
                                                     </div>
                                                     <div className="flex-1 min-w-0">
-                                                        <h4 className="text-xs font-bold text-slate-900 truncate">Dr. Richard Kane</h4>
-                                                        <p className="text-[11px] text-slate-500 font-medium">Curriculum Lead & Senior Advisor</p>
-                                                        <p className="text-[10px] text-slate-800 mt-0.5 truncate">richard.kane@cannoga.edu.ca</p>
+                                                        <h4 className="text-sm font-bold text-slate-900 truncate">Dr. Emily Johansson</h4>
+                                                        <p className="text-xs text-slate-600 font-medium mt-0.5">Dean</p>
+                                                        <p className="text-xs text-slate-800 font-semibold mt-1 truncate">emily.johansson@cannogacollege.ca</p>
                                                     </div>
                                                 </div>
                                             )}
@@ -1393,7 +1393,7 @@ export default function SISStudentDashboard() {
                                                 <div className="min-w-0 flex-1">
                                                     <h4 className="text-xs font-bold text-slate-900 truncate">{displayName}</h4>
                                                     <p className="text-[11px] text-slate-500 truncate">{programName}</p>
-                                                    <p className="text-[10px] text-slate-800">ID: {studentId}</p>
+                                                    <p className="text-xs text-slate-800 font-semibold mt-0.5">ID: {studentId}</p>
                                                 </div>
                                             </div>
                                             <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
