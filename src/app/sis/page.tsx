@@ -1273,10 +1273,10 @@ export default function SISStudentDashboard() {
                                                     </div>
                                                 </div>
                                             )}
-                                            <div className="grid grid-cols-3 divide-x divide-slate-100 text-center text-xs bg-white py-2">
-                                                <button type="button" onClick={() => navigateTo('directory')} className="py-1 text-slate-700 font-medium hover:bg-slate-50">A - Z</button>
-                                                <button type="button" onClick={() => navigateTo('directory')} className="py-1 text-slate-700 font-medium hover:bg-slate-50">Favourites</button>
-                                                <button type="button" onClick={() => navigateTo('directory')} className="py-1 text-slate-700 font-medium hover:bg-slate-50">Recent</button>
+                                            <div className="grid grid-cols-3 gap-2 p-2.5 bg-slate-50 border-t border-slate-100 text-center text-xs">
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-1.5 px-2 bg-[#2D3748] hover:bg-slate-900 text-white font-semibold rounded shadow-sm transition">A - Z</button>
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-1.5 px-2 bg-[#D97706] hover:bg-amber-700 text-white font-semibold rounded shadow-sm transition">Favourites</button>
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-1.5 px-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold rounded shadow-sm transition">Recent</button>
                                             </div>
                                         </div>
                                     </div>
