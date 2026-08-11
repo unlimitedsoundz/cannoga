@@ -369,12 +369,12 @@ export default function VoiceAgentTestPage() {
                       <span className="text-xs font-bold uppercase tracking-wider text-neutral-200">{tool.toolName}</span>
                       <span className={`text-[10px] font-bold ${tool.success ? 'text-emerald-400' : 'text-red-400'}`}>{tool.success ? 'SUCCESS' : 'FAILED'}</span>
                     </div>
-                    {tool.result && typeof tool.result === 'object' && (
+                    {tool.result && typeof tool.result === 'object' ? (
                       <pre className="text-xs text-neutral-300 mt-2 p-3 bg-neutral-900 rounded-lg overflow-x-auto">{JSON.stringify(tool.result, null, 2)}</pre>
-                    )}
-                    {typeof tool.result === 'string' && (
+                    ) : null}
+                    {typeof tool.result === 'string' ? (
                       <p className="text-xs text-neutral-300 mt-1">{tool.result}</p>
-                    )}
+                    ) : null}
                   </div>
                 ))
               )}
