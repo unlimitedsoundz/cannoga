@@ -1089,19 +1089,17 @@ export default function SISStudentDashboard() {
                                             <div className="bg-[#2D3748] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Announcements</h3>
                                             </div>
-                                            <div className="p-4 space-y-2.5">
-                                                {news.length > 0 ? news.slice(0, 2).map(announcement => (
-                                                    <div key={announcement.id} className="p-2.5 bg-slate-50 border border-slate-200 rounded">
-                                                        <div className="flex items-center justify-between mb-1">
-                                                            <span className="text-xs font-bold text-slate-900 line-clamp-1">{announcement.title}</span>
-                                                            {announcement.priority === 'urgent' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 shrink-0 ml-1">Urgent</span>}
-                                                            {announcement.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600 shrink-0 ml-1">High</span>}
+                                            <div className="divide-y divide-slate-100 text-xs">
+                                                {news.length > 0 ? news.slice(0, 3).map(announcement => (
+                                                    <div key={announcement.id} className="px-4 py-2.5 hover:bg-slate-50 transition cursor-pointer" onClick={() => navigateTo('news')}>
+                                                        <div className="flex items-center justify-between mb-0.5">
+                                                            <span className="font-semibold text-slate-800 line-clamp-1">{announcement.title}</span>
+                                                            {announcement.priority === 'urgent' && <span className="text-[10px] font-bold uppercase text-red-600 shrink-0 ml-1">Urgent</span>}
                                                         </div>
-                                                        <p className="text-[11px] text-slate-500 line-clamp-2">{announcement.excerpt || announcement.content}</p>
-                                                        <span className="text-[10px] text-slate-800 mt-1 block">{new Date(announcement.created_at).toLocaleDateString('en-CA')}</span>
+                                                        <p className="text-[11px] text-slate-500 line-clamp-1">{announcement.excerpt || announcement.content}</p>
                                                     </div>
                                                 )) : (
-                                                    <div className="text-center py-6 text-xs text-slate-500">No announcements available</div>
+                                                    <div className="px-4 py-6 text-center text-xs text-slate-500">No announcements available</div>
                                                 )}
                                             </div>
                                         </div>
@@ -1163,25 +1161,25 @@ export default function SISStudentDashboard() {
                                             <div className="bg-[#2D3748] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Enrolled Courses</h3>
                                             </div>
-                                            <div className="p-3 space-y-2 text-xs">
+                                            <div className="divide-y divide-slate-100 text-xs">
                                                 {enrollments.length > 0 ? (
                                                     enrollments.slice(0, 3).map((e: any) => (
-                                                        <div key={e.id} className="p-2.5 bg-slate-50 border border-slate-200 rounded flex justify-between items-center cursor-pointer hover:bg-slate-100 transition" onClick={() => navigateTo('academics')}>
+                                                        <button type="button" key={e.id} onClick={() => navigateTo('academics')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left">
                                                             <div className="min-w-0 pr-2">
-                                                                <p className="font-bold text-slate-900 truncate">{e.module?.code ? `${e.module.code}: ${e.module.title}` : e.module?.title || 'Enrolled Module'}</p>
-                                                                <p className="text-[10px] text-slate-500 mt-0.5">{e.semester?.name || 'Academic Term'}</p>
+                                                                <p className="font-semibold text-slate-800 truncate">{e.module?.code ? `${e.module.code}: ${e.module.title}` : e.module?.title || 'Enrolled Module'}</p>
+                                                                <p className="text-[10px] text-slate-500">{e.semester?.name || 'Academic Term'}</p>
                                                             </div>
-                                                            <HugeiconsIcon icon={ChevronRight} size={16} className="text-slate-800 shrink-0" />
-                                                        </div>
+                                                            <HugeiconsIcon icon={ChevronRight} size={14} className="text-slate-400 shrink-0" />
+                                                        </button>
                                                     ))
                                                 ) : (
-                                                    <div className="p-2.5 bg-slate-50 border border-slate-200 rounded flex justify-between items-center cursor-pointer hover:bg-slate-100 transition" onClick={() => navigateTo('academics')}>
+                                                    <button type="button" onClick={() => navigateTo('academics')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left">
                                                         <div className="min-w-0 pr-2">
-                                                            <p className="font-bold text-slate-900 truncate">{programName}</p>
-                                                            <p className="text-[10px] text-slate-500 mt-0.5">Primary Enrolled Program</p>
+                                                            <p className="font-semibold text-slate-800 truncate">{programName}</p>
+                                                            <p className="text-[10px] text-slate-500">Primary Enrolled Program</p>
                                                         </div>
-                                                        <HugeiconsIcon icon={ChevronRight} size={16} className="text-slate-800 shrink-0" />
-                                                    </div>
+                                                        <HugeiconsIcon icon={ChevronRight} size={14} className="text-slate-400 shrink-0" />
+                                                    </button>
                                                 )}
                                             </div>
                                         </div>
@@ -1196,26 +1194,20 @@ export default function SISStudentDashboard() {
                                             <div className="bg-[#2D3748] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Timetable & Schedule</h3>
                                             </div>
-                                            <div className="p-4 space-y-2.5">
+                                            <div className="divide-y divide-slate-100 text-xs">
                                                 {timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length > 0 ? 
                                                     timetableSessions.filter(s => s.day_of_week === new Date().getDay()).slice(0, 3).map(session => (
-                                                        <div key={session.id} className="p-3 bg-slate-50 rounded border border-slate-200 flex justify-between items-center">
-                                                            <div>
-                                                                <p className="text-[10px] font-bold text-slate-500 uppercase">{session.section?.session_type || 'Class'}</p>
-                                                                <p className="text-xs font-semibold text-slate-800 mt-0.5">{session.section?.module?.title || session.section?.module?.code || 'Class'}</p>
+                                                        <div key={session.id} className="px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition">
+                                                            <div className="min-w-0 pr-2">
+                                                                <p className="font-semibold text-slate-800 truncate">{session.section?.module?.title || session.section?.module?.code || 'Class'}</p>
+                                                                <p className="text-[10px] text-slate-500">{session.section?.session_type || 'Class'} • {session.room ? `${session.room.name}` : 'Main Campus'}</p>
                                                             </div>
-                                                            <div className="text-right">
-                                                                <span className="text-[11px] font-medium text-slate-600 block">{session.start_time?.slice(0, 5)} - {session.end_time?.slice(0, 5)}</span>
-                                                                {session.room && <span className="text-[10px] text-slate-500">{session.room.name}{session.room.building ? `, ${session.room.building}` : ''}</span>}
-                                                            </div>
+                                                            <span className="text-[11px] font-medium text-slate-700 shrink-0">{session.start_time?.slice(0, 5)} - {session.end_time?.slice(0, 5)}</span>
                                                         </div>
                                                     )) : (
-                                                        <div className="text-center py-8 text-xs text-slate-500 space-y-2">
-                                                            <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mx-auto text-slate-500">
-                                                                <HugeiconsIcon icon={Calendar} size={20} />
-                                                            </div>
+                                                        <div className="px-4 py-6 text-center text-xs text-slate-500">
                                                             <p className="font-semibold text-slate-700">No Classes Scheduled Today</p>
-                                                            <p className="text-[11px] text-slate-800">Check your weekly timetable for upcoming lectures</p>
+                                                            <p className="text-[11px] text-slate-500 mt-0.5">Check your weekly timetable for upcoming lectures</p>
                                                         </div>
                                                     )
                                                 }
