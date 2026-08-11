@@ -1055,11 +1055,8 @@ export default function SISStudentDashboard() {
                                     {/* STUDENT MAIL */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                            <div className="bg-[#2D3748] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Student Mail</h3>
-                                                <button type="button" onClick={() => navigateTo('student-life')} className="text-xs text-slate-200 hover:text-white">
-                                                    <HugeiconsIcon icon={Clock} size={14} strokeWidth={2} />
-                                                </button>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
                                                 <button type="button" onClick={() => navigateTo('student-life')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left font-semibold text-slate-800">
@@ -1089,9 +1086,8 @@ export default function SISStudentDashboard() {
                                     {/* ANNOUNCEMENTS */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                            <div className="bg-[#2D3748] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Announcements</h3>
-                                                <span className="text-[11px] bg-white/10 text-white font-medium px-2 py-0.5 rounded">{news.length} News</span>
                                             </div>
                                             <div className="p-4 space-y-2.5">
                                                 {news.length > 0 ? news.slice(0, 2).map(announcement => (
@@ -1116,9 +1112,8 @@ export default function SISStudentDashboard() {
 
                                     {/* ATTENDANCE RATE */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center mb-2">
+                                        <div className="bg-[#2D3748] px-4 py-2.5 mb-2">
                                             <h3 className="font-semibold text-white text-sm">Attendance Rate</h3>
-                                            <span className="text-[10px] bg-white/10 text-white font-bold px-2 py-0.5 rounded">Fall 2026</span>
                                         </div>
                                         <div className="flex flex-col items-center justify-center py-2">
                                             {(() => {
@@ -1165,9 +1160,8 @@ export default function SISStudentDashboard() {
                                     {/* ENROLLED COURSES (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                            <div className="bg-[#2D3748] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Enrolled Courses</h3>
-                                                <button type="button" onClick={() => navigateTo('academics')} className="text-xs font-semibold text-white/90 hover:text-white hover:underline">Manage</button>
                                             </div>
                                             <div className="p-3 space-y-2 text-xs">
                                                 {enrollments.length > 0 ? (
@@ -1199,9 +1193,8 @@ export default function SISStudentDashboard() {
                                     {/* TIMETABLE / TODAY'S SCHEDULE */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                            <div className="bg-[#2D3748] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Timetable & Schedule</h3>
-                                                <span className="text-[11px] bg-white/10 text-white font-medium px-2 py-0.5 rounded">{timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length} Classes</span>
                                             </div>
                                             <div className="p-4 space-y-2.5">
                                                 {timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length > 0 ? 
@@ -1236,9 +1229,8 @@ export default function SISStudentDashboard() {
                                     {/* REAL-TIME ONTARIO LIVE NEWS WIDGET */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                            <div className="bg-[#2D3748] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Real-Time Ontario News</h3>
-                                                <span className="text-[10px] bg-white/10 text-white font-bold px-2 py-0.5 rounded border border-white/20 uppercase tracking-wider">Live Feed</span>
                                             </div>
                                             <div className="p-3 space-y-2 text-xs">
                                                 {ontarioLiveNews.length > 0 ? (
@@ -1265,9 +1257,8 @@ export default function SISStudentDashboard() {
                                     {/* STAFF DIRECTORY / ADVISOR CONTACT (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                            <div className="bg-[#2D3748] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Staff Directory</h3>
-                                                <span className="text-[10px] text-white/80">Academic Faculty</span>
                                             </div>
                                             {faculty.length > 0 ? (
                                                 <div className="p-4 flex items-center space-x-4 bg-slate-50/50 border-b border-slate-100">
@@ -1564,9 +1555,8 @@ export default function SISStudentDashboard() {
                                     {/* ACCOUNT SUMMARY */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5 flex justify-between items-center">
+                                            <div className="bg-[#2D3748] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Account Summary</h3>
-                                                <span className="text-[11px] text-white/80">Fall 2026</span>
                                             </div>
                                             <div className="p-4">
                                                 <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total Balance Due (CAD)</p>
