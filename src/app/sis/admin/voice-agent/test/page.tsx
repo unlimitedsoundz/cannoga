@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Script from 'next/script';
 import { PageHeader } from '@/components/sis/PageHeader';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
@@ -12,8 +13,20 @@ import {
   Alert01Icon as AlertCircle,
   CheckCircle as CheckCircle,
   ClockIcon as Clock,
+  Mic01Icon as Mic,
   X as X,
 } from '@hugeicons/core-free-icons';
+
+declare global {
+  interface Window {
+    puter?: {
+      ai: {
+        speech2txt: (audio: Blob | string) => Promise<{ text?: string } | string>;
+      };
+      print?: (msg: unknown) => void;
+    };
+  }
+}
 
 interface MessageItem {
   id: string;
@@ -39,9 +52,13 @@ export default function VoiceAgentTestPage() {
   const [userInput, setUserInput] = useState('');
   const [duration, setDuration] = useState(0);
   const [callSummary, setCallSummary] = useState<string | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false);
 
   const transcriptEndRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
 
   const scrollToBottom = useCallback(() => {
     transcriptEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -144,7 +161,6 @@ export default function VoiceAgentTestPage() {
 
     setUserInput('');
 
-    // 1. Immediately append user's message to transcript state
     const userMsg: MessageItem = {
       id: `msg-${Date.now()}-user`,
       role: 'caller',
@@ -155,7 +171,6 @@ export default function VoiceAgentTestPage() {
     setTranscript(prev => [...prev, userMsg]);
 
     try {
-      // 2. Query knowledge base/FAQs for intelligent response
       const toolRes = await fetch('/api/voice/tools', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -178,7 +193,6 @@ export default function VoiceAgentTestPage() {
         }
       }
 
-      // 3. Append tool call event to tool events list
       setToolEvents(prev => [
         ...prev,
         {
@@ -189,7 +203,6 @@ export default function VoiceAgentTestPage() {
         },
       ]);
 
-      // 4. Append assistant's response to transcript state
       const assistantMsg: MessageItem = {
         id: `msg-${Date.now()}-assistant`,
         role: 'assistant',
@@ -200,6 +213,53 @@ export default function VoiceAgentTestPage() {
       setTranscript(prev => [...prev, assistantMsg]);
     } catch (err) {
       setErrors(prev => [...prev, err instanceof Error ? err.message : 'Failed to process message']);
+    }
+  };
+
+  const startMicRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioChunksRef.current = [];
+      const mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/mp3' });
+        stream.getTracks().forEach(track => track.stop());
+
+        if (window.puter && window.puter.ai && window.puter.ai.speech2txt) {
+          setIsTranscribing(true);
+          try {
+            const res = await window.puter.ai.speech2txt(audioBlob);
+            const text = typeof res === 'string' ? res : res.text || '';
+            if (text.trim()) {
+              setUserInput(text.trim());
+            }
+          } catch (err) {
+            setErrors(prev => [...prev, err instanceof Error ? err.message : 'Puter.js STT error']);
+          } finally {
+            setIsTranscribing(false);
+          }
+        }
+      };
+
+      mediaRecorderRef.current = mediaRecorder;
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch (err) {
+      setErrors(prev => [...prev, err instanceof Error ? err.message : 'Microphone access denied']);
+    }
+  };
+
+  const stopMicRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
     }
   };
 
@@ -220,9 +280,11 @@ export default function VoiceAgentTestPage() {
 
   return (
     <div className="space-y-6">
+      <Script src="https://js.puter.com/v2/" strategy="afterInteractive" />
+
       <PageHeader
         title="Test Voice Agent"
-        subtitle="Browser-based voice testing UI for Debbie"
+        subtitle="Browser-based voice testing UI for Debbie (Powered by Puter.js STT)"
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -330,18 +392,27 @@ export default function VoiceAgentTestPage() {
             </div>
             <div className="p-4 border-t border-white/5">
               <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={isRecording ? stopMicRecording : startMicRecording}
+                  disabled={status !== 'active' || isTranscribing}
+                  className={`p-3 rounded-xl transition-colors ${isRecording ? 'bg-red-600 text-white animate-pulse' : 'bg-white/5 text-neutral-300 hover:bg-white/10'} disabled:opacity-40`}
+                  title={isRecording ? 'Click to stop & transcribe' : 'Click to speak via Puter.js STT'}
+                >
+                  <HugeiconsIcon icon={Mic} size={16} strokeWidth={2.5} />
+                </button>
                 <input
                   type="text"
                   value={userInput}
                   onChange={(e) => setUserInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder={status === 'active' ? 'Type a message and press Enter...' : 'Start a call first...'}
-                  disabled={status !== 'active'}
+                  placeholder={isTranscribing ? 'Transcribing audio via Puter.js STT...' : isRecording ? 'Listening... Speak into microphone' : status === 'active' ? 'Type a message or click Mic to speak...' : 'Start a call first...'}
+                  disabled={status !== 'active' || isTranscribing}
                   className="flex-1 p-3 text-sm bg-white/5 text-white rounded-xl focus:outline-none focus:bg-white/10 disabled:opacity-40"
                 />
                 <button
                   onClick={sendMessage}
-                  disabled={status !== 'active' || !userInput.trim()}
+                  disabled={status !== 'active' || !userInput.trim() || isTranscribing}
                   className="px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <HugeiconsIcon icon={Send} size={16} strokeWidth={2.5} />
