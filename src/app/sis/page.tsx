@@ -1396,18 +1396,18 @@ export default function SISStudentDashboard() {
                                         <div className="pb-3 border-b border-slate-100 mb-3">
                                             <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Ontario College Services & Portals</h3>
                                         </div>
-                                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                         <div className="flex items-center justify-around sm:justify-start sm:space-x-8 py-2">
                                              {/* PAL Letter Card (Ontario Government / IRCC) */}
                                              <button 
                                                  type="button" 
                                                  onClick={() => navigateTo('documents')} 
-                                                 className="flex items-center justify-center p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-lg shadow-sm hover:shadow transition group cursor-pointer h-16"
+                                                 className="flex items-center justify-center hover:opacity-80 transition group cursor-pointer py-1"
                                                  title="PAL IRCC Attestation Portal"
                                              >
                                                  <img 
                                                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw_rQ8pJzrHe4IaKsqhyQr534rOGnoQK_fAB28L-T-wOSslGjjPxllh-s&s=10" 
                                                      alt="PAL IRCC" 
-                                                     className="h-10 max-h-10 w-auto object-contain group-hover:scale-105 transition-transform rounded" 
+                                                     className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform" 
                                                  />
                                              </button>
 
@@ -1415,13 +1415,13 @@ export default function SISStudentDashboard() {
                                              <button 
                                                  type="button" 
                                                  onClick={() => navigateTo('academics')} 
-                                                 className="flex items-center justify-center p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-lg shadow-sm hover:shadow transition group cursor-pointer h-16"
+                                                 className="flex items-center justify-center hover:opacity-80 transition group cursor-pointer py-1"
                                                  title="Blackboard Learn LMS"
                                              >
                                                  <img 
                                                      src="https://w7.pngwing.com/pngs/340/809/png-transparent-blackboard-learn-student-educational-technology-learning-management-system-student-text-people-logo.png" 
                                                      alt="Blackboard Learn" 
-                                                     className="h-10 max-h-10 w-auto object-contain group-hover:scale-105 transition-transform" 
+                                                     className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform" 
                                                  />
                                              </button>
 
@@ -1429,13 +1429,13 @@ export default function SISStudentDashboard() {
                                              <button 
                                                  type="button" 
                                                  onClick={() => navigateTo('documents')} 
-                                                 className="flex items-center justify-center p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-lg shadow-sm hover:shadow transition group cursor-pointer h-16"
+                                                 className="flex items-center justify-center hover:opacity-80 transition group cursor-pointer py-1"
                                                  title="OCAS OntarioColleges Portal"
                                              >
                                                  <img 
                                                      src="https://upload.wikimedia.org/wikipedia/en/3/36/OCAS_Logo_2026.png" 
                                                      alt="OCAS OntarioColleges" 
-                                                     className="h-10 max-h-10 w-auto object-contain group-hover:scale-105 transition-transform" 
+                                                     className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform" 
                                                      onError={(e) => {
                                                          const target = e.currentTarget;
                                                          target.style.display = 'none';
