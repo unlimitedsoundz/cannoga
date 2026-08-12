@@ -19,7 +19,7 @@ export function Footer() {
                     {/* Top Row: Brand + Social */}
                     <div className="mb-12 pb-10 border-b border-white/10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
                         <div>
-                            <Logo className="h-14 md:h-16 text-white mb-3" />
+                            <Logo className="h-20 md:h-24 text-white mb-3" />
                         </div>
                         <div className="flex space-x-4">
                             <a href="https://www.youtube.com/@CannogaCollege" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-white hover:text-opacity-75 transition-opacity">
