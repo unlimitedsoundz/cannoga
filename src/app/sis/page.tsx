@@ -1535,10 +1535,10 @@ export default function SISStudentDashboard() {
                                                 </>
                                             )}
                                         </div>
-                                        <div className="grid grid-cols-3 divide-x divide-slate-100 text-center text-xs bg-slate-50/50 border-t border-slate-100 py-2">
-                                            <button type="button" onClick={() => navigateTo('documents')} className="py-1 text-slate-700 font-semibold hover:underline">View All</button>
-                                            <button type="button" onClick={() => navigateTo('documents')} className="py-1 text-slate-700 font-semibold hover:underline">Share</button>
-                                            <button type="button" onClick={() => navigateTo('documents')} className="py-1 text-slate-700 font-semibold hover:underline">Download</button>
+                                        <div className="grid grid-cols-3 divide-x divide-white/20 text-center text-xs border-t border-slate-100 overflow-hidden">
+                                            <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-[#2D3748] hover:bg-slate-900 text-white font-semibold transition">View All</button>
+                                            <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-[#D97706] hover:bg-amber-700 text-white font-semibold transition">Share</button>
+                                            <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold transition">Download</button>
                                         </div>
                                     </div>
 
