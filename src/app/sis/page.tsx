@@ -1457,52 +1457,54 @@ export default function SISStudentDashboard() {
                                     </div>
 
                                     {/* SOCIAL MEDIA / CAMPUS CONNECT */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-slate-900 px-4 py-2.5 mb-3">
-                                            <h3 className="font-semibold text-white text-sm">Campus Connect & Channels</h3>
-                                        </div>
-                                        <div className="grid grid-cols-2 gap-2 text-xs p-4 pt-0">
-                                            {/* YouTube Official Channel */}
-                                            <a 
-                                                href="https://www.youtube.com/@CannogaCollege" 
-                                                target="_blank" 
-                                                rel="noopener noreferrer" 
-                                                className="p-2.5 bg-slate-50 hover:bg-red-50/60 border border-slate-200 hover:border-red-200 rounded flex items-center space-x-2 font-medium text-slate-700 hover:text-red-700 transition group"
-                                            >
-                                                <svg className="w-5 h-5 fill-red-600 shrink-0 group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
-                                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                                                </svg>
-                                                <span className="truncate">YouTube</span>
-                                            </a>
+                                    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                        <div>
+                                            <div className="bg-slate-900 px-4 py-2.5">
+                                                <h3 className="font-extrabold text-white text-xs uppercase tracking-wider">Campus Connect & Channels</h3>
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-2 text-xs p-4">
+                                                {/* YouTube Official Channel */}
+                                                <a 
+                                                    href="https://www.youtube.com/@CannogaCollege" 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer" 
+                                                    className="p-3 bg-slate-50 hover:bg-red-50/60 border border-slate-200 hover:border-red-200 rounded-xl flex items-center space-x-2.5 font-bold text-slate-900 hover:text-red-700 transition group shadow-sm"
+                                                >
+                                                    <svg className="w-5 h-5 fill-red-600 shrink-0 group-hover:scale-105 transition-transform" viewBox="0 0 24 24">
+                                                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                                    </svg>
+                                                    <span className="truncate">YouTube</span>
+                                                </a>
 
-                                            {/* TikTok Official Channel */}
-                                            <a 
-                                                href="https://www.tiktok.com/@cannogacollege" 
-                                                target="_blank" 
-                                                rel="noopener noreferrer" 
-                                                className="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded flex items-center space-x-2 font-medium text-slate-700 hover:text-slate-900 transition group"
-                                            >
-                                                <TiktokLogo className="w-5 h-5 text-slate-900 shrink-0 group-hover:scale-110 transition-transform" weight="bold" />
-                                                <span className="truncate">TikTok</span>
-                                            </a>
+                                                {/* TikTok Official Channel */}
+                                                <a 
+                                                    href="https://www.tiktok.com/@cannogacollege" 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer" 
+                                                    className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-xl flex items-center space-x-2.5 font-bold text-slate-900 transition group shadow-sm"
+                                                >
+                                                    <TiktokLogo className="w-5 h-5 text-slate-900 shrink-0 group-hover:scale-105 transition-transform" weight="bold" />
+                                                    <span className="truncate">TikTok</span>
+                                                </a>
 
-                                            {/* College Email */}
-                                            <a 
-                                                href="mailto:info@cannogacollege.ca" 
-                                                className="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded flex items-center space-x-2 font-medium text-slate-700 hover:text-slate-900 transition group"
-                                            >
-                                                <HugeiconsIcon icon={Mail} size={16} strokeWidth={2} className="text-slate-700 shrink-0 group-hover:scale-110 transition-transform" />
-                                                <span className="truncate">College Email</span>
-                                            </a>
+                                                {/* College Email */}
+                                                <a 
+                                                    href="mailto:info@cannogacollege.ca" 
+                                                    className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-xl flex items-center space-x-2.5 font-bold text-slate-900 transition group shadow-sm"
+                                                >
+                                                    <HugeiconsIcon icon={Mail} size={18} strokeWidth={2.5} className="text-slate-900 shrink-0 group-hover:scale-105 transition-transform" />
+                                                    <span className="truncate">College Email</span>
+                                                </a>
 
-                                            {/* Ottawa Campus / Contact */}
-                                            <Link 
-                                                href="/contact" 
-                                                className="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded flex items-center space-x-2 font-medium text-slate-700 hover:text-slate-900 transition group"
-                                            >
-                                                <HugeiconsIcon icon={MapPin} size={16} strokeWidth={2} className="text-slate-700 shrink-0 group-hover:scale-110 transition-transform" />
-                                                <span className="truncate">Ottawa Campus</span>
-                                            </Link>
+                                                {/* Ottawa Campus / Contact */}
+                                                <Link 
+                                                    href="/contact" 
+                                                    className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-xl flex items-center space-x-2.5 font-bold text-slate-900 transition group shadow-sm"
+                                                >
+                                                    <HugeiconsIcon icon={MapPin} size={18} strokeWidth={2.5} className="text-slate-900 shrink-0 group-hover:scale-105 transition-transform" />
+                                                    <span className="truncate">Ottawa Campus</span>
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
