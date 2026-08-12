@@ -1371,25 +1371,27 @@ export default function SISStudentDashboard() {
                                 {/* ================= COLUMN 3 ================= */}
                                 <div className="space-y-6">
                                     {/* STUDENT PROFILE QUICK VIEW */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-slate-900 px-4 py-2.5">
-                                            <h3 className="font-semibold text-white text-sm">Student Profile</h3>
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                        <div>
+                                            <div className="bg-slate-900 px-4 py-2.5">
+                                                <h3 className="font-semibold text-white text-sm">Student Profile</h3>
+                                            </div>
+                                            <div className="p-4">
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-base shadow-sm shrink-0">
+                                                        {displayName.charAt(0)}
+                                                    </div>
+                                                    <div className="min-w-0 flex-1">
+                                                        <h4 className="text-xs font-bold text-slate-900 truncate">{displayName}</h4>
+                                                        <p className="text-[11px] text-slate-500 truncate">{programName}</p>
+                                                        <p className="text-xs text-slate-800 font-semibold mt-0.5">ID: {studentId}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="p-4 space-y-3">
-                                            <div className="flex items-center space-x-3">
-                                                <div className="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-base shadow-sm shrink-0">
-                                                    {displayName.charAt(0)}
-                                                </div>
-                                                <div className="min-w-0 flex-1">
-                                                    <h4 className="text-xs font-bold text-slate-900 truncate">{displayName}</h4>
-                                                    <p className="text-[11px] text-slate-500 truncate">{programName}</p>
-                                                    <p className="text-xs text-slate-800 font-semibold mt-0.5">ID: {studentId}</p>
-                                                </div>
-                                            </div>
-                                            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
-                                                <button type="button" onClick={() => navigateTo('profile')} className="py-1.5 px-3 bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium rounded text-center transition">View Profile</button>
-                                                <button type="button" onClick={() => navigateTo('profile')} className="py-1.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded text-center transition">Edit Info</button>
-                                            </div>
+                                        <div className="grid grid-cols-2 divide-x divide-white/20 text-center text-xs border-t border-slate-100 overflow-hidden">
+                                            <button type="button" onClick={() => navigateTo('profile')} className="py-2 px-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold transition">View Profile</button>
+                                            <button type="button" onClick={() => navigateTo('profile')} className="py-2 px-2 bg-[#D97706] hover:bg-amber-700 text-white font-semibold transition">Edit Info</button>
                                         </div>
                                     </div>
 
