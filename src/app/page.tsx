@@ -116,7 +116,7 @@ export default async function Home() {
                             <p className="text-neutral-500 text-sm">Explore our academic schools and discover your path.</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {schools.map((school) => (
+                            {schools.map((school: { name: string; slug: string; description: string; imageUrl?: string }) => (
                                 <Link key={school.slug} href={`/schools/${school.slug}`} className="group bg-white border border-neutral-200 p-6 hover:border-[#9c27b3] hover:shadow-lg transition-all no-underline">
                                     <h3 className="font-bold text-neutral-900 group-hover:text-[#9c27b3] transition-colors mb-2">{school.name}</h3>
                                     <p className="text-sm text-neutral-500 line-clamp-2">{school.description}</p>
