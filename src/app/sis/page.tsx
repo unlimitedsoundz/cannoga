@@ -2369,8 +2369,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.country}
                                                     onChange={e => setProfileForm({ ...profileForm, country: e.target.value })}
                                                     placeholder="Canada"
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
-                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
+                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition border border-slate-200 rounded-lg outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
                                         </div>
