@@ -97,6 +97,8 @@ export async function loadSchedulingData(termId: string): Promise<SchedulingProb
     supabase.from('semesters').select('start_date, end_date').eq('id', termId).single(),
   ])
 
+  const semesterData = semesterRes.data as { start_date: string; end_date: string } | null
+
   const sectionIds = (sectionsRes.data as DbCourseSection[] | null)?.map((s) => s.id) || []
 
   const { data: meetingsData, error: meetingsError } = await supabase
@@ -314,8 +316,8 @@ export async function loadSchedulingData(termId: string): Promise<SchedulingProb
 
   return {
     termId,
-    termStartDate: semesterRes.data?.start_date || new Date().toISOString().split('T')[0],
-    termEndDate: semesterRes.data?.end_date || new Date().toISOString().split('T')[0],
+    termStartDate: semesterData?.start_date || new Date().toISOString().split('T')[0],
+    termEndDate: semesterData?.end_date || new Date().toISOString().split('T')[0],
     rooms,
     roomFeatures: rawFeatures,
     roomFeatureAssignments: rawFeatureAssignments,
