@@ -1,1 +1,0 @@
-UPDATE blogs SET excerpt = 'Canada is a truly beautiful country, and my decision to move here has been one of the best choices I''ve made. Studying in Canada has not only shaped my academic journey but also exposed me to entirely new seasons, cultures, and ways of life.' WHERE slug = 'my-experiences-studying-in-finland';

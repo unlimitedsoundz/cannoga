@@ -1,2 +1,0 @@
-﻿UPDATE blogs SET content = REPLACE(content, '<p>Speaking&nbsp;about&nbsp;my&nbsp;academic&nbsp;experience&nbsp;at&nbsp;Cannoga&nbsp;University,&nbsp;I&nbsp;must&nbsp;commend&nbsp;the&nbsp;school''s&nbsp;management&nbsp;and&nbsp;staff&nbsp;for&nbsp;how&nbsp;effectively&nbsp;they&nbsp;handled&nbsp;operations&nbsp;during&nbsp;the&nbsp;COVID19&nbsp;pandemic.&nbsp;Classes&nbsp;were&nbsp;smooth,&nbsp;and&nbsp;lecturers&nbsp;remained&nbsp;approachable&nbsp;and&nbsp;supportive.</p>', '') WHERE slug = 'my-experiences-studying-in-finland';
-

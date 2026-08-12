@@ -1,4 +1,0 @@
-🔍 Checking table access...
-✅ modules table found. Count: 205
-✅ Subject table found. Count: 386
-✅ Course table found. Count: 53
