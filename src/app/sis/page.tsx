@@ -2170,21 +2170,32 @@ export default function SISStudentDashboard() {
                     )}
                     {/* ================= NEWS ================= */}
                     {currentPage === 'news' && (
-                        <div>
-                            <div className="mb-6">
-                                <h3 className="text-base font-bold text-slate-900">Campus News Feed</h3>
-                                <p className="text-xs text-slate-500 mt-0.5">Latest announcements and news from Cannoga College.</p>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {news.length > 0 ? news.map(item => (
-                                    <div key={item.id} className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-slate-300 cursor-pointer transition">
-                                        <span className="text-[10px] font-bold text-slate-600 uppercase bg-slate-100 px-2 py-0.5 rounded">{item.priority || 'News'}</span>
-                                        <h3 className="text-sm font-bold text-slate-900 mt-2">{item.title}</h3>
-                                        <p className="text-xs text-slate-800 mt-1">{item.publish_start ? new Date(item.publish_start).toLocaleDateString('en-CA') : ''}</p>
+                        <div className="space-y-6">
+                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                <div>
+                                    <div className="bg-slate-900 px-4 py-3 flex items-center justify-between">
+                                        <div>
+                                            <h3 className="font-extrabold text-white text-sm tracking-tight">World & Campus News</h3>
+                                            <p className="text-[11px] text-slate-300 font-medium">Live news updates and official institutional announcements</p>
+                                        </div>
+                                        <span className="text-[10px] font-extrabold uppercase bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">{ontarioLiveNews.length} Live Feeds</span>
                                     </div>
-                                )) : (
-                                    <div className="col-span-full text-center py-8 text-slate-500">No news available</div>
-                                )}
+
+                                    <div className="divide-y divide-slate-100 text-xs">
+                                        {ontarioLiveNews.map((item, idx) => (
+                                            <a key={idx} href={item.link} target="_blank" rel="noopener noreferrer" className="block px-5 py-3.5 hover:bg-slate-50 transition group">
+                                                <div className="flex items-center justify-between gap-4">
+                                                    <p className="font-semibold text-slate-800 group-hover:text-slate-900 text-sm leading-snug">{item.title}</p>
+                                                    <span className="text-slate-400 shrink-0 text-[11px] font-medium">{item.pubDate}</span>
+                                                </div>
+                                                <div className="flex justify-between items-center mt-1.5 text-xs">
+                                                    <span className="font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded text-[10px]">{item.source}</span>
+                                                    <span className="text-slate-400 group-hover:text-slate-900 transition-colors font-bold text-[11px]">Read Article &rarr;</span>
+                                                </div>
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}
