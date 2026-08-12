@@ -2111,7 +2111,7 @@ export default function SISStudentDashboard() {
                                 {activeHolds.length > 0 ? (
                                     <div className="space-y-3">
                                         {activeHolds.map(hold => (
-                                            <div key={hold.id} className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                            <div key={hold.id} className="p-4 bg-slate-50 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
                                                 <div>
                                                     <span className="bg-slate-900 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-wider">{hold.hold_type}</span>
                                                     <h4 className="font-extrabold text-slate-900 text-sm mt-2">{hold.reason}</h4>
@@ -2134,7 +2134,7 @@ export default function SISStudentDashboard() {
                                 {activeTasks.length > 0 ? (
                                     <div className="space-y-3">
                                         {activeTasks.map(task => (
-                                            <div key={task.id} className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                            <div key={task.id} className="p-4 bg-slate-50 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
                                                 <div>
                                                     <h4 className="font-extrabold text-slate-900 text-sm">{task.title}</h4>
                                                     <p className="text-xs text-slate-600 mt-1 font-medium">{task.description}</p>
