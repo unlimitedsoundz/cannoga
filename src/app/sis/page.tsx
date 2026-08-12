@@ -2289,8 +2289,7 @@ export default function SISStudentDashboard() {
                                                     type="text"
                                                     value={profileForm.firstName}
                                                     onChange={e => setProfileForm({ ...profileForm, firstName: e.target.value })}
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
-                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
+                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition border border-slate-200 rounded-lg outline-none shadow-sm font-semibold focus:border-slate-900"
                                                     required
                                                 />
                                             </div>
@@ -2300,8 +2299,7 @@ export default function SISStudentDashboard() {
                                                     type="text"
                                                     value={profileForm.lastName}
                                                     onChange={e => setProfileForm({ ...profileForm, lastName: e.target.value })}
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
-                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
+                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition border border-slate-200 rounded-lg outline-none shadow-sm font-semibold focus:border-slate-900"
                                                     required
                                                 />
                                             </div>
@@ -2311,8 +2309,7 @@ export default function SISStudentDashboard() {
                                                     type="email"
                                                     value={profile?.email || ''}
                                                     readOnly
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
-                                                    className="w-full bg-slate-100 text-slate-600 p-2.5 text-xs cursor-not-allowed font-mono shadow-sm font-semibold"
+                                                    className="w-full bg-slate-100 text-slate-600 p-2.5 text-xs border border-slate-200 rounded-lg cursor-not-allowed font-mono shadow-sm font-semibold"
                                                 />
                                             </div>
                                             <div>
@@ -2322,8 +2319,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.phone}
                                                     onChange={e => setProfileForm({ ...profileForm, phone: e.target.value })}
                                                     placeholder="+1 (613) 555-0199"
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
-                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
+                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition border border-slate-200 rounded-lg outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
                                             <div className="sm:col-span-2">
@@ -2333,8 +2329,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.address}
                                                     onChange={e => setProfileForm({ ...profileForm, address: e.target.value })}
                                                     placeholder="123 College Street, Suite 400"
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
-                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
+                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition border border-slate-200 rounded-lg outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
                                             <div>
@@ -2344,8 +2339,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.city}
                                                     onChange={e => setProfileForm({ ...profileForm, city: e.target.value })}
                                                     placeholder="Ottawa"
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
-                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
+                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition border border-slate-200 rounded-lg outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
                                             <div>
@@ -2355,8 +2349,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.state}
                                                     onChange={e => setProfileForm({ ...profileForm, state: e.target.value })}
                                                     placeholder="Ontario"
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
-                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
+                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition border border-slate-200 rounded-lg outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
                                             <div>
@@ -2366,8 +2359,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.zipcode}
                                                     onChange={e => setProfileForm({ ...profileForm, zipcode: e.target.value })}
                                                     placeholder="K1P 1J1"
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
-                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
+                                                    className="w-full bg-white text-slate-900 p-2.5 text-xs transition border border-slate-200 rounded-lg outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
                                             <div>
