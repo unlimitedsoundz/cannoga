@@ -16,12 +16,16 @@ export function Footer() {
             <footer className="bg-[#191919] text-white pt-16 pb-10 border-t border-white/10 font-sans">
                 {/* Main Footer Content */}
                 <div className="container mx-auto px-4 max-w-7xl">
-                    {/* Top Row: Brand + Social */}
-                    <div className="mb-12 pb-10 border-b border-white/10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-                        <div>
-                            <Logo className="h-20 md:h-24 text-white mb-3" />
+                    {/* Top Row: Brand + Land Acknowledgement + Social */}
+                    <div className="mb-12 pb-10 border-b border-white/10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                        <div className="flex flex-col md:flex-row md:items-center gap-6 max-w-4xl">
+                            <Logo className="h-20 md:h-24 text-white shrink-0" />
+                            <div className="text-xs text-white/80 leading-relaxed border-t md:border-t-0 md:border-l border-white/10 pt-4 md:pt-0 md:pl-6">
+                                <span className="font-semibold block text-white mb-1 uppercase tracking-wider text-[10px]">Land Acknowledgement</span>
+                                Cannoga College acknowledges that its campus in Ottawa is located on the traditional and unceded territory of the Anishinaabe Algonquin Nation. We honour the enduring presence, history, cultures, and contributions of First Nations, Inuit, and Métis peoples and recognize their continued connection to these lands.
+                            </div>
                         </div>
-                        <div className="flex space-x-4">
+                        <div className="flex space-x-4 shrink-0">
                             <a href="https://www.youtube.com/@CannogaCollege" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-white hover:text-opacity-75 transition-opacity">
                                 <YoutubeLogo className="h-6 w-6" weight="fill" />
                             </a>
