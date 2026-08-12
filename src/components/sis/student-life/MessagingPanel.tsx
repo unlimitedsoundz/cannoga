@@ -220,7 +220,7 @@ export default function MessagingPanel({ messages, unreadCount, onBack, studentI
                     <div className="flex items-center gap-2">
                         <HugeiconsIcon icon={Mail} size={18} strokeWidth={2} className="text-slate-700" />
                         <h4 className="font-bold text-slate-900 text-sm">Messages</h4>
-                        {unreadCount > 0 && <span className="text-[10px] font-bold text-slate-700">{unreadCount} unread</span>}
+                        {unreadCount > 0 && <span className="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full">{unreadCount} unread</span>}
                     </div>
                 </div>
 
