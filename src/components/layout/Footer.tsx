@@ -81,7 +81,7 @@ export function Footer() {
                                 <li><Link href="/research/publications" className="text-white text-sm hover:text-white transition-colors no-underline">Publications</Link></li>
                                 <li><Link href="/innovation" className="text-white text-sm hover:text-white transition-colors no-underline">Innovation</Link></li>
                                 <li><Link href="/terms" className="text-white text-sm hover:text-white transition-colors no-underline">Terms of Use</Link></li>
-                                <li><Link href="/student-guide/chat-with-heffring-students" className="text-white text-sm hover:text-white transition-colors no-underline">Chat with Students</Link></li>
+                                <li><Link href="/student-guide/chat-with-cannoga-students" className="text-white text-sm hover:text-white transition-colors no-underline">Chat with Students</Link></li>
                             </ul>
                         </div>
 

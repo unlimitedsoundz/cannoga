@@ -111,7 +111,7 @@ const navigation: NavItem[] = [
             { name: "Housing for Students", href: "/student-guide/housing-for-students" },
             { name: "Arrival Guide", href: "/student-guide/arrival" },
             { name: "Exchange Guide", href: "/student-guide/exchange" },
-            { name: "Chat with Students", href: "/student-guide/chat-with-heffring-students" },
+            { name: "Chat with Students", href: "/student-guide/chat-with-cannoga-students" },
         ]
     },
     {

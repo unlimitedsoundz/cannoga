@@ -78,7 +78,7 @@ export default function StudentGuidePage() {
             items: [
                 { title: "Bachelor's Students", href: "/student-guide/bachelor" },
                 { title: "Master's Students", href: "/student-guide/master" },
-                { title: "Chat with Students", href: "/student-guide/chat-with-heffring-students" },
+                { title: "Chat with Students", href: "/student-guide/chat-with-cannoga-students" },
                 { title: "International Students", href: "/student-guide/international" },
                 { title: "Exchange Students", href: "/student-guide/exchange" },
             ]
@@ -387,7 +387,7 @@ export default function StudentGuidePage() {
                                     title="Chat with Students"
                                     image={{ src: "/images/chat-with-students-hero.jpg", alt: "Chat with Students" }}
                                     body="Connect with current students and ambassadors to learn about life at Cannoga."
-                                    cta={{ label: "Chat now", linkComponentProps: { href: "/student-guide/chat-with-heffring-students" } }}
+                                    cta={{ label: "Chat now", linkComponentProps: { href: "/student-guide/chat-with-cannoga-students" } }}
                                 />
                                 <Card
                                     title="International Students"
