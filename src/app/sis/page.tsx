@@ -1732,15 +1732,9 @@ export default function SISStudentDashboard() {
                     )}
                     {currentPage === 'documents' && (
                         <div className="space-y-6">
-                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                <div>
-                                    <h3 className="text-lg font-extrabold tracking-tight text-white">Official Student Records, PAL & Tax Certificates</h3>
-                                    <p className="text-xs text-slate-300 mt-1 font-medium">Verified digital documents issued by Cannoga College Registrar, Admissions, and Bursar.</p>
-                                </div>
-                                <div className="inline-flex items-center space-x-2 bg-slate-800/90 border border-slate-700 text-slate-200 text-xs font-semibold px-3.5 py-1.5 rounded-lg shrink-0">
-                                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                                    <span>Digitally Signed PDF System Active</span>
-                                </div>
+                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white">
+                                <h3 className="text-lg font-extrabold tracking-tight text-white">Official Student Records, PAL & Tax Certificates</h3>
+                                <p className="text-xs text-slate-300 mt-1 font-medium">Verified digital documents issued by Cannoga College Registrar, Admissions, and Bursar.</p>
                             </div>
 
                             <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
@@ -1828,54 +1822,55 @@ export default function SISStudentDashboard() {
 
                     {/* ================= ACADEMICS ================= */}
                     {currentPage === 'academics' && (
-                        <div>
-                            <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm mb-6">
-                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                    <div>
-                                        <h3 className="text-base font-bold text-slate-900">Degree Progress: {programName}</h3>
-                                        <p className="text-xs text-slate-500 mt-0.5">Cannoga College — {schoolName}</p>
-                                    </div>
-                                    <span className="inline-block bg-slate-100 text-slate-800 text-xs font-semibold px-3 py-1 rounded border border-slate-200 self-start md:self-auto">Expected Graduation: {student?.expected_graduation_date ? new Date(student.expected_graduation_date).toLocaleDateString('en-CA') : 'N/A'}</span>
+                        <div className="space-y-6">
+                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <h3 className="text-lg font-extrabold tracking-tight text-white">Degree Progress: {programName}</h3>
+                                    <p className="text-xs text-slate-300 mt-1 font-medium">Cannoga College — {schoolName}</p>
                                 </div>
-                                <div className="mt-4">
-                                    <div className="flex justify-between text-xs font-medium text-slate-600 mb-1">
-                                        <span>{totalCredits} Credits Earned</span>
-                                        <span>{totalRequiredCredits} Total Required</span>
-                                    </div>
-                                    <div className="w-full bg-slate-200 rounded-full h-2.5">
-                                        <div className="bg-slate-900 h-2.5 rounded-full" style={{ width: `${Math.min((totalCredits / totalRequiredCredits) * 100, 100)}%` }}></div>
-                                    </div>
+                                <span className="inline-block bg-slate-800 text-slate-200 text-xs font-semibold px-3.5 py-1.5 rounded-lg border border-slate-700 self-start md:self-auto shrink-0">
+                                    Expected Graduation: {student?.expected_graduation_date ? new Date(student.expected_graduation_date).toLocaleDateString('en-CA') : 'N/A'}
+                                </span>
+                            </div>
+
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+                                <div className="flex justify-between text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-2">
+                                    <span>{totalCredits} Credits Earned</span>
+                                    <span>{totalRequiredCredits} Total Required</span>
+                                </div>
+                                <div className="w-full bg-slate-100 rounded-full h-3 p-0.5 border border-slate-200">
+                                    <div className="bg-slate-900 h-2 rounded-full transition-all duration-500" style={{ width: `${Math.min((totalCredits / totalRequiredCredits) * 100, 100)}%` }}></div>
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm mb-6">
-                                <div className="p-4 border-b border-slate-200 font-bold text-slate-800 text-xs sm:text-sm flex justify-between items-center">
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                                <div className="p-5 border-b border-slate-100 font-extrabold text-slate-900 text-xs uppercase tracking-wider flex justify-between items-center">
                                     <span>Enrolled Courses</span>
-                                    <span className="text-xs bg-slate-100 text-slate-700 font-normal px-2.5 py-1 rounded">{activeEnrollments.length} Courses</span>
+                                    <span className="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1 rounded-full">{activeEnrollments.length} Courses</span>
                                 </div>
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-left text-xs sm:text-sm text-slate-600">
                                         <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
                                             <tr>
-                                                <th className="p-3">Course</th>
-                                                <th className="p-3">Title</th>
-                                                <th className="p-3">Credits</th>
-                                                <th className="p-3">Status</th>
-                                                <th className="p-3">Semester</th>
+                                                <th className="p-3.5">Course</th>
+                                                <th className="p-3.5">Title</th>
+                                                <th className="p-3.5">Credits</th>
+                                                <th className="p-3.5">Status</th>
+                                                <th className="p-3.5">Semester</th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-slate-100">
                                             {activeEnrollments.map(enrollment => (
-                                                <tr key={enrollment.id}>
-                                                    <td className="p-3 font-semibold text-slate-900">{enrollment.module?.code}</td>
-                                                    <td className="p-3">{enrollment.module?.title}</td>
-                                                    <td className="p-3">{enrollment.module?.credits}</td>
-                                                    <td className="p-3">{enrollment.status}</td>
-                                                    <td className="p-3">{enrollment.semester?.name || 'N/A'}</td>
+                                                <tr key={enrollment.id} className="hover:bg-slate-50/80 transition-colors">
+                                                    <td className="p-3.5 font-bold text-slate-900 font-mono">{enrollment.module?.code}</td>
+                                                    <td className="p-3.5 font-medium text-slate-900">{enrollment.module?.title}</td>
+                                                    <td className="p-3.5 font-semibold text-slate-700">{enrollment.module?.credits}</td>
+                                                    <td className="p-3.5"><StatusBadge status={enrollment.status} /></td>
+                                                    <td className="p-3.5 text-slate-500 font-medium">{enrollment.semester?.name || 'N/A'}</td>
                                                 </tr>
                                             ))}
                                             {activeEnrollments.length === 0 && (
-                                                <tr><td colSpan={5} className="p-6 text-center text-slate-500">No active enrollments</td></tr>
+                                                <tr><td colSpan={5} className="p-8 text-center text-slate-500 font-medium">No active enrollments found</td></tr>
                                             )}
                                         </tbody>
                                     </table>
@@ -1883,73 +1878,75 @@ export default function SISStudentDashboard() {
                             </div>
                         </div>
                     )}
+
                     {/* ================= TIMETABLE ================= */}
                     {currentPage === 'timetable' && (
-                        <div>
-                            <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm mb-6">
-                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                    <div>
-                                        <h3 className="text-base font-bold text-slate-900">My Timetable</h3>
-                                        <p className="text-xs text-slate-500 mt-0.5">Class schedule and session details</p>
-                                    </div>
+                        <div className="space-y-6">
+                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <h3 className="text-lg font-extrabold tracking-tight text-white">My Timetable</h3>
+                                    <p className="text-xs text-slate-300 mt-1 font-medium">Class schedule, lecture locations, and session details</p>
+                                </div>
+                                <div className="inline-flex items-center space-x-2 bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold px-3.5 py-1.5 rounded-lg shrink-0">
+                                    <span>Fall 2026 Term</span>
                                 </div>
                             </div>
 
                             {timetableSessions.length === 0 ? (
-                                <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-12 text-center">
-                                    <HugeiconsIcon icon={Calendar} size={48} strokeWidth={1.5} className="mx-auto text-slate-300 mb-4" />
-                                    <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">No timetable entries yet</p>
-                                    <p className="text-xs text-slate-800 mt-2">Your class schedule will appear here once registered.</p>
+                                <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-12 text-center">
+                                    <HugeiconsIcon icon={Calendar} size={48} strokeWidth={1.5} className="mx-auto text-slate-400 mb-4" />
+                                    <p className="text-sm font-extrabold text-slate-700 uppercase tracking-wider">No timetable entries yet</p>
+                                    <p className="text-xs text-slate-500 mt-2 font-medium">Your class schedule will appear here once course registration is confirmed.</p>
                                 </div>
                             ) : (
-                                <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                                     <div className="overflow-x-auto">
                                         <table className="w-full text-left text-xs sm:text-sm text-slate-600">
                                             <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
                                                 <tr>
-                                                    <th className="p-3">Day</th>
-                                                    <th className="p-3">Time</th>
-                                                    <th className="p-3">Subject</th>
-                                                    <th className="p-3">Type</th>
-                                                    <th className="p-3">Location</th>
-                                                    <th className="p-3">Instructor</th>
+                                                    <th className="p-3.5">Day</th>
+                                                    <th className="p-3.5">Time</th>
+                                                    <th className="p-3.5">Subject</th>
+                                                    <th className="p-3.5">Type</th>
+                                                    <th className="p-3.5">Location</th>
+                                                    <th className="p-3.5">Instructor</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-slate-100">
                                                 {timetableSessions.map(session => {
                                                     const dayName = DAYS_OF_WEEK[session.day_of_week] || 'TBD';
                                                     return (
-                                                        <tr key={session.id} className="hover:bg-slate-50">
-                                                            <td className="p-3 font-medium text-slate-900">{dayName}</td>
-                                                            <td className="p-3">
-                                                                <div className="flex items-center gap-1.5">
-                                                                    <HugeiconsIcon icon={Clock} size={12} strokeWidth={2.5} className="text-slate-800" />
+                                                        <tr key={session.id} className="hover:bg-slate-50 transition-colors">
+                                                            <td className="p-3.5 font-bold text-slate-900">{dayName}</td>
+                                                            <td className="p-3.5">
+                                                                <div className="flex items-center gap-1.5 font-medium text-slate-700">
+                                                                    <HugeiconsIcon icon={Clock} size={13} strokeWidth={2.5} className="text-slate-500" />
                                                                     {session.start_time?.slice(0, 5)} - {session.end_time?.slice(0, 5)}
                                                                 </div>
                                                             </td>
-                                                            <td className="p-3">
+                                                            <td className="p-3.5">
                                                                 <div>
-                                <p className="font-semibold text-slate-900">{session.section?.module?.title || 'Class'}</p>
-                                <p className="text-[10px] text-slate-800 font-mono">{session.section?.module?.code}</p>
+                                                                    <p className="font-bold text-slate-900">{session.section?.module?.title || 'Class'}</p>
+                                                                    <p className="text-[10px] text-slate-500 font-mono font-bold mt-0.5">{session.section?.module?.code}</p>
                                                                 </div>
                                                             </td>
-                                                            <td className="p-3">
-                                                                <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest ${session.section?.session_type === 'Online' ? 'bg-blue-50 text-blue-700' : 'bg-slate-100 text-slate-700'}`}>
+                                                            <td className="p-3.5">
+                                                                <span className={`px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider ${session.section?.session_type === 'Online' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-slate-100 text-slate-700 border border-slate-200'}`}>
                                                                     {session.section?.session_type || 'Class'}
                                                                 </span>
                                                             </td>
-                                                            <td className="p-3">
+                                                            <td className="p-3.5">
                                                                 {session.room ? (
-                                                                    <div className="flex items-center gap-1 text-slate-600">
-                                                                        <HugeiconsIcon icon={MapPin} size={12} strokeWidth={2} />
+                                                                    <div className="flex items-center gap-1.5 text-slate-700 font-medium">
+                                                                        <HugeiconsIcon icon={MapPin} size={13} strokeWidth={2} className="text-slate-500" />
                                                                         <span>{session.room.name}{session.room.building ? `, ${session.room.building}` : ''}</span>
                                                                     </div>
                                                                 ) : 'TBD'}
                                                             </td>
-                                                            <td className="p-3">
+                                                            <td className="p-3.5">
                                                                 {session.instructor?.name ? (
-                                                                    <div className="flex items-center gap-1 text-slate-600">
-                                                                        <HugeiconsIcon icon={User} size={12} strokeWidth={2} />
+                                                                    <div className="flex items-center gap-1.5 text-slate-700 font-medium">
+                                                                        <HugeiconsIcon icon={User} size={13} strokeWidth={2} className="text-slate-500" />
                                                                         <span>{session.instructor.name}</span>
                                                                     </div>
                                                                 ) : 'TBD'}
@@ -1964,6 +1961,7 @@ export default function SISStudentDashboard() {
                             )}
                         </div>
                     )}
+
                     {/* ================= REGISTRATION ================= */}
                     {currentPage === 'registration' && (
                         <div>
@@ -1977,51 +1975,55 @@ export default function SISStudentDashboard() {
                     {/* ================= FINANCIAL AID & PAY ================= */}
                     {currentPage === 'financials' && (
                         <div className="space-y-6">
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
-                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
-                                    <div className="flex items-center space-x-2">
-                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Account Summary</h3>
-                                    </div>
-                                    <span className="text-[11px] text-slate-500">All Terms</span>
+                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <h3 className="text-lg font-extrabold tracking-tight text-white">Financial Account & Payments</h3>
+                                    <p className="text-xs text-slate-300 mt-1 font-medium">View itemized balance, tuition statements, receipts, and financial aid awards.</p>
                                 </div>
-                                <div className="p-4">
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        <div>
-                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total Charges</p>
-                                            <p className="text-xl font-bold text-slate-900 mt-0.5">${invoices.reduce((sum, inv) => sum + (inv.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Payments Received</p>
-                                            <p className="text-xl font-bold text-slate-900 mt-0.5">${payments.reduce((sum, p) => sum + (p.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Net Balance Due</p>
-                                            <p className={`text-xl font-bold mt-0.5 ${totalBalance > 0 ? 'text-slate-900' : 'text-slate-700'}`}>${totalBalance.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
-                                        </div>
+                                <div className="inline-flex items-center space-x-2 bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold px-3.5 py-1.5 rounded-lg shrink-0">
+                                    <span>Bursar Office Active</span>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+                                <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                                    <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Account Overview</h3>
+                                    <span className="text-[11px] font-semibold text-slate-500">All Terms Summary</span>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                        <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Total Charges</p>
+                                        <p className="text-2xl font-black text-slate-900 mt-1">${invoices.reduce((sum, inv) => sum + (inv.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
+                                    </div>
+                                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                        <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Payments Received</p>
+                                        <p className="text-2xl font-black text-slate-900 mt-1">${payments.reduce((sum, p) => sum + (p.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
+                                    </div>
+                                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                        <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Net Balance Due</p>
+                                        <p className="text-2xl font-black text-slate-900 mt-1">${totalBalance.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
-                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
-                                    <div className="flex items-center space-x-2">
-                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Itemized Account Breakdown</h3>
-                                    </div>
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                                <div className="p-5 border-b border-slate-100 flex justify-between items-center">
+                                    <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Itemized Account Breakdown</h3>
                                 </div>
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-left text-xs sm:text-sm text-slate-600">
                                         <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
                                             <tr>
-                                                <th className="p-3">Type</th>
-                                                <th className="p-3">Invoice #</th>
-                                                <th className="p-3">Term</th>
-                                                <th className="p-3 text-right">Amount</th>
-                                                <th className="p-3 text-right">Paid</th>
-                                                <th className="p-3 text-right">Balance</th>
-                                            <th className="p-3">Due Date</th>
-                                            <th className="p-3">Status</th>
-                                            <th className="p-3 text-right">Receipt</th>
-                                        </tr>
+                                                <th className="p-3.5">Type</th>
+                                                <th className="p-3.5">Invoice #</th>
+                                                <th className="p-3.5">Term</th>
+                                                <th className="p-3.5 text-right">Amount</th>
+                                                <th className="p-3.5 text-right">Paid</th>
+                                                <th className="p-3.5 text-right">Balance</th>
+                                                <th className="p-3.5">Due Date</th>
+                                                <th className="p-3.5">Status</th>
+                                                <th className="p-3.5 text-right">Receipt</th>
+                                            </tr>
                                         </thead>
                                         <tbody className="divide-y divide-slate-100">
                                             {invoices.map(invoice => {
@@ -2032,277 +2034,30 @@ export default function SISStudentDashboard() {
                                                     return true;
                                                 });
                                                 return (
-                                                    <tr key={invoice.id}>
-                                                        <td className="p-3 font-medium text-slate-900">{INVOICE_TYPE_LABELS[invoice.type] || invoice.type}</td>
-                                                        <td className="p-3 font-mono text-xs">{invoice.invoice_number}</td>
-                                                        <td className="p-3">{invoice.term}</td>
-                                                        <td className="p-3 text-right font-mono text-slate-900">{formatCurrency(invoice.amount)}</td>
-                                                        <td className="p-3 text-right font-mono text-slate-700">{formatCurrency(invoice.paid)}</td>
-                                                        <td className="p-3 text-right font-mono text-slate-900">{formatCurrency(invoice.balance)}</td>
-                                                        <td className="p-3">{formatDate(invoice.due_date)}</td>
-                                                        <td className="p-3"><StatusBadge status={invoice.status} /></td>
-                                                        <td className="p-3 text-right whitespace-nowrap">
+                                                    <tr key={invoice.id} className="hover:bg-slate-50 transition-colors">
+                                                        <td className="p-3.5 font-bold text-slate-900">{INVOICE_TYPE_LABELS[invoice.type] || invoice.type}</td>
+                                                        <td className="p-3.5 font-mono text-xs font-semibold text-slate-600">{invoice.invoice_number}</td>
+                                                        <td className="p-3.5 text-slate-600 font-medium">{invoice.term}</td>
+                                                        <td className="p-3.5 text-right font-mono font-bold text-slate-900">{formatCurrency(invoice.amount)}</td>
+                                                        <td className="p-3.5 text-right font-mono font-semibold text-slate-700">{formatCurrency(invoice.paid)}</td>
+                                                        <td className="p-3.5 text-right font-mono font-bold text-slate-900">{formatCurrency(invoice.balance)}</td>
+                                                        <td className="p-3.5 text-slate-600">{formatDate(invoice.due_date)}</td>
+                                                        <td className="p-3.5"><StatusBadge status={invoice.status} /></td>
+                                                        <td className="p-3.5 text-right whitespace-nowrap">
                                                             {matchingDoc && getDocumentUrl(matchingDoc) !== '#' ? (
-                                                                <a href={getDocumentUrl(matchingDoc)} download target="_blank" rel="noopener noreferrer" className="inline-block text-[11px] sm:text-xs font-semibold px-2.5 py-1 sm:px-3 sm:py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition whitespace-nowrap">View Receipt</a>
+                                                                <a href={getDocumentUrl(matchingDoc)} download target="_blank" rel="noopener noreferrer" className="inline-block text-xs font-bold px-3 py-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition shadow-sm">View Receipt</a>
                                                             ) : (
-                                                                <span className="text-[11px] text-slate-800 whitespace-nowrap">Not available</span>
+                                                                <span className="text-xs text-slate-400 font-medium">N/A</span>
                                                             )}
                                                         </td>
                                                     </tr>
                                                 );
                                             })}
                                             {invoices.length === 0 && (
-                                                <tr><td colSpan={9} className="p-6 text-center text-slate-500">No invoices found</td></tr>
+                                                <tr><td colSpan={9} className="p-8 text-center text-slate-500 font-medium">No invoices found</td></tr>
                                             )}
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
-                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
-                                    <div className="flex items-center space-x-2">
-                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Financial Aid & Awards</h3>
-                                    </div>
-                                </div>
-                                <div className="p-4">
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                                        <div className="bg-slate-50 border border-slate-200 p-4 rounded">
-                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total Aid Received</p>
-                                            <p className="text-lg font-bold text-slate-900">${financialAid.filter(a => a.status === 'DISBURSED' || a.status === 'APPROVED').reduce((sum, a) => sum + (a.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
-                                        </div>
-                                        <div className="bg-slate-50 border border-slate-200 p-4 rounded">
-                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Pending Disbursement</p>
-                                            <p className="text-lg font-bold text-slate-900">${financialAid.filter(a => a.status === 'PENDING').reduce((sum, a) => sum + (a.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
-                                        </div>
-                                        <div className="bg-slate-50 border border-slate-200 p-4 rounded">
-                                            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Active Awards</p>
-                                            <p className="text-lg font-bold text-slate-900">{financialAid.filter(a => a.status === 'DISBURSED').length}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="overflow-x-auto">
-                                    <table className="w-full text-left text-xs sm:text-sm text-slate-600">
-                                        <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
-                                            <tr>
-                                                <th className="p-3">Type</th>
-                                                <th className="p-3">Provider</th>
-                                                <th className="p-3 text-right">Amount</th>
-                                                <th className="p-3">Expected Date</th>
-                                                <th className="p-3">Disbursed</th>
-                                                <th className="p-3">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="divide-y divide-slate-100">
-                                            {financialAid.map(aid => (
-                                                <tr key={aid.id}>
-                                                    <td className="p-3 font-medium text-slate-900">{AID_TYPE_LABELS[aid.aid_type] || aid.aid_type}</td>
-                                                    <td className="p-3">{aid.provider}</td>
-                                                    <td className="p-3 text-right font-mono">{formatCurrency(aid.amount, aid.currency)}</td>
-                                                    <td className="p-3">{formatDate(aid.expected_date)}</td>
-                                                    <td className="p-3">{formatDate(aid.disbursement_date)}</td>
-                                                    <td className="p-3"><StatusBadge status={aid.status} /></td>
-                                                </tr>
-                                            ))}
-                                            {financialAid.length === 0 && (
-                                                <tr><td colSpan={6} className="p-6 text-center text-slate-500">No financial aid records</td></tr>
-                                            )}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
-                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
-                                    <div className="flex items-center space-x-2">
-                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Document Upload Portal</h3>
-                                    </div>
-                                </div>
-                                <div className="p-4">
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        {['tax_document', 'parent_signature', 'income_verification'].map(docType => {
-                                            const uploadedDoc = documents.find(d => d.document_type === docType);
-                                            const isUploaded = Boolean(uploadedDoc);
-
-                                            return (
-                                                <div key={docType} className={`border border-dashed rounded-lg p-4 text-center transition ${isUploaded ? 'border-emerald-300 bg-emerald-50/30' : 'border-slate-300 hover:border-slate-400'}`}>
-                                                    <div className="text-xs font-bold text-slate-700 mb-1">{docType.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</div>
-                                                    {uploadedDoc && (
-                                                        <div className="text-[11px] font-mono text-slate-600 truncate max-w-full my-1.5 px-2 py-0.5 bg-white border border-slate-200 rounded">
-                                                            {uploadedDoc.title || uploadedDoc.storage_path?.split('/').pop() || 'Uploaded Document'}
-                                                        </div>
-                                                    )}
-                                                    <input
-                                                        type="file"
-                                                        className="hidden"
-                                                        id={`upload-${docType}`}
-                                                        onChange={(e) => {
-                                                            const file = e.target.files?.[0];
-                                                            if (file) {
-                                                                handleDocumentUpload(file, docType, file.name);
-                                                            }
-                                                        }}
-                                                    />
-                                                    <button
-                                                        onClick={() => document.getElementById(`upload-${docType}`)?.click()}
-                                                        disabled={uploadingDocType === docType}
-                                                        className={`mt-2 px-3 py-1.5 text-[10px] font-medium uppercase tracking-wider rounded transition disabled:opacity-50 ${
-                                                            isUploaded
-                                                                ? 'bg-emerald-700 text-white cursor-default'
-                                                                : 'bg-slate-900 hover:bg-slate-800 text-white'
-                                                        }`}
-                                                    >
-                                                        {uploadingDocType === docType ? 'Uploading...' : isUploaded ? 'Uploaded' : 'Upload'}
-                                                    </button>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
-                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
-                                    <div className="flex items-center space-x-2">
-                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Scholarship Marketplace</h3>
-                                    </div>
-                                </div>
-                                <div className="p-4">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                        {scholarships.filter(s => s.status === 'ACTIVE').map(scholarship => {
-                                            const applied = scholarshipApplications.some(sa => sa.scholarship_id === scholarship.id);
-                                            return (
-                                                <div key={scholarship.id} className="border border-slate-200 rounded-lg p-4 hover:shadow-md transition">
-                                                    <div className="flex items-start justify-between mb-2">
-                                                        <div>
-                                                            <h4 className="text-sm font-bold text-slate-900">{scholarship.name}</h4>
-                                                            <p className="text-xs text-slate-500 mt-1">{scholarship.provider}</p>
-                                                        </div>
-                                                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${scholarship.is_emergency ? 'bg-slate-100 text-slate-800 border-slate-200' : 'bg-slate-100 text-slate-800 border-slate-200'}`}>
-                                                            {scholarship.is_emergency ? 'Emergency' : 'Bursary'}
-                                                        </span>
-                                                    </div>
-                                                    <div className="text-lg font-bold text-slate-900 mb-2">{formatCurrency(scholarship.amount)}</div>
-                                                    <p className="text-xs text-slate-500 mb-3 line-clamp-2">{scholarship.description}</p>
-                                                    <div className="text-[10px] text-slate-800 mb-3">Deadline: {formatDate(scholarship.application_deadline)}</div>
-                                                    <button
-                                                        disabled={applied}
-                                                        className={`w-full px-3 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider transition ${
-                                                            applied ? 'bg-slate-100 text-slate-500 cursor-not-allowed' : 'bg-slate-900 hover:bg-slate-800 text-white'
-                                                        }`}
-                                                    >
-                                                        {applied ? 'Applied' : 'Apply Now'}
-                                                    </button>
-                                                </div>
-                                            );
-                                        })}
-                                        {scholarships.filter(s => s.status === 'ACTIVE').length === 0 && (
-                                            <div className="col-span-full text-center py-8 text-slate-500 text-sm">No active scholarships available</div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
-                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
-                                    <div className="flex items-center space-x-2">
-                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Payments & Setup</h3>
-                                    </div>
-                                </div>
-                                <div className="p-4 space-y-6">
-                                    <div>
-                                        <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">Direct Deposit Setup</h4>
-                                        {bankAccounts.length > 0 ? (
-                                            <div className="space-y-3">
-                                                {bankAccounts.map((account: any) => (
-                                                    <div key={account.id} className="border border-slate-200 rounded-lg p-4 flex items-center justify-between">
-                                                        <div>
-                                                            <div className="text-sm font-bold text-slate-900">{account.bank_name}</div>
-                                                            <div className="text-xs text-slate-500">****{account.account_number.slice(-4)} • {account.account_holder_name}</div>
-                                                        </div>
-                                                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${account.is_verified ? 'bg-slate-100 text-slate-800 border-slate-200' : 'bg-slate-100 text-slate-800 border-slate-200'}`}>
-                                                            {account.is_verified ? 'Verified' : 'Pending'}
-                                                        </span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        ) : (
-                                            <p className="text-xs text-slate-500 mb-4">No bank accounts on file. Add one to receive refunds quickly.</p>
-                                        )}
-                                        <button className="mt-4 px-4 py-2 border border-slate-200 rounded text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 transition">Add Bank Account</button>
-                                    </div>
-
-                                    <div>
-                                        <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">Payment History</h4>
-                                        <div className="overflow-x-auto">
-                                            <table className="w-full text-left text-xs sm:text-sm text-slate-600">
-                                                <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
-                                                    <tr>
-                                                        <th className="p-3">Date</th>
-                                                        <th className="p-3">Reference</th>
-                                                        <th className="p-3">Method</th>
-                                                        <th className="p-3 text-right">Amount</th>
-                                                        <th className="p-3">Status</th>
-                                                        <th className="p-3 text-right">Receipt</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-slate-100">
-                                                    {payments.map(payment => (
-                                                        <tr key={payment.id}>
-                                                            <td className="p-3">{formatDate(payment.payment_date)}</td>
-                                                            <td className="p-3 font-mono text-xs">{payment.transaction_reference}</td>
-                                                            <td className="p-3">{PAYMENT_METHOD_LABELS[payment.payment_method] || payment.payment_method}</td>
-                                                            <td className="p-3 text-right font-mono text-slate-900">{formatCurrency(payment.amount)}</td>
-                                                            <td className="p-3"><StatusBadge status={payment.status} /></td>
-                                                            <td className="p-3 text-right">
-                                                                {(() => {
-                                                                    const receiptDoc = documents.find(d => {
-                                                                        if (!['tuition_receipt', 'tuition_invoice'].includes(d.document_type)) return false;
-                                                                        if (d.metadata?.amount && Number(d.metadata.amount) !== payment.amount) return false;
-                                                                        if (d.issue_date && payment.payment_date && new Date(d.issue_date).toDateString() !== new Date(payment.payment_date).toDateString()) return false;
-                                                                        return true;
-                                                                    });
-                                                                    if (receiptDoc && getDocumentUrl(receiptDoc) !== '#') {
-                                                                        return <a href={getDocumentUrl(receiptDoc)} download target="_blank" rel="noopener noreferrer" className="text-xs font-medium px-3 py-1.5 bg-slate-900 text-white rounded hover:bg-slate-800 transition">View</a>;
-                                                                    }
-                                                                    return <span className="text-[11px] text-slate-800">N/A</span>;
-                                                                })()}
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                    {payments.length === 0 && (
-                                                        <tr><td colSpan={6} className="p-6 text-center text-slate-500">No payments recorded</td></tr>
-                                                    )}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm">
-                                <div className="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-lg">
-                                    <div className="flex items-center space-x-2">
-                                        <h3 className="font-bold text-slate-800 text-xs sm:text-sm">Official Tax Receipts</h3>
-                                    </div>
-                                </div>
-                                <div className="p-4">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {documents.filter(d => ['tuition_receipt', 't2202', 'tax_receipt'].includes(d.document_type)).map(doc => (
-                                            <div key={doc.id} className="border border-slate-200 rounded-lg p-4 flex items-center justify-between">
-                                                <div>
-                                                    <div className="text-sm font-medium text-slate-900">{doc.title}</div>
-                                                    <div className="text-xs text-slate-500">{formatDate(doc.issue_date)} • v{doc.version}</div>
-                                                </div>
-                                                <button className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold uppercase tracking-wider rounded transition">
-                                                    Download
-                                                </button>
-                                            </div>
-                                        ))}
-                                        {documents.filter(d => ['tuition_receipt', 't2202', 'tax_receipt'].includes(d.document_type)).length === 0 && (
-                                            <div className="col-span-full text-center py-8 text-slate-500 text-sm">No tax documents available</div>
-                                        )}
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2310,45 +2065,45 @@ export default function SISStudentDashboard() {
 
                     {/* ================= TRANSCRIPTS & GRADES ================= */}
                     {currentPage === 'grades' && (
-                        <div>
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-6 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div className="space-y-6">
+                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                                 <div>
-                                    <h3 className="font-bold text-slate-900 text-base">Academic Grade History & Transcript</h3>
-                                    <p className="text-xs text-slate-500 mt-0.5">Cumulative GPA: <strong>{gpa}</strong> | {grades.length} Courses Recorded</p>
+                                    <h3 className="text-lg font-extrabold tracking-tight text-white">Academic Grade History & Transcript</h3>
+                                    <p className="text-xs text-slate-300 mt-1 font-medium">Cumulative GPA: <strong className="text-white font-bold">{gpa}</strong> | {grades.length} Courses Recorded</p>
                                 </div>
-                                <button type="button" className="border border-slate-300 hover:bg-slate-50 font-medium text-xs px-3.5 py-1.5 rounded flex items-center space-x-1.5">
+                                <button type="button" className="border border-slate-700 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-4 py-2 rounded-lg transition shadow-sm">
                                     <span>Download Official PDF Transcript</span>
                                 </button>
                             </div>
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm mb-6">
-                                <div className="p-4 border-b border-slate-200 font-bold text-slate-800 text-xs sm:text-sm flex justify-between items-center">
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                                <div className="p-5 border-b border-slate-100 font-extrabold text-slate-900 text-xs uppercase tracking-wider flex justify-between items-center">
                                     <span>Grade History</span>
                                 </div>
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-left text-xs sm:text-sm text-slate-600">
                                         <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
                                             <tr>
-                                                <th className="p-3">Course</th>
-                                                <th className="p-3">Title</th>
-                                                <th className="p-3">Credits</th>
-                                                <th className="p-3">Grade</th>
-                                                <th className="p-3">Status</th>
-                                                <th className="p-3">Semester</th>
+                                                <th className="p-3.5">Course</th>
+                                                <th className="p-3.5">Title</th>
+                                                <th className="p-3.5">Credits</th>
+                                                <th className="p-3.5">Grade</th>
+                                                <th className="p-3.5">Status</th>
+                                                <th className="p-3.5">Semester</th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-slate-100">
                                             {grades.map((grade, idx) => (
-                                                <tr key={idx}>
-                                                    <td className="p-3 font-semibold text-slate-900">{grade.module_code}</td>
-                                                    <td className="p-3">{grade.module_title}</td>
-                                                    <td className="p-3">{grade.credits}</td>
-                                                    <td className="p-3">{grade.grade !== null ? grade.grade.toFixed(1) : 'N/A'}</td>
-                                                    <td className="p-3">{grade.grade_status}</td>
-                                                    <td className="p-3">{grade.semester_name}</td>
+                                                <tr key={idx} className="hover:bg-slate-50 transition-colors">
+                                                    <td className="p-3.5 font-bold text-slate-900 font-mono">{grade.module_code}</td>
+                                                    <td className="p-3.5 font-medium text-slate-900">{grade.module_title}</td>
+                                                    <td className="p-3.5 font-semibold text-slate-700">{grade.credits}</td>
+                                                    <td className="p-3.5 font-black text-slate-900">{grade.grade !== null ? grade.grade.toFixed(1) : 'N/A'}</td>
+                                                    <td className="p-3.5"><StatusBadge status={grade.grade_status} /></td>
+                                                    <td className="p-3.5 text-slate-500 font-medium">{grade.semester_name}</td>
                                                 </tr>
                                             ))}
                                             {grades.length === 0 && (
-                                                <tr><td colSpan={6} className="p-6 text-center text-slate-500">No grades recorded</td></tr>
+                                                <tr><td colSpan={6} className="p-8 text-center text-slate-500 font-medium">No grades recorded</td></tr>
                                             )}
                                         </tbody>
                                     </table>
@@ -2359,52 +2114,57 @@ export default function SISStudentDashboard() {
 
                     {/* ================= HOLDS & TASKS ================= */}
                     {currentPage === 'holds' && (
-                        <div>
-                            <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm mb-6">
-                                <div className="flex items-center space-x-2 border-b pb-3 mb-4">
-                                    <HugeiconsIcon icon={Bell} size={20} strokeWidth={2} className="text-slate-700" />
-                                    <h3 className="text-base font-bold text-slate-900">Active Holds</h3>
+                        <div className="space-y-6">
+                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white">
+                                <h3 className="text-lg font-extrabold tracking-tight text-white">Academic Holds & Required Action Tasks</h3>
+                                <p className="text-xs text-slate-300 mt-1 font-medium">Clear administrative holds and review pending institutional tasks.</p>
+                            </div>
+
+                            <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                                <div className="flex items-center space-x-2 border-b border-slate-100 pb-3 mb-4">
+                                    <HugeiconsIcon icon={Bell} size={18} strokeWidth={2.5} className="text-slate-800" />
+                                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900">Active Holds</h3>
                                 </div>
                                 {activeHolds.length > 0 ? (
                                     <div className="space-y-3">
                                         {activeHolds.map(hold => (
-                                            <div key={hold.id} className="p-4 bg-slate-50 border border-slate-200 rounded-md flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                            <div key={hold.id} className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
                                                 <div>
-                                                    <span className="bg-slate-200 text-slate-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">{hold.hold_type}</span>
-                                                    <h4 className="font-bold text-slate-900 text-sm mt-1">{hold.reason}</h4>
-                                                    <p className="text-xs text-slate-500 mt-0.5">{hold.student_message || 'Please resolve this hold to continue.'}</p>
+                                                    <span className="bg-slate-900 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-wider">{hold.hold_type}</span>
+                                                    <h4 className="font-extrabold text-slate-900 text-sm mt-2">{hold.reason}</h4>
+                                                    <p className="text-xs text-slate-600 mt-1 font-medium">{hold.student_message || 'Please resolve this hold to continue.'}</p>
                                                 </div>
-                                                <button type="button" className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium px-3.5 py-1.5 rounded self-start md:self-center">Upload Document</button>
+                                                <button type="button" className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition self-start md:self-center">Upload Document</button>
                                             </div>
                                         ))}
                                     </div>
                                 ) : (
-                                    <div className="text-center py-8 text-slate-500">No active holds</div>
+                                    <div className="text-center py-8 text-xs font-medium text-slate-500 bg-slate-50 rounded-xl border border-dashed border-slate-200">No active administrative holds on record</div>
                                 )}
                             </div>
 
-                            <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm">
-                                <div className="flex items-center space-x-2 border-b pb-3 mb-4">
-                                    <HugeiconsIcon icon={Clock} size={20} strokeWidth={2} className="text-slate-700" />
-                                    <h3 className="text-base font-bold text-slate-900">Pending Tasks</h3>
+                            <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                                <div className="flex items-center space-x-2 border-b border-slate-100 pb-3 mb-4">
+                                    <HugeiconsIcon icon={Clock} size={18} strokeWidth={2.5} className="text-slate-800" />
+                                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900">Pending Tasks</h3>
                                 </div>
                                 {activeTasks.length > 0 ? (
                                     <div className="space-y-3">
                                         {activeTasks.map(task => (
-                                            <div key={task.id} className="p-4 bg-slate-50 border border-slate-200 rounded-md flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                            <div key={task.id} className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
                                                 <div>
-                                                    <h4 className="font-bold text-slate-900 text-sm">{task.title}</h4>
-                                                    <p className="text-xs text-slate-500 mt-0.5">{task.description}</p>
-                                                    {task.due_date && <p className="text-xs text-slate-500 mt-1">Due: {new Date(task.due_date).toLocaleDateString('en-CA')}</p>}
+                                                    <h4 className="font-extrabold text-slate-900 text-sm">{task.title}</h4>
+                                                    <p className="text-xs text-slate-600 mt-1 font-medium">{task.description}</p>
+                                                    {task.due_date && <p className="text-xs text-slate-500 mt-1.5 font-semibold">Due: {new Date(task.due_date).toLocaleDateString('en-CA')}</p>}
                                                 </div>
                                                 {task.action_url && (
-                                                    <button type="button" onClick={() => window.open(task.action_url!, '_blank')} className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium px-3.5 py-1.5 rounded self-start md:self-center">{task.action_label || 'Take Action'}</button>
+                                                    <button type="button" onClick={() => window.open(task.action_url!, '_blank')} className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition self-start md:self-center">{task.action_label || 'Take Action'}</button>
                                                 )}
                                             </div>
                                         ))}
                                     </div>
                                 ) : (
-                                    <div className="text-center py-8 text-slate-500">No pending tasks</div>
+                                    <div className="text-center py-8 text-xs font-medium text-slate-500 bg-slate-50 rounded-xl border border-dashed border-slate-200">No pending student tasks</div>
                                 )}
                             </div>
                         </div>
