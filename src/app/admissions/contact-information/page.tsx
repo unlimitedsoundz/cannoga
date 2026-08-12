@@ -124,18 +124,19 @@ export default function AdmissionsContactInfo() {
                                                 <span className="text-xs font-bold uppercase tracking-widest text-black mb-1">Email</span>
                                                  <a href="mailto:admissions@cannogacollege.ca" className="text-black font-semibold text-lg hover:underline underline-offset-4">admissions@cannogacollege.ca</a>
                                             </div>
-                                            <div className="flex flex-col gap-4">                                                <div className="flex flex-col">
+                                            <div className="flex flex-col gap-4">
+                                                <div className="flex flex-col">
                                                     <span className="text-xs font-bold uppercase tracking-widest text-black mb-1">Ottawa, Ontario, Canada resident enquiries</span>
                                                     <a href="tel:+12272500427" className="inline-flex items-center gap-2 text-black font-semibold text-base underline underline-offset-4 hover:opacity-80 transition-opacity">
                                                         <Phone size={18} weight="fill" />
-                                                        Talk to Cannoga (+1 227 250 0427)
+                                                        Talk to Cannoga
                                                     </a>
                                                 </div>
                                                 <div className="flex flex-col">
                                                     <span className="text-xs font-bold uppercase tracking-widest text-black mb-1">Admissions office International students only</span>
                                                     <a href="tel:+12272500427" className="inline-flex items-center gap-2 text-black font-semibold text-base underline underline-offset-4 hover:opacity-80 transition-opacity">
                                                         <Phone size={18} weight="fill" />
-                                                        Talk to Admissions (+1 227 250 0427)
+                                                        Talk to Admissions
                                                     </a>
                                                 </div>
                                             </div>
