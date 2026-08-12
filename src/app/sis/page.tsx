@@ -1975,14 +1975,9 @@ export default function SISStudentDashboard() {
                     {/* ================= FINANCIAL AID & PAY ================= */}
                     {currentPage === 'financials' && (
                         <div className="space-y-6">
-                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                <div>
-                                    <h3 className="text-lg font-extrabold tracking-tight text-white">Financial Account & Payments</h3>
-                                    <p className="text-xs text-slate-300 mt-1 font-medium">View itemized balance, tuition statements, receipts, and financial aid awards.</p>
-                                </div>
-                                <div className="inline-flex items-center space-x-2 bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold px-3.5 py-1.5 rounded-lg shrink-0">
-                                    <span>Bursar Office Active</span>
-                                </div>
+                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white">
+                                <h3 className="text-lg font-extrabold tracking-tight text-white">Financial Account & Payments</h3>
+                                <p className="text-xs text-slate-300 mt-1 font-medium">View itemized balance, tuition statements, receipts, and financial aid awards.</p>
                             </div>
 
                             <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
