@@ -1540,52 +1540,38 @@ export default function SISStudentDashboard() {
                                         </div>
                                     </div>
 
-                                    {/* ASSIGNMENT DEADLINES (FETCHED FROM DB) */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-slate-900 px-4 py-2.5">
-                                            <h3 className="font-semibold text-white text-sm">Assignment Deadlines</h3>
-                                        </div>
-                                        <div className="p-4 space-y-3 text-xs">
-                                            {tasks.length > 0 ? (
-                                                tasks.slice(0, 3).map((task) => {
-                                                    const daysLeft = task.due_date ? Math.max(1, Math.ceil((new Date(task.due_date).getTime() - new Date().getTime()) / (1000 * 3600 * 24))) : 5;
-                                                    return (
-                                                        <div key={task.id} className="flex items-start space-x-3 pt-2 first:pt-0 border-t first:border-t-0 border-slate-100">
-                                                            <div className="text-center shrink-0">
-                                                                <span className={`block text-lg font-extrabold leading-none ${daysLeft <= 3 ? 'text-red-600' : daysLeft <= 7 ? 'text-amber-600' : 'text-slate-700'}`}>{daysLeft}</span>
-                                                                <span className="text-[9px] text-slate-800 font-bold uppercase">Days Left</span>
+                                    {/* UPCOMING EVENTS (FETCHED DYNAMICALLY FROM DB) */}
+                                    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                        <div>
+                                            <div className="bg-slate-900 px-4 py-2.5">
+                                                <h3 className="font-extrabold text-white text-xs uppercase tracking-wider">Upcoming Events</h3>
+                                            </div>
+                                            <div className="p-4 space-y-3 text-xs">
+                                                {tasks.length > 0 ? (
+                                                    tasks.slice(0, 3).map((task) => {
+                                                        const daysLeft = task.due_date ? Math.max(1, Math.ceil((new Date(task.due_date).getTime() - new Date().getTime()) / (1000 * 3600 * 24))) : 1;
+                                                        return (
+                                                            <div key={task.id} className="flex items-start space-x-3 pt-2.5 first:pt-0 border-t first:border-t-0 border-slate-100">
+                                                                <div className="text-center shrink-0 min-w-[44px]">
+                                                                    <span className={`block text-lg font-extrabold leading-none ${daysLeft <= 3 ? 'text-red-600' : daysLeft <= 7 ? 'text-amber-600' : 'text-slate-900'}`}>{daysLeft}</span>
+                                                                    <span className="text-[9px] text-slate-500 font-extrabold uppercase tracking-wider mt-0.5 block">Days Left</span>
+                                                                </div>
+                                                                <div className="min-w-0 flex-1">
+                                                                    <p className="font-extrabold text-slate-900 leading-snug">{task.title}</p>
+                                                                    <p className="text-[11px] text-slate-500 font-medium mt-0.5">{task.description || 'Institutional Academic Event'}</p>
+                                                                    {task.due_date && (
+                                                                        <p className="text-[10px] text-slate-400 font-semibold mt-1">Date: {new Date(task.due_date).toLocaleDateString('en-CA')}</p>
+                                                                    )}
+                                                                </div>
                                                             </div>
-                                                            <div>
-                                                                <p className="font-bold text-slate-900">{task.title}</p>
-                                                                <p className="text-[10px] text-slate-500">{task.description || 'Module Assignment Deliverable'}</p>
-                                                            </div>
-                                                        </div>
-                                                    );
-                                                })
-                                            ) : (
-                                                <>
-                                                    <div className="flex items-start space-x-3">
-                                                        <div className="text-center shrink-0">
-                                                            <span className="block text-lg font-extrabold text-amber-600 leading-none">5</span>
-                                                            <span className="text-[9px] text-slate-800 font-bold uppercase">Days Left</span>
-                                                        </div>
-                                                        <div>
-                                                            <p className="font-bold text-slate-900">Applied Academic Project Proposal</p>
-                                                            <p className="text-[10px] text-slate-500">Departmental Submission</p>
-                                                        </div>
+                                                        );
+                                                    })
+                                                ) : (
+                                                    <div className="text-center py-6 text-xs text-slate-500 font-medium bg-slate-50 rounded-lg border border-dashed border-slate-200">
+                                                        No upcoming campus events scheduled
                                                     </div>
-                                                    <div className="flex items-start space-x-3 pt-2 border-t border-slate-100">
-                                                        <div className="text-center shrink-0">
-                                                            <span className="block text-lg font-extrabold text-slate-700 leading-none">14</span>
-                                                            <span className="text-[9px] text-slate-800 font-bold uppercase">Days Left</span>
-                                                        </div>
-                                                        <div>
-                                                            <p className="font-bold text-slate-900">Mid-Term Assessment & Review</p>
-                                                            <p className="text-[10px] text-slate-500">Academic Review Panel</p>
-                                                        </div>
-                                                    </div>
-                                                </>
-                                            )}
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
 
