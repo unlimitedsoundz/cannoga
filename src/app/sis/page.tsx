@@ -2504,9 +2504,8 @@ export default function SISStudentDashboard() {
 
                                     {/* Right Editable Contact Form */}
                                     <form onSubmit={handleSaveProfile} className="lg:col-span-2 space-y-4">
-                                        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                                        <div className="border-b border-slate-100 pb-2">
                                             <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Personal & Contact Details</h4>
-                                            <span className="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded font-bold">Connected to DB</span>
                                         </div>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                                             <div>
@@ -2515,7 +2514,7 @@ export default function SISStudentDashboard() {
                                                     type="text"
                                                     value={profileForm.firstName}
                                                     onChange={e => setProfileForm({ ...profileForm, firstName: e.target.value })}
-                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                     required
                                                 />
                                             </div>
@@ -2525,7 +2524,7 @@ export default function SISStudentDashboard() {
                                                     type="text"
                                                     value={profileForm.lastName}
                                                     onChange={e => setProfileForm({ ...profileForm, lastName: e.target.value })}
-                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                     required
                                                 />
                                             </div>
@@ -2535,7 +2534,7 @@ export default function SISStudentDashboard() {
                                                     type="email"
                                                     value={profile?.email || ''}
                                                     readOnly
-                                                    className="w-full border border-slate-200 bg-slate-50 text-slate-500 rounded p-2 text-xs cursor-not-allowed font-mono"
+                                                    className="w-full border-2 border-slate-200 bg-slate-50 text-slate-500 rounded-md p-2.5 text-xs cursor-not-allowed font-mono shadow-sm"
                                                 />
                                             </div>
                                             <div>
@@ -2545,7 +2544,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.phone}
                                                     onChange={e => setProfileForm({ ...profileForm, phone: e.target.value })}
                                                     placeholder="+1 (613) 555-0199"
-                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                 />
                                             </div>
                                             <div className="sm:col-span-2">
@@ -2555,7 +2554,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.address}
                                                     onChange={e => setProfileForm({ ...profileForm, address: e.target.value })}
                                                     placeholder="123 College Street, Suite 400"
-                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                 />
                                             </div>
                                             <div>
@@ -2565,7 +2564,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.city}
                                                     onChange={e => setProfileForm({ ...profileForm, city: e.target.value })}
                                                     placeholder="Ottawa"
-                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                 />
                                             </div>
                                             <div>
@@ -2575,7 +2574,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.state}
                                                     onChange={e => setProfileForm({ ...profileForm, state: e.target.value })}
                                                     placeholder="Ontario"
-                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                 />
                                             </div>
                                             <div>
@@ -2585,7 +2584,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.zipcode}
                                                     onChange={e => setProfileForm({ ...profileForm, zipcode: e.target.value })}
                                                     placeholder="K1P 1J1"
-                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                 />
                                             </div>
                                             <div>
@@ -2595,7 +2594,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.country}
                                                     onChange={e => setProfileForm({ ...profileForm, country: e.target.value })}
                                                     placeholder="Canada"
-                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                 />
                                             </div>
                                         </div>
