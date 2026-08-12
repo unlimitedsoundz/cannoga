@@ -24,7 +24,7 @@ import {
     Download01Icon as Download,
 } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
-import { TiktokLogo, YoutubeLogo } from '@phosphor-icons/react';
+import { TiktokLogo, YoutubeLogo, Camera } from '@phosphor-icons/react';
 import { getDocumentUrl } from '@/utils/document';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { registerForCourse } from '@/app/sis/registration-actions';
@@ -332,9 +332,132 @@ export default function SISStudentDashboard() {
     const [showPresidentMessage, setShowPresidentMessage] = useState(true);
     const [showNoInvoiceModal, setShowNoInvoiceModal] = useState(false);
     const [activeModals, setActiveModals] = useState<Record<string, boolean>>({});
-    const [profileForm, setProfileForm] = useState({ fullName: '', preferredName: '', phone: '', address: '' });
+    const [profileForm, setProfileForm] = useState({
+        firstName: '',
+        lastName: '',
+        fullName: '',
+        preferredName: '',
+        phone: '',
+        address: '',
+        city: '',
+        state: '',
+        zipcode: '',
+        country: '',
+        dob: ''
+    });
+    const [uploadingAvatar, setUploadingAvatar] = useState(false);
+    const [savingProfile, setSavingProfile] = useState(false);
+    const avatarFileRef = React.useRef<HTMLInputElement>(null);
     const [uploadingDocType, setUploadingDocType] = useState<string | null>(null);
     const uploadFileRef = React.useRef<HTMLInputElement>(null);
+
+    const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+            toast.error('Please select a valid image file (PNG, JPG, WEBP).');
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            toast.error('File size must be less than 5MB.');
+            return;
+        }
+
+        setUploadingAvatar(true);
+        try {
+            const supabase = createClient();
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${profile?.id || 'user'}_${Date.now()}.${fileExt}`;
+            
+            let publicUrl = '';
+
+            // Try 'avatars' bucket first
+            const { error: avatarBucketError } = await supabase.storage
+                .from('avatars')
+                .upload(fileName, file, { upsert: true });
+
+            if (!avatarBucketError) {
+                const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
+                publicUrl = data.publicUrl;
+            } else {
+                // Fallback to student-documents bucket
+                const { error: docBucketError } = await supabase.storage
+                    .from('student-documents')
+                    .upload(`avatars/${fileName}`, file, { upsert: true });
+                
+                if (!docBucketError) {
+                    const { data } = supabase.storage.from('student-documents').getPublicUrl(`avatars/${fileName}`);
+                    publicUrl = data.publicUrl;
+                } else {
+                    throw new Error(avatarBucketError?.message || docBucketError?.message || 'Storage upload failed');
+                }
+            }
+
+            // Update database
+            const { error: updateError } = await supabase
+                .from('profiles')
+                .update({ avatar_url: publicUrl, updated_at: new Date().toISOString() })
+                .eq('id', profile?.id);
+
+            if (updateError) throw updateError;
+
+            setProfile((prev: any) => prev ? { ...prev, avatar_url: publicUrl } : prev);
+            toast.success('Profile avatar updated successfully!');
+        } catch (err: any) {
+            console.error('Avatar upload error:', err);
+            toast.error(err?.message || 'Failed to upload profile picture.');
+        } finally {
+            setUploadingAvatar(false);
+            if (avatarFileRef.current) avatarFileRef.current.value = '';
+        }
+    };
+
+    const handleSaveProfile = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!profile?.id) return;
+
+        setSavingProfile(true);
+        try {
+            const supabase = createClient();
+            const { error: updateError } = await supabase
+                .from('profiles')
+                .update({
+                    first_name: profileForm.firstName,
+                    last_name: profileForm.lastName,
+                    phone_number: profileForm.phone,
+                    address: profileForm.address,
+                    city: profileForm.city,
+                    state_province: profileForm.state,
+                    zipcode: profileForm.zipcode,
+                    country_of_residence: profileForm.country,
+                    updated_at: new Date().toISOString()
+                })
+                .eq('id', profile.id);
+
+            if (updateError) throw updateError;
+
+            setProfile((prev: any) => prev ? {
+                ...prev,
+                first_name: profileForm.firstName,
+                last_name: profileForm.lastName,
+                phone_number: profileForm.phone,
+                address: profileForm.address,
+                city: profileForm.city,
+                state_province: profileForm.state,
+                zipcode: profileForm.zipcode,
+                country_of_residence: profileForm.country
+            } : prev);
+
+            toast.success('Profile information saved to database successfully!');
+        } catch (err: any) {
+            console.error('Save profile error:', err);
+            toast.error(err?.message || 'Failed to save profile changes.');
+        } finally {
+            setSavingProfile(false);
+        }
+    };
 
     const handleDocumentUpload = async (file: File, documentType: string, title: string) => {
         if (!student) return;
@@ -407,10 +530,17 @@ export default function SISStudentDashboard() {
 
                 setProfile(prof);
                 setProfileForm({
-                    fullName: `${prof.first_name || ''}`.trim(),
+                    firstName: prof.first_name || '',
+                    lastName: prof.last_name || '',
+                    fullName: `${prof.first_name || ''} ${prof.last_name || ''}`.trim(),
                     preferredName: prof.first_name || '',
-                    phone: prof.phone_code ? `+${prof.phone_code}` : (prof.phone_number || ''),
-                    address: [prof.address, prof.city, prof.state_province, prof.zipcode, prof.country_of_residence].filter(Boolean).join(', '),
+                    phone: prof.phone_number || (prof.phone_code ? `+${prof.phone_code}` : ''),
+                    address: prof.address || '',
+                    city: prof.city || '',
+                    state: prof.state_province || '',
+                    zipcode: prof.zipcode || '',
+                    country: prof.country_of_residence || '',
+                    dob: prof.date_of_birth || '',
                 });
 
                 const { data: studentData } = await supabase
@@ -854,13 +984,13 @@ export default function SISStudentDashboard() {
                     <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-12 w-auto object-contain brightness-0 invert" />
                     <div className="space-y-1">
                         <h2 className="text-white font-extrabold text-sm sm:text-base tracking-widest uppercase">CANNOGA COLLEGE</h2>
-                        <p className="text-slate-800 text-xs font-semibold uppercase tracking-wider">Student Information System</p>
+                        <p className="text-white text-xs font-semibold uppercase tracking-wider">Student Information System</p>
                     </div>
                     <div className="relative flex items-center justify-center py-2">
                         <div className="w-12 h-12 rounded-full border-2 border-slate-800 border-t-amber-500 animate-spin"></div>
                         <div className="w-8 h-8 rounded-full border-2 border-slate-800 border-b-white animate-spin absolute" style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}></div>
                     </div>
-                    <p className="text-slate-800 text-xs font-medium animate-pulse">Loading student records & live campus portal...</p>
+                    <p className="text-white text-xs font-medium animate-pulse">Loading student records & live campus portal...</p>
                 </div>
             </div>
         );
@@ -908,8 +1038,12 @@ export default function SISStudentDashboard() {
                         </button>
                         <div className="h-5 w-px bg-slate-800 mx-1"></div>
                         <div className="flex items-center space-x-2 cursor-pointer hover:bg-slate-800 p-1.5 rounded-lg transition" onClick={() => navigateTo('profile')}>
-                            <div className="w-7 h-7 bg-slate-700 rounded-full flex items-center justify-center">
-                                <HugeiconsIcon icon={User} size={14} strokeWidth={2.5} className="text-slate-300" />
+                            <div className="w-7 h-7 bg-slate-700 rounded-full flex items-center justify-center overflow-hidden shrink-0">
+                                {profile?.avatar_url ? (
+                                    <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                                ) : (
+                                    <HugeiconsIcon icon={User} size={14} strokeWidth={2.5} className="text-slate-300" />
+                                )}
                             </div>
                             <div className="hidden lg:block text-left">
                                 <p className="text-xs font-semibold leading-tight text-slate-200">{displayName}</p>
@@ -1378,8 +1512,12 @@ export default function SISStudentDashboard() {
                                             </div>
                                             <div className="p-4">
                                                 <div className="flex items-center space-x-3">
-                                                    <div className="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-base shadow-sm shrink-0">
-                                                        {displayName.charAt(0)}
+                                                    <div className="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-base shadow-sm shrink-0 overflow-hidden">
+                                                        {profile?.avatar_url ? (
+                                                            <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            displayName.charAt(0)
+                                                        )}
                                                     </div>
                                                     <div className="min-w-0 flex-1">
                                                         <h4 className="text-xs font-bold text-slate-900 truncate">{displayName}</h4>
@@ -2319,44 +2457,159 @@ export default function SISStudentDashboard() {
                             <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm mb-6">
                                 <h3 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-3 mb-6">My Profile & Contact Information</h3>
                                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                    {/* Left Avatar Column */}
                                     <div className="flex flex-col items-center text-center border-b lg:border-b-0 lg:border-r border-slate-100 pb-6 lg:pb-0 lg:pr-8">
-                                        <div className="relative group cursor-pointer mb-3">
-                                            <div className="w-28 h-28 rounded-full border-2 border-slate-300 bg-slate-100 flex items-center justify-center">
-                                                <HugeiconsIcon icon={User} size={40} strokeWidth={2} className="text-slate-800" />
+                                        <div className="relative group mb-3">
+                                            <div className="w-32 h-32 rounded-full border-4 border-slate-900 bg-slate-100 flex items-center justify-center overflow-hidden shadow-lg relative">
+                                                {profile?.avatar_url ? (
+                                                    <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <HugeiconsIcon icon={User} size={48} strokeWidth={2} className="text-slate-700" />
+                                                )}
+                                                {uploadingAvatar && (
+                                                    <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center text-white text-xs font-bold animate-pulse">
+                                                        Uploading...
+                                                    </div>
+                                                )}
                                             </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => avatarFileRef.current?.click()}
+                                                disabled={uploadingAvatar}
+                                                className="absolute bottom-1 right-1 p-2 bg-slate-900 hover:bg-slate-800 text-white rounded-full shadow-md border-2 border-white transition transform hover:scale-105"
+                                                title="Upload Profile Picture"
+                                            >
+                                                <Camera size={16} weight="bold" />
+                                            </button>
+                                            <input
+                                                type="file"
+                                                ref={avatarFileRef}
+                                                onChange={handleAvatarUpload}
+                                                accept="image/*"
+                                                className="hidden"
+                                            />
                                         </div>
-                                        <h4 className="font-bold text-slate-900 text-base">{profileForm.fullName}</h4>
-                                        <p className="text-xs text-slate-500">Student ID: {studentId}</p>
-                                        <p className="text-xs text-slate-600 mt-1">Cannoga College — {programName}</p>
+                                        <h4 className="font-bold text-slate-900 text-base mt-2">{profileForm.firstName} {profileForm.lastName}</h4>
+                                        <p className="text-xs font-semibold text-slate-500">Student ID: {studentId}</p>
+                                        <p className="text-xs text-slate-600 mt-1 font-medium">Cannoga College — {programName}</p>
+                                        <button
+                                            type="button"
+                                            onClick={() => avatarFileRef.current?.click()}
+                                            disabled={uploadingAvatar}
+                                            className="mt-4 px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold rounded-lg border border-slate-300 transition"
+                                        >
+                                            {uploadingAvatar ? 'Uploading Photo...' : 'Change Profile Picture'}
+                                        </button>
                                     </div>
-                                    <div className="lg:col-span-2 space-y-4">
-                                        <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Edit Contact Info</h4>
+
+                                    {/* Right Editable Contact Form */}
+                                    <form onSubmit={handleSaveProfile} className="lg:col-span-2 space-y-4">
+                                        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                                            <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Personal & Contact Details</h4>
+                                            <span className="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded font-bold">Connected to DB</span>
+                                        </div>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                                             <div>
-                                                <label className="block font-semibold text-slate-700 mb-1">Full Name</label>
-                                                <input type="text" value={profileForm.fullName} readOnly className="w-full border border-slate-200 bg-slate-50 text-slate-500 rounded p-2 text-xs cursor-not-allowed" />
+                                                <label className="block font-semibold text-slate-700 mb-1">First Name</label>
+                                                <input
+                                                    type="text"
+                                                    value={profileForm.firstName}
+                                                    onChange={e => setProfileForm({ ...profileForm, firstName: e.target.value })}
+                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                    required
+                                                />
                                             </div>
                                             <div>
-                                                <label className="block font-semibold text-slate-700 mb-1">Preferred Name</label>
-                                                <input type="text" value={profileForm.preferredName} readOnly className="w-full border border-slate-200 bg-slate-50 text-slate-500 rounded p-2 text-xs cursor-not-allowed" />
+                                                <label className="block font-semibold text-slate-700 mb-1">Last Name</label>
+                                                <input
+                                                    type="text"
+                                                    value={profileForm.lastName}
+                                                    onChange={e => setProfileForm({ ...profileForm, lastName: e.target.value })}
+                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                    required
+                                                />
                                             </div>
                                             <div>
-                                                <label className="block font-semibold text-slate-700 mb-1">Student Email</label>
-                                                <input type="email" value={profile?.email || ''} readOnly className="w-full border border-slate-200 bg-slate-50 text-slate-500 rounded p-2 text-xs cursor-not-allowed" />
+                                                <label className="block font-semibold text-slate-700 mb-1">Student Email (Read Only)</label>
+                                                <input
+                                                    type="email"
+                                                    value={profile?.email || ''}
+                                                    readOnly
+                                                    className="w-full border border-slate-200 bg-slate-50 text-slate-500 rounded p-2 text-xs cursor-not-allowed font-mono"
+                                                />
                                             </div>
                                             <div>
                                                 <label className="block font-semibold text-slate-700 mb-1">Phone Number</label>
-                                                <input type="tel" value={profileForm.phone} readOnly className="w-full border border-slate-200 bg-slate-50 text-slate-500 rounded p-2 text-xs cursor-not-allowed" />
+                                                <input
+                                                    type="tel"
+                                                    value={profileForm.phone}
+                                                    onChange={e => setProfileForm({ ...profileForm, phone: e.target.value })}
+                                                    placeholder="+1 (613) 555-0199"
+                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                />
                                             </div>
                                             <div className="sm:col-span-2">
-                                                <label className="block font-semibold text-slate-700 mb-1">Mailing Address</label>
-                                                <input type="text" value={profileForm.address} readOnly className="w-full border border-slate-200 bg-slate-50 text-slate-500 rounded p-2 text-xs cursor-not-allowed" />
+                                                <label className="block font-semibold text-slate-700 mb-1">Street Address</label>
+                                                <input
+                                                    type="text"
+                                                    value={profileForm.address}
+                                                    onChange={e => setProfileForm({ ...profileForm, address: e.target.value })}
+                                                    placeholder="123 College Street, Suite 400"
+                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block font-semibold text-slate-700 mb-1">City</label>
+                                                <input
+                                                    type="text"
+                                                    value={profileForm.city}
+                                                    onChange={e => setProfileForm({ ...profileForm, city: e.target.value })}
+                                                    placeholder="Ottawa"
+                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block font-semibold text-slate-700 mb-1">State / Province</label>
+                                                <input
+                                                    type="text"
+                                                    value={profileForm.state}
+                                                    onChange={e => setProfileForm({ ...profileForm, state: e.target.value })}
+                                                    placeholder="Ontario"
+                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block font-semibold text-slate-700 mb-1">Postal / Zip Code</label>
+                                                <input
+                                                    type="text"
+                                                    value={profileForm.zipcode}
+                                                    onChange={e => setProfileForm({ ...profileForm, zipcode: e.target.value })}
+                                                    placeholder="K1P 1J1"
+                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block font-semibold text-slate-700 mb-1">Country</label>
+                                                <input
+                                                    type="text"
+                                                    value={profileForm.country}
+                                                    onChange={e => setProfileForm({ ...profileForm, country: e.target.value })}
+                                                    placeholder="Canada"
+                                                    className="w-full border border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded p-2 text-xs transition outline-none"
+                                                />
                                             </div>
                                         </div>
-                                        <div className="pt-4 border-t border-slate-100">
-                                            <p className="text-xs text-slate-500">Contact the registrar office to update profile information.</p>
+                                        <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                                            <p className="text-[11px] text-slate-500">Changes update your official student profile record in real-time.</p>
+                                            <button
+                                                type="submit"
+                                                disabled={savingProfile}
+                                                className="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition shadow-sm disabled:opacity-50"
+                                            >
+                                                {savingProfile ? 'Saving Changes...' : 'Save Profile Changes'}
+                                            </button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
