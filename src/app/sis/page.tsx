@@ -1061,7 +1061,7 @@ export default function SISStudentDashboard() {
                                     {/* STUDENT MAIL */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5">
+                                            <div className="bg-slate-900 px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Student Mail</h3>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
@@ -1092,7 +1092,7 @@ export default function SISStudentDashboard() {
                                     {/* ANNOUNCEMENTS */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5">
+                                            <div className="bg-slate-900 px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Announcements</h3>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
@@ -1116,7 +1116,7 @@ export default function SISStudentDashboard() {
 
                                     {/* ATTENDANCE RATE */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-[#2D3748] px-4 py-2.5 mb-2">
+                                        <div className="bg-slate-900 px-4 py-2.5 mb-2">
                                             <h3 className="font-semibold text-white text-sm">Attendance Rate</h3>
                                         </div>
                                         <div className="flex flex-col items-center justify-center py-2">
@@ -1164,7 +1164,7 @@ export default function SISStudentDashboard() {
                                     {/* ENROLLED COURSES (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5">
+                                            <div className="bg-slate-900 px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Enrolled Courses</h3>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
@@ -1197,7 +1197,7 @@ export default function SISStudentDashboard() {
                                     {/* TIMETABLE / TODAY'S SCHEDULE */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5">
+                                            <div className="bg-slate-900 px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Timetable & Schedule</h3>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
@@ -1227,7 +1227,7 @@ export default function SISStudentDashboard() {
                                     {/* REAL-TIME ONTARIO LIVE NEWS WIDGET */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5">
+                                            <div className="bg-slate-900 px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">World News</h3>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
@@ -1247,7 +1247,7 @@ export default function SISStudentDashboard() {
                                     {/* STAFF DIRECTORY / ADVISOR CONTACT (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5">
+                                            <div className="bg-slate-900 px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Staff Directory</h3>
                                             </div>
                                             {faculty.length > 0 ? (
@@ -1274,7 +1274,7 @@ export default function SISStudentDashboard() {
                                                 </div>
                                             )}
                                             <div className="grid grid-cols-3 divide-x divide-white/20 text-center text-xs border-t border-slate-100 overflow-hidden">
-                                                <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 bg-[#2D3748] hover:bg-slate-900 text-white font-semibold transition">A - Z</button>
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 bg-slate-900 hover:bg-slate-900 text-white font-semibold transition">A - Z</button>
                                                 <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 bg-[#D97706] hover:bg-amber-700 text-white font-semibold transition">Favourites</button>
                                                 <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold transition">Recent</button>
                                             </div>
@@ -1284,7 +1284,7 @@ export default function SISStudentDashboard() {
                                     {/* LIVE ONTARIO WEATHER - MATCHING EXACT DESIGN SPEC */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
                                         {/* Dark Header Bar */}
-                                        <div className="bg-[#2D3748] px-4 py-2.5">
+                                        <div className="bg-slate-900 px-4 py-2.5">
                                             <h3 className="font-semibold text-white text-sm">Weather</h3>
                                         </div>
                                         {/* Card Body */}
@@ -1319,7 +1319,7 @@ export default function SISStudentDashboard() {
 
                                     {/* SOCIAL MEDIA / CAMPUS CONNECT */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-[#2D3748] px-4 py-2.5 mb-3">
+                                        <div className="bg-slate-900 px-4 py-2.5 mb-3">
                                             <h3 className="font-semibold text-white text-sm">Campus Connect & Channels</h3>
                                         </div>
                                         <div className="grid grid-cols-2 gap-2 text-xs p-4 pt-0">
@@ -1372,7 +1372,7 @@ export default function SISStudentDashboard() {
                                 <div className="space-y-6">
                                     {/* STUDENT PROFILE QUICK VIEW */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-[#2D3748] px-4 py-2.5">
+                                        <div className="bg-slate-900 px-4 py-2.5">
                                             <h3 className="font-semibold text-white text-sm">Student Profile</h3>
                                         </div>
                                         <div className="p-4 space-y-3">
@@ -1395,7 +1395,7 @@ export default function SISStudentDashboard() {
 
                                     {/* ASSIGNMENT DEADLINES (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-[#2D3748] px-4 py-2.5">
+                                        <div className="bg-slate-900 px-4 py-2.5">
                                             <h3 className="font-semibold text-white text-sm">Assignment Deadlines</h3>
                                         </div>
                                         <div className="p-4 space-y-3 text-xs">
@@ -1444,7 +1444,7 @@ export default function SISStudentDashboard() {
 
                                     {/* COLLEGE SERVICES & PORTALS (REAL CANADIAN ONTARIO SERVICE LOGOS) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-[#2D3748] px-4 py-2.5 mb-2">
+                                        <div className="bg-slate-900 px-4 py-2.5 mb-2">
                                             <h3 className="font-semibold text-white text-sm">Ontario College Services & Portals</h3>
                                         </div>
                                          <div className="flex items-center justify-center space-x-6 sm:space-x-12 py-3 px-4">
@@ -1504,7 +1504,7 @@ export default function SISStudentDashboard() {
 
                                     {/* FILE MANAGER / DOCUMENT REPOSITORY (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-[#2D3748] px-4 py-2.5">
+                                        <div className="bg-slate-900 px-4 py-2.5">
                                             <h3 className="font-semibold text-white text-sm">File Manager & Repository</h3>
                                         </div>
                                         <div className="p-3 space-y-2 text-xs">
@@ -1536,7 +1536,7 @@ export default function SISStudentDashboard() {
                                             )}
                                         </div>
                                         <div className="grid grid-cols-3 divide-x divide-white/20 text-center text-xs border-t border-slate-100 overflow-hidden">
-                                            <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-[#2D3748] hover:bg-slate-900 text-white font-semibold transition">View All</button>
+                                            <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-slate-900 hover:bg-slate-900 text-white font-semibold transition">View All</button>
                                             <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-[#D97706] hover:bg-amber-700 text-white font-semibold transition">Share</button>
                                             <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold transition">Download</button>
                                         </div>
@@ -1545,7 +1545,7 @@ export default function SISStudentDashboard() {
                                     {/* ACCOUNT SUMMARY */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="bg-[#2D3748] px-4 py-2.5">
+                                            <div className="bg-slate-900 px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Account Summary</h3>
                                             </div>
                                             <div className="p-4">
