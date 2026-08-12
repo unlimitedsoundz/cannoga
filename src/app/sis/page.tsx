@@ -1731,61 +1731,68 @@ export default function SISStudentDashboard() {
                         </div>
                     )}
                     {currentPage === 'documents' && (
-                        <div>
-                            <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div className="space-y-6">
+                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
-                                    <h3 className="text-base font-bold text-slate-900">Official Student Records, PAL & Tax Certificates</h3>
-                                    <p className="text-xs text-slate-500 mt-0.5">Verified documents issued by Cannoga College Registrar, Admissions, and Bursar.</p>
+                                    <h3 className="text-lg font-extrabold tracking-tight text-white">Official Student Records, PAL & Tax Certificates</h3>
+                                    <p className="text-xs text-slate-300 mt-1 font-medium">Verified digital documents issued by Cannoga College Registrar, Admissions, and Bursar.</p>
                                 </div>
-                                <div className="inline-flex items-center space-x-2 bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium px-3 py-1.5 rounded">
+                                <div className="inline-flex items-center space-x-2 bg-slate-800/90 border border-slate-700 text-slate-200 text-xs font-semibold px-3.5 py-1.5 rounded-lg shrink-0">
+                                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                                     <span>Digitally Signed PDF System Active</span>
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4 mb-6">
-                                <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3 border-b border-slate-100 pb-2">Admissions & Visa/IRCC Documents</h4>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+                                <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                                    <h4 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Admissions & Visa/IRCC Documents</h4>
+                                    <span className="text-[11px] font-semibold text-slate-500">{documents.filter(d => ['pal', 'loa'].includes(d.document_type)).length} records</span>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                     {documents.filter(d => ['pal', 'loa'].includes(d.document_type)).length > 0 ? documents.filter(d => ['pal', 'loa'].includes(d.document_type)).map(doc => (
-                                        <div key={doc.id} className="p-3 border border-slate-200 rounded bg-slate-50/50 hover:bg-slate-50 transition flex flex-col justify-between">
+                                        <div key={doc.id} className="p-4 border border-slate-200 rounded-xl bg-white hover:border-slate-400 hover:shadow-md transition-all flex flex-col justify-between group">
                                             <div>
-                                                <div className="flex items-center justify-between mb-1.5">
-                                                    <span className="text-[10px] font-bold bg-slate-200 text-slate-800 px-1.5 py-0.5 rounded">{doc.id.slice(0, 8).toUpperCase()}</span>
-                                                    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border ${getDocumentStatusColor(doc.status)}`}>{doc.status}</span>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <span className="text-[10px] font-extrabold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md font-mono">{doc.id.slice(0, 8).toUpperCase()}</span>
+                                                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${getDocumentStatusColor(doc.status)}`}>{doc.status}</span>
                                                 </div>
-                                                <h5 className="font-bold text-slate-900 text-xs">{documentTypeLabels[doc.document_type] || doc.title}</h5>
-                                                <p className="text-[11px] text-slate-500 mt-0.5">{doc.issue_date ? `Issued: ${new Date(doc.issue_date).toLocaleDateString('en-CA')}` : 'Pending'}</p>
+                                                <h5 className="font-extrabold text-slate-900 text-sm group-hover:text-slate-800 transition-colors">{documentTypeLabels[doc.document_type] || doc.title}</h5>
+                                                <p className="text-xs text-slate-500 mt-1 font-medium">{doc.issue_date ? `Issued: ${new Date(doc.issue_date).toLocaleDateString('en-CA')}` : 'Pending Verification'}</p>
                                             </div>
-                                            <div className="mt-2 pt-2 border-t border-slate-200 flex justify-between items-center">
-                                                <span className="text-[10px] text-slate-500">PDF</span>
-                                                <button type="button" onClick={() => toggleModal(`doc-${doc.id}`)} className="bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-medium px-2 py-1 rounded transition">View</button>
+                                            <div className="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
+                                                <span className="text-[11px] font-extrabold text-slate-400 tracking-wider">PDF RECORD</span>
+                                                <button type="button" onClick={() => toggleModal(`doc-${doc.id}`)} className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-colors shadow-sm">View Document</button>
                                             </div>
                                         </div>
                                     )) : (
-                                        <div className="col-span-full text-center py-6 text-xs text-slate-500">No admissions documents available</div>
+                                        <div className="col-span-full text-center py-8 text-xs font-medium text-slate-500 bg-slate-50 rounded-xl border border-dashed border-slate-200">No admissions documents available</div>
                                     )}
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-4">
-                                <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3 border-b border-slate-100 pb-2">Tuition Receipts & Tax Certificates</h4>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+                                <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                                    <h4 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Tuition Receipts & Tax Certificates</h4>
+                                    <span className="text-[11px] font-semibold text-slate-500">{documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).length} records</span>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                     {documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).length > 0 ? documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).map(doc => (
-                                        <div key={doc.id} className="p-3 border border-slate-200 rounded bg-slate-50/50 hover:bg-slate-50 transition flex flex-col justify-between">
+                                        <div key={doc.id} className="p-4 border border-slate-200 rounded-xl bg-white hover:border-slate-400 hover:shadow-md transition-all flex flex-col justify-between group">
                                             <div>
-                                                <div className="flex items-center justify-between mb-1.5">
-                                                    <span className="text-[10px] font-bold bg-slate-200 text-slate-800 px-1.5 py-0.5 rounded">{doc.id.slice(0, 8).toUpperCase()}</span>
-                                                    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border ${getDocumentStatusColor(doc.status)}`}>{doc.status}</span>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <span className="text-[10px] font-extrabold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md font-mono">{doc.id.slice(0, 8).toUpperCase()}</span>
+                                                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${getDocumentStatusColor(doc.status)}`}>{doc.status}</span>
                                                 </div>
-                                                <h5 className="font-bold text-slate-900 text-xs">{documentTypeLabels[doc.document_type] || doc.title}</h5>
-                                                <p className="text-[11px] text-slate-500 mt-0.5">{doc.issue_date ? `Issued: ${new Date(doc.issue_date).toLocaleDateString('en-CA')}` : 'Pending'}</p>
+                                                <h5 className="font-extrabold text-slate-900 text-sm group-hover:text-slate-800 transition-colors">{documentTypeLabels[doc.document_type] || doc.title}</h5>
+                                                <p className="text-xs text-slate-500 mt-1 font-medium">{doc.issue_date ? `Issued: ${new Date(doc.issue_date).toLocaleDateString('en-CA')}` : 'Pending Verification'}</p>
                                             </div>
-                                            <div className="mt-2 pt-2 border-t border-slate-200 flex justify-between items-center">
-                                                <span className="text-[10px] text-slate-500">PDF</span>
-                                                <button type="button" onClick={() => toggleModal(`doc-${doc.id}`)} className="bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-medium px-2 py-1 rounded transition">View</button>
+                                            <div className="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
+                                                <span className="text-[11px] font-extrabold text-slate-400 tracking-wider">PDF RECORD</span>
+                                                <button type="button" onClick={() => toggleModal(`doc-${doc.id}`)} className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-colors shadow-sm">View Document</button>
                                             </div>
                                         </div>
                                     )) : (
-                                        <div className="col-span-full text-center py-6 text-xs text-slate-500">No financial documents available</div>
+                                        <div className="col-span-full text-center py-8 text-xs font-medium text-slate-500 bg-slate-50 rounded-xl border border-dashed border-slate-200">No financial documents available</div>
                                     )}
                                 </div>
                             </div>
