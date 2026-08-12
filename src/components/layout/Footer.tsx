@@ -16,13 +16,6 @@ export function Footer() {
             <footer className="bg-[#191919] text-white pt-12 pb-8 border-t border-white/10 font-sans">
                 {/* Main Footer Content */}
                 <div className="container mx-auto px-4 max-w-7xl">
-                    {/* Top Land Acknowledgment Banner (Carleton Style) */}
-                    <div className="mb-10 pb-8 border-b border-white/15 text-sm text-gray-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                        <p className="max-w-4xl leading-relaxed">
-                            <span className="font-semibold text-white">Land Acknowledgment:</span> Cannoga College acknowledges the location of its campus on the traditional, unceded territories of the Algonquin Anishinàbeg nation.
-                        </p>
-                    </div>
-
                     {/* Footer Links Grid - Carleton 4-Column Layout + Side Action Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
                         {/* Admissions */}
@@ -100,12 +93,12 @@ export function Footer() {
                             {/* Social Icons */}
                             <div>
                                 <h4 className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-3">Connect With Us</h4>
-                                <div className="flex space-x-3">
-                                    <a href="https://www.youtube.com/@CannogaCollege" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="p-2 rounded bg-white/10 text-white hover:bg-white/20 transition-colors">
-                                        <YoutubeLogo className="h-5 w-5" />
+                                <div className="flex space-x-4">
+                                    <a href="https://www.youtube.com/@CannogaCollege" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-white hover:text-opacity-75 transition-opacity">
+                                        <YoutubeLogo className="h-6 w-6" />
                                     </a>
-                                    <a href="https://www.tiktok.com/@cannogacollege" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="p-2 rounded bg-white/10 text-white hover:bg-white/20 transition-colors">
-                                        <TiktokLogo className="h-5 w-5" />
+                                    <a href="https://www.tiktok.com/@cannogacollege" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-white hover:text-opacity-75 transition-opacity">
+                                        <TiktokLogo className="h-6 w-6" />
                                     </a>
                                 </div>
                             </div>
