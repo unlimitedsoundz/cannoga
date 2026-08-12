@@ -1026,7 +1026,7 @@ export default function SISStudentDashboard() {
                             <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-9 w-auto object-contain brightness-0 invert" />
                             <div className="hidden sm:flex flex-col justify-center border-l border-slate-700 pl-3 py-0.5">
                                 <span className="font-extrabold text-xs sm:text-sm tracking-wider uppercase leading-tight text-white">CANNOGA COLLEGE</span>
-                                <span className="text-[10px] text-slate-800 font-semibold uppercase tracking-wider leading-none mt-0.5">Student Portal</span>
+                                <span className="text-[10px] text-slate-300 font-semibold uppercase tracking-wider leading-none mt-0.5">Student Portal</span>
                             </div>
                         </Link>
                     </div>
@@ -1053,7 +1053,7 @@ export default function SISStudentDashboard() {
                             </div>
                             <div className="hidden lg:block text-left">
                                 <p className="text-xs font-semibold leading-tight text-slate-200">{displayName}</p>
-                                <p className="text-[10px] text-slate-800">{studentId}</p>
+                                <p className="text-[10px] text-slate-300 font-medium">{studentId}</p>
                             </div>
                         </div>
                     </div>
@@ -1091,7 +1091,7 @@ export default function SISStudentDashboard() {
                                 <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-6 w-auto object-contain brightness-0 invert" />
                                 <span className="font-bold text-white text-xs">Cannoga College</span>
                             </div>
-                            <button type="button" onClick={() => setSidebarOpen(false)} className="text-slate-800 hover:text-white">
+                            <button type="button" onClick={() => setSidebarOpen(false)} className="text-slate-400 hover:text-white">
                                 <HugeiconsIcon icon={XCircle} size={20} strokeWidth={2.5} />
                             </button>
                         </div>
@@ -2520,7 +2520,7 @@ export default function SISStudentDashboard() {
                                                     type="text"
                                                     value={profileForm.firstName}
                                                     onChange={e => setProfileForm({ ...profileForm, firstName: e.target.value })}
-                                                    style={{ border: '2px solid #475569', borderRadius: '8px' }}
+                                                    style={{ border: '2px solid rgb(148, 163, 184)', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                     required
                                                 />
@@ -2531,7 +2531,7 @@ export default function SISStudentDashboard() {
                                                     type="text"
                                                     value={profileForm.lastName}
                                                     onChange={e => setProfileForm({ ...profileForm, lastName: e.target.value })}
-                                                    style={{ border: '2px solid #475569', borderRadius: '8px' }}
+                                                    style={{ border: '2px solid rgb(148, 163, 184)', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                     required
                                                 />
@@ -2542,7 +2542,7 @@ export default function SISStudentDashboard() {
                                                     type="email"
                                                     value={profile?.email || ''}
                                                     readOnly
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
+                                                    style={{ border: '2px solid rgb(148, 163, 184)', borderRadius: '8px' }}
                                                     className="w-full bg-slate-100 text-slate-600 p-2.5 text-xs cursor-not-allowed font-mono shadow-sm font-semibold"
                                                 />
                                             </div>
@@ -2553,7 +2553,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.phone}
                                                     onChange={e => setProfileForm({ ...profileForm, phone: e.target.value })}
                                                     placeholder="+1 (613) 555-0199"
-                                                    style={{ border: '2px solid #475569', borderRadius: '8px' }}
+                                                    style={{ border: '2px solid rgb(148, 163, 184)', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
@@ -2564,7 +2564,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.address}
                                                     onChange={e => setProfileForm({ ...profileForm, address: e.target.value })}
                                                     placeholder="123 College Street, Suite 400"
-                                                    style={{ border: '2px solid #475569', borderRadius: '8px' }}
+                                                    style={{ border: '2px solid rgb(148, 163, 184)', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
@@ -2575,7 +2575,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.city}
                                                     onChange={e => setProfileForm({ ...profileForm, city: e.target.value })}
                                                     placeholder="Ottawa"
-                                                    style={{ border: '2px solid #475569', borderRadius: '8px' }}
+                                                    style={{ border: '2px solid rgb(148, 163, 184)', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
@@ -2586,7 +2586,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.state}
                                                     onChange={e => setProfileForm({ ...profileForm, state: e.target.value })}
                                                     placeholder="Ontario"
-                                                    style={{ border: '2px solid #475569', borderRadius: '8px' }}
+                                                    style={{ border: '2px solid rgb(148, 163, 184)', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
@@ -2597,7 +2597,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.zipcode}
                                                     onChange={e => setProfileForm({ ...profileForm, zipcode: e.target.value })}
                                                     placeholder="K1P 1J1"
-                                                    style={{ border: '2px solid #475569', borderRadius: '8px' }}
+                                                    style={{ border: '2px solid rgb(148, 163, 184)', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
@@ -2608,7 +2608,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.country}
                                                     onChange={e => setProfileForm({ ...profileForm, country: e.target.value })}
                                                     placeholder="Canada"
-                                                    style={{ border: '2px solid #475569', borderRadius: '8px' }}
+                                                    style={{ border: '2px solid rgb(148, 163, 184)', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
