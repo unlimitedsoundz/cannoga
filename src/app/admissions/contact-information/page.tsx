@@ -202,18 +202,7 @@ export default function AdmissionsContactInfo() {
                                 </Link>
                             </div>
 
-                            {/* Bottom Metadata */}
-                            <div className="pt-8 flex items-center justify-between">
-                                <div className="text-[10px] uppercase font-bold tracking-widest text-black">
-                                    Updated: 17.04.2026 | Published: 04.09.2024
-                                </div>
-                                <div className="flex items-center gap-4 text-black">
-                                    <span className="text-[10px] uppercase font-bold tracking-widest">Share</span>
-                                    <div className="flex gap-2">
-                                        <ShareNetwork size={16} />
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
