@@ -23,10 +23,10 @@ export function Footer() {
                         </div>
                         <div className="flex space-x-4">
                             <a href="https://www.youtube.com/@CannogaCollege" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-white hover:text-opacity-75 transition-opacity">
-                                <YoutubeLogo className="h-6 w-6" />
+                                <YoutubeLogo className="h-6 w-6" weight="fill" />
                             </a>
                             <a href="https://www.tiktok.com/@cannogacollege" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-white hover:text-opacity-75 transition-opacity">
-                                <TiktokLogo className="h-6 w-6" />
+                                <TiktokLogo className="h-6 w-6" weight="fill" />
                             </a>
                         </div>
                     </div>
