@@ -181,26 +181,25 @@ export default function MyStudentRecordPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 space-y-6">
-                    <div className="bg-white border border-neutral-200 p-6">
-                        <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Personal Information</h3>
-                        <dl className="grid grid-cols-2 gap-4 text-sm">
-                            <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Student ID</dt><dd className="font-medium text-neutral-900 mt-1 font-mono">{studentId}</dd></div>
-                            <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Email</dt><dd className="font-medium text-neutral-900 mt-1 font-mono text-xs">{email}</dd></div>
-                            <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Program</dt><dd className="font-medium text-neutral-900 mt-1">{program}</dd></div>
-                            <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Enrollment Status</dt><dd className="font-medium text-neutral-900 mt-1"><StatusBadge status={status} /></dd></div>
+                    <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                        <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-4 border-b border-slate-100 pb-2">Personal Information</h3>
+                        <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                            <div><dt className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Student ID</dt><dd className="font-bold text-slate-900 mt-1 font-mono">{studentId}</dd></div>
+                            <div><dt className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Email</dt><dd className="font-bold text-slate-900 mt-1 font-mono text-xs">{email}</dd></div>
+                            <div><dt className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Program</dt><dd className="font-bold text-slate-900 mt-1">{program}</dd></div>
+                            <div><dt className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Enrollment Status</dt><dd className="font-medium text-slate-900 mt-1"><StatusBadge status={status} /></dd></div>
                         </dl>
                     </div>
                 </div>
 
                 <div className="space-y-6">
-                    <div className="bg-white border border-neutral-200 p-4">
-                        <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3">Quick Actions</h3>
+                    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+                        <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-3 border-b border-slate-100 pb-2">Quick Actions</h3>
                         <div className="space-y-2">
-                            <button className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors"><HugeiconsIcon icon={FileText} size={14} strokeWidth={2} /> View Transcript</button>
-                            <button className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors"><HugeiconsIcon icon={GraduationCap} size={14} strokeWidth={2} /> Degree Progress</button>
-                            <button className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors"><HugeiconsIcon icon={Calendar} size={14} strokeWidth={2} /> Class Schedule</button>
-                            <button className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors"><HugeiconsIcon icon={ShieldCheck} size={14} strokeWidth={2} /> Financial Account</button>
-                            <button className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors">Place Hold</button>
+                            <button className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-slate-900 rounded-lg flex items-center gap-2 transition-colors"><HugeiconsIcon icon={FileText} size={14} strokeWidth={2} /> View Official Transcript</button>
+                            <button className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-slate-900 rounded-lg flex items-center gap-2 transition-colors"><HugeiconsIcon icon={GraduationCap} size={14} strokeWidth={2} /> Degree Audit Progress</button>
+                            <button className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-slate-900 rounded-lg flex items-center gap-2 transition-colors"><HugeiconsIcon icon={Calendar} size={14} strokeWidth={2} /> Weekly Class Schedule</button>
+                            <button className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-50 hover:text-slate-900 rounded-lg flex items-center gap-2 transition-colors"><HugeiconsIcon icon={ShieldCheck} size={14} strokeWidth={2} /> Financial Account Summary</button>
                         </div>
                     </div>
                 </div>

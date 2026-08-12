@@ -166,11 +166,11 @@ export default function StudentsPage() {
       />
 
       {selected.size > 0 && (
-        <div className="flex items-center justify-between p-4 bg-neutral-50 border border-neutral-200">
-          <span className="text-sm font-medium text-neutral-700">{selected.size} selected</span>
+        <div className="flex items-center justify-between p-4 bg-slate-900 text-white rounded-xl shadow-md border border-slate-800">
+          <span className="text-xs font-semibold text-slate-300">{selected.size} student{selected.size > 1 ? 's' : ''} selected</span>
           <div className="flex gap-2">
-            <button className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-neutral-200 text-neutral-700 hover:bg-neutral-100">Export</button>
-            <button className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider bg-red-600 text-white hover:bg-red-700">Bulk Action</button>
+            <button className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-slate-700 text-slate-200 hover:bg-slate-800 rounded-lg transition-colors">Export CSV</button>
+            <button className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider bg-slate-800 text-white border border-slate-700 hover:bg-slate-700 rounded-lg transition-colors">Bulk Actions</button>
           </div>
         </div>
       )}

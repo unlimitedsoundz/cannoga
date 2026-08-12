@@ -135,29 +135,34 @@ export default function StudentLifePage({ studentId }: StudentLifePageProps) {
     ];
 
     return (
-        <div>
-            <div className="mb-6">
-                <h3 className="text-base font-bold text-slate-900">Student Life & Support</h3>
-                <p className="text-xs text-slate-500 mt-0.5">Access campus services, messaging, and support resources.</p>
+        <div className="space-y-6">
+            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 text-white shadow-md">
+                <h3 className="text-lg font-extrabold tracking-tight text-white">Student Life & Support</h3>
+                <p className="text-xs text-slate-300 mt-1 font-medium">Access campus services, messaging, and support resources.</p>
             </div>
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {features.map(feature => (
                     <button
                         key={feature.id}
                         type="button"
                         onClick={() => navigateTo(feature.id)}
-                        className="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-slate-50 transition"
+                        className="w-full text-left p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-slate-400 hover:shadow-md transition-all flex flex-col justify-between group"
                     >
-                        <div className="flex items-center gap-3">
-                            <HugeiconsIcon icon={feature.icon} size={18} strokeWidth={2} className="text-slate-600" />
+                        <div className="flex items-start gap-3.5 mb-4">
+                            <div className="p-2.5 bg-slate-900 rounded-lg text-white group-hover:bg-slate-800 transition-colors shrink-0">
+                                <HugeiconsIcon icon={feature.icon} size={20} strokeWidth={2} />
+                            </div>
                             <div>
                                 <h4 className="font-bold text-slate-900 text-sm">{feature.title}</h4>
-                                <p className="text-xs text-slate-500">{feature.description}</p>
+                                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{feature.description}</p>
                             </div>
                         </div>
-                        <div className="flex items-center gap-3">
-                            <span className="text-[11px] font-semibold text-slate-600">{feature.stats}</span>
-                            <HugeiconsIcon icon={ChevronRight} size={16} strokeWidth={2} className="text-slate-800" />
+                        <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <span className="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full">{feature.stats}</span>
+                            <div className="flex items-center text-xs font-bold text-slate-900 group-hover:translate-x-1 transition-transform">
+                                <span>Open</span>
+                                <HugeiconsIcon icon={ChevronRight} size={14} strokeWidth={2.5} className="ml-1" />
+                            </div>
                         </div>
                     </button>
                 ))}

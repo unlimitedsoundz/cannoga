@@ -1131,12 +1131,12 @@ export default function SISStudentDashboard() {
                                     </div>
                                     <div className="flex items-center space-x-3 bg-slate-900/80 backdrop-blur-md p-3 rounded-lg border border-slate-700/80 self-start md:self-auto">
                                         <div>
-                                            <p className="text-[10px] text-slate-800 uppercase font-bold tracking-wider">Student ID</p>
+                                            <p className="text-[10px] text-white uppercase font-bold tracking-wider">Student ID</p>
                                             <p className="text-xs font-bold text-slate-100">{studentId}</p>
                                         </div>
                                         <div className="h-6 w-px bg-slate-700"></div>
                                         <div>
-                                            <p className="text-[10px] text-slate-800 uppercase font-bold tracking-wider">Active Term</p>
+                                            <p className="text-[10px] text-white uppercase font-bold tracking-wider">Active Term</p>
                                             <p className="text-xs font-bold text-slate-100">Fall 2026</p>
                                         </div>
                                     </div>
@@ -1148,7 +1148,7 @@ export default function SISStudentDashboard() {
                                     <button 
                                         type="button" 
                                         onClick={() => setShowPresidentMessage(false)} 
-                                        className="absolute top-3 right-3 text-slate-800 hover:text-white p-1 rounded-full hover:bg-slate-800 transition z-20 cursor-pointer"
+                                        className="absolute top-3 right-3 text-slate-400 hover:text-white p-1 rounded-full hover:bg-slate-800 transition z-20 cursor-pointer"
                                         title="Dismiss message"
                                         aria-label="Dismiss President's Welcome Message"
                                     >
@@ -1162,7 +1162,6 @@ export default function SISStudentDashboard() {
                                     <div className="flex-1 space-y-2 text-center md:text-left pr-6 md:pr-4">
                                         <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
                                             <h3 className="text-sm sm:text-base font-bold text-white uppercase tracking-wider">Welcome Message from the President</h3>
-                                            <span className="text-[10px] bg-slate-800 text-slate-200 border border-slate-700 font-medium px-2 py-0.5 rounded-full">Academic Year 2026-2027</span>
                                         </div>
                                         <blockquote className="text-xs sm:text-sm text-slate-100 italic font-serif leading-relaxed">
                                             &ldquo;Welcome to Cannoga College! We are committed to fostering academic excellence, innovative research, and a supportive community. Together, we empower you to achieve your personal and professional aspirations.&rdquo;

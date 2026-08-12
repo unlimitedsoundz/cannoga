@@ -56,13 +56,13 @@ export default function CoursesPage() {
         }
       />
 
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 p-4 bg-white border border-neutral-200">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 p-4 sm:p-5 bg-white border border-slate-200 rounded-xl shadow-sm">
+        <div className="flex items-center gap-3">
           <label className="text-xs font-bold uppercase tracking-wider text-slate-800">Term:</label>
           <select
             value={termFilter}
             onChange={e => setTermFilter(e.target.value)}
-            className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-neutral-200 bg-white focus:border-neutral-400 focus:outline-none"
+            className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-slate-300 rounded-lg bg-white focus:border-slate-900 focus:outline-none"
           >
             {availableTerms.map(t => (
               <option key={t} value={t}>{t}</option>
@@ -71,8 +71,8 @@ export default function CoursesPage() {
         </div>
         <div className="flex items-center gap-4 text-sm">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Total:</span>
-            <span className="font-bold text-neutral-900">{termCourses.length} courses</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Total Offered:</span>
+            <span className="font-extrabold text-slate-900 bg-slate-100 px-2.5 py-0.5 rounded-full text-xs">{termCourses.length} courses</span>
           </div>
         </div>
       </div>
