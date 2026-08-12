@@ -113,7 +113,12 @@ export default function PortalLoginPage() {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Password</label>
+                                <div className="flex items-center justify-between mb-1">
+                                    <label className="block text-xs font-medium font-black text-neutral-700">Password</label>
+                                    <a href="/portal/account/forgot-password" className="text-xs text-neutral-500 hover:text-black font-semibold hover:underline">
+                                        Forgot password?
+                                    </a>
+                                </div>
                                 <div className="relative">
                                     <input
                                         type={showPassword ? 'text' : 'password'}
