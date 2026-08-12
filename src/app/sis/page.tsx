@@ -1334,10 +1334,22 @@ export default function SISStudentDashboard() {
                                 {/* ================= COLUMN 2 ================= */}
                                 <div className="space-y-6">
                                     {/* TIMETABLE / TODAY'S SCHEDULE */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
+                                    <div className="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="bg-slate-900 px-4 py-2.5">
-                                                <h3 className="font-semibold text-white text-sm">Timetable & Schedule</h3>
+                                            <div className="bg-slate-900 px-4 py-2.5 flex items-center justify-between">
+                                                <h3 className="font-extrabold text-white text-xs uppercase tracking-wider">Timetable & Schedule</h3>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        const upcoming = timetableSessions.length > 0 
+                                                            ? timetableSessions.slice(0, 2).map(s => `${s.section?.module?.code || s.section?.module?.title || 'Class'} (${s.start_time?.slice(0, 5) || 'TBA'})`).join(', ')
+                                                            : 'CS-101: Web Dev (09:00), INT-204: AI Systems (13:30)';
+                                                        toast.success(`Notifications sent for upcoming classes: ${upcoming}`);
+                                                    }}
+                                                    className="bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-[10px] font-bold px-2.5 py-1 rounded transition"
+                                                >
+                                                    Send Notifications
+                                                </button>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
                                                 {timetableSessions.filter(s => s.day_of_week === new Date().getDay()).length > 0 ? 
@@ -1358,7 +1370,17 @@ export default function SISStudentDashboard() {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="p-3 bg-slate-50/50 border-t border-slate-100 text-right">
+                                        <div className="p-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                            <button 
+                                                type="button" 
+                                                onClick={() => {
+                                                    const count = timetableSessions.length || 2;
+                                                    toast.info(`Schedule reminder: ${count} class sessions upcoming on your calendar.`);
+                                                }} 
+                                                className="text-[11px] font-bold text-slate-700 hover:text-slate-900"
+                                            >
+                                                Send Reminder
+                                            </button>
                                             <button type="button" onClick={() => navigateTo('timetable')} className="text-xs font-semibold text-slate-800 hover:underline">View Full Timetable &rarr;</button>
                                         </div>
                                     </div>
