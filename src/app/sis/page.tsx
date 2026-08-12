@@ -2192,25 +2192,45 @@ export default function SISStudentDashboard() {
 
                     {/* ================= DIRECTORY ================= */}
                     {currentPage === 'directory' && (
-                        <div>
-                            <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm mb-6">
-                                <h3 className="text-base font-bold text-slate-900 mb-2">Faculty & Campus Directory</h3>
-                                <input type="text" placeholder="Search by professor name, department, or office..." className="w-full bg-slate-50 border border-slate-300 rounded p-2.5 text-xs sm:text-sm focus:outline-none focus:border-slate-500" />
+                        <div className="space-y-6">
+                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <h3 className="text-lg font-extrabold tracking-tight text-white">Faculty & Campus Directory</h3>
+                                    <p className="text-xs text-slate-300 mt-1 font-medium">Search academic staff, department contacts, and office locations across campus.</p>
+                                </div>
+                                <div className="inline-flex items-center space-x-2 bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold px-3.5 py-1.5 rounded-lg shrink-0">
+                                    <span>{faculty.length} Members Listed</span>
+                                </div>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                            <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                                <div className="relative">
+                                    <input 
+                                        type="text" 
+                                        placeholder="Search by professor name, department, or office..." 
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-slate-400 transition" 
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {faculty.length > 0 ? faculty.map(member => (
-                                    <div key={member.id} className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm flex items-start space-x-4">
-                                        <div className="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center shrink-0">
-                                            <HugeiconsIcon icon={User} size={20} strokeWidth={2} className="text-slate-500" />
+                                    <div key={member.id} className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-slate-400 hover:shadow-md transition-all flex items-start space-x-4 group">
+                                        <div className="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center shrink-0 shadow-sm font-bold text-sm">
+                                            {member.name ? member.name.charAt(0) : <HugeiconsIcon icon={User} size={20} strokeWidth={2} className="text-white" />}
                                         </div>
-                                        <div>
-                                            <h4 className="font-bold text-slate-900 text-xs sm:text-sm">{member.name}</h4>
-                                            <p className="text-xs text-slate-500">{member.role}</p>
-                                            {member.email && <p className="text-xs text-slate-600 mt-1">{member.email}</p>}
+                                        <div className="min-w-0 flex-1">
+                                            <h4 className="font-extrabold text-slate-900 text-sm truncate group-hover:text-slate-800 transition-colors">{member.name}</h4>
+                                            <p className="text-xs font-semibold text-slate-500 mt-0.5 truncate">{member.role}</p>
+                                            {member.email && (
+                                                <a href={`mailto:${member.email}`} className="text-xs text-slate-700 font-medium hover:text-slate-900 hover:underline mt-2 inline-block truncate max-w-full">
+                                                    {member.email}
+                                                </a>
+                                            )}
                                         </div>
                                     </div>
                                 )) : (
-                                    <div className="col-span-full text-center py-8 text-slate-500">No faculty members found</div>
+                                    <div className="col-span-full text-center py-12 text-xs font-medium text-slate-500 bg-slate-50 rounded-xl border border-dashed border-slate-200">No faculty members found in directory</div>
                                 )}
                             </div>
                         </div>
