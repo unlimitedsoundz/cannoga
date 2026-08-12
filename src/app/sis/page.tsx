@@ -1122,7 +1122,7 @@ export default function SISStudentDashboard() {
                                 <div className="relative z-10 w-full flex flex-col md:flex-row md:items-end justify-between gap-4">
                                     <div>
                                         <div className="inline-flex items-center space-x-2 bg-slate-800/80 backdrop-blur-sm border border-slate-700 text-slate-300 text-[11px] font-semibold px-2.5 py-1 rounded mb-2">
-                                            <span>Ontario, Canada</span>
+                                            <span>Main Campus</span>
                                             <span>•</span>
                                             <span>{programName}</span>
                                         </div>
