@@ -76,9 +76,9 @@ export default async function Home() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
-                            { name: "Certificate Programs", desc: "32 Certificate Programs — Short, career-focused pathways for practical skill-building and fast entry into the workforce", href: "/degree-programmes#certificates" },
-                            { name: "Diploma Programs", desc: "59 Diploma Programs — Two-year applied study options with project-based learning and strong industry relevance", href: "/degree-programmes#diplomas" },
-                            { name: "Bachelor's & Master's Degrees", desc: "94 Bachelor's & Master's Degrees — Flexible undergraduate and graduate study routes for academic and professional growth", href: "/degree-programmes" },
+                            { name: "Certificate Programs", desc: "Short, career-focused pathways for practical skill-building and fast entry into the workforce", href: "/degree-programmes#certificates" },
+                            { name: "Diploma Programs", desc: "Two-year applied study options with project-based learning and strong industry relevance", href: "/degree-programmes#diplomas" },
+                            { name: "Bachelor's & Master's Degrees", desc: "Flexible undergraduate and graduate study routes for academic and professional growth", href: "/degree-programmes" },
                             { name: "Schools & Institutes", desc: "Discover the academic schools that shape our certificate, diploma and degree offerings", href: "/schools" },
                             { name: "Programs A-Z", desc: "Browse all academic pathways, courses and credentials in one place", href: "/studies" },
                             { name: "Ottawa campus Info", desc: "Explore campus facilities, support services and study-life resources", href: "/contact" },
@@ -116,7 +116,7 @@ export default async function Home() {
                             <p className="text-neutral-500 text-sm">Explore our academic schools and discover your path.</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {schools.map((school: { name: string; slug: string; description: string; imageUrl?: string }) => (
+                            {schools.map((school) => (
                                 <Link key={school.slug} href={`/schools/${school.slug}`} className="group bg-white border border-neutral-200 p-6 hover:border-[#9c27b3] hover:shadow-lg transition-all no-underline">
                                     <h3 className="font-bold text-neutral-900 group-hover:text-[#9c27b3] transition-colors mb-2">{school.name}</h3>
                                     <p className="text-sm text-neutral-500 line-clamp-2">{school.description}</p>

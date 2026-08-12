@@ -1,0 +1,775 @@
+@import 'ckeditor5/ckeditor5.css';
+/* Load Lato for portal/applications only */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   CANNOGA COLLEGE — SHARED DESIGN TOKENS
+   Matches the home page design language.
+   Use these classes on all public pages.
+   ============================================ */
+
+/* Sections */
+.cc-section        { padding-top: 4rem; padding-bottom: 4rem; }
+.cc-section-lg     { padding-top: 5rem; padding-bottom: 5rem; }
+.cc-section-tinted { padding-top: 4rem; padding-bottom: 4rem; background-color: #f5f5f5; }
+.cc-container      { width: 100%; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; max-width: 1280px; }
+
+/* Section headings */
+.cc-h1 { font-size: 2.5rem; font-weight: 900; color: #000000; text-transform: uppercase; letter-spacing: -0.025em; line-height: 1.1; }
+.cc-h2 { font-size: 1.75rem; font-weight: 900; color: #000000; text-transform: uppercase; letter-spacing: -0.025em; }
+.cc-h3 { font-size: 1.25rem; font-weight: 700; color: #000000; }
+.cc-label { font-size: 0.875rem; font-weight: 600; color: #000000; margin-top: 0.5rem; }
+.cc-section-divider { border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 2.5rem; }
+
+/* Cards */
+.cc-card { background: white; border: 1px solid #f3f4f6; transition: border-color 0.2s, box-shadow 0.2s; }
+.cc-card:hover { border-color: #9c27b3;   box-shadow: 0 8px 24px rgba(156,39,179,0.10); }
+.cc-card-body { padding: 1.5rem 2rem; }
+
+/* Accent icon block */
+.cc-icon-block { display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem; background-color: #f5f5f5; color: #000000; transition: background-color 0.2s, color 0.2s; }
+.cc-icon-block:hover, .group:hover .cc-icon-block { background-color: #9c27b3; color: white; }
+
+/* Buttons */
+.cc-btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background-color: #9c27b3; color: white; font-weight: 700; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.75rem 1.75rem; transition: background-color 0.2s; }
+.cc-btn-primary:hover { background-color: #9c27b3; }
+.cc-btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; border: 2px solid #9c27b3; color: #9c27b3; font-weight: 700; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.75rem 1.75rem; transition: all 0.2s; background: transparent; }
+.cc-btn-outline:hover { background-color: #9c27b3; color: white; }
+
+/* Table styling */
+.cc-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.cc-table thead { background-color: #9c27b3; color: white; }
+.cc-table th { padding: 0.875rem 1.25rem; font-weight: 700; text-align: left; }
+.cc-table td { padding: 0.875rem 1.25rem; border-bottom: 1px solid #f3f4f6; }
+.cc-table tr:hover td { background-color: #fafafa; }
+.cc-table tbody tr:last-child td { border-bottom: none; }
+
+@media (min-width: 768px) {
+  .cc-section, .cc-section-tinted { padding-top: 5rem; padding-bottom: 5rem; }
+  .cc-h1 { font-size: 3.5rem; }
+  .cc-h2 { font-size: 2.25rem; }
+  .cc-container { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+
+/* CKEditor custom styles */
+.ck-editor-wrapper .ck-editor__editable {
+  min-height: 200px;
+  border-radius: 0 !important;
+}
+
+.ck-editor-wrapper .ck-toolbar {
+  border-radius: 0 !important;
+  border-bottom: none;
+}
+
+.ck-editor-wrapper {
+  position: relative;
+}
+
+.ck-editor-wrapper .ck-toolbar {
+  position: relative;
+  z-index: 10;
+}
+
+/* Ensure CKEditor
+/* Aalto Side Navigation */
+.aalto-side-navigation {
+    width: 100%;
+    height: 100%;
+    background-color: #9c27b3;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+.aalto-navigation-accordion {
+    position: relative;
+    padding: 0.5rem 1rem;
+}
+
+.aalto-navigation-accordion-item {
+    margin-bottom: 0.25rem;
+}
+
+.aalto-navigation-accordion-item__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.125rem 0;
+    border-bottom: none;
+}
+
+.aalto-navigation-accordion-item__title.highlighted {
+    border-bottom-color: #ffffff;
+}
+
+.aalto-link {
+    display: inline-flex;
+    align-items: center;
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
+.aalto-link.highlighted, .aalto-link:hover {
+    color: #ffffff;
+}
+
+.aalto-link__rlink {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+}
+
+.aalto-txt-small-bold {
+    font-size: 0.875rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+}
+
+.aalto-txt-small {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.aalto-button--icon {
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.aalto-button--icon.active {
+    transform: rotate(0deg);
+}
+
+.aalto-navigation-accordion-item__sub-items {
+    padding: 0.25rem 0 0.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.aalto-navigation-accordion-item__sub-item .aalto-link {
+    font-size: 0.875rem;
+}
+
+/* Custom Scrollbar for Side Nav */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* 
+   CKEditor Content Unification 
+   Ensures Admin Editor and Frontend display match exactly
+*/
+.ck-editor__editable,
+.ck-content {
+  line-height: 1.5rem; /* aalto-2 */
+  color: inherit;
+  font-size: 1.125rem !important; /* aalto-3 */
+  font-family: var(--font-sans) !important;
+}
+
+/* Force 18px on all utility classes, spans, paragraphs, and list items inside CKEditor content */
+.ck-content p,
+.ck-content span,
+.ck-content div:not(.bg-white):not(.bg-gray-100):not(.bg-gray-50),
+.ck-content li,
+.ck-content a,
+.ck-content td,
+.ck-content [class*="text-"],
+.ck-content [style*="font-size"] {
+  font-size: 1.125rem !important; /* aalto-3 */
+}
+
+/* Nuclear override: strip ALL inline font-family across the entire site */
+[style*="font-family"],
+[style*="font-family"] *,
+.ck-content *,
+.ck-content [style] {
+  font-family: var(--font-sans) !important;
+}
+
+.ck-editor__editable p,
+.ck-content p {
+  margin-bottom: 1.125rem; /* aalto-p4 */
+}
+
+.ck-editor__editable h1, .ck-content h1,
+.ck-editor__editable h2, .ck-content h2,
+.ck-editor__editable h3, .ck-content h3,
+.ck-editor__editable h4, .ck-content h4 {
+  font-weight: 800;
+  line-height: 1.5; /* aalto-2 */
+  margin-top: 2.5rem; /* aalto-5 */
+  margin-bottom: 1.25rem; /* aalto-p5 */
+  text-transform: none;
+  letter-spacing: -0.0625rem; /* aalto-2 */
+}
+
+.ck-editor__editable h1, .ck-content h1 { font-size: 4rem !important; line-height: 4.5rem !important; } /* aalto-7 */
+.ck-editor__editable h2, .ck-content h2 { font-size: 2rem !important; line-height: 3rem !important; } /* aalto-6 */
+.ck-editor__editable h3, .ck-content h3 { font-size: 1.5rem !important; line-height: 2.5rem !important; } /* aalto-5 */
+.ck-editor__editable h4, .ck-content h4 { font-size: 1.25rem !important; line-height: 2rem !important; } /* aalto-4 */
+
+.ck-editor__editable ul, .ck-content ul,
+.ck-editor__editable ol, .ck-content ol {
+  margin-bottom: 1.5rem; /* aalto-p6 */
+  padding-left: 2rem;
+  list-style-position: outside;
+}
+
+.ck-editor__editable ul, .ck-content ul {
+  list-style-type: disc;
+}
+
+.ck-editor__editable ol, .ck-content ol {
+  list-style-type: decimal;
+}
+
+.ck-editor__editable li, .ck-content li {
+  margin-bottom: 0.875rem; /* aalto-p2 */
+  padding-left: 0.5rem;
+}
+
+.ck-editor__editable a, .ck-content a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: 700;
+  color: inherit;
+}
+
+.ck-editor__editable blockquote, .ck-content blockquote {
+  border-left: 8px solid #9c27b3;
+  padding: 1.5rem 2rem;
+  background: #f9f9f9;
+  font-style: italic;
+  margin: 2rem 0;
+  font-size: 1.1rem;
+}
+
+.faq-content ul,
+.faq-content ol {
+  margin-left: 1.5rem;
+  padding-left: 1rem;
+  list-style-position: outside;
+}
+
+.faq-content ul {
+  list-style-type: disc;
+}
+
+.faq-content ol {
+  list-style-type: decimal;
+}
+
+.faq-content li {
+  margin: 0.35rem 0;
+}
+
+.faq-content {
+  color: #000000 !important;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+
+  --color-primary: #9c27b3;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #9c27b3;
+  --color-secondary-foreground: #ffffff;
+  --color-accent: #9c27b3;
+  --color-accent-foreground: #ffffff;
+
+  --color-black: #9c27b3;
+  --color-neutral-900: #2d2d2d;
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+
+  --color-muted: #f5f5f5;
+  --color-muted-foreground: #000000;
+
+  --color-card: #f5f5f5;
+  --color-card-foreground: #000000;
+
+  --color-border: #e2e8f0;
+  --color-input: #e2e8f0;
+
+  --font-sans: 'Metropolis', var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: 'Metropolis', var(--font-playfair), Georgia, serif;
+  --font-lato: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+
+  --radius-xs: 0px !important;
+  --radius-sm: 0px !important;
+}
+
+.font-rubik {
+  font-family: 'Metropolis', sans-serif !important;
+}
+
+@layer utilities {
+  .hero-mobile-height {
+    height: 300px !important;
+    min-height: 300px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  @screen lg {
+    .hero-mobile-height {
+      height: 100% !important;
+      min-height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+  .hero-image-mobile {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  @screen lg {
+    .hero-image-mobile {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+}
+
+:root {
+  --radius-md: 0px !important;
+  --radius-lg: 0px !important;
+  --radius-xl: 0px !important;
+  --radius-2xl: 0px !important;
+  --radius-3xl: 0px !important;
+  --radius-full: 9999px;
+}
+
+/* Force zero border radius on everything except specific pill/circle utilities */
+*:not(.rounded-full):not(.force-circle):not(.tag-pill) {
+  border-radius: 0 !important;
+}
+
+/* Remove neutral/grey borders on legacy pages, preserving SIS & Portal component borders */
+body:not([data-theme="sis"]) [class*="border-neutral-"],
+body:not([data-theme="sis"]) [class*="border-gray-"],
+body:not([data-theme="sis"]) [class*="border-zinc-"] {
+  border-color: transparent !important;
+  border-width: 0 !important;
+}
+
+/* Ensure black borders are preserved */
+[class*="border-black"] {
+  border-color: #000 !important;
+}
+
+.force-circle {
+  border-radius: 9999px !important;
+}
+
+.rounded-4px {
+  border-radius: 4px !important;
+}
+
+/* Custom Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: none !important;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Tag Pill Styles */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #9c27b3;
+  color: #ffffff;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 9999px !important;
+}
+
+/* Nuclear override: remove all shadows and visual effects across the entire site */
+*,
+*::before,
+*::after {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transition: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Ensure loading spinners can always animate */
+.loading-spinner,
+.loading-spinner * {
+  animation: inherit !important;
+}
+
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+  font-size: 1.125rem; /* aalto-3 */
+  line-height: 1.75rem; /* aalto-3 */
+}
+
+/* Portal / Application specific overrides: use Lato and input styling */
+[data-theme="portal"] {
+  --font-sans: var(--font-lato);
+}
+
+/* SIS (Student Information System) - use Lato font for admin/student interface */
+[data-theme="sis"] {
+  --font-sans: var(--font-lato);
+}
+
+/* Input appearance in portal/application areas */
+[data-theme="portal"] input,
+[data-theme="portal"] textarea,
+[data-theme="portal"] select,
+[data-theme="portal"] .form-control {
+  border: 1px solid var(--color-border) !important;
+  border-radius: 2px !important;
+  padding: 0.5rem 0.75rem !important;
+  outline: none !important;
+  color: #000 !important;
+  background: #fff !important;
+}
+
+/* Ensure selects and textareas match height and appearance */
+[data-theme="portal"] select {
+  appearance: none !important;
+}
+
+/* Force vertical single-column forms inside portal/application */
+[data-theme="portal"] [class*="grid-cols-2"] {
+  grid-template-columns: 1fr !important;
+}
+
+/* Utility to allow specific two-column forms to opt back in */
+[data-theme="portal"] .portal-two-col {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+
+/* Force unbolding of strong and b tags site-wide */
+strong, b {
+  font-weight: 400 !important;
+}
+
+/* Mobile: bump base font from 16px to 18px */
+@media (max-width: 767px) {
+  body {
+    font-size: 1.125rem; /* aalto-3 */
+  }
+}
+
+/* Force Inter on all frontend content including CKEditor output */
+.ck-content *,
+.prose-arrows,
+.prose-arrows *,
+.blog-content * {
+  font-family: var(--font-sans) !important;
+  font-size: 1.125rem !important; /* aalto-3 */
+}
+
+/* Selection color for Purple theme */
+::selection {
+  background: #9c27b3;
+  color: #ffffff;
+}
+
+/* Global Bullet Replacement (Right Arrow) */
+.ck-content ul, 
+.prose-arrows ul,
+.blog-content ul,
+.student-guide-content ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-bottom: 1.5rem !important; /* aalto-p6 */
+}
+
+.ck-content li, 
+.prose-arrows li,
+.blog-content li,
+.student-guide-content li {
+  position: relative !important;
+  padding-left: 2rem !important;
+  margin-bottom: 0.875rem !important; /* aalto-p2 */
+  list-style-type: none !important;
+  color: #000 !important;
+  font-weight: 400 !important;
+  font-size: 1.125rem !important; /* aalto-3 */
+}
+
+.ck-content li::before, 
+.prose-arrows li::before,
+.blog-content li::before,
+.student-guide-content li::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0.6em !important;
+  width: 20px !important;
+  height: 20px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%239c27b3' viewBox='0 0 256 256'%3E%3Cpath d='M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z'%3E%3C/path%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  transform: translateY(-50%) !important;
+}
+
+/* Blog content styling to match ReactQuill editor */
+.ql-editor {
+  word-break: keep-all;
+  hyphens: none;
+}
+.ql-editor img {
+  margin: 1.5rem 0; /* aalto-p6 */
+}
+.ql-editor p {
+  margin: 1.125rem 0; /* aalto-p4 */
+}
+
+/* Blog content typography fix - force clean text wrapping */
+.blog-content {
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  overflow-x: auto;
+}
+
+.blog-content * {
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+}
+
+/* 🔥 THIS is the hidden fix */
+.blog-content p,
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content span {
+  display: block;
+}
+
+/* Custom blog content typography */
+.blog-content h1 {
+  font-size: 4rem; /* aalto-7 */
+  font-weight: 800;
+  line-height: 4.5rem; /* aalto-7 */
+  margin-top: 0;
+  margin-bottom: 1.25rem; /* aalto-p5 */
+}
+
+.blog-content h2 {
+  font-size: 2rem; /* aalto-6 */
+  font-weight: 800;
+  line-height: 3rem; /* aalto-6 */
+  margin-top: 2.5rem; /* aalto-5 */
+  margin-bottom: 1.25rem; /* aalto-p5 */
+}
+
+.blog-content h3 {
+  font-size: 1.5rem; /* aalto-5 */
+  font-weight: 800;
+  line-height: 2.5rem; /* aalto-5 */
+  margin-top: 1.5rem; /* aalto-p6 */
+  margin-bottom: 1rem; /* aalto-p3 */
+}
+
+.blog-content p {
+  margin-bottom: 1.125rem; /* aalto-p4 */
+  line-height: 1.75rem; /* aalto-3 */
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin-bottom: 1.5rem; /* aalto-p6 */
+  padding-left: 1.5rem;
+}
+
+.blog-content li {
+  margin-bottom: 0.875rem; /* aalto-p2 */
+}
+
+.blog-content blockquote {
+  border-left: 4px solid #e5e7eb;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+.blog-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+}
+
+.blog-content figure.image {
+  display: block;
+  clear: both;
+  text-align: center;
+  margin: 1rem auto;
+}
+
+.blog-content figure.image img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  min-width: 50px;
+}
+
+/* CKEditor 5 image resize support */
+.blog-content figure.image.image_resized {
+  max-width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+
+.blog-content figure.image.image_resized img {
+  width: 100%;
+}
+
+.blog-content figure.image.image_resized > figcaption {
+  display: block;
+}
+
+/* CKEditor 5 image alignment */
+.blog-content figure.image-style-side {
+  float: right;
+  margin-left: 1.5em;
+  max-width: 50%;
+}
+
+.blog-content figure.image-style-align-left {
+  float: left;
+  margin-right: 1.5em;
+}
+
+.blog-content figure.image-style-align-right {
+  float: right;
+  margin-left: 1.5em;
+}
+
+.blog-content figure.image-style-align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CKEditor 5 inline image */
+.blog-content span.image-inline {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: flex-start;
+}
+
+.blog-content span.image-inline img {
+  flex-grow: 1;
+  flex-shrink: 1;
+  max-width: 100%;
+}
+
+/* 🔥 Caption (THIS is the main part) */
+.blog-content figure.image figcaption {
+  background-color: #f3f4f6; /* light grey */
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #374151; /* dark grey */
+  margin-top: 0; /* no gap */
+}
+
+/* Remove Tailwind caption styling */
+.blog-content figcaption {
+  all: unset;
+  display: block;
+}
+
+.blog-content a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.blog-content a:hover {
+  color: #1d4ed8;
+}
+
+/* ─── Table Styles (CKEditor output + blog content) ─── */
+.ck-content table,
+.blog-content table,
+.prose-arrows table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans) !important;
+  margin: 1.5rem 0;
+}
+
+.ck-content table th,
+.blog-content table th,
+.prose-arrows table th {
+  text-align: left;
+  padding: 10px 16px;
+  border-bottom: 2px solid #9c27b3;
+  font-weight: 700;
+  font-size: inherit;
+}
+
+.ck-content table td,
+.blog-content table td,
+.prose-arrows table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid #e5e5e5;
+  vertical-align: top;
+  font-size: inherit;
+}
+
+.ck-content table tr:last-child td,
+.blog-content table tr:last-child td,
+.prose-arrows table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Global CTA overflow fixes */
+.no-underline-links a {
+  text-decoration: none !important;
+  text-underline-offset: 0 !important;
+}
+
+.aalto-cta {
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+}
+
+.aalto-cta h2, 
+.aalto-cta p, 
+.aalto-cta div {
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
