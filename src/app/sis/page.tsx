@@ -2514,7 +2514,7 @@ export default function SISStudentDashboard() {
                                                     type="text"
                                                     value={profileForm.firstName}
                                                     onChange={e => setProfileForm({ ...profileForm, firstName: e.target.value })}
-                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
+                                                    className="w-full border-2 border-solid border-slate-400 focus:border-slate-900 bg-white text-slate-900 rounded-lg p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                     required
                                                 />
                                             </div>
@@ -2524,7 +2524,7 @@ export default function SISStudentDashboard() {
                                                     type="text"
                                                     value={profileForm.lastName}
                                                     onChange={e => setProfileForm({ ...profileForm, lastName: e.target.value })}
-                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
+                                                    className="w-full border-2 border-solid border-slate-400 focus:border-slate-900 bg-white text-slate-900 rounded-lg p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                     required
                                                 />
                                             </div>
@@ -2534,7 +2534,7 @@ export default function SISStudentDashboard() {
                                                     type="email"
                                                     value={profile?.email || ''}
                                                     readOnly
-                                                    className="w-full border-2 border-slate-200 bg-slate-50 text-slate-500 rounded-md p-2.5 text-xs cursor-not-allowed font-mono shadow-sm"
+                                                    className="w-full border-2 border-solid border-slate-300 bg-slate-50 text-slate-600 rounded-lg p-2.5 text-xs cursor-not-allowed font-mono shadow-sm"
                                                 />
                                             </div>
                                             <div>
@@ -2544,7 +2544,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.phone}
                                                     onChange={e => setProfileForm({ ...profileForm, phone: e.target.value })}
                                                     placeholder="+1 (613) 555-0199"
-                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
+                                                    className="w-full border-2 border-solid border-slate-400 focus:border-slate-900 bg-white text-slate-900 rounded-lg p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                 />
                                             </div>
                                             <div className="sm:col-span-2">
@@ -2554,7 +2554,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.address}
                                                     onChange={e => setProfileForm({ ...profileForm, address: e.target.value })}
                                                     placeholder="123 College Street, Suite 400"
-                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
+                                                    className="w-full border-2 border-solid border-slate-400 focus:border-slate-900 bg-white text-slate-900 rounded-lg p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                 />
                                             </div>
                                             <div>
@@ -2564,7 +2564,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.city}
                                                     onChange={e => setProfileForm({ ...profileForm, city: e.target.value })}
                                                     placeholder="Ottawa"
-                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
+                                                    className="w-full border-2 border-solid border-slate-400 focus:border-slate-900 bg-white text-slate-900 rounded-lg p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                 />
                                             </div>
                                             <div>
@@ -2574,7 +2574,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.state}
                                                     onChange={e => setProfileForm({ ...profileForm, state: e.target.value })}
                                                     placeholder="Ontario"
-                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
+                                                    className="w-full border-2 border-solid border-slate-400 focus:border-slate-900 bg-white text-slate-900 rounded-lg p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                 />
                                             </div>
                                             <div>
@@ -2584,7 +2584,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.zipcode}
                                                     onChange={e => setProfileForm({ ...profileForm, zipcode: e.target.value })}
                                                     placeholder="K1P 1J1"
-                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
+                                                    className="w-full border-2 border-solid border-slate-400 focus:border-slate-900 bg-white text-slate-900 rounded-lg p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                 />
                                             </div>
                                             <div>
@@ -2594,7 +2594,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.country}
                                                     onChange={e => setProfileForm({ ...profileForm, country: e.target.value })}
                                                     placeholder="Canada"
-                                                    className="w-full border-2 border-slate-300 focus:border-slate-900 bg-white text-slate-900 rounded-md p-2.5 text-xs transition outline-none shadow-sm font-medium"
+                                                    className="w-full border-2 border-solid border-slate-400 focus:border-slate-900 bg-white text-slate-900 rounded-lg p-2.5 text-xs transition outline-none shadow-sm font-medium"
                                                 />
                                             </div>
                                         </div>
