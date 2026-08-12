@@ -56,13 +56,13 @@ export default function ForgotPasswordPage() {
                         <p className="text-neutral-600 text-xs text-center mb-6">Enter your email to receive a password reset link</p>
 
                         {successMessage && (
-                            <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl mb-6 text-xs text-emerald-800 font-medium leading-relaxed">
+                            <div className="bg-emerald-50 p-4 rounded-xl mb-6 text-xs text-emerald-800 font-medium leading-relaxed">
                                 {successMessage}
                             </div>
                         )}
 
                         {error && (
-                            <div className="bg-red-50 border border-red-200 p-4 rounded-xl mb-6 text-xs text-red-800 font-medium">
+                            <div className="bg-red-50 p-4 rounded-xl mb-6 text-xs text-red-800 font-medium">
                                 {error}
                             </div>
                         )}
@@ -89,12 +89,9 @@ export default function ForgotPasswordPage() {
                             </button>
                         </form>
 
-                        <div className="mt-6 pt-6 border-t border-neutral-100 flex items-center justify-between text-xs font-bold">
+                        <div className="mt-6 pt-6 border-t border-neutral-100 text-center text-xs font-bold">
                             <a href="/portal/account/login" className="text-neutral-600 hover:text-black transition-colors">
                                 &larr; Back to Login
-                            </a>
-                            <a href="/portal/account/admin-login" className="text-neutral-400 hover:text-black transition-colors uppercase tracking-wider text-[10px]">
-                                Admin Login
                             </a>
                         </div>
                     </div>
