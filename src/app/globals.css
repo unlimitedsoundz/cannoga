@@ -364,11 +364,10 @@
   border-radius: 0 !important;
 }
 
-/* Remove all neutral/grey borders globally, keep black only */
-[class*="border-neutral-"],
-[class*="border-gray-"],
-[class*="border-zinc-"],
-[class*="border-slate-"] {
+/* Remove neutral/grey borders on legacy pages, preserving SIS & Portal component borders */
+body:not([data-theme="sis"]) [class*="border-neutral-"],
+body:not([data-theme="sis"]) [class*="border-gray-"],
+body:not([data-theme="sis"]) [class*="border-zinc-"] {
   border-color: transparent !important;
   border-width: 0 !important;
 }
