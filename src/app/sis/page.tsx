@@ -373,7 +373,7 @@ export default function SISStudentDashboard() {
             
             let publicUrl = '';
 
-            // Try 'avatars' bucket first
+            // Try 'avatars' storage bucket first
             const { error: avatarBucketError } = await supabase.storage
                 .from('avatars')
                 .upload(fileName, file, { upsert: true });
@@ -382,20 +382,26 @@ export default function SISStudentDashboard() {
                 const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
                 publicUrl = data.publicUrl;
             } else {
-                // Fallback to student-documents bucket
+                // Try 'student-documents' storage bucket
                 const { error: docBucketError } = await supabase.storage
                     .from('student-documents')
                     .upload(`avatars/${fileName}`, file, { upsert: true });
-                
+
                 if (!docBucketError) {
                     const { data } = supabase.storage.from('student-documents').getPublicUrl(`avatars/${fileName}`);
                     publicUrl = data.publicUrl;
                 } else {
-                    throw new Error(avatarBucketError?.message || docBucketError?.message || 'Storage upload failed');
+                    // Fallback to Data URL base64 representation if storage buckets don't exist
+                    publicUrl = await new Promise<string>((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = (event) => resolve(event.target?.result as string);
+                        reader.onerror = (error) => reject(error);
+                        reader.readAsDataURL(file);
+                    });
                 }
             }
 
-            // Update database
+            // Update database record in profiles table
             const { error: updateError } = await supabase
                 .from('profiles')
                 .update({ avatar_url: publicUrl, updated_at: new Date().toISOString() })
@@ -404,7 +410,7 @@ export default function SISStudentDashboard() {
             if (updateError) throw updateError;
 
             setProfile((prev: any) => prev ? { ...prev, avatar_url: publicUrl } : prev);
-            toast.success('Profile avatar updated successfully!');
+            toast.success('Profile picture updated successfully!');
         } catch (err: any) {
             console.error('Avatar upload error:', err);
             toast.error(err?.message || 'Failed to upload profile picture.');
