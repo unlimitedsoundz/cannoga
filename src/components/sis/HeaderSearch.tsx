@@ -233,7 +233,7 @@ export function HeaderSearch({ isAdmin = false, placeholder, onNavigatePage }: H
         />
 
         <div className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center gap-1">
-          {query ? (
+          {query && (
             <button
               type="button"
               onClick={() => {
@@ -244,10 +244,6 @@ export function HeaderSearch({ isAdmin = false, placeholder, onNavigatePage }: H
             >
               <HugeiconsIcon icon={XCircle} size={14} strokeWidth={2} />
             </button>
-          ) : (
-            <kbd className={isAdmin ? "hidden sm:inline-block text-[9px] font-bold uppercase tracking-wider text-neutral-500 border border-white/10 bg-white/5 px-1.5 py-0.5 rounded" : "hidden sm:inline-block text-[9px] font-bold uppercase tracking-wider text-slate-400 border border-slate-700 bg-slate-800 px-1.5 py-0.5 rounded"}>
-              ctrl K
-            </kbd>
           )}
         </div>
       </div>
@@ -280,33 +276,25 @@ export function HeaderSearch({ isAdmin = false, placeholder, onNavigatePage }: H
               <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-neutral-400">
                 {query ? 'Matched Navigation Pages' : 'Quick Shortcuts'}
               </div>
-              {filteredPages.map(item => {
-                const IconComp = item.icon || BookOpen;
-                return (
-                  <div
-                    key={item.id}
-                    onClick={() => handleSelectItem(item)}
-                    className={
-                      isAdmin
-                        ? "flex items-center justify-between p-2 rounded-lg hover:bg-white/10 cursor-pointer transition"
-                        : "flex items-center justify-between p-2 rounded-lg hover:bg-slate-800 cursor-pointer transition"
-                    }
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <div className={isAdmin ? "w-7 h-7 rounded-md bg-white/10 flex items-center justify-center shrink-0 text-white" : "w-7 h-7 rounded-md bg-slate-800 flex items-center justify-center shrink-0 text-slate-200"}>
-                        <HugeiconsIcon icon={IconComp} size={14} strokeWidth={2} />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-xs font-bold text-white truncate">{item.title}</div>
-                        {item.subtitle && <div className="text-[10px] text-neutral-400 truncate">{item.subtitle}</div>}
-                      </div>
-                    </div>
-                    <span className="text-[10px] font-semibold text-neutral-400 bg-white/5 px-2 py-0.5 rounded shrink-0">
-                      {isAdmin ? 'Jump to' : 'Open'}
-                    </span>
+              {filteredPages.map(item => (
+                <div
+                  key={item.id}
+                  onClick={() => handleSelectItem(item)}
+                  className={
+                    isAdmin
+                      ? "flex items-center justify-between p-2.5 rounded-lg hover:bg-white/10 cursor-pointer transition"
+                      : "flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 cursor-pointer transition"
+                  }
+                >
+                  <div className="min-w-0 flex-1 pr-2">
+                    <div className="text-xs font-bold text-white truncate">{item.title}</div>
+                    {item.subtitle && <div className="text-[10px] text-neutral-400 truncate mt-0.5">{item.subtitle}</div>}
                   </div>
-                );
-              })}
+                  <span className="text-[10px] font-semibold text-neutral-400 bg-white/5 px-2 py-0.5 rounded shrink-0">
+                    {isAdmin ? 'Jump to' : 'Open'}
+                  </span>
+                </div>
+              ))}
             </div>
           )}
 
@@ -322,18 +310,13 @@ export function HeaderSearch({ isAdmin = false, placeholder, onNavigatePage }: H
                   onClick={() => handleSelectItem(item)}
                   className={
                     isAdmin
-                      ? "flex items-center justify-between p-2 rounded-lg hover:bg-white/10 cursor-pointer transition"
-                      : "flex items-center justify-between p-2 rounded-lg hover:bg-slate-800 cursor-pointer transition"
+                      ? "flex items-center justify-between p-2.5 rounded-lg hover:bg-white/10 cursor-pointer transition"
+                      : "flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 cursor-pointer transition"
                   }
                 >
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="w-7 h-7 rounded-md bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
-                      <HugeiconsIcon icon={User} size={14} strokeWidth={2} />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-xs font-bold text-white truncate">{item.title}</div>
-                      <div className="text-[10px] text-neutral-400 truncate">{item.subtitle}</div>
-                    </div>
+                  <div className="min-w-0 flex-1 pr-2">
+                    <div className="text-xs font-bold text-white truncate">{item.title}</div>
+                    <div className="text-[10px] text-neutral-400 truncate mt-0.5">{item.subtitle}</div>
                   </div>
                   {item.badge && (
                     <span className="text-[9px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded shrink-0">
@@ -357,18 +340,13 @@ export function HeaderSearch({ isAdmin = false, placeholder, onNavigatePage }: H
                   onClick={() => handleSelectItem(item)}
                   className={
                     isAdmin
-                      ? "flex items-center justify-between p-2 rounded-lg hover:bg-white/10 cursor-pointer transition"
-                      : "flex items-center justify-between p-2 rounded-lg hover:bg-slate-800 cursor-pointer transition"
+                      ? "flex items-center justify-between p-2.5 rounded-lg hover:bg-white/10 cursor-pointer transition"
+                      : "flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 cursor-pointer transition"
                   }
                 >
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="w-7 h-7 rounded-md bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
-                      <HugeiconsIcon icon={BookOpen} size={14} strokeWidth={2} />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-xs font-bold text-white truncate">{item.title}</div>
-                      <div className="text-[10px] text-neutral-400 truncate">{item.subtitle}</div>
-                    </div>
+                  <div className="min-w-0 flex-1 pr-2">
+                    <div className="text-xs font-bold text-white truncate">{item.title}</div>
+                    <div className="text-[10px] text-neutral-400 truncate mt-0.5">{item.subtitle}</div>
                   </div>
                   {item.badge && (
                     <span className="text-[9px] font-bold uppercase tracking-wider bg-slate-700 text-slate-300 px-2 py-0.5 rounded shrink-0">
