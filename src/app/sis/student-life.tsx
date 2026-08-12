@@ -148,21 +148,13 @@ export default function StudentLifePage({ studentId }: StudentLifePageProps) {
                         onClick={() => navigateTo(feature.id)}
                         className="w-full text-left p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-slate-400 hover:shadow-md transition-all flex flex-col justify-between group"
                     >
-                        <div className="flex items-start gap-3.5 mb-4">
-                            <div className="p-2.5 bg-slate-900 rounded-lg text-white group-hover:bg-slate-800 transition-colors shrink-0">
-                                <HugeiconsIcon icon={feature.icon} size={20} strokeWidth={2} />
-                            </div>
-                            <div>
-                                <h4 className="font-bold text-slate-900 text-sm">{feature.title}</h4>
-                                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{feature.description}</p>
-                            </div>
+                        <div className="mb-4">
+                            <h4 className="font-bold text-slate-900 text-sm">{feature.title}</h4>
+                            <p className="text-xs text-slate-500 mt-1 leading-relaxed">{feature.description}</p>
                         </div>
                         <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                             <span className="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full">{feature.stats}</span>
-                            <div className="flex items-center text-xs font-bold text-slate-900 group-hover:translate-x-1 transition-transform">
-                                <span>Open</span>
-                                <HugeiconsIcon icon={ChevronRight} size={14} strokeWidth={2.5} className="ml-1" />
-                            </div>
+                            <span className="text-xs font-bold text-slate-900 group-hover:underline">Open</span>
                         </div>
                     </button>
                 ))}
