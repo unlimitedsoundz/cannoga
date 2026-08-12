@@ -1210,19 +1210,19 @@ export default function SISStudentDashboard() {
                                                 </button>
                                                 <button type="button" onClick={() => navigateTo('student-life')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
                                                     <span>Starred</span>
-                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded font-medium">{studentLifeData?.starredCount ?? 0}</span>
+                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">{studentLifeData?.starredCount ?? 0}</span>
                                                 </button>
                                                 <button type="button" onClick={() => navigateTo('student-life')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
                                                     <span>Flagged</span>
-                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded font-medium">{studentLifeData?.flaggedCount ?? 0}</span>
+                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">{studentLifeData?.flaggedCount ?? 0}</span>
                                                 </button>
                                                 <button type="button" onClick={() => navigateTo('student-life')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
                                                     <span>Sent</span>
-                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded font-medium">{studentLifeData?.sentCount ?? 0}</span>
+                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">{studentLifeData?.sentCount ?? 0}</span>
                                                 </button>
                                                 <button type="button" onClick={() => navigateTo('student-life')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
                                                     <span>Archive</span>
-                                                    <span className="text-[10px] text-slate-800">{studentLifeData?.archiveCount ?? 0}</span>
+                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">{studentLifeData?.archiveCount ?? 0}</span>
                                                 </button>
                                             </div>
                                         </div>
