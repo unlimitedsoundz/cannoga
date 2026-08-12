@@ -1794,7 +1794,6 @@ export default function SISStudentDashboard() {
                                     </table>
                                 </div>
                             </div>
-                            </div>
                         </div>
                     )}
 
