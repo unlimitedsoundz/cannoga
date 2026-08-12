@@ -1974,15 +1974,15 @@ export default function SISStudentDashboard() {
                                     <span className="text-[11px] font-semibold text-slate-500">All Terms Summary</span>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                    <div className="p-4 bg-slate-50 rounded-xl">
                                         <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Total Charges</p>
                                         <p className="text-2xl font-black text-slate-900 mt-1">${invoices.reduce((sum, inv) => sum + (inv.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
                                     </div>
-                                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                    <div className="p-4 bg-slate-50 rounded-xl">
                                         <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Payments Received</p>
                                         <p className="text-2xl font-black text-slate-900 mt-1">${payments.reduce((sum, p) => sum + (p.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
                                     </div>
-                                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                    <div className="p-4 bg-slate-50 rounded-xl">
                                         <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Net Balance Due</p>
                                         <p className="text-2xl font-black text-slate-900 mt-1">${totalBalance.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
                                     </div>
