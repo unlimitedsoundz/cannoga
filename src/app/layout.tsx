@@ -73,7 +73,7 @@ export default function RootLayout({
                 <style dangerouslySetInnerHTML={{ __html: `
                     :root {
                         --font-inter: 'Source Sans 3', 'Inter', system-ui, -apple-system, sans-serif;
-                        --font-playfair: 'Playfair Display', Georgia, serif;
+                        --font-playfair: 'Source Sans 3', 'Inter', system-ui, -apple-system, sans-serif;
                     }
                 ` }} />
                 <script
