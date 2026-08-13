@@ -56,9 +56,23 @@ export default function ExchangeStudentsPage() {
                             title="Welcome to Cannoga College!"
                             body={
                                 <div className="space-y-8 text-left">
-                                    <p className="text-sm md:text-base text-neutral-700 font-medium leading-relaxed">
-                                        Completing an exchange semester or year at Cannoga College in Ottawa, Canada provides a unique opportunity to immerse yourself in high-caliber Canadian higher education, dynamic campus life, and rich cultural experiences.
-                                    </p>
+                                    {/* Welcome Intro & Image Spotlight */}
+                                    <div className="grid md:grid-cols-3 gap-8 items-center bg-neutral-50 p-6 md:p-8 rounded-2xl border-l-4 border-[#0a151a]">
+                                        <div className="md:col-span-2 space-y-2">
+                                            <h4 className="font-bold text-xl text-black">Exchange Student Community</h4>
+                                            <p className="text-sm text-neutral-700 leading-relaxed font-medium">
+                                                Completing an exchange semester or year at Cannoga College in Ottawa, Canada provides a unique opportunity to immerse yourself in high-caliber Canadian higher education, dynamic campus life, and rich cultural experiences.
+                                            </p>
+                                        </div>
+                                        <div className="relative h-44 rounded-xl overflow-hidden shadow-sm w-full">
+                                            <Image
+                                                src="https://i.pinimg.com/736x/2b/5c/ca/2b5cca9c1d9d3bc9a2e2123a53e26897.jpg"
+                                                alt="Cannoga Exchange Students"
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                    </div>
                                     <div className="grid md:grid-cols-2 gap-8">
                                         <div className="bg-white p-6 md:p-8 rounded-2xl border border-neutral-200 shadow-sm">
                                             <h4 className="font-bold text-lg mb-2 text-black flex items-center gap-2">
