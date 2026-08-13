@@ -57,13 +57,13 @@ export default function AlumniPage() {
             
             {/* HERO SECTION WITH FULL BACKGROUND OVERLAY */}
             <section className="relative bg-[#191919] text-white pt-32 pb-24 md:pt-44 md:pb-32 px-4 border-b border-slate-800 overflow-hidden">
-                {/* Background Image with 10% Opacity Overlay */}
+                {/* Background Image with 5% Opacity Overlay */}
                 <div className="absolute inset-0 z-0">
                     <Image 
                         src="/images/alumni-hero.png" 
                         alt="Cannoga Alumni Network" 
                         fill
-                        className="object-cover object-top opacity-10"
+                        className="object-cover object-top opacity-5"
                         priority
                     />
                     <div className="absolute inset-0 bg-[#191919]/75"></div>
