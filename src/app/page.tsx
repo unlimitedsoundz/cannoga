@@ -73,7 +73,7 @@ export default async function Home() {
                         <div className="text-left max-w-2xl">
                             <span className="text-[#c89211] font-bold uppercase tracking-widest text-xs mb-2 block">Academic Pathways in Ottawa</span>
                             <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">Academic Programs &amp; Credentials</h2>
-                            <p className="text-slate-600 font-normal text-base mt-2">Explore career-focused post-secondary education at our Ottawa campus (DLI #O19394821).</p>
+                            <p className="text-slate-600 font-normal text-base mt-2">Explore career-focused post-secondary education at our Ottawa campus.</p>
                         </div>
                         <ProgramSearch />
                     </div>
