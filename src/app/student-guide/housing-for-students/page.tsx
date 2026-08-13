@@ -53,7 +53,7 @@ export default function HousingGuidePage() {
                                 <h2 className="cc-h2">Your New Home in Ottawa</h2>
                             </div>
                             <p className="text-neutral-600 leading-relaxed mb-8 max-w-3xl">
-                                Ottawa's student housing market is competitive — especially for September intake. We strongly recommend starting your search as soon as you receive your admission offer. Options range from on-campus residences and student-specific buildings to private rentals.
+                                Ottawa's student housing market is competitive — especially for September intake. We strongly recommend starting your search as soon as you receive your <Link href="/admissions/requirements" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">admission offer</Link>. Options range from on-campus residences and student-specific buildings to private rentals. Review our <Link href="/student-guide/arrival" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Arrival Guide</Link>, learn about <Link href="/international" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">international student support</Link>, or check <Link href="/admissions/tuition" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">tuition & fees</Link>.
                             </p>
                             <div className="grid md:grid-cols-2 gap-6">
                                 <Card

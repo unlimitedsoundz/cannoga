@@ -191,7 +191,7 @@ export default function ExchangeStudentsPage() {
                                     <div className="bg-white p-6 rounded-xl border border-neutral-200 shadow-sm">
                                         <h4 className="font-bold text-black mb-2 text-base">Housing Application & Options</h4>
                                         <p className="text-xs md:text-sm text-neutral-700 font-medium leading-relaxed">
-                                            Apply for on-campus residence or affiliated student housing in Ottawa immediately after accepting your exchange offer. Off-campus housing listings are also provided through our student portal.
+                                            Apply for on-campus residence or affiliated student housing in Ottawa immediately after accepting your exchange offer. Read our detailed <Link href="/student-guide/housing-for-students" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Housing Guide</Link>, consult our <Link href="/student-guide/arrival" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Arrival Guide</Link>, or check <Link href="/international" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">International Student Services</Link>.
                                         </p>
                                     </div>
                                     <div className="grid sm:grid-cols-2 gap-6">

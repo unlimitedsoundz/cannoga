@@ -55,17 +55,17 @@ export default function ArrivalGuidePage() {
                         <div className="grid md:grid-cols-2 gap-8">
                             <Card
                                 title="Enrolment"
-                                body="Ensure you have accepted your admission offer, paid tuition fees, and completed enrolment as an attending student."
+                                body={<span>Ensure you have accepted your <Link href="/admissions/requirements" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">admission offer</Link>, paid <Link href="/admissions/tuition" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">tuition fees</Link>, and completed enrolment.</span>}
                                 badge={{ label: "Essential" }}
                             />
                             <Card
                                 title="Visa & Permits"
-                                body="International students should apply for a Canadian study permit as soon as possible after accepting their offer. Ensure your passport is valid."
+                                body={<span>International students should apply for a Canadian study permit. Learn more about <Link href="/international" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">international student support</Link>.</span>}
                                 badge={{ label: "Legal" }}
                             />
                             <Card
                                 title="Accommodation"
-                                body="Secure housing before arrival. Cannoga assists with the application process for on-campus options."
+                                body={<span>Secure housing early. Read our full <Link href="/student-guide/housing-for-students" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Student Housing Guide</Link>.</span>}
                                 badge={{ label: "Housing" }}
                             />
                             <Card
