@@ -25,31 +25,31 @@ interface ShortItem {
 const SHORTS_DATA: ShortItem[] = [
     {
         id: '1',
-        title: '#CannogaOrientation is coming!',
-        caption: 'Dance if you are excited about the summer break 😂: #CannogaOrientation is coming!',
+        title: 'Dance if you are excited about summer break 😂',
+        caption: 'Dance if you are excited about the summer break 😂 #CannogaOrientation #CampusLife',
         thumbnailUrl: '/images/admissions/events.jpg',
         videoUrl: 'https://www.youtube.com/shorts/OJRQFDSUMDY'
     },
     {
         id: '2',
-        title: 'A Day in the Life of a Broadcasting Alumni',
-        caption: 'A Day in the Life of a Cannoga Broadcasting Alumni working in Sports Media',
+        title: 'Finding your textbooks just got a lot easier 📚',
+        caption: 'Finding your textbooks just got a lot easier 📚 #CannogaCampus #StudentResources',
         thumbnailUrl: '/images/admissions/campus-tour.jpg',
-        videoUrl: 'https://www.youtube.com/shorts'
+        videoUrl: 'https://www.youtube.com/shorts/FNerZMOydps'
     },
     {
         id: '3',
-        title: '3 Reasons why you should take a degree at a college',
-        caption: '3 Reasons why you should take a degree at a college (Cannoga Edition)',
+        title: 'There\'s always something you will love about Cannoga College',
+        caption: 'There\'s always something you will love about Cannoga College 🇨🇦✨ #CannogaLife #Ottawa',
         thumbnailUrl: '/images/admissions/student-hub.jpg',
-        videoUrl: 'https://www.youtube.com/shorts'
+        videoUrl: 'https://www.youtube.com/shorts/_JkrXe53EjI'
     },
     {
         id: '4',
-        title: 'POV: Studying Engineering & Labs',
-        caption: 'Point of view: you\'re studying Engineering at Cannoga College and getting hands-on learning',
+        title: 'Meet Love, our Practical Nursing graduate 🇨🇦🎓',
+        caption: 'Meet Love, our Practical Nursing graduate 🇨🇦🎓 #CannogaGrad #NursingExcellence',
         thumbnailUrl: '/images/placeholders/design.png',
-        videoUrl: 'https://www.youtube.com/shorts'
+        videoUrl: 'https://www.youtube.com/shorts/QorLfVUYanA'
     }
 ];
 
