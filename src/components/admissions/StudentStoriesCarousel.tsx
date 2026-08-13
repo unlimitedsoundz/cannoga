@@ -42,7 +42,7 @@ export default function StudentStoriesCarousel() {
     const prev = () => setCurrent((prev) => (prev - 1 + stories.length) % stories.length);
 
     return (
-        <div className="relative w-full min-h-[420px] md:h-[380px] overflow-hidden bg-slate-900 group rounded-sm shadow-sm">
+        <div className="relative w-full min-h-[420px] md:h-[380px] overflow-hidden bg-[#0a151a] group rounded-sm shadow-sm border border-white/10">
             {stories.map((story, index) => (
                 <div
                     key={story.id}
@@ -59,11 +59,11 @@ export default function StudentStoriesCarousel() {
                                 className="object-cover object-center"
                                 sizes="(max-width: 1024px) 100vw, 50vw"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-slate-900/60 via-transparent to-transparent md:hidden" />
+                            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0a151a]/60 via-transparent to-transparent md:hidden" />
                         </div>
 
                         {/* Content Side */}
-                        <div className="p-6 md:p-10 flex flex-col justify-between text-white bg-slate-900 md:w-1/2 relative">
+                        <div className="p-6 md:p-10 flex flex-col justify-between text-white bg-[#0a151a] md:w-1/2 relative">
                             <div>
                                 <span className="text-[#c89211] font-bold uppercase tracking-widest text-[10px] mb-3 block">Student Voice &amp; Campus Experience</span>
                                 <p className="text-base md:text-lg text-slate-100 font-serif leading-relaxed mb-4 italic">
@@ -89,7 +89,7 @@ export default function StudentStoriesCarousel() {
                                         <button
                                             key={s.id}
                                             onClick={() => setCurrent(idx)}
-                                            className={`h-1.5 transition-all rounded-full ${idx === current ? 'w-5 bg-[#c89211]' : 'w-1.5 bg-slate-700 hover:bg-slate-500'}`}
+                                            className={`h-1.5 transition-all rounded-full ${idx === current ? 'w-5 bg-[#c89211]' : 'w-1.5 bg-white/20 hover:bg-white/40'}`}
                                             aria-label={`Go to slide ${idx + 1}`}
                                         />
                                     ))}
@@ -104,14 +104,14 @@ export default function StudentStoriesCarousel() {
             <div className="absolute bottom-0 right-0 flex z-20">
                 <button
                     onClick={prev}
-                    className="w-11 h-11 md:w-12 md:h-12 bg-slate-800 text-white flex items-center justify-center hover:bg-slate-700 transition-all active:scale-95 border-r border-slate-700"
+                    className="w-11 h-11 md:w-12 md:h-12 bg-[#0f2027] text-white flex items-center justify-center hover:bg-[#1a2b32] transition-all active:scale-95 border-r border-white/10"
                     aria-label="Previous story"
                 >
                     <CaretLeft size={18} weight="bold" />
                 </button>
                 <button
                     onClick={next}
-                    className="w-11 h-11 md:w-12 md:h-12 bg-[#0f2027] text-white flex items-center justify-center transition-all hover:bg-slate-800 active:scale-95"
+                    className="w-11 h-11 md:w-12 md:h-12 bg-[#0f2027] text-white flex items-center justify-center transition-all hover:bg-[#1a2b32] active:scale-95"
                     aria-label="Next story"
                 >
                     <CaretRight size={18} weight="bold" />
