@@ -2,16 +2,16 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { 
-    Play, 
-    SpeakerHigh, 
-    SpeakerSimpleSlash, 
-    CornersOut, 
-    FacebookLogo, 
-    InstagramLogo, 
-    YoutubeLogo, 
-    TiktokLogo, 
-    LinkedinLogo 
+import {
+    Play,
+    SpeakerHigh,
+    SpeakerSimpleSlash,
+    CornersOut,
+    FacebookLogo,
+    InstagramLogo,
+    YoutubeLogo,
+    TiktokLogo,
+    LinkedinLogo
 } from '@phosphor-icons/react';
 
 interface ShortItem {
@@ -26,9 +26,9 @@ const SHORTS_DATA: ShortItem[] = [
     {
         id: '1',
         title: '#CannogaOrientation is coming!',
-        caption: '📢 We\'re sorry to interrupt your summer, but we have an important message: #CannogaOrientation is coming!',
+        caption: 'Dance if you are excited about the summer break 😂: #CannogaOrientation is coming!',
         thumbnailUrl: '/images/admissions/events.jpg',
-        videoUrl: 'https://www.youtube.com/shorts'
+        videoUrl: 'https://www.youtube.com/shorts/OJRQFDSUMDY'
     },
     {
         id: '2',
@@ -69,7 +69,7 @@ export function CannogaShortsSection() {
     return (
         <section className="py-16 bg-[#f2f8f6] border-t border-slate-200">
             <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
-                
+
                 {/* Header Row with Title & Social Follow Icons */}
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
                     <div>
@@ -99,9 +99,9 @@ export function CannogaShortsSection() {
                         return (
                             <div key={short.id} className="flex flex-col group">
                                 {/* Vertical 9:16 Video Box */}
-                                <a 
+                                <a
                                     href={short.videoUrl || 'https://youtube.com/shorts'}
-                                    target="_blank" 
+                                    target="_blank"
                                     rel="noopener noreferrer"
                                     className="relative aspect-[9/16] w-full bg-slate-900 rounded-sm overflow-hidden block shadow-md group-hover:shadow-xl transition-shadow"
                                 >
@@ -112,7 +112,7 @@ export function CannogaShortsSection() {
                                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                                     />
-                                    
+
                                     {/* Center Gold Circular Play Button */}
                                     <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/20 group-hover:bg-black/10 transition-colors">
                                         <div className="w-14 h-14 rounded-full bg-[#f3b233] text-white flex items-center justify-center pl-1 shadow-lg transform group-hover:scale-110 transition-transform">
@@ -123,7 +123,7 @@ export function CannogaShortsSection() {
                                     {/* Bottom Video Controls Overlay Bar */}
                                     <div className="absolute bottom-0 inset-x-0 p-3 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-20 flex items-center justify-between text-white text-xs">
                                         <div className="flex items-center gap-2">
-                                            <button 
+                                            <button
                                                 onClick={(e) => toggleMute(short.id, e)}
                                                 className="hover:text-[#f3b233] transition-colors p-1"
                                                 aria-label={isMuted ? "Unmute" : "Mute"}
