@@ -60,11 +60,11 @@ export default function BachelorAdmissionsPage() {
                         fallbackContent={getSectionDefault('hero_subtitle')}
                     />
                 }
-                backgroundColor="#ffc341"
+                backgroundColor="#000000"
                 tinted
                 overlay={false}
                 overlayOpacity="opacity-100"
-                lightText={false}
+                lightText={true}
                 breadcrumbs={[
                     { label: 'Home', href: '/' },
                     { label: 'Admissions', href: '/admissions' },
@@ -76,8 +76,11 @@ export default function BachelorAdmissionsPage() {
                 }}
                 imagePosition="object-left-top"
             >
-                <Link href="/admissions/application-process" className="text-aalto-3 font-bold underline underline-offset-8 decoration-black hover:opacity-70 transition-colors text-black inline-flex items-center gap-2">
-                    Start application <ArrowRight size={20} weight="bold" />
+                <Link
+                    href="/admissions/application-process"
+                    className="inline-flex items-center gap-2 bg-white text-black px-7 py-3.5 font-bold hover:bg-neutral-100 transition-all text-sm uppercase tracking-widest"
+                >
+                    Start application <ArrowRight size={18} weight="bold" />
                 </Link>
             </Hero>
 
