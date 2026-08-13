@@ -45,6 +45,25 @@ export function getSchoolSlug(schoolName: string): string {
     return 'science';
 }
 
+export function getDeptSlug(progName: string, schoolName: string): string {
+    const name = (progName || '').toLowerCase();
+    if (name.includes('account') || name.includes('tax') || name.includes('legal') || name.includes('paralegal')) return 'accounting-business-law';
+    if (name.includes('ai') || name.includes('artificial') || name.includes('computer') || name.includes('software') || name.includes('cyber') || name.includes('data') || name.includes('web') || name.includes('cloud')) return 'computer-science-digital';
+    if (name.includes('archit')) return 'architecture';
+    if (name.includes('civil') || name.includes('environ') || name.includes('climate')) return 'civil-environmental';
+    if (name.includes('electric') || name.includes('automation')) return 'electrical-electronics';
+    if (name.includes('mechanical') || name.includes('energy')) return 'energy-mechanical';
+    if (name.includes('finance') || name.includes('invest') || name.includes('banking')) return 'finance';
+    if (name.includes('market') || name.includes('social media')) return 'marketing';
+    if (name.includes('film') || name.includes('cinema') || name.includes('tv')) return 'film-tv';
+    if (name.includes('graphic') || name.includes('design') || name.includes('ux') || name.includes('ui')) return 'design';
+    if (name.includes('game') || name.includes('media') || name.includes('journal')) return 'art-media';
+    if (name.includes('physic') || name.includes('math')) return 'physics-math';
+    if (name.includes('economic') || name.includes('politic')) return 'economics';
+    if (name.includes('info') || name.includes('service') || name.includes('infrastructure')) return 'info-service';
+    return 'management';
+}
+
 const programsData: ProgramItem[] = [
     {
         id: 'acc-fin',
@@ -484,10 +503,14 @@ const programsData: ProgramItem[] = [
 
 export function ProgramsAZTableView() {
     const [allPrograms, setAllPrograms] = useState<ProgramItem[]>(() => 
-        programsData.map(p => ({
-            ...p,
-            href: `/schools/${getSchoolSlug(p.school)}/${p.id}`
-        }))
+        programsData.map(p => {
+            const schSlug = getSchoolSlug(p.school);
+            const deptSlug = getDeptSlug(p.name, p.school);
+            return {
+                ...p,
+                href: `/schools/${schSlug}/${deptSlug}`
+            };
+        })
     );
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [search, setSearch] = useState('');
@@ -513,11 +536,12 @@ export function ProgramsAZTableView() {
                 if (!error && dbData && dbData.length > 0 && isMounted) {
                     const dbMapped: ProgramItem[] = dbData.map((item: any, idx: number) => {
                         const schName = item.school || item.department || 'School of Academic Studies';
+                        const progName = item.name || item.title || item.program_name || 'Academic Program';
                         const schSlug = getSchoolSlug(schName);
-                        const progSlug = item.slug || item.id || `prog-${idx}`;
+                        const deptSlug = item.dept_slug || item.department_slug || getDeptSlug(progName, schName);
                         return {
                             id: item.id || `db-prog-${idx}`,
-                            name: item.name || item.title || item.program_name || 'Academic Program',
+                            name: progName,
                             level: (item.level || item.credential || 'Bachelor') as any,
                             school: schName,
                             duration: item.duration || '2 Years',
@@ -526,7 +550,7 @@ export function ProgramsAZTableView() {
                             pgwp: Boolean(item.pgwp ?? true),
                             tuitionDomestic: item.tuition_domestic ? `$${item.tuition_domestic}/yr` : '$1,500/yr',
                             tuitionInternational: item.tuition_international ? `$${item.tuition_international}/yr` : '$2,500/yr',
-                            href: `/schools/${schSlug}/${progSlug}`,
+                            href: `/schools/${schSlug}/${deptSlug}`,
                             description: item.description || item.overview || 'Accredited higher education program offered at Cannoga College.'
                         };
                     });
