@@ -1,7 +1,7 @@
 import { Link } from '@/components/ui/Link';
 import { CTA } from '@/components/ui/CTA';
 import Image from 'next/image';
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react/dist/ssr";
 import TableOfContents from '@/components/course/TableOfContents';
 import StudentStoriesCarousel from '@/components/admissions/StudentStoriesCarousel';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
@@ -458,32 +458,104 @@ export default async function AdmissionsPage() {
                         </section>
 
 
-                        <section id="contact" className="scroll-mt-32 mb-24 -mx-4 md:mx-0">
-                            <div className="bg-[#0f2027] text-white p-12">
-                                <p className="text-lg mb-6">
-                                    Prospective and current students can find support and contact information for admissions, campus visits, and student services through the official Cannoga College contact pages.
-                                </p>
-                                <p className="text-white opacity-60 mb-6">
-                                    Whether you’re planning a campus visit or seeking guidance on admissions, resources are available to help guide your academic journey.
-                                </p>
-                                <div className="flex flex-wrap gap-x-8 gap-y-4">
-                                    <Link href="/contact" className="text-lg font-bold underline underline-offset-4 hover:text-neutral-300 transition-colors">
-                                        Contact Us
-                                    </Link>
-                                    <Link href="/admissions-policy" className="text-lg font-bold underline underline-offset-4 hover:text-neutral-300 transition-colors">
-                                        Admissions Policy
-                                    </Link>
-                                    <Link href="/academic-regulations" className="text-lg font-bold underline underline-offset-4 hover:text-neutral-300 transition-colors">
-                                        Academic Regulations
-                                    </Link>
-                                    <Link href="/student-handbook" className="text-lg font-bold underline underline-offset-4 hover:text-neutral-300 transition-colors">
-                                        Student Handbook
-                                    </Link>
-                                    <Link href="/code-of-conduct" className="text-lg font-bold underline underline-offset-4 hover:text-neutral-300 transition-colors">
-                                        Code of Conduct
-                                    </Link>
-                                    <Link href="/refund-withdrawal-policy/" className="text-lg font-bold underline underline-offset-4 hover:text-neutral-300 transition-colors">
-                                        Refund Policy
+                        <section id="ask-about-applying" className="scroll-mt-32 mb-16">
+                            <div className="border border-slate-200 bg-[#f8fafc] p-8 md:p-12 space-y-10">
+                                <div>
+                                    <span className="text-[#c89211] font-bold uppercase tracking-widest text-xs mb-2 block">Direct Contact & Support</span>
+                                    <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027]">Ask About Applying</h2>
+                                    <p className="text-slate-600 text-base mt-2">Get direct guidance from the Cannoga College admissions team and international student advisors.</p>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-4 border-t border-slate-200">
+                                    {/* Email & Enquiries */}
+                                    <div className="space-y-4">
+                                        <div className="flex items-center gap-3 text-[#0f2027]">
+                                            <div className="p-2.5 bg-[#0f2027] text-white rounded-full">
+                                                <EnvelopeSimple size={18} weight="bold" />
+                                            </div>
+                                            <h3 className="font-bold text-lg text-[#0f2027]">Email Enquiries</h3>
+                                        </div>
+                                        <div className="space-y-2 text-sm text-slate-700">
+                                            <p className="font-semibold text-slate-900">General & International Admissions:</p>
+                                            <a href="mailto:admissions@cannogacollege.ca" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors block text-base">
+                                                admissions@cannogacollege.ca
+                                            </a>
+                                            <p className="text-xs text-slate-500 pt-1">
+                                                For Ottawa, Ontario, and international resident admissions enquiries.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Telephone & Office Hours */}
+                                    <div className="space-y-4">
+                                        <div className="flex items-center gap-3 text-[#0f2027]">
+                                            <div className="p-2.5 bg-[#0f2027] text-white rounded-full">
+                                                <Phone size={18} weight="bold" />
+                                            </div>
+                                            <h3 className="font-bold text-lg text-[#0f2027]">Telephone Hours</h3>
+                                        </div>
+                                        <div className="text-xs font-semibold text-[#c89211] uppercase tracking-wider">
+                                            Admissions Office (International Students Only)
+                                        </div>
+                                        <div className="bg-white p-4 border border-slate-200 text-xs space-y-2 text-slate-800 font-medium">
+                                            <div className="flex justify-between border-b border-slate-100 pb-1">
+                                                <span className="font-bold text-slate-900">Mon:</span>
+                                                <span>12:30 pm – 2:00 pm (UTC -5)</span>
+                                            </div>
+                                            <div className="flex justify-between border-b border-slate-100 pb-1">
+                                                <span className="font-bold text-slate-900">Tue:</span>
+                                                <span>9:30 am – 11:00 am (UTC -5)</span>
+                                            </div>
+                                            <div className="flex justify-between border-b border-slate-100 pb-1">
+                                                <span className="font-bold text-slate-900">Wed:</span>
+                                                <span>9:30 am – 11:00 am (UTC -5)</span>
+                                            </div>
+                                            <div className="flex justify-between border-b border-slate-100 pb-1">
+                                                <span className="font-bold text-slate-900">Thu:</span>
+                                                <span>9:30 am – 11:00 am (UTC -5)</span>
+                                            </div>
+                                            <div className="flex justify-between text-slate-500 pt-0.5">
+                                                <span className="font-bold text-slate-900">Fri:</span>
+                                                <span className="font-bold text-red-600">Closed</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Where to Reach Us */}
+                                    <div className="space-y-4 md:col-span-2 lg:col-span-1">
+                                        <div className="flex items-center gap-3 text-[#0f2027]">
+                                            <div className="p-2.5 bg-[#0f2027] text-white rounded-full">
+                                                <MapPin size={18} weight="bold" />
+                                            </div>
+                                            <h3 className="font-bold text-lg text-[#0f2027]">Where to Reach Us</h3>
+                                        </div>
+                                        <div className="space-y-3 text-xs text-slate-700">
+                                            <div>
+                                                <strong className="block text-slate-900 font-bold mb-0.5 text-sm">Campus & Mailing Address:</strong>
+                                                <p className="leading-relaxed">
+                                                    Cannoga College – Ottawa campus<br />
+                                                    81 Montreal Rd,<br />
+                                                    K1L 6E8 Ottawa, Ontario, Canada
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Application Note Box */}
+                                <div className="bg-[#0f2027] text-white p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                                    <div className="space-y-1">
+                                        <span className="text-[#c89211] font-bold uppercase tracking-wider text-xs">Important Note</span>
+                                        <p className="text-sm font-medium leading-relaxed text-slate-200">
+                                            All formal applications must be submitted through the Cannoga College online portal during the official application periods.
+                                        </p>
+                                    </div>
+                                    <Link 
+                                        href="/portal/login" 
+                                        className="inline-flex items-center gap-2 bg-[#c89211] hover:bg-[#b07f0e] text-[#0f2027] font-extrabold text-xs uppercase tracking-wider px-6 py-3.5 whitespace-nowrap transition-colors no-underline shrink-0"
+                                    >
+                                        <span>Portal Login</span>
+                                        <ArrowRight size={14} weight="bold" />
                                     </Link>
                                 </div>
                             </div>
