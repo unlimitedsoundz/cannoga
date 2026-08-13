@@ -212,23 +212,27 @@ export default async function AdmissionsPage() {
                                 title="Events for Applicants"
                                 body={
                                     <div className="space-y-6">
-                                        <p className="text-black">Cannoga College regularly organises events designed to help prospective students learn more about studying and applying:</p>
-                                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <p className="text-slate-800 text-base md:text-lg font-medium leading-relaxed">
+                                            Cannoga College regularly organises events designed to help prospective students learn more about studying and applying:
+                                        </p>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                                             {[
-                                                { title: "Webinars on degree programmes", desc: "Interact with programme heads" },
-                                                { title: "Student chats", desc: "Peer ambassadors share experiences" },
-                                                { title: "Campus events", desc: "Tailored to applicants" },
-                                                { title: "Applicant newsletters", desc: "And Q&A sessions" },
+                                                { title: "Webinars on degree programmes", desc: "Interact directly with faculty and programme heads" },
+                                                { title: "Student chats", desc: "Peer ambassadors share authentic campus experiences" },
+                                                { title: "Campus events", desc: "Tailored events for undergraduate and graduate applicants" },
+                                                { title: "Applicant newsletters", desc: "Regular application insights and live Q&A sessions" },
                                             ].map((item) => (
-                                                <li key={item.title} className="flex gap-3 items-start border-0">
-                                                    <ArrowRight size={18} weight="bold" className="mt-1 text-black flex-shrink-0" />
-                                                    <div>
-                                                        <strong className="block text-black font-bold">{item.title}</strong>
-                                                        <span className="text-black opacity-40 text-sm font-light">{item.desc}</span>
+                                                <div key={item.title} className="p-4 bg-white border border-slate-200 rounded-sm hover:border-[#0f2027] hover:shadow-sm transition-all flex items-start gap-3.5">
+                                                    <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                                        <ArrowRight size={14} weight="bold" />
                                                     </div>
-                                                </li>
+                                                    <div>
+                                                        <h4 className="text-slate-900 font-bold text-base leading-snug">{item.title}</h4>
+                                                        <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">{item.desc}</p>
+                                                    </div>
+                                                </div>
                                             ))}
-                                        </ul>
+                                        </div>
                                     </div>
                                 }
                                 image={{
