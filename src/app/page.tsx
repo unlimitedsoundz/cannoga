@@ -84,7 +84,7 @@ export default async function Home() {
                             { name: "Ontario College Diplomas", desc: "2-year applied learning programs integrating hands-on labs, industry software, and co-op placement", href: "/degree-programmes#diplomas" },
                             { name: "Advanced Diplomas & Degrees", desc: "3-year advanced diplomas and 4-year Honours Bachelor's Degrees combining academic depth with co-op pathways", href: "/degree-programmes" },
                             { name: "Academic Schools & Faculties", desc: "Eight specialized faculties delivering technology, health, business, and creative design education", href: "/schools" },
-                            { name: "Program Directory A–Z", desc: "Browse all approved Ontario post-secondary courses, prerequisite codes, and credential specs", href: "/studies" },
+                            { name: "Program Directory A–Z", desc: "Browse all approved Ontario post-secondary courses, prerequisite codes, and credential specs", href: "/degree-programmes#programs-az" },
                             { name: "Ottawa Campus & Co-op Hub", desc: "Explore campus facilities, student support services, and Ottawa tech-sector co-op partnerships", href: "/contact" },
                         ].map((card) => (
                             <Link
