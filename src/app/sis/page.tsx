@@ -1936,10 +1936,8 @@ export default function SISStudentDashboard() {
                                                                     <p className="text-[10px] text-slate-500 font-mono font-bold mt-0.5">{session.section?.module?.code}</p>
                                                                 </div>
                                                             </td>
-                                                            <td className="p-3.5">
-                                                                <span className={`px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider ${session.section?.session_type === 'Online' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-slate-100 text-slate-700 border border-slate-200'}`}>
-                                                                    {session.section?.session_type || 'Class'}
-                                                                </span>
+                                                            <td className="p-3.5 font-medium text-slate-700">
+                                                                {session.section?.session_type || 'Class'}
                                                             </td>
                                                             <td className="p-3.5">
                                                                 {session.room ? (
