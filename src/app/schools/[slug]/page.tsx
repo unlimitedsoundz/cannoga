@@ -153,12 +153,20 @@ export default async function SchoolDetails({ params }: Props) {
                 }
                 tinted
                 lightText={true}
+                overlay={slug === 'technology' || slug === 'business' || slug === 'health-community' || slug === 'health-sciences' || slug === 'arts' || slug === 'arts-design'}
+                overlayOpacity={(slug === 'technology' || slug === 'arts' || slug === 'arts-design') ? 'opacity-40' : undefined}
                 image={
                     slug === 'business' ? {
                         src: "/images/studies-hero.jpg",
                         alt: `${school.name} at Cannoga College`
                     } : (slug === 'health-community' || slug === 'health-sciences') ? {
-                        src: "/images/school-of-health.jpg",
+                        src: "/images/health-community.jpg",
+                        alt: `${school.name} at Cannoga College`
+                    } : slug === 'technology' ? {
+                        src: "/images/technology.jpg",
+                        alt: `${school.name} at Cannoga College`
+                    } : (slug === 'arts' || slug === 'arts-design') ? {
+                        src: "/images/arts-design.jpg",
                         alt: `${school.name} at Cannoga College`
                     } : undefined
                 }

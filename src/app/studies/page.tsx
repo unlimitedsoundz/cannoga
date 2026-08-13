@@ -89,7 +89,7 @@ const SCHOOLS_DIRECTORY = [
         slug: "technology",
         count: "12 Programs",
         programs: ["Applied AI & Machine Learning", "Cybersecurity Management", "Cloud Architecture & Software Engineering", "Data Analytics & Business Intelligence"],
-        image: "/images/home-carousel-2.png",
+        image: "/images/technology.jpg",
         bg: "#0a151a"
     },
     {
@@ -101,11 +101,11 @@ const SCHOOLS_DIRECTORY = [
         bg: "#0a151a"
     },
     {
-        name: "School of Health & Life Sciences",
-        slug: "health-sciences",
+        name: "School of Health & Community Services",
+        slug: "health-community",
         count: "8 Programs",
         programs: ["Practical Nursing & Clinical Care", "Biomedical Technology", "Healthcare Administration", "Public Health Analytics"],
-        image: "/images/school-of-health.jpg",
+        image: "/images/health-community.jpg",
         bg: "#0a151a"
     },
     {
@@ -113,7 +113,7 @@ const SCHOOLS_DIRECTORY = [
         slug: "arts-design",
         count: "9 Programs",
         programs: ["UX/UI Design & Digital Media", "Architectural Technology", "Film Production & Broadcasting", "Game Design & Interactive Media"],
-        image: "/images/1775945541604-019d7e99-907d-7ab4-82ed-0977a1243bc3.png",
+        image: "/images/arts-design.jpg",
         bg: "#0a151a"
     }
 ];
