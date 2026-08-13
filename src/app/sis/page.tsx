@@ -2648,10 +2648,8 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
                                     <tr key={course.id} className="hover:bg-slate-50">
                                         <td className="p-3 font-mono font-medium text-slate-900">{course.code}</td>
                                         <td className="p-3 text-slate-700">{course.title}</td>
-                                        <td className="p-3">
-                                            <span className="px-2 py-1 bg-slate-100 text-slate-700 rounded text-xs font-medium">
-                                                {course.subject}
-                                            </span>
+                                        <td className="p-3 text-slate-700 font-medium">
+                                            {course.subject}
                                         </td>
                                         <td className="p-3 text-slate-600">{course.credits}</td>
                                         <td className="p-3 text-slate-600">{course.term}</td>
