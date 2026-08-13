@@ -623,8 +623,7 @@ export function ProgramsAZTableView() {
             <div className="bg-white p-4 sm:p-6 rounded-none border border-neutral-200 shadow-sm space-y-5">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h3 className="text-lg sm:text-xl font-black text-black flex items-center gap-2 tracking-tight">
-                            <GraduationCap size={22} className="text-[#0a151a]" />
+                        <h3 className="text-lg sm:text-xl font-black text-black tracking-tight">
                             Programs Directory (A-Z)
                         </h3>
                         <p className="text-xs text-neutral-500 font-medium mt-1">
