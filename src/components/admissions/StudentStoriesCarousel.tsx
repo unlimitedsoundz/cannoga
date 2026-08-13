@@ -10,7 +10,7 @@ const stories = [
         name: 'Chinaza Kamisiyochukwu',
         programme: "Honours Bachelor of Environmental Science",
         quote: "Conducting field research along the Rideau Canal and participating in green campus initiatives gave me direct insights into sustainable urban policy.",
-        image: '/images/chinaza-kamisiyochukwu.jpg',
+        image: 'https://i.pinimg.com/1200x/72/a1/7c/72a17cb6e8bda24fd421065e8ad24296.jpg',
         imagePosition: 'object-[center_30%] md:object-[center_20%]'
     },
     {
