@@ -1,4 +1,4 @@
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, Scales, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
@@ -19,6 +19,7 @@ const sections = [
     { id: 'providers', title: 'Housing Providers', content: '' },
     { id: 'applying', title: 'How to Apply', content: '' },
     { id: 'private-market', title: 'Private Market', content: '' },
+    { id: 'tenant-rights', title: 'Tenant Rights', content: '' },
     { id: 'settling-in', title: 'Settling In', content: '' },
 ];
 
@@ -55,22 +56,22 @@ export default function HousingGuidePage() {
                                 Ottawa's student housing market is competitive — especially for September intake. We strongly recommend starting your search as soon as you receive your admission offer. Options range from on-campus residences and student-specific buildings to private rentals.
                             </p>
                             <div className="grid md:grid-cols-2 gap-6">
-<Card
-                                      title="Shared Apartments"
-                                      body="A cost-effective option where you have your own private bedroom but share the kitchen and common areas with 2–4 other students. Typical rent: $400–$600/month."
-                                    />
-                                    <Card
-                                      title="Studio & Bachelor Apartments"
-                                      body="A self-contained private apartment with your own kitchen and bathroom. Highly popular — expect a competitive rental market. Typical rent: $800–$1,200/month."
-                                    />
-                                    <Card
-                                      title="On-Campus Residence"
-                                      body="Limited spots available through Cannoga Housing and Ottawa-area student residence providers. Priority given to first-year and international students. Apply early via the housing portal."
-                                    />
-                                    <Card
-                                      title="Homestay"
-                                      body="Live with a local Ottawa family for a cultural immersion experience. Includes a private bedroom and often meals. Great for improving English and adjusting to Canadian life. Typical cost: $800–$1,200/month including meals."
-                                    />
+                                <Card
+                                  title="Shared Apartments"
+                                  body="A cost-effective option where you have your own private bedroom but share the kitchen and common areas with 2–4 other students. Typical rent: $400–$600/month."
+                                />
+                                <Card
+                                  title="Studio & Bachelor Apartments"
+                                  body="A self-contained private apartment with your own kitchen and bathroom. Highly popular — expect a competitive rental market. Typical rent: $800–$1,200/month."
+                                />
+                                <Card
+                                  title="On-Campus Residence"
+                                  body="Limited spots available through Cannoga Housing and Ottawa-area student residence providers. Priority given to first-year and international students. Apply early via the housing portal."
+                                />
+                                <Card
+                                  title="Homestay"
+                                  body="Live with a local Ottawa family for a cultural immersion experience. Includes a private bedroom and often meals. Great for improving English and adjusting to Canadian life. Typical cost: $800–$1,200/month including meals."
+                                />
                             </div>
                         </section>
 
@@ -86,27 +87,27 @@ export default function HousingGuidePage() {
                                 <h2 className="cc-h2">Ottawa Student Housing Providers</h2>
                             </div>
                             <div className="grid md:grid-cols-2 gap-6">
- <div className="cc-card cc-card-body space-y-3">
-                                       <h4 className="font-bold text-[#000000] text-lg">Cannoga Housing</h4>
-                                       <p className="text-sm text-neutral-600 leading-relaxed">Cannoga College's official student housing partner, offering on-campus and nearby residences with furnished rooms and shared facilities.</p>
-                                       <Link href="https://cannogacollege.ca/housing" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Housing →</Link>
-                                     </div>
- <div className="cc-card cc-card-body space-y-3">
-                                       <h4 className="font-bold text-[#000000] text-lg">CampusOne</h4>
-                                       <p className="text-sm text-neutral-600 leading-relaxed">A modern student residence provider with properties near Ottawa campuses. Offers private and shared suites, study rooms, and social spaces.</p>
-                                       <Link href="https://www.campusone.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">campusone.ca →</Link>
-                                     </div>
- <div className="cc-card cc-card-body space-y-3">
-                                        <h4 className="font-bold text-[#000000] text-lg">Minto</h4>
-                                        <p className="text-sm text-neutral-600 leading-relaxed">A major Canadian rental housing provider with apartments across Ottawa. Look for Minto properties in Sandy Hill, Centretown, and other central neighbourhoods.</p>
-                                        <Link href="https://www.minto.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">minto.com →</Link>
-                                      </div>
- <div className="cc-card cc-card-body space-y-3">
-                                        <h4 className="font-bold text-[#000000] text-lg">Homestay</h4>
-                                        <p className="text-sm text-neutral-600 leading-relaxed">Live with a local Ottawa family for a cultural immersion experience. Includes a private bedroom and often meals. Great for improving English and adjusting to Canadian life.</p>
-                                        <Link href="https://cannogacollege.ca/housing/homestay" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Homestay →</Link>
-                                      </div>
-                              </div>
+                                <div className="cc-card cc-card-body space-y-3">
+                                   <h4 className="font-bold text-[#000000] text-lg">Cannoga Housing</h4>
+                                   <p className="text-sm text-neutral-600 leading-relaxed">Cannoga College's official student housing partner, offering on-campus and nearby residences with furnished rooms and shared facilities.</p>
+                                   <Link href="https://cannogacollege.ca/housing" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Housing →</Link>
+                                 </div>
+                                <div className="cc-card cc-card-body space-y-3">
+                                   <h4 className="font-bold text-[#000000] text-lg">CampusOne</h4>
+                                   <p className="text-sm text-neutral-600 leading-relaxed">A modern student residence provider with properties near Ottawa campuses. Offers private and shared suites, study rooms, and social spaces.</p>
+                                   <Link href="https://www.campusone.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">campusone.ca →</Link>
+                                 </div>
+                                <div className="cc-card cc-card-body space-y-3">
+                                    <h4 className="font-bold text-[#000000] text-lg">Minto</h4>
+                                    <p className="text-sm text-neutral-600 leading-relaxed">A major Canadian rental housing provider with apartments across Ottawa. Look for Minto properties in Sandy Hill, Centretown, and other central neighbourhoods.</p>
+                                    <Link href="https://www.minto.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">minto.com →</Link>
+                                  </div>
+                                <div className="cc-card cc-card-body space-y-3">
+                                    <h4 className="font-bold text-[#000000] text-lg">Homestay</h4>
+                                    <p className="text-sm text-neutral-600 leading-relaxed">Live with a local Ottawa family for a cultural immersion experience. Includes a private bedroom and often meals. Great for improving English and adjusting to Canadian life.</p>
+                                    <Link href="https://cannogacollege.ca/housing/homestay" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Homestay →</Link>
+                                  </div>
+                          </div>
                         </section>
 
                         {/* How to Apply */}
@@ -115,7 +116,7 @@ export default function HousingGuidePage() {
                                 size="large"
                                 icon="listChecks"
                                 title="How to Secure Housing"
-body={
+                                body={
                                      <div className="space-y-8 text-left">
                                          {[
                                              {
@@ -145,7 +146,7 @@ body={
                                              },
                                           ].map(({ step, title, desc }) => (
                                              <div key={step} className="flex gap-5 items-start">
-                                                 <div className="w-10 h-10 bg-[#9c27b3] text-white flex items-center justify-center font-bold shrink-0 rounded-full">{step}</div>
+                                                 <div className="w-10 h-10 bg-[#0a151a] text-white flex items-center justify-center font-bold shrink-0 rounded-full">{step}</div>
                                                  <div>
                                                      <h4 className="font-bold text-black mb-1">{title}</h4>
                                                      <p className="text-sm text-neutral-600 leading-relaxed">{desc}</p>
@@ -162,11 +163,11 @@ body={
                             <div className="cc-section-divider mb-10">
                                 <h2 className="cc-h2">Private Rental Market</h2>
                             </div>
-<p className="text-neutral-600 leading-relaxed mb-8 max-w-3xl">
+                            <p className="text-neutral-600 leading-relaxed mb-8 max-w-3xl">
                                  The Ottawa private market offers many listings. Use these trusted Canadian platforms to search for rentals. Always visit (or arrange a video tour) before paying any deposit.
                              </p>
                              <div className="grid md:grid-cols-3 gap-6">
- <Card
+                                  <Card
                                        title="Rentals.ca"
                                        body="Canada's most popular rental listing site with extensive Ottawa coverage. Filter by district, price, and size."
                                        cta={{ label: "Search on Rentals.ca", linkComponentProps: { href: "https://rentals.ca", target: "_blank" } }}
@@ -182,10 +183,66 @@ body={
                                        cta={{ label: "Search on PadMapper", linkComponentProps: { href: "https://www.padmapper.com", target: "_blank" } }}
                                    />
                              </div>
- <div className="mt-6 cc-section-tinted p-6">
-                                  <p className="text-sm font-semibold text-[#000000]">⚠️ Tenant Rights in Canada</p>
-                                  <p className="text-sm text-neutral-600 mt-2 leading-relaxed">Rental housing in Ontario is governed by the Residential Tenancies Act. Security deposits are typically one month's rent. Learn more at <Link href="https://tribunalsontario.ca/ltb/" target="_blank" className="underline font-bold hover:text-[#000000]">Landlord and Tenant Board →</Link></p>
-                              </div>
+                        </section>
+
+                        {/* Tenant Rights */}
+                        <section id="tenant-rights" className="scroll-mt-32">
+                            <div className="cc-section-divider mb-10">
+                                <h2 className="cc-h2">Tenant Rights in Ontario & Canada</h2>
+                            </div>
+                            <div className="bg-[#f8f9fa] border-l-4 border-[#0a151a] p-8 md:p-10 space-y-6">
+                                <div className="flex items-center gap-3">
+                                    <Scales size={28} weight="bold" className="text-[#0a151a]" />
+                                    <h3 className="text-xl font-bold text-[#0a151a]">Residential Tenancies Act (RTA) Protections</h3>
+                                </div>
+                                <p className="text-sm text-neutral-700 leading-relaxed">
+                                    Rental housing in Ontario is strictly governed by the <strong>Residential Tenancies Act (RTA)</strong> and enforced by the <strong>Landlord and Tenant Board (LTB)</strong>. As a student tenant, you have key legal protections:
+                                </p>
+                                <div className="grid md:grid-cols-2 gap-6 pt-2">
+                                    <div className="space-y-2">
+                                        <h4 className="font-bold text-[#0a151a] text-sm flex items-center gap-2">
+                                            <ShieldCheck size={18} weight="bold" className="text-[#0a151a]" />
+                                            Standard Ontario Lease Form
+                                        </h4>
+                                        <p className="text-xs text-neutral-600 leading-relaxed">
+                                            Landlords must use the official Ontario Standard Lease agreement. Any clauses contradicting the RTA are void.
+                                        </p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h4 className="font-bold text-[#0a151a] text-sm flex items-center gap-2">
+                                            <ShieldCheck size={18} weight="bold" className="text-[#0a151a]" />
+                                            Deposits & Rent Guidelines
+                                        </h4>
+                                        <p className="text-xs text-neutral-600 leading-relaxed">
+                                            Landlords may only collect first and last month's rent deposit. Security, damage, or key deposits exceeding key replacement costs are illegal.
+                                        </p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h4 className="font-bold text-[#0a151a] text-sm flex items-center gap-2">
+                                            <ShieldCheck size={18} weight="bold" className="text-[#0a151a]" />
+                                            Rent Increase Caps & Notice
+                                        </h4>
+                                        <p className="text-xs text-neutral-600 leading-relaxed">
+                                            Rent can only be increased once every 12 months, subject to annual provincial guidelines, with at least 90 days written notice.
+                                        </p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h4 className="font-bold text-[#0a151a] text-sm flex items-center gap-2">
+                                            <ShieldCheck size={18} weight="bold" className="text-[#0a151a]" />
+                                            Protection Against Arbitrary Eviction
+                                        </h4>
+                                        <p className="text-xs text-neutral-600 leading-relaxed">
+                                            A landlord cannot evict you without an official order from the Landlord and Tenant Board (LTB).
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="pt-4 border-t border-neutral-200 flex flex-wrap items-center justify-between gap-4">
+                                    <span className="text-xs text-neutral-500 font-medium">Need legal housing assistance or advice?</span>
+                                    <Link href="https://tribunalsontario.ca/ltb/" target="_blank" className="cc-btn-primary text-xs inline-flex items-center gap-2">
+                                        Landlord and Tenant Board (LTB) <ArrowRight size={14} weight="bold" />
+                                    </Link>
+                                </div>
+                            </div>
                         </section>
 
                         {/* Settling In */}
@@ -195,7 +252,7 @@ body={
                                 title={<span className="text-white">Settling Into Ottawa Life</span>}
                                 body={
                                     <div className="space-y-6">
-<p className="text-neutral-300 leading-relaxed">
+                                        <p className="text-neutral-300 leading-relaxed">
                                              Ottawa is a welcoming, walkable city with four distinct seasons. Winters are cold (bring warm layers!) but beautiful, and summers are warm and festival-filled. Most apartment buildings include in-suite or shared laundry, and many are pet-friendly.
                                          </p>
                                           <ul className="space-y-3 text-sm text-neutral-300">
@@ -228,4 +285,3 @@ body={
         </GuideSidebarLayout>
     );
 }
-
