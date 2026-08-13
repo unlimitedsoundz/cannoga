@@ -46,29 +46,29 @@ export default function StudentStoriesCarousel() {
     const prev = () => setCurrent((prev) => (prev - 1 + stories.length) % stories.length);
 
     return (
-        <div className="relative w-full min-h-[420px] md:h-[380px] overflow-hidden bg-[#0a151a] group">
+        <div className="relative w-full h-[540px] sm:h-[500px] md:h-[380px] overflow-hidden bg-[#0a151a] group">
             {stories.map((story, index) => (
                 <div
                     key={story.id}
                     className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === current ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
                         }`}
                 >
-                    <div className="flex flex-col md:flex-row h-full">
+                    <div className="flex flex-col md:flex-row h-full w-full">
                         {/* Image Side */}
-                        <div className="relative h-[240px] md:h-full md:w-1/2 overflow-hidden">
+                        <div className="relative h-[230px] sm:h-[250px] md:h-full w-full md:w-1/2 shrink-0 overflow-hidden">
                             <Image
                                 src={story.image}
                                 alt={story.name}
                                 fill
                                 className={`object-cover ${story.imagePosition}`}
-                                sizes="(max-width: 1024px) 100vw, 50vw"
+                                sizes="(max-width: 768px) 100vw, 50vw"
                                 priority={index === 0}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0a151a]/70 via-transparent to-transparent md:hidden" />
+                            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0a151a] via-transparent to-transparent md:hidden" />
                         </div>
 
                         {/* Content Side */}
-                        <div className="p-6 md:p-10 flex flex-col justify-between text-white bg-[#0a151a] md:w-1/2 relative">
+                        <div className="p-6 md:p-10 flex flex-col justify-between text-white bg-[#0a151a] w-full md:w-1/2 h-[310px] sm:h-[250px] md:h-full relative">
                             <div>
                                 <span className="text-[#c89211] font-bold uppercase tracking-widest text-[10px] mb-3 block">Student Voice &amp; Campus Experience</span>
                                 <p className="text-base md:text-lg text-slate-100 font-serif leading-relaxed mb-4 italic">
