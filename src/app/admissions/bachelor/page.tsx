@@ -78,9 +78,10 @@ export default function BachelorAdmissionsPage() {
             >
                 <Link
                     href="/admissions/application-process"
-                    className="inline-flex items-center gap-2 bg-white text-black px-7 py-3.5 font-bold hover:bg-neutral-100 transition-all text-sm uppercase tracking-widest"
+                    className="inline-flex items-center gap-2 bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline rounded-sm transition-colors border border-white/20"
                 >
-                    Start application <ArrowRight size={18} weight="bold" />
+                    <span>Start application</span>
+                    <ArrowRight size={18} weight="bold" className="text-[#c89211]" />
                 </Link>
             </Hero>
 
