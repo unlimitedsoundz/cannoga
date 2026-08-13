@@ -54,11 +54,11 @@ export function Hero({
                         alt={image.alt || "Hero Image"}
                         fill
                         priority
-                        className={`object-cover ${imagePosition}`}
+                        className={`object-cover ${imagePosition} opacity-10`}
                         sizes="100vw"
                     />
                     {/* Dark overlay for better text contrast */}
-                    <div className="absolute inset-0 bg-black/40 z-[1]" />
+                    <div className="absolute inset-0 bg-black/50 z-[1]" />
                 </div>
             )}
 
