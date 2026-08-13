@@ -236,14 +236,7 @@ export default function StudiesPage() {
                                 </div>
                                 <div className="relative z-10 text-white">
                                     <span className="inline-block px-3 py-1 bg-[#c89211] text-[#0a151a] text-[10px] font-black uppercase tracking-widest rounded-md mb-3">{school.count}</span>
-                                    <h3 className="text-xl font-extrabold text-white mb-3">{school.name}</h3>
-                                    <div className="flex flex-wrap gap-2 mb-6">
-                                        {school.programs.map((p, pIdx) => (
-                                            <span key={pIdx} className="bg-white/10 text-slate-200 text-xs px-2.5 py-1 rounded-md border border-white/10 font-medium">
-                                                {p}
-                                            </span>
-                                        ))}
-                                    </div>
+                                    <h3 className="text-xl font-extrabold text-white mb-4">{school.name}</h3>
                                     <Link 
                                         href={`/schools/${school.slug}`} 
                                         className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white hover:text-[#c89211] transition-colors"
