@@ -9,6 +9,7 @@ import { Metadata } from "next";
 import { createStaticClient } from "@/lib/supabase/static";
 
 import StudentStoriesCarousel from "@/components/admissions/StudentStoriesCarousel";
+import { CannogaShortsSection } from "@/components/home/CannogaShortsSection";
 
 export const metadata: Metadata = {
   title: 'Cannoga College | International Higher Education in Canada',
@@ -109,6 +110,9 @@ export default async function Home() {
             <section className="py-20 container mx-auto px-4 md:px-28 lg:px-40">
                 <HomeNewsEventsGrid />
             </section>
+
+            {/* 3.5 CANNOGA SHORTS SECTION */}
+            <CannogaShortsSection />
 
             {/* 4. FEATURED SCHOOLS */}
             {schools && schools.length > 0 && (
