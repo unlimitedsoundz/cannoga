@@ -1198,6 +1198,35 @@ export default function SISStudentDashboard() {
                                 
                                 {/* ================= COLUMN 1 ================= */}
                                 <div className="space-y-6">
+                                    {/* STUDENT PROFILE QUICK VIEW */}
+                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                        <div>
+                                            <div className="bg-[#0a151a] px-4 py-2.5">
+                                                <h3 className="font-semibold text-white text-sm">Student Profile</h3>
+                                            </div>
+                                            <div className="p-4">
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="w-12 h-12 bg-[#0a151a] text-white rounded-full flex items-center justify-center font-bold text-base shadow-sm shrink-0 overflow-hidden">
+                                                        {profile?.avatar_url ? (
+                                                            <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            displayName.charAt(0)
+                                                        )}
+                                                    </div>
+                                                    <div className="min-w-0 flex-1">
+                                                        <h4 className="text-xs font-bold text-slate-900 truncate">{displayName}</h4>
+                                                        <p className="text-[11px] text-slate-500 truncate">{programName}</p>
+                                                        <p className="text-xs text-slate-800 font-semibold mt-0.5">ID: {studentId}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="grid grid-cols-2 divide-x divide-white/20 text-center text-xs border-t border-slate-100 overflow-hidden">
+                                            <button type="button" onClick={() => navigateTo('profile')} className="py-2 px-2 bg-[#0a151a] hover:bg-[#12222a] text-white font-semibold transition">View Profile</button>
+                                            <button type="button" onClick={() => navigateTo('profile')} className="py-2 px-2 bg-[#0a151a] hover:bg-[#12222a] text-white font-semibold transition">Edit Info</button>
+                                        </div>
+                                    </div>
+
                                     {/* STUDENT MAIL */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
@@ -1512,35 +1541,6 @@ export default function SISStudentDashboard() {
 
                                 {/* ================= COLUMN 3 ================= */}
                                 <div className="space-y-6">
-                                    {/* STUDENT PROFILE QUICK VIEW */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
-                                        <div>
-                                            <div className="bg-[#0a151a] px-4 py-2.5">
-                                                <h3 className="font-semibold text-white text-sm">Student Profile</h3>
-                                            </div>
-                                            <div className="p-4">
-                                                <div className="flex items-center space-x-3">
-                                                    <div className="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-base shadow-sm shrink-0 overflow-hidden">
-                                                        {profile?.avatar_url ? (
-                                                            <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
-                                                        ) : (
-                                                            displayName.charAt(0)
-                                                        )}
-                                                    </div>
-                                                    <div className="min-w-0 flex-1">
-                                                        <h4 className="text-xs font-bold text-slate-900 truncate">{displayName}</h4>
-                                                        <p className="text-[11px] text-slate-500 truncate">{programName}</p>
-                                                        <p className="text-xs text-slate-800 font-semibold mt-0.5">ID: {studentId}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="grid grid-cols-2 divide-x divide-white/20 text-center text-xs border-t border-slate-100 overflow-hidden">
-                                            <button type="button" onClick={() => navigateTo('profile')} className="py-2 px-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold transition">View Profile</button>
-                                            <button type="button" onClick={() => navigateTo('profile')} className="py-2 px-2 bg-[#D97706] hover:bg-amber-700 text-white font-semibold transition">Edit Info</button>
-                                        </div>
-                                    </div>
-
                                     {/* UPCOMING EVENTS (FETCHED DYNAMICALLY FROM DB) */}
                                     <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
@@ -1670,9 +1670,9 @@ export default function SISStudentDashboard() {
                                             )}
                                         </div>
                                         <div className="grid grid-cols-3 divide-x divide-white/20 text-center text-xs border-t border-slate-100 overflow-hidden">
-                                            <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-slate-900 hover:bg-slate-900 text-white font-semibold transition">View All</button>
-                                            <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-[#D97706] hover:bg-amber-700 text-white font-semibold transition">Share</button>
-                                            <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold transition">Download</button>
+                                            <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-[#0a151a] hover:bg-[#12222a] text-white font-semibold transition">View All</button>
+                                            <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-[#0a151a] hover:bg-[#12222a] text-white font-semibold transition">Share</button>
+                                            <button type="button" onClick={() => navigateTo('documents')} className="py-2 px-2 bg-[#0a151a] hover:bg-[#12222a] text-white font-semibold transition">Download</button>
                                         </div>
                                     </div>
 
