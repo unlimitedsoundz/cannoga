@@ -33,8 +33,8 @@ export function ContentBox({
 
     return (
         <div 
-            className={`flex flex-col ${isLarge ? 'md:flex-row' : ''} h-full group transition-colors overflow-hidden ${className}`}
-            style={{ backgroundColor: backgroundColor || '#f2f2f2' }} // Default to light grey
+            className={`flex flex-col ${isLarge ? 'md:flex-row' : ''} h-full group transition-all rounded-2xl border border-neutral-200 shadow-sm overflow-hidden ${className}`}
+            style={{ backgroundColor: backgroundColor || '#fafafa' }}
         >
             {image && (
                 <div className={`${isLarge ? 'md:w-1/2' : 'w-full'} aspect-[16/9] md:aspect-auto relative overflow-hidden`}>

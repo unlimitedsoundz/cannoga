@@ -42,7 +42,7 @@ export function Card({
 }: CardProps) {
     const CardContent = (
         <div 
-            className={`bg-card border border-neutral-100 flex flex-col h-full hover:shadow-xl transition-all duration-300 ${onClick ? 'cursor-pointer' : ''} ${className}`}
+            className={`bg-white rounded-2xl border border-neutral-200 shadow-sm hover:shadow-md hover:border-neutral-300 flex flex-col h-full transition-all duration-300 overflow-hidden ${onClick ? 'cursor-pointer' : ''} ${className}`}
             onClick={onClick}
         >
             {image && (
@@ -56,7 +56,7 @@ export function Card({
                     />
                     {badge && (
                         <div className="absolute top-4 left-4">
-                            <span className={`px-3 py-1 text-[10px] font-semibold uppercase tracking-widest rounded-none ${badge.className || 'bg-[#0f2027] text-white'}`}>
+                            <span className={`px-3 py-1 text-[10px] font-semibold uppercase tracking-widest rounded-full ${badge.className || 'bg-[#0a151a] text-white'}`}>
                                 {badge.label}
                             </span>
                         </div>
