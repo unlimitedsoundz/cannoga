@@ -8,7 +8,6 @@ export function ScrollToTop() {
 
     useEffect(() => {
         const toggleVisibility = () => {
-            // Lower threshold to 100px and check both scrollY and documentElement.scrollTop
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
             if (scrollTop > 100) {
                 setIsVisible(true);
@@ -17,7 +16,6 @@ export function ScrollToTop() {
             }
         };
 
-        // Check initial scroll state on load
         toggleVisibility();
 
         window.addEventListener('scroll', toggleVisibility, { passive: true });
@@ -36,12 +34,15 @@ export function ScrollToTop() {
             onClick={scrollToTop}
             aria-label="Scroll to top"
             style={{
+                position: 'fixed',
+                bottom: '24px',
+                right: '24px',
+                zIndex: 99999,
                 display: isVisible ? 'flex' : 'none',
-                zIndex: 9999,
             }}
-            className="fixed bottom-8 right-8 p-3.5 bg-[#0a151a] hover:bg-[#c89211] text-white rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 border border-white/20 items-center justify-center cursor-pointer group"
+            className="w-12 h-12 bg-[#0a151a] hover:bg-[#c89211] text-white rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 border border-white/20 items-center justify-center cursor-pointer group"
         >
-            <CaretUp size={22} weight="bold" className="group-hover:-translate-y-0.5 transition-transform" />
+            <CaretUp size={24} weight="bold" className="group-hover:-translate-y-0.5 transition-transform" />
         </button>
     );
 }
