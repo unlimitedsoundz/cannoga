@@ -176,7 +176,7 @@ export function HomeNewsEventsGrid() {
                 </div>
 
                 {/* Date entries */}
-                <div className="flex-1 divide-y divide-white/10">
+                <div className="flex-1">
                     {events.map((ev) => {
                         const d = formatDate(ev.date || ev.publishDate || new Date().toISOString());
                         return (
