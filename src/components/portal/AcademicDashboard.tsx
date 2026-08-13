@@ -77,14 +77,14 @@ export default function AcademicDashboard({ student }: AcademicDashboardProps) {
                     {/* Orientation/News */}
                     <div>
                         <h3 className="font-bold text-[13px] md:text-[15px] pb-2 md:pb-3 mb-3">Urgent Notifications</h3>
-                        <div className="bg-neutral-50 p-4 md:p-6 border-l-2 border-[#9c27b3]">
+                        <div className="bg-neutral-50 p-4 md:p-6 border-l-2 border-[#0f2027]">
                             <p className="text-[13px] md:text-[15px] font-semibold mb-1">Orientation Week Starts</p>
                             <p className="text-[11px] md:text-[13px] text-black">Friday, 17th September</p>
                         </div>
                     </div>
 
                     {/* Status Banner */}
-                    <div className="bg-neutral-50 p-4 md:p-6 border-l-2 border-[#9c27b3]">
+                    <div className="bg-neutral-50 p-4 md:p-6 border-l-2 border-[#0f2027]">
                         <h3 className="text-[13px] md:text-[15px] font-semibold mb-1">Academic Status: Active</h3>
                         <p className="text-black text-[11px] md:text-[13px] leading-relaxed">
                             You are officially enrolled for the upcoming term. An information on how to set up your instituitional email will be sent to your email.
@@ -159,7 +159,7 @@ export default function AcademicDashboard({ student }: AcademicDashboardProps) {
                                     image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop"
                                 },
                             ].map((item) => (
-                                <Link href={item.href} key={item.label} className={`border border-neutral-200 rounded-sm overflow-hidden hover:border-[#9c27b3] transition-all group bg-white ${!item.active ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                <Link href={item.href} key={item.label} className={`border border-neutral-200 rounded-sm overflow-hidden hover:border-[#0f2027] transition-all group bg-white ${!item.active ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                     <CardImage src={item.image} alt={item.label} />
                                     <div className="p-3 md:p-4">
                                         <h4 className="font-bold text-[11px] md:text-[13px] tracking-wide mb-0.5 leading-tight">{item.label}</h4>
@@ -203,7 +203,7 @@ export default function AcademicDashboard({ student }: AcademicDashboardProps) {
                                     image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=800&auto=format&fit=crop"
                                 },
                             ].map((item) => (
-                                <Link href={item.href} key={item.label} className={`border border-neutral-200 rounded-sm overflow-hidden hover:border-[#9c27b3] transition-all group bg-white ${!item.active ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                <Link href={item.href} key={item.label} className={`border border-neutral-200 rounded-sm overflow-hidden hover:border-[#0f2027] transition-all group bg-white ${!item.active ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                     <CardImage src={item.image} alt={item.label} />
                                     <div className="p-3 md:p-4">
                                         <h4 className="font-bold text-[11px] md:text-[13px] tracking-wide mb-0.5 leading-tight">{item.label}</h4>

@@ -57,7 +57,7 @@ export function HomeCarousel() {
     };
 
     return (
-        <section className="relative overflow-hidden text-white min-h-[500px] lg:h-[600px] flex items-center border-b border-[#9c27b3]/5">
+        <section className="relative overflow-hidden text-white min-h-[500px] lg:h-[600px] flex items-center border-b border-[#0f2027]/10">
             {/* Slide Container */}
             <div className="relative w-full h-full min-h-[500px] lg:h-[600px]">
                 {slides.map((slide, idx) => (
@@ -93,11 +93,11 @@ export function HomeCarousel() {
                                 <div className="pt-4">
                                     <Link
                                         href={slide.btnHref}
-                                        className="inline-flex items-center gap-2 bg-[#9c27b3] text-white font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline"
+                                        className="inline-flex items-center gap-2 bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline rounded-sm transition-colors border border-white/20"
                                         noHover
                                     >
                                         <span>{slide.btnText}</span>
-                                        <ArrowRight size={18} weight="bold" />
+                                        <ArrowRight size={18} weight="bold" className="text-[#c89211]" />
                                     </Link>
                                 </div>
                             </div>
@@ -109,14 +109,14 @@ export function HomeCarousel() {
             {/* Manual Controls */}
             <button
                 onClick={prevSlide}
-                className="absolute left-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#9c27b3]/40 hover:bg-[#9c27b3] w-12 h-12 flex items-center justify-center text-white transition-colors"
+                className="absolute left-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0f2027]/60 hover:bg-[#0f2027] w-12 h-12 flex items-center justify-center text-white transition-colors border border-white/20"
                 aria-label="Previous slide"
             >
                 <CaretLeft size={24} weight="bold" />
             </button>
             <button
                 onClick={nextSlide}
-                className="absolute right-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#9c27b3]/40 hover:bg-[#9c27b3] w-12 h-12 flex items-center justify-center text-white transition-colors"
+                className="absolute right-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0f2027]/60 hover:bg-[#0f2027] w-12 h-12 flex items-center justify-center text-white transition-colors border border-white/20"
                 aria-label="Next slide"
             >
                 <CaretRight size={24} weight="bold" />

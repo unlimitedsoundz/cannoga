@@ -29,10 +29,10 @@ export default function AcademicRecordClient({ enrollments }: AcademicRecordClie
                     </p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <button className="flex items-center gap-2 px-4 py-2 border-2 border-[#9c27b3] bg-white text-black rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-50 transition-all">
+                    <button className="flex items-center gap-2 px-4 py-2 border border-[#0f2027] bg-white text-[#0f2027] rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-[#f8fafc] transition-all">
                         <Download size={14} weight="bold" /> Download PDF Transcript
                     </button>
-                    <button className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all shadow-sm">
+                    <button className="flex items-center gap-2 px-4 py-2 bg-[#0f2027] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-[#1a3644] transition-all shadow-sm">
                         <FileText size={14} weight="bold" /> Request Official Copy
                     </button>
                 </div>
@@ -40,56 +40,56 @@ export default function AcademicRecordClient({ enrollments }: AcademicRecordClie
 
             {/* Academic Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-black">Cumulative GPA</span>
-                        <Award className="text-black" size={20} weight="regular" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Cumulative GPA</span>
+                        <Award className="text-[#0f2027]" size={20} weight="regular" />
                     </div>
-                    <div className="text-4xl font-black tracking-tighter">{gpa}</div>
-                    <div className="mt-2 flex items-center gap-1 text-[10px] font-bold text-neutral-600">
-                        <TrendingUp size={12} weight="bold" /> Top 15% of Cohort
+                    <div className="text-4xl font-serif font-bold text-[#0f2027] tracking-tight">{gpa}</div>
+                    <div className="mt-2 flex items-center gap-1 text-[10px] font-bold text-slate-600">
+                        <TrendingUp size={12} weight="bold" className="text-[#c89211]" /> Top 15% of Cohort
                     </div>
                 </div>
 
-                <div className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-black">Credits Earned</span>
-                        <CheckCircle className="text-black" size={20} weight="regular" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Credits Earned</span>
+                        <CheckCircle className="text-[#0f2027]" size={20} weight="regular" />
                     </div>
-                    <div className="text-4xl font-black tracking-tighter">{totalCredits} <span className="text-lg text-neutral-400">/ 180</span></div>
-                    <div className="mt-2 w-full bg-neutral-100 h-2 rounded-full overflow-hidden border border-[#9c27b3]/10">
+                    <div className="text-4xl font-serif font-bold text-[#0f2027] tracking-tight">{totalCredits} <span className="text-lg text-slate-400 font-sans font-normal">/ 180</span></div>
+                    <div className="mt-2 w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200">
                         <div
-                            className="bg-[#9c27b3] h-full transition-all duration-1000"
+                            className="bg-[#0f2027] h-full transition-all duration-1000"
                             style={{ width: `${(totalCredits / 180) * 100}%` }}
                         ></div>
                     </div>
                 </div>
 
-                <div className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="bg-white border border-slate-200 p-6 rounded-sm shadow-sm">
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-black">Academic Standing</span>
-                        <AlertCircle className="text-black" size={20} weight="regular" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Academic Standing</span>
+                        <AlertCircle className="text-[#0f2027]" size={20} weight="regular" />
                     </div>
-                    <div className="text-2xl font-black tracking-tight uppercase">Good Standing</div>
-                    <p className="text-[10px] font-bold text-black/50 mt-2 uppercase tracking-wide">Next Review: July 2024</p>
+                    <div className="text-2xl font-serif font-bold text-[#0f2027] tracking-tight uppercase">Good Standing</div>
+                    <p className="text-[10px] font-bold text-slate-400 mt-2 uppercase tracking-wide">Next Review: July 2024</p>
                 </div>
             </div>
 
             {/* Detailed Record */}
-            <div className="bg-white border-2 border-[#9c27b3] rounded-sm overflow-hidden shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-                <div className="p-4 bg-neutral-50 border-b-2 border-[#9c27b3] flex items-center justify-between">
-                    <h2 className="text-[10px] font-black uppercase tracking-widest">Course History & Grades</h2>
-                    <span className="text-[10px] font-bold text-neutral-400">Sorted by Semester (Desc)</span>
+            <div className="bg-white border border-slate-200 rounded-sm overflow-hidden shadow-sm">
+                <div className="p-4 bg-[#f8fafc] border-b border-slate-200 flex items-center justify-between">
+                    <h2 className="text-[10px] font-black uppercase tracking-widest text-[#0f2027]">Course History &amp; Grades</h2>
+                    <span className="text-[10px] font-bold text-slate-400">Sorted by Semester (Desc)</span>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-neutral-100 text-[10px] font-black uppercase tracking-widest border-b-2 border-[#9c27b3]">
-                                <th className="p-4 border-r-2 border-[#9c27b3]">Semester</th>
-                                <th className="p-4 border-r-2 border-[#9c27b3]">Module Code</th>
-                                <th className="p-4 border-r-2 border-[#9c27b3]">Title</th>
-                                <th className="p-4 border-r-2 border-[#9c27b3] text-center">Credits</th>
-                                <th className="p-4 border-r-2 border-[#9c27b3] text-center">Grade</th>
+                            <tr className="bg-slate-50 text-[10px] font-black uppercase tracking-widest border-b border-slate-200 text-[#0f2027]">
+                                <th className="p-4 border-r border-slate-200">Semester</th>
+                                <th className="p-4 border-r border-slate-200">Module Code</th>
+                                <th className="p-4 border-r border-slate-200">Title</th>
+                                <th className="p-4 border-r border-slate-200 text-center">Credits</th>
+                                <th className="p-4 border-r border-slate-200 text-center">Grade</th>
                                 <th className="p-4">Status</th>
                             </tr>
                         </thead>
@@ -103,19 +103,19 @@ export default function AcademicRecordClient({ enrollments }: AcademicRecordClie
                             ) : (
                                 enrollments.map((e) => (
                                     <tr key={e.id} className="border-b border-neutral-100 hover:bg-neutral-50 transition-colors">
-                                        <td className="p-4 border-r-2 border-[#9c27b3] font-black text-[10px] uppercase truncate max-w-[120px]">
+                                        <td className="p-4 border-r border-slate-200 font-bold text-[10px] uppercase truncate max-w-[120px] text-[#0f2027]">
                                             {e.semester.name}
                                         </td>
-                                        <td className="p-4 border-r-2 border-[#9c27b3] font-black text-[10px] uppercase tracking-tighter">
+                                        <td className="p-4 border-r border-slate-200 font-bold text-[10px] uppercase tracking-tighter text-[#0f2027]">
                                             {e.module.code}
                                         </td>
-                                        <td className="p-4 border-r-2 border-[#9c27b3] font-bold text-[11px] leading-tight">
+                                        <td className="p-4 border-r border-slate-200 font-bold text-[11px] leading-tight text-slate-800">
                                             {e.module.title}
                                         </td>
-                                        <td className="p-4 border-r-2 border-[#9c27b3] text-center font-black text-[11px]">
+                                        <td className="p-4 border-r border-slate-200 text-center font-bold text-[11px] text-[#0f2027]">
                                             {e.module.credits}
                                         </td>
-                                        <td className="p-4 border-r-2 border-[#9c27b3] text-center font-black text-lg">
+                                        <td className="p-4 border-r border-slate-200 text-center font-bold text-lg text-[#0f2027]">
                                             {e.grade !== null ? e.grade : '-'}
                                         </td>
                                         <td className="p-4 flex items-center gap-2">

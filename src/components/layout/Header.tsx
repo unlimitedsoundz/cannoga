@@ -152,19 +152,27 @@ export function Header() {
             className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-sm flex flex-col"
         >
             {/* Top Utility Bar (Desktop only) */}
-            <div className="hidden lg:block bg-[#9c27b3] text-[#f5f5f5] text-xs h-8 w-full">
-                <div className="container mx-auto px-4 h-full flex items-center justify-between font-semibold">
+            <div className="hidden lg:block bg-[#0f2027] text-slate-200 text-xs h-9 w-full border-b border-[#1e3a47]">
+                <div className="container mx-auto px-4 h-full flex items-center justify-between font-medium">
                     <div className="flex items-center gap-6">
-                        <Link href="/site-index" className="hover:underline text-[#f5f5f5] no-underline">Site Index</Link>
-                        <Link href="/student-guide#calendar" className="hover:underline text-[#f5f5f5] no-underline">Campus Maps</Link>
-                        <div className="flex items-center gap-1.5 text-white">
-                            <MapPin size={14} weight="fill" className="text-[#000000]" />
-                            <span>Ottawa campus</span>
-                        </div>
+                        <span className="text-[#c89211] font-semibold flex items-center gap-1.5">
+                            <MapPin size={14} weight="fill" className="text-[#c89211]" />
+                            Ottawa Campus (DLI #O19394821)
+                        </span>
+                        <span className="text-slate-400">|</span>
+                        <Link href="/admissions" className="hover:text-white text-slate-300 no-underline transition-colors">Future Students</Link>
+                        <Link href="/student-guide" className="hover:text-white text-slate-300 no-underline transition-colors">Current Students</Link>
+                        <Link href="/about" className="hover:text-white text-slate-300 no-underline transition-colors">Faculty &amp; Staff</Link>
+                        <Link href="/alumni" className="hover:text-white text-slate-300 no-underline transition-colors">Alumni</Link>
                     </div>
                     <div className="flex items-center gap-6">
-                        <Link href="/student-guide/international" className="hover:underline text-[#f5f5f5] no-underline font-semibold">International</Link>
-                        <Link href="/portal/support" className="hover:underline text-[#f5f5f5] no-underline font-semibold">IT Support</Link>
+                        <Link href="/student-guide/international" className="hover:text-white text-slate-300 no-underline transition-colors font-semibold">International Students</Link>
+                        <Link href="/portal/support" className="hover:text-white text-slate-300 no-underline transition-colors">IT Support</Link>
+                        <div className="flex items-center gap-2 pl-4 border-l border-[#1e3a47] text-slate-300 font-semibold">
+                            <span className="text-white hover:underline cursor-pointer">EN</span>
+                            <span className="text-slate-500">/</span>
+                            <span className="text-slate-400 hover:text-white cursor-pointer">FR</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -342,8 +350,8 @@ export function Header() {
                         </div>
 
                         <div className="p-4">
-                            <Link href="/admissions/application-process" className="flex w-full h-[50px] items-center justify-center bg-[#9c27b3] hover:bg-[#9c27b3] text-white font-bold no-underline transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
-                                Apply to Cannoga
+                            <Link href="/admissions/application-process" className="flex w-full h-[50px] items-center justify-center bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold no-underline transition-colors rounded-sm" onClick={() => setIsMobileMenuOpen(false)}>
+                                Apply to Cannoga College
                             </Link>
                         </div>
                     </div>

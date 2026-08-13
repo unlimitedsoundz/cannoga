@@ -34,17 +34,17 @@ export function Accordion({ sections }: AccordionProps) {
                 return (
                     <div 
                         key={section.accordionKey} 
-                        className="border-t-2 border-[#9c27b3] last:border-b-2"
+                        className="border-t-2 border-[#0f2027] last:border-b-2"
                     >
                         <button
                             onClick={() => toggle(section.accordionKey)}
-                            className="w-full flex items-center justify-between py-8 px-0 text-left hover:bg-[#f5f5f5] transition-colors focus:outline-none group"
+                            className="w-full flex items-center justify-between py-8 px-0 text-left hover:bg-[#f8fafc] transition-colors focus:outline-none group"
                             aria-expanded={isOpen}
                         >
-                            <span className="text-aalto-5 md:text-aalto-6 font-bold text-[#000000] pr-8 leading-aalto-5 tracking-aalto-2">
+                            <span className="text-aalto-5 md:text-aalto-6 font-serif font-bold text-[#0f2027] pr-8 leading-aalto-5 tracking-aalto-2">
                                 {section.title}
                             </span>
-                            <div className="flex-shrink-0 bg-[#9c27b3] text-white p-2">
+                            <div className="flex-shrink-0 bg-[#0f2027] text-white p-2">
                                 {isOpen ? (
                                     <Minus size={20} weight="bold" />
                                 ) : (

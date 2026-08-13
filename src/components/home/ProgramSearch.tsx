@@ -58,7 +58,7 @@ export default function ProgramSearch() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search Programs"
-            className="w-64 lg:w-80 px-4 py-2.5 text-sm font-bold text-black placeholder:text-black/50 border border-neutral-300 focus:outline-none focus:border-[#9c27b3] transition-colors"
+            className="w-64 lg:w-80 px-4 py-2.5 text-sm font-bold text-black placeholder:text-black/50 border border-neutral-300 focus:outline-none focus:border-[#0f2027] transition-colors"
           />
           {query && (
             <button
@@ -70,7 +70,7 @@ export default function ProgramSearch() {
           )}
         </div>
         <button
-          className="w-10 h-10 bg-[#9c27b3] text-white flex items-center justify-center"
+          className="w-10 h-10 bg-[#0f2027] hover:bg-[#1a3644] text-white flex items-center justify-center transition-colors rounded-sm"
           aria-label="Search"
         >
           <Search size={18} strokeWidth={2} />

@@ -21,13 +21,13 @@ export interface ButtonProps {
 }
 
 const buttonVariants = {
-    primary: "bg-[#9c27b3] text-white hover:bg-[#9c27b3] shadow-sm",
-    secondary: "bg-[#f5f5f5] text-[#000000] hover:bg-[#f5f5f5] shadow-sm",
-    accent: "bg-[#9c27b3] text-white hover:bg-[#7b1fa2] shadow-sm",
-    white: "bg-white text-[#000000] hover:bg-[#f5f5f5] shadow-sm",
-    outline: "border-2 border-[#9c27b3] bg-transparent text-[#9c27b3] hover:bg-[#f5f5f5]",
-    ghost: "hover:bg-[#f5f5f5] text-[#000000]",
-    link: "text-[#000000] underline-offset-4 hover:underline",
+    primary: "bg-[#0f2027] text-white hover:bg-[#1a3644] shadow-sm",
+    secondary: "bg-[#f8fafc] text-[#0f2027] hover:bg-[#e2e8f0] shadow-sm border border-slate-200",
+    accent: "bg-[#0f2027] text-white hover:bg-[#1a3644] shadow-sm",
+    white: "bg-white text-[#0f2027] hover:bg-[#f8fafc] shadow-sm border border-slate-200",
+    outline: "border-2 border-[#0f2027] bg-transparent text-[#0f2027] hover:bg-[#0f2027] hover:text-white",
+    ghost: "hover:bg-[#f8fafc] text-[#0f2027]",
+    link: "text-[#0f2027] underline-offset-4 hover:underline",
     "link-white": "text-white underline-offset-8 hover:opacity-70 underline decoration-white",
 }
 

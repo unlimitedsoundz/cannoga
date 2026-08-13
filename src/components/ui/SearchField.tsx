@@ -63,7 +63,7 @@ export function SearchField({
     };
 
     return (
-        <div className="flex items-center gap-3 bg-neutral-50 px-4 py-3 rounded-none border-b-2 border-[#9c27b3] group focus-within:bg-white transition-all">
+        <div className="flex items-center gap-3 bg-[#f8fafc] px-4 py-3 rounded-none border-b-2 border-[#0f2027] group focus-within:bg-white transition-all">
             <button 
                 onClick={handleSearchClick}
                 className="text-black hover:opacity-70 transition-opacity"

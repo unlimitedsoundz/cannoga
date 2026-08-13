@@ -107,7 +107,7 @@ export default async function AdmissionsPage() {
                         fallbackContent={getSectionDefault('hero_subtitle')}
                     />
                 }
-                backgroundColor="#472247"
+                backgroundColor="#0f2027"
                 tinted
                 lightText={true}
                 breadcrumbs={[
@@ -135,10 +135,10 @@ export default async function AdmissionsPage() {
                     <div className="hidden lg:col-span-3">
                         <div className="lg:sticky lg:top-24 space-y-8">
                             <TableOfContents sections={tocSections} />
-                            <div className="bg-[#9c27b3] text-white p-10 border-0">
-                                <h3 className="font-bold text-lg mb-2 text-white uppercase tracking-wider">Admissions Office</h3>
-                                <p className="text-sm text-white opacity-40 mb-6 font-light">Questions? We are here to help.</p>
-                                <Link href="/contact" className="text-sm font-bold underline underline-offset-4 hover:text-white transition-colors">Contact Us</Link>
+                            <div className="bg-[#0f2027] text-white p-8 border-0 rounded-sm">
+                                <h3 className="font-serif font-bold text-lg mb-2 text-white tracking-wide">Admissions Office</h3>
+                                <p className="text-xs text-slate-300 mb-6 font-normal">Ottawa Campus — Designated Learning Institution (DLI #O19394821)</p>
+                                <Link href="/contact" className="text-xs font-bold uppercase tracking-wider text-[#c89211] hover:underline">Contact Admissions</Link>
                             </div>
                         </div>
                     </div>
@@ -154,7 +154,7 @@ export default async function AdmissionsPage() {
                         </section>
 
                         <section id="degree-programmes" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Degree Programmes & Schools</h2>
+                            <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Degree Programmes &amp; Schools</h2>
                             <p className="text-lg text-black mb-6">
                                 Cannoga College is organised into eight academic schools. Explore each school to discover its Bachelor's and Master's programmes, departments, and research.
                             </p>
@@ -163,11 +163,11 @@ export default async function AdmissionsPage() {
                                     <Link
                                         key={school.id}
                                         href={`/schools/${school.slug}`}
-                                        className="group block bg-white border border-neutral-200 p-6 hover:border-[#9c27b3] hover:shadow-lg transition-all no-underline"
+                                        className="group block bg-white border border-slate-200 p-6 hover:border-[#0f2027] hover:shadow-md transition-all no-underline rounded-sm"
                                     >
                                         <h3 className="font-bold text-lg mb-2 text-black flex justify-between items-center">
                                             {school.name}
-                                            <ArrowRight weight="bold" size={18} className="group-hover:translate-x-1 transition-transform text-neutral-400" />
+                                            <ArrowRight weight="bold" size={18} className="group-hover:translate-x-1 transition-transform text-[#c89211]" />
                                         </h3>
                                         <p className="text-black opacity-60 text-sm leading-relaxed">
                                             {school.description || 'Explore programmes, departments, and research.'}
@@ -199,20 +199,20 @@ export default async function AdmissionsPage() {
                             </div>
 
                             {/* Quick Links */}
-                            <div className="bg-neutral-50 p-8 border-l-4 border-[#9c27b3]">
-                                <h3 className="text-lg font-black text-black mb-4">Quick Links</h3>
+                            <div className="bg-[#f8fafc] p-8 border-l-4 border-[#0f2027] rounded-r-sm">
+                                <h3 className="text-lg font-bold font-serif text-[#0f2027] mb-4">Admissions Quick Links</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <Link href="/portal/apply" className="inline-flex items-center gap-2 text-sm font-bold text-[#9c27b3] hover:underline">
-                                        Start Application <ArrowRight size={16} weight="bold" />
+                                    <Link href="/portal/apply" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
+                                        Start Application <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
                                     </Link>
-                                    <Link href="/portal/dashboard" className="inline-flex items-center gap-2 text-sm font-bold text-[#9c27b3] hover:underline">
-                                        Pay Your Fees <ArrowRight size={16} weight="bold" />
+                                    <Link href="/portal/dashboard" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
+                                        Pay Your Fees <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
                                     </Link>
-                                    <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-[#9c27b3] hover:underline">
-                                        Study in Canada <ArrowRight size={16} weight="bold" />
+                                    <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
+                                        Study in Canada (IRCC) <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
                                     </a>
-                                    <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/study-permit-application-guide.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-[#9c27b3] hover:underline">
-                                        Study Permit Guide <ArrowRight size={16} weight="bold" />
+                                    <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/study-permit-application-guide.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
+                                        Study Permit Guide <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
                                     </a>
                                 </div>
                             </div>

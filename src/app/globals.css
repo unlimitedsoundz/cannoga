@@ -2,9 +2,9 @@
 /* Load Lato for portal/applications only */
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 /* ============================================
    CANNOGA COLLEGE — SHARED DESIGN TOKENS
@@ -19,33 +19,33 @@
 .cc-container      { width: 100%; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; max-width: 1280px; }
 
 /* Section headings */
-.cc-h1 { font-size: 2.5rem; font-weight: 900; color: #000000; text-transform: uppercase; letter-spacing: -0.025em; line-height: 1.1; }
-.cc-h2 { font-size: 1.75rem; font-weight: 900; color: #000000; text-transform: uppercase; letter-spacing: -0.025em; }
-.cc-h3 { font-size: 1.25rem; font-weight: 700; color: #000000; }
-.cc-label { font-size: 0.875rem; font-weight: 600; color: #000000; margin-top: 0.5rem; }
-.cc-section-divider { border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 2.5rem; }
+.cc-h1 { font-family: var(--font-playfair); font-size: 2.5rem; font-weight: 800; color: #0f2027; line-height: 1.15; }
+.cc-h2 { font-family: var(--font-playfair); font-size: 1.875rem; font-weight: 800; color: #0f2027; }
+.cc-h3 { font-size: 1.25rem; font-weight: 700; color: #0f2027; }
+.cc-label { font-size: 0.875rem; font-weight: 600; color: #4a5568; margin-top: 0.5rem; }
+.cc-section-divider { border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; margin-bottom: 2.5rem; }
 
 /* Cards */
-.cc-card { background: white; border: 1px solid #f3f4f6; transition: border-color 0.2s, box-shadow 0.2s; }
-.cc-card:hover { border-color: #9c27b3;   box-shadow: 0 8px 24px rgba(156,39,179,0.10); }
+.cc-card { background: white; border: 1px solid #e2e8f0; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.cc-card:hover { border-color: #0f2027; box-shadow: 0 4px 16px rgba(15, 32, 39, 0.08); }
 .cc-card-body { padding: 1.5rem 2rem; }
 
 /* Accent icon block */
-.cc-icon-block { display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem; background-color: #f5f5f5; color: #000000; transition: background-color 0.2s, color 0.2s; }
-.cc-icon-block:hover, .group:hover .cc-icon-block { background-color: #9c27b3; color: white; }
+.cc-icon-block { display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem; background-color: #f8fafc; color: #0f2027; transition: background-color 0.2s, color 0.2s; }
+.cc-icon-block:hover, .group:hover .cc-icon-block { background-color: #0f2027; color: white; }
 
 /* Buttons */
-.cc-btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background-color: #9c27b3; color: white; font-weight: 700; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.75rem 1.75rem; transition: background-color 0.2s; }
-.cc-btn-primary:hover { background-color: #9c27b3; }
-.cc-btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; border: 2px solid #9c27b3; color: #9c27b3; font-weight: 700; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.75rem 1.75rem; transition: all 0.2s; background: transparent; }
-.cc-btn-outline:hover { background-color: #9c27b3; color: white; }
+.cc-btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background-color: #0f2027; color: white; font-weight: 700; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.75rem 1.75rem; transition: background-color 0.2s ease; border-radius: 2px; }
+.cc-btn-primary:hover { background-color: #1a3644; }
+.cc-btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; border: 2px solid #0f2027; color: #0f2027; font-weight: 700; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.75rem 1.75rem; transition: all 0.2s ease; background: transparent; border-radius: 2px; }
+.cc-btn-outline:hover { background-color: #0f2027; color: white; }
 
 /* Table styling */
 .cc-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-.cc-table thead { background-color: #9c27b3; color: white; }
+.cc-table thead { background-color: #0f2027; color: white; }
 .cc-table th { padding: 0.875rem 1.25rem; font-weight: 700; text-align: left; }
-.cc-table td { padding: 0.875rem 1.25rem; border-bottom: 1px solid #f3f4f6; }
-.cc-table tr:hover td { background-color: #fafafa; }
+.cc-table td { padding: 0.875rem 1.25rem; border-bottom: 1px solid #e2e8f0; }
+.cc-table tr:hover td { background-color: #f8fafc; }
 .cc-table tbody tr:last-child td { border-bottom: none; }
 
 @media (min-width: 768px) {
@@ -80,7 +80,7 @@
 .aalto-side-navigation {
     width: 100%;
     height: 100%;
-    background-color: #9c27b3;
+    background-color: #0f2027;
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -255,9 +255,9 @@
 }
 
 .ck-editor__editable blockquote, .ck-content blockquote {
-  border-left: 8px solid #9c27b3;
+  border-left: 6px solid #0f2027;
   padding: 1.5rem 2rem;
-  background: #f9f9f9;
+  background: #f8fafc;
   font-style: italic;
   margin: 2rem 0;
   font-size: 1.1rem;
@@ -283,44 +283,42 @@
 }
 
 .faq-content {
-  color: #000000 !important;
+  color: #0f2027 !important;
 }
 
 :root {
   --background: #ffffff;
-  --foreground: #000000;
+  --foreground: #0f2027;
 
-  --color-primary: #9c27b3;
+  --color-primary: #0f2027;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #9c27b3;
+  --color-secondary: #1a3644;
   --color-secondary-foreground: #ffffff;
-  --color-accent: #9c27b3;
+  --color-accent: #c89211;
   --color-accent-foreground: #ffffff;
 
-  --color-black: #9c27b3;
-  --color-neutral-900: #2d2d2d;
+  --color-black: #0f2027;
+  --color-neutral-900: #1e293b;
   --color-background: #ffffff;
-  --color-foreground: #000000;
+  --color-foreground: #0f2027;
 
-  --color-muted: #f5f5f5;
-  --color-muted-foreground: #000000;
+  --color-muted: #f8fafc;
+  --color-muted-foreground: #475569;
 
-  --color-card: #f5f5f5;
-  --color-card-foreground: #000000;
+  --color-card: #ffffff;
+  --color-card-foreground: #0f2027;
 
   --color-border: #e2e8f0;
-  --color-input: #e2e8f0;
+  --color-input: #cbd5e1;
 
-  --font-sans: 'Metropolis', var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: 'Metropolis', var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
   --font-lato: 'Lato', 'Helvetica Neue', Arial, sans-serif;
 
-  --radius-xs: 0px !important;
-  --radius-sm: 0px !important;
-}
-
-.font-rubik {
-  font-family: 'Metropolis', sans-serif !important;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
 }
 
 @layer utilities {
@@ -330,7 +328,7 @@
     margin: 0 !important;
     padding: 0 !important;
   }
-  @screen lg {
+  @media (min-width: 1024px) {
     .hero-mobile-height {
       height: 100% !important;
       min-height: 100% !important;
@@ -342,39 +340,12 @@
     margin: 0 !important;
     padding: 0 !important;
   }
-  @screen lg {
+  @media (min-width: 1024px) {
     .hero-image-mobile {
       margin: 0 !important;
       padding: 0 !important;
     }
   }
-}
-
-:root {
-  --radius-md: 0px !important;
-  --radius-lg: 0px !important;
-  --radius-xl: 0px !important;
-  --radius-2xl: 0px !important;
-  --radius-3xl: 0px !important;
-  --radius-full: 9999px;
-}
-
-/* Force zero border radius on everything except specific pill/circle utilities */
-*:not(.rounded-full):not(.force-circle):not(.tag-pill) {
-  border-radius: 0 !important;
-}
-
-/* Remove neutral/grey borders on legacy pages, preserving SIS & Portal component borders */
-body:not([data-theme="sis"]) [class*="border-neutral-"],
-body:not([data-theme="sis"]) [class*="border-gray-"],
-body:not([data-theme="sis"]) [class*="border-zinc-"] {
-  border-color: transparent !important;
-  border-width: 0 !important;
-}
-
-/* Ensure black borders are preserved */
-[class*="border-black"] {
-  border-color: #000 !important;
 }
 
 .force-circle {
@@ -387,8 +358,7 @@ body:not([data-theme="sis"]) [class*="border-zinc-"] {
 
 /* Custom Utilities */
 .glass {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: none !important;
+  background: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -397,32 +367,15 @@ body:not([data-theme="sis"]) [class*="border-zinc-"] {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #9c27b3;
+  background-color: #0f2027;
   color: #ffffff;
   padding: 0.25rem 0.75rem;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border-radius: 9999px !important;
+  letter-spacing: 0.08em;
+  border-radius: 2px;
 }
-
-/* Nuclear override: remove all shadows and visual effects across the entire site */
-*,
-*::before,
-*::after {
-  box-shadow: none !important;
-  text-shadow: none !important;
-  transition: none !important;
-  backdrop-filter: none !important;
-}
-
-/* Ensure loading spinners can always animate */
-.loading-spinner,
-.loading-spinner * {
-  animation: inherit !important;
-}
-
 
 html, body {
   max-width: 100%;
@@ -477,30 +430,9 @@ body {
 }
 
 
-/* Force unbolding of strong and b tags site-wide */
-strong, b {
-  font-weight: 400 !important;
-}
-
-/* Mobile: bump base font from 16px to 18px */
-@media (max-width: 767px) {
-  body {
-    font-size: 1.125rem; /* aalto-3 */
-  }
-}
-
-/* Force Inter on all frontend content including CKEditor output */
-.ck-content *,
-.prose-arrows,
-.prose-arrows *,
-.blog-content * {
-  font-family: var(--font-sans) !important;
-  font-size: 1.125rem !important; /* aalto-3 */
-}
-
-/* Selection color for Purple theme */
+/* Selection color for Ottawa Navy theme */
 ::selection {
-  background: #9c27b3;
+  background: #0f2027;
   color: #ffffff;
 }
 
@@ -537,7 +469,7 @@ strong, b {
   top: 0.6em !important;
   width: 20px !important;
   height: 20px !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%239c27b3' viewBox='0 0 256 256'%3E%3Cpath d='M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z'%3E%3C/path%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%230f2027' viewBox='0 0 256 256'%3E%3Cpath d='M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z'%3E%3C/path%3E%3C/svg%3E") !important;
   background-repeat: no-repeat !important;
   background-size: contain !important;
   transform: translateY(-50%) !important;
@@ -735,7 +667,7 @@ strong, b {
 .prose-arrows table th {
   text-align: left;
   padding: 10px 16px;
-  border-bottom: 2px solid #9c27b3;
+  border-bottom: 2px solid #0f2027;
   font-weight: 700;
   font-size: inherit;
 }

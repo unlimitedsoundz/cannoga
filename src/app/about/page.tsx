@@ -42,8 +42,8 @@ export default async function AboutPage() {
 
             <Hero
                 title="About Cannoga College"
-                body="Cannoga College is a career-focused college located in Ottawa, Ontario, Canada, committed to providing high-quality education through a range of certificate, diploma, and program offerings."
-                backgroundColor="#6c531b"
+                body="Cannoga College is a career-focused post-secondary institution located in Ottawa, Ontario, Canada, committed to practical education, applied research, and student success."
+                backgroundColor="#0f2027"
                 tinted
                 lightText={true}
                 breadcrumbs={[
@@ -58,11 +58,11 @@ export default async function AboutPage() {
 
             <div className="cc-container py-8 md:py-20">
                 <section className="max-w-4xl mx-auto mb-16 space-y-5 text-lg leading-relaxed">
-                    <p className="font-semibold text-xl text-[#000000]">
-                        Cannoga College is a forward-looking, career-oriented college located in Ottawa, Ontario. The college is dedicated to delivering quality post-secondary education through a range of certificate, diploma, and program offerings designed to equip students with the skills needed in today's job market.
+                    <p className="font-semibold text-xl text-[#0f2027]">
+                        Cannoga College is an approved Ontario post-secondary college (DLI #O19394821) located in Ottawa, Ontario. We deliver certificate, diploma, and degree programs designed to equip graduates with practical skills for the Canadian and global workforce.
                     </p>
                     <p className="text-neutral-600">
-                        The college welcomes both domestic and international students into a diverse and inclusive academic environment that promotes learning, cultural exchange, and professional growth. Academic programs span key fields such as Business Administration, Information Technology, Health Sciences, Hospitality and Tourism, Engineering Foundations, Education, and Social Sciences.
+                        The college welcomes domestic and international students into a diverse academic community. Programs span key fields including Business Administration, Information Technology, Health Sciences, Hospitality and Tourism, Engineering Foundations, Education, and Social Sciences.
                     </p>
                     <p className="text-neutral-600">
                         With a focus on practical learning and student success, Cannoga College combines academic instruction with hands-on training, industry-relevant projects, and experiential learning opportunities. Students benefit from small class sizes, accessible faculty, and individualized academic support, as well as internship and co-op pathways that enhance employability and real-world readiness.
@@ -70,7 +70,7 @@ export default async function AboutPage() {
                     <p className="text-neutral-600">
                         International students are supported through dedicated services including admissions guidance, study permit information, academic advising, career development support, and newcomer integration services to ensure a smooth transition to life and studies in Canada.
                     </p>
-                    <p className="font-semibold text-[#000000]">
+                    <p className="font-semibold text-[#0f2027]">
                         Cannoga College is committed to preparing graduates who are confident, skilled, and ready to contribute meaningfully to both local and global communities.
                     </p>
                 </section>
@@ -124,12 +124,12 @@ export default async function AboutPage() {
                                 "Strong integration of theory and practical training"
                             ].map((item, i) => (
                                 <li key={i} className="cc-card flex items-start gap-4 p-5">
-                                    <ArrowRight size={18} weight="bold" className="shrink-0 text-[#000000] mt-0.5" />
+                                    <ArrowRight size={18} weight="bold" className="shrink-0 text-[#0f2027] mt-0.5" />
                                     <span className="text-neutral-700 font-medium leading-snug">{item}</span>
                                 </li>
                             ))}
                         </ul>
-                        <p className="text-neutral-600 text-lg leading-relaxed bg-[#f5f5f5] p-8 border-l-4 border-[#9c27b3]">
+                        <p className="text-slate-700 text-lg leading-relaxed bg-[#f8fafc] p-8 border-l-4 border-[#0f2027]">
                             Our Ottawa campus provides a supportive and inclusive environment where students and faculty work together to explore real-world challenges and develop innovative, career-ready solutions.
                         </p>
                     </div>
@@ -245,20 +245,20 @@ export default async function AboutPage() {
                 </div>
             </div>
 
-            <div className="py-20 bg-[#9c27b3] text-white w-full">
+            <div className="py-20 bg-[#0f2027] text-white w-full border-y border-[#1e3a47]">
                 <div className="cc-container">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center max-w-4xl mx-auto">
                         <div className="flex flex-col items-center">
-                            <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3">2.4k</span>
-                            <span className="text-sm font-semibold uppercase tracking-[0.3em] text-white/90">Students</span>
+                            <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3 text-[#c89211]">2.4k</span>
+                            <span className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-300">Enrolled Students</span>
                         </div>
                         <div className="flex flex-col items-center">
-                            <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3">250</span>
-                            <span className="text-sm font-semibold uppercase tracking-[0.3em] text-white/90">Faculty</span>
+                            <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3 text-[#c89211]">250</span>
+                            <span className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-300">Faculty &amp; Instructors</span>
                         </div>
                         <div className="flex flex-col items-center">
-                            <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3">60+</span>
-                            <span className="text-sm font-semibold uppercase tracking-[0.3em] text-white/90">Countries</span>
+                            <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3 text-[#c89211]">60+</span>
+                            <span className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-300">Countries Represented</span>
                         </div>
                     </div>
                 </div>

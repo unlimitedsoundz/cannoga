@@ -13,7 +13,7 @@ export function Footer() {
     if (isPortalOrAdmin) return null;
     return (
         <>
-            <footer className="bg-[#191919] text-white pt-16 pb-10 border-t border-white/10 font-sans">
+            <footer className="bg-[#0a151a] text-white pt-16 pb-10 border-t border-white/10 font-sans">
                 {/* Main Footer Content */}
                 <div className="container mx-auto px-4 max-w-7xl">
                     {/* Top Row: Brand + Land Acknowledgement + Social */}
@@ -112,9 +112,10 @@ export function Footer() {
                     {/* Bottom Bar */}
                     <div className="border-t border-white/10 pt-6">
                         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                            <p className="text-white text-xs order-2 md:order-1">
-                                © 2026 Cannoga College. All rights reserved.
-                            </p>
+                            <div className="text-slate-400 text-xs order-2 md:order-1 space-y-1 text-center md:text-left">
+                                <p>© 2026 Cannoga College. All rights reserved.</p>
+                                <p className="text-[11px] text-slate-500">Designated Learning Institution (DLI #O19394821) — Approved by Ontario Ministry of Colleges and Universities (MCU).</p>
+                            </div>
                             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 order-1 md:order-2">
                                 <Link href="/site-index" className="text-white text-xs hover:text-white transition-colors no-underline">Site Index</Link>
                                 <Link href="/privacy" className="text-white text-xs hover:text-white transition-colors no-underline">Privacy Policy</Link>

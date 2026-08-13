@@ -68,7 +68,7 @@ export function Search() {
                 <>
                     {/* Backdrop */}
                     <div
-                        className="fixed inset-0 z-[100] bg-[#9c27b3]/20 backdrop-blur-sm animate-in fade-in duration-200"
+                        className="fixed inset-0 z-[100] bg-[#0f2027]/40 backdrop-blur-sm animate-in fade-in duration-200"
                         onClick={() => setIsOpen(false)}
                     />
 

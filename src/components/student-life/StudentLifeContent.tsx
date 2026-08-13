@@ -26,7 +26,7 @@ export default function StudentLifeContent() {
             <Hero
                 title="Student life"
                 body="Experience a supportive and vibrant campus environment. From coastal landscapes to modern academic facilities, discover how our community thrives in the heart of Ottawa."
-                backgroundColor="#392d56"
+                backgroundColor="#0f2027"
                 tinted
                 lightText={true}
                 breadcrumbs={[
@@ -84,10 +84,10 @@ export default function StudentLifeContent() {
                                 </div>
 
                                 {/* Right: Text Content */}
-                                <div className="p-12 md:p-20 flex flex-col justify-center bg-[#9c27b3] text-white">
+                                <div className="p-12 md:p-20 flex flex-col justify-center bg-[#0f2027] text-white">
                                     <div className="space-y-8">
                                         <p className="text-aalto-3 text-white/90 leading-aalto-3">
-                                            The campus is directly connected to public transport networks. A dedicated metro station provides fast access to central Ottawa, with travel times typically under twenty minutes.
+                                            The campus is directly connected to public transport networks. A dedicated transit route provides fast access to central Ottawa, with travel times typically under twenty minutes.
                                         </p>
                                         <p className="text-aalto-3 text-white/90 leading-aalto-3">
                                             Cycling infrastructure is well developed, with marked bike paths and secure bicycle parking available throughout the campus area.
@@ -151,7 +151,7 @@ export default function StudentLifeContent() {
                                     <p className="text-xl text-black leading-relaxed font-medium mb-10">
                                         The central Learning Centre combines library services, digital resources, quiet reading zones, and collaborative areas. It serves as a primary academic hub for students across all fields of study.
                                     </p>
-                                    <p className="text-lg text-black/60 italic leading-relaxed border-l-4 border-neutral-200 pl-8 font-medium">
+                                    <p className="text-lg text-black/60 italic leading-relaxed border-l-4 border-[#0f2027] pl-8 font-medium">
                                         "Designed to foster cross-disciplinary synergy, the center bridges the gap between traditional research and modern creative workflows."
                                     </p>
                                 </div>
@@ -177,7 +177,7 @@ export default function StudentLifeContent() {
                                     <div className="h-64 mb-10 relative overflow-hidden">
                                         <Image
                                             src="/images/student-life/apartments.jpg"
-                                            alt="Shared Apartments"
+                                            alt="Shared Residences"
                                             fill
                                             className="object-cover object-top"
                                             sizes="(max-width: 768px) 100vw, 50vw"
@@ -185,7 +185,7 @@ export default function StudentLifeContent() {
                                     </div>
                                     <h3 className="text-2xl font-black uppercase tracking-tighter mb-4">Shared Residences</h3>
                                     <p className="text-black leading-relaxed font-medium mb-8">Private room with shared kitchen and bathroom facilities. Affordable and social options for students looking for community.</p>
-                                    <span className="inline-block bg-[#9c27b3] text-white px-6 py-2 text-sm font-bold uppercase tracking-[0.3em]">From ~300$/month</span>
+                                    <span className="inline-block bg-[#0f2027] text-[#c89211] px-6 py-2 text-sm font-bold uppercase tracking-[0.3em]">From ~300$/month</span>
                                 </div>
                                 <div className="bg-card p-12 group">
                                     <div className="h-64 mb-10 relative overflow-hidden">
@@ -199,7 +199,7 @@ export default function StudentLifeContent() {
                                     </div>
                                     <h3 className="text-2xl font-black uppercase tracking-tighter mb-4">Private Studios</h3>
                                     <p className="text-black leading-relaxed font-medium mb-8">Private apartments with individual kitchen and bathroom. Ideal for students who prefer focus and total independence.</p>
-                                    <span className="inline-block bg-[#9c27b3] text-white px-6 py-2 text-sm font-bold uppercase tracking-[0.3em]">From ~450$/month</span>
+                                    <span className="inline-block bg-[#0f2027] text-[#c89211] px-6 py-2 text-sm font-bold uppercase tracking-[0.3em]">From ~450$/month</span>
                                 </div>
                             </div>
                         </section>
@@ -220,15 +220,15 @@ export default function StudentLifeContent() {
                                 </div>
 
                                 {/* Right: Text Content */}
-                                <div className="p-12 md:p-20 flex flex-col justify-center bg-[#fcee0a] text-black">
+                                <div className="p-12 md:p-20 flex flex-col justify-center bg-[#0f2027] text-white border-l border-[#1e3a47]">
                                     <div className="space-y-12">
                                         <div>
-                                            <h3 className="text-3xl lg:text-4xl font-black uppercase tracking-tighter mb-2">Student Union</h3>
-                                            <p className="text-lg font-bold uppercase tracking-[0.2em] text-black/70">Advocacy & Events</p>
+                                            <h3 className="text-3xl lg:text-4xl font-serif font-bold tracking-tight mb-2 text-white">Student Union</h3>
+                                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#c89211]">Advocacy &amp; Events</p>
                                         </div>
                                         <div>
-                                            <h3 className="text-3xl lg:text-4xl font-black uppercase tracking-tighter mb-2">Subject Clubs</h3>
-                                            <p className="text-lg font-bold uppercase tracking-[0.2em] text-black/70">Field Specifics</p>
+                                            <h3 className="text-3xl lg:text-4xl font-serif font-bold tracking-tight mb-2 text-white">Subject Clubs</h3>
+                                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#c89211]">Field Specifics</p>
                                         </div>
                                     </div>
                                 </div>
@@ -255,7 +255,7 @@ export default function StudentLifeContent() {
                                     { name: "Health", desc: "Medical Support", image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop" },
                                     { name: "Guidance", desc: "Career Support", image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=800&auto=format&fit=crop" }
                                 ].map((item, idx) => (
-                                    <Link key={item.name} href={item.name === "Restaurants" ? "/student-life/cafe/" : "#"} className={`bg-card group hover:bg-[#9c27b3] hover:text-white transition-all p-8 flex flex-col no-underline`}>
+                                    <Link key={item.name} href={item.name === "Restaurants" ? "/student-life/cafe/" : "#"} className={`bg-card group hover:bg-[#0f2027] hover:text-white transition-all p-8 flex flex-col no-underline`}>
                                         <div className="h-32 relative mb-6">
                                             <Image
                                                 src={item.image}
@@ -283,9 +283,9 @@ export default function StudentLifeContent() {
 
 
                         {/* Summary */}
-                        <section id="summary" className="scroll-mt-32 bg-[#9c27b3] text-white p-12 md:p-20">
-                            <h2 className="text-aalto-5 font-bold mb-8 text-white tracking-tight">Integrated Experience</h2>
-                            <p className="text-xl text-white/80 leading-relaxed font-medium max-w-4xl">
+                        <section id="summary" className="scroll-mt-32 bg-[#0f2027] text-white p-12 md:p-20 border-y border-[#1e3a47]">
+                            <h2 className="text-aalto-5 font-serif font-bold mb-8 text-white tracking-tight">Integrated Experience</h2>
+                            <p className="text-xl text-white/90 leading-relaxed font-medium max-w-4xl">
                                 Studying at Cannoga College means being part of an integrated academic ecosystem where teaching, research, and daily living coexist seamlessly. The combination of first-class infrastructure and natural surroundings supports both academic success and radical personal wellbeing.
                             </p>
                         </section>

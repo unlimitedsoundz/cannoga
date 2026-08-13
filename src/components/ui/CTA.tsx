@@ -26,7 +26,7 @@ interface CTAProps {
  */
 export function CTA({ title, body, cta, className = "" }: CTAProps) {
     return (
-        <section className={`aalto-cta bg-[#9c27b3] text-white border-b border-white/10 ${className}`}>
+        <section className={`aalto-cta bg-[#0f2027] text-white border-b border-white/10 ${className}`}>
             <div className="w-full max-w-7xl mx-auto p-8">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
                     {/* Left side: Title (col-4) */}

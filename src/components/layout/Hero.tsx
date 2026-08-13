@@ -43,7 +43,7 @@ export function Hero({
     return (
         <>
         <section 
-            className={`relative overflow-hidden transition-all duration-700 ease-aalto-in-out border-b border-[#9c27b3]/5 min-h-[400px] lg:h-[600px] lg:min-h-[600px] flex items-center ${className || ''}`}
+            className={`relative overflow-hidden transition-all duration-700 ease-aalto-in-out border-b border-[#0f2027]/10 min-h-[400px] lg:h-[600px] lg:min-h-[600px] flex items-center ${className || ''}`}
             style={{ backgroundColor: backgroundColor }}
         >
             {/* Background Image */}

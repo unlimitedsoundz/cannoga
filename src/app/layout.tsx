@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ConditionalHeaderFooter } from "@/components/layout/ConditionalHeaderFooter";
@@ -67,12 +67,11 @@ export default function RootLayout({
             <head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400..900&family=Rubik:wght@300..900&display=swap" rel="stylesheet" />
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/metropolis.min.css" />
+                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Sans+3:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
                 <style dangerouslySetInnerHTML={{ __html: `
                     :root {
-                        --font-inter: 'Metropolis', sans-serif;
-                        --font-playfair: 'Metropolis', sans-serif;
+                        --font-inter: 'Source Sans 3', 'Inter', system-ui, -apple-system, sans-serif;
+                        --font-playfair: 'Playfair Display', Georgia, serif;
                     }
                 ` }} />
                 <script

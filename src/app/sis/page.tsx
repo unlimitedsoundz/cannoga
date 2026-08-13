@@ -1721,61 +1721,83 @@ export default function SISStudentDashboard() {
                     {currentPage === 'documents' && (
                         <div className="space-y-6">
                             <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white">
-                                <h3 className="text-lg font-extrabold tracking-tight text-white">Official Student Records, PAL & Tax Certificates</h3>
+                                <h3 className="text-lg font-extrabold tracking-tight text-white">Official Student Records, PAL &amp; Tax Certificates</h3>
                                 <p className="text-xs text-slate-300 mt-1 font-medium">Verified digital documents issued by Cannoga College Registrar, Admissions, and Bursar.</p>
                             </div>
 
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
-                                <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
-                                    <h4 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Admissions & Visa/IRCC Documents</h4>
-                                    <span className="text-[11px] font-semibold text-slate-500">{documents.filter(d => ['pal', 'loa'].includes(d.document_type)).length} records</span>
+                            {/* Admissions & Visa/IRCC Documents Table */}
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                                <div className="p-5 border-b border-slate-100 flex justify-between items-center">
+                                    <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Admissions &amp; Visa/IRCC Documents</h3>
+                                    <span className="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1 rounded-full">{documents.filter(d => ['pal', 'loa'].includes(d.document_type)).length} Records</span>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                    {documents.filter(d => ['pal', 'loa'].includes(d.document_type)).length > 0 ? documents.filter(d => ['pal', 'loa'].includes(d.document_type)).map(doc => (
-                                        <div key={doc.id} className="p-4 border border-slate-200 rounded-xl bg-white hover:border-slate-400 hover:shadow-md transition-all flex flex-col justify-between group">
-                                            <div>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <span className="text-[10px] font-extrabold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md font-mono">{doc.id.slice(0, 8).toUpperCase()}</span>
-                                                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${getDocumentStatusColor(doc.status)}`}>{doc.status}</span>
-                                                </div>
-                                                <h5 className="font-extrabold text-slate-900 text-sm group-hover:text-slate-800 transition-colors">{documentTypeLabels[doc.document_type] || doc.title}</h5>
-                                                <p className="text-xs text-slate-500 mt-1 font-medium">{doc.issue_date ? `Issued: ${new Date(doc.issue_date).toLocaleDateString('en-CA')}` : 'Pending Verification'}</p>
-                                            </div>
-                                            <div className="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
-                                                <span className="text-[11px] font-extrabold text-slate-400 tracking-wider">PDF RECORD</span>
-                                                <button type="button" onClick={() => toggleModal(`doc-${doc.id}`)} className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-colors shadow-sm">View Document</button>
-                                            </div>
-                                        </div>
-                                    )) : (
-                                        <div className="col-span-full text-center py-8 text-xs font-medium text-slate-500 bg-slate-50 rounded-xl border border-dashed border-slate-200">No admissions documents available</div>
-                                    )}
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left text-xs sm:text-sm text-slate-600">
+                                        <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                                            <tr>
+                                                <th className="p-3.5">Document Title</th>
+                                                <th className="p-3.5">Reference ID</th>
+                                                <th className="p-3.5">Issue Date</th>
+                                                <th className="p-3.5">Status</th>
+                                                <th className="p-3.5 text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-100">
+                                            {documents.filter(d => ['pal', 'loa'].includes(d.document_type)).length > 0 ? (
+                                                documents.filter(d => ['pal', 'loa'].includes(d.document_type)).map(doc => (
+                                                    <tr key={doc.id} className="hover:bg-slate-50 transition-colors">
+                                                        <td className="p-3.5 font-bold text-slate-900">{documentTypeLabels[doc.document_type] || doc.title}</td>
+                                                        <td className="p-3.5 font-mono text-xs font-semibold text-slate-600">{doc.id.slice(0, 8).toUpperCase()}</td>
+                                                        <td className="p-3.5 text-slate-600 font-medium">{doc.issue_date ? new Date(doc.issue_date).toLocaleDateString('en-CA') : 'Pending Verification'}</td>
+                                                        <td className="p-3.5"><StatusBadge status={doc.status} /></td>
+                                                        <td className="p-3.5 text-right whitespace-nowrap">
+                                                            <button type="button" onClick={() => toggleModal(`doc-${doc.id}`)} className="inline-block text-xs font-bold px-3 py-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition shadow-sm">View Document</button>
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            ) : (
+                                                <tr><td colSpan={5} className="p-8 text-center text-slate-500 font-medium">No admissions documents available</td></tr>
+                                            )}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
-                                <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
-                                    <h4 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Tuition Receipts & Tax Certificates</h4>
-                                    <span className="text-[11px] font-semibold text-slate-500">{documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).length} records</span>
+                            {/* Tuition Receipts & Tax Certificates Table */}
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                                <div className="p-5 border-b border-slate-100 flex justify-between items-center">
+                                    <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Tuition Receipts &amp; Tax Certificates</h3>
+                                    <span className="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1 rounded-full">{documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).length} Records</span>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                    {documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).length > 0 ? documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).map(doc => (
-                                        <div key={doc.id} className="p-4 border border-slate-200 rounded-xl bg-white hover:border-slate-400 hover:shadow-md transition-all flex flex-col justify-between group">
-                                            <div>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <span className="text-[10px] font-extrabold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md font-mono">{doc.id.slice(0, 8).toUpperCase()}</span>
-                                                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${getDocumentStatusColor(doc.status)}`}>{doc.status}</span>
-                                                </div>
-                                                <h5 className="font-extrabold text-slate-900 text-sm group-hover:text-slate-800 transition-colors">{documentTypeLabels[doc.document_type] || doc.title}</h5>
-                                                <p className="text-xs text-slate-500 mt-1 font-medium">{doc.issue_date ? `Issued: ${new Date(doc.issue_date).toLocaleDateString('en-CA')}` : 'Pending Verification'}</p>
-                                            </div>
-                                            <div className="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
-                                                <span className="text-[11px] font-extrabold text-slate-400 tracking-wider">PDF RECORD</span>
-                                                <button type="button" onClick={() => toggleModal(`doc-${doc.id}`)} className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-colors shadow-sm">View Document</button>
-                                            </div>
-                                        </div>
-                                    )) : (
-                                        <div className="col-span-full text-center py-8 text-xs font-medium text-slate-500 bg-slate-50 rounded-xl border border-dashed border-slate-200">No financial documents available</div>
-                                    )}
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left text-xs sm:text-sm text-slate-600">
+                                        <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                                            <tr>
+                                                <th className="p-3.5">Document Title</th>
+                                                <th className="p-3.5">Reference ID</th>
+                                                <th className="p-3.5">Issue Date</th>
+                                                <th className="p-3.5">Status</th>
+                                                <th className="p-3.5 text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-100">
+                                            {documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).length > 0 ? (
+                                                documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).map(doc => (
+                                                    <tr key={doc.id} className="hover:bg-slate-50 transition-colors">
+                                                        <td className="p-3.5 font-bold text-slate-900">{documentTypeLabels[doc.document_type] || doc.title}</td>
+                                                        <td className="p-3.5 font-mono text-xs font-semibold text-slate-600">{doc.id.slice(0, 8).toUpperCase()}</td>
+                                                        <td className="p-3.5 text-slate-600 font-medium">{doc.issue_date ? new Date(doc.issue_date).toLocaleDateString('en-CA') : 'Pending Verification'}</td>
+                                                        <td className="p-3.5"><StatusBadge status={doc.status} /></td>
+                                                        <td className="p-3.5 text-right whitespace-nowrap">
+                                                            <button type="button" onClick={() => toggleModal(`doc-${doc.id}`)} className="inline-block text-xs font-bold px-3 py-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition shadow-sm">View Document</button>
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            ) : (
+                                                <tr><td colSpan={5} className="p-8 text-center text-slate-500 font-medium">No financial documents available</td></tr>
+                                            )}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -2099,76 +2121,142 @@ export default function SISStudentDashboard() {
                     {currentPage === 'holds' && (
                         <div className="space-y-6">
                             <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white">
-                                <h3 className="text-lg font-extrabold tracking-tight text-white">Academic Holds & Required Action Tasks</h3>
+                                <h3 className="text-lg font-extrabold tracking-tight text-white">Academic Holds &amp; Required Action Tasks</h3>
                                 <p className="text-xs text-slate-300 mt-1 font-medium">Clear administrative holds and review pending institutional tasks.</p>
                             </div>
 
-                            <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-                                <div className="flex items-center space-x-2 border-b border-slate-100 pb-3 mb-4">
-                                    <HugeiconsIcon icon={Bell} size={18} strokeWidth={2.5} className="text-slate-800" />
-                                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900">Active Holds</h3>
+                            {/* Active Holds Table */}
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                                <div className="p-5 border-b border-slate-100 flex justify-between items-center">
+                                    <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Active Administrative Holds</h3>
+                                    <span className="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1 rounded-full">{activeHolds.length} Active Holds</span>
                                 </div>
-                                {activeHolds.length > 0 ? (
-                                    <div className="space-y-3">
-                                        {activeHolds.map(hold => (
-                                            <div key={hold.id} className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                                <div>
-                                                    <span className="bg-slate-900 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-wider">{hold.hold_type}</span>
-                                                    <h4 className="font-extrabold text-slate-900 text-sm mt-2">{hold.reason}</h4>
-                                                    <p className="text-xs text-slate-600 mt-1 font-medium">{hold.student_message || 'Please resolve this hold to continue.'}</p>
-                                                </div>
-                                                <button type="button" className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition self-start md:self-center">Upload Document</button>
-                                            </div>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <div className="text-center py-8 text-xs font-medium text-slate-500 bg-slate-50 rounded-xl border border-dashed border-slate-200">No active administrative holds on record</div>
-                                )}
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left text-xs sm:text-sm text-slate-600">
+                                        <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                                            <tr>
+                                                <th className="p-3.5">Hold Type</th>
+                                                <th className="p-3.5">Reason</th>
+                                                <th className="p-3.5">Message / Details</th>
+                                                <th className="p-3.5 text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-100">
+                                            {activeHolds.length > 0 ? (
+                                                activeHolds.map(hold => (
+                                                    <tr key={hold.id} className="hover:bg-slate-50 transition-colors">
+                                                        <td className="p-3.5 whitespace-nowrap">
+                                                            <span className="bg-slate-900 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-wider">{hold.hold_type}</span>
+                                                        </td>
+                                                        <td className="p-3.5 font-bold text-slate-900">{hold.reason}</td>
+                                                        <td className="p-3.5 text-slate-600 font-medium">{hold.student_message || 'Please resolve this hold to continue.'}</td>
+                                                        <td className="p-3.5 text-right whitespace-nowrap">
+                                                            <button type="button" onClick={() => navigateTo('documents')} className="inline-block text-xs font-bold px-3 py-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition shadow-sm">Upload Document</button>
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            ) : (
+                                                <tr><td colSpan={4} className="p-8 text-center text-slate-500 font-medium">No active administrative holds on record</td></tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
-                            <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-                                <div className="flex items-center space-x-2 border-b border-slate-100 pb-3 mb-4">
-                                    <HugeiconsIcon icon={Clock} size={18} strokeWidth={2.5} className="text-slate-800" />
-                                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900">Pending Tasks</h3>
+                            {/* Pending Tasks Table */}
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                                <div className="p-5 border-b border-slate-100 flex justify-between items-center">
+                                    <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Required Action Tasks</h3>
+                                    <span className="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1 rounded-full">{activeTasks.length} Pending Tasks</span>
                                 </div>
-                                {activeTasks.length > 0 ? (
-                                    <div className="space-y-3">
-                                        {activeTasks.map(task => (
-                                            <div key={task.id} className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                                <div>
-                                                    <h4 className="font-extrabold text-slate-900 text-sm">{task.title}</h4>
-                                                    <p className="text-xs text-slate-600 mt-1 font-medium">{task.description}</p>
-                                                    {task.due_date && <p className="text-xs text-slate-500 mt-1.5 font-semibold">Due: {new Date(task.due_date).toLocaleDateString('en-CA')}</p>}
-                                                </div>
-                                                {task.action_url && (
-                                                    <button type="button" onClick={() => window.open(task.action_url!, '_blank')} className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition self-start md:self-center">{task.action_label || 'Take Action'}</button>
-                                                )}
-                                            </div>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <div className="text-center py-8 text-xs font-medium text-slate-500 bg-slate-50 rounded-xl border border-dashed border-slate-200">No pending student tasks</div>
-                                )}
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left text-xs sm:text-sm text-slate-600">
+                                        <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                                            <tr>
+                                                <th className="p-3.5">Task Title</th>
+                                                <th className="p-3.5">Description</th>
+                                                <th className="p-3.5">Due Date</th>
+                                                <th className="p-3.5 text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-100">
+                                            {activeTasks.length > 0 ? (
+                                                activeTasks.map(task => (
+                                                    <tr key={task.id} className="hover:bg-slate-50 transition-colors">
+                                                        <td className="p-3.5 font-bold text-slate-900">{task.title}</td>
+                                                        <td className="p-3.5 text-slate-600 font-medium">{task.description}</td>
+                                                        <td className="p-3.5 text-slate-600 whitespace-nowrap">{task.due_date ? new Date(task.due_date).toLocaleDateString('en-CA') : 'Immediate'}</td>
+                                                        <td className="p-3.5 text-right whitespace-nowrap">
+                                                            {task.action_url ? (
+                                                                <button type="button" onClick={() => window.open(task.action_url!, '_blank')} className="inline-block text-xs font-bold px-3 py-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition shadow-sm">{task.action_label || 'Take Action'}</button>
+                                                            ) : (
+                                                                <span className="text-xs text-slate-400 font-medium">No Link Required</span>
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            ) : (
+                                                <tr><td colSpan={4} className="p-8 text-center text-slate-500 font-medium">No pending student tasks</td></tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     )}
                     {/* ================= NEWS ================= */}
                     {currentPage === 'news' && (
-                        <div>
-                            <div className="mb-6">
-                                <h3 className="text-base font-bold text-slate-900">Campus News Feed</h3>
-                                <p className="text-xs text-slate-500 mt-0.5">Latest announcements and news from Cannoga College.</p>
+                        <div className="space-y-6">
+                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white">
+                                <h3 className="text-lg font-extrabold tracking-tight text-white">Campus &amp; World News Feed</h3>
+                                <p className="text-xs text-slate-300 mt-1 font-medium">Latest announcements, campus press releases, and Canadian higher-education headlines.</p>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {news.length > 0 ? news.map(item => (
-                                    <div key={item.id} className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-slate-300 cursor-pointer transition">
-                                        <span className="text-[10px] font-bold text-slate-600 uppercase bg-slate-100 px-2 py-0.5 rounded">{item.priority || 'News'}</span>
-                                        <h3 className="text-sm font-bold text-slate-900 mt-2">{item.title}</h3>
-                                        <p className="text-xs text-slate-800 mt-1">{item.publish_start ? new Date(item.publish_start).toLocaleDateString('en-CA') : ''}</p>
+
+                            {/* Campus News Section */}
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                <div>
+                                    <div className="bg-slate-900 px-4 py-2.5 flex items-center justify-between">
+                                        <h3 className="font-semibold text-white text-sm">Campus News Feed</h3>
+                                        <span className="text-xs bg-slate-800 text-slate-200 font-semibold px-3 py-0.5 rounded-full">{news.length} Articles</span>
                                     </div>
-                                )) : (
-                                    <div className="col-span-full text-center py-8 text-slate-500">No news available</div>
-                                )}
+                                    <div className="divide-y divide-slate-100 text-xs">
+                                        {news.length > 0 ? (
+                                            news.map(item => (
+                                                <div key={item.id} className="block px-5 py-3 hover:bg-slate-50 transition group cursor-pointer">
+                                                    <div className="flex items-center justify-between gap-2 mb-1">
+                                                        <span className="text-[10px] font-extrabold text-slate-700 uppercase bg-slate-100 px-2 py-0.5 rounded">{item.priority || 'News'}</span>
+                                                        <span className="text-[11px] text-slate-500 font-medium">{item.publish_start ? new Date(item.publish_start).toLocaleDateString('en-CA') : ''}</span>
+                                                    </div>
+                                                    <p className="font-bold text-slate-900 group-hover:text-slate-800 text-sm">{item.title}</p>
+                                                    {item.summary && <p className="text-xs text-slate-600 font-medium mt-1">{item.summary}</p>}
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <div className="py-8 text-center text-slate-500 text-xs font-medium">No campus news available</div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* World News Section */}
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                <div>
+                                    <div className="bg-slate-900 px-4 py-2.5 flex items-center justify-between">
+                                        <h3 className="font-semibold text-white text-sm">World &amp; Ontario News</h3>
+                                        <span className="text-xs bg-slate-800 text-slate-200 font-semibold px-3 py-0.5 rounded-full">{ontarioLiveNews.length} Headlines</span>
+                                    </div>
+                                    <div className="divide-y divide-slate-100 text-xs">
+                                        {ontarioLiveNews.map((item, idx) => (
+                                            <a key={idx} href={item.link} target="_blank" rel="noopener noreferrer" className="block px-5 py-3 hover:bg-slate-50 transition group">
+                                                <p className="font-bold text-slate-900 group-hover:text-slate-800 text-sm line-clamp-1">{item.title}</p>
+                                                <div className="flex justify-between items-center mt-1 text-[11px]">
+                                                    <span className="font-semibold text-slate-600">{item.source}</span>
+                                                    <span className="text-slate-500 font-medium">{item.pubDate}</span>
+                                                </div>
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -2282,14 +2370,14 @@ export default function SISStudentDashboard() {
                                         <div className="border-b border-slate-100 pb-2">
                                             <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Personal & Contact Details</h4>
                                         </div>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                                             <div>
                                                 <label className="block font-semibold text-slate-700 mb-1">First Name</label>
                                                 <input
                                                     type="text"
                                                     value={profileForm.firstName}
                                                     onChange={e => setProfileForm({ ...profileForm, firstName: e.target.value })}
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
+                                                    style={{ border: '1px solid #cbd5e1', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                     required
                                                 />
@@ -2300,7 +2388,7 @@ export default function SISStudentDashboard() {
                                                     type="text"
                                                     value={profileForm.lastName}
                                                     onChange={e => setProfileForm({ ...profileForm, lastName: e.target.value })}
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
+                                                    style={{ border: '1px solid #cbd5e1', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                     required
                                                 />
@@ -2311,7 +2399,7 @@ export default function SISStudentDashboard() {
                                                     type="email"
                                                     value={profile?.email || ''}
                                                     readOnly
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
+                                                    style={{ border: '1px solid #cbd5e1', borderRadius: '8px' }}
                                                     className="w-full bg-slate-100 text-slate-600 p-2.5 text-xs cursor-not-allowed font-mono shadow-sm font-semibold"
                                                 />
                                             </div>
@@ -2322,7 +2410,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.phone}
                                                     onChange={e => setProfileForm({ ...profileForm, phone: e.target.value })}
                                                     placeholder="+1 (613) 555-0199"
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
+                                                    style={{ border: '1px solid #cbd5e1', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
@@ -2333,7 +2421,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.address}
                                                     onChange={e => setProfileForm({ ...profileForm, address: e.target.value })}
                                                     placeholder="123 College Street, Suite 400"
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
+                                                    style={{ border: '1px solid #cbd5e1', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
@@ -2344,7 +2432,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.city}
                                                     onChange={e => setProfileForm({ ...profileForm, city: e.target.value })}
                                                     placeholder="Ottawa"
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
+                                                    style={{ border: '1px solid #cbd5e1', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
@@ -2355,7 +2443,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.state}
                                                     onChange={e => setProfileForm({ ...profileForm, state: e.target.value })}
                                                     placeholder="Ontario"
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
+                                                    style={{ border: '1px solid #cbd5e1', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
@@ -2366,7 +2454,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.zipcode}
                                                     onChange={e => setProfileForm({ ...profileForm, zipcode: e.target.value })}
                                                     placeholder="K1P 1J1"
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
+                                                    style={{ border: '1px solid #cbd5e1', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>
@@ -2377,7 +2465,7 @@ export default function SISStudentDashboard() {
                                                     value={profileForm.country}
                                                     onChange={e => setProfileForm({ ...profileForm, country: e.target.value })}
                                                     placeholder="Canada"
-                                                    style={{ border: '2px solid #94a3b8', borderRadius: '8px' }}
+                                                    style={{ border: '1px solid #cbd5e1', borderRadius: '8px' }}
                                                     className="w-full bg-white text-slate-900 p-2.5 text-xs transition outline-none shadow-sm font-semibold focus:border-slate-900"
                                                 />
                                             </div>

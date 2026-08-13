@@ -49,13 +49,13 @@ export function LiftupCollection({ tiles, tilesPerRow = 3 }: LiftupCollectionPro
     }[tilesPerRow] || 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
 
     return (
-        <div className={`grid ${gridCols} gap-0 border-t border-l border-[#9c27b3]`}>
+        <div className={`grid ${gridCols} gap-0 border-t border-l border-slate-200`}>
             {tiles.map((tile, index) => {
                 const imageSrc = tile.image?.src || (tile.image?.srcSet && tile.image.srcSet.length > 0 ? tile.image.srcSet[tile.image.srcSet.length - 1].src : '');
                 const IconComponent = tile.icon ? iconMap[tile.icon] : null;
 
                 return (
-                    <div key={index} className="flex flex-col bg-white border-b border-r border-[#9c27b3] group">
+                    <div key={index} className="flex flex-col bg-white border-b border-r border-slate-200 group hover:border-[#0f2027] transition-colors">
                         {imageSrc && (
                             <div className="aspect-[16/9] relative overflow-hidden bg-neutral-100">
                                 <Image
@@ -68,11 +68,11 @@ export function LiftupCollection({ tiles, tilesPerRow = 3 }: LiftupCollectionPro
                             </div>
                         )}
                         <div className="p-10 flex flex-col flex-1">
-                            <h3 className="text-2xl font-black uppercase tracking-tighter mb-6 group-hover:underline decoration-4 underline-offset-8">
+                            <h3 className="text-2xl font-serif font-bold text-[#0f2027] tracking-tight mb-6 group-hover:underline decoration-2 underline-offset-8">
                                 {tile.title}
                             </h3>
                             {tile.body && (
-                                <p className="text-neutral-700 leading-relaxed font-medium mb-10 flex-1">
+                                <p className="text-slate-600 leading-relaxed font-normal mb-10 flex-1">
                                     {tile.body}
                                 </p>
                             )}
@@ -83,8 +83,8 @@ export function LiftupCollection({ tiles, tilesPerRow = 3 }: LiftupCollectionPro
                                         target={tile.cta.linkComponentProps?.target}
                                          className={`inline-flex items-center gap-3 font-bold uppercase tracking-widest text-sm transition-all hover:gap-5 ${
                                              tile.type === 'button' 
-                                             ? 'bg-[#9c27b3] text-white px-8 py-4 hover:bg-[#7b1fa2]' 
-                                             : 'text-black'
+                                             ? 'bg-[#0f2027] text-white px-8 py-4 hover:bg-[#1a3644] rounded-sm' 
+                                             : 'text-[#0f2027]'
                                          }`}
                                         onClick={() => tile.cta?.onClick?.(tile.title)}
                                     >
