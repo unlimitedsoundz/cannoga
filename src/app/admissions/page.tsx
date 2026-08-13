@@ -492,12 +492,6 @@ export default async function AdmissionsPage() {
                                         <div>
                                             <h3 className="text-slate-900 font-bold text-base leading-snug">Talk to Cannoga</h3>
                                             <div className="mt-1 space-y-1">
-                                                <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Ottawa, Ontario, Canada resident enquiries</p>
-                                                <a href="tel:+12272500427" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block">
-                                                    Talk to Cannoga: +1 (227) 250-0427
-                                                </a>
-                                            </div>
-                                            <div className="mt-2 space-y-1">
                                                 <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
                                                 <a href="tel:+12272500427" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block">
                                                     Talk to Admissions: +1 (227) 250-0427
