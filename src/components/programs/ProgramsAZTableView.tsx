@@ -752,7 +752,7 @@ export function ProgramsAZTableView() {
                                                 href={p.href}
                                                 className="inline-block text-xs font-bold px-3.5 py-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition shadow-sm no-underline"
                                             >
-                                                Apply <ArrowRight size={12} weight="bold" className="inline-block ml-1" />
+                                                Apply
                                             </Link>
                                         </td>
                                     </tr>
@@ -811,7 +811,7 @@ export function ProgramsAZTableView() {
                                         href={p.href}
                                         className="inline-flex items-center gap-1 text-xs font-bold text-[#0a151a] hover:underline"
                                     >
-                                        Apply Details <ArrowRight size={12} weight="bold" />
+                                        Apply Details
                                     </Link>
                                 </div>
                             </div>

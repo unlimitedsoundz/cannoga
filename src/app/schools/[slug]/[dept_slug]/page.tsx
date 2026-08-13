@@ -162,7 +162,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
                 <div className="container mx-auto px-4 py-3">
                     <Breadcrumbs 
                         items={[
-                            { icon: 'home', linkComponentProps: { href: '/' } },
+                            { label: 'Home', linkComponentProps: { href: '/' } },
                             { label: 'Schools', linkComponentProps: { href: '/schools' } },
                             { label: school.name, linkComponentProps: { href: `/schools/${slug}` } },
                             { label: dept.name }
