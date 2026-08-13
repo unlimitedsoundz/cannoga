@@ -73,29 +73,20 @@ export function CannogaShortsSection() {
                 {/* Header Row with Title & Social Follow Icons */}
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-serif font-black tracking-tight text-[#0f2027] flex items-center gap-2">
-                            <span className="text-[#00a884]">Cannoga Shorts:</span>
+                        <h2 className="text-3xl md:text-4xl font-serif font-black tracking-tight text-[#0a151a] flex items-center gap-2">
+                            <span className="text-[#0a151a]">Cannoga Shorts:</span>
                             <span className="font-normal text-slate-800">Big stories, small screen</span>
                         </h2>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <span className="text-xs font-bold uppercase tracking-widest text-[#00a884]">FOLLOW US</span>
-                        <div className="flex items-center gap-3 text-[#0f2027]">
-                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#00a884] transition-colors" aria-label="Facebook">
-                                <FacebookLogo size={20} weight="fill" />
+                        <span className="text-xs font-bold uppercase tracking-widest text-[#0a151a]">FOLLOW US</span>
+                        <div className="flex items-center gap-3 text-[#0a151a]">
+                            <a href="https://youtube.com/@cannogacollege" target="_blank" rel="noopener noreferrer" className="hover:text-[#c89211] transition-colors" aria-label="YouTube">
+                                <YoutubeLogo size={22} weight="fill" />
                             </a>
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#00a884] transition-colors" aria-label="Instagram">
-                                <InstagramLogo size={20} weight="fill" />
-                            </a>
-                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#00a884] transition-colors" aria-label="YouTube">
-                                <YoutubeLogo size={20} weight="fill" />
-                            </a>
-                            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#00a884] transition-colors" aria-label="TikTok">
-                                <TiktokLogo size={20} weight="fill" />
-                            </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#00a884] transition-colors" aria-label="LinkedIn">
-                                <LinkedinLogo size={20} weight="fill" />
+                            <a href="https://tiktok.com/@cannogacollege" target="_blank" rel="noopener noreferrer" className="hover:text-[#c89211] transition-colors" aria-label="TikTok">
+                                <TiktokLogo size={22} weight="fill" />
                             </a>
                         </div>
                     </div>
