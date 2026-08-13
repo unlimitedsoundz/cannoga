@@ -57,6 +57,8 @@ export const metadata: Metadata = {
     }
 };
 
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -116,6 +118,7 @@ export default function RootLayout({
                 <ConditionalHeaderFooter>
                     {children}
                 </ConditionalHeaderFooter>
+                <ScrollToTop />
             </body>
         </html>
     );
