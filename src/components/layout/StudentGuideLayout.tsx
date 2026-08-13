@@ -39,14 +39,14 @@ export default function GuideSidebarLayout({ sections, children }: Props) {
     <div className="relative">
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 w-80 border-r border-white/10 overflow-y-auto transition-all duration-300 ease-aalto-in-out z-40 top-[96px] lg:top-[144px] h-[calc(100vh-96px)] lg:h-[calc(100vh-144px)] bg-[#0a151a] ${tocOpen ? 'translate-x-0' : '-translate-x-full'} ${tocOpen ? 'lg:block' : 'lg:hidden'}`}
+        className={`fixed left-0 w-80 border-r border-white/10 overflow-y-auto transition-all duration-300 ease-aalto-in-out z-40 top-[112px] lg:top-[148px] h-[calc(100vh-112px)] lg:h-[calc(100vh-148px)] bg-[#0a151a] ${tocOpen ? 'translate-x-0' : '-translate-x-full'} ${tocOpen ? 'lg:block' : 'lg:hidden'}`}
       >
         <SideNavigation sections={navSections} />
       </aside>
 
       {/* Toggle Button */}
       <div
-        className={`fixed transition-all duration-300 ease-aalto-in-out z-50 top-[96px] lg:top-[144px] ${tocOpen ? 'left-80' : 'left-0'}`}
+        className={`fixed transition-all duration-300 ease-aalto-in-out z-50 top-[112px] lg:top-[148px] ${tocOpen ? 'left-80' : 'left-0'}`}
       >
         <button
           onClick={() => setTocOpen(!tocOpen)}
