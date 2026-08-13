@@ -89,6 +89,7 @@ export default function CareersPage() {
 
             {/* HERO SECTION WITH FULL BACKGROUND OVERLAY */}
             <section className="relative bg-[#191919] text-white pt-32 pb-24 md:pt-44 md:pb-32 px-4 border-b border-slate-800 overflow-hidden">
+                {/* Background Image with 20% Opacity Overlay */}
                 <div className="absolute inset-0 z-0">
                     <Image 
                         src="/images/careers-hero.png" 
@@ -97,7 +98,7 @@ export default function CareersPage() {
                         className="object-cover object-top opacity-20"
                         priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#191919] via-[#191919]/90 to-transparent"></div>
+                    <div className="absolute inset-0 bg-[#191919]/75"></div>
                 </div>
 
                 <div className="container mx-auto max-w-5xl relative z-10">
