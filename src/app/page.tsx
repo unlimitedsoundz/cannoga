@@ -8,6 +8,8 @@ import ProgramSearch from "@/components/home/ProgramSearch";
 import { Metadata } from "next";
 import { createStaticClient } from "@/lib/supabase/static";
 
+import StudentStoriesCarousel from "@/components/admissions/StudentStoriesCarousel";
+
 export const metadata: Metadata = {
   title: 'Cannoga College | International Higher Education in Canada',
   description: 'Pursue your academic and career goals at Cannoga College. We offer Degree, Diploma, and Certificate programs in Ottawa, Ontario, Canada.',
@@ -128,6 +130,18 @@ export default async function Home() {
                     </div>
                 </section>
             )}
+
+            {/* 5. STUDENT STORIES & EXPERIENCE */}
+            <section className="py-20 bg-slate-900 text-white">
+                <div className="container mx-auto px-4">
+                    <div className="mb-10 border-b border-slate-800 pb-4">
+                        <span className="text-[#c89211] font-bold uppercase tracking-widest text-xs mb-2 block">Campus Life &amp; Voices</span>
+                        <h2 className="text-3xl font-serif font-bold text-white">Student Stories</h2>
+                        <p className="text-slate-400 text-sm mt-1">Hear directly from students studying at Cannoga College Ottawa.</p>
+                    </div>
+                    <StudentStoriesCarousel />
+                </div>
+            </section>
 
             {/* 5. STUDENT RESOURCE LINKS */}
             <section className="py-20 bg-white">
