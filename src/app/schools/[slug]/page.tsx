@@ -293,7 +293,7 @@ export default async function SchoolDetails({ params }: Props) {
                                 unit: school.name,
                                 email: person.email || "",
                             }))}
-                            tilesPerRow={2}
+                            tilesPerRow={3}
                         />
                     ) : (
                         <p className="text-neutral-500">No faculty members found for this school.</p>
