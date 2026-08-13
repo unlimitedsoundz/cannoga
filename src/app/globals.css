@@ -761,10 +761,16 @@ body {
   }
 }
 
-/* Global Font Size Remediation: Increase all 12px font sizes to 15px */
+/* Global Font Size Remediation: Increase all 12px font sizes to 15px, and 11px font sizes to 13px */
 .text-xs,
 .text-\[12px\],
 [class*="text-[12px]"] {
   font-size: 15px !important;
+  line-height: 1.4 !important;
+}
+
+.text-\[11px\],
+[class*="text-[11px]"] {
+  font-size: 13px !important;
   line-height: 1.4 !important;
 }
