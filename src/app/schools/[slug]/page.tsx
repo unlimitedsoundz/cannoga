@@ -153,6 +153,12 @@ export default async function SchoolDetails({ params }: Props) {
                 }
                 tinted
                 lightText={true}
+                image={
+                    slug === 'business' ? {
+                        src: "/images/studies-hero.jpg",
+                        alt: `${school.name} at Cannoga College`
+                    } : undefined
+                }
                 breadcrumbs={[
                     { label: 'Home', href: '/' },
                     { label: 'Schools', href: '/schools' },

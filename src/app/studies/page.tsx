@@ -97,7 +97,7 @@ const SCHOOLS_DIRECTORY = [
         slug: "business",
         count: "10 Programs",
         programs: ["Accounting & Business Finance", "International Business Management", "Digital Marketing & Brand Analytics", "Human Resource Leadership"],
-        image: "/images/1d68041835324a83583595071e6eb95c.jpg",
+        image: "/images/studies-hero.jpg",
         bg: "#0a151a"
     },
     {
