@@ -42,7 +42,7 @@ export default function StudentStoriesCarousel() {
     const prev = () => setCurrent((prev) => (prev - 1 + stories.length) % stories.length);
 
     return (
-        <div className="relative w-full min-h-[550px] md:h-[500px] overflow-hidden bg-slate-900 group rounded-sm shadow-sm">
+        <div className="relative w-full min-h-[420px] md:h-[380px] overflow-hidden bg-slate-900 group rounded-sm shadow-sm">
             {stories.map((story, index) => (
                 <div
                     key={story.id}
@@ -51,7 +51,7 @@ export default function StudentStoriesCarousel() {
                 >
                     <div className="flex flex-col md:flex-row h-full">
                         {/* Image Side */}
-                        <div className="relative h-[260px] md:h-full md:w-1/2 overflow-hidden">
+                        <div className="relative h-[220px] md:h-full md:w-1/2 overflow-hidden">
                             <Image
                                 src={story.image}
                                 alt={story.name}
@@ -63,33 +63,33 @@ export default function StudentStoriesCarousel() {
                         </div>
 
                         {/* Content Side */}
-                        <div className="p-8 md:p-14 flex flex-col justify-between text-white bg-slate-900 md:w-1/2 relative">
+                        <div className="p-6 md:p-10 flex flex-col justify-between text-white bg-slate-900 md:w-1/2 relative">
                             <div>
-                                <span className="text-[#c89211] font-bold uppercase tracking-widest text-[11px] mb-4 block">Student Voice &amp; Campus Experience</span>
-                                <p className="text-lg md:text-xl text-slate-100 font-serif leading-relaxed mb-6 italic">
+                                <span className="text-[#c89211] font-bold uppercase tracking-widest text-[10px] mb-3 block">Student Voice &amp; Campus Experience</span>
+                                <p className="text-base md:text-lg text-slate-100 font-serif leading-relaxed mb-4 italic">
                                     "{story.quote}"
                                 </p>
-                                <div className="border-l-2 border-[#c89211] pl-4">
-                                    <h4 className="text-lg font-bold text-white uppercase tracking-tight">{story.name}</h4>
-                                    <p className="text-xs text-slate-300 font-medium tracking-wide mt-0.5">{story.programme}</p>
+                                <div className="border-l-2 border-[#c89211] pl-3">
+                                    <h4 className="text-base font-bold text-white uppercase tracking-tight">{story.name}</h4>
+                                    <p className="text-[11px] text-slate-300 font-medium tracking-wide mt-0.5">{story.programme}</p>
                                 </div>
                             </div>
 
-                            <div className="pt-6 flex items-center justify-between">
+                            <div className="pt-4 flex items-center justify-between">
                                 <a 
                                     href="/student-guide" 
-                                    className="inline-flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#c89211] hover:underline"
+                                    className="inline-flex items-center gap-2 font-bold text-[11px] uppercase tracking-wider text-[#c89211] hover:underline"
                                 >
-                                    Read Student Guide <ArrowRight size={14} weight="bold" />
+                                    Read Student Guide <ArrowRight size={13} weight="bold" />
                                 </a>
 
                                 {/* Story Indicators */}
-                                <div className="flex gap-1.5 pr-28">
+                                <div className="flex gap-1.5 pr-24">
                                     {stories.map((s, idx) => (
                                         <button
                                             key={s.id}
                                             onClick={() => setCurrent(idx)}
-                                            className={`h-1.5 transition-all rounded-full ${idx === current ? 'w-6 bg-[#c89211]' : 'w-1.5 bg-slate-700 hover:bg-slate-500'}`}
+                                            className={`h-1.5 transition-all rounded-full ${idx === current ? 'w-5 bg-[#c89211]' : 'w-1.5 bg-slate-700 hover:bg-slate-500'}`}
                                             aria-label={`Go to slide ${idx + 1}`}
                                         />
                                     ))}
@@ -104,17 +104,17 @@ export default function StudentStoriesCarousel() {
             <div className="absolute bottom-0 right-0 flex z-20">
                 <button
                     onClick={prev}
-                    className="w-12 h-12 md:w-14 md:h-14 bg-slate-800 text-white flex items-center justify-center hover:bg-slate-700 transition-all active:scale-95 border-r border-slate-700"
+                    className="w-11 h-11 md:w-12 md:h-12 bg-slate-800 text-white flex items-center justify-center hover:bg-slate-700 transition-all active:scale-95 border-r border-slate-700"
                     aria-label="Previous story"
                 >
-                    <CaretLeft size={20} weight="bold" />
+                    <CaretLeft size={18} weight="bold" />
                 </button>
                 <button
                     onClick={next}
-                    className="w-12 h-12 md:w-14 md:h-14 bg-[#0f2027] text-white flex items-center justify-center transition-all hover:bg-slate-800 active:scale-95"
+                    className="w-11 h-11 md:w-12 md:h-12 bg-[#0f2027] text-white flex items-center justify-center transition-all hover:bg-slate-800 active:scale-95"
                     aria-label="Next story"
                 >
-                    <CaretRight size={20} weight="bold" />
+                    <CaretRight size={18} weight="bold" />
                 </button>
             </div>
         </div>
