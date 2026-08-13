@@ -39,7 +39,7 @@ export function Hero({
     imagePosition = 'object-center',
     children,
     className,
-    overlay = true,
+    overlay = false,
     overlayOpacity
 }: HeroProps) {
     const textColorClass = lightText ? 'text-white' : 'text-black';
@@ -58,11 +58,11 @@ export function Hero({
                         alt={image.alt || "Hero Image"}
                         fill
                         priority
-                        className={`object-cover ${imagePosition} ${overlayOpacity || (overlay === false ? 'opacity-100' : 'opacity-40')}`}
+                        className={`object-cover ${imagePosition} ${overlayOpacity || (overlay ? 'opacity-40' : 'opacity-100')}`}
                         sizes="100vw"
                     />
-                    {/* Balanced dark gradient overlay */}
-                    {overlay !== false && (
+                    {/* Dark gradient overlay (Only when explicitly enabled) */}
+                    {overlay && (
                         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/20 z-[1]" />
                     )}
                 </div>
