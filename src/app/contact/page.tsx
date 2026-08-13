@@ -1,16 +1,13 @@
 import { Metadata } from 'next';
-import { Envelope as Mail, Phone, MapPin, Clock, Building, Globe, FileText, CreditCard, ArrowRight, Users, Archive, IdentificationBadge, ChatCircleDots } from "@phosphor-icons/react/dist/ssr";
-import { Hero } from '@/components/layout/Hero';
-import { List, Link } from "@aalto-dx/react-components";
+import { EnvelopeSimple, Phone, MapPin, ArrowRight, IdentificationBadge, Users, ChatCircleDots, Archive } from "@phosphor-icons/react/dist/ssr";
+import { Link } from "@/components/ui/Link";
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
-import { ContentBox } from '@/components/ui/ContentBox';
-import { Card } from '@/components/ui/Card';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
     title: 'Contact Directory & General Inquiries — Cannoga College',
-    description: 'Find primary phone lines, office locations, email directories, and contact forms for administrative departments at Cannoga.',
+    description: 'Find primary phone lines, office locations, email directories, and contact forms for administrative departments at Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/contact/',
     },
@@ -18,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
     return (
-        <main className="min-h-screen bg-white pb-20">
+        <main className="min-h-screen bg-white text-black antialiased font-sans pb-20">
             <BreadcrumbSchema items={[
                 { name: 'Home', item: '/' },
                 { name: 'Contact', item: '/contact' }
@@ -42,175 +39,225 @@ export default function ContactPage() {
                     }
                 }
             }} />
-            {/* HERO SECTION */}
-            <Hero
-                title="Contact Information"
-                body="Cannoga College provides contact information for administrative services including Registry, Admissions, Student Services and general inquiries to support students, applicants, staff and partners."
-                backgroundColor="#ff8d4f"
-                tinted
-                lightText={true}
-                breadcrumbs={[
-                    { label: 'Home', href: '/' },
-                    { label: 'Contact' }
-                ]}
-                image={{
-                    src: "/images/contact-hero.png",
-                    alt: "Contact Cannoga College"
-                }}
-            />
 
-            <div className="container mx-auto px-4 mt-20 max-w-6xl">
-                <div className="space-y-24 pb-aalto-p6">
-                    {/* Main Switchboard */}
-                    <section>
-                        <ContentBox
-                            size="large"
-                            icon="phone"
-                            title="Main Switchboard"
-                            body={
-                                <div className="space-y-8 text-left">
-                                    <div>
-                                        <a href="tel:+3580942721884" className="inline-flex items-center gap-2 text-xl font-bold text-black mb-2 underline underline-offset-4 hover:opacity-80 transition-opacity">
-                                            <Phone size={24} weight="fill" />
-                                            Talk to Cannoga
+            {/* HERO SECTION */}
+            <section className="bg-[#0a151a] text-white pt-28 pb-20 md:pt-40 md:pb-28 px-4 border-b border-slate-800">
+                <div className="container mx-auto max-w-5xl">
+                    <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-400 mb-6">
+                        <Link href="/" className="text-sky-400 hover:text-white transition-colors no-underline">HOME</Link>
+                        <span className="text-slate-600">/</span>
+                        <span>DIRECTORY</span>
+                    </div>
+                    <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white leading-tight">
+                        Contact Information
+                    </h1>
+                    <p className="text-lg md:text-xl text-slate-300 max-w-3xl leading-relaxed">
+                        Cannoga College provides direct contact information for administrative services including Registry, Admissions, Student Services, and general inquiries to support students, applicants, staff, and partners.
+                    </p>
+                </div>
+            </section>
+
+            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16">
+
+                {/* ASK ABOUT APPLYING / CONTACT DIRECTORY - CLEAN HORIZONTAL ROWS */}
+                <section id="contact-directory" className="scroll-mt-32 space-y-8">
+                    <div>
+                        <h2 className="text-3xl font-black text-black tracking-tight mb-2">Main Contact Directory</h2>
+                        <p className="text-slate-700 text-base md:text-lg font-medium leading-relaxed">
+                            Reach out directly to our central admissions team, student registry, or campus location.
+                        </p>
+                    </div>
+
+                    <div className="flex flex-col gap-6 pt-2">
+                        {/* Email */}
+                        <div className="flex items-start gap-4">
+                            <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                <EnvelopeSimple size={16} weight="bold" />
+                            </div>
+                            <div>
+                                <h3 className="text-slate-900 font-bold text-base leading-snug">Email Enquiries</h3>
+                                <a href="mailto:admissions@cannogacollege.ca" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm mt-1 block">
+                                    admissions@cannogacollege.ca
+                                </a>
+                                <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
+                                    Ottawa, Ontario, Canada resident and international inquiries
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Talk to Cannoga */}
+                        <div className="flex items-start gap-4">
+                            <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                <Phone size={16} weight="bold" />
+                            </div>
+                            <div className="space-y-2">
+                                <div>
+                                    <h3 className="text-slate-900 font-bold text-base leading-snug">Talk to Cannoga</h3>
+                                    <div className="mt-1 space-y-1">
+                                        <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
+                                        <a href="tel:+12272500427" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block">
+                                            Talk to Admissions: +1 (227) 250-0427
                                         </a>
-                                        <p className="text-neutral-500 font-bold uppercase tracking-widest text-xs">Ottawa, Ontario, Canada resident enquiries</p>
                                     </div>
+                                </div>
+                                <div className="text-xs text-slate-800 space-y-1 pt-1">
+                                    <p className="font-bold text-slate-900 text-xs uppercase tracking-wider text-[#c89211] mb-1">Telephone service hours (UTC +2):</p>
+                                    <ul className="space-y-0.5 text-xs text-slate-700 font-medium">
+                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Mon:</span><span>12:30 pm – 2:00 pm</span></li>
+                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Tue:</span><span>9:30 am – 11:00 am</span></li>
+                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Wed:</span><span>9:30 am – 11:00 am</span></li>
+                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Thu:</span><span>9:30 am – 11:00 am</span></li>
+                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Fri:</span><span className="text-red-600 font-bold">Closed</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Where to reach us */}
+                        <div className="flex items-start gap-4">
+                            <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                <MapPin size={16} weight="bold" />
+                            </div>
+                            <div>
+                                <h3 className="text-slate-900 font-bold text-base leading-snug">Where to reach us</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2 text-sm text-slate-700">
                                     <div>
-                                        <a href="tel:+15026865522" className="inline-flex items-center gap-2 text-xl font-bold text-black mb-2 underline underline-offset-4 hover:opacity-80 transition-opacity">
-                                            <Phone size={24} weight="fill" />
-                                            Talk to Admissions
-                                        </a>
-                                        <p className="text-neutral-500 font-bold uppercase tracking-widest text-xs">Admissions office International students only</p>
-                                    </div>
-                                    <div>
-                                         <h4 className="font-bold text-black uppercase tracking-[0.2em] text-xs mb-4">Postal Address</h4>
-                                        <address className="not-italic text-neutral-600 leading-relaxed text-sm font-bold">
+                                        <h4 className="font-bold text-slate-900 text-sm">Campus Address</h4>
+                                        <p className="leading-relaxed mt-0.5">
                                             Cannoga College – Ottawa campus<br />
                                             81 Montreal Rd,<br />
-                                            K1L 6E8 Ottawa, Ontario, Canada<br />
-                                            Canada
-                                        </address>
+                                            K1L 6E8 Ottawa, Ontario, Canada
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold text-slate-900 text-sm">Mailing Address</h4>
+                                        <p className="leading-relaxed mt-0.5">
+                                            Cannoga College – Ottawa campus<br />
+                                            81 Montreal Rd,<br />
+                                            K1L 6E8 Ottawa, Ontario, Canada
+                                        </p>
                                     </div>
                                 </div>
-                            }
-                        />
-                    </section>
-
-                    {/* Key Services */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <ContentBox
-                            icon="identificationBadge"
-                            title="Registry Office"
-                            body={
-                                <div className="space-y-4">
-                                    <p className="text-sm font-bold text-neutral-600">Responsible for receiving official correspondence and documentation.</p>
-                                    <a href="mailto:registry@cannogacollege.ca" className="block font-bold underline">registry@cannogacollege.ca</a>
-                                </div>
-                            }
-                        />
-                        <ContentBox
-                            icon="users"
-                            title="Admissions Services"
-                            body={
-                                <div className="space-y-4">
-                                    <p className="text-sm font-bold text-neutral-600">Information on programmes, applications, scholarships, and deadlines.</p>
-                                    <a href="mailto:admissions@cannogacollege.ca" className="block font-bold underline">admissions@cannogacollege.ca</a>
-                                </div>
-                            }
-                        />
-                        <ContentBox
-                            icon="chatCircleDots"
-                            title="Student Services"
-                            body={
-                                <div className="space-y-4">
-                                    <p className="text-sm font-bold text-neutral-600">Support for enrolled students including study planning and wellbeing.</p>
-                                    <a href="mailto:studentservices@cannogacollege.ca" className="block font-bold underline">studentservices@cannogacollege.ca</a>
-                                </div>
-                            }
-                        />
-                        <ContentBox
-                            icon="archive"
-                            title="Archives"
-                            body={
-                                <div className="space-y-4">
-                                    <p className="text-sm font-bold text-neutral-600">Storage of permanent records and official documentation.</p>
-                                    <a href="mailto:archives@cannogacollege.ca" className="block font-bold underline">archives@cannogacollege.ca</a>
-                                </div>
-                            }
-                        />
-                    </div>
-
-                    <hr className="border-neutral-200" />
-
-                    {/* Academic Schools */}
-                    <section>
-                        <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">Schools and Departments</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-                            {[
-                                { name: "School of Arts, Design and Architecture", href: "/schools/arts" },
-                                { name: "School of Science", href: "/schools/science" },
-                                { name: "School of Technology", href: "/schools/technology" },
-                                { name: "School of Business", href: "/schools/business" },
-                                { name: "School of Health and Community Services", href: "/schools/health-community" },
-                                { name: "School of Transportation and Aviation", href: "/schools/transportation-aviation" },
-                                { name: "School of Education and Social Sciences", href: "/schools/education-social-sciences" },
-                                { name: "School of Hospitality and Tourism", href: "/schools/hospitality-tourism" }
-                            ].map((school) => (
-                                <Link 
-                                    key={school.name} 
-                                    label={school.name}
-                                    linkComponentProps={{ href: school.href }}
-                                    className="group flex justify-between items-center py-6 border-b border-neutral-200 hover:border-[#0a151a] transition-colors uppercase tracking-widest text-sm"
-                                    icon={<span className="text-neutral-400 group-hover:text-black">→</span>}
-                                    iconPosition="right"
-                                />
-                            ))}
-                        </div>
-                    </section>
-
-                    <hr className="border-neutral-200" />
-
-                    {/* Footer Info Sections */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-
-                        <section>
-                            <h3 className="font-bold text-xs uppercase tracking-[0.2em] text-black mb-8">Related Services</h3>
-                            <List
-                                items={[
-                                    { label: 'Career Services', linkComponentProps: { href: '/student-guide/international#after-graduation' } },
-                                    { label: 'International Office', linkComponentProps: { href: '/student-guide/international' } },
-                                    { label: 'Research and Innovation Services', linkComponentProps: { href: '/research' } },
-                                    { label: 'Alumni Relations', linkComponentProps: { href: '/alumni' } },
-                                    { label: 'Media and Communications', linkComponentProps: { href: '/news' } },
-                                ]}
-                            />
-                        </section>
-
-                        <section>
-                            <h3 className="font-bold text-xs uppercase tracking-[0.2em] text-black mb-8">Campus Maps</h3>
-                            <p className="text-neutral-600 mb-6 leading-relaxed text-sm font-bold">
-                                Find your way around our learning spaces, labs, and studios.
-                            </p>
-                            <div className="mb-6 rounded-xl overflow-hidden border border-neutral-200">
-                                <Image 
-                                    src="/images/Cannoga College Campus MAp.png" 
-                                    alt="Cannoga College Campus Map" 
-                                    width={1200}
-                                    height={800}
-                                    className="w-full h-auto object-cover"
-                                />
                             </div>
-                            <Link 
-                                label="View Campus Maps"
-                                linkComponentProps={{ href: "#" }}
-                                className="font-bold text-black hover:underline text-[10px] uppercase tracking-[0.2em]"
-                            />
-                        </section>
+                        </div>
+
+                        {/* Application Note */}
+                        <div className="flex items-start gap-4 pt-2">
+                            <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                <ArrowRight size={16} weight="bold" />
+                            </div>
+                            <div>
+                                <h3 className="text-slate-900 font-bold text-base leading-snug">Application Note</h3>
+                                <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
+                                    All formal applications must be submitted through the Cannoga College online portal during the official application periods.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </section>
+
+                {/* Key Department Services */}
+                <section className="pt-8 border-t border-slate-200">
+                    <h2 className="text-2xl font-black text-black tracking-tight mb-8">Department Directory</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="flex items-start gap-4">
+                            <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                <IdentificationBadge size={16} weight="bold" />
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-base text-slate-900">Registry Office</h3>
+                                <p className="text-sm text-slate-600 mt-1 mb-2">Responsible for receiving official academic correspondence and documentation.</p>
+                                <a href="mailto:registry@cannogacollege.ca" className="text-[#0f2027] font-bold text-sm underline hover:text-[#c89211] transition-colors">
+                                    registry@cannogacollege.ca
+                                </a>
+                            </div>
+                        </div>
+
+                        <div className="flex items-start gap-4">
+                            <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                <Users size={16} weight="bold" />
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-base text-slate-900">Admissions Services</h3>
+                                <p className="text-sm text-slate-600 mt-1 mb-2">Information on degree programmes, requirements, scholarships, and deadlines.</p>
+                                <a href="mailto:admissions@cannogacollege.ca" className="text-[#0f2027] font-bold text-sm underline hover:text-[#c89211] transition-colors">
+                                    admissions@cannogacollege.ca
+                                </a>
+                            </div>
+                        </div>
+
+                        <div className="flex items-start gap-4">
+                            <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                <ChatCircleDots size={16} weight="bold" />
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-base text-slate-900">Student Services</h3>
+                                <p className="text-sm text-slate-600 mt-1 mb-2">Comprehensive support for enrolled students including study planning and guidance.</p>
+                                <a href="mailto:studentservices@cannogacollege.ca" className="text-[#0f2027] font-bold text-sm underline hover:text-[#c89211] transition-colors">
+                                    studentservices@cannogacollege.ca
+                                </a>
+                            </div>
+                        </div>
+
+                        <div className="flex items-start gap-4">
+                            <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                <Archive size={16} weight="bold" />
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-base text-slate-900">Archives & Transcripts</h3>
+                                <p className="text-sm text-slate-600 mt-1 mb-2">Permanent academic records storage, transcript verification, and archival documents.</p>
+                                <a href="mailto:archives@cannogacollege.ca" className="text-[#0f2027] font-bold text-sm underline hover:text-[#c89211] transition-colors">
+                                    archives@cannogacollege.ca
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Academic Schools */}
+                <section className="pt-8 border-t border-slate-200">
+                    <h2 className="text-2xl font-black text-black tracking-tight mb-8">Academic Schools & Faculties</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                        {[
+                            { name: "School of Arts, Design and Architecture", href: "/schools/arts" },
+                            { name: "School of Science", href: "/schools/science" },
+                            { name: "School of Technology", href: "/schools/technology" },
+                            { name: "School of Business", href: "/schools/business" },
+                            { name: "School of Health and Community Services", href: "/schools/health-community" },
+                            { name: "School of Transportation and Aviation", href: "/schools/transportation-aviation" },
+                            { name: "School of Education and Social Sciences", href: "/schools/education-social-sciences" },
+                            { name: "School of Hospitality and Tourism", href: "/schools/hospitality-tourism" }
+                        ].map((school) => (
+                            <Link 
+                                key={school.name} 
+                                href={school.href}
+                                className="group flex justify-between items-center py-4 border-b border-slate-200 hover:border-[#0a151a] font-bold text-slate-900 uppercase tracking-wider text-xs no-underline transition-colors"
+                            >
+                                <span>{school.name}</span>
+                                <span className="text-slate-400 group-hover:text-black group-hover:translate-x-1 transition-all">→</span>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Campus Map & Directions */}
+                <section className="pt-8 border-t border-slate-200">
+                    <h2 className="text-2xl font-black text-black tracking-tight mb-6">Campus Location Map</h2>
+                    <p className="text-slate-700 mb-6 leading-relaxed font-medium">
+                        Explore learning spaces, laboratories, and administrative centers at our Ottawa campus.
+                    </p>
+                    <div className="overflow-hidden border border-slate-200">
+                        <Image 
+                            src="/images/Cannoga College Campus MAp.png" 
+                            alt="Cannoga College Campus Map" 
+                            width={1200}
+                            height={800}
+                            className="w-full h-auto object-cover"
+                        />
+                    </div>
+                </section>
+
             </div>
         </main>
     );
 }
-
