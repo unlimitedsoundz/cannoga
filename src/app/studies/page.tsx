@@ -105,7 +105,7 @@ const SCHOOLS_DIRECTORY = [
         slug: "health-sciences",
         count: "8 Programs",
         programs: ["Practical Nursing & Clinical Care", "Biomedical Technology", "Healthcare Administration", "Public Health Analytics"],
-        image: "/images/collins-huang.jpg",
+        image: "/images/school-of-health.jpg",
         bg: "#0a151a"
     },
     {
