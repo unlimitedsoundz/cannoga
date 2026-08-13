@@ -491,17 +491,28 @@ export default async function AdmissionsPage() {
                                     <div className="space-y-2">
                                         <div>
                                             <h3 className="text-slate-900 font-bold text-base leading-snug">Talk to Cannoga</h3>
-                                            <p className="text-slate-600 text-sm font-normal mt-0.5">Admissions office International students only</p>
-                                        </div>
-                                        <div className="text-sm font-medium text-slate-800 space-y-1 pt-1">
-                                            <p className="font-bold text-slate-900 text-xs uppercase tracking-wider text-[#c89211]">Telephone service hours (UTC +2):</p>
-                                            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 pt-1 text-xs">
-                                                <div><span className="font-bold block text-slate-900">Mon:</span> 12:30 pm – 2:00 pm</div>
-                                                <div><span className="font-bold block text-slate-900">Tue:</span> 9:30 am – 11:00 am</div>
-                                                <div><span className="font-bold block text-slate-900">Wed:</span> 9:30 am – 11:00 am</div>
-                                                <div><span className="font-bold block text-slate-900">Thu:</span> 9:30 am – 11:00 am</div>
-                                                <div><span className="font-bold block text-slate-900">Fri:</span> <span className="text-red-600 font-bold">Closed</span></div>
+                                            <div className="mt-1 space-y-1">
+                                                <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Ottawa, Ontario, Canada resident enquiries</p>
+                                                <a href="tel:+12272500427" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block">
+                                                    Talk to Cannoga: +1 (227) 250-0427
+                                                </a>
                                             </div>
+                                            <div className="mt-2 space-y-1">
+                                                <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
+                                                <a href="tel:+12272500427" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block">
+                                                    Talk to Admissions: +1 (227) 250-0427
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div className="text-xs text-slate-800 space-y-1 pt-1">
+                                            <p className="font-bold text-slate-900 text-xs uppercase tracking-wider text-[#c89211] mb-1">Telephone service hours (UTC +2):</p>
+                                            <ul className="space-y-0.5 text-xs text-slate-700 font-medium">
+                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Mon:</span><span>12:30 pm – 2:00 pm</span></li>
+                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Tue:</span><span>9:30 am – 11:00 am</span></li>
+                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Wed:</span><span>9:30 am – 11:00 am</span></li>
+                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Thu:</span><span>9:30 am – 11:00 am</span></li>
+                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Fri:</span><span className="text-red-600 font-bold">Closed</span></li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
