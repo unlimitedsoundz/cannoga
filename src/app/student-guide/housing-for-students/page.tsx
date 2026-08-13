@@ -29,7 +29,7 @@ export default function HousingGuidePage() {
                 <Hero
                     title="Housing for Students"
                     body="Finding a comfortable place to live is essential for your academic success. This guide covers student housing options and the Ottawa rental market."
-                    backgroundColor="#ffc341"
+                    backgroundColor="#0a151a"
                     tinted
                     lightText={true}
                     breadcrumbs={[
