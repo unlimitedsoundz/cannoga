@@ -82,46 +82,86 @@ export default function ArrivalGuidePage() {
                             icon="airplane"
                             title="Arriving in the Country"
                             body={
-                                <div className="space-y-8 text-left">
-                                    <div className="bg-white p-8 rounded-2xl border border-neutral-200">
-                                        <h4 className="font-bold text-xl mb-4 text-black">International Students: Border Procedures</h4>
-                                        <p className="text-sm text-black leading-relaxed font-bold mb-4">
-                                            International students arriving in Ontario, Canada must carry essential identification documents in their carry-on luggage and complete standard border clearance procedures.
+                                <div className="space-y-10 text-left">
+                                    {/* Border Procedures Overview */}
+                                    <div className="bg-neutral-50 p-6 md:p-8 rounded-2xl border-l-4 border-[#0a151a]">
+                                        <h4 className="font-bold text-xl mb-2 text-black">International Students: Border Procedures</h4>
+                                        <p className="text-sm text-neutral-700 leading-relaxed font-medium">
+                                            International students arriving in Ontario, Canada must carry essential identification documents in their carry-on luggage and complete standard border clearance procedures with Canada Border Services Agency (CBSA).
                                         </p>
                                     </div>
-                                    <div className="bg-white p-8 rounded-2xl border border-neutral-200">
-                                        <h4 className="font-bold text-xl mb-4 text-black">Essential Documents</h4>
-                                        <ul className="space-y-3 text-sm text-black">
-                                            <li><strong>Valid Passport:</strong> Must remain valid for your entire planned stay.</li>
-                                            <li><strong>Port of Entry Letter of Introduction:</strong> The letter issued by Immigration, Refugees and Citizenship Canada confirming your study permit approval.</li>
-                                            <li><strong>Letter of Acceptance (LOA):</strong> The official acceptance letter from your Ontario designated learning institution.</li>
-                                            <li><strong>Provincial Attestation Letter (PAL):</strong> A letter from Ontario confirming your school's allocation under provincial student caps (if applicable).</li>
-                                            <li><strong>Proof of Financial Support:</strong> Bank statements, GIC confirmation, or scholarship letters showing you can support yourself.</li>
-                                        </ul>
-                                    </div>
-                                    <div className="bg-white p-8 rounded-2xl border border-neutral-200">
-                                        <h4 className="font-bold text-xl mb-4 text-black">Airport Arrival Process</h4>
-                                        <ul className="space-y-3 text-sm text-black">
-                                            <li><strong>CBSA Declaration:</strong> Complete your customs declaration at a kiosk or electronically using the ArriveCAN app before or upon landing.</li>
-                                            <li><strong>Immigration Interview:</strong> Meet a Canada Border Services Agency officer who will review your documents and issue your physical study permit.</li>
-                                        </ul>
-                                    </div>
-                                    <div className="bg-white p-8 rounded-2xl border border-neutral-200">
-                                        <h4 className="font-bold text-xl mb-4 text-black">Immediate Next Steps</h4>
-                                        <ul className="space-y-3 text-sm text-black">
-                                            <li><strong>Social Insurance Number (SIN):</strong> Apply for a SIN at a Service Canada office if you plan to work on or off campus.</li>
-                                            <li><strong>Banking and Mobile Services:</strong> Open a Canadian bank account and set up a local mobile phone plan.</li>
-                                            <li><strong>Housing and Registration:</strong> Confirm your permanent accommodation and complete final course enrollment with your institution.</li>
-                                        </ul>
-                                    </div>
+
+                                    {/* Essential Documents & Arrival Steps Grid */}
                                     <div className="grid md:grid-cols-2 gap-8">
-                                        <div>
-                                            <h4 className="font-bold text-lg mb-2">First Days</h4>
-                                            <p className="text-sm text-black font-bold">Move into your home, register with local authorities, and consider opening a bank account.</p>
+                                        <div className="bg-white p-6 md:p-8 rounded-2xl border border-neutral-200 shadow-sm flex flex-col justify-between">
+                                            <div>
+                                                <h4 className="font-bold text-lg mb-4 text-black flex items-center gap-2">
+                                                    <span className="w-2.5 h-2.5 bg-[#0a151a] rounded-full inline-block" />
+                                                    Essential Documents to Carry
+                                                </h4>
+                                                <ul className="space-y-3 text-sm text-neutral-700 font-medium">
+                                                    <li className="flex gap-2 items-start">
+                                                        <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                                        <span><strong>Valid Passport:</strong> Must remain valid for your entire stay.</span>
+                                                    </li>
+                                                    <li className="flex gap-2 items-start">
+                                                        <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                                        <span><strong>Port of Entry Letter of Introduction:</strong> Confirmation of study permit approval from IRCC.</span>
+                                                    </li>
+                                                    <li className="flex gap-2 items-start">
+                                                        <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                                        <span><strong>Letter of Acceptance (LOA):</strong> Official acceptance from Cannoga College.</span>
+                                                    </li>
+                                                    <li className="flex gap-2 items-start">
+                                                        <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                                        <span><strong>Provincial Attestation Letter (PAL):</strong> If applicable.</span>
+                                                    </li>
+                                                    <li className="flex gap-2 items-start">
+                                                        <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                                        <span><strong>Proof of Financial Support:</strong> GIC confirmation, bank statements, or scholarship letters.</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <h4 className="font-bold text-lg mb-2">Locale</h4>
-                                            <p className="text-sm text-black font-bold">Familiarise yourself with nearby public transport routes, grocery stores, and essential services.</p>
+
+                                        <div className="bg-white p-6 md:p-8 rounded-2xl border border-neutral-200 shadow-sm flex flex-col justify-between">
+                                            <div>
+                                                <h4 className="font-bold text-lg mb-4 text-black flex items-center gap-2">
+                                                    <span className="w-2.5 h-2.5 bg-[#0a151a] rounded-full inline-block" />
+                                                    Airport Clearance Process
+                                                </h4>
+                                                <div className="space-y-4">
+                                                    <div className="border-l-2 border-neutral-200 pl-4 space-y-1">
+                                                        <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Step 1: Customs</span>
+                                                        <p className="text-sm font-bold text-black">CBSA Declaration Kiosk</p>
+                                                        <p className="text-xs text-neutral-600">Complete your customs declaration at a airport kiosk or via the ArriveCAN app upon landing.</p>
+                                                    </div>
+                                                    <div className="border-l-2 border-neutral-200 pl-4 space-y-1">
+                                                        <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Step 2: Permit Issuance</span>
+                                                        <p className="text-sm font-bold text-black">Immigration Desk Interview</p>
+                                                        <p className="text-xs text-neutral-600">Meet a border officer who will review your documents and issue your physical Study Permit paper document.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Immediate Next Steps Row */}
+                                    <div>
+                                        <h4 className="font-bold text-lg mb-4 text-black">Immediate Settlement Steps</h4>
+                                        <div className="grid sm:grid-cols-3 gap-6">
+                                            <div className="p-5 rounded-xl border border-neutral-200 bg-neutral-50/50">
+                                                <span className="font-bold text-sm block text-black mb-1">1. Social Insurance Number</span>
+                                                <p className="text-xs text-neutral-600 leading-relaxed">Apply for a SIN at Service Canada to work on or off campus legally.</p>
+                                            </div>
+                                            <div className="p-5 rounded-xl border border-neutral-200 bg-neutral-50/50">
+                                                <span className="font-bold text-sm block text-black mb-1">2. Banking & Mobile</span>
+                                                <p className="text-xs text-neutral-600 leading-relaxed">Open a Canadian student bank account (RBC, TD, Scotiabank) and setup a local SIM.</p>
+                                            </div>
+                                            <div className="p-5 rounded-xl border border-neutral-200 bg-neutral-50/50">
+                                                <span className="font-bold text-sm block text-black mb-1">3. Transportation & Housing</span>
+                                                <p className="text-xs text-neutral-600 leading-relaxed">Confirm your housing address and familiarize with OC Transpo bus & O-Train routes.</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
