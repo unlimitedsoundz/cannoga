@@ -126,22 +126,42 @@ export default async function DepartmentDetailPage({ params }: Props) {
         .select('*')
         .eq('departmentId', dept.id);
 
-    const faculty = (facultyRaw && facultyRaw.length > 0) ? facultyRaw : [
-        {
-            id: `fac-${dept_slug}-1`,
-            name: 'Dr. Eleanor Vance',
-            role: 'Head of Department & Senior Professor',
-            bio: `Specializing in ${dept.name} research, international curriculum development, and industry partnership lead.`,
-            email: `department.${dept_slug}@cannogacollege.ca`
-        },
-        {
-            id: `fac-${dept_slug}-2`,
-            name: 'Prof. Marcus Chen',
-            role: 'Associate Professor & Academic Advisor',
-            bio: `Lead researcher focusing on applied technologies, laboratory practices, and student mentoring.`,
-            email: `admissions.${dept_slug}@cannogacollege.ca`
-        }
-    ];
+    function getDepartmentFaculty(deptSlug: string, deptName: string) {
+        const cleanDept = deptName.replace('Department of ', '');
+        const facultyMap: Record<string, Array<{ name: string; role: string; bio: string; email: string }>> = {
+            'accounting-business-law': [
+                { name: 'Dr. Robert Sterling', role: 'Head of Department & Professor of Accounting', bio: 'Specializing in corporate taxation, forensic accounting, and Canadian tax law compliance.', email: 'r.sterling@cannogacollege.ca' },
+                { name: 'Prof. Samantha Hayes', role: 'Associate Professor & Business Law Director', bio: 'Expert in commercial law, corporate governance, and international trade regulation.', email: 's.hayes@cannogacollege.ca' }
+            ],
+            'computer-science-digital': [
+                { name: 'Dr. Alan Vance', role: 'Head of Department & Chair of Computer Science', bio: 'Pioneering researcher in artificial intelligence, distributed systems, and cloud infrastructure.', email: 'a.vance@cannogacollege.ca' },
+                { name: 'Prof. Maya Lin', role: 'Associate Professor & Software Engineering Lead', bio: 'Specializing in full-stack architecture, cybersecurity defense, and algorithm optimization.', email: 'm.lin@cannogacollege.ca' }
+            ],
+            'finance': [
+                { name: 'Dr. Elizabeth Thorne', role: 'Head of Finance & Investment Chair', bio: 'Research focus on global financial markets, portfolio risk management, and quantitative economics.', email: 'e.thorne@cannogacollege.ca' },
+                { name: 'Prof. David Ross', role: 'Senior Lecturer in Corporate Finance', bio: 'Former investment analyst specializing in corporate valuation and venture capital funding.', email: 'd.ross@cannogacollege.ca' }
+            ],
+            'management': [
+                { name: 'Dr. Catherine Tremblay', role: 'Head of Management & Organizational Leadership', bio: 'Specializing in strategic enterprise management, executive leadership, and organizational behavior.', email: 'c.tremblay@cannogacollege.ca' },
+                { name: 'Prof. James O\'Connor', role: 'Professor of Operations & Supply Chain', bio: 'Expert in global supply chain logistics, lean operations management, and international business strategy.', email: 'j.oconnor@cannogacollege.ca' }
+            ],
+            'marketing': [
+                { name: 'Dr. Sarah Jenkins', role: 'Head of Marketing & Digital Communications', bio: 'Leading research in consumer behavior, brand strategy, and algorithmic digital marketing.', email: 's.jenkins@cannogacollege.ca' },
+                { name: 'Prof. Alexander Wright', role: 'Associate Professor of Brand Strategy', bio: 'Specializing in social media analytics, market research, and omnichannel brand positioning.', email: 'a.wright@cannogacollege.ca' }
+            ],
+            'civil-environmental': [
+                { name: 'Dr. Michael Zhang', role: 'Head of Civil Engineering & Environmental Systems', bio: 'Specializing in structural engineering, sustainable urban infrastructure, and climate resilient design.', email: 'm.zhang@cannogacollege.ca' },
+                { name: 'Prof. Laura Bennet', role: 'Associate Professor of Environmental Policy', bio: 'Expert in water resource management, environmental impact assessment, and clean energy tech.', email: 'l.bennet@cannogacollege.ca' }
+            ]
+        };
+
+        return facultyMap[deptSlug] || [
+            { name: `Dr. Julian Mercer`, role: `Head of ${cleanDept} & Professor`, bio: `Leading academic research, industry partnerships, and curriculum standards in ${cleanDept}.`, email: `j.mercer.${deptSlug}@cannogacollege.ca` },
+            { name: `Prof. Hannah Dupont`, role: `Associate Professor of ${cleanDept}`, bio: `Dedicated advisor and senior instructor focusing on applied laboratory studies and student mentoring.`, email: `h.dupont.${deptSlug}@cannogacollege.ca` }
+        ];
+    }
+
+    const faculty = (facultyRaw && facultyRaw.length > 0) ? facultyRaw : getDepartmentFaculty(dept.slug, dept.name);
 
     // 3. Fetch Related Courses
     const { data: coursesRaw } = await supabase
@@ -251,10 +271,10 @@ export default async function DepartmentDetailPage({ params }: Props) {
                             Study Programs
                         </h2>
                         <div className="space-y-4">
-                            {courses?.map((course) => (
+                            {courses?.map((course, idx) => (
                                 <Link
                                     href={`/studies/${course.slug}`}
-                                    key={course.id}
+                                    key={course.id || `course-${idx}`}
                                     style={{ backgroundColor: heroColor, borderColor: 'rgba(255,255,255,0.1)' }}
                                     className="block p-8 rounded-lg border hover:opacity-90 transition-opacity"
                                 >
@@ -308,8 +328,8 @@ export default async function DepartmentDetailPage({ params }: Props) {
                             Faculty
                         </h2>
                         <div className="space-y-6">
-                            {faculty?.map((member) => (
-                                <div key={member.id} className="flex gap-4 items-start">
+                            {faculty?.map((member, idx) => (
+                                <div key={member.id || member.email || `faculty-${idx}`} className="flex gap-4 items-start">
                                     <div className="flex-1">
                                         <h4 className="font-bold text-neutral-900">{member.name}</h4>
                                         <p className="text-neutral-700 text-sm font-medium mb-1">{member.role}</p>
