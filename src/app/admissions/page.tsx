@@ -215,14 +215,14 @@ export default async function AdmissionsPage() {
                                         <p className="text-slate-800 text-base md:text-lg font-medium leading-relaxed">
                                             Cannoga College regularly organises events designed to help prospective students learn more about studying and applying:
                                         </p>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                                        <div className="flex flex-col gap-3 pt-2">
                                             {[
                                                 { title: "Webinars on degree programmes", desc: "Interact directly with faculty and programme heads" },
                                                 { title: "Student chats", desc: "Peer ambassadors share authentic campus experiences" },
                                                 { title: "Campus events", desc: "Tailored events for undergraduate and graduate applicants" },
                                                 { title: "Applicant newsletters", desc: "Regular application insights and live Q&A sessions" },
                                             ].map((item) => (
-                                                <div key={item.title} className="p-4 bg-white border border-slate-200 rounded-sm hover:border-[#0f2027] hover:shadow-sm transition-all flex items-start gap-3.5">
+                                                <div key={item.title} className="p-4 bg-white border border-slate-200 rounded-sm hover:border-[#0f2027] hover:shadow-sm transition-all flex items-start gap-3.5 w-full">
                                                     <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
                                                         <ArrowRight size={14} weight="bold" />
                                                     </div>
