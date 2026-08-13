@@ -84,12 +84,22 @@ export default function ArrivalGuidePage() {
                             title="Arriving in the Country"
                             body={
                                 <div className="space-y-10 text-left">
-                                    {/* Border Procedures Overview */}
-                                    <div className="bg-neutral-50 p-6 md:p-8 rounded-2xl border-l-4 border-[#0a151a]">
-                                        <h4 className="font-bold text-xl mb-2 text-black">International Students: Border Procedures</h4>
-                                        <p className="text-sm text-neutral-700 leading-relaxed font-medium">
-                                            International students arriving in Ontario, Canada must carry essential identification documents in their carry-on luggage and complete standard border clearance procedures with Canada Border Services Agency (CBSA).
-                                        </p>
+                                    {/* Border Procedures Overview with Spotlight Image */}
+                                    <div className="grid md:grid-cols-3 gap-8 items-center bg-neutral-50 p-6 md:p-8 rounded-2xl border-l-4 border-[#0a151a]">
+                                        <div className="md:col-span-2 space-y-2">
+                                            <h4 className="font-bold text-xl text-black">International Students: Border Procedures</h4>
+                                            <p className="text-sm text-neutral-700 leading-relaxed font-medium">
+                                                International students arriving in Ontario, Canada must carry essential identification documents in their carry-on luggage and complete standard border clearance procedures with Canada Border Services Agency (CBSA).
+                                            </p>
+                                        </div>
+                                        <div className="relative h-44 rounded-xl overflow-hidden shadow-sm w-full">
+                                            <Image
+                                                src="https://i.pinimg.com/736x/0f/f4/0d/0ff40da102bd55d023e062f482f710f7.jpg"
+                                                alt="Arriving in Canada"
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
                                     </div>
 
                                     {/* Essential Documents & Arrival Steps Grid */}
