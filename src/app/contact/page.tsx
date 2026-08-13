@@ -41,19 +41,33 @@ export default function ContactPage() {
             }} />
 
             {/* HERO SECTION */}
-            <section className="bg-[#0a151a] text-white pt-28 pb-20 md:pt-40 md:pb-28 px-4 border-b border-slate-800">
-                <div className="container mx-auto max-w-5xl">
-                    <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-400 mb-6">
-                        <Link href="/" className="text-sky-400 hover:text-white transition-colors no-underline">HOME</Link>
-                        <span className="text-slate-600">/</span>
-                        <span>DIRECTORY</span>
+            <section className="bg-[#0a151a] text-white pt-28 pb-20 md:pt-36 md:pb-24 px-4 border-b border-slate-800">
+                <div className="container mx-auto max-w-6xl">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        <div className="lg:col-span-7">
+                            <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-400 mb-6">
+                                <Link href="/" className="text-sky-400 hover:text-white transition-colors no-underline">HOME</Link>
+                                <span className="text-slate-600">/</span>
+                                <span>DIRECTORY</span>
+                            </div>
+                            <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white leading-tight">
+                                Contact Information
+                            </h1>
+                            <p className="text-lg md:text-xl text-slate-300 leading-relaxed">
+                                Cannoga College provides direct contact information for administrative services including Registry, Admissions, Student Services, and general inquiries to support students, applicants, staff, and partners.
+                            </p>
+                        </div>
+                        <div className="lg:col-span-5">
+                            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
+                                <Image 
+                                    src="/images/contact-hero.png" 
+                                    alt="Contact Cannoga College" 
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white leading-tight">
-                        Contact Information
-                    </h1>
-                    <p className="text-lg md:text-xl text-slate-300 max-w-3xl leading-relaxed">
-                        Cannoga College provides direct contact information for administrative services including Registry, Admissions, Student Services, and general inquiries to support students, applicants, staff, and partners.
-                    </p>
                 </div>
             </section>
 
