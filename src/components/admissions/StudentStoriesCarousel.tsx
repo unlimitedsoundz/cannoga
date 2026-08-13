@@ -89,7 +89,7 @@ export default function StudentStoriesCarousel() {
                                 </a>
 
                                 {/* Story Indicators */}
-                                <div className="flex gap-1.5 pr-24">
+                                <div className="flex gap-1.5">
                                     {stories.map((s, idx) => (
                                         <button
                                             key={s.id}
@@ -106,22 +106,20 @@ export default function StudentStoriesCarousel() {
             ))}
 
             {/* Navigation Controls */}
-            <div className="absolute bottom-0 right-0 flex z-20">
-                <button
-                    onClick={prev}
-                    className="w-11 h-11 md:w-12 md:h-12 bg-[#0f2027] text-white flex items-center justify-center hover:bg-[#1a2b32] transition-all active:scale-95"
-                    aria-label="Previous story"
-                >
-                    <CaretLeft size={18} weight="bold" />
-                </button>
-                <button
-                    onClick={next}
-                    className="w-11 h-11 md:w-12 md:h-12 bg-[#0f2027] text-white flex items-center justify-center transition-all hover:bg-[#1a2b32] active:scale-95"
-                    aria-label="Next story"
-                >
-                    <CaretRight size={18} weight="bold" />
-                </button>
-            </div>
+            <button
+                onClick={prev}
+                className="absolute left-4 md:left-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0f2027]/60 hover:bg-[#0f2027] w-10 h-10 md:w-12 md:h-12 flex items-center justify-center text-white transition-colors border border-white/20"
+                aria-label="Previous story"
+            >
+                <CaretLeft size={22} weight="bold" />
+            </button>
+            <button
+                onClick={next}
+                className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0f2027]/60 hover:bg-[#0f2027] w-10 h-10 md:w-12 md:h-12 flex items-center justify-center text-white transition-colors border border-white/20"
+                aria-label="Next story"
+            >
+                <CaretRight size={22} weight="bold" />
+            </button>
         </div>
     );
 }

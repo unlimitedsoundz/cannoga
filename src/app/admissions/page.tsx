@@ -129,22 +129,9 @@ export default async function AdmissionsPage() {
                 </div>
             </Hero>
 
-            <div className="container mx-auto px-4 py-16 md:py-24">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    {/* Sidebar / Table of Contents */}
-                    <div className="hidden lg:col-span-3">
-                        <div className="lg:sticky lg:top-24 space-y-8">
-                            <TableOfContents sections={tocSections} />
-                            <div className="bg-[#0f2027] text-white p-8 border-0 rounded-sm">
-                                <h3 className="font-serif font-bold text-lg mb-2 text-white tracking-wide">Admissions Office</h3>
-                                <p className="text-xs text-slate-300 mb-6 font-normal">Ottawa Campus — Designated Learning Institution (DLI #O19394821)</p>
-                                <Link href="/contact" className="text-xs font-bold uppercase tracking-wider text-[#c89211] hover:underline">Contact Admissions</Link>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Main Content */}
-                    <div className="lg:col-span-9 space-y-8 md:space-y-24 px-0 md:px-0">
+            <div className="container mx-auto px-8 md:px-20 lg:px-32 py-16 md:py-24">
+                {/* Main Content */}
+                <div className="max-w-4xl mx-auto space-y-8 md:space-y-24">
 
                         <section id="overview" className="scroll-mt-32">
                             <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Explore our fields</h2>
@@ -490,7 +477,6 @@ export default async function AdmissionsPage() {
                             </div>
                         </section>
 
-                    </div>
                 </div>
             </div>
         </div>

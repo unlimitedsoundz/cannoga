@@ -21,6 +21,7 @@ import {
 
 export interface ProgramItem {
     id: string;
+    code?: string;
     name: string;
     level: 'Certificate' | 'Diploma' | 'Advanced Diploma' | 'Bachelor' | 'Master';
     school: string;
@@ -503,11 +504,12 @@ const programsData: ProgramItem[] = [
 
 export function ProgramsAZTableView() {
     const [allPrograms, setAllPrograms] = useState<ProgramItem[]>(() => 
-        programsData.map(p => {
+        programsData.map((p, idx) => {
             const schSlug = getSchoolSlug(p.school);
             const deptSlug = getDeptSlug(p.name, p.school);
             return {
                 ...p,
+                code: `CAN-${100 + idx * 5}`,
                 href: `/schools/${schSlug}/${deptSlug}`
             };
         })
@@ -518,54 +520,53 @@ export function ProgramsAZTableView() {
     const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
     const [sortAsc, setSortAsc] = useState<boolean>(true);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [itemsPerPage, setItemsPerPage] = useState<number>(6);
+    const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
     const levels = ['All', 'Certificate', 'Diploma', 'Advanced Diploma', 'Bachelor', 'Master'];
 
-    // Fetch dynamic programs from Supabase DB if table exists
+    // Fetch dynamic programs from Supabase Course table
     useEffect(() => {
         let isMounted = true;
         async function fetchDatabasePrograms() {
             try {
                 const supabase = createClient();
-                // Attempt to query potential programs/degree tables
                 const { data: dbData, error } = await supabase
-                    .from('programs')
-                    .select('*');
+                    .from('Course')
+                    .select('id, code, title, degreeLevel, duration, credits, slug, description, schoolId, School(name, slug)');
 
                 if (!error && dbData && dbData.length > 0 && isMounted) {
-                    const dbMapped: ProgramItem[] = dbData.map((item: any, idx: number) => {
-                        const schName = item.school || item.department || 'School of Academic Studies';
-                        const progName = item.name || item.title || item.program_name || 'Academic Program';
-                        const schSlug = getSchoolSlug(schName);
-                        const deptSlug = item.dept_slug || item.department_slug || getDeptSlug(progName, schName);
+                    const dbMapped: ProgramItem[] = dbData.map((item: any) => {
+                        const schoolName = item.School?.name || 'School of Academic Studies';
+                        const levelFormatted = item.degreeLevel ? (
+                            item.degreeLevel === 'BACHELOR' ? 'Bachelor' :
+                            item.degreeLevel === 'MASTER' ? 'Master' :
+                            item.degreeLevel === 'CERTIFICATE' ? 'Certificate' : 'Diploma'
+                        ) : 'Diploma';
+
+                        const domesticTuition = levelFormatted === 'Master' ? '$3,500/yr' : levelFormatted === 'Bachelor' ? '$2,500/yr' : '$1,500/yr';
+                        const intlTuition = levelFormatted === 'Master' ? '$6,000/yr' : levelFormatted === 'Bachelor' ? '$4,000/yr' : '$2,500/yr';
+
                         return {
-                            id: item.id || `db-prog-${idx}`,
-                            name: progName,
-                            level: (item.level || item.credential || 'Bachelor') as any,
-                            school: schName,
+                            id: item.id,
+                            code: item.code || 'CAN-100',
+                            name: item.title,
+                            level: levelFormatted as any,
+                            school: schoolName,
                             duration: item.duration || '2 Years',
-                            credits: Number(item.credits) || 60,
-                            coop: Boolean(item.coop ?? true),
-                            pgwp: Boolean(item.pgwp ?? true),
-                            tuitionDomestic: item.tuition_domestic ? `$${item.tuition_domestic}/yr` : '$1,500/yr',
-                            tuitionInternational: item.tuition_international ? `$${item.tuition_international}/yr` : '$2,500/yr',
-                            href: `/schools/${schSlug}/${deptSlug}`,
-                            description: item.description || item.overview || 'Accredited higher education program offered at Cannoga College.'
+                            credits: Number(item.credits) || (levelFormatted === 'Bachelor' ? 120 : levelFormatted === 'Master' ? 60 : 60),
+                            coop: true,
+                            pgwp: true,
+                            tuitionDomestic: domesticTuition,
+                            tuitionInternational: intlTuition,
+                            href: `/studies/${item.slug}`,
+                            description: item.description || `${item.title} program at Cannoga College.`
                         };
                     });
 
-                    // Deduplicate against static fallback dataset
-                    const combined = [...dbMapped];
-                    programsData.forEach(staticItem => {
-                        if (!combined.some(c => c.name.toLowerCase() === staticItem.name.toLowerCase())) {
-                            combined.push(staticItem);
-                        }
-                    });
-                    setAllPrograms(combined);
+                    setAllPrograms(dbMapped);
                 }
             } catch (err) {
-                console.log('Supabase programs table query info:', err);
+                console.log('Supabase Course table query info:', err);
             } finally {
                 if (isMounted) setIsLoading(false);
             }
@@ -578,7 +579,9 @@ export function ProgramsAZTableView() {
     const filteredPrograms = useMemo(() => {
         return allPrograms
             .filter(p => {
+                const progCode = p.code || 'CAN-100';
                 const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
+                                      progCode.toLowerCase().includes(search.toLowerCase()) ||
                                       p.school.toLowerCase().includes(search.toLowerCase()) ||
                                       p.description.toLowerCase().includes(search.toLowerCase());
                 const matchesLevel = selectedLevel === 'All' || p.level === selectedLevel;
@@ -723,9 +726,10 @@ export function ProgramsAZTableView() {
                         <span className="text-xs font-bold text-slate-500">Page {validCurrentPage} of {totalPages}</span>
                     </div>
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left text-xs sm:text-sm text-slate-600 border-collapse min-w-[900px]">
+                        <table className="w-full text-left text-xs sm:text-sm text-slate-600 border-collapse min-w-[950px]">
                             <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
                                 <tr>
+                                    <th className="p-3.5 font-extrabold w-32">Program Code</th>
                                     <th className="p-3.5 font-extrabold">Program Name</th>
                                     <th className="p-3.5 font-extrabold">Credential Level</th>
                                     <th className="p-3.5 font-extrabold">School</th>
@@ -741,6 +745,11 @@ export function ProgramsAZTableView() {
                                         key={p.id} 
                                         className="hover:bg-slate-50 transition-colors"
                                     >
+                                        <td className="p-3.5 font-mono font-bold text-slate-900 text-xs whitespace-nowrap">
+                                            <span className="bg-slate-100 text-slate-900 px-2 py-1 border border-slate-200 rounded-none">
+                                                {p.code}
+                                            </span>
+                                        </td>
                                         <td className="p-3.5">
                                             <Link 
                                                 href={p.href}
@@ -774,14 +783,14 @@ export function ProgramsAZTableView() {
                                                 href={p.href}
                                                 className="inline-block text-xs font-bold px-3.5 py-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition shadow-sm no-underline"
                                             >
-                                                Apply
+                                                View Course
                                             </Link>
                                         </td>
                                     </tr>
                                 ))}
                                 {paginatedPrograms.length === 0 && (
                                     <tr>
-                                        <td colSpan={7} className="p-8 text-center text-slate-500 font-medium">No academic programs found matching your search.</td>
+                                        <td colSpan={8} className="p-8 text-center text-slate-500 font-medium">No academic programs found matching your search.</td>
                                     </tr>
                                 )}
                             </tbody>
@@ -798,11 +807,11 @@ export function ProgramsAZTableView() {
                         >
                             <div>
                                 <div className="flex items-center justify-between gap-2 mb-3">
+                                    <span className="font-mono text-xs font-bold text-slate-900 bg-slate-100 px-2 py-0.5 border border-slate-200">
+                                        {p.code}
+                                    </span>
                                     <span className="text-xs font-bold uppercase tracking-wider text-slate-900">
                                         {p.level}
-                                    </span>
-                                    <span className="text-xs font-bold text-neutral-500">
-                                        {p.duration} ({p.credits} cr)
                                     </span>
                                 </div>
                                 <h4 className="font-bold text-base text-black mb-2 leading-snug">
@@ -833,7 +842,7 @@ export function ProgramsAZTableView() {
                                         href={p.href}
                                         className="inline-flex items-center gap-1 text-xs font-bold text-[#0a151a] hover:underline"
                                     >
-                                        Apply Details
+                                        View Details
                                     </Link>
                                 </div>
                             </div>
