@@ -365,17 +365,17 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                         </div>
 
                         {/* Summary / Total Box */}
-                        <div className="bg-[#f5f5f5] p-4 border border-[#e2e8f0] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div className="bg-[#f5f5f5] p-5 border border-[#e2e8f0] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                             <div>
-                                <h4 className="text-xs font-bold text-neutral-500 uppercase">Estimated Total Tuition</h4>
-                                <p className="text-[10px] text-neutral-400 font-semibold leading-tight mt-0.5">Based on {submittedData.years} year(s) at {formatCurrency(submittedData.semesterBaseTuition)} per semester + ancillary fees</p>
+                                <h4 className="text-sm font-extrabold text-[#000000] uppercase tracking-tight">Estimated Total Tuition</h4>
+                                <p className="text-xs text-[#000000] font-medium leading-normal mt-1">Based on {submittedData.years} year(s) at {formatCurrency(submittedData.semesterBaseTuition)} per semester + ancillary fees</p>
                             </div>
-                            <div className="text-xl font-black text-[#000000]">
+                            <div className="text-2xl sm:text-3xl font-black text-[#000000] shrink-0">
                                 {formatCurrency(submittedData.programTuitionTotal + (submittedData.ancillaryFeesTotal * submittedData.totalSemesters))}
                             </div>
                         </div>
 
-                        <p className="text-[10px] text-neutral-400 font-semibold leading-relaxed">
+                        <p className="text-xs text-[#000000] font-medium leading-relaxed mt-2">
                             *Disclaimer: Fees listed are estimates based on the current academic year schedule. Actual tuition and fee rates are subject to change and may vary depending on courses selected, course loads, and other factors.
                         </p>
                     </div>
