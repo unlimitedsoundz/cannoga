@@ -60,6 +60,20 @@ function extractAnnualFee(jsonb: any, fallback: number): number {
     return isNaN(num) ? fallback : num;
 }
 
+export function getTuitionFeeSync(level: string, field?: string, isDomestic: boolean = false): number {
+    const lvl = (level || '').toUpperCase();
+    if (lvl.includes('CERTIFICATE') || lvl.includes('DIPLOMA')) {
+        return isDomestic ? DOMESTIC_TUITION.CERTIFICATE_DIPLOMA : INTERNATIONAL_TUITION.CERTIFICATE_DIPLOMA;
+    }
+    if (lvl.includes('BACHELOR') || lvl.includes('BSC')) {
+        return isDomestic ? DOMESTIC_TUITION.BACHELOR : INTERNATIONAL_TUITION.BACHELOR;
+    }
+    if (lvl.includes('MASTER') || lvl.includes('MSC')) {
+        return isDomestic ? DOMESTIC_TUITION.MASTER : INTERNATIONAL_TUITION.MASTER;
+    }
+    return isDomestic ? DOMESTIC_TUITION.BACHELOR : INTERNATIONAL_TUITION.BACHELOR;
+}
+
 /**
  * Validates and gets the tuition fee based on degree level and residency (isDomestic).
  * Fetches from tuition_info table; falls back to hardcoded values if DB is unavailable.

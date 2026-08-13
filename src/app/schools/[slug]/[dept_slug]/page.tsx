@@ -1,4 +1,4 @@
-﻿
+
 import { createStaticClient } from '@/lib/supabase/static';
 
 // Revalidate every hour; admin mutations call revalidatePath() for immediate updates.
@@ -9,7 +9,7 @@ import { Department, School, Faculty, Course } from '@/types/database';
 import { notFound } from 'next/navigation';
 import { CaretLeft } from '@phosphor-icons/react/dist/ssr';
 import { Breadcrumbs } from '@aalto-dx/react-modules';
-import { getTuitionFee } from '@/utils/tuition';
+import { getTuitionFeeSync } from '@/utils/tuition';
 
 
 interface Props {
@@ -40,8 +40,8 @@ export async function generateMetadata({ params }: Props) {
 }
 
 function getEstimatedTuitionFee(schoolSlug: string, degreeLevel: string) {
-    const domestic = getTuitionFee(degreeLevel, undefined, true);
-    const international = getTuitionFee(degreeLevel, undefined, false);
+    const domestic = getTuitionFeeSync(degreeLevel, undefined, true);
+    const international = getTuitionFeeSync(degreeLevel, undefined, false);
     return `$${domestic.toLocaleString()} (Domestic) / $${international.toLocaleString()} (International) per year`;
 }
 

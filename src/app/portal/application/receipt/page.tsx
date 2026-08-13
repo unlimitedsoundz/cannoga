@@ -8,7 +8,7 @@ import { formatToDDMMYYYY } from '@/utils/date';
 import PrintButton from '@/components/portal/PrintButton';
 import Image from 'next/image';
 import { useState, useEffect, Suspense } from 'react';
-import { getTuitionFee } from '@/utils/tuition';
+import { getTuitionFeeSync } from '@/utils/tuition';
 
 function ReceiptContent() {
     const router = useRouter();
@@ -133,7 +133,7 @@ function ReceiptContent() {
     const level = application.course?.level || 'BACHELOR';
     const field = application.course?.field || 'TECHNOLOGY';
     const isDomestic = application.personal_info?.studentType === 'domestic';
-    const tuitionFee = getTuitionFee(level, field, isDomestic);
+    const tuitionFee = getTuitionFeeSync(level, field, isDomestic);
     const depositAmount = 2000;
     const isDeposit = Math.round(payment.amount) === depositAmount;
     const isPending = application.status === 'PAYMENT_SUBMITTED';
