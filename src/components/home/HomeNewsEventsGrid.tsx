@@ -127,8 +127,7 @@ export function HomeNewsEventsGrid() {
                                 </p>
                                 <a
                                     href={`/news/${activeNews.slug}`}
-                                    className="block font-black text-base leading-snug mb-3 hover:underline transition-colors no-underline uppercase tracking-tight"
-                                    style={{ color: ACCENT }}
+                                    className="block font-black text-[#0f2027] text-lg md:text-xl leading-snug mb-3 hover:underline transition-colors no-underline tracking-tight"
                                 >
                                     {activeNews.title}
                                 </a>
@@ -197,7 +196,7 @@ export function HomeNewsEventsGrid() {
                                     <p className="text-[10px] font-bold uppercase tracking-widest text-white/50 mb-1">
                                         {ev.category || ev.type || 'CURRENT STUDENTS'}
                                     </p>
-                                    <p className="text-sm font-black text-white uppercase leading-snug group-hover:underline">
+                                    <p className="text-sm font-bold text-white leading-snug group-hover:underline">
                                         {ev.title}
                                     </p>
                                 </div>
