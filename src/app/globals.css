@@ -826,4 +826,11 @@ button.sis-btn:hover,
 [data-sis-btn]:hover,
 .sis-widget-btn:hover {
   background-color: #12222a !important;
+}
+
+/* Global 10px Font Standardized to 13px Across SIS & Portal */
+.text-\[10px\],
+[class*="text-[10px]"] {
+  font-size: 13px !important;
+  line-height: 1.35 !important;
 }
