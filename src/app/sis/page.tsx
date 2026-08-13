@@ -1728,7 +1728,6 @@ export default function SISStudentDashboard() {
                             <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                                 <div className="p-5 border-b border-slate-100 flex justify-between items-center">
                                     <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Admissions &amp; Visa/IRCC Documents</h3>
-                                    <span className="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1 rounded-full">{documents.filter(d => ['pal', 'loa'].includes(d.document_type)).length} Records</span>
                                 </div>
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-left text-xs sm:text-sm text-slate-600">
@@ -1766,7 +1765,6 @@ export default function SISStudentDashboard() {
                             <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                                 <div className="p-5 border-b border-slate-100 flex justify-between items-center">
                                     <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Tuition Receipts &amp; Tax Certificates</h3>
-                                    <span className="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1 rounded-full">{documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).length} Records</span>
                                 </div>
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-left text-xs sm:text-sm text-slate-600">
