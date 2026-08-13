@@ -427,10 +427,8 @@ export function ProgramsAZTableView() {
                                                 {p.description}
                                             </p>
                                         </td>
-                                        <td className="p-3.5 font-semibold text-slate-900">
-                                            <span className="inline-block bg-slate-100 text-slate-800 border border-slate-200 px-2.5 py-1 rounded-md text-xs font-bold">
-                                                {p.level}
-                                            </span>
+                                        <td className="p-3.5 font-bold text-slate-900 whitespace-nowrap text-xs">
+                                            {p.level}
                                         </td>
                                         <td className="p-3.5 text-slate-600 font-medium">
                                             {p.school}
@@ -440,19 +438,9 @@ export function ProgramsAZTableView() {
                                             <span className="block text-xs font-medium text-slate-400">({p.credits} Credits)</span>
                                         </td>
                                         <td className="p-3.5 text-center">
-                                            <div className="flex flex-col items-center gap-1">
-                                                {p.pgwp && (
-                                                    <span className="inline-flex items-center gap-1 text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 rounded-full">
-                                                        <CheckCircle size={12} weight="fill" className="text-emerald-600" />
-                                                        PGWP
-                                                    </span>
-                                                )}
-                                                {p.coop && (
-                                                    <span className="inline-flex items-center gap-1 text-xs font-bold bg-blue-50 text-blue-800 border border-blue-200 px-2.5 py-0.5 rounded-full">
-                                                        <Briefcase size={12} weight="fill" className="text-blue-600" />
-                                                        Co-op
-                                                    </span>
-                                                )}
+                                            <div className="flex flex-col items-center gap-0.5 text-xs font-medium text-slate-700 whitespace-nowrap">
+                                                {p.pgwp && <span>PGWP Eligible</span>}
+                                                {p.coop && <span className="text-slate-500 text-[11px]">Co-op Available</span>}
                                             </div>
                                         </td>
                                         <td className="p-3.5 text-right font-mono font-bold text-slate-900 whitespace-nowrap">
@@ -488,7 +476,7 @@ export function ProgramsAZTableView() {
                         >
                             <div>
                                 <div className="flex items-center justify-between gap-2 mb-3">
-                                    <span className="bg-[#0a151a] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                                    <span className="text-xs font-bold uppercase tracking-wider text-slate-900">
                                         {p.level}
                                     </span>
                                     <span className="text-xs font-bold text-neutral-500">
@@ -509,17 +497,10 @@ export function ProgramsAZTableView() {
                                     <span className="font-bold text-black">{p.tuitionDomestic}</span>
                                 </div>
                                 <div className="flex items-center justify-between gap-2 pt-1">
-                                    <div className="flex items-center gap-1.5">
-                                        {p.pgwp && (
-                                            <span className="text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-md">
-                                                PGWP
-                                            </span>
-                                        )}
-                                        {p.coop && (
-                                            <span className="text-[10px] font-bold bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.5 rounded-md">
-                                                Co-op
-                                            </span>
-                                        )}
+                                    <div className="flex items-center gap-1.5 text-xs font-medium text-slate-600">
+                                        {p.pgwp && <span>PGWP</span>}
+                                        {p.pgwp && p.coop && <span>•</span>}
+                                        {p.coop && <span>Co-op</span>}
                                     </div>
                                     <Link 
                                         href={p.href}
