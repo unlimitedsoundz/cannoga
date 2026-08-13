@@ -248,7 +248,7 @@ export default async function CourseDetailPage({ params }: Props) {
     const internationalFeeFormatted = formatCad(getTuitionFeeSync(c.degreeLevel, c.school?.slug, false));
 
     return (
-        <div className="min-h-screen bg-neutral-50 pb-20">
+        <div className="min-h-screen bg-white pb-20">
             <BreadcrumbSchema items={[
                 { name: 'Home', item: '/' },
                 { name: 'Studies', item: '/studies' },
@@ -335,7 +335,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 {/* Main Content Column */}
                 <div className="lg:col-span-2 space-y-12">
                     {/* 1. Program Overview & Key Highlights */}
-                    <section className="bg-white p-8 md:p-10 rounded-none border border-slate-200 shadow-sm">
+                    <section className="pb-8">
                         <h2 className="text-2xl font-black text-slate-900 mb-6 tracking-tight">Program Overview & Objectives</h2>
                         <p className="text-slate-700 text-base leading-relaxed mb-6">
                             {c.description?.replace(/Cannoga College|Cannoga|Cannoga C\x6Fllege|SYKLI|College/gi, 'Cannoga College')}
@@ -357,7 +357,7 @@ export default async function CourseDetailPage({ params }: Props) {
                     </section>
 
                     {/* 2. Detailed Curriculum Table */}
-                    <section className="bg-white p-8 md:p-10 rounded-none border border-slate-200 shadow-sm">
+                    <section className="py-8 border-t border-slate-200">
                         <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
                             <div>
                                 <h2 className="text-2xl font-black text-slate-900 tracking-tight">Curriculum & Course Structure</h2>
@@ -398,7 +398,7 @@ export default async function CourseDetailPage({ params }: Props) {
                     </section>
 
                     {/* 3. Career Prospects & Industry Outcomes */}
-                    <section className="bg-white p-8 md:p-10 rounded-none border border-slate-200 shadow-sm">
+                    <section className="py-8 border-t border-slate-200">
                         <h2 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">Career Prospects & Industry Pathways</h2>
                         <p className="text-slate-600 text-sm mb-6">
                             Graduates of the {c.title} are equipped for high-demand roles across public and private sector organizations in Ontario and Canada. Learn more about <Link href="/admissions/tuition" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Tuition & Financial Aid Options</Link> or connect with our <Link href="/contact" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Career Advisory Team</Link>.
@@ -429,7 +429,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 {/* Sidebar Column: Entry Requirements & Application Action */}
                 <div className="space-y-8">
                     {/* Admissions Card */}
-                    <div className="bg-white p-8 rounded-none border border-slate-200 shadow-sm sticky top-28">
+                    <div className="p-6 md:p-8 bg-slate-50/80 border border-slate-200 rounded-none sticky top-28">
                         <h3 className="text-xl font-black text-slate-900 mb-6 tracking-tight">Admission Requirements</h3>
                         
                         <div className="space-y-4 text-sm text-slate-700 mb-8">
@@ -470,7 +470,7 @@ export default async function CourseDetailPage({ params }: Props) {
 
                     {/* Program Faculty Sidebar */}
                     {relatedFaculty.length > 0 && (
-                        <div className="bg-white p-8 rounded-none border border-slate-200 shadow-sm">
+                        <div className="p-6 md:p-8 bg-slate-50/80 border border-slate-200 rounded-none">
                             <h3 className="text-xl font-black text-slate-900 mb-6 tracking-tight">Department Faculty</h3>
                             <div className="space-y-5">
                                 {relatedFaculty.map((f, idx) => (
