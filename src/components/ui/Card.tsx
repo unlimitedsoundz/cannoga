@@ -42,7 +42,7 @@ export function Card({
 }: CardProps) {
     const CardContent = (
         <div 
-            className={`bg-white rounded-2xl border border-neutral-200 shadow-sm hover:shadow-md hover:border-neutral-300 flex flex-col h-full transition-all duration-300 overflow-hidden ${onClick ? 'cursor-pointer' : ''} ${className}`}
+            className={`bg-transparent rounded-none border-0 shadow-none flex flex-col h-full transition-all duration-300 overflow-hidden ${onClick ? 'cursor-pointer' : ''} ${className}`}
             onClick={onClick}
         >
             {image && (

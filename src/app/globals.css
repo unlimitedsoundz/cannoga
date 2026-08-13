@@ -37,8 +37,8 @@
 .cc-section-divider { border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; margin-bottom: 2.5rem; }
 
 /* Cards */
-.cc-card { background: white; border: 1px solid #e2e8f0; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-.cc-card:hover { border-color: #0f2027; box-shadow: 0 4px 16px rgba(15, 32, 39, 0.08); }
+.cc-card { background: transparent; border: none; box-shadow: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.cc-card:hover { border-color: transparent; box-shadow: none; }
 .cc-card-body { padding: 1.5rem 2rem; }
 
 /* Accent icon block */
