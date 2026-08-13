@@ -316,7 +316,7 @@ export default function VoiceAgentTestPage() {
                 {status === 'idle' && (
                   <button
                     onClick={startCall}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors cursor-pointer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors cursor-pointer"
                   >
                     <HugeiconsIcon icon={Phone} size={16} strokeWidth={2.5} /> Start Call
                   </button>
@@ -332,7 +332,7 @@ export default function VoiceAgentTestPage() {
                 {status === 'ended' && (
                   <button
                     onClick={() => { setStatus('idle'); setCallId(null); setSessionId(null); setTranscript([]); setToolEvents([]); setDuration(0); setCallSummary(null); }}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors cursor-pointer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors cursor-pointer"
                   >
                     <HugeiconsIcon icon={Phone} size={16} strokeWidth={2.5} /> New Call
                   </button>
@@ -378,7 +378,7 @@ export default function VoiceAgentTestPage() {
               ) : (
                 transcript.map((msg) => (
                   <div key={msg.id} className={`flex ${msg.role === 'caller' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[80%] p-3.5 rounded-2xl ${msg.role === 'caller' ? 'bg-[#9c27b3] text-white' : msg.role === 'assistant' ? 'bg-neutral-800 text-white' : 'bg-neutral-800 text-neutral-300'}`}>
+                    <div className={`max-w-[80%] p-3.5 rounded-2xl ${msg.role === 'caller' ? 'bg-[#0a151a] text-white' : msg.role === 'assistant' ? 'bg-neutral-800 text-white' : 'bg-neutral-800 text-neutral-300'}`}>
                       <div className="flex justify-between items-center mb-1 gap-4">
                         <span className="text-[10px] font-bold uppercase tracking-wider opacity-70">{msg.role}</span>
                         <span className="text-[10px] opacity-50">{formatTime(msg.timestamp)}</span>
@@ -413,7 +413,7 @@ export default function VoiceAgentTestPage() {
                 <button
                   onClick={sendMessage}
                   disabled={status !== 'active' || !userInput.trim() || isTranscribing}
-                  className="px-4 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                  className="px-4 py-3 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <HugeiconsIcon icon={Send} size={16} strokeWidth={2.5} />
                 </button>

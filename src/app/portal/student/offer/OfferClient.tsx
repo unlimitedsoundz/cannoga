@@ -131,7 +131,7 @@ export function OfferClient({ admission }: OfferClientProps) {
             <div className="space-y-6">
                 {/* Financial Summary - Only show if not enrolled and not paid */}
                 {!(isOfferAcceptedOnly || admission.offer_status === 'PAID' || isEnrolled) && (
-                    <div className="bg-[#9c27b3] text-white p-6 rounded-2xl shadow-xl overflow-hidden relative">
+                    <div className="bg-[#0a151a] text-white p-6 rounded-2xl shadow-xl overflow-hidden relative">
                         <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-500 mb-6">Financial Summary</h3>
 
                         <div className="space-y-5 relative z-10">
@@ -241,7 +241,7 @@ export function OfferClient({ admission }: OfferClientProps) {
                                                 download={admission.application_status !== 'PAYMENT_SUBMITTED'}
                                                 className={`w-full font-bold py-3 rounded-lg transition-all flex items-center justify-center gap-2 active:scale-95 text-xs uppercase tracking-widest ${admission.application_status === 'PAYMENT_SUBMITTED'
                                                     ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
-                                                    : 'bg-[#9c27b3] text-white hover:bg-neutral-800'
+                                                    : 'bg-[#0a151a] text-white hover:bg-neutral-800'
                                                     }`}
                                                 onClick={(e) => {
                                                     if (admission.application_status === 'PAYMENT_SUBMITTED') {
@@ -272,7 +272,7 @@ export function OfferClient({ admission }: OfferClientProps) {
                         )}
                     </div>
                 ) : (
-                    <div className="bg-white border-2 border-[#9c27b3] p-4 md:p-6 rounded-xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-3 md:space-y-4">
+                    <div className="bg-white border-2 border-[#0a151a] p-4 md:p-6 rounded-xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] space-y-3 md:space-y-4">
                         <div className="space-y-1">
                             <h2 className="text-base md:text-lg font-black uppercase tracking-tight">Decision Required</h2>
                             <p className="text-[9px] md:text-[10px] text-neutral-500 font-bold uppercase tracking-tight leading-relaxed">
@@ -290,7 +290,7 @@ export function OfferClient({ admission }: OfferClientProps) {
                             <button
                                 onClick={() => handleDecision('ACCEPTED')}
                                 disabled={isPending}
-                                className="bg-[#9c27b3] text-white font-bold py-2.5 md:py-3 rounded-lg hover:bg-neutral-800 transition-all flex items-center justify-center gap-1.5 md:gap-2 disabled:opacity-50 active:scale-95 text-[10px] md:text-xs uppercase tracking-wider md:tracking-widest"
+                                className="bg-[#0a151a] text-white font-bold py-2.5 md:py-3 rounded-lg hover:bg-neutral-800 transition-all flex items-center justify-center gap-1.5 md:gap-2 disabled:opacity-50 active:scale-95 text-[10px] md:text-xs uppercase tracking-wider md:tracking-widest"
                             >
                                 {isPending ? <Loader2 className="animate-spin" size={14} weight="bold" /> : <>Accept<span className="hidden md:inline"> Offer</span></>}
                             </button>

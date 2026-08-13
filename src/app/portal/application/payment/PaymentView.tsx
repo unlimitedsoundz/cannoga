@@ -180,14 +180,14 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                     {isPaid && (
                         <button
                             onClick={() => router.push(`/portal/application/receipt?id=${application.id}`)}
-                            className="w-fit min-w-[240px] h-[48px] bg-[#9c27b3] text-white px-8 rounded-4px text-[11px] font-normal uppercase tracking-widest transition-all hover:bg-neutral-800 shadow-lg shadow-black/5"
+                            className="w-fit min-w-[240px] h-[48px] bg-[#0a151a] text-white px-8 rounded-4px text-[11px] font-normal uppercase tracking-widest transition-all hover:bg-neutral-800 shadow-lg shadow-black/5"
                         >
                             View Receipt
                         </button>
                     )}
                     <button
                         onClick={() => router.push('/portal/dashboard')}
-                        className={`w-fit min-w-[240px] h-[48px] px-8 rounded-4px text-[11px] font-normal uppercase tracking-widest transition-all ${isPaid ? 'bg-white text-black border border-neutral-200 hover:bg-neutral-50' : 'bg-[#9c27b3] text-white hover:bg-neutral-800 shadow-lg shadow-black/5'}`}
+                        className={`w-fit min-w-[240px] h-[48px] px-8 rounded-4px text-[11px] font-normal uppercase tracking-widest transition-all ${isPaid ? 'bg-white text-black border border-neutral-200 hover:bg-neutral-50' : 'bg-[#0a151a] text-white hover:bg-neutral-800 shadow-lg shadow-black/5'}`}
                     >
                         Return to Dashboard
                     </button>
@@ -266,7 +266,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                             </div>
                             <div className="text-right">
                                 <p className="text-sm font-bold text-black">${invoiceTotal.toLocaleString()} CAD</p>
-                                <span className="inline-block mt-1 px-2 py-0.5 bg-[#9c27b3] text-white text-[10px] font-bold uppercase tracking-wider rounded-full">Pending</span>
+                                <span className="inline-block mt-1 px-2 py-0.5 bg-[#0a151a] text-white text-[10px] font-bold uppercase tracking-wider rounded-full">Pending</span>
                             </div>
                         </div>
                     </div>

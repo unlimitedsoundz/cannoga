@@ -424,7 +424,7 @@ export default function AdmissionApplicationPage() {
                       <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{doc?.type}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <a href={doc?.url} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline">View</a>
+                      <a href={doc?.url} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View</a>
                       <a href={doc?.url} download className="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-neutral-600">Download</a>
                     </div>
                   </div>

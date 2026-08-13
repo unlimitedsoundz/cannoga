@@ -171,7 +171,7 @@ export default function AdmissionsReviewPage() {
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{doc.type}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline">View</button>
+                    <button className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View</button>
                     <button className="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-neutral-600">Download</button>
                   </div>
                 </div>

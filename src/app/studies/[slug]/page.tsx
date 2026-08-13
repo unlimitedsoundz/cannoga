@@ -139,7 +139,7 @@ export default async function CourseDetailPage({ params }: Props) {
     }));
 
     const schoolStyleMap: Record<string, { bg: string, text: string, accent: string }> = {
-        'business': { bg: 'bg-[#9c27b3]', text: 'text-white', accent: 'text-white' },
+        'business': { bg: 'bg-[#0a151a]', text: 'text-white', accent: 'text-white' },
         'arts': { bg: 'bg-white', text: 'text-black', accent: 'text-black' },
         'technology': { bg: 'bg-neutral-950', text: 'text-white', accent: 'text-white' },
         'science': { bg: 'bg-cyan-950', text: 'text-white', accent: 'text-white' },
@@ -184,7 +184,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 {isLight && <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_top_right,rgba(0,0,0,0.05),transparent)]" />}                <div className="container mx-auto px-4 pt-32 pb-12 md:pt-48 relative z-10">
                     <div className="flex flex-wrap gap-4 mb-4 text-sm font-bold">
                         <span className={`${isLight ? 'bg-neutral-100' : 'bg-white/10'} px-3 py-1 rounded-none uppercase tracking-widest`}>{c.degreeLevel}</span>
-                        <span className={`${isLight ? 'bg-[#9c27b3] text-white' : 'bg-white text-black'} px-3 py-1 rounded-none uppercase tracking-widest`}>{c.school?.name}</span>
+                        <span className={`${isLight ? 'bg-[#0a151a] text-white' : 'bg-white text-black'} px-3 py-1 rounded-none uppercase tracking-widest`}>{c.school?.name}</span>
                     </div>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 max-w-4xl pt-8 leading-tight">{c.title}</h1>
                     <div className={`flex flex-wrap gap-8 md:gap-16 ${isLight ? 'text-black' : 'text-white'}`}>
@@ -233,7 +233,7 @@ export default async function CourseDetailPage({ params }: Props) {
                     {cleanedSections.length > 0 ? (
                         <TableOfContents sections={cleanedSections} />
                     ) : (
-                        <div className="bg-white p-8 lg:sticky lg:top-24 border border-[#9c27b3] shadow-none">
+                        <div className="bg-white p-8 lg:sticky lg:top-24 border border-[#0a151a] shadow-none">
                             {/* Default Sidebar Content */}
                             <h3 className="text-xl font-bold mb-8 uppercase tracking-widest">Entry Requirements</h3>
                             <div className="space-y-6 text-base text-black mb-10">
@@ -249,7 +249,7 @@ export default async function CourseDetailPage({ params }: Props) {
 
                             <Link
                                 href={`/portal/apply?program=${course.slug}`}
-                                className="block w-full bg-[#9c27b3] text-white text-center py-5 font-bold uppercase tracking-widest hover:bg-neutral-800 transition-colors"
+                                className="block w-full bg-[#0a151a] text-white text-center py-5 font-bold uppercase tracking-widest hover:bg-neutral-800 transition-colors"
                             >
                                 Apply Now
                             </Link>
@@ -265,7 +265,7 @@ export default async function CourseDetailPage({ params }: Props) {
                         <div className="space-y-16">
                             {cleanedSections.map((section: any) => (
                                 <section key={section.id} id={section.id} className="scroll-mt-32">
-                                    <h2 className="text-3xl font-bold mb-8 text-black pb-10 border-b-2 border-[#9c27b3] uppercase tracking-widest">{section.title}</h2>
+                                    <h2 className="text-3xl font-bold mb-8 text-black pb-10 border-b-2 border-[#0a151a] uppercase tracking-widest">{section.title}</h2>
                                     <div
                                         className="prose prose-lg text-black max-w-none prose-headings:font-bold prose-a:text-black hover:prose-a:opacity-70 transition-opacity prose-arrows"
                                         dangerouslySetInnerHTML={{ __html: section.content.replace(/Cannoga College|Cannoga|Cannoga C\x6Fllege|SYKLI|College/gi, 'Cannoga College') }}
@@ -277,17 +277,17 @@ export default async function CourseDetailPage({ params }: Props) {
                         /* Default Rendering */
                         <>
                             <section>
-                                <h2 className="text-3xl font-bold mb-8 text-black pb-10 border-b-2 border-[#9c27b3] uppercase tracking-widest">Program Overview</h2>
+                                <h2 className="text-3xl font-bold mb-8 text-black pb-10 border-b-2 border-[#0a151a] uppercase tracking-widest">Program Overview</h2>
                                 <div className="prose prose-lg text-black max-w-none leading-relaxed prose-arrows">
                                     <p>{c.description?.replace(/Cannoga College|Cannoga|Cannoga C\x6Fllege|SYKLI|College/gi, 'Cannoga College')}</p>
                                 </div>
                             </section>
 
                             <section>
-                                <h2 className="text-3xl font-bold mb-10 text-black pb-10 border-b-2 border-[#9c27b3] uppercase tracking-widest">Curriculum</h2>
+                                <h2 className="text-3xl font-bold mb-10 text-black pb-10 border-b-2 border-[#0a151a] uppercase tracking-widest">Curriculum</h2>
                                 <div className="overflow-x-auto -mx-4 md:mx-0">
                                     <table className="w-full text-left text-base border-collapse">
-                                        <thead className="bg-[#9c27b3] text-white uppercase tracking-[0.2em] font-bold">
+                                        <thead className="bg-[#0a151a] text-white uppercase tracking-[0.2em] font-bold">
                                             <tr>
                                                 {c.subjects?.[0]?.code && <th className="p-5 border-r border-white/20">Code</th>}
                                                 {c.subjects?.[0]?.area && <th className="p-5 border-r border-white/20">Area</th>}
@@ -299,13 +299,13 @@ export default async function CourseDetailPage({ params }: Props) {
                                         <tbody className="divide-y divide-black/10">
                                             {c.subjects?.sort((a: any, b: any) => (a.code || a.name || "").localeCompare(b.code || b.name || "")).map((subject: any) => (
                                                 <tr key={subject.id} className="hover:bg-neutral-100 transition-colors bg-white">
-                                                    {subject.code && <td className="p-5 text-black border-r border-[#9c27b3]/10 font-medium">{subject.code}</td>}
-                                                    {subject.area && <td className="p-5 font-bold border-r border-[#9c27b3]/10 uppercase text-sm tracking-widest">{subject.area}</td>}
-                                                    <td className="p-5 border-r border-[#9c27b3]/10">
+                                                    {subject.code && <td className="p-5 text-black border-r border-[#0a151a]/10 font-medium">{subject.code}</td>}
+                                                    {subject.area && <td className="p-5 font-bold border-r border-[#0a151a]/10 uppercase text-sm tracking-widest">{subject.area}</td>}
+                                                    <td className="p-5 border-r border-[#0a151a]/10">
                                                         <div className="font-bold text-black text-lg">{subject.name}</div>
                                                         {subject.semester && !subject.area && <div className="text-xs text-black/50 font-bold uppercase tracking-widest mt-1">Semester {subject.semester}</div>}
                                                     </td>
-                                                    <td className="p-5 border-r border-[#9c27b3]/10 font-bold">{subject.creditUnits}</td>
+                                                    <td className="p-5 border-r border-[#0a151a]/10 font-bold">{subject.creditUnits}</td>
                                                     {subject.eligibility && <td className="p-5 text-black font-medium">{subject.eligibility}</td>}
                                                 </tr>
                                             ))}
@@ -320,8 +320,8 @@ export default async function CourseDetailPage({ params }: Props) {
                             </section>
 
                             <section>
-                                <h2 className="text-3xl font-bold mb-8 text-black pb-10 border-b-2 border-[#9c27b3] uppercase tracking-widest">Career Prospects</h2>
-                                <div className="bg-white p-10 border-l-4 border-[#9c27b3] border-y border-r border-[#9c27b3]/10">
+                                <h2 className="text-3xl font-bold mb-8 text-black pb-10 border-b-2 border-[#0a151a] uppercase tracking-widest">Career Prospects</h2>
+                                <div className="bg-white p-10 border-l-4 border-[#0a151a] border-y border-r border-[#0a151a]/10">
                                     <p className="text-black font-bold uppercase tracking-widest mb-4">Potential Roles:</p>
                                     <p className="text-black text-lg leading-relaxed">{c.careerPaths?.replace(/Cannoga College|Cannoga|Cannoga C\x6Fllege|SYKLI|College/gi, 'Cannoga College')}</p>
                                 </div>
@@ -331,8 +331,8 @@ export default async function CourseDetailPage({ params }: Props) {
 
                     {relatedFaculty.length > 0 && (
                         <section>
-                            <h2 className="text-3xl font-bold mb-8 text-black pb-10 border-b-2 border-[#9c27b3] uppercase tracking-widest">Program Faculty</h2>
-                            <div className="bg-white p-8 border border-[#9c27b3]">
+                            <h2 className="text-3xl font-bold mb-8 text-black pb-10 border-b-2 border-[#0a151a] uppercase tracking-widest">Program Faculty</h2>
+                            <div className="bg-white p-8 border border-[#0a151a]">
                                 <div className="space-y-6">
                                     {relatedFaculty.map(f => (
                                         <div key={f.id} className="flex flex-col gap-1">

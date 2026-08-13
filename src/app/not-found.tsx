@@ -19,7 +19,7 @@ export default function NotFound() {
                 <div className="pt-8">
                     <Link
                         href="/"
-                        className="inline-flex items-center gap-2 bg-[#9c27b3] text-white px-8 py-4 rounded-sm text-xs font-black uppercase tracking-widest hover:bg-neutral-800 transition-all shadow-lg active:scale-95"
+                        className="inline-flex items-center gap-2 bg-[#0a151a] text-white px-8 py-4 rounded-sm text-xs font-black uppercase tracking-widest hover:bg-neutral-800 transition-all shadow-lg active:scale-95"
                     >
                         <CaretLeft size={16} weight="bold" />
                         Back to Home

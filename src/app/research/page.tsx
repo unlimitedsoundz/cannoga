@@ -113,7 +113,7 @@ export default function ResearchPage() {
                                 tags: ["Architecture", "Urban", "Inclusive"]
                             }
                         ].map((theme, i) => (
-                            <div key={i} className="cc-card p-8 group hover:bg-[#9c27b3] transition-all">
+                            <div key={i} className="cc-card p-8 group hover:bg-[#0a151a] transition-all">
                                 <h3 className="text-lg font-bold text-[#000000] uppercase tracking-tight mb-3 group-hover:text-white transition-colors">{theme.title}</h3>
                                 <p className="text-neutral-600 mb-6 leading-relaxed text-sm group-hover:text-white/80 transition-colors">{theme.desc}</p>
                                 <TagGroup tags={theme.tags.map(tag => ({ label: tag }))} />
@@ -124,7 +124,7 @@ export default function ResearchPage() {
             </div>
 
             {/* Featured Research - Liftup Collection */}
-            <div className="bg-white py-20 md:py-40 border-t border-[#9c27b3]">
+            <div className="bg-white py-20 md:py-40 border-t border-[#0a151a]">
                 <div className="container mx-auto px-4">
                     <h2 className="text-5xl font-semibold mb-20 text-black uppercase tracking-tighter text-center">Featured Explorations</h2>
                         <LiftupCollection
@@ -191,7 +191,7 @@ export default function ResearchPage() {
             </div>
 
             {/* Experimental Framework */}
-            <div className="py-16 md:py-24 bg-[#9c27b3] text-white">
+            <div className="py-16 md:py-24 bg-[#0a151a] text-white">
                 <div className="cc-container">
                     <div className="cc-section-divider border-white/20 mb-12">
                         <h2 className="cc-h2 !text-white">Experimental Framework</h2>

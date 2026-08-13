@@ -156,13 +156,13 @@ export default function FinanceManagementClient({
                 <div className="flex gap-2">
                     <button
                         onClick={() => setShowInvoiceModal(true)}
-                        className="px-4 py-2 border-2 border-[#9c27b3] text-black rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-50 transition-all"
+                        className="px-4 py-2 border-2 border-[#0a151a] text-black rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-50 transition-all"
                     >
                         New Individual Invoice
                     </button>
                     <button
                         onClick={() => setShowBatchModal(true)}
-                        className="px-4 py-2 bg-[#9c27b3] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
+                        className="px-4 py-2 bg-[#0a151a] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
                     >
                         Generate Batch Invoices
                     </button>
@@ -171,7 +171,7 @@ export default function FinanceManagementClient({
 
             {/* Stats Grid */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+                <div className="bg-white border-2 border-[#0a151a] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
                     <div className="flex justify-between items-start mb-2">
                         <TrendUp size={20} weight="bold" className="text-neutral-400" />
                         <span className="text-[8px] font-black uppercase text-green-600 bg-green-50 px-2 py-0.5 rounded-full">+12% vs last mo</span>
@@ -180,19 +180,19 @@ export default function FinanceManagementClient({
                     <p className="text-2xl font-black">${stats.totalRevenue.toLocaleString()}</p>
                 </div>
 
-                <div className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+                <div className="bg-white border-2 border-[#0a151a] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
                     <Clock size={20} weight="bold" className="text-amber-500 mb-2" />
                     <p className="text-[10px] font-black uppercase text-neutral-400 mb-1">Pending Invoices</p>
                     <p className="text-2xl font-black">{stats.pendingInvoices}</p>
                 </div>
 
-                <div className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+                <div className="bg-white border-2 border-[#0a151a] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
                     <FileText size={20} weight="bold" className="text-neutral-400 mb-2" />
                     <p className="text-[10px] font-black uppercase text-neutral-400 mb-1">Total Invoiced</p>
                     <p className="text-2xl font-black">${stats.totalInvoiced.toLocaleString()}</p>
                 </div>
 
-                <div className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+                <div className="bg-white border-2 border-[#0a151a] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
                     <CheckCircle size={20} weight="bold" className="text-neutral-400 mb-2" />
                     <p className="text-[10px] font-black uppercase text-neutral-400 mb-1">Collection Rate</p>
                     <p className="text-2xl font-black">{stats.completionRate}%</p>
@@ -200,7 +200,7 @@ export default function FinanceManagementClient({
             </div>
 
             {/* Controls */}
-            <div className="bg-white border-2 border-[#9c27b3] p-4 rounded-sm flex flex-col md:flex-row gap-4">
+            <div className="bg-white border-2 border-[#0a151a] p-4 rounded-sm flex flex-col md:flex-row gap-4">
                 <SearchField
                     placeholder="Search by student or reference..."
                     value={searchTerm}
@@ -208,7 +208,7 @@ export default function FinanceManagementClient({
                 />
                 <div className="flex gap-2">
                     <select
-                        className="px-4 py-2 border-2 border-neutral-100 focus:border-[#9c27b3] outline-none transition-all text-[10px] font-black uppercase tracking-widest bg-white"
+                        className="px-4 py-2 border-2 border-neutral-100 focus:border-[#0a151a] outline-none transition-all text-[10px] font-black uppercase tracking-widest bg-white"
                         value={filterStatus}
                         onChange={(e) => setFilterStatus(e.target.value)}
                     >
@@ -230,7 +230,7 @@ export default function FinanceManagementClient({
                             }`}
                     >
                         Invoices
-                        {selectedTab === 'invoices' && <div className="absolute bottom-0 left-0 w-full h-1 bg-[#9c27b3]" />}
+                        {selectedTab === 'invoices' && <div className="absolute bottom-0 left-0 w-full h-1 bg-[#0a151a]" />}
                     </button>
                     <button
                         onClick={() => setSelectedTab('payments')}
@@ -238,7 +238,7 @@ export default function FinanceManagementClient({
                             }`}
                     >
                         Payments
-                        {selectedTab === 'payments' && <div className="absolute bottom-0 left-0 w-full h-1 bg-[#9c27b3]" />}
+                        {selectedTab === 'payments' && <div className="absolute bottom-0 left-0 w-full h-1 bg-[#0a151a]" />}
                     </button>
                 </div>
             </div>
@@ -247,7 +247,7 @@ export default function FinanceManagementClient({
             <div className="overflow-x-auto">
                 <table className="w-full border-collapse min-w-[800px]">
                     <thead>
-                        <tr className="border-b-2 border-[#9c27b3]">
+                        <tr className="border-b-2 border-[#0a151a]">
                             <th className="text-left py-4 px-2 text-[10px] font-black uppercase tracking-widest text-neutral-400">Reference / ID</th>
                             <th className="text-left py-4 px-2 text-[10px] font-black uppercase tracking-widest text-neutral-400">Student</th>
                             <th className="text-left py-4 px-2 text-[10px] font-black uppercase tracking-widest text-neutral-400">Amount</th>
@@ -293,10 +293,10 @@ export default function FinanceManagementClient({
                                                     <DollarSign size={14} weight="bold" />
                                                 </button>
                                             )}
-                                            <button className="p-2 border border-neutral-200 rounded-sm hover:border-[#9c27b3] transition-all">
+                                            <button className="p-2 border border-neutral-200 rounded-sm hover:border-[#0a151a] transition-all">
                                                 <AlertCircle size={14} weight="bold" />
                                             </button>
-                                            <button className="p-2 border border-neutral-200 rounded-sm hover:border-[#9c27b3] transition-all">
+                                            <button className="p-2 border border-neutral-200 rounded-sm hover:border-[#0a151a] transition-all">
                                                 <ArrowRight size={14} weight="bold" />
                                             </button>
                                         </div>
@@ -370,8 +370,8 @@ export default function FinanceManagementClient({
 
             {/* Batch Modal */}
             {showBatchModal && (
-                <div className="fixed inset-0 bg-[#9c27b3]/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white border-4 border-[#9c27b3] p-8 max-w-md w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div className="fixed inset-0 bg-[#0a151a]/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white border-4 border-[#0a151a] p-8 max-w-md w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                         <h2 className="text-xl font-black uppercase mb-4">Batch Invoice Generation</h2>
                         <p className="text-sm text-neutral-600 mb-6 font-bold uppercase tracking-tight">
                             Select the month and year to generate rent invoices for all active housing assignments.
@@ -381,7 +381,7 @@ export default function FinanceManagementClient({
                             <div>
                                 <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Month</label>
                                 <select
-                                    className="w-full px-2 py-1 border-2 border-[#9c27b3] font-bold outline-none"
+                                    className="w-full px-2 py-1 border-2 border-[#0a151a] font-bold outline-none"
                                     value={batchMonth}
                                     onChange={(e) => setBatchMonth(Number(e.target.value))}
                                 >
@@ -395,7 +395,7 @@ export default function FinanceManagementClient({
                             <div>
                                 <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Year</label>
                                 <select
-                                    className="w-full px-2 py-1 border-2 border-[#9c27b3] font-bold outline-none"
+                                    className="w-full px-2 py-1 border-2 border-[#0a151a] font-bold outline-none"
                                     value={batchYear}
                                     onChange={(e) => setBatchYear(Number(e.target.value))}
                                 >
@@ -408,14 +408,14 @@ export default function FinanceManagementClient({
                         <div className="flex gap-4">
                             <button
                                 onClick={() => setShowBatchModal(false)}
-                                className="flex-1 py-3 border-2 border-[#9c27b3] text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
+                                className="flex-1 py-3 border-2 border-[#0a151a] text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={handleBatchGenerate}
                                 disabled={loading}
-                                className="flex-1 py-3 bg-[#9c27b3] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50"
+                                className="flex-1 py-3 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50"
                             >
                                 {loading ? 'Generating...' : 'Run Batch'}
                             </button>
@@ -426,8 +426,8 @@ export default function FinanceManagementClient({
 
             {/* Individual Invoice Modal */}
             {showInvoiceModal && (
-                <div className="fixed inset-0 bg-[#9c27b3]/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white border-4 border-[#9c27b3] p-8 max-w-lg w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div className="fixed inset-0 bg-[#0a151a]/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white border-4 border-[#0a151a] p-8 max-w-lg w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                         <h2 className="text-xl font-black uppercase mb-4">Create Individual Invoice</h2>
                         <p className="text-sm text-neutral-600 mb-6 font-bold uppercase tracking-tight">
                             Generate a custom invoice for a specific student.
@@ -451,7 +451,7 @@ export default function FinanceManagementClient({
                                     }}
                                 />
                                     {studentSearch && invoiceStudentId === '' && (
-                                        <div className="bg-white border-2 border-[#9c27b3] max-h-40 overflow-y-auto mb-4">
+                                        <div className="bg-white border-2 border-[#0a151a] max-h-40 overflow-y-auto mb-4">
                                             {studentResults.map(s => (
                                                 <button
                                                     key={s.id}
@@ -501,7 +501,7 @@ export default function FinanceManagementClient({
                                     <div className="mt-4">
                                         <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Link to Application</label>
                                         <select
-                                            className="w-full px-4 py-3 border-2 border-[#9c27b3] font-bold outline-none bg-white text-xs font-bold uppercase"
+                                            className="w-full px-4 py-3 border-2 border-[#0a151a] font-bold outline-none bg-white text-xs font-bold uppercase"
                                             value={selectedApplicationId || ''}
                                             onChange={(e) => setSelectedApplicationId(e.target.value)}
                                         >
@@ -521,7 +521,7 @@ export default function FinanceManagementClient({
                                     <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Amount ($)</label>
                                     <input
                                         type="number"
-                                        className="w-full px-4 py-3 border-2 border-[#9c27b3] font-bold outline-none"
+                                        className="w-full px-4 py-3 border-2 border-[#0a151a] font-bold outline-none"
                                         placeholder="0.00"
                                         value={invoiceAmount}
                                         onChange={(e) => setInvoiceAmount(e.target.value)}
@@ -530,7 +530,7 @@ export default function FinanceManagementClient({
                                 <div>
                                     <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Type</label>
                                     <select
-                                        className="w-full px-4 py-3 border-2 border-[#9c27b3] font-bold outline-none bg-white"
+                                        className="w-full px-4 py-3 border-2 border-[#0a151a] font-bold outline-none bg-white"
                                         value={invoiceType}
                                         onChange={(e) => setInvoiceType(e.target.value)}
                                     >
@@ -546,7 +546,7 @@ export default function FinanceManagementClient({
                             <div>
                                 <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Description</label>
                                 <textarea
-                                    className="w-full px-4 py-3 border-2 border-[#9c27b3] font-bold outline-none"
+                                    className="w-full px-4 py-3 border-2 border-[#0a151a] font-bold outline-none"
                                     rows={2}
                                     placeholder="e.g., Security Deposit for Block A"
                                     value={invoiceDescription}
@@ -564,7 +564,7 @@ export default function FinanceManagementClient({
                                     setInvoiceAmount('');
                                     setInvoiceDescription('');
                                 }}
-                                className="flex-1 py-3 border-2 border-[#9c27b3] text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
+                                className="flex-1 py-3 border-2 border-[#0a151a] text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
                             >
                                 Cancel
                             </button>
@@ -592,7 +592,7 @@ export default function FinanceManagementClient({
                                     }
                                 }}
                                 disabled={loading}
-                                className="flex-1 py-3 bg-[#9c27b3] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50"
+                                className="flex-1 py-3 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50"
                             >
                                 {loading ? 'Generating...' : 'Create Invoice'}
                             </button>
@@ -603,8 +603,8 @@ export default function FinanceManagementClient({
 
             {/* Manual Verification Modal */}
             {showManualVerifyModal && (
-                <div className="fixed inset-0 bg-[#9c27b3]/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white border-4 border-[#9c27b3] p-8 max-w-sm w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div className="fixed inset-0 bg-[#0a151a]/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white border-4 border-[#0a151a] p-8 max-w-sm w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                         <h2 className="text-xl font-black uppercase mb-4">Manual Payment Verification</h2>
                         <p className="text-sm text-neutral-600 mb-6 font-bold uppercase tracking-tight">
                             Confirm receipt of payment outside the system (e.g., Cash, Bank Transfer).
@@ -615,7 +615,7 @@ export default function FinanceManagementClient({
                                 <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Amount Received ($)</label>
                                 <input
                                     type="number"
-                                    className="w-full px-4 py-3 border-2 border-[#9c27b3] font-bold outline-none"
+                                    className="w-full px-4 py-3 border-2 border-[#0a151a] font-bold outline-none"
                                     value={verifyAmount}
                                     onChange={(e) => setVerifyAmount(e.target.value)}
                                 />
@@ -623,7 +623,7 @@ export default function FinanceManagementClient({
                             <div>
                                 <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Payment Method</label>
                                 <select
-                                    className="w-full px-4 py-3 border-2 border-[#9c27b3] font-bold outline-none bg-white"
+                                    className="w-full px-4 py-3 border-2 border-[#0a151a] font-bold outline-none bg-white"
                                     value={verifyMethod}
                                     onChange={(e) => setVerifyMethod(e.target.value)}
                                 >
@@ -642,7 +642,7 @@ export default function FinanceManagementClient({
                                     setVerifyInvoiceId(null);
                                     setVerifyAmount('');
                                 }}
-                                className="flex-1 py-3 border-2 border-[#9c27b3] text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
+                                className="flex-1 py-3 border-2 border-[#0a151a] text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
                             >
                                 Cancel
                             </button>

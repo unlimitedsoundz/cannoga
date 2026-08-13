@@ -134,7 +134,7 @@ export default function DynamicNewsSection({
                         }
                         badge={{
                             label: label,
-                            className: isEvent ? 'bg-amber-500 text-black' : (isBlog ? 'bg-primary text-white' : 'bg-[#9c27b3] text-white')
+                            className: isEvent ? 'bg-amber-500 text-black' : (isBlog ? 'bg-primary text-white' : 'bg-[#0a151a] text-white')
                         }}
                         image={{
                             src: item.imageUrl || fallbackImage,

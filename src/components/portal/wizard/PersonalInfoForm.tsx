@@ -203,7 +203,7 @@ export default function PersonalInfoForm({ applicationId, initialData, onUpdate 
                 <button
                     type="submit"
                     disabled={isSaving}
-                    className="flex items-center justify-center gap-2 bg-[#9c27b3] text-white px-8 py-4 rounded-sm text-[13px] font-black hover:bg-neutral-800 transition-all disabled:opacity-50 min-w-[200px]"
+                    className="flex items-center justify-center gap-2 bg-[#0a151a] text-white px-8 py-4 rounded-sm text-[13px] font-black hover:bg-neutral-800 transition-all disabled:opacity-50 min-w-[200px]"
                 >
                     {isSaving ? (
                         <>

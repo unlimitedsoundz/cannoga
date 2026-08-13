@@ -206,7 +206,7 @@ export default function SchedulingPage() {
             <button
               onClick={() => setShowGenerateModal(true)}
               disabled={!termId || generating}
-              className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700 disabled:opacity-50 transition-all shadow-sm"
+              className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700 disabled:opacity-50 transition-all shadow-sm"
             >
               <HugeiconsIcon icon={Play} size={14} strokeWidth={2.5} />
               Generate Timetable
@@ -300,7 +300,7 @@ export default function SchedulingPage() {
                   {(stats.latestVersion as any)?.status === 'APPROVED' && !(stats.latestVersion as any)?.is_published && (
                     <button
                       onClick={() => handlePublish((stats.latestVersion as TimetableVersion)!.id)}
-                      className="px-4 py-2 bg-[#9c27b3] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700 transition-all"
+                      className="px-4 py-2 bg-[#0a151a] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700 transition-all"
                     >
                       Publish
                     </button>
@@ -338,7 +338,7 @@ export default function SchedulingPage() {
         footer={
           <div className="flex justify-end gap-3">
             <button onClick={() => setShowGenerateModal(false)} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white">Cancel</button>
-            <button onClick={handleGenerate} disabled={generating} className="px-6 py-2 bg-[#9c27b3] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700 disabled:opacity-50">
+            <button onClick={handleGenerate} disabled={generating} className="px-6 py-2 bg-[#0a151a] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700 disabled:opacity-50">
               {generating ? 'Starting...' : 'Start Generation'}
             </button>
           </div>
@@ -367,7 +367,7 @@ export default function SchedulingPage() {
         size="md"
         footer={
           progress && ['COMPLETED', 'PARTIAL', 'FAILED', 'CANCELLED'].includes(progress.status) ? (
-            <button onClick={() => { setShowProgressModal(false); setShowResultsModal(true); }} className="px-6 py-2 bg-[#9c27b3] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700">
+            <button onClick={() => { setShowProgressModal(false); setShowResultsModal(true); }} className="px-6 py-2 bg-[#0a151a] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-purple-700">
               View Results
             </button>
           ) : null
@@ -375,7 +375,7 @@ export default function SchedulingPage() {
       >
         <div className="space-y-4 text-neutral-200">
           <div className="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
-            <div className="bg-[#9c27b3] h-2 transition-all duration-500" style={{ width: `${progress?.progress || 0}%` }} />
+            <div className="bg-[#0a151a] h-2 transition-all duration-500" style={{ width: `${progress?.progress || 0}%` }} />
           </div>
           <div className="text-center">
             <div className="text-lg font-bold text-white">{progress?.currentStage || 'Initializing'}</div>
@@ -402,7 +402,7 @@ export default function SchedulingPage() {
           {progress?.softScore != null && (
             <div className="text-center">
               <div className="text-sm text-neutral-600">Optimization Score</div>
-              <div className="text-2xl font-black text-[#9c27b3]">{progress.softScore.toFixed(1)}%</div>
+              <div className="text-2xl font-black text-[#0a151a]">{progress.softScore.toFixed(1)}%</div>
             </div>
           )}
         </div>
@@ -426,7 +426,7 @@ export default function SchedulingPage() {
               <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Hard Violations</div>
             </div>
             <div className="border border-neutral-200 p-4 text-center">
-              <div className="text-2xl font-black text-[#9c27b3]">{progress?.softScore ? progress.softScore.toFixed(1) : 'N/A'}</div>
+              <div className="text-2xl font-black text-[#0a151a]">{progress?.softScore ? progress.softScore.toFixed(1) : 'N/A'}</div>
               <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Score</div>
             </div>
           </div>

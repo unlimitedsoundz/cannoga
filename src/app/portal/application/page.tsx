@@ -222,7 +222,7 @@ function ApplicationWizardContent() {
                 </div>
                 <div className="mt-3 w-full bg-neutral-100 h-1.5 rounded-full overflow-hidden">
                     <div
-                        className="bg-[#9c27b3] h-full transition-all duration-700 ease-in-out"
+                        className="bg-[#0a151a] h-full transition-all duration-700 ease-in-out"
                         style={{ width: `${(currentStepId / stepsConf.length) * 100}%` }}
                     />
                 </div>
@@ -266,7 +266,7 @@ function ApplicationWizardContent() {
                         const isClickable = !step.isLocked;
                         const content = (
                             <div
-                                className={`flex items-center gap-3 p-3 rounded-sm text-[13px] font-bold transition-all ${step.status === 'current' ? 'bg-[#9c27b3] text-white shadow-sm' :
+                                className={`flex items-center gap-3 p-3 rounded-sm text-[13px] font-bold transition-all ${step.status === 'current' ? 'bg-[#0a151a] text-white shadow-sm' :
                                     step.status === 'completed' ? 'text-black hover:bg-neutral-50' : 'text-neutral-400'
                                     } ${!isClickable ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                             >
@@ -421,7 +421,7 @@ function ApplicationWizardContent() {
                                 </div>
                                 <div className="mt-2 w-full bg-neutral-100 h-1 rounded-full overflow-hidden">
                                     <div
-                                        className="bg-[#9c27b3] h-full transition-all duration-500"
+                                        className="bg-[#0a151a] h-full transition-all duration-500"
                                         style={{
                                             width: `${Math.min(100, (
                                                 (() => {

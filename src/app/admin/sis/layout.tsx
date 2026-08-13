@@ -306,7 +306,7 @@ export default function AdminSISLayout({
           </button>
           <button className="relative p-2 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 transition-colors rounded" title="Notifications">
             <HugeiconsIcon icon={Bell} size={18} />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-[#9c27b3] rounded-full" />
+            <span className="absolute top-1 right-1 w-2 h-2 bg-[#0a151a] rounded-full" />
           </button>
           <button className="relative p-2 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 transition-colors rounded" title="Tasks">
             <HugeiconsIcon icon={ClipboardList} size={18} />
@@ -331,7 +331,7 @@ export default function AdminSISLayout({
               <div className="px-4 py-2 border-b border-neutral-100">
                 <div className="text-sm font-bold text-neutral-900">{profile?.first_name} {profile?.last_name}</div>
                 <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{profile?.email}</div>
-                <div className="text-[10px] font-bold uppercase tracking-wider text-[#9c27b3] mt-1">{getRoleLabel(profile?.role)}</div>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-[#0a151a] mt-1">{getRoleLabel(profile?.role)}</div>
               </div>
               <Link href="/admin/sis/admin/settings" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 no-underline">Profile Settings</Link>
               <Link href="/admin/sis/admin/settings" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 no-underline">Security</Link>
@@ -383,12 +383,12 @@ export default function AdminSISLayout({
                         key={item.href}
                         href={item.href}
                         className={`block px-3 py-2 text-xs font-bold uppercase tracking-widest transition-colors ${isActive
-                          ? 'bg-[#faf5ff] text-[#9c27b3] font-black'
+                          ? 'bg-[#faf5ff] text-[#0a151a] font-black'
                           : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50'
                         }`}
                       >
                         <div className="flex items-center gap-3">
-                          <HugeiconsIcon icon={item.icon} size={14} className={isActive ? 'text-[#9c27b3]' : 'text-neutral-400'} />
+                          <HugeiconsIcon icon={item.icon} size={14} className={isActive ? 'text-[#0a151a]' : 'text-neutral-400'} />
                           <span className="truncate">{item.label}</span>
                         </div>
                       </Link>

@@ -153,7 +153,7 @@ export default function CreateBlogPost() {
 
                 <div>
                     <label className="flex items-center gap-2">
-                        <input {...register('published')} type="checkbox" className="border-2 border-neutral-300 rounded-sm checked:bg-[#9c27b3] checked:border-[#9c27b3] w-4 h-4" />
+                        <input {...register('published')} type="checkbox" className="border-2 border-neutral-300 rounded-sm checked:bg-[#0a151a] checked:border-[#0a151a] w-4 h-4" />
                         Published
                     </label>
                 </div>
@@ -202,7 +202,7 @@ export default function CreateBlogPost() {
                     )}
                 </div>
 
-                <button type="submit" className="bg-[#9c27b3] text-white px-6 py-2 rounded">Create Post</button>
+                <button type="submit" className="bg-[#0a151a] text-white px-6 py-2 rounded">Create Post</button>
             </form>
         </div>
     );

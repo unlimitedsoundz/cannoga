@@ -150,7 +150,7 @@ export default function SettingsPage() {
           { key: 'academic_days', label: 'Academic Days' },
           { key: 'holidays', label: 'Holidays' },
         ].map(tab => (
-          <button key={tab.key} onClick={() => setActiveTab(tab.key as any)} className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === tab.key ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}>
+          <button key={tab.key} onClick={() => setActiveTab(tab.key as any)} className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === tab.key ? 'border-[#0a151a] text-[#0a151a]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}>
             {tab.label}
           </button>
         ))}
@@ -165,7 +165,7 @@ export default function SettingsPage() {
           {activeTab === 'constraints' && (
             <div className="space-y-4">
               <div className="flex justify-end">
-                <button onClick={() => openModal(null)} className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
+                <button onClick={() => openModal(null)} className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
                   <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Constraint
                 </button>
               </div>
@@ -201,7 +201,7 @@ export default function SettingsPage() {
           {activeTab === 'preferences' && (
             <div className="space-y-4">
               <div className="flex justify-end">
-                <button onClick={() => openModal(null)} className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
+                <button onClick={() => openModal(null)} className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
                   <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Preference
                 </button>
               </div>
@@ -239,7 +239,7 @@ export default function SettingsPage() {
                 <select value={selectedDay} onChange={(e) => setSelectedDay(parseInt(e.target.value))} className="px-3 py-2 border border-neutral-200 rounded text-xs font-medium text-neutral-700 bg-white">
                   {DAYS.map((d, i) => <option key={i} value={i}>{d}</option>)}
                 </select>
-                <button onClick={() => openModal(null)} className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
+                <button onClick={() => openModal(null)} className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
                   <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Time Slot
                 </button>
               </div>
@@ -298,7 +298,7 @@ export default function SettingsPage() {
           {activeTab === 'holidays' && (
             <div className="space-y-4">
               <div className="flex justify-end">
-                <button onClick={() => openModal(null)} className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
+                <button onClick={() => openModal(null)} className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
                   <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Holiday
                 </button>
               </div>
@@ -337,7 +337,7 @@ export default function SettingsPage() {
       <Modal isOpen={showModal} onClose={() => { setShowModal(false); setEditingItem(null); setForm({}); }} title={editingItem ? 'Edit' : 'New'} size="md" footer={
         <div className="flex justify-end gap-3">
           <button onClick={() => { setShowModal(false); setEditingItem(null); setForm({}); }} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-neutral-600 hover:text-black">Cancel</button>
-          <button onClick={handleSave} disabled={saving} className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
+          <button onClick={handleSave} disabled={saving} className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
             {saving ? 'Saving...' : 'Save'}
           </button>
         </div>

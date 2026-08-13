@@ -32,7 +32,7 @@ export default function ArrivalGuidePage() {
             <Hero
                 title="Arrival Guide"
                 body="Starting your studies at Cannoga College is an exciting step. This guide helps you prepare, settle in, and feel confident."
-                backgroundColor="#dc6ade"
+                backgroundColor="#0a151a"
                 tinted
                 lightText={true}
                 breadcrumbs={[

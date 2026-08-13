@@ -65,7 +65,7 @@ export default function AccessibilityPage() {
                         <div className="prose prose-neutral max-w-none space-y-16">
 
                             <section id="commitment" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">1. Commitment to Accessibility</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">1. Commitment to Accessibility</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     Cannoga College is committed to ensuring digital accessibility for all users including students applicants staff partners and members of the public. We strive to provide an inclusive online environment that allows everyone to access information services and digital content equally regardless of ability or technology used.
                                 </p>
@@ -75,14 +75,14 @@ export default function AccessibilityPage() {
                             </section>
 
                             <section id="scope" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">2. Scope of This Statement</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">2. Scope of This Statement</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     This Accessibility Statement applies to the official Cannoga College website and related digital services including online application platforms learning management systems and publicly available digital content provided by Cannoga College.
                                 </p>
                             </section>
 
                             <section id="standards" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">3. Accessibility Standards and Legislation</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">3. Accessibility Standards and Legislation</h2>
                                 <p className="text-neutral-700 leading-relaxed mb-6">
                                     Cannoga College aims to comply with the following standards and legal requirements:
                                 </p>
@@ -98,14 +98,14 @@ export default function AccessibilityPage() {
                             </section>
 
                             <section id="status" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">4. Accessibility Status</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">4. Accessibility Status</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     Cannoga College digital services are partially compliant with WCAG 2.1 level AA. Continuous efforts are being made to improve accessibility and to address any identified shortcomings.
                                 </p>
                             </section>
 
                             <section id="features" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">5. Accessible Content and Features</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">5. Accessible Content and Features</h2>
                                 <p className="text-neutral-700 leading-relaxed mb-6">
                                     The following accessibility features are implemented across Cannoga College digital platforms where possible:
                                 </p>
@@ -122,7 +122,7 @@ export default function AccessibilityPage() {
                             </section>
 
                             <section id="non-accessible" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">6. Non Accessible Content</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">6. Non Accessible Content</h2>
                                 <p className="text-neutral-700 leading-relaxed mb-4">
                                     Despite ongoing improvements some content may not yet fully meet accessibility requirements. This may include:
                                 </p>
@@ -138,14 +138,14 @@ export default function AccessibilityPage() {
                             </section>
 
                             <section id="alternative" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">7. Alternative Access</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">7. Alternative Access</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     If a user is unable to access specific content or services due to accessibility limitations Cannoga College will provide information in an alternative accessible format upon request whenever reasonably possible.
                                 </p>
                             </section>
 
                             <section id="feedback" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">8. Feedback and Contact Information</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">8. Feedback and Contact Information</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     Cannoga College welcomes feedback on the accessibility of its digital services. Users who experience accessibility barriers or require assistance are encouraged to contact the institution.
                                 </p>
@@ -155,7 +155,7 @@ export default function AccessibilityPage() {
                             </section>
 
                             <section id="enforcement" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">9. Enforcement Procedure</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">9. Enforcement Procedure</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     If a user is not satisfied with the response received from Cannoga College they may contact the supervisory authority responsible for monitoring digital accessibility in Ottawa, Ontario, Canada.
                                 </p>
@@ -165,7 +165,7 @@ export default function AccessibilityPage() {
                             </section>
 
                             <section id="improvement" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">10. Continuous Improvement</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">10. Continuous Improvement</h2>
                                 <p className="text-neutral-700 leading-relaxed mb-4">
                                     Cannoga College regularly reviews and updates its digital services to improve accessibility. This includes:
                                 </p>
@@ -178,7 +178,7 @@ export default function AccessibilityPage() {
                             </section>
 
                             <section id="preparation" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">11. Preparation of This Statement</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">11. Preparation of This Statement</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     This Accessibility Statement was prepared based on internal assessments and reviews of Cannoga College digital services.
                                 </p>
@@ -188,7 +188,7 @@ export default function AccessibilityPage() {
                             </section>
 
                             <section id="date" className="scroll-mt-32 space-y-4 pt-8">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">12. Date of Statement</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">12. Date of Statement</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     This Accessibility Statement is effective upon publication and reflects the current accessibility status of Cannoga College digital services.
                                 </p>

@@ -344,7 +344,7 @@ export default function SectionsPage() {
             <button onClick={() => setShowBulkModal(true)} className="flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 rounded text-[10px] font-black uppercase tracking-widest hover:border-neutral-300">
               <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Bulk Create
             </button>
-            <button onClick={() => openSectionModal()} className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
+            <button onClick={() => openSectionModal()} className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
               <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Section
             </button>
           </div>
@@ -388,7 +388,7 @@ export default function SectionsPage() {
       <Modal isOpen={showSectionModal} onClose={() => { setShowSectionModal(false); setEditingSection(null); resetSectionForm(); }} title={editingSection ? 'Edit Section' : 'New Section'} size="lg" footer={
         <div className="flex justify-end gap-3">
           <button onClick={() => { setShowSectionModal(false); setEditingSection(null); resetSectionForm(); }} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-neutral-600 hover:text-black">Cancel</button>
-          <button onClick={handleSaveSection} disabled={saving} className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
+          <button onClick={handleSaveSection} disabled={saving} className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
             {saving ? 'Saving...' : 'Save Section'}
           </button>
         </div>
@@ -467,7 +467,7 @@ export default function SectionsPage() {
       <Modal isOpen={showBulkModal} onClose={() => setShowBulkModal(false)} title="Bulk Create Sections" size="md" footer={
         <div className="flex justify-end gap-3">
           <button onClick={() => setShowBulkModal(false)} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-neutral-600 hover:text-black">Cancel</button>
-          <button onClick={handleBulkCreate} disabled={saving} className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
+          <button onClick={handleBulkCreate} disabled={saving} className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
             {saving ? 'Creating...' : 'Create Sections'}
           </button>
         </div>
@@ -480,7 +480,7 @@ export default function SectionsPage() {
                 <label key={m.id} className="flex items-center gap-2 px-3 py-2 border-b border-neutral-100 last:border-0 cursor-pointer hover:bg-neutral-50">
                   <input type="checkbox" checked={selectedModules.includes(m.id)} onChange={(e) => {
                     setSelectedModules(e.target.checked ? [...selectedModules, m.id] : selectedModules.filter(id => id !== m.id));
-                  }} className="w-4 h-4 text-[#9c27b3] border-neutral-300 rounded focus:ring-[#9c27b3]" />
+                  }} className="w-4 h-4 text-[#0a151a] border-neutral-300 rounded focus:ring-[#0a151a]" />
                   <span className="text-sm font-medium text-neutral-900">{m.code} - {m.title}</span>
                 </label>
               ))}
@@ -527,7 +527,7 @@ export default function SectionsPage() {
               </select>
             </div>
           </div>
-          <button onClick={handleSaveMeeting} disabled={saving} className="w-full py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
+          <button onClick={handleSaveMeeting} disabled={saving} className="w-full py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
             {saving ? 'Adding...' : 'Add Meeting'}
           </button>
         </div>

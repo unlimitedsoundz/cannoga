@@ -152,7 +152,7 @@ export default function ConflictsPage() {
           type="checkbox"
           checked={selectedIds.has(c.id)}
           onChange={() => toggleSelect(c.id)}
-          className="w-4 h-4 text-[#9c27b3] border-neutral-300 rounded focus:ring-[#9c27b3]"
+          className="w-4 h-4 text-[#0a151a] border-neutral-300 rounded focus:ring-[#0a151a]"
           onClick={(e) => e.stopPropagation()}
         />
       ),
@@ -233,7 +233,7 @@ export default function ConflictsPage() {
         <div className="flex justify-end gap-2">
           <button
             onClick={() => handleViewDetail(c)}
-            className="p-1.5 hover:bg-neutral-100 rounded text-neutral-500 hover:text-[#9c27b3]"
+            className="p-1.5 hover:bg-neutral-100 rounded text-neutral-500 hover:text-[#0a151a]"
             title="View details"
           >
             <HugeiconsIcon icon={AlertCircle} size={14} strokeWidth={2.5} />
@@ -262,7 +262,7 @@ export default function ConflictsPage() {
             <button
               onClick={handleBulkResolve}
               disabled={bulkResolving}
-              className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 transition-all"
             >
               <HugeiconsIcon icon={Play} size={14} strokeWidth={2.5} />
               Resolve Selected ({selectedIds.size})
@@ -346,7 +346,7 @@ export default function ConflictsPage() {
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => { setShowDetailModal(false); setShowResolveModal(true); }}
-                className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800"
+                className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800"
               >
                 Resolve Conflict
               </button>
@@ -455,7 +455,7 @@ export default function ConflictsPage() {
             <button
               onClick={handleResolve}
               disabled={resolving}
-              className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50"
+              className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50"
             >
               {resolving ? 'Resolving...' : 'Resolve'}
             </button>
@@ -484,7 +484,7 @@ export default function ConflictsPage() {
                   <button
                     key={idx}
                     onClick={() => setResolution(suggestion)}
-                    className="w-full text-left p-2 bg-neutral-50 border border-neutral-200 hover:border-[#9c27b3] text-xs text-neutral-700 hover:text-[#9c27b3] transition-colors"
+                    className="w-full text-left p-2 bg-neutral-50 border border-neutral-200 hover:border-[#0a151a] text-xs text-neutral-700 hover:text-[#0a151a] transition-colors"
                   >
                     {suggestion}
                   </button>

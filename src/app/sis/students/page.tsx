@@ -89,7 +89,7 @@ export default function StudentsPage() {
       key: 'actions',
       header: 'Actions',
       render: (s: Student) => (
-        <Link href={`/sis/students/${s.id}`} className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">
+        <Link href={`/sis/students/${s.id}`} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">
           View
         </Link>
       ),

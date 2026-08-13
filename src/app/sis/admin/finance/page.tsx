@@ -182,7 +182,7 @@ export default function FinancePage() {
       render: (s: FinanceRow) => {
         if (s.account_type === 'student') {
           return (
-            <Link href={`/sis/admin/students/${s.id}/finance`} className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">
+            <Link href={`/sis/admin/students/${s.id}/finance`} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">
               View Financials
             </Link>
           );
@@ -190,7 +190,7 @@ export default function FinancePage() {
         const pendingPayment = s.payments?.find((p: any) => p.status === 'PENDING_VERIFICATION' || p.status === 'verified');
         return (
           <div className="flex flex-col gap-2">
-            <Link href={`/sis/admin/admissions/${s.id}`} className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">
+            <Link href={`/sis/admin/admissions/${s.id}`} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">
               View Application
             </Link>
             {pendingPayment && (

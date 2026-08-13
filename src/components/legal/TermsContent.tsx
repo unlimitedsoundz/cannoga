@@ -81,7 +81,7 @@ export default function TermsContent() {
                                     key={section.id}
                                     onClick={() => scrollToSection(section.id)}
                                     className={`block text-left py-2 px-3 text-xs font-bold uppercase tracking-tight transition-all duration-200 border-l-2 ${activeSection === section.id
-                                        ? 'text-black border-[#9c27b3] bg-neutral-50'
+                                        ? 'text-black border-[#0a151a] bg-neutral-50'
                                         : 'text-neutral-400 border-transparent hover:text-neutral-600 hover:border-neutral-200'
                                         }`}
                                 >

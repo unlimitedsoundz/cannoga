@@ -83,7 +83,7 @@ export default function FinancePage() {
               <HugeiconsIcon icon={FileText} size={18} strokeWidth={2} className="text-blue-600" />
               Invoices
             </h3>
-            <button className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline">View All</button>
+            <button className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View All</button>
           </div>
           <DataTable
             columns={[
@@ -109,7 +109,7 @@ export default function FinancePage() {
               <HugeiconsIcon icon={CreditCard} size={18} strokeWidth={2} className="text-emerald-600" />
               Recent Payments
             </h3>
-            <button className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline">View All</button>
+            <button className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View All</button>
           </div>
           <DataTable
             columns={[
@@ -133,7 +133,7 @@ export default function FinancePage() {
         <div className="flex flex-wrap gap-3">
           <button 
             onClick={() => window.location.href = '/portal/application/payment'}
-            className="px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition"
+            className="px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition"
           >
             Make Payment
           </button>

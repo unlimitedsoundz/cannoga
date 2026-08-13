@@ -109,7 +109,7 @@ export default function SiteIndexPage() {
                     </div>
                     <Link
                         href="/contact"
-                        className="bg-[#9c27b3] text-white px-8 py-4 font-bold hover:bg-neutral-800 transition-colors whitespace-nowrap"
+                        className="bg-[#0a151a] text-white px-8 py-4 font-bold hover:bg-neutral-800 transition-colors whitespace-nowrap"
                     >
                         Contact Support
                     </Link>

@@ -181,7 +181,7 @@ export default function EventForm({ id, isNew, eventItem }: EventFormProps) {
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="bg-[#9c27b3] text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-neutral-800 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-[#0a151a] text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-neutral-800 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     <Save size={18} weight="bold" /> {isSubmitting ? 'Saving...' : (isNew ? 'Create Event' : 'Save Changes')}
                 </button>

@@ -309,13 +309,13 @@ export default function HousingManagementClient({
             <div className="flex gap-3">
                 <Link
                     href="/admin/housing/finance"
-                    className="px-6 py-3 bg-neutral-100 border-2 border-[#9c27b3] rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-[#9c27b3] hover:text-white transition-all flex items-center gap-2"
+                    className="px-6 py-3 bg-neutral-100 border-2 border-[#0a151a] rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-[#0a151a] hover:text-white transition-all flex items-center gap-2"
                 >
                     <DollarSign size={14} weight="bold" /> Finance Console
                 </Link>
                 <button
                     onClick={() => setShowAddBuildingModal(true)}
-                    className="px-6 py-3 bg-[#9c27b3] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"
+                    className="px-6 py-3 bg-[#0a151a] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"
                 >
                     <Plus size={14} weight="bold" /> Add Building
                 </button>
@@ -323,7 +323,7 @@ export default function HousingManagementClient({
 
             {/* Stats Cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                <div className="bg-white border-2 border-[#9c27b3] p-4 rounded-sm">
+                <div className="bg-white border-2 border-[#0a151a] p-4 rounded-sm">
                     <p className="text-[10px] font-black uppercase text-neutral-400 mb-1">Total Applications</p>
                     <p className="text-2xl font-black">{stats.totalApplications}</p>
                 </div>
@@ -339,11 +339,11 @@ export default function HousingManagementClient({
                     <p className="text-[10px] font-black uppercase text-blue-600 mb-1">Assignments</p>
                     <p className="text-2xl font-black text-blue-700">{stats.totalAssignments}</p>
                 </div>
-                <div className="bg-white border-2 border-[#9c27b3] p-4 rounded-sm">
+                <div className="bg-white border-2 border-[#0a151a] p-4 rounded-sm">
                     <p className="text-[10px] font-black uppercase text-neutral-400 mb-1">Available Rooms</p>
                     <p className="text-2xl font-black">{stats.availableRooms}</p>
                 </div>
-                <div className="bg-white border-2 border-[#9c27b3] p-4 rounded-sm">
+                <div className="bg-white border-2 border-[#0a151a] p-4 rounded-sm">
                     <p className="text-[10px] font-black uppercase text-neutral-400 mb-1">Buildings</p>
                     <p className="text-2xl font-black">{stats.totalBuildings}</p>
                 </div>
@@ -355,7 +355,7 @@ export default function HousingManagementClient({
                     <button
                         onClick={() => setSelectedTab('applications')}
                         className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest transition-all ${selectedTab === 'applications'
-                            ? 'text-black border-b-2 border-[#9c27b3] -mb-0.5'
+                            ? 'text-black border-b-2 border-[#0a151a] -mb-0.5'
                             : 'text-neutral-400 hover:text-neutral-600'
                             }`}
                     >
@@ -364,7 +364,7 @@ export default function HousingManagementClient({
                     <button
                         onClick={() => setSelectedTab('assignments')}
                         className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest transition-all ${selectedTab === 'assignments'
-                            ? 'text-black border-b-2 border-[#9c27b3] -mb-0.5'
+                            ? 'text-black border-b-2 border-[#0a151a] -mb-0.5'
                             : 'text-neutral-400 hover:text-neutral-600'
                             }`}
                     >
@@ -373,7 +373,7 @@ export default function HousingManagementClient({
                     <button
                         onClick={() => setSelectedTab('buildings')}
                         className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest transition-all ${selectedTab === 'buildings'
-                            ? 'text-black border-b-2 border-[#9c27b3] -mb-0.5'
+                            ? 'text-black border-b-2 border-[#0a151a] -mb-0.5'
                             : 'text-neutral-400 hover:text-neutral-600'
                             }`}
                     >
@@ -394,7 +394,7 @@ export default function HousingManagementClient({
                             </div>
                         ) : (
                             unassignedApps.map((app) => (
-                                <div key={app.id} className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+                                <div key={app.id} className="bg-white border-2 border-[#0a151a] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
                                     <div className="flex items-start justify-between mb-4">
                                         <div className="flex-1">
                                             <h3 className="text-lg font-black uppercase">
@@ -458,7 +458,7 @@ export default function HousingManagementClient({
                                                 setSelectedApplication(app);
                                                 setShowAssignModal(true);
                                             }}
-                                            className="px-4 py-2 bg-[#9c27b3] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"
+                                            className="px-4 py-2 bg-[#0a151a] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"
                                         >
                                             <Bed size={14} weight="bold" /> Assign Room
                                         </button>
@@ -539,12 +539,12 @@ export default function HousingManagementClient({
                             const occupancyRate = catalogTotal > 0 ? Math.round(((catalogTotal - availableRooms.length) / catalogTotal) * 100) : 0;
 
                             return (
-                                <div key={building.id} className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+                                <div key={building.id} className="bg-white border-2 border-[#0a151a] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
                                     <div className="flex items-start justify-between mb-6">
                                         {editingBuildingId === building.id ? (
                                             <div className="flex-1 space-y-2 mr-4">
                                                 <input
-                                                    className="w-full px-2 py-1 text-sm border-2 border-[#9c27b3] font-bold outline-none"
+                                                    className="w-full px-2 py-1 text-sm border-2 border-[#0a151a] font-bold outline-none"
                                                     value={editBuildingData.name}
                                                     onChange={(e) => setEditBuildingData({ ...editBuildingData, name: e.target.value })}
                                                 />
@@ -556,7 +556,7 @@ export default function HousingManagementClient({
                                                 <div className="flex gap-2">
                                                     <button
                                                         onClick={() => handleUpdateBuilding(building.id)}
-                                                        className="p-1 bg-[#9c27b3] text-white rounded-sm hover:bg-neutral-800"
+                                                        className="p-1 bg-[#0a151a] text-white rounded-sm hover:bg-neutral-800"
                                                     >
                                                         <Check size={14} weight="bold" />
                                                     </button>
@@ -612,7 +612,7 @@ export default function HousingManagementClient({
 
                                     <button
                                         onClick={() => setSelectedBuilding(building)}
-                                        className="w-full px-4 py-2 border-2 border-[#9c27b3] text-[10px] font-black uppercase tracking-widest hover:bg-[#9c27b3] hover:text-white transition-all"
+                                        className="w-full px-4 py-2 border-2 border-[#0a151a] text-[10px] font-black uppercase tracking-widest hover:bg-[#0a151a] hover:text-white transition-all"
                                     >
                                         View Room Details
                                     </button>
@@ -624,8 +624,8 @@ export default function HousingManagementClient({
 
             {/* Room Details Modal */}
             {selectedBuilding && (
-                <div className="fixed inset-0 bg-[#9c27b3]/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white border-4 border-[#9c27b3] rounded-sm max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div className="fixed inset-0 bg-[#0a151a]/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white border-4 border-[#0a151a] rounded-sm max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                         <div className="flex justify-between items-start mb-8">
                             <div>
                                 <h2 className="text-2xl font-black uppercase tracking-tighter">{selectedBuilding.name}</h2>
@@ -633,7 +633,7 @@ export default function HousingManagementClient({
                             </div>
                             <button
                                 onClick={() => setSelectedBuilding(null)}
-                                className="p-2 border-2 border-[#9c27b3] hover:bg-neutral-100 transition-all"
+                                className="p-2 border-2 border-[#0a151a] hover:bg-neutral-100 transition-all"
                             >
                                 <XCircle size={20} />
                             </button>
@@ -643,7 +643,7 @@ export default function HousingManagementClient({
                             <h3 className="text-sm font-black uppercase">Room Inventory</h3>
                             <button
                                 onClick={() => setShowAddRoomModal(true)}
-                                className="px-4 py-2 bg-[#9c27b3] text-white rounded-sm text-[8px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
+                                className="px-4 py-2 bg-[#0a151a] text-white rounded-sm text-[8px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
                             >
                                 <Plus size={10} weight="bold" className="inline mr-1" /> Add Room
                             </button>
@@ -657,12 +657,12 @@ export default function HousingManagementClient({
                                             {editingRoomId === room.id ? (
                                                 <div className="space-y-2">
                                                     <input
-                                                        className="w-20 px-1 py-0.5 text-sm border-2 border-[#9c27b3] font-bold outline-none"
+                                                        className="w-20 px-1 py-0.5 text-sm border-2 border-[#0a151a] font-bold outline-none"
                                                         value={editRoomData.room_number}
                                                         onChange={(e) => setEditRoomData({ ...editRoomData, room_number: e.target.value })}
                                                     />
                                                     <div className="flex gap-2">
-                                                        <button onClick={() => handleUpdateRoom(room.id)} className="p-1 bg-[#9c27b3] text-white rounded-sm"><Check size={10} weight="bold" /></button>
+                                                        <button onClick={() => handleUpdateRoom(room.id)} className="p-1 bg-[#0a151a] text-white rounded-sm"><Check size={10} weight="bold" /></button>
                                                         <button onClick={() => setEditingRoomId(null)} className="p-1 border border-neutral-300 rounded-sm"><X size={10} weight="bold" /></button>
                                                     </div>
                                                 </div>
@@ -745,8 +745,8 @@ export default function HousingManagementClient({
 
             {/* Assign Room Modal */}
             {showAssignModal && selectedApplication && (
-                <div className="fixed inset-0 bg-[#9c27b3]/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white border-4 border-[#9c27b3] rounded-sm max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8">
+                <div className="fixed inset-0 bg-[#0a151a]/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white border-4 border-[#0a151a] rounded-sm max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8">
                         <h2 className="text-xl font-black uppercase mb-6">
                             Assign Room to {selectedApplication.student?.user?.first_name} {selectedApplication.student?.user?.last_name}
                         </h2>
@@ -772,7 +772,7 @@ export default function HousingManagementClient({
                                     key={room.id}
                                     onClick={() => handleAssignRoom(selectedApplication.id, room.id)}
                                     disabled={assignLoading}
-                                    className="w-full text-left p-4 border-2 border-neutral-200 rounded-sm hover:border-[#9c27b3] transition-all disabled:opacity-50"
+                                    className="w-full text-left p-4 border-2 border-neutral-200 rounded-sm hover:border-[#0a151a] transition-all disabled:opacity-50"
                                 >
                                     <div className="flex items-center justify-between">
                                         <div>
@@ -792,7 +792,7 @@ export default function HousingManagementClient({
                                 setSelectedApplication(null);
                                 setError('');
                             }}
-                            className="w-full px-4 py-3 border-2 border-[#9c27b3] rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
+                            className="w-full px-4 py-3 border-2 border-[#0a151a] rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
                         >
                             Cancel
                         </button>
@@ -802,14 +802,14 @@ export default function HousingManagementClient({
 
             {/* Add Building Modal */}
             {showAddBuildingModal && (
-                <div className="fixed inset-0 bg-[#9c27b3]/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white border-4 border-[#9c27b3] p-8 max-w-md w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div className="fixed inset-0 bg-[#0a151a]/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white border-4 border-[#0a151a] p-8 max-w-md w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                         <h2 className="text-xl font-black uppercase mb-6">Add New Building</h2>
                         <div className="space-y-4 mb-8">
                             <div>
                                 <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Building Name</label>
                                 <input
-                                    className="w-full px-4 py-2 border-2 border-[#9c27b3] font-bold outline-none"
+                                    className="w-full px-4 py-2 border-2 border-[#0a151a] font-bold outline-none"
                                     value={newBuilding.name}
                                     onChange={(e) => setNewBuilding({ ...newBuilding, name: e.target.value })}
                                     placeholder="e.g. North Hall"
@@ -818,7 +818,7 @@ export default function HousingManagementClient({
                             <div>
                                 <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Campus Location</label>
                                 <input
-                                    className="w-full px-4 py-2 border-2 border-[#9c27b3] font-bold outline-none"
+                                    className="w-full px-4 py-2 border-2 border-[#0a151a] font-bold outline-none"
                                     value={newBuilding.campus_location}
                                     onChange={(e) => setNewBuilding({ ...newBuilding, campus_location: e.target.value })}
                                     placeholder="e.g. Ottawa campus"
@@ -828,7 +828,7 @@ export default function HousingManagementClient({
                         <div className="flex gap-4">
                             <button
                                 onClick={() => setShowAddBuildingModal(false)}
-                                className="flex-1 py-3 border-2 border-[#9c27b3] text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
+                                className="flex-1 py-3 border-2 border-[#0a151a] text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
                             >
                                 Cancel
                             </button>
@@ -848,7 +848,7 @@ export default function HousingManagementClient({
                                     }
                                 }}
                                 disabled={assignLoading || !newBuilding.name || !newBuilding.campus_location}
-                                className="flex-1 py-3 bg-[#9c27b3] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50"
+                                className="flex-1 py-3 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50"
                             >
                                 {assignLoading ? 'Adding...' : 'Confirm'}
                             </button>
@@ -859,14 +859,14 @@ export default function HousingManagementClient({
 
             {/* Add Room Modal */}
             {showAddRoomModal && (
-                <div className="fixed inset-0 bg-[#9c27b3]/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white border-4 border-[#9c27b3] p-8 max-w-md w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div className="fixed inset-0 bg-[#0a151a]/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white border-4 border-[#0a151a] p-8 max-w-md w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                         <h2 className="text-xl font-black uppercase mb-6">Add New Room</h2>
                         <div className="space-y-4 mb-8">
                             <div>
                                 <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Select Building</label>
                                 <select
-                                    className="w-full px-4 py-2 border-2 border-[#9c27b3] font-bold outline-none bg-white"
+                                    className="w-full px-4 py-2 border-2 border-[#0a151a] font-bold outline-none bg-white"
                                     value={newRoom.building_id}
                                     onChange={(e) => setNewRoom({ ...newRoom, building_id: e.target.value })}
                                 >
@@ -877,7 +877,7 @@ export default function HousingManagementClient({
                             <div>
                                 <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Room Number</label>
                                 <input
-                                    className="w-full px-4 py-2 border-2 border-[#9c27b3] font-bold outline-none"
+                                    className="w-full px-4 py-2 border-2 border-[#0a151a] font-bold outline-none"
                                     value={newRoom.room_number}
                                     onChange={(e) => setNewRoom({ ...newRoom, room_number: e.target.value })}
                                     placeholder="e.g. 101"
@@ -887,7 +887,7 @@ export default function HousingManagementClient({
                                 <div>
                                     <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Room Type</label>
                                     <select
-                                        className="w-full px-4 py-2 border-2 border-[#9c27b3] font-bold outline-none"
+                                        className="w-full px-4 py-2 border-2 border-[#0a151a] font-bold outline-none"
                                         value={newRoom.room_type}
                                         onChange={(e) => setNewRoom({ ...newRoom, room_type: e.target.value })}
                                     >
@@ -899,7 +899,7 @@ export default function HousingManagementClient({
                                 <div>
                                     <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Size</label>
                                     <input
-                                        className="w-full px-4 py-2 border-2 border-[#9c27b3] font-bold outline-none"
+                                        className="w-full px-4 py-2 border-2 border-[#0a151a] font-bold outline-none"
                                         value={newRoom.size}
                                         onChange={(e) => setNewRoom({ ...newRoom, size: e.target.value })}
                                         placeholder="e.g. 15m²"
@@ -911,7 +911,7 @@ export default function HousingManagementClient({
                                     <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Capacity</label>
                                     <input
                                         type="number"
-                                        className="w-full px-4 py-2 border-2 border-[#9c27b3] font-bold outline-none"
+                                        className="w-full px-4 py-2 border-2 border-[#0a151a] font-bold outline-none"
                                         value={newRoom.capacity}
                                         onChange={(e) => setNewRoom({ ...newRoom, capacity: Number(e.target.value) })}
                                     />
@@ -920,7 +920,7 @@ export default function HousingManagementClient({
                                     <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Rate ($/mo)</label>
                                     <input
                                         type="number"
-                                        className="w-full px-4 py-2 border-2 border-[#9c27b3] font-bold outline-none"
+                                        className="w-full px-4 py-2 border-2 border-[#0a151a] font-bold outline-none"
                                         value={newRoom.monthly_rate}
                                         onChange={(e) => setNewRoom({ ...newRoom, monthly_rate: Number(e.target.value) })}
                                     />
@@ -930,7 +930,7 @@ export default function HousingManagementClient({
                         <div className="flex gap-4">
                             <button
                                 onClick={() => setShowAddRoomModal(false)}
-                                className="flex-1 py-3 border-2 border-[#9c27b3] text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
+                                className="flex-1 py-3 border-2 border-[#0a151a] text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
                             >
                                 Cancel
                             </button>
@@ -953,7 +953,7 @@ export default function HousingManagementClient({
                                     }
                                 }}
                                 disabled={assignLoading || !newRoom.building_id || !newRoom.room_number}
-                                className="flex-1 py-3 bg-[#9c27b3] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50"
+                                className="flex-1 py-3 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50"
                             >
                                 {assignLoading ? 'Adding...' : 'Confirm'}
                             </button>

@@ -110,7 +110,7 @@ function ResearchProjectEditorContent() {
                             name="title"
                             required
                             defaultValue={project?.title || ''}
-                            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#9c27b3] outline-none transition-all font-bold"
+                            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#0a151a] outline-none transition-all font-bold"
                             placeholder="e.g. Carbon Neutral Construction 2030"
                         />
                     </div>
@@ -121,7 +121,7 @@ function ResearchProjectEditorContent() {
                             name="slug"
                             required
                             defaultValue={project?.slug || ''}
-                            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#9c27b3] outline-none transition-all font-mono text-sm"
+                            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#0a151a] outline-none transition-all font-mono text-sm"
                             placeholder="e.g. carbon-neutral-2030"
                         />
                     </div>
@@ -134,7 +134,7 @@ function ResearchProjectEditorContent() {
                             type="text"
                             name="leadResearcher"
                             defaultValue={project?.leadResearcher || ''}
-                            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#9c27b3] outline-none transition-all font-bold"
+                            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#0a151a] outline-none transition-all font-bold"
                             placeholder="e.g. Dr. Sarah Mitchell"
                         />
                     </div>
@@ -144,7 +144,7 @@ function ResearchProjectEditorContent() {
                             type="text"
                             name="fundingSource"
                             defaultValue={project?.fundingSource || ''}
-                            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#9c27b3] outline-none transition-all font-bold"
+                            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#0a151a] outline-none transition-all font-bold"
                             placeholder="e.g. EU Horizon"
                         />
                     </div>
@@ -155,7 +155,7 @@ function ResearchProjectEditorContent() {
                     <textarea
                         name="description"
                         required
-                        className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#9c27b3] outline-none transition-all h-24 font-bold"
+                        className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#0a151a] outline-none transition-all h-24 font-bold"
                         defaultValue={project?.description || ''}
                         placeholder="Brief summary shown on the listing page..."
                     />
@@ -165,7 +165,7 @@ function ResearchProjectEditorContent() {
                     <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Full Content</label>
                     <textarea
                         name="content"
-                        className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#9c27b3] outline-none transition-all h-64 font-mono text-sm"
+                        className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#0a151a] outline-none transition-all h-64 font-mono text-sm"
                         defaultValue={project?.content || ''}
                         placeholder="Markdown content or HTML..."
                     />
@@ -183,7 +183,7 @@ function ResearchProjectEditorContent() {
                         type="text"
                         name="imageUrl"
                         defaultValue={project?.imageUrl || ''}
-                        className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#9c27b3] outline-none transition-all font-mono text-xs"
+                        className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black focus:border-[#0a151a] outline-none transition-all font-mono text-xs"
                         placeholder="https://example.com/image.jpg"
                     />
                 </div>

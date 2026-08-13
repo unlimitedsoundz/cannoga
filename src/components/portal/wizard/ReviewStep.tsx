@@ -191,7 +191,7 @@ export default function ReviewStep({ application }: Props) {
                             type="checkbox"
                             checked={isAttested}
                             onChange={(e) => setIsAttested(e.target.checked)}
-                            className="appearance-none w-5 h-5 border-2 border-neutral-300 rounded-sm checked:bg-[#9c27b3] checked:border-[#9c27b3] transition-all cursor-pointer relative after:content-['✓'] after:absolute after:inset-0 after:flex after:items-center after:justify-center after:text-white after:opacity-0 checked:after:opacity-100 after:font-bold after:text-xs"
+                            className="appearance-none w-5 h-5 border-2 border-neutral-300 rounded-sm checked:bg-[#0a151a] checked:border-[#0a151a] transition-all cursor-pointer relative after:content-['✓'] after:absolute after:inset-0 after:flex after:items-center after:justify-center after:text-white after:opacity-0 checked:after:opacity-100 after:font-bold after:text-xs"
                         />
                         <span className="text-[11px] font-bold text-black transition-colors group-hover:text-black">
                             I verify that all data is correct

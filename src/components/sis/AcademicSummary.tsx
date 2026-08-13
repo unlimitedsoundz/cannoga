@@ -46,7 +46,7 @@ export function AcademicSummary({ summary }: AcademicSummaryProps) {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       <div className="bg-white border border-neutral-200 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen size={18} strokeWidth={2} className="text-[#9c27b3]" />
+          <BookOpen size={18} strokeWidth={2} className="text-[#0a151a]" />
           <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Current Program</span>
         </div>
         <div className="font-bold text-neutral-900">{summary.currentProgram}</div>
@@ -70,7 +70,7 @@ export function AcademicSummary({ summary }: AcademicSummaryProps) {
         </div>
         <div className="font-bold text-neutral-900">{summary.creditsCompleted} / {summary.creditsRequired}</div>
         <div className="mt-2 h-2 bg-neutral-100 rounded-full overflow-hidden">
-          <div className="h-full bg-[#9c27b3]" style={{ width: `${progress}%` }} />
+          <div className="h-full bg-[#0a151a]" style={{ width: `${progress}%` }} />
         </div>
         <div className="text-xs text-neutral-500 mt-1">{progress}% complete</div>
       </div>

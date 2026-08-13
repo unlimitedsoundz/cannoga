@@ -168,7 +168,7 @@ export default function ITManagementClient({
                 <div className="flex gap-2">
                     <button
                         onClick={() => setShowProvisionModal(true)}
-                        className="px-4 py-2 bg-[#9c27b3] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"
+                        className="px-4 py-2 bg-[#0a151a] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"
                     >
                         <UserPlus size={14} weight="bold" /> Manual Provision
                     </button>
@@ -177,19 +177,19 @@ export default function ITManagementClient({
 
             {/* Stats Grid */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+                <div className="bg-white border-2 border-[#0a151a] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
                     <p className="text-[10px] font-black uppercase text-neutral-400 mb-1">Total Assets</p>
                     <p className="text-2xl font-black">{stats.totalAssets}</p>
                 </div>
-                <div className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+                <div className="bg-white border-2 border-[#0a151a] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
                     <p className="text-[10px] font-black uppercase text-neutral-400 mb-1">Active Licenses</p>
                     <p className="text-2xl font-black">{stats.activeLicenses}</p>
                 </div>
-                <div className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+                <div className="bg-white border-2 border-[#0a151a] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
                     <p className="text-[10px] font-black uppercase text-neutral-400 mb-1">Auto-Provisioned</p>
                     <p className="text-2xl font-black">{stats.autoProvisioned}</p>
                 </div>
-                <div className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
+                <div className="bg-white border-2 border-[#0a151a] p-6 rounded-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
                     <p className="text-[10px] font-black uppercase text-neutral-400 mb-1">Students Served</p>
                     <p className="text-2xl font-black">{stats.studentsWithAccess}</p>
                 </div>
@@ -204,7 +204,7 @@ export default function ITManagementClient({
                             }`}
                     >
                         Asset Catalog
-                        {selectedTab === 'catalog' && <div className="absolute -bottom-[18px] left-0 w-full h-1 bg-[#9c27b3]" />}
+                        {selectedTab === 'catalog' && <div className="absolute -bottom-[18px] left-0 w-full h-1 bg-[#0a151a]" />}
                     </button>
                     <button
                         onClick={() => setSelectedTab('access')}
@@ -212,7 +212,7 @@ export default function ITManagementClient({
                             }`}
                     >
                         Student Access
-                        {selectedTab === 'access' && <div className="absolute -bottom-[18px] left-0 w-full h-1 bg-[#9c27b3]" />}
+                        {selectedTab === 'access' && <div className="absolute -bottom-[18px] left-0 w-full h-1 bg-[#0a151a]" />}
                     </button>
                 </div>
 
@@ -229,9 +229,9 @@ export default function ITManagementClient({
             {selectedTab === 'catalog' ? (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredAssets.map((asset) => (
-                        <div key={asset.id} className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all group">
+                        <div key={asset.id} className="bg-white border-2 border-[#0a151a] p-6 rounded-sm hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all group">
                             <div className="flex justify-between items-start mb-6">
-                                <div className="p-3 bg-neutral-100 rounded-sm group-hover:bg-[#9c27b3] group-hover:text-white transition-all">
+                                <div className="p-3 bg-neutral-100 rounded-sm group-hover:bg-[#0a151a] group-hover:text-white transition-all">
                                     {getAssetIcon(asset.asset_type)}
                                 </div>
                                 <div className="flex items-center gap-1">
@@ -255,7 +255,7 @@ export default function ITManagementClient({
                                 </div>
                                 <div className="h-1 bg-neutral-100 rounded-full overflow-hidden">
                                     <div
-                                        className="h-full bg-[#9c27b3]"
+                                        className="h-full bg-[#0a151a]"
                                         style={{ width: `${asset.license_limit ? (asset.current_usage / asset.license_limit) * 100 : 100}%` }}
                                     />
                                 </div>
@@ -264,10 +264,10 @@ export default function ITManagementClient({
                     ))}
                 </div>
             ) : (
-                <div className="bg-white border-2 border-[#9c27b3] rounded-sm overflow-x-auto">
+                <div className="bg-white border-2 border-[#0a151a] rounded-sm overflow-x-auto">
                     <table className="w-full text-left border-collapse min-w-[700px]">
                         <thead>
-                            <tr className="bg-neutral-50 border-b-2 border-[#9c27b3]">
+                            <tr className="bg-neutral-50 border-b-2 border-[#0a151a]">
                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest">Student</th>
                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest">Asset</th>
                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest">Status</th>
@@ -298,7 +298,7 @@ export default function ITManagementClient({
                                         {record.expires_at ? formatToDDMMYYYY(record.expires_at) : 'Never'}
                                     </td>
                                     <td className="px-6 py-4 text-right">
-                                        <button className="p-2 border border-neutral-200 rounded-sm hover:border-[#9c27b3] transition-all">
+                                        <button className="p-2 border border-neutral-200 rounded-sm hover:border-[#0a151a] transition-all">
                                             <ExternalLink size={14} weight="bold" />
                                         </button>
                                     </td>
@@ -311,8 +311,8 @@ export default function ITManagementClient({
 
             {/* Manual Provision Modal */}
             {showProvisionModal && (
-                <div className="fixed inset-0 bg-[#9c27b3]/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white border-4 border-[#9c27b3] p-8 max-w-md w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div className="fixed inset-0 bg-[#0a151a]/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white border-4 border-[#0a151a] p-8 max-w-md w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                         <h2 className="text-xl font-black uppercase mb-2 flex items-center gap-2">
                             <Shield className="text-neutral-400" weight="bold" /> Manual Provision
                         </h2>
@@ -322,7 +322,7 @@ export default function ITManagementClient({
                             <div>
                                 <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Select Student</label>
                                 <select
-                                    className="w-full px-4 py-2 border-2 border-[#9c27b3] font-bold text-sm outline-none bg-white"
+                                    className="w-full px-4 py-2 border-2 border-[#0a151a] font-bold text-sm outline-none bg-white"
                                     value={selectedStudent}
                                     onChange={(e) => setSelectedStudent(e.target.value)}
                                 >
@@ -338,7 +338,7 @@ export default function ITManagementClient({
                             <div>
                                 <label className="block text-[10px] font-black uppercase text-neutral-400 mb-1">Select Asset</label>
                                 <select
-                                    className="w-full px-4 py-2 border-2 border-[#9c27b3] font-bold text-sm outline-none bg-white"
+                                    className="w-full px-4 py-2 border-2 border-[#0a151a] font-bold text-sm outline-none bg-white"
                                     value={selectedAsset}
                                     onChange={(e) => setSelectedAsset(e.target.value)}
                                 >
@@ -355,14 +355,14 @@ export default function ITManagementClient({
                         <div className="flex gap-4">
                             <button
                                 onClick={() => setShowProvisionModal(false)}
-                                className="flex-1 py-3 border-2 border-[#9c27b3] text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
+                                className="flex-1 py-3 border-2 border-[#0a151a] text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-all"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={handleManualProvision}
                                 disabled={loading || !selectedStudent || !selectedAsset}
-                                className="flex-1 py-3 bg-[#9c27b3] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50"
+                                className="flex-1 py-3 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50"
                             >
                                 {loading ? 'Provisioning...' : 'Confirm'}
                             </button>

@@ -177,7 +177,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                     <select
                         value={selectedIntake}
                         onChange={(e) => setSelectedIntake(e.target.value)}
-                        className="bg-white border border-neutral-200 px-4 py-2 text-[11px] font-bold text-black focus:outline-none focus:border-[#9c27b3] transition-colors w-full"
+                        className="bg-white border border-neutral-200 px-4 py-2 text-[11px] font-bold text-black focus:outline-none focus:border-[#0a151a] transition-colors w-full"
                     >
                         {CANONICAL_INTAKES.map((it) => (
                             <option key={it.id} value={it.label}>
@@ -197,7 +197,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                         placeholder="Name or department..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="bg-white border border-neutral-200 px-4 py-2 text-[11px] font-bold text-black placeholder:text-black focus:outline-none focus:border-[#9c27b3] transition-colors w-full"
+                        className="bg-white border border-neutral-200 px-4 py-2 text-[11px] font-bold text-black placeholder:text-black focus:outline-none focus:border-[#0a151a] transition-colors w-full"
                     />
                 </div>
             </div>
@@ -213,7 +213,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                                     <p className="text-[11px] text-black font-semibold leading-none">{course.school?.name}</p>
                                 </div>
                                  <span className={`px-2 py-1 rounded-sm text-[11px] font-bold border transition-colors ${
-                                     course.degreeLevel === 'MASTER' ? 'border-[#9c27b3] text-black'
+                                     course.degreeLevel === 'MASTER' ? 'border-[#0a151a] text-black'
                                      : course.degreeLevel === 'CERTIFICATE' ? 'border-amber-400 text-amber-700 bg-amber-50'
                                      : course.degreeLevel === 'DIPLOMA' ? 'border-blue-300 text-blue-700 bg-blue-50'
                                      : 'border-neutral-300 text-black'
@@ -229,7 +229,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                                 <span className="flex items-center gap-2 text-[13px] font-bold text-black">
                                     {course.duration}
                                     {course.programType && (
-                                        <span className="ml-2 px-2 py-0.5 rounded-sm bg-neutral-100 text-black group-hover:bg-[#9c27b3]/5 group-hover:text-black transition-colors">
+                                        <span className="ml-2 px-2 py-0.5 rounded-sm bg-neutral-100 text-black group-hover:bg-[#0a151a]/5 group-hover:text-black transition-colors">
                                             {course.programType}
                                         </span>
                                     )}

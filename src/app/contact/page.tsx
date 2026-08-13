@@ -161,7 +161,7 @@ export default function ContactPage() {
                                     key={school.name} 
                                     label={school.name}
                                     linkComponentProps={{ href: school.href }}
-                                    className="group flex justify-between items-center py-6 border-b border-neutral-200 hover:border-[#9c27b3] transition-colors uppercase tracking-widest text-sm"
+                                    className="group flex justify-between items-center py-6 border-b border-neutral-200 hover:border-[#0a151a] transition-colors uppercase tracking-widest text-sm"
                                     icon={<span className="text-neutral-400 group-hover:text-black">→</span>}
                                     iconPosition="right"
                                 />

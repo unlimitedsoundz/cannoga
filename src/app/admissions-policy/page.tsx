@@ -13,7 +13,7 @@ export default function AdmissionsPolicyPage() {
     return (
         <div className="min-h-screen bg-white">
             {/* Hero */}
-            <section className="bg-[#9c27b3] text-white pt-40 pb-16">
+            <section className="bg-[#0a151a] text-white pt-40 pb-16">
                 <div className="container mx-auto px-4 max-w-4xl">
                     <p className="text-xs font-mono uppercase tracking-[0.3em] text-[#f3e600] mb-4">Official Policy</p>
                     <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Admissions Policy</h1>
@@ -49,23 +49,23 @@ export default function AdmissionsPolicyPage() {
                                 <p className="text-black mb-4">This policy applies to:</p>
                                 <ul className="space-y-2">
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         All undergraduate (Bachelor&apos;s) programmes
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         All postgraduate (Master&apos;s) programmes
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         All diploma and certificate programmes
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Domestic and international applicants
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Full-time and part-time study modes (where applicable)
                                     </li>
                                 </ul>
@@ -82,19 +82,19 @@ export default function AdmissionsPolicyPage() {
                                 <p className="text-black mb-4">Cannoga College:</p>
                                 <ul className="space-y-2">
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Admits students based on academic merit and programme suitability
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Applies consistent and transparent evaluation criteria
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Does not discriminate on the basis of nationality, gender, religion, ethnicity, or background
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Reserves the right to verify all submitted documents
                                     </li>
                                 </ul>
@@ -113,19 +113,19 @@ export default function AdmissionsPolicyPage() {
                                     <p className="text-black mb-3">Applicants must:</p>
                                     <ul className="space-y-2">
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Hold a recognized secondary school qualification or equivalent
                                         </li>
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Meet minimum academic requirements specified for the programme
                                         </li>
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Demonstrate sufficient proficiency in the language of instruction (where required)
                                         </li>
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Submit all required documents by the stated deadline
                                         </li>
                                     </ul>
@@ -135,19 +135,19 @@ export default function AdmissionsPolicyPage() {
                                     <p className="text-black mb-3">Applicants must:</p>
                                     <ul className="space-y-2">
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Hold a recognized Bachelor&apos;s degree or equivalent in a relevant field
                                         </li>
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Meet programme-specific academic and professional requirements
                                         </li>
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Provide transcripts and degree certificates
                                         </li>
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Demonstrate language proficiency where applicable
                                         </li>
                                     </ul>
@@ -163,19 +163,19 @@ export default function AdmissionsPolicyPage() {
                             </div>
                             <ul className="pl-14 space-y-2">
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Applications are submitted online through the official Cannoga College application portal
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     The application is free of charge
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Applicants must provide accurate and complete information
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Incomplete applications may not be reviewed
                                 </li>
                             </ul>
@@ -192,15 +192,15 @@ export default function AdmissionsPolicyPage() {
                                     <p className="text-black mb-3">Admission outcomes may include:</p>
                                     <ul className="space-y-2">
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Unconditional Offer
                                         </li>
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Conditional Offer
                                         </li>
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Rejection
                                         </li>
                                     </ul>
@@ -209,15 +209,15 @@ export default function AdmissionsPolicyPage() {
                                     <p className="text-black mb-3">Cannoga College reserves the right to:</p>
                                     <ul className="space-y-2">
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Request additional documentation
                                         </li>
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Conduct interviews or assessments if required
                                         </li>
                                         <li className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             Limit admissions based on capacity
                                         </li>
                                     </ul>
@@ -233,15 +233,15 @@ export default function AdmissionsPolicyPage() {
                             </div>
                             <ul className="pl-14 space-y-2">
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Offers must be accepted within the stated deadline
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Acceptance may require payment of tuition or enrollment fees
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Failure to accept within the deadline may result in withdrawal of the offer
                                 </li>
                             </ul>
@@ -258,15 +258,15 @@ export default function AdmissionsPolicyPage() {
                                 <p className="text-black mb-3">Submission of false or misleading information may result in:</p>
                                 <ul className="space-y-2">
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Rejection of application
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Withdrawal of offer
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Termination of enrollment
                                     </li>
                                 </ul>
@@ -301,10 +301,10 @@ export default function AdmissionsPolicyPage() {
                     <div className="mt-20 pt-12 ">
                         <h3 className="font-bold text-lg mb-6">Related Documents</h3>
                         <div className="flex flex-wrap gap-4">
-                            <Link href="/academic-regulations" className="bg-[#9c27b3] text-white px-6 py-3 font-bold text-sm hover:bg-neutral-800 transition-colors">
+                            <Link href="/academic-regulations" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-sm hover:bg-neutral-800 transition-colors">
                                 Academic Regulations →
                             </Link>
-                            <Link href="/admissions" className="border border-[#9c27b3] px-6 py-3 font-bold text-sm hover:bg-[#9c27b3] hover:text-white transition-colors">
+                            <Link href="/admissions" className="border border-[#0a151a] px-6 py-3 font-bold text-sm hover:bg-[#0a151a] hover:text-white transition-colors">
                                 Admissions Overview →
                             </Link>
                         </div>

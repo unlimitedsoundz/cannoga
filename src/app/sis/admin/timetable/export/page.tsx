@@ -130,7 +130,7 @@ export default function ExportTimetablePage() {
               <button
                 key={card.format}
                 onClick={() => setExportFormat(card.format as ExportFormat)}
-                className={`w-full flex items-center gap-3 p-3 border transition-colors ${exportFormat === card.format ? 'border-[#9c27b3] bg-purple-50' : 'border-neutral-200 hover:border-neutral-400'}`}
+                className={`w-full flex items-center gap-3 p-3 border transition-colors ${exportFormat === card.format ? 'border-[#0a151a] bg-purple-50' : 'border-neutral-200 hover:border-neutral-400'}`}
               >
                 <div className={`p-2 ${card.color}`}>
                   <HugeiconsIcon icon={card.icon} size={16} strokeWidth={2.5} />
@@ -140,7 +140,7 @@ export default function ExportTimetablePage() {
                   <div className="text-[10px] text-neutral-500">{card.desc}</div>
                 </div>
                 {exportFormat === card.format && (
-                  <HugeiconsIcon icon={FileText} size={12} strokeWidth={2.5} className="ml-auto text-[#9c27b3]" />
+                  <HugeiconsIcon icon={FileText} size={12} strokeWidth={2.5} className="ml-auto text-[#0a151a]" />
                 )}
               </button>
             ))}
@@ -155,9 +155,9 @@ export default function ExportTimetablePage() {
                 <button
                   key={card.type}
                   onClick={() => setExportType(card.type as ExportType)}
-                  className={`flex items-center gap-3 p-4 border text-left transition-colors ${exportType === card.type ? 'border-[#9c27b3] bg-purple-50' : 'border-neutral-200 hover:border-neutral-400'}`}
+                  className={`flex items-center gap-3 p-4 border text-left transition-colors ${exportType === card.type ? 'border-[#0a151a] bg-purple-50' : 'border-neutral-200 hover:border-neutral-400'}`}
                 >
-                  <HugeiconsIcon icon={card.icon} size={20} strokeWidth={2.5} className={exportType === card.type ? 'text-[#9c27b3]' : 'text-slate-400'} />
+                  <HugeiconsIcon icon={card.icon} size={20} strokeWidth={2.5} className={exportType === card.type ? 'text-[#0a151a]' : 'text-slate-400'} />
                   <div>
                     <div className="text-xs font-bold text-neutral-900">{card.label}</div>
                     <div className="text-[10px] text-neutral-500">{card.desc}</div>
@@ -178,7 +178,7 @@ export default function ExportTimetablePage() {
               <button
                 onClick={handleExport}
                 disabled={exporting || !versionId}
-                className="flex items-center gap-2 px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 transition-all"
+                className="flex items-center gap-2 px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 transition-all"
               >
                 <HugeiconsIcon icon={Download} size={14} strokeWidth={2.5} />
                 {exporting ? 'Exporting...' : 'Export Now'}

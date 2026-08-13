@@ -295,7 +295,7 @@ export default async function AboutPage() {
                                 { src: "/images/8abea6bf09491ed4dcead9bb2d737082.jpg", alt: "Student activities and engagement", credit: "Cannoga College (demo data)" },
                             ].map((img, index) => (
                                 <div key={index} className="relative group rounded-3xl overflow-hidden shadow-lg h-64 md:h-auto md:aspect-square">
-                                    <div className="absolute inset-0 bg-[#9c27b3] opacity-20 mix-blend-multiply group-hover:opacity-5 transition-opacity z-10 duration-500"></div>
+                                    <div className="absolute inset-0 bg-[#0a151a] opacity-20 mix-blend-multiply group-hover:opacity-5 transition-opacity z-10 duration-500"></div>
                                     <Image
                                         src={img.src}
                                         alt={img.alt}

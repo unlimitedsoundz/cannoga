@@ -100,7 +100,7 @@ export default function GradesPage() {
           </div>
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Degree Progress:</span>
-            <span className="font-bold text-[#9c27b3]">{overallStats.degreeProgress}%</span>
+            <span className="font-bold text-[#0a151a]">{overallStats.degreeProgress}%</span>
           </div>
         </div>
       </div>

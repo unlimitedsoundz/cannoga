@@ -123,7 +123,7 @@ export default function AdminPageContentEditor() {
                     <button
                         onClick={handleSave}
                         disabled={saving || !selectedSection}
-                        className="bg-[#9c27b3] text-white px-6 py-3 rounded-lg hover:bg-gray-900 disabled:opacity-60"
+                        className="bg-[#0a151a] text-white px-6 py-3 rounded-lg hover:bg-gray-900 disabled:opacity-60"
                     >
                         {saving ? 'Saving...' : 'Save Section'}
                     </button>
@@ -139,7 +139,7 @@ export default function AdminPageContentEditor() {
                                         key={page.slug}
                                         type="button"
                                         onClick={() => setSelectedPage(page.slug)}
-                                        className={`w-full text-left px-4 py-3 rounded-2xl transition-all ${selectedPage === page.slug ? 'bg-[#9c27b3] text-white' : 'bg-gray-50 text-gray-800 hover:bg-gray-100'}`}
+                                        className={`w-full text-left px-4 py-3 rounded-2xl transition-all ${selectedPage === page.slug ? 'bg-[#0a151a] text-white' : 'bg-gray-50 text-gray-800 hover:bg-gray-100'}`}
                                     >
                                         {page.name}
                                     </button>
@@ -155,7 +155,7 @@ export default function AdminPageContentEditor() {
                                         key={section.sectionKey}
                                         type="button"
                                         onClick={() => setSelectedSectionKey(section.sectionKey)}
-                                        className={`w-full text-left px-4 py-3 rounded-2xl transition-all ${selectedSectionKey === section.sectionKey ? 'bg-[#9c27b3] text-white' : 'bg-gray-50 text-gray-800 hover:bg-gray-100'}`}
+                                        className={`w-full text-left px-4 py-3 rounded-2xl transition-all ${selectedSectionKey === section.sectionKey ? 'bg-[#0a151a] text-white' : 'bg-gray-50 text-gray-800 hover:bg-gray-100'}`}
                                     >
                                         {section.label}
                                     </button>

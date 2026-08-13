@@ -93,7 +93,7 @@ export default function AcademicsPage() {
       key: 'actions',
       header: 'Actions',
       render: (p: ProgramRow) => (
-        <Link href={`/sis/admin/academics/programs/${p.id}`} className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">Manage</Link>
+        <Link href={`/sis/admin/academics/programs/${p.id}`} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">Manage</Link>
       ),
     },
   ];
@@ -108,7 +108,7 @@ export default function AcademicsPage() {
       key: 'actions',
       header: 'Actions',
       render: (m: ModuleRow) => (
-        <Link href={`/sis/admin/academics/modules/${m.id}`} className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">Manage</Link>
+        <Link href={`/sis/admin/academics/modules/${m.id}`} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">Manage</Link>
       ),
     },
   ];
@@ -123,13 +123,13 @@ export default function AcademicsPage() {
       <div className="flex gap-4 border-b border-neutral-200">
         <button
           onClick={() => setActiveTab('programs')}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'programs' ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'programs' ? 'border-[#0a151a] text-[#0a151a]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
         >
           Programs
         </button>
         <button
           onClick={() => setActiveTab('modules')}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'modules' ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'modules' ? 'border-[#0a151a] text-[#0a151a]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
         >
           Modules
         </button>

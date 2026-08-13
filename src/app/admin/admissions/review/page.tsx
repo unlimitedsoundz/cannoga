@@ -147,7 +147,7 @@ function ApplicationReviewContent() {
                     <ChevronLeft size={24} weight="bold" />
                 </Link>
                 <div>
-                    <h1 className="text-2xl font-bold uppercase tracking-tight text-neutral-900 border-l-4 border-[#9c27b3] pl-4">Application Review</h1>
+                    <h1 className="text-2xl font-bold uppercase tracking-tight text-neutral-900 border-l-4 border-[#0a151a] pl-4">Application Review</h1>
                     <p className="text-neutral-500 text-xs font-bold uppercase tracking-widest mt-1">Viewing details for {user.first_name} {user.last_name}</p>
                 </div>
             </div>
@@ -221,7 +221,7 @@ function ApplicationReviewContent() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {app.documents?.length > 0 ? (
                                 app.documents.map((doc: any) => (
-                                    <div key={doc.id} className="flex items-center justify-between p-4 bg-neutral-50 rounded-2xl border border-neutral-100 group hover:border-[#9c27b3] transition-all">
+                                    <div key={doc.id} className="flex items-center justify-between p-4 bg-neutral-50 rounded-2xl border border-neutral-100 group hover:border-[#0a151a] transition-all">
                                         <div className="flex items-center gap-3">
                                             <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm border border-neutral-100 group-hover:bg-neutral-900 group-hover:text-white transition-colors">
                                                 <FileText size={18} weight="regular" />
@@ -231,7 +231,7 @@ function ApplicationReviewContent() {
                                                 <div className="text-[10px] font-bold text-neutral-400 truncate max-w-[150px]">{doc.name}</div>
                                             </div>
                                         </div>
-                                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-[#9c27b3] hover:text-white rounded-lg transition-all">
+                                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-[#0a151a] hover:text-white rounded-lg transition-all">
                                             <Download size={16} weight="bold" />
                                         </a>
                                     </div>
@@ -277,12 +277,12 @@ function ApplicationReviewContent() {
                                     rows={4}
                                     defaultValue={admissionRecord?.internal_notes || ''}
                                     placeholder="Add internal notes here..."
-                                    className="w-full rounded-xl border border-neutral-200 p-3 text-xs focus:border-[#9c27b3] focus:outline-none resize-none"
+                                    className="w-full rounded-xl border border-neutral-200 p-3 text-xs focus:border-[#0a151a] focus:outline-none resize-none"
                                 />
                                 <button
                                     type="submit"
                                     disabled={updating}
-                                    className="w-full bg-neutral-900 text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#9c27b3] transition-all disabled:opacity-50"
+                                    className="w-full bg-neutral-900 text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#0a151a] transition-all disabled:opacity-50"
                                 >
                                     Save Notes
                                 </button>
@@ -353,9 +353,9 @@ function StatusBtn({ label, status, currentStatus, variant, onClick, disabled }:
             onClick={onClick}
             disabled={disabled || isActive}
             className={`w-full px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all disabled:opacity-30 disabled:cursor-not-allowed ${variant === 'success'
-                ? 'bg-neutral-900 text-white hover:bg-[#9c27b3]'
+                ? 'bg-neutral-900 text-white hover:bg-[#0a151a]'
                 : 'bg-red-600 text-white hover:bg-red-700'
-                } ${isActive ? 'ring-2 ring-[#9c27b3]' : ''}`}
+                } ${isActive ? 'ring-2 ring-[#0a151a]' : ''}`}
         >
             {label} {isActive && '✓'}
         </button>

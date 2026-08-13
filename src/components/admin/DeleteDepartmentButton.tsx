@@ -43,7 +43,7 @@ export default function DeleteDepartmentButton({ departmentId, departmentName }:
 
     if (showConfirm) {
         return (
-            <div className="fixed inset-0 bg-[#9c27b3]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="fixed inset-0 bg-[#0a151a]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                 <div className="bg-white p-8 max-w-md w-full shadow-2xl space-y-6">
                     <div>
                         <h3 className="text-2xl font-bold mb-2">Delete Department?</h3>
@@ -69,7 +69,7 @@ export default function DeleteDepartmentButton({ departmentId, departmentName }:
                         </button>
                         <button
                             onClick={handleDelete}
-                            className="flex-1 px-6 py-3 bg-[#9c27b3] text-white font-bold hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2"
+                            className="flex-1 px-6 py-3 bg-[#0a151a] text-white font-bold hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2"
                             disabled={isDeleting}
                         >
                             {isDeleting ? (

@@ -37,7 +37,7 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
 
     return (
         <div className="min-h-screen bg-white font-sans text-black">
-            <section className="text-black overflow-hidden border-b border-[#9c27b3]/5" style={{ backgroundColor: '#FDF2F8' }}>
+            <section className="text-black overflow-hidden border-b border-[#0a151a]/5" style={{ backgroundColor: '#FDF2F8' }}>
                 <div className="container mx-auto flex flex-col lg:flex-row items-center gap-2 lg:gap-16 pt-0 md:pt-12 pb-12 lg:pb-0 h-auto lg:h-[600px] lg:py-0 relative mb-0">
                     {/* Left Content */}
                     <div className="lg:w-1/2 space-y-6 relative z-10 flex flex-col justify-center h-full pt-2 lg:pt-0 px-4 md:px-0">
@@ -145,7 +145,7 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
                             { title: "Programmes", href: "/studies", desc: "What we offer." },
                             { title: "Support", href: "/student-guide", desc: "Here to help." },
                         ].map(link => (
-                            <Link key={link.href} href={link.href} className="bg-neutral-50 p-6 hover:bg-neutral-100 transition-all border-l-2 border-transparent hover:border-[#9c27b3] group">
+                            <Link key={link.href} href={link.href} className="bg-neutral-50 p-6 hover:bg-neutral-100 transition-all border-l-2 border-transparent hover:border-[#0a151a] group">
                                 <h4 className="font-bold text-black mb-1 group-hover:underline text-sm">{link.title}</h4>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">{link.desc}</p>
                             </Link>
@@ -172,7 +172,7 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
                     </div>
 
                     <div className="flex md:hidden mt-12">
-                        <Link href="/news" className="flex items-center justify-center gap-3 w-full py-5 bg-[#9c27b3] text-white font-bold uppercase tracking-widest text-xs">
+                        <Link href="/news" className="flex items-center justify-center gap-3 w-full py-5 bg-[#0a151a] text-white font-bold uppercase tracking-widest text-xs">
                             All news <ArrowRight size={20} weight="bold" />
                         </Link>
                     </div>

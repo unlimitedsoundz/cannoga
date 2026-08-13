@@ -47,7 +47,7 @@ export default function WebsiteNewsPage() {
 
     const rowActions = (row: NewsRow) => (
         <div className="flex items-center gap-2">
-            <Link href={`/sis/admin/website/news/${row.id}`} className="text-xs font-bold text-[#9c27b3] hover:underline no-underline">
+            <Link href={`/sis/admin/website/news/${row.id}`} className="text-xs font-bold text-[#0a151a] hover:underline no-underline">
                 Edit
             </Link>
             <button

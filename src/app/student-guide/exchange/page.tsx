@@ -32,7 +32,7 @@ export default function ExchangeStudentsPage() {
             <Hero
                 title="Exchange Students Guide"
                 body="Everything you need to know for your exchange semester or year at Cannoga College. We look forward to welcoming you to our vibrant international community!"
-                backgroundColor="#dc6ade"
+                backgroundColor="#0a151a"
                 tinted
                 lightText={true}
                 breadcrumbs={[
@@ -187,7 +187,7 @@ export default function ExchangeStudentsPage() {
                     {/* Checklist */}
                     <section id="checklist" className="scroll-mt-32">
                         <ContentBox
-                            backgroundColor="#472247"
+                            backgroundColor="#0a151a"
                             title={<span className="text-white">Departure Checklist</span>}
                             body={
                                 <div className="space-y-8">

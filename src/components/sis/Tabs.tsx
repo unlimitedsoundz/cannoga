@@ -27,7 +27,7 @@ export function Tabs({ tabs }: TabsProps) {
               href={tab.href}
               className={`px-4 py-2 text-xs font-bold uppercase tracking-widest border-b-2 transition-colors no-underline ${
                 isActive
-                  ? 'border-[#9c27b3] text-[#9c27b3]'
+                  ? 'border-[#0a151a] text-[#0a151a]'
                   : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300'
               }`}
             >

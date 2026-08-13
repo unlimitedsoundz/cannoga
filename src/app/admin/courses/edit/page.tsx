@@ -197,7 +197,7 @@ function CourseEditorContent() {
                     <button
                         type="submit"
                         disabled={saving}
-                        className="bg-[#9c27b3] text-white px-8 py-3.5 rounded-xl font-black uppercase text-xs tracking-widest flex items-center gap-2 hover:bg-neutral-800 transition-all shadow-lg shadow-neutral-200 disabled:opacity-50"
+                        className="bg-[#0a151a] text-white px-8 py-3.5 rounded-xl font-black uppercase text-xs tracking-widest flex items-center gap-2 hover:bg-neutral-800 transition-all shadow-lg shadow-neutral-200 disabled:opacity-50"
                     >
                         <Save size={18} weight="bold" /> {saving ? 'Saving...' : (isNew ? 'Create Course' : 'Save Changes')}
                     </button>

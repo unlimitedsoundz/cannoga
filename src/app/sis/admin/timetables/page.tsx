@@ -525,13 +525,13 @@ export default function TimetablesPage() {
       <div className="flex gap-4 border-b border-neutral-200">
         <button
           onClick={() => setActiveTab('schedules')}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'schedules' ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'schedules' ? 'border-[#0a151a] text-[#0a151a]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
         >
           Class Schedules
         </button>
         <button
           onClick={() => setActiveTab('sessions')}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'sessions' ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === 'sessions' ? 'border-[#0a151a] text-[#0a151a]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
         >
           Class Sessions
         </button>
@@ -567,7 +567,7 @@ export default function TimetablesPage() {
             )}
             <button
               onClick={() => activeTab === 'schedules' ? openScheduleModal() : openSessionModal()}
-              className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
             >
               <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} />
               {activeTab === 'schedules' ? 'Add Schedule' : 'Add Session'}
@@ -616,7 +616,7 @@ export default function TimetablesPage() {
             <button
               onClick={handleSaveSchedule}
               disabled={saving}
-              className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50"
+              className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save Schedule'}
             </button>
@@ -789,7 +789,7 @@ export default function TimetablesPage() {
             <button
               onClick={handleSaveSession}
               disabled={saving}
-              className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50"
+              className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save Session'}
             </button>

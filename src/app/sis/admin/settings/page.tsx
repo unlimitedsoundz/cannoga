@@ -174,7 +174,7 @@ export default function SettingsPage() {
                 value={displayName}
                 onChange={e => setDisplayName(e.target.value)}
                 required
-                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#9c27b3] font-sans"
+                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
               />
             </div>
             <div>
@@ -184,7 +184,7 @@ export default function SettingsPage() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
-                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#9c27b3] font-sans"
+                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
               />
             </div>
             <div>
@@ -194,13 +194,13 @@ export default function SettingsPage() {
                 value={department}
                 onChange={e => setDepartment(e.target.value)}
                 required
-                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#9c27b3] font-sans"
+                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
               />
             </div>
             <button
               type="submit"
               disabled={savingProfile}
-              className="px-5 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors cursor-pointer disabled:opacity-50"
+              className="px-5 py-3 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors cursor-pointer disabled:opacity-50"
             >
               {savingProfile ? 'Saving Changes...' : 'Save Profile Changes'}
             </button>
@@ -219,7 +219,7 @@ export default function SettingsPage() {
                 value={currentPassword}
                 onChange={e => setCurrentPassword(e.target.value)}
                 placeholder="Enter current password"
-                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#9c27b3] font-sans"
+                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
               />
             </div>
             <div>
@@ -229,7 +229,7 @@ export default function SettingsPage() {
                 value={newPassword}
                 onChange={e => setNewPassword(e.target.value)}
                 placeholder="Enter new password (min. 6 chars)"
-                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#9c27b3] font-sans"
+                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
               />
             </div>
             <button
@@ -252,7 +252,7 @@ export default function SettingsPage() {
               <select
                 value={academicTerm}
                 onChange={e => setAcademicTerm(e.target.value)}
-                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#9c27b3] font-sans"
+                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
               >
                 <option value="Fall 2026">Fall 2026</option>
                 <option value="Winter 2027">Winter 2027</option>
@@ -265,13 +265,13 @@ export default function SettingsPage() {
                 type="text"
                 value={registrationWindow}
                 onChange={e => setRegistrationWindow(e.target.value)}
-                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#9c27b3] font-sans"
+                className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
               />
             </div>
             <button
               type="submit"
               disabled={savingSystem}
-              className="px-5 py-3 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors cursor-pointer disabled:opacity-50"
+              className="px-5 py-3 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors cursor-pointer disabled:opacity-50"
             >
               {savingSystem ? 'Saving System Settings...' : 'Save System Settings'}
             </button>

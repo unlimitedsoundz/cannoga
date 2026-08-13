@@ -12,7 +12,7 @@ export const metadata = {
 export default function InnovationPage() {
     return (
         <div className="min-h-screen bg-neutral-50">
-            <div className="bg-[#9c27b3] p-8 md:p-16 text-center text-white shadow-2xl">
+            <div className="bg-[#0a151a] p-8 md:p-16 text-center text-white shadow-2xl">
                 <h1 className="text-[36px] md:text-5xl lg:text-7xl font-bold mb-6 leading-tight pt-8 text-white">
                     Innovation Hub</h1>
                 <p className="text-xl text-white max-w-2xl mx-auto">

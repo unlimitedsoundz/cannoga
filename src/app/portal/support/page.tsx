@@ -112,9 +112,9 @@ export default function SupportPage() {
                             <a
                                 key={i}
                                 href={channel.link}
-                                className="bg-card border-2 border-[#9c27b3] p-8 rounded-sm shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all group"
+                                className="bg-card border-2 border-[#0a151a] p-8 rounded-sm shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all group"
                             >
-                                <div className="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center mb-6 border border-neutral-200 group-hover:bg-[#9c27b3] group-hover:text-white transition-colors">
+                                <div className="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center mb-6 border border-neutral-200 group-hover:bg-[#0a151a] group-hover:text-white transition-colors">
                                     {channel.icon}
                                 </div>
                                 <h3 className="text-sm font-black uppercase tracking-widest mb-1">{channel.title}</h3>
@@ -135,7 +135,7 @@ export default function SupportPage() {
 
                             <div className="grid md:grid-cols-2 gap-4">
                                 {commonGuides.map((guide, i) => (
-                                    <div key={i} className="bg-card border border-neutral-200 p-6 rounded-sm hover:border-[#9c27b3] transition-colors">
+                                    <div key={i} className="bg-card border border-neutral-200 p-6 rounded-sm hover:border-[#0a151a] transition-colors">
                                         <div className="flex items-center gap-4 mb-4">
                                             <div className="text-black">
                                                 {guide.icon}

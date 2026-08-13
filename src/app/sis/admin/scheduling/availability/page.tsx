@@ -248,7 +248,7 @@ export default function AvailabilityPage() {
             <button onClick={() => setShowBulkModal(true)} className="flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 rounded text-[10px] font-black uppercase tracking-widest hover:border-neutral-300">
               <HugeiconsIcon icon={Download} size={14} strokeWidth={2.5} /> Bulk Import
             </button>
-            <button onClick={() => openModal()} className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
+            <button onClick={() => openModal()} className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
               <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Availability
             </button>
           </div>
@@ -283,7 +283,7 @@ export default function AvailabilityPage() {
       <Modal isOpen={showModal} onClose={() => { setShowModal(false); setEditingAvailability(null); resetForm(); }} title={editingAvailability ? 'Edit Availability' : 'New Availability'} size="md" footer={
         <div className="flex justify-end gap-3">
           <button onClick={() => { setShowModal(false); setEditingAvailability(null); resetForm(); }} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-neutral-600 hover:text-black">Cancel</button>
-          <button onClick={handleSave} disabled={saving} className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
+          <button onClick={handleSave} disabled={saving} className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
             {saving ? 'Saving...' : 'Save'}
           </button>
         </div>
@@ -335,7 +335,7 @@ export default function AvailabilityPage() {
       <Modal isOpen={showBulkModal} onClose={() => setShowBulkModal(false)} title="Bulk Set Availability" size="xl" footer={
         <div className="flex justify-end gap-3">
           <button onClick={() => setShowBulkModal(false)} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-neutral-600 hover:text-black">Cancel</button>
-          <button onClick={handleBulkSet} disabled={saving} className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
+          <button onClick={handleBulkSet} disabled={saving} className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
             {saving ? 'Saving...' : 'Apply'}
           </button>
         </div>

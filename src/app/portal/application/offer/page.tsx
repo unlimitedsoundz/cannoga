@@ -19,7 +19,7 @@ function RedirectContent() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-white">
             <div className="flex flex-col items-center gap-4">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#9c27b3]"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0a151a]"></div>
                 <p className="text-[10px] font-black uppercase tracking-widest text-neutral-400">Loading Official Letter...</p>
             </div>
         </div>
@@ -30,7 +30,7 @@ export default function OfferRedirectPage() {
     return (
         <Suspense fallback={
             <div className="min-h-screen flex items-center justify-center bg-white">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#9c27b3]"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0a151a]"></div>
             </div>
         }>
             <RedirectContent />

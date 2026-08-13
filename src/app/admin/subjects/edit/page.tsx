@@ -159,7 +159,7 @@ function SubjectEditorContent() {
                     <button
                         type="submit"
                         disabled={saving}
-                        className="bg-[#9c27b3] text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-neutral-800 transition-colors shadow-lg disabled:opacity-50"
+                        className="bg-[#0a151a] text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-neutral-800 transition-colors shadow-lg disabled:opacity-50"
                     >
                         {saving ? <Loader2 className="animate-spin" size={18} weight="bold" /> : <Save size={18} weight="bold" />}
                         {isNew ? 'Create Subject' : 'Save Changes'}

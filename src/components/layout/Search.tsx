@@ -95,7 +95,7 @@ export function Search() {
                                         <button
                                             key={result.href}
                                             onClick={() => handleNavigate(result.href)}
-                                            className="w-full text-left p-3 hover:bg-neutral-50 flex items-center justify-between group transition-colors border border-transparent hover:border-[#9c27b3]/5"
+                                            className="w-full text-left p-3 hover:bg-neutral-50 flex items-center justify-between group transition-colors border border-transparent hover:border-[#0a151a]/5"
                                         >
                                             <div>
                                                 <span className="text-[10px] uppercase tracking-widest font-black text-neutral-400 block">
@@ -118,7 +118,7 @@ export function Search() {
                                                 <button
                                                     key={term}
                                                     onClick={() => setQuery(term)}
-                                                    className="text-xs font-bold text-neutral-600 hover:text-black hover:bg-neutral-50 p-2 text-left rounded border border-transparent hover:border-[#9c27b3]/10 transition-all"
+                                                    className="text-xs font-bold text-neutral-600 hover:text-black hover:bg-neutral-50 p-2 text-left rounded border border-transparent hover:border-[#0a151a]/10 transition-all"
                                                 >
                                                     {term}
                                                 </button>

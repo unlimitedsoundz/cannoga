@@ -17,7 +17,7 @@ export default function AuthGuard({ children, requiredRole }: { children: React.
     if (isLoading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#9c27b3]"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0a151a]"></div>
             </div>
         );
     }

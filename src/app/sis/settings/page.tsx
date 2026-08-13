@@ -69,7 +69,7 @@ export default function SettingsPage() {
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white border border-neutral-200 p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4 flex items-center gap-2">
-              <HugeiconsIcon icon={User} size={18} strokeWidth={2} className="text-[#9c27b3]" />
+              <HugeiconsIcon icon={User} size={18} strokeWidth={2} className="text-[#0a151a]" />
               Profile Information
             </h3>
             <div className="grid grid-cols-2 gap-4">
@@ -137,7 +137,7 @@ export default function SettingsPage() {
 
           <div className="bg-white border border-neutral-200 p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4 flex items-center gap-2">
-              <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} className="text-[#9c27b3]" />
+              <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} className="text-[#0a151a]" />
               Notification Preferences
             </h3>
             <div className="space-y-4">
@@ -158,7 +158,7 @@ export default function SettingsPage() {
                       onChange={e => setNotifications({...notifications, [n.key]: e.target.checked})}
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-neutral-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#9c27b3] rounded-full peer peer-checked:bg-[#9c27b3] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                    <div className="w-11 h-6 bg-neutral-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#0a151a] rounded-full peer peer-checked:bg-[#0a151a] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
                   </label>
                 </div>
               ))}
@@ -177,7 +177,7 @@ export default function SettingsPage() {
                         type="checkbox"
                         checked={notifications[n.key as keyof typeof notifications]}
                         onChange={e => setNotifications({...notifications, [n.key]: e.target.checked})}
-                        className="w-4 h-4 text-[#9c27b3] border-neutral-300 rounded focus:ring-[#9c27b3]"
+                        className="w-4 h-4 text-[#0a151a] border-neutral-300 rounded focus:ring-[#0a151a]"
                       />
                       <span className="text-sm text-neutral-700">{n.label}</span>
                     </label>
@@ -191,7 +191,7 @@ export default function SettingsPage() {
         <div className="space-y-6">
           <div className="bg-white border border-neutral-200 p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4 flex items-center gap-2">
-              <HugeiconsIcon icon={Shield} size={18} strokeWidth={2} className="text-[#9c27b3]" />
+              <HugeiconsIcon icon={Shield} size={18} strokeWidth={2} className="text-[#0a151a]" />
               Security
             </h3>
             <div className="space-y-4">
@@ -207,7 +207,7 @@ export default function SettingsPage() {
                     onChange={e => setSecurity({...security, twoFactor: e.target.checked})}
                     className="sr-only peer"
                   />
-                  <div className="w-11 h-6 bg-neutral-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#9c27b3] rounded-full peer peer-checked:bg-[#9c27b3] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                  <div className="w-11 h-6 bg-neutral-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#0a151a] rounded-full peer peer-checked:bg-[#0a151a] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
                 </label>
               </div>
               <div className="flex items-center justify-between p-3 bg-neutral-50">
@@ -222,7 +222,7 @@ export default function SettingsPage() {
                     onChange={e => setSecurity({...security, loginAlerts: e.target.checked})}
                     className="sr-only peer"
                   />
-                  <div className="w-11 h-6 bg-neutral-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#9c27b3] rounded-full peer peer-checked:bg-[#9c27b3] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                  <div className="w-11 h-6 bg-neutral-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#0a151a] rounded-full peer peer-checked:bg-[#0a151a] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
                 </label>
               </div>
               <div>
@@ -248,7 +248,7 @@ export default function SettingsPage() {
 
           <div className="bg-white border border-neutral-200 p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4 flex items-center gap-2">
-              <HugeiconsIcon icon={Monitor} size={18} strokeWidth={2} className="text-[#9c27b3]" />
+              <HugeiconsIcon icon={Monitor} size={18} strokeWidth={2} className="text-[#0a151a]" />
               Display Preferences
             </h3>
             <div className="space-y-4">

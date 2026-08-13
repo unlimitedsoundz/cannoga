@@ -147,7 +147,7 @@ export default function WhyStudyInOttawaCanadaPage() {
                         return (
                             <div key={index} className="flex gap-8 items-start">
                                 {/* Number */}
-                                <div className="flex-shrink-0 w-16 h-16 bg-[#9c27b3] text-white flex items-center justify-center font-bold text-2xl">
+                                <div className="flex-shrink-0 w-16 h-16 bg-[#0a151a] text-white flex items-center justify-center font-bold text-2xl">
                                     {index + 1}
                                 </div>
                                 {/* Content */}
@@ -189,7 +189,7 @@ export default function WhyStudyInOttawaCanadaPage() {
                         { title: "Tuition Fees", href: "/admissions/tuition", desc: "Scholarships and aids." },
                         { title: "Arrival Guide", href: "/student-guide/arrival", desc: "Settling in Ottawa." },
                     ].map(link => (
-                        <Link key={link.href} href={link.href} className="bg-neutral-50 p-8 hover:bg-neutral-100 transition-all group border-l-2 border-transparent hover:border-[#9c27b3]">
+                        <Link key={link.href} href={link.href} className="bg-neutral-50 p-8 hover:bg-neutral-100 transition-all group border-l-2 border-transparent hover:border-[#0a151a]">
                             <h3 className="font-bold text-[#000000] mb-2 group-hover:underline">{link.title}</h3>
                             <p className="text-sm font-bold text-neutral-500 uppercase tracking-widest leading-relaxed">{link.desc}</p>
                         </Link>

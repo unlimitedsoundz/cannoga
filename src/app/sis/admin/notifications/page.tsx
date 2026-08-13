@@ -169,7 +169,7 @@ export default function AdminNotificationsPage() {
                                 onChange={e => setTitle(e.target.value)}
                                 required
                                 placeholder="Notification title"
-                                className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#9c27b3] font-sans"
+                                className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
                             />
                         </div>
 
@@ -182,7 +182,7 @@ export default function AdminNotificationsPage() {
                                 required
                                 placeholder="Notification message"
                                 rows={4}
-                                className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#9c27b3] font-sans"
+                                className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
                             />
                         </div>
 
@@ -193,7 +193,7 @@ export default function AdminNotificationsPage() {
                                     id="category"
                                     value={category}
                                     onChange={e => setCategory(e.target.value)}
-                                    className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#9c27b3] font-sans"
+                                    className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
                                 >
                                     <option value="General">General</option>
                                     <option value="Academics">Academics</option>
@@ -208,7 +208,7 @@ export default function AdminNotificationsPage() {
                                     id="priority"
                                     value={priority}
                                     onChange={e => setPriority(e.target.value)}
-                                    className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#9c27b3] font-sans"
+                                    className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
                                 >
                                     <option value="low">Low</option>
                                     <option value="normal">Normal</option>
@@ -224,7 +224,7 @@ export default function AdminNotificationsPage() {
                                 id="recipientType"
                                 value={recipientType}
                                 onChange={e => setRecipientType(e.target.value)}
-                                className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#9c27b3] font-sans"
+                                className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
                             >
                                 <option value="all">All Students</option>
                                 <option value="program">By Program</option>
@@ -248,7 +248,7 @@ export default function AdminNotificationsPage() {
                                                         setSelectedPrograms(selectedPrograms.filter(id => id !== program.id));
                                                     }
                                                 }}
-                                                className="w-4 h-4 text-[#9c27b3] border-neutral-700 bg-neutral-800 rounded focus:ring-[#9c27b3]"
+                                                className="w-4 h-4 text-[#0a151a] border-neutral-700 bg-neutral-800 rounded focus:ring-[#0a151a]"
                                             />
                                             <span className="text-xs text-neutral-200">{program.title}</span>
                                         </label>
@@ -257,7 +257,7 @@ export default function AdminNotificationsPage() {
                             </div>
                         )}
 
-                        <Button htmlType="submit" disabled={sending} className="w-full bg-[#9c27b3] hover:bg-purple-700 text-white font-bold py-3 rounded-xl uppercase tracking-wider text-xs border-0">
+                        <Button htmlType="submit" disabled={sending} className="w-full bg-[#0a151a] hover:bg-purple-700 text-white font-bold py-3 rounded-xl uppercase tracking-wider text-xs border-0">
                             <HugeiconsIcon icon={Send} size={14} strokeWidth={2.5} className="mr-2" />
                             {sending ? 'Sending...' : 'Send Notification'}
                         </Button>

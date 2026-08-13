@@ -143,7 +143,7 @@ export default function VoiceAgentDashboardPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/sis/admin/voice-agent/test"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-purple-700 transition-all no-underline shadow-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-purple-700 transition-all no-underline shadow-sm"
             >
               <HugeiconsIcon icon={Shield} size={14} strokeWidth={2.5} /> Test Voice
             </Link>

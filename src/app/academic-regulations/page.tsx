@@ -13,7 +13,7 @@ export default function AcademicRegulationsPage() {
     return (
         <div className="min-h-screen bg-white">
             {/* Hero */}
-            <section className="bg-[#9c27b3] text-white pt-40 pb-16">
+            <section className="bg-[#0a151a] text-white pt-40 pb-16">
                 <div className="container mx-auto px-4 max-w-4xl">
                     <p className="text-xs font-mono uppercase tracking-[0.3em] text-[#f3e600] mb-4">Official Regulations</p>
                     <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Academic Regulations</h1>
@@ -47,15 +47,15 @@ export default function AcademicRegulationsPage() {
                             </div>
                             <ul className="pl-14 space-y-2">
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Programmes are organized into academic terms or semesters
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Each programme carries a defined credit value
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Progression is based on successful completion of required credits
                                 </li>
                             </ul>
@@ -72,7 +72,7 @@ export default function AcademicRegulationsPage() {
                                 <ul className="space-y-2">
                                     {["Enrolled", "On Leave of Absence", "Withdrawn", "Graduated", "Dismissed (academic or disciplinary grounds)"].map((item) => (
                                         <li key={item} className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             {item}
                                         </li>
                                     ))}
@@ -91,15 +91,15 @@ export default function AcademicRegulationsPage() {
                                 <p className="text-black mb-3">Registration is subject to:</p>
                                 <ul className="space-y-2">
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Programme requirements
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Prerequisites
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Credit limits
                                     </li>
                                 </ul>
@@ -115,15 +115,15 @@ export default function AcademicRegulationsPage() {
                             </div>
                             <ul className="pl-14 space-y-2">
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Regular attendance is expected
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Minimum attendance requirements may apply
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Failure to meet attendance requirements may affect assessment eligibility
                                 </li>
                             </ul>
@@ -137,15 +137,15 @@ export default function AcademicRegulationsPage() {
                             </div>
                             <ul className="pl-14 space-y-2">
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Assessment methods may include examinations, coursework, projects, or practical work
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Grades are awarded according to published grading scales
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     All grades are recorded in the official academic record
                                 </li>
                             </ul>
@@ -163,7 +163,7 @@ export default function AcademicRegulationsPage() {
                                 <ul className="space-y-2">
                                     {["Plagiarism", "Cheating", "Fabrication of data", "Unauthorized collaboration"].map((item) => (
                                         <li key={item} className="flex items-start gap-3 text-black">
-                                            <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                             {item}
                                         </li>
                                     ))}
@@ -180,15 +180,15 @@ export default function AcademicRegulationsPage() {
                             </div>
                             <ul className="pl-14 space-y-2">
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Students must meet minimum academic performance requirements to continue
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Academic probation may be applied where performance is unsatisfactory
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Failure to improve may result in dismissal
                                 </li>
                             </ul>
@@ -202,15 +202,15 @@ export default function AcademicRegulationsPage() {
                             </div>
                             <ul className="pl-14 space-y-2">
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Students may apply for a temporary leave of absence
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Withdrawals must be formally requested
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Financial and academic implications may apply
                                 </li>
                             </ul>
@@ -226,15 +226,15 @@ export default function AcademicRegulationsPage() {
                                 <p className="text-black mb-3">To graduate, students must:</p>
                                 <ul className="space-y-2">
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Complete all programme requirements
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Settle all academic and financial obligations
                                     </li>
                                     <li className="flex items-start gap-3 text-black">
-                                        <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                         Meet minimum academic standards
                                     </li>
                                 </ul>
@@ -250,15 +250,15 @@ export default function AcademicRegulationsPage() {
                             </div>
                             <ul className="pl-14 space-y-2">
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Cannoga College maintains permanent academic records
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Official transcripts are issued upon request
                                 </li>
                                 <li className="flex items-start gap-3 text-black">
-                                    <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0"></span>
+                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0"></span>
                                     Records are retained in accordance with institutional policies
                                 </li>
                             </ul>
@@ -281,10 +281,10 @@ export default function AcademicRegulationsPage() {
                     <div className="mt-20 pt-12 ">
                         <h3 className="font-bold text-lg mb-6">Related Documents</h3>
                         <div className="flex flex-wrap gap-4">
-                            <Link href="/admissions-policy" className="bg-[#9c27b3] text-white px-6 py-3 font-bold text-sm hover:bg-neutral-800 transition-colors">
+                            <Link href="/admissions-policy" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-sm hover:bg-neutral-800 transition-colors">
                                 Admissions Policy →
                             </Link>
-                            <Link href="/admissions" className="border border-[#9c27b3] px-6 py-3 font-bold text-sm hover:bg-[#9c27b3] hover:text-white transition-colors">
+                            <Link href="/admissions" className="border border-[#0a151a] px-6 py-3 font-bold text-sm hover:bg-[#0a151a] hover:text-white transition-colors">
                                 Admissions Overview →
                             </Link>
                         </div>

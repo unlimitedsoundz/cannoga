@@ -38,7 +38,7 @@ export function EmptyState({ icon = 'info', title, description, action, classNam
       {action && (
         <button
           onClick={action.onClick}
-          className={`inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider ${action.href ? 'text-[#9c27b3] hover:underline' : 'bg-neutral-900 text-white hover:bg-neutral-800'}`}
+          className={`inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider ${action.href ? 'text-[#0a151a] hover:underline' : 'bg-neutral-900 text-white hover:bg-neutral-800'}`}
         >
           {action.label}
         </button>

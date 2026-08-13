@@ -30,7 +30,7 @@ export default function AcademicRecordClient({ studentId, enrollments }: Academi
             </div>
 
             {/* GPA Summary */}
-            <div className="bg-white border-2 border-[#9c27b3] p-6 rounded-sm shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+            <div className="bg-white border-2 border-[#0a151a] p-6 rounded-sm shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
                 <div className="flex items-center justify-between">
                     <div>
                         <p className="text-[10px] font-black uppercase tracking-widest text-neutral-400 mb-1">Cumulative GPA</p>
@@ -44,9 +44,9 @@ export default function AcademicRecordClient({ studentId, enrollments }: Academi
                 <h2 className="text-xl font-black uppercase mb-4 flex items-center gap-2">
                     <CheckCircle size={20} weight="bold" /> Official Transcript
                 </h2>
-                <div className="bg-white border-2 border-[#9c27b3] rounded-sm overflow-hidden">
+                <div className="bg-white border-2 border-[#0a151a] rounded-sm overflow-hidden">
                     <table className="w-full">
-                        <thead className="bg-[#9c27b3] text-white">
+                        <thead className="bg-[#0a151a] text-white">
                             <tr>
                                 <th className="text-left p-2 md:p-3 text-[10px] font-black uppercase tracking-widest">Module</th>
                                 <th className="text-left p-2 md:p-3 text-[10px] font-black uppercase tracking-widest">Sem</th>

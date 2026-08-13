@@ -259,7 +259,7 @@ const tabs = [
               <HugeiconsIcon icon={FileText} size={18} strokeWidth={2} className="text-blue-600" />
               Invoices
             </h3>
-            <button className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline">View All</button>
+            <button className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View All</button>
           </div>
           <DataTable
             columns={[
@@ -285,7 +285,7 @@ const tabs = [
               <HugeiconsIcon icon={CreditCard} size={18} strokeWidth={2} className="text-emerald-600" />
               Recent Payments
             </h3>
-            <button className="text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline">View All</button>
+            <button className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View All</button>
           </div>
           <DataTable
             columns={[
@@ -315,7 +315,7 @@ const tabs = [
                 setShowNoInvoiceModal(true);
               }
             }}
-            className="px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition cursor-pointer"
+            className="px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition cursor-pointer"
           >
             Make Payment
           </button>
@@ -336,7 +336,7 @@ const tabs = [
             </p>
             <button
               onClick={() => setShowNoInvoiceModal(false)}
-              className="w-full py-2.5 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-neutral-800 transition"
+              className="w-full py-2.5 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-neutral-800 transition"
             >
               Understood
             </button>

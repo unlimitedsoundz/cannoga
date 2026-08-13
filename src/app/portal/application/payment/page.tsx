@@ -109,7 +109,7 @@ function PaymentContent() {
                     <p className="text-sm text-black mb-8 max-w-[280px] mx-auto leading-relaxed">{error}</p>
                     <button
                         onClick={() => router.push('/portal/dashboard')}
-                        className="w-fit min-w-[240px] h-[48px] bg-[#9c27b3] text-white px-8 rounded-4px text-[11px] font-normal uppercase tracking-widest transition-all hover:bg-neutral-800 shadow-lg shadow-black/5"
+                        className="w-fit min-w-[240px] h-[48px] bg-[#0a151a] text-white px-8 rounded-4px text-[11px] font-normal uppercase tracking-widest transition-all hover:bg-neutral-800 shadow-lg shadow-black/5"
                     >
                         Return to Dashboard
                     </button>

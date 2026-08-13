@@ -31,7 +31,7 @@ export default function ArtPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#9c27b3] text-white">
+        <div className="min-h-screen bg-[#0a151a] text-white">
             <div className="container mx-auto px-4 py-24">
                 <h1 className="text-6xl font-light mb-4 pt-8">Cannoga<span className="font-bold">ART</span></h1>
                 <p className="text-neutral-400 text-xl mb-16 max-w-2xl">

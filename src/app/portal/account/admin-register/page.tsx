@@ -65,7 +65,7 @@ export default function AdminRegisterPage() {
                 <div className="space-y-4">
                     <Link
                         href="/portal/account/login"
-                        className="w-full bg-neutral-900 text-white font-bold py-3.5 rounded-xl hover:bg-[#9c27b3] transition-all flex items-center justify-center gap-2"
+                        className="w-full bg-neutral-900 text-white font-bold py-3.5 rounded-xl hover:bg-[#0a151a] transition-all flex items-center justify-center gap-2"
                     >
                         Go to Login <ArrowRight size={16} weight="bold" />
                     </Link>
@@ -102,7 +102,7 @@ export default function AdminRegisterPage() {
                             required
                             value={formData.firstName}
                             onChange={handleChange}
-                            className="w-full bg-neutral-50 border border-neutral-100 rounded-xl px-4 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#9c27b3] transition-all"
+                            className="w-full bg-neutral-50 border border-neutral-100 rounded-xl px-4 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#0a151a] transition-all"
                         />
                     </div>
                     <div>
@@ -113,7 +113,7 @@ export default function AdminRegisterPage() {
                             required
                             value={formData.lastName}
                             onChange={handleChange}
-                            className="w-full bg-neutral-50 border border-neutral-100 rounded-xl px-4 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#9c27b3] transition-all"
+                            className="w-full bg-neutral-50 border border-neutral-100 rounded-xl px-4 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#0a151a] transition-all"
                         />
                     </div>
                 </div>
@@ -126,7 +126,7 @@ export default function AdminRegisterPage() {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full bg-neutral-50 border border-neutral-100 rounded-xl px-4 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#9c27b3] transition-all"
+                        className="w-full bg-neutral-50 border border-neutral-100 rounded-xl px-4 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#0a151a] transition-all"
                         placeholder="admin@cannogacollege.ca"
                     />
                 </div>
@@ -148,7 +148,7 @@ export default function AdminRegisterPage() {
                             required
                             value={formData.password}
                             onChange={handleChange}
-                            className="w-full bg-neutral-50 border border-neutral-100 rounded-xl pl-4 pr-12 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#9c27b3] transition-all"
+                            className="w-full bg-neutral-50 border border-neutral-100 rounded-xl pl-4 pr-12 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#0a151a] transition-all"
                             placeholder="Minimum 6 characters"
                             minLength={6}
                         />
@@ -166,7 +166,7 @@ export default function AdminRegisterPage() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full bg-neutral-900 text-white font-bold py-3.5 rounded-xl hover:bg-[#9c27b3] transition-all flex items-center justify-center gap-2 shadow-lg shadow-neutral-200"
+                        className="w-full bg-neutral-900 text-white font-bold py-3.5 rounded-xl hover:bg-[#0a151a] transition-all flex items-center justify-center gap-2 shadow-lg shadow-neutral-200"
                     >
                         {isLoading ? <Loader2 className="animate-spin" size={20} weight="bold" /> : 'Register Admin Account'}
                     </button>

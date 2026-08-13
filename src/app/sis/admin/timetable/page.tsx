@@ -735,7 +735,7 @@ export default function TimetablePage() {
             <button
               onClick={handleAutoAssign}
               disabled={!selectedTerm || autoAssigning}
-              className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 transition-all"
             >
               <HugeiconsIcon icon={Play} size={14} strokeWidth={2.5} />
               {autoAssigning ? 'Assigning...' : 'Auto Assign'}
@@ -758,7 +758,7 @@ export default function TimetablePage() {
               onClick={() => setViewTab(tab.key as ViewTab)}
               className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
                 viewTab === tab.key
-                  ? 'border-[#9c27b3] text-[#9c27b3]'
+                  ? 'border-[#0a151a] text-[#0a151a]'
                   : 'border-transparent text-slate-400 hover:text-neutral-600'
               }`}
             >
@@ -818,7 +818,7 @@ export default function TimetablePage() {
             </button>
             <button
               onClick={() => { setShowDetailModal(false); openMoveModal(selectedAssignment!); }}
-              className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800"
+              className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800"
             >
               Move Class
             </button>
@@ -902,7 +902,7 @@ export default function TimetablePage() {
             <button
               onClick={handleMoveAssignment}
               disabled={moving || validationErrors.length > 0}
-              className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50"
+              className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50"
             >
               {moving ? 'Moving...' : 'Move Class'}
             </button>
@@ -995,7 +995,7 @@ export default function TimetablePage() {
         size="md"
         footer={
           autoAssignProgress && ['COMPLETED', 'PARTIAL', 'FAILED', 'CANCELLED'].includes(autoAssignProgress.status) ? (
-            <button onClick={() => { setAutoAssigning(false); fetchTimetableData(); }} className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
+            <button onClick={() => { setAutoAssigning(false); fetchTimetableData(); }} className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
               Close
             </button>
           ) : null
@@ -1003,7 +1003,7 @@ export default function TimetablePage() {
       >
         <div className="space-y-4">
           <div className="w-full bg-neutral-200 h-2">
-            <div className="bg-[#9c27b3] h-2 transition-all duration-500" style={{ width: `${autoAssignProgress?.progress || 0}%` }} />
+            <div className="bg-[#0a151a] h-2 transition-all duration-500" style={{ width: `${autoAssignProgress?.progress || 0}%` }} />
           </div>
           <div className="text-center">
             <div className="text-lg font-bold text-neutral-900">{autoAssignProgress?.currentStage || 'Initializing'}</div>
@@ -1031,8 +1031,8 @@ export default function TimetablePage() {
             <div className="text-center">
               <div className="inline-flex items-center gap-2 text-xs text-neutral-500">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9c27b3] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#9c27b3]"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0a151a] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0a151a]"></span>
                 </span>
                 Running optimization engine...
               </div>

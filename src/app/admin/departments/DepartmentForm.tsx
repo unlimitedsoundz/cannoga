@@ -117,7 +117,7 @@ export default function DepartmentForm({ department, schools, facultyMembers }: 
                             type="text"
                             name="name"
                             defaultValue={department.name}
-                            className="w-full p-4 border border-neutral-200 focus:outline-none focus:border-[#9c27b3] transition-colors"
+                            className="w-full p-4 border border-neutral-200 focus:outline-none focus:border-[#0a151a] transition-colors"
                             required
                         />
                     </div>
@@ -130,7 +130,7 @@ export default function DepartmentForm({ department, schools, facultyMembers }: 
                             type="text"
                             name="slug"
                             defaultValue={department.slug}
-                            className="w-full p-4 border border-neutral-200 focus:outline-none focus:border-[#9c27b3] transition-colors"
+                            className="w-full p-4 border border-neutral-200 focus:outline-none focus:border-[#0a151a] transition-colors"
                             required
                         />
                     </div>
@@ -142,7 +142,7 @@ export default function DepartmentForm({ department, schools, facultyMembers }: 
                         <select
                             name="schoolId"
                             defaultValue={department.schoolId}
-                            className="w-full p-4 border border-neutral-200 focus:outline-none focus:border-[#9c27b3] transition-colors appearance-none bg-white"
+                            className="w-full p-4 border border-neutral-200 focus:outline-none focus:border-[#0a151a] transition-colors appearance-none bg-white"
                             required
                         >
                             {schools.map((school) => (
@@ -160,7 +160,7 @@ export default function DepartmentForm({ department, schools, facultyMembers }: 
                         <select
                             name="headOfDepartmentId"
                             defaultValue={department.headOfDepartmentId || ''}
-                            className="w-full p-4 border border-neutral-200 focus:outline-none focus:border-[#9c27b3] transition-colors appearance-none bg-white"
+                            className="w-full p-4 border border-neutral-200 focus:outline-none focus:border-[#0a151a] transition-colors appearance-none bg-white"
                         >
                             <option value="">To be appointed</option>
                             {facultyMembers.map((member) => (
@@ -187,7 +187,7 @@ export default function DepartmentForm({ department, schools, facultyMembers }: 
                                     unoptimized
                                     className="object-cover object-top"
                                 />
-                                <div className="absolute inset-0 bg-[#9c27b3]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <div className="absolute inset-0 bg-[#0a151a]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                     <p className="text-white text-sm font-bold">Change Image</p>
                                 </div>
                             </div>
@@ -217,7 +217,7 @@ export default function DepartmentForm({ department, schools, facultyMembers }: 
                     name="description"
                     defaultValue={department.description}
                     rows={6}
-                    className="w-full p-4 border border-neutral-200 focus:outline-none focus:border-[#9c27b3] transition-colors"
+                    className="w-full p-4 border border-neutral-200 focus:outline-none focus:border-[#0a151a] transition-colors"
                 />
             </div>
 
@@ -225,7 +225,7 @@ export default function DepartmentForm({ department, schools, facultyMembers }: 
                 <button
                     type="submit"
                     disabled={isSaving}
-                    className="w-full md:w-auto px-12 py-4 bg-[#9c27b3] text-white font-bold hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 disabled:bg-neutral-400"
+                    className="w-full md:w-auto px-12 py-4 bg-[#0a151a] text-white font-bold hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 disabled:bg-neutral-400"
                 >
                     {isSaving ? (
                         <>Saving Changes...</>

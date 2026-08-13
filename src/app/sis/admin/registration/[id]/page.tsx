@@ -60,7 +60,7 @@ export default function RegistrationDetailPage() {
     return (
       <div className="p-8 bg-red-50 border border-red-100 rounded-none text-center">
         <p className="text-red-600 font-medium text-sm">{error || 'Registration not found'}</p>
-        <Link href="/sis/admin/registration" className="mt-4 inline-block text-xs font-bold uppercase tracking-wider text-[#9c27b3] hover:underline no-underline">Back to Registrations</Link>
+        <Link href="/sis/admin/registration" className="mt-4 inline-block text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">Back to Registrations</Link>
       </div>
     );
   }

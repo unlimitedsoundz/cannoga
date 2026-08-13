@@ -122,8 +122,8 @@ function ReceiptContent() {
                 <p className="text-xl font-normal text-black">Receipt Not Available</p>
                 <p className="text-sm text-neutral-500 max-w-md text-center">Your payment receipt is not available yet. This may be because the payment is still being processed.</p>
                 <div className="flex gap-4">
-                    <button onClick={() => window.location.reload()} className="px-6 py-2 bg-[#9c27b3] text-white border border-white text-[11px] font-normal rounded-sm hover:bg-neutral-800 transition-all">Retry</button>
-                    <Link href="/portal/dashboard" className="px-6 py-2 bg-[#9c27b3] text-white border border-white text-[11px] font-normal rounded-sm hover:bg-neutral-800 transition-all">Dashboard</Link>
+                    <button onClick={() => window.location.reload()} className="px-6 py-2 bg-[#0a151a] text-white border border-white text-[11px] font-normal rounded-sm hover:bg-neutral-800 transition-all">Retry</button>
+                    <Link href="/portal/dashboard" className="px-6 py-2 bg-[#0a151a] text-white border border-white text-[11px] font-normal rounded-sm hover:bg-neutral-800 transition-all">Dashboard</Link>
                 </div>
             </div>
         );
@@ -148,7 +148,7 @@ function ReceiptContent() {
             <div className="flex items-center justify-center min-h-[60vh] font-rubik px-4">
                 <div className="max-w-md w-full bg-white border border-neutral-200 p-8 rounded-sm text-center shadow-sm">
                     <div className="w-12 h-12 bg-neutral-50 text-black rounded-full flex items-center justify-center mx-auto mb-4 border border-neutral-200">
-                        <div className="w-5 h-5 border-2 border-[#9c27b3] border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-5 h-5 border-2 border-[#0a151a] border-t-transparent rounded-full animate-spin"></div>
                     </div>
                     <h2 className="text-lg font-normal text-black mb-2">Payment Under Review</h2>
                     <p className="text-xs text-neutral-500 font-normal leading-relaxed mb-8">
@@ -157,7 +157,7 @@ function ReceiptContent() {
                     </p>
                     <Link
                         href="/portal/dashboard"
-                        className="block w-full bg-[#9c27b3] text-white px-6 py-3 rounded-sm text-[11px] font-normal hover:bg-neutral-800 transition-all border border-[#9c27b3]"
+                        className="block w-full bg-[#0a151a] text-white px-6 py-3 rounded-sm text-[11px] font-normal hover:bg-neutral-800 transition-all border border-[#0a151a]"
                     >
                         Return to Dashboard
                     </Link>
@@ -278,7 +278,7 @@ function ReceiptContent() {
                                 <span>$ {fee.amount.toLocaleString()}</span>
                             </div>
                         ))}
-                        <div className="flex justify-between pt-4 border-t-2 border-[#9c27b3] text-lg">
+                        <div className="flex justify-between pt-4 border-t-2 border-[#0a151a] text-lg">
                             <span>Total Paid</span>
                             <span>$ {receiptTotal.toLocaleString()}</span>
                         </div>

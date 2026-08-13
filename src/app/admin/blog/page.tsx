@@ -34,7 +34,7 @@ export default function AdminBlogPage() {
         <div className="p-8">
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-2xl font-bold">Blog Management</h1>
-                <Link href="/admin/blog/create" className="bg-[#9c27b3] text-white px-4 py-2 rounded flex items-center gap-2">
+                <Link href="/admin/blog/create" className="bg-[#0a151a] text-white px-4 py-2 rounded flex items-center gap-2">
                     <Plus size={20} /> New Post
                 </Link>
             </div>

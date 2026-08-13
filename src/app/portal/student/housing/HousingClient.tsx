@@ -217,7 +217,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                     setCheckoutAmount(pendingInvoice.total_amount - (pendingInvoice.paid_amount || 0));
                                     setShowCheckout(true);
                                 }}
-                                className="px-6 py-2 bg-[#9c27b3] text-white text-[10px] font-black uppercase tracking-widest rounded-none hover:bg-neutral-800"
+                                className="px-6 py-2 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest rounded-none hover:bg-neutral-800"
                             >
                                 Pay Now <ChevronRight size={14} weight="bold" className="inline ml-1" />
                             </button>
@@ -228,7 +228,7 @@ export default function HousingDashboardClient({ student, application, assignmen
             )}
 
             {showCheckout && selectedInvoice && (
-                <div className="fixed inset-0 bg-[#9c27b3]/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+                <div className="fixed inset-0 bg-[#0a151a]/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
                     <div className="bg-white w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-none relative">
                         <button
                             onClick={() => setShowCheckout(false)}
@@ -265,7 +265,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                     <div className="p-6 md:p-16 print:p-0 print:m-0">
                         <div className="max-w-xl mx-auto w-full space-y-8 print:space-y-4 break-inside-avoid">
                             {/* Header */}
-                            <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-[#9c27b3] pb-6 gap-6 print:pb-4">
+                            <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-[#0a151a] pb-6 gap-6 print:pb-4">
                                 <div className="space-y-4 print:space-y-2">
                                     <img 
                                         src="/images/logo-cannoga.png" 
@@ -305,7 +305,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                 </div>
 
                                 <div className="space-y-4 pt-6 print:pt-2">
-                                    <p className="text-[9px] font-black uppercase text-black opacity-50 border-b border-[#9c27b3]/10 pb-1">Payment Breakdown</p>
+                                    <p className="text-[9px] font-black uppercase text-black opacity-50 border-b border-[#0a151a]/10 pb-1">Payment Breakdown</p>
                                     <div className="space-y-3 print:space-y-1">
                                         <div className="flex justify-between items-center text-sm">
                                             <span className="font-bold uppercase text-black">Verified Payments Received</span>
@@ -318,7 +318,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                     </div>
                                 </div>
 
-                                <div className="pt-6 border-t-2 border-[#9c27b3] print:pt-4">
+                                <div className="pt-6 border-t-2 border-[#0a151a] print:pt-4">
                                     <div className="flex justify-between items-center">
                                         <div className="space-y-1">
                                             <p className="text-sm font-black uppercase text-black">Total Paid Amount</p>
@@ -337,7 +337,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                 <div className="pt-8 flex justify-between items-center no-print">
                                     <button 
                                         onClick={() => window.print()}
-                                        className="px-8 py-3 bg-[#9c27b3] text-white text-[10px] font-black uppercase tracking-widest hover:opacity-80 transition-all"
+                                        className="px-8 py-3 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest hover:opacity-80 transition-all"
                                     >
                                         Print Official Receipt
                                     </button>
@@ -403,7 +403,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                     </div>
                                     <div className="flex justify-between items-center">
                                         <span className="text-[10px] font-bold uppercase text-black">Status</span>
-                                        <span className="text-[9px] font-black uppercase bg-[#9c27b3] text-white px-3 py-1 rounded-full tracking-wider">{assignment.status}</span>
+                                        <span className="text-[9px] font-black uppercase bg-[#0a151a] text-white px-3 py-1 rounded-full tracking-wider">{assignment.status}</span>
                                     </div>
                                 </div>
                             </div>
@@ -413,7 +413,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                     <h3 className="text-sm font-black uppercase text-black mb-3 pb-1">Amenities</h3>
                                     <div className="flex flex-wrap gap-2">
                                         {assignment.room.amenities.map((amenity: string, idx: number) => (
-                                            <span key={idx} className="text-[9px] px-2 py-1 text-black font-bold uppercase border border-[#9c27b3]/10">
+                                            <span key={idx} className="text-[9px] px-2 py-1 text-black font-bold uppercase border border-[#0a151a]/10">
                                                 {amenity}
                                             </span>
                                         ))}
@@ -424,7 +424,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                             <div className="flex justify-end pb-4">
                                 <button 
                                     onClick={() => setShowReceipt(true)}
-                                    className="px-6 py-2.5 bg-[#9c27b3] text-white text-[9px] font-black uppercase tracking-widest hover:bg-[#9c27b3]/90 transition-all shadow-none"
+                                    className="px-6 py-2.5 bg-[#0a151a] text-white text-[9px] font-black uppercase tracking-widest hover:bg-[#0a151a]/90 transition-all shadow-none"
                                 >
                                     View Receipt
                                 </button>
@@ -443,7 +443,7 @@ export default function HousingDashboardClient({ student, application, assignmen
             ) : application ? (
                 <div className="bg-white py-8 rounded-none">
                     <div className="flex items-center gap-4 mb-6">
-                        <div className="p-3 bg-white border border-[#9c27b3] rounded-none">
+                        <div className="p-3 bg-white border border-[#0a151a] rounded-none">
                             <Clock className="text-black" size={32} weight="bold" />
                         </div>
                         <div>
@@ -490,7 +490,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                         <div className="flex justify-end mt-4">
                             <button 
                                 onClick={() => setShowReceipt(true)}
-                                className="px-6 py-2.5 border-2 border-[#9c27b3] text-black text-[9px] font-black uppercase tracking-widest hover:bg-[#9c27b3] hover:text-white transition-all shadow-none"
+                                className="px-6 py-2.5 border-2 border-[#0a151a] text-black text-[9px] font-black uppercase tracking-widest hover:bg-[#0a151a] hover:text-white transition-all shadow-none"
                             >
                                 View Payment Receipt
                             </button>
@@ -513,7 +513,7 @@ export default function HousingDashboardClient({ student, application, assignmen
 
                             <button
                                 onClick={() => setShowForm(true)}
-                                className="px-5 py-2.5 bg-[#9c27b3] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
+                                className="px-5 py-2.5 bg-[#0a151a] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
                             >
                                 <Home size={14} weight="bold" className="inline mr-2" /> Apply for Housing
                             </button>
@@ -552,7 +552,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                     <select
                                         name="semester"
                                         required
-                                        className="w-full px-4 py-3 border border-neutral-200 rounded-none focus:border-[#9c27b3] focus:outline-none text-black"
+                                        className="w-full px-4 py-3 border border-neutral-200 rounded-none focus:border-[#0a151a] focus:outline-none text-black"
                                     >
                                         <option value="">Select Semester</option>
                                         {semesters.map(sem => (
@@ -583,7 +583,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                             <button 
                                                 type="button" 
                                                 onClick={() => setShowCatalog(true)}
-                                                className="px-4 py-2 bg-[#9c27b3] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-colors"
+                                                className="px-4 py-2 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-colors"
                                             >
                                                 Browse Catalog
                                             </button>
@@ -600,7 +600,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                             type="date"
                                             name="moveInDate"
                                             required
-                                            className="w-full px-4 py-3 border border-neutral-200 rounded-none focus:border-[#9c27b3] focus:outline-none text-black"
+                                            className="w-full px-4 py-3 border border-neutral-200 rounded-none focus:border-[#0a151a] focus:outline-none text-black"
                                         />
                                     </div>
                                     <div>
@@ -611,7 +611,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                             type="date"
                                             name="moveOutDate"
                                             required
-                                            className="w-full px-4 py-3 border border-neutral-200 rounded-none focus:border-[#9c27b3] focus:outline-none text-black"
+                                            className="w-full px-4 py-3 border border-neutral-200 rounded-none focus:border-[#0a151a] focus:outline-none text-black"
                                         />
                                     </div>
                                 </div>
@@ -642,13 +642,13 @@ export default function HousingDashboardClient({ student, application, assignmen
                                     <textarea
                                         name="notes"
                                         rows={4}
-                                        className="w-full px-4 py-3 border border-neutral-200 rounded-none focus:border-[#9c27b3] focus:outline-none text-black"
+                                        className="w-full px-4 py-3 border border-neutral-200 rounded-none focus:border-[#0a151a] focus:outline-none text-black"
                                         placeholder="Any special requirements or preferences..."
                                     />
                                 </div>
 
                                 <div className="flex items-start gap-2 p-3 bg-neutral-50 border border-neutral-200 rounded-none">
-                                    <input type="checkbox" required id="refundPolicyAgree" className="mt-0.5 border-2 border-neutral-300 rounded-sm checked:bg-[#9c27b3] checked:border-[#9c27b3] w-4 h-4" />
+                                    <input type="checkbox" required id="refundPolicyAgree" className="mt-0.5 border-2 border-neutral-300 rounded-sm checked:bg-[#0a151a] checked:border-[#0a151a] w-4 h-4" />
                                     <label htmlFor="refundPolicyAgree" className="text-[10px] text-black leading-tight">
                                         I adhere to the <a href="/refund-withdrawal-policy" target="_blank" className="underline font-bold text-black">Refund & Withdrawal Policy</a> and understand the terms regarding deposit forfeiture and lease cancellation.
                                     </label>
@@ -658,14 +658,14 @@ export default function HousingDashboardClient({ student, application, assignmen
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="px-6 py-3 bg-[#9c27b3] text-white rounded-none text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50"
+                                        className="px-6 py-3 bg-[#0a151a] text-white rounded-none text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50"
                                     >
                                         {loading ? 'Submitting...' : 'Submit Application'}
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => setShowForm(false)}
-                                        className="px-6 py-3 border border-neutral-200 rounded-none text-[10px] font-black uppercase tracking-widest hover:border-[#9c27b3] transition-all text-black"
+                                        className="px-6 py-3 border border-neutral-200 rounded-none text-[10px] font-black uppercase tracking-widest hover:border-[#0a151a] transition-all text-black"
                                     >
                                         Cancel
                                     </button>

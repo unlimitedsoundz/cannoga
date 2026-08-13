@@ -177,7 +177,7 @@ export default function CompareTimetablePage() {
             <button
               onClick={handleCompare}
               disabled={loading}
-              className="flex items-center gap-2 px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 transition-all w-full justify-center"
+              className="flex items-center gap-2 px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 transition-all w-full justify-center"
             >
               <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} />
               {loading ? 'Comparing...' : 'Compare'}
@@ -221,7 +221,7 @@ export default function CompareTimetablePage() {
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key as any)}
-                  className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === tab.key ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
+                  className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${activeTab === tab.key ? 'border-[#0a151a] text-[#0a151a]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}
                 >
                   {tab.label} ({tab.count})
                 </button>

@@ -247,7 +247,7 @@ export default function AdminDocumentDetailPage() {
                                     href={doc.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors no-underline"
+                                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors no-underline"
                                 >
                                     <HugeiconsIcon icon={Download} size={12} strokeWidth={2.5} />
                                     View

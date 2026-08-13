@@ -24,7 +24,7 @@ export default function WebsiteDashboardPage() {
         title="Website CMS"
         subtitle="Manage public website content"
         actions={
-          <Link href="/sis/admin/website/pages/new" className="inline-flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors no-underline">
+          <Link href="/sis/admin/website/pages/new" className="inline-flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors no-underline">
             <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> New Page
           </Link>
         }
@@ -38,7 +38,7 @@ export default function WebsiteDashboardPage() {
             className="bg-neutral-900 rounded-2xl p-6 hover:bg-neutral-800 transition-all no-underline block group shadow-sm"
           >
             <div className="flex items-center gap-3 mb-3">
-              <div className="p-2.5 bg-neutral-800 text-purple-400 rounded-xl group-hover:bg-[#9c27b3] group-hover:text-white transition-colors">
+              <div className="p-2.5 bg-neutral-800 text-purple-400 rounded-xl group-hover:bg-[#0a151a] group-hover:text-white transition-colors">
                 <HugeiconsIcon icon={section.icon} size={20} strokeWidth={2.5} />
               </div>
               <h3 className="text-sm font-bold uppercase tracking-wider text-white group-hover:text-purple-300 transition-colors">

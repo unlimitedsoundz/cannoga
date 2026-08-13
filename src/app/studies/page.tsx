@@ -47,7 +47,7 @@ export default function StudiesPage() {
             <div id="programmes" className="container mx-auto py-12 md:py-32">
                 <div className="grid md:grid-cols-2 gap-4 md:gap-12">
                     {/* Bachelor's */}
-                    <div className="group relative bg-[#9c27b3] overflow-hidden aspect-[4/3] md:aspect-auto md:min-h-[500px]">
+                    <div className="group relative bg-[#0a151a] overflow-hidden aspect-[4/3] md:aspect-auto md:min-h-[500px]">
                         <div className="absolute inset-0">
                             <Image
                                 src="/images/1d68041835324a83583595071e6eb95c.jpg"
@@ -56,7 +56,7 @@ export default function StudiesPage() {
                                 className="object-cover object-top transition-transform duration-1000 group-hover:scale-105 opacity-60"
                                 sizes="(max-width: 768px) 100vw, 50vw"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#9c27b3] via-[#9c27b3]/20 to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a151a] via-[#0a151a]/20 to-transparent" />
                         </div>
                         <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end text-white">
                             <h2 className="text-aalto-4 font-bold mb-aalto-p2 uppercase tracking-aalto-3">Bachelor's Degrees</h2>
@@ -70,7 +70,7 @@ export default function StudiesPage() {
                     </div>
 
                     {/* Master's */}
-                    <div className="group relative bg-[#9c27b3] overflow-hidden aspect-[4/3] md:aspect-auto md:min-h-[500px]">
+                    <div className="group relative bg-[#0a151a] overflow-hidden aspect-[4/3] md:aspect-auto md:min-h-[500px]">
                         <div className="absolute inset-0">
                             <Image
                                 src="/images/1775945541604-019d7e99-907d-7ab4-82ed-0977a1243bc3.png"
@@ -79,7 +79,7 @@ export default function StudiesPage() {
                                 className="object-cover object-top transition-transform duration-1000 group-hover:scale-105 opacity-60"
                                 sizes="(max-width: 768px) 100vw, 50vw"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#9c27b3] via-[#9c27b3]/20 to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a151a] via-[#0a151a]/20 to-transparent" />
                         </div>
                         <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end text-white">
                             <h2 className="text-aalto-4 font-bold mb-aalto-p2 uppercase tracking-aalto-3">Master's Degrees</h2>

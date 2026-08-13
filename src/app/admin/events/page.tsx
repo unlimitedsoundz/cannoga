@@ -59,7 +59,7 @@ export default function AdminEventsPage() {
 
             <div className="grid grid-cols-1 gap-6">
                 {events.map((event) => (
-                    <div key={event.id} className="bg-white p-6 rounded-xl border border-neutral-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-[#9c27b3] transition-colors group shadow-sm">
+                    <div key={event.id} className="bg-white p-6 rounded-xl border border-neutral-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-[#0a151a] transition-colors group shadow-sm">
                         <div className="flex gap-4 items-center">
                             <div className="w-16 h-16 bg-neutral-100 rounded-lg flex flex-col items-center justify-center text-neutral-600 shadow-inner">
                                 <span className="text-[10px] font-bold uppercase tracking-widest">{new Date(event.date).toLocaleString('default', { month: 'short' })}</span>

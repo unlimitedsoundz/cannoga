@@ -82,7 +82,7 @@ export default function ResearchProjectsAdmin() {
                                     <td className="block md:table-cell py-2 md:p-4 text-sm">
                                         <div className="flex items-center gap-2">
                                             <span className="md:hidden text-[10px] font-bold text-neutral-400 uppercase">Funding:</span>
-                                            <span className="bg-[#9c27b3] text-white px-2 py-0.5 rounded-none text-[9px] font-bold uppercase tracking-tight">
+                                            <span className="bg-[#0a151a] text-white px-2 py-0.5 rounded-none text-[9px] font-bold uppercase tracking-tight">
                                                 {project.fundingSource || 'N/A'}
                                             </span>
                                         </div>

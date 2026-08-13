@@ -93,7 +93,7 @@ export default function AdminPage() {
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {stats.map((stat) => (
-                    <Link key={stat.label} href={stat.href} className="bg-card p-6 rounded-2xl border border-neutral-200 hover:border-[#9c27b3] transition-all group">
+                    <Link key={stat.label} href={stat.href} className="bg-card p-6 rounded-2xl border border-neutral-200 hover:border-[#0a151a] transition-all group">
                         <div className="flex justify-between items-start mb-4">
                             <div className={`p-3 rounded-xl ${stat.color} text-white`}>
                                 <stat.icon size={24} weight="bold" />

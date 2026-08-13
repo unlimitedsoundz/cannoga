@@ -82,19 +82,19 @@ export default function CollaborationPage() {
                                 title: "Talent Pipeline",
                                 icon: Users,
                                 desc: "Recruit from our diverse pool of highly trained, globally-minded students through internships and direct hiring.",
-                                color: "bg-[#9c27b3]"
+                                color: "bg-[#0a151a]"
                             },
                             {
                                 title: "Collaborative R&D",
                                 icon: Lightbulb,
                                 desc: "Leverage our state-of-the-art labs and multidisciplinary faculty to accelerate your innovation cycles.",
-                                color: "bg-[#9c27b3]"
+                                color: "bg-[#0a151a]"
                             },
                             {
                                 title: "Executive Education",
                                 icon: Buildings,
                                 desc: "Custom training and lifelong learning programmes designed to keep your workforce competitive.",
-                                color: "bg-[#9c27b3]"
+                                color: "bg-[#0a151a]"
                             }
                         ].map((item, i) => {
                             const Icon = item.icon;
@@ -153,7 +153,7 @@ export default function CollaborationPage() {
 
                 {/* Contact Section */}
                 <section id="contact" className="scroll-mt-32">
-                    <div className="bg-[#9c27b3] text-white p-8 md:p-16 lg:p-24 overflow-hidden relative border-t border-neutral-800">
+                    <div className="bg-[#0a151a] text-white p-8 md:p-16 lg:p-24 overflow-hidden relative border-t border-neutral-800">
                         {/* Decorative element */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full mix-blend-screen filter blur-[100px] opacity-10 transform translate-x-1/2 -translate-y-1/2"></div>
 

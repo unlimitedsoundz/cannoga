@@ -104,7 +104,7 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
                     </button>
                     <button
                         onClick={handleExport}
-                        className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all shadow-sm"
+                        className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all shadow-sm"
                     >
                         <Download size={14} weight="bold" /> Export .ics
                     </button>
@@ -118,16 +118,16 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
                     <p className="text-xs text-neutral-400 mt-2">Your class schedule will appear here once enrolled.</p>
                 </div>
             ) : (
-                <div className="bg-white border-2 border-[#9c27b3] rounded-sm overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="bg-white border-2 border-[#0a151a] rounded-sm overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                     <div className="overflow-x-auto">
                         <div className="min-w-[800px]">
-                            <div className="grid grid-cols-8 border-b-2 border-[#9c27b3] bg-neutral-50 font-black italic">
-                                <div className="p-2 border-r-2 border-[#9c27b3]"></div>
+                            <div className="grid grid-cols-8 border-b-2 border-[#0a151a] bg-neutral-50 font-black italic">
+                                <div className="p-2 border-r-2 border-[#0a151a]"></div>
                                 {DAYS.slice(0, 5).map((day, i) => {
                                     const date = weekDates[i];
                                     const isToday = date.toDateString() === new Date().toDateString();
                                     return (
-                                        <div key={day} className={`p-2 text-center border-r-2 last:border-r-0 border-[#9c27b3] ${isToday ? 'bg-[#9c27b3] text-white' : ''}`}>
+                                        <div key={day} className={`p-2 text-center border-r-2 last:border-r-0 border-[#0a151a] ${isToday ? 'bg-[#0a151a] text-white' : ''}`}>
                                             <span className="text-[10px] font-black uppercase tracking-widest block">{day.substring(0, 3)}</span>
                                             <span className={`text-xs font-bold ${isToday ? 'text-white' : 'text-neutral-600'}`}>{date.getDate()}</span>
                                         </div>
@@ -137,7 +137,7 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
 
                             {HOURS.map(hour => (
                                 <div key={hour} className="grid grid-cols-8 border-b last:border-b-0 border-neutral-200 min-h-[60px]">
-                                    <div className="p-1 border-r-2 border-[#9c27b3] bg-neutral-50 flex items-start justify-center">
+                                    <div className="p-1 border-r-2 border-[#0a151a] bg-neutral-50 flex items-start justify-center">
                                         <span className="text-[10px] font-bold text-neutral-400">{hour}:00</span>
                                     </div>
                                     {DAYS.slice(0, 5).map((_, dayIndex) => {
@@ -181,7 +181,7 @@ export default function TimetableClient({ sessions }: TimetableClientProps) {
                 </div>
             )}
 
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mt-3 p-3 border-2 border-[#9c27b3] bg-neutral-50 rounded-sm">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mt-3 p-3 border-2 border-[#0a151a] bg-neutral-50 rounded-sm">
                 <div className="flex flex-wrap items-center gap-4">
                     <div className="flex items-center gap-2">
                         <div className="w-3 h-3 bg-neutral-50 border-l-4 border-neutral-600"></div>

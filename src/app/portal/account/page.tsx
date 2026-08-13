@@ -178,7 +178,7 @@ export default function ProfilePage() {
                                             type="text"
                                             value={editData.country_of_residence}
                                             onChange={(e) => setEditData(prev => ({ ...prev, country_of_residence: e.target.value }))}
-                                            className="w-full bg-neutral-50 border border-neutral-100 rounded-xl px-4 py-2.5 text-sm font-bold outline-none focus:border-[#9c27b3] transition-all"
+                                            className="w-full bg-neutral-50 border border-neutral-100 rounded-xl px-4 py-2.5 text-sm font-bold outline-none focus:border-[#0a151a] transition-all"
                                             placeholder="e.g. Ottawa, Ontario, Canada"
                                         />
                                     </div>

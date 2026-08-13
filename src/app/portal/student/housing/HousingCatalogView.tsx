@@ -315,7 +315,7 @@ export default function HousingCatalogView({ onSelectBuilding, onSelectApartment
                         onClick={() => { setSelectedBuilding(building); setCurrentImageIndex(0); }}
                         className={`flex-shrink-0 px-4 py-3 text-[10px] font-black uppercase tracking-widest border-b-2 transition-colors whitespace-nowrap ${
                             selectedBuilding?.id === building.id
-                                ? 'border-[#9c27b3] text-black bg-white'
+                                ? 'border-[#0a151a] text-black bg-white'
                                 : 'border-transparent text-neutral-500 hover:text-black'
                         }`}
                     >
@@ -333,7 +333,7 @@ export default function HousingCatalogView({ onSelectBuilding, onSelectApartment
                         <div 
                             key={building.id}
                             onClick={() => { setSelectedBuilding(building); setCurrentImageIndex(0); }}
-                            className={`p-6 cursor-pointer border-b border-neutral-200 transition-colors ${selectedBuilding?.id === building.id ? 'bg-[#9c27b3] text-white' : 'hover:bg-neutral-200 text-black'}`}
+                            className={`p-6 cursor-pointer border-b border-neutral-200 transition-colors ${selectedBuilding?.id === building.id ? 'bg-[#0a151a] text-white' : 'hover:bg-neutral-200 text-black'}`}
                         >
                             <h3 className="text-lg font-black uppercase tracking-tight">{building.name}</h3>
                             <p className={`text-xs uppercase tracking-widest mt-1 ${selectedBuilding?.id === building.id ? 'text-neutral-300' : 'text-neutral-500'}`}>{building.location}</p>
@@ -436,7 +436,7 @@ export default function HousingCatalogView({ onSelectBuilding, onSelectApartment
                                         <div 
                                             key={apt.id} 
                                             onClick={() => setSelectedApt(apt.id)}
-                                            className={`border-2 cursor-pointer transition-all ${selectedApt === apt.id ? 'border-[#9c27b3] bg-neutral-50' : 'border-neutral-200 hover:border-[#9c27b3]'} p-6`}
+                                            className={`border-2 cursor-pointer transition-all ${selectedApt === apt.id ? 'border-[#0a151a] bg-neutral-50' : 'border-neutral-200 hover:border-[#0a151a]'} p-6`}
                                         >
                                             <div className="flex justify-between items-start mb-4">
                                                 <h4 className="font-black text-lg uppercase text-black">{apt.type}</h4>
@@ -493,7 +493,7 @@ export default function HousingCatalogView({ onSelectBuilding, onSelectApartment
                                                     e.stopPropagation();
                                                     setSelectedApt(apt.id);
                                                 }}
-                                                className={`w-full py-2 text-[10px] font-black uppercase tracking-widest transition-colors ${selectedApt === apt.id ? 'bg-[#9c27b3] text-white' : 'bg-neutral-200 text-black hover:bg-neutral-300'}`}
+                                                className={`w-full py-2 text-[10px] font-black uppercase tracking-widest transition-colors ${selectedApt === apt.id ? 'bg-[#0a151a] text-white' : 'bg-neutral-200 text-black hover:bg-neutral-300'}`}
                                             >
                                                 {selectedApt === apt.id ? 'Selected' : 'Select'}
                                             </button>
@@ -502,7 +502,7 @@ export default function HousingCatalogView({ onSelectBuilding, onSelectApartment
                                 </div>
 
                                 {selectedApt && (
-                                    <div className="mt-12 p-8 border-4 border-[#9c27b3] bg-neutral-50 animate-in slide-in-from-top-4 duration-500">
+                                    <div className="mt-12 p-8 border-4 border-[#0a151a] bg-neutral-50 animate-in slide-in-from-top-4 duration-500">
                                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                                             <div>
                                                 <h3 className="text-xl font-black uppercase text-black mb-1">Select Lease Duration</h3>
@@ -513,7 +513,7 @@ export default function HousingCatalogView({ onSelectBuilding, onSelectApartment
                                                     <button
                                                         key={duration}
                                                         onClick={() => setLeaseDuration(duration)}
-                                                        className={`px-6 py-3 border-2 text-[10px] font-black uppercase tracking-widest transition-all ${leaseDuration === duration ? 'bg-[#9c27b3] text-white border-[#9c27b3] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]' : 'bg-white text-black border-neutral-200 hover:border-[#9c27b3]'}`}
+                                                        className={`px-6 py-3 border-2 text-[10px] font-black uppercase tracking-widest transition-all ${leaseDuration === duration ? 'bg-[#0a151a] text-white border-[#0a151a] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]' : 'bg-white text-black border-neutral-200 hover:border-[#0a151a]'}`}
                                                     >
                                                         {duration === 12 ? '1 Year' : `${duration} Months`}
                                                     </button>
@@ -559,14 +559,14 @@ export default function HousingCatalogView({ onSelectBuilding, onSelectApartment
                 <div className="flex gap-4">
                     <button 
                         onClick={onClose}
-                        className="px-6 py-3 border border-neutral-300 text-black text-[10px] font-black uppercase tracking-widest hover:border-[#9c27b3] transition-colors"
+                        className="px-6 py-3 border border-neutral-300 text-black text-[10px] font-black uppercase tracking-widest hover:border-[#0a151a] transition-colors"
                     >
                         Cancel
                     </button>
                     <button 
                         onClick={handleApply}
                         disabled={!selectedApt}
-                        className="px-6 py-3 bg-[#9c27b3] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-6 py-3 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         Add to Application
                     </button>

@@ -27,7 +27,7 @@ function ProgramCard({ id, duration, title, overview, requirements, admissionHre
         <section id={id} className="scroll-mt-32">
             <div className="cc-section-divider flex items-center justify-between">
                 <h2 className="cc-h2">{title}</h2>
-                <span className="text-xs font-bold uppercase tracking-widest bg-[#9c27b3] text-white px-4 py-1.5 shrink-0">{duration}</span>
+                <span className="text-xs font-bold uppercase tracking-widest bg-[#0a151a] text-white px-4 py-1.5 shrink-0">{duration}</span>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
                 <div className="md:col-span-2 cc-card cc-card-body space-y-4">
@@ -62,7 +62,7 @@ export default function DegreeProgrammesPage() {
                 <div className="cc-container py-8 md:py-16 space-y-16 md:space-y-24">
 
                     {/* Hero */}
-                    <section className="border-b-2 border-[#9c27b3] pb-12">
+                    <section className="border-b-2 border-[#0a151a] pb-12">
                         <p className="cc-label uppercase tracking-widest mb-3">Academic Offerings</p>
                         <h1 className="cc-h1 mb-6">Programs &amp; Degrees</h1>
                         <p className="text-lg text-neutral-600 leading-relaxed max-w-2xl">

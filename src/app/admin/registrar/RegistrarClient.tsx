@@ -298,7 +298,7 @@ export default function RegistrarClient({
                                     });
                                     setShowWindowModal(true);
                                 }}
-                                className="px-4 py-2 bg-[#9c27b3] text-white rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"
+                                className="px-4 py-2 bg-[#0a151a] text-white rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"
                             >
                                 <Plus size={14} weight="bold" /> Configure Window
                             </button>
@@ -573,7 +573,7 @@ export default function RegistrarClient({
                                                 <button
                                                     onClick={() => handleFinalizeGrade(grade.id)}
                                                     disabled={isLoading}
-                                                    className="px-4 py-2 bg-[#9c27b3] text-white rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50 inline-flex items-center gap-2"
+                                                    className="px-4 py-2 bg-[#0a151a] text-white rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all disabled:opacity-50 inline-flex items-center gap-2"
                                                 >
                                                     <ShieldCheck size={14} weight="bold" /> Approve & Seal
                                                 </button>
@@ -681,7 +681,7 @@ export default function RegistrarClient({
                                     });
                                     setShowSemesterModal(true);
                                 }}
-                                className="px-4 py-2 bg-[#9c27b3] text-white rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"
+                                className="px-4 py-2 bg-[#0a151a] text-white rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"
                             >
                                 <Plus size={14} weight="bold" /> Add Term
                             </button>
@@ -811,7 +811,7 @@ export default function RegistrarClient({
                                 });
                                 setShowSessionModal(true);
                             }}
-                            className="bg-[#9c27b3] text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"
+                            className="bg-[#0a151a] text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"
                         >
                             <Calendar size={14} weight="bold" /> Add Session
                         </button>
@@ -900,7 +900,7 @@ export default function RegistrarClient({
                         buildings.map(building => {
                             const totalRooms = building.housing_rooms?.[0]?.count || 0;
                             return (
-                                <div key={building.id} className="bg-white border border-neutral-200 p-6 rounded-2xl shadow-sm hover:border-[#9c27b3] transition-all group">
+                                <div key={building.id} className="bg-white border border-neutral-200 p-6 rounded-2xl shadow-sm hover:border-[#0a151a] transition-all group">
                                     <div className="flex justify-between items-start mb-4">
                                         <div className="p-3 bg-teal-50 text-teal-600 rounded-xl group-hover:bg-teal-600 group-hover:text-white transition-all">
                                             <Settings size={24} />
@@ -951,7 +951,7 @@ export default function RegistrarClient({
 
             {/* Session Modal */}
             {showSessionModal && (
-                <div className="fixed inset-0 bg-[#9c27b3]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div className="fixed inset-0 bg-[#0a151a]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-300">
                         <div className="p-8 border-b border-neutral-100 flex justify-between items-center bg-neutral-50/50">
                             <div>
@@ -1041,7 +1041,7 @@ export default function RegistrarClient({
                                                 key={t}
                                                 type="button"
                                                 onClick={() => setSessionFormData({ ...sessionFormData, location_type: t as any })}
-                                                className={`flex-1 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${sessionFormData.location_type === t ? 'bg-[#9c27b3] text-white' : 'bg-neutral-100 text-neutral-400 hover:bg-neutral-200'}`}
+                                                className={`flex-1 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${sessionFormData.location_type === t ? 'bg-[#0a151a] text-white' : 'bg-neutral-100 text-neutral-400 hover:bg-neutral-200'}`}
                                             >
                                                 {t}
                                             </button>
@@ -1072,7 +1072,7 @@ export default function RegistrarClient({
                             <button
                                 onClick={handleSaveSession}
                                 disabled={isLoading || !sessionFormData.module_id || !sessionFormData.semester_id}
-                                className="flex-1 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest bg-[#9c27b3] text-white hover:bg-neutral-800 transition-all shadow-xl shadow-black/10 flex items-center justify-center gap-2 disabled:opacity-50"
+                                className="flex-1 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest bg-[#0a151a] text-white hover:bg-neutral-800 transition-all shadow-xl shadow-black/10 flex items-center justify-center gap-2 disabled:opacity-50"
                             >
                                 {isLoading ? <Loader2 className="animate-spin" size={14} weight="bold" /> : (editingSession ? 'Update Session' : 'Save Session')}
                             </button>
@@ -1082,7 +1082,7 @@ export default function RegistrarClient({
             )}
             {/* Semester Modal */}
             {showSemesterModal && (
-                <div className="fixed inset-0 bg-[#9c27b3]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div className="fixed inset-0 bg-[#0a151a]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-300">
                         <div className="p-8 border-b border-neutral-100 flex justify-between items-center bg-neutral-50/50">
                             <div>
@@ -1139,7 +1139,7 @@ export default function RegistrarClient({
                         </div>
                         <div className="p-8 bg-neutral-50/50 flex gap-4">
                             <button onClick={() => setShowSemesterModal(false)} className="flex-1 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest border border-neutral-200 hover:bg-neutral-100 transition-all">Cancel</button>
-                            <button onClick={handleSaveSemester} disabled={isLoading || !semesterFormData.name} className="flex-1 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest bg-[#9c27b3] text-white hover:bg-neutral-800 transition-all flex items-center justify-center gap-2">
+                            <button onClick={handleSaveSemester} disabled={isLoading || !semesterFormData.name} className="flex-1 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest bg-[#0a151a] text-white hover:bg-neutral-800 transition-all flex items-center justify-center gap-2">
                                 {isLoading ? <Loader2 className="animate-spin" size={14} weight="bold" /> : (editingSemester ? 'Update Term' : 'Save Term')}
                             </button>
                         </div>
@@ -1149,7 +1149,7 @@ export default function RegistrarClient({
 
             {/* Window Modal */}
             {showWindowModal && (
-                <div className="fixed inset-0 bg-[#9c27b3]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div className="fixed inset-0 bg-[#0a151a]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-300">
                         <div className="p-8 border-b border-neutral-100 flex justify-between items-center bg-neutral-50/50">
                             <div>
@@ -1215,7 +1215,7 @@ export default function RegistrarClient({
                                             key={t}
                                             type="button"
                                             onClick={() => setWindowFormData({ ...windowFormData, status: t as any })}
-                                            className={`flex-1 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${windowFormData.status === t ? 'bg-[#9c27b3] text-white' : 'bg-neutral-100 text-neutral-400 hover:bg-neutral-200'}`}
+                                            className={`flex-1 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${windowFormData.status === t ? 'bg-[#0a151a] text-white' : 'bg-neutral-100 text-neutral-400 hover:bg-neutral-200'}`}
                                         >
                                             {t}
                                         </button>
@@ -1225,7 +1225,7 @@ export default function RegistrarClient({
                         </div>
                         <div className="p-8 bg-neutral-50/50 flex gap-4">
                             <button onClick={() => setShowWindowModal(false)} className="flex-1 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest border border-neutral-200 hover:bg-neutral-100 transition-all">Cancel</button>
-                            <button onClick={handleSaveWindow} disabled={isLoading || !windowFormData.semester_id || !windowFormData.open_at || !windowFormData.close_at} className="flex-1 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest bg-[#9c27b3] text-white hover:bg-neutral-800 transition-all flex items-center justify-center gap-2">
+                            <button onClick={handleSaveWindow} disabled={isLoading || !windowFormData.semester_id || !windowFormData.open_at || !windowFormData.close_at} className="flex-1 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest bg-[#0a151a] text-white hover:bg-neutral-800 transition-all flex items-center justify-center gap-2">
                                 {isLoading ? <Loader2 className="animate-spin" size={14} weight="bold" /> : (editingWindow ? 'Update Window' : 'Create Window')}
                             </button>
                         </div>

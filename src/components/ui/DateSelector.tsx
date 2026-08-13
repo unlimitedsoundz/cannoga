@@ -84,7 +84,7 @@ export default function DateSelector({
                         handleDateChange(e.target.value, month, day);
                     }}
                     required={required}
-                    className="flex-1 bg-neutral-50 border border-neutral-100 rounded-xl px-3 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#9c27b3] transition-all appearance-none"
+                    className="flex-1 bg-neutral-50 border border-neutral-100 rounded-xl px-3 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#0a151a] transition-all appearance-none"
                     style={{ backgroundImage: 'none' }}
                 >
                     <option value="">Year</option>
@@ -101,7 +101,7 @@ export default function DateSelector({
                         handleDateChange(year, e.target.value, day);
                     }}
                     required={required}
-                    className="flex-[1.5] bg-neutral-50 border border-neutral-100 rounded-xl px-3 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#9c27b3] transition-all appearance-none"
+                    className="flex-[1.5] bg-neutral-50 border border-neutral-100 rounded-xl px-3 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#0a151a] transition-all appearance-none"
                 >
                     <option value="">Month</option>
                     {months.map((m) => (
@@ -117,7 +117,7 @@ export default function DateSelector({
                         handleDateChange(year, month, e.target.value);
                     }}
                     required={required}
-                    className="flex-1 bg-neutral-50 border border-neutral-100 rounded-xl px-3 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#9c27b3] transition-all appearance-none"
+                    className="flex-1 bg-neutral-50 border border-neutral-100 rounded-xl px-3 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#0a151a] transition-all appearance-none"
                 >
                     <option value="">Day</option>
                     {days.map((d) => (

@@ -127,7 +127,7 @@ export default function FacultyForm({ id, isNew, facultyMember, schools, departm
                                         accept="image/*"
                                         className="absolute inset-0 opacity-0 cursor-pointer z-10"
                                     />
-                                    <div className="absolute inset-0 bg-[#9c27b3]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                                    <div className="absolute inset-0 bg-[#0a151a]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
                                         <p className="text-white text-[10px] font-black uppercase tracking-widest">Change Image</p>
                                     </div>
                                 </div>

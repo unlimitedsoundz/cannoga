@@ -145,12 +145,12 @@ export default function RegistrationClient({
 
                         <div className="h-2 w-full bg-neutral-100 rounded-full overflow-hidden mb-4">
                             <div
-                                className="h-full transition-all duration-500 rounded-none bg-[#9c27b3]"
+                                className="h-full transition-all duration-500 rounded-none bg-[#0a151a]"
                                 style={{ width: `${Math.min(creditProgress, 100)}%` }}
                             />
                         </div>
 
-                        <ul className="space-y-4 pt-4 border-t border-[#9c27b3]/5">
+                        <ul className="space-y-4 pt-4 border-t border-[#0a151a]/5">
                             <li className="flex items-center justify-between text-sm">
                                 <span className="text-black/60">Registered Courses</span>
                                 <span className="font-bold text-black">{initialEnrollments.length}</span>
@@ -164,7 +164,7 @@ export default function RegistrationClient({
                         </ul>
                     </div>
 
-                    <div className="bg-[#9c27b3] text-white p-5 rounded-xl shadow-xl space-y-3">
+                    <div className="bg-[#0a151a] text-white p-5 rounded-xl shadow-xl space-y-3">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-white/10 rounded-lg">
                                 <Clock size={20} weight="bold" className="text-white" />
@@ -206,10 +206,10 @@ export default function RegistrationClient({
                                 >
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-2">
-                                            <span className="text-[10px] font-mono font-bold bg-[#9c27b3] text-white px-2 py-0.5 rounded-none">
+                                            <span className="text-[10px] font-mono font-bold bg-[#0a151a] text-white px-2 py-0.5 rounded-none">
                                                 {module.code}
                                             </span>
-                                            <span className="text-[10px] font-bold bg-[#9c27b3] text-white px-2 py-0.5 rounded-none uppercase">
+                                            <span className="text-[10px] font-bold bg-[#0a151a] text-white px-2 py-0.5 rounded-none uppercase">
                                                 {module.credits} Credits
                                             </span>
                                         </div>
@@ -244,7 +244,7 @@ export default function RegistrationClient({
                                             <button
                                                 onClick={() => handleDrop(module.id)}
                                                 disabled={isPending}
-                                                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-white border border-[#9c27b3] text-black rounded-none text-xs font-bold uppercase tracking-widest hover:bg-neutral-50 transition-all disabled:opacity-50"
+                                                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-white border border-[#0a151a] text-black rounded-none text-xs font-bold uppercase tracking-widest hover:bg-neutral-50 transition-all disabled:opacity-50"
                                             >
                                                 <Trash size={14} weight="bold" /> Drop
                                             </button>
@@ -252,7 +252,7 @@ export default function RegistrationClient({
                                             <button
                                                 onClick={() => handleRegister(module.id)}
                                                 disabled={isPending || window?.status !== 'OPEN'}
-                                                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-neutral-900 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-[#9c27b3] transition-all disabled:opacity-50"
+                                                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-neutral-900 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-[#0a151a] transition-all disabled:opacity-50"
                                             >
                                                 <Plus size={14} weight="bold" /> Register
                                             </button>

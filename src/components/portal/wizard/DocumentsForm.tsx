@@ -145,7 +145,7 @@ export default function DocumentsForm({ applicationId, existingDocuments, reques
 
                             <div className="flex items-center gap-3">
                                 {doc ? (
-                                    <div className="flex items-center gap-2 border border-[#9c27b3]/20 p-2 px-3 rounded-sm bg-white">
+                                    <div className="flex items-center gap-2 border border-[#0a151a]/20 p-2 px-3 rounded-sm bg-white">
                                         <FileText size={14} weight="regular" className="text-black" />
                                         <span className="text-[13px] font-medium truncate max-w-[120px] text-black">{doc.name}</span>
                                         <button
@@ -157,7 +157,7 @@ export default function DocumentsForm({ applicationId, existingDocuments, reques
                                         </button>
                                     </div>
                                 ) : (
-                                    <label className={`cursor-pointer border ${isRequested ? 'border-neutral-600 text-neutral-600 bg-white' : 'border-[#9c27b3] text-black bg-white'} px-4 py-2 rounded-sm text-[13px] font-semibold flex items-center gap-2 hover:bg-neutral-50 transition-all ${isUploading ? 'opacity-50 pointer-events-none' : ''}`}>
+                                    <label className={`cursor-pointer border ${isRequested ? 'border-neutral-600 text-neutral-600 bg-white' : 'border-[#0a151a] text-black bg-white'} px-4 py-2 rounded-sm text-[13px] font-semibold flex items-center gap-2 hover:bg-neutral-50 transition-all ${isUploading ? 'opacity-50 pointer-events-none' : ''}`}>
                                         {isUploading ? <Loader2 className="animate-spin" size={14} weight="bold" /> : <Upload size={14} weight="bold" />}
                                         {isUploading ? 'Uploading...' : 'Upload'}
                                         <input
@@ -210,7 +210,7 @@ export default function DocumentsForm({ applicationId, existingDocuments, reques
                             setIsSaving(false);
                         }}
                         disabled={!allRequiredUploaded || isSaving}
-                        className="flex items-center justify-center gap-3 bg-[#9c27b3] text-white px-8 py-5 rounded-sm text-[13px] font-black hover:bg-neutral-800 transition-all disabled:opacity-50 shadow-lg shadow-neutral-100/50 min-w-[200px]"
+                        className="flex items-center justify-center gap-3 bg-[#0a151a] text-white px-8 py-5 rounded-sm text-[13px] font-black hover:bg-neutral-800 transition-all disabled:opacity-50 shadow-lg shadow-neutral-100/50 min-w-[200px]"
                     >
                         {isSaving ? (
                             <>

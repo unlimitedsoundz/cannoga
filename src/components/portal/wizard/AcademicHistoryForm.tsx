@@ -144,7 +144,7 @@ export default function AcademicHistoryForm({ applicationId, initialData, onUpda
             <button
                 type="button"
                 onClick={() => append({ institution: '', degree: '', startYear: '', endYear: '', grade: '' })}
-                className="w-fit px-8 py-4 border-2 border-dashed border-neutral-100 rounded-sm text-black font-semibold text-[11px] hover:border-[#9c27b3] hover:text-black transition-all flex items-center justify-center gap-2 group"
+                className="w-fit px-8 py-4 border-2 border-dashed border-neutral-100 rounded-sm text-black font-semibold text-[11px] hover:border-[#0a151a] hover:text-black transition-all flex items-center justify-center gap-2 group"
             >
                 <Plus size={14} weight="bold" className="group-hover:rotate-90 transition-transform" />
                 Add another qualification
@@ -181,7 +181,7 @@ export default function AcademicHistoryForm({ applicationId, initialData, onUpda
                 <button
                     type="submit"
                     disabled={isSaving}
-                    className="flex items-center justify-center gap-2 bg-[#9c27b3] text-white px-8 py-4 rounded-sm text-[13px] font-black hover:bg-neutral-800 transition-all disabled:opacity-50 min-w-[200px]"
+                    className="flex items-center justify-center gap-2 bg-[#0a151a] text-white px-8 py-4 rounded-sm text-[13px] font-black hover:bg-neutral-800 transition-all disabled:opacity-50 min-w-[200px]"
                 >
                     {isSaving ? (
                         <>

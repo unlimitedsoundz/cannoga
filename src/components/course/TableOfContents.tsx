@@ -52,7 +52,7 @@ function CollapsibleSection({ section }: { section: Section }) {
                             <Link
                                 key={item.title}
                                 href={item.href}
-                                className="text-sm text-black font-bold py-1 px-3 bg-[#9c27b3]/10 hover:bg-[#9c27b3] hover:text-white transition-all underline decoration-1 underline-offset-4"
+                                className="text-sm text-black font-bold py-1 px-3 bg-[#0a151a]/10 hover:bg-[#0a151a] hover:text-white transition-all underline decoration-1 underline-offset-4"
                             >
                                 {item.title}
                             </Link>

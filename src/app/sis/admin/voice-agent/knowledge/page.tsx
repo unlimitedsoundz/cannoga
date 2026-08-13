@@ -335,11 +335,11 @@ export default function VoiceAgentKnowledgePage() {
         subtitle="Manage voice agent knowledge entries and FAQs"
         actions={
           activeTab === 'knowledge' ? (
-            <button onClick={startCreateKnowledge} className="inline-flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors">
+            <button onClick={startCreateKnowledge} className="inline-flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors">
               <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Knowledge
             </button>
           ) : (
-            <button onClick={startCreateFAQ} className="inline-flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors">
+            <button onClick={startCreateFAQ} className="inline-flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors">
               <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add FAQ
             </button>
           )
@@ -417,7 +417,7 @@ export default function VoiceAgentKnowledgePage() {
               <input type="number" value={formData.priority} onChange={e => setFormData({ ...formData, priority: parseInt(e.target.value) || 0 })} className="w-full p-3 text-sm bg-white/5 text-white rounded-xl focus:outline-none focus:bg-white/10" />
             </div>
             <div className="flex items-center gap-2 mt-6">
-              <input type="checkbox" id="active" checked={formData.active} onChange={e => setFormData({ ...formData, active: e.target.checked })} className="w-4 h-4 text-[#9c27b3] rounded" />
+              <input type="checkbox" id="active" checked={formData.active} onChange={e => setFormData({ ...formData, active: e.target.checked })} className="w-4 h-4 text-[#0a151a] rounded" />
               <label htmlFor="active" className="text-xs font-bold uppercase tracking-wider text-slate-400">Active</label>
             </div>
           </div>
@@ -425,7 +425,7 @@ export default function VoiceAgentKnowledgePage() {
             <button
               onClick={() => editingEntry ? handleUpdateKnowledge({ id: editingEntry.id, ...formData }) : handleCreateKnowledge(formData)}
               disabled={saving}
-              className="px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-50"
             >
               {saving ? 'Saving...' : editingEntry ? 'Update' : 'Create'}
             </button>
@@ -464,7 +464,7 @@ export default function VoiceAgentKnowledgePage() {
               <input type="number" value={faqFormData.priority} onChange={e => setFaqFormData({ ...faqFormData, priority: parseInt(e.target.value) || 0 })} className="w-full p-3 text-sm bg-white/5 text-white rounded-xl focus:outline-none focus:bg-white/10" />
             </div>
             <div className="flex items-center gap-2 mt-6">
-              <input type="checkbox" id="faq-active" checked={faqFormData.active} onChange={e => setFaqFormData({ ...faqFormData, active: e.target.checked })} className="w-4 h-4 text-[#9c27b3] rounded" />
+              <input type="checkbox" id="faq-active" checked={faqFormData.active} onChange={e => setFaqFormData({ ...faqFormData, active: e.target.checked })} className="w-4 h-4 text-[#0a151a] rounded" />
               <label htmlFor="faq-active" className="text-xs font-bold uppercase tracking-wider text-slate-400">Active</label>
             </div>
           </div>
@@ -472,7 +472,7 @@ export default function VoiceAgentKnowledgePage() {
             <button
               onClick={() => editingFAQ ? handleUpdateFAQ({ id: editingFAQ.id, ...faqFormData }) : handleCreateFAQ(faqFormData)}
               disabled={saving}
-              className="px-4 py-2 bg-[#9c27b3] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-50"
             >
               {saving ? 'Saving...' : editingFAQ ? 'Update' : 'Create'}
             </button>

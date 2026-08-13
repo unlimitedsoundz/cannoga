@@ -176,7 +176,7 @@ export default async function SchoolDetails({ params }: Props) {
                             <h2 className="text-aalto-5 font-bold text-black flex items-center gap-3">
                                 Featured Programs
                             </h2>
-                            <Link href={`/studies?school=${school.id}`} className="text-aalto-2 font-bold border-b border-[#9c27b3] pb-1 hover:text-neutral-600 transition-colors hidden md:block">
+                            <Link href={`/studies?school=${school.id}`} className="text-aalto-2 font-bold border-b border-[#0a151a] pb-1 hover:text-neutral-600 transition-colors hidden md:block">
                                 View All Programs
                             </Link>
                         </div>
@@ -257,7 +257,7 @@ export default async function SchoolDetails({ params }: Props) {
                 <div className="container mx-auto px-4">
                     <div className="grid lg:grid-cols-2 gap-8">
                         {/* Collaboration */}
-                        <div className="bg-[#9c27b3] text-white p-12">
+                        <div className="bg-[#0a151a] text-white p-12">
                             <h2 className="text-aalto-5 font-bold mb-aalto-p6 flex items-center gap-3 text-white tracking-tight">
                                 Collaboration & Partnerships
                             </h2>
@@ -278,7 +278,7 @@ export default async function SchoolDetails({ params }: Props) {
                         </div>
 
                         {/* Leadership */}
-                        <div className="bg-[#9c27b3] text-white p-12">
+                        <div className="bg-[#0a151a] text-white p-12">
                             <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-white tracking-tight">Leadership & Administration</h2>
                             <div className="space-y-8">
                                 <div>
@@ -337,7 +337,7 @@ export default async function SchoolDetails({ params }: Props) {
                             <h2 className="text-aalto-5 font-bold mb-aalto-p6 underline underline-offset-8 text-black tracking-tight">Contact Information</h2>
                             <div className="space-y-8">
                                 <div className="flex gap-4 items-start">
-                                    <div className="bg-neutral-100 p-10 border border-[#9c27b3]">
+                                    <div className="bg-neutral-100 p-10 border border-[#0a151a]">
                                         <p className="font-bold text-lg">Cannoga College – Ottawa campus</p>
                                         <p className="font-medium text-neutral-800">81 Montreal Rd, K1L 6E8 Ottawa, Ontario, Canada</p>
                                     </div>
@@ -363,7 +363,7 @@ export default async function SchoolDetails({ params }: Props) {
             </section>
 
             {/* 7. FOOTER CALL TO ACTION */}
-            <section className="bg-[#9c27b3] text-white py-12">
+            <section className="bg-[#0a151a] text-white py-12">
                 <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
                     <p className="text-2xl font-bold underline decoration-white/30">Discover what&apos;s possible at {school.name}.</p>
                     <Link href="/admissions" className="bg-[#f3e600] text-black px-10 py-4 font-bold hover:bg-white transition-colors">

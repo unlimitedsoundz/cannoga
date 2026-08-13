@@ -81,7 +81,7 @@ export function CookieConsent() {
                             </button>
                             <button
                                 onClick={acceptAll}
-                                className="px-8 py-2.5 rounded-xl bg-[#9c27b3] text-white font-bold text-sm hover:bg-neutral-800 transition-all cursor-pointer shadow-lg active:scale-95"
+                                className="px-8 py-2.5 rounded-xl bg-[#0a151a] text-white font-bold text-sm hover:bg-neutral-800 transition-all cursor-pointer shadow-lg active:scale-95"
                             >
                                 Allow All
                             </button>
@@ -103,7 +103,7 @@ export function CookieConsent() {
                                 </div>
 
                                 {/* Analytics */}
-                                <div className={`p-4 rounded-2xl space-y-3 border-2 transition-all cursor-pointer ${prefs.analytics ? 'bg-[#9c27b3] text-white border-transparent' : 'bg-neutral-50 border-transparent text-neutral-900 opacity-60'}`}
+                                <div className={`p-4 rounded-2xl space-y-3 border-2 transition-all cursor-pointer ${prefs.analytics ? 'bg-[#0a151a] text-white border-transparent' : 'bg-neutral-50 border-transparent text-neutral-900 opacity-60'}`}
                                     onClick={() => setPrefs({ ...prefs, analytics: !prefs.analytics })}>
                                     <div className="flex items-center justify-between">
                                         <div className={`w-8 h-4 rounded-full relative transition-colors ${prefs.analytics ? 'bg-white/20' : 'bg-neutral-300'}`}>
@@ -117,7 +117,7 @@ export function CookieConsent() {
                                 </div>
 
                                 {/* Marketing */}
-                                <div className={`p-4 rounded-2xl space-y-3 border-2 transition-all cursor-pointer ${prefs.marketing ? 'bg-[#9c27b3] text-white border-transparent' : 'bg-neutral-50 border-transparent text-neutral-900 opacity-60'}`}
+                                <div className={`p-4 rounded-2xl space-y-3 border-2 transition-all cursor-pointer ${prefs.marketing ? 'bg-[#0a151a] text-white border-transparent' : 'bg-neutral-50 border-transparent text-neutral-900 opacity-60'}`}
                                     onClick={() => setPrefs({ ...prefs, marketing: !prefs.marketing })}>
                                     <div className="flex items-center justify-between">
                                         <div className={`w-8 h-4 rounded-full relative transition-colors ${prefs.marketing ? 'bg-white/20' : 'bg-neutral-300'}`}>
@@ -134,7 +134,7 @@ export function CookieConsent() {
                             <div className="flex justify-end">
                                 <button
                                     onClick={handleCustomSave}
-                                    className="px-8 py-3 rounded-xl bg-[#9c27b3] text-white font-bold text-sm hover:bg-neutral-800 transition-all shadow-md active:scale-95"
+                                    className="px-8 py-3 rounded-xl bg-[#0a151a] text-white font-bold text-sm hover:bg-neutral-800 transition-all shadow-md active:scale-95"
                                 >
                                     Save My Choices
                                 </button>

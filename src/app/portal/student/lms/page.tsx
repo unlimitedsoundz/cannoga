@@ -110,10 +110,10 @@ export default function LmsPage() {
                             </p>
                         </div>
                     ) : lmsAccess ? (
-                        <div className="bg-card border-2 border-[#9c27b3] p-8 rounded-sm shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                        <div className="bg-card border-2 border-[#0a151a] p-8 rounded-sm shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                             <div className="flex items-start justify-between mb-6">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-16 h-16 bg-[#9c27b3] text-white rounded-sm flex items-center justify-center">
+                                    <div className="w-16 h-16 bg-[#0a151a] text-white rounded-sm flex items-center justify-center">
                                         <BookOpen size={32} weight="bold" />
                                     </div>
                                     <div>
@@ -157,13 +157,13 @@ export default function LmsPage() {
                                 href={lmsAccess.asset?.access_url || "https://canvas.instructure.com"}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-6 py-3 bg-[#9c27b3] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-[#0a151a] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
                             >
                                 <ExternalLink size={14} weight="bold" /> Launch Canvas LMS
                             </a>
                         </div>
                     ) : (
-                        <div className="bg-card border-2 border-[#9c27b3] p-12 rounded-sm text-center shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                        <div className="bg-card border-2 border-[#0a151a] p-12 rounded-sm text-center shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                             <BookOpen size={48} weight="bold" className="mx-auto text-neutral-900 mb-6" />
                             <h2 className="text-xl font-black uppercase mb-2">LMS Not Provisioned</h2>
                             <p className="text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">

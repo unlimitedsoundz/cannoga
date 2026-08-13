@@ -75,7 +75,7 @@ function NavItemComponent({ item, pathname, depth = 0, isDark = false }: { item:
         <>
           <button
             onClick={() => setExpanded(!expanded)}
-            className={`w-full flex items-center gap-3 px-3 py-2 text-left transition-colors ${depth === 0 ? 'text-xs font-bold uppercase tracking-widest' : 'text-xs'} ${active || childActive ? 'text-[#9c27b3] bg-[#faf5ff]' : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'}`}
+            className={`w-full flex items-center gap-3 px-3 py-2 text-left transition-colors ${depth === 0 ? 'text-xs font-bold uppercase tracking-widest' : 'text-xs'} ${active || childActive ? 'text-[#0a151a] bg-[#faf5ff]' : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'}`}
             style={{ paddingLeft: depth === 0 ? '1rem' : `${1 + depth * 0.75}rem` }}
           >
             {expanded ? <HugeiconsIcon icon={ChevronDown} size={12} strokeWidth={2.5} /> : <HugeiconsIcon icon={ChevronRight} size={12} strokeWidth={2.5} />}
@@ -92,7 +92,7 @@ function NavItemComponent({ item, pathname, depth = 0, isDark = false }: { item:
       ) : (
         <Link
           href={item.href || '#'}
-          className={`block px-3 py-1.5 text-left transition-colors ${depth === 0 ? 'text-xs font-bold uppercase tracking-widest' : 'text-xs'} ${active ? 'text-[#9c27b3] bg-[#faf5ff] font-bold' : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'}`}
+          className={`block px-3 py-1.5 text-left transition-colors ${depth === 0 ? 'text-xs font-bold uppercase tracking-widest' : 'text-xs'} ${active ? 'text-[#0a151a] bg-[#faf5ff] font-bold' : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'}`}
           style={{ paddingLeft: depth === 0 ? '1rem' : `${1 + depth * 0.75}rem` }}
         >
           {item.label}

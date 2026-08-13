@@ -13,7 +13,7 @@ export default function RefundWithdrawalPolicyPage() {
     return (
         <div className="bg-white min-h-screen font-sans text-black">
             {/* HERO SECTION */}
-            <section className="bg-[#9c27b3] text-white pt-32 pb-24 md:pt-48 md:pb-32 px-4">
+            <section className="bg-[#0a151a] text-white pt-32 pb-24 md:pt-48 md:pb-32 px-4">
                 <div className="container mx-auto max-w-4xl">
                     <Link href="/admissions" className="inline-flex items-center gap-2 text-neutral-400 hover:text-white mb-8 transition-colors">
                         <ArrowLeft size={20} /> Back to Admissions
@@ -33,7 +33,7 @@ export default function RefundWithdrawalPolicyPage() {
 
                     {/* 1. PURPOSE */}
                     <section id="purpose" className="scroll-mt-32">
-                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#9c27b3] pt-8">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#0a151a] pt-8">
                             <div className="md:w-1/4">
                                 <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">01</span>
                             </div>
@@ -56,7 +56,7 @@ export default function RefundWithdrawalPolicyPage() {
 
                     {/* 2. SCOPE */}
                     <section id="scope" className="scroll-mt-32">
-                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#9c27b3] pt-8">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#0a151a] pt-8">
                             <div className="md:w-1/4">
                                 <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">02</span>
                             </div>
@@ -81,7 +81,7 @@ export default function RefundWithdrawalPolicyPage() {
 
                     {/* 3. DECANITIONS */}
                     <section id="definitions" className="scroll-mt-32">
-                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#9c27b3] pt-8">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#0a151a] pt-8">
                             <div className="md:w-1/4">
                                 <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">03</span>
                             </div>
@@ -111,7 +111,7 @@ export default function RefundWithdrawalPolicyPage() {
 
                     {/* 4. GENERAL PRINCIPLES */}
                     <section id="general-principles" className="scroll-mt-32">
-                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#9c27b3] pt-8">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#0a151a] pt-8">
                             <div className="md:w-1/4">
                                 <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">04</span>
                             </div>
@@ -129,7 +129,7 @@ export default function RefundWithdrawalPolicyPage() {
 
                     {/* 5. WITHDRAWAL PROCEDURE */}
                     <section id="withdrawal-procedure" className="scroll-mt-32">
-                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#9c27b3] pt-8">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#0a151a] pt-8">
                             <div className="md:w-1/4">
                                 <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">05</span>
                             </div>
@@ -161,7 +161,7 @@ export default function RefundWithdrawalPolicyPage() {
 
                     {/* 6. REFUND POLICY */}
                     <section id="refund-policy" className="scroll-mt-32">
-                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#9c27b3] pt-8">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#0a151a] pt-8">
                             <div className="md:w-1/4">
                                 <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">06</span>
                             </div>
@@ -213,7 +213,7 @@ export default function RefundWithdrawalPolicyPage() {
 
                     {/* 7. REFUND PROCESS */}
                     <section id="refund-process" className="scroll-mt-32">
-                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#9c27b3] pt-8">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#0a151a] pt-8">
                             <div className="md:w-1/4">
                                 <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">07</span>
                             </div>
@@ -231,7 +231,7 @@ export default function RefundWithdrawalPolicyPage() {
 
                     {/* 8. CANCELLATION OF OFFER */}
                     <section id="cancellation" className="scroll-mt-32">
-                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#9c27b3] pt-8">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#0a151a] pt-8">
                             <div className="md:w-1/4">
                                 <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">08</span>
                             </div>
@@ -249,7 +249,7 @@ export default function RefundWithdrawalPolicyPage() {
 
                     {/* 9. LEAVE OF ABSENCE */}
                     <section id="leave-of-absence" className="scroll-mt-32">
-                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#9c27b3] pt-8">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#0a151a] pt-8">
                             <div className="md:w-1/4">
                                 <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">09</span>
                             </div>
@@ -266,7 +266,7 @@ export default function RefundWithdrawalPolicyPage() {
 
                     {/* 10. SPECIAL CIRCUMSTANCES */}
                     <section id="special-circumstances" className="scroll-mt-32">
-                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#9c27b3] pt-8">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#0a151a] pt-8">
                             <div className="md:w-1/4">
                                 <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">10</span>
                             </div>
@@ -285,7 +285,7 @@ export default function RefundWithdrawalPolicyPage() {
 
                     {/* 11. COMMUNICATION & DISPUTES */}
                     <section id="communication" className="scroll-mt-32">
-                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#9c27b3] pt-8">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#0a151a] pt-8">
                             <div className="md:w-1/4">
                                 <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">11</span>
                             </div>
@@ -301,8 +301,8 @@ export default function RefundWithdrawalPolicyPage() {
                     </section>
 
                     {/* 12. POLICY REVIEW */}
-                    <section id="policy-review" className="scroll-mt-32 border-b border-[#9c27b3] pb-16">
-                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#9c27b3] pt-8">
+                    <section id="policy-review" className="scroll-mt-32 border-b border-[#0a151a] pb-16">
+                        <div className="flex flex-col md:flex-row gap-6 md:gap-12 border-t border-[#0a151a] pt-8">
                             <div className="md:w-1/4">
                                 <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">12</span>
                             </div>

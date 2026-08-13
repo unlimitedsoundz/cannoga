@@ -338,17 +338,17 @@ export default function RoomsPage() {
         actions={
           <div className="flex items-center gap-2">
             {viewTab === 'rooms' && (
-              <button onClick={() => openRoomModal()} className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
+              <button onClick={() => openRoomModal()} className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
                 <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Room
               </button>
             )}
             {viewTab === 'features' && (
-              <button onClick={() => openFeatureModal()} className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
+              <button onClick={() => openFeatureModal()} className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800">
                 <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Feature
               </button>
             )}
             {viewTab === 'availability' && (
-              <button onClick={() => openAvailabilityModal()} disabled={!selectedRoomId} className="flex items-center gap-2 px-4 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
+              <button onClick={() => openAvailabilityModal()} disabled={!selectedRoomId} className="flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
                 <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Block
               </button>
             )}
@@ -358,7 +358,7 @@ export default function RoomsPage() {
 
       <div className="flex gap-4 border-b border-neutral-200">
         {['rooms', 'features', 'availability'].map(tab => (
-          <button key={tab} onClick={() => setViewTab(tab as any)} className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${viewTab === tab ? 'border-[#9c27b3] text-[#9c27b3]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}>
+          <button key={tab} onClick={() => setViewTab(tab as any)} className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${viewTab === tab ? 'border-[#0a151a] text-[#0a151a]' : 'border-transparent text-slate-400 hover:text-neutral-600'}`}>
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
           </button>
         ))}
@@ -412,7 +412,7 @@ export default function RoomsPage() {
       <Modal isOpen={showRoomModal} onClose={() => { setShowRoomModal(false); setEditingRoom(null); resetRoomForm(); }} title={editingRoom ? 'Edit Room' : 'New Room'} size="lg" footer={
         <div className="flex justify-end gap-3">
           <button onClick={() => { setShowRoomModal(false); setEditingRoom(null); resetRoomForm(); }} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-neutral-600 hover:text-black">Cancel</button>
-          <button onClick={handleSaveRoom} disabled={saving} className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
+          <button onClick={handleSaveRoom} disabled={saving} className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
             {saving ? 'Saving...' : 'Save Room'}
           </button>
         </div>
@@ -467,7 +467,7 @@ export default function RoomsPage() {
       <Modal isOpen={showFeatureModal} onClose={() => { setShowFeatureModal(false); setEditingFeature(null); resetFeatureForm(); }} title={editingFeature ? 'Edit Feature' : 'New Feature'} size="md" footer={
         <div className="flex justify-end gap-3">
           <button onClick={() => { setShowFeatureModal(false); setEditingFeature(null); resetFeatureForm(); }} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-neutral-600 hover:text-black">Cancel</button>
-          <button onClick={handleSaveFeature} disabled={saving} className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
+          <button onClick={handleSaveFeature} disabled={saving} className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
             {saving ? 'Saving...' : 'Save Feature'}
           </button>
         </div>
@@ -494,7 +494,7 @@ export default function RoomsPage() {
       <Modal isOpen={showAvailabilityModal} onClose={() => { setShowAvailabilityModal(false); setEditingAvailability(null); resetAvailabilityForm(); }} title={editingAvailability ? 'Edit Availability Block' : 'New Availability Block'} size="md" footer={
         <div className="flex justify-end gap-3">
           <button onClick={() => { setShowAvailabilityModal(false); setEditingAvailability(null); resetAvailabilityForm(); }} className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-neutral-600 hover:text-black">Cancel</button>
-          <button onClick={handleSaveAvailability} disabled={saving} className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
+          <button onClick={handleSaveAvailability} disabled={saving} className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50">
             {saving ? 'Saving...' : 'Save Block'}
           </button>
         </div>

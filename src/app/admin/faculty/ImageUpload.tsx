@@ -51,12 +51,12 @@ export default function ImageUpload({ name, defaultValue }: ImageUploadProps) {
                                 className="object-cover object-top"
                             />
                         </div>
-                        <div className="absolute inset-0 bg-[#9c27b3]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div className="absolute inset-0 bg-[#0a151a]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                             <p className="text-white text-[10px] font-bold uppercase tracking-widest">Change Photo</p>
                         </div>
                         <button
                             onClick={clearImage}
-                            className="absolute top-2 right-2 w-8 h-8 bg-[#9c27b3]/60 text-white rounded-full flex items-center justify-center hover:bg-[#9c27b3] transition-colors z-10"
+                            className="absolute top-2 right-2 w-8 h-8 bg-[#0a151a]/60 text-white rounded-full flex items-center justify-center hover:bg-[#0a151a] transition-colors z-10"
                         >
                             <X size={16} weight="bold" />
                         </button>

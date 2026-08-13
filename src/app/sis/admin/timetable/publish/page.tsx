@@ -216,7 +216,7 @@ export default function PublishTimetablePage() {
         <div className="flex justify-end gap-2">
           <button
             onClick={() => handleViewSummary(v)}
-            className="p-1.5 hover:bg-neutral-100 rounded text-neutral-500 hover:text-[#9c27b3]"
+            className="p-1.5 hover:bg-neutral-100 rounded text-neutral-500 hover:text-[#0a151a]"
             title="Review summary"
           >
             <HugeiconsIcon icon={Shield} size={14} strokeWidth={2.5} />
@@ -338,7 +338,7 @@ export default function PublishTimetablePage() {
             <button
               onClick={() => setShowPublishModal(true)}
               disabled={summary.hardConflicts > 0}
-              className="flex items-center gap-2 px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="flex items-center gap-2 px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               <HugeiconsIcon icon={Play} size={14} strokeWidth={2.5} />
               Publish Version
@@ -377,7 +377,7 @@ export default function PublishTimetablePage() {
             <button
               onClick={handlePublish}
               disabled={publishing}
-              className="px-6 py-2 bg-[#9c27b3] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50"
+              className="px-6 py-2 bg-[#0a151a] text-white rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 disabled:opacity-50"
             >
               {publishing ? 'Publishing...' : 'Publish Timetable'}
             </button>

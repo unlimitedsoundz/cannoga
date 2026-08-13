@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 /* ── tiny helper ── */
-const Dot = () => <span className="w-1.5 h-1.5 bg-[#9c27b3] rounded-full mt-2 shrink-0" />;
+const Dot = () => <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0" />;
 const Li = ({ children }: { children: React.ReactNode }) => (
     <li className="flex items-start gap-3 text-black"><Dot />{children}</li>
 );
@@ -22,7 +22,7 @@ export default function StudentHandbookPage() {
     return (
         <div className="min-h-screen bg-white">
             {/* ─── Hero ─── */}
-            <section className="bg-[#9c27b3] text-white pt-40 pb-16">
+            <section className="bg-[#0a151a] text-white pt-40 pb-16">
                 <div className="container mx-auto px-4 max-w-4xl">
                     <p className="text-xs font-mono uppercase tracking-[0.3em] text-[#f3e600] mb-4">Official Document</p>
                     <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">Student Handbook</h1>
@@ -91,7 +91,7 @@ export default function StudentHandbookPage() {
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-sm border border-neutral-200">
                                         <thead>
-                                            <tr className="bg-[#9c27b3] text-white text-left">
+                                            <tr className="bg-[#0a151a] text-white text-left">
                                                 <th className="px-4 py-3 font-bold">Status</th>
                                                 <th className="px-4 py-3 font-bold">Description</th>
                                             </tr>
@@ -410,19 +410,19 @@ export default function StudentHandbookPage() {
                     <div className="pt-12 ">
                         <h3 className="font-bold text-lg mb-6">Related Documents</h3>
                         <div className="flex flex-wrap gap-4">
-                            <Link href="/admissions-policy" className="bg-[#9c27b3] text-white px-6 py-3 font-bold text-sm hover:bg-neutral-800 transition-colors">
+                            <Link href="/admissions-policy" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-sm hover:bg-neutral-800 transition-colors">
                                 Admissions Policy →
                             </Link>
-                            <Link href="/academic-regulations" className="bg-[#9c27b3] text-white px-6 py-3 font-bold text-sm hover:bg-neutral-800 transition-colors">
+                            <Link href="/academic-regulations" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-sm hover:bg-neutral-800 transition-colors">
                                 Academic Regulations →
                             </Link>
-                            <Link href="/admissions" className="border border-[#9c27b3] px-6 py-3 font-bold text-sm hover:bg-[#9c27b3] hover:text-white transition-colors">
+                            <Link href="/admissions" className="border border-[#0a151a] px-6 py-3 font-bold text-sm hover:bg-[#0a151a] hover:text-white transition-colors">
                                 Admissions Overview →
                             </Link>
-                            <Link href="/code-of-conduct" className="border border-[#9c27b3] px-6 py-3 font-bold text-sm hover:bg-[#9c27b3] hover:text-white transition-colors">
+                            <Link href="/code-of-conduct" className="border border-[#0a151a] px-6 py-3 font-bold text-sm hover:bg-[#0a151a] hover:text-white transition-colors">
                                 Code of Conduct →
                             </Link>
-                            <Link href="/refund-withdrawal-policy/" className="border border-[#9c27b3] px-6 py-3 font-bold text-sm hover:bg-[#9c27b3] hover:text-white transition-colors">
+                            <Link href="/refund-withdrawal-policy/" className="border border-[#0a151a] px-6 py-3 font-bold text-sm hover:bg-[#0a151a] hover:text-white transition-colors">
                                 Refund Policy →
                             </Link>
                         </div>

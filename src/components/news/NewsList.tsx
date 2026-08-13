@@ -139,7 +139,7 @@ export default function NewsList({ staticArticles = [] }: NewsListProps) {
                             onClick={() => setSelectedCategory(cat)}
                             className={`px-4 md:px-6 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-bold transition-all whitespace-nowrap ${
                                 selectedCategory === cat
-                                    ? 'bg-[#9c27b3] text-white'
+                                    ? 'bg-[#0a151a] text-white'
                                     : 'bg-white text-neutral-600 hover:text-black'
                             }`}
                         >
@@ -182,7 +182,7 @@ export default function NewsList({ staticArticles = [] }: NewsListProps) {
                             }
                             badge={{
                                 label: isEvent ? 'Event' : 'News',
-                                className: isEvent ? 'bg-amber-500 text-black' : 'bg-[#9c27b3] text-white'
+                                className: isEvent ? 'bg-amber-500 text-black' : 'bg-[#0a151a] text-white'
                             }}
                             image={{
                                 src: item.imageUrl || fallbackImage,
@@ -217,7 +217,7 @@ export default function NewsList({ staticArticles = [] }: NewsListProps) {
                     <button
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className="p-2 bg-neutral-100 hover:bg-[#9c27b3] hover:text-white transition-all disabled:opacity-30 disabled:hover:bg-neutral-100 disabled:hover:text-black cursor-pointer disabled:cursor-not-allowed"
+                        className="p-2 bg-neutral-100 hover:bg-[#0a151a] hover:text-white transition-all disabled:opacity-30 disabled:hover:bg-neutral-100 disabled:hover:text-black cursor-pointer disabled:cursor-not-allowed"
                     >
                         <CaretLeft size={20} weight="bold" />
                     </button>
@@ -230,7 +230,7 @@ export default function NewsList({ staticArticles = [] }: NewsListProps) {
                                     key={pageNumber}
                                     onClick={() => handlePageChange(pageNumber)}
                                     className={`w-10 h-10 flex items-center justify-center font-bold transition-all ${currentPage === pageNumber
-                                            ? 'bg-[#9c27b3] text-white'
+                                            ? 'bg-[#0a151a] text-white'
                                             : 'bg-neutral-100 text-black hover:bg-neutral-200'
                                         }`}
                                 >
@@ -243,7 +243,7 @@ export default function NewsList({ staticArticles = [] }: NewsListProps) {
                     <button
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className="p-2 bg-neutral-100 hover:bg-[#9c27b3] hover:text-white transition-all disabled:opacity-30 disabled:hover:bg-neutral-100 disabled:hover:text-black cursor-pointer disabled:cursor-not-allowed"
+                        className="p-2 bg-neutral-100 hover:bg-[#0a151a] hover:text-white transition-all disabled:opacity-30 disabled:hover:bg-neutral-100 disabled:hover:text-black cursor-pointer disabled:cursor-not-allowed"
                     >
                         <CaretRight size={20} weight="bold" />
                     </button>

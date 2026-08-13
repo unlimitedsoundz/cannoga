@@ -135,7 +135,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
             <main className="flex-1 pt-16 container mx-auto px-4 py-8 md:py-12">
                 {children}
             </main>
-            <footer className="bg-[#9c27b3] text-white py-12 mt-auto">
+            <footer className="bg-[#0a151a] text-white py-12 mt-auto">
                 <div className="container mx-auto px-4 text-center text-[10px] font-medium uppercase tracking-widest text-white">
                     &copy; {new Date().getFullYear()} Cannoga College Portal. Secure Admissions Environment.
                     <span className="mx-2 text-white/40">|</span>

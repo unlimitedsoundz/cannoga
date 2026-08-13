@@ -139,16 +139,16 @@ export default function FacultyTimetablePage() {
           <p className="text-xs text-slate-800 mt-2">Your teaching schedule will appear here.</p>
         </div>
       ) : (
-        <div className="bg-white border-2 border-[#9c27b3] rounded-sm overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        <div className="bg-white border-2 border-[#0a151a] rounded-sm overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
           <div className="overflow-x-auto">
             <div className="min-w-[800px]">
-              <div className="grid grid-cols-6 border-b-2 border-[#9c27b3] bg-neutral-50 font-black italic">
-                <div className="p-2 border-r-2 border-[#9c27b3]"></div>
+              <div className="grid grid-cols-6 border-b-2 border-[#0a151a] bg-neutral-50 font-black italic">
+                <div className="p-2 border-r-2 border-[#0a151a]"></div>
                 {DAYS.map((day, i) => {
                   const date = weekDates[i];
                   const isToday = date.toDateString() === new Date().toDateString();
                   return (
-                    <div key={day} className={`p-2 text-center border-r-2 last:border-r-0 border-[#9c27b3] ${isToday ? 'bg-[#9c27b3] text-white' : ''}`}>
+                    <div key={day} className={`p-2 text-center border-r-2 last:border-r-0 border-[#0a151a] ${isToday ? 'bg-[#0a151a] text-white' : ''}`}>
                       <span className="text-[10px] font-black uppercase tracking-widest block">{day.substring(0, 3)}</span>
                       <span className={`text-xs font-bold ${isToday ? 'text-white' : 'text-neutral-600'}`}>{date.getDate()}</span>
                     </div>

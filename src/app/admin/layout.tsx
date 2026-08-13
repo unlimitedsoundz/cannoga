@@ -159,7 +159,7 @@ export default function AdminLayout({
             {/* Sidebar Overlay */}
             {isSidebarOpen && (
                 <div
-                    className="fixed inset-0 bg-[#9c27b3]/50 z-40 md:hidden"
+                    className="fixed inset-0 bg-[#0a151a]/50 z-40 md:hidden"
                     onClick={() => setIsSidebarOpen(false)}
                 />
             )}
@@ -198,7 +198,7 @@ export default function AdminLayout({
                     </div>
                 </nav>
 
-                <div className="p-6 bg-[#9c27b3]/20">
+                <div className="p-6 bg-[#0a151a]/20">
                     <div className="flex items-center gap-3 mb-4">
                         <UserAvatar src={undefined} firstName={profile?.first_name} email={user.email} size="sm" isLoggedIn={true} />
                         <div className="overflow-hidden">

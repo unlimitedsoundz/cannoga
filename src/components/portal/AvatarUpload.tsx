@@ -87,7 +87,7 @@ export default function AvatarUpload({ userId, currentAvatarUrl, firstName, emai
                 )}
 
                 {uploading && (
-                    <div className="absolute inset-0 bg-[#9c27b3]/50 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-[#0a151a]/50 flex items-center justify-center">
                         <Loader2 className="w-6 h-6 text-white animate-spin" weight="bold" />
                     </div>
                 )}
@@ -97,7 +97,7 @@ export default function AvatarUpload({ userId, currentAvatarUrl, firstName, emai
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={uploading}
-                className="absolute bottom-0 right-0 p-2 bg-[#9c27b3] text-white rounded-full force-circle shadow-lg border-2 border-white hover:scale-110 transition-all disabled:opacity-50 disabled:scale-100"
+                className="absolute bottom-0 right-0 p-2 bg-[#0a151a] text-white rounded-full force-circle shadow-lg border-2 border-white hover:scale-110 transition-all disabled:opacity-50 disabled:scale-100"
                 title="Change Profile Picture"
             >
                 <Camera size={14} weight="bold" />

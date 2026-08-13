@@ -67,7 +67,7 @@ export default function PrivacyPolicyPage() {
                         <div className="prose prose-neutral max-w-none space-y-8 md:space-y-16">
 
                             <section id="introduction" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">1. Introduction</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">1. Introduction</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     Cannoga College is committed to protecting the privacy and personal data of its students, applicants, staff, partners, alumni, and website users. This Privacy Policy explains how Cannoga College collects, uses, stores, shares, and protects personal data in accordance with applicable data protection laws, including the General Data Protection Regulation (GDPR) and relevant Canadian data protection legislation.
                                 </p>
@@ -77,7 +77,7 @@ export default function PrivacyPolicyPage() {
                             </section>
 
                             <section id="data-controller" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">2. Data Controller</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">2. Data Controller</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     Cannoga College acts as the data controller for personal data processed in relation to its educational, administrative, and operational activities.
                                     Contact details of the Data Protection Officer or responsible unit will be made available on the official Cannoga College website.
@@ -85,14 +85,14 @@ export default function PrivacyPolicyPage() {
                             </section>
 
                             <section id="scope" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">3. Scope of This Policy</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">3. Scope of This Policy</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     This Privacy Policy applies to all personal data processed by Cannoga College, including data related to prospective students, enrolled students, graduates, staff, visiting lecturers, partners, research participants, and users of Cannoga College websites, systems, and services.
                                 </p>
                             </section>
 
                             <section id="categories" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">4. Categories of Personal Data Collected</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">4. Categories of Personal Data Collected</h2>
                                 <p className="text-neutral-700 leading-relaxed mb-6">
                                     Cannoga College may collect and process the following categories of personal data where relevant and lawful:
                                 </p>
@@ -112,7 +112,7 @@ export default function PrivacyPolicyPage() {
                             </section>
 
                             <section id="legal-basis" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">5. Legal Basis for Processing</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">5. Legal Basis for Processing</h2>
                                 <p className="text-neutral-700 leading-relaxed mb-6">
                                     Personal data is processed on one or more of the following legal bases:
                                 </p>
@@ -125,7 +125,7 @@ export default function PrivacyPolicyPage() {
                             </section>
 
                             <section id="purposes" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">6. Purposes of Data Processing</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">6. Purposes of Data Processing</h2>
                                 <p className="text-neutral-700 leading-relaxed mb-6">
                                     Cannoga College processes personal data for the following purposes:
                                 </p>
@@ -143,7 +143,7 @@ export default function PrivacyPolicyPage() {
                             </section>
 
                             <section id="retention" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">7. Data Retention</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">7. Data Retention</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     Personal data is retained only for as long as necessary to fulfil the purposes for which it was collected and to comply with legal retention requirements.
                                     Retention periods are defined in accordance with Canadian archival regulations, education legislation, and internal data management policies.
@@ -152,28 +152,28 @@ export default function PrivacyPolicyPage() {
                             </section>
 
                             <section id="sharing" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">8. Data Sharing and Disclosure</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">8. Data Sharing and Disclosure</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     Cannoga College may share personal data with third parties only where necessary and lawful, including government authorities, educational partners, service providers, and research partners. All third parties are required to process data in accordance with law and confidentiality obligations.
                                 </p>
                             </section>
 
                             <section id="transfers" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">9. International Data Transfers</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">9. International Data Transfers</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     Where personal data is transferred outside the EEA, Cannoga College ensures appropriate safeguards are in place, such as adequacy decisions or standard contractual clauses.
                                 </p>
                             </section>
 
                             <section id="security" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">10. Data Security</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">10. Data Security</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     We implement appropriate technical and organisational measures to protect data against unauthorised access, loss, or misuse. This includes access controls, encryption, and regular security reviews.
                                 </p>
                             </section>
 
                             <section id="rights" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">11. Data Subject Rights</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">11. Data Subject Rights</h2>
                                 <p className="text-neutral-700 leading-relaxed mb-6">
                                     Individuals have the following rights under applicable law:
                                 </p>
@@ -190,21 +190,21 @@ export default function PrivacyPolicyPage() {
                             </section>
 
                             <section id="cookies" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">12. Cookies and Digital Services</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">12. Cookies and Digital Services</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     Our platforms use cookies to ensure functionality and improve user experience. Detailed info is in our separate Cookie Policy.
                                 </p>
                             </section>
 
                             <section id="changes" className="scroll-mt-32 space-y-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">13. Changes to This Policy</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">13. Changes to This Policy</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     This policy may be updated from time to time. The latest version will always be available on our website.
                                 </p>
                             </section>
 
                             <section id="contact" className="scroll-mt-32 space-y-4 pt-8 underline-offset-4">
-                                <h2 className="text-2xl font-bold text-black border-b border-[#9c27b3] pb-10 pl-2">14. Contact Information</h2>
+                                <h2 className="text-2xl font-bold text-black border-b border-[#0a151a] pb-10 pl-2">14. Contact Information</h2>
                                 <p className="text-neutral-700 leading-relaxed">
                                     For questions or requests, please contact Cannoga College through the official channels listed on our website.
                                 </p>

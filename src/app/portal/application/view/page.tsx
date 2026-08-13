@@ -729,7 +729,7 @@ function ViewApplicationContent() {
                                                 <p className="text-[11px] font-black uppercase tracking-[0.22em] text-neutral-500">Selected Requirement</p>
                                                 <h3 className="mt-1 text-lg font-bold text-black">{selectedRequirement.title}</h3>
                                             </div>
-                                            <span className="rounded-full bg-[#9c27b3] px-3 py-1 text-[11px] font-bold text-white uppercase tracking-[0.2em]">
+                                            <span className="rounded-full bg-[#0a151a] px-3 py-1 text-[11px] font-bold text-white uppercase tracking-[0.2em]">
                                                 {selectedRequirement.submitted ? 'Submitted' : 'Pending'}
                                             </span>
                                         </div>
@@ -796,7 +796,7 @@ function ViewApplicationContent() {
                                                             <p className="text-sm font-bold text-black">{requirement.title}</p>
                                                             <p className="mt-0.5 text-xs text-neutral-500">{requirement.submitted ? 'Document uploaded' : 'Upload required'}</p>
                                                         </div>
-                                                        <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] bg-[#9c27b3] text-white">
+                                                        <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] bg-[#0a151a] text-white">
                                                             {requirement.submitted ? 'Completed' : 'Required'}
                                                         </span>
                                                     </div>

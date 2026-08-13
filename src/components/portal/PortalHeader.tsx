@@ -132,8 +132,8 @@ export default function PortalHeader() {
                                         key={item.href}
                                         href={item.href}
                                         className={`px-3 py-1 rounded text-[13px] font-semibold transition-colors ${isActive
-                                            ? 'bg-[#9c27b3] text-white'
-                                            : 'text-black hover:opacity-70 hover:bg-[#9c27b3]/5'
+                                            ? 'bg-[#0a151a] text-white'
+                                            : 'text-black hover:opacity-70 hover:bg-[#0a151a]/5'
                                             }`}
                                     >
                                         {item.name}
@@ -166,7 +166,7 @@ export default function PortalHeader() {
                                 <div className="flex items-center gap-2 mt-1">
                                     <span className="text-[13px] font-black text-black leading-none">{fullName || userEmail?.split('@')[0]}</span>
                                     {studentId && (
-                                        <span className="text-[11px] font-semibold text-black border border-[#9c27b3] px-1.5 py-0.5 rounded-sm leading-none">
+                                        <span className="text-[11px] font-semibold text-black border border-[#0a151a] px-1.5 py-0.5 rounded-sm leading-none">
                                             ID: {studentId}
                                         </span>
                                     )}
@@ -179,7 +179,7 @@ export default function PortalHeader() {
             </header>
 
             <div
-                className={`md:hidden fixed inset-0 bg-[#9c27b3]/50 z-[100] transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                className={`md:hidden fixed inset-0 bg-[#0a151a]/50 z-[100] transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                 onClick={() => setMobileMenuOpen(false)}
             >
                 <div
@@ -198,7 +198,7 @@ export default function PortalHeader() {
                                 <span className="text-[11px] font-semibold text-black/40 leading-none">Signed in as</span>
                                 <p className="text-[13px] font-black text-black leading-tight">{fullName || userEmail}</p>
                                 {studentId && (
-                                    <span className="inline-block text-[11px] font-semibold text-black border border-[#9c27b3] px-1.5 py-0.5 rounded-sm mt-1">
+                                    <span className="inline-block text-[11px] font-semibold text-black border border-[#0a151a] px-1.5 py-0.5 rounded-sm mt-1">
                                         ID: {studentId}
                                     </span>
                                 )}
@@ -238,7 +238,7 @@ export default function PortalHeader() {
                                     }
                                     setMobileMenuOpen(false);
                                 }}
-                                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-neutral-900 text-white rounded-lg text-sm font-semibold hover:bg-[#9c27b3] transition-colors"
+                                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-neutral-900 text-white rounded-lg text-sm font-semibold hover:bg-[#0a151a] transition-colors"
                             >
                                 <LogOut size={16} weight="regular" />
                                 {isLoggedIn ? 'Log Out' : 'Log In'}

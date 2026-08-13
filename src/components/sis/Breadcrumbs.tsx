@@ -29,7 +29,7 @@ export function Breadcrumbs({ pathname }: { pathname: string }) {
 
   return (
     <nav className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider mb-4" aria-label="Breadcrumb">
-      <Link href="/sis" className="text-neutral-500 hover:text-[#9c27b3] no-underline transition-colors">SIS</Link>
+      <Link href="/sis" className="text-neutral-500 hover:text-[#0a151a] no-underline transition-colors">SIS</Link>
       {segments.map((segment, idx) => {
         href += `/${segment}`;
         const isLast = idx === segments.length - 1;
@@ -47,7 +47,7 @@ export function Breadcrumbs({ pathname }: { pathname: string }) {
         return (
           <React.Fragment key={href}>
             <span className="text-neutral-400 mx-1">/</span>
-            <Link href={href} className="text-neutral-500 hover:text-[#9c27b3] no-underline transition-colors">{label}</Link>
+            <Link href={href} className="text-neutral-500 hover:text-[#0a151a] no-underline transition-colors">{label}</Link>
           </React.Fragment>
         );
       })}

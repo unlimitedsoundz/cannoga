@@ -143,7 +143,7 @@ export default function AdminFAQsPage() {
                     </div>
                     <button
                         onClick={() => setShowForm(true)}
-                        className="bg-[#9c27b3] text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-2"
+                        className="bg-[#0a151a] text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-2"
                     >
                         <Plus size={16} />
                         Add FAQ
@@ -157,7 +157,7 @@ export default function AdminFAQsPage() {
                         <select
                             value={selectedPage}
                             onChange={(e) => setSelectedPage(e.target.value)}
-                            className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-black focus:border-[#9c27b3]"
+                            className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-black focus:border-[#0a151a]"
                         >
                             <option value="all">All Pages</option>
                             {pages.map(page => (
@@ -217,7 +217,7 @@ export default function AdminFAQsPage() {
 
                 {/* FAQ Form Modal would go here */}
                 {showForm && (
-                    <div className="fixed inset-0 bg-[#9c27b3] bg-opacity-50 flex items-center justify-center p-4 z-50">
+                    <div className="fixed inset-0 bg-[#0a151a] bg-opacity-50 flex items-center justify-center p-4 z-50">
                         <div className="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                             <h2 className="text-2xl font-bold mb-4">Add New FAQ</h2>
                             <FAQForm
@@ -233,7 +233,7 @@ export default function AdminFAQsPage() {
                 )}
 
                 {editingFaq && (
-                    <div className="fixed inset-0 bg-[#9c27b3] bg-opacity-50 flex items-center justify-center p-4 z-50">
+                    <div className="fixed inset-0 bg-[#0a151a] bg-opacity-50 flex items-center justify-center p-4 z-50">
                         <div className="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                             <h2 className="text-2xl font-bold mb-4">Edit FAQ</h2>
                             <FAQForm
@@ -354,7 +354,7 @@ function FAQForm({ faq, onClose, onSave, pages }: FAQFormProps) {
                             type="checkbox"
                             checked={isPublished}
                             onChange={(e) => setIsPublished(e.target.checked)}
-                            className="border-2 border-neutral-300 rounded-sm checked:bg-[#9c27b3] checked:border-[#9c27b3] w-4 h-4"
+                            className="border-2 border-neutral-300 rounded-sm checked:bg-[#0a151a] checked:border-[#0a151a] w-4 h-4"
                         />
                         Published
                     </label>
@@ -372,7 +372,7 @@ function FAQForm({ faq, onClose, onSave, pages }: FAQFormProps) {
                 <button
                     type="submit"
                     disabled={saving}
-                    className="bg-[#9c27b3] text-white px-6 py-2 rounded-lg hover:bg-gray-800 disabled:opacity-50"
+                    className="bg-[#0a151a] text-white px-6 py-2 rounded-lg hover:bg-gray-800 disabled:opacity-50"
                 >
                     {saving ? 'Saving...' : (faq ? 'Update FAQ' : 'Create FAQ')}
                 </button>
