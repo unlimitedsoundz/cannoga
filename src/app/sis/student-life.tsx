@@ -136,7 +136,7 @@ export default function StudentLifePage({ studentId }: StudentLifePageProps) {
 
     return (
         <div className="space-y-6">
-            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 text-white shadow-md">
+            <div className="bg-[#0a151a] rounded-xl border border-slate-800 p-6 text-white shadow-md">
                 <h3 className="text-lg font-extrabold tracking-tight text-white">Student Life & Support</h3>
                 <p className="text-xs text-slate-300 mt-1 font-medium">Access campus services, messaging, and support resources.</p>
             </div>

@@ -166,7 +166,7 @@ export default function StudentsPage() {
       />
 
       {selected.size > 0 && (
-        <div className="flex items-center justify-between p-4 bg-slate-900 text-white rounded-xl shadow-md border border-slate-800">
+        <div className="flex items-center justify-between p-4 bg-[#0a151a] text-white rounded-xl shadow-md border border-slate-800">
           <span className="text-xs font-semibold text-slate-300">{selected.size} student{selected.size > 1 ? 's' : ''} selected</span>
           <div className="flex gap-2">
             <button className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-slate-700 text-slate-200 hover:bg-slate-800 rounded-lg transition-colors">Export CSV</button>

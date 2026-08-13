@@ -74,7 +74,7 @@ export function HomeNewsEventsGrid() {
             <div className="lg:col-span-2 flex flex-col bg-white" style={{ height: 589 }}>
                 {/* Header row */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200">
-                    <h3 className="text-xl font-black text-slate-900 tracking-tight">
+                    <h3 className="text-xl font-serif font-bold text-[#0f2027] tracking-tight">
                         <span style={{ color: ACCENT }}>New</span> and Notable
                     </h3>
                     <a href="/news" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors no-underline">

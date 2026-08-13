@@ -137,7 +137,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center font-sans">
+            <div className="min-h-screen bg-[#0a151a] flex items-center justify-center font-sans">
                 <div className="animate-spin rounded-full border-2 border-t-transparent border-white h-8 w-8"></div>
             </div>
         );
@@ -145,7 +145,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
 
     if (error) {
         return (
-            <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center font-sans">
+            <div className="min-h-screen bg-[#0a151a] flex items-center justify-center font-sans">
                 <div className="text-center p-6">
                     <h2 className="text-xl font-bold text-white mb-2">Authentication Error</h2>
                     <p className="text-slate-800 mb-4">{error}</p>
@@ -199,7 +199,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
 
     if (profile.role === 'ADMIN' && isAdminPath) {
         return (
-            <div className="min-h-screen bg-[#0f0f0f] font-sans text-white flex flex-col" data-theme="sis-dark">
+            <div className="min-h-screen bg-[#0a151a] font-sans text-white flex flex-col" data-theme="sis-dark">
                 <SISHeader onMenuToggle={() => setSidebarOpen(!sidebarOpen)} role={profile.role} profile={profile} studentId={profile.student_id || ''} />
                 <div className="flex flex-1 overflow-hidden">
                     <SISSidebar
