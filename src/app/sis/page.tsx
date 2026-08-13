@@ -1896,9 +1896,6 @@ export default function SISStudentDashboard() {
                                     <h3 className="text-lg font-extrabold tracking-tight text-white">My Timetable</h3>
                                     <p className="text-xs text-slate-300 mt-1 font-medium">Class schedule, lecture locations, and session details</p>
                                 </div>
-                                <div className="inline-flex items-center space-x-2 bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold px-3.5 py-1.5 rounded-lg shrink-0">
-                                    <span>Fall 2026 Term</span>
-                                </div>
                             </div>
 
                             {timetableSessions.length === 0 ? (
