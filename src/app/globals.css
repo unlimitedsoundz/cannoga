@@ -156,7 +156,7 @@
     align-items: center;
     justify-content: center;
     transition: color 0.2s ease, transform 0.2s ease;
-    shrink: 0;
+    flex-shrink: 0;
 }
 
 .aalto-button--icon:hover {
