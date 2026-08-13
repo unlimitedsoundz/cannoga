@@ -81,12 +81,12 @@ export function CannogaShortsSection() {
 
                     <div className="flex items-center gap-4">
                         <span className="text-xs font-bold uppercase tracking-widest text-[#0a151a]">FOLLOW US</span>
-                        <div className="flex items-center gap-3 text-[#0a151a]">
-                            <a href="https://youtube.com/@cannogacollege" target="_blank" rel="noopener noreferrer" className="hover:text-[#c89211] transition-colors" aria-label="YouTube">
-                                <YoutubeLogo size={22} weight="fill" />
+                        <div className="flex items-center gap-4 text-[#0a151a]">
+                            <a href="https://youtube.com/@cannogacollege" target="_blank" rel="noopener noreferrer" className="hover:text-[#c89211] hover:scale-110 transition-all transform inline-block" aria-label="YouTube">
+                                <YoutubeLogo size={26} weight="fill" />
                             </a>
-                            <a href="https://tiktok.com/@cannogacollege" target="_blank" rel="noopener noreferrer" className="hover:text-[#c89211] transition-colors" aria-label="TikTok">
-                                <TiktokLogo size={22} weight="fill" />
+                            <a href="https://www.tiktok.com/@cannoga_college" target="_blank" rel="noopener noreferrer" className="hover:text-[#c89211] hover:scale-110 transition-all transform inline-block" aria-label="TikTok">
+                                <TiktokLogo size={26} weight="fill" />
                             </a>
                         </div>
                     </div>

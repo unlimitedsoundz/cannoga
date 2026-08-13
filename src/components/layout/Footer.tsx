@@ -25,12 +25,12 @@ export function Footer() {
                                 Cannoga College acknowledges that its campus in Ottawa is located on the traditional and unceded territory of the Anishinaabe Algonquin Nation. We honour the enduring presence, history, cultures, and contributions of First Nations, Inuit, and Métis peoples and recognize their continued connection to these lands.
                             </div>
                         </div>
-                        <div className="flex space-x-4 shrink-0">
-                            <a href="https://www.youtube.com/@CannogaCollege" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-white hover:text-opacity-75 transition-opacity">
-                                <YoutubeLogo className="h-6 w-6" weight="fill" />
+                        <div className="flex space-x-5 shrink-0 items-center">
+                            <a href="https://www.youtube.com/@CannogaCollege" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-white hover:text-[#c89211] hover:scale-110 transition-all transform inline-block">
+                                <YoutubeLogo className="h-8 w-8" weight="fill" />
                             </a>
-                            <a href="https://www.tiktok.com/@cannoga_college" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-white hover:text-opacity-75 transition-opacity">
-                                <TiktokLogo className="h-6 w-6" weight="fill" />
+                            <a href="https://www.tiktok.com/@cannoga_college" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-white hover:text-[#c89211] hover:scale-110 transition-all transform inline-block">
+                                <TiktokLogo className="h-8 w-8" weight="fill" />
                             </a>
                         </div>
                     </div>
