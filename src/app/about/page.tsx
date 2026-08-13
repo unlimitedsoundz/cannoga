@@ -59,19 +59,19 @@ export default async function AboutPage() {
             <div className="cc-container py-8 md:py-20">
                 <section className="max-w-4xl mx-auto mb-16 space-y-5 text-lg leading-relaxed">
                     <p className="font-semibold text-xl text-[#0f2027]">
-                        Cannoga College is an approved Ontario post-secondary college (DLI #O19394821) located in Ottawa, Ontario. We deliver certificate, diploma, and degree programs designed to equip graduates with practical skills for the Canadian and global workforce.
+                        Cannoga College is an approved Ontario post-secondary college (DLI #O19394821) located in Ottawa, Ontario. We deliver certificate, diploma, and degree <Link href="/studies" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">programs</Link> designed to equip graduates with practical skills for the Canadian and global workforce.
                     </p>
                     <p className="text-neutral-600">
-                        The college welcomes domestic and international students into a diverse academic community. Programs span key fields including Business Administration, Information Technology, Health Sciences, Hospitality and Tourism, Engineering Foundations, Education, and Social Sciences.
+                        The college welcomes domestic and <Link href="/international" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">international students</Link> into a diverse academic community. Programs span key fields including <Link href="/schools/business" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Business Administration</Link>, <Link href="/schools/technology" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Information Technology</Link>, <Link href="/schools/health-community" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Health Sciences</Link>, <Link href="/schools/hospitality-tourism" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Hospitality and Tourism</Link>, and <Link href="/schools/science" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Applied Sciences</Link>.
                     </p>
                     <p className="text-neutral-600">
-                        With a focus on practical learning and student success, Cannoga College combines academic instruction with hands-on training, industry-relevant projects, and experiential learning opportunities. Students benefit from small class sizes, accessible faculty, and individualized academic support, as well as internship and co-op pathways that enhance employability and real-world readiness.
+                        With a focus on practical learning and student success, Cannoga College combines academic instruction with hands-on training, industry-relevant projects, and experiential learning opportunities. Learn more about our <Link href="/research" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">research hubs</Link> and explore our <Link href="/careers" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">career opportunities</Link>.
                     </p>
                     <p className="text-neutral-600">
-                        International students are supported through dedicated services including admissions guidance, study permit information, academic advising, career development support, and newcomer integration services to ensure a smooth transition to life and studies in Canada.
+                        International students are supported through dedicated services including <Link href="/admissions/requirements" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">admissions guidance</Link>, study permit information, academic advising, career development support, and newcomer integration services to ensure a smooth transition to life and studies in Canada.
                     </p>
                     <p className="font-semibold text-[#0f2027]">
-                        Cannoga College is committed to preparing graduates who are confident, skilled, and ready to contribute meaningfully to both local and global communities.
+                        Cannoga College is committed to preparing graduates who are confident, skilled, and ready to contribute meaningfully. Check out our <Link href="/alumni" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">alumni network</Link> and <Link href="/news" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">newsroom</Link>.
                     </p>
                 </section>
 
