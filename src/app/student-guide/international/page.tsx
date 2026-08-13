@@ -98,7 +98,7 @@ export default function InternationalGuidePage() {
 <p className="text-neutral-600 leading-relaxed">
                                     The Canadian education system is internationally recognized for its high quality, student-centered approach, and strong focus on research and innovation.
                                 </p>
-                                <div className="bg-[#f5f5f5] p-6 border-l-4 border-[#9c27b3]">
+                                <div className="bg-[#f5f5f5] p-6 border-l-4 border-[#0a151a]">
                                     <p className="font-semibold text-[#000000] text-sm leading-relaxed">
                                         Cannoga College operates in the heart of Ottawa with strong ties to Canada's public service, tech industry, and research community.
                                     </p>
@@ -111,8 +111,8 @@ export default function InternationalGuidePage() {
                             </div>
                             <div className="relative aspect-video overflow-hidden rounded-lg shadow-md">
                                 <Image
-                                    src="/images/ottawa-parliament.jpg"
-                                    alt="Ottawa Parliament Hill"
+                                    src="https://i.pinimg.com/736x/c8/72/86/c8728659d34059076a2ed84d690fd379.jpg"
+                                    alt="Why Study in Ottawa, Ontario, Canada"
                                     fill
                                     className="object-cover"
                                     sizes="(max-width: 1024px) 100vw, 50vw"
@@ -195,7 +195,7 @@ export default function InternationalGuidePage() {
                                           "Join the Cannoga student community platform",
                                       ].map((item, i) => (
                                          <li key={i} className="flex gap-3 items-start font-medium text-neutral-700">
-                                             <span className="w-5 h-5 rounded-full bg-[#9c27b3] text-white text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">{i + 1}</span>
+                                             <span className="w-5 h-5 rounded-full bg-[#0a151a] text-white text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">{i + 1}</span>
                                              {item}
                                          </li>
                                      ))}
