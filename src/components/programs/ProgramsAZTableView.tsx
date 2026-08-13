@@ -34,6 +34,17 @@ export interface ProgramItem {
     description: string;
 }
 
+export function getSchoolSlug(schoolName: string): string {
+    const s = (schoolName || '').toLowerCase();
+    if (s.includes('business')) return 'business';
+    if (s.includes('tech') || s.includes('computer')) return 'technology';
+    if (s.includes('art') || s.includes('design') || s.includes('film')) return 'arts-design';
+    if (s.includes('health') || s.includes('biomed') || s.includes('nursing') || s.includes('kinesiology')) return 'health-sciences';
+    if (s.includes('education') || s.includes('social') || s.includes('law') || s.includes('legal')) return 'education-social-sciences';
+    if (s.includes('engineer')) return 'engineering';
+    return 'science';
+}
+
 const programsData: ProgramItem[] = [
     {
         id: 'acc-fin',
@@ -46,7 +57,7 @@ const programsData: ProgramItem[] = [
         pgwp: true,
         tuitionDomestic: '$1,500/yr',
         tuitionInternational: '$2,500/yr',
-        href: '/admissions',
+        href: '/schools/business/acc-fin',
         description: 'Comprehensive financial accounting, managerial cost analysis, taxation laws, and ERP software training.'
     },
     {
@@ -472,7 +483,12 @@ const programsData: ProgramItem[] = [
 ];
 
 export function ProgramsAZTableView() {
-    const [allPrograms, setAllPrograms] = useState<ProgramItem[]>(programsData);
+    const [allPrograms, setAllPrograms] = useState<ProgramItem[]>(() => 
+        programsData.map(p => ({
+            ...p,
+            href: `/schools/${getSchoolSlug(p.school)}/${p.id}`
+        }))
+    );
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [search, setSearch] = useState('');
     const [selectedLevel, setSelectedLevel] = useState<string>('All');
@@ -495,20 +511,25 @@ export function ProgramsAZTableView() {
                     .select('*');
 
                 if (!error && dbData && dbData.length > 0 && isMounted) {
-                    const dbMapped: ProgramItem[] = dbData.map((item: any, idx: number) => ({
-                        id: item.id || `db-prog-${idx}`,
-                        name: item.name || item.title || item.program_name || 'Academic Program',
-                        level: (item.level || item.credential || 'Bachelor') as any,
-                        school: item.school || item.department || 'School of Academic Studies',
-                        duration: item.duration || '2 Years',
-                        credits: Number(item.credits) || 60,
-                        coop: Boolean(item.coop ?? true),
-                        pgwp: Boolean(item.pgwp ?? true),
-                        tuitionDomestic: item.tuition_domestic ? `$${item.tuition_domestic}/yr` : '$1,500/yr',
-                        tuitionInternational: item.tuition_international ? `$${item.tuition_international}/yr` : '$2,500/yr',
-                        href: item.slug ? `/degree-programmes/${item.slug}` : item.href || (item.level === 'Master' ? '/admissions/master' : item.level === 'Bachelor' ? '/admissions/bachelor' : '/admissions'),
-                        description: item.description || item.overview || 'Accredited higher education program offered at Cannoga College.'
-                    }));
+                    const dbMapped: ProgramItem[] = dbData.map((item: any, idx: number) => {
+                        const schName = item.school || item.department || 'School of Academic Studies';
+                        const schSlug = getSchoolSlug(schName);
+                        const progSlug = item.slug || item.id || `prog-${idx}`;
+                        return {
+                            id: item.id || `db-prog-${idx}`,
+                            name: item.name || item.title || item.program_name || 'Academic Program',
+                            level: (item.level || item.credential || 'Bachelor') as any,
+                            school: schName,
+                            duration: item.duration || '2 Years',
+                            credits: Number(item.credits) || 60,
+                            coop: Boolean(item.coop ?? true),
+                            pgwp: Boolean(item.pgwp ?? true),
+                            tuitionDomestic: item.tuition_domestic ? `$${item.tuition_domestic}/yr` : '$1,500/yr',
+                            tuitionInternational: item.tuition_international ? `$${item.tuition_international}/yr` : '$2,500/yr',
+                            href: `/schools/${schSlug}/${progSlug}`,
+                            description: item.description || item.overview || 'Accredited higher education program offered at Cannoga College.'
+                        };
+                    });
 
                     // Deduplicate against static fallback dataset
                     const combined = [...dbMapped];
