@@ -799,4 +799,16 @@ body {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
+}
+
+/* SIS Global Widget Header Rule */
+[data-theme="sis"] .widget-header,
+[data-theme="sis-dark"] .widget-header,
+[data-theme="sis"] .card-header,
+[data-theme="sis-dark"] .card-header,
+.sis-widget-header,
+.sis-card-header,
+[data-sis-widget-header] {
+  background-color: #0a151a !important;
+  color: #ffffff !important;
 }

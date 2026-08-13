@@ -1256,7 +1256,7 @@ export default function SISStudentDashboard() {
 
                                     {/* ATTENDANCE RATE */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-slate-900 px-4 py-2.5 mb-2">
+                                        <div className="bg-[#0a151a] px-4 py-2.5 mb-2">
                                             <h3 className="font-semibold text-white text-sm">Attendance Rate</h3>
                                         </div>
                                         <div className="flex flex-col items-center justify-center py-2">
@@ -1424,7 +1424,7 @@ export default function SISStudentDashboard() {
                                     {/* LIVE ONTARIO WEATHER - MATCHING EXACT DESIGN SPEC */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
                                         {/* Dark Header Bar */}
-                                        <div className="bg-slate-900 px-4 py-2.5">
+                                        <div className="bg-[#0a151a] px-4 py-2.5">
                                             <h3 className="font-semibold text-white text-sm">Weather</h3>
                                         </div>
                                         {/* Card Body */}
@@ -1460,7 +1460,7 @@ export default function SISStudentDashboard() {
                                     {/* SOCIAL MEDIA / CAMPUS CONNECT */}
                                     <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-slate-900 px-4 py-2.5">
+                                            <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-extrabold text-white text-xs uppercase tracking-wider">Campus Connect & Channels</h3>
                                             </div>
                                             <div className="grid grid-cols-2 gap-2 text-xs p-4">
@@ -1515,7 +1515,7 @@ export default function SISStudentDashboard() {
                                     {/* STUDENT PROFILE QUICK VIEW */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-slate-900 px-4 py-2.5">
+                                            <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Student Profile</h3>
                                             </div>
                                             <div className="p-4">
@@ -1544,7 +1544,7 @@ export default function SISStudentDashboard() {
                                     {/* UPCOMING EVENTS (FETCHED DYNAMICALLY FROM DB) */}
                                     <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-slate-900 px-4 py-2.5">
+                                            <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-extrabold text-white text-xs uppercase tracking-wider">Upcoming Events</h3>
                                             </div>
                                             <div className="p-4 space-y-3 text-xs">
@@ -1578,7 +1578,7 @@ export default function SISStudentDashboard() {
 
                                     {/* COLLEGE SERVICES & PORTALS (REAL CANADIAN ONTARIO SERVICE LOGOS) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-slate-900 px-4 py-2.5 mb-2">
+                                        <div className="bg-[#0a151a] px-4 py-2.5 mb-2">
                                             <h3 className="font-semibold text-white text-sm">Ontario College Services & Portals</h3>
                                         </div>
                                          <div className="flex items-center justify-center space-x-6 sm:space-x-12 py-3 px-4">
@@ -1638,7 +1638,7 @@ export default function SISStudentDashboard() {
 
                                     {/* FILE MANAGER / DOCUMENT REPOSITORY (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                                        <div className="bg-slate-900 px-4 py-2.5">
+                                        <div className="bg-[#0a151a] px-4 py-2.5">
                                             <h3 className="font-semibold text-white text-sm">File Manager & Repository</h3>
                                         </div>
                                         <div className="p-3 space-y-2 text-xs">
@@ -1679,7 +1679,7 @@ export default function SISStudentDashboard() {
                                     {/* ACCOUNT SUMMARY */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="bg-slate-900 px-4 py-2.5">
+                                            <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Account Summary</h3>
                                             </div>
                                             <div className="p-4">
