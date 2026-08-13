@@ -7,31 +7,31 @@ import { CaretLeft, CaretRight, ArrowRight } from "@phosphor-icons/react/dist/ss
 const stories = [
     {
         id: 1,
+        name: 'Chinaza Kamisiyochukwu',
+        programme: "Honours Bachelor of Environmental Science",
+        quote: "Conducting field research along the Rideau Canal and participating in green campus initiatives gave me direct insights into sustainable urban policy.",
+        image: '/images/chinaza-kamisiyochukwu.jpg'
+    },
+    {
+        id: 2,
         name: 'Collins Huang',
         programme: "Bachelor's in International Business",
         quote: "Cannoga College provided me with a unique multidisciplinary environment where I could combine my interest in tech with business strategy. The practical co-op experience in Ottawa was eye-opening.",
         image: '/images/collins-huang.jpg'
     },
     {
-        id: 2,
+        id: 3,
         name: 'Maria Petrova',
         programme: "Master's in Design Management",
         quote: "Studying in Ottawa, Ontario, Canada has been a life-changing experience. The focus on work-life balance and deep collaborative research at Cannoga is truly world-class.",
         image: '/images/student-story-2.jpg'
     },
     {
-        id: 3,
+        id: 4,
         name: 'Marcus Vance',
         programme: "Advanced Diploma in Software Engineering",
         quote: "The hands-on lab facilities and close mentorship from faculty helped me secure a full-time software developer role in Ottawa's Kanata North tech hub before graduation.",
         image: '/images/student-story-3.jpg'
-    },
-    {
-        id: 4,
-        name: 'Elena Rostova',
-        programme: "Honours Bachelor of Environmental Science",
-        quote: "Conducting field research along the Rideau Canal and participating in green campus initiatives gave me direct insights into sustainable urban policy.",
-        image: '/images/home-carousel-2.png'
     }
 ];
 
