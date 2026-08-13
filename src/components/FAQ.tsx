@@ -48,17 +48,17 @@ export default function FAQ({ faqs }: FAQProps) {
                 return (
                     <div 
                         key={faq.id} 
-                        className="border-t-2 border-[#9c27b3] last:border-b-2 bg-white"
+                        className="border-t-2 border-[#0a151a] last:border-b-2 bg-white"
                     >
                         <button
                             onClick={() => toggle(faq.id)}
-                            className="w-full flex items-center justify-between py-8 px-0 text-left hover:bg-[#9c27b3]/5 transition-colors focus:outline-none group"
+                            className="w-full flex items-center justify-between py-8 px-0 text-left hover:bg-[#0a151a]/5 transition-colors focus:outline-none group"
                             aria-expanded={isOpen}
                         >
                             <span className="text-aalto-5 md:text-aalto-6 font-bold text-black pr-8 leading-aalto-5 tracking-aalto-2">
                                 {faq.question}
                             </span>
-                            <div className="flex-shrink-0 bg-[#9c27b3] text-white p-2">
+                            <div className="flex-shrink-0 bg-[#0a151a] text-white p-2">
                                 {isOpen ? (
                                     <Minus size={20} weight="bold" />
                                 ) : (

@@ -94,15 +94,15 @@ export default function InternationalStudentFAQ() {
                 <div key={index} className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all mb-4 overflow-hidden">
                      <button
                          onClick={() => toggle(index)}
-                         className="w-full flex items-center justify-between py-6 px-6 text-left hover:bg-[#0f2027]/5 transition-colors focus:outline-none group"
+                         className="w-full flex items-center justify-between py-6 px-6 text-left hover:bg-[#0a151a]/5 transition-colors focus:outline-none group"
                      >
                          <span className="text-lg font-bold text-black">{faq.question}</span>
                          {openIndex === index ? (
-                             <div className="bg-[#0f2027] text-white p-1.5 rounded-full shrink-0">
+                             <div className="bg-[#0a151a] text-white p-1.5 rounded-full shrink-0">
                                  <Minus size={20} weight="bold" />
                              </div>
                          ) : (
-                             <div className="bg-[#0f2027]/10 text-black p-1.5 rounded-full shrink-0 group-hover:bg-[#0f2027]/20 transition-colors">
+                             <div className="bg-[#0a151a]/10 text-black p-1.5 rounded-full shrink-0 group-hover:bg-[#0a151a]/20 transition-colors">
                                  <Plus className="group-hover:scale-110 transition-transform" size={20} weight="bold" />
                              </div>
                          )}
@@ -111,7 +111,7 @@ export default function InternationalStudentFAQ() {
                          className={`transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-[1000px] opacity-100 pb-6' : 'max-h-0 opacity-0'
                              } overflow-hidden`}
                      >
-                         <div className="text-black leading-relaxed px-6 border-t border-[#0f2027]/10 pt-6">
+                         <div className="text-black leading-relaxed px-6 border-t border-[#0a151a]/10 pt-6">
                              {faq.answer}
                          </div>
                      </div>
