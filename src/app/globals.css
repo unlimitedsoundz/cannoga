@@ -801,7 +801,7 @@ body {
   }
 }
 
-/* SIS Global Widget Header Rule */
+/* SIS Global Widget Header & Hero Rule */
 [data-theme="sis"] .widget-header,
 [data-theme="sis-dark"] .widget-header,
 [data-theme="sis"] .card-header,
@@ -811,4 +811,19 @@ body {
 [data-sis-widget-header] {
   background-color: #0a151a !important;
   color: #ffffff !important;
+}
+
+/* SIS Global Widget Buttons */
+.sis-btn,
+button.sis-btn,
+[data-sis-btn],
+.sis-widget-btn {
+  background-color: #0a151a !important;
+  color: #ffffff !important;
+}
+.sis-btn:hover,
+button.sis-btn:hover,
+[data-sis-btn]:hover,
+.sis-widget-btn:hover {
+  background-color: #12222a !important;
 }
