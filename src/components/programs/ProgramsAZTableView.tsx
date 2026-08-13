@@ -506,7 +506,7 @@ export function ProgramsAZTableView() {
                         pgwp: Boolean(item.pgwp ?? true),
                         tuitionDomestic: item.tuition_domestic ? `$${item.tuition_domestic}/yr` : '$1,500/yr',
                         tuitionInternational: item.tuition_international ? `$${item.tuition_international}/yr` : '$2,500/yr',
-                        href: item.href || '/admissions',
+                        href: item.slug ? `/degree-programmes/${item.slug}` : item.href || (item.level === 'Master' ? '/admissions/master' : item.level === 'Bachelor' ? '/admissions/bachelor' : '/admissions'),
                         description: item.description || item.overview || 'Accredited higher education program offered at Cannoga College.'
                     }));
 
@@ -699,9 +699,12 @@ export function ProgramsAZTableView() {
                                         className="hover:bg-slate-50 transition-colors"
                                     >
                                         <td className="p-3.5">
-                                            <span className="font-bold text-slate-900 text-sm block">
+                                            <Link 
+                                                href={p.href}
+                                                className="font-bold text-slate-900 text-sm block hover:text-[#0a151a] hover:underline transition-colors no-underline"
+                                            >
                                                 {p.name}
-                                            </span>
+                                            </Link>
                                         </td>
                                         <td className="p-3.5 font-bold text-slate-900 whitespace-nowrap text-xs">
                                             {p.level}
@@ -760,7 +763,12 @@ export function ProgramsAZTableView() {
                                     </span>
                                 </div>
                                 <h4 className="font-bold text-base text-black mb-2 leading-snug">
-                                    {p.name}
+                                    <Link 
+                                        href={p.href}
+                                        className="hover:text-[#0a151a] hover:underline transition-colors text-black no-underline block"
+                                    >
+                                        {p.name}
+                                    </Link>
                                 </h4>
                                 <p className="text-xs text-neutral-500 font-medium mb-4 line-clamp-3 leading-relaxed">
                                     {p.description}
