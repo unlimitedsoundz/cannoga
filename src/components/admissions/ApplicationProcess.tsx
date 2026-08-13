@@ -8,12 +8,12 @@ const steps = [
     content: (
       <div className="space-y-4">
         <p>Confirm your program is open for international students. Check the program details for availability.</p>
-        <div className="bg-neutral-50 p-4 border-l-4 border-[#9c27b3]">
+        <div className="bg-neutral-50 p-4 border-l-4 border-[#0f2027]">
           <p className="text-sm text-black">
             <strong>Note:</strong> When choosing a program, ensure it is not an online-only program. Cannoga College is located in Ottawa, Ontario, Canada.
           </p>
         </div>
-        <Link href="/studies" className="inline-flex items-center gap-2 text-sm font-bold text-[#9c27b3] hover:underline">
+        <Link href="/studies" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
           Confirm your program <ArrowRight size={16} weight="bold" />
         </Link>
       </div>
@@ -43,7 +43,7 @@ const steps = [
           href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/study-permit-application-guide.html"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-bold text-[#9c27b3] hover:underline"
+          className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline"
         >
           Review Visa/Study Permit Requirements <ArrowRight size={16} weight="bold" />
         </a>
@@ -56,7 +56,7 @@ const steps = [
     content: (
       <div className="space-y-4">
         <p>Start your online application through our admissions portal. Create a password for the portal to upload documents and track your application.</p>
-        <Link href="/portal/apply" className="inline-flex items-center gap-2 bg-[#9c27b3] text-white px-6 py-3 text-sm font-bold hover:bg-[#9c27b3] transition-colors">
+        <Link href="/portal/apply" className="inline-flex items-center gap-2 bg-[#0f2027] text-white px-6 py-3 text-sm font-bold hover:bg-[#0f2027] transition-colors">
           Start Application <ArrowRight size={16} weight="bold" />
         </Link>
       </div>
@@ -78,7 +78,7 @@ const steps = [
     content: (
       <div className="space-y-4">
         <p>Pay your tuition and fees through the student portal to secure your enrollment.</p>
-        <Link href="/portal/dashboard" className="inline-flex items-center gap-2 text-sm font-bold text-[#9c27b3] hover:underline">
+        <Link href="/portal/dashboard" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
           Pay Your Fees <ArrowRight size={16} weight="bold" />
         </Link>
       </div>
@@ -94,7 +94,7 @@ const steps = [
           href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/study-permit-application-guide.html"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-bold text-[#9c27b3] hover:underline"
+          className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline"
         >
           Apply for Study Permit <ArrowRight size={16} weight="bold" />
         </a>
@@ -131,9 +131,9 @@ export default function ApplicationProcess() {
 
       <div className="space-y-6">
         {steps.map((step) => (
-          <div key={step.step} className="border border-neutral-200 p-6 hover:border-[#9c27b3] transition-colors">
+          <div key={step.step} className="border border-neutral-200 p-6 hover:border-[#0f2027] transition-colors">
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-10 h-10 bg-[#9c27b3] text-white flex items-center justify-center font-black text-sm rounded-full">
+              <div className="flex-shrink-0 w-10 h-10 bg-[#0f2027] text-white flex items-center justify-center font-black text-sm rounded-full">
                 {step.step}
               </div>
               <div className="flex-1">
@@ -147,9 +147,9 @@ export default function ApplicationProcess() {
         ))}
       </div>
 
-      <div className="mt-8 bg-neutral-50 p-6 border-l-4 border-[#9c27b3]">
+      <div className="mt-8 bg-neutral-50 p-6 border-l-4 border-[#0f2027]">
         <p className="text-sm text-black">
-          If you have any questions, please don&apos;t hesitate to contact the International Recruitment Team at <a href="mailto:admissions@cannogacollege.ca" className="text-[#9c27b3] font-bold hover:underline">admissions@cannogacollege.ca</a>. We&apos;re always happy to help!
+          If you have any questions, please don&apos;t hesitate to contact the International Recruitment Team at <a href="mailto:admissions@cannogacollege.ca" className="text-[#0f2027] font-bold hover:underline">admissions@cannogacollege.ca</a>. We&apos;re always happy to help!
         </p>
       </div>
     </div>

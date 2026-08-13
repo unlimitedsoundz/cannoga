@@ -25,7 +25,7 @@ export default function CountryRequirementsDropdown() {
               setSelectedCountry(e.target.value);
               setIsOpen(true);
             }}
-            className="w-full px-4 py-3 text-sm font-bold text-black bg-white border-2 border-[#9c27b3] focus:outline-none focus:border-[#9c27b3] appearance-none cursor-pointer rounded-sm"
+            className="w-full px-4 py-3 text-sm font-bold text-black bg-white border-2 border-[#0f2027] focus:outline-none focus:border-[#0f2027] appearance-none cursor-pointer rounded-sm"
           >
             <option value="">Select a country</option>
             {countries.map((country) => (
@@ -47,7 +47,7 @@ export default function CountryRequirementsDropdown() {
             <ul className="space-y-2">
               {requirements.basicRequirements.map((req, idx) => (
                 <li key={idx} className="flex gap-3 items-start">
-                  <span className="text-[#9c27b3] font-bold">•</span>
+                  <span className="text-[#0f2027] font-bold">•</span>
                   <span className="text-sm text-black">{req}</span>
                 </li>
               ))}
@@ -56,7 +56,7 @@ export default function CountryRequirementsDropdown() {
 
           {/* Notes */}
           {requirements.notes.length > 0 && (
-            <div className="bg-neutral-50 p-4 border-l-4 border-[#9c27b3]">
+            <div className="bg-neutral-50 p-4 border-l-4 border-[#0f2027]">
               <p className="text-sm text-black italic">
                 <strong>Note:</strong> {requirements.notes[0]}
               </p>
@@ -71,7 +71,7 @@ export default function CountryRequirementsDropdown() {
             <ul className="space-y-2">
               {requirements.undergraduateCertificate.map((req, idx) => (
                 <li key={idx} className="flex gap-3 items-start">
-                  <span className="text-[#9c27b3] font-bold">•</span>
+                  <span className="text-[#0f2027] font-bold">•</span>
                   <span className="text-sm text-black">{req}</span>
                 </li>
               ))}
@@ -86,7 +86,7 @@ export default function CountryRequirementsDropdown() {
             <ul className="space-y-2">
               {requirements.bachelorDegree.map((req, idx) => (
                 <li key={idx} className="flex gap-3 items-start">
-                  <span className="text-[#9c27b3] font-bold">•</span>
+                  <span className="text-[#0f2027] font-bold">•</span>
                   <span className="text-sm text-black whitespace-pre-line">{req}</span>
                 </li>
               ))}
@@ -101,7 +101,7 @@ export default function CountryRequirementsDropdown() {
             <ul className="space-y-2">
               {requirements.postGraduateCertificate.map((req, idx) => (
                 <li key={idx} className="flex gap-3 items-start">
-                  <span className="text-[#9c27b3] font-bold">•</span>
+                  <span className="text-[#0f2027] font-bold">•</span>
                   <span className="text-sm text-black">{req}</span>
                 </li>
               ))}
@@ -116,7 +116,7 @@ export default function CountryRequirementsDropdown() {
             <ul className="space-y-2">
               {requirements.mastersDegree.map((req, idx) => (
                 <li key={idx} className="flex gap-3 items-start">
-                  <span className="text-[#9c27b3] font-bold">•</span>
+                  <span className="text-[#0f2027] font-bold">•</span>
                   <span className="text-sm text-black">{req}</span>
                 </li>
               ))}
@@ -142,7 +142,7 @@ export default function CountryRequirementsDropdown() {
                 href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-bold text-[#9c27b3] hover:underline flex items-center gap-2"
+                className="text-sm font-bold text-[#0f2027] hover:underline flex items-center gap-2"
               >
                 Study in Canada - Government of Canada
                 <ChevronUp size={14} strokeWidth={2} />
@@ -151,7 +151,7 @@ export default function CountryRequirementsDropdown() {
                 href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/study-permit-application-guide.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-bold text-[#9c27b3] hover:underline flex items-center gap-2"
+                className="text-sm font-bold text-[#0f2027] hover:underline flex items-center gap-2"
               >
                 Study Permit Application Guide
                 <ChevronUp size={14} strokeWidth={2} />
@@ -160,7 +160,7 @@ export default function CountryRequirementsDropdown() {
                 href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/provincial-attestation-letter.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-bold text-[#9c27b3] hover:underline flex items-center gap-2"
+                className="text-sm font-bold text-[#0f2027] hover:underline flex items-center gap-2"
               >
                 Provincial Attestation Letter (PAL)
                 <ChevronUp size={14} strokeWidth={2} />
@@ -169,7 +169,7 @@ export default function CountryRequirementsDropdown() {
                 href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/application-guide.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-bold text-[#9c27b3] hover:underline flex items-center gap-2"
+                className="text-sm font-bold text-[#0f2027] hover:underline flex items-center gap-2"
               >
                 Immigration Application Guide
                 <ChevronUp size={14} strokeWidth={2} />

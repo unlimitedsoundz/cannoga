@@ -460,7 +460,7 @@ export default async function AdmissionsPage() {
 
 
                         <section id="contact" className="scroll-mt-32 mb-24 -mx-4 md:mx-0">
-                            <div className="bg-[#9c27b3] text-white p-12">
+                            <div className="bg-[#0f2027] text-white p-12">
                                 <p className="text-lg mb-6">
                                     Prospective and current students can find support and contact information for admissions, campus visits, and student services through the official Cannoga College contact pages.
                                 </p>

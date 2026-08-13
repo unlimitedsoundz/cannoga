@@ -78,14 +78,14 @@ export default function StudentStoriesCarousel() {
             <div className="absolute bottom-0 right-0 flex z-20">
                 <button
                     onClick={prev}
-                    className="w-14 h-14 bg-white flex items-center justify-center text-black hover:bg-[#9c27b3] hover:text-white transition-all active:scale-95"
+                    className="w-14 h-14 bg-white flex items-center justify-center text-black hover:bg-[#0f2027] hover:text-white transition-all active:scale-95"
                     aria-label="Previous story"
                 >
                     <CaretLeft size={20} weight="bold" />
                 </button>
                 <button
                     onClick={next}
-                    className="w-14 h-14 bg-[#9c27b3] text-white flex items-center justify-center transition-all hover:bg-neutral-800 active:scale-95"
+                    className="w-14 h-14 bg-[#0f2027] text-white flex items-center justify-center transition-all hover:bg-neutral-800 active:scale-95"
                     aria-label="Next story"
                 >
                     <CaretRight size={20} weight="bold" />

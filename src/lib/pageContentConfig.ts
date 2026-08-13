@@ -87,7 +87,7 @@ export const pageContentSections: PageContentSection[] = [
         defaultContent: `<h2 class="text-3xl font-bold mb-8 text-black">Evaluation & Decisions</h2>
 <div class="space-y-6">
     <p class="text-lg leading-relaxed">Only complete applications are evaluated based on programme-specific criteria. Decision results are published within less than a week of submitting your application.</p>
-    <div class="bg-[#9c27b3] text-white p-8 rounded-2xl shadow-lg">
+    <div class="bg-[#0f2027] text-white p-8 rounded-2xl shadow-lg">
         <h3 class="font-bold text-lg mb-1">Waiting List Procedure</h3>
         <p class="text-sm text-white/80">Places on the waiting list may be offered until 26 June 2026. Keep an eye on your email.</p>
     </div>
@@ -135,7 +135,7 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'scholarships_content',
         label: 'Scholarships Section',
         defaultContent: `<div class="space-y-4 text-lg text-black">
-    <div class="p-8 pl-16 bg-neutral-50 border-l-4 border-[#9c27b3] rounded-r-lg">
+    <div class="p-8 pl-16 bg-neutral-50 border-l-4 border-[#0f2027] rounded-r-lg">
         Tuition Fee: Included in degree tuition for full-time BSc students.
     </div>
     <ul class="space-y-3 pt-4">
@@ -394,7 +394,7 @@ export const pageContentSections: PageContentSection[] = [
         defaultContent: `<p class="text-black mb-6 font-medium">Annual tuition fee and deposit for Certificate programs (6 months – 1 year)</p>
 <div class="rounded-xl overflow-hidden">
     <table class="w-full text-left border-collapse">
-        <thead class="bg-[#9c27b3] text-white"><tr><th class="p-4 font-bold">Student Residency</th><th class="p-4 font-bold">Tuition Fee / Year</th><th class="p-4 font-bold">Tuition Deposit</th></tr></thead>
+        <thead class="bg-[#0f2027] text-white"><tr><th class="p-4 font-bold">Student Residency</th><th class="p-4 font-bold">Tuition Fee / Year</th><th class="p-4 font-bold">Tuition Deposit</th></tr></thead>
         <tbody class="divide-y divide-neutral-200 text-black">
             <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">Domestic Students</td><td class="p-4">$3,500</td><td class="p-4">$750</td></tr>
             <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">International Students</td><td class="p-4">$9,500</td><td class="p-4">$2,500</td></tr>
@@ -409,7 +409,7 @@ export const pageContentSections: PageContentSection[] = [
         defaultContent: `<p class="text-black mb-6 font-medium">Annual tuition fee and deposit for Diploma and Advanced Diploma programs (2 – 3 years)</p>
 <div class="rounded-xl overflow-hidden">
     <table class="w-full text-left border-collapse">
-        <thead class="bg-[#9c27b3] text-white"><tr><th class="p-4 font-bold">Student Residency</th><th class="p-4 font-bold">Tuition Fee / Year</th><th class="p-4 font-bold">Tuition Deposit</th></tr></thead>
+        <thead class="bg-[#0f2027] text-white"><tr><th class="p-4 font-bold">Student Residency</th><th class="p-4 font-bold">Tuition Fee / Year</th><th class="p-4 font-bold">Tuition Deposit</th></tr></thead>
         <tbody class="divide-y divide-neutral-200 text-black">
             <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">Domestic Students</td><td class="p-4">$3,500</td><td class="p-4">$750</td></tr>
             <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">International Students</td><td class="p-4">$9,500</td><td class="p-4">$2,500</td></tr>
@@ -424,7 +424,7 @@ export const pageContentSections: PageContentSection[] = [
         defaultContent: `<p class="text-black mb-6 font-medium">Annual tuition fee and deposit for Bachelor's degree programs (4-year programs)</p>
 <div class="rounded-xl overflow-hidden">
     <table class="w-full text-left border-collapse">
-        <thead class="bg-[#9c27b3] text-white"><tr><th class="p-4 font-bold">Student Residency</th><th class="p-4 font-bold">Tuition Fee / Year</th><th class="p-4 font-bold">Tuition Deposit</th></tr></thead>
+        <thead class="bg-[#0f2027] text-white"><tr><th class="p-4 font-bold">Student Residency</th><th class="p-4 font-bold">Tuition Fee / Year</th><th class="p-4 font-bold">Tuition Deposit</th></tr></thead>
         <tbody class="divide-y divide-neutral-200 text-black">
             <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">Domestic Students</td><td class="p-4">$2,000</td><td class="p-4">$1,000</td></tr>
             <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">International Students</td><td class="p-4">$4,000</td><td class="p-4">$2,000</td></tr>
@@ -439,7 +439,7 @@ export const pageContentSections: PageContentSection[] = [
         defaultContent: `<p class="text-black mb-6 font-medium">Annual tuition fee and deposit for Master's degree programs (2-year programs)</p>
 <div class="rounded-xl overflow-hidden">
     <table class="w-full text-left border-collapse">
-        <thead class="bg-[#9c27b3] text-white"><tr><th class="p-4 font-bold">Student Residency</th><th class="p-4 font-bold">Tuition Fee / Year</th><th class="p-4 font-bold">Tuition Deposit</th></tr></thead>
+        <thead class="bg-[#0f2027] text-white"><tr><th class="p-4 font-bold">Student Residency</th><th class="p-4 font-bold">Tuition Fee / Year</th><th class="p-4 font-bold">Tuition Deposit</th></tr></thead>
         <tbody class="divide-y divide-neutral-200 text-black">
             <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">Domestic Students</td><td class="p-4">$8,500</td><td class="p-4">$2,000</td></tr>
             <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">International Students</td><td class="p-4">$18,000</td><td class="p-4">$5,000</td></tr>
@@ -469,7 +469,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'additional_fees_content',
         label: 'Additional Fees Section',
-        defaultContent: `<div class="space-y-16"><div class="max-w-4xl"><h3 class="text-2xl font-bold mb-6">Financial Requirements &amp; Living Costs</h3><p class="text-neutral-600 leading-relaxed mb-8">Beyond tuition, ensure you have sufficient funds for rent, personal expenses, transportation, meals, insurance, and any Immigration, Refugees and Citizenship Canada (IRCC) requirements.</p><div class="p-8 bg-gray-100 rounded-2xl shadow-sm"><p class="font-bold">Cannoga College supports international students in finding accommodation in Ottawa, Ontario, Canada. Our housing guide covers all major providers and neighbourhoods.</p></div></div><div class="grid md:grid-cols-2 gap-8"><div class="p-8 bg-gray-100 rounded-3xl shadow-sm"><h3 class="text-xl font-bold mb-4">What's Included?</h3><p class="mb-6">The tuition fee includes teaching and access to modern learning facilities. Core student services are free of charge.</p><ul class="grid grid-cols-1 gap-3 text-sm font-medium"><li>Library access</li><li>Student Services</li><li>Career Services</li><li>Exchange Services</li><li>Study support</li></ul></div><div class="p-8 bg-[#9c27b3] text-white rounded-3xl shadow-md"><h3 class="text-xl font-bold mb-4">Cannoga Student Association</h3><p class="leading-relaxed mb-6">All enrolled students are members of the Cannoga Student Association (CSA), offering advocacy, events, discounts, and community.</p><div class="space-y-3"><div class="p-3 bg-white/20 rounded-xl text-xs font-bold uppercase tracking-widest">Campus dining discounts</div><div class="p-3 bg-white/20 rounded-xl text-xs font-bold uppercase tracking-widest">OC Transpo U-Pass subsidy</div></div></div></div></div>`,
+        defaultContent: `<div class="space-y-16"><div class="max-w-4xl"><h3 class="text-2xl font-bold mb-6">Financial Requirements &amp; Living Costs</h3><p class="text-neutral-600 leading-relaxed mb-8">Beyond tuition, ensure you have sufficient funds for rent, personal expenses, transportation, meals, insurance, and any Immigration, Refugees and Citizenship Canada (IRCC) requirements.</p><div class="p-8 bg-gray-100 rounded-2xl shadow-sm"><p class="font-bold">Cannoga College supports international students in finding accommodation in Ottawa, Ontario, Canada. Our housing guide covers all major providers and neighbourhoods.</p></div></div><div class="grid md:grid-cols-2 gap-8"><div class="p-8 bg-gray-100 rounded-3xl shadow-sm"><h3 class="text-xl font-bold mb-4">What's Included?</h3><p class="mb-6">The tuition fee includes teaching and access to modern learning facilities. Core student services are free of charge.</p><ul class="grid grid-cols-1 gap-3 text-sm font-medium"><li>Library access</li><li>Student Services</li><li>Career Services</li><li>Exchange Services</li><li>Study support</li></ul></div><div class="p-8 bg-[#0f2027] text-white rounded-3xl shadow-md"><h3 class="text-xl font-bold mb-4">Cannoga Student Association</h3><p class="leading-relaxed mb-6">All enrolled students are members of the Cannoga Student Association (CSA), offering advocacy, events, discounts, and community.</p><div class="space-y-3"><div class="p-3 bg-white/20 rounded-xl text-xs font-bold uppercase tracking-widest">Campus dining discounts</div><div class="p-3 bg-white/20 rounded-xl text-xs font-bold uppercase tracking-widest">OC Transpo U-Pass subsidy</div></div></div></div></div>`,
     },
     {
         pageSlug: 'admissions/tuition',

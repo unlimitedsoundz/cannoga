@@ -203,7 +203,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                             id="campus-select"
                             value={campus}
                             onChange={(e) => setCampus(e.target.value)}
-                            className="w-full bg-white border border-[#e2e8f0] px-4 py-3 text-sm font-bold text-black focus:outline-none focus:border-[#9c27b3] transition-colors"
+                            className="w-full bg-white border border-[#e2e8f0] px-4 py-3 text-sm font-bold text-black focus:outline-none focus:border-[#0f2027] transition-colors"
                         >
                             <option value="Ottawa">Ottawa</option>
                         </select>
@@ -218,7 +218,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                             id="start-term-select"
                             value={startTerm}
                             onChange={(e) => setStartTerm(e.target.value)}
-                            className="w-full bg-white border border-[#e2e8f0] px-4 py-3 text-sm font-bold text-black focus:outline-none focus:border-[#9c27b3] transition-colors"
+                            className="w-full bg-white border border-[#e2e8f0] px-4 py-3 text-sm font-bold text-black focus:outline-none focus:border-[#0f2027] transition-colors"
                         >
                             <option value="2026 Fall">2026 Fall</option>
                             <option value="2027 Winter">2027 Winter</option>
@@ -235,7 +235,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                             id="residency-select"
                             value={residency}
                             onChange={(e) => setResidency(e.target.value)}
-                            className="w-full bg-white border border-[#e2e8f0] px-4 py-3 text-sm font-bold text-black focus:outline-none focus:border-[#9c27b3] transition-colors"
+                            className="w-full bg-white border border-[#e2e8f0] px-4 py-3 text-sm font-bold text-black focus:outline-none focus:border-[#0f2027] transition-colors"
                         >
                             <option value="International">International</option>
                             <option value="Domestic">Domestic</option>
@@ -251,7 +251,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                             id="program-select"
                             value={selectedCourseId}
                             onChange={(e) => setSelectedCourseId(e.target.value)}
-                            className="w-full bg-white border border-[#e2e8f0] px-4 py-3 text-sm font-bold text-black focus:outline-none focus:border-[#9c27b3] transition-colors"
+                            className="w-full bg-white border border-[#e2e8f0] px-4 py-3 text-sm font-bold text-black focus:outline-none focus:border-[#0f2027] transition-colors"
                             required
                         >
                             <option value="">Select a Program...</option>
@@ -294,7 +294,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                 ) : (
                     <div className="space-y-6">
                         {/* Header Details */}
-                        <div className="border-b-2 border-[#9c27b3] pb-4">
+                        <div className="border-b-2 border-[#0f2027] pb-4">
                             <h3 className="text-2xl font-black text-[#000000] uppercase tracking-tight mb-2 underline decoration-[#000000] decoration-2 underline-offset-4">
                                 {submittedData.course.title.toUpperCase()}
                             </h3>

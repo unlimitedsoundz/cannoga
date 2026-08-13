@@ -109,7 +109,7 @@ export default function AdmissionsContactInfo() {
                                     <h2 className="text-2xl font-bold mb-2">Admission Services</h2>
                                     <p className="text-black font-medium">Explore our comprehensive application instructions and deadlines.</p>
                                 </div>
-                                <Link href="/admissions" className="underline bg-[#9c27b3] text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm whitespace-nowrap hover:bg-neutral-800 transition-all shadow-xl shadow-black/10">Application Instructions</Link>
+                                <Link href="/admissions" className="underline bg-[#0f2027] text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm whitespace-nowrap hover:bg-neutral-800 transition-all shadow-xl shadow-black/10">Application Instructions</Link>
                             </div>
 
                             {/* Contact Details Grid */}
@@ -179,7 +179,7 @@ export default function AdmissionsContactInfo() {
                                         </div>
                                     </div>
 
-                                    <div className="bg-[#9c27b3] rounded-xl p-6 text-white text-center">
+                                    <div className="bg-[#0f2027] rounded-xl p-6 text-white text-center">
                                         <p className="text-xs font-bold uppercase tracking-widest mb-4 text-white/60">Application Note</p>
                                         <p className="text-sm leading-relaxed">
                                             All formal applications must be submitted through the Cannoga College online portal during the official application periods.
