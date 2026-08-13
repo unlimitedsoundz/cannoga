@@ -20,11 +20,11 @@ import {
     Clock01Icon as Clock,
     CheckmarkCircle01Icon as CheckCircle,
     UserWarning02Icon as Warning,
-    MapPinIcon as MapPin,
+    MapPinIcon as HugeMapPin,
     Download01Icon as Download,
 } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
-import { TiktokLogo, YoutubeLogo, Camera } from '@phosphor-icons/react';
+import { TiktokLogo, YoutubeLogo, EnvelopeSimple, MapPin, Camera } from '@phosphor-icons/react';
 import { getDocumentUrl } from '@/utils/document';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { registerForCourse } from '@/app/sis/registration-actions';
@@ -1498,11 +1498,9 @@ export default function SISStudentDashboard() {
                                                     href="https://www.youtube.com/@CannogaCollege" 
                                                     target="_blank" 
                                                     rel="noopener noreferrer" 
-                                                    className="p-3 bg-slate-50 hover:bg-red-50/60 border border-slate-200 hover:border-red-200 rounded-xl flex items-center space-x-2.5 font-bold text-slate-900 hover:text-red-700 transition group shadow-sm"
+                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a] border border-white/10 hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
                                                 >
-                                                    <svg className="w-5 h-5 fill-red-600 shrink-0 group-hover:scale-105 transition-transform" viewBox="0 0 24 24">
-                                                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                                                    </svg>
+                                                    <YoutubeLogo className="w-5 h-5 text-white group-hover:text-[#c89211] shrink-0 group-hover:scale-110 transition-all transform" weight="fill" />
                                                     <span className="truncate">YouTube</span>
                                                 </a>
 
@@ -1511,27 +1509,27 @@ export default function SISStudentDashboard() {
                                                     href="https://www.tiktok.com/@cannoga_college" 
                                                     target="_blank" 
                                                     rel="noopener noreferrer" 
-                                                    className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-xl flex items-center space-x-2.5 font-bold text-slate-900 transition group shadow-sm"
+                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a] border border-white/10 hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
                                                 >
-                                                    <TiktokLogo className="w-5 h-5 text-slate-900 shrink-0 group-hover:scale-105 transition-transform" weight="bold" />
+                                                    <TiktokLogo className="w-5 h-5 text-white group-hover:text-[#c89211] shrink-0 group-hover:scale-110 transition-all transform" weight="fill" />
                                                     <span className="truncate">TikTok</span>
                                                 </a>
 
                                                 {/* College Email */}
                                                 <a 
                                                     href="mailto:info@cannogacollege.ca" 
-                                                    className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-xl flex items-center space-x-2.5 font-bold text-slate-900 transition group shadow-sm"
+                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a] border border-white/10 hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
                                                 >
-                                                    <HugeiconsIcon icon={Mail} size={18} strokeWidth={2.5} className="text-slate-900 shrink-0 group-hover:scale-105 transition-transform" />
+                                                    <EnvelopeSimple className="w-5 h-5 text-white group-hover:text-[#c89211] shrink-0 group-hover:scale-110 transition-all transform" weight="fill" />
                                                     <span className="truncate">College Email</span>
                                                 </a>
 
                                                 {/* Ottawa Campus / Contact */}
                                                 <Link 
                                                     href="/contact" 
-                                                    className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-xl flex items-center space-x-2.5 font-bold text-slate-900 transition group shadow-sm"
+                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a] border border-white/10 hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
                                                 >
-                                                    <HugeiconsIcon icon={MapPin} size={18} strokeWidth={2.5} className="text-slate-900 shrink-0 group-hover:scale-105 transition-transform" />
+                                                    <MapPin className="w-5 h-5 text-white group-hover:text-[#c89211] shrink-0 group-hover:scale-110 transition-all transform" weight="fill" />
                                                     <span className="truncate">Ottawa Campus</span>
                                                 </Link>
                                             </div>
