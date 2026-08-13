@@ -1,8 +1,10 @@
 import { Link } from "@aalto-dx/react-components";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
+import { ProgramsAZTableView } from '@/components/programs/ProgramsAZTableView';
 
 const sections = [
+    { id: 'programs-az', title: 'Programs Directory (A-Z)', content: '' },
     { id: 'certificates', title: 'Certificate Programs', content: '' },
     { id: 'diplomas', title: 'Diploma Programs', content: '' },
     { id: 'bachelor', title: 'Bachelor\u2019s Degrees', content: '' },
@@ -72,8 +74,13 @@ export default function DegreeProgrammesPage() {
                         </p>
                         <div className="flex flex-wrap gap-4 mt-8">
                             <Link href="/admissions" className="cc-btn-primary no-underline">Apply Now <ArrowRight size={14} weight="bold" /></Link>
-                            <Link href="/studies" className="cc-btn-outline no-underline">Browse All Courses <ArrowRight size={14} weight="bold" /></Link>
+                            <Link href="#programs-az" className="cc-btn-outline no-underline">View Programs A-Z Table <ArrowRight size={14} weight="bold" /></Link>
                         </div>
+                    </section>
+
+                    {/* Interactive Programs A-Z Directory Table View */}
+                    <section id="programs-az" className="scroll-mt-32">
+                        <ProgramsAZTableView />
                     </section>
 
                     <ProgramCard
