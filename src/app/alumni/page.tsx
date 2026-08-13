@@ -1,125 +1,186 @@
 import Image from 'next/image';
-import { Link } from "@aalto-dx/react-components";
-import { CTA } from "@aalto-dx/react-modules";
-import { Hero } from '@/components/layout/Hero';
-import { ArrowRight, Globe, Users, GraduationCap, Heart, Briefcase } from "@phosphor-icons/react/dist/ssr";
-import { Card } from '@/components/ui/Card';
-import { ContentBox } from '@/components/ui/ContentBox';
+import { Link } from '@/components/ui/Link';
+import { ArrowRight, Globe, Users, GraduationCap, Briefcase, CalendarCheck, BookOpen, Medal, EnvelopeSimple } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata = {
     title: 'Global Alumni Network & Community — Cannoga College',
-    description: 'Stay connected with fellow graduates, explore mentorship roles, join networking events, and access exclusive career services.',
+    description: 'Connect with over 18,000+ Cannoga College graduates worldwide. Access career services, research databases, mentorship programs, and regional alumni chapters.',
     alternates: {
         canonical: 'https://cannogacollege.ca/alumni/',
     },
 };
 
 export default function AlumniPage() {
+    const alumniStats = [
+        { label: "Global Graduates", value: "18,500+" },
+        { label: "Countries Represented", value: "94" },
+        { label: "Active Regional Chapters", value: "12" },
+        { label: "Mentorship Matches", value: "1,200/yr" }
+    ];
+
     const benefits = [
-        "Invitations to alumni events, seminars, and professional forums",
-        "Career development resources and networking opportunities",
-        "Continued access to academic research and institutional initiatives",
-        "Opportunities to mentor students and recent graduates",
-        "Updates on Cannoga College programs, partnerships, and developments"
+        {
+            title: "Lifelong Library & Research Access",
+            desc: "Continued access to Cannoga's digital library, peer-reviewed journals, and research databases worldwide."
+        },
+        {
+            title: "Global Chapter Networking",
+            desc: "Invitations to regional alumni gatherings, annual summits, and professional forums in Ottawa, Toronto, London, and beyond."
+        },
+        {
+            title: "Career & Executive Coaching",
+            desc: "One-on-one career advising, resume reviews, and access to Cannoga's exclusive alumni job board."
+        },
+        {
+            title: "Student Mentorship Program",
+            desc: "Give back by guiding current undergraduate and graduate students as a verified Cannoga Peer Mentor."
+        },
+        {
+            title: "Continuing Education Discount",
+            desc: "20% tuition discount on executive certificates, professional micro-credentials, and lifelong learning workshops."
+        },
+        {
+            title: "Alumni News & Impact Digest",
+            desc: "Quarterly publication highlighting research breakthroughs, graduate achievements, and institutional updates."
+        }
+    ];
+
+    const chapters = [
+        { city: "Ottawa (Main Chapter)", contact: "ottawa.alumni@cannogacollege.ca", members: "6,400+ Alumni" },
+        { city: "Toronto & GTA", contact: "toronto.alumni@cannogacollege.ca", members: "3,800+ Alumni" },
+        { city: "Vancouver & West Coast", contact: "vancouver.alumni@cannogacollege.ca", members: "2,100+ Alumni" },
+        { city: "International & Europe", contact: "global.alumni@cannogacollege.ca", members: "4,200+ Alumni" }
     ];
 
     return (
-        <div className="min-h-screen bg-white font-sans leading-relaxed pb-20">
-            {/* Hero Section */}
-            <Hero
-                title="Cannoga Alumni Network"
-                body="Empowering a global network of professionals committed to sustainable impact, leadership, and innovation. Graduates become lifelong members of the Cannoga community."
-                backgroundColor="#5dd089"
-                tinted
-                lightText={true}
-                breadcrumbs={[
-                    { label: 'Home', href: '/' },
-                    { label: 'Alumni' }
-                ]}
-                image={{
-                    src: "/images/alumni-hero.png",
-                    alt: "Cannoga Alumni"
-                }}
-                imagePosition="object-top"
-            />
-
-            <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl">
-                <div className="space-y-20">
-                    {/* Intro Content */}
-                    <section id="intro">
-                        <div className="max-w-none">
-                            <p className="text-aalto-5 font-bold text-black leading-tight mb-8">
-                                The Master’s Alumni of Cannoga College represent a growing global community of professionals who have completed advanced postgraduate studies at the institution.
-                            </p>
-                            <p className="text-aalto-3 text-black font-medium leading-relaxed max-w-4xl">
-                                Our alumni are equipped with strong academic foundations, practical expertise, and a commitment to sustainable impact leadership and innovation. Graduates become lifelong members of the Cannoga alumni community and continue to contribute to positive change across industries and societies.
-                            </p>
-                        </div>
-                    </section>
-
-                    {/* Key Pillars */}
-                    <section id="pillars">
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <ContentBox
-                                icon="globe"
-                                title="A Global Professional Network"
-                                body="Cannoga College Master’s Alumni are active across sustainability, business, technology, education, design, and public policy. This international network strengthens professional collaboration and knowledge exchange."
-                            />
-                            <ContentBox
-                                icon="users"
-                                title="Continued Connection"
-                                body="At Cannoga College, graduation marks the beginning of an ongoing relationship. Master’s Alumni remain connected through academic engagement, professional initiatives, and collaborative projects."
-                            />
-                        </div>
-                    </section>
-
-                    {/* Benefits List */}
-                    <section id="benefits">
-                        <ContentBox
-                            size="large"
-                            icon="briefcase"
-                            title="Alumni Benefits & Opportunities"
-                            body={
-                                <div className="text-left space-y-8">
-                                    <p className="text-aalto-2 text-black/70 font-bold leading-relaxed">
-                                        Master’s Alumni of Cannoga College have access to continued engagement opportunities that support lifelong growth and connection.
-                                    </p>
-                                    <ul className="grid sm:grid-cols-2 gap-x-12 gap-y-6">
-                                        {benefits.map((benefit, i) => (
-                                            <li key={i} className="flex items-start gap-4">
-                                                <ArrowRight size={20} weight="bold" className="shrink-0 text-black mt-0.5" />
-                                                <span className="text-base font-bold text-black leading-tight">{benefit}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            }
-                        />
-                    </section>
-
-                    {/* Impact and CTA */}
-                    <section id="impact">
-                        <div className="space-y-12">
-                            <div className="max-w-4xl">
-                                <h2 className="text-aalto-5 font-bold mb-8 text-black tracking-tight">Alumni Impact and Contribution</h2>
-                                <p className="text-aalto-2 text-black leading-relaxed font-bold mb-8">
-                                    Cannoga College Master’s Alumni play an important role in advancing the institution’s mission and global impact. Through leadership, professional practice, research collaboration, and community engagement, alumni help shape sustainable solutions.
-                                </p>
+        <div className="min-h-screen bg-white text-black antialiased font-sans pb-24">
+            
+            {/* HERO SECTION */}
+            <section className="bg-[#0a151a] text-white pt-28 pb-20 md:pt-36 md:pb-24 px-4 border-b border-slate-800">
+                <div className="container mx-auto max-w-6xl">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        <div className="lg:col-span-7">
+                            <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#c89211] mb-6">
+                                <Link href="/" className="text-[#c89211] hover:text-white transition-colors no-underline">HOME</Link>
+                                <span className="text-slate-600">/</span>
+                                <span>COMMUNITY</span>
                             </div>
-
-                <CTA
-                    title="Cannoga Alumni"
-                    body="Stay connected with the Cannoga alumni community. Access exclusive networking opportunities, career resources, and lifelong learning opportunities."
-                    cta={{
-                        label: "Alumni Portal",
-                        linkComponentProps: {
-                            href: "/portal",
-                        },
-                    }}
-                />
+                            <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white leading-tight">
+                                Cannoga Alumni Network
+                            </h1>
+                            <p className="text-lg md:text-xl text-slate-300 leading-relaxed">
+                                Empowering a global network of over 18,000+ professionals committed to sustainable impact, leadership, and technological innovation. Graduation is just the beginning.
+                            </p>
                         </div>
-                    </section>
+                        <div className="lg:col-span-5">
+                            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
+                                <Image 
+                                    src="/images/alumni-hero.png" 
+                                    alt="Cannoga Alumni Network" 
+                                    fill
+                                    className="object-cover object-top"
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </section>
+
+            {/* KEY STATS BAR */}
+            <section className="bg-[#0f2027] text-white py-10 border-b border-slate-800">
+                <div className="container mx-auto max-w-6xl px-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        {alumniStats.map((stat, idx) => (
+                            <div key={idx} className="space-y-1">
+                                <div className="text-3xl md:text-4xl font-black text-[#c89211]">{stat.value}</div>
+                                <div className="text-xs uppercase tracking-wider text-slate-400 font-bold">{stat.label}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16">
+
+                {/* OVERVIEW SECTION */}
+                <section className="space-y-6">
+                    <h2 className="text-3xl font-black text-black tracking-tight">Lifelong Connection & Impact</h2>
+                    <p className="text-slate-700 text-base md:text-lg font-medium leading-relaxed">
+                        Cannoga College Master&apos;s and Undergraduate Alumni represent an active global community leading projects across sustainability, public policy, technology, business, and health sciences. Our alumni office provides continuous services, event invitations, and career advancement tools to support your lifelong journey.
+                    </p>
+                </section>
+
+                {/* BORDERLESS HORIZONTAL ROWS FOR ALUMNI SERVICES & BENEFITS */}
+                <section id="benefits" className="scroll-mt-32 space-y-8 pt-8 border-t border-slate-200">
+                    <div>
+                        <h2 className="text-3xl font-black text-black tracking-tight mb-2">Alumni Privileges & Services</h2>
+                        <p className="text-slate-700 text-base md:text-lg font-medium leading-relaxed">
+                            As a verified Cannoga graduate, you hold lifetime access to institutional resources and career networks.
+                        </p>
+                    </div>
+
+                    <div className="flex flex-col gap-6 pt-2">
+                        {benefits.map((benefit, idx) => (
+                            <div key={idx} className="flex items-start gap-4">
+                                <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                    <GraduationCap size={16} weight="bold" />
+                                </div>
+                                <div>
+                                    <h3 className="text-slate-900 font-bold text-base leading-snug">{benefit.title}</h3>
+                                    <p className="text-slate-600 text-sm font-normal mt-1 leading-relaxed">
+                                        {benefit.desc}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* REGIONAL CHAPTERS DIRECTORY */}
+                <section className="pt-8 border-t border-slate-200">
+                    <h2 className="text-2xl font-black text-black tracking-tight mb-6">Regional Alumni Chapters</h2>
+                    <p className="text-slate-700 text-base font-medium leading-relaxed mb-8">
+                        Connect with local chapter leaders, participate in regional networking mixers, and attend Cannoga speaker panels in your area.
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {chapters.map((chapter, idx) => (
+                            <div key={idx} className="flex items-start gap-4">
+                                <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                    <Globe size={16} weight="bold" />
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-base text-slate-900">{chapter.city}</h3>
+                                    <span className="inline-block text-xs font-bold text-[#c89211] uppercase tracking-wider mt-0.5 mb-1">{chapter.members}</span>
+                                    <a href={`mailto:${chapter.contact}`} className="text-[#0f2027] font-bold text-sm underline hover:text-[#c89211] transition-colors block">
+                                        {chapter.contact}
+                                    </a>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* CALL TO ACTION ROW */}
+                <section className="pt-8 border-t border-slate-200">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 bg-[#0f2027] text-white p-8">
+                        <div className="space-y-2">
+                            <span className="text-[#c89211] font-bold uppercase tracking-wider text-xs block">Official Alumni Portal</span>
+                            <h3 className="text-2xl font-black text-white">Update Your Contact Details & Directory Listing</h3>
+                            <p className="text-slate-300 text-sm max-w-xl font-normal">
+                                Access your official transcripts, request alumni identity credentials, or update your current professional title in the Cannoga Alumni Directory.
+                            </p>
+                        </div>
+                        <Link 
+                            href="/portal/login" 
+                            className="inline-flex items-center gap-2 bg-[#c89211] hover:bg-[#b07f0e] text-[#0f2027] font-extrabold text-xs uppercase tracking-wider px-6 py-4 whitespace-nowrap transition-colors no-underline shrink-0"
+                        >
+                            <span>Alumni Portal Access</span>
+                            <ArrowRight size={14} weight="bold" />
+                        </Link>
+                    </div>
+                </section>
+
             </div>
         </div>
     );
