@@ -111,7 +111,7 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
       email: 'admissions@cannogacollege.ca',
       type: schoolType,
       website: 'cannogacollege.ca',
-      dliNumber: 'O22203958882',
+      dliNumber: 'O19394821',
     },
     student: {
       id: studentId,
