@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Preview</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 10px;
+            line-height: 1.3;
+            color: #333333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+        .college-branding {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .college-logo {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+        .college-name {
+            font-size: 27px;
+            font-weight: 500;
+            color: #3a4252;
+            line-height: 1.15;
+        }
+        .subtitle {
+            font-size: 27px;
+            font-weight: 500;
+            color: #3a4252;
+            line-height: 1.15;
+        }
+        .stamp {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+        .divider {
+            border-top: 1px solid #e0e0e0;
+            margin: 12px 0;
+        }
+        .meta-label {
+            font-size: 9px;
+            font-weight: 700;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5;
+        }
+        .meta-table {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+        .meta-row {
+            display: flex;
+            padding: 4px 0;
+        }
+        .meta-label-cell {
+            width: 160px;
+            font-size: 9px;
+            font-weight: 700;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5;
+        }
+        .meta-value {
+            flex: 1;
+            font-size: 9px;
+            color: #2d3748;
+            font-weight: 500;
+        }
+        .details-table {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .details-header {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 2px;
+        }
+        .details-row {
+            display: flex;
+            padding-top: 3px;
+        }
+        .col-desc { width: 40%; }
+        .col-date { width: 20%; }
+        .col-orig { width: 22%; }
+        .col-recv { width: 18%; }
+        .th {
+            font-size: 9px;
+            font-weight: 700;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5;
+        }
+        .td {
+            font-size: 10px;
+            color: #2d3748;
+        }
+        .thank-you {
+            text-align: center;
+            color: #718096;
+            font-size: 10px;
+            margin: 30px 0 10px 0;
+        }
+        .support-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 14px;
+            background-color: #ffffff;
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .support-icon {
+            width: 26px;
+            height: 26px;
+            border: 1.5px solid #3182ce;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3182ce;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .support-title {
+            font-weight: 700;
+            font-size: 11px;
+            color: #2d3748;
+        }
+        .support-subtext {
+            font-size: 10px;
+            color: #718096;
+            margin-top: 2px;
+        }
+        .support-link {
+            color: #0072ce;
+            font-size: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-left: auto;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .powered-by {
+            font-size: 8px;
+            font-weight: 700;
+            color: #718096;
+            letter-spacing: 0.8;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .flywire-logo {
+            width: 80px;
+            height: 22px;
+            object-fit: contain;
+            margin-bottom: 6px;
+        }
+        .footer-address {
+            font-size: 9px;
+            color: #718096;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="college-branding">
+                <img src="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/logo-cannoga.png" alt="Cannoga College Logo" class="college-logo">
+                <div>
+                    <div class="college-name">Cannoga College</div>
+                    <div class="subtitle">Tuition Fees</div>
+                </div>
+            </div>
+            <img src="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/Paid%20stamp.png" alt="Paid Stamp" class="stamp">
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Subtitle -->
+        <div class="meta-label">Flywire Payment Confirmation</div>
+
+        <!-- Meta Table -->
+        <div class="meta-table">
+            <div class="meta-row">
+                <div class="meta-label-cell">PAYMENT ID</div>
+                <div class="meta-value">TXN_1785707863935_492</div>
+            </div>
+            <div class="meta-row">
+                <div class="meta-label-cell">STUDENT ID</div>
+                <div class="meta-value">CC8204335</div>
+            </div>
+            <div class="meta-row">
+                <div class="meta-label-cell">FULL NAME</div>
+                <div class="meta-value">Chikamma Benson</div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Details Table -->
+        <div class="details-table">
+            <div class="details-header">
+                <div class="th col-desc">DESCRIPTION</div>
+                <div class="th col-date">DELIVERY DATE</div>
+                <div class="th col-orig">ORIGINATING AMOUNT</div>
+                <div class="th col-recv">RECEIVED AMOUNT</div>
+            </div>
+            <div class="details-row">
+                <div class="td col-desc">Payment to Cannoga College Tuition deposit</div>
+                <div class="td col-date">08/08/2026</div>
+                <div class="td col-orig">CAD 2,700</div>
+                <div class="td col-recv">CAD 2,700</div>
+            </div>
+        </div>
+
+        <!-- Thank You -->
+        <div class="thank-you">Thank you for completing your payment with us.</div>
+
+        <div class="divider"></div>
+
+        <!-- Support Box -->
+        <div class="support-box">
+            <div class="support-icon">?</div>
+            <div>
+                <div class="support-title">Flywire support</div>
+                <div class="support-subtext">Do you need help with your payment?</div>
+            </div>
+            <div class="support-link">https://help@flywire.com</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="powered-by">PAYMENT POWERED BY</div>
+            <img src="https://www.designyourway.net/blog/wp-content/uploads/2025/09/logo-5.jpg" alt="Flywire" class="flywire-logo">
+            <div class="footer-address">41 Tremont Street - Boston, MA 02111</div>
+        </div>
+    </div>
+</body>
+</html>
