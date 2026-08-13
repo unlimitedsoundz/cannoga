@@ -60,18 +60,18 @@ export function HomeNewsEventsGrid() {
 
     if (loading) {
         return (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 items-stretch animate-pulse">
-                <div className="lg:col-span-2 bg-neutral-100 h-[480px]" />
-                <div className="bg-[#0a151a] h-[480px]" />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 items-stretch animate-pulse" style={{ minHeight: 764 }}>
+                <div className="lg:col-span-2 bg-neutral-100" style={{ height: 764 }} />
+                <div className="bg-[#0a151a]" style={{ height: 764 }} />
             </div>
         );
     }
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 items-stretch border border-neutral-200 shadow-sm overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 items-stretch border border-neutral-200 shadow-sm overflow-hidden lg:h-[764px]">
 
             {/* ── LEFT: News Carousel ── */}
-            <div className="lg:col-span-2 flex flex-col bg-white">
+            <div className="lg:col-span-2 flex flex-col bg-white lg:h-[764px] overflow-hidden">
                 {/* Header row */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200">
                     <h3 className="text-xl font-black text-slate-900 tracking-tight">
