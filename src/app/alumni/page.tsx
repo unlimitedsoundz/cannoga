@@ -55,34 +55,32 @@ export default function AlumniPage() {
     return (
         <div className="min-h-screen bg-white text-black antialiased font-sans pb-24">
             
-            {/* HERO SECTION */}
-            <section className="bg-[#0a151a] text-white pt-28 pb-20 md:pt-36 md:pb-24 px-4 border-b border-slate-800">
-                <div className="container mx-auto max-w-6xl">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                        <div className="lg:col-span-7">
-                            <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#c89211] mb-6">
-                                <Link href="/" className="text-[#c89211] hover:text-white transition-colors no-underline">HOME</Link>
-                                <span className="text-slate-600">/</span>
-                                <span>COMMUNITY</span>
-                            </div>
-                            <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white leading-tight">
-                                Cannoga Alumni Network
-                            </h1>
-                            <p className="text-lg md:text-xl text-slate-300 leading-relaxed">
-                                Empowering a global network of over 18,000+ professionals committed to sustainable impact, leadership, and technological innovation. Graduation is just the beginning.
-                            </p>
-                        </div>
-                        <div className="lg:col-span-5">
-                            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
-                                <Image 
-                                    src="/images/alumni-hero.png" 
-                                    alt="Cannoga Alumni Network" 
-                                    fill
-                                    className="object-cover object-top"
-                                />
-                            </div>
-                        </div>
+            {/* HERO SECTION WITH FULL BACKGROUND OVERLAY */}
+            <section className="relative bg-[#191919] text-white pt-32 pb-24 md:pt-44 md:pb-32 px-4 border-b border-slate-800 overflow-hidden">
+                {/* Background Image with Low Opacity Overlay */}
+                <div className="absolute inset-0 z-0">
+                    <Image 
+                        src="/images/alumni-hero.png" 
+                        alt="Cannoga Alumni Network" 
+                        fill
+                        className="object-cover object-top opacity-20"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#191919] via-[#191919]/90 to-transparent"></div>
+                </div>
+
+                <div className="container mx-auto max-w-5xl relative z-10">
+                    <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#c89211] mb-6">
+                        <Link href="/" className="text-[#c89211] hover:text-white transition-colors no-underline">HOME</Link>
+                        <span className="text-slate-500">/</span>
+                        <span>COMMUNITY</span>
                     </div>
+                    <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white leading-tight max-w-3xl">
+                        Cannoga Alumni Network
+                    </h1>
+                    <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl font-medium">
+                        Empowering a global network of over 18,000+ professionals committed to sustainable impact, leadership, and technological innovation. Graduation is just the beginning.
+                    </p>
                 </div>
             </section>
 
