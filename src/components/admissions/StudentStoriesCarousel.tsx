@@ -34,8 +34,8 @@ const stories = [
         name: 'Marcus Vance',
         programme: "Advanced Diploma in Software Engineering",
         quote: "The hands-on lab facilities and close mentorship from faculty helped me secure a full-time software developer role in Ottawa's Kanata North tech hub before graduation.",
-        image: '/images/student-story-3.jpg',
-        imagePosition: 'object-[center_15%]'
+        image: '/images/student-story-4.jpg',
+        imagePosition: 'object-top'
     }
 ];
 
@@ -46,7 +46,7 @@ export default function StudentStoriesCarousel() {
     const prev = () => setCurrent((prev) => (prev - 1 + stories.length) % stories.length);
 
     return (
-        <div className="relative w-full h-[540px] sm:h-[500px] md:h-[380px] overflow-hidden bg-[#0a151a] group">
+        <div className="relative w-full h-[640px] sm:h-[600px] md:h-[380px] overflow-hidden bg-[#0a151a] group">
             {stories.map((story, index) => (
                 <div
                     key={story.id}
@@ -55,7 +55,7 @@ export default function StudentStoriesCarousel() {
                 >
                     <div className="flex flex-col md:flex-row h-full w-full">
                         {/* Image Side */}
-                        <div className="relative h-[230px] sm:h-[250px] md:h-full w-full md:w-1/2 shrink-0 overflow-hidden">
+                        <div className="relative h-[330px] sm:h-[350px] md:h-full w-full md:w-1/2 shrink-0 overflow-hidden">
                             <Image
                                 src={story.image}
                                 alt={story.name}
