@@ -77,9 +77,10 @@ export default function MasterAdmissionsPage() {
             >
                 <Link
                     href="#steps"
-                    className="text-aalto-3 font-bold underline underline-offset-8 decoration-black hover:opacity-70 transition-colors text-black inline-flex items-center gap-2"
+                    className="inline-flex items-center gap-2 bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline rounded-sm transition-colors border border-white/20"
                 >
-                    How to apply <ArrowRight size={20} weight="bold" />
+                    <span>How to apply</span>
+                    <ArrowRight size={18} weight="bold" className="text-[#c89211]" />
                 </Link>
             </Hero>
 

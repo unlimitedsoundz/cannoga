@@ -35,11 +35,19 @@ export default function StudiesPage() {
                 ]}
             >
                 <div className="flex flex-wrap gap-4">
-                    <Link href="/admissions" className="text-aalto-3 font-bold underline underline-offset-8 decoration-white text-white inline-flex items-center gap-2" noHover>
-                        Apply Now <ArrowRight size={20} weight="bold" />
+                    <Link
+                        href="/admissions"
+                        className="inline-flex items-center gap-2 bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline rounded-sm transition-colors border border-white/20"
+                    >
+                        <span>Apply Now</span>
+                        <ArrowRight size={18} weight="bold" className="text-[#c89211]" />
                     </Link>
-                    <Link href="#programmes" className="text-aalto-3 font-bold underline underline-offset-8 decoration-white text-white inline-flex items-center gap-2" noHover>
-                        Explore Programmes <ArrowRight size={20} weight="bold" />
+                    <Link
+                        href="#programmes"
+                        className="inline-flex items-center gap-2 bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline rounded-sm transition-colors border border-white/20"
+                    >
+                        <span>Explore Programmes</span>
+                        <ArrowRight size={18} weight="bold" className="text-[#c89211]" />
                     </Link>
                 </div>
             </Hero>
