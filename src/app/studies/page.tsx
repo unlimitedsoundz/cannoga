@@ -235,7 +235,6 @@ export default function StudiesPage() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a151a] via-[#0a151a]/80 to-transparent" />
                                 </div>
                                 <div className="relative z-10 text-white">
-                                    <span className="inline-block px-3 py-1 bg-[#c89211] text-[#0a151a] text-[10px] font-black uppercase tracking-widest rounded-md mb-3">{school.count}</span>
                                     <h3 className="text-xl font-extrabold text-white mb-4">{school.name}</h3>
                                     <Link 
                                         href={`/schools/${school.slug}`} 
