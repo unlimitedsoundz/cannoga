@@ -67,7 +67,7 @@ export default async function Home() {
 
             {/* 2. EXPLORE PROGRAMS & COURSES */}
             <section className="py-20 bg-[#f8fafc] border-b border-slate-200">
-                <div className="container mx-auto px-12 md:px-20 lg:px-28">
+                <div className="container mx-auto px-16 md:px-28 lg:px-40">
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
                         <div className="text-left max-w-2xl">
                             <span className="text-[#c89211] font-bold uppercase tracking-widest text-xs mb-2 block">Academic Pathways in Ottawa</span>
@@ -106,14 +106,14 @@ export default async function Home() {
             </section>
 
             {/* 3. NEWS & EVENTS GRID */}
-            <section className="py-20 container mx-auto px-12 md:px-20 lg:px-28">
+            <section className="py-20 container mx-auto px-16 md:px-28 lg:px-40">
                 <HomeNewsEventsGrid />
             </section>
 
             {/* 4. FEATURED SCHOOLS */}
             {schools && schools.length > 0 && (
                 <section className="py-20 bg-[#f8fafc] border-t border-b border-slate-200">
-                    <div className="container mx-auto px-12 md:px-20 lg:px-28">
+                    <div className="container mx-auto px-16 md:px-28 lg:px-40">
                         <div className="mb-12 border-b border-slate-200 pb-4">
                             <span className="text-[#c89211] font-bold uppercase tracking-widest text-xs mb-2 block">Faculties &amp; Divisions</span>
                             <h2 className="text-3xl font-serif font-bold text-[#0f2027]">Academic Schools</h2>
@@ -133,7 +133,7 @@ export default async function Home() {
 
             {/* 5. STUDENT STORIES & EXPERIENCE */}
             <section className="py-12 bg-[#0a151a] text-white">
-                <div className="container mx-auto px-12 md:px-20 lg:px-28">
+                <div className="container mx-auto px-16 md:px-28 lg:px-40">
                     <div className="mb-6 border-b border-white/10 pb-3">
                         <span className="text-[#c89211] font-bold uppercase tracking-widest text-xs mb-1.5 block">Campus Life &amp; Voices</span>
                         <h2 className="text-2xl md:text-3xl font-serif font-bold text-white">Student Stories</h2>
@@ -145,7 +145,7 @@ export default async function Home() {
 
             {/* 5. STUDENT RESOURCE LINKS */}
             <section className="py-20 bg-white">
-                <div className="container mx-auto px-12 md:px-20 lg:px-28">
+                <div className="container mx-auto px-16 md:px-28 lg:px-40">
                     <div className="mb-12 border-b border-slate-200 pb-4">
                         <span className="text-[#c89211] font-bold uppercase tracking-widest text-xs mb-2 block">Essential Information</span>
                         <h2 className="text-3xl font-serif font-bold text-[#0f2027]">Student Resource Hub</h2>
