@@ -1017,7 +1017,7 @@ export default function SISStudentDashboard() {
     return (
         <div className="font-sans" data-theme="sis">
             {/* TOP HEADER */}
-            <header className="bg-slate-900 text-white sticky top-0 z-50 border-b border-slate-800 shadow-md">
+            <header className="bg-[#0a151a] text-white sticky top-0 z-50 border-b border-slate-800 shadow-md">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
                     <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
                         <button type="button" onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-slate-800 rounded-lg transition text-slate-300 hover:text-white focus:outline-none md:hidden">
@@ -1085,7 +1085,7 @@ export default function SISStudentDashboard() {
                 )}
                 
                 {/* Sidebar */}
-                <aside className={`fixed md:sticky inset-y-0 md:top-16 left-0 w-60 bg-slate-900 text-slate-300 z-50 transform transition-transform duration-200 ease-in-out flex-shrink-0 flex flex-col justify-between border-r border-slate-800 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+                <aside className={`fixed md:sticky inset-y-0 md:top-16 left-0 w-60 bg-[#0a151a] text-slate-300 z-50 transform transition-transform duration-200 ease-in-out flex-shrink-0 flex flex-col justify-between border-r border-slate-800 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
                     <div className="p-4 space-y-1">
                         <div className="flex items-center justify-between md:hidden pb-3 mb-2 border-b border-slate-800">
                             <div className="flex items-center space-x-2">
