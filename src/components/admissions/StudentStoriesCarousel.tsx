@@ -42,7 +42,7 @@ export default function StudentStoriesCarousel() {
     const prev = () => setCurrent((prev) => (prev - 1 + stories.length) % stories.length);
 
     return (
-        <div className="relative w-full min-h-[420px] md:h-[380px] overflow-hidden bg-[#0a151a] group rounded-sm shadow-sm border border-white/10">
+        <div className="relative w-full min-h-[420px] md:h-[380px] overflow-hidden bg-[#0a151a] group">
             {stories.map((story, index) => (
                 <div
                     key={story.id}
@@ -51,15 +51,16 @@ export default function StudentStoriesCarousel() {
                 >
                     <div className="flex flex-col md:flex-row h-full">
                         {/* Image Side */}
-                        <div className="relative h-[220px] md:h-full md:w-1/2 overflow-hidden">
+                        <div className="relative h-[240px] md:h-full md:w-1/2 overflow-hidden">
                             <Image
                                 src={story.image}
                                 alt={story.name}
                                 fill
-                                className="object-cover object-center"
+                                className="object-cover object-[center_15%]"
                                 sizes="(max-width: 1024px) 100vw, 50vw"
+                                priority={index === 0}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0a151a]/60 via-transparent to-transparent md:hidden" />
+                            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0a151a]/70 via-transparent to-transparent md:hidden" />
                         </div>
 
                         {/* Content Side */}
@@ -69,16 +70,16 @@ export default function StudentStoriesCarousel() {
                                 <p className="text-base md:text-lg text-slate-100 font-serif leading-relaxed mb-4 italic">
                                     "{story.quote}"
                                 </p>
-                                <div className="border-l-2 border-[#c89211] pl-3">
+                                <div>
                                     <h4 className="text-base font-bold text-white uppercase tracking-tight">{story.name}</h4>
-                                    <p className="text-[11px] text-slate-300 font-medium tracking-wide mt-0.5">{story.programme}</p>
+                                    <p className="text-[11px] text-[#c89211] font-medium tracking-wide mt-0.5">{story.programme}</p>
                                 </div>
                             </div>
 
                             <div className="pt-4 flex items-center justify-between">
                                 <a 
                                     href="/student-guide" 
-                                    className="inline-flex items-center gap-2 font-bold text-[11px] uppercase tracking-wider text-[#c89211] hover:underline"
+                                    className="inline-flex items-center gap-2 font-bold text-[11px] uppercase tracking-wider text-slate-300 hover:text-white transition-colors"
                                 >
                                     Read Student Guide <ArrowRight size={13} weight="bold" />
                                 </a>
@@ -104,7 +105,7 @@ export default function StudentStoriesCarousel() {
             <div className="absolute bottom-0 right-0 flex z-20">
                 <button
                     onClick={prev}
-                    className="w-11 h-11 md:w-12 md:h-12 bg-[#0f2027] text-white flex items-center justify-center hover:bg-[#1a2b32] transition-all active:scale-95 border-r border-white/10"
+                    className="w-11 h-11 md:w-12 md:h-12 bg-[#0f2027] text-white flex items-center justify-center hover:bg-[#1a2b32] transition-all active:scale-95"
                     aria-label="Previous story"
                 >
                     <CaretLeft size={18} weight="bold" />
