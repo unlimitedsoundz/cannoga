@@ -248,7 +248,7 @@ export default function HousingGuidePage() {
                         {/* Settling In */}
                         <section id="settling-in" className="scroll-mt-32">
                             <ContentBox
-                                backgroundColor="#000000"
+                                backgroundColor="#0a151a"
                                 title={<span className="text-white">Settling Into Ottawa Life</span>}
                                 body={
                                     <div className="space-y-6">

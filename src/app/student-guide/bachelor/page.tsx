@@ -35,7 +35,7 @@ export default function BachelorsGuidePage() {
                 <Hero
                     title="Bachelor’s Students Guide"
                     body="Essential information for students admitted to Bachelor’s programmes taught in English. Read carefully to ensure a smooth start to your studies."
-                    backgroundColor="#dc6ade"
+                    backgroundColor="#0a151a"
                     tinted
                     lightText={true}
                     breadcrumbs={[
@@ -73,7 +73,7 @@ export default function BachelorsGuidePage() {
                                         <p className="text-sm font-bold text-neutral-600 leading-relaxed">
                                             Accept by this date or lose your study place offer. Use the personal link sent via email or log in to the national admissions portal.
                                         </p>
-                                        <div className="bg-neutral-100 p-6 rounded-xl border-l-4 border-[#9c27b3]">
+                                        <div className="bg-neutral-100 p-6 rounded-xl border-l-4 border-[#0a151a]">
                                             <h4 className="font-bold text-lg mb-2">Waitlist & Multiple Offers</h4>
                                             <ul className="text-sm font-bold space-y-2">
                                                 <li>• You can accept only one degree study place per term.</li>

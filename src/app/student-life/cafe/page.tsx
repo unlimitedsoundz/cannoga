@@ -18,7 +18,7 @@ export default function CafePage() {
             <Hero
                 title="Opiskelija Cafe"
                 body="A cozy sanctuary for student nourishment, artisanal coffee, and collaborative moments."
-                backgroundColor="#472247"
+                backgroundColor="#0a151a"
                 tinted
                 lightText={true}
                 breadcrumbs={[
@@ -97,7 +97,7 @@ export default function CafePage() {
                                 </div>
                             </div>
                             <div className="pt-6">
-                                <Link href="#" className="inline-flex items-center gap-4 py-4 px-8 bg-[#9c27b3] text-white text-xs font-black uppercase tracking-widest hover:bg-neutral-800 transition-all rounded-none">
+                                <Link href="#" className="inline-flex items-center gap-4 py-4 px-8 bg-[#0a151a] text-white text-xs font-black uppercase tracking-widest hover:bg-neutral-800 transition-all rounded-none">
                                     View Weekly Menu <ArrowRight size={16} weight="bold" />
                                 </Link>
                             </div>
@@ -124,7 +124,7 @@ export default function CafePage() {
                                 fill
                                 className="object-cover object-top group-hover:scale-110 transition-transform duration-700"
                             />
-                            <div className="absolute inset-0 bg-[#9c27b3]/40 group-hover:bg-[#9c27b3]/20 transition-colors" />
+                            <div className="absolute inset-0 bg-[#0a151a]/40 group-hover:bg-[#0a151a]/20 transition-colors" />
                             <div className="absolute bottom-6 left-6">
                                 <h4 className="text-white font-black uppercase tracking-widest text-sm">Silent Study</h4>
                             </div>
@@ -136,7 +136,7 @@ export default function CafePage() {
                                 fill
                                 className="object-cover object-top group-hover:scale-110 transition-transform duration-700"
                             />
-                            <div className="absolute inset-0 bg-[#9c27b3]/40 group-hover:bg-[#9c27b3]/20 transition-colors" />
+                            <div className="absolute inset-0 bg-[#0a151a]/40 group-hover:bg-[#0a151a]/20 transition-colors" />
                             <div className="absolute bottom-6 left-6">
                                 <h4 className="text-white font-black uppercase tracking-widest text-sm">Lounge Soft Seating</h4>
                             </div>
@@ -148,7 +148,7 @@ export default function CafePage() {
                                 fill
                                 className="object-cover object-top group-hover:scale-110 transition-transform duration-700"
                             />
-                            <div className="absolute inset-0 bg-[#9c27b3]/40 group-hover:bg-[#9c27b3]/20 transition-colors" />
+                            <div className="absolute inset-0 bg-[#0a151a]/40 group-hover:bg-[#0a151a]/20 transition-colors" />
                             <div className="absolute bottom-6 left-6">
                                 <h4 className="text-white font-black uppercase tracking-widest text-sm">Summer Terrace</h4>
                             </div>
@@ -160,7 +160,7 @@ export default function CafePage() {
             {/* Catering Section */}
             <section className="py-20 md:py-32 bg-white overflow-hidden">
                 <div className="container mx-auto px-4">
-                    <div className="bg-[#9c27b3] text-white p-8 md:p-20 rounded-none relative overflow-hidden">
+                    <div className="bg-[#0a151a] text-white p-8 md:p-20 rounded-none relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-1/2 h-full hidden lg:block">
                             <Image
                                 src="https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=1200&auto=format&fit=crop"

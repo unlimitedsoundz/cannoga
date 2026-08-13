@@ -105,7 +105,7 @@ export default function StudentGuidePage() {
             <Hero
                 title="Student Guide"
                 body="Discover the tools, resources, and support available throughout your time at Cannoga College. Whether you're navigating academics, student services, or campus life, you'll find the guidance you need every step of the way."
-                backgroundColor="#472247"
+                backgroundColor="#0a151a"
                 tinted
                 lightText={true}
                 breadcrumbs={[
@@ -129,7 +129,7 @@ export default function StudentGuidePage() {
 
                         {/* Intro */}
                         <div className="max-w-none text-xl text-black">
-                            <p className="font-bold border-l-4 border-[#9c27b3] pl-8 py-2 leading-relaxed">
+                            <p className="font-bold border-l-4 border-[#0a151a] pl-8 py-2 leading-relaxed">
                                 Whether you are a new student, continuing your degree, or joining from abroad, this guide explains how studies are organised and how support is provided throughout your academic journey.
                             </p>
                         </div>
@@ -203,7 +203,7 @@ export default function StudentGuidePage() {
                                         <li className="flex gap-2 underline"><ArrowRight size={18} weight="bold" className="mt-1 flex-shrink-0" /> From interdisciplinary or entrepreneurship offerings</li>
                                     </ul>
                                 </div>
-                                <div className="flex-1 bg-[#9c27b3] text-white p-8 rounded-none border-l-4 border-neutral-700">
+                                <div className="flex-1 bg-[#0a151a] text-white p-8 rounded-none border-l-4 border-neutral-700">
                                     <h3 className="font-bold text-xl mb-4 text-white">Benefits of Minors</h3>
                                     <ul className="space-y-4">
                                         {[
@@ -263,7 +263,7 @@ export default function StudentGuidePage() {
                                     "Academic communication", "Intercultural communication",
                                     "English for Academic Purposes", "French language (optional)"
                                 ].map(lang => (
-                                    <div key={lang} className="bg-neutral-100 p-4 rounded-none text-center font-bold text-black border-l-2 border-[#9c27b3]">
+                                    <div key={lang} className="bg-neutral-100 p-4 rounded-none text-center font-bold text-black border-l-2 border-[#0a151a]">
                                         {lang}
                                     </div>
                                 ))}

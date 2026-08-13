@@ -34,7 +34,7 @@ export default function MastersGuidePage() {
                 <Hero
                     title="Master’s Students Guide"
                     body="Essential steps and instructions for newly admitted Master’s students at Cannoga College. Follow this guide to ensure a smooth start to your studies."
-                    backgroundColor="#dc6ade"
+                    backgroundColor="#0a151a"
                     tinted
                     lightText={true}
                     breadcrumbs={[
@@ -86,7 +86,7 @@ export default function MastersGuidePage() {
                                         <p className="text-sm font-bold text-neutral-600 leading-relaxed">
                                             Log in to the online study application service and follow instructions. Your acceptance is binding.
                                         </p>
-                                        <div className="bg-neutral-100 p-6 rounded-xl border-l-4 border-[#9c27b3]">
+                                        <div className="bg-neutral-100 p-6 rounded-xl border-l-4 border-[#0a151a]">
                                             <h4 className="font-bold text-lg mb-2">Important Conditions</h4>
                                             <ul className="text-sm font-bold space-y-2">
                                                 <li>• You can accept only one study place in Ottawa, Ontario, Canada per term.</li>
