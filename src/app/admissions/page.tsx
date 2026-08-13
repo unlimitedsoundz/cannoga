@@ -379,25 +379,33 @@ export default async function AdmissionsPage() {
                                 icon="globeHemisphereWest"
                                 title="study in Ottawa, Ontario, Canada with Cannoga College"
                                 body={
-                                    <div className="space-y-8">
-                                        <div className="grid grid-cols-1 gap-6">
+                                    <div className="space-y-6">
+                                        <div className="grid grid-cols-1 gap-4 pt-2">
                                             {[
-                                                { title: "Quality & Safety", desc: "World-leading education in a safe, equal society." },
-                                                { title: "Practical Innovation", desc: "Focus on independent study and real-world application." },
-                                                { title: "Life Balance", desc: "Flexibility to shape your own unique academic path." }
+                                                { title: "Quality & Safety", desc: "World-leading education in a safe, inclusive, and equal society." },
+                                                { title: "Practical Innovation", desc: "Focus on applied learning, independent research, and real-world industry applications." },
+                                                { title: "Life Balance", desc: "Flexibility and student wellbeing support to shape your own unique academic path." }
                                             ].map(item => (
-                                                <div key={item.title} className="flex gap-4 items-start">
-                                                    <ArrowRight size={18} weight="bold" className="mt-1 text-black flex-shrink-0" />
+                                                <div key={item.title} className="p-4 bg-white border border-slate-200 rounded-sm hover:border-[#0f2027] hover:shadow-sm transition-all flex items-start gap-3.5">
+                                                    <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                                        <ArrowRight size={14} weight="bold" />
+                                                    </div>
                                                     <div>
-                                                        <strong className="block text-black font-bold">{item.title}</strong>
-                                                        <span className="text-black opacity-60 text-sm">{item.desc}</span>
+                                                        <h4 className="text-slate-900 font-bold text-base leading-snug">{item.title}</h4>
+                                                        <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">{item.desc}</p>
                                                     </div>
                                                 </div>
                                             ))}
                                         </div>
-                                        <Link href="/student-guide/international" className="inline-flex items-center gap-2 font-bold underline underline-offset-4 hover:opacity-50 transition-colors text-black">
-                                            Read Our International Student Guide <ArrowRight size={20} weight="bold" />
-                                        </Link>
+                                        <div className="pt-2">
+                                            <Link 
+                                                href="/student-guide/international" 
+                                                className="inline-flex items-center gap-2 bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-sm transition-colors border border-white/20 no-underline"
+                                            >
+                                                <span>Read Our International Student Guide</span>
+                                                <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
+                                            </Link>
+                                        </div>
                                     </div>
                                 }
                                 image={{
