@@ -55,7 +55,7 @@ export default function RefundWithdrawalPolicyPage() {
                     {/* 1. PURPOSE */}
                     <section id="purpose" className="scroll-mt-28 border-t-2 border-[#0a151a] pt-8">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-[#0a151a] text-white px-2.5 py-1">01</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">01</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Purpose & Institutional Compliance</h2>
                         </div>
                         <p className="text-base text-slate-700 leading-relaxed mb-4">
@@ -69,7 +69,7 @@ export default function RefundWithdrawalPolicyPage() {
                     {/* 2. SCOPE */}
                     <section id="scope" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">02</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">02</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Policy Scope</h2>
                         </div>
                         <p className="text-base text-slate-700 leading-relaxed mb-4">This policy applies to all financial transactions associated with:</p>
@@ -84,7 +84,7 @@ export default function RefundWithdrawalPolicyPage() {
                     {/* 3. DEFINITIONS */}
                     <section id="definitions" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">03</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">03</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Definitions</h2>
                         </div>
                         <div className="border border-slate-200 rounded-none overflow-hidden text-sm">
@@ -110,7 +110,7 @@ export default function RefundWithdrawalPolicyPage() {
                     {/* 4. GENERAL PRINCIPLES */}
                     <section id="general-principles" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">04</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">04</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">General Principles</h2>
                         </div>
                         <ul className="list-disc pl-6 space-y-3 text-base text-slate-800 marker:text-black">
@@ -123,7 +123,7 @@ export default function RefundWithdrawalPolicyPage() {
                     {/* 5. WITHDRAWAL PROCEDURE */}
                     <section id="withdrawal-procedure" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">05</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">05</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Withdrawal Procedures</h2>
                         </div>
                         <div className="space-y-6 text-base text-slate-700">
@@ -152,7 +152,7 @@ export default function RefundWithdrawalPolicyPage() {
                     {/* 6. IRCC STUDY PERMIT REFUSAL POLICY */}
                     <section id="ircc-visa-refusal" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-sky-900 text-white px-2.5 py-1">06</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">06</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">IRCC Study Permit (Visa) Refusals</h2>
                         </div>
                         <div className="p-6 bg-sky-50 border border-sky-200 rounded-none text-slate-800 space-y-4">
@@ -176,7 +176,7 @@ export default function RefundWithdrawalPolicyPage() {
                     {/* 7. REFUND SCHEDULE */}
                     <section id="refund-schedule" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">07</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">07</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Tuition Refund Schedule (Semester Basis)</h2>
                         </div>
                         <div className="border border-slate-200 rounded-none overflow-hidden text-sm mb-4">
@@ -201,7 +201,7 @@ export default function RefundWithdrawalPolicyPage() {
                     {/* 8. REFUND PROCESSING */}
                     <section id="refund-process" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">08</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">08</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Refund Processing & Timeline</h2>
                         </div>
                         <ol className="list-decimal pl-6 space-y-3 text-base text-slate-800 marker:font-bold">
@@ -215,7 +215,7 @@ export default function RefundWithdrawalPolicyPage() {
                     {/* 9. SPECIAL CIRCUMSTANCES */}
                     <section id="special-circumstances" className="scroll-mt-28 border-t border-slate-200 pt-8 border-b pb-12">
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">09</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">09</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Special Extenuating Circumstances</h2>
                         </div>
                         <p className="text-base text-slate-700 leading-relaxed mb-4">

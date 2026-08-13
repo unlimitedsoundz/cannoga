@@ -56,7 +56,7 @@ export default function AdmissionsPolicyPage() {
                     {/* 1. PURPOSE */}
                     <section id="purpose" className="scroll-mt-28 border-t-2 border-[#0a151a] pt-8">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-[#0a151a] text-white px-2.5 py-1">01</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">01</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Purpose</h2>
                         </div>
                         <p className="text-base text-slate-700 leading-relaxed mb-4">
@@ -70,7 +70,7 @@ export default function AdmissionsPolicyPage() {
                     {/* 2. SCOPE */}
                     <section id="scope" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">02</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">02</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Policy Scope</h2>
                         </div>
                         <p className="text-base text-slate-700 leading-relaxed mb-4">This policy applies to:</p>
@@ -86,7 +86,7 @@ export default function AdmissionsPolicyPage() {
                     {/* 3. GENERAL ADMISSION PRINCIPLES */}
                     <section id="general-principles" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">03</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">03</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">General Admission Principles</h2>
                         </div>
                         <p className="text-base text-slate-700 leading-relaxed mb-4">Cannoga College operates under the following core admissions principles:</p>
@@ -101,7 +101,7 @@ export default function AdmissionsPolicyPage() {
                     {/* 4. ADMISSION REQUIREMENTS */}
                     <section id="admission-requirements" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">04</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">04</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Admission Requirements</h2>
                         </div>
                         <div className="space-y-6 text-base text-slate-700">
@@ -132,7 +132,7 @@ export default function AdmissionsPolicyPage() {
                     {/* 5. APPLICATION PROCESS */}
                     <section id="application-process" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">05</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">05</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Application Process</h2>
                         </div>
                         <ul className="list-disc pl-6 space-y-2.5 text-base text-slate-800 marker:text-black">
@@ -146,7 +146,7 @@ export default function AdmissionsPolicyPage() {
                     {/* 6. ADMISSION DECISIONS */}
                     <section id="admission-decisions" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">06</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">06</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Admission Decisions</h2>
                         </div>
                         <div className="border border-slate-200 rounded-none overflow-hidden text-sm mb-6">
@@ -173,7 +173,7 @@ export default function AdmissionsPolicyPage() {
                     {/* 7. OFFER ACCEPTANCE */}
                     <section id="offer-acceptance" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">07</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">07</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Offer Acceptance</h2>
                         </div>
                         <ul className="list-disc pl-6 space-y-2 text-base text-slate-800 marker:text-black">
@@ -185,25 +185,22 @@ export default function AdmissionsPolicyPage() {
 
                     {/* 8. VERIFICATION & MISREPRESENTATION */}
                     <section id="verification" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-amber-900 text-white px-2.5 py-1">08</span>
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">08</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Verification &amp; Misrepresentation</h2>
                         </div>
-                        <div className="p-6 bg-amber-50 border border-amber-200 rounded-none text-slate-800 space-y-3">
-                            <p className="text-base font-bold text-slate-900">Document Authenticity:</p>
-                            <p className="text-base leading-relaxed">
-                                All academic documents, test scores, and credentials are subject to rigorous verification with issuing authorities.
-                            </p>
-                            <p className="text-sm font-semibold text-amber-900 pt-2 border-t border-amber-200">
-                                Submission of false, altered, or misleading information will result in immediate rejection of the application, revocation of any issued offer, or termination of active enrollment.
-                            </p>
-                        </div>
+                        <p className="text-base text-slate-700 leading-relaxed mb-4">
+                            All academic documents, test scores, and credentials are subject to rigorous verification with issuing authorities.
+                        </p>
+                        <p className="text-base text-slate-700 leading-relaxed">
+                            Submission of false, altered, or misleading information will result in immediate rejection of the application, revocation of any issued offer, or termination of active enrollment.
+                        </p>
                     </section>
 
                     {/* 9. APPEALS */}
                     <section id="appeals" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">09</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">09</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Appeals Procedure</h2>
                         </div>
                         <p className="text-base text-slate-700 leading-relaxed mb-4">
@@ -217,7 +214,7 @@ export default function AdmissionsPolicyPage() {
                     {/* 10. POLICY REVIEW */}
                     <section id="policy-review" className="scroll-mt-28 border-t border-slate-200 pt-8 border-b pb-12">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase tracking-widest bg-slate-200 text-slate-900 px-2.5 py-1">10</span>
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">10</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Policy Review & Updates</h2>
                         </div>
                         <p className="text-base text-slate-700 leading-relaxed mb-6">
