@@ -313,19 +313,22 @@ export default async function CourseDetailPage({ params }: Props) {
 
             {/* Breadcrumb Navigation */}
             <div className="border-b border-slate-200 bg-white">
-                <div className="container mx-auto px-4 max-w-6xl py-3 flex items-center justify-between">
-                    <Breadcrumbs
-                        items={[
-                            { icon: 'home', linkComponentProps: { href: '/' } },
-                            { label: 'Studies', linkComponentProps: { href: '/studies' } },
-                            { label: c.title }
-                        ]}
-                    />
+                <div className="container mx-auto px-4 max-w-6xl py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 overflow-hidden">
+                    <div className="overflow-x-auto max-w-full shrink-0">
+                        <Breadcrumbs
+                            items={[
+                                { icon: 'home', linkComponentProps: { href: '/' } },
+                                { label: 'Studies', linkComponentProps: { href: '/studies' } },
+                                { label: c.title }
+                            ]}
+                        />
+                    </div>
                     <Link
                         href={c.department ? `/schools/${deptSchoolSlug}/${c.department.slug}` : '/studies'}
-                        className="text-slate-700 hover:text-slate-900 text-xs font-bold tracking-wider uppercase inline-flex items-center gap-2 transition-colors"
+                        className="text-slate-700 hover:text-slate-900 text-[11px] sm:text-xs font-bold tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors shrink-0 max-w-full"
                     >
-                        <ChevronLeft size={16} weight="bold" /> {c.department ? `Back to ${c.department.name}` : 'Back to Programs'}
+                        <ChevronLeft size={14} weight="bold" className="shrink-0" />
+                        <span className="truncate">{c.department ? `Back to ${c.department.name}` : 'Back to Programs'}</span>
                     </Link>
                 </div>
             </div>
