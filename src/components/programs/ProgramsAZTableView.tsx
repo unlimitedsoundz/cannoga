@@ -617,11 +617,11 @@ export function ProgramsAZTableView() {
     return (
         <div className="space-y-8">
             {/* Header Controls Bar */}
-            <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm space-y-6">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="bg-white p-4 sm:p-6 rounded-none border border-neutral-200 shadow-sm space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h3 className="text-xl font-bold text-black flex items-center gap-2">
-                            <GraduationCap size={24} className="text-[#0a151a]" />
+                        <h3 className="text-lg sm:text-xl font-black text-black flex items-center gap-2 tracking-tight">
+                            <GraduationCap size={22} className="text-[#0a151a]" />
                             Programs Directory (A-Z)
                         </h3>
                         <p className="text-xs text-neutral-500 font-medium mt-1">
@@ -630,52 +630,52 @@ export function ProgramsAZTableView() {
                     </div>
 
                     {/* View Toggle */}
-                    <div className="flex items-center gap-2 bg-neutral-100 p-1.5 rounded-xl self-start md:self-auto">
+                    <div className="flex items-center gap-1.5 bg-neutral-100 p-1 rounded-none self-start sm:self-auto shrink-0">
                         <button
                             onClick={() => setViewMode('table')}
-                            className={`flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-lg transition-all ${
+                            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-none transition-all ${
                                 viewMode === 'table' ? 'bg-[#0a151a] text-white shadow-sm' : 'text-neutral-600 hover:text-black'
                             }`}
                         >
-                            <ListBullets size={16} weight="bold" />
+                            <ListBullets size={15} weight="bold" />
                             Table View
                         </button>
                         <button
                             onClick={() => setViewMode('grid')}
-                            className={`flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-lg transition-all ${
+                            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-none transition-all ${
                                 viewMode === 'grid' ? 'bg-[#0a151a] text-white shadow-sm' : 'text-neutral-600 hover:text-black'
                             }`}
                         >
-                            <SquaresFour size={16} weight="bold" />
+                            <SquaresFour size={15} weight="bold" />
                             Grid View
                         </button>
                     </div>
                 </div>
 
                 {/* Filter and Search Bar */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center pt-4 border-t border-neutral-100">
+                <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center pt-4 border-t border-neutral-100">
                     {/* Search Input */}
-                    <div className="md:col-span-5 relative">
+                    <div className="relative flex-1">
                         <MagnifyingGlass size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
                         <input
                             type="text"
                             placeholder="Search programs by title, school, or keyword..."
                             value={search}
                             onChange={(e) => handleSearchChange(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-xs md:text-sm font-medium focus:outline-none focus:border-[#0a151a] focus:bg-white transition-all text-black"
+                            className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 border border-neutral-200 rounded-none text-xs md:text-sm font-medium focus:outline-none focus:border-[#0a151a] focus:bg-white transition-all text-black"
                         />
                     </div>
 
-                    {/* Level Filter Pills */}
-                    <div className="md:col-span-5 flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+                    {/* Level Filter Pills (Responsive scroll/wrap) */}
+                    <div className="flex items-center gap-1.5 overflow-x-auto py-1 max-w-full no-scrollbar shrink-0">
                         {levels.map(lvl => (
                             <button
                                 key={lvl}
                                 onClick={() => handleLevelChange(lvl)}
-                                className={`px-3 py-1.5 text-[11px] font-bold rounded-lg whitespace-nowrap transition-all ${
+                                className={`px-3 py-2 text-[11px] font-bold uppercase tracking-wider rounded-none whitespace-nowrap transition-all border ${
                                     selectedLevel === lvl 
-                                        ? 'bg-[#0a151a] text-white' 
-                                        : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-black'
+                                        ? 'bg-[#0a151a] text-white border-[#0a151a]' 
+                                        : 'bg-neutral-50 text-neutral-600 border-neutral-200 hover:bg-neutral-100 hover:text-black'
                                 }`}
                             >
                                 {lvl}
@@ -684,15 +684,13 @@ export function ProgramsAZTableView() {
                     </div>
 
                     {/* Sort Order Button */}
-                    <div className="md:col-span-2 flex justify-end">
-                        <button
-                            onClick={handleSortChange}
-                            className="flex items-center gap-2 px-3 py-2 bg-neutral-100 hover:bg-neutral-200 text-black text-xs font-bold rounded-xl transition-all w-full justify-center"
-                        >
-                            <ArrowsDownUp size={14} weight="bold" />
-                            <span>Sort {sortAsc ? 'A-Z' : 'Z-A'}</span>
-                        </button>
-                    </div>
+                    <button
+                        onClick={handleSortChange}
+                        className="flex items-center justify-center gap-2 px-3 py-2.5 bg-neutral-50 hover:bg-neutral-100 border border-neutral-200 text-black text-xs font-bold rounded-none transition-all shrink-0"
+                    >
+                        <ArrowsDownUp size={14} weight="bold" />
+                        <span>Sort {sortAsc ? 'A-Z' : 'Z-A'}</span>
+                    </button>
                 </div>
             </div>
 
