@@ -17,7 +17,7 @@ const slides: Slide[] = [
     {
         title: "The future you want is yours to make",
         body: "With practical, hands-on learning, Cannoga College prepares you for success. Explore our programs and discover your potential in the heart of Ottawa, Ontario, Canada.",
-        image: "/images/heffring-hero-new.png",
+        image: "/images/home-carousel-1.png",
         btnText: "Start your application",
         btnHref: "/admissions"
     },
