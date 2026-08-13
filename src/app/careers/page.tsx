@@ -89,16 +89,16 @@ export default function CareersPage() {
 
             {/* HERO SECTION WITH FULL BACKGROUND OVERLAY */}
             <section className="relative bg-[#191919] text-white pt-32 pb-24 md:pt-44 md:pb-32 px-4 border-b border-slate-800 overflow-hidden">
-                {/* Background Image with 5% Opacity Overlay */}
+                {/* Background Image with Crisp 40% Opacity Overlay */}
                 <div className="absolute inset-0 z-0">
                     <Image 
                         src="/images/careers-hero.png" 
                         alt="Work at Cannoga College" 
                         fill
-                        className="object-cover object-top opacity-5"
+                        className="object-cover object-top opacity-40"
                         priority
                     />
-                    <div className="absolute inset-0 bg-[#191919]/75"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#191919]/95 via-[#191919]/70 to-[#191919]/40"></div>
                 </div>
 
                 <div className="container mx-auto max-w-5xl relative z-10">
