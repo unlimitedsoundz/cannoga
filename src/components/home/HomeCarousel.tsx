@@ -80,12 +80,12 @@ export function HomeCarousel() {
 
                         {/* Content Overlay */}
                         <div className="container mx-auto px-4 md:px-12 lg:px-20 h-full relative z-20 flex items-center justify-end">
-                            <div className="w-full lg:w-3/5 p-8 md:p-12 lg:p-16 flex flex-col space-y-6 text-white text-left items-start rounded-none">
+                            <div className="w-full lg:w-3/5 p-8 md:p-12 lg:p-16 flex flex-col space-y-6 text-white text-right items-end rounded-none">
                                 <div className="space-y-4">
                                     <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
                                         {slide.title}
                                     </h1>
-                                    <p className="text-lg lg:text-xl text-white max-w-xl font-medium leading-relaxed">
+                                    <p className="text-lg lg:text-xl text-white max-w-xl font-medium leading-relaxed ml-auto">
                                         {slide.body}
                                     </p>
                                 </div>
