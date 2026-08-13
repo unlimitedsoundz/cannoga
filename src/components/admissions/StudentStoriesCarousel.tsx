@@ -7,10 +7,10 @@ import { CaretLeft, CaretRight, ArrowRight } from "@phosphor-icons/react/dist/ss
 const stories = [
     {
         id: 1,
-        name: 'Uchida Ideguchi',
+        name: 'Collins Huang',
         programme: "Bachelor's in International Business",
         quote: "Cannoga College provided me with a unique multidisciplinary environment where I could combine my interest in tech with business strategy. The practical co-op experience in Ottawa was eye-opening.",
-        image: '/images/3d2c3049cce3060bc36cd51b2dbaafb6.jpg'
+        image: '/images/collins-huang.jpg'
     },
     {
         id: 2,
