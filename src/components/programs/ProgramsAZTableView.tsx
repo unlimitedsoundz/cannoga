@@ -404,7 +404,7 @@ export function ProgramsAZTableView() {
                         <table className="w-full text-left text-xs sm:text-sm text-slate-600 border-collapse min-w-[900px]">
                             <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
                                 <tr>
-                                    <th className="p-3.5 font-extrabold">Program Name & Overview</th>
+                                    <th className="p-3.5 font-extrabold">Program Name</th>
                                     <th className="p-3.5 font-extrabold">Credential Level</th>
                                     <th className="p-3.5 font-extrabold">School</th>
                                     <th className="p-3.5 font-extrabold">Duration</th>
@@ -419,13 +419,10 @@ export function ProgramsAZTableView() {
                                         key={p.id} 
                                         className="hover:bg-slate-50 transition-colors"
                                     >
-                                        <td className="p-3.5 max-w-xs">
-                                            <span className="font-bold text-slate-900 text-sm block mb-0.5">
+                                        <td className="p-3.5">
+                                            <span className="font-bold text-slate-900 text-sm block">
                                                 {p.name}
                                             </span>
-                                            <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium">
-                                                {p.description}
-                                            </p>
                                         </td>
                                         <td className="p-3.5 font-bold text-slate-900 whitespace-nowrap text-xs">
                                             {p.level}
