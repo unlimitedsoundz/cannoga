@@ -50,7 +50,7 @@ export function CannogaShortsSection() {
                     <div>
                         <h2 className="text-3xl md:text-4xl font-serif font-black tracking-tight text-[#0a151a] flex items-center gap-2">
                             <span className="text-[#0a151a]">Cannoga Shorts:</span>
-                            <span className="font-normal text-slate-800">Big stories, small screen</span>
+                            <span className="font-normal text-slate-800">Campus Life in Motion</span>
                         </h2>
                     </div>
 
