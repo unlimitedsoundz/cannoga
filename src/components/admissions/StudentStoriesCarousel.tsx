@@ -35,7 +35,7 @@ const stories = [
         programme: "Advanced Diploma in Software Engineering",
         quote: "The hands-on lab facilities and close mentorship from faculty helped me secure a full-time software developer role in Ottawa's Kanata North tech hub before graduation.",
         image: '/images/student-story-4.jpg',
-        imagePosition: 'object-top'
+        imagePosition: 'object-center md:object-[center_15%]'
     }
 ];
 
