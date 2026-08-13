@@ -190,7 +190,7 @@ export default function CareersPage() {
                                 <div className="space-y-1 w-full">
                                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                         <h3 className="text-slate-900 font-bold text-lg leading-snug">{pos.title}</h3>
-                                        <span className="text-xs font-bold uppercase tracking-wider text-[#c89211] bg-amber-50 px-2.5 py-1 border border-amber-200/60 rounded-sm self-start sm:self-auto">
+                                        <span className="text-xs font-bold uppercase tracking-wider text-[#c89211] self-start sm:self-auto">
                                             {pos.type}
                                         </span>
                                     </div>
