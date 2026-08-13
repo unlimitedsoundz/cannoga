@@ -395,76 +395,85 @@ export function ProgramsAZTableView() {
 
             {/* Table View Mode */}
             {viewMode === 'table' ? (
-                <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
+                <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-white">
+                        <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Itemized Academic Program Directory</h3>
+                        <span className="text-xs font-bold text-slate-500">Showing {filteredPrograms.length} Programs</span>
+                    </div>
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse min-w-[900px]">
-                            <thead>
-                                <tr className="bg-[#0a151a] text-white text-[11px] font-bold uppercase tracking-wider">
-                                    <th className="py-4 px-6">Program Name & Overview</th>
-                                    <th className="py-4 px-4">Credential Level</th>
-                                    <th className="py-4 px-4">School</th>
-                                    <th className="py-4 px-4">Duration</th>
-                                    <th className="py-4 px-4 text-center">PGWP & Co-op</th>
-                                    <th className="py-4 px-4">Tuition (Dom / Intl)</th>
-                                    <th className="py-4 px-6 text-right">Action</th>
+                        <table className="w-full text-left text-xs sm:text-sm text-slate-600 border-collapse min-w-[900px]">
+                            <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                                <tr>
+                                    <th className="p-3.5 font-extrabold">Program Name & Overview</th>
+                                    <th className="p-3.5 font-extrabold">Credential Level</th>
+                                    <th className="p-3.5 font-extrabold">School</th>
+                                    <th className="p-3.5 font-extrabold">Duration</th>
+                                    <th className="p-3.5 font-extrabold text-center">PGWP & Co-op</th>
+                                    <th className="p-3.5 font-extrabold text-right">Tuition</th>
+                                    <th className="p-3.5 font-extrabold text-right">Action</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-neutral-200 text-xs text-neutral-700">
-                                {filteredPrograms.map((p, idx) => (
+                            <tbody className="divide-y divide-slate-100">
+                                {filteredPrograms.map((p) => (
                                     <tr 
                                         key={p.id} 
-                                        className={`hover:bg-neutral-50/80 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50/30'}`}
+                                        className="hover:bg-slate-50 transition-colors"
                                     >
-                                        <td className="py-5 px-6 max-w-xs">
-                                            <span className="font-bold text-sm text-black block mb-1 hover:text-[#0a151a]">
+                                        <td className="p-3.5 max-w-xs">
+                                            <span className="font-bold text-slate-900 text-sm block mb-0.5">
                                                 {p.name}
                                             </span>
-                                            <p className="text-[11px] text-neutral-500 line-clamp-2 leading-relaxed font-normal">
+                                            <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium">
                                                 {p.description}
                                             </p>
                                         </td>
-                                        <td className="py-5 px-4 font-semibold text-black">
-                                            <span className="inline-block bg-neutral-100 text-neutral-900 border border-neutral-200 px-2.5 py-1 rounded-md text-[11px] font-bold">
+                                        <td className="p-3.5 font-semibold text-slate-900">
+                                            <span className="inline-block bg-slate-100 text-slate-800 border border-slate-200 px-2.5 py-1 rounded-md text-xs font-bold">
                                                 {p.level}
                                             </span>
                                         </td>
-                                        <td className="py-5 px-4 font-medium text-neutral-600">
+                                        <td className="p-3.5 text-slate-600 font-medium">
                                             {p.school}
                                         </td>
-                                        <td className="py-5 px-4 font-bold text-black whitespace-nowrap">
+                                        <td className="p-3.5 font-bold text-slate-900 whitespace-nowrap">
                                             {p.duration}
-                                            <span className="block text-[10px] font-medium text-neutral-400">({p.credits} Credits)</span>
+                                            <span className="block text-xs font-medium text-slate-400">({p.credits} Credits)</span>
                                         </td>
-                                        <td className="py-5 px-4 text-center">
+                                        <td className="p-3.5 text-center">
                                             <div className="flex flex-col items-center gap-1">
                                                 {p.pgwp && (
-                                                    <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-full">
+                                                    <span className="inline-flex items-center gap-1 text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 rounded-full">
                                                         <CheckCircle size={12} weight="fill" className="text-emerald-600" />
                                                         PGWP
                                                     </span>
                                                 )}
                                                 {p.coop && (
-                                                    <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.5 rounded-full">
+                                                    <span className="inline-flex items-center gap-1 text-xs font-bold bg-blue-50 text-blue-800 border border-blue-200 px-2.5 py-0.5 rounded-full">
                                                         <Briefcase size={12} weight="fill" className="text-blue-600" />
                                                         Co-op
                                                     </span>
                                                 )}
                                             </div>
                                         </td>
-                                        <td className="py-5 px-4 font-semibold text-black whitespace-nowrap">
-                                            <span className="text-black font-bold block">{p.tuitionDomestic}</span>
-                                            <span className="text-neutral-500 text-[10px] block font-normal">{p.tuitionInternational} intl</span>
+                                        <td className="p-3.5 text-right font-mono font-bold text-slate-900 whitespace-nowrap">
+                                            <span className="text-slate-900 block">{p.tuitionDomestic}</span>
+                                            <span className="text-slate-400 text-xs block font-medium font-sans">{p.tuitionInternational} intl</span>
                                         </td>
-                                        <td className="py-5 px-6 text-right whitespace-nowrap">
+                                        <td className="p-3.5 text-right whitespace-nowrap">
                                             <Link 
                                                 href={p.href}
-                                                className="inline-flex items-center gap-1.5 bg-[#0a151a] hover:bg-neutral-800 text-white px-3.5 py-2 rounded-lg text-xs font-bold transition-all shadow-sm no-underline"
+                                                className="inline-block text-xs font-bold px-3.5 py-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition shadow-sm no-underline"
                                             >
-                                                Apply <ArrowRight size={12} weight="bold" />
+                                                Apply <ArrowRight size={12} weight="bold" className="inline-block ml-1" />
                                             </Link>
                                         </td>
                                     </tr>
                                 ))}
+                                {filteredPrograms.length === 0 && (
+                                    <tr>
+                                        <td colSpan={7} className="p-8 text-center text-slate-500 font-medium">No academic programs found matching your search.</td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </div>
