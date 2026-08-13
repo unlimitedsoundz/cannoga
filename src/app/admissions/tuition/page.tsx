@@ -126,15 +126,15 @@ export default async function TuitionPaymentPage() {
                             <h2 className="cc-h2">How Much is the Tuition Fee?</h2>
                         </div>
                         <DbPageContent pageSlug={pageSlug} sectionKey="costs_intro_content" fallbackContent={getSectionDefault('costs_intro_content')} />
-                        <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
-                            <table className="w-full border-collapse border border-neutral-200 rounded-lg overflow-hidden min-w-[640px]">
+                        <div className="w-full overflow-x-auto my-6 rounded-lg border border-neutral-200 shadow-sm bg-white">
+                            <table className="w-full border-collapse min-w-[540px]">
                                 <thead>
-                                    <tr className="bg-neutral-900 text-white">
-                                        <th className="border border-neutral-700 px-4 py-3 text-left text-xs font-black uppercase tracking-widest whitespace-nowrap">Programme</th>
-                                        <th className="border border-neutral-700 px-4 py-3 text-left text-xs font-black uppercase tracking-widest whitespace-nowrap">Duration</th>
-                                        <th className="border border-neutral-700 px-4 py-3 text-left text-xs font-black uppercase tracking-widest whitespace-nowrap">Credits</th>
-                                        <th className="border border-neutral-700 px-4 py-3 text-right text-xs font-black uppercase tracking-widest whitespace-nowrap">Domestic Students</th>
-                                        <th className="border border-neutral-700 px-4 py-3 text-right text-xs font-black uppercase tracking-widest whitespace-nowrap">International Students</th>
+                                    <tr className="bg-[#0a151a] text-white">
+                                        <th className="border-b border-neutral-700 px-3 py-2.5 md:px-4 md:py-3 text-left text-[11px] md:text-xs font-black uppercase tracking-widest whitespace-nowrap">Programme</th>
+                                        <th className="border-b border-neutral-700 px-3 py-2.5 md:px-4 md:py-3 text-left text-[11px] md:text-xs font-black uppercase tracking-widest whitespace-nowrap">Duration</th>
+                                        <th className="border-b border-neutral-700 px-3 py-2.5 md:px-4 md:py-3 text-left text-[11px] md:text-xs font-black uppercase tracking-widest whitespace-nowrap">Credits</th>
+                                        <th className="border-b border-neutral-700 px-3 py-2.5 md:px-4 md:py-3 text-right text-[11px] md:text-xs font-black uppercase tracking-widest whitespace-nowrap">Domestic Students</th>
+                                        <th className="border-b border-neutral-700 px-3 py-2.5 md:px-4 md:py-3 text-right text-[11px] md:text-xs font-black uppercase tracking-widest whitespace-nowrap">International Students</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -145,12 +145,12 @@ export default async function TuitionPaymentPage() {
                                         const domestic = info ? getAnnualTuition(info.domestic_tuition, fallback.domestic) : fallback.domestic;
                                         const international = info ? getAnnualTuition(info.international_tuition, fallback.international) : fallback.international;
                                         return (
-                                            <tr key={credentialType} className={idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50'}>
-                                                <td className="border border-neutral-200 px-4 py-3 text-sm font-bold text-black whitespace-nowrap">{display.label}</td>
-                                                <td className="border border-neutral-200 px-4 py-3 text-sm text-black whitespace-nowrap">{display.duration}</td>
-                                                <td className="border border-neutral-200 px-4 py-3 text-sm text-black whitespace-nowrap">{display.credits}</td>
-                                                <td className="border border-neutral-200 px-4 py-3 text-sm text-black text-right whitespace-nowrap">${domestic.toLocaleString()}/year</td>
-                                                <td className="border border-neutral-200 px-4 py-3 text-sm text-black text-right whitespace-nowrap">${international.toLocaleString()}/year</td>
+                                            <tr key={credentialType} className={idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50/80'}>
+                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm font-bold text-black whitespace-nowrap">{display.label}</td>
+                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm text-neutral-800 whitespace-nowrap">{display.duration}</td>
+                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm text-neutral-800 whitespace-nowrap">{display.credits}</td>
+                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm font-semibold text-black text-right whitespace-nowrap">${domestic.toLocaleString()}/year</td>
+                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm font-bold text-[#0a151a] text-right whitespace-nowrap">${international.toLocaleString()}/year</td>
                                             </tr>
                                         );
                                     })}

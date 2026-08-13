@@ -739,3 +739,13 @@ body {
   word-break: break-word !important;
   overflow-wrap: break-word !important;
 }
+
+/* Global Mobile Table Overflow Protection */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
