@@ -42,8 +42,9 @@
 .cc-card-body { padding: 1.5rem 2rem; }
 
 /* Accent icon block */
-.cc-icon-block { display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem; background-color: #f8fafc; color: #0f2027; transition: background-color 0.2s, color 0.2s; }
+.cc-icon-block { display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem; background-color: #f8fafc; color: #0f2027; border-radius: 9999px !important; transition: background-color 0.2s, color 0.2s; }
 .cc-icon-block:hover, .group:hover .cc-icon-block { background-color: #0f2027; color: white; }
+.icon-container-circle, [class*="icon-container"] { border-radius: 9999px !important; }
 
 /* Buttons */
 .cc-btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background-color: #0f2027; color: white; font-weight: 700; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.75rem 1.75rem; transition: background-color 0.2s ease; border-radius: 2px; }

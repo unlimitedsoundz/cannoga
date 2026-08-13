@@ -168,7 +168,7 @@ export default async function Home() {
                                     linkComponentProps={{ href: link.href }}
                                     className="group flex items-start gap-4 p-5 bg-[#f8fafc] hover:bg-white border border-slate-200 hover:border-[#0f2027] hover:shadow-sm transition-all no-underline rounded-sm"
                                 >
-                                    <div className="p-3 bg-[#0f2027] text-white group-hover:bg-[#c89211] transition-colors rounded-sm shrink-0">
+                                    <div className="p-3 bg-[#0f2027] text-white group-hover:bg-[#c89211] transition-colors rounded-full shrink-0 flex items-center justify-center w-11 h-11">
                                         <Icon size={20} weight="bold" />
                                     </div>
                                     <div>
