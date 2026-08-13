@@ -24,6 +24,8 @@ interface HeroProps {
     imagePosition?: string;
     children?: ReactNode;
     className?: string;
+    overlay?: boolean;
+    overlayOpacity?: string;
 }
 
 export function Hero({ 
@@ -36,7 +38,9 @@ export function Hero({
     breadcrumbs,
     imagePosition = 'object-center',
     children,
-    className
+    className,
+    overlay = true,
+    overlayOpacity
 }: HeroProps) {
     const textColorClass = lightText ? 'text-white' : 'text-black';
     const bodyColorClass = lightText ? 'text-white' : 'text-neutral-700';
@@ -54,11 +58,13 @@ export function Hero({
                         alt={image.alt || "Hero Image"}
                         fill
                         priority
-                        className={`object-cover ${imagePosition} opacity-40`}
+                        className={`object-cover ${imagePosition} ${overlayOpacity || (overlay === false ? 'opacity-100' : 'opacity-40')}`}
                         sizes="100vw"
                     />
-                    {/* Balanced dark gradient overlay for crisp image visibility and legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/20 z-[1]" />
+                    {/* Balanced dark gradient overlay */}
+                    {overlay !== false && (
+                        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/20 z-[1]" />
+                    )}
                 </div>
             )}
 
