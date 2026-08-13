@@ -1145,7 +1145,7 @@ export default function SISStudentDashboard() {
                             </div>
                             {/* PRESIDENT'S WELCOME WIDGET */}
                             {showPresidentMessage && (
-                                <div className="mb-6 bg-slate-900 border border-slate-800 rounded-xl p-5 sm:p-6 text-white shadow-md relative overflow-hidden flex flex-col md:flex-row items-center gap-6">
+                                <div className="mb-6 bg-[#0a151a] border border-slate-800 rounded-xl p-5 sm:p-6 text-white shadow-md relative overflow-hidden flex flex-col md:flex-row items-center gap-6">
                                     <button 
                                         type="button" 
                                         onClick={() => setShowPresidentMessage(false)} 
@@ -1201,7 +1201,7 @@ export default function SISStudentDashboard() {
                                     {/* STUDENT MAIL */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-slate-900 px-4 py-2.5">
+                                            <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Student Mail</h3>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
@@ -1232,7 +1232,7 @@ export default function SISStudentDashboard() {
                                     {/* ANNOUNCEMENTS */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="bg-slate-900 px-4 py-2.5">
+                                            <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Announcements</h3>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
@@ -1304,7 +1304,7 @@ export default function SISStudentDashboard() {
                                     {/* ENROLLED COURSES (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-slate-900 px-4 py-2.5">
+                                            <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Enrolled Courses</h3>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
@@ -1337,7 +1337,7 @@ export default function SISStudentDashboard() {
                                     {/* TIMETABLE / TODAY'S SCHEDULE */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
                                         <div>
-                                            <div className="bg-slate-900 px-4 py-2.5">
+                                            <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Timetable & Schedule</h3>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
@@ -1367,7 +1367,7 @@ export default function SISStudentDashboard() {
                                     {/* REAL-TIME ONTARIO LIVE NEWS WIDGET */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-slate-900 px-4 py-2.5">
+                                            <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">World News</h3>
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
@@ -1387,7 +1387,7 @@ export default function SISStudentDashboard() {
                                     {/* STAFF DIRECTORY / ADVISOR CONTACT (FETCHED FROM DB) */}
                                     <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
                                         <div>
-                                            <div className="bg-slate-900 px-4 py-2.5">
+                                            <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Staff Directory</h3>
                                             </div>
                                             {faculty.length > 0 ? (
