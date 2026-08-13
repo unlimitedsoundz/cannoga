@@ -801,16 +801,26 @@ body {
   }
 }
 
-/* SIS Global Widget Header & Hero Rule */
+/* Global SIS Navigation Page Header & Widget Color Rule (#0a151a) */
 [data-theme="sis"] .widget-header,
 [data-theme="sis-dark"] .widget-header,
 [data-theme="sis"] .card-header,
 [data-theme="sis-dark"] .card-header,
 .sis-widget-header,
 .sis-card-header,
-[data-sis-widget-header] {
+.sis-header,
+.sis-page-header,
+[data-sis-widget-header],
+[data-sis-header],
+.bg-slate-900,
+.bg-neutral-900 {
   background-color: #0a151a !important;
   color: #ffffff !important;
+}
+
+.hover\:bg-slate-800:hover,
+.hover\:bg-neutral-800:hover {
+  background-color: #12222a !important;
 }
 
 /* SIS Global Widget Buttons */

@@ -1719,7 +1719,7 @@ export default function SISStudentDashboard() {
                     )}
                     {currentPage === 'documents' && (
                         <div className="space-y-6">
-                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white">
+                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white">
                                 <h3 className="text-lg font-extrabold tracking-tight text-white">Official Student Records, PAL &amp; Tax Certificates</h3>
                                 <p className="text-xs text-slate-300 mt-1 font-medium">Verified digital documents issued by Cannoga College Registrar, Admissions, and Bursar.</p>
                             </div>
@@ -1832,7 +1832,7 @@ export default function SISStudentDashboard() {
                     {/* ================= ACADEMICS ================= */}
                     {currentPage === 'academics' && (
                         <div className="space-y-6">
-                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
                                     <h3 className="text-lg font-extrabold tracking-tight text-white">Degree Progress: {programName}</h3>
                                     <p className="text-xs text-slate-300 mt-1 font-medium">Cannoga College — {schoolName}</p>
@@ -1891,7 +1891,7 @@ export default function SISStudentDashboard() {
                     {/* ================= TIMETABLE ================= */}
                     {currentPage === 'timetable' && (
                         <div className="space-y-6">
-                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
                                     <h3 className="text-lg font-extrabold tracking-tight text-white">My Timetable</h3>
                                     <p className="text-xs text-slate-300 mt-1 font-medium">Class schedule, lecture locations, and session details</p>
@@ -1984,7 +1984,7 @@ export default function SISStudentDashboard() {
                     {/* ================= FINANCIAL AID & PAY ================= */}
                     {currentPage === 'financials' && (
                         <div className="space-y-6">
-                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white">
+                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white">
                                 <h3 className="text-lg font-extrabold tracking-tight text-white">Financial Account & Payments</h3>
                                 <p className="text-xs text-slate-300 mt-1 font-medium">View itemized balance, tuition statements, receipts, and financial aid awards.</p>
                             </div>
@@ -2070,7 +2070,7 @@ export default function SISStudentDashboard() {
                     {/* ================= TRANSCRIPTS & GRADES ================= */}
                     {currentPage === 'grades' && (
                         <div className="space-y-6">
-                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                                 <div>
                                     <h3 className="text-lg font-extrabold tracking-tight text-white">Academic Grade History & Transcript</h3>
                                     <p className="text-xs text-slate-300 mt-1 font-medium">Cumulative GPA: <strong className="text-white font-bold">{gpa}</strong> | {grades.length} Courses Recorded</p>
@@ -2119,7 +2119,7 @@ export default function SISStudentDashboard() {
                     {/* ================= HOLDS & TASKS ================= */}
                     {currentPage === 'holds' && (
                         <div className="space-y-6">
-                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white">
+                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white">
                                 <h3 className="text-lg font-extrabold tracking-tight text-white">Academic Holds &amp; Required Action Tasks</h3>
                                 <p className="text-xs text-slate-300 mt-1 font-medium">Clear administrative holds and review pending institutional tasks.</p>
                             </div>
@@ -2206,7 +2206,7 @@ export default function SISStudentDashboard() {
                     {/* ================= NEWS ================= */}
                     {currentPage === 'news' && (
                         <div className="space-y-6">
-                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white">
+                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white">
                                 <h3 className="text-lg font-extrabold tracking-tight text-white">Campus &amp; World News Feed</h3>
                                 <p className="text-xs text-slate-300 mt-1 font-medium">Latest announcements, campus press releases, and Canadian higher-education headlines.</p>
                             </div>
@@ -2263,7 +2263,7 @@ export default function SISStudentDashboard() {
                     {/* ================= DIRECTORY ================= */}
                     {currentPage === 'directory' && (
                         <div className="space-y-6">
-                            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
                                     <h3 className="text-lg font-extrabold tracking-tight text-white">Faculty & Campus Directory</h3>
                                     <p className="text-xs text-slate-300 mt-1 font-medium">Search academic staff, department contacts, and office locations across campus.</p>
