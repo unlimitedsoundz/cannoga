@@ -749,3 +749,11 @@ body {
     -webkit-overflow-scrolling: touch;
   }
 }
+
+/* Global Font Size Remediation: Increase all 12px font sizes to 15px */
+.text-xs,
+.text-\[12px\],
+[class*="text-[12px]"] {
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+}
