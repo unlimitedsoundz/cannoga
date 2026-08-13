@@ -261,14 +261,18 @@ export default async function CourseDetailPage({ params }: Props) {
             {/* Header / Hero Section (No Pills, Pure Editorial High-Contrast Design) */}
             <div className="bg-[#0a151a] text-white pt-28 pb-16 md:pt-40 md:pb-24 relative overflow-hidden border-b border-slate-800">
                 <div className="container mx-auto px-4 max-w-6xl relative z-10">
-                    <div className="flex items-center gap-3 text-xs md:text-sm font-bold tracking-widest text-slate-400 uppercase mb-6">
-                        <span>CANNOGA COLLEGE</span>
-                        <span className="text-slate-600">•</span>
-                        <span>{c.school?.name || 'School of Academic Studies'}</span>
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-wider text-sky-400 mb-6 leading-tight">
+                        <Link href="/studies" className="hover:text-white transition-colors">CANNOGA COLLEGE</Link>
+                        <span className="text-slate-500 font-normal">/</span>
+                        <Link href={`/schools/${deptSchoolSlug}`} className="hover:text-white transition-colors">
+                            {c.school?.name || 'School of Academic Studies'}
+                        </Link>
                         {c.department?.name && (
                             <>
-                                <span className="text-slate-600">•</span>
-                                <span>{c.department.name}</span>
+                                <span className="text-slate-500 font-normal">/</span>
+                                <Link href={`/schools/${deptSchoolSlug}/${c.department.slug}`} className="hover:text-white transition-colors">
+                                    {c.department.name}
+                                </Link>
                             </>
                         )}
                     </div>
