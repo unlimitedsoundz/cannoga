@@ -1947,7 +1947,7 @@ export default function SISStudentDashboard() {
                                                             <td className="p-3.5">
                                                                 {session.room ? (
                                                                     <div className="flex items-center gap-1.5 text-slate-700 font-medium">
-                                                                        <HugeiconsIcon icon={MapPin} size={13} strokeWidth={2} className="text-slate-500" />
+                                                                        <HugeiconsIcon icon={HugeMapPin} size={13} strokeWidth={2} className="text-slate-500" />
                                                                         <span>{session.room.name}{session.room.building ? `, ${session.room.building}` : ''}</span>
                                                                     </div>
                                                                 ) : 'TBD'}
