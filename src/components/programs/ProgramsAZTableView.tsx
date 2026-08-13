@@ -12,7 +12,9 @@ import {
     Briefcase, 
     GraduationCap, 
     Globe, 
-    CurrencyDollar 
+    CurrencyDollar,
+    CaretLeft,
+    CaretRight
 } from '@phosphor-icons/react';
 
 export interface ProgramItem {
@@ -290,6 +292,8 @@ export function ProgramsAZTableView() {
     const [selectedLevel, setSelectedLevel] = useState<string>('All');
     const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
     const [sortAsc, setSortAsc] = useState<boolean>(true);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [itemsPerPage, setItemsPerPage] = useState<number>(6);
 
     const levels = ['All', 'Certificate', 'Diploma', 'Advanced Diploma', 'Bachelor', 'Master'];
 
@@ -304,6 +308,33 @@ export function ProgramsAZTableView() {
             })
             .sort((a, b) => sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
     }, [search, selectedLevel, sortAsc]);
+
+    // Calculate pagination slices
+    const totalPages = Math.max(1, Math.ceil(filteredPrograms.length / itemsPerPage));
+    const validCurrentPage = Math.min(currentPage, totalPages);
+
+    const paginatedPrograms = useMemo(() => {
+        const start = (validCurrentPage - 1) * itemsPerPage;
+        return filteredPrograms.slice(start, start + itemsPerPage);
+    }, [filteredPrograms, validCurrentPage, itemsPerPage]);
+
+    const startItem = filteredPrograms.length > 0 ? (validCurrentPage - 1) * itemsPerPage + 1 : 0;
+    const endItem = Math.min(validCurrentPage * itemsPerPage, filteredPrograms.length);
+
+    const handleSearchChange = (val: string) => {
+        setSearch(val);
+        setCurrentPage(1);
+    };
+
+    const handleLevelChange = (lvl: string) => {
+        setSelectedLevel(lvl);
+        setCurrentPage(1);
+    };
+
+    const handleSortChange = () => {
+        setSortAsc(!sortAsc);
+        setCurrentPage(1);
+    };
 
     return (
         <div className="space-y-8">
@@ -352,7 +383,7 @@ export function ProgramsAZTableView() {
                             type="text"
                             placeholder="Search programs by title, school, or keyword..."
                             value={search}
-                            onChange={(e) => setSearch(e.target.value)}
+                            onChange={(e) => handleSearchChange(e.target.value)}
                             className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-xs md:text-sm font-medium focus:outline-none focus:border-[#0a151a] focus:bg-white transition-all text-black"
                         />
                     </div>
@@ -362,7 +393,7 @@ export function ProgramsAZTableView() {
                         {levels.map(lvl => (
                             <button
                                 key={lvl}
-                                onClick={() => setSelectedLevel(lvl)}
+                                onClick={() => handleLevelChange(lvl)}
                                 className={`px-3 py-1.5 text-[11px] font-bold rounded-lg whitespace-nowrap transition-all ${
                                     selectedLevel === lvl 
                                         ? 'bg-[#0a151a] text-white' 
@@ -377,7 +408,7 @@ export function ProgramsAZTableView() {
                     {/* Sort Order Button */}
                     <div className="md:col-span-2 flex justify-end">
                         <button
-                            onClick={() => setSortAsc(!sortAsc)}
+                            onClick={handleSortChange}
                             className="flex items-center gap-2 px-3 py-2 bg-neutral-100 hover:bg-neutral-200 text-black text-xs font-bold rounded-xl transition-all w-full justify-center"
                         >
                             <ArrowsDownUp size={14} weight="bold" />
@@ -388,9 +419,24 @@ export function ProgramsAZTableView() {
             </div>
 
             {/* Results Count Bar */}
-            <div className="flex items-center justify-between text-xs font-bold text-neutral-500 px-2">
-                <span>Showing {filteredPrograms.length} Academic Programs</span>
-                <span>Ottawa Campus • PGWP Approved</span>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs font-bold text-neutral-500 px-2 gap-2">
+                <span>Showing {startItem}-{endItem} of {filteredPrograms.length} Academic Programs</span>
+                <div className="flex items-center gap-2">
+                    <span>Show per page:</span>
+                    <select
+                        value={itemsPerPage}
+                        onChange={(e) => {
+                            setItemsPerPage(Number(e.target.value));
+                            setCurrentPage(1);
+                        }}
+                        className="bg-white border border-neutral-200 rounded-lg px-2 py-1 text-xs font-bold text-slate-800 focus:outline-none focus:border-slate-900"
+                    >
+                        <option value={5}>5</option>
+                        <option value={6}>6</option>
+                        <option value={10}>10</option>
+                        <option value={15}>15</option>
+                    </select>
+                </div>
             </div>
 
             {/* Table View Mode */}
@@ -398,7 +444,7 @@ export function ProgramsAZTableView() {
                 <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                     <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-white">
                         <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Itemized Academic Program Directory</h3>
-                        <span className="text-xs font-bold text-slate-500">Showing {filteredPrograms.length} Programs</span>
+                        <span className="text-xs font-bold text-slate-500">Page {validCurrentPage} of {totalPages}</span>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left text-xs sm:text-sm text-slate-600 border-collapse min-w-[900px]">
@@ -414,7 +460,7 @@ export function ProgramsAZTableView() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
-                                {filteredPrograms.map((p) => (
+                                {paginatedPrograms.map((p) => (
                                     <tr 
                                         key={p.id} 
                                         className="hover:bg-slate-50 transition-colors"
@@ -454,7 +500,7 @@ export function ProgramsAZTableView() {
                                         </td>
                                     </tr>
                                 ))}
-                                {filteredPrograms.length === 0 && (
+                                {paginatedPrograms.length === 0 && (
                                     <tr>
                                         <td colSpan={7} className="p-8 text-center text-slate-500 font-medium">No academic programs found matching your search.</td>
                                     </tr>
@@ -466,7 +512,7 @@ export function ProgramsAZTableView() {
             ) : (
                 /* Grid View Mode */
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredPrograms.map(p => (
+                    {paginatedPrograms.map(p => (
                         <div 
                             key={p.id}
                             className="bg-white rounded-2xl border border-neutral-200 shadow-sm hover:shadow-md hover:border-neutral-300 p-6 flex flex-col justify-between transition-all"
@@ -509,6 +555,49 @@ export function ProgramsAZTableView() {
                             </div>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {/* Interactive Pagination Navigation Controls Bar */}
+            {totalPages > 1 && (
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-neutral-200">
+                    <div className="text-xs font-semibold text-slate-500">
+                        Page <span className="font-bold text-slate-900">{validCurrentPage}</span> of <span className="font-bold text-slate-900">{totalPages}</span>
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                        <button
+                            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                            disabled={validCurrentPage === 1}
+                            className="inline-flex items-center gap-1 px-3 py-2 text-xs font-bold bg-white border border-neutral-200 rounded-xl text-slate-700 hover:bg-slate-50 hover:border-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
+                        >
+                            <CaretLeft size={14} weight="bold" />
+                            <span>Previous</span>
+                        </button>
+
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                            <button
+                                key={pageNum}
+                                onClick={() => setCurrentPage(pageNum)}
+                                className={`px-3.5 py-2 text-xs font-bold rounded-xl transition-all ${
+                                    validCurrentPage === pageNum
+                                        ? 'bg-[#0a151a] text-white shadow-sm'
+                                        : 'bg-white text-slate-700 border border-neutral-200 hover:bg-slate-50 hover:border-slate-300'
+                                }`}
+                            >
+                                {pageNum}
+                            </button>
+                        ))}
+
+                        <button
+                            onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                            disabled={validCurrentPage === totalPages}
+                            className="inline-flex items-center gap-1 px-3 py-2 text-xs font-bold bg-white border border-neutral-200 rounded-xl text-slate-700 hover:bg-slate-50 hover:border-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
+                        >
+                            <span>Next</span>
+                            <CaretRight size={14} weight="bold" />
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
