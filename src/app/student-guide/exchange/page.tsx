@@ -128,7 +128,7 @@ export default function ExchangeStudentsPage() {
                                         </li>
                                         <li className="flex items-start gap-2">
                                             <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                                            <span>Full-time semester workload is typically 15 Canadian credits (approx. 30 ECTS credits).</span>
+                                            <span>Full-time semester workload is typically 15 academic credits (5 courses at 3 credits each).</span>
                                         </li>
                                         <li className="flex items-start gap-2">
                                             <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2 shrink-0" />
