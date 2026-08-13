@@ -1,7 +1,7 @@
 
 import { Link } from '@/components/ui/Link';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle, Globe, Users, BookOpen, Briefcase, GraduationCap, Calendar, MapPin } from '@phosphor-icons/react/dist/ssr';
+import { ArrowRight, CheckCircle, Globe, Users, BookOpen, Briefcase, GraduationCap, Calendar, MapPin, Buildings, Headset, GlobeHemisphereWest, Basketball } from '@phosphor-icons/react/dist/ssr';
 import { Hero } from '@/components/layout/Hero';
 import BachelorFAQ from '@/components/admissions/BachelorFAQ';
 import DbPageContent from '@/components/DbPageContent';
@@ -162,16 +162,59 @@ export default function BachelorAdmissionsPage() {
 
                          {/* Learn More */}
                          <section id="more" className="scroll-mt-32">
-                             <div className="cc-section-divider">
+                             <div className="cc-section-divider mb-8">
                                  <h2 className="cc-h2">Learn More About Studying at Cannoga</h2>
                              </div>
-                             <div className="prose-arrows">
-                                 <DbPageContent
-                                     pageSlug={pageSlug}
-                                     sectionKey="more_content"
-                                     fallbackContent={getSectionDefault('more_content')}
-                                     className="no-underline-links"
-                                 />
+                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                 <div className="bg-[#f8fafc] border border-neutral-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+                                     <div className="w-10 h-10 rounded-full bg-[#0a151a] text-white flex items-center justify-center mb-4 shrink-0">
+                                         <Buildings size={20} weight="bold" />
+                                     </div>
+                                     <div>
+                                         <h3 className="font-bold text-lg text-black mb-1">Modern Campus</h3>
+                                         <p className="text-sm text-black leading-relaxed">State-of-the-art facilities</p>
+                                     </div>
+                                 </div>
+
+                                 <div className="bg-[#f8fafc] border border-neutral-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+                                     <div className="w-10 h-10 rounded-full bg-[#0a151a] text-white flex items-center justify-center mb-4 shrink-0">
+                                         <Headset size={20} weight="bold" />
+                                     </div>
+                                     <div>
+                                         <h3 className="font-bold text-lg text-black mb-1">Support</h3>
+                                         <p className="text-sm text-black leading-relaxed">Advisors and counseling</p>
+                                     </div>
+                                 </div>
+
+                                 <div className="bg-[#f8fafc] border border-neutral-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+                                     <div className="w-10 h-10 rounded-full bg-[#0a151a] text-white flex items-center justify-center mb-4 shrink-0">
+                                         <GlobeHemisphereWest size={20} weight="bold" />
+                                     </div>
+                                     <div>
+                                         <h3 className="font-bold text-lg text-black mb-1">Community</h3>
+                                         <p className="text-sm text-black leading-relaxed">Global network</p>
+                                     </div>
+                                 </div>
+
+                                 <div className="bg-[#f8fafc] border border-neutral-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+                                     <div className="w-10 h-10 rounded-full bg-[#0a151a] text-white flex items-center justify-center mb-4 shrink-0">
+                                         <Briefcase size={20} weight="bold" />
+                                     </div>
+                                     <div>
+                                         <h3 className="font-bold text-lg text-black mb-1">Careers</h3>
+                                         <p className="text-sm text-black leading-relaxed">Internships and mentoring</p>
+                                     </div>
+                                 </div>
+
+                                 <div className="bg-[#f8fafc] border border-neutral-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow sm:col-span-2 lg:col-span-1">
+                                     <div className="w-10 h-10 rounded-full bg-[#0a151a] text-white flex items-center justify-center mb-4 shrink-0">
+                                         <Basketball size={20} weight="bold" />
+                                     </div>
+                                     <div>
+                                         <h3 className="font-bold text-lg text-black mb-1">Student Life</h3>
+                                         <p className="text-sm text-black leading-relaxed">Clubs and sports</p>
+                                     </div>
+                                 </div>
                              </div>
                          </section>
 
