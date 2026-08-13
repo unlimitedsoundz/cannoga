@@ -12,6 +12,11 @@
    Use these classes on all public pages.
    ============================================ */
 
+/* Enforce crisp, architectural sharp edges (no rounded corners) across the site */
+*, *::before, *::after {
+    border-radius: 0 !important;
+}
+
 /* Sections */
 .cc-section        { padding-top: 4rem; padding-bottom: 4rem; }
 .cc-section-lg     { padding-top: 5rem; padding-bottom: 5rem; }

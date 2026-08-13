@@ -331,30 +331,40 @@ export default async function CourseDetailPage({ params }: Props) {
                 {/* Main Content Column */}
                 <div className="lg:col-span-2 space-y-12">
                     {/* 1. Program Overview & Key Highlights */}
-                    <section className="bg-white p-8 md:p-10 rounded-xl border border-slate-200 shadow-sm">
+                    <section className="bg-white p-8 md:p-10 rounded-none border border-slate-200 shadow-sm">
                         <h2 className="text-2xl font-black text-slate-900 mb-6 tracking-tight">Program Overview & Objectives</h2>
-                        <p className="text-slate-700 text-base leading-relaxed mb-8">
+                        <p className="text-slate-700 text-base leading-relaxed mb-6">
                             {c.description?.replace(/Cannoga College|Cannoga|Cannoga C\x6Fllege|SYKLI|College/gi, 'Cannoga College')}
+                        </p>
+                        <p className="text-slate-700 text-base leading-relaxed mb-8">
+                            Offered through the <Link href={c.department ? `/schools/${deptSchoolSlug}/${c.department.slug}` : '/schools'} className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">{c.department?.name || 'Department'}</Link> within the <Link href={`/schools/${deptSchoolSlug}`} className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">{c.school?.name || 'School'}</Link>, this program provides students with direct access to Cannoga’s state-of-the-art academic resources, experiential learning laboratories, and comprehensive <Link href="/admissions" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Admissions Services</Link>.
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-slate-100">
-                            <div className="p-4 bg-slate-50 rounded-lg">
+                            <div className="p-4 bg-slate-50 rounded-none">
                                 <h4 className="font-bold text-slate-900 text-sm mb-1">Industry-Aligned Curriculum</h4>
-                                <p className="text-xs text-slate-600 leading-normal">Designed in collaboration with Canadian industry partners and employer advisory committees.</p>
+                                <p className="text-xs text-slate-600 leading-normal">Designed in collaboration with Canadian industry partners. View <Link href="/degree-programmes" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">all Degree Programmes</Link>.</p>
                             </div>
-                            <div className="p-4 bg-slate-50 rounded-lg">
+                            <div className="p-4 bg-slate-50 rounded-none">
                                 <h4 className="font-bold text-slate-900 text-sm mb-1">Hands-On Practicum & Co-op</h4>
-                                <p className="text-xs text-slate-600 leading-normal">Embedded experiential learning terms providing direct workplace experience in Ottawa.</p>
+                                <p className="text-xs text-slate-600 leading-normal">Embedded terms providing direct workplace experience in Ottawa. See <Link href="/student-guide/international" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">International Student Support</Link>.</p>
                             </div>
                         </div>
                     </section>
 
                     {/* 2. Detailed Curriculum Table */}
-                    <section className="bg-white p-8 md:p-10 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 className="text-2xl font-black text-slate-900 mb-6 tracking-tight">Curriculum & Course Structure</h2>
-                        <p className="text-slate-600 text-sm mb-6">Complete list of required core subjects, specialized courses, and capstone requirements:</p>
+                    <section className="bg-white p-8 md:p-10 rounded-none border border-slate-200 shadow-sm">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+                            <div>
+                                <h2 className="text-2xl font-black text-slate-900 tracking-tight">Curriculum & Course Structure</h2>
+                                <p className="text-slate-600 text-sm mt-1">Required core subjects, specialized courses, and capstone modules:</p>
+                            </div>
+                            <Link href="/degree-programmes#programs-az" className="text-xs font-bold uppercase tracking-wider text-[#0a151a] underline hover:text-sky-700 transition-colors shrink-0">
+                                View Full Programs A-Z &rarr;
+                            </Link>
+                        </div>
                         
-                        <div className="overflow-hidden border border-slate-200 rounded-lg">
+                        <div className="overflow-hidden border border-slate-200 rounded-none">
                             <table className="w-full text-left text-sm border-collapse">
                                 <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 uppercase tracking-wider text-[11px] font-bold">
                                     <tr>
@@ -384,25 +394,27 @@ export default async function CourseDetailPage({ params }: Props) {
                     </section>
 
                     {/* 3. Career Prospects & Industry Outcomes */}
-                    <section className="bg-white p-8 md:p-10 rounded-xl border border-slate-200 shadow-sm">
+                    <section className="bg-white p-8 md:p-10 rounded-none border border-slate-200 shadow-sm">
                         <h2 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">Career Prospects & Industry Pathways</h2>
-                        <p className="text-slate-600 text-sm mb-6">Graduates of the {c.title} are equipped for high-demand roles across public and private sector organizations in Ontario and Canada.</p>
+                        <p className="text-slate-600 text-sm mb-6">
+                            Graduates of the {c.title} are equipped for high-demand roles across public and private sector organizations in Ontario and Canada. Learn more about <Link href="/admissions/tuition" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Tuition & Financial Aid Options</Link> or connect with our <Link href="/contact" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Career Advisory Team</Link>.
+                        </p>
                         
-                        <div className="p-6 bg-slate-900 text-white rounded-lg mb-6">
+                        <div className="p-6 bg-slate-900 text-white rounded-none mb-6">
                             <h4 className="font-bold text-sm text-slate-300 uppercase tracking-wider mb-2">Target Roles & Career Positions</h4>
                             <p className="text-base text-slate-100 leading-relaxed">{c.careerPaths?.replace(/Cannoga College|Cannoga|Cannoga C\x6Fllege|SYKLI|College/gi, 'Cannoga College')}</p>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                            <div className="p-4 border border-slate-200 rounded-lg">
+                            <div className="p-4 border border-slate-200 rounded-none">
                                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Average Starting Salary</p>
                                 <p className="font-black text-slate-900 text-lg">$58,000 – $74,000 CAD</p>
                             </div>
-                            <div className="p-4 border border-slate-200 rounded-lg">
+                            <div className="p-4 border border-slate-200 rounded-none">
                                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Graduate Employment Rate</p>
                                 <p className="font-black text-slate-900 text-lg">94.2% within 6 Months</p>
                             </div>
-                            <div className="p-4 border border-slate-200 rounded-lg">
+                            <div className="p-4 border border-slate-200 rounded-none">
                                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Work Permit Eligibility</p>
                                 <p className="font-black text-slate-900 text-lg">Eligible (PGWP Pathway)</p>
                             </div>
@@ -413,7 +425,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 {/* Sidebar Column: Entry Requirements & Application Action */}
                 <div className="space-y-8">
                     {/* Admissions Card */}
-                    <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-sm sticky top-28">
+                    <div className="bg-white p-8 rounded-none border border-slate-200 shadow-sm sticky top-28">
                         <h3 className="text-xl font-black text-slate-900 mb-6 tracking-tight">Admission Requirements</h3>
                         
                         <div className="space-y-4 text-sm text-slate-700 mb-8">
@@ -427,12 +439,12 @@ export default async function CourseDetailPage({ params }: Props) {
                             </div>
                             <div>
                                 <p className="font-bold text-slate-900 mb-1">Language Proficiency:</p>
-                                <p className="text-slate-600 leading-normal">IELTS 6.0 overall (no band under 5.5) or TOEFL iBT 80.</p>
+                                <p className="text-slate-600 leading-normal">IELTS 6.0 overall (no band under 5.5) or TOEFL iBT 80. See <Link href="/student-guide/international" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">International Requirements</Link>.</p>
                             </div>
                         </div>
 
                         {/* Tuition Summary Box */}
-                        <div className="p-5 bg-slate-50 rounded-lg border border-slate-200 mb-8">
+                        <div className="p-5 bg-slate-50 rounded-none border border-slate-200 mb-8">
                             <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Estimated Tuition (2026–2027)</p>
                             <div className="flex justify-between items-center text-sm py-1 border-b border-slate-200">
                                 <span className="text-slate-600">Domestic Students:</span>
@@ -446,7 +458,7 @@ export default async function CourseDetailPage({ params }: Props) {
 
                         <Link
                             href={`/portal/apply?program=${c.slug}`}
-                            className="block w-full bg-[#0a151a] text-white text-center py-4 rounded-lg font-bold uppercase tracking-wider text-sm hover:bg-slate-800 transition-colors shadow-sm"
+                            className="block w-full bg-[#0a151a] text-white text-center py-4 rounded-none font-bold uppercase tracking-wider text-sm hover:bg-slate-800 transition-colors shadow-sm"
                         >
                             Apply Now
                         </Link>
@@ -454,7 +466,7 @@ export default async function CourseDetailPage({ params }: Props) {
 
                     {/* Program Faculty Sidebar */}
                     {relatedFaculty.length > 0 && (
-                        <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
+                        <div className="bg-white p-8 rounded-none border border-slate-200 shadow-sm">
                             <h3 className="text-xl font-black text-slate-900 mb-6 tracking-tight">Department Faculty</h3>
                             <div className="space-y-5">
                                 {relatedFaculty.map((f, idx) => (
