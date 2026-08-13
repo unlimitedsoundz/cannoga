@@ -1479,7 +1479,7 @@ export default function SISStudentDashboard() {
 
                                                 {/* TikTok Official Channel */}
                                                 <a 
-                                                    href="https://www.tiktok.com/@cannogacollege" 
+                                                    href="https://www.tiktok.com/@cannoga_college" 
                                                     target="_blank" 
                                                     rel="noopener noreferrer" 
                                                     className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-xl flex items-center space-x-2.5 font-bold text-slate-900 transition group shadow-sm"

@@ -29,7 +29,7 @@ export function Footer() {
                             <a href="https://www.youtube.com/@CannogaCollege" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-white hover:text-opacity-75 transition-opacity">
                                 <YoutubeLogo className="h-6 w-6" weight="fill" />
                             </a>
-                            <a href="https://www.tiktok.com/@cannogacollege" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-white hover:text-opacity-75 transition-opacity">
+                            <a href="https://www.tiktok.com/@cannoga_college" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-white hover:text-opacity-75 transition-opacity">
                                 <TiktokLogo className="h-6 w-6" weight="fill" />
                             </a>
                         </div>
