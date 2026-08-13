@@ -24,7 +24,7 @@ const stories = [
         name: 'Marcus Vance',
         programme: "Advanced Diploma in Software Engineering",
         quote: "The hands-on lab facilities and close mentorship from faculty helped me secure a full-time software developer role in Ottawa's Kanata North tech hub before graduation.",
-        image: '/images/home-carousel-1.png'
+        image: '/images/student-story-3.jpg'
     },
     {
         id: 4,
