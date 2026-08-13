@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
+import { createClient } from '@/utils/supabase/client';
 import { 
     MagnifyingGlass, 
     SquaresFour, 
@@ -14,7 +15,8 @@ import {
     Globe, 
     CurrencyDollar,
     CaretLeft,
-    CaretRight
+    CaretRight,
+    CircleNotch
 } from '@phosphor-icons/react';
 
 export interface ProgramItem {
@@ -470,6 +472,8 @@ const programsData: ProgramItem[] = [
 ];
 
 export function ProgramsAZTableView() {
+    const [allPrograms, setAllPrograms] = useState<ProgramItem[]>(programsData);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [search, setSearch] = useState('');
     const [selectedLevel, setSelectedLevel] = useState<string>('All');
     const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
@@ -479,8 +483,55 @@ export function ProgramsAZTableView() {
 
     const levels = ['All', 'Certificate', 'Diploma', 'Advanced Diploma', 'Bachelor', 'Master'];
 
+    // Fetch dynamic programs from Supabase DB if table exists
+    useEffect(() => {
+        let isMounted = true;
+        async function fetchDatabasePrograms() {
+            try {
+                const supabase = createClient();
+                // Attempt to query potential programs/degree tables
+                const { data: dbData, error } = await supabase
+                    .from('programs')
+                    .select('*');
+
+                if (!error && dbData && dbData.length > 0 && isMounted) {
+                    const dbMapped: ProgramItem[] = dbData.map((item: any, idx: number) => ({
+                        id: item.id || `db-prog-${idx}`,
+                        name: item.name || item.title || item.program_name || 'Academic Program',
+                        level: (item.level || item.credential || 'Bachelor') as any,
+                        school: item.school || item.department || 'School of Academic Studies',
+                        duration: item.duration || '2 Years',
+                        credits: Number(item.credits) || 60,
+                        coop: Boolean(item.coop ?? true),
+                        pgwp: Boolean(item.pgwp ?? true),
+                        tuitionDomestic: item.tuition_domestic ? `$${item.tuition_domestic}/yr` : '$1,500/yr',
+                        tuitionInternational: item.tuition_international ? `$${item.tuition_international}/yr` : '$2,500/yr',
+                        href: item.href || '/admissions',
+                        description: item.description || item.overview || 'Accredited higher education program offered at Cannoga College.'
+                    }));
+
+                    // Deduplicate against static fallback dataset
+                    const combined = [...dbMapped];
+                    programsData.forEach(staticItem => {
+                        if (!combined.some(c => c.name.toLowerCase() === staticItem.name.toLowerCase())) {
+                            combined.push(staticItem);
+                        }
+                    });
+                    setAllPrograms(combined);
+                }
+            } catch (err) {
+                console.log('Supabase programs table query info:', err);
+            } finally {
+                if (isMounted) setIsLoading(false);
+            }
+        }
+
+        fetchDatabasePrograms();
+        return () => { isMounted = false; };
+    }, []);
+
     const filteredPrograms = useMemo(() => {
-        return programsData
+        return allPrograms
             .filter(p => {
                 const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
                                       p.school.toLowerCase().includes(search.toLowerCase()) ||
@@ -489,7 +540,7 @@ export function ProgramsAZTableView() {
                 return matchesSearch && matchesLevel;
             })
             .sort((a, b) => sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
-    }, [search, selectedLevel, sortAsc]);
+    }, [allPrograms, search, selectedLevel, sortAsc]);
 
     // Calculate pagination slices
     const totalPages = Math.max(1, Math.ceil(filteredPrograms.length / itemsPerPage));
