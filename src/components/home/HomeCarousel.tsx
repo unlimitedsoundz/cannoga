@@ -66,16 +66,16 @@ export function HomeCarousel() {
                         className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${idx === current ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}
                     >
                         {/* Background Image */}
-                        <div className="absolute inset-0 w-full h-full bg-neutral-900">
+                        <div className="absolute inset-0 w-full h-full bg-[#0a151a]">
                             <Image
                                 src={slide.image}
                                 alt={slide.title}
                                 fill
                                 priority={idx === 0}
-                                className="object-cover object-center"
+                                className="object-cover object-center opacity-40"
                                 sizes="100vw"
                             />
-                            <div className="absolute inset-0 bg-black/40 z-[1]" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30 z-[1]" />
                         </div>
 
                         {/* Content Overlay */}
