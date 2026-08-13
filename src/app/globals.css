@@ -12,9 +12,13 @@
    Use these classes on all public pages.
    ============================================ */
 
-/* Enforce crisp, architectural sharp edges (no rounded corners) across the site */
+/* Enforce crisp, architectural sharp edges (no rounded corners) across the site, except circular badges/avatars/numbers */
 *, *::before, *::after {
     border-radius: 0 !important;
+}
+
+.rounded-full, [class*="rounded-full"], .step-circle, .avatar-circle {
+    border-radius: 9999px !important;
 }
 
 /* Sections */
