@@ -4,9 +4,9 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { 
     MagnifyingGlass, 
-    Squares2X2, 
+    SquaresFour, 
     ListBullets, 
-    ArrowUpDown, 
+    ArrowsDownUp, 
     ArrowRight, 
     CheckCircle, 
     Briefcase, 
@@ -337,7 +337,7 @@ export function ProgramsAZTableView() {
                                 viewMode === 'grid' ? 'bg-[#0a151a] text-white shadow-sm' : 'text-neutral-600 hover:text-black'
                             }`}
                         >
-                            <Squares2X2 size={16} weight="bold" />
+                            <SquaresFour size={16} weight="bold" />
                             Grid View
                         </button>
                     </div>
@@ -380,7 +380,7 @@ export function ProgramsAZTableView() {
                             onClick={() => setSortAsc(!sortAsc)}
                             className="flex items-center gap-2 px-3 py-2 bg-neutral-100 hover:bg-neutral-200 text-black text-xs font-bold rounded-xl transition-all w-full justify-center"
                         >
-                            <ArrowUpDown size={14} weight="bold" />
+                            <ArrowsDownUp size={14} weight="bold" />
                             <span>Sort {sortAsc ? 'A-Z' : 'Z-A'}</span>
                         </button>
                     </div>
