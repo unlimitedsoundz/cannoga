@@ -219,25 +219,38 @@ export default async function SchoolDetails({ params }: Props) {
                         </div>
 
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {courses.map(course => (
-                                <Link href={`/studies/${course.slug}`} key={course.id} className="block group">
-                                    <div className="bg-neutral-100 h-40 rounded-lg mb-4 overflow-hidden relative">
-                                        <FallbackImage
-                                            src={course.imageUrl || school.imageUrl || '/images/placeholders/design.png'}
-                                            fallbackSrc={school.imageUrl || '/images/placeholders/design.png'}
-                                            fill
-                                            className="object-cover object-top"
-                                            alt={`Study ${course.title} at Cannoga College`}
-                                            sizes="(max-width: 768px) 100vw, 25vw"
-                                        />
-                                        <span className="absolute top-2 right-2 bg-white/90 text-xs font-bold px-2 py-1 rounded text-neutral-800 z-10">
-                                            {course.degreeLevel === "MASTER" ? "MSc" : course.degreeLevel === "BACHELOR" ? "BSc" : course.degreeLevel === "DIPLOMA" ? "Dip" : "Cert"}
-                                        </span>
-                                    </div>
-                                    <h3 className="font-bold text-lg leading-tight mb-1 group-hover:text-blue-700 transition-colors">{course.title}</h3>
-                                    <p className="text-sm text-neutral-500">{course.duration}</p>
-                                </Link>
-                            ))}
+                            {courses.map(course => {
+                                const defaultSchoolImage = 
+                                    slug === 'arts' || slug === 'arts-design' ? '/images/school-of-arts.jpg' :
+                                    slug === 'business' ? '/images/school-of-business.jpg' :
+                                    slug === 'science' ? '/images/school-of-science.jpg' :
+                                    slug === 'technology' ? '/images/school-of-technology.jpg' :
+                                    slug === 'health-community' || slug === 'health-sciences' ? '/images/school-of-health.jpg' :
+                                    slug === 'hospitality-tourism' ? '/images/school-of-hospitality.jpg' :
+                                    slug === 'education-social-sciences' ? '/images/school-of-education-social-sciences.jpg' :
+                                    slug === 'transportation-aviation' ? '/images/school-of-transportation.jpg' :
+                                    '/images/school-of-arts.jpg';
+
+                                return (
+                                    <Link href={`/studies/${course.slug}`} key={course.id} className="block group">
+                                        <div className="bg-neutral-100 h-40 rounded-lg mb-4 overflow-hidden relative">
+                                            <FallbackImage
+                                                src={course.imageUrl || school.imageUrl || defaultSchoolImage}
+                                                fallbackSrc={school.imageUrl || defaultSchoolImage}
+                                                fill
+                                                className="object-cover object-top"
+                                                alt={`Study ${course.title} at Cannoga College`}
+                                                sizes="(max-width: 768px) 100vw, 25vw"
+                                            />
+                                            <span className="absolute top-2 right-2 bg-white/90 text-xs font-bold px-2 py-1 rounded text-neutral-800 z-10">
+                                                {course.degreeLevel === "MASTER" ? "MSc" : course.degreeLevel === "BACHELOR" ? "BSc" : course.degreeLevel === "DIPLOMA" ? "Dip" : "Cert"}
+                                            </span>
+                                        </div>
+                                        <h3 className="font-bold text-lg leading-tight mb-1 group-hover:text-blue-700 transition-colors">{course.title}</h3>
+                                        <p className="text-sm text-neutral-500">{course.duration}</p>
+                                    </Link>
+                                );
+                            })}
                         </div>
                     </section>
                 )}
