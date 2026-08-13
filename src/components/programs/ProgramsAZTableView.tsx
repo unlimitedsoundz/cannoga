@@ -746,9 +746,7 @@ export function ProgramsAZTableView() {
                                         className="hover:bg-slate-50 transition-colors"
                                     >
                                         <td className="p-3.5 font-mono font-bold text-slate-900 text-xs whitespace-nowrap">
-                                            <span className="bg-slate-100 text-slate-900 px-2 py-1 border border-slate-200 rounded-none">
-                                                {p.code}
-                                            </span>
+                                            {p.code}
                                         </td>
                                         <td className="p-3.5">
                                             <Link 
@@ -807,7 +805,7 @@ export function ProgramsAZTableView() {
                         >
                             <div>
                                 <div className="flex items-center justify-between gap-2 mb-3">
-                                    <span className="font-mono text-xs font-bold text-slate-900 bg-slate-100 px-2 py-0.5 border border-slate-200">
+                                    <span className="font-mono text-xs font-bold text-slate-900">
                                         {p.code}
                                     </span>
                                     <span className="text-xs font-bold uppercase tracking-wider text-slate-900">
