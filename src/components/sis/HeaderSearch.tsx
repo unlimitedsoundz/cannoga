@@ -221,15 +221,15 @@ export function HeaderSearch({ isAdmin = false, placeholder, onNavigatePage }: H
           placeholder={placeholder || (isAdmin ? "Search students, courses, portal pages..." : "Search courses, documents, pages...")}
           className={
             isAdmin
-              ? "w-full pl-9 pr-14 py-2 text-xs sm:text-sm border border-white/10 bg-white/5 text-white placeholder-neutral-400 focus:bg-white/10 focus:border-white/20 focus:outline-none rounded-lg font-sans transition-colors"
-              : "w-full pl-9 pr-14 py-2 text-xs sm:text-sm border border-slate-700 bg-slate-800 text-slate-100 placeholder-slate-400 focus:outline-none focus:border-slate-500 focus:bg-slate-800/90 rounded-lg font-sans transition-colors shadow-inner"
+              ? "w-full pl-9 pr-14 py-2 text-xs sm:text-sm border border-white/20 bg-white text-slate-900 placeholder-slate-400 focus:bg-white focus:border-white focus:ring-2 focus:ring-white/50 focus:outline-none rounded-lg font-sans transition-colors"
+              : "w-full pl-9 pr-14 py-2 text-xs sm:text-sm border border-slate-300 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-400 focus:bg-white rounded-lg font-sans transition-colors shadow-sm"
           }
         />
         <HugeiconsIcon
           icon={SearchIcon}
           size={16}
           strokeWidth={2.5}
-          className={isAdmin ? "absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" : "absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"}
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
         />
 
         <div className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -240,7 +240,7 @@ export function HeaderSearch({ isAdmin = false, placeholder, onNavigatePage }: H
                 setQuery('');
                 setIsOpen(false);
               }}
-              className={isAdmin ? "text-neutral-400 hover:text-white p-1" : "text-slate-400 hover:text-slate-200 p-1"}
+              className="text-slate-400 hover:text-slate-600 p-1"
             >
               <HugeiconsIcon icon={XCircle} size={14} strokeWidth={2} />
             </button>

@@ -8,7 +8,7 @@ import {
     Briefcase, 
     CheckCircle, 
     Globe, 
-    Award, 
+    Certificate, 
     Building, 
     Clock, 
     Compass
@@ -34,7 +34,7 @@ const PROGRAM_LEVELS = [
         desc: "Short, targeted pathways designed for rapid skill acquisition, professional certification, and immediate entry into Ontario's workforce.",
         coop: "Co-op Available",
         link: "/degree-programmes#certificates",
-        icon: Award,
+        icon: Certificate,
         color: "from-amber-500/20 to-amber-700/10 border-amber-500/30 text-amber-400"
     },
     {
@@ -133,6 +133,12 @@ export default function StudiesPage() {
                 backgroundColor="#0a151a"
                 tinted
                 lightText={true}
+                overlay={true}
+                overlayOpacity="opacity-40"
+                image={{
+                    src: "/images/studies-hero.jpg",
+                    alt: "Cannoga College of Business building with students entering campus"
+                }}
                 breadcrumbs={[
                     { label: 'Home', href: '/' },
                     { label: 'Studies' }
@@ -166,33 +172,27 @@ export default function StudiesPage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                        {PROGRAM_LEVELS.map((item, idx) => {
-                            const IconComponent = item.icon;
-                            return (
-                                <Link
-                                    key={idx}
-                                    href={item.link}
-                                    className="group relative bg-[#0a151a] border border-white/10 p-6 rounded-xl hover:border-[#c89211]/50 transition-all flex flex-col justify-between no-underline"
-                                >
-                                    <div>
-                                        <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                            <IconComponent size={20} className="text-[#c89211]" />
-                                        </div>
-                                        <h3 className="text-base font-extrabold text-white mb-1 group-hover:text-[#c89211] transition-colors">{item.title}</h3>
-                                        <div className="flex items-center gap-2 text-[10px] text-slate-400 font-semibold mb-3">
-                                            <span>{item.duration}</span>
-                                            <span>•</span>
-                                            <span>{item.credits}</span>
-                                        </div>
-                                        <p className="text-xs text-slate-300 leading-relaxed mb-4">{item.desc}</p>
+                        {PROGRAM_LEVELS.map((item, idx) => (
+                            <Link
+                                key={idx}
+                                href={item.link}
+                                className="group relative bg-[#0a151a] border border-white/10 p-6 rounded-xl hover:border-[#c89211]/50 transition-all flex flex-col justify-between no-underline"
+                            >
+                                <div>
+                                    <h3 className="text-base font-extrabold text-white mb-1 group-hover:text-[#c89211] transition-colors">{item.title}</h3>
+                                    <div className="flex items-center gap-2 text-[10px] text-slate-400 font-semibold mb-3">
+                                        <span>{item.duration}</span>
+                                        <span>•</span>
+                                        <span>{item.credits}</span>
                                     </div>
-                                    <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs font-bold text-[#c89211]">
-                                        <span>{item.coop}</span>
-                                        <ArrowRight size={14} weight="bold" className="group-hover:translate-x-1 transition-transform" />
-                                    </div>
-                                </Link>
-                            );
-                        })}
+                                    <p className="text-xs text-slate-300 leading-relaxed mb-4">{item.desc}</p>
+                                </div>
+                                <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs font-bold text-[#c89211]">
+                                    <span>{item.coop}</span>
+                                    <ArrowRight size={14} weight="bold" className="group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </div>
