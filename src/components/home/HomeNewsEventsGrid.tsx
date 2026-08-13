@@ -171,7 +171,7 @@ export function HomeNewsEventsGrid() {
             {/* ── RIGHT: Important Dates ── */}
             <div className="flex flex-col" style={{ background: ACCENT }}>
                 {/* Header */}
-                <div className="px-6 py-5 border-b border-white/10">
+                <div className="px-6 py-5">
                     <h3 className="text-lg font-black text-white tracking-tight uppercase">Important Dates</h3>
                 </div>
 
@@ -207,7 +207,7 @@ export function HomeNewsEventsGrid() {
                 </div>
 
                 {/* Footer CTA */}
-                <div className="px-6 py-5 border-t border-white/10">
+                <div className="px-6 py-5">
                     <a
                         href="/news"
                         className="inline-block border border-white text-white text-xs font-bold uppercase tracking-widest px-6 py-2.5 hover:bg-white transition-colors no-underline"
