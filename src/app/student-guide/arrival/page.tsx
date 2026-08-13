@@ -297,7 +297,6 @@ export default function ArrivalGuidePage() {
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                                     <div className="absolute bottom-6 left-6 right-6 text-white">
-                                        <span className="text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur-md px-3 py-1 rounded-sm border border-white/20 mb-2 inline-block">Welcome Week</span>
                                         <h3 className="text-xl font-bold text-white">Vibrant Student Life in Ottawa</h3>
                                     </div>
                                 </div>
