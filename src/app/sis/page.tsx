@@ -37,6 +37,7 @@ interface Announcement {
     id: string;
     title: string;
     excerpt: string;
+    summary?: string;
     content: string;
     priority: string;
     status: string;
@@ -2228,7 +2229,7 @@ export default function SISStudentDashboard() {
                                                         <span className="text-[11px] text-slate-500 font-medium">{item.publish_start ? new Date(item.publish_start).toLocaleDateString('en-CA') : ''}</span>
                                                     </div>
                                                     <p className="font-bold text-slate-900 group-hover:text-slate-800 text-sm">{item.title}</p>
-                                                    {item.summary && <p className="text-xs text-slate-600 font-medium mt-1">{item.summary}</p>}
+                                                    {(item.summary || item.excerpt) && <p className="text-xs text-slate-600 font-medium mt-1">{item.summary || item.excerpt}</p>}
                                                 </div>
                                             ))
                                         ) : (
