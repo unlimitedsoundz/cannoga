@@ -1468,7 +1468,7 @@ export default function SISStudentDashboard() {
                                                 </span>
                                                 {/* Weather Icon (Sun & Rain Cloud) */}
                                                 <div className="shrink-0">
-                                                    <svg className="w-14 h-14 sm:w-16 sm:h-16 text-[#2D3748]" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                    <svg className="w-20 h-20 sm:w-24 sm:h-24 text-[#2D3748]" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                                         {/* Sun circle outline behind cloud */}
                                                         <circle cx="24" cy="22" r="8" />
                                                         {/* Cloud body */}
