@@ -31,30 +31,52 @@ const sections = [
 
 export default async function TuitionPaymentPage() {
     const supabase = createStaticClient();
-    const { data: courses } = await supabase
-        .from('Course')
-        .select('*')
-        .order('title');
+    let courses: any[] = [];
+    let tuitionInfo: any[] = [];
+    let heroVideoUrl = '/videos/wan2.6-t2v_a_%23_Tuition_Fees_Video.mp4';
 
-    const { data: tuitionInfo } = await supabase
-        .from('tuition_info')
-        .select('*')
-        .eq('status', 'active')
-        .order('credential_type', { ascending: true });
+    try {
+        const { data: coursesData } = await supabase
+            .from('Course')
+            .select('*')
+            .order('title');
+        courses = coursesData || [];
+    } catch (e) {
+        console.error('Error fetching courses for tuition estimator:', e);
+    }
+
+    try {
+        const { data: tuitionData } = await supabase
+            .from('tuition_info')
+            .select('*')
+            .eq('status', 'active')
+            .order('credential_type', { ascending: true });
+        tuitionInfo = tuitionData || [];
+    } catch (e) {
+        console.error('Error fetching tuition_info:', e);
+    }
 
     // For static build, we use empty FAQs - they will be loaded client-side
     const faqs: any[] = [];
     const pageSlug = 'admissions/tuition';
     const getSectionDefault = (sectionKey: string) => getPageContentSection(pageSlug, sectionKey)?.defaultContent ?? '';
 
-    const { data: heroVideoData } = await supabase
-        .from('page_content')
-        .select('content')
-        .eq('page_slug', pageSlug)
-        .eq('section_key', 'hero_video_url')
-        .maybeSingle();
+    try {
+        const { data: heroVideoData } = await supabase
+            .from('page_content')
+            .select('content')
+            .eq('page_slug', pageSlug)
+            .eq('section_key', 'hero_video_url')
+            .maybeSingle();
 
-    const heroVideoUrl = heroVideoData?.content?.trim() || getSectionDefault('hero_video_url') || '/videos/wan2.6-t2v_a_%23_Tuition_Fees_Video.mp4';
+        if (heroVideoData?.content?.trim()) {
+            heroVideoUrl = heroVideoData.content.trim();
+        } else {
+            heroVideoUrl = getSectionDefault('hero_video_url') || heroVideoUrl;
+        }
+    } catch (e) {
+        heroVideoUrl = getSectionDefault('hero_video_url') || heroVideoUrl;
+    }
 
     // Register this page
     try {
