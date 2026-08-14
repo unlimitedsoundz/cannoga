@@ -147,17 +147,17 @@ export default function StudiesPage() {
                 <div className="flex flex-wrap gap-4">
                     <Link
                         href="#all-programs"
-                        className="inline-flex items-center gap-2 bg-[#0a151a] hover:bg-[#12222a] text-white font-bold text-xs uppercase tracking-widest px-8 py-4 no-underline rounded-lg transition-colors border border-white/20 shadow-lg"
+                        className="inline-flex items-center gap-2 bg-white hover:bg-neutral-100 text-black font-bold text-xs uppercase tracking-widest px-8 py-4 no-underline shadow-md transition-colors"
                     >
                         <span>Browse Program Catalog</span>
-                        <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
+                        <ArrowRight size={16} weight="bold" className="text-black" />
                     </Link>
                     <Link
                         href="/admissions"
-                        className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-widest px-8 py-4 no-underline rounded-lg transition-colors border border-white/20"
+                        className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-black font-bold text-xs uppercase tracking-widest px-8 py-4 no-underline shadow-md transition-colors"
                     >
                         <span>Apply for Admission</span>
-                        <ArrowRight size={16} weight="bold" />
+                        <ArrowRight size={16} weight="bold" className="text-black" />
                     </Link>
                 </div>
             </Hero>
