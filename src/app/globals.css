@@ -335,25 +335,25 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0f2027;
+  --foreground: #000000;
 
-  --color-primary: #0f2027;
+  --color-primary: #000000;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #1a3644;
+  --color-secondary: #000000;
   --color-secondary-foreground: #ffffff;
   --color-accent: #c89211;
   --color-accent-foreground: #ffffff;
 
-  --color-black: #0f2027;
-  --color-neutral-900: #1e293b;
+  --color-black: #000000;
+  --color-neutral-900: #000000;
   --color-background: #ffffff;
-  --color-foreground: #0f2027;
+  --color-foreground: #000000;
 
   --color-muted: #f8fafc;
-  --color-muted-foreground: #475569;
+  --color-muted-foreground: #000000;
 
   --color-card: #ffffff;
-  --color-card-foreground: #0f2027;
+  --color-card-foreground: #000000;
 
   --color-border: #e2e8f0;
   --color-input: #cbd5e1;
@@ -432,7 +432,7 @@ html, body {
 body, input, textarea, select, button {
   font-family: Arial, Helvetica, sans-serif !important;
   background: var(--color-background);
-  color: var(--color-foreground);
+  color: #000000 !important;
   -webkit-font-smoothing: antialiased;
 }
 
