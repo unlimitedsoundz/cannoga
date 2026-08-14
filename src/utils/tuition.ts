@@ -27,6 +27,17 @@ export const INTERNATIONAL_DEPOSIT = {
     MASTER: 2000
 };
 
+export const ANCILLARY_FEES = [
+    { name: 'Student Activity Fee', amount: 150 },
+    { name: 'Technology Fee', amount: 100 },
+    { name: 'Athletics and Recreation Fee', amount: 75 },
+    { name: 'Convocation Fee', amount: 50 },
+    { name: 'Student Counselling Fee', amount: 50 },
+    { name: 'Program Transcript Fee', amount: 25 },
+    { name: 'Student Experience Fee', amount: 50 }
+];
+
+export const ANCILLARY_FEES_TOTAL = ANCILLARY_FEES.reduce((acc, item) => acc + item.amount, 0); // 475 CAD
 
 export const EARLY_PAYMENT_DISCOUNT_PERCENT = 0;
 export const EARLY_PAYMENT_WINDOW_DAYS = 7;

@@ -55,16 +55,7 @@ export async function getPendingPayments() {
 
 export async function pushInvoice(applicationId: string, customFee: number, invoiceType: string) {
     const supabase = createServiceRoleClient();
-    const ANCILLARY_FEES_TOTAL = 700;
-    const ANCILLARY_FEES = [
-        { name: 'Student Activity Fee', amount: 100 },
-        { name: 'Technology Fee', amount: 100 },
-        { name: 'Athletics and Recreation Fee', amount: 100 },
-        { name: 'Convocation Fee', amount: 100 },
-        { name: 'Student Counselling Fee', amount: 100 },
-        { name: 'Program Transcript Fee', amount: 100 },
-        { name: 'Student Experience Fee', amount: 100 }
-    ];
+    const { ANCILLARY_FEES, ANCILLARY_FEES_TOTAL } = await import('@/utils/tuition');
 
     // Verify application exists and is in a valid state
     const { data: offer, error: offerError } = await supabase
@@ -433,8 +424,9 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
                         .eq('application_id', applicationId)
                         .maybeSingle();
 
+                    const { ANCILLARY_FEES_TOTAL } = await import('@/utils/tuition');
                     const isFirstInvoice = !offerForInvoice?.invoice_pushed;
-                    const ancillaryTotal = isFirstInvoice ? 700 : 0;
+                    const ancillaryTotal = isFirstInvoice ? ANCILLARY_FEES_TOTAL : 0;
                     const baseFee = Number(offerForInvoice?.tuition_fee || paymentAmount);
                     const invoiceAmount = baseFee + ancillaryTotal;
                     const newBalance = Math.max(0, invoiceAmount - paymentAmount);
