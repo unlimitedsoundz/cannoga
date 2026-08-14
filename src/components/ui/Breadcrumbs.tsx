@@ -28,7 +28,7 @@ const iconMap: Record<string, React.ElementType> = {
  */
 export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
     return (
-        <nav className={`flex items-center gap-2 text-black text-xs font-medium tracking-normal ${className}`} aria-label="Breadcrumb">
+        <nav className={`flex items-center gap-2 text-black text-xs font-bold tracking-normal ${className}`} aria-label="Breadcrumb">
             {items.map((item, index) => {
                 const isLast = index === items.length - 1;
                 const IconComponent = item.icon ? iconMap[item.icon] : null;
@@ -38,18 +38,18 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
                         {item.linkComponentProps && !isLast ? (
                             <Link 
                                 linkComponentProps={item.linkComponentProps}
-                                className="hover:text-neutral-500 transition-colors flex items-center gap-1"
+                                className="text-black hover:text-neutral-600 transition-colors flex items-center gap-1 font-bold no-underline"
                             >
-                                {IconComponent && <IconComponent size={14} weight="bold" />}
+                                {IconComponent && <IconComponent size={14} weight="fill" className="text-black" />}
                                 {item.label}
                             </Link>
                         ) : (
-                            <span className={`flex items-center gap-1 ${isLast ? "text-neutral-500" : ""}`}>
-                                {IconComponent && <IconComponent size={14} weight="bold" />}
+                            <span className={`flex items-center gap-1 ${isLast ? "text-neutral-600 font-medium" : "text-black font-bold"}`}>
+                                {IconComponent && <IconComponent size={14} weight="fill" className="text-black" />}
                                 {item.label}
                             </span>
                         )}
-                        {!isLast && <CaretRight size={10} weight="bold" className="text-neutral-300" />}
+                        {!isLast && <CaretRight size={12} weight="fill" className="text-black" />}
                     </div>
                 );
             })}
