@@ -31,7 +31,6 @@ import { getDocumentUrl } from '@/utils/document';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { registerForCourse } from '@/app/sis/registration-actions';
 import { getStudentLifeData, getUnreadMessageCount } from '@/app/sis/student-life-actions';
-                                                                     </span>
 import StudentLifePage from '@/app/sis/student-life';
 import { DAYS_OF_WEEK } from '@/types/database';
 import { HeaderSearch } from '@/components/sis/HeaderSearch';
@@ -323,7 +322,6 @@ export default function SISStudentDashboard() {
     const [registrationLoading, setRegistrationLoading] = useState(false);
     const [studentLifeData, setStudentLifeData] = useState<any>(null);
     const [unreadMessageCount, setUnreadMessageCount] = useState(0);
-                                                                     </span>
     const [timetableSessions, setTimetableSessions] = useState<any[]>([]);
     const [timetableAssignments, setTimetableAssignments] = useState<any[]>([]);
     const [financialAid, setFinancialAid] = useState<FinancialAid[]>([]);
@@ -942,16 +940,13 @@ function formatRelativeTime(dateInput: any): string {
                         const [lifeResult, unreadResult] = await Promise.all([
                             getStudentLifeData(studentIdForLife),
                             getUnreadMessageCount(studentIdForLife),
-                                                                     </span>
                         ]);
                         if (lifeResult.success && lifeResult.data) {
                             setStudentLifeData(lifeResult.data);
                             setUnreadMessageCount(lifeResult.data.unreadCount || 0);
-                                                                     </span>
                         }
                         if (unreadResult.success) {
                             setUnreadMessageCount(unreadResult.count || 0);
-                                                                     </span>
                         }
                     } catch (lifeErr) {
                         console.error('Error fetching student life data:', lifeErr);
