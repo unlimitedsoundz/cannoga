@@ -1041,4 +1041,20 @@ button.sis-btn,
 [data-theme="sis-dark"] .ck-toolbar,
 [data-theme="sis-dark"] .ck-toolbar * {
   color: #0f172a !important;
+}
+
+@keyframes drawerSlideDown {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(-12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-drawer-slide {
+  animation: drawerSlideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top right;
 }
