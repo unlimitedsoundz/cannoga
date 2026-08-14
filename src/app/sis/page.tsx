@@ -1786,7 +1786,7 @@ function formatRelativeTime(dateInput: any): string {
                                                     {ontarioWeather ? `${ontarioWeather.temp}°` : '8°'}
                                                 </span>
                                                 {/* Weather Icon (Sun & Rain Cloud) */}
-                                                <div className="shrink-0">
+                                                <div className="shrink-0 animate-weather-icon">
                                                     <svg className="w-20 h-20 sm:w-24 sm:h-24 text-[#2D3748]" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                                         {/* Sun circle outline behind cloud */}
                                                         <circle cx="24" cy="22" r="8" />

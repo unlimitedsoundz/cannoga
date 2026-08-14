@@ -1057,4 +1057,23 @@ button.sis-btn,
 .animate-drawer-slide {
   animation: drawerSlideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   transform-origin: top right;
+}
+
+@keyframes weatherPulse {
+  0%, 100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-5px) scale(1.05) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-3px) scale(1.03) rotate(4deg);
+  }
+}
+
+.animate-weather-icon {
+  animation: weatherPulse 2s ease-in-out infinite;
 }
