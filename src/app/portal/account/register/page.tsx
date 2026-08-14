@@ -181,7 +181,7 @@ export default function RegisterPage() {
                     <form onSubmit={handleRegister} className="space-y-4">
                         {/* Section 1: Account Credentials */}
                         <div className="space-y-3">
-                            <h2 className="text-[14px] font-bold text-black border-b border-neutral-100 pb-1.5 mb-3">Account Credentials</h2>
+                            <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Account Credentials</h2>
                             
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                                 <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Email Address <span className="text-red-600">*</span></label>
@@ -222,7 +222,7 @@ export default function RegisterPage() {
 
                         {/* Section 2: Personal Information */}
                         <div className="pt-4 border-t border-neutral-100 space-y-3">
-                            <h2 className="text-[14px] font-bold text-black border-b border-neutral-100 pb-1.5 mb-3">Personal Information</h2>
+                            <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Personal Information</h2>
 
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                                 <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">First Name <span className="text-red-600">*</span></label>
@@ -326,7 +326,7 @@ export default function RegisterPage() {
 
                         {/* Section 3: Contact & Permanent Address */}
                         <div className="pt-4 border-t border-neutral-100 space-y-3">
-                            <h2 className="text-[14px] font-bold text-black border-b border-neutral-100 pb-1.5 mb-3">Contact & Permanent Address</h2>
+                            <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Contact & Permanent Address</h2>
 
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                                 <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Phone Code <span className="text-red-600">*</span></label>
@@ -434,7 +434,7 @@ export default function RegisterPage() {
 
                         {/* Section 4: Local/Canadian Address Section */}
                         <div className="pt-4 border-t border-neutral-100">
-                            <h2 className="text-[14px] font-bold text-black border-b border-neutral-100 pb-1.5 mb-3">Local/Canadian Address (if known)</h2>
+                            <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Local/Canadian Address (if known)</h2>
                             
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-3">
                                 <div className="w-full sm:w-36 flex-shrink-0"></div>
