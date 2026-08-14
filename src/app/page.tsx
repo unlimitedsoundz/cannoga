@@ -4,7 +4,6 @@ import { Link } from "@/components/ui/Link";
 import { ArrowRight, CaretRight as ChevronRight, Calendar, MapPin, Notebook, GraduationCap } from "@phosphor-icons/react/dist/ssr";
 import { HomeCarousel } from "@/components/home/HomeCarousel";
 import { HomeNewsEventsGrid } from "@/components/home/HomeNewsEventsGrid";
-import ProgramSearch from "@/components/home/ProgramSearch";
 import { Metadata } from "next";
 import { createStaticClient } from "@/lib/supabase/static";
 
@@ -69,12 +68,9 @@ export default async function Home() {
             {/* 2. EXPLORE PROGRAMS & COURSES */}
             <section className="py-20 bg-[#f8fafc] border-b border-slate-200">
                 <div className="container mx-auto px-4 md:px-28 lg:px-40">
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-                        <div className="text-left max-w-2xl">
-                            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">Academic Programs &amp; Credentials</h2>
-                            <p className="text-slate-600 font-normal text-base mt-2">Explore career-focused post-secondary education at our Ottawa campus.</p>
-                        </div>
-                        <ProgramSearch />
+                    <div className="mb-12 border-b border-slate-200 pb-4 max-w-2xl">
+                        <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">Academic Programs &amp; Credentials</h2>
+                        <p className="text-slate-600 font-normal text-base mt-2">Explore career-focused post-secondary education at our Ottawa campus.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
