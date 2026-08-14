@@ -36,7 +36,7 @@ import { HeaderSearch } from '@/components/sis/HeaderSearch';
 interface Announcement {
     id: string;
     title: string;
-    excerpt: string;
+    excerpt?: string;
     summary?: string;
     content: string;
     priority: string;
@@ -44,6 +44,7 @@ interface Announcement {
     publish_start: string;
     publish_end: string;
     created_at: string;
+    imageUrl?: string;
 }
 
 interface Student {
@@ -310,6 +311,7 @@ export default function SISStudentDashboard() {
     const [documents, setDocuments] = useState<DocumentRecord[]>([]);
     const [faculty, setFaculty] = useState<Faculty[]>([]);
     const [news, setNews] = useState<Announcement[]>([]);
+    const [selectedNewsModalItem, setSelectedNewsModalItem] = useState<Announcement | null>(null);
     const [registrationCourses, setRegistrationCourses] = useState<any[]>([]);
     const [registrationSubjects, setRegistrationSubjects] = useState<string[]>([]);
     const [registrationLoading, setRegistrationLoading] = useState(false);
@@ -602,8 +604,8 @@ export default function SISStudentDashboard() {
                     supabase.from('scholarship_applications').select('*').eq('student_id', currentStudentId).order('submitted_at', { ascending: false }),
                     supabase.from('installment_plans').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
                     supabase.from('bank_accounts').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
-                    supabase.from('News').select('id, title, excerpt, publishDate, created_at').order('created_at', { ascending: false }).limit(20),
-                    supabase.from('Event').select('id, title, excerpt, date, created_at').order('created_at', { ascending: false }).limit(20),
+                    supabase.from('News').select('id, title, excerpt, content, imageUrl, publishDate, created_at').order('created_at', { ascending: false }).limit(20),
+                    supabase.from('Event').select('id, title, excerpt, content, imageUrl, date, created_at').order('created_at', { ascending: false }).limit(20),
                 ]);
 
                 const enrollmentData = enrollmentResult.data;
@@ -633,7 +635,8 @@ export default function SISStudentDashboard() {
                     id: n.id,
                     title: n.title,
                     excerpt: n.excerpt || '',
-                    content: n.excerpt || '',
+                    content: n.content || n.excerpt || '',
+                    imageUrl: n.imageUrl || n.image_url || '',
                     priority: 'News',
                     status: 'published',
                     publish_start: n.publishDate || n.created_at,
@@ -644,7 +647,8 @@ export default function SISStudentDashboard() {
                     id: e.id,
                     title: e.title,
                     excerpt: e.excerpt || '',
-                    content: e.excerpt || '',
+                    content: e.content || e.excerpt || '',
+                    imageUrl: e.imageUrl || e.image_url || '',
                     priority: 'Event',
                     status: 'published',
                     publish_start: e.date || e.created_at,
@@ -2183,7 +2187,11 @@ export default function SISStudentDashboard() {
                                     <div className="divide-y divide-slate-100 text-xs">
                                         {news.length > 0 ? (
                                             news.map(item => (
-                                                <div key={item.id} className="block px-5 py-3 hover:bg-slate-50 transition group cursor-pointer">
+                                                <div 
+                                                    key={item.id} 
+                                                    onClick={() => setSelectedNewsModalItem(item)}
+                                                    className="block px-5 py-3 hover:bg-slate-50 transition group cursor-pointer"
+                                                >
                                                     <div className="flex items-center justify-end mb-1">
                                                         <span className="text-[11px] text-slate-500 font-medium">{item.publish_start ? new Date(item.publish_start).toLocaleDateString('en-CA') : ''}</span>
                                                     </div>
@@ -2667,6 +2675,67 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
                         >
                             Understood
                         </button>
+                    </div>
+                </div>
+            {/* News Article Modal */}
+            {selectedNewsModalItem && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+                    <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 flex flex-col">
+                        {/* Modal Header */}
+                        <div className="p-6 border-b border-slate-100 flex items-start justify-between gap-4 sticky top-0 bg-white/95 backdrop-blur-md z-10">
+                            <div>
+                                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                                    {selectedNewsModalItem.publish_start ? new Date(selectedNewsModalItem.publish_start).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Campus Announcement'}
+                                </span>
+                                <h2 className="text-xl font-bold text-slate-900 mt-1 leading-snug">
+                                    {selectedNewsModalItem.title}
+                                </h2>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setSelectedNewsModalItem(null)}
+                                className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors cursor-pointer shrink-0"
+                            >
+                                <HugeiconsIcon icon={XCircle} size={20} strokeWidth={2} />
+                            </button>
+                        </div>
+
+                        {/* Modal Content */}
+                        <div className="p-6 space-y-5 flex-1">
+                            {/* Article Image */}
+                            {selectedNewsModalItem.imageUrl && (
+                                <div className="relative w-full h-64 rounded-xl overflow-hidden shadow-sm border border-slate-100 bg-slate-100">
+                                    <img
+                                        src={selectedNewsModalItem.imageUrl}
+                                        alt={selectedNewsModalItem.title}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                            )}
+
+                            {/* Excerpt / Summary */}
+                            {(selectedNewsModalItem.excerpt || selectedNewsModalItem.summary) && (
+                                <div className="p-4 bg-slate-50 rounded-xl border border-slate-100 italic text-slate-700 text-sm leading-relaxed font-medium">
+                                    {selectedNewsModalItem.excerpt || selectedNewsModalItem.summary}
+                                </div>
+                            )}
+
+                            {/* Full Article Content */}
+                            <div className="text-slate-800 text-sm leading-relaxed font-normal whitespace-pre-line space-y-3">
+                                {selectedNewsModalItem.content}
+                            </div>
+                        </div>
+
+                        {/* Modal Footer */}
+                        <div className="p-4 border-t border-slate-100 bg-slate-50/50 flex justify-end">
+                            <button
+                                type="button"
+                                onClick={() => setSelectedNewsModalItem(null)}
+                                className="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer shadow-sm"
+                            >
+                                Close Article
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
