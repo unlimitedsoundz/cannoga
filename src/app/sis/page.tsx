@@ -23,6 +23,7 @@ import {
     MapPinIcon as HugeMapPin,
     Download01Icon as Download,
     Logout01Icon as LogOut,
+    Delete01Icon as Trash,
 } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
 import { TiktokLogo, YoutubeLogo, EnvelopeSimple, MapPin, Camera } from '@phosphor-icons/react';
@@ -1226,18 +1227,49 @@ export default function SISStudentDashboard() {
                                                             }).catch(() => {});
                                                         }
                                                     }}
-                                                    className={`px-4 py-3 border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors ${!n.read ? 'bg-white/5' : ''}`}
+                                                    className={`px-4 py-3 border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors ${!n.read ? 'bg-sky-950/30' : ''}`}
                                                 >
-                                                    <div className="flex items-start gap-2">
-                                                        {!n.read && <span className="w-2 h-2 bg-sky-400 rounded-full mt-1.5 shrink-0" />}
-                                                        <div className="flex-1 min-w-0">
-                                                            <div className="text-xs font-bold text-white truncate">{n.title}</div>
-                                                            <div className="text-[11px] text-neutral-400 mt-0.5 leading-snug">{n.description}</div>
-                                                            <div className="flex items-center justify-between mt-1.5">
-                                                                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{n.time}</span>
-                                                                {n.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-400">High Priority</span>}
-                                                            </div>
+                                                    <div className="flex items-start justify-between gap-2">
+                                                        <div className="flex items-center gap-1.5 flex-wrap">
+                                                            {!n.read ? (
+                                                                <span className="px-2 py-0.5 text-[9px] font-bold bg-sky-500/20 text-sky-300 border border-sky-400/40 rounded-full uppercase tracking-wider">
+                                                                    Unread
+                                                                </span>
+                                                            ) : (
+                                                                <span className="px-2 py-0.5 text-[9px] font-bold bg-slate-800 text-slate-400 border border-slate-700/50 rounded-full uppercase tracking-wider">
+                                                                    Read
+                                                                </span>
+                                                            )}
+                                                            {n.priority === 'high' ? (
+                                                                <span className="px-2 py-0.5 text-[9px] font-bold bg-red-500/20 text-red-400 border border-red-500/30 rounded-full uppercase tracking-wider">
+                                                                    High Priority
+                                                                </span>
+                                                            ) : (
+                                                                <span className="px-2 py-0.5 text-[9px] font-bold bg-slate-800/80 text-slate-400 border border-slate-700/50 rounded-full uppercase tracking-wider">
+                                                                    General
+                                                                </span>
+                                                            )}
                                                         </div>
+                                                        <button
+                                                            type="button"
+                                                            onClick={async (e) => {
+                                                                e.stopPropagation();
+                                                                setNotificationsList(prev => prev.filter(item => item.id !== n.id));
+                                                                try {
+                                                                    await fetch(`/api/sis/notifications?id=${n.id}`, { method: 'DELETE' });
+                                                                    toast.success('Notification dismissed');
+                                                                } catch (err) {}
+                                                            }}
+                                                            className="text-neutral-500 hover:text-red-400 p-1 transition-colors rounded hover:bg-white/10 shrink-0"
+                                                            title="Delete notification"
+                                                        >
+                                                            <HugeiconsIcon icon={Trash} size={14} strokeWidth={2} />
+                                                        </button>
+                                                    </div>
+                                                    <div className="mt-2">
+                                                        <div className="text-xs font-bold text-white leading-tight">{n.title}</div>
+                                                        <div className="text-[11px] text-neutral-300 mt-1 leading-snug">{n.description}</div>
+                                                        <div className="text-[10px] font-medium text-neutral-500 mt-2">{n.time}</div>
                                                     </div>
                                                 </div>
                                             ))

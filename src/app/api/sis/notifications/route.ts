@@ -63,3 +63,24 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ notification });
 }
+
+export async function DELETE(request: NextRequest) {
+    const supabase = await createServerClient();
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+        return NextResponse.json({ error: 'Notification ID is required' }, { status: 400 });
+    }
+
+    const { error } = await supabase
+        .from('notifications')
+        .delete()
+        .eq('id', id);
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true });
+}

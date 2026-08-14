@@ -12,7 +12,8 @@ import {
   HelpCircleIcon as HelpCircle, 
   UserIcon as User, 
   ChevronDownIcon as ChevronDown, 
-  Menu01Icon as Menu 
+  Menu01Icon as Menu,
+  Delete01Icon as Trash
 } from '@hugeicons/core-free-icons';
 import { getUnreadMessageCount } from '@/app/sis/student-life-actions';
 import { HeaderSearch } from './HeaderSearch';
@@ -37,6 +38,120 @@ interface SISHeaderProps {
     student_id?: string | null;
   };
   studentId?: string;
+}
+
+function SwipeableNotificationItem({
+  n,
+  onMarkRead,
+  onDelete,
+}: {
+  n: Notification;
+  onMarkRead: (id: string) => void;
+  onDelete: (id: string) => void;
+}) {
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [swipeOffset, setSwipeOffset] = useState<number>(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStart === null) return;
+    const currentX = e.targetTouches[0].clientX;
+    const diff = touchStart - currentX;
+    if (diff > 0) {
+      setSwipeOffset(Math.min(diff, 100));
+    } else {
+      setSwipeOffset(0);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (swipeOffset > 50) {
+      setIsDeleting(true);
+      setTimeout(() => onDelete(n.id), 250);
+    } else {
+      setSwipeOffset(0);
+    }
+    setTouchStart(null);
+  };
+
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsDeleting(true);
+    setTimeout(() => onDelete(n.id), 200);
+  };
+
+  return (
+    <div
+      className={`relative overflow-hidden border-b border-white/5 transition-all duration-300 ${
+        isDeleting ? 'max-h-0 opacity-0 py-0 overflow-hidden' : 'max-h-40'
+      }`}
+    >
+      {/* Background Swipe Delete Trigger */}
+      <div
+        className="absolute inset-y-0 right-0 bg-red-600 text-white flex items-center justify-end px-4 font-bold text-xs cursor-pointer z-0"
+        style={{ width: `${Math.max(swipeOffset, 70)}px` }}
+        onClick={handleDeleteClick}
+      >
+        <HugeiconsIcon icon={Trash} size={16} strokeWidth={2} />
+      </div>
+
+      {/* Foreground Container */}
+      <div
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{ transform: `translateX(-${swipeOffset}px)` }}
+        onClick={() => onMarkRead(n.id)}
+        className={`relative z-10 bg-[#0d1f28] hover:bg-white/5 p-3.5 cursor-pointer transition-transform ${
+          !n.read ? 'bg-sky-950/30' : ''
+        }`}
+      >
+        <div className="flex items-start justify-between gap-2">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {!n.read ? (
+              <span className="px-2 py-0.5 text-[9px] font-bold bg-sky-500/20 text-sky-300 border border-sky-400/40 rounded-full uppercase tracking-wider">
+                Unread
+              </span>
+            ) : (
+              <span className="px-2 py-0.5 text-[9px] font-bold bg-slate-800 text-slate-400 border border-slate-700/50 rounded-full uppercase tracking-wider">
+                Read
+              </span>
+            )}
+            {n.priority === 'high' ? (
+              <span className="px-2 py-0.5 text-[9px] font-bold bg-red-500/20 text-red-400 border border-red-500/30 rounded-full uppercase tracking-wider">
+                High Priority
+              </span>
+            ) : (
+              <span className="px-2 py-0.5 text-[9px] font-bold bg-slate-800/80 text-slate-400 border border-slate-700/50 rounded-full uppercase tracking-wider">
+                General
+              </span>
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={handleDeleteClick}
+            className="text-neutral-500 hover:text-red-400 p-1 transition-colors rounded hover:bg-white/10 shrink-0"
+            title="Swipe left or click to delete"
+          >
+            <HugeiconsIcon icon={Trash} size={14} strokeWidth={2} />
+          </button>
+        </div>
+
+        <div className="mt-2">
+          <div className="text-xs font-bold text-white leading-tight">{n.title}</div>
+          <div className="text-[11px] text-neutral-300 mt-1 leading-snug">{n.description}</div>
+          <div className="text-[10px] font-medium text-neutral-500 mt-2 flex items-center justify-between">
+            <span>{n.time}</span>
+            <span className="text-[9px] text-neutral-600 font-normal">Swipe left to delete</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function getRoleLabel(role: string | undefined | null): string {
@@ -130,6 +245,16 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
     const interval = setInterval(fetchUnreadCount, 30000);
     return () => clearInterval(interval);
   }, [studentId, profile?.student_id]);
+
+  const handleDeleteNotification = async (id: string) => {
+    setNotifications(prev => prev.filter(n => n.id !== id));
+    try {
+      await fetch(`/api/sis/notifications?id=${id}`, { method: 'DELETE' });
+      toast.success('Notification dismissed');
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const handleLogout = async () => {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -265,34 +390,21 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
               <div className="max-h-80 overflow-y-auto">
                 {notifications.length > 0 ? (
                   notifications.map((n) => (
-                    <div
+                    <SwipeableNotificationItem
                       key={n.id}
-                      onClick={async () => {
+                      n={n}
+                      onMarkRead={async (id) => {
                         if (!n.read) {
-                          setNotifications(prev => prev.map(item => item.id === n.id ? { ...item, read: true } : item));
-                          try {
-                            fetch('/api/sis/notifications', {
-                              method: 'POST',
-                              headers: { 'Content-Type': 'application/json' },
-                              body: JSON.stringify({ id: n.id, read: true }),
-                            }).catch(() => {});
-                          } catch (e) {}
+                          setNotifications(prev => prev.map(item => item.id === id ? { ...item, read: true } : item));
+                          fetch('/api/sis/notifications', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id, read: true }),
+                          }).catch(() => {});
                         }
                       }}
-                      className={`px-4 py-3 border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors ${!n.read ? 'bg-white/5' : ''}`}
-                    >
-                      <div className="flex items-start gap-2">
-                        {!n.read && <span className="w-2 h-2 bg-sky-400 rounded-full mt-1.5 shrink-0" />}
-                        <div className="flex-1 min-w-0">
-                          <div className="text-xs font-bold text-white truncate">{n.title}</div>
-                          <div className="text-[11px] text-neutral-400 mt-0.5 leading-snug">{n.description}</div>
-                          <div className="flex items-center justify-between mt-1.5">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{n.time}</span>
-                            {n.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-400">High Priority</span>}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                      onDelete={handleDeleteNotification}
+                    />
                   ))
                 ) : (
                   <div className="px-4 py-8 text-center text-neutral-500 text-sm">No notifications</div>
@@ -405,34 +517,21 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
             <div className="max-h-80 overflow-y-auto">
               {notifications.length > 0 ? (
                 notifications.map((n) => (
-                  <div
+                  <SwipeableNotificationItem
                     key={n.id}
-                    onClick={async () => {
+                    n={n}
+                    onMarkRead={async (id) => {
                       if (!n.read) {
-                        setNotifications(prev => prev.map(item => item.id === n.id ? { ...item, read: true } : item));
-                        try {
-                          fetch('/api/sis/notifications', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ id: n.id, read: true }),
-                          }).catch(() => {});
-                        } catch (e) {}
+                        setNotifications(prev => prev.map(item => item.id === id ? { ...item, read: true } : item));
+                        fetch('/api/sis/notifications', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ id, read: true }),
+                        }).catch(() => {});
                       }
                     }}
-                    className={`px-4 py-3 border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors ${!n.read ? 'bg-white/5' : ''}`}
-                  >
-                    <div className="flex items-start gap-2">
-                      {!n.read && <span className="w-2 h-2 bg-sky-400 rounded-full mt-1.5 shrink-0" />}
-                      <div className="flex-1 min-w-0">
-                        <div className="text-xs font-bold text-white truncate">{n.title}</div>
-                        <div className="text-[11px] text-neutral-400 mt-0.5 leading-snug">{n.description}</div>
-                        <div className="flex items-center justify-between mt-1.5">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{n.time}</span>
-                          {n.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-400">High Priority</span>}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    onDelete={handleDeleteNotification}
+                  />
                 ))
               ) : (
                 <div className="px-4 py-8 text-center text-neutral-500 text-sm">No notifications</div>
