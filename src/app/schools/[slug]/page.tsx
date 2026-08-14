@@ -282,8 +282,8 @@ export default async function SchoolDetails({ params }: Props) {
                 )}
 
 
-                {/* Meet our people */}
-                <section className="mb-20">
+                {/* Research & Innovation */}
+                <section className="mt-16 md:mt-24 mb-20">
                     <div className="bg-neutral-900 text-white p-8 md:p-16 rounded-3xl overflow-hidden relative">
                         <div className="relative z-10 max-w-2xl">
                             <h2 className="text-3xl font-bold mb-6">Research & Innovation</h2>
