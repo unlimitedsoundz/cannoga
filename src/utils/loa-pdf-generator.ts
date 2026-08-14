@@ -68,7 +68,8 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
   const studentType = (personalInfo.studentType || '').toLowerCase();
   const isDomestic = studentType === 'domestic';
   const tuitionFee = await getTuitionFee(degreeLevelRaw, tuitionField, isDomestic);
-  const ancillaryFee = 700;
+  const { ANCILLARY_FEES_TOTAL } = await import('@/utils/tuition');
+  const ancillaryFee = ANCILLARY_FEES_TOTAL;
   const totalAnnual = tuitionFee + ancillaryFee;
   const deposit = 2000;
   const remainingBalance = totalAnnual - deposit;

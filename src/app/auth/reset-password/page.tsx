@@ -16,32 +16,57 @@ export default function ResetPasswordPage() {
     const supabase = createClient();
 
     useEffect(() => {
-        // Handle hash fragment or session check
-        const checkSession = async () => {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
+        const checkAndSetSession = async () => {
+            // Check current session
+            const { data: { session: existingSession } } = await supabase.auth.getSession();
+            if (existingSession) {
                 setSessionReady(true);
                 return;
             }
 
-            // Listen for auth state changes (e.g. recovery token exchange)
-            const { data: { subscription } } = supabase.auth.onAuthStateChange((event: string, session: any) => {
-                if (event === 'PASSWORD_RECOVERY' || session) {
-                    setSessionReady(true);
-                }
-            });
+            // Check URL hash for access_token and refresh_token
+            if (window.location.hash) {
+                const hashParams = new URLSearchParams(window.location.hash.replace('#', ''));
+                const accessToken = hashParams.get('access_token');
+                const refreshToken = hashParams.get('refresh_token');
 
-            // Fallback timeout in case hash fragment contains access token
-            if (window.location.hash.includes('access_token')) {
-                setSessionReady(true);
+                if (accessToken && refreshToken) {
+                    const { error: setErr } = await supabase.auth.setSession({
+                        access_token: accessToken,
+                        refresh_token: refreshToken,
+                    });
+                    if (!setErr) {
+                        setSessionReady(true);
+                        return;
+                    }
+                }
             }
 
-            return () => {
-                subscription.unsubscribe();
-            };
+            // Check URL query search for PKCE code
+            if (window.location.search) {
+                const searchParams = new URLSearchParams(window.location.search);
+                const code = searchParams.get('code');
+                if (code) {
+                    const { error: exchangeErr } = await supabase.auth.exchangeCodeForSession(code);
+                    if (!exchangeErr) {
+                        setSessionReady(true);
+                        return;
+                    }
+                }
+            }
         };
 
-        checkSession();
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((event: string, session: any) => {
+            if (event === 'PASSWORD_RECOVERY' || session) {
+                setSessionReady(true);
+            }
+        });
+
+        checkAndSetSession();
+
+        return () => {
+            subscription.unsubscribe();
+        };
     }, []);
 
     const handlePasswordReset = async (e: React.FormEvent) => {
@@ -61,6 +86,28 @@ export default function ResetPasswordPage() {
         setLoading(true);
 
         try {
+            // Ensure session is set before calling updateUser
+            let { data: { session } } = await supabase.auth.getSession();
+
+            if (!session && window.location.hash) {
+                const hashParams = new URLSearchParams(window.location.hash.replace('#', ''));
+                const accessToken = hashParams.get('access_token');
+                const refreshToken = hashParams.get('refresh_token');
+
+                if (accessToken && refreshToken) {
+                    const { data: sessionData, error: setErr } = await supabase.auth.setSession({
+                        access_token: accessToken,
+                        refresh_token: refreshToken,
+                    });
+                    if (setErr) throw setErr;
+                    session = sessionData.session;
+                }
+            }
+
+            if (!session) {
+                throw new Error('Your reset link has expired or is invalid. Please request a new password reset link.');
+            }
+
             const { error: updateError } = await supabase.auth.updateUser({
                 password: password,
             });

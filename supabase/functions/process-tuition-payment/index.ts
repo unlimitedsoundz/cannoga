@@ -99,13 +99,13 @@ Deno.serve(async (req) => {
         // 4. Notify Admin
         try {
             const ancillaryFees = [
-                { name: 'Student Activity Fee', amount: 100 },
+                { name: 'Student Activity Fee', amount: 150 },
                 { name: 'Technology Fee', amount: 100 },
-                { name: 'Athletics and Recreation Fee', amount: 100 },
-                { name: 'Convocation Fee', amount: 100 },
-                { name: 'Student Counselling Fee', amount: 100 },
-                { name: 'Program Transcript Fee', amount: 100 },
-                { name: 'Student Experience Fee', amount: 100 }
+                { name: 'Athletics and Recreation Fee', amount: 75 },
+                { name: 'Convocation Fee', amount: 50 },
+                { name: 'Student Counselling Fee', amount: 50 },
+                { name: 'Program Transcript Fee', amount: 25 },
+                { name: 'Student Experience Fee', amount: 50 }
             ];
             const totalAncillaryForNotification = ancillaryFees.reduce((acc, item) => acc + item.amount, 0);
             const baseTuitionForNotification = Math.max(0, amount - totalAncillaryForNotification);
