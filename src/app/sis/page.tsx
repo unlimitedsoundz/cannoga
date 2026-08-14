@@ -1207,15 +1207,15 @@ export default function SISStudentDashboard() {
                             >
                                 <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} />
                                 {notificationsList.filter(n => !n.read).length > 0 && (
-                                    <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none shadow-sm">
+                                    <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[9px] font-extrabold h-3.5 min-w-[14px] px-1 rounded-full flex items-center justify-center leading-none shadow-sm border border-[#141414]">
                                         {notificationsList.filter(n => !n.read).length}
                                     </span>
                                 )}
                             </button>
                             {notificationsOpen && (
-                                <div className="absolute right-0 top-full mt-2 w-80 bg-[#0d1f28] border border-cyan-500/20 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-100">
-                                    <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
-                                        <span className="text-xs font-bold uppercase tracking-widest text-white">Notifications ({notificationsList.filter(n => !n.read).length})</span>
+                                <div className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-[#0d1f28] border border-cyan-500/20 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-100">
+                                    <div className="px-3 py-2.5 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
+                                        <span className="text-[11px] font-bold uppercase tracking-widest text-white">Notifications ({notificationsList.filter(n => !n.read).length})</span>
                                         {notificationsList.filter(n => !n.read).length > 0 && (
                                             <button
                                                 onClick={async () => {

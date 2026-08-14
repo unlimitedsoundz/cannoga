@@ -62,16 +62,16 @@ function SwipeableNotificationItem({
     const currentX = e.targetTouches[0].clientX;
     const diff = touchStart - currentX;
     if (diff > 0) {
-      setSwipeOffset(Math.min(diff, 100));
+      setSwipeOffset(Math.min(diff, 80));
     } else {
       setSwipeOffset(0);
     }
   };
 
   const handleTouchEnd = () => {
-    if (swipeOffset > 50) {
+    if (swipeOffset > 40) {
       setIsDeleting(true);
-      setTimeout(() => onDelete(n.id), 250);
+      setTimeout(() => onDelete(n.id), 200);
     } else {
       setSwipeOffset(0);
     }
@@ -81,43 +81,41 @@ function SwipeableNotificationItem({
   const handleDeleteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsDeleting(true);
-    setTimeout(() => onDelete(n.id), 200);
+    setTimeout(() => onDelete(n.id), 180);
   };
 
   return (
     <div
-      className={`relative overflow-hidden border-b border-white/5 transition-all duration-300 ${
-        isDeleting ? 'max-h-0 opacity-0 py-0 overflow-hidden' : 'max-h-40'
+      className={`relative overflow-hidden border-b border-white/5 transition-all duration-200 ${
+        isDeleting ? 'max-h-0 opacity-0 py-0 overflow-hidden' : 'max-h-32'
       }`}
     >
-      {/* Background Swipe Delete Trigger */}
       <div
-        className="absolute inset-y-0 right-0 bg-red-600 text-white flex items-center justify-end px-4 font-bold text-xs cursor-pointer z-0"
-        style={{ width: `${Math.max(swipeOffset, 70)}px` }}
+        className="absolute inset-y-0 right-0 bg-red-600 text-white flex items-center justify-end px-3 font-bold text-[10px] cursor-pointer z-0"
+        style={{ width: `${Math.max(swipeOffset, 60)}px` }}
         onClick={handleDeleteClick}
       >
-        <HugeiconsIcon icon={Trash} size={16} strokeWidth={2} />
+        <HugeiconsIcon icon={Trash} size={14} strokeWidth={2} />
       </div>
 
-      {/* Foreground Container */}
       <div
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         style={{ transform: `translateX(-${swipeOffset}px)` }}
         onClick={() => onMarkRead(n.id)}
-        className={`relative z-10 bg-[#0d1f28] hover:bg-white/5 p-3.5 cursor-pointer transition-transform ${
+        className={`relative z-10 bg-[#0d1f28] hover:bg-white/5 p-2.5 cursor-pointer transition-transform ${
           !n.read ? 'bg-sky-950/30' : ''
         }`}
       >
-        <div className="flex items-start justify-between gap-2">
-          <div className="flex items-center gap-1.5 flex-wrap">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5">
             {!n.read ? (
-              <span className="px-2 py-0.5 text-[9px] font-bold bg-sky-500/20 text-sky-300 border border-sky-400/40 rounded-full uppercase tracking-wider">
+              <span className="px-1.5 py-0.2 text-[8px] font-extrabold bg-sky-500/20 text-sky-300 border border-sky-400/40 rounded uppercase tracking-wider">
                 Unread
               </span>
             ) : (
-              <span className="px-2 py-0.5 text-[9px] font-bold bg-slate-800 text-slate-400 border border-slate-700/50 rounded-full uppercase tracking-wider">
+              <span className="px-1.5 py-0.2 text-[8px] font-bold bg-slate-800 text-slate-400 border border-slate-700/50 rounded uppercase tracking-wider">
                 Read
               </span>
             )}
@@ -125,19 +123,18 @@ function SwipeableNotificationItem({
           <button
             type="button"
             onClick={handleDeleteClick}
-            className="text-neutral-500 hover:text-red-400 p-1 transition-colors rounded hover:bg-white/10 shrink-0"
+            className="text-neutral-500 hover:text-red-400 p-0.5 transition-colors rounded hover:bg-white/10 shrink-0"
             title="Swipe left or click to delete"
           >
-            <HugeiconsIcon icon={Trash} size={14} strokeWidth={2} />
+            <HugeiconsIcon icon={Trash} size={13} strokeWidth={2} />
           </button>
         </div>
 
-        <div className="mt-2">
-          <div className="text-xs font-bold text-white leading-tight">{n.title}</div>
-          <div className="text-[11px] text-neutral-300 mt-1 leading-snug">{n.description}</div>
-          <div className="text-[10px] font-medium text-neutral-500 mt-2 flex items-center justify-between">
+        <div className="mt-1">
+          <div className="text-[11px] font-bold text-white leading-tight line-clamp-1">{n.title}</div>
+          <div className="text-[10px] text-neutral-300 mt-0.5 leading-tight line-clamp-2">{n.description}</div>
+          <div className="text-[9px] font-medium text-neutral-500 mt-1 flex items-center justify-between">
             <span>{n.time}</span>
-            <span className="text-[9px] text-neutral-600 font-normal">Swipe left to delete</span>
           </div>
         </div>
       </div>
@@ -328,7 +325,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
               >
                 <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} className="text-white" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none shadow-sm">
+                  <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[9px] font-extrabold h-3.5 min-w-[14px] px-1 rounded-full flex items-center justify-center leading-none shadow-sm border border-[#141414]">
                     {unreadCount}
                   </span>
                 )}
@@ -368,7 +365,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                     <Link href="/sis/admin/settings" className="block px-4 py-2 text-xs font-bold text-neutral-300 hover:text-white hover:bg-white/5 no-underline transition-colors">Settings</Link>
                     <Link href="/" className="block px-4 py-2 text-xs font-bold text-neutral-300 hover:text-white hover:bg-white/5 no-underline transition-colors">View Website</Link>
                     <div className="border-t border-white/10 mt-1 pt-1">
-                      <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-xs font-bold text-red-400 hover:text-red-300 hover:bg-white/5 transition-colors">Sign Out</button>
+                      <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-red-400 hover:bg-white/5">Sign Out</button>
                     </div>
                   </div>
                 )}
@@ -378,9 +375,9 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
 
           {/* Notifications Panel */}
           {notificationsOpen && (
-            <div className="absolute right-4 top-14 w-80 bg-[#0d1f28] border border-cyan-500/20 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-100">
-              <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
-                <span className="text-xs font-bold uppercase tracking-widest text-white">Notifications ({unreadCount})</span>
+            <div className="absolute right-2 sm:right-4 top-14 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-[#0d1f28] border border-cyan-500/20 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-100">
+              <div className="px-3 py-2.5 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
+                <span className="text-[11px] font-bold uppercase tracking-widest text-white">Notifications ({unreadCount})</span>
                 {unreadCount > 0 && (
                   <button
                     onClick={async () => {
@@ -395,13 +392,13 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                         setNotifications(prev => prev.map(n => ({ ...n, read: true })));
                       } catch (e) {}
                     }}
-                    className="text-[10px] font-bold uppercase tracking-wider text-sky-400 hover:text-sky-300 transition-colors"
+                    className="text-[9px] font-bold uppercase tracking-wider text-sky-400 hover:text-sky-300 transition-colors"
                   >
                     Mark all read
                   </button>
                 )}
               </div>
-              <div className="max-h-80 overflow-y-auto">
+              <div className="max-h-64 overflow-y-auto">
                 {notifications.length > 0 ? (
                   notifications.map((n) => (
                     <SwipeableNotificationItem
@@ -461,7 +458,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
             <button className="relative p-2 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors" title={`Notifications (${unreadCount})`} onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false); }}>
               <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} className="text-neutral-700" />
               {unreadCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none shadow-sm">
+                <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[9px] font-extrabold h-3.5 min-w-[14px] px-1 rounded-full flex items-center justify-center leading-none shadow-sm border border-[#141414]">
                   {unreadCount}
                 </span>
               )}
@@ -469,7 +466,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
             <button className="relative p-2 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors" title="Messages" onClick={() => router.push('/sis?page=student-life')}>
               <HugeiconsIcon icon={Envelope} size={18} strokeWidth={2} className="text-neutral-700" />
               {unreadMessageCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-sky-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none shadow-sm">
+                <span className="absolute -top-0.5 -right-0.5 bg-sky-500 text-white text-[9px] font-extrabold h-3.5 min-w-[14px] px-1 rounded-full flex items-center justify-center leading-none shadow-sm border border-[#141414]">
                   {unreadMessageCount}
                 </span>
               )}
@@ -505,9 +502,9 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
 
         {/* Student Notifications Panel */}
         {notificationsOpen && (
-          <div className="absolute right-4 top-14 w-80 bg-[#0d1f28] border border-cyan-500/20 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-100">
-            <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
-              <span className="text-xs font-bold uppercase tracking-widest text-white">Notifications ({unreadCount})</span>
+          <div className="absolute right-2 sm:right-4 top-14 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-[#0d1f28] border border-cyan-500/20 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-100">
+            <div className="px-3 py-2.5 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-white">Notifications ({unreadCount})</span>
               {unreadCount > 0 && (
                 <button
                   onClick={async () => {
@@ -522,13 +519,13 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                       setNotifications(prev => prev.map(n => ({ ...n, read: true })));
                     } catch (e) {}
                   }}
-                  className="text-[10px] font-bold uppercase tracking-wider text-sky-400 hover:text-sky-300 transition-colors"
+                  className="text-[9px] font-bold uppercase tracking-wider text-sky-400 hover:text-sky-300 transition-colors"
                 >
                   Mark all read
                 </button>
               )}
             </div>
-            <div className="max-h-80 overflow-y-auto">
+            <div className="max-h-64 overflow-y-auto">
               {notifications.length > 0 ? (
                 notifications.map((n) => (
                   <SwipeableNotificationItem
