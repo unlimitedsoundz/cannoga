@@ -923,7 +923,7 @@ export default function SISStudentDashboard() {
 
     const studentId = student?.student_id || profile?.student_id || 'N/A';
     const programName = studentCourse?.title
-        ? `${studentCourse.title} — ${studentCourse.degreeLevel?.charAt(0) + studentCourse.degreeLevel?.slice(1).toLowerCase() || ''}`
+        ? studentCourse.title
         : student?.program_id || 'Your Program';
 
     const schoolName = studentCourse?.department?.name || studentCourse?.school?.name || 'Cannoga College';
