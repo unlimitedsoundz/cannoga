@@ -110,7 +110,7 @@ export function AcademicCredentialsCarousel() {
                     >
                         <Link
                             linkComponentProps={{ href: card.href }}
-                            className={`block w-full p-2.5 sm:p-3 rounded-md ${card.bgColor} ${card.borderColor} border-4 transition-transform duration-300 group-hover:-translate-y-1.5 shadow-md hover:shadow-2xl no-underline`}
+                            className={`block w-full p-2.5 sm:p-3 rounded-md ${card.bgColor} ${card.borderColor} border-4 transition-transform duration-300 group-hover:-translate-y-1.5 no-underline`}
                         >
                             {/* Card Top Image with Wavy Cutout */}
                             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm bg-black/10">
@@ -167,14 +167,14 @@ export function AcademicCredentialsCarousel() {
                 <div className="flex items-center gap-3">
                     <button
                         onClick={() => scrollTo('left')}
-                        className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors shadow-md flex items-center justify-center border border-slate-700"
+                        className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-slate-700"
                         aria-label="Previous slide"
                     >
                         <ArrowLeft size={20} weight="bold" />
                     </button>
                     <button
                         onClick={() => scrollTo('right')}
-                        className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors shadow-md flex items-center justify-center border border-slate-700"
+                        className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-slate-700"
                         aria-label="Next slide"
                     >
                         <ArrowRight size={20} weight="bold" />
