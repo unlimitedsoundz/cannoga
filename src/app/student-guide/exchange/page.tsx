@@ -39,7 +39,7 @@ export default function ExchangeStudentsPage() {
                     { label: 'Exchange Students' }
                 ]}
                 image={{
-                    src: "/images/download (1).jpg",
+                    src: "/images/exchange-students.png",
                     alt: "Exchange Students"
                 }}
             />
