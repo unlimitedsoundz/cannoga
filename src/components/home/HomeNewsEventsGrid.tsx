@@ -66,7 +66,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                 {/* Header row */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200">
                     <h3 className="text-xl font-serif font-bold text-[#0f2027] tracking-tight">
-                        <span style={{ color: ACCENT }}>New</span> and Notable
+                        News
                     </h3>
                     <a href="/news" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors no-underline">
                         VIEW MORE NEWS →
@@ -76,7 +76,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                 {/* Carousel body */}
                 <div className="relative flex-1 flex flex-col">
                     {/* Image */}
-                    <div className="relative overflow-hidden bg-slate-200" style={{ minHeight: '240px', maxHeight: '280px' }}>
+                    <div className="relative overflow-hidden bg-slate-200 group" style={{ minHeight: '240px', maxHeight: '280px' }}>
                         {activeNews?.imageUrl ? (
                             <img src={activeNews.imageUrl} alt={activeNews.title} className="w-full h-full object-cover" style={{ minHeight: '240px', maxHeight: '280px' }} />
                         ) : (
@@ -94,14 +94,14 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                                 <button
                                     onClick={prev}
                                     aria-label="Previous"
-                                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center shadow transition-all"
+                                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center shadow transition-all duration-300 opacity-0 group-hover:opacity-100"
                                 >
                                     <CaretLeft size={18} weight="bold" />
                                 </button>
                                 <button
                                     onClick={next}
                                     aria-label="Next"
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center shadow transition-all"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center shadow transition-all duration-300 opacity-0 group-hover:opacity-100"
                                 >
                                     <CaretRight size={18} weight="bold" />
                                 </button>
