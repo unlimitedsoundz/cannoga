@@ -571,21 +571,33 @@ export default function RegisterPage() {
                         <div className="pt-4 border-t border-neutral-100 space-y-3">
                             <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Guardian or Emergency Contact Information</h2>
 
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Are you 19 Years Old or Older? <span className="text-red-600">*</span></label>
-                                <div className="relative w-full max-w-[400px]">
-                                    <select
-                                        name="is19OrOlder"
-                                        required
-                                        value={formData.is19OrOlder}
-                                        onChange={handleChange}
-                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
-                                    >
-                                        <option value="">-- Select Option --</option>
-                                        <option value="Yes">Yes, please provide Emergency Contact Information</option>
-                                        <option value="No">No, please provide Parents or Guardian Contact Information.</option>
-                                    </select>
-                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                            <div className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right pt-0.5">Are you 19 Years Old or Older? <span className="text-red-600">*</span></label>
+                                <div className="flex flex-col gap-2 max-w-[400px]">
+                                    <label className="flex items-center gap-2 text-[13px] text-black font-normal cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="is19OrOlder"
+                                            required
+                                            value="Yes"
+                                            checked={formData.is19OrOlder === 'Yes'}
+                                            onChange={handleChange}
+                                            className="w-4 h-4 accent-black cursor-pointer"
+                                        />
+                                        Yes, please provide Emergency Contact Information
+                                    </label>
+                                    <label className="flex items-center gap-2 text-[13px] text-black font-normal cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="is19OrOlder"
+                                            required
+                                            value="No"
+                                            checked={formData.is19OrOlder === 'No'}
+                                            onChange={handleChange}
+                                            className="w-4 h-4 accent-black cursor-pointer"
+                                        />
+                                        No, please provide Parents or Guardian Contact Information.
+                                    </label>
                                 </div>
                             </div>
 
