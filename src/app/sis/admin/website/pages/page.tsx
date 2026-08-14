@@ -46,7 +46,7 @@ export default function WebsitePagesPage() {
 
     const rowActions = (row: PageRow) => (
         <div className="flex items-center gap-2">
-            <Link href={`/sis/admin/website/pages/${row.id}`} className="text-xs font-bold text-[#0a151a] hover:underline no-underline">
+            <Link href={`/sis/admin/website/pages/${row.id}`} className="text-xs font-bold !text-white text-white hover:underline no-underline">
                 Edit
             </Link>
             <button
@@ -56,7 +56,7 @@ export default function WebsitePagesPage() {
                         handleDelete(row.id);
                     }
                 }}
-                className="text-xs font-bold text-red-600 hover:text-red-800"
+                className="text-xs font-bold text-red-400 hover:text-red-300"
             >
                 Delete
             </button>
@@ -93,12 +93,12 @@ export default function WebsitePagesPage() {
         {
             key: 'title',
             header: 'Title',
-            render: (s: PageRow) => <span className="font-bold text-neutral-900">{s.title}</span>,
+            render: (s: PageRow) => <span className="font-bold !text-white text-white">{s.title}</span>,
         },
         {
             key: 'slug',
             header: 'Slug',
-            render: (s: PageRow) => <span className="font-mono text-sm text-neutral-500">/{s.slug}</span>,
+            render: (s: PageRow) => <span className="font-mono text-sm !text-slate-300 text-slate-300">/{s.slug}</span>,
         },
         {
             key: 'status',

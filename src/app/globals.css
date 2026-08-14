@@ -935,4 +935,44 @@ button.sis-btn,
 [data-theme="sis"] button.bg-\[\#0a151a\] {
   color: #ffffff !important;
   background-color: #0a151a;
+}
+
+/* Enforce pure white text for all elements in Admin SIS dark theme */
+[data-theme="sis-dark"],
+[data-theme="sis-dark"] body,
+[data-theme="sis-dark"] main,
+[data-theme="sis-dark"] table,
+[data-theme="sis-dark"] p,
+[data-theme="sis-dark"] span,
+[data-theme="sis-dark"] h1,
+[data-theme="sis-dark"] h2,
+[data-theme="sis-dark"] h3,
+[data-theme="sis-dark"] h4,
+[data-theme="sis-dark"] h5,
+[data-theme="sis-dark"] h6,
+[data-theme="sis-dark"] label,
+[data-theme="sis-dark"] td,
+[data-theme="sis-dark"] th,
+[data-theme="sis-dark"] input,
+[data-theme="sis-dark"] select,
+[data-theme="sis-dark"] textarea,
+[data-theme="sis-dark"] div {
+  color: #ffffff;
+}
+
+[data-theme="sis-dark"] .text-neutral-900,
+[data-theme="sis-dark"] .text-neutral-800,
+[data-theme="sis-dark"] .text-neutral-700,
+[data-theme="sis-dark"] .text-neutral-600,
+[data-theme="sis-dark"] .text-slate-900,
+[data-theme="sis-dark"] .text-slate-800,
+[data-theme="sis-dark"] .text-slate-700,
+[data-theme="sis-dark"] .text-slate-600,
+[data-theme="sis-dark"] .text-black,
+[data-theme="sis-dark"] .text-\[\#0a151a\] {
+  color: #ffffff !important;
+}
+
+[data-theme="sis-dark"] a:not(.text-red-500):not(.text-red-600):not(.text-red-400) {
+  color: #ffffff !important;
 }

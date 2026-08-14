@@ -14,13 +14,13 @@ interface SearchBarProps {
 export function SearchBar({ value, onChange, placeholder = 'Search...', onClear }: SearchBarProps) {
   return (
     <div className="relative">
-      <HugeiconsIcon icon={SearchIcon} size={15} strokeWidth={2} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-600" />
+      <HugeiconsIcon icon={SearchIcon} size={15} strokeWidth={2} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300" />
       <input
         type="text"
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full pl-9 pr-9 py-2 text-sm bg-white/5 text-white placeholder-neutral-500 focus:bg-white/10 focus:outline-none rounded-xl font-sans transition-colors"
+        className="w-full pl-9 pr-9 py-2 text-sm bg-white/5 !text-white text-white placeholder-slate-400 focus:bg-white/10 focus:outline-none rounded-xl font-sans transition-colors"
       />
       {value && onClear && (
         <button

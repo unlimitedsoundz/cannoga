@@ -146,7 +146,7 @@ export function DataTable<T extends Record<string, any>>({
                   </td>
                 )}
                 {columns.map(col => (
-                  <td key={col.key} className={`p-3 text-neutral-300 ${col.className || ''}`}>
+                  <td key={col.key} className={`p-3 !text-white text-white ${col.className || ''}`}>
                     {col.render ? col.render(row) : row[col.key]}
                   </td>
                 ))}
