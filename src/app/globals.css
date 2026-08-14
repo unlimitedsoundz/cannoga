@@ -975,4 +975,14 @@ button.sis-btn,
 
 [data-theme="sis-dark"] a:not(.text-red-500):not(.text-red-600):not(.text-red-400) {
   color: #ffffff !important;
+}
+
+/* Force dark cards for any bg-white elements in Admin SIS dark theme */
+[data-theme="sis-dark"] .bg-white,
+[data-theme="sis-dark"] .bg-gray-50,
+[data-theme="sis-dark"] .bg-gray-100,
+[data-theme="sis-dark"] .bg-neutral-50,
+[data-theme="sis-dark"] .bg-neutral-100 {
+  background-color: #141414 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
