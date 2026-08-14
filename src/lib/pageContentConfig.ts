@@ -264,14 +264,13 @@ export const pageContentSections: PageContentSection[] = [
         defaultContent: `<div class="space-y-6 text-black">
     <p class="text-lg leading-relaxed">Cannoga College provides master's education across diverse fields of study, including Art and Design, Business and Economics, Technology and Engineering, Education, Science, Health and Life Sciences, and Transportation and Aviation.</p>
 
-    <div class="bg-gray-50 p-6 md:p-8 rounded-2xl border border-gray-200">
+    <div>
         <h3 class="text-xl font-bold mb-4">Master’s Degrees Granted</h3>
         <ul class="space-y-3 text-base">
             <li><strong>In the field of Art and Design:</strong> Master of Arts (Art and Design)</li>
             <li><strong>In the field of Business and Economics:</strong> Master of Science (Economics and Business Administration)</li>
             <li><strong>In the field of Technology and Engineering:</strong> Master of Science (Technology), Master of Science (Architecture), or Master of Science (Landscape Architecture)</li>
-            <li><strong>In the field of Education:</strong> Master of Arts (Education) / Master of Science (Educational Leadership)</li>
-            <li><strong>In the field of Science:</strong> Master of Science (Natural & Applied Sciences)</li>
+            <li><strong>In the field of Education and Science:</strong> Master of Arts (Education), Master of Science (Educational Leadership), or Master of Science (Natural & Applied Sciences)</li>
             <li><strong>In the field of Health and Life Sciences:</strong> Master of Science (Healthcare Management & Public Health)</li>
             <li><strong>In the field of Transportation and Aviation:</strong> Master of Science (Aviation Management & Transport Logistics)</li>
         </ul>
