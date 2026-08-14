@@ -311,6 +311,7 @@ export default function SISStudentDashboard() {
     const [documents, setDocuments] = useState<DocumentRecord[]>([]);
     const [faculty, setFaculty] = useState<Faculty[]>([]);
     const [news, setNews] = useState<Announcement[]>([]);
+    const [eventsList, setEventsList] = useState<Announcement[]>([]);
     const [selectedNewsModalItem, setSelectedNewsModalItem] = useState<Announcement | null>(null);
     const [registrationCourses, setRegistrationCourses] = useState<any[]>([]);
     const [registrationSubjects, setRegistrationSubjects] = useState<string[]>([]);
@@ -658,6 +659,7 @@ export default function SISStudentDashboard() {
 
                 const allCombined = [...fetchedAnnouncements, ...fetchedNewsArticles, ...fetchedEvents];
                 setNews(allCombined);
+                setEventsList(fetchedEvents);
                 if (financialAidResult.data) setFinancialAid(financialAidResult.data as FinancialAid[]);
                 if (scholarshipsResult.data) setScholarships(scholarshipsResult.data as Scholarship[]);
                 if (scholarshipAppsResult.data) setScholarshipApplications(scholarshipAppsResult.data as ScholarshipApplication[]);
@@ -1519,8 +1521,8 @@ export default function SISStudentDashboard() {
                                                 <h3 className="font-extrabold text-white text-xs uppercase tracking-wider">Upcoming Events</h3>
                                             </div>
                                             <div className="p-4 space-y-3 text-xs">
-                                                {news.length > 0 ? (
-                                                    news.slice(0, 4).map((item) => {
+                                                {eventsList.length > 0 ? (
+                                                    eventsList.slice(0, 4).map((item) => {
                                                         const pubDateObj = item.publish_start ? new Date(item.publish_start) : new Date();
                                                         return (
                                                             <div 
