@@ -1019,4 +1019,16 @@ button.sis-btn,
 [data-theme="sis-dark"] nav {
   -ms-overflow-style: none !important;
   scrollbar-width: none !important;
+}
+
+/* Ensure dark text inside RichTextEditor and CKEditor fields in Admin SIS */
+[data-theme="sis-dark"] .ck-editor,
+[data-theme="sis-dark"] .ck-editor *,
+[data-theme="sis-dark"] .ck-editor__editable,
+[data-theme="sis-dark"] .ck-editor__editable *,
+[data-theme="sis-dark"] .ck-content,
+[data-theme="sis-dark"] .ck-content *,
+[data-theme="sis-dark"] .ck-toolbar,
+[data-theme="sis-dark"] .ck-toolbar * {
+  color: #0f172a !important;
 }
