@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { CaretDown } from "@phosphor-icons/react/dist/ssr";
 
 interface DateSelectorProps {
     value?: string; // YYYY-MM-DD
@@ -77,52 +78,61 @@ export default function DateSelector({
             )}
             <div className="flex gap-2 w-full max-w-[400px]">
                 {/* Year */}
-                <select
-                    value={year}
-                    onChange={(e) => {
-                        setYear(e.target.value);
-                        handleDateChange(e.target.value, month, day);
-                    }}
-                    required={required}
-                    className="flex-1 bg-white border border-neutral-200 rounded-lg px-2 h-[35px] text-[13px] text-black outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
-                >
-                    <option value="">Year</option>
-                    {years.map((y) => (
-                        <option key={y} value={y}>{y}</option>
-                    ))}
-                </select>
+                <div className="relative flex-1">
+                    <select
+                        value={year}
+                        onChange={(e) => {
+                            setYear(e.target.value);
+                            handleDateChange(e.target.value, month, day);
+                        }}
+                        required={required}
+                        className="w-full bg-white border border-neutral-200 rounded-lg pl-2.5 pr-7 h-[35px] text-[13px] text-black outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all appearance-none cursor-pointer"
+                    >
+                        <option value="">Year</option>
+                        {years.map((y) => (
+                            <option key={y} value={y}>{y}</option>
+                        ))}
+                    </select>
+                    <CaretDown size={14} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                </div>
 
                 {/* Month */}
-                <select
-                    value={month}
-                    onChange={(e) => {
-                        setMonth(e.target.value);
-                        handleDateChange(year, e.target.value, day);
-                    }}
-                    required={required}
-                    className="flex-[1.5] bg-white border border-neutral-200 rounded-lg px-2 h-[35px] text-[13px] text-black outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
-                >
-                    <option value="">Month</option>
-                    {months.map((m) => (
-                        <option key={m.value} value={m.value}>{m.label}</option>
-                    ))}
-                </select>
+                <div className="relative flex-[1.5]">
+                    <select
+                        value={month}
+                        onChange={(e) => {
+                            setMonth(e.target.value);
+                            handleDateChange(year, e.target.value, day);
+                        }}
+                        required={required}
+                        className="w-full bg-white border border-neutral-200 rounded-lg pl-2.5 pr-7 h-[35px] text-[13px] text-black outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all appearance-none cursor-pointer"
+                    >
+                        <option value="">Month</option>
+                        {months.map((m) => (
+                            <option key={m.value} value={m.value}>{m.label}</option>
+                        ))}
+                    </select>
+                    <CaretDown size={14} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                </div>
 
                 {/* Day */}
-                <select
-                    value={day}
-                    onChange={(e) => {
-                        setDay(e.target.value);
-                        handleDateChange(year, month, e.target.value);
-                    }}
-                    required={required}
-                    className="flex-1 bg-white border border-neutral-200 rounded-lg px-2 h-[35px] text-[13px] text-black outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
-                >
-                    <option value="">Day</option>
-                    {days.map((d) => (
-                        <option key={d} value={d.toString()}>{d}</option>
-                    ))}
-                </select>
+                <div className="relative flex-1">
+                    <select
+                        value={day}
+                        onChange={(e) => {
+                            setDay(e.target.value);
+                            handleDateChange(year, month, e.target.value);
+                        }}
+                        required={required}
+                        className="w-full bg-white border border-neutral-200 rounded-lg pl-2.5 pr-7 h-[35px] text-[13px] text-black outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all appearance-none cursor-pointer"
+                    >
+                        <option value="">Day</option>
+                        {days.map((d) => (
+                            <option key={d} value={d.toString()}>{d}</option>
+                        ))}
+                    </select>
+                    <CaretDown size={14} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                </div>
             </div>
             {/* Hidden Input for Form Submission accessibility and reliability */}
             <input

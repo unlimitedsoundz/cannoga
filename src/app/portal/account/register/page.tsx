@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Link } from "@aalto-dx/react-components";
 import { Button } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
-import { Eye, EyeSlash } from "@phosphor-icons/react/dist/ssr";
+import { Eye, EyeSlash, CaretDown } from "@phosphor-icons/react/dist/ssr";
 import { registerApplicant } from '../actions';
 import DateSelector from '@/components/ui/DateSelector';
 import { countries } from '@/data/country-requirements';
@@ -231,34 +231,40 @@ export default function RegisterPage() {
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                             <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Gender <span className="text-red-600">*</span></label>
-                            <select
-                                name="gender"
-                                required
-                                value={formData.gender}
-                                onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                            >
-                                <option value="">Select your gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
+                            <div className="relative w-full max-w-[400px]">
+                                <select
+                                    name="gender"
+                                    required
+                                    value={formData.gender}
+                                    onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+                                    className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                >
+                                    <option value="">Select your gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                                <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                            </div>
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                             <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Phone Code <span className="text-red-600">*</span></label>
-                            <select
-                                name="phoneCode"
-                                required
-                                value={formData.phoneCode}
-                                onChange={(e) => setFormData({ ...formData, phoneCode: e.target.value })}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                            >
-                                {phoneCodes.map((phone) => (
-                                    <option key={phone.code} value={phone.code}>
-                                        {phone.code} ({phone.country})
-                                    </option>
-                                ))}
-                            </select>
+                            <div className="relative w-full max-w-[400px]">
+                                <select
+                                    name="phoneCode"
+                                    required
+                                    value={formData.phoneCode}
+                                    onChange={(e) => setFormData({ ...formData, phoneCode: e.target.value })}
+                                    className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                >
+                                    {phoneCodes.map((phone) => (
+                                        <option key={phone.code} value={phone.code}>
+                                            {phone.code} ({phone.country})
+                                        </option>
+                                    ))}
+                                </select>
+                                <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                            </div>
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
@@ -276,38 +282,44 @@ export default function RegisterPage() {
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                             <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Citizenship <span className="text-red-600">*</span></label>
-                            <select
-                                name="citizenship"
-                                required
-                                value={formData.citizenship}
-                                onChange={(e) => setFormData({ ...formData, citizenship: e.target.value })}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                            >
-                                <option value="">Select citizenship</option>
-                                {countries.map((country) => (
-                                    <option key={country} value={country}>
-                                        {country.charAt(0).toUpperCase() + country.slice(1)}
-                                    </option>
-                                ))}
-                            </select>
+                            <div className="relative w-full max-w-[400px]">
+                                <select
+                                    name="citizenship"
+                                    required
+                                    value={formData.citizenship}
+                                    onChange={(e) => setFormData({ ...formData, citizenship: e.target.value })}
+                                    className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                >
+                                    <option value="">Select citizenship</option>
+                                    {countries.map((country) => (
+                                        <option key={country} value={country}>
+                                            {country.charAt(0).toUpperCase() + country.slice(1)}
+                                        </option>
+                                    ))}
+                                </select>
+                                <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                            </div>
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                             <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Country <span className="text-red-600">*</span></label>
-                            <select
-                                name="country"
-                                required
-                                value={formData.country}
-                                onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                            >
-                                <option value="">Select country</option>
-                                {countries.map((country) => (
-                                    <option key={country} value={country}>
-                                        {country.charAt(0).toUpperCase() + country.slice(1)}
-                                    </option>
-                                ))}
-                            </select>
+                            <div className="relative w-full max-w-[400px]">
+                                <select
+                                    name="country"
+                                    required
+                                    value={formData.country}
+                                    onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                                    className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                >
+                                    <option value="">Select country</option>
+                                    {countries.map((country) => (
+                                        <option key={country} value={country}>
+                                            {country.charAt(0).toUpperCase() + country.slice(1)}
+                                        </option>
+                                    ))}
+                                </select>
+                                <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                            </div>
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
