@@ -663,20 +663,31 @@ export default function RegisterPage() {
                                 </>
                             )}
 
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Siblings at Cannoga College?</label>
-                                <div className="relative w-full max-w-[400px]">
-                                    <select
-                                        name="hasSiblingsAtCollege"
-                                        value={formData.hasSiblingsAtCollege}
-                                        onChange={handleChange}
-                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
-                                    >
-                                        <option value="">-- Select Option --</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                            <div className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right pt-0.5">Siblings at Cannoga College?</label>
+                                <div className="flex flex-col gap-1.5 max-w-[400px]">
+                                    <label className="flex items-center gap-2 text-[13px] text-black font-normal cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="hasSiblingsAtCollege"
+                                            value="Yes"
+                                            checked={formData.hasSiblingsAtCollege === 'Yes'}
+                                            onChange={handleChange}
+                                            className="w-4 h-4 accent-black cursor-pointer"
+                                        />
+                                        Yes
+                                    </label>
+                                    <label className="flex items-center gap-2 text-[13px] text-black font-normal cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="hasSiblingsAtCollege"
+                                            value="No"
+                                            checked={formData.hasSiblingsAtCollege === 'No'}
+                                            onChange={handleChange}
+                                            className="w-4 h-4 accent-black cursor-pointer"
+                                        />
+                                        No
+                                    </label>
                                 </div>
                             </div>
 
