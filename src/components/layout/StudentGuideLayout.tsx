@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-
 import { Breadcrumbs } from "@aalto-dx/react-components";
+import { Plus, Minus, List } from "@phosphor-icons/react/dist/ssr";
 
 interface BreadcrumbItem {
   label: string;
@@ -17,6 +17,7 @@ interface Props {
 
 export default function GuideSidebarLayout({ sections, breadcrumbs, children }: Props) {
   const [activeId, setActiveId] = useState<string>('');
+  const [mobileAccordionOpen, setMobileAccordionOpen] = useState<boolean>(false);
 
   // Extract flat list of nav items
   const navItems = sections.flatMap(s => {
@@ -36,6 +37,8 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
     }
     return [{ id: s.id || '', label: s.title || s.label }];
   }).filter(item => item.id);
+
+  const activeItem = navItems.find(item => item.id === activeId) || navItems[0];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,18 +62,64 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
 
   return (
     <div className="w-full">
-      {/* Horizontal Sub-Navigation Bar matching Hero background styling with increased vertical height */}
+      {/* Sub-Navigation Bar: Mobile FAQ Accordion & Desktop Horizontal Bar */}
       {navItems.length > 0 && (
-        <div className="w-full bg-neutral-100 py-7">
+        <div className="w-full bg-neutral-100 py-4 sm:py-8">
           <nav aria-label="Section Navigation" className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-            <div className="flex items-center justify-start sm:justify-center gap-6 sm:gap-8 overflow-x-auto no-scrollbar scroll-smooth">
+            {/* ── Mobile View: Compact FAQ Accordion ── */}
+            <div className="sm:hidden w-full">
+              <button
+                onClick={() => setMobileAccordionOpen(!mobileAccordionOpen)}
+                className="w-full flex items-center justify-between py-2 px-3 bg-white border border-neutral-200 text-left transition-colors focus:outline-none"
+                aria-expanded={mobileAccordionOpen}
+              >
+                <div className="flex items-center gap-2">
+                  <List size={18} weight="bold" className="text-black" />
+                  <span className="text-sm font-bold text-black">
+                    {activeItem ? activeItem.label : 'Jump to Section'}
+                  </span>
+                </div>
+                <div className="bg-[#0a151a] text-white p-1">
+                  {mobileAccordionOpen ? (
+                    <Minus size={16} weight="bold" />
+                  ) : (
+                    <Plus size={16} weight="bold" />
+                  )}
+                </div>
+              </button>
+
+              <div
+                className={`transition-all duration-300 ease-in-out ${
+                  mobileAccordionOpen ? 'max-h-[500px] opacity-100 mt-2 border-t border-neutral-200 pt-2' : 'max-h-0 opacity-0'
+                } overflow-hidden bg-white border-x border-b border-neutral-200 divide-y divide-neutral-100`}
+              >
+                {navItems.map((item) => {
+                  const isActive = activeId === item.id;
+                  return (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      onClick={() => setMobileAccordionOpen(false)}
+                      className={`block py-2.5 px-4 text-xs font-bold transition-colors no-underline ${
+                        isActive ? 'bg-neutral-100 text-black font-extrabold' : 'text-neutral-700 hover:bg-neutral-50'
+                      }`}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* ── Desktop View: Horizontal Sub-Nav Row ── */}
+            <div className="hidden sm:flex items-center justify-center gap-8 sm:gap-12 overflow-x-auto no-scrollbar scroll-smooth">
               {navItems.map((item) => {
                 const isActive = activeId === item.id;
                 return (
                   <a
                     key={item.id}
                     href={`#${item.id}`}
-                    className={`whitespace-nowrap text-sm font-bold transition-colors no-underline py-3 ${
+                    className={`whitespace-nowrap text-base md:text-lg font-bold transition-colors no-underline py-3 ${
                       isActive 
                         ? 'text-black font-extrabold' 
                         : 'text-neutral-600 hover:text-black font-medium'
