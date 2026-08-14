@@ -49,6 +49,7 @@ export default function AdminNotificationsPage() {
     const [recipientType, setRecipientType] = useState('all');
     const [selectedPrograms, setSelectedPrograms] = useState<string[]>([]);
     const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
+    const [studentSearch, setStudentSearch] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -272,39 +273,68 @@ export default function AdminNotificationsPage() {
                             </div>
                         )}
 
-                        {recipientType === 'individual' && (
-                            <div className="space-y-2">
-                                <Label className="text-xs font-bold text-slate-300 uppercase tracking-wider">Select Enrolled Student(s)</Label>
-                                <div className="max-h-52 overflow-y-auto bg-white/5 border border-white/10 rounded-xl p-2 space-y-1">
-                                    {studentsList.length === 0 ? (
-                                        <div className="p-3 text-xs text-slate-400 font-medium">No enrolled students found</div>
-                                    ) : (
-                                        studentsList.map(st => (
-                                            <label key={st.id} className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-white/10 cursor-pointer transition-colors">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={selectedStudents.includes(st.id)}
-                                                    onChange={e => {
-                                                        if (e.target.checked) {
-                                                            setSelectedStudents([...selectedStudents, st.id]);
-                                                        } else {
-                                                            setSelectedStudents(selectedStudents.filter(id => id !== st.id));
-                                                        }
-                                                    }}
-                                                    className="w-4 h-4 text-sky-500 border-white/20 bg-white/10 rounded focus:ring-sky-500"
-                                                />
-                                                <div className="flex flex-col">
-                                                    <span className="text-xs font-bold text-white">
-                                                        {st.first_name || ''} {st.last_name || ''} {st.student_id ? `(${st.student_id})` : ''}
-                                                    </span>
-                                                    {st.email && <span className="text-[10px] text-slate-400 font-mono">{st.email}</span>}
-                                                </div>
-                                            </label>
-                                        ))
-                                    )}
+                        {recipientType === 'individual' && (() => {
+                            const filteredStudents = studentsList
+                                .filter(st => {
+                                    const fullName = `${st.first_name || ''} ${st.last_name || ''}`.trim().toLowerCase();
+                                    const searchLower = studentSearch.toLowerCase();
+                                    return fullName.includes(searchLower) || (st.email && st.email.toLowerCase().includes(searchLower));
+                                })
+                                .sort((a, b) => {
+                                    const nameA = `${a.first_name || ''} ${a.last_name || ''}`.trim().toLowerCase();
+                                    const nameB = `${b.first_name || ''} ${b.last_name || ''}`.trim().toLowerCase();
+                                    return nameA.localeCompare(nameB);
+                                });
+
+                            return (
+                                <div className="space-y-2">
+                                    <div className="flex items-center justify-between">
+                                        <Label className="text-xs font-bold text-slate-300 uppercase tracking-wider">Search & Select Student by Name</Label>
+                                        {selectedStudents.length > 0 && (
+                                            <span className="text-[10px] font-bold text-sky-400">{selectedStudents.length} selected</span>
+                                        )}
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder="Type student name to search..."
+                                        value={studentSearch}
+                                        onChange={e => setStudentSearch(e.target.value)}
+                                        className="w-full px-3 py-2 text-xs bg-white/5 border border-white/10 text-white placeholder-slate-500 rounded-lg focus:outline-none focus:border-sky-500 font-sans transition-all"
+                                    />
+                                    <div className="max-h-52 overflow-y-auto bg-white/5 border border-white/10 rounded-xl p-2 space-y-1">
+                                        {filteredStudents.length === 0 ? (
+                                            <div className="p-3 text-xs text-slate-400 font-medium">
+                                                {studentSearch ? `No students match "${studentSearch}"` : 'No enrolled students found'}
+                                            </div>
+                                        ) : (
+                                            filteredStudents.map(st => {
+                                                const fullName = `${st.first_name || ''} ${st.last_name || ''}`.trim() || 'Unnamed Student';
+                                                return (
+                                                    <label key={st.id} className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-white/10 cursor-pointer transition-colors">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedStudents.includes(st.id)}
+                                                            onChange={e => {
+                                                                if (e.target.checked) {
+                                                                    setSelectedStudents([...selectedStudents, st.id]);
+                                                                } else {
+                                                                    setSelectedStudents(selectedStudents.filter(id => id !== st.id));
+                                                                }
+                                                            }}
+                                                            className="w-4 h-4 text-sky-500 border-white/20 bg-white/10 rounded focus:ring-sky-500"
+                                                        />
+                                                        <div className="flex flex-col">
+                                                            <span className="text-xs font-bold text-white">{fullName}</span>
+                                                            {st.email && <span className="text-[10px] text-slate-400 font-mono">{st.email}</span>}
+                                                        </div>
+                                                    </label>
+                                                );
+                                            })
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            );
+                        })()}
 
                         <button
                             type="submit"
