@@ -224,7 +224,7 @@ serve(async (req) => {
 
         switch (notificationType) {
             case 'USER_REGISTRATION':
-                studentSubject = "Welcome to Cannoga College — Account Created";
+                studentSubject = "Welcome to Cannoga College - Account Created";
                 studentHtml = `
                     <p>Dear ${fullName},</p>
                     <p>Welcome to Cannoga College! Your student portal account has been successfully created.</p>
@@ -289,7 +289,7 @@ serve(async (req) => {
                 break;
 
             case 'OFFER_LETTER_READY':
-                studentSubject = "Letter of Acceptance (LOA) — Cannoga College";
+                studentSubject = "Letter of Acceptance (LOA) - Cannoga College";
 
                 // Generate / Fetch LOA PDF and Download URL
                 const offerAppId = applicationData?.id || record?.id || record?.application_id;
@@ -382,7 +382,7 @@ serve(async (req) => {
                 break;
 
             case 'OFFER_ACCEPTED':
-                studentSubject = "Letter of Acceptance Confirmed — Cannoga College";
+                studentSubject = "Letter of Acceptance Confirmed - Cannoga College";
 
                 const acceptedAppId = applicationData?.id || record?.id || record?.application_id;
                 let acceptedDocUrl = applicationData?.document_url || null;
