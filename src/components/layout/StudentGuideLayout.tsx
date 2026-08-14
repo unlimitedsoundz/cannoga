@@ -119,10 +119,10 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
                   <a
                     key={item.id}
                     href={`#${item.id}`}
-                    className={`shrink-0 whitespace-nowrap text-xs sm:text-sm md:text-base font-bold transition-colors no-underline py-1.5 ${
+                    className={`shrink-0 whitespace-nowrap text-xs sm:text-sm md:text-base font-bold transition-all no-underline py-1.5 border-b-2 ${
                       isActive 
-                        ? 'text-black font-extrabold' 
-                        : 'text-neutral-600 hover:text-black font-medium'
+                        ? 'text-black font-extrabold border-[#c89211]' 
+                        : 'text-neutral-600 hover:text-black font-medium border-transparent hover:border-[#c89211]'
                     }`}
                   >
                     {item.label}
