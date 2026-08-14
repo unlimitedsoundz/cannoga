@@ -96,6 +96,7 @@ const navigation: NavItem[] = [
         href: "/student-guide",
         children: [
             { name: "Student Guide", href: "/student-guide" },
+            { name: "Student Housing & Accommodations", href: "/housing" },
             { name: "Academic Calendar", href: "/student-guide#calendar" },
             { name: "Support Services", href: "/student-guide#support" },
             { name: "Student Handbook", href: "/student-handbook" },
@@ -108,7 +109,7 @@ const navigation: NavItem[] = [
         href: "/student-guide/international",
         children: [
             { name: "International Student Guide", href: "/student-guide/international" },
-            { name: "Housing for Students", href: "/student-guide/housing-for-students" },
+            { name: "Student Housing & Accommodations", href: "/housing" },
             { name: "Arrival Guide", href: "/student-guide/arrival" },
             { name: "Exchange Guide", href: "/student-guide/exchange" },
             { name: "Chat with Students", href: "/student-guide/chat-with-cannoga-students" },

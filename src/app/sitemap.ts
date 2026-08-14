@@ -90,6 +90,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // --- Student guides & life ---
     const studentPages: SitemapEntry[] = [
+        make(`${BASE_URL}/housing`, 'monthly', 0.8),
         make(`${BASE_URL}/student-guide`, 'monthly', 0.6),
         make(`${BASE_URL}/student-guide/international`, 'monthly', 0.7),
         make(`${BASE_URL}/student-guide/arrival`, 'monthly', 0.6),

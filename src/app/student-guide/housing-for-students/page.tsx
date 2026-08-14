@@ -90,7 +90,7 @@ export default function HousingGuidePage() {
                                 <div className="cc-card cc-card-body space-y-3">
                                    <h4 className="font-bold text-[#000000] text-lg">Cannoga Housing</h4>
                                    <p className="text-sm text-neutral-600 leading-relaxed">Cannoga College's official student housing partner, offering on-campus and nearby residences with furnished rooms and shared facilities.</p>
-                                   <Link href="https://cannogacollege.ca/housing" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Housing →</Link>
+                                   <Link href="/housing" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Housing →</Link>
                                  </div>
                                 <div className="cc-card cc-card-body space-y-3">
                                    <h4 className="font-bold text-[#000000] text-lg">CampusOne</h4>
@@ -105,7 +105,7 @@ export default function HousingGuidePage() {
                                 <div className="cc-card cc-card-body space-y-3">
                                     <h4 className="font-bold text-[#000000] text-lg">Homestay</h4>
                                     <p className="text-sm text-neutral-600 leading-relaxed">Live with a local Ottawa family for a cultural immersion experience. Includes a private bedroom and often meals. Great for improving English and adjusting to Canadian life.</p>
-                                    <Link href="https://cannogacollege.ca/housing/homestay" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Homestay →</Link>
+                                    <Link href="/housing#homestay" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Homestay →</Link>
                                   </div>
                           </div>
                         </section>

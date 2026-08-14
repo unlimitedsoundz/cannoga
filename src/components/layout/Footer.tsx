@@ -43,6 +43,7 @@ export function Footer() {
                             <ul className="space-y-3">
                                 <li><Link href="/studies" className="text-white text-sm hover:text-white transition-colors no-underline">All Courses</Link></li>
                                 <li><Link href="/admissions" className="text-white text-sm hover:text-white transition-colors no-underline">Admissions</Link></li>
+                                <li><Link href="/housing" className="text-white text-sm hover:text-white transition-colors no-underline">Student Housing</Link></li>
                                 <li><Link href="/admissions/tuition" className="text-white text-sm hover:text-white transition-colors no-underline">Scholarships</Link></li>
                                 <li><Link href="/international" className="text-white text-sm hover:text-white transition-colors no-underline">International</Link></li>
                                 <li><Link href="/student-guide/international" className="text-white text-sm hover:text-white transition-colors no-underline">International Students</Link></li>
