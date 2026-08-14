@@ -72,8 +72,8 @@ export default function RootLayout({
                 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Sans+3:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
                 <style dangerouslySetInnerHTML={{ __html: `
                     :root {
-                        --font-inter: 'Source Sans 3', 'Inter', system-ui, -apple-system, sans-serif;
-                        --font-playfair: 'Source Sans 3', 'Inter', system-ui, -apple-system, sans-serif;
+                        --font-inter: Arial, Helvetica, sans-serif;
+                        --font-playfair: Arial, Helvetica, sans-serif;
                     }
                 ` }} />
                 <script
