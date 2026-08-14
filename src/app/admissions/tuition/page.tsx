@@ -115,7 +115,7 @@ export default async function TuitionPaymentPage() {
                     alt: "Tuition Fees, Payment Plans & Scholarships"
                 }}
             >
-                <Link href="#payment-methods" className="text-aalto-3 font-bold underline underline-offset-8 decoration-black hover:opacity-70 transition-colors text-black inline-flex items-center gap-2">
+                <Link href="#payment-methods" className="text-aalto-3 font-bold underline underline-offset-8 decoration-white hover:opacity-80 transition-colors text-white inline-flex items-center gap-2">
                     View payment methods <ArrowRight size={20} weight="bold" />
                 </Link>
             </Hero>
