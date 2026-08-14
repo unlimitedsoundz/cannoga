@@ -115,7 +115,7 @@ export default async function Home() {
 
             {/* 4. FEATURED SCHOOLS */}
             {schools && schools.length > 0 && (
-                <section className="py-20 bg-[#f8fafc] border-t border-b border-slate-200">
+                <section className="py-20 bg-[#f8fafc] border-b border-slate-200">
                     <div className="container mx-auto px-4 md:px-28 lg:px-40">
                         <div className="mb-12 border-b border-slate-200 pb-4">
                             <h2 className="text-3xl font-serif font-bold text-[#0f2027]">Academic Schools</h2>
@@ -147,7 +147,7 @@ export default async function Home() {
             {/* 6. STUDENT RESOURCE LINKS WITH LILAC BACKGROUND & SMOOTH HILL TOP EDGE */}
             <section className="relative bg-[#e8d5ff] pt-14 pb-20 md:pt-28 md:pb-24 text-slate-900">
                 {/* Top Smooth Rolling Hills Wavy Edge */}
-                <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 -translate-y-[99%] pointer-events-none">
+                <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 -translate-y-full -mt-[2px] pointer-events-none">
                     <svg viewBox="0 0 1440 90" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-10 sm:h-14 md:h-20 text-[#e8d5ff] fill-current block">
                         <path d="M0,50 C240,15 480,85 720,40 C960,-5 1200,70 1440,35 V90 H0 Z" />
                     </svg>
