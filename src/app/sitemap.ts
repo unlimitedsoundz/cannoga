@@ -119,6 +119,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         make(`${BASE_URL}/terms`, 'yearly', 0.3),
     ];
 
+    // --- Portal & Auth pages ---
+    const portalPages: SitemapEntry[] = [
+        make(`${BASE_URL}/portal/account/login`, 'monthly', 0.5),
+        make(`${BASE_URL}/portal/account/register`, 'monthly', 0.5),
+        make(`${BASE_URL}/auth/reset-password`, 'monthly', 0.3),
+    ];
+
     // --- Legal & utility pages ---
     const legalPages: SitemapEntry[] = [
         make(`${BASE_URL}/privacy`, 'yearly', 0.2),
@@ -136,6 +143,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ...newsPages,
         ...studentPages,
         ...institutionalPages,
+        ...portalPages,
         ...legalPages,
     ];
 }
