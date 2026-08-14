@@ -622,9 +622,9 @@ export default function RegisterPage() {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Housing Requirements</label>
-                                <div className="flex items-center gap-4 h-[35px] max-w-[400px]">
+                            <div className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right pt-0.5">Housing Requirements</label>
+                                <div className="flex flex-col gap-1.5 max-w-[400px]">
                                     <label className="flex items-center gap-2 text-[13px] text-black font-normal cursor-pointer">
                                         <input
                                             type="radio"
