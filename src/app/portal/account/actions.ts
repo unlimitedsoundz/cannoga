@@ -53,6 +53,10 @@ export async function registerApplicant(formData: {
     housingRequired?: string;
     howDidYouHear?: string;
     questionsComments?: string;
+    contactFirstName?: string;
+    contactLastName?: string;
+    contactPhone?: string;
+    contactEmail?: string;
 }) {
     const supabase = await createServerClient();
 
@@ -77,7 +81,11 @@ export async function registerApplicant(formData: {
                 completing_form_person: formData.completingFormPerson || null,
                 housing_required: formData.housingRequired || null,
                 how_did_you_hear: formData.howDidYouHear || null,
-                questions_comments: formData.questionsComments || null
+                questions_comments: formData.questionsComments || null,
+                contact_first_name: formData.contactFirstName || null,
+                contact_last_name: formData.contactLastName || null,
+                contact_phone: formData.contactPhone || null,
+                contact_email: formData.contactEmail || null
             },
             emailRedirectTo: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000/portal/dashboard'
         }
@@ -122,7 +130,11 @@ export async function registerApplicant(formData: {
                 completing_form_person: formData.completingFormPerson || null,
                 housing_required: formData.housingRequired || null,
                 how_did_you_hear: formData.howDidYouHear || null,
-                questions_comments: formData.questionsComments || null
+                questions_comments: formData.questionsComments || null,
+                contact_first_name: formData.contactFirstName || null,
+                contact_last_name: formData.contactLastName || null,
+                contact_phone: formData.contactPhone || null,
+                contact_email: formData.contactEmail || null
             }, {
                 onConflict: 'id'
             });

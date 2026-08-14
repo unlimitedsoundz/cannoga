@@ -73,8 +73,8 @@ export default function RegisterPage() {
         localState: '',
         localZipcode: '',
         is19OrOlder: '',
-        contactName: '',
-        contactRelationship: '',
+        contactFirstName: '',
+        contactLastName: '',
         contactPhone: '',
         contactEmail: '',
         hasSiblingsAtCollege: '',
@@ -145,6 +145,10 @@ export default function RegisterPage() {
                 localState: formData.localState,
                 localZipcode: formData.localZipcode,
                 is19OrOlder: formData.is19OrOlder,
+                contactFirstName: formData.contactFirstName,
+                contactLastName: formData.contactLastName,
+                contactPhone: formData.contactPhone,
+                contactEmail: formData.contactEmail,
                 hasSiblingsAtCollege: formData.hasSiblingsAtCollege,
                 completingFormPerson: formData.completingFormPerson,
                 housingRequired: formData.housingRequired,
@@ -584,6 +588,68 @@ export default function RegisterPage() {
                                     <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
                                 </div>
                             </div>
+
+                            {formData.is19OrOlder && (
+                                <div className="space-y-3 p-3.5 bg-neutral-50/80 rounded-lg border border-neutral-200/60 my-2">
+                                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                        <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                                            {formData.is19OrOlder === 'Yes' ? 'Emergency Contact' : 'Parent/Guardian'} First Name <span className="text-red-600">*</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="contactFirstName"
+                                            required
+                                            value={formData.contactFirstName}
+                                            onChange={handleChange}
+                                            className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                        />
+                                    </div>
+
+                                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                        <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                                            {formData.is19OrOlder === 'Yes' ? 'Emergency Contact' : 'Parent/Guardian'} Last Name <span className="text-red-600">*</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="contactLastName"
+                                            required
+                                            value={formData.contactLastName}
+                                            onChange={handleChange}
+                                            className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                        />
+                                    </div>
+
+                                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                        <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                                            {formData.is19OrOlder === 'Yes' ? 'Emergency Contact' : 'Parent/Guardian'} Phone <span className="text-red-600">*</span>
+                                        </label>
+                                        <input
+                                            type="tel"
+                                            name="contactPhone"
+                                            required
+                                            value={formData.contactPhone}
+                                            onChange={handleChange}
+                                            className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                            placeholder="e.g. 1234567890"
+                                        />
+                                    </div>
+
+                                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                        <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                                            {formData.is19OrOlder === 'Yes' ? 'Emergency Contact' : 'Parent/Guardian'} Email <span className="text-red-600">*</span>
+                                        </label>
+                                        <input
+                                            type="email"
+                                            name="contactEmail"
+                                            required
+                                            value={formData.contactEmail}
+                                            onChange={handleChange}
+                                            className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                            placeholder="contact@example.com"
+                                        />
+                                    </div>
+                                </div>
+                            )}
 
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                                 <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Siblings at Cannoga College?</label>
