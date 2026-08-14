@@ -773,6 +773,49 @@ export default function RegisterPage() {
                             </div>
                         </div>
 
+                        {/* Section 6: Declaration */}
+                        <div className="pt-4 border-t border-neutral-100 space-y-3">
+                            <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Declaration</h2>
+
+                            <div className="space-y-3 pt-1">
+                                <label className="flex items-start gap-2.5 text-[13px] text-black font-normal cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        required
+                                        className="w-4 h-4 mt-0.5 accent-black cursor-pointer flex-shrink-0"
+                                    />
+                                    <span>
+                                        <span className="text-red-600 font-bold mr-1">*</span>
+                                        I hereby certify that the information that I have provided is accurate and complete in all aspects.
+                                    </span>
+                                </label>
+
+                                <label className="flex items-start gap-2.5 text-[13px] text-black font-normal cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        required
+                                        className="w-4 h-4 mt-0.5 accent-black cursor-pointer flex-shrink-0"
+                                    />
+                                    <span>
+                                        <span className="text-red-600 font-bold mr-1">*</span>
+                                        I understand that falsification or misrepresentation of any information or documents submitted in my application will result in the rejection of application and/or the withdrawal of any offer of admission.
+                                    </span>
+                                </label>
+
+                                <label className="flex items-start gap-2.5 text-[13px] text-black font-normal cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        required
+                                        className="w-4 h-4 mt-0.5 accent-black cursor-pointer flex-shrink-0"
+                                    />
+                                    <span>
+                                        <span className="text-red-600 font-bold mr-1">*</span>
+                                        I understand that the information submitted on this application will be used to verify or assign a Student Identification Number (SIN) for the purposes of student registration and admission, program evaluation, and system-level research.
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
                         <div className="pt-2 sm:pl-39">
                             <Button
                                 type="primary"
