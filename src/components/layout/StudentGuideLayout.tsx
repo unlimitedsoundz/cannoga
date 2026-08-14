@@ -2,12 +2,20 @@
 
 import { useState, useEffect } from 'react';
 
+import { Breadcrumbs } from "@aalto-dx/react-components";
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
 interface Props {
   sections: any[];
+  breadcrumbs?: BreadcrumbItem[];
   children: React.ReactNode;
 }
 
-export default function GuideSidebarLayout({ sections, children }: Props) {
+export default function GuideSidebarLayout({ sections, breadcrumbs, children }: Props) {
   const [activeId, setActiveId] = useState<string>('');
 
   // Extract flat list of nav items
@@ -51,21 +59,21 @@ export default function GuideSidebarLayout({ sections, children }: Props) {
 
   return (
     <div className="w-full">
-      {/* Horizontal Sub-Navigation Bar centered, non-full-width matching Hero content container */}
+      {/* Horizontal Sub-Navigation Bar matching Hero background styling, without border lines */}
       {navItems.length > 0 && (
-        <div className="w-full bg-white border-b border-neutral-200 py-3">
+        <div className="w-full bg-neutral-100 py-3">
           <nav aria-label="Section Navigation" className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-            <div className="bg-neutral-100 rounded-md py-2 px-4 flex items-center justify-center gap-6 sm:gap-8 overflow-x-auto no-scrollbar scroll-smooth">
+            <div className="flex items-center justify-start sm:justify-center gap-6 sm:gap-8 overflow-x-auto no-scrollbar scroll-smooth">
               {navItems.map((item) => {
                 const isActive = activeId === item.id;
                 return (
                   <a
                     key={item.id}
                     href={`#${item.id}`}
-                    className={`whitespace-nowrap text-xs font-bold uppercase tracking-wider transition-colors no-underline py-1 border-b-2 ${
+                    className={`whitespace-nowrap text-xs font-bold uppercase tracking-wider transition-colors no-underline py-1.5 ${
                       isActive 
-                        ? 'border-black text-black' 
-                        : 'border-transparent text-neutral-600 hover:text-black hover:border-neutral-400'
+                        ? 'text-black font-extrabold' 
+                        : 'text-neutral-600 hover:text-black font-medium'
                     }`}
                   >
                     {item.label}
@@ -74,6 +82,23 @@ export default function GuideSidebarLayout({ sections, children }: Props) {
               })}
             </div>
           </nav>
+        </div>
+      )}
+
+      {/* Breadcrumbs Bar below sub-navigation */}
+      {breadcrumbs && breadcrumbs.length > 0 && (
+        <div className="border-b border-neutral-100 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-3">
+            <Breadcrumbs 
+              items={[
+                { icon: 'home', linkComponentProps: { href: '/' } },
+                ...breadcrumbs.map(b => ({
+                  label: b.label,
+                  linkComponentProps: b.href ? { href: b.href } : undefined
+                }))
+              ]} 
+            />
+          </div>
         </div>
       )}
 

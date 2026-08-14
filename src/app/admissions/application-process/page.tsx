@@ -54,11 +54,6 @@ export default function ApplicationProcessPage() {
                 backgroundColor="#0f2027"
                 tinted
                 lightText={true}
-                breadcrumbs={[
-                    { label: 'Home', href: '/' },
-                    { label: 'Admissions', href: '/admissions' },
-                    { label: 'How to Apply' }
-                ]}
                 image={{
                     src: "/images/admissions/application-process-hero.jpg",
                     alt: "Application Process at Cannoga College"
@@ -75,8 +70,15 @@ export default function ApplicationProcessPage() {
                 </div>
             </Hero>
 
-            {/* Horizontal Sub-Navigation Bar positioned directly under Hero & Breadcrumbs */}
-            <GuideSidebarLayout sections={sections}>
+            {/* Horizontal Sub-Navigation Bar directly under Hero, with breadcrumbs below sub-navigation */}
+            <GuideSidebarLayout 
+                sections={sections}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Admissions', href: '/admissions' },
+                    { label: 'How to Apply' }
+                ]}
+            >
                 {/* ── Content ── */}
                 <div className="cc-container py-12 md:py-20">
                     <div className="max-w-4xl mx-auto space-y-16">
