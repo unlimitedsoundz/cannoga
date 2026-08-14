@@ -139,7 +139,7 @@ export function Footer() {
                         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                             <div className="text-slate-400 text-xs order-2 md:order-1 space-y-1 text-center md:text-left">
                                 <p>© 2026 Cannoga College. All rights reserved.</p>
-                                <p className="text-[11px] text-slate-500">Designated Learning Institution (DLI #O19394821) — Approved by Ontario Ministry of Colleges and Universities (MCU).</p>
+                                <p className="text-[11px] text-slate-500">Approved by Ontario Ministry of Colleges and Universities (MCU).</p>
                             </div>
                             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 order-1 md:order-2">
                                 <Link href="/site-index" className="text-white text-xs hover:text-white transition-colors no-underline">Site Index</Link>

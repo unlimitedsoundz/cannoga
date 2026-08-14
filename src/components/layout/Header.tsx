@@ -158,7 +158,7 @@ export function Header() {
                     <div className="flex items-center gap-6">
                         <span className="text-[#c89211] font-semibold flex items-center gap-1.5">
                             <MapPin size={14} weight="fill" className="text-[#c89211]" />
-                            Ottawa Campus (DLI #O19394821)
+                            Ottawa Campus
                         </span>
                         <span className="text-slate-400">|</span>
                         <Link href="/admissions" className="hover:text-white text-slate-300 no-underline transition-colors">Future Students</Link>
