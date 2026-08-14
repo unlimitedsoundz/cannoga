@@ -275,7 +275,7 @@ export default function RegisterPage() {
                         </div>
 
                         {/* Section 2: Personal Information */}
-                        <div className="pt-4 border-t border-neutral-100 space-y-3">
+                        <div className="pt-2 space-y-3">
                             <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Personal Information</h2>
 
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
@@ -391,7 +391,7 @@ export default function RegisterPage() {
                         </div>
 
                         {/* Section 3: Contact & Permanent Address */}
-                        <div className="pt-4 border-t border-neutral-100 space-y-3">
+                        <div className="pt-2 space-y-3">
                             <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Contact & Permanent Address</h2>
 
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
@@ -499,7 +499,7 @@ export default function RegisterPage() {
                         </div>
 
                         {/* Section 4: Local/Canadian Address Section */}
-                        <div className="pt-4 border-t border-neutral-100">
+                        <div className="pt-2">
                             <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Local/Canadian Address (if known)</h2>
                             
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-3">
@@ -596,7 +596,7 @@ export default function RegisterPage() {
                         </div>
 
                         {/* Section 5: Guardian / Emergency Contact & Additional Details */}
-                        <div className="pt-4 border-t border-neutral-100 space-y-3">
+                        <div className="pt-2 space-y-3">
                             <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Guardian or Emergency Contact Information</h2>
 
                             <div className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3">
@@ -802,7 +802,7 @@ export default function RegisterPage() {
                         </div>
 
                         {/* Section 6: Declaration */}
-                        <div className="pt-4 border-t border-neutral-100 space-y-3">
+                        <div className="pt-2 space-y-3">
                             <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Declaration</h2>
 
                             <div className="space-y-3 pt-1">
@@ -845,7 +845,7 @@ export default function RegisterPage() {
                         </div>
 
                         {/* Security CAPTCHA Section */}
-                        <div className="pt-4 border-t border-neutral-100 space-y-3">
+                        <div className="pt-2 space-y-3">
                             <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Security Verification</h2>
 
                             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
@@ -886,7 +886,7 @@ export default function RegisterPage() {
                         </div>
                     </form>
 
-                    <div className="mt-6 pt-4 border-t border-neutral-100 text-center">
+                    <div className="mt-6 pt-2 text-center">
                         <p className="text-[13px] text-black">
                             Already have an account?{' '}
                             <Link href="/portal/account/login" className="text-black font-bold hover:underline">
