@@ -579,7 +579,16 @@ serve(async (req: any) => {
                 .eq("id", offerData.id);
         }
 
-        return new Response(JSON.stringify({ success: true, url: publicUrl }), {
+        // Convert pdfBytes to base64 for direct attachment
+        let pdfBase64 = "";
+        try {
+            const binary = String.fromCharCode(...pdfBytes);
+            pdfBase64 = btoa(binary);
+        } catch (bErr) {
+            console.error("Base64 conversion error:", bErr);
+        }
+
+        return new Response(JSON.stringify({ success: true, url: publicUrl, pdfBase64 }), {
             headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
 
