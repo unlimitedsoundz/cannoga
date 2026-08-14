@@ -42,7 +42,6 @@ export default function HousingPage() {
                 {/* OVERVIEW & HIGHLIGHT STATS */}
                 <section>
                     <div className="max-w-3xl mb-12">
-                        <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#c89211] font-bold block mb-2">Campus Community</span>
                         <h2 className="text-3xl md:text-5xl font-black text-black tracking-tight leading-tight">
                             Safe, Modern &amp; Connected Student Living
                         </h2>
@@ -71,7 +70,6 @@ export default function HousingPage() {
                 <section className="space-y-10">
                     <div className="border-b border-neutral-200 pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div>
-                            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#c89211] font-bold block mb-1">Accommodation Types</span>
                             <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight">Explore Housing Options</h2>
                         </div>
                         <p className="text-sm text-neutral-500 max-w-md">Find the living environment that matches your study lifestyle and budget.</p>
@@ -115,7 +113,6 @@ export default function HousingPage() {
                 {/* PRICING & COMPARISON */}
                 <section className="bg-[#0a151a] text-white p-8 md:p-14 rounded-3xl space-y-8">
                     <div className="max-w-2xl">
-                        <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#c89211] font-bold block mb-2">Cost &amp; Budgeting</span>
                         <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">Average Monthly Housing Costs in Ottawa</h2>
                         <p className="text-neutral-300 text-sm leading-relaxed mt-2">
                             All prices are estimated in Canadian Dollars (CAD) per month and include utility baseline estimates.

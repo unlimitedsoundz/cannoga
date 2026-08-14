@@ -240,7 +240,6 @@ export default async function SchoolDetails({ params }: Props) {
                     <section className="py-12 md:py-16">
                         <div className="flex justify-between items-end mb-10 pb-4 border-b border-neutral-200">
                             <div>
-                                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#c89211] font-bold block mb-1">Academic Offerings</span>
                                 <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight">
                                     Featured Programs
                                 </h2>
