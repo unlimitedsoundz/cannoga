@@ -179,10 +179,9 @@ export default function StudiesPage() {
                             >
                                 <div>
                                     <div className="flex items-center justify-between mb-2">
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-neutral-500 bg-neutral-100 px-2 py-0.5">{item.level}</span>
-                                        <ArrowRight size={14} weight="bold" className="text-neutral-400 group-hover:text-black group-hover:translate-x-0.5 transition-all" />
+                                        <h3 className="text-sm font-bold text-black group-hover:underline transition-colors leading-snug">{item.title}</h3>
+                                        <ArrowRight size={14} weight="bold" className="text-neutral-400 group-hover:text-black group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
                                     </div>
-                                    <h3 className="text-sm font-bold text-black mb-2 group-hover:underline transition-colors leading-snug">{item.title}</h3>
                                     <p className="text-[11px] text-neutral-500 font-semibold mb-3 flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
                                         <span>{item.duration}</span>
                                         <span>•</span>
