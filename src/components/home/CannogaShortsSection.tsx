@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { 
-    YoutubeLogo, 
+import {
+    YoutubeLogo,
     TiktokLogo
 } from '@phosphor-icons/react';
 
@@ -51,7 +51,7 @@ export function CannogaShortsSection() {
             </div>
 
             <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl relative z-20">
-                
+
                 {/* Header Row with Title & Social Follow Icons */}
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
                     <div>

@@ -145,10 +145,10 @@ export default async function Home() {
             </section>
 
             {/* 6. STUDENT RESOURCE LINKS WITH LILAC BACKGROUND & SMOOTH HILL TOP EDGE */}
-            <section className="relative bg-[#e8d5ff] pt-20 pb-20 md:pt-28 md:pb-24 text-slate-900 mt-16">
+            <section className="relative bg-[#e8d5ff] pt-14 pb-20 md:pt-28 md:pb-24 text-slate-900">
                 {/* Top Smooth Rolling Hills Wavy Edge */}
-                <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 -translate-y-[98%]">
-                    <svg viewBox="0 0 1440 90" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-12 md:h-20 text-[#e8d5ff] fill-current">
+                <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 -translate-y-[99%] pointer-events-none">
+                    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-10 sm:h-14 md:h-20 text-[#e8d5ff] fill-current block">
                         <path d="M0,50 C240,15 480,85 720,40 C960,-5 1200,70 1440,35 V90 H0 Z" />
                     </svg>
                 </div>
