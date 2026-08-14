@@ -112,7 +112,7 @@ export default function PortalLoginPage() {
                     tinted
                     lightText={true}
                     image={{ src: '/images/international-students-hero.png', alt: 'Cannoga students' }}
-                    breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Portal', href: '/portal' }, { label: 'Login' }]}
+                    breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Portal', href: '/portal' }]}
                     className="min-h-[250px] lg:min-h-[350px]"
                 />
 
