@@ -71,13 +71,23 @@ export default function RegisterPage() {
         localCity: '',
         localCountry: '',
         localState: '',
-        localZipcode: ''
+        localZipcode: '',
+        is19OrOlder: '',
+        contactName: '',
+        contactRelationship: '',
+        contactPhone: '',
+        contactEmail: '',
+        hasSiblingsAtCollege: '',
+        completingFormPerson: '',
+        housingRequired: '',
+        howDidYouHear: '',
+        questionsComments: ''
     });
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => {
             const updated = { ...prev, [name]: value };
@@ -127,7 +137,19 @@ export default function RegisterPage() {
                 state: formData.state,
                 zipcode: formData.zipcode,
                 passportNumber: formData.passportNumber,
-                gender: formData.gender
+                gender: formData.gender,
+                sameAsAbove: formData.sameAsAbove,
+                localAddress: formData.localAddress,
+                localCity: formData.localCity,
+                localCountry: formData.localCountry,
+                localState: formData.localState,
+                localZipcode: formData.localZipcode,
+                is19OrOlder: formData.is19OrOlder,
+                hasSiblingsAtCollege: formData.hasSiblingsAtCollege,
+                completingFormPerson: formData.completingFormPerson,
+                housingRequired: formData.housingRequired,
+                howDidYouHear: formData.howDidYouHear,
+                questionsComments: formData.questionsComments
             };
             const result = await registerApplicant(applicantData);
 
@@ -526,6 +548,116 @@ export default function RegisterPage() {
                                         className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] disabled:bg-neutral-100 disabled:text-neutral-500"
                                     />
                                 </div>
+                            </div>
+                        </div>
+
+                        {/* Section 5: Guardian / Emergency Contact & Additional Details */}
+                        <div className="pt-4 border-t border-neutral-100 space-y-3">
+                            <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Guardian or Emergency Contact Information</h2>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Are you 19 Years Old or Older? <span className="text-red-600">*</span></label>
+                                <div className="relative w-full max-w-[400px]">
+                                    <select
+                                        name="is19OrOlder"
+                                        required
+                                        value={formData.is19OrOlder}
+                                        onChange={handleChange}
+                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                    >
+                                        <option value="">-- Select Option --</option>
+                                        <option value="Yes">Yes, please provide Emergency Contact Information</option>
+                                        <option value="No">No, please provide Parents or Guardian Contact Information.</option>
+                                    </select>
+                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Siblings at Cannoga College?</label>
+                                <div className="relative w-full max-w-[400px]">
+                                    <select
+                                        name="hasSiblingsAtCollege"
+                                        value={formData.hasSiblingsAtCollege}
+                                        onChange={handleChange}
+                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                    >
+                                        <option value="">-- Select Option --</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Who is completing this form? <span className="text-red-600">*</span></label>
+                                <div className="relative w-full max-w-[400px]">
+                                    <select
+                                        name="completingFormPerson"
+                                        required
+                                        value={formData.completingFormPerson}
+                                        onChange={handleChange}
+                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                    >
+                                        <option value="">-- Select Option --</option>
+                                        <option value="Applicant">Applicant (Self)</option>
+                                        <option value="Parent / Guardian">Parent / Guardian</option>
+                                        <option value="Educational Agent">Educational Agent</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Housing Requirements</label>
+                                <div className="relative w-full max-w-[400px]">
+                                    <select
+                                        name="housingRequired"
+                                        value={formData.housingRequired}
+                                        onChange={handleChange}
+                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                    >
+                                        <option value="">-- Select Requirement --</option>
+                                        <option value="Required">Required</option>
+                                        <option value="Not required">Not required</option>
+                                    </select>
+                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">How did you hear about us?</label>
+                                <div className="relative w-full max-w-[400px]">
+                                    <select
+                                        name="howDidYouHear"
+                                        value={formData.howDidYouHear}
+                                        onChange={handleChange}
+                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                    >
+                                        <option value="">-- Select Option --</option>
+                                        <option value="Social Media">Social Media (Instagram, Facebook, LinkedIn, TikTok)</option>
+                                        <option value="Search Engine">Search Engine (Google, Bing)</option>
+                                        <option value="Friends or Family">Friends or Family</option>
+                                        <option value="Educational Agent">Educational Agent</option>
+                                        <option value="Education Fair">Education Fair / Event</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right pt-2">Questions?</label>
+                                <textarea
+                                    name="questionsComments"
+                                    rows={2}
+                                    value={formData.questionsComments}
+                                    onChange={handleChange}
+                                    className="w-full max-w-[400px] p-2 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] resize-none"
+                                    placeholder="Any questions or additional notes..."
+                                />
                             </div>
                         </div>
 

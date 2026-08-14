@@ -41,6 +41,18 @@ export async function registerApplicant(formData: {
     zipcode?: string;
     passportNumber?: string;
     gender?: string;
+    sameAsAbove?: boolean;
+    localAddress?: string;
+    localCity?: string;
+    localCountry?: string;
+    localState?: string;
+    localZipcode?: string;
+    is19OrOlder?: string;
+    hasSiblingsAtCollege?: string;
+    completingFormPerson?: string;
+    housingRequired?: string;
+    howDidYouHear?: string;
+    questionsComments?: string;
 }) {
     const supabase = await createServerClient();
 
@@ -54,7 +66,18 @@ export async function registerApplicant(formData: {
                 last_name: formData.lastName,
                 country_of_residence: formData.country,
                 date_of_birth: formData.dateOfBirth,
-                role: 'APPLICANT'
+                role: 'APPLICANT',
+                local_address: formData.localAddress || null,
+                local_city: formData.localCity || null,
+                local_country: formData.localCountry || null,
+                local_state: formData.localState || null,
+                local_zipcode: formData.localZipcode || null,
+                is_19_or_older: formData.is19OrOlder || null,
+                has_siblings_at_college: formData.hasSiblingsAtCollege || null,
+                completing_form_person: formData.completingFormPerson || null,
+                housing_required: formData.housingRequired || null,
+                how_did_you_hear: formData.howDidYouHear || null,
+                questions_comments: formData.questionsComments || null
             },
             emailRedirectTo: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000/portal/dashboard'
         }
@@ -88,7 +111,18 @@ export async function registerApplicant(formData: {
                 state_province: formData.state,
                 zipcode: formData.zipcode,
                 passport_number: formData.passportNumber,
-                gender: formData.gender
+                gender: formData.gender,
+                local_address: formData.localAddress || null,
+                local_city: formData.localCity || null,
+                local_country: formData.localCountry || null,
+                local_state_province: formData.localState || null,
+                local_zipcode: formData.localZipcode || null,
+                is_19_or_older: formData.is19OrOlder || null,
+                has_siblings_at_college: formData.hasSiblingsAtCollege || null,
+                completing_form_person: formData.completingFormPerson || null,
+                housing_required: formData.housingRequired || null,
+                how_did_you_hear: formData.howDidYouHear || null,
+                questions_comments: formData.questionsComments || null
             }, {
                 onConflict: 'id'
             });
