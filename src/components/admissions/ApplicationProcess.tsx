@@ -77,7 +77,7 @@ const steps = [
     title: "Pay Your Fees",
     content: (
       <div className="space-y-4">
-        <p>Pay your tuition and fees through the student portal to secure your enrollment.</p>
+        <p>Pay your tuition and fees through the student portal to secure your enrollment and receive your Provincial Attestation Letter (PAL) within 6–10 working days.</p>
         <Link href="/portal/dashboard" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
           Pay Your Fees <ArrowRight size={16} weight="bold" />
         </Link>
