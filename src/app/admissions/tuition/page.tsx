@@ -178,11 +178,11 @@ export default async function TuitionPaymentPage() {
                                         const international = info ? getAnnualTuition(info.international_tuition, fallback.international) : fallback.international;
                                         return (
                                             <tr key={credentialType} className={idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50/80'}>
-                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm font-bold text-black whitespace-nowrap">{display.label}</td>
-                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm text-neutral-800 whitespace-nowrap">{display.duration}</td>
-                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm text-neutral-800 whitespace-nowrap">{display.credits}</td>
-                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm font-semibold text-black text-right whitespace-nowrap">${domestic.toLocaleString()}/year</td>
-                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm font-bold text-[#0a151a] text-right whitespace-nowrap">${international.toLocaleString()}/year</td>
+                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm font-normal text-black whitespace-nowrap">{display.label}</td>
+                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm font-normal text-neutral-800 whitespace-nowrap">{display.duration}</td>
+                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm font-normal text-neutral-800 whitespace-nowrap">{display.credits}</td>
+                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm font-normal text-black text-right whitespace-nowrap">${domestic.toLocaleString()}/year</td>
+                                                <td className="border-b border-neutral-200 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm font-normal text-[#0a151a] text-right whitespace-nowrap">${international.toLocaleString()}/year</td>
                                             </tr>
                                         );
                                     })}

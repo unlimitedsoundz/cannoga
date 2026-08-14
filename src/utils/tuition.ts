@@ -4,15 +4,15 @@ import { createClient } from '@/utils/supabase/client';
 export type TuitionField = 'BUSINESS' | 'ARTS' | 'TECHNOLOGY' | 'SCIENCE';
 
 export const DOMESTIC_TUITION = {
-    CERTIFICATE_DIPLOMA: 4800,
-    BACHELOR: 8000,
-    MASTER: 11200
+    CERTIFICATE_DIPLOMA: 2400,
+    BACHELOR: 4000,
+    MASTER: 5600
 };
 
 export const INTERNATIONAL_TUITION = {
-    CERTIFICATE_DIPLOMA: 8000,
-    BACHELOR: 12800,
-    MASTER: 19200
+    CERTIFICATE_DIPLOMA: 4000,
+    BACHELOR: 6400,
+    MASTER: 9600
 };
 
 export const DOMESTIC_DEPOSIT = {
@@ -40,10 +40,10 @@ export const ANCILLARY_FEES = [
 export const ANCILLARY_FEES_TOTAL = ANCILLARY_FEES.reduce((acc, item) => acc + item.amount, 0); // 475 CAD
 
 export const EARLY_PAYMENT_DISCOUNT_PERCENT = 0;
-export const EARLY_PAYMENT_WINDOW_DAYS = 7;
+export const EARLY_PAYMENT_WINDOW_DAYS = 14;
 
 /**
- * Checks if the current date is within the early payment window (7 days)
+ * Checks if the current date is within the early payment window (14 days)
  * from the offer creation date.
  */
 export function isWithinEarlyPaymentWindow(offerCreatedAt: string): boolean {

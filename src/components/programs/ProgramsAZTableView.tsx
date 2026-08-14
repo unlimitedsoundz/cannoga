@@ -744,36 +744,36 @@ export function ProgramsAZTableView() {
                                         key={p.id} 
                                         className="hover:bg-slate-50 transition-colors"
                                     >
-                                        <td className="p-3.5 font-mono font-bold text-slate-900 text-xs whitespace-nowrap">
+                                        <td className="p-3.5 font-mono font-normal text-slate-900 text-xs whitespace-nowrap">
                                             {p.code}
                                         </td>
                                         <td className="p-3.5">
                                             <Link 
                                                 href={p.href}
-                                                className="font-bold text-slate-900 text-sm block hover:text-[#0a151a] hover:underline transition-colors no-underline"
+                                                className="font-normal text-slate-900 text-sm block hover:text-[#0a151a] hover:underline transition-colors no-underline"
                                             >
                                                 {p.name}
                                             </Link>
                                         </td>
-                                        <td className="p-3.5 font-bold text-slate-900 whitespace-nowrap text-xs">
+                                        <td className="p-3.5 font-normal text-slate-900 whitespace-nowrap text-xs">
                                             {p.level}
                                         </td>
-                                        <td className="p-3.5 text-slate-600 font-medium">
+                                        <td className="p-3.5 text-slate-600 font-normal">
                                             {p.school}
                                         </td>
-                                        <td className="p-3.5 font-bold text-slate-900 whitespace-nowrap">
+                                        <td className="p-3.5 font-normal text-slate-900 whitespace-nowrap">
                                             {p.duration}
-                                            <span className="block text-xs font-medium text-slate-400">({p.credits} Credits)</span>
+                                            <span className="block text-xs font-normal text-slate-400">({p.credits} Credits)</span>
                                         </td>
                                         <td className="p-3.5 text-center">
-                                            <div className="flex flex-col items-center gap-0.5 text-xs font-medium text-slate-700 whitespace-nowrap">
+                                            <div className="flex flex-col items-center gap-0.5 text-xs font-normal text-slate-700 whitespace-nowrap">
                                                 {p.pgwp && <span>PGWP Eligible</span>}
                                                 {p.coop && <span className="text-slate-500 text-[11px]">Co-op Available</span>}
                                             </div>
                                         </td>
-                                        <td className="p-3.5 text-right font-mono font-bold text-slate-900 whitespace-nowrap">
+                                        <td className="p-3.5 text-right font-mono font-normal text-slate-900 whitespace-nowrap">
                                             <span className="text-slate-900 block">{p.tuitionDomestic}</span>
-                                            <span className="text-slate-400 text-xs block font-medium font-sans">{p.tuitionInternational} intl</span>
+                                            <span className="text-slate-400 text-xs block font-normal font-sans">{p.tuitionInternational} intl</span>
                                         </td>
                                         <td className="p-3.5 text-right whitespace-nowrap">
                                             <Link 
