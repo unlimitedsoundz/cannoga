@@ -231,9 +231,7 @@ serve(async (req) => {
                     <p>Dear ${fullName},</p>
                     <p>Welcome to Cannoga College! Your student portal account has been successfully created.</p>
                     <p>You can now log in to complete your program application, track your admission status, or access student services.</p>
-                    <div style="text-align: center; margin: 25px 0;">
-                        <a href="${portalUrl}" style="display:inline-block;background:#0a151a;color:#fff;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:bold;">Access Student Portal</a>
-                    </div>
+                    <p><a href="${portalUrl}">Access Student Portal</a></p>
                     <p>If you have any questions, our Admissions Office is here to help.</p>
                     <p>Warm regards,<br>Cannoga College Admissions Office</p>
                 `;
@@ -243,7 +241,7 @@ serve(async (req) => {
                     <p><strong>Name:</strong> ${fullName}</p>
                     <p><strong>Email:</strong> ${userEmail}</p>
                     <p>A new student has registered an account on the Cannoga portal.</p>
-                    <a href="https://cannogacollege.ca/admin/registrar" style="display:inline-block;background:#000;color:#fff;padding:10px 20px;text-decoration:none;border-radius:5px;">View in Admin Registrar</a>
+                    <p><a href="https://cannogacollege.ca/admin/registrar">View in Admin Registrar</a></p>
                 `;
                 break;
 
@@ -254,9 +252,7 @@ serve(async (req) => {
                     <p>Your course module registration has been recorded successfully.</p>
                     <p><strong>Status:</strong> REGISTERED</p>
                     <p>Please log in to your student portal to review your class timetable, LMS links, and course materials.</p>
-                    <div style="text-align: center; margin: 25px 0;">
-                        <a href="${portalUrl}/student" style="display:inline-block;background:#0a151a;color:#fff;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:bold;">View Course Timetable</a>
-                    </div>
+                    <p><a href="${portalUrl}/student">View Course Timetable</a></p>
                     <p>Kind regards,<br>Office of the Registrar</p>
                 `;
                 adminSubject = `Module Registration: ${fullName}`;
@@ -290,53 +286,47 @@ serve(async (req) => {
                     <p><strong>Student:</strong> ${fullName}</p>
                     <p><strong>Email:</strong> ${userEmail}</p>
                     <p><strong>Program:</strong> ${applicationData?.course_title || 'N/A'}</p>
-                    <a href="https://cannogacollege.ca/admin/admissions" style="display:inline-block;background:#000;color:#fff;padding:10px 20px;text-decoration:none;border-radius:5px;">Process in Admin Panel</a>
+                    <p><a href="https://cannogacollege.ca/admin/admissions">Process in Admin Panel</a></p>
                 `;
                 break;
 
             case 'OFFER_LETTER_READY':
                 studentSubject = "Conditional Admission Offer - Cannoga College Next Steps";
                 studentHtml = `
-                    <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;" />
-                    <h1 style="text-align: center; font-size: 24px; margin: 20px 0;">Cannoga College Admission</h1>
-                    <h2 style="text-align: center; font-size: 18px; margin-bottom: 15px;">Congratulations on Your Offer!</h2>
                     <p>Dear ${firstName},</p>
                     <p>We are delighted to inform you that you have been offered a conditional place to study at Cannoga College.</p>
-                    <div style="margin: 20px 0;">
-                        <p style="margin: 0 0 5px 0; font-weight: bold; text-decoration: underline;">Programme Details:</p>
-                        <p style="margin: 0 0 5px 0;"><strong>Programme:</strong> ${applicationData?.course_title || 'Your Degree Programme'}</p>
-                        <p style="margin: 0 0 5px 0;"><strong>Degree Level:</strong> ${applicationData?.course_degree_level === 'MASTER' ? "Master's Degree" : applicationData?.course_degree_level === 'BACHELOR' ? "Bachelor's Degree" : applicationData?.course_degree_level === 'DIPLOMA' ? "Ontario College Diploma" : applicationData?.course_degree_level === 'CERTICACATE' ? "Canadian Certificate" : "Bachelor's Degree"}</p>
-                        <p style="margin: 0 0 5px 0;"><strong>Intake:</strong> ${applicationData?.intake || 'Fall 2026'}</p>
-                        <p style="margin: 0 0 5px 0;"><strong>Duration:</strong> ${getIntakeStartDate(applicationData?.intake)} - ${getProgramEndDate(applicationData?.intake, applicationData?.course_degree_level)}</p>
-                        <p style="margin: 0 0 5px 0;"><strong>Total Credits:</strong> ${applicationData?.course_degree_level === 'MASTER' ? '60 Credits' : applicationData?.course_degree_level === 'BACHELOR' ? '90 Credits' : applicationData?.course_degree_level === 'DIPLOMA' ? '60 Credits' : '30 Credits'}</p>
-                    </div>
-                    <div style="margin: 20px 0;">
-                        <p style="margin: 0 0 5px 0; font-weight: bold; text-decoration: underline;">Financial Summary (1st Year):</p>
-                        <p style="margin: 0 0 5px 0;">Annual Tuition Fee: $${appAnnualTuition.toLocaleString()} CAD</p>
-                        <p style="margin: 0 0 5px 0;">Net First Year Fee: $${appAnnualTuition.toLocaleString()} CAD</p>
-                        <p style="margin: 0; font-weight: bold;">Tuition Deposit (50% to Secure Place): $${appDepositTuition.toLocaleString()} CAD</p>
-                    </div>
-                    <div style="margin: 20px 0;">
-                        <p><strong>What Does a Conditional Offer Mean?</strong></p>
-                        <p>A conditional offer means that you have a place reserved for you, provided you meet certain conditions. In most cases, the primary condition is the payment of your tuition fee deposit or the submission of final verified academic documents.</p>
-                    </div>
-                    <div style="margin: 20px 0;">
-                        <p><strong>Your Next Steps</strong></p>
-                        <p>To secure your place, please complete the following steps:</p>
-                        <ul>
-                            <li>Review Your Letter of Acceptance (LOA): Log in to your student dashboard to carefully read the terms of your conditional offer.</li>
-                            <li>Accept Your Offer: Confirm your acceptance of the offer in the portal.</li>
-                            <li>Fulfill Your Conditions: Fulfill the conditions outlined in your Letter of Acceptance (LOA) (such as paying your tuition fee deposit). Once the conditions are met, your offer will become unconditional, and your Official Admission Letter will be issued.</li>
-                        </ul>
-                    </div>
-                    <div style="text-align: center;"><a href="https://cannogacollege.ca/portal" style="display: inline-block; background: #034737; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">Log In and View Letter of Acceptance</a></div>
+                    <p><strong>Programme Details:</strong></p>
+                    <p>Programme: ${applicationData?.course_title || 'Your Degree Programme'}</p>
+                    <p>Degree Level: ${applicationData?.course_degree_level === 'MASTER' ? "Master's Degree" : applicationData?.course_degree_level === 'BACHELOR' ? "Bachelor's Degree" : applicationData?.course_degree_level === 'DIPLOMA' ? "Ontario College Diploma" : applicationData?.course_degree_level === 'CERTICACATE' ? "Canadian Certificate" : "Bachelor's Degree"}</p>
+                    <p>Intake: ${applicationData?.intake || 'Fall 2026'}</p>
+                    <p>Duration: ${getIntakeStartDate(applicationData?.intake)} - ${getProgramEndDate(applicationData?.intake, applicationData?.course_degree_level)}</p>
+                    <p>Total Credits: ${applicationData?.course_degree_level === 'MASTER' ? '60 Credits' : applicationData?.course_degree_level === 'BACHELOR' ? '90 Credits' : applicationData?.course_degree_level === 'DIPLOMA' ? '60 Credits' : '30 Credits'}</p>
+                    
+                    <p><strong>Financial Summary (1st Year):</strong></p>
+                    <p>Annual Tuition Fee: $${appAnnualTuition.toLocaleString()} CAD</p>
+                    <p>Net First Year Fee: $${appAnnualTuition.toLocaleString()} CAD</p>
+                    <p>Tuition Deposit (50% to Secure Place): $${appDepositTuition.toLocaleString()} CAD</p>
+
+                    <p><strong>What Does a Conditional Offer Mean?</strong></p>
+                    <p>A conditional offer means that you have a place reserved for you, provided you meet certain conditions. In most cases, the primary condition is the payment of your tuition fee deposit or the submission of final verified academic documents.</p>
+
+                    <p><strong>Your Next Steps</strong></p>
+                    <p>To secure your place, please complete the following steps:</p>
+                    <ul>
+                        <li>Review Your Letter of Acceptance (LOA): Log in to your student dashboard to carefully read the terms of your conditional offer.</li>
+                        <li>Accept Your Offer: Confirm your acceptance of the offer in the portal.</li>
+                        <li>Fulfill Your Conditions: Fulfill the conditions outlined in your Letter of Acceptance (LOA) (such as paying your tuition fee deposit). Once the conditions are met, your offer will become unconditional, and your Official Admission Letter will be issued.</li>
+                    </ul>
+
+                    <p><a href="https://cannogacollege.ca/portal">Log In and View Letter of Acceptance</a></p>
+
                     <p>Important Request: Please act promptly to accept your offer and fulfill the conditions, as places are limited and allocated on a first-come, first-served basis once conditions are met.</p>
                     <p>We are very impressed by your application and look forward to welcoming you to our creative community in Canada.</p>
-                    <p>Warm regards,</p>
-                    <p>Admissions Office</p>
-                    <p>Cannoga College</p>
-                    <p>admissions@cannogacollege.ca</p>
-                    <p>https://cannogacollege.ca</p>
+                    <p>Warm regards,<br><br>
+                    Admissions Office<br><br>
+                    Cannoga College<br><br>
+                    admissions@cannogacollege.ca<br><br>
+                    https://cannogacollege.ca</p>
                 `;
                 adminSubject = `Offer Issued: ${fullName}`;
                 adminHtml = `
@@ -354,9 +344,7 @@ serve(async (req) => {
                     <p>Dear ${firstName},</p>
                     <p>Thank you for accepting your admission offer to Cannoga College!</p>
                     <p>Your place in the <strong>${applicationData?.course_title || 'degree programme'}</strong> is reserved. Please fulfill your deposit or pending condition to receive your final Official Admission Letter.</p>
-                    <div style="text-align: center; margin: 25px 0;">
-                        <a href="https://cannogacollege.ca/portal" style="display: inline-block; background: #0a151a; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">View Admission Portal</a>
-                    </div>
+                    <p><a href="https://cannogacollege.ca/portal">View Admission Portal</a></p>
                     <p>Warm regards,<br>Admissions Office</p>
                 `;
                 adminSubject = `Offer Accepted: ${fullName}`;
@@ -376,80 +364,62 @@ serve(async (req) => {
                 }
                 studentSubject = "Congratulations on Your Admission to Cannoga College – Next Steps";
                 studentHtml = `
-                    <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;" />
-                    <h1 style="text-align: center; font-size: 24px; margin: 20px 0;">Cannoga College Admission</h1>
-                    <h2 style="text-align: center; font-size: 18px; margin-bottom: 15px;">Congratulations!</h2>
                     <p>Dear ${firstName},</p>
                     <p>We are delighted to officially confirm your admission to Cannoga College following the successful confirmation of your tuition payment.</p>
                     <p>You have been admitted to study:</p>
-                    <div style="margin: 20px 0;">
-                        <p style="margin: 0 0 5px 0; font-weight: bold; text-decoration: underline;">Enrolment Details:</p>
-                        <p style="margin: 0 0 5px 0;"><strong>Programme:</strong> ${applicationData?.course_title || 'Your Degree Programme'}</p>
-                        <p style="margin: 0 0 5px 0;"><strong>Degree Level:</strong> ${applicationData?.course_degree_level === 'MASTER' ? "Master's Degree" : applicationData?.course_degree_level === 'BACHELOR' ? "Bachelor's Degree" : applicationData?.course_degree_level === 'DIPLOMA' ? "Ontario College Diploma" : applicationData?.course_degree_level === 'CERTICACATE' ? "Canadian Certificate" : "Bachelor's Degree"}</p>
-                        <p style="margin: 0 0 5px 0;"><strong>Intake:</strong> ${applicationData?.intake || 'Fall 2026'}</p>
-                        <p style="margin: 0 0 5px 0;"><strong>Duration:</strong> ${getIntakeStartDate(applicationData?.intake)} - ${getProgramEndDate(applicationData?.intake, applicationData?.course_degree_level)}</p>
-                        <p style="margin: 0 0 5px 0;"><strong>Total Credits:</strong> ${applicationData?.course_degree_level === 'MASTER' ? '60 Credits' : applicationData?.course_degree_level === 'BACHELOR' ? '90 Credits' : applicationData?.course_degree_level === 'DIPLOMA' ? '60 Credits' : '30 Credits'}</p>
-                        <p style="margin: 0;"><strong>Student ID:</strong> ${applicationData?.student_id || ''}</p>
-                    </div>
+                    <p><strong>Enrolment Details:</strong></p>
+                    <p>Programme: ${applicationData?.course_title || 'Your Degree Programme'}</p>
+                    <p>Degree Level: ${applicationData?.course_degree_level === 'MASTER' ? "Master's Degree" : applicationData?.course_degree_level === 'BACHELOR' ? "Bachelor's Degree" : applicationData?.course_degree_level === 'DIPLOMA' ? "Ontario College Diploma" : applicationData?.course_degree_level === 'CERTICACATE' ? "Canadian Certificate" : "Bachelor's Degree"}</p>
+                    <p>Intake: ${applicationData?.intake || 'Fall 2026'}</p>
+                    <p>Duration: ${getIntakeStartDate(applicationData?.intake)} - ${getProgramEndDate(applicationData?.intake, applicationData?.course_degree_level)}</p>
+                    <p>Total Credits: ${applicationData?.course_degree_level === 'MASTER' ? '60 Credits' : applicationData?.course_degree_level === 'BACHELOR' ? '90 Credits' : applicationData?.course_degree_level === 'DIPLOMA' ? '60 Credits' : '30 Credits'}</p>
+                    <p>Student ID: ${applicationData?.student_id || ''}</p>
+                    
                     <p>This marks a significant milestone, and we are confident that you will thrive academically and personally as part of the Cannoga community.</p>
-                    <div style="margin: 20px 0;">
-                        <p><strong>What Happens Next</strong></p>
-                        <p>Now that your admission has been secured, you will begin the next critical phase of your journey – your Study Permit (Residence Permit) application.</p>
-                        <p>You will receive the following in your student dashboard shortly:</p>
-                        <ul>
-                            <li>Your Official Admission Letter</li>
-                            <li>Your Tuition Payment Receipt</li>
-                            <li>Visa/Study Permit Guidance Documents</li>
-                            <li>Instructions for your Residence Permit (RP) application</li>
-                            <li>Accommodation details and options</li>
-                            <li>Pre-arrival and onboarding information</li>
-                        </ul>
-                    </div>
-                    <div style="margin: 20px 0;">
-                        <p><strong>Your Immediate Next Steps</strong></p>
-                        <p>To ensure a smooth process, please follow these steps carefully:</p>
-                        <ul>
-                            <li>Download Your Documents: Log in to your application dashboard and download all issued documents.</li>
-                            <li>Begin Your Study Permit Application: Apply for your Canadian study permit for studies via the official immigration portal.</li>
-                            <li>Book Your VFS Appointment: Schedule and attend your biometric appointment at the nearest VFS center.</li>
-                            <li>Prepare Required Documents: Ensure you have: valid international passport, proof of funds, health insurance, and academic documents.</li>
-                            <li>Follow All Guidance Provided: Our team will support you throughout this process to ensure accuracy and success.</li>
-                        </ul>
-                    </div>
-                    <p>Log In to Your Dashboard</p>
-                    <div style="margin: 20px 0;">
-                        <p><strong>Accommodation & Student Life</strong></p>
-                        <p>At Cannoga College, we ensure that your transition into Canada is as seamless as possible.</p>
-                        <p>Once your payment is confirmed, your accommodation information will be made available in your dashboard, including:</p>
-                        <ul>
-                            <li>Student housing options (shared and private apartments)</li>
-                            <li>Estimated monthly costs</li>
-                            <li>Location and proximity to campus</li>
-                            <li>Application guidance for housing providers</li>
-                        </ul>
-                        <p>Canada offers a safe, modern, and student-friendly environment, with excellent public services, efficient transport systems, and a high quality of life.</p>
-                    </div>
-                    <div style="margin: 20px 0;">
-                        <p><strong>What to Look Forward To at Cannoga College</strong></p>
-                        <p>As a Cannoga student, you will experience:</p>
-                        <ul>
-                            <li>A globally relevant curriculum designed for modern careers</li>
-                            <li>A diverse and international student community</li>
-                            <li>Career-focused learning with practical insights</li>
-                            <li>Access to student support services and academic guidance</li>
-                            <li>Opportunities to build a strong professional network in Europe</li>
-                        </ul>
-                        <p>You will also gain exposure to Canada's innovation-driven ecosystem, positioning you for global opportunities after graduation.</p>
-                    </div>
-                    <p>Important Note: As a confirmed student for the ${applicationData?.intake || 'Fall 2026'} intake, it is essential that you proceed with your study permit application immediately, as timelines are strict and processing times must be carefully considered.</p>
+                    
+                    <p><strong>What Happens Next</strong></p>
+                    <p>Now that your admission has been secured, you will begin the next critical phase of your journey – your Study Permit (Residence Permit) application.</p>
+                    <p>You will receive the following in your student dashboard shortly:</p>
+                    <ul>
+                        <li>Your Official Admission Letter</li>
+                        <li>Your Tuition Payment Receipt</li>
+                        <li>Visa/Study Permit Guidance Documents</li>
+                        <li>Instructions for your Residence Permit (RP) application</li>
+                        <li>Accommodation details and options</li>
+                        <li>Pre-arrival and onboarding information</li>
+                    </ul>
+
+                    <p><strong>Your Immediate Next Steps</strong></p>
+                    <p>To ensure a smooth process, please follow these steps carefully:</p>
+                    <ul>
+                        <li>Download Your Documents: Log in to your application dashboard and download all issued documents.</li>
+                        <li>Begin Your Study Permit Application: Apply for your Canadian study permit for studies via the official immigration portal.</li>
+                        <li>Book Your VFS Appointment: Schedule and attend your biometric appointment at the nearest VFS center.</li>
+                        <li>Prepare Required Documents: Ensure you have: valid international passport, proof of funds, health insurance, and academic documents.</li>
+                        <li>Follow All Guidance Provided: Our team will support you throughout this process to ensure accuracy and success.</li>
+                    </ul>
+
+                    <p><strong>Accommodation & Student Life</strong></p>
+                    <p>At Cannoga College, we ensure that your transition into Canada is as seamless as possible.</p>
+                    <p>Once your payment is confirmed, your accommodation information will be made available in your dashboard, including student housing options, estimated monthly costs, location, and application guidance.</p>
+                    <p>Canada offers a safe, modern, and student-friendly environment, with excellent public services, efficient transport systems, and a high quality of life.</p>
+
+                    <p><strong>What to Look Forward To at Cannoga College</strong></p>
+                    <ul>
+                        <li>A globally relevant curriculum designed for modern careers</li>
+                        <li>A diverse and international student community</li>
+                        <li>Career-focused learning with practical insights</li>
+                        <li>Access to student support services and academic guidance</li>
+                    </ul>
+
+                    <p>Important Note: As a confirmed student for the ${applicationData?.intake || 'Fall 2026'} intake, it is essential that you proceed with your study permit application immediately.</p>
                     <p>We are excited to have you join Cannoga College and look forward to supporting you every step of the way.</p>
-                    <p>Welcome to your next chapter.</p>
-                    <div style="text-align: center;"><a href="https://cannogacollege.ca/portal/student" style="display: inline-block; background: #000; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">Enter student Portal</a></div>
-                    <p>Warm regards,</p>
-                    <p>Admissions Office</p>
-                    <p>Cannoga College</p>
-                    <p>admissions@cannogacollege.ca</p>
-                    <p>https://cannogacollege.ca</p>
+                    <p><a href="https://cannogacollege.ca/portal/student">Enter Student Portal</a></p>
+                    <p>Warm regards,<br><br>
+                    Admissions Office<br><br>
+                    Cannoga College<br><br>
+                    admissions@cannogacollege.ca<br><br>
+                    https://cannogacollege.ca</p>
                 `;
                 break;
 
@@ -463,38 +433,9 @@ serve(async (req) => {
                 const formattedTotal2 = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(totalPaid);
                 const formattedBase = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(baseAmount);
                 
-                let paymentAncillaryHtml = '';
-                if (!isHousingRec2 && paymentAncillaryFees.length > 0) {
-                    paymentAncillaryHtml = `
-                    <p style="font-weight: bold; margin-bottom: 12px; font-size: 13px; text-transform: uppercase; color: #6b7280; letter-spacing: 0.05em;">Payment Breakdown:</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #e5e7eb; gap: 24px;">
-                        <span style="font-size: 13px; color: #4b5563; flex: 1;">Base Amount</span>
-                        <span style="font-size: 13px; font-weight: 600; color: #111827; text-align: right;">${formattedBase}</span>
-                    </div>
-                    `;
-                    paymentAncillaryFees.forEach((fee: any) => {
-                        const formattedFee = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(fee.amount || 0);
-                        paymentAncillaryHtml += `
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #e5e7eb; gap: 24px;">
-                            <span style="font-size: 13px; color: #4b5563; flex: 1;">${fee.name}</span>
-                            <span style="font-size: 13px; font-weight: 600; color: #111827; text-align: right;">${formattedFee}</span>
-                        </div>
-                        `;
-                    });
-                    paymentAncillaryHtml += `
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; margin-top: 8px; border-top: 2px solid #111827; gap: 24px;">
-                            <span style="font-size: 14px; font-weight: 900; color: #111827; text-transform: uppercase; flex: 1;">Total</span>
-                            <span style="font-size: 14px; font-weight: 900; color: #111827; text-align: right;">${formattedTotal2}</span>
-                        </div>
-                    `;
-                }
-                
                 studentHtml = `
-                    <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;" />
-                    <h1>Payment Received</h1>
                     <p>Hello ${firstName}, we have received your payment of <strong>${formattedTotal2}</strong>.</p>
                     <p><strong>Reference:</strong> ${additionalData?.reference || 'N/A'}</p>
-                    ${paymentAncillaryHtml}
                     <p>Our team is now verifying the transaction. This usually takes 1-2 business days. You will receive another email once your ${isHousingRec2 ? 'housing' : 'enrollment'} is confirmed.</p>
                 `;
                 adminSubject = `New Payment (Pending): ${fullName}`;
@@ -504,20 +445,18 @@ serve(async (req) => {
                     <p><strong>Amount:</strong> ${formattedTotal2}</p>
                     <p><strong>Ref:</strong> ${additionalData?.reference || 'N/A'}</p>
                     <p><strong>Type:</strong> ${additionalData?.paymentType || 'TUITION'}</p>
-                    <a href="https://cannogacollege.ca/admin/registrar" style="display:inline-block;background:#000;color:#fff;padding:10px 20px;text-decoration:none;border-radius:5px;">Verify in Registrar Panel</a>
+                    <p><a href="https://cannogacollege.ca/admin/registrar">Verify in Registrar Panel</a></p>
                 `;
                 break;
 
             case 'TUITION_PAYMENT_VERICAED':
                 studentSubject = "Payment Verified - Enrollment Confirmed!";
                 studentHtml = `
-                    <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;" />
-                    <h1 style="color: #034737; font-size: 24px; margin: 20px 0;">Payment Verified!</h1>
                     <p>Hello ${firstName},</p>
                     <p>Great news! Your tuition payment has been officially verified by our registrar's office.</p>
                     <p><strong>Status:</strong> ENROLLED</p>
                     <p>You can now log in to the student portal to access your official admission letter, payment receipt, and other academic resources.</p>
-                    <a href="${portalUrl}/dashboard" style="display:inline-block;background:#034737;color:#fff;padding:10px 20px;text-decoration:none;border-radius:6px;font-weight:bold;">Student Dashboard</a>
+                    <p><a href="${portalUrl}/dashboard">Student Dashboard</a></p>
                 `;
                 adminSubject = `Payment Verified: ${fullName}`;
                 adminHtml = `
@@ -532,7 +471,6 @@ serve(async (req) => {
             case 'HOUSING_SUBMITTED':
                 studentSubject = "Housing Application Received - Cannoga College";
                 studentHtml = `
-                    <h1>Housing Request Received</h1>
                     <p>Hello ${firstName}, thank you for applying for student housing.</p>
                     <p>Our housing department will review your preferences and contact you with availability and next steps.</p>
                 `;
@@ -543,33 +481,19 @@ serve(async (req) => {
                     <p><strong>Semester:</strong> ${additionalData?.semesterName || 'N/A'}</p>
                     <p><strong>Building Pref:</strong> ${additionalData?.preferredBuilding || 'N/A'}</p>
                     <p><strong>Move-in:</strong> ${additionalData?.moveInDate || 'N/A'}</p>
-                    <a href="https://cannogacollege.ca/admin/housing" style="display:inline-block;background:#000;color:#fff;padding:10px 20px;text-decoration:none;border-radius:5px;">Manage Housing</a>
+                    <p><a href="https://cannogacollege.ca/admin/housing">Manage Housing</a></p>
                 `;
                 break;
             
             case 'HOUSING_ASSIGNED':
                 studentSubject = "Your Housing Assignment is Ready! - Cannoga College";
                 studentHtml = `
-                    <div style="text-align: center; margin-bottom: 25px;">
-                        <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Housing" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;" />
-                    </div>
-                    <h1 style="color: #000; font-size: 24px; margin-bottom: 20px;">Housing Confirmed!</h1>
                     <p>Hello ${firstName},</p>
                     <p>We are excited to inform you that your student housing has been assigned at <strong>${additionalData?.buildingName || 'your assigned building'}</strong>.</p>
-                    
-                    <div style="background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 25px 0;">
-                        <p style="margin: 0 0 10px 0; font-size: 14px;"><strong>Room Details:</strong></p>
-                        <p style="margin: 0 0 5px 0; font-size: 13px;">Building: ${additionalData?.buildingName}</p>
-                        <p style="margin: 0 0 5px 0; font-size: 13px;">Room: #${additionalData?.roomNumber}</p>
-                        <p style="margin: 0 0 5px 0; font-size: 13px;">Move-in Date: ${additionalData?.startDate}</p>
-                    </div>
-
-                    <p>You can now view your housing details, download your receipt, and check arrival instructions in the student portal.</p>
-                    
-                    <div style="text-align: center; margin: 30px 0;">
-                        <a href="https://cannogacollege.ca/portal/student/housing" style="display: inline-block; background: #000; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">View Housing Dashboard</a>
-                    </div>
-                    
+                    <p>Building: ${additionalData?.buildingName || 'N/A'}</p>
+                    <p>Room: #${additionalData?.roomNumber || 'N/A'}</p>
+                    <p>Move-in Date: ${additionalData?.startDate || 'N/A'}</p>
+                    <p><a href="https://cannogacollege.ca/portal/student/housing">View Housing Dashboard</a></p>
                     <p>We look forward to welcoming you to campus!</p>
                 `;
                 break;
@@ -582,6 +506,7 @@ serve(async (req) => {
                     <p>We wish you the best in your future creative endeavors.</p>
                 `;
                 break;
+
             case 'DOCS_REQUIRED':
                 studentSubject = "Action Required: Documents Requested - Cannoga College";
                 const docsList = (additionalData?.requestedDocuments as string[]) ||
@@ -589,94 +514,38 @@ serve(async (req) => {
                 const note = additionalData?.note || applicationData?.document_request_note || "";
 
                 studentHtml = `
-                    <h1 style="color: #9333ea;">Action Required: Documents Requested</h1>
                     <p>Dear ${firstName},</p>
                     <p>The admissions team has reviewed your application for <strong>${applicationData?.course_title || 'your program'}</strong> and requires additional information to proceed.</p>
-                    
-                    ${note ? `
-                    <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #eaeaea; margin: 20px 0;">
-                        <p style="text-transform: uppercase; font-size: 11px; font-weight: bold; color: #666; margin-bottom: 8px; letter-spacing: 0.05em;">Message from Admissions:</p>
-                        <p style="font-style: italic; margin: 0; color: #1a1a1a;">"${note}"</p>
-                    </div>
-                    ` : ''}
-
+                    ${note ? `<p>Message from Admissions: "${note}"</p>` : ''}
                     ${docsList.length > 0 ? `
-                    <div style="margin: 20px 0;">
-                        <p style="font-weight: bold; margin-bottom: 10px;">Required Documents:</p>
-                        <ul>
-                            ${docsList.map((doc: string) => `<li>${doc.replaceAll('_', ' ')}</li>`).join('')}
-                        </ul>
-                    </div>
+                    <p>Required Documents:</p>
+                    <ul>
+                        ${docsList.map((doc: string) => `<li>${doc.replaceAll('_', ' ')}</li>`).join('')}
+                    </ul>
                     ` : ''}
-
-                    <p>Please log in to your portal dashboard to upload the missing documents.</p>
-                    <a href="${portalUrl}/dashboard" style="display:inline-block;background:#9333ea;color:#fff;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:bold;">Upload Documents</a>
+                    <p><a href="${portalUrl}/dashboard">Upload Documents</a></p>
                 `;
                 break;
+
             case 'INVOICE_READY':
                 const rawInvType = additionalData?.invoiceType || 'TUITION_DEPOSIT';
                 const invType = rawInvType.split('_').map((word: string) => 
                     word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
                 ).join(' ');
                 const invAmt = additionalData?.amount ? new Intl.NumberFormat('en-IE', { style: 'currency', currency: additionalData?.currency || 'CAD', maximumFractionDigits: 0 }).format(additionalData.amount) : 'TBD';
-                const invHero = "https://cannogacollege.ca/images/studies-hero.jpg";
-                const ancillaryFees = Array.isArray(additionalData?.ancillaryFees) ? additionalData.ancillaryFees : [
-                    { name: 'Student Activity Fee', amount: 100 },
-                    { name: 'Technology Fee', amount: 100 },
-                    { name: 'Athletics and Recreation Fee', amount: 100 },
-                    { name: 'Convocation Fee', amount: 100 },
-                    { name: 'Student Counselling Fee', amount: 100 },
-                    { name: 'Program Transcript Fee', amount: 100 },
-                    { name: 'Student Experience Fee', amount: 100 }
-                ];
+                const ancillaryFees = Array.isArray(additionalData?.ancillaryFees) ? additionalData.ancillaryFees : [];
                 const totalAncillary = ancillaryFees.reduce((acc: number, item: any) => acc + (item.amount || 0), 0);
                 const invoiceTotal = (additionalData?.amount || 0) + totalAncillary;
                 const formattedTotal = new Intl.NumberFormat('en-IE', { style: 'currency', currency: additionalData?.currency || 'CAD', maximumFractionDigits: 0 }).format(invoiceTotal);
 
                 studentSubject = `${invType} Invoice Ready for Payment - Cannoga College`;
-                
-                let ancillaryHtml = '';
-                ancillaryFees.forEach((fee: any) => {
-                    ancillaryHtml += `
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 0;">
-                            <p style="color: #6b7280; font-size: 12px; margin: 0;">${fee.name}</p>
-                            <p style="color: #111827; font-size: 12px; font-weight: 600; margin: 0;">$ ${(fee.amount || 0).toLocaleString()}</p>
-                        </div>
-                    `;
-                });
-                
                 studentHtml = `
-                    <div style="text-align: center; margin-bottom: 25px;">
-                        <img src="${invHero}" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;" />
-                    </div>
-                    
-                    <h1 style="text-align: center; font-size: 24px; margin: 20px 0; color: #1a1a1a;">Billing & Payments</h1>
-                    <h2 style="text-align: center; font-size: 18px; margin-bottom: 15px; color: #4b5563; font-weight: normal;">Invoice Ready for Payment</h2>
-                    
                     <p>Dear ${firstName},</p>
-                    <p>Your ${invType.toLowerCase()} invoice for the <strong>${applicationData?.course_title || 'degree programme'}</strong> has been generated and is now ready for payment.</p>
-                    
-                    <div style="background-color: #f9fafb; border-radius: 8px; padding: 20px; margin: 20px 0; border: 1px solid #f3f4f6;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">
-                            <p style="color: #6b7280; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">Invoice Type</p>
-                            <p style="color: #111827; font-size: 14px; font-weight: bold; margin: 0;">${invType}</p>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 4px; margin-bottom: 10px;">
-                            <p style="color: #6b7280; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">Base Tuition</p>
-                            <p style="color: #111827; font-size: 14px; font-weight: bold; margin: 0;">${invAmt}</p>
-                        </div>
-                        ${ancillaryHtml}
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; margin-top: 10px; border-top: 2px solid #e5e7eb;">
-                            <p style="color: #111827; font-size: 14px; font-weight: 900; margin: 0; text-transform: uppercase;">Total Due</p>
-                            <p style="color: #111827; font-size: 20px; font-weight: 900; margin: 0;">${formattedTotal}</p>
-                        </div>
-                    </div>
-                    
-                    <p>Please proceed to your student portal to complete the payment and secure your place in the programme.</p>
-                    <div style="text-align: center; margin: 25px 0;">
-                        <a href="https://cannogacollege.ca/portal/application/payment" style="display:inline-block;background:#000000;color:#fff;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:bold;">Pay Invoice Securely</a>
-                    </div>
-                    <p>If you have any questions or encounter issues, please contact our Finance Department.</p>
+                    <p>Your ${invType.toLowerCase()} invoice for <strong>${applicationData?.course_title || 'degree programme'}</strong> has been generated and is now ready for payment.</p>
+                    <p>Invoice Type: ${invType}</p>
+                    <p>Base Tuition: ${invAmt}</p>
+                    <p>Total Due: ${formattedTotal}</p>
+                    <p><a href="https://cannogacollege.ca/portal/application/payment">Pay Invoice Securely</a></p>
                 `;
                 
                 adminSubject = `Invoice Sent: ${invType} - ${fullName}`;
@@ -684,10 +553,7 @@ serve(async (req) => {
                     <h2>Invoice Notification Sent</h2>
                     <p><strong>Student:</strong> ${fullName}</p>
                     <p><strong>Type:</strong> ${invType}</p>
-                    <p><strong>Base Amount:</strong> ${invAmt}</p>
-                    <p><strong>Ancillary Fees:</strong> $${totalAncillary.toLocaleString()}</p>
                     <p><strong>Total:</strong> ${formattedTotal}</p>
-                    <p>An email notification has been sent to the student regarding their ready invoice.</p>
                 `;
                 break;
         }
@@ -702,7 +568,7 @@ serve(async (req) => {
             <body style="margin: 0; padding: 20px; background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #111111;">
                 <div style="max-width: 600px; margin: 0 auto;">
                     <div style="margin-bottom: 20px;">
-                        <img src="https://cannogacollege.ca/images/logo-cannoga.png" alt="Cannoga College Logo" style="max-width: 180px; height: auto; display: block;" />
+                        <img src="https://cannogacollege.ca/images/logo-cannoga.png" alt="Cannoga College Logo" style="max-width: 90px; height: auto; display: block;" />
                     </div>
                     <div style="margin-bottom: 24px;">
                         <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; max-height: 220px; object-fit: cover; display: block;" />
