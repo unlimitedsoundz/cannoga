@@ -116,39 +116,64 @@ export default function PortalLoginPage() {
                     className="min-h-[250px] lg:min-h-[350px]"
                 />
 
-                <div className="cc-container max-w-3xl mx-auto py-10">
-                    <div className="bg-white p-8 rounded-2xl shadow-sm border border-neutral-100 text-[#2d2d2d]">
-                        <h1 className="text-2xl font-bold mb-1 text-center text-neutral-900">Welcome Back</h1>
-                        <p className="text-neutral-600 text-sm text-center mb-6">Sign in to your student portal</p>
+                <div className="cc-container max-w-2xl mx-auto py-6">
+                    {message && (
+                        <div className="p-3 rounded-sm mb-4 text-[13px] font-bold border bg-neutral-50 text-black border-neutral-100">
+                            {message}
+                        </div>
+                    )}
 
-                        {message && (
-                            <div className="bg-blue-50 border border-blue-100 p-3 rounded-lg mb-6 text-xs text-blue-700">
-                                {message}
-                            </div>
-                        )}
+                    {error && (
+                        <div className="p-3 rounded-sm mb-4 text-[13px] font-bold border bg-red-50 text-red-700 border-red-100">
+                            {error}
+                        </div>
+                    )}
 
-                        {error && (
-                            <div className="bg-red-50 border border-red-100 p-3 rounded-lg mb-6 text-xs text-red-700">
-                                {error}
-                            </div>
-                        )}
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-neutral-100">
+                        <h1 className="text-xl font-bold mb-1.5 text-black">Sign In to Student Portal</h1>
+                        <p className="text-[13px] text-black font-medium mb-4">
+                            Welcome back! Please enter your credentials to access your student portal.
+                        </p>
 
                         <form onSubmit={handleLogin} className="space-y-4">
-                            <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Email or Student ID</label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={identifier}
-                                    onChange={(e) => setIdentifier(e.target.value)}
-                                    className="w-full px-4 py-2 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
-                                    placeholder="email or student ID"
-                                />
-                            </div>
+                            <div className="space-y-3">
+                                <h2 className="-mx-6 px-6 py-1.5 bg-neutral-100 text-black text-[13px] font-bold mb-3 border-y border-neutral-200/60">Account Credentials</h2>
 
-                            <div>
-                                <div className="flex justify-between items-center mb-1">
-                                    <label className="block text-xs font-medium font-black text-neutral-700">Password</label>
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                    <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Email or ID <span className="text-red-600">*</span></label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={identifier}
+                                        onChange={(e) => setIdentifier(e.target.value)}
+                                        className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                        placeholder="email or student ID"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                    <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Password <span className="text-red-600">*</span></label>
+                                    <div className="relative w-full max-w-[400px]">
+                                        <input
+                                            type={showPassword ? 'text' : 'password'}
+                                            required
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            className="w-full h-[35px] px-3 pr-10 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                            placeholder="••••••••"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black transition-colors"
+                                        >
+                                            {showPassword ? <EyeSlash size={18} /> : <Eye size={18} />}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                    <div className="w-full sm:w-36 flex-shrink-0"></div>
                                     <button
                                         type="button"
                                         onClick={() => {
@@ -156,44 +181,29 @@ export default function PortalLoginPage() {
                                             setShowForgotModal(true);
                                             setResetSuccess(false);
                                         }}
-                                        className="text-xs text-neutral-500 hover:text-black font-semibold transition-colors"
+                                        className="text-[12px] text-neutral-500 hover:text-black font-semibold transition-colors text-left"
                                     >
                                         Forgot password?
                                     </button>
                                 </div>
-                                <div className="relative">
-                                    <input
-                                        type={showPassword ? 'text' : 'password'}
-                                        required
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full px-4 py-2 pr-12 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
-                                        placeholder="••••••••"
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-neutral-400 hover:text-black transition-colors"
-                                    >
-                                        {showPassword ? <EyeSlash size={20} /> : <Eye size={20} />}
-                                    </button>
-                                </div>
                             </div>
 
-                            <button
-                                type="submit"
-                                disabled={isLoading}
-                                className="w-full bg-neutral-600 text-white font-bold py-3 rounded-lg hover:bg-neutral-700 transition-colors disabled:opacity-50"
-                            >
-                                {isLoading ? 'Signing In...' : 'Sign In'}
-                            </button>
+                            <div className="pt-2 sm:pl-39">
+                                <button
+                                    type="submit"
+                                    disabled={isLoading}
+                                    className="w-auto px-8 h-[35px] bg-sky-500 hover:bg-sky-600 active:bg-sky-700 !text-white font-semibold text-[13px] rounded-md transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
+                                >
+                                    {isLoading ? 'Signing In...' : 'Sign In'}
+                                </button>
+                            </div>
                         </form>
 
-                        <div className="mt-6 pt-4 border-t border-neutral-100 text-center">
-                            <p className="text-sm text-neutral-500">
+                        <div className="mt-6 pt-2 text-center">
+                            <p className="text-[13px] text-black">
                                 Don&apos;t have an account yet?{' '}
                                 <a href="/portal/account/register" className="text-black font-bold hover:underline">
-                                    Start your application
+                                    Register here
                                 </a>
                             </p>
                         </div>
