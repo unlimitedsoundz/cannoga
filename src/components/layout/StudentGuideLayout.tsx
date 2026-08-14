@@ -112,14 +112,14 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
             </div>
 
             {/* ── Desktop View: Horizontal Sub-Nav Row ── */}
-            <div className="hidden sm:flex items-center justify-start lg:justify-center gap-6 md:gap-8 lg:gap-10 overflow-x-auto no-scrollbar scroll-smooth py-1">
+            <div className="hidden sm:flex items-center justify-start xl:justify-center flex-wrap gap-x-6 md:gap-x-8 gap-y-3 overflow-x-auto no-scrollbar scroll-smooth py-1">
               {navItems.map((item) => {
                 const isActive = activeId === item.id;
                 return (
                   <a
                     key={item.id}
                     href={`#${item.id}`}
-                    className={`shrink-0 whitespace-nowrap text-sm sm:text-base md:text-lg font-bold transition-colors no-underline py-2 ${
+                    className={`shrink-0 whitespace-nowrap text-xs sm:text-sm md:text-base font-bold transition-colors no-underline py-1.5 ${
                       isActive 
                         ? 'text-black font-extrabold' 
                         : 'text-neutral-600 hover:text-black font-medium'
