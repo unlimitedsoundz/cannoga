@@ -32,6 +32,22 @@ const phoneCodes = [
     { code: '+90', country: 'Turkey' },
 ];
 
+const canadianProvinces = [
+    'Alberta',
+    'British Columbia',
+    'Manitoba',
+    'New Brunswick',
+    'Newfoundland and Labrador',
+    'Nova Scotia',
+    'Ontario',
+    'Prince Edward Island',
+    'Quebec',
+    'Saskatchewan',
+    'Northwest Territories',
+    'Nunavut',
+    'Yukon'
+];
+
 export default function RegisterPage() {
     const [formData, setFormData] = useState({
         firstName: '',
@@ -49,14 +65,44 @@ export default function RegisterPage() {
         zipcode: '',
         country: '',
         passportNumber: '',
-        gender: ''
+        gender: '',
+        sameAsAbove: false,
+        localAddress: '',
+        localCity: '',
+        localCountry: '',
+        localState: '',
+        localZipcode: ''
     });
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData((prev) => {
+            const updated = { ...prev, [name]: value };
+            if (prev.sameAsAbove) {
+                if (name === 'address') updated.localAddress = value;
+                if (name === 'city') updated.localCity = value;
+                if (name === 'country') updated.localCountry = value;
+                if (name === 'state') updated.localState = value;
+                if (name === 'zipcode') updated.localZipcode = value;
+            }
+            return updated;
+        });
+    };
+
+    const handleSameAsAboveToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const checked = e.target.checked;
+        setFormData((prev) => ({
+            ...prev,
+            sameAsAbove: checked,
+            localAddress: checked ? prev.address : prev.localAddress,
+            localCity: checked ? prev.city : prev.localCity,
+            localCountry: checked ? prev.country : prev.localCountry,
+            localState: checked ? prev.state : prev.localState,
+            localZipcode: checked ? prev.zipcode : prev.localZipcode
+        }));
     };
 
     const handleRegister = async (e: React.FormEvent) => {
@@ -369,6 +415,103 @@ export default function RegisterPage() {
                                 onChange={handleChange}
                                 className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
+                        </div>
+
+                        {/* Local/Canadian Address Section */}
+                        <div className="pt-4 border-t border-neutral-100">
+                            <h2 className="text-[14px] font-bold text-black mb-3">Local/Canadian Address (if known)</h2>
+                            
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-3">
+                                <div className="w-full sm:w-36 flex-shrink-0"></div>
+                                <label className="flex items-center gap-2 text-[13px] text-black cursor-pointer font-normal">
+                                    <input
+                                        type="checkbox"
+                                        name="sameAsAbove"
+                                        checked={formData.sameAsAbove}
+                                        onChange={handleSameAsAboveToggle}
+                                        className="w-4 h-4 rounded border-neutral-300 text-black focus:ring-black accent-black cursor-pointer"
+                                    />
+                                    Same as above
+                                </label>
+                            </div>
+
+                            <div className="space-y-3">
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                    <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Local Street Address</label>
+                                    <input
+                                        type="text"
+                                        name="localAddress"
+                                        disabled={formData.sameAsAbove}
+                                        value={formData.localAddress}
+                                        onChange={handleChange}
+                                        className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] disabled:bg-neutral-100 disabled:text-neutral-500"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                    <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">City</label>
+                                    <input
+                                        type="text"
+                                        name="localCity"
+                                        disabled={formData.sameAsAbove}
+                                        value={formData.localCity}
+                                        onChange={handleChange}
+                                        className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] disabled:bg-neutral-100 disabled:text-neutral-500"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                    <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Country</label>
+                                    <div className="relative w-full max-w-[400px]">
+                                        <select
+                                            name="localCountry"
+                                            disabled={formData.sameAsAbove}
+                                            value={formData.localCountry}
+                                            onChange={handleChange}
+                                            className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer disabled:bg-neutral-100 disabled:text-neutral-500"
+                                        >
+                                            <option value="">-- Select Country --</option>
+                                            {countries.map((country) => (
+                                                <option key={`local-${country}`} value={country}>
+                                                    {country.charAt(0).toUpperCase() + country.slice(1)}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                    <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Province / State</label>
+                                    <div className="relative w-full max-w-[400px]">
+                                        <select
+                                            name="localState"
+                                            disabled={formData.sameAsAbove}
+                                            value={formData.localState}
+                                            onChange={handleChange}
+                                            className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer disabled:bg-neutral-100 disabled:text-neutral-500"
+                                        >
+                                            <option value="">-- Select Province / State --</option>
+                                            {canadianProvinces.map((prov) => (
+                                                <option key={prov} value={prov}>{prov}</option>
+                                            ))}
+                                        </select>
+                                        <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                    <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Postal / Zip Code</label>
+                                    <input
+                                        type="text"
+                                        name="localZipcode"
+                                        disabled={formData.sameAsAbove}
+                                        value={formData.localZipcode}
+                                        onChange={handleChange}
+                                        className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] disabled:bg-neutral-100 disabled:text-neutral-500"
+                                    />
+                                </div>
+                            </div>
                         </div>
 
                         <div className="pt-2 sm:pl-39">
