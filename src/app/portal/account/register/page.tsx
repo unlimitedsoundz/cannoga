@@ -134,7 +134,7 @@ export default function RegisterPage() {
 
                     <form onSubmit={handleRegister} className="space-y-3">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Email Address <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Email Address <span className="text-red-600">*</span></label>
                             <input
                                 type="email"
                                 name="email"
@@ -147,7 +147,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Password <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Password <span className="text-red-600">*</span></label>
                             <div className="relative flex-1 w-full">
                                 <input
                                     type={showPassword ? 'text' : 'password'}
@@ -170,7 +170,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">First Name <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">First Name <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="firstName"
@@ -182,7 +182,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Middle Name <span className="text-black font-normal">(Opt)</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Middle Name <span className="text-black font-normal">(Opt)</span></label>
                             <input
                                 type="text"
                                 name="middleName"
@@ -194,7 +194,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Last Name <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Last Name <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="lastName"
@@ -206,7 +206,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Passport No. <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Passport No. <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="passportNumber"
@@ -218,7 +218,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Date of Birth <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Date of Birth <span className="text-red-600">*</span></label>
                             <div className="flex-1 w-full">
                                 <DateSelector
                                     name="dateOfBirth"
@@ -230,7 +230,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Gender <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Gender <span className="text-red-600">*</span></label>
                             <select
                                 name="gender"
                                 required
@@ -245,7 +245,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Phone Code <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Phone Code <span className="text-red-600">*</span></label>
                             <select
                                 name="phoneCode"
                                 required
@@ -262,7 +262,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Phone Number <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Phone Number <span className="text-red-600">*</span></label>
                             <input
                                 type="tel"
                                 name="phoneNumber"
@@ -275,7 +275,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Citizenship <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Citizenship <span className="text-red-600">*</span></label>
                             <select
                                 name="citizenship"
                                 required
@@ -293,7 +293,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Country <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Country <span className="text-red-600">*</span></label>
                             <select
                                 name="country"
                                 required
@@ -311,7 +311,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Address <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Address <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="address"
@@ -324,7 +324,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">City <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">City <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="city"
@@ -336,7 +336,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">State/Province <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">State/Province <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="state"
@@ -348,7 +348,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Zip/Postal Code <span className="text-red-600">*</span></label>
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Zip/Postal Code <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="zipcode"
