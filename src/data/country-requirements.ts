@@ -232,10 +232,10 @@ export const countryRequirements: Record<string, CountryRequirements> = {
   },
   nigeria: {
     country: 'Nigeria',
-    basicRequirements: ['International Application Form (International Application Form)', 'Application fee: Free'],
+    basicRequirements: ['International Application Form', 'Application fee: Free'],
     notes: ['Note: Applications from applicants with a study gap of more than 3 years following secondary school graduation or 5 years following completion of their Bachelor Degree may not be accepted.'],
-    undergraduateCertificate: ['West African School Certificate/General Certificate of Education with a minimum grade of C4 in five relevant subjects (including English)', 'A minimum grade of B will be required for programs that require a 65% grade for English.', 'Scratch Card must be included', 'Include transcripts for any post-secondary courses or programs completed'],
-    bachelorDegree: ['One of the following:', '1. West African School Certificate/General Certificate of Education A Levels with a minimum grade of two in required program subjects', '2. Senior School Certificate with a minimum grade of B in required program subjects', '3. A complete educational history including transcripts for any postsecondary courses or programs completed.'],
+    undergraduateCertificate: ['West African School Certificate/General Certificate of Education with a minimum grade of C4 in five relevant subjects (including English)', 'A minimum grade of B will be required for programs that require a 65% grade for English.', 'Include transcripts for any post-secondary courses or programs completed'],
+    bachelorDegree: ['One of the following:', 'West African School Certificate/General Certificate of Education A Levels with a minimum grade of two in required program subjects', 'Senior School Certificate with a minimum grade of B in required program subjects', 'A complete educational history including transcripts for any postsecondary courses or programs completed.'],
     mastersDegree: ["Bachelor's degree and University transcripts (2nd class upper division)"],
     postGraduateCertificate: ["Bachelor's degree and University transcripts (2nd class upper division)"],
     additionalNotes: ['Please note that, for admissions purposes, transcripts from Bachelor Degree programs only will be accepted. Masters Degree transcripts will not be accepted for assessment purposes.', 'These are minimums cut-offs and the admissions decision is at the discretion of Cannoga College. Admissions requirements may change at any time.', 'Please note that IELTS refers to Academic IELTS and not General IELTS']

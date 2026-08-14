@@ -44,13 +44,16 @@ export default function CountryRequirementsDropdown() {
           {/* Basic Requirements */}
           <div>
             <h3 className="text-lg font-black text-black mb-4">Basic Requirements for all students:</h3>
-            <ul className="space-y-2">
-              {requirements.basicRequirements.map((req, idx) => (
-                <li key={idx} className="flex gap-3 items-start">
-                  <span className="text-[#0f2027] font-bold">•</span>
-                  <span className="text-sm text-black">{req}</span>
-                </li>
-              ))}
+            <ul className="space-y-2.5">
+              {requirements.basicRequirements.map((req, idx) => {
+                const cleaned = req.replace(/^\d+\.\s*/, '').trim();
+                return (
+                  <li key={idx} className="flex gap-3 items-start">
+                    <span className="text-[#0f2027] font-bold text-base leading-snug shrink-0 select-none">•</span>
+                    <span className="text-sm text-black leading-relaxed flex-1">{cleaned}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -68,13 +71,16 @@ export default function CountryRequirementsDropdown() {
             <h3 className="text-lg font-black text-black mb-4">
               Admission To Ontario College Diploma Program (2 years)
             </h3>
-            <ul className="space-y-2">
-              {requirements.undergraduateCertificate.map((req, idx) => (
-                <li key={idx} className="flex gap-3 items-start">
-                  <span className="text-[#0f2027] font-bold">•</span>
-                  <span className="text-sm text-black">{req}</span>
-                </li>
-              ))}
+            <ul className="space-y-2.5">
+              {requirements.undergraduateCertificate.map((req, idx) => {
+                const cleaned = req.replace(/^\d+\.\s*/, '').trim();
+                return (
+                  <li key={idx} className="flex gap-3 items-start">
+                    <span className="text-[#0f2027] font-bold text-base leading-snug shrink-0 select-none">•</span>
+                    <span className="text-sm text-black leading-relaxed flex-1">{cleaned}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -83,13 +89,24 @@ export default function CountryRequirementsDropdown() {
             <h3 className="text-lg font-black text-black mb-4">
               Admission To Bachelor's Degree Program
             </h3>
-            <ul className="space-y-2">
-              {requirements.bachelorDegree.map((req, idx) => (
-                <li key={idx} className="flex gap-3 items-start">
-                  <span className="text-[#0f2027] font-bold">•</span>
-                  <span className="text-sm text-black whitespace-pre-line">{req}</span>
-                </li>
-              ))}
+            <ul className="space-y-2.5">
+              {requirements.bachelorDegree.map((req, idx) => {
+                const cleaned = req.replace(/^\d+\.\s*/, '').trim();
+                const isSubHeader = cleaned.toLowerCase() === 'one of the following:';
+                if (isSubHeader) {
+                  return (
+                    <li key={idx} className="text-sm font-bold text-black pt-1 pb-0.5">
+                      {cleaned}
+                    </li>
+                  );
+                }
+                return (
+                  <li key={idx} className="flex gap-3 items-start">
+                    <span className="text-[#0f2027] font-bold text-base leading-snug shrink-0 select-none">•</span>
+                    <span className="text-sm text-black leading-relaxed flex-1">{cleaned}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -98,13 +115,16 @@ export default function CountryRequirementsDropdown() {
             <h3 className="text-lg font-black text-black mb-4">
               Ontario College Certificate (1 year)
             </h3>
-            <ul className="space-y-2">
-              {requirements.postGraduateCertificate.map((req, idx) => (
-                <li key={idx} className="flex gap-3 items-start">
-                  <span className="text-[#0f2027] font-bold">•</span>
-                  <span className="text-sm text-black">{req}</span>
-                </li>
-              ))}
+            <ul className="space-y-2.5">
+              {requirements.postGraduateCertificate.map((req, idx) => {
+                const cleaned = req.replace(/^\d+\.\s*/, '').trim();
+                return (
+                  <li key={idx} className="flex gap-3 items-start">
+                    <span className="text-[#0f2027] font-bold text-base leading-snug shrink-0 select-none">•</span>
+                    <span className="text-sm text-black leading-relaxed flex-1">{cleaned}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -113,13 +133,16 @@ export default function CountryRequirementsDropdown() {
             <h3 className="text-lg font-black text-black mb-4">
               Admission To Master's Degree Program
             </h3>
-            <ul className="space-y-2">
-              {requirements.mastersDegree.map((req, idx) => (
-                <li key={idx} className="flex gap-3 items-start">
-                  <span className="text-[#0f2027] font-bold">•</span>
-                  <span className="text-sm text-black">{req}</span>
-                </li>
-              ))}
+            <ul className="space-y-2.5">
+              {requirements.mastersDegree.map((req, idx) => {
+                const cleaned = req.replace(/^\d+\.\s*/, '').trim();
+                return (
+                  <li key={idx} className="flex gap-3 items-start">
+                    <span className="text-[#0f2027] font-bold text-base leading-snug shrink-0 select-none">•</span>
+                    <span className="text-sm text-black leading-relaxed flex-1">{cleaned}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
