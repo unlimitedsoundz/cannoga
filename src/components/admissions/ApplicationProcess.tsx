@@ -52,12 +52,12 @@ const steps = [
   },
   {
     step: 4,
-    title: "Start the online Application process",
+    title: "Fill in the Online Application 2026",
     content: (
       <div className="space-y-4">
-        <p>Start your online application through our admissions portal. Create a password for the portal to upload documents and track your application.</p>
-        <Link href="/portal/apply" className="inline-flex items-center gap-2 bg-[#0f2027] text-white px-6 py-3 text-sm font-bold hover:bg-[#0f2027] transition-colors">
-          Start Application <ArrowRight size={16} weight="bold" />
+        <p>Start your 2026 online application through our admissions portal. Create an account to upload documents and track your application.</p>
+        <Link href="/portal/account/register" className="inline-flex items-center gap-2 bg-[#0f2027] text-white px-6 py-3 text-sm font-bold hover:bg-[#0f2027] transition-colors">
+          Fill in the Online Application 2026 <ArrowRight size={16} weight="bold" />
         </Link>
       </div>
     )
