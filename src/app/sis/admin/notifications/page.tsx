@@ -308,7 +308,7 @@ export default function AdminNotificationsPage() {
                                             </div>
                                         ) : (
                                             filteredStudents.map(st => {
-                                                const fullName = `${st.first_name || ''} ${st.last_name || ''}`.trim() || 'Unnamed Student';
+                                                const fullName = `${st.first_name || ''} ${st.last_name || ''}`.trim() || st.email || (st.student_id ? `Student #${st.student_id}` : `Student #${st.id.substring(0, 6)}`);
                                                 return (
                                                     <label key={st.id} className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-white/10 cursor-pointer transition-colors">
                                                         <input
