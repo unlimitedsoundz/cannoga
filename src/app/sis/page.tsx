@@ -31,6 +31,7 @@ import { getDocumentUrl } from '@/utils/document';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { registerForCourse } from '@/app/sis/registration-actions';
 import { getStudentLifeData, getUnreadMessageCount } from '@/app/sis/student-life-actions';
+                                                                     </span>
 import StudentLifePage from '@/app/sis/student-life';
 import { DAYS_OF_WEEK } from '@/types/database';
 import { HeaderSearch } from '@/components/sis/HeaderSearch';
@@ -322,6 +323,7 @@ export default function SISStudentDashboard() {
     const [registrationLoading, setRegistrationLoading] = useState(false);
     const [studentLifeData, setStudentLifeData] = useState<any>(null);
     const [unreadMessageCount, setUnreadMessageCount] = useState(0);
+                                                                     </span>
     const [timetableSessions, setTimetableSessions] = useState<any[]>([]);
     const [timetableAssignments, setTimetableAssignments] = useState<any[]>([]);
     const [financialAid, setFinancialAid] = useState<FinancialAid[]>([]);
@@ -940,13 +942,16 @@ function formatRelativeTime(dateInput: any): string {
                         const [lifeResult, unreadResult] = await Promise.all([
                             getStudentLifeData(studentIdForLife),
                             getUnreadMessageCount(studentIdForLife),
+                                                                     </span>
                         ]);
                         if (lifeResult.success && lifeResult.data) {
                             setStudentLifeData(lifeResult.data);
                             setUnreadMessageCount(lifeResult.data.unreadCount || 0);
+                                                                     </span>
                         }
                         if (unreadResult.success) {
                             setUnreadMessageCount(unreadResult.count || 0);
+                                                                     </span>
                         }
                     } catch (lifeErr) {
                         console.error('Error fetching student life data:', lifeErr);
@@ -1249,6 +1254,7 @@ function formatRelativeTime(dateInput: any): string {
                                 {notificationsList.filter(n => !n.read).length > 0 && (
                                     <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[9px] font-extrabold h-3.5 min-w-[14px] px-1 rounded-full flex items-center justify-center leading-none shadow-sm border border-[#141414]">
                                         {notificationsList.filter(n => !n.read).length}
+                                    </span>
                                 )}
                             </button>
                             {notificationsOpen && (
@@ -1301,9 +1307,11 @@ function formatRelativeTime(dateInput: any): string {
                                                                 {!n.read ? (
                                                                     <span className="px-1 py-0.2 text-[7px] font-extrabold bg-sky-500/20 text-sky-300 border border-sky-400/40 rounded uppercase tracking-wider">
                                                                         Unread
+                                                                     </span>
                                                                 ) : (
                                                                     <span className="px-1 py-0.2 text-[7px] font-bold bg-slate-800 text-slate-400 border border-slate-700/50 rounded uppercase tracking-wider">
                                                                         Read
+                                                                     </span>
                                                                 )}
                                                              </div>
                                                              <button
