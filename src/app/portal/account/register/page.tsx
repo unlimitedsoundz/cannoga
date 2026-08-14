@@ -35,6 +35,7 @@ const phoneCodes = [
 export default function RegisterPage() {
     const [formData, setFormData] = useState({
         firstName: '',
+        middleName: '',
         lastName: '',
         email: '',
         dateOfBirth: '',
@@ -66,6 +67,7 @@ export default function RegisterPage() {
         try {
             const applicantData = {
                 firstName: formData.firstName,
+                middleName: formData.middleName,
                 lastName: formData.lastName,
                 country: formData.country,
                 email: formData.email,
@@ -158,7 +160,7 @@ export default function RegisterPage() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                                 <label className="block text-xs font-medium font-black text-neutral-700 mb-1">First Name <span className="text-red-600">*</span></label>
                                 <input
@@ -168,6 +170,17 @@ export default function RegisterPage() {
                                     value={formData.firstName}
                                     onChange={handleChange}
                                     className="w-full px-4 py-2 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Middle Name <span className="text-neutral-400 font-normal">(Optional)</span></label>
+                                <input
+                                    type="text"
+                                    name="middleName"
+                                    value={formData.middleName}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black"
+                                    placeholder="Optional"
                                 />
                             </div>
                             <div>

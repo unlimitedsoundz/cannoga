@@ -26,6 +26,7 @@ export async function signInWithEmailAndPassword(email: string, password: string
 
 export async function registerApplicant(formData: {
     firstName: string;
+    middleName?: string;
     lastName: string;
     country: string;
     email: string;
@@ -49,6 +50,7 @@ export async function registerApplicant(formData: {
         options: {
             data: {
                 first_name: formData.firstName,
+                middle_name: formData.middleName || null,
                 last_name: formData.lastName,
                 country_of_residence: formData.country,
                 date_of_birth: formData.dateOfBirth,
@@ -72,6 +74,7 @@ export async function registerApplicant(formData: {
                 id: userData.user.id,
                 email: formData.email.toLowerCase().trim(),
                 first_name: formData.firstName,
+                middle_name: formData.middleName || null,
                 last_name: formData.lastName,
                 country_of_residence: formData.country,
                 date_of_birth: formData.dateOfBirth,
