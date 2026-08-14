@@ -292,7 +292,7 @@ serve(async (req) => {
                 break;
 
             case 'OFFER_LETTER_READY':
-                studentSubject = "Conditional Admission Offer - Cannoga College Next Steps";
+                studentSubject = "Letter of Acceptance (LOA) — Cannoga College";
                 studentHtml = `
                     <p>Dear ${firstName},</p>
                     <p>We are delighted to inform you that you have been offered a conditional place to study at Cannoga College.</p>
@@ -324,6 +324,8 @@ serve(async (req) => {
                     <p>Important Request: Please act promptly to accept your offer and fulfill the conditions, as places are limited and allocated on a first-come, first-served basis once conditions are met.</p>
                     <p>We are very impressed by your application and look forward to welcoming you to our creative community in Canada.</p>
                     <p>Warm regards,<br>
+                    Linda Cottonmouth<br>
+                    International Admissions Officer<br>
                     Admissions Office<br>
                     Cannoga College<br>
                     admissions@cannogacollege.ca<br>
@@ -333,18 +335,29 @@ serve(async (req) => {
                 // Attach Letter of Acceptance PDF
                 const offerAppId = applicationData?.id || record?.id || record?.application_id;
                 if (offerAppId) {
+                    let loaUrl = null;
                     try {
                         const { data: pdfRes } = await supabaseAdmin.functions.invoke('generate-admission-letter', {
                             body: { applicationId: offerAppId, type: 'OFFER' }
                         });
                         if (pdfRes?.url) {
-                            studentAttachments.push({
-                                filename: `Cannoga_Letter_of_Acceptance_${firstName || 'Student'}.pdf`,
-                                path: pdfRes.url
-                            });
+                            loaUrl = pdfRes.url;
                         }
                     } catch (err) {
-                        console.error("[send-notification] Error generating LOA PDF attachment:", err);
+                        console.error("[send-notification] Error generating LOA PDF attachment via function:", err);
+                    }
+
+                    if (!loaUrl) {
+                        const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
+                        loaUrl = `${supabaseUrl}/storage/v1/object/public/application-documents/offer-letters/offer_letter_${offerAppId}.pdf`;
+                    }
+
+                    if (loaUrl) {
+                        console.log(`[send-notification] Attaching LOA PDF URL to email: ${loaUrl}`);
+                        studentAttachments.push({
+                            filename: `Cannoga_Letter_of_Acceptance_${firstName || 'Student'}.pdf`,
+                            path: loaUrl
+                        });
                     }
                 }
 
