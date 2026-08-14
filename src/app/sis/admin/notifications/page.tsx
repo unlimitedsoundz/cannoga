@@ -25,11 +25,20 @@ interface Program {
     title: string;
 }
 
+interface Student {
+    id: string;
+    student_id?: string;
+    first_name?: string;
+    last_name?: string;
+    email?: string;
+}
+
 export default function AdminNotificationsPage() {
     const [loading, setLoading] = useState(true);
     const [sending, setSending] = useState(false);
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [programs, setPrograms] = useState<Program[]>([]);
+    const [studentsList, setStudentsList] = useState<Student[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
 
@@ -44,9 +53,10 @@ export default function AdminNotificationsPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [notifRes, programsRes] = await Promise.all([
+                const [notifRes, programsRes, studentsRes] = await Promise.all([
                     fetch('/api/sis/admin/notifications'),
                     fetch('/api/sis/admin/programs'),
+                    fetch('/api/sis/students'),
                 ]);
 
                 if (notifRes.ok) {
@@ -57,6 +67,11 @@ export default function AdminNotificationsPage() {
                 if (programsRes.ok) {
                     const data = await programsRes.json();
                     setPrograms(data.programs || []);
+                }
+
+                if (studentsRes.ok) {
+                    const data = await studentsRes.json();
+                    setStudentsList(data.students || []);
                 }
             } catch (e: any) {
                 setError(e.message);
@@ -253,6 +268,40 @@ export default function AdminNotificationsPage() {
                                             <span className="text-xs text-slate-200">{program.title}</span>
                                         </label>
                                     ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {recipientType === 'individual' && (
+                            <div className="space-y-2">
+                                <Label className="text-xs font-bold text-slate-300 uppercase tracking-wider">Select Enrolled Student(s)</Label>
+                                <div className="max-h-52 overflow-y-auto bg-white/5 border border-white/10 rounded-xl p-2 space-y-1">
+                                    {studentsList.length === 0 ? (
+                                        <div className="p-3 text-xs text-slate-400 font-medium">No enrolled students found</div>
+                                    ) : (
+                                        studentsList.map(st => (
+                                            <label key={st.id} className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-white/10 cursor-pointer transition-colors">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedStudents.includes(st.id)}
+                                                    onChange={e => {
+                                                        if (e.target.checked) {
+                                                            setSelectedStudents([...selectedStudents, st.id]);
+                                                        } else {
+                                                            setSelectedStudents(selectedStudents.filter(id => id !== st.id));
+                                                        }
+                                                    }}
+                                                    className="w-4 h-4 text-sky-500 border-white/20 bg-white/10 rounded focus:ring-sky-500"
+                                                />
+                                                <div className="flex flex-col">
+                                                    <span className="text-xs font-bold text-white">
+                                                        {st.first_name || ''} {st.last_name || ''} {st.student_id ? `(${st.student_id})` : ''}
+                                                    </span>
+                                                    {st.email && <span className="text-[10px] text-slate-400 font-mono">{st.email}</span>}
+                                                </div>
+                                            </label>
+                                        ))
+                                    )}
                                 </div>
                             </div>
                         )}
