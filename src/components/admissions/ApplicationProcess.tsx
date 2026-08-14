@@ -86,7 +86,7 @@ const steps = [
   },
   {
     step: 7,
-    title: "Apply for a Visa/Study/Work Permit",
+    title: "Apply for a Study Permit",
     content: (
       <div className="space-y-4">
         <p>Apply for your study permit and any required visas through the Government of Canada website.</p>
