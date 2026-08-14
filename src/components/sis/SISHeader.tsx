@@ -409,8 +409,11 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
 
           {/* Notifications Panel */}
           {notificationsOpen && (
-            <div className="absolute right-2 sm:right-4 top-14 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-white border border-slate-200 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-800">
-              <div className="px-3 py-2 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+            <div className="absolute right-2 sm:right-4 top-14 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-white border border-slate-200 shadow-2xl z-50 rounded-xl text-slate-800 animate-in fade-in slide-in-from-top-2 duration-200 ease-out">
+              {/* Connecting caret arrow pointing to Bell icon */}
+              <div className="absolute -top-1.5 right-4 sm:right-6 w-3 h-3 bg-slate-50 border-t border-l border-slate-200 rotate-45 z-20"></div>
+              <div className="relative z-10 overflow-hidden rounded-xl">
+                <div className="px-3 py-2 border-b border-slate-100 flex items-center justify-between bg-slate-50">
                 <span className="text-[8px] font-bold uppercase tracking-widest text-slate-700">Notifications ({unreadCount})</span>
                 {unreadCount > 0 && (
                   <button
@@ -456,6 +459,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                 )}
               </div>
             </div>
+          </div>
           )}
         </header>
       </>

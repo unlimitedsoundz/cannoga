@@ -1253,79 +1253,83 @@ function formatRelativeTime(dateInput: any): string {
                                 )}
                             </button>
                             {notificationsOpen && (
-                                <div className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-white border border-slate-200 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-800">
-                                    <div className="px-3 py-2 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-                                        <span className="text-[8px] font-bold uppercase tracking-widest text-slate-700">Notifications ({notificationsList.filter(n => !n.read).length})</span>
-                                        {notificationsList.filter(n => !n.read).length > 0 && (
-                                            <button
-                                                onClick={async () => {
-                                                    for (const n of notificationsList.filter(x => !x.read)) {
-                                                        fetch('/api/sis/notifications', {
-                                                            method: 'POST',
-                                                            headers: { 'Content-Type': 'application/json' },
-                                                            body: JSON.stringify({ id: n.id, read: true }),
-                                                        }).catch(() => {});
-                                                    }
-                                                    setNotificationsList(prev => prev.map(n => ({ ...n, read: true })));
-                                                }}
-                                                className="text-[8px] font-bold uppercase tracking-wider text-sky-600 hover:text-sky-700 transition-colors"
-                                            >
-                                                Mark all read
-                                            </button>
-                                        )}
-                                    </div>
-                                    <div className="max-h-64 overflow-y-auto">
-                                        {notificationsList.length > 0 ? (
-                                            notificationsList.map((n) => (
-                                                <div
-                                                    key={n.id}
+                                <div className="absolute right-0 top-full mt-2.5 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-white border border-slate-200 shadow-2xl z-50 rounded-xl text-slate-800 animate-in fade-in slide-in-from-top-2 duration-200 ease-out">
+                                    {/* Connecting caret arrow pointing to Bell icon */}
+                                    <div className="absolute -top-1.5 right-3.5 w-3 h-3 bg-slate-50 border-t border-l border-slate-200 rotate-45 z-20"></div>
+                                    <div className="relative z-10 overflow-hidden rounded-xl">
+                                        <div className="px-3 py-2 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+                                            <span className="text-[8px] font-bold uppercase tracking-widest text-slate-700">Notifications ({notificationsList.filter(n => !n.read).length})</span>
+                                            {notificationsList.filter(n => !n.read).length > 0 && (
+                                                <button
                                                     onClick={async () => {
-                                                        if (!n.read) {
-                                                            setNotificationsList(prev => prev.map(item => item.id === n.id ? { ...item, read: true } : item));
+                                                        for (const n of notificationsList.filter(x => !x.read)) {
                                                             fetch('/api/sis/notifications', {
                                                                 method: 'POST',
                                                                 headers: { 'Content-Type': 'application/json' },
                                                                 body: JSON.stringify({ id: n.id, read: true }),
                                                             }).catch(() => {});
                                                         }
+                                                        setNotificationsList(prev => prev.map(n => ({ ...n, read: true })));
                                                     }}
-                                                    className={`p-2.5 border-b border-slate-100 hover:bg-slate-50 cursor-pointer transition-colors flex items-start gap-2.5 ${!n.read ? 'bg-sky-50/70 hover:bg-sky-100/60' : 'bg-white'}`}
+                                                    className="text-[8px] font-bold uppercase tracking-wider text-sky-600 hover:text-sky-700 transition-colors"
                                                 >
-                                                    {/* Cannoga Logo Avatar */}
-                                                    <div className="w-7 h-7 rounded-full bg-slate-900 border border-slate-200 p-1 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                                                        <img src="/images/logo-cannoga.png" alt="Cannoga" className="w-full h-full object-contain brightness-0 invert" />
-                                                    </div>
+                                                    Mark all read
+                                                </button>
+                                            )}
+                                        </div>
+                                        <div className="max-h-64 overflow-y-auto">
+                                            {notificationsList.length > 0 ? (
+                                                notificationsList.map((n) => (
+                                                    <div
+                                                        key={n.id}
+                                                        onClick={async () => {
+                                                            if (!n.read) {
+                                                                setNotificationsList(prev => prev.map(item => item.id === n.id ? { ...item, read: true } : item));
+                                                                fetch('/api/sis/notifications', {
+                                                                    method: 'POST',
+                                                                    headers: { 'Content-Type': 'application/json' },
+                                                                    body: JSON.stringify({ id: n.id, read: true }),
+                                                                }).catch(() => {});
+                                                            }
+                                                        }}
+                                                        className={`p-2.5 border-b border-slate-100 hover:bg-slate-50 cursor-pointer transition-colors flex items-start gap-2.5 ${!n.read ? 'bg-sky-50/70 hover:bg-sky-100/60' : 'bg-white'}`}
+                                                    >
+                                                        {/* Cannoga Logo Avatar */}
+                                                        <div className="w-7 h-7 rounded-full bg-slate-900 border border-slate-200 p-1 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                                                            <img src="/images/logo-cannoga.png" alt="Cannoga" className="w-full h-full object-contain brightness-0 invert" />
+                                                        </div>
 
-                                                    <div className="flex-1 min-w-0">
-                                                        <div className="flex items-start justify-between gap-1.5">
-                                                            <div className="text-[10px] font-bold text-slate-900 leading-tight line-clamp-1 flex-1">{n.title}</div>
-                                                            <button
-                                                                type="button"
-                                                                onClick={async (e) => {
-                                                                    e.stopPropagation();
-                                                                    addDismissedNotifId(n.id);
-                                                                    setNotificationsList(prev => prev.filter(item => item.id !== n.id));
-                                                                    try {
-                                                                        await fetch(`/api/sis/notifications?id=${n.id}`, { method: 'DELETE' });
-                                                                        toast.success('Notification dismissed');
-                                                                    } catch (err) {}
-                                                                }}
-                                                                className="text-slate-400 hover:text-red-500 p-0.5 transition-colors rounded hover:bg-slate-100 shrink-0"
-                                                                title="Delete notification"
-                                                            >
-                                                                <HugeiconsIcon icon={Trash} size={12} strokeWidth={2} />
-                                                            </button>
-                                                        </div>
-                                                        <div className="mt-0.5">
-                                                            <div className="text-[9px] text-slate-600 mt-0.5 leading-tight line-clamp-2">{n.description}</div>
-                                                            <div className="text-[8px] font-semibold text-slate-400 mt-1">{n.time}</div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex items-start justify-between gap-1.5">
+                                                                <div className="text-[10px] font-bold text-slate-900 leading-tight line-clamp-1 flex-1">{n.title}</div>
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={async (e) => {
+                                                                        e.stopPropagation();
+                                                                        addDismissedNotifId(n.id);
+                                                                        setNotificationsList(prev => prev.filter(item => item.id !== n.id));
+                                                                        try {
+                                                                            await fetch(`/api/sis/notifications?id=${n.id}`, { method: 'DELETE' });
+                                                                            toast.success('Notification dismissed');
+                                                                        } catch (err) {}
+                                                                    }}
+                                                                    className="text-slate-400 hover:text-red-500 p-0.5 transition-colors rounded hover:bg-slate-100 shrink-0"
+                                                                    title="Delete notification"
+                                                                >
+                                                                    <HugeiconsIcon icon={Trash} size={12} strokeWidth={2} />
+                                                                </button>
+                                                            </div>
+                                                            <div className="mt-0.5">
+                                                                <div className="text-[9px] text-slate-600 mt-0.5 leading-tight line-clamp-2">{n.description}</div>
+                                                                <div className="text-[8px] font-semibold text-slate-400 mt-1">{n.time}</div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <div className="px-4 py-6 text-center text-slate-400 text-xs">No notifications</div>
-                                        )}
+                                                ))
+                                            ) : (
+                                                <div className="px-4 py-6 text-center text-slate-400 text-xs">No notifications</div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             )}
