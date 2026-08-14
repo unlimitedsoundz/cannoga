@@ -511,6 +511,132 @@ export default function SISStudentDashboard() {
         }
     };
 
+    const handleDownloadTranscript = () => {
+        const printWindow = window.open('', '_blank');
+        if (!printWindow) {
+            toast.error('Please allow popups to download your official transcript PDF.');
+            return;
+        }
+
+        const studentName = displayName || 'Student';
+        const currentStudentId = studentId || 'N/A';
+        const pName = programName || 'Cannoga Academic Program';
+        const dateStr = new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
+
+        const gradesRowsHtml = grades.length > 0 ? grades.map(g => `
+            <tr>
+                <td style="padding: 12px 10px; border-bottom: 1px solid #e2e8f0; font-family: monospace; font-weight: bold; color: #0f172a;">${g.module_code}</td>
+                <td style="padding: 12px 10px; border-bottom: 1px solid #e2e8f0; font-weight: 500; color: #1e293b;">${g.module_title}</td>
+                <td style="padding: 12px 10px; border-bottom: 1px solid #e2e8f0; text-align: center; color: #334155;">${g.credits}</td>
+                <td style="padding: 12px 10px; border-bottom: 1px solid #e2e8f0; text-align: center; font-weight: bold; color: #0f172a;">${g.grade}</td>
+                <td style="padding: 12px 10px; border-bottom: 1px solid #e2e8f0; text-align: center; color: #059669; font-weight: 600;">${g.grade_status}</td>
+                <td style="padding: 12px 10px; border-bottom: 1px solid #e2e8f0; text-align: right; color: #475569;">${g.semester_name}</td>
+            </tr>
+        `).join('') : `
+            <tr>
+                <td colspan="6" style="padding: 24px; text-align: center; color: #64748b;">No academic grade records currently available.</td>
+            </tr>
+        `;
+
+        printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Official Academic Transcript - ${studentName} (${currentStudentId})</title>
+                <style>
+                    body { font-family: 'Segoe UI', Arial, sans-serif; color: #0f172a; margin: 0; padding: 40px; }
+                    .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #0f172a; padding-bottom: 20px; margin-bottom: 25px; }
+                    .logo { font-size: 24px; font-weight: 900; letter-spacing: 1px; color: #0f172a; }
+                    .title { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: #64748b; font-weight: 700; margin-top: 4px; }
+                    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 30px; }
+                    .info-item { font-size: 13px; }
+                    .info-label { font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 700; }
+                    .info-val { font-weight: 700; color: #0f172a; margin-top: 2px; }
+                    table { width: 100%; border-collapse: collapse; margin-bottom: 40px; font-size: 13px; }
+                    th { background: #0f172a; color: #ffffff; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; padding: 12px 10px; text-align: left; }
+                    th.center { text-align: center; }
+                    th.right { text-align: right; }
+                    .footer { margin-top: 50px; border-top: 1px solid #e2e8f0; padding-top: 20px; display: flex; justify-content: space-between; font-size: 11px; color: #64748b; }
+                    .seal { border: 2px dashed #94a3b8; padding: 15px 25px; border-radius: 8px; text-align: center; font-weight: bold; color: #475569; }
+                    @media print {
+                        body { padding: 0; }
+                        .no-print { display: none; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <div>
+                        <div class="logo">CANNOGA COLLEGE</div>
+                        <div class="title">OFFICIAL ACADEMIC TRANSCRIPT</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 12px; color: #64748b;">Office of the Registrar</div>
+                        <div style="font-size: 12px; font-weight: bold; color: #0f172a;">Ottawa, Ontario, Canada</div>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div>
+                        <div class="info-item">
+                            <div class="info-label">Student Name</div>
+                            <div class="info-val">${studentName}</div>
+                        </div>
+                        <div class="info-item" style="margin-top: 12px;">
+                            <div class="info-label">Student ID Number</div>
+                            <div class="info-val">${currentStudentId}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-item">
+                            <div class="info-label">Academic Program</div>
+                            <div class="info-val">${pName}</div>
+                        </div>
+                        <div class="info-item" style="margin-top: 12px;">
+                            <div class="info-label">Cumulative GPA / Issue Date</div>
+                            <div class="info-val">${gpa} (Cumulative) | Issued: ${dateStr}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Course Title</th>
+                            <th class="center">Credits</th>
+                            <th class="center">Grade</th>
+                            <th class="center">Status</th>
+                            <th class="right">Term</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${gradesRowsHtml}
+                    </tbody>
+                </table>
+
+                <div class="footer">
+                    <div>
+                        <p style="margin: 0 0 4px 0;"><strong>Official Document Verification</strong></p>
+                        <p style="margin: 0;">This official transcript is issued by the Office of the Registrar, Cannoga College.</p>
+                    </div>
+                    <div class="seal">
+                        OFFICIAL REGISTRAR SEAL<br>
+                        CANNOGA COLLEGE ONTARIO
+                    </div>
+                </div>
+
+                <script>
+                    window.onload = function() {
+                        window.print();
+                    };
+                </script>
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -2042,8 +2168,13 @@ export default function SISStudentDashboard() {
                                     <h3 className="text-lg font-extrabold tracking-tight text-white">Academic Grade History & Transcript</h3>
                                     <p className="text-xs text-slate-300 mt-1 font-medium">Cumulative GPA: <strong className="text-white font-bold">{gpa}</strong> | {grades.length} Courses Recorded</p>
                                 </div>
-                                <button type="button" className="border border-slate-700 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-4 py-2 rounded-lg transition shadow-sm">
-                                    <span>Download Official PDF Transcript</span>
+                                <button 
+                                    type="button" 
+                                    onClick={handleDownloadTranscript}
+                                    className="border border-slate-700 bg-slate-800 hover:bg-slate-700 !text-white text-white font-bold text-xs px-4 py-2.5 rounded-lg transition shadow-sm cursor-pointer flex items-center space-x-2"
+                                >
+                                    <HugeiconsIcon icon={Download} size={16} strokeWidth={2} className="!text-white text-white" />
+                                    <span className="!text-white text-white font-bold">Download Official PDF Transcript</span>
                                 </button>
                             </div>
                             <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
