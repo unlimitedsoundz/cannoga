@@ -112,7 +112,7 @@ export default function RegisterPage() {
                 breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Portal', href: '/portal' }, { label: 'Register' }]}
             />
 
-            <div className="cc-container max-w-3xl mx-auto py-6">
+            <div className="cc-container max-w-xl mx-auto py-6">
                 {message && (
                     <div className={`p-3 rounded-sm mb-4 text-[13px] font-bold border ${message.type === 'success' ? 'bg-neutral-50 text-black border-neutral-100' : 'bg-red-50 text-red-700 border-red-100'}`}>
                         {message.text}
@@ -122,7 +122,7 @@ export default function RegisterPage() {
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-neutral-100">
                     <h1 className="text-xl font-bold mb-1.5 text-black">Register New Account</h1>
 
-                    <div className="mb-2.5 text-[13px] text-black leading-snug space-y-0.5 font-medium">
+                    <div className="mb-4 text-[13px] text-black leading-snug space-y-0.5 font-medium">
                         <p>
                             Cannoga College has two intakes each year for academic programs: Winter Semester (January) and Fall Semester (September). Students are recommended to apply at least 2-3 months before the start of the program. Our application deadlines for international students are:
                         </p>
@@ -132,23 +132,23 @@ export default function RegisterPage() {
                         </ul>
                     </div>
 
-                    <form onSubmit={handleRegister} className="space-y-3.5">
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Email Address <span className="text-red-600">*</span></label>
+                    <form onSubmit={handleRegister} className="space-y-3">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Email Address <span className="text-red-600">*</span></label>
                             <input
                                 type="email"
                                 name="email"
                                 required
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                                 placeholder="you@example.com"
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Password <span className="text-red-600">*</span></label>
-                            <div className="relative">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Password <span className="text-red-600">*</span></label>
+                            <div className="relative flex-1 w-full">
                                 <input
                                     type={showPassword ? 'text' : 'password'}
                                     name="password"
@@ -169,70 +169,74 @@ export default function RegisterPage() {
                             </div>
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">First Name <span className="text-red-600">*</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">First Name <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="firstName"
                                 required
                                 value={formData.firstName}
                                 onChange={handleChange}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Middle Name <span className="text-black font-normal">(Optional)</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Middle Name <span className="text-black font-normal">(Opt)</span></label>
                             <input
                                 type="text"
                                 name="middleName"
                                 value={formData.middleName}
                                 onChange={handleChange}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                                 placeholder="Optional"
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Last Name <span className="text-red-600">*</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Last Name <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="lastName"
                                 required
                                 value={formData.lastName}
                                 onChange={handleChange}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Passport Number <span className="text-red-600">*</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Passport No. <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="passportNumber"
                                 required
                                 value={formData.passportNumber}
                                 onChange={handleChange}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
                         </div>
 
-                        <DateSelector
-                            name="dateOfBirth"
-                            label="Date of Birth *"
-                            required
-                            value={formData.dateOfBirth}
-                            onChange={(name, value) => setFormData({ ...formData, [name]: value })}
-                        />
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Date of Birth <span className="text-red-600">*</span></label>
+                            <div className="flex-1 w-full">
+                                <DateSelector
+                                    name="dateOfBirth"
+                                    required
+                                    value={formData.dateOfBirth}
+                                    onChange={(name, value) => setFormData({ ...formData, [name]: value })}
+                                />
+                            </div>
+                        </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Gender <span className="text-red-600">*</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Gender <span className="text-red-600">*</span></label>
                             <select
                                 name="gender"
                                 required
                                 value={formData.gender}
                                 onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             >
                                 <option value="">Select your gender</option>
                                 <option value="Male">Male</option>
@@ -240,14 +244,14 @@ export default function RegisterPage() {
                             </select>
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Phone Code <span className="text-red-600">*</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Phone Code <span className="text-red-600">*</span></label>
                             <select
                                 name="phoneCode"
                                 required
                                 value={formData.phoneCode}
                                 onChange={(e) => setFormData({ ...formData, phoneCode: e.target.value })}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             >
                                 {phoneCodes.map((phone) => (
                                     <option key={phone.code} value={phone.code}>
@@ -257,29 +261,29 @@ export default function RegisterPage() {
                             </select>
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Phone Number <span className="text-red-600">*</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Phone Number <span className="text-red-600">*</span></label>
                             <input
                                 type="tel"
                                 name="phoneNumber"
                                 required
                                 value={formData.phoneNumber}
                                 onChange={handleChange}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                                 placeholder="e.g. 1234567890"
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Citizenship <span className="text-red-600">*</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Citizenship <span className="text-red-600">*</span></label>
                             <select
                                 name="citizenship"
                                 required
                                 value={formData.citizenship}
                                 onChange={(e) => setFormData({ ...formData, citizenship: e.target.value })}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             >
-                                <option value="">Select your country of citizenship</option>
+                                <option value="">Select citizenship</option>
                                 {countries.map((country) => (
                                     <option key={country} value={country}>
                                         {country.charAt(0).toUpperCase() + country.slice(1)}
@@ -288,16 +292,16 @@ export default function RegisterPage() {
                             </select>
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Country of Residence <span className="text-red-600">*</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Country <span className="text-red-600">*</span></label>
                             <select
                                 name="country"
                                 required
                                 value={formData.country}
                                 onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             >
-                                <option value="">Select your country</option>
+                                <option value="">Select country</option>
                                 {countries.map((country) => (
                                     <option key={country} value={country}>
                                         {country.charAt(0).toUpperCase() + country.slice(1)}
@@ -306,66 +310,69 @@ export default function RegisterPage() {
                             </select>
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Address <span className="text-red-600">*</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Address <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="address"
                                 required
                                 value={formData.address}
                                 onChange={handleChange}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                                 placeholder="Street address"
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">City <span className="text-red-600">*</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">City <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="city"
                                 required
                                 value={formData.city}
                                 onChange={handleChange}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">State/Province <span className="text-red-600">*</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">State/Province <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="state"
                                 required
                                 value={formData.state}
                                 onChange={handleChange}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Zip/Postal Code <span className="text-red-600">*</span></label>
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-black text-black sm:text-right">Zip/Postal Code <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="zipcode"
                                 required
                                 value={formData.zipcode}
                                 onChange={handleChange}
-                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
                         </div>
 
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            label={isLoading ? 'Submitting...' : 'Create Account'}
-                            isLoading={isLoading}
-                            className="w-full"
-                        />
+                        <div className="pt-2 sm:pl-39">
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                disabled={isLoading}
+                                className="w-full sm:w-auto px-8"
+                            >
+                                {isLoading ? 'Creating Account...' : 'Register'}
+                            </Button>
+                        </div>
                     </form>
 
                     <div className="mt-6 pt-4 border-t border-neutral-100 text-center">
-                        <p className="text-sm text-neutral-500">
+                        <p className="text-[13px] text-black">
                             Already have an account?{' '}
                             <Link href="/portal/account/login" className="text-black font-bold hover:underline">
                                 Sign in
