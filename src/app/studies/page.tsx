@@ -163,32 +163,35 @@ export default function StudiesPage() {
             </Hero>
 
             {/* Program Levels Banner Grid */}
-            <div className="bg-white text-slate-900 py-16 border-b border-slate-200">
+            <div className="bg-neutral-50/60 py-12 md:py-16 border-b border-neutral-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center max-w-3xl mx-auto mb-12">
-                        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 uppercase">Choose Your Study Pathway</h2>
-                        <p className="text-sm text-slate-600 mt-2">Every program is structured with high academic standards, hands-on learning, and Post-Graduation Work Permit (PGWP) eligibility.</p>
+                    <div className="text-center max-w-2xl mx-auto mb-10">
+                        <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">Choose Your Study Pathway</h2>
+                        <p className="text-xs sm:text-sm text-neutral-600 mt-2">Every program is structured with high academic standards, hands-on learning, and Post-Graduation Work Permit (PGWP) eligibility.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-stretch">
                         {PROGRAM_LEVELS.map((item, idx) => (
                             <Link
                                 key={idx}
                                 href={item.link}
-                                className="group relative bg-white border border-slate-200 p-6 rounded-xl hover:border-[#0a151a] hover:shadow-md transition-all flex flex-col justify-between no-underline"
+                                className="group bg-white border border-neutral-200 p-5 hover:border-black hover:shadow-md transition-all flex flex-col justify-between no-underline h-full"
                             >
                                 <div>
-                                    <h3 className="text-base font-extrabold text-slate-900 mb-1 group-hover:text-[#0a151a] transition-colors">{item.title}</h3>
-                                    <div className="flex items-center gap-2 text-[10px] text-slate-500 font-semibold mb-3">
+                                    <div className="flex items-center justify-between mb-2">
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-neutral-500 bg-neutral-100 px-2 py-0.5">{item.level}</span>
+                                        <ArrowRight size={14} weight="bold" className="text-neutral-400 group-hover:text-black group-hover:translate-x-0.5 transition-all" />
+                                    </div>
+                                    <h3 className="text-sm font-bold text-black mb-2 group-hover:underline transition-colors leading-snug">{item.title}</h3>
+                                    <p className="text-[11px] text-neutral-500 font-semibold mb-3 flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
                                         <span>{item.duration}</span>
                                         <span>•</span>
                                         <span>{item.credits}</span>
-                                    </div>
-                                    <p className="text-xs text-slate-600 leading-relaxed mb-4">{item.desc}</p>
+                                    </p>
+                                    <p className="text-xs text-neutral-600 leading-relaxed mb-4">{item.desc}</p>
                                 </div>
-                                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#0a151a]">
+                                <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-[11px] font-bold text-black">
                                     <span>{item.coop}</span>
-                                    <ArrowRight size={14} weight="bold" className="group-hover:translate-x-1 transition-transform" />
                                 </div>
                             </Link>
                         ))}
