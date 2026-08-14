@@ -261,10 +261,10 @@ export default function SiteIndexPage() {
                             Explore our 8 academic schools and specialized departments driving research, innovation, and industry-aligned education in Ottawa.
                         </p>
 
-                        <div className="pl-11 space-y-8">
+                        <div className="pl-11 space-y-10">
                             {schoolsAndDepartments.map((school) => (
-                                <div key={school.name} className="p-6 bg-slate-50 border border-slate-200">
-                                    <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 mb-4 border-b border-slate-200 gap-2">
+                                <div key={school.name} className="space-y-3 border-b border-slate-100 pb-6">
+                                    <div className="flex items-center justify-between gap-4">
                                         <h3 className="text-lg font-black text-slate-900">{school.name}</h3>
                                         <Link
                                             href={school.href}
@@ -274,18 +274,19 @@ export default function SiteIndexPage() {
                                         </Link>
                                     </div>
                                     
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 list-none p-0 m-0">
                                         {school.departments.map((dept) => (
-                                            <Link
-                                                key={dept.href}
-                                                href={dept.href}
-                                                className="group p-3 bg-white border border-slate-200 hover:border-[#0a151a] hover:bg-slate-100 transition-all flex items-center justify-between no-underline"
-                                            >
-                                                <span className="text-xs font-bold text-slate-800 group-hover:text-black">{dept.name}</span>
-                                                <ArrowRight size={14} weight="bold" className="text-slate-400 group-hover:text-[#0a151a] group-hover:translate-x-1 transition-all shrink-0 ml-2" />
-                                            </Link>
+                                            <li key={dept.href}>
+                                                <Link
+                                                    href={dept.href}
+                                                    className="group flex items-center justify-between text-sm font-semibold text-slate-700 hover:text-[#0a151a] py-1.5 border-b border-slate-50 transition-colors no-underline"
+                                                >
+                                                    <span className="group-hover:underline underline-offset-4">{dept.name}</span>
+                                                    <ArrowRight size={14} weight="bold" className="text-slate-400 group-hover:text-[#0a151a] group-hover:translate-x-1 transition-all shrink-0 ml-2" />
+                                                </Link>
+                                            </li>
                                         ))}
-                                    </div>
+                                    </ul>
                                 </div>
                             ))}
                         </div>
@@ -302,32 +303,31 @@ export default function SiteIndexPage() {
                             </div>
                             <p className="text-sm text-slate-600 mb-6 pl-11">{cat.description}</p>
 
-                            <div className="pl-11 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <ul className="pl-11 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 list-none p-0 m-0">
                                 {cat.links.map((link) => (
-                                    <Link
-                                        key={link.href}
-                                        href={link.href}
-                                        className="group p-4 bg-slate-50 border border-slate-200 hover:border-[#0a151a] hover:bg-slate-100 transition-all flex items-center justify-between no-underline"
-                                    >
-                                        <span className="text-sm font-bold text-slate-900 group-hover:text-black">{link.name}</span>
-                                        <ArrowRight size={16} weight="bold" className="text-slate-400 group-hover:text-[#0a151a] group-hover:translate-x-1 transition-all shrink-0 ml-2" />
-                                    </Link>
+                                    <li key={link.href}>
+                                        <Link
+                                            href={link.href}
+                                            className="group flex items-center justify-between text-sm font-semibold text-slate-800 hover:text-[#0a151a] py-2 border-b border-slate-100 transition-colors no-underline"
+                                        >
+                                            <span className="group-hover:underline underline-offset-4">{link.name}</span>
+                                            <ArrowRight size={14} weight="bold" className="text-slate-400 group-hover:text-[#0a151a] group-hover:translate-x-1 transition-all shrink-0 ml-2" />
+                                        </Link>
+                                    </li>
                                 ))}
-                            </div>
+                            </ul>
                         </section>
                     ))}
 
-                    {/* HELP CARD */}
-                    <div className="mt-16 p-8 md:p-10 bg-[#0a151a] text-white border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div className="max-w-xl text-center md:text-left space-y-2">
-                            <h3 className="text-xl font-bold text-white">Need Assistance Finding a Page?</h3>
-                            <p className="text-sm text-slate-300">
-                                Contact our Information Services Desk for guidance navigating institutional portals and academic directories.
-                            </p>
+                    {/* HELP CTA LINE */}
+                    <div className="mt-16 pt-8 border-t-2 border-[#0a151a] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                        <div>
+                            <h3 className="text-lg font-bold text-slate-900">Need Assistance Finding a Page?</h3>
+                            <p className="text-sm text-slate-600">Contact our Information Services Desk for guidance navigating institutional portals.</p>
                         </div>
                         <Link
                             href="/contact"
-                            className="bg-white text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-slate-200 transition-colors whitespace-nowrap no-underline shrink-0"
+                            className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition-colors no-underline shrink-0"
                         >
                             Contact Support Desk →
                         </Link>

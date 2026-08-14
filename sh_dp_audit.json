@@ -1,0 +1,194 @@
+{
+  "schools": [
+    {
+      "id": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "name": "School of Business",
+      "slug": "business"
+    },
+    {
+      "id": "75aa8b88-a35d-4e3e-8447-7b4df3031baf",
+      "name": "School of Arts, Design and Architecture",
+      "slug": "arts"
+    },
+    {
+      "id": "c710bc8b-2fae-43ce-bd5f-9cc289190754",
+      "name": "School of Technology",
+      "slug": "technology"
+    },
+    {
+      "id": "3592d39b-e747-44c4-ab63-2fa22a1cc49a",
+      "name": "School of Science",
+      "slug": "science"
+    }
+  ],
+  "depts": [
+    {
+      "id": "37472c60-f4e9-4ae5-9731-e4ec8b8d6150",
+      "name": "Computer Science",
+      "slug": "computer-science",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "513c5c48-a6a5-407e-86f5-403c517eabd4",
+      "name": "Applied Physics",
+      "slug": "applied-physics",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "53f2bb00-e442-4543-a4b9-4904104471f6",
+      "name": "Design",
+      "slug": "design",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf"
+    },
+    {
+      "id": "0cd264ab-2d6b-4c2c-9663-bacc1bdbbbd3",
+      "name": "Finance",
+      "slug": "finance",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca"
+    },
+    {
+      "id": "f8b84d66-1c62-44ee-9d53-ff441761303d",
+      "name": "Marketing",
+      "slug": "marketing",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca"
+    },
+    {
+      "id": "3d3d899f-a537-4b0c-991f-1c35996d5449",
+      "name": "Architecture",
+      "slug": "architecture",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf"
+    },
+    {
+      "id": "d7c5058b-cb0e-40d7-8f29-07c845012260",
+      "name": "Art and Media",
+      "slug": "art-media",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf"
+    },
+    {
+      "id": "c4549615-f6bb-43f1-8e84-f523065bb08a",
+      "name": "Business",
+      "slug": "business",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca"
+    },
+    {
+      "id": "4ab85444-e34b-4b38-a56c-4b3406651928",
+      "name": "Chemistry and Materials Science",
+      "slug": "chemistry-materials",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "4376dd57-1a2b-4791-90fd-b890e80f37e9",
+      "name": "Electronics and Nanoengineering",
+      "slug": "electronics-nano",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "e7916805-7852-413b-81a6-768470bd804d",
+      "name": "Economics",
+      "slug": "economics",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca"
+    },
+    {
+      "id": "839ad9aa-8fdf-4f4c-8be6-6b6af18c918c",
+      "name": "Electrical Engineering and Automation",
+      "slug": "electrical-automation",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "8ed55fac-7d4a-41eb-a37a-a7b04ef3ce48",
+      "name": "Film, Television and Scenography",
+      "slug": "film-tv",
+      "schoolId": "75aa8b88-a35d-4e3e-8447-7b4df3031baf"
+    },
+    {
+      "id": "0ffe5d81-4a66-4a7c-a127-3d80ea7f20b4",
+      "name": "Information and Communications Engineering",
+      "slug": "info-comms",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "63ec404d-1ed2-41a9-a890-43a589f0494a",
+      "name": "Chemical and Metallurgical Engineering",
+      "slug": "chemical-metallurgical",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "dab713cb-b717-4290-a04e-64008fccf4d8",
+      "name": "Civil Engineering",
+      "slug": "civil-engineering",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "ff2b49c1-62b9-4379-940c-8fed5287d1db",
+      "name": "Industrial Engineering and Management",
+      "slug": "industrial-engineering",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "6dd05580-6d57-4983-be24-e95a315cbab2",
+      "name": "Information and Service Management",
+      "slug": "info-service",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca"
+    },
+    {
+      "id": "a4e247de-8e3b-4bcb-8422-45f7672b29a9",
+      "name": "Management Studies",
+      "slug": "management",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca"
+    },
+    {
+      "id": "8dadf791-e849-480d-915f-1aa31a1282a3",
+      "name": "Mathematics and Systems Analysis",
+      "slug": "math-systems",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "a9577f4a-e5d7-4ddc-b323-52fbcb1a9089",
+      "name": "Accounting & Business Law",
+      "slug": "accounting-business-law",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca"
+    },
+    {
+      "id": "3886375a-fa81-4063-bcd6-cbaaa2970440",
+      "name": "Department of Applied Physics & Mathematics",
+      "slug": "physics-math",
+      "schoolId": "3592d39b-e747-44c4-ab63-2fa22a1cc49a"
+    },
+    {
+      "id": "41d4364d-4db1-4087-a7d5-0ea37a70d5c5",
+      "name": "Department of Automation & Control Engineering",
+      "slug": "automation-control",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "98ffe93b-b0c3-4dc5-91c4-c797e1d384a3",
+      "name": "Department of Chemical & Materials Engineering",
+      "slug": "chemical-materials",
+      "schoolId": "3592d39b-e747-44c4-ab63-2fa22a1cc49a"
+    },
+    {
+      "id": "6844c4bb-09b9-465a-b469-dd640f8c561c",
+      "name": "Department of Civil & Environmental Engineering",
+      "slug": "civil-environmental",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "36796002-4383-4129-942e-8d8d2ad07e38",
+      "name": "Department of Computer Science & Digital Systems",
+      "slug": "computer-science-digital",
+      "schoolId": "3592d39b-e747-44c4-ab63-2fa22a1cc49a"
+    },
+    {
+      "id": "5c1ff472-5837-4162-997d-6ead741e582d",
+      "name": "Department of Electrical & Electronics Engineering",
+      "slug": "electrical-electronics",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    },
+    {
+      "id": "8ccb3f7c-62f9-4376-95a8-cdfe4e29911d",
+      "name": "Energy and Mechanical Engineering",
+      "slug": "energy-mechanical",
+      "schoolId": "c710bc8b-2fae-43ce-bd5f-9cc289190754"
+    }
+  ]
+}

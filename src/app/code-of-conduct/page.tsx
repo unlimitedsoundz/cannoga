@@ -133,9 +133,9 @@ export default function CodeOfConductPage() {
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Prohibited Conduct</h2>
                         </div>
                         <div className="space-y-6 text-base text-slate-700">
-                            <div className="p-6 bg-slate-50 border border-slate-200 rounded-none">
-                                <h3 className="text-lg font-bold text-slate-900 mb-3">5.1 Academic Misconduct</h3>
-                                <ul className="list-disc pl-5 space-y-1.5 text-slate-800">
+                            <div className="border-l-2 border-[#0a151a] pl-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-2">5.1 Academic Misconduct</h3>
+                                <ul className="list-disc pl-5 space-y-1 text-slate-800">
                                     <li>Plagiarism and submitting uncredited work.</li>
                                     <li>Cheating during assessments or exams.</li>
                                     <li>Fabrication or falsification of academic data.</li>
@@ -143,9 +143,9 @@ export default function CodeOfConductPage() {
                                 </ul>
                             </div>
 
-                            <div className="p-6 bg-slate-50 border border-slate-200 rounded-none">
-                                <h3 className="text-lg font-bold text-slate-900 mb-3">5.2 Disruptive &amp; Abusive Behavior</h3>
-                                <ul className="list-disc pl-5 space-y-1.5 text-slate-800">
+                            <div className="border-l-2 border-slate-300 pl-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-2">5.2 Disruptive &amp; Abusive Behavior</h3>
+                                <ul className="list-disc pl-5 space-y-1 text-slate-800">
                                     <li>Harassment, intimidation, or physical threats.</li>
                                     <li>Discrimination or hate speech.</li>
                                     <li>Verbal or written abuse toward faculty, staff, or peers.</li>
@@ -153,9 +153,9 @@ export default function CodeOfConductPage() {
                                 </ul>
                             </div>
 
-                            <div className="p-6 bg-slate-50 border border-slate-200 rounded-none">
-                                <h3 className="text-lg font-bold text-slate-900 mb-3">5.3 Resource Misuse &amp; Safety Violations</h3>
-                                <ul className="list-disc pl-5 space-y-1.5 text-slate-800">
+                            <div className="border-l-2 border-slate-300 pl-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-2">5.3 Resource Misuse &amp; Safety Violations</h3>
+                                <ul className="list-disc pl-5 space-y-1 text-slate-800">
                                     <li>Unauthorized system access or credential sharing.</li>
                                     <li>Tampering with IT systems or campus facilities.</li>
                                     <li>Actions endangering the safety of others or property damage.</li>

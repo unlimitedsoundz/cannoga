@@ -76,23 +76,23 @@ export default function CookiesContent() {
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Types of Cookies Used</h2>
                         </div>
                         <div className="space-y-6 text-base text-slate-700">
-                            <div className="p-6 bg-slate-50 border border-slate-200 rounded-none">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">3.1 Strictly Necessary Cookies</h3>
-                                <p className="text-slate-800 leading-relaxed">
+                            <div className="border-l-2 border-[#0a151a] pl-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-1">3.1 Strictly Necessary Cookies</h3>
+                                <p className="text-slate-700 leading-relaxed">
                                     Essential for basic portal operation, user authentication, security validation, and load balancing across web servers. Strictly necessary cookies cannot be disabled.
                                 </p>
                             </div>
 
-                            <div className="p-6 bg-slate-50 border border-slate-200 rounded-none">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">3.2 Functional &amp; Preference Cookies</h3>
-                                <p className="text-slate-800 leading-relaxed">
+                            <div className="border-l-2 border-slate-300 pl-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-1">3.2 Functional &amp; Preference Cookies</h3>
+                                <p className="text-slate-700 leading-relaxed">
                                     Store user preferences such as preferred language, accessibility toggles, and active portal sessions to deliver a customized user experience.
                                 </p>
                             </div>
 
-                            <div className="p-6 bg-slate-50 border border-slate-200 rounded-none">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">3.3 Analytics &amp; Performance Cookies</h3>
-                                <p className="text-slate-800 leading-relaxed">
+                            <div className="border-l-2 border-slate-300 pl-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-1">3.3 Analytics &amp; Performance Cookies</h3>
+                                <p className="text-slate-700 leading-relaxed">
                                     Gather aggregated, anonymized metrics on page traffic, load times, and user interaction pathways to optimize platform performance.
                                 </p>
                             </div>

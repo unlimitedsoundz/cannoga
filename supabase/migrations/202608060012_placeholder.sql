@@ -1,0 +1,2 @@
+-- Placeholder for remote migration 202608060012
+-- This migration was applied remotely but the local file is missing.

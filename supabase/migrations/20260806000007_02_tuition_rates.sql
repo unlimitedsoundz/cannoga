@@ -1,0 +1,56 @@
+-- Create tuition_rates table
+CREATE TABLE IF NOT EXISTS public.tuition_rates (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    degree_level TEXT NOT NULL, 
+    field TEXT NOT NULL,
+    annual_fee DECIMAL(10, 2) NOT NULL,
+    currency TEXT DEFAULT 'CAD',
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    UNIQUE(degree_level, field)
+);
+
+-- Insert Official Rates
+INSERT INTO public.tuition_rates (degree_level, field, annual_fee) VALUES
+('CERTIFICATE', 'BUSINESS', 2500.00),
+('CERTIFICATE', 'ARTS', 2500.00),
+('CERTIFICATE', 'TECHNOLOGY', 2500.00),
+('CERTIFICATE', 'SCIENCE', 2500.00),
+('CERTIFICATE', 'HEALTH', 2500.00),
+('CERTIFICATE', 'HOSPITALITY', 2500.00),
+('CERTIFICATE', 'EDUCATION', 2500.00),
+('CERTIFICATE', 'TRANSPORTATION', 2500.00),
+('DIPLOMA', 'BUSINESS', 2500.00),
+('DIPLOMA', 'ARTS', 2500.00),
+('DIPLOMA', 'TECHNOLOGY', 2500.00),
+('DIPLOMA', 'SCIENCE', 2500.00),
+('DIPLOMA', 'HEALTH', 2500.00),
+('DIPLOMA', 'HOSPITALITY', 2500.00),
+('DIPLOMA', 'EDUCATION', 2500.00),
+('DIPLOMA', 'TRANSPORTATION', 2500.00),
+('BACHELOR', 'BUSINESS', 4000.00),
+('BACHELOR', 'ARTS', 4000.00),
+('BACHELOR', 'TECHNOLOGY', 4000.00),
+('BACHELOR', 'SCIENCE', 4000.00),
+('BACHELOR', 'HEALTH', 4000.00),
+('BACHELOR', 'HOSPITALITY', 4000.00),
+('BACHELOR', 'EDUCATION', 4000.00),
+('BACHELOR', 'TRANSPORTATION', 4000.00),
+('MASTER', 'BUSINESS', 6000.00),
+('MASTER', 'ARTS', 6000.00),
+('MASTER', 'TECHNOLOGY', 6000.00),
+('MASTER', 'SCIENCE', 6000.00),
+('MASTER', 'HEALTH', 6000.00),
+('MASTER', 'HOSPITALITY', 6000.00),
+('MASTER', 'EDUCATION', 6000.00),
+('MASTER', 'TRANSPORTATION', 6000.00)
+
+ON CONFLICT (degree_level, field) DO UPDATE 
+SET annual_fee = EXCLUDED.annual_fee, updated_at = NOW();
+
+-- Enable RLS
+ALTER TABLE public.tuition_rates ENABLE ROW LEVEL SECURITY;
+
+-- Allow public read access to tuition rates
+DROP POLICY IF EXISTS "Tuition rates are viewable by everyone" ON public.tuition_rates;
+CREATE POLICY "Tuition rates are viewable by everyone" ON public.tuition_rates FOR SELECT USING (true);;

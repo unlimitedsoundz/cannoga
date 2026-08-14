@@ -105,10 +105,10 @@ export default function AdmissionsPolicyPage() {
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Admission Requirements</h2>
                         </div>
                         <div className="space-y-6 text-base text-slate-700">
-                            <div className="p-6 bg-slate-50 border border-slate-200 rounded-none">
-                                <h3 className="text-lg font-bold text-slate-900 mb-3">4.1 Bachelor&apos;s Programmes</h3>
-                                <p className="mb-3 font-medium">Applicants must:</p>
-                                <ul className="list-disc pl-5 space-y-1.5 text-slate-800">
+                            <div className="border-l-2 border-[#0a151a] pl-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-2">4.1 Bachelor&apos;s Programmes</h3>
+                                <p className="mb-2 font-semibold text-slate-900">Applicants must:</p>
+                                <ul className="list-disc pl-5 space-y-1 text-slate-800">
                                     <li>Hold a recognized secondary school diploma or equivalent secondary qualification.</li>
                                     <li>Meet minimum academic grade requirements specified for the chosen program.</li>
                                     <li>Demonstrate sufficient proficiency in English (or French where applicable).</li>
@@ -116,10 +116,10 @@ export default function AdmissionsPolicyPage() {
                                 </ul>
                             </div>
 
-                            <div className="p-6 bg-slate-50 border border-slate-200 rounded-none">
-                                <h3 className="text-lg font-bold text-slate-900 mb-3">4.2 Master&apos;s Programmes</h3>
-                                <p className="mb-3 font-medium">Applicants must:</p>
-                                <ul className="list-disc pl-5 space-y-1.5 text-slate-800">
+                            <div className="border-l-2 border-slate-300 pl-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-2">4.2 Master&apos;s Programmes</h3>
+                                <p className="mb-2 font-semibold text-slate-900">Applicants must:</p>
+                                <ul className="list-disc pl-5 space-y-1 text-slate-800">
                                     <li>Hold a recognized Bachelor&apos;s degree or equivalent in a relevant field.</li>
                                     <li>Meet program-specific academic and professional background requirements.</li>
                                     <li>Provide official transcripts, degree certificates, and recommendation letters.</li>

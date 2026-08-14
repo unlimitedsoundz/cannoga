@@ -113,15 +113,13 @@ export default function AccessibilityPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">05</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Accessible Content &amp; Features</h2>
                         </div>
-                        <div className="p-6 bg-slate-50 border border-slate-200 rounded-none">
-                            <ul className="list-disc pl-5 space-y-2 text-slate-800">
-                                <li>High contrast color ratios designed for enhanced readability.</li>
-                                <li>Full keyboard navigation support across interactive components.</li>
-                                <li>Structured HTML heading hierarchies (H1–H4) for screen reader compatibility.</li>
-                                <li>Alternative text (`alt` attributes) for non-decorative imagery.</li>
-                                <li>Scalable typography without loss of layout structure.</li>
-                            </ul>
-                        </div>
+                        <ul className="list-disc pl-6 space-y-2 text-[#0a151a] marker:text-black">
+                            <li>High contrast color ratios designed for enhanced readability.</li>
+                            <li>Full keyboard navigation support across interactive components.</li>
+                            <li>Structured HTML heading hierarchies (H1–H4) for screen reader compatibility.</li>
+                            <li>Alternative text (`alt` attributes) for non-decorative imagery.</li>
+                            <li>Scalable typography without loss of layout structure.</li>
+                        </ul>
                     </section>
 
                     {/* 6. NON-ACCESSIBLE CONTENT */}

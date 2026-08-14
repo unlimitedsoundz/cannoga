@@ -106,16 +106,16 @@ export default function StudentHandbookPage() {
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Student Status &amp; Enrollment</h2>
                         </div>
                         <div className="space-y-6 text-base text-slate-700">
-                            <div className="p-6 bg-slate-50 border border-slate-200 rounded-none">
-                                <h3 className="text-lg font-bold text-slate-900 mb-3">3.1 Admission vs Enrollment</h3>
-                                <p className="mb-3 font-medium text-slate-800">A student becomes a fully enrolled student only after:</p>
-                                <ul className="list-disc pl-5 space-y-1.5 text-slate-800 mb-4">
+                            <div className="border-l-2 border-[#0a151a] pl-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-2">3.1 Admission vs Enrollment</h3>
+                                <p className="mb-2 font-semibold text-slate-900">A student becomes a fully enrolled student only after:</p>
+                                <ul className="list-disc pl-5 space-y-1 text-slate-800 mb-4">
                                     <li>Accepting an official offer of admission via the student portal.</li>
                                     <li>Paying required tuition or enrollment confirmation fees.</li>
                                     <li>Receiving official enrollment confirmation from the Registrar.</li>
                                 </ul>
-                                <p className="mb-3 font-medium text-slate-800">Upon complete enrollment:</p>
-                                <ul className="list-disc pl-5 space-y-1.5 text-slate-800">
+                                <p className="mb-2 font-semibold text-slate-900">Upon complete enrollment:</p>
+                                <ul className="list-disc pl-5 space-y-1 text-slate-800">
                                     <li>A permanent Student ID number is issued.</li>
                                     <li>Institutional email (@cannogacollege.ca) is activated.</li>
                                     <li>Full academic system and LMS access is granted.</li>

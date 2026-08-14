@@ -1,0 +1,347 @@
+﻿{
+  "depts": [
+    {
+      "id": "0cd264ab-2d6b-4c2c-9663-bacc1bdbbbd3",
+      "name": "Finance",
+      "slug": "finance",
+      "description": "The Department of Finance provides advanced education in asset pricing, corporate finance, and risk management. We combine theoretical rigor with practical application, utilizing modern financial tools and market data.",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "createdAt": "2026-01-28T13:40:26.701",
+      "updatedAt": "2026-01-28T13:40:26.526",
+      "imageUrl": "https://mrqzlmkdhzwvbpljikjz.supabase.co/storage/v1/object/public/content/6qkbmdm9mrr.jpg",
+      "headOfDepartmentId": "21cbcd05-c31f-4777-a005-7f14d9203b20",
+      "school": {
+        "name": "School of Business",
+        "slug": "business"
+      }
+    }
+  ],
+  "courses": [
+    {
+      "id": "e15ef57b-2f95-42a6-b766-aeef883af9d2",
+      "title": "Bachelor's in Accounting & Finance",
+      "slug": "accounting-and-finance-bsc",
+      "degreeLevel": "BACHELOR",
+      "duration": "3 Years",
+      "description": "Solid foundation in accounting, finance, and management.",
+      "language": "English",
+      "entryRequirements": null,
+      "minimumGrade": null,
+      "careerPaths": null,
+      "imageUrl": "https://mrqzlmkdhzwvbpljikjz.supabase.co/storage/v1/object/public/content/rhz72cfha8a.jpg",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "departmentId": "a9577f4a-e5d7-4ddc-b323-52fbcb1a9089",
+      "createdAt": "2026-01-28T00:08:56.159",
+      "updatedAt": "2026-01-28T00:08:56.159",
+      "tuitionFee": "$8,000 / year",
+      "credits": 180,
+      "sections": [
+        {
+          "id": "description",
+          "title": "Description",
+          "content": "\n            <p class=\"mb-4\">The Accounting & Finance BSc program at Cannoga College provides a solid foundation in accounting, finance, and management. Students gain practical and theoretical knowledge in financial accounting, management accounting, corporate governance, auditing, performance management, and financial decision-making.</p>\n            <p>The program equips students with analytical skills and business understanding necessary for careers in accounting, finance, and corporate administration.</p>\n        "
+        },
+        {
+          "id": "language",
+          "title": "Language of Instruction",
+          "content": "\n            <p class=\"mb-2\"><strong>English (all courses)</strong></p>\n            <p>The program is designed to prepare students for careers in international business environments.</p>\n        "
+        },
+        {
+          "id": "tuition",
+          "title": "Tuition Fees and Scholarships",
+          "content": "\n            <div class=\"mb-4\">\n                <strong>Tuition Fee:</strong> Included in degree tuition for full-time BSc students\n            </div>\n            <div>\n                <strong>Scholarships:</strong>\n                <ul class=\"list-disc pl-5 mt-2 space-y-1\">\n                    <li>Merit-based scholarships for high-achieving students</li>\n                    <li>Need-based financial aid</li>\n                    <li>Support for international students</li>\n                </ul>\n                <p class=\"mt-2 text-sm text-neutral-500\">Detailed scholarship information is available on the Cannoga College Scholarships page.</p>\n            </div>\n        "
+        },
+        {
+          "id": "structure",
+          "title": "Structure of Studies",
+          "content": "\n            <div class=\"mb-6\">\n                <h4 class=\"font-bold mb-2\">BSc in Accounting & Finance (3 Years):</h4>\n                <div class=\"mb-4\">\n                    <strong class=\"block mb-1\">Core Courses:</strong>\n                    <ul class=\"list-disc pl-5 space-y-1\">\n                        <li>Introduction to Financial Accounting</li>\n                        <li>Management Accounting I & II</li>\n                        <li>Financial Statement Analysis</li>\n                        <li>Corporate Governance</li>\n                        <li>Auditing – Theory and Practice</li>\n                        <li>Performance Management</li>\n                    </ul>\n                </div>\n                <div class=\"mb-4\">\n                    <strong class=\"block mb-1\">Electives and Projects:</strong>\n                    <ul class=\"list-disc pl-5 space-y-1\">\n                        <li>Big Data Analysis in Accounting</li>\n                        <li>Risk Management and Financial Planning</li>\n                        <li>Entrepreneurship Law</li>\n                    </ul>\n                </div>\n                <div>\n                    <strong class=\"block mb-1\">Final Year:</strong>\n                    <ul class=\"list-disc pl-5 space-y-1\">\n                        <li>Students complete a capstone project or thesis to apply their knowledge in a practical accounting or finance scenario.</li>\n                    </ul>\n                </div>\n                <p class=\"mt-4 italic\">The program emphasizes hands-on exercises, case studies, and team-based projects.</p>\n            </div>\n        "
+        },
+        {
+          "id": "specialisations",
+          "title": "Specialisations",
+          "content": "\n            <p class=\"mb-2\">Students may focus on areas such as:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Financial Accounting and Reporting</li>\n                <li>Management Accounting and Planning</li>\n                <li>Auditing and Compliance</li>\n                <li>Risk Management and Sustainability Accounting</li>\n            </ul>\n            <p class=\"mt-2\">Specialisations help tailor the degree to the student's career goals.</p>\n        "
+        },
+        {
+          "id": "internationalisation",
+          "title": "Internationalisation",
+          "content": "\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Opportunities for student exchange with partner universities</li>\n                <li>International workshops, seminars, and guest lectures</li>\n                <li>Collaboration on global finance and accounting projects</li>\n            </ul>\n            <p class=\"mt-2\">International exposure prepares students for multinational corporations and global finance roles.</p>\n        "
+        },
+        {
+          "id": "further-study",
+          "title": "Further Study Opportunities",
+          "content": "\n            <p class=\"mb-2\">Graduates can pursue:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>MSc programs in Accounting, Finance, or Business Analytics</li>\n                <li>Professional certifications (CPA, ACCA, CFA)</li>\n                <li>Research positions or internships in accounting and finance firms</li>\n            </ul>\n        "
+        },
+        {
+          "id": "career",
+          "title": "Career Opportunities",
+          "content": "\n            <p class=\"mb-2\">Potential career paths include:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Accountant or Financial Analyst</li>\n                <li>Auditor or Compliance Officer</li>\n                <li>Management Consultant</li>\n                <li>Corporate Finance Specialist</li>\n                <li>Entrepreneur in Financial Services</li>\n            </ul>\n        "
+        },
+        {
+          "id": "research",
+          "title": "Research Focus",
+          "content": "\n            <p class=\"mb-2\">The Accounting & Finance Department emphasizes:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Corporate finance and management accounting</li>\n                <li>Auditing and regulatory compliance</li>\n                <li>Risk management and financial planning</li>\n                <li>Sustainability accounting</li>\n                <li>Accounting analytics and data-driven decision-making</li>\n            </ul>\n        "
+        },
+        {
+          "id": "cooperation",
+          "title": "Co-operation with Other Parties",
+          "content": "\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Collaboration with leading accounting and finance firms</li>\n                <li>Partnerships with multinational companies for internships and projects</li>\n                <li>Engagement with regulatory authorities and professional bodies</li>\n            </ul>\n        "
+        },
+        {
+          "id": "admissions",
+          "title": "Study-Option-Specific Evaluation Criteria in Admissions",
+          "content": "\n            <p class=\"mb-2\">Applicants are evaluated based on:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>High school diploma or equivalent</li>\n                <li>Academic performance, especially in mathematics and business-related subjects</li>\n                <li>Motivation letter and career aspirations</li>\n                <li>Letters of recommendation</li>\n                <li>Relevant extracurricular or internship experience</li>\n            </ul>\n        "
+        },
+        {
+          "id": "contact",
+          "title": "Contact Information",
+          "content": "\n            <p><strong>Cannoga College School of Business – Accounting & Finance Department</strong></p>\n            <p>Email: <a href=\"mailto:accounting@Cannoga.com\" class=\"text-emerald-600 hover:underline\">accounting@Cannoga.com</a></p>\n            <p>Address: Cannoga College, Ottawa Campus, Canada</p>\n            <p>Office Hours: Monday–Friday, 9:00–17:00</p>\n        "
+        }
+      ],
+      "department": {
+        "name": "Accounting & Business Law",
+        "slug": "accounting-business-law"
+      },
+      "school": {
+        "name": "School of Business",
+        "slug": "business"
+      }
+    },
+    {
+      "id": "7d3e5f8a-1b2c-4e7d-9a3f-8c4e5d6b7f88",
+      "title": "Master's in Accounting & Finance",
+      "slug": "accounting-finance-master",
+      "degreeLevel": "MASTER",
+      "duration": "2 Years",
+      "description": "Advanced knowledge in accounting, corporate finance, auditing, and financial management.",
+      "language": "English",
+      "entryRequirements": "Bachelor's degree in Business or related field",
+      "minimumGrade": null,
+      "careerPaths": "CFO; Strategy Director; Investment Banker;",
+      "imageUrl": "https://mrqzlmkdhzwvbpljikjz.supabase.co/storage/v1/object/public/content/rhz72cfha8a.jpg",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "departmentId": "a9577f4a-e5d7-4ddc-b323-52fbcb1a9089",
+      "createdAt": "2026-01-27T23:31:13.772",
+      "updatedAt": "2026-01-27T23:31:13.772",
+      "tuitionFee": "$10,000 / year",
+      "credits": 120,
+      "sections": [
+        {
+          "id": "description",
+          "title": "Description",
+          "content": "\n            <p class=\"mb-4\">The Accounting & Finance MSc program at Cannoga College is designed for students seeking advanced knowledge in accounting, corporate finance, auditing, and financial management. The program emphasizes both theoretical understanding and practical application of accounting standards, corporate governance, strategic management accounting, performance management, risk management, and sustainability in accounting.</p>\n            <p>Students develop analytical skills for complex financial decision-making, preparing them for leadership roles in accounting, finance, and corporate strategy.</p>\n        "
+        },
+        {
+          "id": "language",
+          "title": "Language of Instruction",
+          "content": "\n            <p class=\"mb-2\"><strong>English (all courses)</strong></p>\n            <p>The program prepares students for careers in international business environments and global financial institutions.</p>\n        "
+        },
+        {
+          "id": "tuition",
+          "title": "Tuition Fees and Scholarships",
+          "content": "\n            <div class=\"mb-4\">\n                <strong>Tuition Fee:</strong> Included in degree tuition for full-time MSc students\n            </div>\n            <div>\n                <strong>Scholarships:</strong>\n                <ul class=\"list-disc pl-5 mt-2 space-y-1\">\n                    <li>Merit-based scholarships for top-performing applicants</li>\n                    <li>Need-based financial aid</li>\n                    <li>Scholarships for international students</li>\n                </ul>\n                <p class=\"mt-2 text-sm text-neutral-500\">Detailed scholarship information and application procedures are available on the Cannoga College Scholarships page.</p>\n            </div>\n        "
+        },
+        {
+          "id": "structure",
+          "title": "Structure of Studies",
+          "content": "\n            <div class=\"mb-6\">\n                <h4 class=\"font-bold mb-2\">MSc in Accounting & Finance (2 Years):</h4>\n                <div class=\"mb-4\">\n                    <strong class=\"block mb-1\">Core Courses:</strong>\n                    <ul class=\"list-disc pl-5 space-y-1\">\n                        <li>Financial Statement Analysis</li>\n                        <li>Financial Accounting Theories</li>\n                        <li>Corporate Governance</li>\n                        <li>Strategic Management Accounting</li>\n                        <li>Auditing – Theory and Practice</li>\n                        <li>Performance Management</li>\n                        <li>Accounting for Sustainability</li>\n                    </ul>\n                </div>\n                <div class=\"mb-4\">\n                    <strong class=\"block mb-1\">Specialised Courses:</strong>\n                    <ul class=\"list-disc pl-5 space-y-1\">\n                        <li>Risk Management: Organization and Control</li>\n                        <li>Financial Management for Entrepreneurs</li>\n                        <li>Capital Budgeting</li>\n                        <li>Big Data Analysis in Accounting</li>\n                        <li>Entrepreneurship Law in Practice</li>\n                    </ul>\n                </div>\n                <div>\n                    <strong class=\"block mb-1\">Capstone / Thesis:</strong>\n                    <ul class=\"list-disc pl-5 space-y-1\">\n                        <li>Students complete an individual thesis project focusing on applied accounting and financial issues.</li>\n                    </ul>\n                </div>\n                <p class=\"mt-4 italic\">Practical exercises, case studies, and real-world financial scenarios are embedded throughout the program.</p>\n            </div>\n        "
+        },
+        {
+          "id": "specialisations",
+          "title": "Specialisations",
+          "content": "\n            <p class=\"mb-2\">Students may choose to focus on:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Corporate Finance and Auditing</li>\n                <li>Strategic and Management Accounting</li>\n                <li>Financial Risk and Sustainability</li>\n                <li>Accounting Analytics and Big Data Applications</li>\n            </ul>\n            <p class=\"mt-2\">Specialisations allow tailoring the degree to career ambitions in consulting, corporate finance, or regulatory roles.</p>\n        "
+        },
+        {
+          "id": "internationalisation",
+          "title": "Internationalisation",
+          "content": "\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Student exchange opportunities with partner universities worldwide</li>\n                <li>Participation in international conferences and workshops</li>\n                <li>Guest lectures from global finance and accounting professionals</li>\n            </ul>\n            <p class=\"mt-2\">International exposure prepares graduates for multinational organizations and global business roles.</p>\n        "
+        },
+        {
+          "id": "further-study",
+          "title": "Further Study Opportunities",
+          "content": "\n            <p class=\"mb-2\">Graduates of the MSc program can pursue:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Doctoral programs (PhD) in Accounting, Finance, or Management</li>\n                <li>Professional certifications: CPA, CFA, ACCA</li>\n                <li>Advanced research positions in universities or policy institutes</li>\n            </ul>\n        "
+        },
+        {
+          "id": "career",
+          "title": "Career Opportunities",
+          "content": "\n            <p class=\"mb-2\">Potential career paths include:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Financial Analyst or Advisor</li>\n                <li>Corporate Auditor or Compliance Officer</li>\n                <li>Chief Financial Officer (CFO)</li>\n                <li>Management Consultant</li>\n                <li>Entrepreneur in Finance and Accounting Services</li>\n            </ul>\n        "
+        },
+        {
+          "id": "research",
+          "title": "Research Focus",
+          "content": "\n            <p class=\"mb-2\">Cannoga College Accounting & Finance Department focuses on:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Advanced corporate finance and valuation</li>\n                <li>Management accounting and strategic decision-making</li>\n                <li>Auditing and compliance research</li>\n                <li>Sustainability accounting and reporting</li>\n                <li>Big Data analytics in financial decision-making</li>\n            </ul>\n        "
+        },
+        {
+          "id": "cooperation",
+          "title": "Co-operation with Other Parties",
+          "content": "\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Collaborations with international accounting firms and financial institutions</li>\n                <li>Partnerships with multinational corporations for research projects and internships</li>\n                <li>Engagement with regulatory bodies and policy institutes</li>\n            </ul>\n        "
+        },
+        {
+          "id": "admissions",
+          "title": "Study-Option-Specific Evaluation Criteria in Master's Admissions 2025",
+          "content": "\n            <p class=\"mb-2\">Applicants are evaluated based on:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Bachelor's degree in Business, Finance, Accounting, or related field</li>\n                <li>Academic excellence (GPA or minimum grade requirement)</li>\n                <li>Motivation letter and career goals</li>\n                <li>Letters of recommendation</li>\n                <li>Relevant professional experience or internships</li>\n            </ul>\n            <p class=\"mt-2 text-sm text-neutral-500\">Additional criteria may apply for international students and scholarship applications.</p>\n        "
+        },
+        {
+          "id": "contact",
+          "title": "Contact Information",
+          "content": "\n            <p><strong>Cannoga College School of Business – Accounting & Finance Department</strong></p>\n            <p>Email: <a href=\"mailto:accounting@Cannoga.edu\" class=\"text-emerald-600 hover:underline\">accounting@Cannoga.edu</a></p>\n            <p>Phone: +358 20 123 4568</p>\n            <p>Address: Cannoga College, Ottawa Campus, Canada</p>\n            <p>Office Hours: Monday–Friday, 9:00–17:00</p>\n        "
+        }
+      ],
+      "department": {
+        "name": "Accounting & Business Law",
+        "slug": "accounting-business-law"
+      },
+      "school": {
+        "name": "School of Business",
+        "slug": "business"
+      }
+    },
+    {
+      "id": "7b91fcb4-0c1d-4c3b-9e1a-5f9eab6f4d21",
+      "title": "Bachelor's in Finance",
+      "slug": "finance",
+      "degreeLevel": "BACHELOR",
+      "duration": "3 Years",
+      "description": "Foundational program in corporate finance, investments, financial markets, derivatives, fixed income, portfolio management, and personal finance.",
+      "language": "English",
+      "entryRequirements": "High School Diploma with Mathematics",
+      "minimumGrade": null,
+      "careerPaths": "Financial Analyst; Investment Banker; Risk Manager;",
+      "imageUrl": "https://mrqzlmkdhzwvbpljikjz.supabase.co/storage/v1/object/public/content/rhz72cfha8a.jpg",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "departmentId": "0cd264ab-2d6b-4c2c-9663-bacc1bdbbbd3",
+      "createdAt": "2026-01-27T23:31:12.024",
+      "updatedAt": "2026-01-27T23:31:12.024",
+      "tuitionFee": "$8,000 / year",
+      "credits": 180,
+      "sections": [
+        {
+          "id": "description",
+          "title": "Programme Description",
+          "content": "\n            <p class=\"mb-4\">The Finance BACHELOR programme at Cannoga College offers a comprehensive curriculum designed to prepare students for leadership roles in the global economy. The programme integrates theoretical foundations with practical applications, focusing on sustainable practices and innovative thinking.</p>\n            <p>Students will engage in multi-disciplinary projects, case studies, and corporate collaborations to develop the skills necessary for a successful career in Finance.</p>\n        "
+        },
+        {
+          "id": "structure",
+          "title": "Degree Structure",
+          "content": "\n            <p class=\"mb-4\">The degree consists of core studies, specialization courses, and a final thesis project. The curriculum is updated annually to reflect the latest industry trends and research insights.</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Core Discipline Studies (150 ECTS)</li>\n                <li>Elective Studies (20 ECTS)</li>\n                <li>Bachelor's Thesis (30 ECTS)</li>\n            </ul>\n        "
+        },
+        {
+          "id": "career",
+          "title": "Career Opportunities",
+          "content": "\n            <p class=\"mb-4\">Graduates of the Finance programme are highly sought after by international organizations, consulting firms, and innovative startups. Potential career paths include:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Senior Finance Consultant</li>\n                <li>Project Lead in Finance Operations</li>\n                <li>Research & Development Specialist</li>\n                <li>Independent Entrepreneur in the Finance Sector</li>\n            </ul>\n        "
+        },
+        {
+          "id": "admissions",
+          "title": "Admissions Information",
+          "content": "\n            <p class=\"mb-4\">Admission is based on academic excellence and potential for impact. Applicants must demonstrate strong analytical skills and a commitment to sustainable business values.</p>\n            <p>Required documents include previous degree certificates, transcripts, a motivation letter, and proof of English proficiency.</p>\n        "
+        }
+      ],
+      "department": {
+        "name": "Finance",
+        "slug": "finance"
+      },
+      "school": {
+        "name": "School of Business",
+        "slug": "business"
+      }
+    },
+    {
+      "id": "9f5a7b1c-3d4e-4f9b-9c2d-1e6f7a8b9c00",
+      "title": "Master's in Finance",
+      "slug": "finance-master",
+      "degreeLevel": "MASTER",
+      "duration": "2 Years",
+      "description": "Advanced corporate finance, derivatives, fixed income, portfolio management, mergers and acquisitions, advanced investments, and valuation.",
+      "language": "English",
+      "entryRequirements": "Bachelor's degree in Finance or Economics",
+      "minimumGrade": null,
+      "careerPaths": "Investment Manager; Portfolio Analyst; CFO;",
+      "imageUrl": "https://mrqzlmkdhzwvbpljikjz.supabase.co/storage/v1/object/public/content/rhz72cfha8a.jpg",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "departmentId": "0cd264ab-2d6b-4c2c-9663-bacc1bdbbbd3",
+      "createdAt": "2026-01-27T23:31:14.877",
+      "updatedAt": "2026-01-27T23:31:14.877",
+      "tuitionFee": "$10,000 / year",
+      "credits": 120,
+      "sections": [
+        {
+          "id": "description",
+          "title": "Programme Description",
+          "content": "\n            <p class=\"mb-4\">The Finance MASTER programme at Cannoga College offers a comprehensive curriculum designed to prepare students for leadership roles in the global economy. The programme integrates theoretical foundations with practical applications, focusing on sustainable practices and innovative thinking.</p>\n            <p>Students will engage in multi-disciplinary projects, case studies, and corporate collaborations to develop the skills necessary for a successful career in Finance.</p>\n        "
+        },
+        {
+          "id": "structure",
+          "title": "Degree Structure",
+          "content": "\n            <p class=\"mb-4\">The degree consists of core studies, specialization courses, and a final thesis project. The curriculum is updated annually to reflect the latest industry trends and research insights.</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Core Discipline Studies (60 ECTS)</li>\n                <li>Elective Studies (20 ECTS)</li>\n                <li>Master's Thesis (30 ECTS)</li>\n            </ul>\n        "
+        },
+        {
+          "id": "career",
+          "title": "Career Opportunities",
+          "content": "\n            <p class=\"mb-4\">Graduates of the Finance programme are highly sought after by international organizations, consulting firms, and innovative startups. Potential career paths include:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Senior Finance Consultant</li>\n                <li>Project Lead in Finance Operations</li>\n                <li>Research & Development Specialist</li>\n                <li>Independent Entrepreneur in the Finance Sector</li>\n            </ul>\n        "
+        },
+        {
+          "id": "admissions",
+          "title": "Admissions Information",
+          "content": "\n            <p class=\"mb-4\">Admission is based on academic excellence and potential for impact. Applicants must demonstrate strong analytical skills and a commitment to sustainable business values.</p>\n            <p>Required documents include previous degree certificates, transcripts, a motivation letter, and proof of English proficiency.</p>\n        "
+        }
+      ],
+      "department": {
+        "name": "Finance",
+        "slug": "finance"
+      },
+      "school": {
+        "name": "School of Business",
+        "slug": "business"
+      }
+    },
+    {
+      "id": "b12b8f83-ebf8-4616-8a60-c98215f3f417",
+      "title": "Master's in Strategic Management & Finance",
+      "slug": "strategic-management-finance",
+      "degreeLevel": "MASTER",
+      "duration": "2 Years",
+      "description": "A specialized program for strategic financial leadership. It integrates core management principles with advanced corporate finance, focusing on international strategy and brand valuation. Graduates are prepared for CFO and strategic leadership roles in large enterprises.",
+      "language": "English",
+      "entryRequirements": "Bachelor's degree in Business, Finance, or Economics. High mathematical proficiency. Statement of purpose focused on strategic career goals. Two professional or academic references.",
+      "minimumGrade": null,
+      "careerPaths": "CFO, Strategy Director, Investment Banker.",
+      "imageUrl": "https://mrqzlmkdhzwvbpljikjz.supabase.co/storage/v1/object/public/content/rhz72cfha8a.jpg",
+      "schoolId": "a54123ea-caae-40ec-b3b0-d2c1d91528ca",
+      "departmentId": "a4e247de-8e3b-4bcb-8422-45f7672b29a9",
+      "createdAt": "2026-01-27T23:07:43.498",
+      "updatedAt": "2026-01-27T23:07:43.498",
+      "tuitionFee": "$10,000 / year",
+      "credits": 120,
+      "sections": [
+        {
+          "id": "description",
+          "title": "Programme Description",
+          "content": "\n            <p class=\"mb-4\">The Strategic Management & Finance MASTER programme at Cannoga College offers a comprehensive curriculum designed to prepare students for leadership roles in the global economy. The programme integrates theoretical foundations with practical applications, focusing on sustainable practices and innovative thinking.</p>\n            <p>Students will engage in multi-disciplinary projects, case studies, and corporate collaborations to develop the skills necessary for a successful career in Strategic Management & Finance.</p>\n        "
+        },
+        {
+          "id": "structure",
+          "title": "Degree Structure",
+          "content": "\n            <p class=\"mb-4\">The degree consists of core studies, specialization courses, and a final thesis project. The curriculum is updated annually to reflect the latest industry trends and research insights.</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Core Discipline Studies (60 ECTS)</li>\n                <li>Elective Studies (20 ECTS)</li>\n                <li>Master's Thesis (30 ECTS)</li>\n            </ul>\n        "
+        },
+        {
+          "id": "career",
+          "title": "Career Opportunities",
+          "content": "\n            <p class=\"mb-4\">Graduates of the Strategic Management & Finance programme are highly sought after by international organizations, consulting firms, and innovative startups. Potential career paths include:</p>\n            <ul class=\"list-disc pl-5 space-y-1\">\n                <li>Senior Strategic Management & Finance Consultant</li>\n                <li>Project Lead in Strategic Management & Finance Operations</li>\n                <li>Research & Development Specialist</li>\n                <li>Independent Entrepreneur in the Strategic Management & Finance Sector</li>\n            </ul>\n        "
+        },
+        {
+          "id": "admissions",
+          "title": "Admissions Information",
+          "content": "\n            <p class=\"mb-4\">Admission is based on academic excellence and potential for impact. Applicants must demonstrate strong analytical skills and a commitment to sustainable business values.</p>\n            <p>Required documents include previous degree certificates, transcripts, a motivation letter, and proof of English proficiency.</p>\n        "
+        }
+      ],
+      "department": {
+        "name": "Management Studies",
+        "slug": "management"
+      },
+      "school": {
+        "name": "School of Business",
+        "slug": "business"
+      }
+    }
+  ]
+}
+

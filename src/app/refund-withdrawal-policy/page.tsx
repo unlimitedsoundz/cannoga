@@ -125,9 +125,9 @@ export default function RefundWithdrawalPolicyPage() {
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Withdrawal Procedures</h2>
                         </div>
                         <div className="space-y-6 text-base text-slate-700">
-                            <div className="p-6 bg-slate-50 border border-slate-200 rounded-none">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">5.1 Voluntary Withdrawal Steps</h3>
-                                <p className="mb-4">
+                            <div className="border-l-2 border-[#0a151a] pl-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-1">5.1 Voluntary Withdrawal Steps</h3>
+                                <p className="mb-2">
                                     To officially withdraw from a program, students must submit a formal Withdrawal Form via the <Link href="/portal/apply" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Cannoga Student Portal</Link> or directly to the <Link href="/contact" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Office of the Registrar</Link>.
                                 </p>
                                 <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider">
@@ -135,8 +135,8 @@ export default function RefundWithdrawalPolicyPage() {
                                 </p>
                             </div>
 
-                            <div className="p-6 bg-slate-50 border border-slate-200 rounded-none">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">5.2 Involuntary Withdrawal</h3>
+                            <div className="border-l-2 border-slate-300 pl-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-1">5.2 Involuntary Withdrawal</h3>
                                 <p className="mb-2">
                                     Involuntary withdrawal occurs in cases of academic dismissal, non-payment of tuition, or violations of the <Link href="/code-of-conduct" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Student Code of Conduct</Link>.
                                 </p>
@@ -153,14 +153,14 @@ export default function RefundWithdrawalPolicyPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">06</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">IRCC Study Permit (Visa) Refusals</h2>
                         </div>
-                        <div className="p-6 bg-sky-50 border border-sky-200 rounded-none text-slate-800 space-y-4">
+                        <div className="border-l-2 border-[#0a151a] pl-4 text-slate-800 space-y-3">
                             <p className="text-base font-bold text-slate-900">
                                 Protection for International Applicants:
                             </p>
                             <p className="text-base leading-relaxed">
                                 International applicants who are refused a Canadian Study Permit by Immigration, Refugees and Citizenship Canada (IRCC) are eligible for a <strong>100% refund of prepaid tuition fees</strong>, minus a <strong>$100 CAD administrative processing fee</strong>.
                             </p>
-                            <div className="text-sm space-y-2 pt-2 border-t border-sky-200">
+                            <div className="text-sm space-y-2 pt-2 border-t border-slate-200">
                                 <p className="font-bold text-slate-900">Requirements for Visa Refusal Refund:</p>
                                 <ul className="list-disc pl-5 space-y-1">
                                     <li>Provide the official IRCC Refusal Letter issued by the Canadian Embassy or High Commission.</li>

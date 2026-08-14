@@ -1,0 +1,350 @@
+[
+  {
+    "file": "about-heffring-university/page.tsx",
+    "type": "static",
+    "title": "About Cannoga College — Our Story, Mission & Ottawa campus",
+    "description": "Cannoga College is a dynamic and career-focused institution located in Ottawa, Ontario, Canada"
+  },
+  {
+    "file": "academic-regulations/page.tsx",
+    "type": "static",
+    "title": "Academic Regulations — Cannoga College",
+    "description": "The Academic Regulations establish the framework governing teaching, learning, assessment, and academic progression at Cannoga College."
+  },
+  {
+    "file": "accessibility/page.tsx",
+    "type": "static",
+    "title": "Accessibility Statement | Cannoga College",
+    "description": "Our commitment to ensuring digital accessibility for all users including students, staff and partners."
+  },
+  {
+    "file": "admissions/application-process/page.tsx",
+    "type": "static",
+    "title": "How to Apply | Cannoga College",
+    "description": "Step-by-step guide to applying to Cannoga College. Deadlines, requirements, and admission procedures."
+  },
+  {
+    "file": "admissions/bachelor/page.tsx",
+    "type": "static",
+    "title": "Bachelor\\",
+    "description": "Apply to Bachelor\\"
+  },
+  {
+    "file": "admissions/contact-information/page.tsx",
+    "type": "static",
+    "title": "Contact Information | Cannoga College Admission Services",
+    "description": "Get in touch with Cannoga College Admission Services. Find email, phone, and addresses for admissions inquiries."
+  },
+  {
+    "file": "admissions/master/page.tsx",
+    "type": "static",
+    "title": "Apply to Master’s Programmes | Cannoga College",
+    "description": "Application guide for Master’s programmes at Cannoga College. Deadlines, eligibility, and steps for 2026 admission."
+  },
+  {
+    "file": "admissions/page.tsx",
+    "type": "static",
+    "title": "Admissions | Cannoga College",
+    "description": "Overview of admissions, degree programmes, and student life at Cannoga College."
+  },
+  {
+    "file": "admissions/requirements/page.tsx",
+    "type": "static",
+    "title": "Entry Requirements — Cannoga College | GPA, English Proficiency & Documents",
+    "description": "Admissions requirements for Cannoga College. GPA thresholds, English proficiency (IELTS/TOEFL), required documents, and eligibility criteria for international applicants."
+  },
+  {
+    "file": "admissions/tuition/page.tsx",
+    "type": "static",
+    "title": "Paying the Tuition Fee | Cannoga College",
+    "description": "Structure of tuition fees, payment methods (Bank Transfer), and refund policies for international students at Cannoga College."
+  },
+  {
+    "file": "admissions-policy/page.tsx",
+    "type": "static",
+    "title": "Admissions Policy — Cannoga College",
+    "description": "The Admissions Policy of Cannoga College defines the principles, criteria, and procedures governing admission to Bachelor\\"
+  },
+  {
+    "file": "alumni/page.tsx",
+    "type": "static",
+    "title": "Alumni Network — Cannoga College | Career, Community & Events",
+    "description": "Join the Cannoga College alumni network. Stay connected through events, mentoring, career development, and networking opportunities for graduates worldwide."
+  },
+  {
+    "file": "art/page.tsx",
+    "type": "static",
+    "title": "Art & Exhibitions — Cannoga College | Gallery & Creative Showcase",
+    "description": "Explore art exhibitions, creative showcases, and gallery events at Cannoga College Ottawa. Featuring works by students and faculty in fine arts, design, and media."
+  },
+  {
+    "file": "careers/layout.tsx",
+    "type": "static",
+    "title": "Careers | Cannoga College",
+    "description": "Join the Cannoga College team. Explore our open positions and learn about our multi-disciplinary institutional culture in Ottawa, Ontario, Canada."
+  },
+  {
+    "file": "code-of-conduct/page.tsx",
+    "type": "static",
+    "title": "Code of Conduct — Cannoga College",
+    "description": "The Code of Conduct establishes standards of behavior expected of all members of the Cannoga College community, ensuring a safe, respectful, and ethical environment."
+  },
+  {
+    "file": "collaboration/page.tsx",
+    "type": "static",
+    "title": "Collaboration & Partnerships | Cannoga College",
+    "description": "Partner with Cannoga College for research, innovation, and education. Join our network of industry leaders driving systemic change."
+  },
+  {
+    "file": "contact/page.tsx",
+    "type": "static",
+    "title": "Contact Information | Cannoga College",
+    "description": "Contact details for Cannoga College including Registry, Admissions, Student Services, and general inquiries."
+  },
+  {
+    "file": "cookies/layout.tsx",
+    "type": "static",
+    "title": "Cookie Policy — Cannoga College",
+    "description": "How Cannoga College uses cookies and similar technologies to ensure proper functionality, improve user experience, and analyse website usage."
+  },
+  {
+    "file": "cookies/page.tsx",
+    "type": "static",
+    "title": "Cookie Policy | Cannoga College",
+    "description": "How Cannoga College uses cookies and similar technologies to ensure proper functionality and improve user experience."
+  },
+  {
+    "file": "degree-programmes/page.tsx",
+    "type": "static",
+    "title": "Programs & Degrees | Cannoga College",
+    "description": "Explore our comprehensive range of Certificate, Diploma, Advanced Diploma, Bachelor\\"
+  },
+  {
+    "file": "innovation/page.tsx",
+    "type": "static",
+    "title": "Innovation Hub — Cannoga College | Startups, Incubation & Entrepreneurship",
+    "description": "Cannoga College Innovation Hub connects students, researchers, and industry to turn ideas into impact. Startup incubation, workshops, and entrepreneurship support."
+  },
+  {
+    "file": "international/page.tsx",
+    "type": "static",
+    "title": "International Students — Cannoga College Ottawa, Ontario, Canada | Visa, Housing & Work Rights",
+    "description": "Essential information for international students at Cannoga College. Residence permits, student housing, health insurance, working rights, and Canadian language courses in Ottawa."
+  },
+  {
+    "file": "layout.tsx",
+    "type": "static",
+    "title": "Cannoga College",
+    "description": "Cannoga College is a dynamic and career-focused institution located in Ottawa, Ontario, Canada. The university is committed to providing high-quality education through a wide range of Diploma, Degree, and Certificate programs."
+  },
+  {
+    "file": "news/events/[slug]/page.tsx",
+    "type": "dynamic",
+    "title": "Dynamic",
+    "description": "Dynamic"
+  },
+  {
+    "file": "news/page.tsx",
+    "type": "static",
+    "title": "News & Events | Cannoga College",
+    "description": "The latest news, announcements, and upcoming events from Cannoga College."
+  },
+  {
+    "file": "news/why-study-in-ottawa-canada/page.tsx",
+    "type": "static",
+    "title": "Why Study in Ottawa Canada? 10 Reasons International Students Choose Ottawa | Cannoga College",
+    "description": "Discover why Ottawa Canada is one of North America\\"
+  },
+  {
+    "file": "news/[slug]/page.tsx",
+    "type": "dynamic",
+    "title": "Dynamic",
+    "description": "Dynamic"
+  },
+  {
+    "file": "page.tsx",
+    "type": "static",
+    "title": null,
+    "description": null
+  },
+  {
+    "file": "privacy/page.tsx",
+    "type": "static",
+    "title": "Privacy Policy | Cannoga College",
+    "description": "Learn how Cannoga College protects your personal data and respects your privacy in accordance with GDPR and Canadian laws."
+  },
+  {
+    "file": "refund-withdrawal-policy/page.tsx",
+    "type": "static",
+    "title": "Refund & Withdrawal Policy | Cannoga College",
+    "description": "Guidelines on financial obligations, withdrawals, and refunds for tuition, fees, and housing at Cannoga College."
+  },
+  {
+    "file": "research/page.tsx",
+    "type": "static",
+    "title": "Research at Cannoga College — Sustainability, Innovation & Technology",
+    "description": "Explore research at Cannoga College. Funded projects in sustainability, clean technology, design, and social innovation. Publications, labs, and collaboration opportunities."
+  },
+  {
+    "file": "research/projects/page.tsx",
+    "type": "static",
+    "title": "Research Projects — Cannoga College | Sustainability & Innovation Research",
+    "description": "Browse active and completed research projects at Cannoga College. Interdisciplinary projects in sustainability, technology, design, and social innovation."
+  },
+  {
+    "file": "research/projects/[slug]/page.tsx",
+    "type": "dynamic",
+    "title": "Dynamic",
+    "description": "Dynamic"
+  },
+  {
+    "file": "research/publications/page.tsx",
+    "type": "static",
+    "title": "Research Publications — Cannoga College | Peer-Reviewed Journals & Papers",
+    "description": "Explore peer-reviewed publications by Cannoga College faculty and researchers. Sustainable construction, smart grids, urban planning, and circular economy research."
+  },
+  {
+    "file": "schools/page.tsx",
+    "type": "static",
+    "title": "Academic Schools — Cannoga College Ottawa, Ontario, Canada | Arts, Business, Science, Technology",
+    "description": "Cannoga College is organized into eight schools, including Arts & Architecture, Business, Science, Technology, Health & Community, Hospitality & Tourism, Education & Social Sciences, and Transportation & Aviation. Explore departments, research, and degree programmes."
+  },
+  {
+    "file": "schools/[slug]/page.tsx",
+    "type": "dynamic",
+    "title": "Dynamic",
+    "description": "Dynamic"
+  },
+  {
+    "file": "schools/[slug]/[dept_slug]/page.tsx",
+    "type": "dynamic",
+    "title": "Dynamic",
+    "description": "Dynamic"
+  },
+  {
+    "file": "site-index/page.tsx",
+    "type": "static",
+    "title": "Site Index | Cannoga College",
+    "description": "A comprehensive map of all pages and resources on the Cannoga College website."
+  },
+  {
+    "file": "student-guide/arrival/page.tsx",
+    "type": "static",
+    "title": "Arrival Guide | Cannoga College",
+    "description": "Prepare for your journey to Cannoga College. Enrolment, visa, housing, and settling in instructions."
+  },
+  {
+    "file": "student-guide/bachelor/layout.tsx",
+    "type": "static",
+    "title": "Bachelor",
+    "description": "Step-by-step guide for admitted Bachelor"
+  },
+  {
+    "file": "student-guide/bachelor/page.tsx",
+    "type": "static",
+    "title": "Bachelor\\",
+    "description": "Essential information for students admitted to Bachelor\\"
+  },
+  {
+    "file": "student-guide/chat-with-heffring-students/page.tsx",
+    "type": "static",
+    "title": "Chat with Students | Cannoga College",
+    "description": "Connect with current Cannoga College students and ambassadors to learn more about student life in Ottawa, Canada."
+  },
+  {
+    "file": "student-guide/exchange/layout.tsx",
+    "type": "static",
+    "title": "Exchange Students — Study Abroad at Cannoga College Ottawa, Ontario, Canada",
+    "description": "Information for exchange students at Cannoga College. Orientation, courses, student housing, and support for Erasmus+ and bilateral exchange programmes in Ottawa."
+  },
+  {
+    "file": "student-guide/exchange/page.tsx",
+    "type": "static",
+    "title": "Exchange Student Guide | Cannoga College",
+    "description": "Detailed information for exchange students planning to study at Cannoga College."
+  },
+  {
+    "file": "student-guide/housing-for-students/page.tsx",
+    "type": "static",
+    "title": "Housing for Students | Cannoga College",
+    "description": "Find information about student housing, apartments, and rental options for students studying at Cannoga College in Ottawa, Ontario, Canada."
+  },
+  {
+    "file": "student-guide/international/page.tsx",
+    "type": "static",
+    "title": "International Student Guide | Cannoga College",
+    "description": "A comprehensive guide for international students joining Cannoga College in Ottawa, Ontario, Canada — study permits, housing, transport, and settling in."
+  },
+  {
+    "file": "student-guide/layout.tsx",
+    "type": "static",
+    "title": "Student Guide — Cannoga College Ottawa, Ontario, Canada | Campus Life & Academic Resources",
+    "description": "Your complete guide to studying at Cannoga College. Academic resources, campus services, housing, registration, and support for new and continuing students."
+  },
+  {
+    "file": "student-guide/master/layout.tsx",
+    "type": "static",
+    "title": "Master",
+    "description": "Guide for admitted Master"
+  },
+  {
+    "file": "student-guide/master/page.tsx",
+    "type": "static",
+    "title": "Master\\",
+    "description": "Essential steps and instructions for newly admitted Master\\"
+  },
+  {
+    "file": "student-guide/page.tsx",
+    "type": "static",
+    "title": "Student Guide | Cannoga College",
+    "description": "Discover the tools, resources, and support available throughout your time at Cannoga College."
+  },
+  {
+    "file": "student-handbook/page.tsx",
+    "type": "static",
+    "title": "Student Handbook 2026–2027 — Cannoga College",
+    "description": "The official Cannoga College Student Handbook covering academic policies, student responsibilities, services, and institutional regulations for the 2026–2027 academic year."
+  },
+  {
+    "file": "student-life/cafe/page.tsx",
+    "type": "static",
+    "title": "Opiskelija Café — Cannoga College Student Restaurant | Menu & Hours",
+    "description": "Visit the Opiskelija Café at Cannoga College Ottawa. Affordable student meals, coffee, and pastries. View the menu, opening hours, and location."
+  },
+  {
+    "file": "student-life/layout.tsx",
+    "type": "static",
+    "title": "Student Life at Cannoga College — Clubs, Culture & Campus Ottawa",
+    "description": "Discover student life at Cannoga College Ottawa. Student organisations, clubs, campus facilities, housing, and everything you need for an enriching university experience in Ottawa, Ontario, Canada."
+  },
+  {
+    "file": "student-life/page.tsx",
+    "type": "static",
+    "title": "Student Life | Cannoga College",
+    "description": "Experience a supportive and vibrant campus environment. From coastal landscapes to modern academic facilities, discover how our community thrives in the heart of Ottawa."
+  },
+  {
+    "file": "studies/page.tsx",
+    "type": "static",
+    "title": "Study at Cannoga College — Bachelor, Master & Lifelong Learning",
+    "description": "Find your study path at Cannoga College. Explore our Bachelor\\"
+  },
+  {
+    "file": "studies/[slug]/page.tsx",
+    "type": "dynamic",
+    "title": "Dynamic",
+    "description": "Dynamic"
+  },
+  {
+    "file": "terms/layout.tsx",
+    "type": "static",
+    "title": "Terms of Use — Cannoga College",
+    "description": "Terms and conditions governing the use of Cannoga College digital platforms and services. Acceptable use, intellectual property, and liability."
+  },
+  {
+    "file": "terms/page.tsx",
+    "type": "static",
+    "title": "Terms of Use and Conditions | Cannoga College",
+    "description": "The terms governing the use of Cannoga College digital platforms and services."
+  }
+]
