@@ -1791,6 +1791,7 @@ function formatRelativeTime(dateInput: any): string {
                                                 {/* Golden Degree */}
                                                 <span className="text-5xl sm:text-6xl font-light text-[#D97706] tracking-tight">
                                                     {ontarioWeather ? `${ontarioWeather.temp}°` : '8°'}
+                                                </span>
                                                 {/* Weather Icon (Sun & Rain Cloud) */}
                                                 <div className="shrink-0">
                                                     <svg className="w-20 h-20 sm:w-24 sm:h-24 text-[#2D3748]" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -1883,8 +1884,10 @@ function formatRelativeTime(dateInput: any): string {
                                                                 <div className="text-center shrink-0 min-w-[40px]">
                                                                     <span className="block text-[10px] font-black text-slate-500 leading-tight uppercase">
                                                                         {item.publish_start ? pubDateObj.toLocaleDateString('en-CA', { month: 'short' }) : 'AUG'}
+                                                                     </span>
                                                                     <span className="block text-sm font-extrabold text-slate-900 leading-tight">
                                                                         {item.publish_start ? pubDateObj.getDate() : '15'}
+                                                                     </span>
                                                                 </div>
                                                                 <div className="min-w-0 flex-1">
                                                                     <p className="font-extrabold text-slate-900 group-hover:text-slate-700 leading-snug text-xs line-clamp-1">{item.title}</p>
@@ -2165,6 +2168,7 @@ function formatRelativeTime(dateInput: any): string {
                                 </div>
                                 <span className="inline-block bg-slate-800 text-slate-200 text-xs font-semibold px-3.5 py-1.5 rounded-lg border border-slate-700 self-start md:self-auto shrink-0">
                                     Expected Graduation: {student?.expected_graduation_date ? new Date(student.expected_graduation_date).toLocaleDateString('en-CA') : 'N/A'}
+                                </span>
                             </div>
 
                             <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
@@ -2822,6 +2826,7 @@ function formatRelativeTime(dateInput: any): string {
                             <div>
                                 <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                                     {selectedNewsModalItem.publish_start ? new Date(selectedNewsModalItem.publish_start).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Campus Announcement'}
+                                </span>
                                 <h2 className="text-xl font-bold text-slate-900 mt-1 leading-snug">
                                     {selectedNewsModalItem.title}
                                 </h2>
