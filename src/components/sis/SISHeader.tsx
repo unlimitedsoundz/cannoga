@@ -60,7 +60,7 @@ function SwipeableNotificationItem({
   const handleTouchMove = (e: React.TouchEvent) => {
     if (touchStart === null) return;
     const currentX = e.targetTouches[0].clientX;
-    const diff = touchStart - currentX;
+    const diff = currentX - touchStart;
     if (diff > 0) {
       setSwipeOffset(Math.min(diff, 80));
     } else {
@@ -91,7 +91,7 @@ function SwipeableNotificationItem({
       }`}
     >
       <div
-        className="absolute inset-y-0 right-0 bg-red-600 text-white flex items-center justify-end px-3 font-bold text-[10px] cursor-pointer z-0"
+        className="absolute inset-y-0 left-0 bg-red-600 text-white flex items-center justify-start px-3 font-bold text-[10px] cursor-pointer z-0"
         style={{ width: `${Math.max(swipeOffset, 60)}px` }}
         onClick={handleDeleteClick}
       >
@@ -102,7 +102,7 @@ function SwipeableNotificationItem({
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        style={{ transform: `translateX(-${swipeOffset}px)` }}
+        style={{ transform: `translateX(${swipeOffset}px)` }}
         onClick={() => onMarkRead(n.id)}
         className={`relative z-10 bg-[#0d1f28] hover:bg-white/5 p-2.5 cursor-pointer transition-transform ${
           !n.read ? 'bg-sky-950/30' : ''
@@ -124,7 +124,7 @@ function SwipeableNotificationItem({
             type="button"
             onClick={handleDeleteClick}
             className="text-neutral-500 hover:text-red-400 p-0.5 transition-colors rounded hover:bg-white/10 shrink-0"
-            title="Swipe left or click to delete"
+            title="Swipe right or click to delete"
           >
             <HugeiconsIcon icon={Trash} size={13} strokeWidth={2} />
           </button>
