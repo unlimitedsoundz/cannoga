@@ -130,7 +130,7 @@ export function SISSidebar({ items, pathname, open, onClose }: SISSidebarProps) 
               ✕
             </button>
           </div>
-          <nav className="flex-1 py-3 px-2 space-y-0.5 overflow-y-auto overscroll-contain">
+          <nav className="flex-1 py-3 px-2 space-y-0.5 overflow-y-auto overscroll-contain no-scrollbar">
             <ul className="space-y-0.5">
               {items.map((item, idx) => (
                 <div key={item.key || `${item.label}-${item.href || ''}-${idx}`} onClick={() => { if (open && !item.children) onClose(); }}>

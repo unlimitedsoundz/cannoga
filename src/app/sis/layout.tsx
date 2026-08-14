@@ -213,7 +213,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                         open={sidebarOpen}
                         onClose={() => setSidebarOpen(false)}
                     />
-                    <main className="flex-1 overflow-y-auto">
+                    <main className="flex-1 overflow-y-auto no-scrollbar">
                         <div className="p-4 md:p-6 lg:p-8 max-w-[1400px] mx-auto">
                             {children}
                         </div>

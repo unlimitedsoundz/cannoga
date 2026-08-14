@@ -999,4 +999,24 @@ button.sis-btn,
 [data-theme="sis-dark"] aside {
   background-color: #0a151a !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Hide scrollbars across Admin SIS desktop view while preserving scroll functionality */
+[data-theme="sis-dark"] ::-webkit-scrollbar,
+[data-theme="sis-dark"]::-webkit-scrollbar,
+[data-theme="sis-dark"] main::-webkit-scrollbar,
+[data-theme="sis-dark"] aside::-webkit-scrollbar,
+[data-theme="sis-dark"] nav::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+[data-theme="sis-dark"],
+[data-theme="sis-dark"] *,
+[data-theme="sis-dark"] main,
+[data-theme="sis-dark"] aside,
+[data-theme="sis-dark"] nav {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }
