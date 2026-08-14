@@ -82,7 +82,11 @@ export default function SISLayout({ children }: { children: ReactNode }) {
             await supabase.auth.signOut();
             toast.success('Signed out due to inactivity');
             setTimeout(() => {
-                window.location.href = '/portal/account/login';
+                if (typeof window !== 'undefined' && window.location.pathname.startsWith('/sis/admin')) {
+                    window.location.href = '/portal/account/admin-login';
+                } else {
+                    window.location.href = '/portal/account/login';
+                }
             }, 1000);
         } catch (error) {
             console.error('Auto-logout error:', error);
