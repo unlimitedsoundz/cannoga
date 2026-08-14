@@ -42,8 +42,15 @@ const SHORTS_DATA: ShortItem[] = [
 
 export function CannogaShortsSection() {
     return (
-        <section className="py-10 sm:py-16 bg-[#f2f8f6] border-t border-slate-200">
-            <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
+        <section className="relative bg-[#d6f5eb] pt-20 pb-16 sm:py-24 text-slate-900 mt-16">
+            {/* Top Random Wavy Edge */}
+            <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 -translate-y-[98%]">
+                <svg viewBox="0 0 1440 90" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-12 md:h-20 text-[#d6f5eb] fill-current">
+                    <path d="M0,60 C150,15 320,80 500,25 C680,85 850,20 1020,70 C1200,10 1350,65 1440,30 V90 H0 Z" />
+                </svg>
+            </div>
+
+            <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl relative z-20">
                 
                 {/* Header Row with Title & Social Follow Icons */}
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
