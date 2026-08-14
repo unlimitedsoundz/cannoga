@@ -113,8 +113,7 @@ export default async function TuitionPaymentPage() {
     const tuitionRates = tuitionInfo || [];
 
     return (
-        <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white text-black font-sans">
+        <div className="min-h-screen bg-white text-black font-sans">
             {/* HERO SECTION */}
             <Hero
                 title={
@@ -135,11 +134,6 @@ export default async function TuitionPaymentPage() {
                 }
                 backgroundColor="#000000"
                 tinted
-                breadcrumbs={[
-                    { label: 'Home', href: '/' },
-                    { label: 'Admissions', href: '/admissions' },
-                    { label: 'Tuition' }
-                ]}
                 videoSrc={heroVideoUrl}
                 image={{
                     src: "/images/16c50757-90b9-46a7-9f37-b9cd5d4f4314.png",
@@ -150,6 +144,15 @@ export default async function TuitionPaymentPage() {
                     View payment methods <ArrowRight size={16} weight="bold" />
                 </Link>
             </Hero>
+
+            <GuideSidebarLayout 
+                sections={sections}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Admissions', href: '/admissions' },
+                    { label: 'Tuition' }
+                ]}
+            >
             <div className="cc-container py-8 md:py-16">
                 <main className="space-y-12 md:space-y-20">
 
@@ -260,7 +263,7 @@ export default async function TuitionPaymentPage() {
 
                 </main>
             </div>
+            </GuideSidebarLayout>
         </div>
-        </GuideSidebarLayout>
     );
 }

@@ -29,25 +29,28 @@ export default function BachelorsGuidePage() {
     ];
 
     return (
-        <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white text-black font-sans pb-20">
-                {/* HERO SECTION */}
-                <Hero
-                    title="Bachelor’s Students Guide"
-                    body="Essential information for students admitted to Bachelor’s programmes taught in English. Read carefully to ensure a smooth start to your studies."
-                    backgroundColor="#0a151a"
-                    tinted
-                    lightText={true}
-                    breadcrumbs={[
-                        { label: 'Home', href: '/' },
-                        { label: 'Student Guide', href: '/student-guide' },
-                        { label: "Bachelor's Guide" }
-                    ]}
-                    image={{
-                        src: "/images/download (2).jpg",
-                        alt: "Bachelor Students"
-                    }}
-                />
+        <div className="min-h-screen bg-white text-black font-sans pb-20">
+            {/* HERO SECTION */}
+            <Hero
+                title="Bachelor’s Students Guide"
+                body="Essential information for students admitted to Bachelor’s programmes taught in English. Read carefully to ensure a smooth start to your studies."
+                backgroundColor="#0a151a"
+                tinted
+                lightText={true}
+                image={{
+                    src: "/images/download (2).jpg",
+                    alt: "Bachelor Students"
+                }}
+            />
+
+            <GuideSidebarLayout 
+                sections={sections}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Student Guide', href: '/student-guide' },
+                    { label: "Bachelor's Guide" }
+                ]}
+            >
 
                 <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl">
                     <div className="space-y-20">
@@ -189,13 +192,10 @@ export default function BachelorsGuidePage() {
                             </div>
                         </section>
 
-                        <div className="mt-12 pt-8 border-t border-neutral-200 text-xs text-neutral-500 font-bold uppercase tracking-widest">
-                            <p>Content adapted from official admissions guide. Check your email regularly for updates.</p>
-                        </div>
                     </div>
                 </div>
-            </div>
-        </GuideSidebarLayout>
+            </GuideSidebarLayout>
+        </div>
     );
 }
 

@@ -28,25 +28,28 @@ export default function MastersGuidePage() {
     ];
 
     return (
-        <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white text-black font-sans pb-20">
-                {/* HERO SECTION */}
-                <Hero
-                    title="Master’s Students Guide"
-                    body="Essential steps and instructions for newly admitted Master’s students at Cannoga College. Follow this guide to ensure a smooth start to your studies."
-                    backgroundColor="#0a151a"
-                    tinted
-                    lightText={true}
-                    breadcrumbs={[
-                        { label: 'Home', href: '/' },
-                        { label: 'Student Guide', href: '/student-guide' },
-                        { label: "Master's Guide" }
-                    ]}
-                    image={{
-                        src: "/images/student-guide-hero.png",
-                        alt: "Master Students"
-                    }}
-                />
+        <div className="min-h-screen bg-white text-black font-sans pb-20">
+            {/* HERO SECTION */}
+            <Hero
+                title="Master’s Students Guide"
+                body="Essential steps and instructions for newly admitted Master’s students at Cannoga College. Follow this guide to ensure a smooth start to your studies."
+                backgroundColor="#0a151a"
+                tinted
+                lightText={true}
+                image={{
+                    src: "/images/student-guide-hero.png",
+                    alt: "Master Students"
+                }}
+            />
+
+            <GuideSidebarLayout 
+                sections={sections}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Student Guide', href: '/student-guide' },
+                    { label: "Master's Guide" }
+                ]}
+            >
 
                 <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl">
                     <div className="space-y-20">
@@ -198,13 +201,10 @@ export default function MastersGuidePage() {
                             />
                         </section>
 
-                        <div className="mt-12 pt-8 border-t border-neutral-200 text-xs text-neutral-500 font-bold uppercase tracking-widest">
-                            <p>Content adapted from official admissions and student guidance information.</p>
-                        </div>
                     </div>
                 </div>
-            </div>
-        </GuideSidebarLayout>
+            </GuideSidebarLayout>
+        </div>
     );
 }
 
