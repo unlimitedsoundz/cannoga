@@ -120,7 +120,20 @@ export default function RegisterPage() {
                 )}
 
                 <div className="bg-white p-8 rounded-2xl shadow-sm border border-neutral-100">
-                    <h1 className="text-2xl font-bold mb-6 text-neutral-900">Register New Account</h1>
+                    <h1 className="text-2xl font-bold mb-3 text-neutral-900">Register New Account</h1>
+
+                    <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-4 mb-6 text-xs text-neutral-700 leading-relaxed space-y-2">
+                        <p className="font-medium">
+                            Cannoga College has three intakes each year for academic programs: <strong>Winter Semester (January)</strong>, <strong>Summer Semester (May)</strong>, and <strong>Fall Semester (September)</strong>. Students are recommended to apply at least 2-3 months before the start of the program.
+                        </p>
+                        <div className="pt-1">
+                            <p className="font-bold text-black mb-1">Application Deadlines for International Students:</p>
+                            <ul className="list-disc list-inside space-y-0.5 font-medium text-neutral-800">
+                                <li><strong>Deadline for 2026 Fall Semester:</strong> June 2026</li>
+                                <li><strong>Deadline for 2027 Winter Semester:</strong> November 2026</li>
+                            </ul>
+                        </div>
+                    </div>
 
                     <form onSubmit={handleRegister} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
