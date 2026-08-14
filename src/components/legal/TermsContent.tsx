@@ -1,239 +1,202 @@
-'use client';
-
-import { useEffect, useState } from "react";
-
-const sections = [
-    { id: 'acceptance', title: '1. Acceptance of Terms' },
-    { id: 'scope', title: '2. Scope of Application' },
-    { id: 'use-of-services', title: '3. Use of Digital Services' },
-    { id: 'intellectual-property', title: '4. Intellectual Property' },
-    { id: 'user-generated-content', title: '5. User Generated Content' },
-    { id: 'availability', title: '6. Availability of Services' },
-    { id: 'limitation-of-liability', title: '7. Limitation of Liability' },
-    { id: 'data-protection', title: '8. Data Protection' },
-    { id: 'external-links', title: '9. External Links' },
-    { id: 'changes', title: '10. Changes to the Terms' },
-    { id: 'governing-law', title: '11. Governing Law' },
-    { id: 'contact', title: '12. Contact Information' },
-];
+import { Link } from "@aalto-dx/react-components";
 
 export default function TermsContent() {
-    const [activeSection, setActiveSection] = useState('acceptance');
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActiveSection(entry.target.id);
-                    }
-                });
-            },
-            { threshold: 0.5, rootMargin: '-80px 0px -40% 0px' }
-        );
-
-        sections.forEach((section) => {
-            const element = document.getElementById(section.id);
-            if (element) observer.observe(element);
-        });
-
-        return () => observer.disconnect();
-    }, []);
-
-    const scrollToSection = (id: string) => {
-        const element = document.getElementById(id);
-        if (element) {
-            const offset = 100;
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - offset;
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    };
-
     return (
-        <div className="min-h-screen bg-white text-black font-sans">
+        <div className="bg-white min-h-screen font-sans text-black">
             {/* HERO SECTION */}
-            <section className="relative h-[40vh] flex items-center bg-neutral-100">
-                <div className="container mx-auto px-4">
-                    <div className="max-w-3xl space-y-4">
-                        <div className="text-xs font-bold uppercase tracking-widest text-neutral-500">Legal Documentation</div>
-                        <h1 className="text-4xl md:text-5xl font-bold text-black tracking-tight pt-8">
-                            Terms of Use and Conditions
-                        </h1>
-                        <p className="text-lg text-neutral-600 leading-relaxed">
-                            The terms governing the use of Cannoga College digital platforms and services.
-                        </p>
+            <section className="bg-[#0a151a] text-white pt-28 pb-20 md:pt-40 md:pb-28 px-4 border-b border-slate-800">
+                <div className="container mx-auto max-w-5xl">
+                    <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-400 mb-6">
+                        <Link href="/" className="text-sky-400 hover:text-white transition-colors no-underline">HOME</Link>
+                        <span className="text-slate-600">/</span>
+                        <span>LEGAL DOCUMENTATION</span>
                     </div>
+                    <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white leading-tight">
+                        Terms of Use &amp; Conditions
+                    </h1>
+                    <p className="text-lg md:text-xl text-slate-300 max-w-3xl leading-relaxed">
+                        Standard legal terms, conditions, and rules governing access to and usage of all public Cannoga College websites, digital platforms, and online services.
+                    </p>
                 </div>
             </section>
 
-            <div className="container mx-auto px-4 py-8 md:py-24">
-                <div className="grid lg:grid-cols-12 gap-16">
-                    {/* Sidebar navigation */}
-                    <aside className="lg:col-span-3 hidden lg:block">
-                        <div className="sticky top-24 space-y-2">
-                            <h3 className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-6 pb-2">Contents</h3>
-                            {sections.map((section) => (
-                                <button
-                                    key={section.id}
-                                    onClick={() => scrollToSection(section.id)}
-                                    className={`block text-left py-2 px-3 text-xs font-bold uppercase tracking-tight transition-all duration-200 border-l-2 ${activeSection === section.id
-                                        ? 'text-black border-[#0a151a] bg-neutral-50'
-                                        : 'text-neutral-400 border-transparent hover:text-neutral-600 hover:border-neutral-200'
-                                        }`}
-                                >
-                                    {section.title}
-                                </button>
-                            ))}
+            {/* MAIN CONTENT WITH SIDEBAR NAVIGATION */}
+            <div className="container mx-auto max-w-6xl px-4 py-12 md:py-20 grid grid-cols-1 lg:grid-cols-4 gap-12">
+                {/* STICKY SECTION NAV */}
+                <div className="hidden lg:block lg:col-span-1">
+                    <div className="sticky top-28 space-y-4 p-6 bg-slate-50 border border-slate-200 rounded-none text-xs font-bold uppercase tracking-wider text-slate-700">
+                        <p className="text-slate-400 text-[10px] pb-2 border-b border-slate-200">Terms Table of Contents</p>
+                        <nav className="flex flex-col space-y-2">
+                            <a href="#acceptance" className="hover:text-black transition-colors">1. Acceptance of Terms</a>
+                            <a href="#scope" className="hover:text-black transition-colors">2. Scope of Application</a>
+                            <a href="#use-of-services" className="hover:text-black transition-colors">3. Use of Digital Services</a>
+                            <a href="#intellectual-property" className="hover:text-black transition-colors">4. Intellectual Property</a>
+                            <a href="#user-generated-content" className="hover:text-black transition-colors">5. User Content</a>
+                            <a href="#availability" className="hover:text-black transition-colors">6. Service Availability</a>
+                            <a href="#limitation-of-liability" className="hover:text-black transition-colors">7. Limitation of Liability</a>
+                            <a href="#data-protection" className="hover:text-black transition-colors">8. Data Protection</a>
+                            <a href="#external-links" className="hover:text-black transition-colors">9. External Links</a>
+                            <a href="#changes" className="hover:text-black transition-colors">10. Terms Amendments</a>
+                            <a href="#governing-law" className="hover:text-black transition-colors">11. Governing Law</a>
+                            <a href="#contact" className="hover:text-black transition-colors">12. Contact Information</a>
+                        </nav>
+                    </div>
+                </div>
+
+                {/* POLICY CONTENT BODY */}
+                <div className="lg:col-span-3 space-y-14">
+
+                    {/* 1. ACCEPTANCE OF TERMS */}
+                    <section id="acceptance" className="scroll-mt-28 border-t-2 border-[#0a151a] pt-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">01</span>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Acceptance of Terms</h2>
                         </div>
-                    </aside>
+                        <p className="text-base text-slate-700 leading-relaxed mb-4">
+                            By accessing or using Cannoga College websites, digital platforms, and online services, users agree to comply with these Terms of Use and Conditions. If a user does not agree with these terms, they must refrain from using the services.
+                        </p>
+                    </section>
 
-                    {/* Content */}
-                    <main className="lg:col-span-9 max-w-3xl">
-                        <div className="prose prose-neutral max-w-none space-y-8 md:space-y-24">
-                            {/* 1. Acceptance of Terms */}
-                            <section id="acceptance" className="scroll-mt-32">
-                                <h2 className="text-2xl font-bold mb-8  pb-10 pl-2">1. Acceptance of Terms</h2>
-                                <div className="space-y-6 text-neutral-700 leading-relaxed">
-                                    <p>
-                                        By accessing or using Cannoga College websites digital platforms and services users agree to comply with these Terms of Use and Conditions. If a user does not agree with these terms they should refrain from using the services.
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* 2. Scope of Application */}
-                            <section id="scope" className="scroll-mt-32">
-                                <h2 className="text-2xl font-bold mb-8  pb-10 pl-2">2. Scope of Application</h2>
-                                <div className="space-y-6 text-neutral-700 leading-relaxed">
-                                    <p>
-                                        These Terms apply to all users of Cannoga College digital services including prospective students enrolled students staff partners and visitors.
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* 3. Use of Digital Services */}
-                            <section id="use-of-services" className="scroll-mt-32">
-                                <h2 className="text-2xl font-bold mb-8  pb-10 pl-2">3. Use of Digital Services</h2>
-                                <div className="space-y-6 text-neutral-700 leading-relaxed">
-                                    <p>
-                                        Users agree to use Cannoga College services lawfully respectfully and in a manner that does not disrupt or harm systems content or other users.
-                                    </p>
-                                    <p>
-                                        Prohibited activities include unauthorised access misuse of data interference with services and any activity that violates applicable laws or institutional policies.
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* 4. Intellectual Property */}
-                            <section id="intellectual-property" className="scroll-mt-32">
-                                <h2 className="text-2xl font-bold mb-8  pb-10 pl-2">4. Intellectual Property</h2>
-                                <div className="space-y-6 text-neutral-700 leading-relaxed">
-                                    <p>
-                                        All content on Cannoga College websites including text images graphics logos documents and digital materials is the intellectual property of Cannoga College or its licensors unless otherwise stated.
-                                    </p>
-                                    <p>
-                                        Content may not be copied reproduced modified distributed or used for commercial purposes without prior written permission.
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* 5. User Generated Content */}
-                            <section id="user-generated-content" className="scroll-mt-32">
-                                <h2 className="text-2xl font-bold mb-8  pb-10 pl-2">5. User Generated Content</h2>
-                                <div className="space-y-6 text-neutral-700 leading-relaxed">
-                                    <p>
-                                        Where users are permitted to submit content such as applications feedback or messages they are responsible for ensuring the accuracy legality and appropriateness of such content.
-                                    </p>
-                                    <p>
-                                        Cannoga College reserves the right to remove or restrict content that violates these Terms or applicable laws.
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* 6. Availability of Services */}
-                            <section id="availability" className="scroll-mt-32">
-                                <h2 className="text-2xl font-bold mb-8  pb-10 pl-2">6. Availability of Services</h2>
-                                <div className="space-y-6 text-neutral-700 leading-relaxed">
-                                    <p>
-                                        Cannoga College aims to ensure continuous availability of its digital services but does not guarantee uninterrupted access. Services may be temporarily unavailable due to maintenance technical issues or external factors.
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* 7. Limitation of Liability */}
-                            <section id="limitation-of-liability" className="scroll-mt-32">
-                                <h2 className="text-2xl font-bold mb-8  pb-10 pl-2">7. Limitation of Liability</h2>
-                                <div className="space-y-6 text-neutral-700 leading-relaxed">
-                                    <p>
-                                        Cannoga College is not liable for direct or indirect damages arising from the use or inability to use its digital services except where liability cannot be excluded under applicable law.
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* 8. Data Protection */}
-                            <section id="data-protection" className="scroll-mt-32">
-                                <h2 className="text-2xl font-bold mb-8  pb-10 pl-2">8. Data Protection</h2>
-                                <div className="space-y-6 text-neutral-700 leading-relaxed">
-                                    <p>
-                                        The processing of personal data is governed by the Cannoga College Privacy Policy. Users are encouraged to review the Privacy Policy to understand how personal data is handled.
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* 9. External Links */}
-                            <section id="external-links" className="scroll-mt-32">
-                                <h2 className="text-2xl font-bold mb-8  pb-10 pl-2">9. External Links</h2>
-                                <div className="space-y-6 text-neutral-700 leading-relaxed">
-                                    <p>
-                                        Cannoga College websites may contain links to external websites. Cannoga College is not responsible for the content or data protection practices of external sites.
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* 10. Changes to the Terms */}
-                            <section id="changes" className="scroll-mt-32">
-                                <h2 className="text-2xl font-bold mb-8  pb-10 pl-2">10. Changes to the Terms</h2>
-                                <div className="space-y-6 text-neutral-700 leading-relaxed">
-                                    <p>
-                                        Cannoga College may update these Terms of Use and Conditions at any time. Updated terms will be published on the official website and apply from the date of publication.
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* 11. Governing Law */}
-                            <section id="governing-law" className="scroll-mt-32">
-                                <h2 className="text-2xl font-bold mb-8  pb-10 pl-2">11. Governing Law and Jurisdiction</h2>
-                                <div className="space-y-6 text-neutral-700 leading-relaxed">
-                                    <p>
-                                        These Terms are governed by the laws of Canada. Any disputes arising in connection with these Terms shall be subject to the jurisdiction of Canadian courts unless otherwise required by law.
-                                    </p>
-                                </div>
-                            </section>
-
-                            {/* 12. Contact Information */}
-                            <section id="contact" className="scroll-mt-32">
-                                <h2 className="text-2xl font-bold mb-8  pb-10 pl-2">12. Contact Information</h2>
-                                <div className="space-y-6 text-neutral-700 leading-relaxed">
-                                    <p>
-                                        For questions regarding these Terms of Use and Conditions please contact Cannoga College through the official communication channels listed on the website.
-                                    </p>
-                                </div>
-                            </section>
-
+                    {/* 2. SCOPE OF APPLICATION */}
+                    <section id="scope" className="scroll-mt-28 border-t border-slate-200 pt-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">02</span>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Scope of Application</h2>
                         </div>
+                        <p className="text-base text-slate-700 leading-relaxed mb-4">
+                            These Terms apply to all users of Cannoga College digital services, including prospective students, enrolled students, staff, research partners, and web visitors.
+                        </p>
+                    </section>
 
-                        <div className="mt-24 pt-8">
-                            <p className="text-xs text-neutral-400 font-medium uppercase tracking-widest">
-                                Published February 1, 2020.
-                            </p>
+                    {/* 3. USE OF DIGITAL SERVICES */}
+                    <section id="use-of-services" className="scroll-mt-28 border-t border-slate-200 pt-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">03</span>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Use of Digital Services</h2>
                         </div>
-                    </main>
+                        <p className="text-base text-slate-700 leading-relaxed mb-4">
+                            Users agree to use Cannoga College services lawfully, respectfully, and in a manner that does not disrupt or harm institutional systems, digital content, or other users.
+                        </p>
+                        <p className="text-base text-slate-700 leading-relaxed">
+                            Prohibited activities include unauthorized access, misuse of institutional data, system interference, and any activity that violates applicable laws or institutional regulations.
+                        </p>
+                    </section>
+
+                    {/* 4. INTELLECTUAL PROPERTY */}
+                    <section id="intellectual-property" className="scroll-mt-28 border-t border-slate-200 pt-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">04</span>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Intellectual Property</h2>
+                        </div>
+                        <p className="text-base text-slate-700 leading-relaxed mb-4">
+                            All content on Cannoga College websites, including text, images, graphics, logos, documents, and digital course materials, is the intellectual property of Cannoga College or its licensors unless otherwise stated.
+                        </p>
+                        <p className="text-base text-slate-700 leading-relaxed">
+                            Content may not be copied, reproduced, modified, distributed, or used for commercial purposes without prior explicit written permission.
+                        </p>
+                    </section>
+
+                    {/* 5. USER GENERATED CONTENT */}
+                    <section id="user-generated-content" className="scroll-mt-28 border-t border-slate-200 pt-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">05</span>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">User Generated Content</h2>
+                        </div>
+                        <p className="text-base text-slate-700 leading-relaxed mb-4">
+                            Where users are permitted to submit content such as applications, feedback, or portal messages, they are responsible for ensuring the accuracy, legality, and appropriateness of such submissions.
+                        </p>
+                        <p className="text-base text-slate-700 leading-relaxed">
+                            Cannoga College reserves the right to remove or restrict any content that violates these Terms or applicable laws.
+                        </p>
+                    </section>
+
+                    {/* 6. AVAILABILITY OF SERVICES */}
+                    <section id="availability" className="scroll-mt-28 border-t border-slate-200 pt-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">06</span>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Availability of Services</h2>
+                        </div>
+                        <p className="text-base text-slate-700 leading-relaxed">
+                            Cannoga College aims to maintain continuous availability of its digital platforms but does not guarantee uninterrupted access. Services may be temporarily suspended due to technical maintenance or unforeseen service disruptions.
+                        </p>
+                    </section>
+
+                    {/* 7. LIMITATION OF LIABILITY */}
+                    <section id="limitation-of-liability" className="scroll-mt-28 border-t border-slate-200 pt-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">07</span>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Limitation of Liability</h2>
+                        </div>
+                        <p className="text-base text-slate-700 leading-relaxed">
+                            Cannoga College is not liable for direct or indirect damages arising from the use or inability to use its digital services, except where liability cannot be excluded under applicable Canadian law.
+                        </p>
+                    </section>
+
+                    {/* 8. DATA PROTECTION */}
+                    <section id="data-protection" className="scroll-mt-28 border-t border-slate-200 pt-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">08</span>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Data Protection</h2>
+                        </div>
+                        <p className="text-base text-slate-700 leading-relaxed">
+                            The processing of personal data is governed by the Cannoga College Privacy Policy and applicable data protection legislation in Ontario, Canada.
+                        </p>
+                    </section>
+
+                    {/* 9. EXTERNAL LINKS */}
+                    <section id="external-links" className="scroll-mt-28 border-t border-slate-200 pt-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">09</span>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">External Links</h2>
+                        </div>
+                        <p className="text-base text-slate-700 leading-relaxed">
+                            Cannoga College websites may contain links to external third-party sites. Cannoga College is not responsible for the content or privacy practices of external resources.
+                        </p>
+                    </section>
+
+                    {/* 10. CHANGES TO THE TERMS */}
+                    <section id="changes" className="scroll-mt-28 border-t border-slate-200 pt-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">10</span>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Changes to the Terms</h2>
+                        </div>
+                        <p className="text-base text-slate-700 leading-relaxed">
+                            Cannoga College reserves the right to update these Terms of Use at any time. Revised terms take effect immediately upon official publication on the web portal.
+                        </p>
+                    </section>
+
+                    {/* 11. GOVERNING LAW */}
+                    <section id="governing-law" className="scroll-mt-28 border-t border-slate-200 pt-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">11</span>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Governing Law &amp; Jurisdiction</h2>
+                        </div>
+                        <p className="text-base text-slate-700 leading-relaxed">
+                            These Terms are governed by the laws of Ontario and the federal laws of Canada. Any legal proceedings shall be subject to the exclusive jurisdiction of Canadian courts.
+                        </p>
+                    </section>
+
+                    {/* 12. CONTACT INFORMATION */}
+                    <section id="contact" className="scroll-mt-28 border-t border-slate-200 pt-8 border-b pb-12">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">12</span>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Contact Information</h2>
+                        </div>
+                        <p className="text-base text-slate-700 leading-relaxed mb-6">
+                            Questions regarding these Terms of Use may be directed to the Office of General Counsel through official College communication channels.
+                        </p>
+                        <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-200">
+                            <Link href="/cookies" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
+                                Cookie Policy →
+                            </Link>
+                            <Link href="/accessibility" className="border border-[#0a151a] text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-[#0a151a] hover:text-white transition-colors no-underline">
+                                Accessibility Statement →
+                            </Link>
+                        </div>
+                    </section>
+
                 </div>
             </div>
         </div>
     );
 }
-
