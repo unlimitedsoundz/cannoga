@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -163,6 +163,23 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
   const [profileOpen, setProfileOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadMessageCount, setUnreadMessageCount] = useState(0);
+  const notifRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setNotificationsOpen(false);
+      }
+    };
+    if (notificationsOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [notificationsOpen]);
 
   const isAdmin = pathname?.startsWith('/sis/admin');
 
@@ -317,7 +334,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
             </div>
 
             {/* Right: actions */}
-            <div className="flex items-center gap-2">
+            <div ref={notifRef} className="flex items-center gap-2 relative">
               <button
                 className="relative p-2 text-white hover:opacity-80 transition-opacity"
                 title={`Notifications (${unreadCount})`}
@@ -454,7 +471,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
           <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
             <HeaderSearch isAdmin={false} />
           </div>
-          <div className="flex items-center gap-2">
+          <div ref={notifRef} className="flex items-center gap-2 relative">
             <button className="relative p-2 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors" title={`Notifications (${unreadCount})`} onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false); }}>
               <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} className="text-neutral-700" />
               {unreadCount > 0 && (

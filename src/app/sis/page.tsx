@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { toast } from 'sonner';
@@ -390,6 +390,23 @@ export default function SISStudentDashboard() {
         const interval = setInterval(fetchHeaderNotifs, 20000);
         return () => clearInterval(interval);
     }, []);
+
+    const pageNotifRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+            if (pageNotifRef.current && !pageNotifRef.current.contains(e.target as Node)) {
+                setNotificationsOpen(false);
+            }
+        };
+        if (notificationsOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+            document.addEventListener('touchstart', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside);
+        };
+    }, [notificationsOpen]);
 
     const [showPresidentMessage, setShowPresidentMessage] = useState(true);
     const [showNoInvoiceModal, setShowNoInvoiceModal] = useState(false);
@@ -1198,7 +1215,7 @@ export default function SISStudentDashboard() {
                             <HugeiconsIcon icon={Mail} size={18} strokeWidth={2} />
                             {unreadMessageCount > 0 && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-blue-400 rounded-full border-2 border-slate-900"></span>}
                         </button>
-                        <div className="relative">
+                        <div ref={pageNotifRef} className="relative">
                             <button
                                 type="button"
                                 onClick={() => { setNotificationsOpen(!notificationsOpen); }}
