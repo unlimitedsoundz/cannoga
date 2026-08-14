@@ -232,19 +232,22 @@ export default async function SchoolDetails({ params }: Props) {
                     </div>
                 </section>
 
-                {/* Featured Programs */}
+                {/* 4. COURSES OFFERED / FEATURED PROGRAMS */}
                 {courses && courses.length > 0 && (
-                    <section>
-                        <div className="flex justify-between items-end mb-10">
-                            <h2 className="text-aalto-5 font-bold text-black flex items-center gap-3">
-                                Featured Programs
-                            </h2>
-                            <Link href={`/studies?school=${school.id}`} className="text-aalto-2 font-bold border-b border-[#0a151a] pb-1 hover:text-neutral-600 transition-colors hidden md:block">
-                                View All Programs
+                    <section className="py-12 md:py-16">
+                        <div className="flex justify-between items-end mb-10 pb-4 border-b border-neutral-200">
+                            <div>
+                                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#c89211] font-bold block mb-1">Academic Offerings</span>
+                                <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight">
+                                    Featured Programs
+                                </h2>
+                            </div>
+                            <Link href={`/studies?school=${school.id}`} className="text-sm font-bold text-black hover:text-[#c89211] transition-colors hidden md:inline-flex items-center gap-1 group no-underline">
+                                View All Programs <ArrowRight size={16} weight="bold" className="group-hover:translate-x-1 transition-transform" />
                             </Link>
                         </div>
 
-                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {courses.map(course => {
                                 const defaultSchoolImage = 
                                     slug === 'arts' || slug === 'arts-design' ? '/images/school-of-arts.jpg' :
@@ -258,22 +261,34 @@ export default async function SchoolDetails({ params }: Props) {
                                     '/images/school-of-arts.jpg';
 
                                 return (
-                                    <Link href={`/studies/${course.slug}`} key={course.id} className="block group">
-                                        <div className="bg-neutral-100 h-40 rounded-lg mb-4 overflow-hidden relative">
-                                            <FallbackImage
-                                                src={course.imageUrl || school.imageUrl || defaultSchoolImage}
-                                                fallbackSrc={school.imageUrl || defaultSchoolImage}
-                                                fill
-                                                className="object-cover object-top"
-                                                alt={`Study ${course.title} at Cannoga College`}
-                                                sizes="(max-width: 768px) 100vw, 25vw"
-                                            />
-                                            <span className="absolute top-2 right-2 bg-white/90 text-xs font-bold px-2 py-1 rounded text-neutral-800 z-10">
-                                                {course.degreeLevel === "MASTER" ? "MSc" : course.degreeLevel === "BACHELOR" ? "BSc" : course.degreeLevel === "DIPLOMA" ? "Dip" : "Cert"}
-                                            </span>
+                                    <Link href={`/studies/${course.slug}`} key={course.id} className="block group no-underline">
+                                        <div className="bg-white border border-neutral-200 rounded-2xl overflow-hidden hover:border-neutral-900 transition-all duration-300 flex flex-col h-full">
+                                            <div className="h-44 w-full relative overflow-hidden bg-neutral-900 shrink-0">
+                                                <FallbackImage
+                                                    src={course.imageUrl || school.imageUrl || defaultSchoolImage}
+                                                    fallbackSrc={school.imageUrl || defaultSchoolImage}
+                                                    fill
+                                                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                                                    alt={`Study ${course.title} at Cannoga College`}
+                                                    sizes="(max-width: 768px) 100vw, 25vw"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                                                <span className="absolute top-3 right-3 bg-[#0a151a] text-white text-[11px] font-extrabold uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md border border-white/10 z-10">
+                                                    {course.degreeLevel === "MASTER" ? "MSc" : course.degreeLevel === "BACHELOR" ? "BSc" : course.degreeLevel === "DIPLOMA" ? "Dip" : "Cert"}
+                                                </span>
+                                            </div>
+                                            <div className="p-5 flex flex-col justify-between flex-grow space-y-3">
+                                                <h3 className="font-bold text-base md:text-lg text-black leading-snug group-hover:text-[#c89211] transition-colors">
+                                                    {course.title}
+                                                </h3>
+                                                <div className="flex items-center justify-between text-xs text-neutral-500 font-medium pt-2 border-t border-neutral-100">
+                                                    <span>{course.duration || "Multi-Year Degree"}</span>
+                                                    <span className="text-black font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                                                        Details <ArrowRight size={12} weight="bold" />
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <h3 className="font-bold text-lg leading-tight mb-1 group-hover:text-blue-700 transition-colors">{course.title}</h3>
-                                        <p className="text-sm text-neutral-500">{course.duration}</p>
                                     </Link>
                                 );
                             })}
