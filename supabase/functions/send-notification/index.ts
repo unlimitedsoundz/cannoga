@@ -244,12 +244,12 @@ serve(async (req) => {
                 break;
 
             case 'MODULE_REGISTRATION':
-                studentSubject = "Course Module Registration Confirmation — Cannoga College";
+                studentSubject = "Course Module Registration Confirmation - Cannoga College";
                 studentHtml = `
                     <p>Dear ${fullName},</p>
                     <p>Your course module registration has been recorded successfully.</p>
                     <p><strong>Status:</strong> REGISTERED</p>
-                    <p>Please log in to your student portal to review your class timetable, LMS links, and course materials.</p>
+                    <p>Please log in to your student SIS to review your class timetable, LMS links, and course materials.</p>
                     <p><a href="${portalUrl}/student">View Course Timetable</a></p>
                     <p>Kind regards,<br>Office of the Registrar</p>
                 `;

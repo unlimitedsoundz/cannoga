@@ -93,6 +93,30 @@ async function testResendEmailDispatch() {
         const data3 = await res3.json();
         console.log('Test 3 Response:', res3.status, JSON.stringify(data3, null, 2));
 
+        // Test Payload 4: Direct USER_REGISTRATION type
+        const payload4 = {
+            type: 'USER_REGISTRATION',
+            table: 'profiles',
+            record: {
+                id: 'usr-' + Date.now(),
+                first_name: 'Unlymited',
+                last_name: 'Soundz',
+                email: recipientEmail
+            }
+        };
+
+        console.log('Sending Test 4 (User Registration Welcome Email)...');
+        const res4 = await fetch(functionUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${serviceKey}`
+            },
+            body: JSON.stringify(payload4)
+        });
+        const data4 = await res4.json();
+        console.log('Test 4 Response:', res4.status, JSON.stringify(data4, null, 2));
+
     } catch (err) {
         console.error('Error triggering edge function:', err);
     }
