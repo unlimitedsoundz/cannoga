@@ -133,7 +133,7 @@ export function SISSidebar({ items, pathname, open, onClose }: SISSidebarProps) 
           <nav className="flex-1 py-3 px-2 space-y-0.5 overflow-y-auto overscroll-contain">
             <ul className="space-y-0.5">
               {items.map((item, idx) => (
-                <div key={item.href || item.label || idx} onClick={() => { if (open && !item.children) onClose(); }}>
+                <div key={item.key || `${item.label}-${item.href || ''}-${idx}`} onClick={() => { if (open && !item.children) onClose(); }}>
                   <NavItemComponent item={item} pathname={pathname} depth={0} isDark={true} />
                 </div>
               ))}
@@ -180,7 +180,7 @@ export function SISSidebar({ items, pathname, open, onClose }: SISSidebarProps) 
         <nav className="flex-1 py-4 px-2 space-y-1 overflow-y-auto overscroll-contain">
           <ul className="space-y-0.5">
             {items.map((item, idx) => (
-              <div key={item.href || item.label || idx} onClick={() => { if (open && !item.children) onClose(); }}>
+              <div key={item.key || `${item.label}-${item.href || ''}-${idx}`} onClick={() => { if (open && !item.children) onClose(); }}>
                 <NavItemComponent item={item} pathname={pathname} depth={0} isDark={false} />
               </div>
             ))}

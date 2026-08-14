@@ -191,14 +191,13 @@ export default function SISLayout({ children }: { children: ReactNode }) {
     ];
 
     const websiteNavItems = [
-        { label: 'WEBSITE', href: '/sis/admin/website' },
-        { label: 'Pages', href: '/sis/admin/website/pages' },
-        { label: 'Page Contents', href: '/sis/admin/website/pages' },
-        { label: 'Schools', href: '/sis/admin/website/schools' },
-        { label: 'News', href: '/sis/admin/website/news' },
-        { label: 'FAQs', href: '/sis/admin/website/faqs' },
-        { label: 'Tuition', href: '/sis/admin/website/tuition' },
-        { label: 'Announcements', href: '/sis/admin/website/announcements' },
+        { key: 'web-overview', label: 'WEBSITE', href: '/sis/admin/website' },
+        { key: 'web-pages', label: 'Pages', href: '/sis/admin/website/pages' },
+        { key: 'web-schools', label: 'Schools', href: '/sis/admin/website/schools' },
+        { key: 'web-news', label: 'News', href: '/sis/admin/website/news' },
+        { key: 'web-faqs', label: 'FAQs', href: '/sis/admin/website/faqs' },
+        { key: 'web-tuition', label: 'Tuition', href: '/sis/admin/website/tuition' },
+        { key: 'web-announcements', label: 'Announcements', href: '/sis/admin/website/announcements' },
     ];
 
     const navItems = profile.role === 'ADMIN' ? [...adminNavItems, ...websiteNavItems] : [];
