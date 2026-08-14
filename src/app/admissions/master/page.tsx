@@ -43,8 +43,7 @@ export default function MasterAdmissionsPage() {
     const getSectionDefault = (sectionKey: string) => getPageContentSection(pageSlug, sectionKey)?.defaultContent ?? '';
 
     return (
-        <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white">
             {/* HERO SECTION */}
             <Hero
                 title={
@@ -65,11 +64,6 @@ export default function MasterAdmissionsPage() {
                 }
                 backgroundColor="#9bd84c"
                 tinted
-                breadcrumbs={[
-                    { label: 'Home', href: '/' },
-                    { label: 'Admissions', href: '/admissions' },
-                    { label: 'Master' }
-                ]}
                 image={{
                     src: "/images/admissions/master-hero.png",
                     alt: "Master's Application"
@@ -83,6 +77,15 @@ export default function MasterAdmissionsPage() {
                     <ArrowRight size={16} weight="bold" />
                 </Link>
             </Hero>
+
+            <GuideSidebarLayout 
+                sections={sections}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Admissions', href: '/admissions' },
+                    { label: "Master's Admissions" }
+                ]}
+            >
 
             <div className="cc-container py-4 md:py-6">
                 <main className="space-y-5 md:space-y-8">
@@ -156,7 +159,7 @@ export default function MasterAdmissionsPage() {
 
                 </main>
             </div>
+            </GuideSidebarLayout>
         </div>
-        </GuideSidebarLayout>
     );
 }

@@ -51,25 +51,28 @@ export default function InternationalPage() {
     };
 
     return (
-        <GuideSidebarLayout sections={tocSections}>
-            <div className="min-h-screen bg-white text-black font-sans pb-20">
-                <SchemaLD data={faqSchema} />
+        <div className="min-h-screen bg-white text-black font-sans pb-20">
+            <SchemaLD data={faqSchema} />
 
-                <Hero
-                    title="International Students"
-                    body="Practical guidance for your journey to Ottawa, Ontario, Canada and Cannoga College."
-                    backgroundColor="#000000"
-                    tinted
-                    lightText={true}
-                    breadcrumbs={[
-                        { label: 'Home', href: '/' },
-                        { label: 'International Students' }
-                    ]}
-                    image={{
-                        src: "/images/international-students-hero.png",
-                        alt: "International students at Cannoga College Ottawa"
-                    }}
-                />
+            <Hero
+                title="International Students"
+                body="Practical guidance for your journey to Ottawa, Ontario, Canada and Cannoga College."
+                backgroundColor="#000000"
+                tinted
+                lightText={true}
+                image={{
+                    src: "/images/international-students-hero.png",
+                    alt: "International students at Cannoga College Ottawa"
+                }}
+            />
+
+            <GuideSidebarLayout 
+                sections={tocSections}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'International Students' }
+                ]}
+            >
 
                 <div className="cc-container py-12 md:py-20">
                     <div className="space-y-16 md:space-y-24">
@@ -307,7 +310,7 @@ export default function InternationalPage() {
                         </div>
                     </div>
                 </div>
-            </div>
-        </GuideSidebarLayout>
+            </GuideSidebarLayout>
+        </div>
     );
 }

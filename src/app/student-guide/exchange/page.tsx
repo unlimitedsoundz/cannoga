@@ -24,8 +24,7 @@ export default function ExchangeStudentsPage() {
     ];
 
     return (
-        <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white text-black font-sans pb-12">
+        <div className="min-h-screen bg-white text-black font-sans pb-12">
             {/* Hero Section */}
             <Hero
                 title="Exchange Students Guide"
@@ -33,16 +32,20 @@ export default function ExchangeStudentsPage() {
                 backgroundColor="#0a151a"
                 tinted
                 lightText={true}
-                breadcrumbs={[
-                    { label: 'Home', href: '/' },
-                    { label: 'Student Guide', href: '/student-guide' },
-                    { label: 'Exchange Students' }
-                ]}
                 image={{
                     src: "/images/exchange-students.png",
                     alt: "Exchange Students"
                 }}
             />
+
+            <GuideSidebarLayout 
+                sections={sections}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Student Guide', href: '/student-guide' },
+                    { label: 'Exchange Students' }
+                ]}
+            >
 
             <div className="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
                 <div className="space-y-10">
@@ -223,8 +226,8 @@ export default function ExchangeStudentsPage() {
                     </section>
                 </div>
             </div>
-            </div>
-        </GuideSidebarLayout>
+            </GuideSidebarLayout>
+        </div>
     );
 }
 

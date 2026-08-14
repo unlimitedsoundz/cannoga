@@ -23,25 +23,28 @@ const sections = [
 
 export default function ChatWithStudentsPage() {
     return (
-        <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white text-black font-sans pb-20">
-                {/* Hero Section */}
-                <Hero
-                    title="Chat with our Students"
-                    body="Get a first-hand perspective on what it's like to study at Cannoga College. Our student ambassadors are here to answer your questions about academics, campus life, and living in Canada."
-                    backgroundColor="#a987ff"
-                    tinted
-                    lightText={true}
-                    breadcrumbs={[
-                        { label: 'Home', href: '/' },
-                        { label: 'Student Guide', href: '/student-guide' },
-                        { label: 'Chat' }
-                    ]}
-                    image={{
-                        src: "/images/student-ambassadors.png",
-                        alt: "Cannoga College Students"
-                    }}
-                />
+        <div className="min-h-screen bg-white text-black font-sans pb-20">
+            {/* Hero Section */}
+            <Hero
+                title="Chat with our Students"
+                body="Get a first-hand perspective on what it's like to study at Cannoga College. Our student ambassadors are here to answer your questions about academics, campus life, and living in Canada."
+                backgroundColor="#a987ff"
+                tinted
+                lightText={true}
+                image={{
+                    src: "/images/student-ambassadors.png",
+                    alt: "Cannoga College Students"
+                }}
+            />
+
+            <GuideSidebarLayout 
+                sections={sections}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Student Guide', href: '/student-guide' },
+                    { label: 'Chat' }
+                ]}
+            >
 
                 <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl">
                     <div className="space-y-20">
@@ -125,7 +128,7 @@ export default function ChatWithStudentsPage() {
                         </section>
                     </div>
                 </div>
-            </div>
-        </GuideSidebarLayout>
+            </GuideSidebarLayout>
+        </div>
     );
 }

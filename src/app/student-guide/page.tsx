@@ -91,8 +91,7 @@ export default function StudentGuidePage() {
     ];
 
     return (
-        <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white text-black font-sans pb-12">
+        <div className="min-h-screen bg-white text-black font-sans pb-12">
             {/* HERO SECTION */}
             <Hero
                 title="Student Guide"
@@ -100,15 +99,19 @@ export default function StudentGuidePage() {
                 backgroundColor="#0a151a"
                 tinted
                 lightText={true}
-                breadcrumbs={[
-                    { label: 'Home', href: '/' },
-                    { label: 'Student Guide' }
-                ]}
                 image={{
                     src: "/images/student-guide-cover.png",
                     alt: "Students collaborating at Cannoga College"
                 }}
             />
+
+            <GuideSidebarLayout 
+                sections={sections}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Student Guide' }
+                ]}
+            >
 
             <div className="container mx-auto px-4 py-6 md:py-10">
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
@@ -387,8 +390,8 @@ export default function StudentGuidePage() {
                     </main>
                 </div>
             </div>
+            </GuideSidebarLayout>
         </div>
-        </GuideSidebarLayout>
     );
 }
 

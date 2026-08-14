@@ -40,8 +40,7 @@ export default function BachelorAdmissionsPage() {
     const getSectionDefault = (sectionKey: string) => getPageContentSection(pageSlug, sectionKey)?.defaultContent ?? '';
 
     return (
-        <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white">
             {/* HERO SECTION */}
             <Hero
                 title={
@@ -65,11 +64,6 @@ export default function BachelorAdmissionsPage() {
                 overlay={true}
                 overlayOpacity="opacity-40"
                 lightText={true}
-                breadcrumbs={[
-                    { label: 'Home', href: '/' },
-                    { label: 'Admissions', href: '/admissions' },
-                    { label: 'Bachelor' }
-                ]}
                 image={{
                     src: "/images/admissions/bachelor-hero.png",
                     alt: "Bachelor's Students"
@@ -84,6 +78,15 @@ export default function BachelorAdmissionsPage() {
                     <ArrowRight size={16} weight="bold" />
                 </Link>
             </Hero>
+
+            <GuideSidebarLayout 
+                sections={sections}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Admissions', href: '/admissions' },
+                    { label: "Bachelor's Admissions" }
+                ]}
+            >
 
             <div className="cc-container py-8 md:py-16">
                 <div className="space-y-12 md:space-y-20">
@@ -264,7 +267,7 @@ export default function BachelorAdmissionsPage() {
                     "category": "Bachelor's Programmes"
                 }
             }} />
+            </GuideSidebarLayout>
         </div>
-        </GuideSidebarLayout>
     );
 }
