@@ -53,28 +53,24 @@ export default function ArrivalGuidePage() {
                         <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Before You Arrive</h2>
                         <div className="grid md:grid-cols-2 gap-4">
                             <div className="py-2">
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-600 bg-neutral-100 px-2 py-0.5 rounded mb-1 inline-block">Essential</span>
                                 <h3 className="font-bold text-lg text-black mb-1">Enrolment</h3>
                                 <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                                     Ensure you have accepted your <Link href="/admissions/requirements" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">admission offer</Link>, paid <Link href="/admissions/tuition" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">tuition fees</Link>, and completed enrolment.
                                 </p>
                             </div>
                             <div className="py-2">
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-600 bg-neutral-100 px-2 py-0.5 rounded mb-1 inline-block">Legal</span>
                                 <h3 className="font-bold text-lg text-black mb-1">Visa & Permits</h3>
                                 <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                                     International students should apply for a Canadian study permit. Learn more about <Link href="/international" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">international student support</Link>.
                                 </p>
                             </div>
                             <div className="py-2">
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-600 bg-neutral-100 px-2 py-0.5 rounded mb-1 inline-block">Housing</span>
                                 <h3 className="font-bold text-lg text-black mb-1">Accommodation</h3>
                                 <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                                     Secure housing early. Read our full <Link href="/student-guide/housing-for-students" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Student Housing Guide</Link>.
                                 </p>
                             </div>
                             <div className="py-2">
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-600 bg-neutral-100 px-2 py-0.5 rounded mb-1 inline-block">Checklist</span>
                                 <h3 className="font-bold text-lg text-black mb-1">What to Bring</h3>
                                 <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                                     Bring your passport, study permit, insurance, and enrolment documents. Pack for the local climate.
@@ -208,10 +204,7 @@ export default function ArrivalGuidePage() {
                                         {/* Orientation Week */}
                                         <div className="py-2 flex flex-col justify-between">
                                             <div>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <h4 className="font-bold text-lg text-black">Orientation Week</h4>
-                                                    <span className="bg-[#0a151a] text-white text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-sm">Mandatory</span>
-                                                </div>
+                                                <h4 className="font-bold text-lg text-black mb-1">Orientation Week</h4>
                                                 <p className="text-sm text-neutral-600 mb-3 font-medium leading-relaxed">
                                                     Comprehensive orientation sessions help you understand your academic programme, meet faculty members, and master university platforms.
                                                 </p>
@@ -239,10 +232,7 @@ export default function ArrivalGuidePage() {
                                         {/* Student Support Services */}
                                         <div className="py-2 flex flex-col justify-between">
                                             <div>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <h4 className="font-bold text-lg text-black">Student Support Services</h4>
-                                                    <span className="bg-neutral-200/80 text-black text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-sm">Available Daily</span>
-                                                </div>
+                                                <h4 className="font-bold text-lg text-black mb-1">Student Support Services</h4>
                                                 <p className="text-sm text-neutral-600 mb-3 font-medium leading-relaxed">
                                                     Cannoga College provides a centralized network of specialized support services to guide your personal and academic progress.
                                                 </p>
