@@ -52,3 +52,18 @@ CREATE TRIGGER "on_housing_status_update"
   FOR EACH ROW
   WHEN (OLD.status IS DISTINCT FROM NEW.status)
   EXECUTE PROCEDURE public.handle_notification_trigger();
+
+-- Trigger for New User Registration Profile Creation
+DROP TRIGGER IF EXISTS "on_profile_created" ON public.profiles;
+CREATE TRIGGER "on_profile_created"
+  AFTER INSERT ON public.profiles
+  FOR EACH ROW
+  EXECUTE PROCEDURE public.handle_notification_trigger();
+
+-- Trigger for Course Module Enrollment Registration
+DROP TRIGGER IF EXISTS "on_module_registered" ON public.module_enrollments;
+CREATE TRIGGER "on_module_registered"
+  AFTER INSERT OR UPDATE OF status ON public.module_enrollments
+  FOR EACH ROW
+  WHEN (NEW.status = 'REGISTERED')
+  EXECUTE PROCEDURE public.handle_notification_trigger();

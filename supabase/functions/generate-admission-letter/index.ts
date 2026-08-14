@@ -1,6 +1,9 @@
+// @ts-nocheck
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.4";
 import { PDFDocument, StandardFonts, rgb } from "https://esm.sh/pdf-lib@1.17.1";
+
+declare const Deno: any;
 
 const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
@@ -87,7 +90,7 @@ function getIntakeAcademicYear(intake?: string | null): string {
     return `${year} - ${year + 1}`;
 }
 
-serve(async (req) => {
+serve(async (req: any) => {
     if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
     try {

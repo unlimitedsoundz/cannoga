@@ -395,6 +395,12 @@ export const pageContentSections: PageContentSection[] = [
     },
     {
         pageSlug: 'admissions/tuition',
+        sectionKey: 'hero_video_url',
+        label: 'Hero Video URL',
+        defaultContent: '/videos/wan2.6-t2v_a_%23_Tuition_Fees_Video.mp4',
+    },
+    {
+        pageSlug: 'admissions/tuition',
         sectionKey: 'hero_subtitle',
         label: 'Hero Subtitle',
         defaultContent: 'Comprehensive guide to fee levels, payment methods, and financial policies for the 2026 academic year.',

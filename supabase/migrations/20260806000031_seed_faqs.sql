@@ -13,16 +13,15 @@ INSERT INTO faq (question, answer, page_id, order_index, is_published)
 SELECT
     'Who is required to pay tuition fees at Cannoga College?',
     '<div className="space-y-4">
-        <p>In accordance with Canadian legislation, tuition fees are mandatory for students who are <strong>not citizens</strong> of the European Union (EU), European Economic Area (EEA), or Switzerland, and who are enrolled in English-taught Bachelor''s or Master''s degree programmes.</p>
-        <p><strong>Exemptions apply if you hold:</strong></p>
+        <p>In accordance with Canadian provincial legislation, tuition fees are mandatory for international students enrolled in postsecondary degree, diploma, or certificate programmes at Cannoga College.</p>
+        <p><strong>Domestic tuition rate eligibility applies if you are:</strong></p>
         <ul className="list-disc pl-5 space-y-2">
-            <li>A permanent Canadian study permit (P)</li>
-            <li>A long-term resident''s EU study permit (P-EU)</li>
-            <li>A continuous study permit (A) issued on grounds other than study</li>
-            <li>An EU Blue Card issued in Canada</li>
-            <li>An EU Family Member''s Residence Card</li>
+            <li>A Canadian citizen</li>
+            <li>A Permanent Resident (PR) of Canada</li>
+            <li>A protected person or convention refugee in Canada</li>
+            <li>A holder of an eligible diplomatic or work authorization exemption</li>
         </ul>
-        <p>Status is verified during the application process. You must upload a copy of your study permit card or passport to the application portal for verification by our admissions team.</p>
+        <p>Status is verified during the application process. You must upload a copy of your status document or passport to the applicant portal for verification by our admissions team.</p>
     </div>',
     (SELECT id FROM faq_pages WHERE slug = 'admissions/tuition'),
     0,
@@ -278,11 +277,11 @@ SELECT
         <p>Most international students need a study permit for studies in Canada.</p>
         <p><strong>Visa Requirements:</strong></p>
         <ul className="list-disc pl-5 space-y-2">
-            <li><strong>Canada/Swiss citizens:</strong> No visa required, but must register residence</li>
-            <li><strong>Other nationalities:</strong> Residence permit for studies required</li>
-            <li><strong>Visa-exempt countries:</strong> Can enter visa-free for up to 90 days</li>
+            <li><strong>Canadian citizens & Permanent Residents:</strong> No study permit required</li>
+            <li><strong>International students:</strong> Canadian Study Permit required for programs over 6 months</li>
+            <li><strong>Short-term study:</strong> Visitors may study for programs under 6 months without a study permit</li>
         </ul>
-        <p>The study permit application is submitted after admission acceptance.</p>
+        <p>The study permit application is submitted to IRCC after receiving your acceptance letter.</p>
     </div>',
     (SELECT id FROM faq_pages WHERE slug = 'admissions/international'),
     0,
@@ -296,9 +295,9 @@ SELECT
         <p>Health insurance is mandatory for all international students in Canada.</p>
         <p><strong>Insurance Options:</strong></p>
         <ul className="list-disc pl-5 space-y-2">
-            <li><strong>European Health Insurance Card (EHIC):</strong> For EU citizens</li>
-            <li><strong>Private insurance:</strong> Must meet Canadian immigration and health coverage requirements</li>
-            <li><strong>Provincial health coverage (OHIP):</strong> Available after meeting Ontario residency requirements</li>
+            <li><strong>College Student Health Plan:</strong> Included with tuition for full-time international students</li>
+            <li><strong>Private health insurance:</strong> Must meet Canadian immigration and health coverage requirements</li>
+            <li><strong>Provincial health coverage (OHIP):</strong> Available for eligible Ontario residents</li>
         </ul>
         <p>Your insurance must be valid for your entire study period in Canada.</p>
     </div>',

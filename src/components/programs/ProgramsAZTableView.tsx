@@ -851,11 +851,37 @@ export function ProgramsAZTableView() {
             {/* Interactive Pagination Navigation Controls Bar */}
             {totalPages > 1 && (
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-neutral-200">
-                    <div className="text-xs font-semibold text-slate-500">
+                    <div className="text-xs font-semibold text-slate-500 hidden sm:block">
                         Page <span className="font-bold text-slate-900">{validCurrentPage}</span> of <span className="font-bold text-slate-900">{totalPages}</span>
                     </div>
 
-                    <div className="flex items-center gap-1.5">
+                    {/* Mobile Only Pagination Controls Layout */}
+                    <div className="flex sm:hidden items-center justify-between gap-2.5 w-full">
+                        <button
+                            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                            disabled={validCurrentPage === 1}
+                            className="flex-1 inline-flex items-center justify-center gap-1 py-2.5 px-3 text-xs font-bold bg-white border border-neutral-200 rounded-xl text-slate-800 active:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
+                        >
+                            <CaretLeft size={16} weight="bold" />
+                            <span>Previous</span>
+                        </button>
+
+                        <div className="px-3.5 py-2.5 text-xs font-black text-[#0a151a] bg-neutral-100 border border-neutral-200 rounded-xl whitespace-nowrap shrink-0 shadow-inner">
+                            {validCurrentPage} / {totalPages}
+                        </div>
+
+                        <button
+                            onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                            disabled={validCurrentPage === totalPages}
+                            className="flex-1 inline-flex items-center justify-center gap-1 py-2.5 px-3 text-xs font-bold bg-white border border-neutral-200 rounded-xl text-slate-800 active:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
+                        >
+                            <span>Next</span>
+                            <CaretRight size={16} weight="bold" />
+                        </button>
+                    </div>
+
+                    {/* Desktop Only Pagination Controls Layout */}
+                    <div className="hidden sm:flex items-center gap-1.5">
                         <button
                             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                             disabled={validCurrentPage === 1}

@@ -12,8 +12,26 @@ interface DbFAQProps {
 
 export default function DbFAQ({ pageSlug, fallbackFaqs, refreshKey }: DbFAQProps) {
     const sanitize = (text: string) => {
+        let cleaned = text;
+        cleaned = cleaned
+            .replace(/European Union \(EU\), European Economic Area \(EEA\), or Switzerland/gi, 'Canada')
+            .replace(/European Union \(EU\)/gi, 'Canada')
+            .replace(/European Economic Area \(EEA\)/gi, 'Canada')
+            .replace(/European Economic Area/gi, 'Canada')
+            .replace(/European Union/gi, 'Canada')
+            .replace(/EU\/EEA/gi, 'Domestic')
+            .replace(/long-term resident's EU study permit \(P-EU\)/gi, 'Permanent Resident (PR) status')
+            .replace(/EU study permit/gi, 'Canadian study permit')
+            .replace(/EU Blue Card issued in Canada/gi, 'Canadian Work Permit')
+            .replace(/EU Family Member's Residence Card/gi, 'Canadian Permanent Resident card')
+            .replace(/P-EU/gi, 'PR')
+            .replace(/European Health Insurance Card \(EHIC\): For EU citizens/gi, 'Provincial Health Insurance (OHIP): For eligible Ontario residents')
+            .replace(/European Health Insurance Card \(EHIC\)/gi, 'provincial health insurance')
+            .replace(/EU citizens/gi, 'Domestic students')
+            .replace(/non-EU/gi, 'international');
+
         if (pageSlug === 'admissions/tuition') {
-            return text
+            return cleaned
                 .replace(/Flywire/gi, 'our secure payment gateway')
                 .replace(/https:\/\/www\.flywire\.com\//gi, '#')
                 .replace(/Cannoga College/gi, 'Cannoga College')
@@ -24,13 +42,13 @@ export default function DbFAQ({ pageSlug, fallbackFaqs, refreshKey }: DbFAQProps
                 .replace(/\bCanada\b/gi, 'Canada');
         }
         if (pageSlug === 'admissions/application-process') {
-            return text
+            return cleaned
                 .replace(/Algonquin College/gi, 'Cannoga College')
                 .replace(/Algonquin/gi, 'Cannoga College')
                 .replace(/https:\/\/www\.algonquincollege\.com\//gi, 'https://cannogacollege.ca/')
                 .replace(/https:\/\/www\.algonquincollege\.ca\//gi, 'https://cannogacollege.ca/');
         }
-        return text;
+        return cleaned;
     };
 
     const dedupeFaqs = (items: FAQItem[]) => {
@@ -92,7 +110,7 @@ export default function DbFAQ({ pageSlug, fallbackFaqs, refreshKey }: DbFAQProps
                     .order('order_index');
 
                 if (!faqError && mounted) {
-                    const sanitizedFaqs = dedupeFaqs((faqData || []).map(faq => ({
+                    const sanitizedFaqs = dedupeFaqs((faqData || []).map((faq: { id: string; question: string; answer: string; order_index?: number }) => ({
                         ...faq,
                         question: sanitize(faq.question),
                         answer: sanitize(faq.answer)

@@ -1,4 +1,5 @@
-﻿
+
+// @ts-nocheck
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.4";
 import { Resend } from "npm:resend@2.0.0";
@@ -148,7 +149,17 @@ serve(async (req) => {
             }
         }
 
-        // New: Support for tuition_payments table trigger
+        // Support for profiles table (User Registration)
+        if (!notificationType && table === 'profiles' && record) {
+            notificationType = 'USER_REGISTRATION';
+        }
+
+        // Support for module_enrollments table (Module Registration)
+        if (!notificationType && table === 'module_enrollments' && record) {
+            notificationType = 'MODULE_REGISTRATION';
+        }
+
+        // Support for tuition_payments table trigger
         if (!notificationType && table === 'tuition_payments' && record) {
             if (record.status === 'verified' && old_record?.status !== 'verified') {
                 notificationType = 'TUITION_PAYMENT_VERICAED';
@@ -223,6 +234,49 @@ serve(async (req) => {
         }
 
         switch (notificationType) {
+            case 'USER_REGISTRATION':
+                studentSubject = "Welcome to Cannoga College — Account Created";
+                studentHtml = `
+                    <p>Dear ${fullName},</p>
+                    <p>Welcome to Cannoga College! Your student portal account has been successfully created.</p>
+                    <p>You can now log in to complete your program application, track your admission status, or access student services.</p>
+                    <div style="text-align: center; margin: 25px 0;">
+                        <a href="${portalUrl}" style="display:inline-block;background:#0a151a;color:#fff;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:bold;">Access Student Portal</a>
+                    </div>
+                    <p>If you have any questions, our Admissions Office is here to help.</p>
+                    <p>Warm regards,<br>Cannoga College Admissions Office</p>
+                `;
+                adminSubject = `New Portal Registration: ${fullName}`;
+                adminHtml = `
+                    <h2>New Student Account Created</h2>
+                    <p><strong>Name:</strong> ${fullName}</p>
+                    <p><strong>Email:</strong> ${userEmail}</p>
+                    <p>A new student has registered an account on the Cannoga portal.</p>
+                    <a href="https://cannogacollege.ca/admin/registrar" style="display:inline-block;background:#000;color:#fff;padding:10px 20px;text-decoration:none;border-radius:5px;">View in Admin Registrar</a>
+                `;
+                break;
+
+            case 'MODULE_REGISTRATION':
+                studentSubject = "Course Module Registration Confirmation — Cannoga College";
+                studentHtml = `
+                    <p>Dear ${fullName},</p>
+                    <p>Your course module registration has been recorded successfully.</p>
+                    <p><strong>Status:</strong> REGISTERED</p>
+                    <p>Please log in to your student portal to review your class timetable, LMS links, and course materials.</p>
+                    <div style="text-align: center; margin: 25px 0;">
+                        <a href="${portalUrl}/student" style="display:inline-block;background:#0a151a;color:#fff;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:bold;">View Course Timetable</a>
+                    </div>
+                    <p>Kind regards,<br>Office of the Registrar</p>
+                `;
+                adminSubject = `Module Registration: ${fullName}`;
+                adminHtml = `
+                    <h2>Course Module Registration Alert</h2>
+                    <p><strong>Student:</strong> ${fullName}</p>
+                    <p><strong>Email:</strong> ${userEmail}</p>
+                    <p>The student has registered for a new academic course module.</p>
+                `;
+                break;
+
             case 'APPLICATION_SUBMITTED':
                 studentSubject = "Application In Review - Cannoga College";
                 studentHtml = `
@@ -293,10 +347,27 @@ serve(async (req) => {
                     <p>admissions@cannogacollege.ca</p>
                     <p>https://cannogacollege.ca</p>
                 `;
-                // Admin already likely knows (triggered by status change), but can send alert if needed
+                adminSubject = `Offer Issued: ${fullName}`;
+                adminHtml = `
+                    <h2>Conditional Admission Offer Issued</h2>
+                    <p><strong>Student:</strong> ${fullName}</p>
+                    <p><strong>Email:</strong> ${userEmail}</p>
+                    <p><strong>Program:</strong> ${applicationData?.course_title || 'N/A'}</p>
+                    <p>A conditional offer of admission has been sent to the student.</p>
+                `;
                 break;
 
             case 'OFFER_ACCEPTED':
+                studentSubject = "Offer Acceptance Confirmed — Cannoga College";
+                studentHtml = `
+                    <p>Dear ${firstName},</p>
+                    <p>Thank you for accepting your admission offer to Cannoga College!</p>
+                    <p>Your place in the <strong>${applicationData?.course_title || 'degree programme'}</strong> is reserved. Please fulfill your deposit or pending condition to receive your final Official Admission Letter.</p>
+                    <div style="text-align: center; margin: 25px 0;">
+                        <a href="https://cannogacollege.ca/portal" style="display: inline-block; background: #0a151a; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">View Admission Portal</a>
+                    </div>
+                    <p>Warm regards,<br>Admissions Office</p>
+                `;
                 adminSubject = `Offer Accepted: ${fullName}`;
                 adminHtml = `
                     <h2>Offer Acceptance Notification</h2>
