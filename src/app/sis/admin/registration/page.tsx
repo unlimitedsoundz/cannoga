@@ -77,21 +77,21 @@ export default function RegistrationPage() {
       header: 'Student',
       render: (r: RegistrationRow) => (
         <div>
-          <div className="font-medium text-neutral-900">{r.user?.first_name} {r.user?.last_name}</div>
-          <div className="text-xs text-neutral-500 font-mono">{r.student?.student_id}</div>
+          <div className="font-medium text-white">{r.user?.first_name} {r.user?.last_name}</div>
+          <div className="text-xs text-neutral-400 font-mono">{r.student?.student_id}</div>
         </div>
       ),
     },
-    { key: 'module_code', header: 'Module', render: (r: RegistrationRow) => <span className="font-mono text-neutral-900">{r.module?.code}</span> },
-    { key: 'title', header: 'Title', render: (r: RegistrationRow) => r.module?.title || '—' },
-    { key: 'semester', header: 'Semester', render: (r: RegistrationRow) => r.semester?.name || '—' },
+    { key: 'module_code', header: 'Module', render: (r: RegistrationRow) => <span className="font-mono text-white">{r.module?.code}</span> },
+    { key: 'title', header: 'Title', render: (r: RegistrationRow) => <span className="text-white">{r.module?.title || '—'}</span> },
+    { key: 'semester', header: 'Semester', render: (r: RegistrationRow) => <span className="text-white">{r.semester?.name || '—'}</span> },
     { key: 'status', header: 'Status', render: (r: RegistrationRow) => <StatusBadge status={r.status} /> },
-    { key: 'grade', header: 'Grade', render: (r: RegistrationRow) => r.grade !== null ? r.grade.toFixed(2) : '—' },
+    { key: 'grade', header: 'Grade', render: (r: RegistrationRow) => <span className="text-white">{r.grade !== null ? r.grade.toFixed(2) : '—'}</span> },
     {
       key: 'actions',
       header: 'Actions',
       render: (r: RegistrationRow) => (
-        <Link href={`/sis/admin/registration/${r.id}`} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">View</Link>
+        <Link href={`/sis/admin/registration/${r.id}`} className="text-xs font-bold uppercase tracking-wider text-white hover:text-purple-300 hover:underline no-underline">View</Link>
       ),
     },
   ];
@@ -104,21 +104,21 @@ export default function RegistrationPage() {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white border border-neutral-200 p-4">
+        <div className="bg-neutral-900 border border-neutral-800 p-5 rounded-2xl">
           <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Registrations</div>
-          <div className="text-2xl font-black text-neutral-900 mt-1">{data.length}</div>
+          <div className="text-2xl font-black text-white mt-1">{data.length}</div>
         </div>
-        <div className="bg-white border border-neutral-200 p-4">
+        <div className="bg-neutral-900 border border-neutral-800 p-5 rounded-2xl">
           <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Registered</div>
-          <div className="text-2xl font-black text-blue-600 mt-1">{data.filter(r => r.status === 'REGISTERED').length}</div>
+          <div className="text-2xl font-black text-blue-400 mt-1">{data.filter(r => r.status === 'REGISTERED').length}</div>
         </div>
-        <div className="bg-white border border-neutral-200 p-4">
+        <div className="bg-neutral-900 border border-neutral-800 p-5 rounded-2xl">
           <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Completed</div>
-          <div className="text-2xl font-black text-emerald-600 mt-1">{data.filter(r => r.status === 'COMPLETED').length}</div>
+          <div className="text-2xl font-black text-emerald-400 mt-1">{data.filter(r => r.status === 'COMPLETED').length}</div>
         </div>
-        <div className="bg-white border border-neutral-200 p-4">
+        <div className="bg-neutral-900 border border-neutral-800 p-5 rounded-2xl">
           <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Dropped</div>
-          <div className="text-2xl font-black text-red-600 mt-1">{data.filter(r => r.status === 'DROPPED').length}</div>
+          <div className="text-2xl font-black text-red-400 mt-1">{data.filter(r => r.status === 'DROPPED').length}</div>
         </div>
       </div>
 

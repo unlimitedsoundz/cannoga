@@ -77,86 +77,86 @@ export default function RegistrationDetailPage() {
       />
 
       <div className="flex items-center gap-4 mb-6">
-        <button onClick={() => router.back()} className="p-2 hover:bg-neutral-100 rounded-lg transition-colors text-neutral-600">
+        <button onClick={() => router.back()} className="p-2 hover:bg-neutral-800 rounded-lg transition-colors text-neutral-300">
           <HugeiconsIcon icon={ArrowLeft} size={18} strokeWidth={2} />
         </button>
-        <Link href="/sis/admin/registration" className="text-xs font-bold uppercase tracking-wider text-neutral-500 hover:text-black no-underline">
+        <Link href="/sis/admin/registration" className="text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white no-underline">
           Back to Registrations
         </Link>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white border border-neutral-200 p-6">
+          <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Module Information</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <div className="p-2 bg-neutral-100 rounded text-neutral-500">
+                <div className="p-2 bg-neutral-800 rounded text-neutral-300">
                   <HugeiconsIcon icon={BookOpen} size={18} strokeWidth={2} />
                 </div>
                 <div>
-                  <div className="font-bold text-neutral-900">{moduleTitle}</div>
-                  <div className="text-sm text-neutral-500 font-mono">{moduleCode}</div>
-                  {data.module?.description && <div className="text-sm text-neutral-600 mt-1">{data.module.description}</div>}
+                  <div className="font-bold text-white">{moduleTitle}</div>
+                  <div className="text-sm text-neutral-400 font-mono">{moduleCode}</div>
+                  {data.module?.description && <div className="text-sm text-neutral-300 mt-1">{data.module.description}</div>}
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Credits</div>
-                  <div className="text-sm font-bold text-neutral-900">{data.module?.credits || '—'}</div>
+                  <div className="text-sm font-bold text-white">{data.module?.credits || '—'}</div>
                 </div>
                 <div>
                   <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Semester</div>
-                  <div className="text-sm font-bold text-neutral-900">{data.semester?.name || '—'}</div>
+                  <div className="text-sm font-bold text-white">{data.semester?.name || '—'}</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white border border-neutral-200 p-6">
+          <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Enrollment Status</h3>
             <div className="flex items-center gap-4">
               <StatusBadge status={data.status} />
-              <span className="text-sm text-neutral-600">Grade Status: <span className="font-bold text-neutral-900">{data.grade_status || '—'}</span></span>
+              <span className="text-sm text-neutral-300">Grade Status: <span className="font-bold text-white">{data.grade_status || '—'}</span></span>
             </div>
             {data.grade !== null && (
               <div className="mt-4">
                 <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Grade</div>
-                <div className="text-2xl font-black text-neutral-900">{data.grade.toFixed(2)}</div>
+                <div className="text-2xl font-black text-white">{data.grade.toFixed(2)}</div>
               </div>
             )}
           </div>
         </div>
 
         <div className="space-y-6">
-          <div className="bg-white border border-neutral-200 p-6">
+          <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Student</h3>
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-neutral-100 rounded text-neutral-500">
+              <div className="p-2 bg-neutral-800 rounded text-neutral-300">
                 <HugeiconsIcon icon={User} size={18} strokeWidth={2} />
               </div>
               <div>
-                <div className="font-bold text-neutral-900">{studentName}</div>
-                <div className="text-sm text-neutral-500 font-mono">{data.student?.student_id}</div>
-                {data.student?.user?.email && <div className="text-xs text-neutral-500">{data.student.user.email}</div>}
+                <div className="font-bold text-white">{studentName}</div>
+                <div className="text-sm text-neutral-400 font-mono">{data.student?.student_id}</div>
+                {data.student?.user?.email && <div className="text-xs text-neutral-400">{data.student.user.email}</div>}
               </div>
             </div>
           </div>
 
-          <div className="bg-white border border-neutral-200 p-6">
+          <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Record Info</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <HugeiconsIcon icon={Hash} size={14} strokeWidth={2} className="text-slate-400" />
-                <span className="text-xs text-neutral-500 font-mono">{data.id}</span>
+                <span className="text-xs text-neutral-400 font-mono">{data.id}</span>
               </div>
               <div className="flex items-center gap-2">
                 <HugeiconsIcon icon={Calendar} size={14} strokeWidth={2} className="text-slate-400" />
-                <span className="text-xs text-neutral-600">Created: {new Date(data.created_at).toLocaleDateString()}</span>
+                <span className="text-xs text-neutral-300">Created: {new Date(data.created_at).toLocaleDateString()}</span>
               </div>
               <div className="flex items-center gap-2">
                 <HugeiconsIcon icon={Calendar} size={14} strokeWidth={2} className="text-slate-400" />
-                <span className="text-xs text-neutral-600">Updated: {new Date(data.updated_at).toLocaleDateString()}</span>
+                <span className="text-xs text-neutral-300">Updated: {new Date(data.updated_at).toLocaleDateString()}</span>
               </div>
             </div>
           </div>
