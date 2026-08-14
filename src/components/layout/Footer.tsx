@@ -110,6 +110,33 @@ export function Footer() {
                         </div>
                     </div>
 
+                    {/* Institutional & Accreditation Partner Logos - Compact Strip */}
+                    <div className="border-t border-white/10 pt-8 pb-6 flex flex-wrap items-center justify-between gap-6">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Accreditation &amp; Affiliations</span>
+                        <div className="flex flex-wrap items-center gap-6 md:gap-10">
+                            <img
+                                src="https://ircc.com/icon.png"
+                                alt="IRCC Canada"
+                                className="h-6 md:h-7 w-auto object-contain brightness-0 invert opacity-75 hover:opacity-100 transition-opacity"
+                            />
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/en/3/36/OCAS_Logo_2026.png"
+                                alt="OCAS"
+                                className="h-6 md:h-7 w-auto object-contain brightness-0 invert opacity-75 hover:opacity-100 transition-opacity"
+                            />
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Ottawa%2C_City_of.svg/3840px-Ottawa%2C_City_of.svg.png"
+                                alt="City of Ottawa"
+                                className="h-6 md:h-7 w-auto object-contain brightness-0 invert opacity-75 hover:opacity-100 transition-opacity"
+                            />
+                            <img
+                                src="https://www.vhv.rs/dpng/d/604-6049978_government-of-ontario-logo-hd-png-download.png"
+                                alt="Government of Ontario"
+                                className="h-6 md:h-7 w-auto object-contain brightness-0 invert opacity-75 hover:opacity-100 transition-opacity"
+                            />
+                        </div>
+                    </div>
+
                     {/* Bottom Bar */}
                     <div className="border-t border-white/10 pt-6">
                         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
