@@ -46,36 +46,36 @@ export default function ArrivalGuidePage() {
                 }}
             />
 
-            <div className="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
-                <div className="space-y-10">
+            <div className="container mx-auto px-4 py-6 md:py-8 max-w-6xl">
+                <div className="space-y-8">
                     {/* Before You Arrive */}
                     <section id="before-you-arrive" className="scroll-mt-32">
-                        <h2 className="text-aalto-5 font-bold mb-6 text-black tracking-tight">Before You Arrive</h2>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="bg-neutral-50 p-5 md:p-6 rounded-2xl">
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 bg-neutral-200/80 px-2 py-0.5 rounded mb-2 inline-block">Essential</span>
-                                <h3 className="font-bold text-lg text-black mb-1.5">Enrolment</h3>
+                        <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Before You Arrive</h2>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            <div className="py-2">
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-600 bg-neutral-100 px-2 py-0.5 rounded mb-1 inline-block">Essential</span>
+                                <h3 className="font-bold text-lg text-black mb-1">Enrolment</h3>
                                 <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                                     Ensure you have accepted your <Link href="/admissions/requirements" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">admission offer</Link>, paid <Link href="/admissions/tuition" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">tuition fees</Link>, and completed enrolment.
                                 </p>
                             </div>
-                            <div className="bg-neutral-50 p-5 md:p-6 rounded-2xl">
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 bg-neutral-200/80 px-2 py-0.5 rounded mb-2 inline-block">Legal</span>
-                                <h3 className="font-bold text-lg text-black mb-1.5">Visa & Permits</h3>
+                            <div className="py-2">
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-600 bg-neutral-100 px-2 py-0.5 rounded mb-1 inline-block">Legal</span>
+                                <h3 className="font-bold text-lg text-black mb-1">Visa & Permits</h3>
                                 <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                                     International students should apply for a Canadian study permit. Learn more about <Link href="/international" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">international student support</Link>.
                                 </p>
                             </div>
-                            <div className="bg-neutral-50 p-5 md:p-6 rounded-2xl">
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 bg-neutral-200/80 px-2 py-0.5 rounded mb-2 inline-block">Housing</span>
-                                <h3 className="font-bold text-lg text-black mb-1.5">Accommodation</h3>
+                            <div className="py-2">
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-600 bg-neutral-100 px-2 py-0.5 rounded mb-1 inline-block">Housing</span>
+                                <h3 className="font-bold text-lg text-black mb-1">Accommodation</h3>
                                 <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                                     Secure housing early. Read our full <Link href="/student-guide/housing-for-students" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Student Housing Guide</Link>.
                                 </p>
                             </div>
-                            <div className="bg-neutral-50 p-5 md:p-6 rounded-2xl">
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 bg-neutral-200/80 px-2 py-0.5 rounded mb-2 inline-block">Checklist</span>
-                                <h3 className="font-bold text-lg text-black mb-1.5">What to Bring</h3>
+                            <div className="py-2">
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-600 bg-neutral-100 px-2 py-0.5 rounded mb-1 inline-block">Checklist</span>
+                                <h3 className="font-bold text-lg text-black mb-1">What to Bring</h3>
                                 <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                                     Bring your passport, study permit, insurance, and enrolment documents. Pack for the local climate.
                                 </p>
@@ -90,11 +90,11 @@ export default function ArrivalGuidePage() {
                             icon="airplane"
                             title="Arriving in the Country"
                             body={
-                                <div className="space-y-6 text-left">
+                                <div className="space-y-4 text-left">
                                     {/* Border Procedures Overview with Spotlight Image */}
-                                    <div className="grid md:grid-cols-3 gap-6 items-center bg-neutral-50 p-5 md:p-6 rounded-2xl">
-                                        <div className="md:col-span-2 space-y-1.5">
-                                            <h4 className="font-bold text-lg text-black">International Students: Border Procedures</h4>
+                                    <div className="grid md:grid-cols-3 gap-4 items-center py-2">
+                                        <div className="md:col-span-2 space-y-1">
+                                            <h4 className="font-bold text-lg text-black mb-1">International Students: Border Procedures</h4>
                                             <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                                                 International students arriving in Ontario, Canada must carry essential identification documents in their carry-on luggage and complete standard border clearance procedures with Canada Border Services Agency (CBSA).
                                             </p>
@@ -110,14 +110,14 @@ export default function ArrivalGuidePage() {
                                     </div>
 
                                     {/* Essential Documents & Arrival Steps Grid */}
-                                    <div className="grid md:grid-cols-2 gap-6">
-                                        <div className="bg-neutral-50/70 p-5 md:p-6 rounded-2xl flex flex-col justify-between">
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        <div className="py-2 flex flex-col justify-between">
                                             <div>
-                                                <h4 className="font-bold text-base mb-3 text-black flex items-center gap-2">
-                                                    <span className="w-2.5 h-2.5 bg-[#0a151a] rounded-full inline-block" />
+                                                <h4 className="font-bold text-base mb-2 text-black flex items-center gap-2">
+                                                    <span className="w-2 h-2 bg-[#0a151a] rounded-full inline-block" />
                                                     Essential Documents to Carry
                                                 </h4>
-                                                <ul className="space-y-2.5 text-sm text-neutral-700 font-medium">
+                                                <ul className="space-y-2 text-sm text-neutral-700 font-medium">
                                                     <li className="flex gap-2 items-start">
                                                         <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
                                                         <span><strong>Valid Passport:</strong> Must remain valid for your entire stay.</span>
@@ -142,13 +142,13 @@ export default function ArrivalGuidePage() {
                                             </div>
                                         </div>
 
-                                        <div className="bg-neutral-50/70 p-5 md:p-6 rounded-2xl flex flex-col justify-between">
+                                        <div className="py-2 flex flex-col justify-between">
                                             <div>
-                                                <h4 className="font-bold text-base mb-3 text-black flex items-center gap-2">
-                                                    <span className="w-2.5 h-2.5 bg-[#0a151a] rounded-full inline-block" />
+                                                <h4 className="font-bold text-base mb-2 text-black flex items-center gap-2">
+                                                    <span className="w-2 h-2 bg-[#0a151a] rounded-full inline-block" />
                                                     Airport Clearance Process
                                                 </h4>
-                                                <div className="space-y-3">
+                                                <div className="space-y-2.5">
                                                     <div className="pl-3 border-l-2 border-neutral-300 space-y-0.5">
                                                         <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Step 1: Customs</span>
                                                         <p className="text-sm font-bold text-black">CBSA Declaration Kiosk</p>
@@ -165,19 +165,19 @@ export default function ArrivalGuidePage() {
                                     </div>
 
                                     {/* Immediate Next Steps Row */}
-                                    <div>
-                                        <h4 className="font-bold text-base mb-3 text-black">Immediate Settlement Steps</h4>
-                                        <div className="grid sm:grid-cols-3 gap-4">
-                                            <div className="p-4 rounded-xl bg-neutral-50/80">
-                                                <span className="font-bold text-sm block text-black mb-1">1. Social Insurance Number</span>
+                                    <div className="pt-2">
+                                        <h4 className="font-bold text-base mb-2 text-black">Immediate Settlement Steps</h4>
+                                        <div className="grid sm:grid-cols-3 gap-3">
+                                            <div className="py-1">
+                                                <span className="font-bold text-sm block text-black mb-0.5">1. Social Insurance Number</span>
                                                 <p className="text-xs text-neutral-600 leading-relaxed">Apply for a SIN at Service Canada to work on or off campus legally.</p>
                                             </div>
-                                            <div className="p-4 rounded-xl bg-neutral-50/80">
-                                                <span className="font-bold text-sm block text-black mb-1">2. Banking & Mobile</span>
+                                            <div className="py-1">
+                                                <span className="font-bold text-sm block text-black mb-0.5">2. Banking & Mobile</span>
                                                 <p className="text-xs text-neutral-600 leading-relaxed">Open a Canadian student bank account (RBC, TD, Scotiabank) and setup a local SIM.</p>
                                             </div>
-                                            <div className="p-4 rounded-xl bg-neutral-50/80">
-                                                <span className="font-bold text-sm block text-black mb-1">3. Transportation & Housing</span>
+                                            <div className="py-1">
+                                                <span className="font-bold text-sm block text-black mb-0.5">3. Transportation & Housing</span>
                                                 <p className="text-xs text-neutral-600 leading-relaxed">Confirm your housing address and familiarize with OC Transpo bus & O-Train routes.</p>
                                             </div>
                                         </div>
@@ -194,28 +194,28 @@ export default function ArrivalGuidePage() {
                             icon="graduationCap"
                             title="Starting at Cannoga"
                             body={
-                                <div className="space-y-6 text-left">
+                                <div className="space-y-4 text-left">
                                     {/* Intro Banner */}
-                                    <div className="bg-neutral-50 p-5 md:p-6 rounded-2xl">
-                                        <h4 className="font-bold text-lg mb-1.5 text-black">Welcome to Your First Week on Campus</h4>
+                                    <div className="py-2">
+                                        <h4 className="font-bold text-lg mb-1 text-black">Welcome to Your First Week on Campus</h4>
                                         <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                                             Your first week at Cannoga College is designed to connect you with academic leaders, peer mentors, and essential campus resources so you can start your degree with confidence.
                                         </p>
                                     </div>
 
                                     {/* Detailed Grid: Orientation & Student Services */}
-                                    <div className="grid md:grid-cols-2 gap-6">
+                                    <div className="grid md:grid-cols-2 gap-4">
                                         {/* Orientation Week */}
-                                        <div className="bg-neutral-50/70 p-5 md:p-6 rounded-2xl flex flex-col justify-between">
+                                        <div className="py-2 flex flex-col justify-between">
                                             <div>
-                                                <div className="flex items-center justify-between mb-3">
+                                                <div className="flex items-center justify-between mb-2">
                                                     <h4 className="font-bold text-lg text-black">Orientation Week</h4>
                                                     <span className="bg-[#0a151a] text-white text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-sm">Mandatory</span>
                                                 </div>
-                                                <p className="text-sm text-neutral-600 mb-4 font-medium leading-relaxed">
+                                                <p className="text-sm text-neutral-600 mb-3 font-medium leading-relaxed">
                                                     Comprehensive orientation sessions help you understand your academic programme, meet faculty members, and master university platforms.
                                                 </p>
-                                                <ul className="space-y-2.5 text-sm text-neutral-700 font-medium">
+                                                <ul className="space-y-2 text-sm text-neutral-700 font-medium">
                                                     <li className="flex gap-2 items-start">
                                                         <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
                                                         <span><strong>Faculty & Program Introductions:</strong> Meet your academic dean, program directors, and course instructors.</span>
@@ -237,16 +237,16 @@ export default function ArrivalGuidePage() {
                                         </div>
 
                                         {/* Student Support Services */}
-                                        <div className="bg-neutral-50/70 p-5 md:p-6 rounded-2xl flex flex-col justify-between">
+                                        <div className="py-2 flex flex-col justify-between">
                                             <div>
-                                                <div className="flex items-center justify-between mb-3">
+                                                <div className="flex items-center justify-between mb-2">
                                                     <h4 className="font-bold text-lg text-black">Student Support Services</h4>
                                                     <span className="bg-neutral-200/80 text-black text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-sm">Available Daily</span>
                                                 </div>
-                                                <p className="text-sm text-neutral-600 mb-4 font-medium leading-relaxed">
+                                                <p className="text-sm text-neutral-600 mb-3 font-medium leading-relaxed">
                                                     Cannoga College provides a centralized network of specialized support services to guide your personal and academic progress.
                                                 </p>
-                                                <div className="space-y-3">
+                                                <div className="space-y-2.5">
                                                     <div className="pl-3 border-l-2 border-neutral-300">
                                                         <span className="font-bold text-sm text-black block">Academic Advising</span>
                                                         <span className="text-xs text-neutral-600">One-on-one course selection, transfer credit review, and degree audit planning.</span>
@@ -274,16 +274,16 @@ export default function ArrivalGuidePage() {
 
                     {/* Success / Living */}
                     <section id="living" className="scroll-mt-32">
-                        <h2 className="text-aalto-5 font-bold mb-6 text-black tracking-tight">Living & Studying</h2>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="bg-neutral-50 p-5 md:p-6 rounded-2xl">
-                                <h3 className="font-bold text-lg text-black mb-1.5">Academic Life</h3>
+                        <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Living & Studying</h2>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            <div className="py-2">
+                                <h3 className="font-bold text-lg text-black mb-1">Academic Life</h3>
                                 <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                                     Attend classes regularly, use digital platforms, and manage your time effectively between lectures and independent study.
                                 </p>
                             </div>
-                            <div className="bg-neutral-50 p-5 md:p-6 rounded-2xl">
-                                <h3 className="font-bold text-lg text-black mb-1.5">Stay Connected</h3>
+                            <div className="py-2">
+                                <h3 className="font-bold text-lg text-black mb-1">Stay Connected</h3>
                                 <p className="text-sm text-neutral-700 leading-relaxed font-medium">
                                     Check your Cannoga email and student portal regularly for updates, schedules, and important announcements.
                                 </p>
