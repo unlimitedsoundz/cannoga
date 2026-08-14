@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/Label';
 import { Button } from '@/components/ui/Button';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowRightIcon as Send, BellIcon as Bell, Trash as Trash } from '@hugeicons/core-free-icons';
+import { toast } from 'sonner';
 
 interface Notification {
     id: string;
@@ -117,6 +118,7 @@ export default function AdminNotificationsPage() {
             }
 
             setSuccess('Notification sent successfully');
+            toast.success('Notification sent successfully');
             setTitle('');
             setMessage('');
             setCategory('General');
@@ -132,6 +134,7 @@ export default function AdminNotificationsPage() {
             }
         } catch (e: any) {
             setError(e.message);
+            toast.error(e.message || 'Failed to send notification');
         } finally {
             setSending(false);
         }
@@ -140,10 +143,12 @@ export default function AdminNotificationsPage() {
     const handleDelete = async (id: string) => {
         try {
             const response = await fetch(`/api/sis/admin/notifications?id=${id}`, { method: 'DELETE' });
-            if (!response.ok) throw new Error('Failed to delete');
+            if (!response.ok) throw new Error('Failed to delete notification');
             setNotifications(notifications.filter(n => n.id !== id));
+            toast.success('Notification deleted successfully');
         } catch (e: any) {
-            alert(e.message);
+            setError(e.message);
+            toast.error(e.message || 'Failed to delete notification');
         }
     };
 
