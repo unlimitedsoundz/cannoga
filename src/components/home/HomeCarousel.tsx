@@ -110,27 +110,33 @@ export function HomeCarousel() {
                 {/* Manual Controls */}
                 <button
                     onClick={prevSlide}
-                    className="absolute left-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0f2027]/60 hover:bg-[#0f2027] w-12 h-12 flex items-center justify-center text-white transition-colors border border-white/20"
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 w-10 h-10 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center text-slate-900 shadow-md transition-all rounded-none"
                     aria-label="Previous slide"
                 >
-                    <CaretLeft size={24} weight="bold" />
+                    <CaretLeft size={20} weight="bold" />
                 </button>
                 <button
                     onClick={nextSlide}
-                    className="absolute right-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0f2027]/60 hover:bg-[#0f2027] w-12 h-12 flex items-center justify-center text-white transition-colors border border-white/20"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 w-10 h-10 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center text-slate-900 shadow-md transition-all rounded-none"
                     aria-label="Next slide"
                 >
-                    <CaretRight size={24} weight="bold" />
+                    <CaretRight size={20} weight="bold" />
                 </button>
 
-                {/* Dots Indicator */}
-                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30 flex gap-2.5">
+                {/* Pagination Indicators */}
+                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30 flex items-center justify-center gap-2 py-1">
                     {slides.map((_, idx) => (
                         <button
                             key={idx}
                             onClick={() => setCurrent(idx)}
-                            className={`w-3.5 h-3.5 rounded-full transition-all duration-300 border-2 border-white ${idx === current ? 'bg-white scale-110' : 'bg-transparent hover:bg-white/30'
-                                }`}
+                            className="transition-all duration-300 shadow-sm"
+                            style={{
+                                width: idx === current ? 24 : 10,
+                                height: 10,
+                                background: idx === current ? '#ffffff' : 'rgba(255, 255, 255, 0.4)',
+                                border: 'none',
+                                cursor: 'pointer',
+                            }}
                             aria-label={`Go to slide ${idx + 1}`}
                         />
                     ))}
