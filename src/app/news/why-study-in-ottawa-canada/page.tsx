@@ -66,8 +66,8 @@ export default function WhyStudyInOttawaCanadaPage() {
                 title="Why Study in Ottawa Canada?"
                 body="Discover why Ottawa has become one of North America's most attractive study destinations."
                 image={{
-                    src: "/images/news/helsinki-study-hero.png",
-                    alt: "Aerial view of Ottawa, Ontario, Canada with university campus and parks"
+                    src: "/images/news/why-study-in-ottawa.jpg",
+                    alt: "International students walking at Cannoga College Ottawa campus"
                 }}
                 breadcrumbs={[
                     { label: 'Home', href: '/' },
@@ -120,7 +120,7 @@ export default function WhyStudyInOttawaCanadaPage() {
                 <div className="mb-16">
                     <div className="relative aspect-[16/9] overflow-hidden">
                         <Image
-                            src="/images/news/helsinki-study-hero.png"
+                            src="/images/news/why-study-in-ottawa.jpg"
                             alt="International students at Cannoga College campus in Ottawa"
                             fill
                             className="object-cover object-top"

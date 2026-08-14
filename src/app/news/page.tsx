@@ -38,7 +38,7 @@ export default async function NewsPage() {
             title: 'Why Study in Ottawa Canada? 10 Reasons International Students Choose Ottawa',
             slug: 'why-study-in-ottawa-canada',
             excerpt: 'Canada has become one of North America\'s premier study destinations. From world-class education to a thriving tech scene, discover why students are flocking to Ottawa.',
-            imageUrl: '/images/admissions/events.jpg',
+            imageUrl: '/images/news/why-study-in-ottawa.jpg',
             publishDate: '2026.02.14',
             type: 'news',
             sortDate: '2026.02.14',
