@@ -2184,8 +2184,7 @@ export default function SISStudentDashboard() {
                                         {news.length > 0 ? (
                                             news.map(item => (
                                                 <div key={item.id} className="block px-5 py-3 hover:bg-slate-50 transition group cursor-pointer">
-                                                    <div className="flex items-center justify-between gap-2 mb-1">
-                                                        <span className="text-[10px] font-extrabold text-slate-700 uppercase bg-slate-100 px-2 py-0.5 rounded">{item.priority || 'News'}</span>
+                                                    <div className="flex items-center justify-end mb-1">
                                                         <span className="text-[11px] text-slate-500 font-medium">{item.publish_start ? new Date(item.publish_start).toLocaleDateString('en-CA') : ''}</span>
                                                     </div>
                                                     <p className="font-bold text-slate-900 group-hover:text-slate-800 text-sm">{item.title}</p>
