@@ -163,11 +163,11 @@ export default function StudiesPage() {
             </Hero>
 
             {/* Program Levels Banner Grid */}
-            <div className="bg-slate-900 text-white py-16">
+            <div className="bg-white text-slate-900 py-16 border-b border-slate-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-3xl mx-auto mb-12">
-                        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white uppercase">Choose Your Study Pathway</h2>
-                        <p className="text-sm text-slate-300 mt-2">Every program is structured with high academic standards, hands-on learning, and Post-Graduation Work Permit (PGWP) eligibility.</p>
+                        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 uppercase">Choose Your Study Pathway</h2>
+                        <p className="text-sm text-slate-600 mt-2">Every program is structured with high academic standards, hands-on learning, and Post-Graduation Work Permit (PGWP) eligibility.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -175,18 +175,18 @@ export default function StudiesPage() {
                             <Link
                                 key={idx}
                                 href={item.link}
-                                className="group relative bg-[#0a151a] border border-white/10 p-6 rounded-xl hover:border-[#c89211]/50 transition-all flex flex-col justify-between no-underline"
+                                className="group relative bg-white border border-slate-200 p-6 rounded-xl hover:border-[#0a151a] hover:shadow-md transition-all flex flex-col justify-between no-underline"
                             >
                                 <div>
-                                    <h3 className="text-base font-extrabold text-white mb-1 group-hover:text-[#c89211] transition-colors">{item.title}</h3>
-                                    <div className="flex items-center gap-2 text-[10px] text-slate-400 font-semibold mb-3">
+                                    <h3 className="text-base font-extrabold text-slate-900 mb-1 group-hover:text-[#0a151a] transition-colors">{item.title}</h3>
+                                    <div className="flex items-center gap-2 text-[10px] text-slate-500 font-semibold mb-3">
                                         <span>{item.duration}</span>
                                         <span>•</span>
                                         <span>{item.credits}</span>
                                     </div>
-                                    <p className="text-xs text-slate-300 leading-relaxed mb-4">{item.desc}</p>
+                                    <p className="text-xs text-slate-600 leading-relaxed mb-4">{item.desc}</p>
                                 </div>
-                                <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs font-bold text-[#c89211]">
+                                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#0a151a]">
                                     <span>{item.coop}</span>
                                     <ArrowRight size={14} weight="bold" className="group-hover:translate-x-1 transition-transform" />
                                 </div>
