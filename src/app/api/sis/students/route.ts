@@ -5,49 +5,40 @@ export async function GET(request: NextRequest) {
   const supabase = createServiceRoleClient();
 
   try {
-    const { data: students, error } = await supabase
+    // 1. Fetch raw students table entries
+    const { data: students, error: studentsError } = await supabase
       .from('students')
-      .select(`
-        id,
-        student_id,
-        enrollment_status,
-        start_date,
-        user_id,
-        program_id,
-        user:profiles(first_name, last_name, email),
-        profiles(first_name, last_name, email),
-        application:applications(first_name, last_name, email)
-      `)
+      .select('*')
       .order('created_at', { ascending: false });
 
-    if (error) throw error;
+    // 2. Fetch profiles table entries
+    const { data: profiles } = await supabase
+      .from('profiles')
+      .select('id, first_name, last_name, email, role');
 
-    // Additional lookup from profiles table by user_id if needed
-    const userIds = (students || []).map((s: any) => s.user_id).filter(Boolean);
-    let profileMap = new Map<string, { first_name?: string; last_name?: string; email?: string }>();
+    // 3. Fetch applications table entries
+    const { data: applications } = await supabase
+      .from('applications')
+      .select('id, student_id, user_id, first_name, last_name, email');
 
-    if (userIds.length > 0) {
-      const { data: profiles } = await supabase
-        .from('profiles')
-        .select('id, first_name, last_name, email')
-        .in('id', userIds);
+    const profileMap = new Map((profiles || []).map((p: any) => [p.id, p]));
+    const appMapByUser = new Map((applications || []).filter((a: any) => a.user_id).map((a: any) => [a.user_id, a]));
+    const appMapByStudent = new Map((applications || []).filter((a: any) => a.student_id).map((a: any) => [a.student_id, a]));
 
-      if (profiles) {
-        profiles.forEach((p: any) => {
-          profileMap.set(p.id, p);
-        });
-      }
+    // Determine target list: use students table if available, else non-ADMIN profiles
+    let sourceList: any[] = students || [];
+    if (sourceList.length === 0 && profiles && profiles.length > 0) {
+      sourceList = profiles.filter((p: any) => p.role !== 'ADMIN');
     }
 
-    const formattedStudents = (students || []).map((s: any) => {
-      const directProfile = profileMap.get(s.user_id);
-      const userObj = s.user || (Array.isArray(s.profiles) ? s.profiles[0] : s.profiles) || s.application || directProfile || {};
+    const formattedStudents = sourceList.map((s: any) => {
+      const prof = profileMap.get(s.user_id || s.id);
+      const app = appMapByUser.get(s.user_id || s.id) || appMapByStudent.get(s.id) || appMapByStudent.get(s.student_id);
 
-      let firstName = directProfile?.first_name || userObj?.first_name || s.first_name || '';
-      let lastName = directProfile?.last_name || userObj?.last_name || s.last_name || '';
-      let email = directProfile?.email || userObj?.email || s.email || '';
+      let firstName = s.first_name || prof?.first_name || app?.first_name || '';
+      let lastName = s.last_name || prof?.last_name || app?.last_name || '';
+      let email = s.email || prof?.email || app?.email || '';
 
-      // If name is still missing, fallback to parsing email username or student ID
       if (!firstName && !lastName && email) {
         const username = email.split('@')[0].replace(/[._-]/g, ' ');
         const parts = username.split(' ');
@@ -56,13 +47,13 @@ export async function GET(request: NextRequest) {
       }
 
       if (!firstName && !lastName) {
-        firstName = `Student`;
-        lastName = s.student_id ? `#${s.student_id}` : s.id.substring(0, 6);
+        firstName = 'Student';
+        lastName = s.student_id ? `#${s.student_id}` : (s.id ? `#${s.id.substring(0, 6)}` : '');
       }
 
       return {
         id: s.id,
-        student_id: s.student_id,
+        student_id: s.student_id || s.id,
         first_name: firstName,
         last_name: lastName,
         email: email,
@@ -74,6 +65,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ students: formattedStudents });
   } catch (error: any) {
     console.error('Error fetching students:', error);
-    return NextResponse.json({ students: [], error: 'Failed to fetch students' }, { status: 500 });
+    return NextResponse.json({ students: [], error: error.message }, { status: 500 });
   }
 }
