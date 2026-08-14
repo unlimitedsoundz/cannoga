@@ -32,9 +32,7 @@ export default function ApplicationProcessPage() {
     const getSectionDefault = (sectionKey: string) => getPageContentSection(pageSlug, sectionKey)?.defaultContent ?? '';
 
     return (
-        <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white text-black">
-
+        <div className="min-h-screen bg-white text-black">
             {/* ── HERO ── */}
             <Hero
                 title={
@@ -77,48 +75,50 @@ export default function ApplicationProcessPage() {
                 </div>
             </Hero>
 
-            {/* ── Content ── */}
-            <div className="cc-container py-12 md:py-20">
-                <div className="max-w-4xl mx-auto space-y-16">
+            {/* Horizontal Sub-Navigation Bar positioned directly under Hero & Breadcrumbs */}
+            <GuideSidebarLayout sections={sections}>
+                {/* ── Content ── */}
+                <div className="cc-container py-12 md:py-20">
+                    <div className="max-w-4xl mx-auto space-y-16">
 
-                    {/* International Admissions Requirements by Country */}
-                    <section className="scroll-mt-32">
-                        <h2 className="text-3xl font-black text-black mb-8">International Admissions Requirements</h2>
-                        <CountryRequirementsDropdown />
-                    </section>
+                        {/* International Admissions Requirements by Country */}
+                        <section id="requirements" className="scroll-mt-32">
+                            <h2 className="text-3xl font-black text-black mb-8">International Admissions Requirements</h2>
+                            <CountryRequirementsDropdown />
+                        </section>
 
-                    {/* 10-Step Application Process */}
-                    <section className="scroll-mt-32">
-                        <h2 className="text-3xl font-black text-black mb-8">Application Process</h2>
-                        <ApplicationProcess />
-                    </section>
+                        {/* 10-Step Application Process */}
+                        <section id="steps" className="scroll-mt-32">
+                            <h2 className="text-3xl font-black text-black mb-8">Application Process</h2>
+                            <ApplicationProcess />
+                        </section>
 
-                    <section className="mt-4">
-                        <CTA
-                            title="Ready to Start Your Journey?"
-                            body="Join the next generation of global leaders at Cannoga College. Create your portal account to begin your official application."
-                            cta={{
-                                label: "Create Portal Account",
-                                linkComponentProps: {
-                                    href: "/portal/account/register",
-                                },
-                            }}
-                        />
-                    </section>
+                        <section className="mt-4">
+                            <CTA
+                                title="Ready to Start Your Journey?"
+                                body="Join the next generation of global leaders at Cannoga College. Create your portal account to begin your official application."
+                                cta={{
+                                    label: "Create Portal Account",
+                                    linkComponentProps: {
+                                        href: "/portal/account/register",
+                                    },
+                                }}
+                            />
+                        </section>
 
-                    <section id="faq" className="scroll-mt-32">
-                        <div className="cc-section-divider">
-                            <h2 className="cc-h2">Frequently Asked Questions</h2>
-                        </div>
-                        <p className="text-neutral-500 mb-8 leading-relaxed">
-                            Find quick answers to common questions regarding the application process.
-                        </p>
-                        <ApplicationFAQ />
-                    </section>
+                        <section id="faq" className="scroll-mt-32">
+                            <div className="cc-section-divider">
+                                <h2 className="cc-h2">Frequently Asked Questions</h2>
+                            </div>
+                            <p className="text-neutral-500 mb-8 leading-relaxed">
+                                Find quick answers to common questions regarding the application process.
+                            </p>
+                            <ApplicationFAQ />
+                        </section>
 
+                    </div>
                 </div>
-            </div>
+            </GuideSidebarLayout>
         </div>
-        </GuideSidebarLayout>
     );
 }

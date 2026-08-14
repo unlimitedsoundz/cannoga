@@ -26,8 +26,7 @@ const sections = [
 
 export default function ArrivalGuidePage() {
     return (
-        <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white text-black font-sans">
+        <div className="min-h-screen bg-white text-black font-sans">
             {/* Hero Section */}
             <Hero
                 title="Arrival Guide"
@@ -46,7 +45,8 @@ export default function ArrivalGuidePage() {
                 }}
             />
 
-            <div className="container mx-auto px-4 py-6 md:py-8 max-w-6xl">
+            <GuideSidebarLayout sections={sections}>
+                <div className="container mx-auto px-4 py-6 md:py-8 max-w-6xl">
                 <div className="space-y-8">
                     {/* Before You Arrive */}
                     <section id="before-you-arrive" className="scroll-mt-32">
@@ -334,7 +334,7 @@ export default function ArrivalGuidePage() {
                     </section>
                 </div>
             </div>
+            </GuideSidebarLayout>
         </div>
-        </GuideSidebarLayout>
     );
 }

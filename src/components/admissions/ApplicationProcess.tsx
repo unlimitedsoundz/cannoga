@@ -8,8 +8,8 @@ const steps = [
     content: (
       <div className="space-y-4">
         <p>Confirm your program is open for international students. Check the program details for availability.</p>
-        <div className="bg-neutral-50 p-4 border-l-4 border-[#0f2027]">
-          <p className="text-sm text-black">
+        <div className="border-l-2 border-black pl-3 py-1 my-2">
+          <p className="text-xs text-neutral-700 font-medium">
             <strong>Note:</strong> When choosing a program, ensure it is not an online-only program. Cannoga College is located in Ottawa, Ontario, Canada.
           </p>
         </div>
@@ -124,21 +124,21 @@ const steps = [
 export default function ApplicationProcess() {
   return (
     <div className="max-w-4xl">
-      <h2 className="text-3xl font-black text-black mb-8">Steps to Apply</h2>
-      <p className="text-lg text-black mb-8">
+      <h2 className="text-2xl font-black text-black mb-4">Steps to Apply</h2>
+      <p className="text-sm text-neutral-700 font-medium mb-8 leading-relaxed">
         To ensure your application to Cannoga College has the best chance of success, follow our simple {steps.length}-step process.
       </p>
 
-      <div className="space-y-6">
+      <div className="space-y-8 divide-y divide-neutral-200">
         {steps.map((step) => (
-          <div key={step.step} className="border border-neutral-200 p-6 hover:border-[#0f2027] transition-colors">
+          <div key={step.step} className="pt-6 first:pt-0">
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-10 h-10 bg-[#0f2027] text-white flex items-center justify-center font-black text-sm rounded-full">
+              <div className="flex-shrink-0 w-8 h-8 bg-black text-white flex items-center justify-center font-bold text-xs">
                 {step.step}
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-bold text-black mb-3">{step.title}</h3>
-                <div className="text-sm text-black leading-relaxed">
+                <h3 className="text-base font-bold text-black mb-2">{step.title}</h3>
+                <div className="text-sm text-neutral-700 font-medium leading-relaxed">
                   {step.content}
                 </div>
               </div>
@@ -147,9 +147,9 @@ export default function ApplicationProcess() {
         ))}
       </div>
 
-      <div className="mt-8 bg-neutral-50 p-6 border-l-4 border-[#0f2027]">
-        <p className="text-sm text-black">
-          If you have any questions, please don&apos;t hesitate to contact the International Recruitment Team at <a href="mailto:admissions@cannogacollege.ca" className="text-[#0f2027] font-bold hover:underline">admissions@cannogacollege.ca</a>. We&apos;re always happy to help!
+      <div className="mt-8 pt-6 border-t border-neutral-200">
+        <p className="text-xs sm:text-sm text-neutral-700 font-medium leading-relaxed">
+          If you have any questions, please don&apos;t hesitate to contact the International Recruitment Team at <a href="mailto:admissions@cannogacollege.ca" className="text-black font-bold underline hover:text-[#c89211] transition-colors">admissions@cannogacollege.ca</a>. We&apos;re always happy to help!
         </p>
       </div>
     </div>
