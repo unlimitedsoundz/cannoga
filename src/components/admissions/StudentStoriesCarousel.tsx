@@ -46,7 +46,7 @@ export default function StudentStoriesCarousel() {
     const prev = () => setCurrent((prev) => (prev - 1 + stories.length) % stories.length);
 
     return (
-        <div className="relative w-full h-[640px] sm:h-[600px] md:h-[380px] overflow-hidden bg-[#0a151a] group">
+        <div className="relative w-full h-[600px] sm:h-[560px] md:h-[380px] overflow-hidden bg-[#f1f5f9] border border-slate-200 shadow-sm rounded-sm group">
             {stories.map((story, index) => (
                 <div
                     key={story.id}
@@ -55,7 +55,7 @@ export default function StudentStoriesCarousel() {
                 >
                     <div className="flex flex-col md:flex-row h-full w-full">
                         {/* Image Side */}
-                        <div className="relative h-[330px] sm:h-[350px] md:h-full w-full md:w-1/2 shrink-0 overflow-hidden">
+                        <div className="relative h-[290px] sm:h-[310px] md:h-full w-full md:w-1/2 shrink-0 overflow-hidden">
                             <Image
                                 src={story.image}
                                 alt={story.name}
@@ -64,26 +64,25 @@ export default function StudentStoriesCarousel() {
                                 sizes="(max-width: 768px) 100vw, 50vw"
                                 priority={index === 0}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0a151a] via-transparent to-transparent md:hidden" />
+                            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#f1f5f9] via-transparent to-transparent md:hidden" />
                         </div>
 
                         {/* Content Side */}
-                        <div className="p-6 md:p-10 flex flex-col justify-between text-white bg-[#0a151a] w-full md:w-1/2 h-[310px] sm:h-[250px] md:h-full relative">
+                        <div className="p-6 md:p-10 flex flex-col justify-between text-slate-900 bg-[#f1f5f9] w-full md:w-1/2 h-[310px] sm:h-[250px] md:h-full relative">
                             <div>
-                                <span className="text-[#c89211] font-bold uppercase tracking-widest text-[10px] mb-3 block">Student Voice &amp; Campus Experience</span>
-                                <p className="text-base md:text-lg text-slate-100 font-serif leading-relaxed mb-4 italic">
+                                <p className="text-base md:text-lg text-slate-800 font-serif leading-relaxed mb-4 italic">
                                     "{story.quote}"
                                 </p>
                                 <div>
-                                    <h4 className="text-base font-bold text-white uppercase tracking-tight">{story.name}</h4>
-                                    <p className="text-[11px] text-[#c89211] font-medium tracking-wide mt-0.5">{story.programme}</p>
+                                    <h4 className="text-base font-bold text-[#0a151a] uppercase tracking-tight">{story.name}</h4>
+                                    <p className="text-[11px] text-[#c89211] font-bold tracking-wide mt-0.5">{story.programme}</p>
                                 </div>
                             </div>
 
-                            <div className="pt-4 flex items-center justify-between">
+                            <div className="pt-4 flex items-center justify-between border-t border-slate-200">
                                 <a 
                                     href="/student-guide" 
-                                    className="inline-flex items-center gap-2 font-bold text-[11px] uppercase tracking-wider text-slate-300 hover:text-white transition-colors"
+                                    className="inline-flex items-center gap-2 font-bold text-[11px] uppercase tracking-wider text-[#0a151a] hover:text-[#c89211] transition-colors"
                                 >
                                     Read Student Guide <ArrowRight size={13} weight="bold" />
                                 </a>
@@ -94,7 +93,7 @@ export default function StudentStoriesCarousel() {
                                         <button
                                             key={s.id}
                                             onClick={() => setCurrent(idx)}
-                                            className={`h-1.5 transition-all rounded-full ${idx === current ? 'w-5 bg-[#c89211]' : 'w-1.5 bg-white/20 hover:bg-white/40'}`}
+                                            className={`h-1.5 transition-all rounded-full ${idx === current ? 'w-5 bg-[#0a151a]' : 'w-1.5 bg-slate-300 hover:bg-slate-400'}`}
                                             aria-label={`Go to slide ${idx + 1}`}
                                         />
                                     ))}
@@ -108,14 +107,14 @@ export default function StudentStoriesCarousel() {
             {/* Navigation Controls */}
             <button
                 onClick={prev}
-                className="absolute left-4 md:left-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0f2027]/60 hover:bg-[#0f2027] w-10 h-10 md:w-12 md:h-12 flex items-center justify-center text-white transition-colors border border-white/20"
+                className="absolute left-4 md:left-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0a151a] hover:bg-[#0f2027] w-10 h-10 md:w-12 md:h-12 flex items-center justify-center text-white transition-colors border border-white/20 shadow-md"
                 aria-label="Previous story"
             >
                 <CaretLeft size={22} weight="bold" />
             </button>
             <button
                 onClick={next}
-                className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0f2027]/60 hover:bg-[#0f2027] w-10 h-10 md:w-12 md:h-12 flex items-center justify-center text-white transition-colors border border-white/20"
+                className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0a151a] hover:bg-[#0f2027] w-10 h-10 md:w-12 md:h-12 flex items-center justify-center text-white transition-colors border border-white/20 shadow-md"
                 aria-label="Next story"
             >
                 <CaretRight size={22} weight="bold" />

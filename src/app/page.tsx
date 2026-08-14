@@ -134,11 +134,11 @@ export default async function Home() {
             )}
 
             {/* 5. STUDENT STORIES & EXPERIENCE */}
-            <section className="py-12 bg-[#0a151a] text-white">
-                <div className="container mx-auto px-4 md:px-28 lg:px-40">
-                    <div className="mb-6 border-b border-white/10 pb-3">
-                        <h2 className="text-2xl md:text-3xl font-serif font-bold text-white">Student Stories</h2>
-                        <p className="text-slate-400 text-sm mt-0.5">Hear directly from students studying at Cannoga College Ottawa.</p>
+            <section className="py-16 bg-[#f8fafc] text-black border-t border-b border-slate-200">
+                <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
+                    <div className="mb-8 border-b border-slate-200 pb-4">
+                        <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027]">Student Stories</h2>
+                        <p className="text-slate-600 text-sm mt-1">Hear directly from students studying at Cannoga College Ottawa.</p>
                     </div>
                     <StudentStoriesCarousel />
                 </div>
