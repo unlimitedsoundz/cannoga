@@ -133,53 +133,45 @@ export default function InnovationPage() {
                 </div>
             </Hero>
 
-            <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 md:py-16 space-y-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 max-w-6xl space-y-12">
                 {/* Introduction & Overview */}
-                <div className="max-w-3xl space-y-4">
-                    <span className="text-xs font-black uppercase tracking-widest text-neutral-500">Ottawa Technology Ecosystem</span>
-                    <h2 className="text-2xl sm:text-3xl font-black text-black tracking-tight leading-tight">
-                        Empowering Student Founders & Applied Research Commercialization
-                    </h2>
-                    <p className="text-neutral-600 text-sm sm:text-base leading-relaxed">
+                <section className="space-y-2">
+                    <h2 className="text-aalto-5 font-bold text-black tracking-tight">Ottawa Technology Ecosystem</h2>
+                    <p className="text-sm sm:text-base text-neutral-700 leading-relaxed font-medium">
                         The Cannoga Innovation Hub connects ambitious student entrepreneurs, faculty researchers, and industry partners across the National Capital Region. Through non-dilutive seed funding, prototyping labs, and direct connections to Ottawa’s technology investment sector, we accelerate early-stage ventures from initial concept to commercial viability.
                     </p>
-                </div>
+                </section>
 
-                {/* Main Incubator Pillars */}
-                <div id="incubator-programs" className="space-y-8 pt-4">
-                    <div className="border-b border-neutral-200 pb-4">
-                        <h2 className="text-xl sm:text-2xl font-black text-black tracking-tight">Core Programs & Support Services</h2>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Core Programs & Support Services */}
+                <section id="incubator-programs" className="space-y-6">
+                    <h2 className="text-aalto-5 font-bold text-black tracking-tight">Core Programs &amp; Support Services</h2>
+                    
+                    <div className="grid md:grid-cols-3 gap-6">
                         {INCUBATOR_PILLARS.map((pillar, idx) => {
                             const IconComp = pillar.icon;
                             return (
-                                <div key={idx} className="border border-neutral-200 p-6 flex flex-col justify-between hover:border-black transition-colors">
-                                    <div className="space-y-4">
-                                        <div className="flex items-center justify-between">
-                                            <div className="p-3 bg-neutral-100 text-black">
-                                                <IconComp size={22} weight="bold" />
-                                            </div>
-                                            <span className="text-[10px] font-black uppercase tracking-widest text-neutral-500">{pillar.period}</span>
+                                <div key={idx} className="py-2 flex flex-col justify-between">
+                                    <div className="space-y-2">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <IconComp size={20} weight="bold" className="text-black" />
+                                            <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">{pillar.period}</span>
                                         </div>
-                                        <div>
-                                            <h3 className="text-lg font-bold text-black mb-2">{pillar.title}</h3>
-                                            <p className="text-xs text-neutral-600 leading-relaxed mb-4">{pillar.description}</p>
-                                        </div>
-                                        <ul className="space-y-2 border-t border-neutral-100 pt-4">
+                                        <h3 className="font-bold text-lg text-black mb-1">{pillar.title}</h3>
+                                        <p className="text-sm text-neutral-700 leading-relaxed font-medium mb-3">{pillar.description}</p>
+                                        
+                                        <ul className="space-y-1.5 text-xs text-neutral-700 font-medium">
                                             {pillar.features.map((feat, fIdx) => (
-                                                <li key={fIdx} className="flex items-start gap-2 text-xs font-semibold text-neutral-700">
-                                                    <CheckCircle size={14} className="text-black shrink-0 mt-0.5" />
+                                                <li key={fIdx} className="flex gap-2 items-start">
+                                                    <ArrowRight size={14} className="mt-0.5 shrink-0 text-[#0a151a]" />
                                                     <span>{feat}</span>
                                                 </li>
                                             ))}
                                         </ul>
                                     </div>
-                                    <div className="pt-6 mt-4 border-t border-neutral-100">
+                                    <div className="pt-4">
                                         <Link 
                                             href={pillar.link} 
-                                            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-black hover:underline"
+                                            className="inline-flex items-center gap-1.5 text-xs font-bold text-black hover:underline"
                                         >
                                             <span>Learn More</span>
                                             <ArrowRight size={14} weight="bold" />
@@ -189,50 +181,48 @@ export default function InnovationPage() {
                             );
                         })}
                     </div>
-                </div>
+                </section>
 
-                {/* Venture Portfolio / Success Stories */}
-                <div className="space-y-8 pt-4">
-                    <div className="border-b border-neutral-200 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
-                        <div>
-                            <h2 className="text-xl sm:text-2xl font-black text-black tracking-tight">Venture Portfolio & Spin-Offs</h2>
-                            <p className="text-xs sm:text-sm text-neutral-600 mt-1">Select early-stage ventures launched through Cannoga Innovation Hub acceleration cohorts.</p>
-                        </div>
+                {/* Venture Portfolio & Spin-Offs */}
+                <section className="space-y-6">
+                    <div>
+                        <h2 className="text-aalto-5 font-bold text-black tracking-tight">Venture Portfolio &amp; Spin-Offs</h2>
+                        <p className="text-sm text-neutral-600 font-medium mt-1">Select early-stage ventures launched through Cannoga Innovation Hub acceleration cohorts.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid md:grid-cols-3 gap-6">
                         {SUCCESS_STORIES.map((story, idx) => (
-                            <div key={idx} className="border border-neutral-200 p-6 flex flex-col justify-between">
-                                <div className="space-y-3">
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-neutral-500 bg-neutral-100 px-2 py-0.5 inline-block">
+                            <div key={idx} className="py-2 space-y-2">
+                                <div>
+                                    <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 block mb-1">
                                         {story.sector}
                                     </span>
-                                    <h3 className="text-lg font-bold text-black">{story.name}</h3>
-                                    <p className="text-xs font-semibold text-neutral-500">Founders: {story.founders}</p>
-                                    <p className="text-xs text-neutral-600 leading-relaxed">{story.desc}</p>
+                                    <h3 className="font-bold text-lg text-black">{story.name}</h3>
+                                    <p className="text-xs text-neutral-500 font-semibold mb-2">Founders: {story.founders}</p>
+                                    <p className="text-sm text-neutral-700 leading-relaxed font-medium">{story.desc}</p>
                                 </div>
-                                <div className="mt-6 pt-4 border-t border-neutral-100 space-y-1">
+                                <div className="pt-2">
                                     <div className="text-xs font-bold text-black flex items-center gap-1.5">
                                         <TrendUp size={14} weight="bold" />
                                         <span>{story.milestone}</span>
                                     </div>
-                                    <p className="text-[11px] text-neutral-500 font-medium">{story.status}</p>
+                                    <p className="text-xs text-neutral-500 font-medium">{story.status}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
-                </div>
+                </section>
 
                 {/* Contact & Application Callout */}
-                <div className="border-t border-neutral-200 pt-12">
+                <section className="pt-6 border-t border-neutral-200">
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                        <div className="max-w-2xl space-y-2">
-                            <h2 className="text-xl sm:text-2xl font-black text-black tracking-tight">Ready to Launch Your Venture?</h2>
-                            <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
+                        <div className="max-w-2xl space-y-1">
+                            <h2 className="text-lg font-bold text-black">Ready to Launch Your Venture?</h2>
+                            <p className="text-sm text-neutral-700 font-medium leading-relaxed">
                                 Applications for the upcoming Spring Incubator Cohort are now open to all registered Cannoga students, faculty researchers, and recent graduates.
                             </p>
                         </div>
-                        <div className="flex flex-wrap gap-4 shrink-0">
+                        <div className="shrink-0">
                             <Link
                                 href="/admissions"
                                 className="inline-flex items-center gap-2 bg-[#0f2027] hover:bg-black text-white font-bold text-xs uppercase tracking-widest px-6 py-3 no-underline transition-colors"
@@ -242,7 +232,7 @@ export default function InnovationPage() {
                             </Link>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
         </div>
     );
