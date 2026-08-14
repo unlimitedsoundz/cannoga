@@ -38,14 +38,14 @@ function NavItemComponent({ item, pathname, depth = 0, isDark = false }: { item:
           <>
             <button
               onClick={() => setExpanded(!expanded)}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 text-left transition-colors rounded-lg ${depth === 0 ? 'text-[10px] font-bold uppercase tracking-widest' : 'text-xs'} ${active || childActive ? 'text-white bg-white/10' : 'text-neutral-500 hover:text-neutral-200 hover:bg-white/5'}`}
+              className={`w-full flex items-center gap-2.5 px-3 py-2 text-left transition-colors ${depth === 0 ? 'text-[10px] font-bold uppercase tracking-widest' : 'text-xs'} ${active || childActive ? 'text-white font-bold' : 'text-neutral-300 hover:text-white'}`}
               style={{ paddingLeft: depth === 0 ? '0.75rem' : `${0.75 + depth * 0.75}rem` }}
             >
               {expanded
-                ? <HugeiconsIcon icon={ChevronDown} size={11} strokeWidth={2.5} />
-                : <HugeiconsIcon icon={ChevronRight} size={11} strokeWidth={2.5} />
+                ? <HugeiconsIcon icon={ChevronDown} size={11} strokeWidth={2.5} className="text-white" />
+                : <HugeiconsIcon icon={ChevronRight} size={11} strokeWidth={2.5} className="text-white" />
               }
-              <span className="truncate">{item.label}</span>
+              <span className="truncate text-white">{item.label}</span>
             </button>
             {expanded && item.children && (
               <ul className="mt-0.5 space-y-0.5">
@@ -58,10 +58,10 @@ function NavItemComponent({ item, pathname, depth = 0, isDark = false }: { item:
         ) : (
           <Link
             href={item.href || '#'}
-            className={`flex items-center gap-2 px-3 py-2 text-left transition-colors rounded-lg ${depth === 0 ? 'text-[10px] font-bold uppercase tracking-widest' : 'text-xs font-medium'} ${active ? 'text-white bg-white/10' : 'text-neutral-500 hover:text-neutral-200 hover:bg-white/5'} no-underline`}
+            className={`flex items-center gap-2 px-3 py-2 text-left transition-colors ${depth === 0 ? 'text-[10px] font-bold uppercase tracking-widest' : 'text-xs font-medium'} ${active ? 'text-white font-bold' : 'text-neutral-300 hover:text-white'} no-underline`}
             style={{ paddingLeft: depth === 0 ? '0.75rem' : `${0.75 + depth * 0.75}rem` }}
           >
-            <span className="truncate">{item.label}</span>
+            <span className="truncate text-white">{item.label}</span>
           </Link>
         )}
       </li>
@@ -75,11 +75,11 @@ function NavItemComponent({ item, pathname, depth = 0, isDark = false }: { item:
         <>
           <button
             onClick={() => setExpanded(!expanded)}
-            className={`w-full flex items-center gap-3 px-3 py-2 text-left transition-colors ${depth === 0 ? 'text-xs font-bold uppercase tracking-widest' : 'text-xs'} ${active || childActive ? 'text-[#0a151a] bg-[#faf5ff]' : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'}`}
+            className={`w-full flex items-center gap-3 px-3 py-2 text-left transition-colors ${depth === 0 ? 'text-xs font-bold uppercase tracking-widest' : 'text-xs'} ${active || childActive ? 'text-white font-bold' : 'text-white/80 hover:text-white'}`}
             style={{ paddingLeft: depth === 0 ? '1rem' : `${1 + depth * 0.75}rem` }}
           >
-            {expanded ? <HugeiconsIcon icon={ChevronDown} size={12} strokeWidth={2.5} /> : <HugeiconsIcon icon={ChevronRight} size={12} strokeWidth={2.5} />}
-            <span className="truncate">{item.label}</span>
+            {expanded ? <HugeiconsIcon icon={ChevronDown} size={12} strokeWidth={2.5} className="text-white" /> : <HugeiconsIcon icon={ChevronRight} size={12} strokeWidth={2.5} className="text-white" />}
+            <span className="truncate text-white">{item.label}</span>
           </button>
           {expanded && item.children && (
             <ul className="mt-0.5">
@@ -92,10 +92,10 @@ function NavItemComponent({ item, pathname, depth = 0, isDark = false }: { item:
       ) : (
         <Link
           href={item.href || '#'}
-          className={`block px-3 py-1.5 text-left transition-colors ${depth === 0 ? 'text-xs font-bold uppercase tracking-widest' : 'text-xs'} ${active ? 'text-[#0a151a] bg-[#faf5ff] font-bold' : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'}`}
+          className={`block px-3 py-1.5 text-left transition-colors ${depth === 0 ? 'text-xs font-bold uppercase tracking-widest' : 'text-xs'} ${active ? 'text-white font-bold' : 'text-white/80 hover:text-white'}`}
           style={{ paddingLeft: depth === 0 ? '1rem' : `${1 + depth * 0.75}rem` }}
         >
-          {item.label}
+          <span className="text-white">{item.label}</span>
         </Link>
       )}
     </li>

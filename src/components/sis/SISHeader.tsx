@@ -133,41 +133,39 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
             </div>
 
             {/* Right: actions */}
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-2">
               <button
-                className="relative p-2 text-neutral-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                className="relative p-2 text-white hover:opacity-80 transition-opacity"
                 title={`Notifications (${unreadCount})`}
                 onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false); }}
               >
-                <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} />
+                <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} className="text-white" />
                 {unreadCount > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-white rounded-full" />}
               </button>
               <button
-                className="relative p-2 text-neutral-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                className="relative p-2 text-white hover:opacity-80 transition-opacity"
                 title="Messages"
                 onClick={() => router.push('/sis?page=student-life')}
               >
-                <HugeiconsIcon icon={Envelope} size={18} strokeWidth={2} />
+                <HugeiconsIcon icon={Envelope} size={18} strokeWidth={2} className="text-white" />
                 {unreadMessageCount > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-white rounded-full" />}
               </button>
-              <button className="p-2 text-neutral-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors" title="Help">
-                <HugeiconsIcon icon={HelpCircle} size={18} strokeWidth={2} />
+              <button className="p-2 text-white hover:opacity-80 transition-opacity" title="Help">
+                <HugeiconsIcon icon={HelpCircle} size={18} strokeWidth={2} className="text-white" />
               </button>
 
               {/* Profile dropdown */}
               <div className="relative ml-1">
                 <button
-                  className="flex items-center gap-2 px-2 py-1.5 hover:bg-white/10 transition-colors rounded-lg"
+                  className="flex items-center gap-2 px-2 py-1.5 hover:opacity-80 transition-opacity cursor-pointer"
                   onClick={() => { setProfileOpen(!profileOpen); setNotificationsOpen(false); }}
                 >
-                  <div className="w-7 h-7 bg-white/15 rounded-lg flex items-center justify-center">
-                    <HugeiconsIcon icon={User} size={14} strokeWidth={2.5} className="text-neutral-300" />
-                  </div>
+                  <HugeiconsIcon icon={User} size={18} strokeWidth={2} className="text-white" />
                   <div className="hidden lg:block text-left">
                     <div className="text-xs font-bold text-white leading-none">{displayName}</div>
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{roleLabel}</div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">{roleLabel}</div>
                   </div>
-                  <HugeiconsIcon icon={ChevronDown} size={12} strokeWidth={2.5} className="text-neutral-500" />
+                  <HugeiconsIcon icon={ChevronDown} size={12} strokeWidth={2.5} className="text-white" />
                 </button>
 
                 {profileOpen && (
