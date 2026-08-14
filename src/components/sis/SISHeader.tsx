@@ -409,7 +409,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
 
           {/* Notifications Panel */}
           {notificationsOpen && (
-            <div className="absolute right-2 sm:right-4 top-14 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-white border border-slate-200 shadow-2xl z-50 rounded-xl text-slate-800 animate-in fade-in slide-in-from-top-2 duration-200 ease-out">
+            <div className="absolute right-2 sm:right-4 top-14 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-white border border-slate-200 shadow-2xl z-50 rounded-xl text-slate-800 transition-all duration-300 origin-top-right animate-in fade-in zoom-in-95 slide-in-from-top-3 ease-out">
               {/* Connecting caret arrow pointing to Bell icon */}
               <div className="absolute -top-1.5 right-4 sm:right-6 w-3 h-3 bg-slate-50 border-t border-l border-slate-200 rotate-45 z-20"></div>
               <div className="relative z-10 overflow-hidden rounded-xl">
