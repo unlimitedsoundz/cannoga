@@ -250,7 +250,7 @@ export default function StudentLifeContent() {
                             <h2 className="text-aalto-5 font-bold mb-aalto-p6 text-black tracking-tight">Integrated help</h2>
                             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-0">
                                 {[
-                                    { name: "Restaurants", desc: "Opiskelija Cafe", image: "/images/student-cafe.png" },
+                                    { name: "Restaurants", desc: "Campus Cafe", image: "/images/student-cafe.png" },
                                     { name: "Retail", desc: "Campus Supplies", image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop" },
                                     { name: "Health", desc: "Medical Support", image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop" },
                                     { name: "Guidance", desc: "Career Support", image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=800&auto=format&fit=crop" }

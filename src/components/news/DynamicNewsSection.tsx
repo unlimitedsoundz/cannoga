@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { createClient } from '@/utils/supabase/client';
+import { createBlogClient } from '@/utils/supabase/blogClient';
 import { formatToDDMMYYYY } from '@/utils/date';
 import { Calendar, MapPin } from "@phosphor-icons/react";
 import { Card } from '@/components/ui/Card';
@@ -27,6 +28,7 @@ export default function DynamicNewsSection({
     useEffect(() => {
         async function fetchContent() {
             const supabase = createClient();
+            const blogSupabase = createBlogClient();
             let newsData: any[] = [];
             let eventsData: any[] = [];
             let blogData: any[] = [];
@@ -54,8 +56,8 @@ export default function DynamicNewsSection({
             }
 
             // Fetch blogs if needed
-            if (contentType === 'blog') {
-                const { data } = await supabase
+            if (contentType === 'all' || contentType === 'blog') {
+                const { data } = await blogSupabase
                     .from('blogs')
                     .select('*')
                     .eq('published', true)

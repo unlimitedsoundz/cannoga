@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
-import { createClient } from '@/utils/supabase/client';
+import { createBlogClient } from '@/utils/supabase/blogClient';
 import { Link } from "@aalto-dx/react-components";
 import { ArrowLeft } from "@phosphor-icons/react";
 import '@/styles/ckeditor-content.css';
@@ -24,7 +24,7 @@ interface FormData {
     og_image?: string;
 }
 
-export default function EditBlogPost() {
+function EditBlogPostForm() {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
 
@@ -45,22 +45,23 @@ export default function EditBlogPost() {
     }, [id]);
 
     async function fetchPost() {
-        const supabase = createClient();
-        const { data } = await supabase.from('blogs').select('*').eq('id', id).single();
+        const supabase = createBlogClient();
+        const { data, error } = await supabase.from('blogs').select('*').eq('id', id).single();
         if (data) {
             reset({
                 ...data,
-                publishDate: new Date(data.publishDate).toISOString().slice(0, 16),
+                publishDate: data.publishDate ? new Date(data.publishDate).toISOString().slice(0, 16) : new Date().toISOString().slice(0, 16),
             });
             setEditorContent(data.content || '');
             setOgImageUrl(data.og_image || '');
+        } else if (error) {
+            console.error('Error fetching post:', error);
         }
         setLoading(false);
     }
 
     const onSubmit = async (data: FormData) => {
         try {
-            // Validate required fields
             if (!data.title?.trim()) {
                 alert('Title is required');
                 return;
@@ -69,12 +70,8 @@ export default function EditBlogPost() {
                 alert('Slug is required');
                 return;
             }
-            if (!data.publishDate) {
-                alert('Publish date is required');
-                return;
-            }
 
-            const supabase = createClient();
+            const supabase = createBlogClient();
             const cleanedContent = editorContent
                 .replace(/&nbsp;/g, ' ')
                 .replace(/\s+/g, ' ')
@@ -82,26 +79,17 @@ export default function EditBlogPost() {
                 .replace(/word-break:\s*break-all;?/gi, '')
                 .replace(/overflow-wrap:\s*anywhere;?/gi, '')
                 .replace(/white-space:\s*pre-wrap;?/gi, '')
-                // remove inline styles from all tags except img and figure (to preserve image resizing)
                 .replace(/(<(?!img|figure)[^>]*?)style="[^"]*"/gi, '$1')
                 .replace(/<p><\/p>/g, '');
 
-            // Validate publish date
-            const publishDate = new Date(data.publishDate);
-            if (isNaN(publishDate.getTime())) {
-                alert('Invalid publish date');
-                return;
-            }
+            const publishDate = data.publishDate ? new Date(data.publishDate) : new Date();
 
             const updateData = {
                 ...data,
                 content: cleanedContent,
                 publishDate: publishDate.toISOString(),
-                // Ensure og_image is properly set
                 og_image: data.og_image || ogImageUrl || null,
             };
-
-            console.log('Updating blog post with data:', updateData);
 
             const { error } = await supabase.from('blogs').update(updateData).eq('id', id);
 
@@ -119,7 +107,7 @@ export default function EditBlogPost() {
 
     const uploadImage = async (file: File) => {
         setUploading(true);
-        const supabase = createClient();
+        const supabase = createBlogClient();
         const fileExt = file.name.split('.').pop();
         const fileName = `${Date.now()}.${fileExt}`;
         const { data, error } = await supabase.storage
@@ -127,7 +115,7 @@ export default function EditBlogPost() {
             .upload(fileName, file);
 
         if (error) {
-            alert('Error uploading image');
+            alert('Error uploading image: ' + error.message);
         } else {
             const { data: { publicUrl } } = supabase.storage
                 .from('blog-images')
@@ -139,7 +127,7 @@ export default function EditBlogPost() {
 
     const uploadOgImage = async (file: File) => {
         setUploading(true);
-        const supabase = createClient();
+        const supabase = createBlogClient();
         const fileExt = file.name.split('.').pop();
         const fileName = `og-${Date.now()}.${fileExt}`;
         const { data, error } = await supabase.storage
@@ -147,7 +135,7 @@ export default function EditBlogPost() {
             .upload(fileName, file);
 
         if (error) {
-            alert('Error uploading OG image');
+            alert('Error uploading OG image: ' + error.message);
         } else {
             const { data: { publicUrl } } = supabase.storage
                 .from('blog-images')
@@ -158,32 +146,32 @@ export default function EditBlogPost() {
         setUploading(false);
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div className="p-8">Loading post details...</div>;
 
     return (
-        <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <div className="container mx-auto px-4 py-8 max-w-4xl font-sans">
             <div className="mb-8">
-                <Link href="/admin/blog" className="text-gray-600 hover:text-black flex items-center gap-2">
+                <Link href="/admin/blog" className="text-neutral-600 hover:text-black flex items-center gap-2 font-semibold">
                     <ArrowLeft size={20} /> Back to Blog Management
                 </Link>
             </div>
 
-            <h1 className="text-2xl font-bold mb-8">Edit Blog Post</h1>
+            <h1 className="text-2xl font-bold mb-8 text-[#0a151a]">Edit Blog Post</h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div>
                     <label className="block font-medium mb-2">Title</label>
-                    <input {...register('title', { required: true })} className="w-full p-2 border rounded" />
+                    <input {...register('title', { required: true })} className="w-full p-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0a151a]" />
                 </div>
 
                 <div>
                     <label className="block font-medium mb-2">Slug</label>
-                    <input {...register('slug', { required: true })} className="w-full p-2 border rounded" />
+                    <input {...register('slug', { required: true })} className="w-full p-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0a151a]" />
                 </div>
 
                 <div>
                     <label className="block font-medium mb-2">Excerpt</label>
-                    <textarea {...register('excerpt')} className="w-full p-2 border rounded" rows={3} />
+                    <textarea {...register('excerpt')} className="w-full p-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0a151a]" rows={3} />
                 </div>
 
                 <div>
@@ -194,8 +182,8 @@ export default function EditBlogPost() {
                         onChange={(e) => e.target.files && uploadImage(e.target.files[0])}
                         className="mb-2"
                     />
-                    {uploading && <p>Uploading...</p>}
-                    {watch('imageUrl') && <img src={watch('imageUrl')} alt="Preview" className="w-32 h-32 object-cover object-top" />}
+                    {uploading && <p className="text-sm text-neutral-500">Uploading...</p>}
+                    {watch('imageUrl') && <img src={watch('imageUrl')} alt="Preview" className="w-32 h-32 object-cover rounded-xl mt-2" />}
                     <input {...register('imageUrl')} type="hidden" />
                 </div>
 
@@ -212,22 +200,22 @@ export default function EditBlogPost() {
 
                 <div>
                     <label className="block font-medium mb-2">Publish Date</label>
-                    <input {...register('publishDate', { required: true })} type="datetime-local" className="p-2 border rounded" />
+                    <input {...register('publishDate', { required: true })} type="datetime-local" className="p-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0a151a]" />
                 </div>
 
                 <div>
-                    <label className="flex items-center gap-2">
-                        <input {...register('published')} type="checkbox" className="border-2 border-neutral-300 rounded-sm checked:bg-[#0a151a] checked:border-[#0a151a] w-4 h-4" />
+                    <label className="flex items-center gap-2 font-medium">
+                        <input {...register('published')} type="checkbox" className="w-4 h-4 rounded text-[#0a151a] focus:ring-[#0a151a]" />
                         Published
                     </label>
                 </div>
 
                 {/* SEO Panel */}
-                <div className="border rounded-lg">
+                <div className="border border-neutral-200 rounded-2xl overflow-hidden">
                     <button
                         type="button"
                         onClick={() => setSeoPanelOpen(!seoPanelOpen)}
-                        className="w-full px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-t-lg flex items-center justify-between text-left font-medium"
+                        className="w-full px-5 py-4 bg-neutral-50 hover:bg-neutral-100 flex items-center justify-between text-left font-bold text-sm"
                     >
                         SEO Settings
                         <svg className={`w-5 h-5 transition-transform ${seoPanelOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,17 +224,15 @@ export default function EditBlogPost() {
                     </button>
 
                     {seoPanelOpen && (
-                        <div className="p-4 space-y-4 bg-white rounded-b-lg">
+                        <div className="p-5 space-y-4 bg-white border-t border-neutral-200">
                             <div>
                                 <label className="block font-medium mb-2">Meta Title</label>
-                                <input {...register('meta_title')} className="w-full p-2 border rounded" placeholder="Custom title for SEO (optional)" />
-                                <p className="text-sm text-gray-500 mt-1">Leave empty to use the blog post title</p>
+                                <input {...register('meta_title')} className="w-full p-3 border border-neutral-200 rounded-xl focus:outline-none" placeholder="Custom title for SEO (optional)" />
                             </div>
 
                             <div>
                                 <label className="block font-medium mb-2">Meta Description</label>
-                                <textarea {...register('meta_description')} className="w-full p-2 border rounded" rows={3} placeholder="Custom description for SEO (optional)" />
-                                <p className="text-sm text-gray-500 mt-1">Leave empty to use the blog post excerpt</p>
+                                <textarea {...register('meta_description')} className="w-full p-3 border border-neutral-200 rounded-xl focus:outline-none" rows={3} placeholder="Custom description for SEO (optional)" />
                             </div>
 
                             <div>
@@ -257,19 +243,26 @@ export default function EditBlogPost() {
                                     onChange={(e) => e.target.files && uploadOgImage(e.target.files[0])}
                                     className="mb-2"
                                 />
-                                {uploading && <p>Uploading...</p>}
-                                {ogImageUrl && <img src={ogImageUrl} alt="OG Preview" className="w-32 h-32 object-cover object-top" />}
+                                {uploading && <p className="text-sm text-neutral-500">Uploading...</p>}
+                                {ogImageUrl && <img src={ogImageUrl} alt="OG Preview" className="w-32 h-32 object-cover rounded-xl mt-2" />}
                                 <input {...register('og_image')} type="hidden" />
-                                <p className="text-sm text-gray-500 mt-1">Recommended size: 1200x630px. Leave empty to use the blog post image</p>
                             </div>
                         </div>
                     )}
                 </div>
 
-                <button type="submit" className="bg-[#0a151a] text-white px-6 py-2 rounded">Update Post</button>
+                <button type="submit" className="bg-[#0a151a] hover:bg-slate-800 text-white font-bold px-8 py-3 rounded-xl transition-colors">
+                    Update Post
+                </button>
             </form>
         </div>
     );
 }
 
-
+export default function EditBlogPost() {
+    return (
+        <Suspense fallback={<div className="p-8 font-sans">Loading...</div>}>
+            <EditBlogPostForm />
+        </Suspense>
+    );
+}

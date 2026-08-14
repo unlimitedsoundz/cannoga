@@ -178,7 +178,7 @@ export default function AcademicDashboard({ student }: AcademicDashboardProps) {
                         <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-4">
                             {[
                                 {
-                                    label: "Opiskelija Cafe",
+                                    label: "Campus Cafe",
                                     desc: "Student Restaurant & Catering",
                                     href: "/student-life/cafe",
                                     active: true,

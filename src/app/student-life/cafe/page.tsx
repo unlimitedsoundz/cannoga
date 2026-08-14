@@ -5,8 +5,8 @@ import { ForkKnife as Utensils, Clock, MapPin, ArrowRight } from "@phosphor-icon
 import { Hero } from '@/components/layout/Hero';
 
 export const metadata = {
-    title: 'Opiskelija Café Dining Menu & Operations — Cannoga College',
-    description: 'Check menus, dietary details, student pricing, and opening hours for the Opiskelija campus dining room.',
+    title: 'Campus Café Dining Menu & Operations — Cannoga College',
+    description: 'Check menus, dietary details, student pricing, and opening hours for the Campus dining room.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-life/cafe/',
     },
@@ -16,18 +16,18 @@ export default function CafePage() {
     return (
         <div className="min-h-screen bg-white font-sans text-black leading-relaxed">
             <Hero
-                title="Opiskelija Cafe"
+                title="Campus Cafe"
                 body="A cozy sanctuary for student nourishment, artisanal coffee, and collaborative moments."
                 backgroundColor="#0a151a"
                 tinted
                 lightText={true}
                 breadcrumbs={[
                     { label: 'Student Life', href: '/student-life' },
-                    { label: 'Opiskelija Cafe' }
+                    { label: 'Campus Cafe' }
                 ]}
                 image={{
                     src: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000&auto=format&fit=crop",
-                    alt: "Opiskelija Cafe Atmosphere"
+                    alt: "Campus Cafe Atmosphere"
                 }}
             >
                 <div className="flex flex-wrap gap-4">

@@ -74,7 +74,7 @@ export function OfferClient({ admission }: OfferClientProps) {
     const field = mapSchoolToTuitionField(school.slug || 'technology');
 
     const nationality = app.personal_info?.nationality;
-    const isDomestic = nationality ? (nationality.toLowerCase().trim() === 'finland' || nationality.toLowerCase().trim() === 'finnish' || nationality.toLowerCase().trim() === 'eu' || nationality.toLowerCase().trim() === 'domestic') : false;
+    const isDomestic = nationality ? (nationality.toLowerCase().trim() === 'canada' || nationality.toLowerCase().trim() === 'canadian' || nationality.toLowerCase().trim() === 'domestic') : false;
 
     const annualFee = getAnnualFeeFromTotal(admission.tuition_fee || 0, 0, years);
     const depositAmount = calculateTuitionDeposit(annualFee, field, false, course.degreeLevel, isDomestic);
