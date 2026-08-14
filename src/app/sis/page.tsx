@@ -1443,9 +1443,9 @@ export default function SISStudentDashboard() {
                                                 </div>
                                             )}
                                             <div className="grid grid-cols-3 divide-x divide-white/20 text-center text-xs border-t border-slate-100 overflow-hidden">
-                                                <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 bg-[#0a151a] hover:bg-[#12222a] text-white font-semibold transition">A - Z</button>
-                                                <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 bg-[#0a151a] hover:bg-[#12222a] text-white font-semibold transition">Favourites</button>
-                                                <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 bg-[#0a151a] hover:bg-[#12222a] text-white font-semibold transition">Recent</button>
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 !bg-[#0a151a] hover:!bg-[#12222a] !text-white font-semibold transition">A - Z</button>
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 !bg-[#0a151a] hover:!bg-[#12222a] !text-white font-semibold transition">Favourites</button>
+                                                <button type="button" onClick={() => navigateTo('directory')} className="py-2 px-2 !bg-[#0a151a] hover:!bg-[#12222a] !text-white font-semibold transition">Recent</button>
                                             </div>
                                         </div>
                                     </div>

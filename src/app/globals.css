@@ -913,6 +913,7 @@ button[type="button"].bg-sky-400,
 button[type="button"].bg-black,
 button[type="button"].bg-neutral-900,
 button[type="button"].bg-slate-900,
+button[type="button"].bg-\[\#0a151a\],
 button.bg-sky-500,
 button.bg-sky-600,
 button.bg-sky-400,
@@ -921,6 +922,8 @@ button.bg-black,
 button.bg-slate-900,
 button.bg-blue-600,
 button.bg-indigo-600,
+button.bg-\[\#0a151a\],
+.bg-\[\#0a151a\],
 .btn-primary,
 .cc-btn-primary,
 .sis-btn,
@@ -928,6 +931,8 @@ button.sis-btn,
 [data-theme="portal"] button[type="submit"],
 [data-theme="portal"] button.bg-sky-500,
 [data-theme="sis"] button[type="submit"],
-[data-theme="sis"] button.bg-sky-500 {
+[data-theme="sis"] button.bg-sky-500,
+[data-theme="sis"] button.bg-\[\#0a151a\] {
   color: #ffffff !important;
+  background-color: #0a151a;
 }
