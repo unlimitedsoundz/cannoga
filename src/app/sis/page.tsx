@@ -356,12 +356,19 @@ export default function SISStudentDashboard() {
         } catch (e) {}
     };
 
-function formatRelativeTime(dateInput: string | Date): string {
-    const date = new Date(dateInput);
+function formatRelativeTime(dateInput: any): string {
+    if (!dateInput) return 'Just now';
+    let date = new Date(dateInput);
+    if (isNaN(date.getTime())) {
+        if (typeof dateInput === 'string' && dateInput.trim().length > 0) {
+            return dateInput;
+        }
+        return 'Just now';
+    }
     const now = new Date();
     const diffInSeconds = Math.max(0, Math.floor((now.getTime() - date.getTime()) / 1000));
 
-    if (diffInSeconds < 5) return 'Just now';
+    if (diffInSeconds < 10) return 'Just now';
     if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
     const diffInMinutes = Math.floor(diffInSeconds / 60);
     if (diffInMinutes < 60) return `${diffInMinutes} min${diffInMinutes > 1 ? 's' : ''} ago`;
@@ -369,7 +376,7 @@ function formatRelativeTime(dateInput: string | Date): string {
     if (diffInHours < 24) return `${diffInHours} hr${diffInHours > 1 ? 's' : ''} ago`;
     const diffInDays = Math.floor(diffInHours / 24);
     if (diffInDays < 7) return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
-    return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+    return date.toLocaleDateString([], { month: 'short', day: 'numeric' }) + `, ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
 }
 
     useEffect(() => {
@@ -385,7 +392,7 @@ function formatRelativeTime(dateInput: string | Date): string {
                             id: n.id,
                             title: n.title,
                             description: n.message || n.description || '',
-                            time: formatRelativeTime(n.created_at || Date.now()),
+                            time: formatRelativeTime(n.created_at || n.time || n.date || Date.now()),
                             priority: n.priority || 'normal',
                             read: n.read || false,
                         }));
@@ -1247,8 +1254,8 @@ function formatRelativeTime(dateInput: string | Date): string {
                             </button>
                             {notificationsOpen && (
                                 <div className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-[#0d1f28] border border-cyan-500/20 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-100">
-                                    <div className="px-3 py-2.5 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
-                                        <span className="text-[11px] font-bold uppercase tracking-widest text-white">Notifications ({notificationsList.filter(n => !n.read).length})</span>
+                                    <div className="px-3 py-2 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
+                                        <span className="text-[10px] font-bold uppercase tracking-widest text-white">Notifications ({notificationsList.filter(n => !n.read).length})</span>
                                         {notificationsList.filter(n => !n.read).length > 0 && (
                                             <button
                                                 onClick={async () => {
@@ -1261,7 +1268,7 @@ function formatRelativeTime(dateInput: string | Date): string {
                                                     }
                                                     setNotificationsList(prev => prev.map(n => ({ ...n, read: true })));
                                                 }}
-                                                className="text-[10px] font-bold uppercase tracking-wider text-sky-400 hover:text-sky-300 transition-colors"
+                                                className="text-[8px] font-bold uppercase tracking-wider text-sky-400 hover:text-sky-300 transition-colors"
                                             >
                                                 Mark all read
                                             </button>
@@ -1322,17 +1329,17 @@ function formatRelativeTime(dateInput: string | Date): string {
                                                          <div className="mt-0.5">
                                                              <div className="text-[10px] font-bold text-white leading-tight line-clamp-1">{n.title}</div>
                                                              <div className="text-[9px] text-neutral-300 mt-0.5 leading-tight line-clamp-2">{n.description}</div>
-                                                             <div className="text-[8px] font-semibold text-white/80 mt-1">{n.time}</div>
+                                                             <div className="text-[8px] font-medium text-white mt-1">{n.time}</div>
                                                          </div>
                                                      </div>
                                                 </div>
                                             ))
                                         ) : (
-                                            <div className="px-4 py-8 text-center text-neutral-500 text-sm">No notifications</div>
+                                            <div className="px-4 py-6 text-center text-neutral-500 text-xs">No notifications</div>
                                         )}
                                     </div>
-                                    <div className="px-4 py-2.5 border-t border-white/10 bg-white/5">
-                                        <span className="block text-center text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                                    <div className="px-3 py-2 border-t border-white/10 bg-white/5">
+                                        <span className="block text-center text-[9px] font-bold uppercase tracking-wider text-neutral-400">
                                             {notificationsList.filter(n => !n.read).length > 0 ? `${notificationsList.filter(n => !n.read).length} unread notification(s)` : 'All caught up'}
                                         </span>
                                     </div>
