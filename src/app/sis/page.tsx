@@ -22,6 +22,7 @@ import {
     UserWarning02Icon as Warning,
     MapPinIcon as HugeMapPin,
     Download01Icon as Download,
+    Logout01Icon as LogOut,
 } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
 import { TiktokLogo, YoutubeLogo, EnvelopeSimple, MapPin, Camera } from '@phosphor-icons/react';
@@ -1158,6 +1159,23 @@ export default function SISStudentDashboard() {
                                 <p className="text-[10px] text-slate-300 font-medium">{studentId}</p>
                             </div>
                         </div>
+                        <div className="h-5 w-px bg-slate-800 mx-0.5"></div>
+                        <button
+                            type="button"
+                            onClick={async () => {
+                                const supabase = createClient();
+                                await supabase.auth.signOut();
+                                toast.success('Signed out successfully');
+                                setTimeout(() => {
+                                    window.location.href = '/portal/account/login';
+                                }, 1000);
+                            }}
+                            className="p-1.5 sm:px-2.5 sm:py-1.5 text-red-400 hover:text-red-300 hover:bg-slate-800 rounded-lg transition flex items-center space-x-1 font-bold text-xs cursor-pointer"
+                            title="Sign Out"
+                        >
+                            <HugeiconsIcon icon={LogOut} size={17} strokeWidth={2.2} className="text-red-400" />
+                            <span className="hidden sm:inline text-xs font-bold text-red-400">Sign Out</span>
+                        </button>
                     </div>
                 </div>
             </header>
@@ -1208,8 +1226,25 @@ export default function SISStudentDashboard() {
                             })}
                         </nav>
                     </div>
-                    <div className="p-4 border-t border-slate-800 text-[11px] text-slate-500">
-                        Cannoga College Student Portal
+                    <div className="p-4 border-t border-slate-800 space-y-3">
+                        <button
+                            type="button"
+                            onClick={async () => {
+                                const supabase = createClient();
+                                await supabase.auth.signOut();
+                                toast.success('Signed out successfully');
+                                setTimeout(() => {
+                                    window.location.href = '/portal/account/login';
+                                }, 1000);
+                            }}
+                            className="w-full flex items-center space-x-2 px-3 py-2 rounded-md text-xs font-bold text-red-400 hover:text-red-300 hover:bg-slate-800 transition text-left cursor-pointer"
+                        >
+                            <HugeiconsIcon icon={LogOut} size={16} strokeWidth={2.2} className="text-red-400" />
+                            <span>Sign Out</span>
+                        </button>
+                        <div className="text-[11px] text-slate-500">
+                            Cannoga College Student Portal
+                        </div>
                     </div>
                 </aside>
 
