@@ -28,11 +28,6 @@ export default function HousingPage() {
                     src: "/images/student-housing-hero.png",
                     alt: "Cannoga College Student Housing & Residences in Ottawa"
                 }}
-                breadcrumbs={[
-                    { label: 'Home', href: '/' },
-                    { label: 'Student Life', href: '/student-life' },
-                    { label: 'Housing & Accommodations' }
-                ]}
             />
 
             <div className="container mx-auto px-4 max-w-6xl py-8 md:py-12 space-y-10">
