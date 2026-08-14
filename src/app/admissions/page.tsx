@@ -120,11 +120,11 @@ export default async function AdmissionsPage() {
                 }}
             >
                 <div className="flex flex-wrap gap-4">
-                    <Link href="/admissions/bachelor" className="text-aalto-3 font-bold underline underline-offset-8 decoration-white text-white inline-flex items-center gap-2" noHover>
-                        Bachelor's Admissions <ArrowRight size={20} weight="bold" />
+                    <Link href="/admissions/bachelor" className="bg-white text-[#0a151a] hover:bg-slate-200 font-bold text-xs uppercase tracking-wider px-6 py-3.5 transition-colors inline-flex items-center gap-2.5 no-underline shrink-0 shadow-md">
+                        Bachelor's Admissions <ArrowRight size={16} weight="bold" />
                     </Link>
-                    <Link href="/admissions/master" className="text-aalto-3 font-bold underline underline-offset-8 decoration-white text-white inline-flex items-center gap-2" noHover>
-                        Master's Admissions <ArrowRight size={20} weight="bold" />
+                    <Link href="/admissions/master" className="bg-white text-[#0a151a] hover:bg-slate-200 font-bold text-xs uppercase tracking-wider px-6 py-3.5 transition-colors inline-flex items-center gap-2.5 no-underline shrink-0 shadow-md">
+                        Master's Admissions <ArrowRight size={16} weight="bold" />
                     </Link>
                 </div>
             </Hero>
