@@ -221,16 +221,41 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/master',
         sectionKey: 'schedule_content',
         label: 'Schedule Section',
-        defaultContent: `<table style="width:100%;border-collapse:collapse;font-size:inherit;">
-    <thead><tr><th style="text-align:left;padding:10px 16px;border-bottom:2px solid #000;font-weight:700;">Intake</th><th style="text-align:left;padding:10px 16px;border-bottom:2px solid #000;font-weight:700;">Application Window</th><th style="text-align:left;padding:10px 16px;border-bottom:2px solid #000;font-weight:700;">Best Time to Apply</th></tr></thead>
-    <tbody>
-        <tr><td style="padding:10px 16px;border-bottom:1px solid #e5e5e5;vertical-align:top;font-weight:600;">September Intake</td><td style="padding:10px 16px;border-bottom:1px solid #e5e5e5;">October – February</td><td style="padding:10px 16px;border-bottom:1px solid #e5e5e5;color:#000000;font-weight:600;">Early application: October – December</td></tr>
-        <tr><td style="padding:10px 16px;border-bottom:1px solid #e5e5e5;vertical-align:top;font-weight:600;">January Intake</td><td style="padding:10px 16px;border-bottom:1px solid #e5e5e5;">June – September</td><td style="padding:10px 16px;border-bottom:1px solid #e5e5e5;color:#000000;font-weight:600;">Early application: June – August</td></tr>
-        <tr><td style="padding:10px 16px;border-bottom:1px solid #e5e5e5;vertical-align:top;font-weight:600;">Evaluation phase</td><td colspan="2" style="padding:10px 16px;border-bottom:1px solid #e5e5e5;">Applications reviewed by the admissions committee and faculty within 4–6 weeks.</td></tr>
-        <tr><td style="padding:10px 16px;border-bottom:1px solid #e5e5e5;vertical-align:top;font-weight:600;">Decision</td><td colspan="2" style="padding:10px 16px;border-bottom:1px solid #e5e5e5;">Admission decision communicated by email within 1 week of evaluation.</td></tr>
-        <tr><td style="padding:10px 16px;vertical-align:top;font-weight:600;">Studies start</td><td colspan="2" style="padding:10px 16px;">September (Fall) or January (Winter)</td></tr>
-    </tbody>
-</table>`,
+        defaultContent: `<div class="rounded-xl overflow-hidden border border-neutral-200 shadow-sm my-4">
+    <table class="w-full text-left border-collapse">
+        <thead class="bg-[#0f2027] text-white">
+            <tr>
+                <th class="p-4 font-bold">Intake Stage</th>
+                <th class="p-4 font-bold">Application Window</th>
+                <th class="p-4 font-bold">Best Time to Apply / Details</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-neutral-200 text-black">
+            <tr class="hover:bg-neutral-50">
+                <td class="p-4 font-medium">September Intake</td>
+                <td class="p-4">October – February</td>
+                <td class="p-4 font-semibold text-black">Early application: October – December</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+                <td class="p-4 font-medium">January Intake</td>
+                <td class="p-4">June – September</td>
+                <td class="p-4 font-semibold text-black">Early application: June – August</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+                <td class="p-4 font-medium">Evaluation Phase</td>
+                <td class="p-4" colspan="2">Applications reviewed by the admissions committee and faculty within 4–6 weeks.</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+                <td class="p-4 font-medium">Decision</td>
+                <td class="p-4" colspan="2">Admission decision communicated by email within 1 week of evaluation.</td>
+            </tr>
+            <tr class="hover:bg-neutral-50">
+                <td class="p-4 font-medium">Studies Start</td>
+                <td class="p-4" colspan="2">September (Fall) or January (Winter)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>`,
     },
     {
         pageSlug: 'admissions/master',
