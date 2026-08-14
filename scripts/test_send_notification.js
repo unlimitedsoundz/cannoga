@@ -117,6 +117,38 @@ async function testResendEmailDispatch() {
         const data4 = await res4.json();
         console.log('Test 4 Response:', res4.status, JSON.stringify(data4, null, 2));
 
+        // Test Payload 5: Direct TUITION_PAYMENT_VERIFIED type
+        const payload5 = {
+            type: 'TUITION_PAYMENT_VERIFIED',
+            table: 'tuition_payments',
+            record: {
+                id: 'pay-' + Date.now(),
+                amount: 2000,
+                currency: 'CAD',
+                transaction_reference: 'TXN-998822',
+                status: 'VERIFIED'
+            },
+            applicationData: {
+                id: 'app-' + Date.now(),
+                first_name: 'Unlymited',
+                last_name: 'Soundz',
+                email: recipientEmail,
+                course_title: 'Bachelor of Computer Science & AI'
+            }
+        };
+
+        console.log('Sending Test 5 (Tuition Payment Verified Email with Receipt)...');
+        const res5 = await fetch(functionUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${serviceKey}`
+            },
+            body: JSON.stringify(payload5)
+        });
+        const data5 = await res5.json();
+        console.log('Test 5 Response:', res5.status, JSON.stringify(data5, null, 2));
+
     } catch (err) {
         console.error('Error triggering edge function:', err);
     }

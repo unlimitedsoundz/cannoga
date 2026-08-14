@@ -572,22 +572,57 @@ serve(async (req) => {
                 `;
                 break;
 
+            case 'TUITION_PAYMENT_VERIFIED':
             case 'TUITION_PAYMENT_VERICAED':
-                studentSubject = "Payment Verified - Enrollment Confirmed!";
+                studentSubject = "Tuition Payment Receipt & Verification — Cannoga College";
+
+                const paymentAppId = applicationData?.id || record?.application_id || record?.id;
+                let receiptUrl = record?.receipt_url || record?.document_url || applicationData?.document_url || null;
+
+                if (!receiptUrl && paymentAppId) {
+                    const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
+                    receiptUrl = `${supabaseUrl}/storage/v1/object/public/application-documents/receipts/receipt_${paymentAppId}.pdf`;
+                }
+
+                if (receiptUrl) {
+                    try {
+                        const fetchRes = await fetch(receiptUrl);
+                        if (fetchRes.ok) {
+                            const buf = await fetchRes.arrayBuffer();
+                            const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+                            studentAttachments.push({
+                                filename: `Cannoga_Tuition_Receipt_${firstName || 'Student'}.pdf`,
+                                content: b64
+                            });
+                            console.log(`[send-notification] Attached tuition receipt PDF as base64.`);
+                        }
+                    } catch (fErr) {
+                        console.warn("[send-notification] Could not fetch public tuition receipt URL:", fErr);
+                    }
+                }
+
+                const paidAmountStr = record?.amount ? `$${Number(record.amount).toLocaleString()} ${record?.currency || 'CAD'}` : 'your tuition deposit';
+
                 studentHtml = `
                     <p>Hello ${firstName},</p>
-                    <p>Great news! Your tuition payment has been officially verified by our registrar's office.</p>
-                    <p><strong>Status:</strong> ENROLLED</p>
-                    <p>You can now log in to the student portal to access your official admission letter, payment receipt, and other academic resources.</p>
-                    <p><a href="${portalUrl}/dashboard">Student Dashboard</a></p>
+                    <p>Great news! Your tuition payment of <strong>${paidAmountStr}</strong> has been officially verified and confirmed by our Registrar's Office.</p>
+                    <p><strong>Status:</strong> ENROLLED & VERIFIED</p>
+                    <p>Your official tuition payment receipt has been recorded and attached to this email notification for your official records.</p>
+                    ${receiptUrl ? `<p><a href="${receiptUrl}" target="_blank">Download Official Tuition Receipt (PDF)</a></p>` : ''}
+                    <p><a href="${portalUrl}/dashboard">Log In to Student Dashboard</a></p>
+                    <p>Warm regards,<br>
+                    Office of the Registrar<br>
+                    Cannoga College<br>
+                    registrar@cannogacollege.ca<br>
+                    https://cannogacollege.ca</p>
                 `;
                 adminSubject = `Payment Verified: ${fullName}`;
                 adminHtml = `
                     <h2>Payment Confirmation</h2>
                     <p><strong>Student:</strong> ${fullName}</p>
-                    <p><strong>Amount:</strong> ${record?.amount} ${record?.currency || 'CAD'}</p>
-                    <p><strong>Ref:</strong> ${record?.transaction_reference || 'N/A'}</p>
-                    <p>The student has been officially enrolled and their documents have been prepared.</p>
+                    <p><strong>Amount:</strong> ${record?.amount ? `$${record.amount} ${record?.currency || 'CAD'}` : 'N/A'}</p>
+                    <p><strong>Ref:</strong> ${record?.transaction_reference || record?.reference || 'N/A'}</p>
+                    <p>The student payment has been officially verified, tuition receipt attached, and enrolled status updated.</p>
                 `;
                 break;
 
