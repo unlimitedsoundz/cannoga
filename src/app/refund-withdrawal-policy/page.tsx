@@ -1,5 +1,6 @@
 import { Link } from "@aalto-dx/react-components";
 import { ArrowLeft, FileText, CheckCircle, Warning, Envelope, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { Hero } from '@/components/layout/Hero';
 
 export const metadata = {
     title: 'Tuition Refund & Course Withdrawal Terms — Cannoga College',
@@ -13,21 +14,18 @@ export default function RefundWithdrawalPolicyPage() {
     return (
         <div className="bg-white min-h-screen font-sans text-black">
             {/* HERO SECTION */}
-            <section className="bg-[#0a151a] text-white pt-28 pb-20 md:pt-40 md:pb-28 px-4 border-b border-slate-800">
-                <div className="container mx-auto max-w-5xl">
-                    <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-400 mb-6">
-                        <Link href="/admissions" className="text-sky-400 hover:text-white transition-colors no-underline">ADMISSIONS</Link>
-                        <span className="text-slate-600">/</span>
-                        <span>FINANCIAL POLICIES</span>
-                    </div>
-                    <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white leading-tight">
-                        Tuition Refund & Withdrawal Policy
-                    </h1>
-                    <p className="text-lg md:text-xl text-slate-300 max-w-3xl leading-relaxed">
-                        Official institutional guidelines governing voluntary withdrawals, IRCC study permit refusals, tuition refund schedules, and financial obligations at Cannoga College in Ottawa, Ontario.
-                    </p>
-                </div>
-            </section>
+            <Hero
+                title="Tuition Refund & Withdrawal Policy"
+                body="Official institutional guidelines governing voluntary withdrawals, IRCC study permit refusals, tuition refund schedules, and financial obligations at Cannoga College in Ottawa, Ontario."
+                backgroundColor="#0a151a"
+                tinted
+                lightText={true}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Admissions', href: '/admissions' },
+                    { label: 'Refund Policy' }
+                ]}
+            />
 
             {/* MAIN CONTENT WITH SIDEBAR NAVIGATION */}
             <div className="container mx-auto max-w-6xl px-4 py-12 md:py-20 grid grid-cols-1 lg:grid-cols-4 gap-12">

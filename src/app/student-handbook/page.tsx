@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Link } from "@aalto-dx/react-components";
+import { Hero } from '@/components/layout/Hero';
 
 export const metadata: Metadata = {
     title: 'Official Student Handbook & Regulations — Cannoga College',
@@ -22,13 +23,17 @@ export default function StudentHandbookPage() {
     return (
         <div className="min-h-screen bg-white">
             {/* ─── Hero ─── */}
-            <section className="bg-[#0a151a] text-white pt-40 pb-16">
-                <div className="container mx-auto px-4 max-w-4xl">
-                    <p className="text-xs font-mono uppercase tracking-[0.3em] text-[#f3e600] mb-4">Official Document</p>
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">Student Handbook</h1>
-                    <p className="text-neutral-400 text-lg">Academic Year 2026–2027</p>
-                </div>
-            </section>
+            <Hero
+                title="Student Handbook"
+                body="Academic Year 2026–2027 official guide to academic life, institutional policies, student responsibilities, and regulations at Cannoga College."
+                backgroundColor="#0a151a"
+                tinted
+                lightText={true}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Student Handbook' }
+                ]}
+            />
 
             {/* ─── Body ─── */}
             <section className="py-16 md:py-24">

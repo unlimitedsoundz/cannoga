@@ -57,84 +57,86 @@ export function HomeCarousel() {
     };
 
     return (
-        <section className="relative overflow-hidden text-white min-h-[500px] lg:h-[600px] flex items-center border-b border-[#0f2027]/10">
-            {/* Slide Container */}
-            <div className="relative w-full h-full min-h-[500px] lg:h-[600px]">
-                {slides.map((slide, idx) => (
-                    <div
-                        key={idx}
-                        className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${idx === current ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}
-                    >
-                        {/* Background Image */}
-                        <div className="absolute inset-0 w-full h-full bg-[#0a151a]">
-                            <Image
-                                src={slide.image}
-                                alt={slide.title}
-                                fill
-                                priority={idx === 0}
-                                className="object-cover object-center opacity-40"
-                                sizes="100vw"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30 z-[1]" />
-                        </div>
+        <div className="w-full container mx-auto px-4 sm:px-6 lg:px-8 pt-0">
+            <section className="relative overflow-hidden text-white min-h-[450px] lg:h-[500px] flex items-center border-b border-[#0f2027]/10">
+                {/* Slide Container */}
+                <div className="relative w-full h-full min-h-[450px] lg:h-[500px]">
+                    {slides.map((slide, idx) => (
+                        <div
+                            key={idx}
+                            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${idx === current ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}
+                        >
+                            {/* Background Image */}
+                            <div className="absolute inset-0 w-full h-full bg-[#0a151a]">
+                                <Image
+                                    src={slide.image}
+                                    alt={slide.title}
+                                    fill
+                                    priority={idx === 0}
+                                    className="object-cover object-center opacity-40"
+                                    sizes="100vw"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30 z-[1]" />
+                            </div>
 
-                        {/* Content Overlay */}
-                        <div className="container mx-auto px-4 md:px-12 lg:px-20 h-full relative z-20 flex items-center justify-start">
-                            <div className="w-full lg:w-3/5 p-8 md:p-12 lg:p-16 flex flex-col space-y-6 text-white text-left items-start rounded-none">
-                                <div className="space-y-4">
-                                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
-                                        {slide.title}
-                                    </h1>
-                                    <p className="text-lg lg:text-xl text-white max-w-xl font-medium leading-relaxed mr-auto">
-                                        {slide.body}
-                                    </p>
-                                </div>
+                            {/* Content Overlay */}
+                            <div className="w-full h-full relative z-20 flex items-center justify-start px-6 md:px-10 lg:px-12 py-8 lg:py-12">
+                                <div className="w-full lg:w-3/5 flex flex-col space-y-6 text-white text-left items-start">
+                                    <div className="space-y-4">
+                                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                                            {slide.title}
+                                        </h1>
+                                        <p className="text-lg lg:text-xl text-white max-w-xl font-medium leading-relaxed mr-auto">
+                                            {slide.body}
+                                        </p>
+                                    </div>
 
-                                <div className="pt-4">
-                                    <Link
-                                        href={slide.btnHref}
-                                        className="inline-flex items-center gap-2 bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline rounded-sm transition-colors border border-white/20"
-                                        noHover
-                                    >
-                                        <span>{slide.btnText}</span>
-                                        <ArrowRight size={18} weight="bold" className="text-[#c89211]" />
-                                    </Link>
+                                    <div className="pt-2">
+                                        <Link
+                                            href={slide.btnHref}
+                                            className="inline-flex items-center gap-2 bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline rounded-sm transition-colors border border-white/20"
+                                            noHover
+                                        >
+                                            <span>{slide.btnText}</span>
+                                            <ArrowRight size={18} weight="bold" className="text-[#c89211]" />
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
 
-            {/* Manual Controls */}
-            <button
-                onClick={prevSlide}
-                className="absolute left-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0f2027]/60 hover:bg-[#0f2027] w-12 h-12 flex items-center justify-center text-white transition-colors border border-white/20"
-                aria-label="Previous slide"
-            >
-                <CaretLeft size={24} weight="bold" />
-            </button>
-            <button
-                onClick={nextSlide}
-                className="absolute right-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0f2027]/60 hover:bg-[#0f2027] w-12 h-12 flex items-center justify-center text-white transition-colors border border-white/20"
-                aria-label="Next slide"
-            >
-                <CaretRight size={24} weight="bold" />
-            </button>
+                {/* Manual Controls */}
+                <button
+                    onClick={prevSlide}
+                    className="absolute left-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0f2027]/60 hover:bg-[#0f2027] w-12 h-12 flex items-center justify-center text-white transition-colors border border-white/20"
+                    aria-label="Previous slide"
+                >
+                    <CaretLeft size={24} weight="bold" />
+                </button>
+                <button
+                    onClick={nextSlide}
+                    className="absolute right-6 top-1/2 transform -translate-y-1/2 z-30 rounded-full bg-[#0f2027]/60 hover:bg-[#0f2027] w-12 h-12 flex items-center justify-center text-white transition-colors border border-white/20"
+                    aria-label="Next slide"
+                >
+                    <CaretRight size={24} weight="bold" />
+                </button>
 
-            {/* Dots Indicator */}
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30 flex gap-2.5">
-                {slides.map((_, idx) => (
-                    <button
-                        key={idx}
-                        onClick={() => setCurrent(idx)}
-                        className={`w-3.5 h-3.5 rounded-full transition-all duration-300 border-2 border-white ${idx === current ? 'bg-white scale-110' : 'bg-transparent hover:bg-white/30'
-                            }`}
-                        aria-label={`Go to slide ${idx + 1}`}
-                    />
-                ))}
-            </div>
-        </section>
+                {/* Dots Indicator */}
+                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30 flex gap-2.5">
+                    {slides.map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setCurrent(idx)}
+                            className={`w-3.5 h-3.5 rounded-full transition-all duration-300 border-2 border-white ${idx === current ? 'bg-white scale-110' : 'bg-transparent hover:bg-white/30'
+                                }`}
+                            aria-label={`Go to slide ${idx + 1}`}
+                        />
+                    ))}
+                </div>
+            </section>
+        </div>
     );
 }
 

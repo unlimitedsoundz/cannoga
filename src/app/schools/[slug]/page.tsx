@@ -282,58 +282,20 @@ export default async function SchoolDetails({ params }: Props) {
                 )}
 
 
-                {/* Research & Innovation */}
+                {/* Meet our people */}
                 <section className="mb-20">
-                    <div className="bg-[#0a151a] text-white p-8 md:p-14 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
-                        <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#c89211]/10 rounded-full blur-3xl pointer-events-none" />
-                        
-                        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                            <div className="lg:col-span-7">
-                                <span className="text-[#c89211] font-bold text-xs uppercase tracking-widest block mb-2">Pioneering Applied Discovery</span>
-                                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white mb-4">Research & Innovation</h2>
-                                <p className="text-slate-300 text-base leading-relaxed mb-6">
-                                    Research at {school.name} is driven by a commitment to solving real-world challenges. We collaborate directly with industry partners, government agencies, and global networks to create sustainable, scalable impact.
-                                </p>
-                                <div className="flex flex-wrap items-center gap-4">
-                                    <Link 
-                                        href="/research" 
-                                        className="inline-flex items-center gap-2 bg-[#c89211] hover:bg-[#b07e0e] text-[#0a151a] font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-xl transition-all shadow-lg no-underline"
-                                    >
-                                        <span>Explore Research Directory</span>
-                                        <ArrowRight size={16} weight="bold" />
-                                    </Link>
-                                    <Link 
-                                        href="/contact" 
-                                        className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-widest px-6 py-4 rounded-xl transition-all border border-white/15 no-underline text-white"
-                                    >
-                                        <span>Industry Partnerships</span>
-                                    </Link>
-                                </div>
-                            </div>
-
-                            <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-                                <div className="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur-sm">
-                                    <p className="text-2xl sm:text-3xl font-extrabold text-[#c89211] mb-1">15+</p>
-                                    <p className="text-xs font-bold text-white uppercase tracking-wider mb-1">Active Labs</p>
-                                    <p className="text-[11px] text-slate-400">Collaborative units tackling emerging industry challenges.</p>
-                                </div>
-                                <div className="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur-sm">
-                                    <p className="text-2xl sm:text-3xl font-extrabold text-[#c89211] mb-1">$4.2M</p>
-                                    <p className="text-xs font-bold text-white uppercase tracking-wider mb-1">Annual Grants</p>
-                                    <p className="text-[11px] text-slate-400">Funding supporting applied innovation & development.</p>
-                                </div>
-                                <div className="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur-sm">
-                                    <p className="text-2xl sm:text-3xl font-extrabold text-[#c89211] mb-1">100%</p>
-                                    <p className="text-xs font-bold text-white uppercase tracking-wider mb-1">Student Focus</p>
-                                    <p className="text-[11px] text-slate-400">Direct capstone and lab assistantship integration.</p>
-                                </div>
-                                <div className="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur-sm">
-                                    <p className="text-2xl sm:text-3xl font-extrabold text-[#c89211] mb-1">50+</p>
-                                    <p className="text-xs font-bold text-white uppercase tracking-wider mb-1">Global Partners</p>
-                                    <p className="text-[11px] text-slate-400">International academic & industry research exchanges.</p>
-                                </div>
-                            </div>
+                    <div className="bg-neutral-900 text-white p-8 md:p-16 rounded-3xl overflow-hidden relative">
+                        <div className="relative z-10 max-w-2xl">
+                            <h2 className="text-3xl font-bold mb-6">Research & Innovation</h2>
+                            <p className="text-neutral-300 text-lg mb-8 leading-relaxed">
+                                Research at the {school.name} is driven by a commitment to solving real-world challenges. We collaborate with industry partners and global networks to create sustainable impact.
+                            </p>
+                            <Link href="/research" className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold hover:bg-neutral-200 transition-colors">
+                                Explore Research <ArrowRight size={18} weight="bold" />
+                            </Link>
                         </div>
+                        {/* Abstract BG Shape */}
+                        <div className="absolute top-0 right-0 w-full h-full pointer-events-none opacity-20 bg-gradient-to-bl from-white/20 to-transparent"></div>
                     </div>
                 </section>
 
