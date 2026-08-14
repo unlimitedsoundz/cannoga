@@ -43,10 +43,10 @@ const SHORTS_DATA: ShortItem[] = [
 export function CannogaShortsSection() {
     return (
         <section className="relative bg-[#d6f5eb] pt-14 pb-16 sm:py-24 text-slate-900">
-            {/* Top Random Wavy Edge */}
-            <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 -translate-y-full -mt-[2px] pointer-events-none">
-                <svg viewBox="0 0 1440 90" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-10 sm:h-14 md:h-20 text-[#d6f5eb] fill-current block">
-                    <path d="M0,60 C150,15 320,80 500,25 C680,85 850,20 1020,70 C1200,10 1350,65 1440,30 V90 H0 Z" />
+            {/* Top Random Wavy Edge (4px overlap closes any mobile gap line) */}
+            <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 -translate-y-[calc(100%-4px)] pointer-events-none">
+                <svg viewBox="0 0 1440 90" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-10 sm:h-14 md:h-20 text-[#d6f5eb] fill-current block scale-y-[1.05] origin-bottom">
+                    <path d="M0,60 C150,15 320,80 500,25 C680,85 850,20 1020,70 C1200,10 1350,65 1440,30 V100 H0 Z" />
                 </svg>
             </div>
 
