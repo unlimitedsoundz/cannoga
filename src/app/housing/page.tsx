@@ -111,7 +111,7 @@ export default function HousingPage() {
                 />
 
                 {/* PRICING & COMPARISON */}
-                <section className="bg-[#0a151a] text-white p-8 md:p-14 rounded-3xl space-y-8">
+                <section className="bg-[#0a151a] text-white p-8 md:p-14 rounded-3xl space-y-10">
                     <div className="max-w-2xl">
                         <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">Average Monthly Housing Costs in Ottawa</h2>
                         <p className="text-neutral-300 text-sm leading-relaxed mt-2">
@@ -119,7 +119,7 @@ export default function HousingPage() {
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6 pt-4">
+                    <div className="grid md:grid-cols-3 gap-8 pt-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
                         {[
                             {
                                 type: "Shared Student Apartment",
@@ -140,14 +140,14 @@ export default function HousingPage() {
                                 features: ["100% private living space", "In-suite kitchen & laundry", "Located in prime Ottawa downtown", "Ideal for senior or graduate students"]
                             }
                         ].map((plan, i) => (
-                            <div key={i} className="bg-[#12222a] border border-white/10 p-6 flex flex-col justify-between space-y-6">
+                            <div key={i} className={`flex flex-col justify-between space-y-6 ${i !== 0 ? 'pt-6 md:pt-0 md:pl-8' : ''}`}>
                                 <div className="space-y-4">
                                     <h3 className="font-bold text-white text-lg">{plan.type}</h3>
                                     <div>
-                                        <span className="text-3xl font-black text-white">{plan.price}</span>
-                                        <span className="text-xs text-neutral-400 block">{plan.period}</span>
+                                        <span className="text-3xl md:text-4xl font-black text-white">{plan.price}</span>
+                                        <span className="text-xs text-neutral-400 block mt-1">{plan.period}</span>
                                     </div>
-                                    <ul className="space-y-2 text-xs text-neutral-300 pt-2 border-t border-white/10">
+                                    <ul className="space-y-2.5 text-xs text-neutral-300 pt-3 border-t border-white/10">
                                         {plan.features.map((f, j) => (
                                             <li key={j} className="flex items-center gap-2">
                                                 <CheckCircle size={14} weight="fill" className="text-[#c89211] shrink-0" />
@@ -158,9 +158,9 @@ export default function HousingPage() {
                                 </div>
                                 <Link
                                     href="/portal/account/login"
-                                    className="block text-center py-3 bg-white text-[#0a151a] font-bold text-xs uppercase tracking-wider hover:bg-[#c89211] hover:text-white transition-all no-underline"
+                                    className="inline-flex items-center gap-2 text-white font-bold text-xs uppercase tracking-wider hover:text-[#c89211] transition-colors no-underline pt-2"
                                 >
-                                    Apply via Housing Portal
+                                    Apply via Housing Portal →
                                 </Link>
                             </div>
                         ))}
