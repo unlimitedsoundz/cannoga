@@ -241,21 +241,54 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
           {notificationsOpen && (
             <div className="absolute right-4 top-14 w-80 bg-[#1c1c1c] border border-white/10 shadow-2xl z-50 rounded-xl overflow-hidden">
               <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-widest text-white">Notifications</span>
-                <button className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 hover:text-white transition-colors">Mark all read</button>
+                <span className="text-xs font-bold uppercase tracking-widest text-white">Notifications ({unreadCount})</span>
+                {unreadCount > 0 && (
+                  <button
+                    onClick={async () => {
+                      try {
+                        for (const n of notifications.filter(x => !x.read)) {
+                          fetch('/api/sis/notifications', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id: n.id, read: true }),
+                          }).catch(() => {});
+                        }
+                        setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+                      } catch (e) {}
+                    }}
+                    className="text-[10px] font-bold uppercase tracking-wider text-sky-400 hover:text-sky-300 transition-colors"
+                  >
+                    Mark all read
+                  </button>
+                )}
               </div>
               <div className="max-h-80 overflow-y-auto">
                 {notifications.length > 0 ? (
                   notifications.map((n) => (
-                    <div key={n.id} className={`px-4 py-3 border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors ${!n.read ? 'bg-white/5' : ''}`}>
+                    <div
+                      key={n.id}
+                      onClick={async () => {
+                        if (!n.read) {
+                          setNotifications(prev => prev.map(item => item.id === n.id ? { ...item, read: true } : item));
+                          try {
+                            fetch('/api/sis/notifications', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ id: n.id, read: true }),
+                            }).catch(() => {});
+                          } catch (e) {}
+                        }
+                      }}
+                      className={`px-4 py-3 border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors ${!n.read ? 'bg-white/5' : ''}`}
+                    >
                       <div className="flex items-start gap-2">
-                        {!n.read && <span className="w-1.5 h-1.5 bg-white rounded-full mt-1.5 shrink-0" />}
+                        {!n.read && <span className="w-2 h-2 bg-sky-400 rounded-full mt-1.5 shrink-0" />}
                         <div className="flex-1 min-w-0">
                           <div className="text-xs font-bold text-white truncate">{n.title}</div>
-                          <div className="text-[11px] text-neutral-500 mt-0.5 line-clamp-2">{n.description}</div>
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-600">{n.time}</span>
-                            {n.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-400">High</span>}
+                          <div className="text-[11px] text-neutral-400 mt-0.5 leading-snug">{n.description}</div>
+                          <div className="flex items-center justify-between mt-1.5">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{n.time}</span>
+                            {n.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-400">High Priority</span>}
                           </div>
                         </div>
                       </div>
@@ -265,8 +298,10 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                   <div className="px-4 py-8 text-center text-neutral-500 text-sm">No notifications</div>
                 )}
               </div>
-              <div className="px-4 py-2.5 border-t border-white/10">
-                <Link href="/sis/notifications" className="block text-center text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white transition-colors no-underline">View All Notifications</Link>
+              <div className="px-4 py-2.5 border-t border-white/10 bg-white/5">
+                <span className="block text-center text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                  {unreadCount > 0 ? `${unreadCount} unread notification${unreadCount > 1 ? 's' : ''}` : 'All caught up'}
+                </span>
               </div>
             </div>
           )}

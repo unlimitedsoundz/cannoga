@@ -308,6 +308,8 @@ export default function SISStudentDashboard() {
     const [tuitionFee, setTuitionFee] = useState<number>(0);
     const [paymentDeadline, setPaymentDeadline] = useState<string>('');
     const [holds, setHolds] = useState<Hold[]>([]);
+    const [notificationsList, setNotificationsList] = useState<any[]>([]);
+    const [notificationsOpen, setNotificationsOpen] = useState(false);
     const [tasks, setTasks] = useState<Task[]>([]);
     const [documents, setDocuments] = useState<DocumentRecord[]>([]);
     const [faculty, setFaculty] = useState<Faculty[]>([]);
@@ -333,6 +335,38 @@ export default function SISStudentDashboard() {
         { title: 'International Space Agency Prepares Next Moon Exploration Launch', link: 'https://edition.cnn.com/world', pubDate: '1h ago', source: 'CNN World' },
         { title: 'Global Tech Leaders Announce Unified AI Governance Guidelines', link: 'https://www.bbc.com/news/technology', pubDate: '3h ago', source: 'BBC News' },
     ]);
+
+    useEffect(() => {
+        const fetchHeaderNotifs = async () => {
+            try {
+                const res = await fetch('/api/sis/notifications');
+                if (res.ok) {
+                    const data = await res.json();
+                    const list = (data.notifications || []).map((n: any) => ({
+                        id: n.id,
+                        title: n.title,
+                        description: n.message || n.description || '',
+                        time: new Date(n.created_at || Date.now()).toLocaleDateString(),
+                        priority: n.priority || 'normal',
+                        read: n.read || false,
+                    }));
+                    const unread = list.filter((n: any) => !n.read);
+                    if (unread.length > 0) {
+                        const latest = unread[0];
+                        const key = `sis_notif_toast_${latest.id}`;
+                        if (typeof window !== 'undefined' && !sessionStorage.getItem(key)) {
+                            sessionStorage.setItem(key, 'true');
+                            toast.info(`Notification: ${latest.title}`, { description: latest.description, duration: 6000 });
+                        }
+                    }
+                    setNotificationsList(list);
+                }
+            } catch (e) {}
+        };
+        fetchHeaderNotifs();
+        const interval = setInterval(fetchHeaderNotifs, 20000);
+        return () => clearInterval(interval);
+    }, []);
 
     const [showPresidentMessage, setShowPresidentMessage] = useState(true);
     const [showNoInvoiceModal, setShowNoInvoiceModal] = useState(false);
@@ -1141,10 +1175,84 @@ export default function SISStudentDashboard() {
                             <HugeiconsIcon icon={Mail} size={18} strokeWidth={2} />
                             {unreadMessageCount > 0 && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-blue-400 rounded-full border-2 border-slate-900"></span>}
                         </button>
-                        <button type="button" onClick={() => navigateTo('holds')} className="relative p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition flex items-center justify-center">
-                            <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} />
-                            {activeHolds.length > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-400 rounded-full"></span>}
-                        </button>
+                        <div className="relative">
+                            <button
+                                type="button"
+                                onClick={() => { setNotificationsOpen(!notificationsOpen); }}
+                                className="relative p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition flex items-center justify-center cursor-pointer"
+                                title="Notifications"
+                            >
+                                <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} />
+                                {notificationsList.filter(n => !n.read).length > 0 && (
+                                    <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none shadow-sm">
+                                        {notificationsList.filter(n => !n.read).length}
+                                    </span>
+                                )}
+                            </button>
+                            {notificationsOpen && (
+                                <div className="absolute right-0 top-full mt-2 w-80 bg-[#1c1c1c] border border-white/15 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-200">
+                                    <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between">
+                                        <span className="text-xs font-bold uppercase tracking-widest text-white">Notifications ({notificationsList.filter(n => !n.read).length})</span>
+                                        {notificationsList.filter(n => !n.read).length > 0 && (
+                                            <button
+                                                onClick={async () => {
+                                                    for (const n of notificationsList.filter(x => !x.read)) {
+                                                        fetch('/api/sis/notifications', {
+                                                            method: 'POST',
+                                                            headers: { 'Content-Type': 'application/json' },
+                                                            body: JSON.stringify({ id: n.id, read: true }),
+                                                        }).catch(() => {});
+                                                    }
+                                                    setNotificationsList(prev => prev.map(n => ({ ...n, read: true })));
+                                                }}
+                                                className="text-[10px] font-bold uppercase tracking-wider text-sky-400 hover:text-sky-300 transition-colors"
+                                            >
+                                                Mark all read
+                                            </button>
+                                        )}
+                                    </div>
+                                    <div className="max-h-80 overflow-y-auto">
+                                        {notificationsList.length > 0 ? (
+                                            notificationsList.map((n) => (
+                                                <div
+                                                    key={n.id}
+                                                    onClick={async () => {
+                                                        if (!n.read) {
+                                                            setNotificationsList(prev => prev.map(item => item.id === n.id ? { ...item, read: true } : item));
+                                                            fetch('/api/sis/notifications', {
+                                                                method: 'POST',
+                                                                headers: { 'Content-Type': 'application/json' },
+                                                                body: JSON.stringify({ id: n.id, read: true }),
+                                                            }).catch(() => {});
+                                                        }
+                                                    }}
+                                                    className={`px-4 py-3 border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors ${!n.read ? 'bg-white/5' : ''}`}
+                                                >
+                                                    <div className="flex items-start gap-2">
+                                                        {!n.read && <span className="w-2 h-2 bg-sky-400 rounded-full mt-1.5 shrink-0" />}
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="text-xs font-bold text-white truncate">{n.title}</div>
+                                                            <div className="text-[11px] text-neutral-400 mt-0.5 leading-snug">{n.description}</div>
+                                                            <div className="flex items-center justify-between mt-1.5">
+                                                                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{n.time}</span>
+                                                                {n.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-400">High Priority</span>}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <div className="px-4 py-8 text-center text-neutral-500 text-sm">No notifications</div>
+                                        )}
+                                    </div>
+                                    <div className="px-4 py-2.5 border-t border-white/10 bg-white/5">
+                                        <span className="block text-center text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                                            {notificationsList.filter(n => !n.read).length > 0 ? `${notificationsList.filter(n => !n.read).length} unread notification(s)` : 'All caught up'}
+                                        </span>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                         <div className="h-5 w-px bg-slate-800 mx-1"></div>
                         <div className="flex items-center space-x-2 cursor-pointer hover:bg-slate-800 p-1.5 rounded-lg transition" onClick={() => navigateTo('profile')}>
                             <div className="w-7 h-7 bg-slate-700 rounded-full flex items-center justify-center overflow-hidden shrink-0">
