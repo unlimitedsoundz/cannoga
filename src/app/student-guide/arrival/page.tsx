@@ -34,18 +34,20 @@ export default function ArrivalGuidePage() {
                 backgroundColor="#0a151a"
                 tinted
                 lightText={true}
-                breadcrumbs={[
-                    { label: 'Home', href: '/' },
-                    { label: 'Student Guide', href: '/student-guide' },
-                    { label: 'Arrival Guide' }
-                ]}
                 image={{
                     src: "/images/Arrival Guide Hero.png",
                     alt: "Arrival Guide"
                 }}
             />
 
-            <GuideSidebarLayout sections={sections}>
+            <GuideSidebarLayout 
+                sections={sections}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Student Guide', href: '/student-guide' },
+                    { label: 'Arrival Guide' }
+                ]}
+            >
                 <div className="container mx-auto px-4 py-6 md:py-8 max-w-6xl">
                 <div className="space-y-8">
                     {/* Before You Arrive */}

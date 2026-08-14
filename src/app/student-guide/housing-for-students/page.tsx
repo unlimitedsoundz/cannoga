@@ -23,24 +23,27 @@ const sections = [
 
 export default function HousingGuidePage() {
     return (
-        <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white text-black font-sans pb-12">
-                <Hero
-                    title="Housing for Students"
-                    body="Finding a comfortable place to live is essential for your academic success. This guide covers student housing options and the Ottawa rental market."
-                    backgroundColor="#0a151a"
-                    tinted
-                    lightText={true}
-                    breadcrumbs={[
-                        { label: 'Home', href: '/' },
-                        { label: 'Student Guide', href: '/student-guide' },
-                        { label: 'Housing' }
-                    ]}
-                    image={{
-                        src: "/images/student-housing-hero.png",
-                        alt: "Student Housing in Ottawa"
-                    }}
-                />
+        <div className="min-h-screen bg-white text-black font-sans pb-12">
+            <Hero
+                title="Housing for Students"
+                body="Finding a comfortable place to live is essential for your academic success. This guide covers student housing options and the Ottawa rental market."
+                backgroundColor="#0a151a"
+                tinted
+                lightText={true}
+                image={{
+                    src: "/images/student-housing-hero.png",
+                    alt: "Student Housing in Ottawa"
+                }}
+            />
+
+            <GuideSidebarLayout 
+                sections={sections}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Student Guide', href: '/student-guide' },
+                    { label: 'Housing' }
+                ]}
+            >
 
                 <div className="cc-container py-8 md:py-12">
                     <div className="space-y-10">
@@ -255,8 +258,8 @@ export default function HousingGuidePage() {
 
                     </div>
                 </div>
-            </div>
-        </GuideSidebarLayout>
+            </GuideSidebarLayout>
+        </div>
     );
 }
 
