@@ -134,7 +134,7 @@ export default async function Home() {
             )}
 
             {/* 5. STUDENT STORIES & EXPERIENCE */}
-            <section className="py-16 bg-[#f8fafc] text-black border-t border-b border-slate-200">
+            <section className="py-16 bg-white text-black">
                 <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
                     <div className="mb-8 border-b border-slate-200 pb-4">
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027]">Student Stories</h2>
@@ -144,12 +144,19 @@ export default async function Home() {
                 </div>
             </section>
 
-            {/* 5. STUDENT RESOURCE LINKS */}
-            <section className="py-20 bg-white">
-                <div className="container mx-auto px-4 md:px-28 lg:px-40">
-                    <div className="mb-12 border-b border-slate-200 pb-4">
+            {/* 6. STUDENT RESOURCE LINKS WITH LILAC BACKGROUND & SMOOTH HILL TOP EDGE */}
+            <section className="relative bg-[#e8d5ff] pt-20 pb-20 md:pt-28 md:pb-24 text-slate-900 mt-16">
+                {/* Top Smooth Rolling Hills Wavy Edge */}
+                <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 -translate-y-[98%]">
+                    <svg viewBox="0 0 1440 90" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-12 md:h-20 text-[#e8d5ff] fill-current">
+                        <path d="M0,50 C240,15 480,85 720,40 C960,-5 1200,70 1440,35 V90 H0 Z" />
+                    </svg>
+                </div>
+
+                <div className="container mx-auto px-4 md:px-28 lg:px-40 relative z-20">
+                    <div className="mb-12 border-b border-purple-200/80 pb-4">
                         <h2 className="text-3xl font-serif font-bold text-[#0f2027]">Student Resource Hub</h2>
-                        <p className="text-slate-600 text-sm mt-1">Direct access to campus services, financial aid, and academic governance.</p>
+                        <p className="text-slate-700 text-sm mt-1">Direct access to campus services, financial aid, and academic governance.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -166,7 +173,7 @@ export default async function Home() {
                                 <Link
                                     key={idx}
                                     linkComponentProps={{ href: link.href }}
-                                    className="group flex items-start gap-4 p-5 bg-[#f8fafc] hover:bg-white border border-slate-200 hover:border-[#0f2027] hover:shadow-sm transition-all no-underline rounded-sm"
+                                    className="group flex items-start gap-4 p-5 bg-white hover:bg-purple-50/60 border border-purple-200/60 hover:border-[#0f2027] hover:shadow-md transition-all no-underline rounded-sm"
                                 >
                                     <div className="p-3 bg-[#0f2027] text-white group-hover:bg-[#c89211] transition-colors rounded-full shrink-0 flex items-center justify-center w-11 h-11">
                                         <Icon size={20} weight="bold" />

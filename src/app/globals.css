@@ -31,8 +31,8 @@
 @media (min-width: 1024px) { .cc-container { padding-left: 4rem; padding-right: 4rem; } }
 
 /* Section headings */
-.cc-h1 { font-family: var(--font-playfair); font-size: 2.5rem; font-weight: 800; color: #0f2027; line-height: 1.15; }
-.cc-h2 { font-family: var(--font-playfair); font-size: 1.875rem; font-weight: 800; color: #0f2027; }
+.cc-h1 { font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif; font-size: 2.5rem; font-weight: 800; color: #0f2027; line-height: 1.15; }
+.cc-h2 { font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif; font-size: 1.875rem; font-weight: 800; color: #0f2027; }
 .cc-h3 { font-size: 1.25rem; font-weight: 700; color: #0f2027; }
 .cc-label { font-size: 0.875rem; font-weight: 600; color: #4a5568; margin-top: 0.5rem; }
 .cc-section-divider { border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; margin-bottom: 2.5rem; }
@@ -358,9 +358,10 @@
   --color-border: #e2e8f0;
   --color-input: #cbd5e1;
 
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-serif: Arial, Helvetica, sans-serif;
-  --font-lato: Arial, Helvetica, sans-serif;
+  --font-sans: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, sans-serif;
+  --font-lato: 'Lato', sans-serif;
+  --font-arial: Arial, Helvetica, sans-serif;
 
   --radius-xs: 2px;
   --radius-sm: 4px;
@@ -430,20 +431,34 @@ html, body {
 }
 
 body, input, textarea, select, button {
-  font-family: Arial, Helvetica, sans-serif !important;
+  font-family: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, sans-serif !important;
   background: var(--color-background);
   color: #000000 !important;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Portal / Application specific overrides: use Lato and input styling */
-[data-theme="portal"] {
-  --font-sans: var(--font-lato);
+/* Portal / Application specific overrides: ONLY application uses Arial font */
+[data-theme="portal"],
+[data-theme="portal"] body,
+[data-theme="portal"] input,
+[data-theme="portal"] textarea,
+[data-theme="portal"] select,
+[data-theme="portal"] button,
+.application-portal,
+.portal-form {
+  font-family: Arial, Helvetica, sans-serif !important;
+  --font-sans: Arial, Helvetica, sans-serif;
 }
 
-/* SIS (Student Information System) - use Lato font for admin/student interface */
-[data-theme="sis"] {
-  --font-sans: var(--font-lato);
+/* SIS (Student Information System): SIS uses Lato font */
+[data-theme="sis"],
+[data-theme="sis"] body,
+[data-theme="sis"] input,
+[data-theme="sis"] textarea,
+[data-theme="sis"] select,
+[data-theme="sis"] button {
+  font-family: 'Lato', sans-serif !important;
+  --font-sans: 'Lato', sans-serif;
 }
 
 /* Input appearance in portal/application areas */
@@ -1076,4 +1091,19 @@ button.sis-btn,
 
 .animate-weather-icon {
   animation: weatherPulse 2s ease-in-out infinite;
+}
+
+/* ── GLOBAL PARALLAX SCROLL UTILITIES ── */
+.parallax-bg {
+  background-attachment: fixed !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+@media (max-width: 768px) {
+  /* Mobile fallback for background-attachment fixed performance */
+  .parallax-bg {
+    background-attachment: scroll !important;
+  }
 }

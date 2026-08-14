@@ -46,7 +46,7 @@ export default function StudentStoriesCarousel() {
     const prev = () => setCurrent((prev) => (prev - 1 + stories.length) % stories.length);
 
     return (
-        <div className="relative w-full h-[600px] sm:h-[560px] md:h-[380px] overflow-hidden bg-[#f1f5f9] border border-slate-200 shadow-sm rounded-sm group">
+        <div className="relative w-full h-[600px] sm:h-[560px] md:h-[380px] overflow-hidden bg-white group">
             {stories.map((story, index) => (
                 <div
                     key={story.id}
@@ -54,21 +54,34 @@ export default function StudentStoriesCarousel() {
                         }`}
                 >
                     <div className="flex flex-col md:flex-row h-full w-full">
-                        {/* Image Side */}
-                        <div className="relative h-[290px] sm:h-[310px] md:h-full w-full md:w-1/2 shrink-0 overflow-hidden">
-                            <Image
-                                src={story.image}
-                                alt={story.name}
-                                fill
-                                className={`object-cover ${story.imagePosition}`}
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                priority={index === 0}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#f1f5f9] via-transparent to-transparent md:hidden" />
+                        {/* Image Side with Heavy Edge Feathering */}
+                        <div className="relative h-[290px] sm:h-[310px] md:h-full w-full md:w-1/2 shrink-0 overflow-hidden bg-white">
+                            <div
+                                className="relative w-full h-full"
+                                style={{
+                                    WebkitMaskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 90%)',
+                                    maskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 90%)',
+                                }}
+                            >
+                                <Image
+                                    src={story.image}
+                                    alt={story.name}
+                                    fill
+                                    className={`object-cover ${story.imagePosition}`}
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    priority={index === 0}
+                                />
+                            </div>
+
+                            {/* Heavy Multi-Directional Gradient Feather Overlays */}
+                            <div className="absolute inset-y-0 right-0 w-24 md:w-40 bg-gradient-to-l from-white via-white/90 to-transparent z-10 pointer-events-none" />
+                            <div className="absolute inset-y-0 left-0 w-12 md:w-20 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
+                            <div className="absolute inset-x-0 top-0 h-12 md:h-20 bg-gradient-to-b from-white via-white/80 to-transparent z-10 pointer-events-none" />
+                            <div className="absolute inset-x-0 bottom-0 h-24 md:h-20 bg-gradient-to-t from-white via-white/90 to-transparent z-10 pointer-events-none" />
                         </div>
 
                         {/* Content Side */}
-                        <div className="p-6 md:p-10 flex flex-col justify-between text-slate-900 bg-[#f1f5f9] w-full md:w-1/2 h-[310px] sm:h-[250px] md:h-full relative">
+                        <div className="p-6 md:p-10 flex flex-col justify-between text-slate-900 bg-white w-full md:w-1/2 h-[310px] sm:h-[250px] md:h-full relative">
                             <div>
                                 <p className="text-base md:text-lg text-slate-800 font-serif leading-relaxed mb-4 italic">
                                     "{story.quote}"

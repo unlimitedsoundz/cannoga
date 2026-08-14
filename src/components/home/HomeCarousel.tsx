@@ -39,6 +39,7 @@ const slides: Slide[] = [
 
 export function HomeCarousel() {
     const [current, setCurrent] = useState(0);
+    const [scrollY, setScrollY] = useState(0);
 
     // Auto-advance slide every 6 seconds
     useEffect(() => {
@@ -46,6 +47,17 @@ export function HomeCarousel() {
             setCurrent((prev) => (prev + 1) % slides.length);
         }, 6000);
         return () => clearInterval(timer);
+    }, []);
+
+    // Parallax scroll tracking
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY < 800) {
+                setScrollY(window.scrollY);
+            }
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const prevSlide = () => {
@@ -66,16 +78,13 @@ export function HomeCarousel() {
                             key={idx}
                             className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${idx === current ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}
                         >
-                            {/* Background Image */}
-                            <div className="absolute inset-0 w-full h-full bg-[#0a151a]">
-                                <Image
-                                    src={slide.image}
-                                    alt={slide.title}
-                                    fill
-                                    priority={idx === 0}
-                                    className="object-cover object-center opacity-40"
-                                    sizes="100vw"
-                                />
+                            {/* Background Image with Parallax Scroll Effect */}
+                            <div
+                                className="absolute inset-0 w-full h-full bg-[#0a151a] parallax-bg"
+                                style={{
+                                    backgroundImage: `url(${slide.image})`,
+                                }}
+                            >
                                 <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30 z-[1]" />
                             </div>
 
