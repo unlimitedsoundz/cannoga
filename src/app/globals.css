@@ -903,4 +903,19 @@ button.sis-btn:hover,
 [data-theme="sis-dark"] aside svg * {
   color: #ffffff !important;
   stroke: #ffffff !important;
+}
+
+/* Guarantee Pure White Text for All Action & Submit Buttons Across Portal & SIS */
+button[type="submit"],
+.bg-sky-500,
+.bg-sky-600,
+.bg-sky-400,
+.bg-neutral-900,
+.bg-black,
+.bg-slate-900,
+.bg-blue-600,
+.bg-indigo-600,
+.sis-btn,
+button.sis-btn {
+  color: #ffffff !important;
 }
