@@ -1,15 +1,9 @@
 import {
-    BookOpen, GraduationCap, Heart,
-    ArrowRight, CaretRight
+    ArrowRight
 } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@aalto-dx/react-components";
-import Image from 'next/image';
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
-import { Breadcrumbs } from '@aalto-dx/react-modules';
-import { Card } from '@/components/ui/Card';
-import { TagGroup } from '@/components/ui/TagGroup';
-import { ContentBox } from '@/components/ui/ContentBox';
 
 export const metadata = {
     title: 'Undergraduate & Postgraduate Resources — Cannoga College',
@@ -96,11 +90,9 @@ export default function StudentGuidePage() {
         },
     ];
 
-
-
     return (
         <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white">
+            <div className="min-h-screen bg-white text-black font-sans pb-12">
             {/* HERO SECTION */}
             <Hero
                 title="Student Guide"
@@ -116,74 +108,62 @@ export default function StudentGuidePage() {
                     src: "/images/student-guide-cover.png",
                     alt: "Students collaborating at Cannoga College"
                 }}
-            >
-                <Link
-                    href="#programmes"
-                    className="inline-flex items-center gap-2 bg-white hover:bg-neutral-100 text-[#0a151a] font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline rounded-sm transition-colors shadow-md"
-                >
-                    <span>View Programmes</span>
-                    <ArrowRight size={18} weight="bold" className="text-[#c89211]" />
-                </Link>
-            </Hero>
+            />
 
-            <div className="container mx-auto px-4 py-8 md:py-16">
-                <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+            <div className="container mx-auto px-4 py-6 md:py-10">
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
                     {/* Main Content */}
-                    <main className="lg:w-full space-y-12 md:space-y-20">
+                    <main className="lg:w-full space-y-10">
 
                         {/* Intro */}
-                        <div className="max-w-none text-xl text-black">
-                            <p className="font-bold border-l-4 border-[#0a151a] pl-8 py-2 leading-relaxed">
+                        <div>
+                            <p className="text-base md:text-lg text-neutral-700 font-medium leading-relaxed">
                                 Whether you are a new student, continuing your degree, or joining from abroad, this guide explains how studies are organised and how support is provided throughout your academic journey.
                             </p>
                         </div>
 
                         {/* Degree Programmes */}
                         <section id="programmes" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">
+                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">
                                 Programs &amp; Degrees at Cannoga College
                             </h2>
-                            <p className="text-aalto-3 text-black mb-8">
+                            <p className="text-xs md:text-sm text-neutral-600 font-medium mb-4 leading-relaxed">
                                 Cannoga College offers Certificate, Diploma, Advanced Diploma, Bachelor’s, and Master’s programmes across business, economics, management, finance, information systems, entrepreneurship, and interdisciplinary fields. All academic programs at Cannoga College are eligible for the Post-Graduation Work Permit (PGWP).
                             </p>
 
-                            <div className="grid md:grid-cols-2 gap-8 mb-8">
-                                <Card
-                                    title="Certificate Programs"
-                                    image={{ src: "/images/school-of-business.jpg", alt: "Certificate Programs" }}
-                                    body="Rapid, career-focused training in specific technical or business domains."
-                                    cta={{ label: "Learn more", linkComponentProps: { href: "/degree-programmes#certificates" } }}
-                                />
-                                <Card
-                                    title="Diploma Programs"
-                                    image={{ src: "/images/school-of-technology.jpg", alt: "Diploma Programs" }}
-                                    body="Comprehensive 2-year and 3-year programs combining theory with practical skills."
-                                    cta={{ label: "Learn more", linkComponentProps: { href: "/degree-programmes#diplomas" } }}
-                                />
-                                <Card
-                                    title="Bachelor’s Degree"
-                                    image={{ src: "/images/student-guide-bachelor.jpg", alt: "Bachelor's Degree" }}
-                                    body="Structured curriculum focused on core knowledge and skills."
-                                    cta={{ label: "Learn more", linkComponentProps: { href: "/admissions/bachelor" } }}
-                                />
-                                <Card
-                                    title="Master’s Degree"
-                                    image={{ src: "/images/student-guide-master.png", alt: "Master's Degree" }}
-                                    body="Advanced studies focusing on specialized expertise and research-oriented development."
-                                    cta={{ label: "Learn more", linkComponentProps: { href: "/admissions/master" } }}
-                                />
+                            <div className="grid md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <h3 className="font-bold text-base text-black mb-1">Certificate Programs</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Rapid, career-focused training in specific technical or business domains.</p>
+                                    <Link href="/degree-programmes#certificates" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-base text-black mb-1">Diploma Programs</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Comprehensive 2-year and 3-year programs combining theory with practical skills.</p>
+                                    <Link href="/degree-programmes#diplomas" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-base text-black mb-1">Bachelor’s Degree</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Structured curriculum focused on core knowledge and skills.</p>
+                                    <Link href="/admissions/bachelor" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-base text-black mb-1">Master’s Degree</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Advanced studies focusing on specialized expertise and research-oriented development.</p>
+                                    <Link href="/admissions/master" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
+                                </div>
                             </div>
 
-                            <div className="bg-neutral-100 p-8 rounded-2xl">
-                                <h3 className="font-bold text-lg mb-4">Curriculum Structure</h3>
-                                <ul className="grid sm:grid-cols-2 gap-4 text-black">
+                            <div className="pt-2">
+                                <h3 className="font-bold text-base mb-2 text-black">Curriculum Structure</h3>
+                                <ul className="grid sm:grid-cols-2 gap-2 text-xs md:text-sm text-neutral-700 font-medium">
                                     {[
                                         "Core compulsory courses", "Elective courses",
                                         "Minor studies", "Language and communication studies",
                                         "Final thesis or capstone project"
                                     ].map(item => (
-                                        <li key={item} className="flex items-center gap-3 font-bold">
-                                            <ArrowRight size={20} weight="bold" />
+                                        <li key={item} className="flex items-center gap-2">
+                                            <ArrowRight size={14} className="text-[#0a151a] shrink-0" />
                                             <span>{item}</span>
                                         </li>
                                     ))}
@@ -193,32 +173,32 @@ export default function StudentGuidePage() {
 
                         {/* Minors */}
                         <section id="minors" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Minors and Study Combinations</h2>
-                            <div className="flex flex-col md:flex-row gap-8 items-start">
-                                <div className="flex-1">
-                                    <h3 className="text-xl font-bold mb-3">What is a Minor?</h3>
-                                    <p className="text-black mb-6 font-medium leading-relaxed">
+                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Minors and Study Combinations</h2>
+                            <div className="grid md:grid-cols-2 gap-6 items-start">
+                                <div className="space-y-3">
+                                    <h3 className="text-base font-bold text-black">What is a Minor?</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed">
                                         A minor is a coherent set of courses, typically ranging from 20 to 30 credits, completed alongside a major degree. It allows students to deepen expertise in a specific area or broaden knowledge beyond their main field of study.
                                     </p>
-                                    <h3 className="text-xl font-bold mb-3">Choosing a Minor</h3>
-                                    <ul className="space-y-3 mb-6 text-black font-medium">
-                                        <li className="flex gap-2 underline"><ArrowRight size={18} weight="bold" className="mt-1 flex-shrink-0" /> Within their own school</li>
-                                        <li className="flex gap-2 underline"><ArrowRight size={18} weight="bold" className="mt-1 flex-shrink-0" /> From other schools at Cannoga College</li>
-                                        <li className="flex gap-2 underline"><ArrowRight size={18} weight="bold" className="mt-1 flex-shrink-0" /> From interdisciplinary or entrepreneurship offerings</li>
+                                    <h3 className="text-base font-bold text-black pt-1">Choosing a Minor</h3>
+                                    <ul className="space-y-1.5 text-xs md:text-sm text-neutral-700 font-medium">
+                                        <li className="flex gap-2 items-center"><ArrowRight size={14} className="shrink-0 text-[#0a151a]" /> Within your own school</li>
+                                        <li className="flex gap-2 items-center"><ArrowRight size={14} className="shrink-0 text-[#0a151a]" /> From other schools at Cannoga College</li>
+                                        <li className="flex gap-2 items-center"><ArrowRight size={14} className="shrink-0 text-[#0a151a]" /> From interdisciplinary or entrepreneurship offerings</li>
                                     </ul>
                                 </div>
-                                <div className="flex-1 bg-[#0a151a] text-white p-8 rounded-none border-l-4 border-neutral-700">
-                                    <h3 className="font-bold text-xl mb-4 text-white">Benefits of Minors</h3>
-                                    <ul className="space-y-4">
+                                <div className="space-y-2">
+                                    <h3 className="font-bold text-base text-black">Benefits of Minors</h3>
+                                    <ul className="space-y-2 text-xs md:text-sm text-neutral-700 font-medium">
                                         {[
                                             "Strengthen employability",
                                             "Support career specialisation",
                                             "Enable interdisciplinary competence",
                                             "Prepare for advanced studies"
                                         ].map(item => (
-                                            <li key={item} className="flex items-center gap-3">
-                                                <ArrowRight size={14} weight="bold" className="text-white opacity-60" />
-                                                <span className="font-bold">{item}</span>
+                                            <li key={item} className="flex items-center gap-2">
+                                                <ArrowRight size={14} className="shrink-0 text-[#0a151a]" />
+                                                <span>{item}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -228,27 +208,26 @@ export default function StudentGuidePage() {
 
                         {/* Courses */}
                         <section id="courses" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Courses and Course Registration</h2>
-                            <div className="grid md:grid-cols-2 gap-8">
-                                <div className="rounded-none p-6">
-                                    <h3 className="font-bold text-xl mb-3">Course Structure</h3>
-                                    <p className="text-black mb-4 font-medium">Courses are assigned credits based on workload. Format includes:</p>
-                                    <TagGroup tags={['Lectures', 'Seminars', 'Projects', 'Case Studies', 'Exams'].map(tag => ({ label: tag }))} />
+                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Courses and Course Registration</h2>
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <h3 className="font-bold text-base text-black">Course Structure</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed">Courses are assigned credits based on workload. Formats include lectures, seminars, team projects, case studies, and exams.</p>
                                 </div>
-                                <div className="bg-gray-100 rounded-none p-6">
-                                    <h3 className="font-bold text-xl mb-3 text-black">Registration</h3>
-                                    <p className="text-black mb-4 font-medium">Register via the digital study system during published periods.</p>
-                                    <ul className="text-sm space-y-3 text-black font-bold">
-                                        <li className="flex items-center gap-2"><ArrowRight size={20} weight="bold" /> Check participant limits</li>
-                                        <li className="flex items-center gap-2"><ArrowRight size={20} weight="bold" /> Verify prerequisites</li>
-                                        <li className="flex items-center gap-2"><ArrowRight size={20} weight="bold" /> Review selection criteria</li>
+                                <div className="space-y-2">
+                                    <h3 className="font-bold text-base text-black">Registration</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed">Register via the digital study system during published periods.</p>
+                                    <ul className="text-xs md:text-sm space-y-1.5 text-neutral-700 font-medium">
+                                        <li className="flex items-center gap-2"><ArrowRight size={14} className="shrink-0 text-[#0a151a]" /> Check participant limits</li>
+                                        <li className="flex items-center gap-2"><ArrowRight size={14} className="shrink-0 text-[#0a151a]" /> Verify prerequisites</li>
+                                        <li className="flex items-center gap-2"><ArrowRight size={14} className="shrink-0 text-[#0a151a]" /> Review selection criteria</li>
                                     </ul>
                                 </div>
                             </div>
 
-                            <div className="mt-8 bg-neutral-100 p-6 rounded-2xl">
-                                <h4 className="font-bold mb-2">Other Study Options</h4>
-                                <p className="text-black font-medium leading-relaxed">
+                            <div className="mt-4 pt-3 border-t border-neutral-100">
+                                <h4 className="font-bold text-sm mb-1 text-black">Other Study Options</h4>
+                                <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed">
                                     In addition to degree courses, students may complete Entrepreneurship and startup courses, Interdisciplinary project courses, Open university studies, or Exchange student courses.
                                 </p>
                             </div>
@@ -256,18 +235,18 @@ export default function StudentGuidePage() {
 
                         {/* Language */}
                         <section id="language" className="scroll-mt-32">
-                            <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
+                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">
                                 Language and Communication
                             </h2>
-                            <p className="text-lg text-black mb-6">
+                            <p className="text-xs md:text-sm text-neutral-600 font-medium mb-3 leading-relaxed">
                                 Language studies support academic success, professional skills, and international competence.
                             </p>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                                 {[
                                     "Academic communication", "Intercultural communication",
                                     "English for Academic Purposes", "French language (optional)"
                                 ].map(lang => (
-                                    <div key={lang} className="bg-neutral-100 p-4 rounded-none text-center font-bold text-black border-l-2 border-[#0a151a]">
+                                    <div key={lang} className="text-xs md:text-sm font-bold text-black">
                                         {lang}
                                     </div>
                                 ))}
@@ -276,152 +255,132 @@ export default function StudentGuidePage() {
 
                         {/* Calendar */}
                         <section id="calendar" className="scroll-mt-32">
-                            <ContentBox
-                                size="large"
-                                icon="calendar"
-                                title="Academic Calendar"
-                                body={
-                                    <div className="flex flex-col md:flex-row gap-8 md:gap-12 text-left">
-                                        <div className="md:w-1/3 md:border-r border-gray-300 md:pr-8">
-                                            <h4 className="font-bold text-black mb-4 uppercase tracking-widest text-xs">The Academic Year</h4>
-                                            <div className="space-y-6">
-                                                <div>
-                                                    <h5 className="font-bold text-black mb-1">Fall Semester</h5>
-                                                    <p className="text-sm text-black">September — December</p>
-                                                </div>
-                                                <div>
-                                                    <h5 className="font-bold text-black mb-1">Winter Semester</h5>
-                                                    <p className="text-sm text-black">January — April</p>
-                                                </div>
-                                            </div>
+                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Academic Calendar</h2>
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <div className="space-y-3">
+                                    <h4 className="font-bold text-base text-black">The Academic Year</h4>
+                                    <div className="space-y-2 text-xs md:text-sm font-medium">
+                                        <div>
+                                            <h5 className="font-bold text-black mb-0.5">Fall Semester</h5>
+                                            <p className="text-neutral-600">September — December</p>
                                         </div>
-                                        <div className="md:w-2/3">
-                                            <h4 className="font-bold text-lg mb-4 text-black">Teaching Periods & Dates</h4>
-                                            <p className="text-sm text-black mb-6">Each term consists of multiple teaching periods. Courses may run intensively or throughout the semester.</p>
-                                            <div className="grid grid-cols-2 gap-4">
-                                                {[
-                                                    { t: "Teaching Periods", d: "Scheduled sessions" },
-                                                    { t: "Exam Periods", d: "Assessment weeks" },
-                                                    { t: "Registration", d: "Sign-up deadlines" },
-                                                    { t: "Breaks", d: "Winter & Summer" }
-                                                ].map(item => (
-                                                    <div key={item.t} className="bg-card p-4 rounded-xl border border-gray-200">
-                                                        <span className="block font-bold mb-1 text-black text-sm">{item.t}</span>
-                                                        <span className="text-[10px] text-neutral-500 uppercase font-bold tracking-widest">{item.d}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
+                                        <div>
+                                            <h5 className="font-bold text-black mb-0.5">Winter Semester</h5>
+                                            <p className="text-neutral-600">January — April</p>
                                         </div>
                                     </div>
-                                }
-                            />
+                                </div>
+                                <div className="space-y-3">
+                                    <h4 className="font-bold text-base text-black">Teaching Periods &amp; Dates</h4>
+                                    <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed">Each term consists of multiple teaching periods. Courses may run intensively or throughout the semester.</p>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {[
+                                            { t: "Teaching Periods", d: "Scheduled sessions" },
+                                            { t: "Exam Periods", d: "Assessment weeks" },
+                                            { t: "Registration", d: "Sign-up deadlines" },
+                                            { t: "Breaks", d: "Winter & Summer" }
+                                        ].map(item => (
+                                            <div key={item.t} className="space-y-0.5">
+                                                <span className="block font-bold text-black text-xs md:text-sm">{item.t}</span>
+                                                <span className="text-[10px] text-neutral-500 font-medium uppercase tracking-wider">{item.d}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </section>
 
                         {/* Support */}
                         <section id="support" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Study Support Services</h2>
-                            <div className="grid md:grid-cols-3 gap-6">
-                                <Card
-                                    title="Academic Guidance"
-                                    image={{ src: "/images/academic-guidance.jpg", alt: "Academic Guidance" }}
-                                    body="Programme level advising and personal study plans."
-                                    cta={{ label: "Contact Advisor", linkComponentProps: { href: "/contact" } }}
-                                />
-                                <Card
-                                    title="Learning Support"
-                                    image={{ src: "https://i.pinimg.com/736x/72/02/74/72027422a2b62ce0f06b599060ea5be1.jpg", alt: "Learning Support" }}
-                                    body="Workshops, writing support, and study skills development."
-                                    cta={{ label: "View Workshops", linkComponentProps: { href: "#support" } }}
-                                />
-                                <Card
-                                    title="Wellbeing"
-                                    image={{ src: "/images/wellbeing.jpg", alt: "Wellbeing" }}
-                                    body="Health services, accessibility, and counseling for all students."
-                                    cta={{ label: "Get Support", linkComponentProps: { href: "#support" } }}
-                                />
+                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Study Support Services</h2>
+                            <div className="grid md:grid-cols-3 gap-4">
+                                <div>
+                                    <h3 className="font-bold text-base mb-1 text-black">Academic Guidance</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Programme level advising and personal study plans.</p>
+                                    <Link href="/contact" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Contact Advisor →</Link>
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-base mb-1 text-black">Learning Support</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Workshops, writing support, and study skills development.</p>
+                                    <Link href="#support" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">View Workshops →</Link>
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-base mb-1 text-black">Wellbeing</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Health services, accessibility, and counseling for all students.</p>
+                                    <Link href="#support" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Get Support →</Link>
+                                </div>
                             </div>
                         </section>
 
                         {/* New Students */}
                         <section id="new-students" className="scroll-mt-32">
-                            <ContentBox
-                                size="large"
-                                icon="identificationBadge"
-                                title="Information for New Students"
-                                body={
-                                    <div className="grid md:grid-cols-2 gap-12 text-left">
-                                        <div>
-                                            <h4 className="font-bold text-xl mb-4 text-black">Orientation Programme</h4>
-                                            <p className="text-sm text-neutral-700 mb-6 leading-relaxed">
-                                                New students receive structured onboarding before studies begin, ensuring a smooth transition into university life.
-                                            </p>
-                                            <ul className="space-y-3">
-                                                {[
-                                                    "Degree programme introductions",
-                                                    "Digital systems training",
-                                                    "Course registration guidance",
-                                                    "Campus services overview"
-                                                ].map(item => (
-                                                    <li key={item} className="flex items-center gap-3 font-bold text-sm">
-                                                        <ArrowRight size={14} weight="bold" />
-                                                        <span>{item}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                        <div className="bg-card p-8 rounded-2xl border border-neutral-200">
-                                            <h4 className="font-bold text-lg mb-6 text-black">Getting Started Checklist</h4>
-                                            <ul className="space-y-4 text-sm font-bold">
-                                                <li className="flex gap-3 items-center"><ArrowRight size={14} /> Confirm study rights</li>
-                                                <li className="flex gap-3 items-center"><ArrowRight size={14} /> Activate student email</li>
-                                                <li className="flex gap-3 items-center"><ArrowRight size={14} /> Access learning platforms</li>
-                                                <li className="flex gap-3 items-center"><ArrowRight size={14} /> Get student ID card</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                }
-                            />
+                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Information for New Students</h2>
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <h4 className="font-bold text-base text-black">Orientation Programme</h4>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">
+                                        New students receive structured onboarding before studies begin, ensuring a smooth transition into university life.
+                                    </p>
+                                    <ul className="space-y-1.5 pt-1 text-xs md:text-sm font-medium text-neutral-700">
+                                        {[
+                                            "Degree programme introductions",
+                                            "Digital systems training",
+                                            "Course registration guidance",
+                                            "Campus services overview"
+                                        ].map(item => (
+                                            <li key={item} className="flex items-center gap-2">
+                                                <ArrowRight size={14} className="shrink-0 text-[#0a151a]" />
+                                                <span>{item}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className="space-y-2">
+                                    <h4 className="font-bold text-base text-black">Getting Started Checklist</h4>
+                                    <ul className="space-y-1.5 text-xs md:text-sm font-medium text-neutral-700">
+                                        <li className="flex gap-2 items-center"><ArrowRight size={14} className="shrink-0 text-[#0a151a]" /> Confirm study rights</li>
+                                        <li className="flex gap-2 items-center"><ArrowRight size={14} className="shrink-0 text-[#0a151a]" /> Activate student email</li>
+                                        <li className="flex gap-2 items-center"><ArrowRight size={14} className="shrink-0 text-[#0a151a]" /> Access learning platforms</li>
+                                        <li className="flex gap-2 items-center"><ArrowRight size={14} className="shrink-0 text-[#0a151a]" /> Get student ID card</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </section>
 
                         {/* Student Categories / Breakdown */}
                         <section id="student-types" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Student Categories</h2>
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <Card
-                                    title="Chat with Students"
-                                    image={{ src: "/images/chat-with-students-hero.jpg", alt: "Chat with Students" }}
-                                    body="Connect with current students and ambassadors to learn about life at Cannoga."
-                                    cta={{ label: "Chat now", linkComponentProps: { href: "/student-guide/chat-with-cannoga-students" } }}
-                                />
-                                <Card
-                                    title="International Students"
-                                    image={{ src: "/images/international-students-hero.jpg", alt: "International Students" }}
-                                    body="Support services, study permits, and integration into Ottawa's multicultural community."
-                                    cta={{ label: "View guide", linkComponentProps: { href: "/student-guide/international" } }}
-                                />
-                                <Card
-                                    title="Exchange Students"
-                                    image={{ src: "/images/exchange-students.png", alt: "Exchange Students" }}
-                                    body="Orientation, course selection, and cultural adaptation for short-term studies."
-                                    cta={{ label: "Learn more", linkComponentProps: { href: "/student-guide/exchange" } }}
-                                />
+                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Student Categories</h2>
+                            <div className="grid md:grid-cols-3 gap-4">
+                                <div>
+                                    <h3 className="font-bold text-base mb-1 text-black">Chat with Students</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Connect with current students and ambassadors to learn about life at Cannoga.</p>
+                                    <Link href="/student-guide/chat-with-cannoga-students" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Chat now →</Link>
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-base mb-1 text-black">International Students</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Support services, study permits, and integration into Ottawa&apos;s multicultural community.</p>
+                                    <Link href="/student-guide/international" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">View guide →</Link>
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-base mb-1 text-black">Exchange Students</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Orientation, course selection, and cultural adaptation for short-term studies.</p>
+                                    <Link href="/student-guide/exchange" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
+                                </div>
                             </div>
                         </section>
 
                         {/* Contact */}
                         <section id="contact" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Contact and Guidance</h2>
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <ContentBox
-                                    icon="users"
-                                    title="Student Services"
-                                    body="Reach out to programme coordinators, academic advisors, and the international support team."
-                                />
-                                <ContentBox
-                                    icon="chatCircleDots"
-                                    title="Peer Tutors"
-                                    body="Connect with senior students for advice on student life and settling in."
-                                />
+                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Contact and Guidance</h2>
+                            <div className="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h3 className="font-bold text-base mb-1 text-black">Student Services</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">Reach out to programme coordinators, academic advisors, and the international support team.</p>
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-base mb-1 text-black">Peer Tutors</h3>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">Connect with senior students for advice on student life and settling in.</p>
+                                </div>
                             </div>
                         </section>
 
@@ -432,4 +391,5 @@ export default function StudentGuidePage() {
         </GuideSidebarLayout>
     );
 }
+
 
