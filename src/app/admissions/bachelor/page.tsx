@@ -62,8 +62,8 @@ export default function BachelorAdmissionsPage() {
                 }
                 backgroundColor="#000000"
                 tinted
-                overlay={false}
-                overlayOpacity="opacity-100"
+                overlay={true}
+                overlayOpacity="opacity-40"
                 lightText={true}
                 breadcrumbs={[
                     { label: 'Home', href: '/' },
