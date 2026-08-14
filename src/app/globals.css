@@ -968,8 +968,18 @@ button.sis-btn,
 [data-theme="sis-dark"] .text-slate-800,
 [data-theme="sis-dark"] .text-slate-700,
 [data-theme="sis-dark"] .text-slate-600,
+[data-theme="sis-dark"] .text-gray-900,
+[data-theme="sis-dark"] .text-gray-800,
+[data-theme="sis-dark"] .text-gray-700,
+[data-theme="sis-dark"] .text-gray-600,
 [data-theme="sis-dark"] .text-black,
 [data-theme="sis-dark"] .text-\[\#0a151a\] {
+  color: #ffffff !important;
+}
+
+[data-theme="sis-dark"] input:not([class*="ck"]),
+[data-theme="sis-dark"] textarea:not([class*="ck"]),
+[data-theme="sis-dark"] select {
   color: #ffffff !important;
 }
 
