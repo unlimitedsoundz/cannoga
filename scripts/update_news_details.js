@@ -196,7 +196,7 @@ What to Bring & How to Prepare:
 
 Free Professional Headshots:
 A professional photo booth will be available free of charge for students wishing to update their LinkedIn profiles.`,
-            imageUrl: '/images/business.jpg',
+            imageUrl: '/images/events/ottawa-tech-business-career-fair.png',
             published: true
         }
     ];
