@@ -146,7 +146,7 @@ serve(async (req) => {
                 } else if (rawStatus === 'DOCS_REQUIRED') {
                     notificationType = 'DOCS_REQUIRED';
                 } else {
-                    notificationType = 'APPLICATION_SUBMITTED';
+                    notificationType = null;
                 }
             } else if (table === 'profiles') {
                 notificationType = 'USER_REGISTRATION';
@@ -212,17 +212,14 @@ serve(async (req) => {
         const appNationality = (applicationData?.personal_info?.nationality || applicationData?.user?.country_of_residence || '').toLowerCase();
         const isAppDomestic = appNationality === 'finland' || appNationality === 'finnish' || appNationality === 'eu' || appNationality === 'domestic';
         const appDegreeLevel = (applicationData?.course_degree_level || '').toUpperCase();
-        let appAnnualTuition = 2500;
-        let appDepositTuition = 1250;
+        let appAnnualTuition = 6400;
+        const appDepositTuition = 2000;
         if (appDegreeLevel.includes('CERTICACATE') || appDegreeLevel.includes('DIPLOMA')) {
-            appAnnualTuition = isAppDomestic ? 1500 : 2500;
-            appDepositTuition = isAppDomestic ? 750 : 1250;
+            appAnnualTuition = isAppDomestic ? 2400 : 4000;
         } else if (appDegreeLevel.includes('BACHELOR')) {
-            appAnnualTuition = isAppDomestic ? 2500 : 4000;
-            appDepositTuition = isAppDomestic ? 1250 : 2000;
+            appAnnualTuition = isAppDomestic ? 4000 : 6400;
         } else if (appDegreeLevel.includes('MASTER')) {
-            appAnnualTuition = isAppDomestic ? 3500 : 6000;
-            appDepositTuition = isAppDomestic ? 1750 : 3000;
+            appAnnualTuition = isAppDomestic ? 5600 : 9600;
         }
 
         switch (notificationType) {
@@ -295,7 +292,7 @@ serve(async (req) => {
                 studentSubject = "Letter of Acceptance (LOA) — Cannoga College";
                 studentHtml = `
                     <p>Dear ${firstName},</p>
-                    <p>We are delighted to inform you that you have been offered a conditional place to study at Cannoga College.</p>
+                    <p>I am delighted to inform you that you have been offered a conditional place to study at Cannoga College.</p>
                     <p><strong>Programme Details:</strong></p>
                     <p>Programme: ${applicationData?.course_title || 'Your Degree Programme'}</p>
                     <p>Degree Level: ${applicationData?.course_degree_level === 'MASTER' ? "Master's Degree" : applicationData?.course_degree_level === 'BACHELOR' ? "Bachelor's Degree" : applicationData?.course_degree_level === 'DIPLOMA' ? "Ontario College Diploma" : applicationData?.course_degree_level === 'CERTICACATE' ? "Canadian Certificate" : "Bachelor's Degree"}</p>
@@ -316,7 +313,7 @@ serve(async (req) => {
                     <ul>
                         <li>Review Your Letter of Acceptance (LOA): Log in to your student dashboard to carefully read the terms of your conditional offer.</li>
                         <li>Accept Your Offer: Confirm your acceptance of the offer in the portal.</li>
-                        <li>Fulfill Your Conditions: Fulfill the conditions outlined in your Letter of Acceptance (LOA) (such as paying your tuition fee deposit). Once the conditions are met, your offer will become unconditional, and your Official Admission Letter will be issued.</li>
+                        <li>Fulfill Your Conditions: Fulfill the conditions outlined in your Letter of Acceptance (LOA) (such as paying your tuition fee deposit). Once the conditions are met, you will be issued your Provincial Attestation Letter (PAL). Please allow 6-10 working days for issuance.</li>
                     </ul>
 
                     <p><a href="https://cannogacollege.ca/portal">Log In and View Letter of Acceptance</a></p>
