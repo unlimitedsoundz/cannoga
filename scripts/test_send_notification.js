@@ -65,6 +65,34 @@ async function testResendEmailDispatch() {
         const data2 = await res2.json();
         console.log('Test 2 Response:', res2.status, JSON.stringify(data2, null, 2));
 
+        // Test Payload 3: Direct OFFER_ACCEPTED type
+        const payload3 = {
+            type: 'OFFER_ACCEPTED',
+            table: 'applications',
+            record: {
+                id: 'app-' + Date.now(),
+                first_name: 'Unlymited',
+                last_name: 'Soundz',
+                email: recipientEmail,
+                course_title: 'Bachelor of Computer Science & AI',
+                course_degree_level: 'BACHELOR',
+                intake: 'Fall 2026',
+                status: 'OFFER_ACCEPTED'
+            }
+        };
+
+        console.log('Sending Test 3 (Offer Accepted Email)...');
+        const res3 = await fetch(functionUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${serviceKey}`
+            },
+            body: JSON.stringify(payload3)
+        });
+        const data3 = await res3.json();
+        console.log('Test 3 Response:', res3.status, JSON.stringify(data3, null, 2));
+
     } catch (err) {
         console.error('Error triggering edge function:', err);
     }

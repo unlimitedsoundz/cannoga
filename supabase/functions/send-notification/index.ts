@@ -67,11 +67,11 @@ serve(async (req) => {
 
         // If applicationId is provided but no record, fetch it
         if (!applicationData && applicationId) {
-                const { data: app } = await supabase
-                    .from('applications')
-                    .select('*, user:profiles(*), course:Course(title, degreeLevel)')
-                    .eq('id', applicationId)
-                    .single();
+            const { data: app } = await supabase
+                .from('applications')
+                .select('*, user:profiles(*), course:Course(title, degreeLevel)')
+                .eq('id', applicationId)
+                .single();
 
 
             if (app) {
@@ -361,7 +361,6 @@ serve(async (req) => {
                     </ul>
 
                     <p><a href="https://cannogacollege.ca/portal">Log In and View Letter of Acceptance</a></p>
-                    ${loaDocUrl ? `<p><a href="${loaDocUrl}" target="_blank">Download Official Letter of Acceptance (LOA PDF)</a></p>` : ''}
 
                     <p>Important Request: Please act promptly to accept your offer and fulfill the conditions, as places are limited and allocated on a first-come, first-served basis once conditions are met.</p>
                     <p>We are very impressed by your application and look forward to welcoming you to our creative community in Canada.</p>
@@ -383,13 +382,59 @@ serve(async (req) => {
                 break;
 
             case 'OFFER_ACCEPTED':
-                studentSubject = "Offer Acceptance Confirmed — Cannoga College";
+                studentSubject = "Letter of Acceptance Confirmed — Cannoga College";
+
+                const acceptedAppId = applicationData?.id || record?.id || record?.application_id;
+                let acceptedDocUrl = applicationData?.document_url || null;
+                if (acceptedAppId) {
+                    try {
+                        const { data: pdfRes } = await supabaseAdmin.functions.invoke('generate-admission-letter', {
+                            body: { applicationId: acceptedAppId, type: 'OFFER' }
+                        });
+                        if (pdfRes?.url) {
+                            acceptedDocUrl = pdfRes.url;
+                        }
+                        if (pdfRes?.pdfBase64) {
+                            studentAttachments.push({
+                                filename: `Cannoga_Letter_of_Acceptance_${firstName || 'Student'}.pdf`,
+                                content: pdfRes.pdfBase64
+                            });
+                        } else if (acceptedDocUrl) {
+                            try {
+                                const fetchRes = await fetch(acceptedDocUrl);
+                                if (fetchRes.ok) {
+                                    const buf = await fetchRes.arrayBuffer();
+                                    const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+                                    studentAttachments.push({
+                                        filename: `Cannoga_Letter_of_Acceptance_${firstName || 'Student'}.pdf`,
+                                        content: b64
+                                    });
+                                }
+                            } catch (fErr) {
+                                console.warn("[send-notification] Could not fetch accepted LOA PDF URL:", fErr);
+                            }
+                        }
+                    } catch (err) {
+                        console.error("[send-notification] Error retrieving LOA PDF for offer acceptance:", err);
+                    }
+                }
+
+                if (!acceptedDocUrl && acceptedAppId) {
+                    const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
+                    acceptedDocUrl = `${supabaseUrl}/storage/v1/object/public/application-documents/offer-letters/offer_letter_${acceptedAppId}.pdf`;
+                }
+
                 studentHtml = `
                     <p>Dear ${firstName},</p>
-                    <p>Thank you for accepting your admission offer to Cannoga College!</p>
-                    <p>Your place in the <strong>${applicationData?.course_title || 'degree programme'}</strong> is reserved. Please fulfill your deposit or pending condition to receive your final Official Admission Letter.</p>
-                    <p><a href="https://cannogacollege.ca/portal">View Admission Portal</a></p>
-                    <p>Warm regards,<br>Admissions Office</p>
+                    <p>Congratulations! Thank you for accepting your offer of admission to Cannoga College for the <strong>${applicationData?.course_title || 'degree programme'}</strong>.</p>
+                    <p><strong>Fulfill Your Conditions:</strong> Fulfill the conditions outlined in your Letter of Acceptance (LOA) (such as paying your tuition fee deposit). Once the conditions are met, you will be issued your Provincial Attestation Letter (PAL). Please allow 6-10 working days for issuance.</p>
+                    ${acceptedDocUrl ? `<p><a href="${acceptedDocUrl}" target="_blank">Download Official Letter of Acceptance (LOA PDF)</a></p>` : ''}
+                    <p><a href="https://cannogacollege.ca/portal">Log In to Student Portal</a></p>
+                    <p>Warm regards,<br>
+                    Todd Banning<br>
+                    International Admissions Officer<br>
+                    admissions@cannogacollege.ca<br>
+                    https://cannogacollege.ca</p>
                 `;
                 adminSubject = `Offer Accepted: ${fullName}`;
                 adminHtml = `
@@ -510,7 +555,7 @@ serve(async (req) => {
                 const totalPaid = baseAmount + totalAncillary2;
                 const formattedTotal2 = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(totalPaid);
                 const formattedBase = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(baseAmount);
-                
+
                 studentHtml = `
                     <p>Hello ${firstName}, we have received your payment of <strong>${formattedTotal2}</strong>.</p>
                     <p><strong>Reference:</strong> ${additionalData?.reference || 'N/A'}</p>
@@ -562,7 +607,7 @@ serve(async (req) => {
                     <p><a href="https://cannogacollege.ca/admin/housing">Manage Housing</a></p>
                 `;
                 break;
-            
+
             case 'HOUSING_ASSIGNED':
                 studentSubject = "Your Housing Assignment is Ready! - Cannoga College";
                 studentHtml = `
@@ -607,7 +652,7 @@ serve(async (req) => {
 
             case 'INVOICE_READY':
                 const rawInvType = additionalData?.invoiceType || 'TUITION_DEPOSIT';
-                const invType = rawInvType.split('_').map((word: string) => 
+                const invType = rawInvType.split('_').map((word: string) =>
                     word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
                 ).join(' ');
                 const invAmt = additionalData?.amount ? new Intl.NumberFormat('en-IE', { style: 'currency', currency: additionalData?.currency || 'CAD', maximumFractionDigits: 0 }).format(additionalData.amount) : 'TBD';
@@ -625,7 +670,7 @@ serve(async (req) => {
                     <p>Total Due: ${formattedTotal}</p>
                     <p><a href="https://cannogacollege.ca/portal/application/payment">Pay Invoice Securely</a></p>
                 `;
-                
+
                 adminSubject = `Invoice Sent: ${invType} - ${fullName}`;
                 adminHtml = `
                     <h2>Invoice Notification Sent</h2>
@@ -682,7 +727,7 @@ serve(async (req) => {
         // Send Student Email if applicable
         if (studentSubject && userEmail) {
             console.log(`[send-notification] Sending student email to: ${userEmail} (Subject: ${studentSubject})`);
-            
+
             const finalHtml = wrapHtml(studentHtml);
             const emailOptions: any = {
                 from: sender,
@@ -694,7 +739,7 @@ serve(async (req) => {
                 emailOptions.attachments = studentAttachments;
                 console.log(`[send-notification] Attaching ${studentAttachments.length} file(s) to student email.`);
             }
-                
+
             const { data, error } = await resend.emails.send(emailOptions);
             if (error) {
                 console.error(`[send-notification] Resend Student Error:`, error);
@@ -734,11 +779,11 @@ serve(async (req) => {
             });
         }
 
-        return new Response(JSON.stringify({ 
-            success: true, 
-            studentEmailId: studentResult?.id, 
+        return new Response(JSON.stringify({
+            success: true,
+            studentEmailId: studentResult?.id,
             adminEmailId: adminResult?.id,
-            warnings: errors 
+            warnings: errors
         }), {
             headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
