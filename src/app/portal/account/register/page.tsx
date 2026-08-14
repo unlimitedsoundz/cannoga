@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from "@aalto-dx/react-components";
 import { Button } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
-import { Eye, EyeSlash, CaretDown } from "@phosphor-icons/react/dist/ssr";
+import { Eye, EyeSlash, CaretDown, ArrowsCounterClockwise } from "@phosphor-icons/react/dist/ssr";
 import { registerApplicant } from '../actions';
 import DateSelector from '@/components/ui/DateSelector';
 import { countries } from '@/data/country-requirements';
@@ -87,6 +87,27 @@ export default function RegisterPage() {
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
     const [showPassword, setShowPassword] = useState(false);
 
+    const [captchaCode, setCaptchaCode] = useState('');
+    const [userCaptchaInput, setUserCaptchaInput] = useState('');
+
+    const generateCaptcha = () => {
+        const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+        let code = '';
+        for (let i = 0; i < 5; i++) {
+            code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return code;
+    };
+
+    useEffect(() => {
+        setCaptchaCode(generateCaptcha());
+    }, []);
+
+    const refreshCaptcha = () => {
+        setCaptchaCode(generateCaptcha());
+        setUserCaptchaInput('');
+    };
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => {
@@ -119,6 +140,13 @@ export default function RegisterPage() {
         e.preventDefault();
         setIsLoading(true);
         setMessage(null);
+
+        if (userCaptchaInput.trim().toUpperCase() !== captchaCode) {
+            setMessage({ type: 'error', text: 'Security CAPTCHA verification failed. Please enter the correct verification code.' });
+            setIsLoading(false);
+            refreshCaptcha();
+            return;
+        }
 
         try {
             const applicantData = {
@@ -813,6 +841,37 @@ export default function RegisterPage() {
                                         I understand that the information submitted on this application will be used to verify or assign a Student Identification Number (SIN) for the purposes of student registration and admission, program evaluation, and system-level research.
                                     </span>
                                 </label>
+                            </div>
+                        </div>
+
+                        {/* Security CAPTCHA Section */}
+                        <div className="pt-4 border-t border-neutral-100 space-y-3">
+                            <h2 className="bg-neutral-100 text-black text-[13px] font-bold px-3 py-1.5 rounded-md mb-3 border border-neutral-200/60">Security Verification</h2>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Security Code <span className="text-red-600">*</span></label>
+                                <div className="flex items-center gap-3 w-full max-w-[400px]">
+                                    <div className="relative select-none bg-neutral-200 border border-neutral-300 rounded-lg px-3 py-1.5 tracking-[0.35em] font-mono text-base font-bold text-neutral-800 flex items-center justify-between min-w-[130px] shadow-inner">
+                                        <span className="line-through decoration-neutral-500 decoration-2 italic">{captchaCode}</span>
+                                        <button
+                                            type="button"
+                                            onClick={refreshCaptcha}
+                                            title="Refresh Code"
+                                            className="ml-2 text-neutral-600 hover:text-black transition-colors cursor-pointer"
+                                        >
+                                            <ArrowsCounterClockwise size={16} weight="bold" />
+                                        </button>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        required
+                                        maxLength={6}
+                                        value={userCaptchaInput}
+                                        onChange={(e) => setUserCaptchaInput(e.target.value)}
+                                        placeholder="Enter code"
+                                        className="w-full h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] uppercase tracking-wider"
+                                    />
+                                </div>
                             </div>
                         </div>
 
