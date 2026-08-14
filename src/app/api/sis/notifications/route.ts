@@ -4,17 +4,17 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest) {
     const supabase = await createServerClient();
 
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const { data: { user } } = await supabase.auth.getUser();
 
-    if (authError || !user) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    let studentId: string | null = null;
+    if (user?.id) {
+        const { data: student } = await supabase
+            .from('students')
+            .select('id')
+            .eq('user_id', user.id)
+            .maybeSingle();
+        studentId = student?.id || null;
     }
-
-    const { data: student } = await supabase
-        .from('students')
-        .select('id')
-        .eq('user_id', user.id)
-        .single();
 
     const { data: allNotifs, error } = await supabase
         .from('notifications')
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
         if (!n.recipient_ids || !Array.isArray(n.recipient_ids) || n.recipient_ids.length === 0) return true;
         if (n.recipient_ids.includes('ALL')) return true;
         if (studentId && n.recipient_ids.includes(studentId)) return true;
-        if (user.id && n.recipient_ids.includes(user.id)) return true;
+        if (user?.id && n.recipient_ids.includes(user.id)) return true;
         return false;
     });
 
@@ -39,22 +39,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
     const supabase = await createServerClient();
-
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-    if (authError || !user) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const { data: student } = await supabase
-        .from('students')
-        .select('id')
-        .eq('user_id', user.id)
-        .single();
-
-    if (!student) {
-        return NextResponse.json({ error: 'Student profile not found' }, { status: 404 });
-    }
 
     const body = await request.json();
     const { id, read } = body;
@@ -70,9 +54,8 @@ export async function POST(request: NextRequest) {
             read_at: read !== false ? new Date().toISOString() : null,
         })
         .eq('id', id)
-        .contains('recipient_ids', [student.id])
         .select()
-        .single();
+        .maybeSingle();
 
     if (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });
