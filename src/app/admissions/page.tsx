@@ -198,7 +198,7 @@ export default async function AdmissionsPage() {
                                     <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
                                         Study in Canada (IRCC) <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
                                     </a>
-                                    <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/study-permit-application-guide.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
+                                    <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/apply.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
                                         Study Permit Guide <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
                                     </a>
                                 </div>

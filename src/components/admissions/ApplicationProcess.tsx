@@ -40,7 +40,7 @@ const steps = [
       <div className="space-y-4">
         <p>Review the visa and study permit requirements for international students in Canada.</p>
         <a
-          href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/study-permit-application-guide.html"
+          href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/apply.html"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline"
@@ -91,7 +91,7 @@ const steps = [
       <div className="space-y-4">
         <p>Apply for your study permit and any required visas through the Government of Canada website.</p>
         <a
-          href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/study-permit-application-guide.html"
+          href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/apply.html"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline"

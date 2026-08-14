@@ -148,7 +148,7 @@ export default function CountryRequirementsDropdown() {
                 <ChevronUp size={14} strokeWidth={2} />
               </a>
               <a
-                href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/study-permit-application-guide.html"
+                href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/apply.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-bold text-[#0f2027] hover:underline flex items-center gap-2"
@@ -157,7 +157,7 @@ export default function CountryRequirementsDropdown() {
                 <ChevronUp size={14} strokeWidth={2} />
               </a>
               <a
-                href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/provincial-attestation-letter.html"
+                href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/get-documents/provincial-attestation-letter.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-bold text-[#0f2027] hover:underline flex items-center gap-2"
@@ -166,12 +166,12 @@ export default function CountryRequirementsDropdown() {
                 <ChevronUp size={14} strokeWidth={2} />
               </a>
               <a
-                href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/application-guide.html"
+                href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-bold text-[#0f2027] hover:underline flex items-center gap-2"
               >
-                Immigration Application Guide
+                Immigration Application Guides
                 <ChevronUp size={14} strokeWidth={2} />
               </a>
             </div>
