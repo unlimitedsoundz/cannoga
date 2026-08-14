@@ -97,7 +97,11 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
     }
     toast.success('Signed out successfully');
     setTimeout(() => {
-      router.push('/portal/account/login');
+      if (isAdmin || role === 'ADMIN' || (typeof window !== 'undefined' && window.location.pathname.startsWith('/sis/admin'))) {
+        window.location.href = '/portal/account/admin-login';
+      } else {
+        window.location.href = '/portal/account/login';
+      }
     }, 1000);
   };
 
