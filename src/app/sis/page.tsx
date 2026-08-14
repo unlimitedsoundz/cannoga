@@ -628,53 +628,6 @@ export default function SISStudentDashboard() {
                 if (docResult.data) setDocuments(docResult.data);
                 if (facultyResult.data) setFaculty(facultyResult.data);
                 
-                const defaultNews: Announcement[] = [
-                    {
-                        id: 'def-1',
-                        title: 'Fall 2026 Academic Orientation & Check-In',
-                        excerpt: 'Mandatory orientation sessions and campus check-in schedules for all incoming international and domestic students.',
-                        content: 'Welcome to Cannoga College! Please review your orientation schedule in the Student Portal.',
-                        priority: 'high',
-                        status: 'published',
-                        publish_start: new Date().toISOString(),
-                        publish_end: '',
-                        created_at: new Date().toISOString(),
-                    },
-                    {
-                        id: 'def-2',
-                        title: 'Course Registration Window Now Open',
-                        excerpt: 'Online course add/drop and timetable registration is now active for the upcoming academic term.',
-                        content: 'Ensure all tuition deposits are verified before selecting your module sections.',
-                        priority: 'normal',
-                        status: 'published',
-                        publish_start: new Date().toISOString(),
-                        publish_end: '',
-                        created_at: new Date().toISOString(),
-                    },
-                    {
-                        id: 'def-3',
-                        title: 'Debbie Voice Agent Assistant Available 24/7',
-                        excerpt: 'Get instant answers for admissions, tuition inquiries, and student services via voice call or online chat.',
-                        content: 'Dial +1 227 250 0427 to speak directly with Debbie.',
-                        priority: 'normal',
-                        status: 'published',
-                        publish_start: new Date().toISOString(),
-                        publish_end: '',
-                        created_at: new Date().toISOString(),
-                    },
-                    {
-                        id: 'def-4',
-                        title: 'Campus Library & Digital Resource Hours',
-                        excerpt: 'Extended operating hours and online database access available 24/7 for research and coursework.',
-                        content: 'Access thousands of e-books and journals directly through your student credentials.',
-                        priority: 'normal',
-                        status: 'published',
-                        publish_start: new Date().toISOString(),
-                        publish_end: '',
-                        created_at: new Date().toISOString(),
-                    },
-                ];
-
                 const fetchedAnnouncements = (newsResult.data || []) as Announcement[];
                 const fetchedNewsArticles = (dbNewsResult.data || []).map((n: any) => ({
                     id: n.id,
@@ -700,19 +653,7 @@ export default function SISStudentDashboard() {
                 })) as Announcement[];
 
                 const allCombined = [...fetchedAnnouncements, ...fetchedNewsArticles, ...fetchedEvents];
-                if (allCombined.length > 0) {
-                    const combined = [...allCombined];
-                    if (combined.length < 4) {
-                        for (const d of defaultNews) {
-                            if (!combined.some(c => c.title === d.title) && combined.length < 5) {
-                                combined.push(d);
-                            }
-                        }
-                    }
-                    setNews(combined);
-                } else {
-                    setNews(defaultNews);
-                }
+                setNews(allCombined);
                 if (financialAidResult.data) setFinancialAid(financialAidResult.data as FinancialAid[]);
                 if (scholarshipsResult.data) setScholarships(scholarshipsResult.data as Scholarship[]);
                 if (scholarshipAppsResult.data) setScholarshipApplications(scholarshipAppsResult.data as ScholarshipApplication[]);
