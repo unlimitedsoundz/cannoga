@@ -369,7 +369,7 @@ export default function SISStudentDashboard() {
                             id: n.id,
                             title: n.title,
                             description: n.message || n.description || '',
-                            time: new Date(n.created_at || Date.now()).toLocaleDateString(),
+                            time: new Date(n.created_at || Date.now()).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
                             priority: n.priority || 'normal',
                             read: n.read || false,
                         }));
