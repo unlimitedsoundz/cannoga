@@ -1,4 +1,4 @@
-﻿import { createStaticClient } from '@/lib/supabase/static';
+import { createStaticClient } from '@/lib/supabase/static';
 
 // Revalidate every hour; admin mutations call revalidatePath() for immediate updates.
 export const revalidate = 3600;
@@ -17,7 +17,15 @@ interface Props {
 }
 
 
-export const dynamicParams = false;
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+    const supabase = createStaticClient();
+    const { data: events } = await supabase.from('Event').select('slug');
+    return (events || []).map((item) => ({
+        slug: item.slug,
+    }));
+}
 
 export async function generateMetadata({ params }: Props) {
     const { slug } = await params;
