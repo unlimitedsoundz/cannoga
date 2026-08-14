@@ -1098,7 +1098,6 @@ export default function SISStudentDashboard() {
                                 <div className="relative z-10 w-full flex flex-col md:flex-row md:items-end justify-between gap-4">
                                     <div>
                                         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">Welcome back, {displayName.split(' ')[0]}</h1>
-                                        <p className="text-xs sm:text-sm text-slate-300 mt-1 font-medium">{programName} {student?.enrollment_status === 'ACTIVE' ? '| Active Student' : ''}</p>
                                     </div>
                                     <div className="flex items-center space-x-3 bg-[#0a151a]/90 backdrop-blur-md p-3 rounded-lg self-start md:self-auto">
                                         <div>
