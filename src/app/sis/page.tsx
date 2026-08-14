@@ -1300,7 +1300,7 @@ export default function SISStudentDashboard() {
                                                     <div className="mt-2">
                                                         <div className="text-xs font-bold text-white leading-tight">{n.title}</div>
                                                         <div className="text-[11px] text-neutral-300 mt-1 leading-snug">{n.description}</div>
-                                                        <div className="text-[10px] font-medium text-neutral-500 mt-2">{n.time}</div>
+                                                        <div className="text-[9px] font-semibold text-white mt-1.5 opacity-90">{n.time}</div>
                                                     </div>
                                                 </div>
                                             ))

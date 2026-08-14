@@ -133,7 +133,7 @@ function SwipeableNotificationItem({
         <div className="mt-1">
           <div className="text-[11px] font-bold text-white leading-tight line-clamp-1">{n.title}</div>
           <div className="text-[10px] text-neutral-300 mt-0.5 leading-tight line-clamp-2">{n.description}</div>
-          <div className="text-[9px] font-medium text-neutral-500 mt-1 flex items-center justify-between">
+          <div className="text-[9px] font-semibold text-white mt-1 flex items-center justify-between opacity-90">
             <span>{n.time}</span>
           </div>
         </div>
