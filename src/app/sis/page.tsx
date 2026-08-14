@@ -1528,8 +1528,8 @@ export default function SISStudentDashboard() {
                                                                 onClick={() => setSelectedNewsModalItem(item)}
                                                                 className="flex items-start space-x-3 pt-2.5 first:pt-0 border-t first:border-t-0 border-slate-100 cursor-pointer hover:bg-slate-50 p-1 rounded-lg transition group"
                                                             >
-                                                                <div className="text-center shrink-0 min-w-[44px] bg-slate-100 rounded-lg py-1 px-1.5 border border-slate-200">
-                                                                    <span className="block text-[10px] font-black text-slate-600 leading-tight uppercase">
+                                                                <div className="text-center shrink-0 min-w-[40px]">
+                                                                    <span className="block text-[10px] font-black text-slate-500 leading-tight uppercase">
                                                                         {item.publish_start ? pubDateObj.toLocaleDateString('en-CA', { month: 'short' }) : 'AUG'}
                                                                     </span>
                                                                     <span className="block text-sm font-extrabold text-slate-900 leading-tight">
