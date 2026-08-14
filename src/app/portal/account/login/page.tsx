@@ -67,6 +67,40 @@ export default function PortalLoginPage() {
         }
     };
 
+    const [showForgotModal, setShowForgotModal] = useState(false);
+    const [resetEmail, setResetEmail] = useState('');
+    const [isResetting, setIsResetting] = useState(false);
+    const [resetSuccess, setResetSuccess] = useState(false);
+
+    const handleForgotPassword = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!resetEmail) return;
+        setIsResetting(true);
+        setError(null);
+
+        try {
+            const { createClient } = await import('@/utils/supabase/client');
+            const supabase = createClient();
+            const redirectTo = `${window.location.origin}/auth/reset-password`;
+
+            const { error: resetErr } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+                redirectTo,
+            });
+
+            if (resetErr) {
+                toast.error(resetErr.message);
+                setError(resetErr.message);
+            } else {
+                setResetSuccess(true);
+                toast.success('Password reset link sent to your email');
+            }
+        } catch (err: any) {
+            toast.error('Failed to send reset link. Please try again.');
+        } finally {
+            setIsResetting(false);
+        }
+    };
+
     return (
         <>
             <Toaster position="top-right" />
@@ -113,7 +147,20 @@ export default function PortalLoginPage() {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Password</label>
+                                <div className="flex justify-between items-center mb-1">
+                                    <label className="block text-xs font-medium font-black text-neutral-700">Password</label>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setResetEmail(identifier.includes('@') ? identifier : '');
+                                            setShowForgotModal(true);
+                                            setResetSuccess(false);
+                                        }}
+                                        className="text-xs text-neutral-500 hover:text-black font-semibold transition-colors"
+                                    >
+                                        Forgot password?
+                                    </button>
+                                </div>
                                 <div className="relative">
                                     <input
                                         type={showPassword ? 'text' : 'password'}
@@ -153,6 +200,73 @@ export default function PortalLoginPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Forgot Password Modal */}
+            {showForgotModal && (
+                <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl relative">
+                        <button
+                            onClick={() => setShowForgotModal(false)}
+                            className="absolute top-4 right-4 text-neutral-400 hover:text-black font-bold"
+                        >
+                            ✕
+                        </button>
+                        <h2 className="text-xl font-bold text-neutral-900 mb-2">Reset Your Password</h2>
+                        <p className="text-sm text-neutral-600 mb-4">
+                            Enter your email address below and we will send you a link to reset your password.
+                        </p>
+
+                        {resetSuccess ? (
+                            <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-center space-y-2">
+                                <p className="text-emerald-800 text-sm font-semibold">
+                                    Reset Link Sent!
+                                </p>
+                                <p className="text-xs text-emerald-700">
+                                    Check your inbox for instructions to set your new password.
+                                </p>
+                                <button
+                                    onClick={() => setShowForgotModal(false)}
+                                    className="mt-2 text-xs bg-emerald-800 text-white px-4 py-2 rounded-lg font-bold hover:bg-emerald-900"
+                                >
+                                    Done
+                                </button>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleForgotPassword} className="space-y-4">
+                                <div>
+                                    <label className="block text-xs font-bold text-neutral-700 mb-1">
+                                        Account Email
+                                    </label>
+                                    <input
+                                        type="email"
+                                        required
+                                        value={resetEmail}
+                                        onChange={(e) => setResetEmail(e.target.value)}
+                                        placeholder="your.email@example.com"
+                                        className="w-full px-4 py-2 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black outline-none text-sm"
+                                    />
+                                </div>
+                                <div className="flex gap-2 justify-end pt-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowForgotModal(false)}
+                                        className="px-4 py-2 text-sm text-neutral-600 hover:text-black font-semibold"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        disabled={isResetting}
+                                        className="px-4 py-2 text-sm bg-black text-white font-bold rounded-lg hover:bg-neutral-800 disabled:opacity-50"
+                                    >
+                                        {isResetting ? 'Sending...' : 'Send Reset Link'}
+                                    </button>
+                                </div>
+                            </form>
+                        )}
+                    </div>
+                </div>
+            )}
         </>
     );
 }
