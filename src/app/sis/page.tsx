@@ -587,6 +587,8 @@ export default function SISStudentDashboard() {
                     scholarshipAppsResult,
                     installmentPlansResult,
                     bankAccountsResult,
+                    dbNewsResult,
+                    dbEventResult,
                 ] = await Promise.all([
                     supabase.from('module_enrollments').select('*, module:modules(code, title, credits), semester:semesters(name, start_date, end_date)').eq('student_id', currentStudentId),
                     supabase.from('invoices').select('*').eq('student_id', currentStudentId).order('issued_date', { ascending: false }),
@@ -600,6 +602,8 @@ export default function SISStudentDashboard() {
                     supabase.from('scholarship_applications').select('*').eq('student_id', currentStudentId).order('submitted_at', { ascending: false }),
                     supabase.from('installment_plans').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
                     supabase.from('bank_accounts').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
+                    supabase.from('News').select('id, title, excerpt, publishDate, created_at').order('created_at', { ascending: false }).limit(20),
+                    supabase.from('Event').select('id, title, excerpt, date, created_at').order('created_at', { ascending: false }).limit(20),
                 ]);
 
                 const enrollmentData = enrollmentResult.data;
@@ -671,9 +675,33 @@ export default function SISStudentDashboard() {
                     },
                 ];
 
-                if (newsResult.data && newsResult.data.length > 0) {
-                    // Combine fetched database announcements with defaults if less than 4
-                    const combined = [...newsResult.data];
+                const fetchedAnnouncements = (newsResult.data || []) as Announcement[];
+                const fetchedNewsArticles = (dbNewsResult.data || []).map((n: any) => ({
+                    id: n.id,
+                    title: n.title,
+                    excerpt: n.excerpt || '',
+                    content: n.excerpt || '',
+                    priority: 'News',
+                    status: 'published',
+                    publish_start: n.publishDate || n.created_at,
+                    publish_end: '',
+                    created_at: n.created_at || new Date().toISOString(),
+                })) as Announcement[];
+                const fetchedEvents = (dbEventResult.data || []).map((e: any) => ({
+                    id: e.id,
+                    title: e.title,
+                    excerpt: e.excerpt || '',
+                    content: e.excerpt || '',
+                    priority: 'Event',
+                    status: 'published',
+                    publish_start: e.date || e.created_at,
+                    publish_end: '',
+                    created_at: e.created_at || new Date().toISOString(),
+                })) as Announcement[];
+
+                const allCombined = [...fetchedAnnouncements, ...fetchedNewsArticles, ...fetchedEvents];
+                if (allCombined.length > 0) {
+                    const combined = [...allCombined];
                     if (combined.length < 4) {
                         for (const d of defaultNews) {
                             if (!combined.some(c => c.title === d.title) && combined.length < 5) {
