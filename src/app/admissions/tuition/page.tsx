@@ -115,8 +115,8 @@ export default async function TuitionPaymentPage() {
                     alt: "Tuition Fees, Payment Plans & Scholarships"
                 }}
             >
-                <Link href="#payment-methods" className="text-aalto-3 font-bold underline underline-offset-8 decoration-white hover:opacity-80 transition-colors text-white inline-flex items-center gap-2">
-                    View payment methods <ArrowRight size={20} weight="bold" />
+                <Link href="#payment-methods" className="bg-white text-[#0a151a] hover:bg-slate-200 font-bold text-xs uppercase tracking-wider px-6 py-3.5 transition-colors inline-flex items-center gap-2.5 no-underline shrink-0">
+                    View payment methods <ArrowRight size={16} weight="bold" />
                 </Link>
             </Hero>
             <div className="cc-container py-8 md:py-16">
