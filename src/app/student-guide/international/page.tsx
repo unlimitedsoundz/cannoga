@@ -58,11 +58,6 @@ export default function InternationalGuidePage() {
                 backgroundColor="#000000"
                 tinted
                 lightText={true}
-                breadcrumbs={[
-                    { label: 'Home', href: '/' },
-                    { label: 'Student Guide', href: '/student-guide' },
-                    { label: 'International Students' }
-                ]}
                 image={{
                     src: "/images/international-students-hero.png",
                     alt: "International students at Cannoga College Ottawa"
