@@ -127,7 +127,6 @@ export default function WhyStudyInOttawaCanadaPage() {
                             sizes="(max-width: 768px) 100vw, 800px"
                         />
                     </div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-neutral-500 mt-4">Cannoga College Campus | Ottawa</p>
                 </div>
 
                 {/* Editorial Article Reasons */}

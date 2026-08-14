@@ -7,7 +7,9 @@ import { CTA } from "@aalto-dx/react-modules";
 import { Event } from '@/types/database';
 import { createClient } from '@/utils/supabase/client';
 import { formatToDDMMYYYY } from '@/utils/date';
-import { Calendar, MapPin, Clock, Tag, CaretLeft as ChevronLeft } from "@phosphor-icons/react";
+import { CaretLeft, Calendar, MapPin, Clock, Tag } from "@phosphor-icons/react";
+import { Info } from '@/components/ui/Info';
+import { Hero } from '@/components/layout/Hero';
 
 interface EventDetailClientProps {
     initialEvent: Event;
@@ -32,95 +34,100 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
             }
         }
         fetchLatest();
-        }, [initialEvent.id, initialEvent.updated_at, initialEvent.content]);
+    }, [initialEvent.id, initialEvent.updated_at, initialEvent.content]);
 
     return (
-        <div className="min-h-screen bg-white">
-            {/* HERO SECTION */}
-            <section className="text-black overflow-hidden" style={{ backgroundColor: '#FDF2F8' }}>
-                <div className="container mx-auto flex flex-col lg:flex-row items-center gap-2 lg:gap-16 pt-0 md:pt-12 pb-12 lg:pb-0 h-auto lg:h-[600px] lg:py-0 relative mb-0">
-                    {/* Left Content */}
-                    <div className="lg:w-1/2 space-y-6 relative z-10 flex flex-col justify-center h-full pt-2 lg:pt-0 px-4 md:px-0">
-                        <div className="text-sm font-bold text-black uppercase tracking-wider mb-2">
-                            {currentEvent.category || 'Event'} • {formatToDDMMYYYY(currentEvent.date)}
-                        </div>
-                        <h1 className="font-bold text-4xl lg:text-[40px] leading-[1.1] tracking-tight pt-0 text-black">
-                            {currentEvent.title}
-                        </h1>
-                        <div className="flex flex-wrap gap-6 items-center text-black font-bold">
-                            {currentEvent.location && (
-                                <div className="flex items-center gap-2">
-                                    <MapPin size={20} weight="bold" />
-                                    <span>{currentEvent.location}</span>
-                                </div>
-                            )}
-                            <div className="flex items-center gap-2">
-                                <Clock size={20} weight="bold" />
-                                <span>{new Date(currentEvent.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-                            </div>
-                        </div>
-                    </div>
+        <div className="min-h-screen bg-white font-sans text-black">
+            {/* Hero */}
+            <Hero
+                title={currentEvent.title}
+                body={`Join us on ${formatToDDMMYYYY(currentEvent.date)} at ${currentEvent.location || 'Cannoga Ottawa Campus'}.`}
+                image={{
+                    src: currentEvent.imageUrl || "/images/home-carousel-2.png",
+                    alt: currentEvent.title
+                }}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'News & Events', href: '/news' },
+                    { label: currentEvent.title }
+                ]}
+            />
 
-                    {/* Right Image */}
-                    <div className="lg:w-1/2 h-full w-full relative lg:translate-y-16 z-20 flex justify-center lg:block order-first lg:order-none">
-                        <div className="h-full w-full">
-                            <div className="relative w-full aspect-square md:aspect-auto lg:w-full lg:h-full bg-neutral-800">
-                                {currentEvent.imageUrl && (
-                                    <Image
-                                        src={currentEvent.imageUrl}
-                                        alt={currentEvent.title}
-                                        fill
-                                        priority
-                                        unoptimized
-                                        className="object-cover object-top"
-                                        sizes="100vw"
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <div className="container mx-auto px-4 py-6 max-w-5xl">
+            {/* Back nav */}
+            <div className="container mx-auto px-4 py-6 max-w-4xl">
                 <Link href="/news" className="text-neutral-500 hover:text-black font-bold uppercase tracking-wider text-sm inline-flex items-center gap-2 transition-colors">
-                    <ChevronLeft size={16} weight="bold" /> Back to News & Events
+                    <CaretLeft size={16} weight="bold" /> Back to News & Events
                 </Link>
             </div>
 
-            <div className="container mx-auto px-4 py-12 md:py-24 max-w-4xl">
-                <div className="grid md:grid-cols-3 gap-12">
-                    {/* Main Content */}
-                    <div className="md:col-span-2 prose prose-lg prose-neutral">
-                        <div className="whitespace-pre-wrap text-neutral-800 leading-relaxed text-lg">
-                            {currentEvent.content}
-                        </div>
-                    </div>
+            {/* Event detail body */}
+            <div className="container mx-auto px-4 pb-16 md:pb-24 max-w-4xl">
+                <Info 
+                    items={[
+                        { title: "Event Date", body: formatToDDMMYYYY(currentEvent.date) },
+                        { title: "Location", body: currentEvent.location || "Cannoga Ottawa Campus" },
+                        { title: "Category", body: currentEvent.category || "Campus Event" },
+                        {
+                            tagGroup: {
+                                tags: [
+                                    { label: "Event" },
+                                    { label: "Ottawa" },
+                                    { label: "Campus Life" }
+                                ]
+                            }
+                        }
+                    ]}
+                />
 
-                    {/* Sidebar / CTA */}
-                    <div className="md:col-span-1">
-                        <div className="sticky top-32 space-y-8">
-                            <CTA
-                                title="Interested?"
-                                body="Join us for this exciting event at Cannoga College. No registration required unless specified."
-                                cta={{
-                                    label: "Add to Calendar",
-                                    onClick: () => { /* Handle calendar logic */ }
-                                }}
+                {/* Optional Image */}
+                {currentEvent.imageUrl && (
+                    <div className="mb-12">
+                        <div className="relative aspect-[16/9] overflow-hidden rounded-sm">
+                            <Image
+                                src={currentEvent.imageUrl}
+                                alt={currentEvent.title}
+                                fill
+                                unoptimized
+                                className="object-cover object-top"
+                                sizes="(max-width: 768px) 100vw, 800px"
                             />
-
-                            <div className="p-8 border border-neutral-200 rounded-2xl">
-                                <h4 className="font-bold mb-4 flex items-center gap-2">
-                                    <Tag size={18} weight="regular" /> Related Info
-                                </h4>
-                                <ul className="space-y-3 text-sm">
-                                    <li><Link href="/contact" className="hover:underline">Contact Campus Office</Link></li>
-                                    <li><Link href="/admissions" className="hover:underline">Admissions Information</Link></li>
-                                    <li><Link href="/student-life" className="hover:underline">Student Activities</Link></li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
+                )}
+
+                {/* Main Content Body */}
+                <div className="my-10">
+                    <div className="whitespace-pre-wrap text-base md:text-lg text-neutral-800 leading-relaxed font-normal space-y-6">
+                        {currentEvent.content || "Join us for this event at Cannoga College Ottawa Campus."}
+                    </div>
+                </div>
+
+                {/* CTA Section */}
+                <div className="py-12 mt-10">
+                    <CTA
+                        title="Interested in Attending?"
+                        body="Join us for this exciting event at Cannoga College. No advance registration required unless specified by your faculty department."
+                        cta={{
+                            label: "View All Events",
+                            linkComponentProps: {
+                                href: "/news#events",
+                            },
+                        }}
+                    />
+                </div>
+
+                {/* Related links */}
+                <div className="mt-12 grid md:grid-cols-3 gap-8">
+                    {[
+                        { title: "Student Life", href: "/student-life", desc: "Explore campus and housing." },
+                        { title: "Academic Calendar", href: "/student-guide", desc: "Schedules and key dates." },
+                        { title: "Contact Us", href: "/contact", desc: "Reach campus office." },
+                    ].map(link => (
+                        <Link key={link.href} href={link.href} className="bg-neutral-50 p-8 hover:bg-neutral-100 transition-all group border-l-2 border-transparent hover:border-[#0a151a]">
+                            <h3 className="font-bold text-[#000000] mb-2 group-hover:underline">{link.title}</h3>
+                            <p className="text-sm font-bold text-neutral-500 uppercase tracking-widest leading-relaxed">{link.desc}</p>
+                        </Link>
+                    ))}
                 </div>
             </div>
         </div>

@@ -166,7 +166,6 @@ export default function StudiesPage() {
             <div className="bg-slate-900 text-white py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-3xl mx-auto mb-12">
-                        <span className="text-[#c89211] font-bold text-xs uppercase tracking-widest block mb-2">Qualifications Framework</span>
                         <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white uppercase">Choose Your Study Pathway</h2>
                         <p className="text-sm text-slate-300 mt-2">Every program is structured with high academic standards, hands-on learning, and Post-Graduation Work Permit (PGWP) eligibility.</p>
                     </div>
@@ -200,7 +199,6 @@ export default function StudiesPage() {
             {/* Main Interactive Programs Directory */}
             <div id="all-programs" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
                 <div className="mb-10 text-center md:text-left">
-                    <span className="text-[#c89211] font-bold text-xs uppercase tracking-widest block mb-1">Interactive Catalog</span>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Full Program Directory</h2>
                     <p className="text-sm text-slate-600 mt-1 max-w-2xl">Filter by academic level, school faculty, or co-op eligibility. Compare tuition fees and credit requirements for domestic and international students.</p>
                 </div>
@@ -213,7 +211,6 @@ export default function StudiesPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
                         <div>
-                            <span className="text-[#c89211] font-bold text-xs uppercase tracking-widest block mb-1">Academic Faculties</span>
                             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Explore by School</h2>
                         </div>
                         <Link href="/admissions" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-[#c89211] transition-colors">
@@ -253,7 +250,6 @@ export default function StudiesPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="bg-[#0a151a] rounded-2xl p-8 md:p-12 border border-white/10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="max-w-2xl">
-                        <span className="text-[#c89211] font-bold text-xs uppercase tracking-widest block mb-2">Work-Integrated Learning</span>
                         <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white mb-4">Paid Co-Op Terms & Industry Internships</h2>
                         <p className="text-sm text-slate-300 leading-relaxed mb-6">
                             Over 85% of Cannoga College diploma and degree programs feature mandatory or optional co-op placements with leading Ottawa technology firms, federal government agencies, and clinical networks.

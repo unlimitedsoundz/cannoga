@@ -3,12 +3,14 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Link } from "@aalto-dx/react-components";
+import { CTA } from "@aalto-dx/react-modules";
 import { News } from '@/types/database';
 import { createClient } from '@/utils/supabase/client';
 import { formatToDDMMYYYY } from '@/utils/date';
 import { CaretLeft, FacebookLogo, TwitterLogo, LinkedinLogo, LinkSimple, ArrowRight } from "@phosphor-icons/react";
 import DynamicNewsSection from './DynamicNewsSection';
 import { Info } from '@/components/ui/Info';
+import { Hero } from '@/components/layout/Hero';
 
 interface NewsDetailClientProps {
     initialNews: News;
@@ -37,61 +39,75 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
 
     return (
         <div className="min-h-screen bg-white font-sans text-black">
-            <section className="text-black overflow-hidden border-b border-[#0a151a]/5" style={{ backgroundColor: '#FDF2F8' }}>
-                <div className="container mx-auto flex flex-col lg:flex-row items-center gap-2 lg:gap-16 pt-0 md:pt-12 pb-12 lg:pb-0 h-auto lg:h-[600px] lg:py-0 relative mb-0">
-                    {/* Left Content */}
-                    <div className="lg:w-1/2 space-y-6 relative z-10 flex flex-col justify-center h-full pt-2 lg:pt-0 px-4 md:px-0">
-                        <h1 className="font-bold text-4xl lg:text-aalto-7 leading-[1.1] lg:leading-aalto-7 tracking-aalto-3 text-black">
-                            {currentNews.title}
-                        </h1>
-                    </div>
+            {/* Hero */}
+            <Hero
+                title={currentNews.title}
+                body={currentNews.excerpt || "Official institutional announcement and updates from Cannoga College Ottawa campus."}
+                image={{
+                    src: currentNews.imageUrl || "/images/home-carousel-1.png",
+                    alt: currentNews.title
+                }}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'News', href: '/news' },
+                    { label: currentNews.title }
+                ]}
+            />
 
-                    {/* Right Image */}
-                    <div className="lg:w-1/2 h-full w-full relative lg:translate-y-16 z-20 flex justify-center lg:block order-first lg:order-none">
-                        <div className="h-full w-full">
-                            <div className="relative w-full aspect-square md:aspect-auto lg:w-full lg:h-full bg-neutral-100 overflow-hidden">
-                                {currentNews.imageUrl && (
-                                    <Image
-                                        src={currentNews.imageUrl}
-                                        alt={currentNews.title}
-                                        fill
-                                        priority
-                                        unoptimized
-                                        className="object-cover object-top"
-                                        sizes="100vw"
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <div className="container mx-auto px-4 py-6 max-w-3xl mt-12 lg:mt-24">
+            {/* Back nav */}
+            <div className="container mx-auto px-4 py-6 max-w-4xl">
                 <Link href="/news" className="text-neutral-500 hover:text-black font-bold uppercase tracking-wider text-sm inline-flex items-center gap-2 transition-colors">
                     <CaretLeft size={16} weight="bold" /> Back to News
                 </Link>
             </div>
 
-            <div className="container mx-auto px-4 pb-16 md:pb-24 max-w-3xl">
+            {/* Article body */}
+            <div className="container mx-auto px-4 pb-16 md:pb-24 max-w-4xl">
                 
                 <Info 
                     items={[
                         { title: "Published", body: formatToDDMMYYYY(currentNews.publishDate) },
-                        { title: "Type", body: "Cannoga News" },
+                        { title: "Author", body: "Cannoga Communications" },
                         {
                             tagGroup: {
                                 tags: [
-                                    { label: "University" },
-                                    { label: "Community" }
+                                    { label: "News" },
+                                    { label: "Institutional" },
+                                    { label: "Ottawa" }
                                 ]
                             }
                         }
                     ]}
                 />
 
-                <div className="prose prose-lg mx-auto">
-                    <div className="whitespace-pre-wrap text-aalto-3 text-neutral-800 leading-aalto-3 font-medium">
+                {/* Excerpt Lead */}
+                {currentNews.excerpt && (
+                    <div className="mb-10">
+                        <p className="text-aalto-4 text-neutral-800 leading-aalto-3 font-medium">
+                            {currentNews.excerpt}
+                        </p>
+                    </div>
+                )}
+
+                {/* Content Image if exists */}
+                {currentNews.imageUrl && (
+                    <div className="mb-12">
+                        <div className="relative aspect-[16/9] overflow-hidden rounded-sm">
+                            <Image
+                                src={currentNews.imageUrl}
+                                alt={currentNews.title}
+                                fill
+                                unoptimized
+                                className="object-cover object-top"
+                                sizes="(max-width: 768px) 100vw, 800px"
+                            />
+                        </div>
+                    </div>
+                )}
+
+                {/* Main Content Body */}
+                <div className="my-10">
+                    <div className="whitespace-pre-wrap text-base md:text-lg text-neutral-800 leading-relaxed font-normal space-y-6">
                         {currentNews.content}
                     </div>
                 </div>
@@ -136,21 +152,32 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
                     </div>
                 </div>
 
-                {/* Related Links */}
-                <div className="mt-20 pt-12 border-t border-neutral-100">
-                    <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-900 mb-8">Related Links</h3>
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {[
-                            { title: "Admissions", href: "/admissions", desc: "Start your journey." },
-                            { title: "Programmes", href: "/studies", desc: "What we offer." },
-                            { title: "Support", href: "/student-guide", desc: "Here to help." },
-                        ].map(link => (
-                            <Link key={link.href} href={link.href} className="bg-neutral-50 p-6 hover:bg-neutral-100 transition-all border-l-2 border-transparent hover:border-[#0a151a] group">
-                                <h4 className="font-bold text-black mb-1 group-hover:underline text-sm">{link.title}</h4>
-                                <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">{link.desc}</p>
-                            </Link>
-                        ))}
-                    </div>
+                {/* CTA Section */}
+                <div className="py-12 mt-10">
+                    <CTA
+                        title="Ready to Start Your Journey?"
+                        body="Cannoga College offers world-class career-focused programmes in Business, Technology, Science, and Health Sciences. Applications for Autumn 2026 are now open."
+                        cta={{
+                            label: "Apply Now",
+                            linkComponentProps: {
+                                href: "/admissions",
+                            },
+                        }}
+                    />
+                </div>
+
+                {/* Related links */}
+                <div className="mt-12 grid md:grid-cols-3 gap-8">
+                    {[
+                        { title: "Student Life", href: "/student-life", desc: "Explore campus and housing." },
+                        { title: "Tuition Fees", href: "/admissions/tuition", desc: "Scholarships and aids." },
+                        { title: "Arrival Guide", href: "/student-guide/arrival", desc: "Settling in Ottawa." },
+                    ].map(link => (
+                        <Link key={link.href} href={link.href} className="bg-neutral-50 p-8 hover:bg-neutral-100 transition-all group border-l-2 border-transparent hover:border-[#0a151a]">
+                            <h3 className="font-bold text-[#000000] mb-2 group-hover:underline">{link.title}</h3>
+                            <p className="text-sm font-bold text-neutral-500 uppercase tracking-widest leading-relaxed">{link.desc}</p>
+                        </Link>
+                    ))}
                 </div>
             </div>
 
@@ -181,5 +208,3 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
         </div>
     );
 }
-
-

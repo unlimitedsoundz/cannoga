@@ -36,17 +36,17 @@ export default async function Home() {
 
     const { data: news } = await supabase
         .from('News')
-        .select('title, slug, publishDate')
+        .select('*')
         .eq('published', true)
         .order('publishDate', { ascending: false })
-        .limit(3);
+        .limit(5);
 
     const { data: events } = await supabase
         .from('Event')
-        .select('title, slug, date')
+        .select('*')
         .eq('published', true)
         .order('date', { ascending: true })
-        .limit(3);
+        .limit(4);
 
     return (
         <div className="flex flex-col min-h-screen bg-white text-black font-sans">
@@ -71,7 +71,6 @@ export default async function Home() {
                 <div className="container mx-auto px-4 md:px-28 lg:px-40">
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
                         <div className="text-left max-w-2xl">
-                            <span className="text-[#c89211] font-bold uppercase tracking-widest text-xs mb-2 block">Academic Pathways in Ottawa</span>
                             <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">Academic Programs &amp; Credentials</h2>
                             <p className="text-slate-600 font-normal text-base mt-2">Explore career-focused post-secondary education at our Ottawa campus.</p>
                         </div>
@@ -108,7 +107,7 @@ export default async function Home() {
 
             {/* 3. NEWS & EVENTS GRID */}
             <section className="py-20 container mx-auto px-4 md:px-28 lg:px-40">
-                <HomeNewsEventsGrid />
+                <HomeNewsEventsGrid initialNews={news || []} initialEvents={events || []} />
             </section>
 
             {/* 3.5 CANNOGA SHORTS SECTION */}
@@ -119,7 +118,6 @@ export default async function Home() {
                 <section className="py-20 bg-[#f8fafc] border-t border-b border-slate-200">
                     <div className="container mx-auto px-4 md:px-28 lg:px-40">
                         <div className="mb-12 border-b border-slate-200 pb-4">
-                            <span className="text-[#c89211] font-bold uppercase tracking-widest text-xs mb-2 block">Faculties &amp; Divisions</span>
                             <h2 className="text-3xl font-serif font-bold text-[#0f2027]">Academic Schools</h2>
                             <p className="text-slate-600 text-sm mt-1">Discover Cannoga College's specialized academic divisions.</p>
                         </div>
@@ -139,7 +137,6 @@ export default async function Home() {
             <section className="py-12 bg-[#0a151a] text-white">
                 <div className="container mx-auto px-4 md:px-28 lg:px-40">
                     <div className="mb-6 border-b border-white/10 pb-3">
-                        <span className="text-[#c89211] font-bold uppercase tracking-widest text-xs mb-1.5 block">Campus Life &amp; Voices</span>
                         <h2 className="text-2xl md:text-3xl font-serif font-bold text-white">Student Stories</h2>
                         <p className="text-slate-400 text-sm mt-0.5">Hear directly from students studying at Cannoga College Ottawa.</p>
                     </div>
@@ -151,7 +148,6 @@ export default async function Home() {
             <section className="py-20 bg-white">
                 <div className="container mx-auto px-4 md:px-28 lg:px-40">
                     <div className="mb-12 border-b border-slate-200 pb-4">
-                        <span className="text-[#c89211] font-bold uppercase tracking-widest text-xs mb-2 block">Essential Information</span>
                         <h2 className="text-3xl font-serif font-bold text-[#0f2027]">Student Resource Hub</h2>
                         <p className="text-slate-600 text-sm mt-1">Direct access to campus services, financial aid, and academic governance.</p>
                     </div>

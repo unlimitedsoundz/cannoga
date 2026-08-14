@@ -16,23 +16,15 @@ function formatDate(dateStr: string) {
     };
 }
 
-// Static fallback important dates when DB has no events
-const FALLBACK_DATES = [
-    { id: 'f1', category: 'CURRENT STUDENTS', title: 'Fall Semester Registration Opens', date: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 2).toISOString(), slug: '' },
-    { id: 'f2', category: 'ALL STUDENTS', title: 'Orientation Week — Ottawa Campus', date: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 7).toISOString(), slug: '' },
-    { id: 'f3', category: 'INTERNATIONAL', title: 'IRCC Study Permit Deadline Reminder', date: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 14).toISOString(), slug: '' },
-    { id: 'f4', category: 'CURRENT STUDENTS', title: 'Last Day to Add/Drop Courses', date: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 21).toISOString(), slug: '' },
-];
+interface HomeNewsEventsGridProps {
+    initialNews?: any[];
+    initialEvents?: any[];
+}
 
-const FALLBACK_NEWS = [
-    { id: 'n1', title: 'Cannoga College Recognized as Top Ontario Institution for Graduate Employment', publishDate: new Date().toISOString(), excerpt: 'The latest Ministry of Colleges survey confirms Cannoga graduates lead provincial employment outcomes, with a 94% placement rate within six months.', slug: 'cannoga-graduate-employment-2026', imageUrl: '' },
-    { id: 'n2', title: 'New Partnerships Announced with Ottawa Tech Sector for Co-op Placements', publishDate: new Date(Date.now() - 86400000 * 3).toISOString(), excerpt: 'Eight leading Ottawa employers have signed co-op agreements to host Cannoga College students across engineering, business, and technology programs.', slug: 'ottawa-coop-partnerships', imageUrl: '' },
-];
-
-export function HomeNewsEventsGrid() {
-    const [news, setNews] = useState<any[]>([]);
-    const [events, setEvents] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEventsGridProps) {
+    const [news, setNews] = useState<any[]>(initialNews || []);
+    const [events, setEvents] = useState<any[]>(initialEvents || []);
+    const [loading, setLoading] = useState(!initialNews || initialNews.length === 0);
     const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
@@ -41,11 +33,10 @@ export function HomeNewsEventsGrid() {
                 const supabase = createClient();
                 const { data: newsData } = await supabase.from('News').select('*').eq('published', true).order('publishDate', { ascending: false }).limit(5);
                 const { data: eventsData } = await supabase.from('Event').select('*').eq('published', true).order('date', { ascending: true }).limit(4);
-                setNews(newsData && newsData.length > 0 ? newsData : FALLBACK_NEWS);
-                setEvents(eventsData && eventsData.length > 0 ? eventsData : FALLBACK_DATES);
+                if (newsData) setNews(newsData);
+                if (eventsData) setEvents(eventsData);
             } catch {
-                setNews(FALLBACK_NEWS);
-                setEvents(FALLBACK_DATES);
+                // Ignore query errors
             } finally {
                 setLoading(false);
             }

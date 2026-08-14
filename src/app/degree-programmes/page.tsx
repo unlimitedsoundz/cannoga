@@ -65,7 +65,6 @@ export default function DegreeProgrammesPage() {
 
                     {/* Hero */}
                     <section className="border-b-2 border-[#0a151a] pb-12">
-                        <p className="cc-label uppercase tracking-widest mb-3">Academic Offerings</p>
                         <h1 className="cc-h1 mb-6">Programs &amp; Degrees</h1>
                         <p className="text-lg text-neutral-600 leading-relaxed max-w-2xl">
                             Discover our diverse range of career-focused programs designed to prepare you for success.
