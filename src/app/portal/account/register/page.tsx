@@ -124,7 +124,7 @@ export default function RegisterPage() {
 
                     <div className="mb-6 text-xs text-black leading-relaxed space-y-2 font-medium">
                         <p>
-                            Cannoga College has three intakes each year for academic programs: Winter Semester (January), Summer Semester (May), and Fall Semester (September). Students are recommended to apply at least 2-3 months before the start of the program. Our application deadlines for international students are:
+                            Cannoga College has two intakes each year for academic programs: Winter Semester (January) and Fall Semester (September). Students are recommended to apply at least 2-3 months before the start of the program. Our application deadlines for international students are:
                         </p>
                         <ul className="list-disc list-inside space-y-1">
                             <li>Deadline for 2026 Fall Semester: June 2026</li>
