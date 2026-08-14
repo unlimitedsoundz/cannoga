@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -845,12 +845,28 @@ function ViewApplicationContent() {
                     {/* Application Details */}
                     <section className="bg-white border border-neutral-200 rounded-xl shadow-sm">
                         <div className="px-5 py-3 border-b border-neutral-100">
-                            <h2 className="text-xs font-bold uppercase tracking-[0.25em] text-[#2d2d2d]">Application Detail</h2>
+                            <h2 className="text-xs font-bold uppercase tracking-[0.25em] text-[#2d2d2d]">Application & Applicant Detail</h2>
                         </div>
                         <div>
                             {dataRow('Admission Name', application.application_number || application.id.slice(0, 8))}
                             {dataRow('Contact Name', application.user?.first_name && application.user?.last_name ? `${application.user.first_name}${application.user.middle_name ? ` ${application.user.middle_name}` : ''} ${application.user.last_name}` : application.personal_info?.firstName && application.personal_info?.lastName ? `${application.personal_info.firstName}${application.personal_info.middleName ? ` ${application.personal_info.middleName}` : ''} ${application.personal_info.lastName}` : application.user?.email)}
-                            {dataRow('EAP Start Date', application.intake || 'TBD')}
+                            {dataRow('Email Address', application.user?.email)}
+                            {dataRow('Gender', application.user?.gender)}
+                            {dataRow('Date of Birth', application.user?.date_of_birth)}
+                            {dataRow('Citizenship', application.user?.citizenship)}
+                            {dataRow('Passport Number', application.user?.passport_number)}
+                            {dataRow('Phone', application.user?.phone_number ? `${application.user.phone_code || ''} ${application.user.phone_number}` : null)}
+                            {dataRow('Permanent Address', application.user?.address ? `${application.user.address}, ${application.user.city || ''}, ${application.user.state_province || ''}, ${application.user.country_of_residence || ''} ${application.user.zipcode || ''}` : null)}
+                            {dataRow('Local/Canadian Address', application.user?.local_address ? `${application.user.local_address}, ${application.user.local_city || ''}, ${application.user.local_state_province || ''}, ${application.user.local_country || ''} ${application.user.local_zipcode || ''}` : application.user?.address ? 'Same as permanent address' : null)}
+                            {dataRow('19 Years or Older?', application.user?.is_19_or_older)}
+                            {dataRow('Emergency / Guardian Contact', application.user?.contact_first_name ? `${application.user.contact_first_name} ${application.user.contact_last_name}` : null)}
+                            {dataRow('Emergency / Guardian Phone', application.user?.contact_phone)}
+                            {dataRow('Emergency / Guardian Email', application.user?.contact_email)}
+                            {dataRow('Siblings at Cannoga College?', application.user?.has_siblings_at_college)}
+                            {dataRow('Who Completed Form?', application.user?.completing_form_person)}
+                            {dataRow('Housing Requirements', application.user?.housing_required)}
+                            {dataRow('How Did You Hear About Us?', application.user?.how_did_you_hear)}
+                            {dataRow('Questions / Comments', application.user?.questions_comments)}
                             {dataRow('Academic Program Choice', application.course?.title)}
                             {dataRow('Alternate Program Choice', application.alternate_course?.title || 'Not selected')}
                             {dataRow('Desired Academic Term', application.intake || 'Not provided')}
