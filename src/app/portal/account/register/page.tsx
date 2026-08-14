@@ -133,77 +133,76 @@ export default function RegisterPage() {
                     </div>
 
                     <form onSubmit={handleRegister} className="space-y-3.5">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div>
-                                <label className="block text-[13px] font-medium font-black text-black mb-0.5">Email Address <span className="text-red-600">*</span></label>
+                        <div>
+                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Email Address <span className="text-red-600">*</span></label>
+                            <input
+                                type="email"
+                                name="email"
+                                required
+                                value={formData.email}
+                                onChange={handleChange}
+                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                placeholder="you@example.com"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Password <span className="text-red-600">*</span></label>
+                            <div className="relative">
                                 <input
-                                    type="email"
-                                    name="email"
+                                    type={showPassword ? 'text' : 'password'}
+                                    name="password"
                                     required
-                                    value={formData.email}
+                                    value={formData.password}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                    placeholder="you@example.com"
+                                    className="w-full px-3 py-1.5 pr-10 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                    placeholder="Minimum 6 characters"
+                                    minLength={6}
                                 />
-                            </div>
-                            <div>
-                                <label className="block text-[13px] font-medium font-black text-black mb-0.5">Password <span className="text-red-600">*</span></label>
-                                <div className="relative">
-                                    <input
-                                        type={showPassword ? 'text' : 'password'}
-                                        name="password"
-                                        required
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        className="w-full px-3 py-1.5 pr-10 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                        placeholder="Minimum 6 characters"
-                                        minLength={6}
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black transition-colors"
-                                    >
-                                        {showPassword ? <EyeSlash size={18} /> : <Eye size={18} />}
-                                    </button>
-                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black transition-colors"
+                                >
+                                    {showPassword ? <EyeSlash size={18} /> : <Eye size={18} />}
+                                </button>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            <div>
-                                <label className="block text-[13px] font-medium font-black text-black mb-0.5">First Name <span className="text-red-600">*</span></label>
-                                <input
-                                    type="text"
-                                    name="firstName"
-                                    required
-                                    value={formData.firstName}
-                                    onChange={handleChange}
-                                    className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-[13px] font-medium font-black text-black mb-0.5">Middle Name <span className="text-black font-normal">(Optional)</span></label>
-                                <input
-                                    type="text"
-                                    name="middleName"
-                                    value={formData.middleName}
-                                    onChange={handleChange}
-                                    className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                    placeholder="Optional"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-[13px] font-medium font-black text-black mb-0.5">Last Name <span className="text-red-600">*</span></label>
-                                <input
-                                    type="text"
-                                    name="lastName"
-                                    required
-                                    value={formData.lastName}
-                                    onChange={handleChange}
-                                    className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                />
-                            </div>
+                        <div>
+                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">First Name <span className="text-red-600">*</span></label>
+                            <input
+                                type="text"
+                                name="firstName"
+                                required
+                                value={formData.firstName}
+                                onChange={handleChange}
+                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Middle Name <span className="text-black font-normal">(Optional)</span></label>
+                            <input
+                                type="text"
+                                name="middleName"
+                                value={formData.middleName}
+                                onChange={handleChange}
+                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                placeholder="Optional"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Last Name <span className="text-red-600">*</span></label>
+                            <input
+                                type="text"
+                                name="lastName"
+                                required
+                                value={formData.lastName}
+                                onChange={handleChange}
+                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                            />
                         </div>
 
                         <div>
@@ -241,35 +240,34 @@ export default function RegisterPage() {
                             </select>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div>
-                                <label className="block text-[13px] font-medium font-black text-black mb-0.5">Phone Code <span className="text-red-600">*</span></label>
-                                <select
-                                    name="phoneCode"
-                                    required
-                                    value={formData.phoneCode}
-                                    onChange={(e) => setFormData({ ...formData, phoneCode: e.target.value })}
-                                    className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                >
-                                    {phoneCodes.map((phone) => (
-                                        <option key={phone.code} value={phone.code}>
-                                            {phone.code} ({phone.country})
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div>
-                                <label className="block text-[13px] font-medium font-black text-black mb-0.5">Phone Number <span className="text-red-600">*</span></label>
-                                <input
-                                    type="tel"
-                                    name="phoneNumber"
-                                    required
-                                    value={formData.phoneNumber}
-                                    onChange={handleChange}
-                                    className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                    placeholder="e.g. 1234567890"
-                                />
-                            </div>
+                        <div>
+                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Phone Code <span className="text-red-600">*</span></label>
+                            <select
+                                name="phoneCode"
+                                required
+                                value={formData.phoneCode}
+                                onChange={(e) => setFormData({ ...formData, phoneCode: e.target.value })}
+                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                            >
+                                {phoneCodes.map((phone) => (
+                                    <option key={phone.code} value={phone.code}>
+                                        {phone.code} ({phone.country})
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Phone Number <span className="text-red-600">*</span></label>
+                            <input
+                                type="tel"
+                                name="phoneNumber"
+                                required
+                                value={formData.phoneNumber}
+                                onChange={handleChange}
+                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                placeholder="e.g. 1234567890"
+                            />
                         </div>
 
                         <div>
@@ -321,40 +319,40 @@ export default function RegisterPage() {
                             />
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            <div>
-                                <label className="block text-[13px] font-medium font-black text-black mb-0.5">City <span className="text-red-600">*</span></label>
-                                <input
-                                    type="text"
-                                    name="city"
-                                    required
-                                    value={formData.city}
-                                    onChange={handleChange}
-                                    className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-[13px] font-medium font-black text-black mb-0.5">State/Province <span className="text-red-600">*</span></label>
-                                <input
-                                    type="text"
-                                    name="state"
-                                    required
-                                    value={formData.state}
-                                    onChange={handleChange}
-                                    className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-[13px] font-medium font-black text-black mb-0.5">Zip/Postal Code <span className="text-red-600">*</span></label>
-                                <input
-                                    type="text"
-                                    name="zipcode"
-                                    required
-                                    value={formData.zipcode}
-                                    onChange={handleChange}
-                                    className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                />
-                            </div>
+                        <div>
+                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">City <span className="text-red-600">*</span></label>
+                            <input
+                                type="text"
+                                name="city"
+                                required
+                                value={formData.city}
+                                onChange={handleChange}
+                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">State/Province <span className="text-red-600">*</span></label>
+                            <input
+                                type="text"
+                                name="state"
+                                required
+                                value={formData.state}
+                                onChange={handleChange}
+                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-[13px] font-medium font-black text-black mb-0.5">Zip/Postal Code <span className="text-red-600">*</span></label>
+                            <input
+                                type="text"
+                                name="zipcode"
+                                required
+                                value={formData.zipcode}
+                                onChange={handleChange}
+                                className="w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                            />
                         </div>
 
                         <Button
