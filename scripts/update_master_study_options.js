@@ -1,21 +1,27 @@
-const { Client } = require('pg');
-const fs = require('fs');
-const path = require('path');
+import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 
-const connectionString = 'postgresql://postgres.lbkrzyqpdqgtqbodkcyi:Guiliababy21@aws-0-eu-west-1.pooler.supabase.com:6543/postgres';
-const client = new Client({ connectionString });
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-const htmlContent = `<div class="space-y-6 text-black">
+if (!supabaseUrl || !supabaseKey) {
+    console.error('Missing Supabase env credentials');
+    process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+const newContent = `<div class="space-y-6 text-black">
     <p class="text-lg leading-relaxed">Cannoga College provides master's education across diverse fields of study, including Art and Design, Business and Economics, Technology and Engineering, Education, Science, Health and Life Sciences, and Transportation and Aviation.</p>
 
-    <div class="bg-gray-50 p-6 md:p-8 rounded-2xl border border-gray-200">
+    <div>
         <h3 class="text-xl font-bold mb-4">Master’s Degrees Granted</h3>
         <ul class="space-y-3 text-base">
             <li><strong>In the field of Art and Design:</strong> Master of Arts (Art and Design)</li>
             <li><strong>In the field of Business and Economics:</strong> Master of Science (Economics and Business Administration)</li>
             <li><strong>In the field of Technology and Engineering:</strong> Master of Science (Technology), Master of Science (Architecture), or Master of Science (Landscape Architecture)</li>
-            <li><strong>In the field of Education:</strong> Master of Arts (Education) / Master of Science (Educational Leadership)</li>
-            <li><strong>In the field of Science:</strong> Master of Science (Natural & Applied Sciences)</li>
+            <li><strong>In the field of Education and Science:</strong> Master of Arts (Education), Master of Science (Educational Leadership), or Master of Science (Natural & Applied Sciences)</li>
             <li><strong>In the field of Health and Life Sciences:</strong> Master of Science (Healthcare Management & Public Health)</li>
             <li><strong>In the field of Transportation and Aviation:</strong> Master of Science (Aviation Management & Transport Logistics)</li>
         </ul>
@@ -56,23 +62,18 @@ const htmlContent = `<div class="space-y-6 text-black">
     <p class="text-sm text-gray-600 pt-2">You can find all Cannoga College study options on the <a href="/studies" class="underline font-bold text-black hover:text-neutral-700">Degree programmes page</a>. You can filter your search results by field of education, level of degree, and language of instruction. On each study option's page, you will find detailed information on the studies, language of instruction, and admissions criteria.</p>
 </div>`;
 
-(async () => {
-  try {
-    console.log('Connecting to PostgreSQL database...');
-    await client.connect();
-    console.log('Connected!');
+async function updateDb() {
+    const { data, error } = await supabase
+        .from('page_content')
+        .update({
+            content: newContent,
+            updated_at: new Date().toISOString()
+        })
+        .eq('page_slug', 'admissions/master')
+        .eq('section_key', 'study_options_content')
+        .select();
 
-    await client.query(`
-      INSERT INTO page_content (page_slug, section_key, content)
-      VALUES ('admissions/master', 'study_options_content', $1)
-      ON CONFLICT (page_slug, section_key)
-      DO UPDATE SET content = EXCLUDED.content;
-    `, [htmlContent]);
+    console.log('DB Update result:', { count: data?.length, error });
+}
 
-    console.log('✅ Successfully updated page_content table in Supabase DB for admissions/master study_options_content!');
-  } catch (err) {
-    console.error('Error updating DB:', err);
-  } finally {
-    await client.end();
-  }
-})();
+updateDb();
