@@ -563,13 +563,15 @@ serve(async (req: any) => {
             .from("application-documents")
             .getPublicUrl(filePath);
 
-        // 4. Update application status (Admission letter sets ENROLLED)
+        // 4. Update application status and document_url in DB
+        const appUpdate: any = { document_url: publicUrl };
         if (!isOffer) {
-            await supabase
-                .from("applications")
-                .update({ status: "ENROLLED" })
-                .eq("id", applicationId);
+            appUpdate.status = "ENROLLED";
         }
+        await supabase
+            .from("applications")
+            .update(appUpdate)
+            .eq("id", applicationId);
 
         // 5. Update admission_offers document_url
         if (offerData?.id) {
