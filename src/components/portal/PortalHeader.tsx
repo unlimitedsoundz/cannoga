@@ -152,12 +152,12 @@ export default function PortalHeader() {
                             {mobileMenuOpen ? <X size={24} weight="regular" /> : <Menu size={24} weight="regular" />}
                         </button>
 
-                        {isAccountPage && (
+                        {isAccountPage && isLoggedIn && (
                             <button
-                                onClick={isLoggedIn ? handleSignOut : () => router.push('/portal/account/login')}
-                                className="hidden md:block px-2 py-1 text-black hover:opacity-50 text-[13px] font-semibold transition-all"
+                                onClick={handleSignOut}
+                                className="hidden md:block px-2 py-1 text-black hover:opacity-50 text-[13px] font-semibold transition-all cursor-pointer"
                             >
-                                {isLoggedIn ? 'Log Out' : 'Log In'}
+                                Log Out
                             </button>
                         )}
 
@@ -228,20 +228,16 @@ export default function PortalHeader() {
                     </nav>
 
                     <div className="absolute bottom-0 left-0 right-0 p-4">
-                        {isAccountPage && (
+                        {isAccountPage && isLoggedIn && (
                             <button
                                 onClick={() => {
-                                    if (isLoggedIn) {
-                                        handleSignOut();
-                                    } else {
-                                        router.push('/portal/account/login');
-                                    }
+                                    handleSignOut();
                                     setMobileMenuOpen(false);
                                 }}
-                                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-neutral-900 text-white rounded-lg text-sm font-semibold hover:bg-[#0a151a] transition-colors"
+                                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-neutral-900 text-white rounded-lg text-sm font-semibold hover:bg-[#0a151a] transition-colors cursor-pointer"
                             >
                                 <LogOut size={16} weight="regular" />
-                                {isLoggedIn ? 'Log Out' : 'Log In'}
+                                Log Out
                             </button>
                         )}
                     </div>
