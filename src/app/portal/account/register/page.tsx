@@ -817,14 +817,13 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="pt-2 sm:pl-39">
-                            <Button
-                                type="primary"
-                                htmlType="submit"
+                            <button
+                                type="submit"
                                 disabled={isLoading}
-                                className="w-full sm:w-auto px-8 h-[35px]"
+                                className="w-full sm:w-auto px-8 h-[35px] bg-sky-500 hover:bg-sky-600 active:bg-sky-700 text-white font-semibold text-[13px] rounded-md transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
                             >
-                                {isLoading ? 'Creating Account...' : 'Register'}
-                            </Button>
+                                {isLoading ? 'Processing...' : 'Continue'}
+                            </button>
                         </div>
                     </form>
 
