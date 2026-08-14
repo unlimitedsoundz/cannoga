@@ -139,14 +139,6 @@ export function SISSidebar({ items, pathname, open, onClose }: SISSidebarProps) 
               ))}
             </ul>
           </nav>
-          <div className="p-4 border-t border-white/8">
-            <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-600 mb-1.5">Institution</div>
-            <div className="text-xs font-bold text-white">Cannoga College</div>
-            <div className="text-[10px] text-neutral-600 mt-0.5">Ottawa, Ontario</div>
-            <div className="mt-3 pt-3 border-t border-white/8">
-              <Link href="/" onClick={() => { if (open) onClose(); }} className="text-[10px] font-bold uppercase tracking-wider text-neutral-600 hover:text-neutral-300 transition-colors no-underline">View Website →</Link>
-            </div>
-          </div>
         </aside>
       </>
     );
@@ -186,14 +178,6 @@ export function SISSidebar({ items, pathname, open, onClose }: SISSidebarProps) 
             ))}
           </ul>
         </nav>
-        <div className="p-4 border-t border-neutral-200">
-          <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-2">Institution</div>
-          <div className="text-xs font-bold text-neutral-900">Cannoga College</div>
-          <div className="text-[10px] text-neutral-500 mt-0.5">Ottawa, Ontario</div>
-          <div className="mt-3 pt-3 border-t border-neutral-100">
-            <Link href="/" onClick={() => { if (open) onClose(); }} className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 hover:text-neutral-600 no-underline">View Website</Link>
-          </div>
-        </div>
       </aside>
     </>
   );
