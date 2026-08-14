@@ -59,9 +59,9 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
 
   return (
     <div className="w-full">
-      {/* Horizontal Sub-Navigation Bar matching Hero background styling, without border lines */}
+      {/* Horizontal Sub-Navigation Bar matching Hero background styling with increased vertical height */}
       {navItems.length > 0 && (
-        <div className="w-full bg-neutral-100 py-3">
+        <div className="w-full bg-neutral-100 py-4.5">
           <nav aria-label="Section Navigation" className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
             <div className="flex items-center justify-start sm:justify-center gap-6 sm:gap-8 overflow-x-auto no-scrollbar scroll-smooth">
               {navItems.map((item) => {
@@ -70,7 +70,7 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
                   <a
                     key={item.id}
                     href={`#${item.id}`}
-                    className={`whitespace-nowrap text-xs font-bold uppercase tracking-wider transition-colors no-underline py-1.5 ${
+                    className={`whitespace-nowrap text-xs font-bold uppercase tracking-wider transition-colors no-underline py-2 ${
                       isActive 
                         ? 'text-black font-extrabold' 
                         : 'text-neutral-600 hover:text-black font-medium'
@@ -85,9 +85,9 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
         </div>
       )}
 
-      {/* Breadcrumbs Bar below sub-navigation */}
+      {/* Breadcrumbs Bar below sub-navigation without border line */}
       {breadcrumbs && breadcrumbs.length > 0 && (
-        <div className="border-b border-neutral-100 bg-white">
+        <div className="bg-white">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-3">
             <Breadcrumbs 
               items={[
