@@ -820,7 +820,7 @@ export default function RegisterPage() {
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full sm:w-auto px-8 h-[35px] bg-sky-500 hover:bg-sky-600 active:bg-sky-700 text-white font-semibold text-[13px] rounded-md transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
+                                className="w-full sm:w-auto px-8 h-[35px] bg-sky-500 hover:bg-sky-600 active:bg-sky-700 !text-white font-semibold text-[13px] rounded-md transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
                             >
                                 {isLoading ? 'Processing...' : 'Continue'}
                             </button>
