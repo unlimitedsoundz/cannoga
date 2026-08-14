@@ -1519,21 +1519,26 @@ export default function SISStudentDashboard() {
                                                 <h3 className="font-extrabold text-white text-xs uppercase tracking-wider">Upcoming Events</h3>
                                             </div>
                                             <div className="p-4 space-y-3 text-xs">
-                                                {tasks.length > 0 ? (
-                                                    tasks.slice(0, 3).map((task) => {
-                                                        const daysLeft = task.due_date ? Math.max(1, Math.ceil((new Date(task.due_date).getTime() - new Date().getTime()) / (1000 * 3600 * 24))) : 1;
+                                                {news.length > 0 ? (
+                                                    news.slice(0, 4).map((item) => {
+                                                        const pubDateObj = item.publish_start ? new Date(item.publish_start) : new Date();
                                                         return (
-                                                            <div key={task.id} className="flex items-start space-x-3 pt-2.5 first:pt-0 border-t first:border-t-0 border-slate-100">
-                                                                <div className="text-center shrink-0 min-w-[44px]">
-                                                                    <span className={`block text-lg font-extrabold leading-none ${daysLeft <= 3 ? 'text-red-600' : daysLeft <= 7 ? 'text-amber-600' : 'text-slate-900'}`}>{daysLeft}</span>
-                                                                    <span className="text-[9px] text-slate-500 font-extrabold uppercase tracking-wider mt-0.5 block">Days Left</span>
+                                                            <div 
+                                                                key={item.id} 
+                                                                onClick={() => setSelectedNewsModalItem(item)}
+                                                                className="flex items-start space-x-3 pt-2.5 first:pt-0 border-t first:border-t-0 border-slate-100 cursor-pointer hover:bg-slate-50 p-1 rounded-lg transition group"
+                                                            >
+                                                                <div className="text-center shrink-0 min-w-[44px] bg-slate-100 rounded-lg py-1 px-1.5 border border-slate-200">
+                                                                    <span className="block text-[10px] font-black text-slate-600 leading-tight uppercase">
+                                                                        {item.publish_start ? pubDateObj.toLocaleDateString('en-CA', { month: 'short' }) : 'AUG'}
+                                                                    </span>
+                                                                    <span className="block text-sm font-extrabold text-slate-900 leading-tight">
+                                                                        {item.publish_start ? pubDateObj.getDate() : '15'}
+                                                                    </span>
                                                                 </div>
                                                                 <div className="min-w-0 flex-1">
-                                                                    <p className="font-extrabold text-slate-900 leading-snug">{task.title}</p>
-                                                                    <p className="text-[11px] text-slate-500 font-medium mt-0.5">{task.description || 'Institutional Academic Event'}</p>
-                                                                    {task.due_date && (
-                                                                        <p className="text-[10px] text-slate-400 font-semibold mt-1">Date: {new Date(task.due_date).toLocaleDateString('en-CA')}</p>
-                                                                    )}
+                                                                    <p className="font-extrabold text-slate-900 group-hover:text-slate-700 leading-snug text-xs line-clamp-1">{item.title}</p>
+                                                                    <p className="text-[11px] text-slate-500 font-medium mt-0.5 line-clamp-2">{item.excerpt || item.summary || item.content || 'Campus Event Announcement'}</p>
                                                                 </div>
                                                             </div>
                                                         );
