@@ -253,8 +253,8 @@ export function HeaderSearch({ isAdmin = false, placeholder, onNavigatePage }: H
         <div
           className={
             isAdmin
-              ? "absolute left-0 right-0 top-full mt-2 bg-[#1c1c1c] border border-white/15 rounded-xl shadow-2xl z-50 max-h-[420px] overflow-y-auto divide-y divide-white/10"
-              : "absolute left-0 right-0 top-full mt-2 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 max-h-[420px] overflow-y-auto divide-y divide-slate-800 text-slate-200"
+              ? "absolute left-0 right-0 top-full mt-2 bg-[#1c1c1c] border border-white/15 rounded-xl shadow-2xl z-50 max-h-[420px] overflow-y-auto divide-y divide-white/10 animate-drawer-slide"
+              : "absolute left-0 right-0 top-full mt-2 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 max-h-[420px] overflow-y-auto divide-y divide-slate-800 text-slate-200 animate-drawer-slide"
           }
         >
           {loading && (

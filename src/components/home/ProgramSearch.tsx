@@ -79,7 +79,7 @@ export default function ProgramSearch() {
 
       {/* Results Dropdown */}
       {isOpen && results.length > 0 && (
-        <div className="absolute top-full mt-2 w-80 lg:w-96 bg-white border border-neutral-200 shadow-lg z-50 max-h-80 overflow-y-auto">
+        <div className="absolute top-full mt-2 w-80 lg:w-96 bg-white border border-neutral-200 shadow-lg z-50 max-h-80 overflow-y-auto animate-drawer-slide">
           {results.map((course) => (
             <button
               key={course.id}
@@ -94,7 +94,7 @@ export default function ProgramSearch() {
       )}
 
       {isOpen && query && results.length === 0 && (
-        <div className="absolute top-full mt-2 w-80 lg:w-96 bg-white border border-neutral-200 shadow-lg z-50 p-4">
+        <div className="absolute top-full mt-2 w-80 lg:w-96 bg-white border border-neutral-200 shadow-lg z-50 p-4 animate-drawer-slide">
           <p className="text-sm text-neutral-500">No programs found matching &quot;{query}&quot;</p>
         </div>
       )}
