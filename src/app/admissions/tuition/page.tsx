@@ -109,6 +109,7 @@ export default async function TuitionPaymentPage() {
                     { label: 'Admissions', href: '/admissions' },
                     { label: 'Tuition' }
                 ]}
+                videoSrc="/videos/wan2.6-t2v_a_%23_Tuition_Fees_Video.mp4"
                 image={{
                     src: "/images/16c50757-90b9-46a7-9f37-b9cd5d4f4314.png",
                     alt: "Tuition Fees, Payment Plans & Scholarships"

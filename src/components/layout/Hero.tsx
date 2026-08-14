@@ -17,6 +17,7 @@ interface HeroProps {
     title: ReactNode;
     body: ReactNode;
     image?: HeroImage;
+    videoSrc?: string;
     backgroundColor?: string;
     tinted?: boolean;
     lightText?: boolean;
@@ -32,6 +33,7 @@ export function Hero({
     title, 
     body, 
     image, 
+    videoSrc,
     backgroundColor = '#000000', 
     tinted = true, 
     lightText = true,
@@ -51,8 +53,25 @@ export function Hero({
                 className={`relative overflow-hidden transition-all duration-700 ease-aalto-in-out border-b border-[#0f2027]/10 min-h-[380px] lg:h-[500px] lg:min-h-[500px] flex items-center ${className || ''}`}
                 style={{ backgroundColor: backgroundColor }}
             >
+                {/* Background Video */}
+                {videoSrc && (
+                    <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+                        <video
+                            src={videoSrc}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className={`w-full h-full object-cover ${overlayOpacity || (overlay ? 'opacity-40' : 'opacity-100')}`}
+                        />
+                        {overlay && (
+                            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/20 z-[1]" />
+                        )}
+                    </div>
+                )}
+
                 {/* Background Image */}
-                    {image && (
+                {!videoSrc && image && (
                     <div className="absolute inset-0 w-full h-full z-0">
                         <Image
                             src={image.src || (image.srcSet ? image.srcSet[0].src : '/images/campus-welcome-v2.png')}
