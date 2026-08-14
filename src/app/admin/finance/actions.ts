@@ -526,6 +526,27 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
                 await supabase.from('document_records').upsert(receiptPayload, {
                     onConflict: 'student_id,document_type',
                 });
+
+                // 4g. Trigger notification to student with receipt PDF attachment
+                try {
+                    console.log(`[verifyTuitionPayment] Triggering TUITION_PAYMENT_VERIFIED notification for app: ${applicationId}`);
+                    await supabase.functions.invoke('send-notification', {
+                        body: {
+                            applicationId: applicationId,
+                            type: 'TUITION_PAYMENT_VERIFIED',
+                            record: {
+                                amount: paymentRecord.amount,
+                                currency: paymentRecord.currency || 'CAD',
+                                transaction_reference: paymentRecord.transaction_reference,
+                                receipt_url: publicUrl,
+                                status: 'VERIFIED'
+                            },
+                            applicationData: application
+                        }
+                    });
+                } catch (notifyErr) {
+                    console.error('[verifyTuitionPayment] Failed to trigger payment verification notification:', notifyErr);
+                }
             } catch (receiptError) {
                 console.error('Error creating receipt document record:', receiptError);
             }
