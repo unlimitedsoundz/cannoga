@@ -159,6 +159,9 @@ export default async function SchoolDetails({ params }: Props) {
                     slug === 'business' ? {
                         src: "/images/studies-hero.jpg",
                         alt: `${school.name} at Cannoga College`
+                    } : slug === 'science' ? {
+                        src: "/images/school-of-science-hero.jpg",
+                        alt: `${school.name} at Cannoga College`
                     } : (slug === 'health-community' || slug === 'health-sciences') ? {
                         src: "/images/health-community.jpg",
                         alt: `${school.name} at Cannoga College`
