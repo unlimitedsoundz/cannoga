@@ -905,17 +905,29 @@ button.sis-btn:hover,
   stroke: #ffffff !important;
 }
 
-/* Guarantee Pure White Text for All Action & Submit Buttons Across Portal & SIS */
+/* Guarantee Pure White Text for All Action, Primary, and Submit Buttons Across Portal, SIS & App */
 button[type="submit"],
-.bg-sky-500,
-.bg-sky-600,
-.bg-sky-400,
-.bg-neutral-900,
-.bg-black,
-.bg-slate-900,
-.bg-blue-600,
-.bg-indigo-600,
+button[type="button"].bg-sky-500,
+button[type="button"].bg-sky-600,
+button[type="button"].bg-sky-400,
+button[type="button"].bg-black,
+button[type="button"].bg-neutral-900,
+button[type="button"].bg-slate-900,
+button.bg-sky-500,
+button.bg-sky-600,
+button.bg-sky-400,
+button.bg-neutral-900,
+button.bg-black,
+button.bg-slate-900,
+button.bg-blue-600,
+button.bg-indigo-600,
+.btn-primary,
+.cc-btn-primary,
 .sis-btn,
-button.sis-btn {
+button.sis-btn,
+[data-theme="portal"] button[type="submit"],
+[data-theme="portal"] button.bg-sky-500,
+[data-theme="sis"] button[type="submit"],
+[data-theme="sis"] button.bg-sky-500 {
   color: #ffffff !important;
 }
