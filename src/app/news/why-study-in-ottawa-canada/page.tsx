@@ -112,7 +112,7 @@ export default function WhyStudyInOttawaCanadaPage() {
 
                 <Highlight 
                     body="Canada's education system is built on equality and high quality. We don't just teach facts; we teach students how to think and innovate."
-                    source="Dr. Elena Nieminen, Head of International Admissions"
+                    source="Linda Cottonmouth, Head of International Admissions"
                     alignment="right"
                 />
 
