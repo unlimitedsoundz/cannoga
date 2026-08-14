@@ -217,16 +217,16 @@ export default function PortalLoginPage() {
                         </p>
 
                         {resetSuccess ? (
-                            <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-center space-y-2">
-                                <p className="text-emerald-800 text-sm font-semibold">
+                            <div className="py-2">
+                                <p className="text-sm font-bold text-neutral-900 mb-1">
                                     Reset Link Sent!
                                 </p>
-                                <p className="text-xs text-emerald-700">
+                                <p className="text-xs text-neutral-600 mb-4">
                                     Check your inbox for instructions to set your new password.
                                 </p>
                                 <button
                                     onClick={() => setShowForgotModal(false)}
-                                    className="mt-2 text-xs bg-emerald-800 text-white px-4 py-2 rounded-lg font-bold hover:bg-emerald-900"
+                                    className="text-xs text-neutral-900 font-bold underline cursor-pointer"
                                 >
                                     Done
                                 </button>
