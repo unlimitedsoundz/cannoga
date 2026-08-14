@@ -121,15 +121,6 @@ function SwipeableNotificationItem({
                 Read
               </span>
             )}
-            {n.priority === 'high' ? (
-              <span className="px-2 py-0.5 text-[9px] font-bold bg-red-500/20 text-red-400 border border-red-500/30 rounded-full uppercase tracking-wider">
-                High Priority
-              </span>
-            ) : (
-              <span className="px-2 py-0.5 text-[9px] font-bold bg-slate-800/80 text-slate-400 border border-slate-700/50 rounded-full uppercase tracking-wider">
-                General
-              </span>
-            )}
           </div>
           <button
             type="button"
