@@ -153,8 +153,8 @@ export default async function SchoolDetails({ params }: Props) {
                 }
                 tinted
                 lightText={true}
-                overlay={slug === 'technology' || slug === 'business' || slug === 'health-community' || slug === 'health-sciences' || slug === 'arts' || slug === 'arts-design' || slug === 'transportation-aviation' || slug === 'hospitality-tourism' || slug === 'education-social-sciences'}
-                overlayOpacity={(slug === 'technology' || slug === 'arts' || slug === 'arts-design' || slug === 'transportation-aviation' || slug === 'hospitality-tourism' || slug === 'education-social-sciences') ? 'opacity-40' : undefined}
+                overlay={true}
+                overlayOpacity="opacity-40"
                 image={
                     slug === 'business' ? {
                         src: "/images/studies-hero.jpg",

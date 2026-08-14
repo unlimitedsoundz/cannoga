@@ -39,8 +39,8 @@ export function Hero({
     imagePosition = 'object-center',
     children,
     className,
-    overlay = false,
-    overlayOpacity
+    overlay = true,
+    overlayOpacity = 'opacity-40'
 }: HeroProps) {
     const textColorClass = lightText ? 'text-white' : 'text-black';
     const bodyColorClass = lightText ? 'text-white' : 'text-neutral-700';
