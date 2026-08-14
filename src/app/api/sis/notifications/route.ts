@@ -16,15 +16,16 @@ export async function GET(request: NextRequest) {
         .eq('user_id', user.id)
         .single();
 
-    if (!student) {
-        return NextResponse.json({ notifications: [] });
+    const studentId = student?.id;
+    let query = supabase.from('notifications').select('*').order('created_at', { ascending: false });
+
+    if (studentId) {
+        query = query.or(`recipient_type.eq.all,recipient_ids.cs.{${studentId}}`);
+    } else {
+        query = query.eq('recipient_type', 'all');
     }
 
-    const { data: notifications, error } = await supabase
-        .from('notifications')
-        .select('*')
-        .contains('recipient_ids', [student.id])
-        .order('created_at', { ascending: false });
+    const { data: notifications, error } = await query;
 
     if (error) {
         return NextResponse.json({ notifications: [], error: error.message }, { status: 500 });

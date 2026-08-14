@@ -70,6 +70,50 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
   const userEmail = profile?.email || 'user@example.com';
 
   useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const endpoint = isAdmin ? '/api/sis/admin/notifications' : '/api/sis/notifications';
+        const res = await fetch(endpoint);
+        if (res.ok) {
+          const data = await res.json();
+          const list = (data.notifications || []).map((n: any) => ({
+            id: n.id,
+            title: n.title,
+            description: n.message || n.description || '',
+            time: new Date(n.created_at || Date.now()).toLocaleDateString(),
+            priority: n.priority || 'normal',
+            read: n.read || false,
+          }));
+
+          // Trigger toast for newly fetched unread notification for students
+          if (!isAdmin) {
+            const unread = list.filter((n: any) => !n.read);
+            if (unread.length > 0) {
+              const latest = unread[0];
+              const toastKey = `notif_toast_${latest.id}`;
+              if (typeof window !== 'undefined' && !sessionStorage.getItem(toastKey)) {
+                sessionStorage.setItem(toastKey, 'true');
+                toast.info(`Notification: ${latest.title}`, {
+                  description: latest.description,
+                  duration: 6000,
+                });
+              }
+            }
+          }
+
+          setNotifications(list);
+        }
+      } catch (e) {
+        console.error('Error fetching header notifications:', e);
+      }
+    };
+
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 20000);
+    return () => clearInterval(interval);
+  }, [isAdmin]);
+
+  useEffect(() => {
     const fetchUnreadCount = async () => {
       const sid = studentId || profile?.student_id;
       if (!sid) return;
@@ -144,7 +188,11 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                 onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false); }}
               >
                 <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} className="text-white" />
-                {unreadCount > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-white rounded-full" />}
+                {unreadCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none shadow-sm">
+                    {unreadCount}
+                  </span>
+                )}
               </button>
               <button
                 className="relative p-2 text-white hover:opacity-80 transition-opacity"
@@ -249,25 +297,33 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
             <HeaderSearch isAdmin={false} />
           </div>
           <div className="flex items-center gap-2">
-            <button className="relative p-2 text-white hover:opacity-80 transition-opacity" title={`Notifications (${unreadCount})`} onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false); }}>
-              <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} className="text-white" />
-              {unreadCount > 0 && <span className="absolute top-1 right-1 w-2 h-2 bg-neutral-900 rounded-full" />}
+            <button className="relative p-2 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors" title={`Notifications (${unreadCount})`} onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false); }}>
+              <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} className="text-neutral-700" />
+              {unreadCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none shadow-sm">
+                  {unreadCount}
+                </span>
+              )}
             </button>
-            <button className="relative p-2 text-white hover:opacity-80 transition-opacity" title="Messages" onClick={() => router.push('/sis?page=student-life')}>
-              <HugeiconsIcon icon={Envelope} size={18} strokeWidth={2} className="text-white" />
-              {unreadMessageCount > 0 && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-neutral-900 rounded-full border-2 border-white" />}
+            <button className="relative p-2 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors" title="Messages" onClick={() => router.push('/sis?page=student-life')}>
+              <HugeiconsIcon icon={Envelope} size={18} strokeWidth={2} className="text-neutral-700" />
+              {unreadMessageCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-sky-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center leading-none shadow-sm">
+                  {unreadMessageCount}
+                </span>
+              )}
             </button>
-            <button className="p-2 text-white hover:opacity-80 transition-opacity" title="Help">
-              <HugeiconsIcon icon={HelpCircle} size={18} strokeWidth={2} className="text-white" />
+            <button className="p-2 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors" title="Help">
+              <HugeiconsIcon icon={HelpCircle} size={18} strokeWidth={2} className="text-neutral-700" />
             </button>
             <div className="relative">
-              <button className="flex items-center gap-2 p-1.5 hover:opacity-80 transition-opacity cursor-pointer" onClick={() => { setProfileOpen(!profileOpen); setNotificationsOpen(false); }}>
-                <HugeiconsIcon icon={User} size={18} strokeWidth={2} className="text-white" />
+              <button className="flex items-center gap-2 p-1.5 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors cursor-pointer" onClick={() => { setProfileOpen(!profileOpen); setNotificationsOpen(false); }}>
+                <HugeiconsIcon icon={User} size={18} strokeWidth={2} className="text-neutral-700" />
                 <div className="hidden lg:block text-left">
-                  <div className="text-xs font-bold text-white leading-none">{displayName}</div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">{roleLabel}</div>
+                  <div className="text-xs font-bold text-neutral-900 leading-none">{displayName}</div>
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{roleLabel}</div>
                 </div>
-                <HugeiconsIcon icon={ChevronDown} size={12} strokeWidth={2.5} className="text-white" />
+                <HugeiconsIcon icon={ChevronDown} size={12} strokeWidth={2.5} className="text-neutral-600" />
               </button>
               {profileOpen && (
                 <div className="absolute right-0 top-full mt-1 w-56 bg-[#1c1c1c] border border-white/10 shadow-lg z-50 py-1 text-white rounded-xl overflow-hidden">
