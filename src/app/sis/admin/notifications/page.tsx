@@ -144,37 +144,37 @@ export default function AdminNotificationsPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-1">
-                    <form onSubmit={handleSubmit} className="bg-neutral-900 rounded-2xl p-6 space-y-4 text-white shadow-sm">
+                    <form onSubmit={handleSubmit} className="bg-[#0f2027] border border-white/10 rounded-2xl p-6 space-y-4 text-white shadow-sm">
                         <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-2">
                             <HugeiconsIcon icon={Bell} size={16} strokeWidth={2} /> New Notification
                         </h3>
 
                         {error && (
-                            <div className="bg-red-950/60 p-3 rounded-xl text-xs text-red-300 font-medium">
+                            <div className="bg-red-950/60 border border-red-500/20 p-3 rounded-xl text-xs text-red-300 font-medium">
                                 {error}
                             </div>
                         )}
 
                         {success && (
-                            <div className="bg-emerald-950/60 p-3 rounded-xl text-xs text-emerald-300 font-medium">
+                            <div className="bg-emerald-950/60 border border-emerald-500/20 p-3 rounded-xl text-xs text-emerald-300 font-medium">
                                 {success}
                             </div>
                         )}
 
                         <div className="space-y-2">
-                            <Label htmlFor="title" className="text-xs font-bold text-neutral-300 uppercase tracking-wider">Title *</Label>
+                            <Label htmlFor="title" className="text-xs font-bold text-slate-300 uppercase tracking-wider">Title *</Label>
                             <input
                                 id="title"
                                 value={title}
                                 onChange={e => setTitle(e.target.value)}
                                 required
                                 placeholder="Notification title"
-                                className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
+                                className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white placeholder-slate-500 rounded-xl focus:outline-none focus:border-sky-500 focus:bg-white/10 font-sans transition-all"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="message" className="text-xs font-bold text-neutral-300 uppercase tracking-wider">Message *</Label>
+                            <Label htmlFor="message" className="text-xs font-bold text-slate-300 uppercase tracking-wider">Message *</Label>
                             <textarea
                                 id="message"
                                 value={message}
@@ -182,62 +182,62 @@ export default function AdminNotificationsPage() {
                                 required
                                 placeholder="Notification message"
                                 rows={4}
-                                className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
+                                className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white placeholder-slate-500 rounded-xl focus:outline-none focus:border-sky-500 focus:bg-white/10 font-sans transition-all"
                             />
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <Label htmlFor="category" className="text-xs font-bold text-neutral-300 uppercase tracking-wider">Category</Label>
+                                <Label htmlFor="category" className="text-xs font-bold text-slate-300 uppercase tracking-wider">Category</Label>
                                 <select
                                     id="category"
                                     value={category}
                                     onChange={e => setCategory(e.target.value)}
-                                    className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
+                                    className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:bg-white/10 font-sans transition-all"
                                 >
-                                    <option value="General">General</option>
-                                    <option value="Academics">Academics</option>
-                                    <option value="Finance">Finance</option>
-                                    <option value="Registration">Registration</option>
-                                    <option value="Admissions">Admissions</option>
+                                    <option value="General" className="bg-[#0f2027] text-white">General</option>
+                                    <option value="Academics" className="bg-[#0f2027] text-white">Academics</option>
+                                    <option value="Finance" className="bg-[#0f2027] text-white">Finance</option>
+                                    <option value="Registration" className="bg-[#0f2027] text-white">Registration</option>
+                                    <option value="Admissions" className="bg-[#0f2027] text-white">Admissions</option>
                                 </select>
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="priority" className="text-xs font-bold text-neutral-300 uppercase tracking-wider">Priority</Label>
+                                <Label htmlFor="priority" className="text-xs font-bold text-slate-300 uppercase tracking-wider">Priority</Label>
                                 <select
                                     id="priority"
                                     value={priority}
                                     onChange={e => setPriority(e.target.value)}
-                                    className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
+                                    className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:bg-white/10 font-sans transition-all"
                                 >
-                                    <option value="low">Low</option>
-                                    <option value="normal">Normal</option>
-                                    <option value="high">High</option>
-                                    <option value="urgent">Urgent</option>
+                                    <option value="low" className="bg-[#0f2027] text-white">Low</option>
+                                    <option value="normal" className="bg-[#0f2027] text-white">Normal</option>
+                                    <option value="high" className="bg-[#0f2027] text-white">High</option>
+                                    <option value="urgent" className="bg-[#0f2027] text-white">Urgent</option>
                                 </select>
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="recipientType" className="text-xs font-bold text-neutral-300 uppercase tracking-wider">Recipients</Label>
+                            <Label htmlFor="recipientType" className="text-xs font-bold text-slate-300 uppercase tracking-wider">Recipients</Label>
                             <select
                                 id="recipientType"
                                 value={recipientType}
                                 onChange={e => setRecipientType(e.target.value)}
-                                className="w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
+                                className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-sky-500 focus:bg-white/10 font-sans transition-all"
                             >
-                                <option value="all">All Students</option>
-                                <option value="program">By Program</option>
-                                <option value="individual">Individual Students</option>
+                                <option value="all" className="bg-[#0f2027] text-white">All Students</option>
+                                <option value="program" className="bg-[#0f2027] text-white">By Program</option>
+                                <option value="individual" className="bg-[#0f2027] text-white">Individual Students</option>
                             </select>
                         </div>
 
                         {recipientType === 'program' && (
                             <div className="space-y-2">
-                                <Label className="text-xs font-bold text-neutral-300 uppercase tracking-wider">Select Programs</Label>
-                                <div className="max-h-40 overflow-y-auto bg-black/20 rounded-xl p-2 space-y-1">
+                                <Label className="text-xs font-bold text-slate-300 uppercase tracking-wider">Select Programs</Label>
+                                <div className="max-h-40 overflow-y-auto bg-white/5 border border-white/10 rounded-xl p-2 space-y-1">
                                     {programs.map(program => (
-                                        <label key={program.id} className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-neutral-800 cursor-pointer">
+                                        <label key={program.id} className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-white/10 cursor-pointer">
                                             <input
                                                 type="checkbox"
                                                 checked={selectedPrograms.includes(program.id)}
@@ -248,33 +248,37 @@ export default function AdminNotificationsPage() {
                                                         setSelectedPrograms(selectedPrograms.filter(id => id !== program.id));
                                                     }
                                                 }}
-                                                className="w-4 h-4 text-[#0a151a] border-neutral-700 bg-neutral-800 rounded focus:ring-[#0a151a]"
+                                                className="w-4 h-4 text-sky-500 border-white/20 bg-white/10 rounded focus:ring-sky-500"
                                             />
-                                            <span className="text-xs text-neutral-200">{program.title}</span>
+                                            <span className="text-xs text-slate-200">{program.title}</span>
                                         </label>
                                     ))}
                                 </div>
                             </div>
                         )}
 
-                        <Button htmlType="submit" disabled={sending} className="w-full bg-[#0a151a] hover:bg-purple-700 text-white font-bold py-3 rounded-xl uppercase tracking-wider text-xs border-0">
-                            <HugeiconsIcon icon={Send} size={14} strokeWidth={2.5} className="mr-2" />
+                        <button
+                            type="submit"
+                            disabled={sending}
+                            className="w-full bg-sky-500 hover:bg-sky-400 text-white font-bold py-3 rounded-xl uppercase tracking-wider text-xs transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                        >
+                            <HugeiconsIcon icon={Send} size={14} strokeWidth={2.5} />
                             {sending ? 'Sending...' : 'Send Notification'}
-                        </Button>
+                        </button>
                     </form>
                 </div>
 
                 <div className="lg:col-span-2">
-                    <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-sm">
-                        <div className="p-4 border-b border-white/5">
+                    <div className="bg-[#0f2027] border border-white/10 rounded-2xl overflow-hidden shadow-sm">
+                        <div className="p-4 border-b border-white/10">
                             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Sent Notifications</h3>
                         </div>
-                        <div className="p-4 space-y-2 bg-black/20">
+                        <div className="p-4 space-y-2.5">
                             {notifications.length === 0 ? (
-                                <div className="p-8 text-center text-neutral-500 text-xs uppercase tracking-wider font-bold">No notifications sent yet</div>
+                                <div className="p-8 text-center text-slate-500 text-xs uppercase tracking-wider font-bold">No notifications sent yet</div>
                             ) : (
                                 notifications.map(notification => (
-                                    <div key={notification.id} className="p-4 bg-neutral-800 rounded-xl hover:bg-neutral-800/80 transition-colors">
+                                    <div key={notification.id} className="p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors">
                                         <div className="flex items-start justify-between">
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-1">
@@ -282,16 +286,16 @@ export default function AdminNotificationsPage() {
                                                     {notification.priority === 'high' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-400 bg-red-950/60 px-2 py-0.5 rounded-full">HIGH</span>}
                                                     {notification.priority === 'urgent' && <span className="text-[10px] font-bold uppercase tracking-wider text-red-400 bg-red-950/60 px-2 py-0.5 rounded-full">URGENT</span>}
                                                 </div>
-                                                <div className="text-xs text-neutral-300 line-clamp-2">{notification.message}</div>
+                                                <div className="text-xs text-slate-300 line-clamp-2">{notification.message}</div>
                                                 <div className="flex items-center gap-2 mt-2">
-                                                    <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400 bg-purple-950/60 px-2 py-0.5 rounded-full">{notification.category}</span>
+                                                    <span className="text-[10px] font-bold uppercase tracking-wider text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 rounded-full">{notification.category}</span>
                                                     <span className="text-[10px] text-slate-400">{new Date(notification.created_at).toLocaleString()}</span>
                                                     <span className="text-[10px] text-slate-400">• {notification.recipient_type}</span>
                                                 </div>
                                             </div>
                                             <button
                                                 onClick={() => handleDelete(notification.id)}
-                                                className="p-2 text-red-400 hover:text-red-300 hover:bg-red-950/50 rounded-lg transition-colors cursor-pointer ml-4"
+                                                className="p-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors cursor-pointer ml-4"
                                                 title="Delete Notification"
                                             >
                                                 <HugeiconsIcon icon={Trash} size={16} />
