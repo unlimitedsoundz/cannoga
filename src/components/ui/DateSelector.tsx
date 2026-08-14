@@ -75,7 +75,7 @@ export default function DateSelector({
                     {label} {required && <span className="text-red-500">*</span>}
                 </label>
             )}
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full max-w-[400px]">
                 {/* Year */}
                 <select
                     value={year}
@@ -84,8 +84,7 @@ export default function DateSelector({
                         handleDateChange(e.target.value, month, day);
                     }}
                     required={required}
-                    className="flex-1 bg-neutral-50 border border-neutral-100 rounded-xl px-3 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#0a151a] transition-all appearance-none"
-                    style={{ backgroundImage: 'none' }}
+                    className="flex-1 bg-white border border-neutral-200 rounded-lg px-2 h-[35px] text-[13px] text-black outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
                 >
                     <option value="">Year</option>
                     {years.map((y) => (
@@ -101,7 +100,7 @@ export default function DateSelector({
                         handleDateChange(year, e.target.value, day);
                     }}
                     required={required}
-                    className="flex-[1.5] bg-neutral-50 border border-neutral-100 rounded-xl px-3 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#0a151a] transition-all appearance-none"
+                    className="flex-[1.5] bg-white border border-neutral-200 rounded-lg px-2 h-[35px] text-[13px] text-black outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
                 >
                     <option value="">Month</option>
                     {months.map((m) => (
@@ -117,7 +116,7 @@ export default function DateSelector({
                         handleDateChange(year, month, e.target.value);
                     }}
                     required={required}
-                    className="flex-1 bg-neutral-50 border border-neutral-100 rounded-xl px-3 py-2.5 text-sm font-bold shadow-sm outline-none focus:border-[#0a151a] transition-all appearance-none"
+                    className="flex-1 bg-white border border-neutral-200 rounded-lg px-2 h-[35px] text-[13px] text-black outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
                 >
                     <option value="">Day</option>
                     {days.map((d) => (

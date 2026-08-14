@@ -112,7 +112,7 @@ export default function RegisterPage() {
                 breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Portal', href: '/portal' }, { label: 'Register' }]}
             />
 
-            <div className="cc-container max-w-xl mx-auto py-6">
+            <div className="cc-container max-w-2xl mx-auto py-6">
                 {message && (
                     <div className={`p-3 rounded-sm mb-4 text-[13px] font-bold border ${message.type === 'success' ? 'bg-neutral-50 text-black border-neutral-100' : 'bg-red-50 text-red-700 border-red-100'}`}>
                         {message.text}
@@ -141,21 +141,21 @@ export default function RegisterPage() {
                                 required
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                                 placeholder="you@example.com"
                             />
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                             <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Password <span className="text-red-600">*</span></label>
-                            <div className="relative flex-1 w-full">
+                            <div className="relative w-full max-w-[400px]">
                                 <input
                                     type={showPassword ? 'text' : 'password'}
                                     name="password"
                                     required
                                     value={formData.password}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-1.5 pr-10 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                    className="w-full h-[35px] px-3 pr-10 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                                     placeholder="Minimum 6 characters"
                                     minLength={6}
                                 />
@@ -177,7 +177,7 @@ export default function RegisterPage() {
                                 required
                                 value={formData.firstName}
                                 onChange={handleChange}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
                         </div>
 
@@ -188,7 +188,7 @@ export default function RegisterPage() {
                                 name="middleName"
                                 value={formData.middleName}
                                 onChange={handleChange}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                                 placeholder="Optional"
                             />
                         </div>
@@ -201,7 +201,7 @@ export default function RegisterPage() {
                                 required
                                 value={formData.lastName}
                                 onChange={handleChange}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
                         </div>
 
@@ -213,13 +213,13 @@ export default function RegisterPage() {
                                 required
                                 value={formData.passportNumber}
                                 onChange={handleChange}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                             <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Date of Birth <span className="text-red-600">*</span></label>
-                            <div className="flex-1 w-full">
+                            <div className="w-full max-w-[400px]">
                                 <DateSelector
                                     name="dateOfBirth"
                                     required
@@ -236,7 +236,7 @@ export default function RegisterPage() {
                                 required
                                 value={formData.gender}
                                 onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             >
                                 <option value="">Select your gender</option>
                                 <option value="Male">Male</option>
@@ -251,7 +251,7 @@ export default function RegisterPage() {
                                 required
                                 value={formData.phoneCode}
                                 onChange={(e) => setFormData({ ...formData, phoneCode: e.target.value })}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             >
                                 {phoneCodes.map((phone) => (
                                     <option key={phone.code} value={phone.code}>
@@ -269,7 +269,7 @@ export default function RegisterPage() {
                                 required
                                 value={formData.phoneNumber}
                                 onChange={handleChange}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                                 placeholder="e.g. 1234567890"
                             />
                         </div>
@@ -281,7 +281,7 @@ export default function RegisterPage() {
                                 required
                                 value={formData.citizenship}
                                 onChange={(e) => setFormData({ ...formData, citizenship: e.target.value })}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             >
                                 <option value="">Select citizenship</option>
                                 {countries.map((country) => (
@@ -299,7 +299,7 @@ export default function RegisterPage() {
                                 required
                                 value={formData.country}
                                 onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             >
                                 <option value="">Select country</option>
                                 {countries.map((country) => (
@@ -318,7 +318,7 @@ export default function RegisterPage() {
                                 required
                                 value={formData.address}
                                 onChange={handleChange}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                                 placeholder="Street address"
                             />
                         </div>
@@ -331,7 +331,7 @@ export default function RegisterPage() {
                                 required
                                 value={formData.city}
                                 onChange={handleChange}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
                         </div>
 
@@ -343,7 +343,7 @@ export default function RegisterPage() {
                                 required
                                 value={formData.state}
                                 onChange={handleChange}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
                         </div>
 
@@ -355,7 +355,7 @@ export default function RegisterPage() {
                                 required
                                 value={formData.zipcode}
                                 onChange={handleChange}
-                                className="flex-1 w-full px-3 py-1.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                             />
                         </div>
 
@@ -364,7 +364,7 @@ export default function RegisterPage() {
                                 type="primary"
                                 htmlType="submit"
                                 disabled={isLoading}
-                                className="w-full sm:w-auto px-8"
+                                className="w-full sm:w-auto px-8 h-[35px]"
                             >
                                 {isLoading ? 'Creating Account...' : 'Register'}
                             </Button>
