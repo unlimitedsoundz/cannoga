@@ -104,37 +104,44 @@ function SwipeableNotificationItem({
         onTouchEnd={handleTouchEnd}
         style={{ transform: `translateX(${swipeOffset}px)` }}
         onClick={() => onMarkRead(n.id)}
-        className={`relative z-10 bg-[#0d1f28] hover:bg-white/5 p-2.5 cursor-pointer transition-transform ${
+        className={`relative z-10 bg-[#0d1f28] hover:bg-white/5 p-2 cursor-pointer transition-transform flex items-start gap-2.5 ${
           !n.read ? 'bg-sky-950/30' : ''
         }`}
       >
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5">
-            {!n.read ? (
-              <span className="px-1.5 py-0.2 text-[8px] font-extrabold bg-sky-500/20 text-sky-300 border border-sky-400/40 rounded uppercase tracking-wider">
-                Unread
-              </span>
-            ) : (
-              <span className="px-1.5 py-0.2 text-[8px] font-bold bg-slate-800 text-slate-400 border border-slate-700/50 rounded uppercase tracking-wider">
-                Read
-              </span>
-            )}
-          </div>
-          <button
-            type="button"
-            onClick={handleDeleteClick}
-            className="text-neutral-500 hover:text-red-400 p-0.5 transition-colors rounded hover:bg-white/10 shrink-0"
-            title="Swipe right or click to delete"
-          >
-            <HugeiconsIcon icon={Trash} size={13} strokeWidth={2} />
-          </button>
+        {/* Cannoga Logo Avatar */}
+        <div className="w-7 h-7 rounded-full bg-slate-900 border border-white/10 p-1 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+          <img src="/images/logo-cannoga.png" alt="Cannoga" className="w-full h-full object-contain brightness-0 invert" />
         </div>
 
-        <div className="mt-1">
-          <div className="text-[11px] font-bold text-white leading-tight line-clamp-1">{n.title}</div>
-          <div className="text-[10px] text-neutral-300 mt-0.5 leading-tight line-clamp-2">{n.description}</div>
-          <div className="text-[9px] font-semibold text-white mt-1 flex items-center justify-between opacity-90">
-            <span>{n.time}</span>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between gap-1.5">
+            <div className="flex items-center gap-1">
+              {!n.read ? (
+                <span className="px-1 py-0.2 text-[7px] font-extrabold bg-sky-500/20 text-sky-300 border border-sky-400/40 rounded uppercase tracking-wider">
+                  Unread
+                </span>
+              ) : (
+                <span className="px-1 py-0.2 text-[7px] font-bold bg-slate-800 text-slate-400 border border-slate-700/50 rounded uppercase tracking-wider">
+                  Read
+                </span>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={handleDeleteClick}
+              className="text-neutral-500 hover:text-red-400 p-0.5 transition-colors rounded hover:bg-white/10 shrink-0"
+              title="Swipe right or click to delete"
+            >
+              <HugeiconsIcon icon={Trash} size={12} strokeWidth={2} />
+            </button>
+          </div>
+
+          <div className="mt-0.5">
+            <div className="text-[10px] font-bold text-white leading-tight line-clamp-1">{n.title}</div>
+            <div className="text-[9px] text-neutral-300 mt-0.5 leading-tight line-clamp-2">{n.description}</div>
+            <div className="text-[8px] font-semibold text-white/80 mt-1 flex items-center justify-between">
+              <span>{n.time}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -154,6 +161,22 @@ function getRoleLabel(role: string | undefined | null): string {
     return 'Admin';
   }
   return 'Student';
+}
+
+function formatRelativeTime(dateInput: string | Date): string {
+  const date = new Date(dateInput);
+  const now = new Date();
+  const diffInSeconds = Math.max(0, Math.floor((now.getTime() - date.getTime()) / 1000));
+
+  if (diffInSeconds < 5) return 'Just now';
+  if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  if (diffInMinutes < 60) return `${diffInMinutes} min${diffInMinutes > 1 ? 's' : ''} ago`;
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  if (diffInHours < 24) return `${diffInHours} hr${diffInHours > 1 ? 's' : ''} ago`;
+  const diffInDays = Math.floor(diffInHours / 24);
+  if (diffInDays < 7) return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+  return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
 }
 
 export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderProps) {
@@ -222,7 +245,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
               id: n.id,
               title: n.title,
               description: n.message || n.description || '',
-              time: new Date(n.created_at || Date.now()).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+              time: formatRelativeTime(n.created_at || Date.now()),
               priority: n.priority || 'normal',
               read: n.read || false,
             }));

@@ -356,6 +356,22 @@ export default function SISStudentDashboard() {
         } catch (e) {}
     };
 
+function formatRelativeTime(dateInput: string | Date): string {
+    const date = new Date(dateInput);
+    const now = new Date();
+    const diffInSeconds = Math.max(0, Math.floor((now.getTime() - date.getTime()) / 1000));
+
+    if (diffInSeconds < 5) return 'Just now';
+    if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) return `${diffInMinutes} min${diffInMinutes > 1 ? 's' : ''} ago`;
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) return `${diffInHours} hr${diffInHours > 1 ? 's' : ''} ago`;
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 7) return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+    return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+}
+
     useEffect(() => {
         const fetchHeaderNotifs = async () => {
             try {
@@ -369,7 +385,7 @@ export default function SISStudentDashboard() {
                             id: n.id,
                             title: n.title,
                             description: n.message || n.description || '',
-                            time: new Date(n.created_at || Date.now()).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+                            time: formatRelativeTime(n.created_at || Date.now()),
                             priority: n.priority || 'normal',
                             read: n.read || false,
                         }));
@@ -1251,7 +1267,7 @@ export default function SISStudentDashboard() {
                                             </button>
                                         )}
                                     </div>
-                                    <div className="max-h-80 overflow-y-auto">
+                                    <div className="max-h-64 overflow-y-auto">
                                         {notificationsList.length > 0 ? (
                                             notificationsList.map((n) => (
                                                 <div
@@ -1266,42 +1282,49 @@ export default function SISStudentDashboard() {
                                                             }).catch(() => {});
                                                         }
                                                     }}
-                                                    className={`px-4 py-3 border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors ${!n.read ? 'bg-sky-950/30' : ''}`}
+                                                    className={`p-2.5 border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors flex items-start gap-2.5 ${!n.read ? 'bg-sky-950/30' : ''}`}
                                                 >
-                                                    <div className="flex items-start justify-between gap-2">
-                                                        <div className="flex items-center gap-1.5 flex-wrap">
-                                                            {!n.read ? (
-                                                                <span className="px-2 py-0.5 text-[9px] font-bold bg-sky-500/20 text-sky-300 border border-sky-400/40 rounded-full uppercase tracking-wider">
-                                                                    Unread
-                                                                </span>
-                                                            ) : (
-                                                                <span className="px-2 py-0.5 text-[9px] font-bold bg-slate-800 text-slate-400 border border-slate-700/50 rounded-full uppercase tracking-wider">
-                                                                    Read
-                                                                </span>
-                                                            )}
-                                                        </div>
-                                                        <button
-                                                            type="button"
-                                                            onClick={async (e) => {
-                                                                e.stopPropagation();
-                                                                addDismissedNotifId(n.id);
-                                                                setNotificationsList(prev => prev.filter(item => item.id !== n.id));
-                                                                try {
-                                                                    await fetch(`/api/sis/notifications?id=${n.id}`, { method: 'DELETE' });
-                                                                    toast.success('Notification dismissed');
-                                                                } catch (err) {}
-                                                            }}
-                                                            className="text-neutral-500 hover:text-red-400 p-1 transition-colors rounded hover:bg-white/10 shrink-0"
-                                                            title="Delete notification"
-                                                        >
-                                                            <HugeiconsIcon icon={Trash} size={14} strokeWidth={2} />
-                                                        </button>
+                                                    {/* Cannoga Logo Avatar */}
+                                                    <div className="w-7 h-7 rounded-full bg-slate-900 border border-white/10 p-1 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                                                        <img src="/images/logo-cannoga.png" alt="Cannoga" className="w-full h-full object-contain brightness-0 invert" />
                                                     </div>
-                                                    <div className="mt-2">
-                                                        <div className="text-xs font-bold text-white leading-tight">{n.title}</div>
-                                                        <div className="text-[11px] text-neutral-300 mt-1 leading-snug">{n.description}</div>
-                                                        <div className="text-[9px] font-semibold text-white mt-1.5 opacity-90">{n.time}</div>
-                                                    </div>
+
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="flex items-center justify-between gap-1.5">
+                                                            <div className="flex items-center gap-1">
+                                                                {!n.read ? (
+                                                                    <span className="px-1 py-0.2 text-[7px] font-extrabold bg-sky-500/20 text-sky-300 border border-sky-400/40 rounded uppercase tracking-wider">
+                                                                        Unread
+                                                                    </span>
+                                                                ) : (
+                                                                    <span className="px-1 py-0.2 text-[7px] font-bold bg-slate-800 text-slate-400 border border-slate-700/50 rounded uppercase tracking-wider">
+                                                                        Read
+                                                                    </span>
+                                                                )}
+                                                             </div>
+                                                             <button
+                                                                 type="button"
+                                                                 onClick={async (e) => {
+                                                                     e.stopPropagation();
+                                                                     addDismissedNotifId(n.id);
+                                                                     setNotificationsList(prev => prev.filter(item => item.id !== n.id));
+                                                                     try {
+                                                                         await fetch(`/api/sis/notifications?id=${n.id}`, { method: 'DELETE' });
+                                                                         toast.success('Notification dismissed');
+                                                                     } catch (err) {}
+                                                                 }}
+                                                                 className="text-neutral-500 hover:text-red-400 p-0.5 transition-colors rounded hover:bg-white/10 shrink-0"
+                                                                 title="Delete notification"
+                                                             >
+                                                                 <HugeiconsIcon icon={Trash} size={12} strokeWidth={2} />
+                                                             </button>
+                                                         </div>
+                                                         <div className="mt-0.5">
+                                                             <div className="text-[10px] font-bold text-white leading-tight line-clamp-1">{n.title}</div>
+                                                             <div className="text-[9px] text-neutral-300 mt-0.5 leading-tight line-clamp-2">{n.description}</div>
+                                                             <div className="text-[8px] font-semibold text-white/80 mt-1">{n.time}</div>
+                                                         </div>
+                                                     </div>
                                                 </div>
                                             ))
                                         ) : (
