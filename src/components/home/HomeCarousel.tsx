@@ -58,7 +58,7 @@ export function HomeCarousel() {
 
     return (
         <div className="w-full container mx-auto px-4 sm:px-6 lg:px-8 pt-0">
-            <section className="relative overflow-hidden text-white min-h-[450px] lg:h-[500px] flex items-center border-b border-[#0f2027]/10">
+            <section className="relative group overflow-hidden text-white min-h-[450px] lg:h-[500px] flex items-center border-b border-[#0f2027]/10">
                 {/* Slide Container */}
                 <div className="relative w-full h-full min-h-[450px] lg:h-[500px]">
                     {slides.map((slide, idx) => (
@@ -110,14 +110,14 @@ export function HomeCarousel() {
                 {/* Manual Controls */}
                 <button
                     onClick={prevSlide}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 w-10 h-10 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center text-slate-900 shadow-md transition-all rounded-none"
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 w-10 h-10 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center text-slate-900 shadow-md transition-all duration-300 rounded-none opacity-0 group-hover:opacity-100"
                     aria-label="Previous slide"
                 >
                     <CaretLeft size={20} weight="bold" />
                 </button>
                 <button
                     onClick={nextSlide}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 w-10 h-10 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center text-slate-900 shadow-md transition-all rounded-none"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 w-10 h-10 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center text-slate-900 shadow-md transition-all duration-300 rounded-none opacity-0 group-hover:opacity-100"
                     aria-label="Next slide"
                 >
                     <CaretRight size={20} weight="bold" />

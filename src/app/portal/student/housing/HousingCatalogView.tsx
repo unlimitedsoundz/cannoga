@@ -377,17 +377,17 @@ export default function HousingCatalogView({ onSelectBuilding, onSelectApartment
                                 ))}
                             </div>
 
-                            {/* Carousel Nav — always visible when >1 image */}
+                            {/* Carousel Nav — hidden by default, visible on hover */}
                             {selectedBuilding.mainImages.length > 1 && (
                                 <>
                                     <button
-                                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/90 hover:bg-white text-black transition-all shadow-md"
+                                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/90 hover:bg-white text-black opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md"
                                         onClick={() => setCurrentImageIndex(prev => prev === 0 ? selectedBuilding.mainImages.length - 1 : prev - 1)}
                                     >
                                         <CaretLeft size={20} weight="bold" />
                                     </button>
                                     <button
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/90 hover:bg-white text-black transition-all shadow-md"
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/90 hover:bg-white text-black opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md"
                                         onClick={() => setCurrentImageIndex(prev => prev === selectedBuilding.mainImages.length - 1 ? 0 : prev + 1)}
                                     >
                                         <CaretRight size={20} weight="bold" />
