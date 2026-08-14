@@ -9,6 +9,7 @@ import { createStaticClient } from "@/lib/supabase/static";
 
 import StudentStoriesCarousel from "@/components/admissions/StudentStoriesCarousel";
 import { CannogaShortsSection } from "@/components/home/CannogaShortsSection";
+import { AcademicCredentialsCarousel } from "@/components/home/AcademicCredentialsCarousel";
 
 export const metadata: Metadata = {
   title: 'Cannoga College | International Higher Education in Canada',
@@ -65,39 +66,15 @@ export default async function Home() {
             {/* 1. HERO CAROUSEL */}
             <HomeCarousel />
 
-            {/* 2. EXPLORE PROGRAMS & COURSES */}
-            <section className="py-20 bg-[#f8fafc] border-b border-slate-200">
+            {/* 2. EXPLORE PROGRAMS & COURSES (COLUMBIA COLLEGE STYLE VIBRANT CAROUSEL) */}
+            <section className="py-20 bg-white border-b border-slate-200">
                 <div className="container mx-auto px-4 md:px-28 lg:px-40">
-                    <div className="mb-12 border-b border-slate-200 pb-4 max-w-2xl">
+                    <div className="mb-10 border-b border-slate-200 pb-4 max-w-2xl">
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">Academic Programs &amp; Credentials</h2>
                         <p className="text-slate-600 font-normal text-base mt-2">Explore career-focused post-secondary education at our Ottawa campus.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {[
-                            { name: "Ontario College Certificates", desc: "1-year career-focused pathways designed for rapid skill acquisition and practical workforce entry", href: "/degree-programmes#certificates" },
-                            { name: "Ontario College Diplomas", desc: "2-year applied learning programs integrating hands-on labs, industry software, and co-op placement", href: "/degree-programmes#diplomas" },
-                            { name: "Advanced Diplomas & Degrees", desc: "3-year advanced diplomas and 4-year Honours Bachelor's Degrees combining academic depth with co-op pathways", href: "/degree-programmes" },
-                            { name: "Academic Schools & Faculties", desc: "Eight specialized faculties delivering technology, health, business, and creative design education", href: "/schools" },
-                            { name: "Program Directory A–Z", desc: "Browse all approved Ontario post-secondary courses, prerequisite codes, and credential specs", href: "/degree-programmes#programs-az" },
-                            { name: "Ottawa Campus & Co-op Hub", desc: "Explore campus facilities, student support services, and Ottawa tech-sector co-op partnerships", href: "/contact" },
-                        ].map((card) => (
-                            <Link
-                                key={card.name}
-                                linkComponentProps={{ href: card.href }}
-                                className="group p-8 bg-white border border-slate-200 flex flex-col justify-between hover:border-[#0f2027] hover:shadow-md transition-all duration-200 no-underline rounded-sm"
-                            >
-                                <div>
-                                    <h3 className="text-xl font-serif font-bold text-[#0f2027] group-hover:text-[#0f2027] transition-colors">{card.name}</h3>
-                                    <p className="text-slate-600 text-sm mt-3 leading-relaxed">{card.desc}</p>
-                                </div>
-                                <div className="mt-6 flex items-center gap-1.5 text-[#0f2027] font-bold text-xs uppercase tracking-wider">
-                                    <span>View Credentials</span>
-                                    <ChevronRight size={14} weight="bold" className="transform group-hover:translate-x-1 transition-transform text-[#c89211]" />
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+                    <AcademicCredentialsCarousel />
                 </div>
             </section>
 
