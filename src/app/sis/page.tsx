@@ -1190,8 +1190,8 @@ export default function SISStudentDashboard() {
                                 )}
                             </button>
                             {notificationsOpen && (
-                                <div className="absolute right-0 top-full mt-2 w-80 bg-[#1c1c1c] border border-white/15 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-200">
-                                    <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between">
+                                <div className="absolute right-0 top-full mt-2 w-80 bg-[#0d1f28] border border-cyan-500/20 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-100">
+                                    <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
                                         <span className="text-xs font-bold uppercase tracking-widest text-white">Notifications ({notificationsList.filter(n => !n.read).length})</span>
                                         {notificationsList.filter(n => !n.read).length > 0 && (
                                             <button

@@ -16,22 +16,25 @@ export async function GET(request: NextRequest) {
         .eq('user_id', user.id)
         .single();
 
-    const studentId = student?.id;
-    let query = supabase.from('notifications').select('*').order('created_at', { ascending: false });
-
-    if (studentId) {
-        query = query.or(`recipient_type.eq.all,recipient_ids.cs.{${studentId}}`);
-    } else {
-        query = query.eq('recipient_type', 'all');
-    }
-
-    const { data: notifications, error } = await query;
+    const { data: allNotifs, error } = await supabase
+        .from('notifications')
+        .select('*')
+        .order('created_at', { ascending: false });
 
     if (error) {
         return NextResponse.json({ notifications: [], error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ notifications: notifications || [] });
+    const filtered = (allNotifs || []).filter((n: any) => {
+        if (!n.recipient_type || n.recipient_type === 'all') return true;
+        if (!n.recipient_ids || !Array.isArray(n.recipient_ids) || n.recipient_ids.length === 0) return true;
+        if (n.recipient_ids.includes('ALL')) return true;
+        if (studentId && n.recipient_ids.includes(studentId)) return true;
+        if (user.id && n.recipient_ids.includes(user.id)) return true;
+        return false;
+    });
+
+    return NextResponse.json({ notifications: filtered });
 }
 
 export async function POST(request: NextRequest) {

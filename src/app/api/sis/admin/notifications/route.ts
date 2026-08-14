@@ -78,15 +78,12 @@ export async function POST(request: NextRequest) {
     let targetStudentIds: string[] = [];
 
     if (recipient_type === 'all') {
-        const { data: allStudents, error: studentsError } = await supabase
+        const { data: allStudents } = await supabase
             .from('students')
             .select('id');
 
-        if (studentsError) {
-            return NextResponse.json({ error: studentsError.message }, { status: 500 });
-        }
-
-        targetStudentIds = allStudents?.map((s: { id: string }) => s.id) || [];
+        const ids = allStudents?.map((s: { id: string }) => s.id) || [];
+        targetStudentIds = ['ALL', ...ids];
     } else if (recipient_type === 'program' && recipient_ids && Array.isArray(recipient_ids)) {
         const { data: programStudents, error: programError } = await supabase
             .from('students')

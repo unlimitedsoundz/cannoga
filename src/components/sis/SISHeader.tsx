@@ -239,8 +239,8 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
 
           {/* Notifications Panel */}
           {notificationsOpen && (
-            <div className="absolute right-4 top-14 w-80 bg-[#1c1c1c] border border-white/10 shadow-2xl z-50 rounded-xl overflow-hidden">
-              <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between">
+            <div className="absolute right-4 top-14 w-80 bg-[#0d1f28] border border-cyan-500/20 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-100">
+              <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
                 <span className="text-xs font-bold uppercase tracking-widest text-white">Notifications ({unreadCount})</span>
                 {unreadCount > 0 && (
                   <button
