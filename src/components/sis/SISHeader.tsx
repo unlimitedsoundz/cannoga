@@ -424,7 +424,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
           {notificationsOpen && (
             <div className="absolute right-2 sm:right-4 top-14 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-[#0d1f28] border border-cyan-500/20 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-100">
               <div className="px-3 py-2 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white">Notifications ({unreadCount})</span>
+                <span className="text-[8px] font-bold uppercase tracking-widest text-white">Notifications ({unreadCount})</span>
                 {unreadCount > 0 && (
                   <button
                     onClick={async () => {
