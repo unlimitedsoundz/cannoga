@@ -31,7 +31,7 @@ const stories = [
     },
     {
         id: 4,
-        name: 'Marcus Vance',
+        name: 'Sergei Voldov',
         programme: "Advanced Diploma in Software Engineering",
         quote: "The hands-on lab facilities and close mentorship from faculty helped me secure a full-time software developer role in Ottawa's Kanata North tech hub before graduation.",
         image: '/images/student-story-4.jpg',
