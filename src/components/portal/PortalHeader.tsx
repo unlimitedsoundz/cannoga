@@ -161,19 +161,21 @@ export default function PortalHeader() {
                             </button>
                         )}
 
-                        <div className="flex items-center gap-2 md:gap-3">
-                            <div className="hidden sm:flex flex-col items-end">
-                                <div className="flex items-center gap-2 mt-1">
-                                    <span className="text-[13px] font-black text-black leading-none">{fullName || userEmail?.split('@')[0]}</span>
-                                    {studentId && (
-                                        <span className="text-[11px] font-semibold text-black border border-[#0a151a] px-1.5 py-0.5 rounded-sm leading-none">
-                                            ID: {studentId}
-                                        </span>
-                                    )}
+                        {isLoggedIn && (
+                            <div className="flex items-center gap-2 md:gap-3">
+                                <div className="hidden sm:flex flex-col items-end">
+                                    <div className="flex items-center gap-2 mt-1">
+                                        <span className="text-[13px] font-black text-black leading-none">{fullName || userEmail?.split('@')[0]}</span>
+                                        {studentId && (
+                                            <span className="text-[11px] font-semibold text-black border border-[#0a151a] px-1.5 py-0.5 rounded-sm leading-none">
+                                                ID: {studentId}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
+                                <UserAvatar src={avatarUrl} firstName={firstName} email={userEmail} size="sm" isLoggedIn={isLoggedIn} />
                             </div>
-                            <UserAvatar src={avatarUrl} firstName={firstName} email={userEmail} size="sm" isLoggedIn={isLoggedIn} />
-                        </div>
+                        )}
                     </div>
                 </div>
             </header>
@@ -188,7 +190,7 @@ export default function PortalHeader() {
                 >
                     <div className="p-6">
                         <div className="flex items-center gap-3 mb-4">
-                            <UserAvatar src={avatarUrl} firstName={firstName} email={userEmail} size="md" isLoggedIn={isLoggedIn} />
+                            {isLoggedIn && <UserAvatar src={avatarUrl} firstName={firstName} email={userEmail} size="md" isLoggedIn={isLoggedIn} />}
                             <div>
                                 <h3 className="text-[15px] font-black text-black">Menu</h3>
                             </div>
