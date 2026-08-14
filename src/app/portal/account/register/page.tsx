@@ -308,19 +308,31 @@ export default function RegisterPage() {
 
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                                 <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Gender <span className="text-red-600">*</span></label>
-                                <div className="relative w-full max-w-[400px]">
-                                    <select
-                                        name="gender"
-                                        required
-                                        value={formData.gender}
-                                        onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
-                                    >
-                                        <option value="">Select your gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    </select>
-                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                <div className="flex items-center gap-4 h-[35px] max-w-[400px]">
+                                    <label className="flex items-center gap-2 text-[13px] text-black font-normal cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="gender"
+                                            required
+                                            value="Male"
+                                            checked={formData.gender === 'Male'}
+                                            onChange={handleChange}
+                                            className="w-4 h-4 accent-black cursor-pointer"
+                                        />
+                                        Male
+                                    </label>
+                                    <label className="flex items-center gap-2 text-[13px] text-black font-normal cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="gender"
+                                            required
+                                            value="Female"
+                                            checked={formData.gender === 'Female'}
+                                            onChange={handleChange}
+                                            className="w-4 h-4 accent-black cursor-pointer"
+                                        />
+                                        Female
+                                    </label>
                                 </div>
                             </div>
 
@@ -612,18 +624,29 @@ export default function RegisterPage() {
 
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                                 <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Housing Requirements</label>
-                                <div className="relative w-full max-w-[400px]">
-                                    <select
-                                        name="housingRequired"
-                                        value={formData.housingRequired}
-                                        onChange={handleChange}
-                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
-                                    >
-                                        <option value="">-- Select Requirement --</option>
-                                        <option value="Required">Required</option>
-                                        <option value="Not required">Not required</option>
-                                    </select>
-                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                <div className="flex items-center gap-4 h-[35px] max-w-[400px]">
+                                    <label className="flex items-center gap-2 text-[13px] text-black font-normal cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="housingRequired"
+                                            value="Required"
+                                            checked={formData.housingRequired === 'Required'}
+                                            onChange={handleChange}
+                                            className="w-4 h-4 accent-black cursor-pointer"
+                                        />
+                                        Required
+                                    </label>
+                                    <label className="flex items-center gap-2 text-[13px] text-black font-normal cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="housingRequired"
+                                            value="Not required"
+                                            checked={formData.housingRequired === 'Not required'}
+                                            onChange={handleChange}
+                                            className="w-4 h-4 accent-black cursor-pointer"
+                                        />
+                                        Not required
+                                    </label>
                                 </div>
                             </div>
 
