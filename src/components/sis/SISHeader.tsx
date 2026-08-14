@@ -244,39 +244,37 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
           <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
             <HeaderSearch isAdmin={false} />
           </div>
-          <div className="flex items-center gap-1">
-            <button className="relative p-2 text-neutral-600 hover:text-black hover:bg-neutral-100 transition-colors" title={`Notifications (${unreadCount})`} onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false); }}>
-              <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} />
+          <div className="flex items-center gap-2">
+            <button className="relative p-2 text-white hover:opacity-80 transition-opacity" title={`Notifications (${unreadCount})`} onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false); }}>
+              <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} className="text-white" />
               {unreadCount > 0 && <span className="absolute top-1 right-1 w-2 h-2 bg-neutral-900 rounded-full" />}
             </button>
-            <button className="relative p-2 text-neutral-600 hover:text-black hover:bg-neutral-100 transition-colors" title="Messages" onClick={() => router.push('/sis?page=student-life')}>
-              <HugeiconsIcon icon={Envelope} size={18} strokeWidth={2} />
+            <button className="relative p-2 text-white hover:opacity-80 transition-opacity" title="Messages" onClick={() => router.push('/sis?page=student-life')}>
+              <HugeiconsIcon icon={Envelope} size={18} strokeWidth={2} className="text-white" />
               {unreadMessageCount > 0 && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-neutral-900 rounded-full border-2 border-white" />}
             </button>
-            <button className="p-2 text-neutral-600 hover:text-black hover:bg-neutral-100 transition-colors" title="Help">
-              <HugeiconsIcon icon={HelpCircle} size={18} strokeWidth={2} />
+            <button className="p-2 text-white hover:opacity-80 transition-opacity" title="Help">
+              <HugeiconsIcon icon={HelpCircle} size={18} strokeWidth={2} className="text-white" />
             </button>
             <div className="relative">
-              <button className="flex items-center gap-2 p-1.5 hover:bg-neutral-100 transition-colors rounded" onClick={() => { setProfileOpen(!profileOpen); setNotificationsOpen(false); }}>
-                <div className="w-7 h-7 bg-neutral-200 rounded flex items-center justify-center">
-                  <HugeiconsIcon icon={User} size={14} strokeWidth={2.5} className="text-neutral-600" />
-                </div>
+              <button className="flex items-center gap-2 p-1.5 hover:opacity-80 transition-opacity cursor-pointer" onClick={() => { setProfileOpen(!profileOpen); setNotificationsOpen(false); }}>
+                <HugeiconsIcon icon={User} size={18} strokeWidth={2} className="text-white" />
                 <div className="hidden lg:block text-left">
-                  <div className="text-xs font-bold text-neutral-900 leading-none">{displayName}</div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{roleLabel}</div>
+                  <div className="text-xs font-bold text-white leading-none">{displayName}</div>
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">{roleLabel}</div>
                 </div>
-                <HugeiconsIcon icon={ChevronDown} size={12} strokeWidth={2.5} className="text-neutral-400" />
+                <HugeiconsIcon icon={ChevronDown} size={12} strokeWidth={2.5} className="text-white" />
               </button>
               {profileOpen && (
-                <div className="absolute right-0 top-full mt-1 w-56 bg-white border border-neutral-200 shadow-lg z-50 py-1">
-                  <div className="px-4 py-2 border-b border-neutral-100">
-                    <div className="text-sm font-bold text-neutral-900">{displayName}</div>
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{userEmail}</div>
+                <div className="absolute right-0 top-full mt-1 w-56 bg-[#1c1c1c] border border-white/10 shadow-lg z-50 py-1 text-white rounded-xl overflow-hidden">
+                  <div className="px-4 py-2 border-b border-white/10">
+                    <div className="text-sm font-bold text-white">{displayName}</div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">{userEmail}</div>
                   </div>
-                  <Link href="/sis/settings" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 no-underline">Settings</Link>
-                  <Link href="/" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 no-underline">View Website</Link>
-                  <div className="border-t border-neutral-100 mt-1 pt-1">
-                    <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-red-600 hover:bg-neutral-50">Sign Out</button>
+                  <Link href="/sis/settings" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white hover:bg-white/5 no-underline">Settings</Link>
+                  <Link href="/" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white hover:bg-white/5 no-underline">View Website</Link>
+                  <div className="border-t border-white/10 mt-1 pt-1">
+                    <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-red-400 hover:bg-white/5">Sign Out</button>
                   </div>
                 </div>
               )}
