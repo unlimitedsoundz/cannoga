@@ -988,10 +988,10 @@ button.sis-btn,
 [data-theme="sis-dark"] .bg-neutral-950,
 [data-theme="sis-dark"] .bg-slate-800,
 [data-theme="sis-dark"] .bg-slate-900,
-[data-theme="sis-dark"] .bg-[#141414],
-[data-theme="sis-dark"] .bg-[#181818],
-[data-theme="sis-dark"] .bg-[#1a1a1a],
-[data-theme="sis-dark"] .bg-[#262626] {
+[data-theme="sis-dark"] [class*="bg-[#141414]"],
+[data-theme="sis-dark"] [class*="bg-[#181818]"],
+[data-theme="sis-dark"] [class*="bg-[#1a1a1a]"],
+[data-theme="sis-dark"] [class*="bg-[#262626]"] {
   background-color: #0f2027 !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
