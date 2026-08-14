@@ -181,6 +181,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         { label: 'TIMETABLE', href: '/sis/admin/timetable' },
         { label: 'REGISTRATION', href: '/sis/admin/registration' },
         { label: 'DOCUMENTS', href: '/sis/admin/documents' },
+        { label: 'PAGE CONTENTS', href: '/sis/admin/website/pages' },
         { label: 'REPORTS', href: '/sis/admin/reports' },
         { label: 'AUDIT', href: '/sis/admin/audit' },
         { label: 'NOTIFICATIONS', href: '/sis/admin/notifications' },
@@ -192,6 +193,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
     const websiteNavItems = [
         { label: 'WEBSITE', href: '/sis/admin/website' },
         { label: 'Pages', href: '/sis/admin/website/pages' },
+        { label: 'Page Contents', href: '/sis/admin/website/pages' },
         { label: 'Schools', href: '/sis/admin/website/schools' },
         { label: 'News', href: '/sis/admin/website/news' },
         { label: 'FAQs', href: '/sis/admin/website/faqs' },
