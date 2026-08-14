@@ -119,7 +119,7 @@ export default function StudentGuidePage() {
             >
                 <Link
                     href="#programmes"
-                    className="inline-flex items-center gap-2 bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline rounded-sm transition-colors border border-white/20"
+                    className="inline-flex items-center gap-2 bg-white hover:bg-neutral-100 text-[#0a151a] font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline rounded-sm transition-colors shadow-md"
                 >
                     <span>View Programmes</span>
                     <ArrowRight size={18} weight="bold" className="text-[#c89211]" />

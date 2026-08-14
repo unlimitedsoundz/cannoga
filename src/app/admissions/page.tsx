@@ -400,7 +400,7 @@ export default async function AdmissionsPage() {
                                         <div className="pt-2">
                                             <Link 
                                                 href="/student-guide/international" 
-                                                className="inline-flex items-center gap-2 bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-sm transition-colors border border-white/20 no-underline"
+                                                className="inline-flex items-center gap-2 bg-white hover:bg-neutral-100 text-[#0a151a] font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-sm transition-colors shadow-md no-underline"
                                             >
                                                 <span>Read Our International Student Guide</span>
                                                 <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
