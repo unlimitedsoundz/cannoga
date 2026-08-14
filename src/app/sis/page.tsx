@@ -337,20 +337,42 @@ export default function SISStudentDashboard() {
         { title: 'Global Tech Leaders Announce Unified AI Governance Guidelines', link: 'https://www.bbc.com/news/technology', pubDate: '3h ago', source: 'BBC News' },
     ]);
 
+    const getDismissedNotifIds = (): string[] => {
+        if (typeof window === 'undefined') return [];
+        try {
+            return JSON.parse(localStorage.getItem('sis_dismissed_notifications') || '[]');
+        } catch {
+            return [];
+        }
+    };
+
+    const addDismissedNotifId = (id: string) => {
+        if (typeof window === 'undefined') return;
+        try {
+            const current = getDismissedNotifIds();
+            if (!current.includes(id)) {
+                localStorage.setItem('sis_dismissed_notifications', JSON.stringify([...current, id]));
+            }
+        } catch (e) {}
+    };
+
     useEffect(() => {
         const fetchHeaderNotifs = async () => {
             try {
                 const res = await fetch('/api/sis/notifications');
                 if (res.ok) {
                     const data = await res.json();
-                    const list = (data.notifications || []).map((n: any) => ({
-                        id: n.id,
-                        title: n.title,
-                        description: n.message || n.description || '',
-                        time: new Date(n.created_at || Date.now()).toLocaleDateString(),
-                        priority: n.priority || 'normal',
-                        read: n.read || false,
-                    }));
+                    const dismissed = getDismissedNotifIds();
+                    const list = (data.notifications || [])
+                        .filter((n: any) => !dismissed.includes(n.id))
+                        .map((n: any) => ({
+                            id: n.id,
+                            title: n.title,
+                            description: n.message || n.description || '',
+                            time: new Date(n.created_at || Date.now()).toLocaleDateString(),
+                            priority: n.priority || 'normal',
+                            read: n.read || false,
+                        }));
                     const unread = list.filter((n: any) => !n.read);
                     if (unread.length > 0) {
                         const latest = unread[0];
@@ -1245,6 +1267,7 @@ export default function SISStudentDashboard() {
                                                             type="button"
                                                             onClick={async (e) => {
                                                                 e.stopPropagation();
+                                                                addDismissedNotifId(n.id);
                                                                 setNotificationsList(prev => prev.filter(item => item.id !== n.id));
                                                                 try {
                                                                     await fetch(`/api/sis/notifications?id=${n.id}`, { method: 'DELETE' });

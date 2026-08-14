@@ -175,6 +175,25 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
   const roleLabel = profile?.role ? getRoleLabel(profile.role) : (role === 'ADMIN' ? 'Admin' : 'Student');
   const userEmail = profile?.email || 'user@example.com';
 
+  const getDismissedIds = (): string[] => {
+    if (typeof window === 'undefined') return [];
+    try {
+      return JSON.parse(localStorage.getItem('sis_dismissed_notifications') || '[]');
+    } catch {
+      return [];
+    }
+  };
+
+  const addDismissedId = (id: string) => {
+    if (typeof window === 'undefined') return;
+    try {
+      const current = getDismissedIds();
+      if (!current.includes(id)) {
+        localStorage.setItem('sis_dismissed_notifications', JSON.stringify([...current, id]));
+      }
+    } catch (e) {}
+  };
+
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
@@ -182,14 +201,17 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
         const res = await fetch(endpoint);
         if (res.ok) {
           const data = await res.json();
-          const list = (data.notifications || []).map((n: any) => ({
-            id: n.id,
-            title: n.title,
-            description: n.message || n.description || '',
-            time: new Date(n.created_at || Date.now()).toLocaleDateString(),
-            priority: n.priority || 'normal',
-            read: n.read || false,
-          }));
+          const dismissed = getDismissedIds();
+          const list = (data.notifications || [])
+            .filter((n: any) => !dismissed.includes(n.id))
+            .map((n: any) => ({
+              id: n.id,
+              title: n.title,
+              description: n.message || n.description || '',
+              time: new Date(n.created_at || Date.now()).toLocaleDateString(),
+              priority: n.priority || 'normal',
+              read: n.read || false,
+            }));
 
           // Trigger toast for newly fetched unread notification for students
           if (!isAdmin) {
@@ -238,6 +260,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
   }, [studentId, profile?.student_id]);
 
   const handleDeleteNotification = async (id: string) => {
+    addDismissedId(id);
     setNotifications(prev => prev.filter(n => n.id !== id));
     try {
       await fetch(`/api/sis/notifications?id=${id}`, { method: 'DELETE' });
