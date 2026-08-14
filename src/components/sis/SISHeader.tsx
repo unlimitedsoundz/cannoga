@@ -468,11 +468,6 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                   <div className="px-4 py-6 text-center text-neutral-500 text-xs">No notifications</div>
                 )}
               </div>
-              <div className="px-3 py-2 border-t border-white/10 bg-white/5">
-                <span className="block text-center text-[9px] font-bold uppercase tracking-wider text-neutral-400">
-                  {unreadCount > 0 ? `${unreadCount} unread notification${unreadCount > 1 ? 's' : ''}` : 'All caught up'}
-                </span>
-              </div>
             </div>
           )}
         </header>
