@@ -507,9 +507,13 @@ export function ProgramsAZTableView() {
         programsData.map((p, idx) => {
             const schSlug = getSchoolSlug(p.school);
             const deptSlug = getDeptSlug(p.name, p.school);
+            const domesticTuition = p.level === 'Master' ? '$5,600/yr' : p.level === 'Bachelor' ? '$4,000/yr' : '$2,400/yr';
+            const intlTuition = p.level === 'Master' ? '$9,600/yr' : p.level === 'Bachelor' ? '$6,400/yr' : '$4,000/yr';
             return {
                 ...p,
                 code: `CAN-${100 + idx * 5}`,
+                tuitionDomestic: domesticTuition,
+                tuitionInternational: intlTuition,
                 href: `/schools/${schSlug}/${deptSlug}`
             };
         })
@@ -543,8 +547,8 @@ export function ProgramsAZTableView() {
                             item.degreeLevel === 'CERTIFICATE' ? 'Certificate' : 'Diploma'
                         ) : 'Diploma';
 
-                        const domesticTuition = levelFormatted === 'Master' ? '$3,500/yr' : levelFormatted === 'Bachelor' ? '$2,500/yr' : '$1,500/yr';
-                        const intlTuition = levelFormatted === 'Master' ? '$6,000/yr' : levelFormatted === 'Bachelor' ? '$4,000/yr' : '$2,500/yr';
+                        const domesticTuition = levelFormatted === 'Master' ? '$5,600/yr' : levelFormatted === 'Bachelor' ? '$4,000/yr' : '$2,400/yr';
+                        const intlTuition = levelFormatted === 'Master' ? '$9,600/yr' : levelFormatted === 'Bachelor' ? '$6,400/yr' : '$4,000/yr';
 
                         return {
                             id: item.id,
