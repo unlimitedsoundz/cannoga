@@ -977,12 +977,26 @@ button.sis-btn,
   color: #ffffff !important;
 }
 
-/* Force dark cards for any bg-white elements in Admin SIS dark theme */
+/* Force Deep Blue background for all container cards, panels, and dark grey elements in Admin SIS */
 [data-theme="sis-dark"] .bg-white,
 [data-theme="sis-dark"] .bg-gray-50,
 [data-theme="sis-dark"] .bg-gray-100,
 [data-theme="sis-dark"] .bg-neutral-50,
-[data-theme="sis-dark"] .bg-neutral-100 {
-  background-color: #141414 !important;
+[data-theme="sis-dark"] .bg-neutral-100,
+[data-theme="sis-dark"] .bg-neutral-800,
+[data-theme="sis-dark"] .bg-neutral-900,
+[data-theme="sis-dark"] .bg-neutral-950,
+[data-theme="sis-dark"] .bg-slate-800,
+[data-theme="sis-dark"] .bg-slate-900,
+[data-theme="sis-dark"] .bg-[#141414],
+[data-theme="sis-dark"] .bg-[#181818],
+[data-theme="sis-dark"] .bg-[#1a1a1a],
+[data-theme="sis-dark"] .bg-[#262626] {
+  background-color: #0f2027 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="sis-dark"] aside {
+  background-color: #0a151a !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
 }

@@ -116,7 +116,7 @@ export function SISSidebar({ items, pathname, open, onClose }: SISSidebarProps) 
           />
         )}
         <aside className={`
-          w-64 bg-[#141414] border-r border-white/10 flex-shrink-0 flex flex-col
+          w-64 bg-[#0a151a] border-r border-white/10 flex-shrink-0 flex flex-col
           fixed inset-y-0 left-0 lg:sticky lg:top-14 lg:h-[calc(100vh-3.5rem)] z-50 lg:z-30 transition-transform duration-300 ease-in-out
           ${open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}>

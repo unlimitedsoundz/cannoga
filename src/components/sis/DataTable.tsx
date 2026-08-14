@@ -74,7 +74,7 @@ export function DataTable<T extends Record<string, any>>({
   }, [data, sortKey, sortDirection, sortConfig]);
 
   return (
-    <div className={`overflow-x-auto rounded-2xl bg-[#1a1a1a] shadow-sm ${className}`}>
+    <div className={`overflow-x-auto rounded-2xl bg-[#0f2027] border border-white/10 shadow-sm ${className}`}>
       <table className="w-full text-left text-sm font-sans min-w-[480px]">
         <thead className="bg-white/4">
           <tr>
