@@ -1,7 +1,7 @@
 import PublicationList from './PublicationList';
-import Image from 'next/image';
-import { Link } from '@/components/ui/Link';
+import { Hero } from '@/components/layout/Hero';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
+import Link from 'next/link';
 
 export const metadata = {
     title: 'Peer-Reviewed Academic Publications — Cannoga College Ottawa',
@@ -58,47 +58,37 @@ export default function PublicationsPage() {
                 { name: 'Publications', item: '/research/publications' }
             ]} />
 
-            {/* HERO SECTION WITH FULL OVERLAY */}
-            <section className="relative bg-[#191919] text-white pt-32 pb-24 md:pt-44 md:pb-32 px-4 border-b border-slate-800 overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <Image 
-                        src="/images/research-hero.png" 
-                        alt="Cannoga Academic Publications" 
-                        fill
-                        className="object-cover object-center opacity-40"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#191919]/95 via-[#191919]/70 to-[#191919]/40"></div>
-                </div>
+            {/* Standard Hero Component */}
+            <Hero
+                title="Peer-Reviewed Academic Publications"
+                body="Our faculty and researchers contribute to global scientific knowledge through peer-reviewed journals, international conference proceedings, and Canadian open-access research repositories."
+                backgroundColor="#0a151a"
+                tinted
+                lightText={true}
+                overlay={true}
+                overlayOpacity="opacity-40"
+                image={{
+                    src: "/images/research-hero.png",
+                    alt: "Cannoga Academic Publications"
+                }}
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Research', href: '/research' },
+                    { label: 'Publications' }
+                ]}
+            />
 
-                <div className="container mx-auto max-w-5xl relative z-10">
-                    <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#c89211] mb-6">
-                        <Link href="/" className="text-[#c89211] hover:text-white transition-colors no-underline">HOME</Link>
-                        <span className="text-slate-500">/</span>
-                        <Link href="/research" className="text-slate-300 hover:text-white transition-colors no-underline">RESEARCH</Link>
-                        <span className="text-slate-500">/</span>
-                        <span>PUBLICATIONS</span>
-                    </div>
-                    <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white leading-tight max-w-3xl">
-                        Peer-Reviewed Academic Publications
-                    </h1>
-                    <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl font-medium">
-                        Our faculty and researchers contribute to global scientific knowledge through peer-reviewed journals, international conference proceedings, and Canadian open-access research repositories.
-                    </p>
-                </div>
-            </section>
-
-            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-12">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-200">
+            <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12 md:py-16 space-y-8">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200">
                     <div>
-                        <h2 className="text-3xl font-black text-black tracking-tight">Faculty Journal Index</h2>
-                        <p className="text-slate-600 text-sm font-medium mt-1">
-                            Click any publication entry below to expand the complete research abstract.
+                        <h2 className="text-xl sm:text-2xl font-black text-black tracking-tight">Faculty Journal Index</h2>
+                        <p className="text-neutral-600 text-xs sm:text-sm font-medium mt-1">
+                            Select any publication entry below to view the abstract and publication details.
                         </p>
                     </div>
                     <Link 
                         href="/research" 
-                        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0f2027] hover:text-[#c89211] transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-black hover:underline transition-colors shrink-0"
                     >
                         <span>← Return to Research Hub</span>
                     </Link>
