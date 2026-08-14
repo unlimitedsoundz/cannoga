@@ -178,248 +178,263 @@ export default function RegisterPage() {
                         </ul>
                     </div>
 
-                    <form onSubmit={handleRegister} className="space-y-3">
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Email Address <span className="text-red-600">*</span></label>
-                            <input
-                                type="email"
-                                name="email"
-                                required
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                placeholder="you@example.com"
-                            />
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Password <span className="text-red-600">*</span></label>
-                            <div className="relative w-full max-w-[400px]">
+                    <form onSubmit={handleRegister} className="space-y-4">
+                        {/* Section 1: Account Credentials */}
+                        <div className="space-y-3">
+                            <h2 className="text-[14px] font-bold text-black border-b border-neutral-100 pb-1.5 mb-3">Account Credentials</h2>
+                            
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Email Address <span className="text-red-600">*</span></label>
                                 <input
-                                    type={showPassword ? 'text' : 'password'}
-                                    name="password"
+                                    type="email"
+                                    name="email"
                                     required
-                                    value={formData.password}
+                                    value={formData.email}
                                     onChange={handleChange}
-                                    className="w-full h-[35px] px-3 pr-10 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                    placeholder="Minimum 6 characters"
-                                    minLength={6}
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black transition-colors"
-                                >
-                                    {showPassword ? <EyeSlash size={18} /> : <Eye size={18} />}
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">First Name <span className="text-red-600">*</span></label>
-                            <input
-                                type="text"
-                                name="firstName"
-                                required
-                                value={formData.firstName}
-                                onChange={handleChange}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                            />
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Middle Name <span className="text-black font-normal">(Opt)</span></label>
-                            <input
-                                type="text"
-                                name="middleName"
-                                value={formData.middleName}
-                                onChange={handleChange}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                placeholder="Optional"
-                            />
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Last Name <span className="text-red-600">*</span></label>
-                            <input
-                                type="text"
-                                name="lastName"
-                                required
-                                value={formData.lastName}
-                                onChange={handleChange}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                            />
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Passport No. <span className="text-red-600">*</span></label>
-                            <input
-                                type="text"
-                                name="passportNumber"
-                                required
-                                value={formData.passportNumber}
-                                onChange={handleChange}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                            />
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Date of Birth <span className="text-red-600">*</span></label>
-                            <div className="w-full max-w-[400px]">
-                                <DateSelector
-                                    name="dateOfBirth"
-                                    required
-                                    value={formData.dateOfBirth}
-                                    onChange={(name, value) => setFormData({ ...formData, [name]: value })}
+                                    className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                    placeholder="you@example.com"
                                 />
                             </div>
-                        </div>
 
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Gender <span className="text-red-600">*</span></label>
-                            <div className="relative w-full max-w-[400px]">
-                                <select
-                                    name="gender"
-                                    required
-                                    value={formData.gender}
-                                    onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                                    className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
-                                >
-                                    <option value="">Select your gender</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
-                                <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Password <span className="text-red-600">*</span></label>
+                                <div className="relative w-full max-w-[400px]">
+                                    <input
+                                        type={showPassword ? 'text' : 'password'}
+                                        name="password"
+                                        required
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        className="w-full h-[35px] px-3 pr-10 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                        placeholder="Minimum 6 characters"
+                                        minLength={6}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black transition-colors"
+                                    >
+                                        {showPassword ? <EyeSlash size={18} /> : <Eye size={18} />}
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Phone Code <span className="text-red-600">*</span></label>
-                            <div className="relative w-full max-w-[400px]">
-                                <select
-                                    name="phoneCode"
+                        {/* Section 2: Personal Information */}
+                        <div className="pt-4 border-t border-neutral-100 space-y-3">
+                            <h2 className="text-[14px] font-bold text-black border-b border-neutral-100 pb-1.5 mb-3">Personal Information</h2>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">First Name <span className="text-red-600">*</span></label>
+                                <input
+                                    type="text"
+                                    name="firstName"
                                     required
-                                    value={formData.phoneCode}
-                                    onChange={(e) => setFormData({ ...formData, phoneCode: e.target.value })}
-                                    className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
-                                >
-                                    {phoneCodes.map((phone) => (
-                                        <option key={phone.code} value={phone.code}>
-                                            {phone.code} ({phone.country})
-                                        </option>
-                                    ))}
-                                </select>
-                                <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                    value={formData.firstName}
+                                    onChange={handleChange}
+                                    className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Middle Name <span className="text-black font-normal">(Opt)</span></label>
+                                <input
+                                    type="text"
+                                    name="middleName"
+                                    value={formData.middleName}
+                                    onChange={handleChange}
+                                    className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                    placeholder="Optional"
+                                />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Last Name <span className="text-red-600">*</span></label>
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    required
+                                    value={formData.lastName}
+                                    onChange={handleChange}
+                                    className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Passport No. <span className="text-red-600">*</span></label>
+                                <input
+                                    type="text"
+                                    name="passportNumber"
+                                    required
+                                    value={formData.passportNumber}
+                                    onChange={handleChange}
+                                    className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Date of Birth <span className="text-red-600">*</span></label>
+                                <div className="w-full max-w-[400px]">
+                                    <DateSelector
+                                        name="dateOfBirth"
+                                        required
+                                        value={formData.dateOfBirth}
+                                        onChange={(name, value) => setFormData({ ...formData, [name]: value })}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Gender <span className="text-red-600">*</span></label>
+                                <div className="relative w-full max-w-[400px]">
+                                    <select
+                                        name="gender"
+                                        required
+                                        value={formData.gender}
+                                        onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                    >
+                                        <option value="">Select your gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Citizenship <span className="text-red-600">*</span></label>
+                                <div className="relative w-full max-w-[400px]">
+                                    <select
+                                        name="citizenship"
+                                        required
+                                        value={formData.citizenship}
+                                        onChange={(e) => setFormData({ ...formData, citizenship: e.target.value })}
+                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                    >
+                                        <option value="">Select citizenship</option>
+                                        {countries.map((country) => (
+                                            <option key={country} value={country}>
+                                                {country.charAt(0).toUpperCase() + country.slice(1)}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                </div>
                             </div>
                         </div>
 
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Phone Number <span className="text-red-600">*</span></label>
-                            <input
-                                type="tel"
-                                name="phoneNumber"
-                                required
-                                value={formData.phoneNumber}
-                                onChange={handleChange}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                placeholder="e.g. 1234567890"
-                            />
-                        </div>
+                        {/* Section 3: Contact & Permanent Address */}
+                        <div className="pt-4 border-t border-neutral-100 space-y-3">
+                            <h2 className="text-[14px] font-bold text-black border-b border-neutral-100 pb-1.5 mb-3">Contact & Permanent Address</h2>
 
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Citizenship <span className="text-red-600">*</span></label>
-                            <div className="relative w-full max-w-[400px]">
-                                <select
-                                    name="citizenship"
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Phone Code <span className="text-red-600">*</span></label>
+                                <div className="relative w-full max-w-[400px]">
+                                    <select
+                                        name="phoneCode"
+                                        required
+                                        value={formData.phoneCode}
+                                        onChange={(e) => setFormData({ ...formData, phoneCode: e.target.value })}
+                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                    >
+                                        {phoneCodes.map((phone) => (
+                                            <option key={phone.code} value={phone.code}>
+                                                {phone.code} ({phone.country})
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Phone Number <span className="text-red-600">*</span></label>
+                                <input
+                                    type="tel"
+                                    name="phoneNumber"
                                     required
-                                    value={formData.citizenship}
-                                    onChange={(e) => setFormData({ ...formData, citizenship: e.target.value })}
-                                    className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
-                                >
-                                    <option value="">Select citizenship</option>
-                                    {countries.map((country) => (
-                                        <option key={country} value={country}>
-                                            {country.charAt(0).toUpperCase() + country.slice(1)}
-                                        </option>
-                                    ))}
-                                </select>
-                                <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                    value={formData.phoneNumber}
+                                    onChange={handleChange}
+                                    className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                    placeholder="e.g. 1234567890"
+                                />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Address <span className="text-red-600">*</span></label>
+                                <input
+                                    type="text"
+                                    name="address"
+                                    required
+                                    value={formData.address}
+                                    onChange={handleChange}
+                                    className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                    placeholder="Street address"
+                                />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">City <span className="text-red-600">*</span></label>
+                                <input
+                                    type="text"
+                                    name="city"
+                                    required
+                                    value={formData.city}
+                                    onChange={handleChange}
+                                    className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Country <span className="text-red-600">*</span></label>
+                                <div className="relative w-full max-w-[400px]">
+                                    <select
+                                        name="country"
+                                        required
+                                        value={formData.country}
+                                        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                                        className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
+                                    >
+                                        <option value="">Select country</option>
+                                        {countries.map((country) => (
+                                            <option key={country} value={country}>
+                                                {country.charAt(0).toUpperCase() + country.slice(1)}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">State/Province <span className="text-red-600">*</span></label>
+                                <input
+                                    type="text"
+                                    name="state"
+                                    required
+                                    value={formData.state}
+                                    onChange={handleChange}
+                                    className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Zip/Postal Code <span className="text-red-600">*</span></label>
+                                <input
+                                    type="text"
+                                    name="zipcode"
+                                    required
+                                    value={formData.zipcode}
+                                    onChange={handleChange}
+                                    className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
+                                />
                             </div>
                         </div>
 
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Country <span className="text-red-600">*</span></label>
-                            <div className="relative w-full max-w-[400px]">
-                                <select
-                                    name="country"
-                                    required
-                                    value={formData.country}
-                                    onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                                    className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
-                                >
-                                    <option value="">Select country</option>
-                                    {countries.map((country) => (
-                                        <option key={country} value={country}>
-                                            {country.charAt(0).toUpperCase() + country.slice(1)}
-                                        </option>
-                                    ))}
-                                </select>
-                                <CaretDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black" />
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Address <span className="text-red-600">*</span></label>
-                            <input
-                                type="text"
-                                name="address"
-                                required
-                                value={formData.address}
-                                onChange={handleChange}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                                placeholder="Street address"
-                            />
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">City <span className="text-red-600">*</span></label>
-                            <input
-                                type="text"
-                                name="city"
-                                required
-                                value={formData.city}
-                                onChange={handleChange}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                            />
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">State/Province <span className="text-red-600">*</span></label>
-                            <input
-                                type="text"
-                                name="state"
-                                required
-                                value={formData.state}
-                                onChange={handleChange}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                            />
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                            <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Zip/Postal Code <span className="text-red-600">*</span></label>
-                            <input
-                                type="text"
-                                name="zipcode"
-                                required
-                                value={formData.zipcode}
-                                onChange={handleChange}
-                                className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
-                            />
-                        </div>
-
-                        {/* Local/Canadian Address Section */}
+                        {/* Section 4: Local/Canadian Address Section */}
                         <div className="pt-4 border-t border-neutral-100">
-                            <h2 className="text-[14px] font-bold text-black mb-3">Local/Canadian Address (if known)</h2>
+                            <h2 className="text-[14px] font-bold text-black border-b border-neutral-100 pb-1.5 mb-3">Local/Canadian Address (if known)</h2>
                             
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-3">
                                 <div className="w-full sm:w-36 flex-shrink-0"></div>
