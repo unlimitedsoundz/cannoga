@@ -590,7 +590,7 @@ export default function RegisterPage() {
                             </div>
 
                             {formData.is19OrOlder && (
-                                <div className="space-y-3 p-3.5 bg-neutral-50/80 rounded-lg border border-neutral-200/60 my-2">
+                                <>
                                     <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                                         <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
                                             {formData.is19OrOlder === 'Yes' ? 'Emergency Contact' : 'Parent/Guardian'} First Name <span className="text-red-600">*</span>
@@ -648,7 +648,7 @@ export default function RegisterPage() {
                                             placeholder="contact@example.com"
                                         />
                                     </div>
-                                </div>
+                                </>
                             )}
 
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
