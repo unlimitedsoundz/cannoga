@@ -324,7 +324,7 @@ serve(async (req) => {
                     <p>Important Request: Please act promptly to accept your offer and fulfill the conditions, as places are limited and allocated on a first-come, first-served basis once conditions are met.</p>
                     <p>We are very impressed by your application and look forward to welcoming you to our creative community in Canada.</p>
                     <p>Warm regards,<br>
-                    Linda Cottonmouth<br>
+                    Todd Banning<br>
                     International Admissions Officer<br>
                     Admissions Office<br>
                     Cannoga College<br>
