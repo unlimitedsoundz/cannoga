@@ -120,9 +120,9 @@ export default function RegisterPage() {
                 )}
 
                 <div className="bg-white p-8 rounded-2xl shadow-sm border border-neutral-100">
-                    <h1 className="text-2xl font-bold mb-4 text-neutral-900">Register New Account</h1>
+                    <h1 className="text-2xl font-bold mb-4 text-black">Register New Account</h1>
 
-                    <div className="mb-6 text-xs text-neutral-600 leading-relaxed space-y-2 font-medium">
+                    <div className="mb-6 text-xs text-black leading-relaxed space-y-2 font-medium">
                         <p>
                             Cannoga College has three intakes each year for academic programs: Winter Semester (January), Summer Semester (May), and Fall Semester (September). Students are recommended to apply at least 2-3 months before the start of the program. Our application deadlines for international students are:
                         </p>
@@ -135,7 +135,7 @@ export default function RegisterPage() {
                     <form onSubmit={handleRegister} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Email Address <span className="text-red-600">*</span></label>
+                                <label className="block text-xs font-medium font-black text-black mb-1">Email Address <span className="text-red-600">*</span></label>
                                 <input
                                     type="email"
                                     name="email"
@@ -147,7 +147,7 @@ export default function RegisterPage() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Password <span className="text-red-600">*</span></label>
+                                <label className="block text-xs font-medium font-black text-black mb-1">Password <span className="text-red-600">*</span></label>
                                 <div className="relative">
                                     <input
                                         type={showPassword ? 'text' : 'password'}
@@ -172,7 +172,7 @@ export default function RegisterPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">First Name <span className="text-red-600">*</span></label>
+                                <label className="block text-xs font-medium font-black text-black mb-1">First Name <span className="text-red-600">*</span></label>
                                 <input
                                     type="text"
                                     name="firstName"
@@ -183,7 +183,7 @@ export default function RegisterPage() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Middle Name <span className="text-neutral-400 font-normal">(Optional)</span></label>
+                                <label className="block text-xs font-medium font-black text-black mb-1">Middle Name <span className="text-black font-normal">(Optional)</span></label>
                                 <input
                                     type="text"
                                     name="middleName"
@@ -194,7 +194,7 @@ export default function RegisterPage() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Last Name <span className="text-red-600">*</span></label>
+                                <label className="block text-xs font-medium font-black text-black mb-1">Last Name <span className="text-red-600">*</span></label>
                                 <input
                                     type="text"
                                     name="lastName"
@@ -207,7 +207,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div>
-                            <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Passport Number <span className="text-red-600">*</span></label>
+                            <label className="block text-xs font-medium font-black text-black mb-1">Passport Number <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="passportNumber"
@@ -227,7 +227,7 @@ export default function RegisterPage() {
                         />
 
                         <div>
-                            <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Gender <span className="text-red-600">*</span></label>
+                            <label className="block text-xs font-medium font-black text-black mb-1">Gender <span className="text-red-600">*</span></label>
                             <select
                                 name="gender"
                                 required
@@ -243,7 +243,7 @@ export default function RegisterPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Phone Code <span className="text-red-600">*</span></label>
+                                <label className="block text-xs font-medium font-black text-black mb-1">Phone Code <span className="text-red-600">*</span></label>
                                 <select
                                     name="phoneCode"
                                     required
@@ -259,7 +259,7 @@ export default function RegisterPage() {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Phone Number <span className="text-red-600">*</span></label>
+                                <label className="block text-xs font-medium font-black text-black mb-1">Phone Number <span className="text-red-600">*</span></label>
                                 <input
                                     type="tel"
                                     name="phoneNumber"
@@ -273,7 +273,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div>
-                            <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Citizenship <span className="text-red-600">*</span></label>
+                            <label className="block text-xs font-medium font-black text-black mb-1">Citizenship <span className="text-red-600">*</span></label>
                             <select
                                 name="citizenship"
                                 required
@@ -291,7 +291,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div>
-                            <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Country of Residence <span className="text-red-600">*</span></label>
+                            <label className="block text-xs font-medium font-black text-black mb-1">Country of Residence <span className="text-red-600">*</span></label>
                             <select
                                 name="country"
                                 required
@@ -309,7 +309,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div>
-                            <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Address <span className="text-red-600">*</span></label>
+                            <label className="block text-xs font-medium font-black text-black mb-1">Address <span className="text-red-600">*</span></label>
                             <input
                                 type="text"
                                 name="address"
@@ -323,7 +323,7 @@ export default function RegisterPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">City <span className="text-red-600">*</span></label>
+                                <label className="block text-xs font-medium font-black text-black mb-1">City <span className="text-red-600">*</span></label>
                                 <input
                                     type="text"
                                     name="city"
@@ -334,7 +334,7 @@ export default function RegisterPage() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">State/Province <span className="text-red-600">*</span></label>
+                                <label className="block text-xs font-medium font-black text-black mb-1">State/Province <span className="text-red-600">*</span></label>
                                 <input
                                     type="text"
                                     name="state"
@@ -345,7 +345,7 @@ export default function RegisterPage() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">Zip/Postal Code <span className="text-red-600">*</span></label>
+                                <label className="block text-xs font-medium font-black text-black mb-1">Zip/Postal Code <span className="text-red-600">*</span></label>
                                 <input
                                     type="text"
                                     name="zipcode"
