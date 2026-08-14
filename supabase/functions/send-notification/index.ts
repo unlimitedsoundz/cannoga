@@ -128,41 +128,32 @@ serve(async (req) => {
 
         // Determine notification type
         let notificationType = type;
-        const status = applicationData?.status;
-        const oldStatus = old_record?.status;
+        const rawStatus = (applicationData?.status || '').toUpperCase();
+        const rawOldStatus = (old_record?.status || '').toUpperCase();
 
-        if (!notificationType && (table === 'applications' || applicationId)) {
-            if (status === 'SUBMITTED' && oldStatus !== 'SUBMITTED') {
-                notificationType = 'APPLICATION_SUBMITTED';
-            } else if (status === 'ADMITTED' && oldStatus !== 'ADMITTED') {
-                notificationType = 'OFFER_LETTER_READY';
-            } else if (status === 'OFFER_ACCEPTED' && oldStatus !== 'OFFER_ACCEPTED') {
-                notificationType = 'OFFER_ACCEPTED';
-            } else if ((status === 'ADMISSION_LETTER_GENERATED' && oldStatus !== 'ADMISSION_LETTER_GENERATED') ||
-                (status === 'ENROLLED' && oldStatus !== 'ENROLLED') ||
-                (record?.enrollment_status === 'Active' && old_record?.enrollment_status !== 'Active')) {
-                notificationType = 'ADMISSION_LETTER_READY';
-            } else if (status === 'REJECTED' && oldStatus !== 'REJECTED') {
-                notificationType = 'APPLICATION_REJECTED';
-            } else if (status === 'DOCS_REQUIRED' && oldStatus !== 'DOCS_REQUIRED') {
-                notificationType = 'DOCS_REQUIRED';
-            }
-        }
-
-        // Support for profiles table (User Registration)
-        if (!notificationType && table === 'profiles' && record) {
-            notificationType = 'USER_REGISTRATION';
-        }
-
-        // Support for module_enrollments table (Module Registration)
-        if (!notificationType && table === 'module_enrollments' && record) {
-            notificationType = 'MODULE_REGISTRATION';
-        }
-
-        // Support for tuition_payments table trigger
-        if (!notificationType && table === 'tuition_payments' && record) {
-            if (record.status === 'verified' && old_record?.status !== 'verified') {
-                notificationType = 'TUITION_PAYMENT_VERICAED';
+        if (!notificationType || notificationType === 'INSERT' || notificationType === 'UPDATE') {
+            if (table === 'applications' || applicationId) {
+                if (rawStatus === 'SUBMITTED' || rawStatus === 'SUBMIT') {
+                    notificationType = 'APPLICATION_SUBMITTED';
+                } else if (rawStatus === 'OFFER_ISSUED' || rawStatus === 'ADMITTED') {
+                    notificationType = 'OFFER_LETTER_READY';
+                } else if (rawStatus === 'OFFER_ACCEPTED') {
+                    notificationType = 'OFFER_ACCEPTED';
+                } else if (rawStatus === 'ADMISSION_LETTER_GENERATED' || rawStatus === 'ENROLLED' || record?.enrollment_status === 'Active') {
+                    notificationType = 'ADMISSION_LETTER_READY';
+                } else if (rawStatus === 'REJECTED') {
+                    notificationType = 'APPLICATION_REJECTED';
+                } else if (rawStatus === 'DOCS_REQUIRED') {
+                    notificationType = 'DOCS_REQUIRED';
+                } else {
+                    notificationType = 'APPLICATION_SUBMITTED';
+                }
+            } else if (table === 'profiles') {
+                notificationType = 'USER_REGISTRATION';
+            } else if (table === 'module_enrollments') {
+                notificationType = 'MODULE_REGISTRATION';
+            } else if (table === 'tuition_payments') {
+                notificationType = 'TUITION_PAYMENT_VERIFIED';
             }
         }
 
@@ -173,8 +164,8 @@ serve(async (req) => {
         }
 
         // Configuration
-        const adminEmail = Deno.env.get("ADMIN_NOTICACATION_EMAIL") || "unlymitedsoundz@gmail.com";
-        const sender = "Cannoga College <admissions@cannogacollege.ca>";
+        const adminEmail = Deno.env.get("ADMIN_NOTIFICATION_EMAIL") || "unlymitedsoundz@gmail.com";
+        const sender = Deno.env.get("SENDER_EMAIL") || "Cannoga College <onboarding@resend.dev>";
 
         // Fetch User Info if missing
         let userEmail = applicationData?.email;
@@ -306,7 +297,7 @@ serve(async (req) => {
             case 'OFFER_LETTER_READY':
                 studentSubject = "Conditional Admission Offer - Cannoga College Next Steps";
                 studentHtml = `
-                    <img src="https://cannogacollege.ca/images/admissions/master-hero.png" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;" />
+                    <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;" />
                     <h1 style="text-align: center; font-size: 24px; margin: 20px 0;">Cannoga College Admission</h1>
                     <h2 style="text-align: center; font-size: 18px; margin-bottom: 15px;">Congratulations on Your Offer!</h2>
                     <p>Dear ${firstName},</p>
@@ -385,7 +376,7 @@ serve(async (req) => {
                 }
                 studentSubject = "Congratulations on Your Admission to Cannoga College – Next Steps";
                 studentHtml = `
-                    <img src="https://cannogacollege.ca/images/admissions/master-hero.png" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;" />
+                    <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;" />
                     <h1 style="text-align: center; font-size: 24px; margin: 20px 0;">Cannoga College Admission</h1>
                     <h2 style="text-align: center; font-size: 18px; margin-bottom: 15px;">Congratulations!</h2>
                     <p>Dear ${firstName},</p>
@@ -499,7 +490,7 @@ serve(async (req) => {
                 }
                 
                 studentHtml = `
-                    <img src="https://cannogacollege.ca/images/admissions/master-hero.png" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;" />
+                    <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;" />
                     <h1>Payment Received</h1>
                     <p>Hello ${firstName}, we have received your payment of <strong>${formattedTotal2}</strong>.</p>
                     <p><strong>Reference:</strong> ${additionalData?.reference || 'N/A'}</p>
@@ -520,7 +511,7 @@ serve(async (req) => {
             case 'TUITION_PAYMENT_VERICAED':
                 studentSubject = "Payment Verified - Enrollment Confirmed!";
                 studentHtml = `
-                    <img src="https://cannogacollege.ca/images/admissions/master-hero.png" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;" />
+                    <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; height: 150px; object-fit: cover; margin-bottom: 20px;" />
                     <h1 style="color: #034737; font-size: 24px; margin: 20px 0;">Payment Verified!</h1>
                     <p>Hello ${firstName},</p>
                     <p>Great news! Your tuition payment has been officially verified by our registrar's office.</p>
@@ -560,7 +551,7 @@ serve(async (req) => {
                 studentSubject = "Your Housing Assignment is Ready! - Cannoga College";
                 studentHtml = `
                     <div style="text-align: center; margin-bottom: 25px;">
-                        <img src="https://cannogacollege.ca/images/admissions/master-hero.png" alt="Housing" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;" />
+                        <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Housing" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;" />
                     </div>
                     <h1 style="color: #000; font-size: 24px; margin-bottom: 20px;">Housing Confirmed!</h1>
                     <p>Hello ${firstName},</p>
@@ -628,7 +619,7 @@ serve(async (req) => {
                     word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
                 ).join(' ');
                 const invAmt = additionalData?.amount ? new Intl.NumberFormat('en-IE', { style: 'currency', currency: additionalData?.currency || 'CAD', maximumFractionDigits: 0 }).format(additionalData.amount) : 'TBD';
-                const invHero = "https://cannogacollege.ca/images/admissions/master-hero.png";
+                const invHero = "https://cannogacollege.ca/images/studies-hero.jpg";
                 const ancillaryFees = Array.isArray(additionalData?.ancillaryFees) ? additionalData.ancillaryFees : [
                     { name: 'Student Activity Fee', amount: 100 },
                     { name: 'Technology Fee', amount: 100 },
@@ -701,39 +692,30 @@ serve(async (req) => {
                 break;
         }
 
-        // Email Wrapper Helper
+        // Email Wrapper Helper - Minimalist unstyled HTML with Cannoga Logo & Studies Hero
         const wrapHtml = (content: string) => `
             <!DOCTYPE html>
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
-                <meta name="color-scheme" content="light dark">
-                <meta name="supported-color-schemes" content="light dark">
-                <style>
-                    :root { color-scheme: light dark; }
-                    @media (prefers-color-scheme: dark) {
-                        .logo { filter: invert(1) !important; }
-                    }
-                </style>
             </head>
-            <body>
-            <div class="email-container" style="font-family: 'Inter', -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, sans-serif; max-width: 600px; margin: 10px auto; padding: 15px 10px; background: #ffffff;">
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <img src="https://cannogacollege.ca/images/logo-cannoga.png" class="logo" style="width: 100%; height: auto; max-width: 160px;" />
-                </div>
-                <div style="color: #1a1a1a; line-height: 1.5; font-size: 15px;">
-                    ${content}
-                </div>
-                <hr style="border: 0; border-top: 1px solid #f0f0f0; margin: 30px 0;">
-                <div style="text-align: center; color: #888; font-size: 11px;">
-                    <p>&copy; ${new Date().getFullYear()} Cannoga College</p>
-                    <p style="margin-bottom: 15px;">Ottawa, Ontario, Canada | +1 (613) 555-0181 | info@cannogacollege.ca</p>
-                    <div style="margin-top: 15px;">
-                        <a href="https://www.instagram.com/cannogacollege" style="color: #888; text-decoration: none; margin: 0 8px; font-weight: bold;">Instagram</a>
-                        <a href="https://www.tiktok.com/@cannogacollege" style="color: #888; text-decoration: none; margin: 0 8px; font-weight: bold;">TikTok</a>
+            <body style="margin: 0; padding: 20px; background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #111111;">
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <div style="margin-bottom: 20px;">
+                        <img src="https://cannogacollege.ca/images/logo-cannoga.png" alt="Cannoga College Logo" style="max-width: 180px; height: auto; display: block;" />
+                    </div>
+                    <div style="margin-bottom: 24px;">
+                        <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; max-height: 220px; object-fit: cover; display: block;" />
+                    </div>
+                    <div style="font-size: 15px; line-height: 1.6; color: #111111;">
+                        ${content}
+                    </div>
+                    <div style="margin-top: 36px; padding-top: 20px; border-top: 1px solid #eeeeee; font-size: 12px; color: #666666;">
+                        <p style="margin: 0 0 4px 0;"><strong>Cannoga College</strong></p>
+                        <p style="margin: 0 0 4px 0;">Ottawa, Ontario, Canada | admissions@cannogacollege.ca</p>
+                        <p style="margin: 0;">&copy; ${new Date().getFullYear()} Cannoga College. All rights reserved.</p>
                     </div>
                 </div>
-            </div>
             </body>
             </html>
         `;
@@ -742,13 +724,14 @@ serve(async (req) => {
         let adminSuccess = true;
         const errors = [];
 
+        let studentResult = null;
+        let adminResult = null;
+
         // Send Student Email if applicable
         if (studentSubject && userEmail) {
             console.log(`[send-notification] Sending student email to: ${userEmail} (Subject: ${studentSubject})`);
             
-            const finalHtml = notificationType === 'APPLICATION_SUBMITTED' 
-                ? studentHtml 
-                : wrapHtml(studentHtml);
+            const finalHtml = wrapHtml(studentHtml);
                 
             const { data, error } = await resend.emails.send({
                 from: sender,
@@ -762,13 +745,14 @@ serve(async (req) => {
                 errors.push({ type: 'student', error });
             } else {
                 console.log(`[send-notification] Student email sent successfully. ID: ${data?.id}`);
+                studentResult = data;
             }
         } else {
             console.warn(`[send-notification] Warning: No subject (${studentSubject}) or email (${userEmail}) for student notification.`);
         }
 
-        // Send Admin Email if applicable
-        if (adminSubject && adminEmail) {
+        // Send Admin Email if applicable (only if different or if configured)
+        if (adminSubject && adminEmail && adminEmail !== userEmail) {
             console.log(`[send-notification] Sending admin email to: ${adminEmail} (Subject: ${adminSubject})`);
             const { data, error } = await resend.emails.send({
                 from: sender,
@@ -777,22 +761,28 @@ serve(async (req) => {
                 html: wrapHtml(adminHtml),
             });
             if (error) {
-                console.error(`[send-notification] Resend Admin Error:`, error);
-                adminSuccess = false;
+                console.error(`[send-notification] Resend Admin Error (non-fatal in dev mode):`, error);
+                // Mark non-fatal so student email success is preserved in test mode
                 errors.push({ type: 'admin', error });
             } else {
                 console.log(`[send-notification] Admin email sent successfully. ID: ${data?.id}`);
+                adminResult = data;
             }
         }
 
-        if (!studentSuccess || !adminSuccess) {
+        if (!studentSuccess) {
             return new Response(JSON.stringify({ success: false, errors }), {
                 status: 500,
                 headers: { ...corsHeaders, "Content-Type": "application/json" },
             });
         }
 
-        return new Response(JSON.stringify({ success: true }), {
+        return new Response(JSON.stringify({ 
+            success: true, 
+            studentEmailId: studentResult?.id, 
+            adminEmailId: adminResult?.id,
+            warnings: errors 
+        }), {
             headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
 

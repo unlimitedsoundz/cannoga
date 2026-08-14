@@ -5,14 +5,13 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const recipientEmail = 'unlymitedsoundz@gmail.com';
 
-async function runEdgeFunctionNotificationTests() {
-    console.log(`Sending edge function notification tests to ${recipientEmail}...`);
-    
+async function testResendEmailDispatch() {
+    console.log(`Testing Resend email dispatch to: ${recipientEmail}`);
     const functionUrl = `${supabaseUrl}/functions/v1/send-notification`;
-    
-    // Test 1: Application Received Notification
-    const submissionPayload = {
-        type: 'INSERT',
+
+    // Test Payload 1: Direct APPLICATION_SUBMITTED type
+    const payload1 = {
+        type: 'APPLICATION_SUBMITTED',
         table: 'applications',
         record: {
             id: 'app-' + Date.now(),
@@ -21,61 +20,54 @@ async function runEdgeFunctionNotificationTests() {
             email: recipientEmail,
             course_title: 'Ontario College Diploma in Software Engineering',
             course_degree_level: 'DIPLOMA',
-            status: 'submitted',
-            created_at: new Date().toISOString()
+            status: 'SUBMITTED'
         }
     };
 
-    try {
-        console.log('1. Dispatching Application Submission Notification...');
-        const res1 = await fetch(functionUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${serviceKey}`
-            },
-            body: JSON.stringify(submissionPayload)
-        });
-        const data1 = await res1.json();
-        console.log('Submission Notification Result:', res1.status, JSON.stringify(data1));
-    } catch (err) {
-        console.error('Error sending submission notification:', err);
-    }
-
-    // Test 2: Admission Offer Issued Notification
-    const offerPayload = {
-        type: 'UPDATE',
+    // Test Payload 2: Direct OFFER_LETTER_READY type
+    const payload2 = {
+        type: 'OFFER_LETTER_READY',
         table: 'applications',
         record: {
             id: 'app-' + Date.now(),
             first_name: 'Unlymited',
             last_name: 'Soundz',
             email: recipientEmail,
-            course_title: 'Bachelor of Computer Science & Artificial Intelligence',
+            course_title: 'Bachelor of Computer Science & AI',
             course_degree_level: 'BACHELOR',
-            status: 'OFFER_ISSUED',
-            updated_at: new Date().toISOString()
-        },
-        old_record: {
-            status: 'submitted'
+            intake: 'Fall 2026',
+            status: 'OFFER_ISSUED'
         }
     };
 
     try {
-        console.log('2. Dispatching Offer Issued Notification...');
+        console.log('Sending Test 1 (Application Submitted Email)...');
+        const res1 = await fetch(functionUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${serviceKey}`
+            },
+            body: JSON.stringify(payload1)
+        });
+        const data1 = await res1.json();
+        console.log('Test 1 Response:', res1.status, JSON.stringify(data1, null, 2));
+
+        console.log('Sending Test 2 (Admission Offer Email)...');
         const res2 = await fetch(functionUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${serviceKey}`
             },
-            body: JSON.stringify(offerPayload)
+            body: JSON.stringify(payload2)
         });
         const data2 = await res2.json();
-        console.log('Offer Issued Notification Result:', res2.status, JSON.stringify(data2));
+        console.log('Test 2 Response:', res2.status, JSON.stringify(data2, null, 2));
+
     } catch (err) {
-        console.error('Error sending offer notification:', err);
+        console.error('Error triggering edge function:', err);
     }
 }
 
-runEdgeFunctionNotificationTests();
+testResendEmailDispatch();
