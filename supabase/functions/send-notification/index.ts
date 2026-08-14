@@ -304,7 +304,8 @@ serve(async (req) => {
                     <p>Total Credits: ${applicationData?.course_degree_level === 'MASTER' ? '60 Credits' : applicationData?.course_degree_level === 'BACHELOR' ? '90 Credits' : applicationData?.course_degree_level === 'DIPLOMA' ? '60 Credits' : '30 Credits'}</p>
                     
                     <p><strong>Financial Summary (1st Year):</strong></p>
-                    <p>Annual Tuition Fee: $${appAnnualTuition.toLocaleString()} CAD</p>
+                    <p>Tuition Rate Classification: ${isAppDomestic ? 'Domestic (Canadian / EU Resident)' : 'International Student'}</p>
+                    <p>Annual Tuition Fee (${isAppDomestic ? 'Domestic' : 'International'}): $${appAnnualTuition.toLocaleString()} CAD</p>
                     <p>Tuition Deposit (50% to Secure Place): $${appDepositTuition.toLocaleString()} CAD</p>
 
                     <p><strong>What Does a Conditional Offer Mean?</strong></p>
@@ -322,10 +323,10 @@ serve(async (req) => {
 
                     <p>Important Request: Please act promptly to accept your offer and fulfill the conditions, as places are limited and allocated on a first-come, first-served basis once conditions are met.</p>
                     <p>We are very impressed by your application and look forward to welcoming you to our creative community in Canada.</p>
-                    <p>Warm regards,<br><br>
-                    Admissions Office<br><br>
-                    Cannoga College<br><br>
-                    admissions@cannogacollege.ca<br><br>
+                    <p>Warm regards,<br>
+                    Admissions Office<br>
+                    Cannoga College<br>
+                    admissions@cannogacollege.ca<br>
                     https://cannogacollege.ca</p>
                 `;
 
@@ -602,21 +603,29 @@ serve(async (req) => {
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
+                <style>
+                    body { margin: 0; padding: 15px; background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #111111; }
+                    p { margin: 0 0 8px 0; line-height: 1.45; }
+                    ul { margin: 4px 0 10px 0; padding-left: 20px; }
+                    li { margin-bottom: 3px; line-height: 1.45; }
+                    strong { color: #111111; }
+                    a { color: #034737; text-decoration: underline; }
+                </style>
             </head>
-            <body style="margin: 0; padding: 20px; background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #111111;">
+            <body>
                 <div style="max-width: 600px; margin: 0 auto;">
-                    <div style="margin-bottom: 20px;">
+                    <div style="margin-bottom: 12px;">
                         <img src="https://cannogacollege.ca/images/logo-cannoga.png" alt="Cannoga College Logo" style="max-width: 90px; height: auto; display: block;" />
                     </div>
-                    <div style="margin-bottom: 24px;">
-                        <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; max-height: 220px; object-fit: cover; display: block;" />
+                    <div style="margin-bottom: 16px;">
+                        <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; max-height: 200px; object-fit: cover; display: block;" />
                     </div>
-                    <div style="font-size: 15px; line-height: 1.6; color: #111111;">
+                    <div style="font-size: 14px; color: #111111;">
                         ${content}
                     </div>
-                    <div style="margin-top: 36px; padding-top: 20px; border-top: 1px solid #eeeeee; font-size: 12px; color: #666666;">
-                        <p style="margin: 0 0 4px 0;"><strong>Cannoga College</strong></p>
-                        <p style="margin: 0 0 4px 0;">Ottawa, Ontario, Canada | admissions@cannogacollege.ca</p>
+                    <div style="margin-top: 24px; padding-top: 14px; border-top: 1px solid #eeeeee; font-size: 12px; color: #666666;">
+                        <p style="margin: 0 0 3px 0;"><strong>Cannoga College</strong></p>
+                        <p style="margin: 0 0 3px 0;">Ottawa, Ontario, Canada | admissions@cannogacollege.ca</p>
                         <p style="margin: 0;">&copy; ${new Date().getFullYear()} Cannoga College. All rights reserved.</p>
                     </div>
                 </div>
