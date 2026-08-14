@@ -140,7 +140,7 @@ export default function PortalLoginPage() {
                                 <h2 className="-mx-6 px-6 py-1.5 bg-neutral-100 text-black text-[13px] font-bold mb-3 border-y border-neutral-200/60">Account Credentials</h2>
 
                                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                                    <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Email or ID <span className="text-red-600">*</span></label>
+                                    <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Email or Student ID (SIN) <span className="text-red-600">*</span></label>
                                     <input
                                         type="text"
                                         required
