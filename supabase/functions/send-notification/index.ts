@@ -204,6 +204,7 @@ serve(async (req) => {
         let studentHtml = "";
         let adminSubject = "";
         let adminHtml = "";
+        const studentAttachments: any[] = [];
 
         const portalUrl = "https://cannogacollege.ca/portal";
 
@@ -304,7 +305,6 @@ serve(async (req) => {
                     
                     <p><strong>Financial Summary (1st Year):</strong></p>
                     <p>Annual Tuition Fee: $${appAnnualTuition.toLocaleString()} CAD</p>
-                    <p>Net First Year Fee: $${appAnnualTuition.toLocaleString()} CAD</p>
                     <p>Tuition Deposit (50% to Secure Place): $${appDepositTuition.toLocaleString()} CAD</p>
 
                     <p><strong>What Does a Conditional Offer Mean?</strong></p>
@@ -328,6 +328,25 @@ serve(async (req) => {
                     admissions@cannogacollege.ca<br><br>
                     https://cannogacollege.ca</p>
                 `;
+
+                // Attach Letter of Acceptance PDF
+                const offerAppId = applicationData?.id || record?.id || record?.application_id;
+                if (offerAppId) {
+                    try {
+                        const { data: pdfRes } = await supabaseAdmin.functions.invoke('generate-admission-letter', {
+                            body: { applicationId: offerAppId, type: 'OFFER' }
+                        });
+                        if (pdfRes?.url) {
+                            studentAttachments.push({
+                                filename: `Cannoga_Letter_of_Acceptance_${firstName || 'Student'}.pdf`,
+                                path: pdfRes.url
+                            });
+                        }
+                    } catch (err) {
+                        console.error("[send-notification] Error generating LOA PDF attachment:", err);
+                    }
+                }
+
                 adminSubject = `Offer Issued: ${fullName}`;
                 adminHtml = `
                     <h2>Conditional Admission Offer Issued</h2>
@@ -421,6 +440,25 @@ serve(async (req) => {
                     admissions@cannogacollege.ca<br><br>
                     https://cannogacollege.ca</p>
                 `;
+
+                // Attach Official Admission Letter PDF if applicable
+                const admAppId = applicationData?.id || record?.id || record?.application_id;
+                if (admAppId) {
+                    try {
+                        const { data: pdfRes } = await supabaseAdmin.functions.invoke('generate-admission-letter', {
+                            body: { applicationId: admAppId, type: 'ADMISSION' }
+                        });
+                        if (pdfRes?.url) {
+                            studentAttachments.push({
+                                filename: `Cannoga_Official_Admission_Letter_${firstName || 'Student'}.pdf`,
+                                path: pdfRes.url
+                            });
+                        }
+                    } catch (err) {
+                        console.error("[send-notification] Error generating Admission Letter PDF attachment:", err);
+                    }
+                }
+
                 break;
 
             case 'PAYMENT_RECEIVED':
@@ -598,13 +636,18 @@ serve(async (req) => {
             console.log(`[send-notification] Sending student email to: ${userEmail} (Subject: ${studentSubject})`);
             
             const finalHtml = wrapHtml(studentHtml);
-                
-            const { data, error } = await resend.emails.send({
+            const emailOptions: any = {
                 from: sender,
                 to: [userEmail],
                 subject: studentSubject,
                 html: finalHtml,
-            });
+            };
+            if (studentAttachments.length > 0) {
+                emailOptions.attachments = studentAttachments;
+                console.log(`[send-notification] Attaching ${studentAttachments.length} file(s) to student email.`);
+            }
+                
+            const { data, error } = await resend.emails.send(emailOptions);
             if (error) {
                 console.error(`[send-notification] Resend Student Error:`, error);
                 studentSuccess = false;
