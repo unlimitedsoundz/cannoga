@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { createClient } from '@/utils/supabase/client';
 import { Link } from "@aalto-dx/react-components";
@@ -109,7 +109,7 @@ export default function ResearchProjectsAdmin() {
                                         <Microscope size={48} weight="regular" className="mx-auto mb-4 opacity-10" />
                                         <p className="font-bold uppercase tracking-widest text-[10px]">No research projects found.</p>
                                         <Link href="/admin/research/projects/editor?id=new" className="text-amber-600 hover:underline mt-2 inline-block text-xs font-bold">
-                                            Create one now →
+                                            Create one now â†’
                                         </Link>
                                     </td>
                                 </tr>

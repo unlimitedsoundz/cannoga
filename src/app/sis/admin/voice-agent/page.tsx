@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -123,12 +123,12 @@ export default function VoiceAgentDashboardPage() {
   ];
 
   const formatDate = (dateStr: string | null) => {
-    if (!dateStr) return '—';
+    if (!dateStr) return 'â€”';
     return new Date(dateStr).toLocaleString('en-CA');
   };
 
   const formatDuration = (seconds: number | null) => {
-    if (!seconds) return '—';
+    if (!seconds) return 'â€”';
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins}m ${secs}s`;
@@ -137,7 +137,7 @@ export default function VoiceAgentDashboardPage() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Voice Agent — Debbie"
+        title="Voice Agent â€” Debbie"
         subtitle="International Admissions Voice Assistant monitoring and management"
         actions={
           <div className="flex items-center gap-3">
@@ -183,7 +183,7 @@ export default function VoiceAgentDashboardPage() {
               <HugeiconsIcon icon={Phone} size={14} className="text-neutral-500" /> Recent Calls
             </h2>
             <Link href="/sis/admin/voice-agent/calls" className="text-xs font-bold text-neutral-500 hover:text-white transition-colors uppercase tracking-wider no-underline">
-              View All →
+              View All â†’
             </Link>
           </div>
           <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-sm">
@@ -202,7 +202,7 @@ export default function VoiceAgentDashboardPage() {
                 ) : (
                   recentCalls.slice(0, 10).map((call) => (
                     <tr key={call.id} className="hover:bg-white/4 transition-colors">
-                      <td className="p-3 font-mono text-xs text-neutral-200">{call.caller_phone || '—'}</td>
+                      <td className="p-3 font-mono text-xs text-neutral-200">{call.caller_phone || 'â€”'}</td>
                       <td className="p-3"><span className="inline-flex items-center px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-neutral-800 text-white">{call.status}</span></td>
                       <td className="p-3 text-xs text-slate-400">{formatDate(call.started_at)}</td>
                       <td className="p-3 text-xs text-slate-400">{formatDuration(call.duration_seconds)}</td>

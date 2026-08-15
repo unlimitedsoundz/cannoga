@@ -1,9 +1,9 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import { Link } from "@aalto-dx/react-components";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
-    title: 'Complete Master Site Directory — Cannoga College',
+    title: 'Complete Master Site Directory â€” Cannoga College',
     description: 'The complete directory indexing all academic schools, departments, degree programs, student guides, portals, and administrative policies across Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/site-index/',
@@ -124,7 +124,7 @@ const masterDirectory = [
         links: [
             { name: 'Student Housing & Residences', href: '/housing' },
             { name: 'Campus Life & Community', href: '/student-life' },
-            { name: 'Campus Café & Dining Services', href: '/student-life/cafe' },
+            { name: 'Campus CafÃ© & Dining Services', href: '/student-life/cafe' },
             { name: 'Alumni Network & Guild', href: '/alumni' },
             { name: 'Career Opportunities & Services', href: '/careers' },
         ],
@@ -329,7 +329,7 @@ export default function SiteIndexPage() {
                             href="/contact"
                             className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition-colors no-underline shrink-0"
                         >
-                            Contact Support Desk →
+                            Contact Support Desk â†’
                         </Link>
                     </div>
                 </div>

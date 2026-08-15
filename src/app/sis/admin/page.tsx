@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -169,7 +169,7 @@ export default function AdminDashboardPage() {
       key: 'program',
       header: 'Program',
       render: (s: RecentStudent) => (
-        <span className="text-xs text-slate-400">{courseMap[s.program_id] || s.program_id || '—'}</span>
+        <span className="text-xs text-slate-400">{courseMap[s.program_id] || s.program_id || 'â€”'}</span>
       ),
     },
     { key: 'status', header: 'Status', render: (s: RecentStudent) => <StatusBadge status={s.enrollment_status} /> },
@@ -177,7 +177,7 @@ export default function AdminDashboardPage() {
       key: 'start_date',
       header: 'Start Date',
       render: (s: RecentStudent) => (
-        <span className="text-xs text-neutral-500">{s.start_date ? new Date(s.start_date).toLocaleDateString('en-CA') : '—'}</span>
+        <span className="text-xs text-neutral-500">{s.start_date ? new Date(s.start_date).toLocaleDateString('en-CA') : 'â€”'}</span>
       ),
     },
   ];
@@ -201,14 +201,14 @@ export default function AdminDashboardPage() {
       key: 'course',
       header: 'Program',
       render: (a: PendingApplication) => (
-        <span className="text-xs text-slate-400">{courseMap[a.course_id] || a.course?.title || '—'}</span>
+        <span className="text-xs text-slate-400">{courseMap[a.course_id] || a.course?.title || 'â€”'}</span>
       ),
     },
     {
       key: 'submitted_at',
       header: 'Submitted',
       render: (a: PendingApplication) => (
-        <span className="text-xs text-neutral-500">{a.submitted_at ? new Date(a.submitted_at).toLocaleDateString('en-CA') : '—'}</span>
+        <span className="text-xs text-neutral-500">{a.submitted_at ? new Date(a.submitted_at).toLocaleDateString('en-CA') : 'â€”'}</span>
       ),
     },
     { key: 'status', header: 'Status', render: (a: PendingApplication) => <StatusBadge status={a.status.replace('_', ' ')} /> },
@@ -233,7 +233,7 @@ export default function AdminDashboardPage() {
       key: 'title',
       header: 'Title',
       render: (e: RecentEnrollment) => (
-        <span className="text-xs text-neutral-500">{(e.module as any)?.title || '—'}</span>
+        <span className="text-xs text-neutral-500">{(e.module as any)?.title || 'â€”'}</span>
       ),
     },
     { key: 'status', header: 'Status', render: (e: RecentEnrollment) => <StatusBadge status={e.status} /> },
@@ -241,7 +241,7 @@ export default function AdminDashboardPage() {
       key: 'grade',
       header: 'Grade',
       render: (e: RecentEnrollment) => (
-        <span className="font-mono text-xs text-slate-400">{e.grade !== null ? e.grade.toFixed(2) : '—'}</span>
+        <span className="font-mono text-xs text-slate-400">{e.grade !== null ? e.grade.toFixed(2) : 'â€”'}</span>
       ),
     },
   ];
@@ -259,7 +259,7 @@ export default function AdminDashboardPage() {
         subtitle="System overview and quick access to administrative functions"
       />
 
-      {/* ── Stat Cards ── */}
+      {/* â”€â”€ Stat Cards â”€â”€ */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {statCards.map((stat, idx) => (
           <Link
@@ -279,14 +279,14 @@ export default function AdminDashboardPage() {
         ))}
       </div>
 
-      {/* ── Tables Row ── */}
+      {/* â”€â”€ Tables Row â”€â”€ */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-3">
           <div className="flex justify-between items-center">
             <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
               <HugeiconsIcon icon={Users} size={14} className="text-neutral-600" /> Recent Enrollments
             </h2>
-            <Link href="/sis/admin/students" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
+            <Link href="/sis/admin/students" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All â†’</Link>
           </div>
           <DataTable columns={enrollmentColumns} data={recentEnrollments} keyField="id" emptyMessage="No recent enrollments" />
         </div>
@@ -296,20 +296,20 @@ export default function AdminDashboardPage() {
             <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
               <HugeiconsIcon icon={FileText} size={14} className="text-neutral-600" /> Pending Applications
             </h2>
-            <Link href="/sis/admin/applications" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
+            <Link href="/sis/admin/applications" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All â†’</Link>
           </div>
           <DataTable columns={applicationColumns} data={pendingApplications} keyField="id" emptyMessage="No pending applications" />
         </div>
       </div>
 
-      {/* ── Second Tables Row ── */}
+      {/* â”€â”€ Second Tables Row â”€â”€ */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-3">
           <div className="flex justify-between items-center">
             <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
               <HugeiconsIcon icon={Users} size={14} className="text-neutral-600" /> Recent Students
             </h2>
-            <Link href="/sis/admin/students" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
+            <Link href="/sis/admin/students" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All â†’</Link>
           </div>
           <DataTable columns={studentColumns} data={recentStudents} keyField="id" emptyMessage="No recent students" />
         </div>
@@ -343,7 +343,7 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* ── Quick Links ── */}
+      {/* â”€â”€ Quick Links â”€â”€ */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {quickLinks.map((ql, idx) => (
           <Link

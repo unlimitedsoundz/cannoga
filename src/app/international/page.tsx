@@ -1,4 +1,4 @@
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+﻿import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { StepBadge } from '@/components/ui/StepBadge';
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
@@ -20,7 +20,7 @@ const tocSections = [
 ];
 
 export const metadata = {
-    title: 'Global Students Checklist & Resource Guide — Cannoga College',
+    title: 'Global Students Checklist & Resource Guide â€” Cannoga College',
     description: 'Access pre-arrival checklists, registration guides, residency advice, and campus services tailored for international students.',
     alternates: {
         canonical: 'https://cannogacollege.ca/international/',
@@ -96,7 +96,7 @@ export default function InternationalPage() {
                             <div className="grid lg:grid-cols-2 gap-10 items-center">
                                 <div className="space-y-5">
                                     <p className="text-neutral-600 leading-relaxed">
-                                        Ottawa is Canada's capital — a bilingual, safe, and cosmopolitan city that consistently ranks among the best places in the world to live and study. With a thriving tech sector, world-class research institutions, and a welcoming multicultural community, Ottawa offers international students an unparalleled experience.
+                                        Ottawa is Canada's capital â€” a bilingual, safe, and cosmopolitan city that consistently ranks among the best places in the world to live and study. With a thriving tech sector, world-class research institutions, and a welcoming multicultural community, Ottawa offers international students an unparalleled experience.
                                     </p>
                                     <p className="text-neutral-600 leading-relaxed">
                                         The Canadian education system is internationally recognized for its high quality, student-centered approach, and strong focus on research and innovation.
@@ -107,9 +107,9 @@ export default function InternationalPage() {
                                         </p>
                                     </div>
                                     <div className="flex flex-wrap gap-6 pt-2">
-                                        <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="cc-btn-primary text-sm">Study in Canada →</Link>
-                                        <Link href="https://www.ottawatourism.ca" target="_blank" className="cc-btn-primary text-sm">Visit Ottawa →</Link>
-                                        <Link href="https://www.investottawa.ca" target="_blank" className="cc-btn-primary text-sm">Invest Ottawa →</Link>
+                                        <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="cc-btn-primary text-sm">Study in Canada â†’</Link>
+                                        <Link href="https://www.ottawatourism.ca" target="_blank" className="cc-btn-primary text-sm">Visit Ottawa â†’</Link>
+                                        <Link href="https://www.investottawa.ca" target="_blank" className="cc-btn-primary text-sm">Invest Ottawa â†’</Link>
                                     </div>
                                 </div>
                                 <div className="relative aspect-video overflow-hidden rounded-lg shadow-md">
@@ -125,7 +125,7 @@ export default function InternationalPage() {
                         </section>
 
                         <Highlight
-                            body="The mix of innovation, nature, and culture in Ottawa is something special. I felt welcome from day one — the city and college community really made this an amazing experience."
+                            body="The mix of innovation, nature, and culture in Ottawa is something special. I felt welcome from day one â€” the city and college community really made this an amazing experience."
                             source="Marco Rossi, International Student"
                             alignment="right"
                         />
@@ -153,7 +153,7 @@ export default function InternationalPage() {
                                 />
                                 <Card
                                     title="Tuition & Scholarships"
-                                    body="International tuition fees apply. Check our merit scholarship opportunities — awards of up to 50% tuition waiver are available."
+                                    body="International tuition fees apply. Check our merit scholarship opportunities â€” awards of up to 50% tuition waiver are available."
                                     cta={{ label: "Tuition Info", linkComponentProps: { href: "/admissions/tuition" } }}
                                 />
                             </div>
@@ -171,14 +171,14 @@ export default function InternationalPage() {
                                         Ottawa's public transport is operated by <strong>OC Transpo</strong>, offering bus, light rail, and paratransit services. Students qualify for discounted fares with a valid student card.
                                     </p>
                                     <div className="flex flex-wrap gap-4">
-                                        <Link href="https://www.octranspo.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors">OC Transpo →</Link>
-                                        <Link href="https://www.octranspo.com/en/fares/student-fares" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors">Student Tickets →</Link>
+                                        <Link href="https://www.octranspo.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors">OC Transpo â†’</Link>
+                                        <Link href="https://www.octranspo.com/en/fares/student-fares" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors">Student Tickets â†’</Link>
                                     </div>
                                     <h3 className="font-bold text-lg text-[#000000] pt-2">Registering with Authorities</h3>
                                     <div className="space-y-3 text-sm font-medium text-neutral-700">
                                         <p className="flex gap-3 items-start"><ArrowRight size={14} weight="bold" className="mt-0.5 shrink-0 text-[#000000]" /> All international students must register their address with ServiceOntario after arrival.</p>
                                         <p className="flex gap-3 items-start"><ArrowRight size={14} weight="bold" className="mt-0.5 shrink-0 text-[#000000]" /> Canadian citizens and permanent residents must carry valid identification; international students apply for a study permit through IRCC.</p>
-                                        <p className="flex gap-3 items-start"><ArrowRight size={14} weight="bold" className="mt-0.5 shrink-0 text-[#000000]" /> Open a Canadian bank account early — RBC, TD, Scotiabank, and others offer student accounts with low fees.</p>
+                                        <p className="flex gap-3 items-start"><ArrowRight size={14} weight="bold" className="mt-0.5 shrink-0 text-[#000000]" /> Open a Canadian bank account early â€” RBC, TD, Scotiabank, and others offer student accounts with low fees.</p>
                                     </div>
                                     <Link href="/student-guide/arrival" className="cc-btn-primary inline-flex items-center gap-2 text-sm">
                                         Full Arrival Guide <ArrowRight size={16} weight="bold" />

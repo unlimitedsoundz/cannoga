@@ -1,10 +1,10 @@
-
+﻿
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { Palette, Calendar, MapPin } from '@phosphor-icons/react/dist/ssr';
 
 export const metadata = {
-    title: 'Creative Arts, Galleries & Student Showcases — Cannoga College',
+    title: 'Creative Arts, Galleries & Student Showcases â€” Cannoga College',
     description: 'Discover upcoming art gallery viewings, design exhibitions, and creative projects by our students and faculty members in Ottawa.',
 };
 
@@ -50,7 +50,7 @@ export default function ArtPage() {
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                                    <span className="text-black text-sm hover:underline">View Gallery →</span>
+                                    <span className="text-black text-sm hover:underline">View Gallery â†’</span>
                                 </div>
                             </div>
                             <h3 className="text-2xl font-bold mb-1 group-hover:text-neutral-500 transition-colors">{ex.title}</h3>

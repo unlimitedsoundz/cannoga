@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import {
     BookOpen,
@@ -117,7 +117,7 @@ export default function AdminPage() {
                         </h2>
 <Link href="/sis/admin/admissions" className="text-xs font-bold 
 text-neutral-400 hover:text-black transition-colors uppercase tracking-widest">
-                            View All →
+                            View All â†’
                         </Link>
                     </div>
 

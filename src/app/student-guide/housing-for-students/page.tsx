@@ -1,4 +1,4 @@
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+﻿import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { StepBadge } from '@/components/ui/StepBadge';
 import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
@@ -6,7 +6,7 @@ import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { Highlight } from '@/components/ui/Highlight';
 
 export const metadata = {
-    title: 'Student Accommodations & Off-Campus Rentals — Cannoga College',
+    title: 'Student Accommodations & Off-Campus Rentals â€” Cannoga College',
     description: 'Explore student housing options in Ottawa. Learn about university partners, average rental costs, and local neighborhoods.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-guide/housing-for-students/',
@@ -53,16 +53,16 @@ export default function HousingGuidePage() {
                         <section id="overview" className="scroll-mt-32">
                             <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Your New Home in Ottawa</h2>
                             <p className="text-neutral-600 leading-relaxed mb-4 max-w-3xl text-sm md:text-base font-medium">
-                                Ottawa&apos;s student housing market is competitive — especially for September intake. We strongly recommend starting your search as soon as you receive your <Link href="/admissions/requirements" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">admission offer</Link>. Options range from on-campus residences and student-specific buildings to private rentals. Review our <Link href="/student-guide/arrival" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Arrival Guide</Link>, learn about <Link href="/international" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">international student support</Link>, or check <Link href="/admissions/tuition" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">tuition & fees</Link>.
+                                Ottawa&apos;s student housing market is competitive â€” especially for September intake. We strongly recommend starting your search as soon as you receive your <Link href="/admissions/requirements" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">admission offer</Link>. Options range from on-campus residences and student-specific buildings to private rentals. Review our <Link href="/student-guide/arrival" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Arrival Guide</Link>, learn about <Link href="/international" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">international student support</Link>, or check <Link href="/admissions/tuition" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">tuition & fees</Link>.
                             </p>
                             <div className="grid md:grid-cols-2 gap-4">
                                 <div>
                                     <h3 className="font-bold text-base text-black mb-1">Shared Apartments</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">A cost-effective option where you have your own private bedroom but share the kitchen and common areas with 2–4 other students. Typical rent: $400–$600/month.</p>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">A cost-effective option where you have your own private bedroom but share the kitchen and common areas with 2â€“4 other students. Typical rent: $400â€“$600/month.</p>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base text-black mb-1">Studio & Bachelor Apartments</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">A self-contained private apartment with your own kitchen and bathroom. Highly popular — expect a competitive rental market. Typical rent: $800–$1,200/month.</p>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">A self-contained private apartment with your own kitchen and bathroom. Highly popular â€” expect a competitive rental market. Typical rent: $800â€“$1,200/month.</p>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base text-black mb-1">On-Campus Residence</h3>
@@ -70,7 +70,7 @@ export default function HousingGuidePage() {
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base text-black mb-1">Homestay</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">Live with a local Ottawa family for a cultural immersion experience. Includes a private bedroom and often meals. Great for improving English and adjusting to Canadian life. Typical cost: $800–$1,200/month including meals.</p>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">Live with a local Ottawa family for a cultural immersion experience. Includes a private bedroom and often meals. Great for improving English and adjusting to Canadian life. Typical cost: $800â€“$1,200/month including meals.</p>
                                 </div>
                             </div>
                         </section>
@@ -88,22 +88,22 @@ export default function HousingGuidePage() {
                                 <div className="space-y-1">
                                    <h4 className="font-bold text-black text-base">Cannoga Housing</h4>
                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">Cannoga College&apos;s official student housing partner, offering on-campus and nearby residences with furnished rooms and shared facilities.</p>
-                                   <Link href="/housing" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Housing →</Link>
+                                   <Link href="/housing" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Housing â†’</Link>
                                 </div>
                                 <div className="space-y-1">
                                    <h4 className="font-bold text-black text-base">CampusOne</h4>
                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">A modern student residence provider with properties near Ottawa campuses. Offers private and shared suites, study rooms, and social spaces.</p>
-                                   <Link href="https://www.campusone.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">campusone.ca →</Link>
+                                   <Link href="https://www.campusone.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">campusone.ca â†’</Link>
                                 </div>
                                 <div className="space-y-1">
                                     <h4 className="font-bold text-black text-base">Minto</h4>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">A major Canadian rental housing provider with apartments across Ottawa. Look for Minto properties in Sandy Hill, Centretown, and other central neighbourhoods.</p>
-                                    <Link href="https://www.minto.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">minto.com →</Link>
+                                    <Link href="https://www.minto.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">minto.com â†’</Link>
                                 </div>
                                 <div className="space-y-1">
                                     <h4 className="font-bold text-black text-base">Homestay</h4>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">Live with a local Ottawa family for a cultural immersion experience. Includes a private bedroom and often meals. Great for improving English and adjusting to Canadian life.</p>
-                                    <Link href="/housing#homestay" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Homestay →</Link>
+                                    <Link href="/housing#homestay" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Homestay â†’</Link>
                                 </div>
                             </div>
                         </section>
@@ -160,17 +160,17 @@ export default function HousingGuidePage() {
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">Rentals.ca</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed mb-2">Canada&apos;s most popular rental listing site with extensive Ottawa coverage. Filter by district, price, and size.</p>
-                                    <Link href="https://rentals.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Search on Rentals.ca →</Link>
+                                    <Link href="https://rentals.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Search on Rentals.ca â†’</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">Kijiji</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed mb-2">A major Canadian classifieds site for rental apartments and shared housing in Ottawa.</p>
-                                    <Link href="https://www.kijiji.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Browse on Kijiji →</Link>
+                                    <Link href="https://www.kijiji.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Browse on Kijiji â†’</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">PadMapper</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed mb-2">Popular Canadian map-based rental search for apartments, rooms, and shared housing in Ottawa.</p>
-                                    <Link href="https://www.padmapper.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Search on PadMapper →</Link>
+                                    <Link href="https://www.padmapper.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Search on PadMapper â†’</Link>
                                 </div>
                             </div>
                         </section>
@@ -238,7 +238,7 @@ export default function HousingGuidePage() {
                                         "Ottawa's Byward Market has fresh food, cafes, and local crafts",
                                         "Loblaws, Metro, and Sobeys are popular for affordable grocery shopping",
                                         "The OC Transpo bus and light rail network connect all major neighbourhoods",
-                                        "Most landlords accept online bank transfers — Canadian banks like RBC, TD, and Scotiabank are common",
+                                        "Most landlords accept online bank transfers â€” Canadian banks like RBC, TD, and Scotiabank are common",
                                     ].map((tip, i) => (
                                        <li key={i} className="flex gap-2 items-start">
                                            <ArrowRight size={14} className="mt-1 shrink-0 text-[#0a151a]" />

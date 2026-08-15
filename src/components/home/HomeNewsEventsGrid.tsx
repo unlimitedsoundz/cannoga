@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/utils/supabase/client';
@@ -61,7 +61,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 items-stretch overflow-hidden">
 
-            {/* ── LEFT: News Carousel ── */}
+            {/* â”€â”€ LEFT: News Carousel â”€â”€ */}
             <div className="lg:col-span-2 flex flex-col bg-white min-h-[589px]">
                 {/* Header row */}
                 <div className="flex items-center justify-between px-8 sm:px-10 md:px-12 py-5 border-b border-neutral-200">
@@ -69,7 +69,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                         News
                     </h3>
                     <a href="/news" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors no-underline">
-                        VIEW MORE NEWS →
+                        VIEW MORE NEWS â†’
                     </a>
                 </div>
 
@@ -82,7 +82,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                         ) : (
                             <div className="w-full flex items-center justify-center bg-slate-100" style={{ minHeight: '240px' }}>
                                 <div className="text-center p-6">
-                                    <div className="text-5xl mb-2">📰</div>
+                                    <div className="text-5xl mb-2">ðŸ“°</div>
                                     <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Cannoga College News</p>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                 </div>
             </div>
 
-            {/* ── RIGHT: Important Dates ── */}
+            {/* â”€â”€ RIGHT: Important Dates â”€â”€ */}
             <div className="flex flex-col" style={{ background: ACCENT }}>
                 {/* Header */}
                 <div className="px-8 sm:px-10 py-5">

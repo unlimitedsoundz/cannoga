@@ -1,4 +1,4 @@
-
+﻿
 'use client';
 
 import React from 'react';
@@ -75,7 +75,7 @@ export default function ItAccessClient({ access }: ItAccessClientProps) {
                                     rel="noopener noreferrer"
                                     className="inline-block px-4 py-2 bg-[#0a151a] text-white rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
                                 >
-                                    Access Portal →
+                                    Access Portal â†’
                                 </a>
                             </div>
                         )}

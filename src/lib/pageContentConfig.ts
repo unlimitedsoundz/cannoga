@@ -1,4 +1,4 @@
-export interface PageContentSection {
+﻿export interface PageContentSection {
     pageSlug: string;
     sectionKey: string;
     label: string;
@@ -75,7 +75,7 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Specific Requirements Content',
         defaultContent: `<h2 class="text-3xl font-bold mb-8 text-black">Specific Requirements Checklist</h2>
 <div class="space-y-6">
-    <div class="p-8 bg-card rounded-2xl shadow-sm"><h3 class="font-bold text-lg mb-2">Art and Design</h3><p>Applicants without a formal Bachelor’s degree may apply if they have equivalent skills through portfolios, work experience, or other studies.</p></div>
+    <div class="p-8 bg-card rounded-2xl shadow-sm"><h3 class="font-bold text-lg mb-2">Art and Design</h3><p>Applicants without a formal Bachelorâ€™s degree may apply if they have equivalent skills through portfolios, work experience, or other studies.</p></div>
     <div class="p-8 bg-card rounded-2xl shadow-sm"><h3 class="font-bold text-lg mb-2">Business and Economics</h3><p>Some programmes require GMAT or GRE scores.</p></div>
     <div class="p-8 bg-card rounded-2xl shadow-sm"><h3 class="font-bold text-lg mb-2">Technology/Engineering</h3><p>Some may require relevant coursework or skills in mathematics, programming, or design.</p></div>
 </div>`,
@@ -97,20 +97,20 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions-bachelor',
         sectionKey: 'hero_title',
         label: 'Hero Title',
-        defaultContent: 'Apply to Bachelor’s Programmes',
+        defaultContent: 'Apply to Bachelorâ€™s Programmes',
     },
     {
         pageSlug: 'admissions-bachelor',
         sectionKey: 'hero_subtitle',
         label: 'Hero Subtitle',
         defaultContent:
-            'Discover our international Bachelor’s programmes, application deadlines, and study pathways for the 2026 intake.',
+            'Discover our international Bachelorâ€™s programmes, application deadlines, and study pathways for the 2026 intake.',
     },
     {
         pageSlug: 'admissions-bachelor',
         sectionKey: 'benefits_content',
         label: 'Benefits Section',
-        defaultContent: `<p class="text-lg text-black leading-relaxed">Studying at Cannoga combines small-group teaching, practical case work, and a modern campus environment. Our Bachelor’s students benefit from personalised guidance, strong industry links, and a curriculum designed for international careers.</p>
+        defaultContent: `<p class="text-lg text-black leading-relaxed">Studying at Cannoga combines small-group teaching, practical case work, and a modern campus environment. Our Bachelorâ€™s students benefit from personalised guidance, strong industry links, and a curriculum designed for international careers.</p>
 <ul class="space-y-3">
     <li class="flex gap-3 items-start">International Classroom: Study with students from around the world.</li>
     <li class="flex gap-3 items-start">Career-Ready Skills: Focus on finance, management, and economics.</li>
@@ -122,9 +122,9 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions-bachelor',
         sectionKey: 'progression_content',
         label: 'Progression Section',
-        defaultContent: `<p class="text-lg text-black leading-relaxed">Completing a Bachelor’s degree at Cannoga opens seamless progression paths into Master’s programmes, specialised tracks, and international partner universities.</p>
+        defaultContent: `<p class="text-lg text-black leading-relaxed">Completing a Bachelorâ€™s degree at Cannoga opens seamless progression paths into Masterâ€™s programmes, specialised tracks, and international partner universities.</p>
 <ul class="space-y-3">
-    <li class="flex gap-3 items-start">Internal Continuation: Direct progression to Cannoga Master’s programmes.</li>
+    <li class="flex gap-3 items-start">Internal Continuation: Direct progression to Cannoga Masterâ€™s programmes.</li>
     <li class="flex gap-3 items-start">Specialised Tracks: Accounting, Economics, or Management.</li>
     <li class="flex gap-3 items-start">International Opportunities: Partner universities worldwide.</li>
     <li class="flex gap-3 items-start">Research Integration: Bachelor theses as a bridge to advanced research.</li>
@@ -143,7 +143,7 @@ export const pageContentSections: PageContentSection[] = [
         <li class="flex gap-3 items-start">Need-Based: Financial assistance for eligible students.</li>
         <li class="flex gap-3 items-start">International: Merit and need-based support for global talent.</li>
     </ul>
-    <p><a href="/admissions/tuition" class="text-black font-bold hover:underline inline-block mt-2">See detailed scholarship info →</a></p>
+    <p><a href="/admissions/tuition" class="text-black font-bold hover:underline inline-block mt-2">See detailed scholarship info â†’</a></p>
 </div>`,
     },
     {
@@ -203,19 +203,19 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'quote_content',
         label: 'Quote Banner',
         defaultContent: `<h3 class="text-2xl md:text-3xl leading-tight mb-4 font-bold">"We empower students with the analytical skills and global mindset needed for complex financial decision-making."</h3>
-<p class="text-sm font-bold tracking-widest">— Dean of Admissions</p>`,
+<p class="text-sm font-bold tracking-widest">â€” Dean of Admissions</p>`,
     },
     {
         pageSlug: 'admissions/master',
         sectionKey: 'hero_title',
         label: 'Hero Title',
-        defaultContent: 'Apply to Master’s Programmes',
+        defaultContent: 'Apply to Masterâ€™s Programmes',
     },
     {
         pageSlug: 'admissions/master',
         sectionKey: 'hero_subtitle',
         label: 'Hero Subtitle',
-        defaultContent: 'Applicants guide to two-year Master’s programmes. Two intakes per year: September (apply Oct–Feb) and January (apply Jun–Sep).',
+        defaultContent: 'Applicants guide to two-year Masterâ€™s programmes. Two intakes per year: September (apply Octâ€“Feb) and January (apply Junâ€“Sep).',
     },
     {
         pageSlug: 'admissions/master',
@@ -233,17 +233,17 @@ export const pageContentSections: PageContentSection[] = [
         <tbody class="divide-y divide-neutral-200 text-black">
             <tr class="hover:bg-neutral-50">
                 <td class="p-4 font-medium">September Intake</td>
-                <td class="p-4">October – February</td>
-                <td class="p-4 font-semibold text-black">Early application: October – December</td>
+                <td class="p-4">October â€“ February</td>
+                <td class="p-4 font-semibold text-black">Early application: October â€“ December</td>
             </tr>
             <tr class="hover:bg-neutral-50">
                 <td class="p-4 font-medium">January Intake</td>
-                <td class="p-4">June – September</td>
-                <td class="p-4 font-semibold text-black">Early application: June – August</td>
+                <td class="p-4">June â€“ September</td>
+                <td class="p-4 font-semibold text-black">Early application: June â€“ August</td>
             </tr>
             <tr class="hover:bg-neutral-50">
                 <td class="p-4 font-medium">Evaluation Phase</td>
-                <td class="p-4" colspan="2">Applications reviewed by the admissions committee and faculty within 4–6 weeks.</td>
+                <td class="p-4" colspan="2">Applications reviewed by the admissions committee and faculty within 4â€“6 weeks.</td>
             </tr>
             <tr class="hover:bg-neutral-50">
                 <td class="p-4 font-medium">Decision</td>
@@ -265,7 +265,7 @@ export const pageContentSections: PageContentSection[] = [
     <p class="text-lg leading-relaxed">Cannoga College provides master's education across diverse fields of study, including Art and Design, Business and Economics, Technology and Engineering, Education, Science, Health and Life Sciences, and Transportation and Aviation.</p>
 
     <div>
-        <h3 class="text-xl font-bold mb-4">Master’s Degrees Granted</h3>
+        <h3 class="text-xl font-bold mb-4">Masterâ€™s Degrees Granted</h3>
         <ul class="space-y-3 text-base">
             <li><strong>In the field of Art and Design:</strong> Master of Arts (Art and Design)</li>
             <li><strong>In the field of Business and Economics:</strong> Master of Science (Economics and Business Administration)</li>
@@ -320,7 +320,7 @@ export const pageContentSections: PageContentSection[] = [
     <li class="flex gap-4 items-start">Merit-Based Scholarships Awarded to top-performing applicants based on academic record.</li>
     <li class="flex gap-4 items-start">Performance Waivers Maintain a 3.5 GPA and 55 credits/year for a 50% waiver from the 2nd year onwards.</li>
 </ul>
-<p><a href="/admissions/tuition" class="inline-flex items-center gap-2 text-black font-bold hover:opacity-70 transition-colors">See detailed tuition info →</a></p>`,
+<p><a href="/admissions/tuition" class="inline-flex items-center gap-2 text-black font-bold hover:opacity-70 transition-colors">See detailed tuition info â†’</a></p>`,
     },
     {
         pageSlug: 'admissions/master',
@@ -328,11 +328,11 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Eligibility Section',
         defaultContent: `<div class="bg-gray-50 text-black p-12 rounded-3xl shadow-xl">
     <ul class="space-y-4 text-lg">
-        <li>Hold a Bachelor’s degree (180 credits) or equivalent.</li>
-        <li>Degree must enable eligibility for Master’s study in the awarding country.</li>
-        <li>Only long-cycle degrees are considered in place of a Bachelor’s.</li>
+        <li>Hold a Bachelorâ€™s degree (180 credits) or equivalent.</li>
+        <li>Degree must enable eligibility for Masterâ€™s study in the awarding country.</li>
+        <li>Only long-cycle degrees are considered in place of a Bachelorâ€™s.</li>
     </ul>
-    <div class="mt-8 pt-6 border-t border-gray-200 text-sm">Important: Previous Master’s degrees alone do not qualify you for admission.</div>
+    <div class="mt-8 pt-6 border-t border-gray-200 text-sm">Important: Previous Masterâ€™s degrees alone do not qualify you for admission.</div>
 </div>`,
     },
     {
@@ -340,17 +340,17 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'field_reqs_content',
         label: 'Field Requirements Section',
         defaultContent: `<div class="space-y-6">
-    <div class="p-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl shadow-sm"><h3 class="font-bold text-lg mb-2">Art and Design</h3><p>Applicants without a formal Bachelor’s degree may apply if they have equivalent skills through portfolios, work experience, or other studies.</p></div>
+    <div class="p-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl shadow-sm"><h3 class="font-bold text-lg mb-2">Art and Design</h3><p>Applicants without a formal Bachelorâ€™s degree may apply if they have equivalent skills through portfolios, work experience, or other studies.</p></div>
     <div class="p-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl shadow-sm"><h3 class="font-bold text-lg mb-2">Business and Economics</h3><p>Some programmes require GMAT or GRE scores.</p></div>
     <div class="p-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl shadow-sm"><h3 class="font-bold text-lg mb-2">Technology/Engineering</h3><p>Some may require relevant coursework or skills in mathematics, programming, or design.</p></div>
-    <div class="p-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl shadow-sm"><h3 class="font-bold text-lg mb-2">Science</h3><p>Requires a relevant Bachelor’s degree in natural sciences, physics, chemistry, or environmental science.</p></div>
+    <div class="p-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl shadow-sm"><h3 class="font-bold text-lg mb-2">Science</h3><p>Requires a relevant Bachelorâ€™s degree in natural sciences, physics, chemistry, or environmental science.</p></div>
 </div>`,
     },
     {
         pageSlug: 'admissions/master',
         sectionKey: 'incomplete_content',
         label: 'Incomplete Degree Section',
-        defaultContent: `<p>You may apply before your Bachelor’s degree is complete if you will graduate by 31 July 2026.</p>
+        defaultContent: `<p>You may apply before your Bachelorâ€™s degree is complete if you will graduate by 31 July 2026.</p>
 <ul class="space-y-3 pt-4">
     <li>Admission is conditional upon submission of certified final degree documents within 14 days of your admission decision.</li>
     <li>Failure to submit by the deadline will cancel your study right.</li>
@@ -362,9 +362,9 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Application Steps Section',
         defaultContent: `<div class="space-y-8">
     <div><h3 class="text-xl font-bold mb-4">Prepare in Advance</h3><ul class="space-y-3 text-sm"><li>Check programme-specific eligibility</li><li>Prepare official documents and translations</li><li>Schedule language tests and GMAT/GRE if required</li></ul></div>
-    <div><h3 class="text-[18px] font-bold mb-4"><a href="https://cannogacollege.ca/portal/account/register" class="text-black underline hover:opacity-80">Fill in the Online Application 2026</a></h3><ul class="space-y-3 text-sm mb-4"><li><a href="https://cannogacollege.ca/portal/account/register" class="font-bold underline text-black hover:opacity-80">Fill in the Online Application 2026 →</a></li><li><strong>September intake:</strong> Apply October – February</li><li><strong>January intake:</strong> Apply June – September</li><li>Only one form per applicant</li><li>Can include two programmes ranked by preference</li><li>Edit application until closing date</li></ul></div>
+    <div><h3 class="text-[18px] font-bold mb-4"><a href="https://cannogacollege.ca/portal/account/register" class="text-black underline hover:opacity-80">Fill in the Online Application 2026</a></h3><ul class="space-y-3 text-sm mb-4"><li><a href="https://cannogacollege.ca/portal/account/register" class="font-bold underline text-black hover:opacity-80">Fill in the Online Application 2026 â†’</a></li><li><strong>September intake:</strong> Apply October â€“ February</li><li><strong>January intake:</strong> Apply June â€“ September</li><li>Only one form per applicant</li><li>Can include two programmes ranked by preference</li><li>Edit application until closing date</li></ul></div>
     <div><h3 class="text-xl font-bold mb-4">Application Fee</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-4"><div class="p-6 bg-gray-50 rounded-3xl shadow-sm"><div>International Applicants</div><div class="text-2xl font-bold mt-1">Free</div></div><div class="p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-sm"><div>Domestic (Canada & Nordic)</div><div class="text-2xl font-bold mt-1">Free</div></div></div><p class="text-sm">No payment required to submit your application.</p></div>
-    <div><h3 class="text-xl font-bold mb-4">Upload Required Documents</h3><p class="mb-4">Submit documents with your application. Late documents may delay your decision.</p><ul class="grid sm:grid-cols-2 gap-4 text-sm mb-6"><li>Bachelor’s degree & transcripts</li><li>Proof of English proficiency</li><li>International passport only</li><li>CV, Motivation Letter</li><li>Portfolio (if required)</li><li>GMAT/GRE (if required)</li></ul><p class="text-xs text-gray-500">File format: PDF only, named appropriately.</p></div>
+    <div><h3 class="text-xl font-bold mb-4">Upload Required Documents</h3><p class="mb-4">Submit documents with your application. Late documents may delay your decision.</p><ul class="grid sm:grid-cols-2 gap-4 text-sm mb-6"><li>Bachelorâ€™s degree & transcripts</li><li>Proof of English proficiency</li><li>International passport only</li><li>CV, Motivation Letter</li><li>Portfolio (if required)</li><li>GMAT/GRE (if required)</li></ul><p class="text-xs text-gray-500">File format: PDF only, named appropriately.</p></div>
 </div>`,
     },
     {
@@ -384,7 +384,7 @@ export const pageContentSections: PageContentSection[] = [
         defaultContent: `<div class="bg-gradient-to-br from-gray-50 to-gray-100 text-black rounded-3xl p-12 shadow-sm">
     <h3 class="font-bold text-xl mb-6">Language Proficiency Details</h3>
     <div class="space-y-4">
-        <p class="leading-relaxed">English language proficiency is mandatory for all Master’s programmes taught in English. Demonstrate your skills via an accepted language test or previous studies.</p>
+        <p class="leading-relaxed">English language proficiency is mandatory for all Masterâ€™s programmes taught in English. Demonstrate your skills via an accepted language test or previous studies.</p>
         <ul class="space-y-6 pt-6 flex flex-col">
             <li><div class="font-bold uppercase tracking-widest text-[10px] mb-1">Tests</div><div class="text-sm leading-relaxed">Acceptable tests: IELTS Academic, TOEFL iBT, PTE Academic, or C1 Advanced/C2 Proficiency.</div></li>
             <li><div class="font-bold uppercase tracking-widest text-[10px] mb-1">Exemptions</div><div class="text-sm leading-relaxed">Applicants who completed a degree taught entirely in English in Canada, Australia, New Zealand, the USA, or the UK may be exempt from language requirements.</div></li>
@@ -426,7 +426,7 @@ export const pageContentSections: PageContentSection[] = [
     <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm">
         <h4 class="font-bold mb-2">International Students</h4>
         <p class="text-sm leading-relaxed mb-6">moving to Ottawa, Ontario, Canada requires planning. Read our comprehensive guide on study permits, housing, and arrival.</p>
-        <a href="/student-guide/international" class="inline-flex items-center gap-2 font-bold uppercase tracking-wider text-sm">Open International Student Guide →</a>
+        <a href="/student-guide/international" class="inline-flex items-center gap-2 font-bold uppercase tracking-wider text-sm">Open International Student Guide â†’</a>
     </div>
 </div>`,
     },
@@ -465,7 +465,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'certificate_fees_content',
         label: 'Certificate Fees Section',
-        defaultContent: `<p class="text-black mb-6 font-normal">Annual tuition fee and deposit for Certificate programs (6 months – 1 year)</p>
+        defaultContent: `<p class="text-black mb-6 font-normal">Annual tuition fee and deposit for Certificate programs (6 months â€“ 1 year)</p>
 <div class="w-full overflow-x-auto rounded-xl">
     <table class="w-full table-fixed text-left border-collapse">
         <thead class="bg-[#0f2027] text-white"><tr><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Student Residency</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Fee / yr</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Deposit</th></tr></thead>
@@ -480,7 +480,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'diploma_fees_content',
         label: 'Diploma Fees Section',
-        defaultContent: `<p class="text-black mb-6 font-normal">Annual tuition fee and deposit for Diploma and Advanced Diploma programs (2 – 3 years)</p>
+        defaultContent: `<p class="text-black mb-6 font-normal">Annual tuition fee and deposit for Diploma and Advanced Diploma programs (2 â€“ 3 years)</p>
 <div class="w-full overflow-x-auto rounded-xl">
     <table class="w-full table-fixed text-left border-collapse">
         <thead class="bg-[#0f2027] text-white"><tr><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Student Residency</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Fee / yr</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Deposit</th></tr></thead>
@@ -531,7 +531,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'payment_methods_content',
         label: 'Payment Methods Section',
-        defaultContent: `<div class="space-y-8"><div class="bg-gray-100 p-6 md:p-12 rounded-2xl"><p class="text-lg leading-relaxed mb-4">Cannoga provides secure, convenient payment options using local and international channels through our integrated payment gateway.</p><p class="leading-relaxed">All tuition payments are processed through our secure portal for accurate tracking, faster confirmation, and proper allocation to your student account.</p></div><div class="bg-card p-6 md:p-12 shadow-sm rounded-xl"><h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Step-by-Step Payment Process</h3><div class="space-y-6"><div><h4 class="font-bold mb-1">Accept Your Offer</h4><p class="text-sm leading-relaxed">Once you accept your offer through the portal, you will be redirected to the secure payment page.</p></div><div><h4 class="font-bold mb-1">Choose Where You’re Paying From</h4><p class="text-sm leading-relaxed">Select the country from which you will make your payment. The portal shows local payment options specific to your location.</p></div><div><h4 class="font-bold mb-1">Review Payment Details</h4><p class="text-sm leading-relaxed">Confirm your full name, student ID, programme, amount payable, and payment reference before submitting.</p></div><div><h4 class="font-bold mb-1">Select Your Payment Method</h4><p class="text-sm leading-relaxed">Choose one of the available payment methods based on your country and preference.</p></div><div><h4 class="font-bold mb-1">Complete the Payment</h4><p class="text-sm leading-relaxed">Follow the on-screen instructions to pay securely.</p></div><div><h4 class="font-bold mb-1">Payment Confirmation</h4><p class="text-sm leading-relaxed">Once payment is confirmed, your payment status updates automatically and an official receipt is issued.</p></div></div></div><div class="grid md:grid-cols-2 gap-6"><div class="bg-gray-100 p-8 rounded-2xl shadow-sm"><h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Processing Time</h3><p class="leading-relaxed">Most payments are confirmed within 24–72 hours, depending on the selected payment method.</p></div><div class="bg-gray-100 p-8 rounded-2xl shadow-sm"><h3 class="text-xl font-bold mb-4">Need Help With Payment?</h3><p class="leading-relaxed">If you experience any difficulties, contact the Admissions Office through your student portal or by email.</p><a href="mailto:admissions@cannogacollege.ca" class="inline-flex items-center gap-2 font-bold uppercase tracking-widest text-black underline">Email Admissions</a></div></div><div class="bg-gray-100 p-6 rounded-xl shadow-sm"><p class="text-sm">Please pay by the deadline indicated in your official offer of admission to confirm your enrollment.</p></div></div>`,
+        defaultContent: `<div class="space-y-8"><div class="bg-gray-100 p-6 md:p-12 rounded-2xl"><p class="text-lg leading-relaxed mb-4">Cannoga provides secure, convenient payment options using local and international channels through our integrated payment gateway.</p><p class="leading-relaxed">All tuition payments are processed through our secure portal for accurate tracking, faster confirmation, and proper allocation to your student account.</p></div><div class="bg-card p-6 md:p-12 shadow-sm rounded-xl"><h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Step-by-Step Payment Process</h3><div class="space-y-6"><div><h4 class="font-bold mb-1">Accept Your Offer</h4><p class="text-sm leading-relaxed">Once you accept your offer through the portal, you will be redirected to the secure payment page.</p></div><div><h4 class="font-bold mb-1">Choose Where Youâ€™re Paying From</h4><p class="text-sm leading-relaxed">Select the country from which you will make your payment. The portal shows local payment options specific to your location.</p></div><div><h4 class="font-bold mb-1">Review Payment Details</h4><p class="text-sm leading-relaxed">Confirm your full name, student ID, programme, amount payable, and payment reference before submitting.</p></div><div><h4 class="font-bold mb-1">Select Your Payment Method</h4><p class="text-sm leading-relaxed">Choose one of the available payment methods based on your country and preference.</p></div><div><h4 class="font-bold mb-1">Complete the Payment</h4><p class="text-sm leading-relaxed">Follow the on-screen instructions to pay securely.</p></div><div><h4 class="font-bold mb-1">Payment Confirmation</h4><p class="text-sm leading-relaxed">Once payment is confirmed, your payment status updates automatically and an official receipt is issued.</p></div></div></div><div class="grid md:grid-cols-2 gap-6"><div class="bg-gray-100 p-8 rounded-2xl shadow-sm"><h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Processing Time</h3><p class="leading-relaxed">Most payments are confirmed within 24â€“72 hours, depending on the selected payment method.</p></div><div class="bg-gray-100 p-8 rounded-2xl shadow-sm"><h3 class="text-xl font-bold mb-4">Need Help With Payment?</h3><p class="leading-relaxed">If you experience any difficulties, contact the Admissions Office through your student portal or by email.</p><a href="mailto:admissions@cannogacollege.ca" class="inline-flex items-center gap-2 font-bold uppercase tracking-widest text-black underline">Email Admissions</a></div></div><div class="bg-gray-100 p-6 rounded-xl shadow-sm"><p class="text-sm">Please pay by the deadline indicated in your official offer of admission to confirm your enrollment.</p></div></div>`,
     },
     {
         pageSlug: 'admissions/tuition',
@@ -567,7 +567,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions',
         sectionKey: 'hero_subtitle',
         label: 'Hero Subtitle',
-        defaultContent: 'Apply to Cannoga College Ottawa and begin your Bachelor’s or Master’s studies in an internationally focused learning environment. Our admissions process is transparent, supportive, and open to students from around the world.',
+        defaultContent: 'Apply to Cannoga College Ottawa and begin your Bachelorâ€™s or Masterâ€™s studies in an internationally focused learning environment. Our admissions process is transparent, supportive, and open to students from around the world.',
     },
 ];
 

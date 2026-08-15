@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import { Link } from "@aalto-dx/react-components";
 
 export const metadata: Metadata = {
-    title: 'Digital Accessibility Commitment & Policy — Cannoga College',
+    title: 'Digital Accessibility Commitment & Policy â€” Cannoga College',
     description: 'Read our dedication to providing accessible digital experiences, learning tools, and web platforms for all members of our community.',
     alternates: {
         canonical: 'https://cannogacollege.ca/accessibility/',
@@ -116,7 +116,7 @@ export default function AccessibilityPage() {
                         <ul className="list-disc pl-6 space-y-2 text-[#0a151a] marker:text-black">
                             <li>High contrast color ratios designed for enhanced readability.</li>
                             <li>Full keyboard navigation support across interactive components.</li>
-                            <li>Structured HTML heading hierarchies (H1–H4) for screen reader compatibility.</li>
+                            <li>Structured HTML heading hierarchies (H1â€“H4) for screen reader compatibility.</li>
                             <li>Alternative text (`alt` attributes) for non-decorative imagery.</li>
                             <li>Scalable typography without loss of layout structure.</li>
                         </ul>
@@ -195,14 +195,14 @@ export default function AccessibilityPage() {
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Statement Date</h2>
                         </div>
                         <p className="text-base text-slate-700 leading-relaxed mb-6">
-                            This Accessibility Statement is effective for the 2026–2027 Academic Year.
+                            This Accessibility Statement is effective for the 2026â€“2027 Academic Year.
                         </p>
                         <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-200">
                             <Link href="/terms" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
-                                Terms of Use →
+                                Terms of Use â†’
                             </Link>
                             <Link href="/cookies" className="border border-[#0a151a] text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-[#0a151a] hover:text-white transition-colors no-underline">
-                                Cookie Policy →
+                                Cookie Policy â†’
                             </Link>
                         </div>
                     </section>

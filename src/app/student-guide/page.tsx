@@ -1,4 +1,4 @@
-import {
+﻿import {
     ArrowRight
 } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@aalto-dx/react-components";
@@ -7,7 +7,7 @@ import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 export const metadata = {
-    title: 'Undergraduate & Postgraduate Resources — Cannoga College',
+    title: 'Undergraduate & Postgraduate Resources â€” Cannoga College',
     description: 'Browse essential student tools, links to student services, calendars, and support desks for a successful academic year.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-guide/',
@@ -132,29 +132,29 @@ export default function StudentGuidePage() {
                                 Programs &amp; Degrees at Cannoga College
                             </h2>
                             <p className="text-xs md:text-sm text-neutral-600 font-medium mb-4 leading-relaxed">
-                                Cannoga College offers Certificate, Diploma, Advanced Diploma, Bachelor’s, and Master’s programmes across business, economics, management, finance, information systems, entrepreneurship, and interdisciplinary fields. All academic programs at Cannoga College are eligible for the Post-Graduation Work Permit (PGWP).
+                                Cannoga College offers Certificate, Diploma, Advanced Diploma, Bachelorâ€™s, and Masterâ€™s programmes across business, economics, management, finance, information systems, entrepreneurship, and interdisciplinary fields. All academic programs at Cannoga College are eligible for the Post-Graduation Work Permit (PGWP).
                             </p>
 
                             <div className="grid md:grid-cols-2 gap-4 mb-4">
                                 <div>
                                     <h3 className="font-bold text-base text-black mb-1">Certificate Programs</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Rapid, career-focused training in specific technical or business domains.</p>
-                                    <Link href="/degree-programmes#certificates" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
+                                    <Link href="/degree-programmes#certificates" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more â†’</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base text-black mb-1">Diploma Programs</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Comprehensive 2-year and 3-year programs combining theory with practical skills.</p>
-                                    <Link href="/degree-programmes#diplomas" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
+                                    <Link href="/degree-programmes#diplomas" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more â†’</Link>
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-base text-black mb-1">Bachelor’s Degree</h3>
+                                    <h3 className="font-bold text-base text-black mb-1">Bachelorâ€™s Degree</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Structured curriculum focused on core knowledge and skills.</p>
-                                    <Link href="/admissions/bachelor" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
+                                    <Link href="/admissions/bachelor" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more â†’</Link>
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-base text-black mb-1">Master’s Degree</h3>
+                                    <h3 className="font-bold text-base text-black mb-1">Masterâ€™s Degree</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Advanced studies focusing on specialized expertise and research-oriented development.</p>
-                                    <Link href="/admissions/master" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
+                                    <Link href="/admissions/master" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more â†’</Link>
                                 </div>
                             </div>
 
@@ -301,17 +301,17 @@ export default function StudentGuidePage() {
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">Academic Guidance</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Programme level advising and personal study plans.</p>
-                                    <Link href="/contact" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Contact Advisor →</Link>
+                                    <Link href="/contact" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Contact Advisor â†’</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">Learning Support</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Workshops, writing support, and study skills development.</p>
-                                    <Link href="#support" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">View Workshops →</Link>
+                                    <Link href="#support" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">View Workshops â†’</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">Wellbeing</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Health services, accessibility, and counseling for all students.</p>
-                                    <Link href="#support" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Get Support →</Link>
+                                    <Link href="#support" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Get Support â†’</Link>
                                 </div>
                             </div>
                         </section>
@@ -358,17 +358,17 @@ export default function StudentGuidePage() {
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">Chat with Students</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Connect with current students and ambassadors to learn about life at Cannoga.</p>
-                                    <Link href="/student-guide/chat-with-cannoga-students" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Chat now →</Link>
+                                    <Link href="/student-guide/chat-with-cannoga-students" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Chat now â†’</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">International Students</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Support services, study permits, and integration into Ottawa&apos;s multicultural community.</p>
-                                    <Link href="/student-guide/international" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">View guide →</Link>
+                                    <Link href="/student-guide/international" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">View guide â†’</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">Exchange Students</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Orientation, course selection, and cultural adaptation for short-term studies.</p>
-                                    <Link href="/student-guide/exchange" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
+                                    <Link href="/student-guide/exchange" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more â†’</Link>
                                 </div>
                             </div>
                         </section>

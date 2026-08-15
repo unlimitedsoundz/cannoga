@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from '@/components/ui/Link';
 import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
@@ -6,7 +6,7 @@ import { SchemaLD } from '@/components/seo/SchemaLD';
 import { Hero } from '@/components/layout/Hero';
 
 export const metadata = {
-    title: 'Careers & Faculty Vacancies — Cannoga College Ottawa',
+    title: 'Careers & Faculty Vacancies â€” Cannoga College Ottawa',
     description: 'Explore academic faculty appointments, administrative positions, research fellowships, and staff career opportunities at Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/careers/',
@@ -176,7 +176,7 @@ export default function CareersPage() {
                                     </span>
                                 </div>
                                 <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                    {pos.department} • {pos.location}
+                                    {pos.department} â€¢ {pos.location}
                                 </p>
                                 <p className="text-slate-600 text-sm font-normal leading-relaxed">
                                     {pos.description}
@@ -186,10 +186,10 @@ export default function CareersPage() {
                                         href={`mailto:careers@cannogacollege.ca?subject=Application for ${encodeURIComponent(pos.title)}`} 
                                         className="text-[#0f2027] underline hover:text-black transition-colors"
                                     >
-                                        Apply via Email (careers@cannogacollege.ca) →
+                                        Apply via Email (careers@cannogacollege.ca) â†’
                                     </a>
                                     <Link href={pos.link} className="text-slate-500 hover:text-slate-900 underline">
-                                        View Department →
+                                        View Department â†’
                                     </Link>
                                 </div>
                             </div>
@@ -218,16 +218,16 @@ export default function CareersPage() {
                     </p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-bold uppercase tracking-wider">
                         <Link href="/schools" className="p-4 border border-slate-200 hover:border-black text-[#0f2027] no-underline transition-colors block">
-                            Academic Schools →
+                            Academic Schools â†’
                         </Link>
                         <Link href="/degree-programmes" className="p-4 border border-slate-200 hover:border-black text-[#0f2027] no-underline transition-colors block">
-                            Degree Programmes →
+                            Degree Programmes â†’
                         </Link>
                         <Link href="/research" className="p-4 border border-slate-200 hover:border-black text-[#0f2027] no-underline transition-colors block">
-                            Research Hub →
+                            Research Hub â†’
                         </Link>
                         <Link href="/admissions-policy" className="p-4 border border-slate-200 hover:border-black text-[#0f2027] no-underline transition-colors block">
-                            Admissions Policy →
+                            Admissions Policy â†’
                         </Link>
                     </div>
                 </section>
