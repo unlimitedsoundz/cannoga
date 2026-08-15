@@ -117,19 +117,19 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
 
                     {/* Pagination & Navigation controls */}
                     {news.length > 1 && (
-                        <div className="flex items-center justify-between px-8 sm:px-10 md:px-12 py-4 border-t border-neutral-100 bg-slate-50/50">
+                        <div className="flex items-center justify-between px-8 sm:px-10 md:px-12 py-4">
                             <div className="flex items-center gap-2">
                                 <button
                                     onClick={prev}
                                     aria-label="Previous News"
-                                    className="p-2 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-white/10 shadow-sm"
+                                    className="p-2.5 rounded-full bg-[#0a151a] text-white hover:bg-[#1c323d] transition-colors flex items-center justify-center border border-white/10"
                                 >
                                     <CaretLeft size={16} weight="bold" />
                                 </button>
                                 <button
                                     onClick={next}
                                     aria-label="Next News"
-                                    className="p-2 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-white/10 shadow-sm"
+                                    className="p-2.5 rounded-full bg-[#0a151a] text-white hover:bg-[#1c323d] transition-colors flex items-center justify-center border border-white/10"
                                 >
                                     <CaretRight size={16} weight="bold" />
                                 </button>
