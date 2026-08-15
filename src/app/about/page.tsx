@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/client";
+import { createStaticClient } from "@/lib/supabase/static";
 import { Link } from "@aalto-dx/react-components";
 import { CTA } from "@aalto-dx/react-modules";
 import Image from 'next/image';
@@ -19,8 +19,15 @@ import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
 import { ContentBox } from "@/components/ui/ContentBox";
 import { Card } from "@/components/ui/Card";
+import { AcademicSchoolsCarousel } from "@/components/home/AcademicSchoolsCarousel";
 
 export default async function AboutPage() {
+    const supabase = createStaticClient();
+    const { data: schools } = await supabase
+        .from('School')
+        .select('name, slug, description, imageUrl')
+        .order('name', { ascending: true });
+
     return (
         <div className="min-h-screen bg-white text-black font-sans">
             <BreadcrumbSchema items={[
@@ -174,75 +181,13 @@ export default async function AboutPage() {
                     </div>
                 </section>
 
-                <div className="mb-16">
-                    <h2 className="cc-h2 mb-12 text-center">Our Schools</h2>
-                    <div className="grid md:grid-cols-2 gap-8">
-                        <Card
-                            title="School of Arts & Design"
-                            body="Preparing students for international careers in the creative industries, from digital design to contemporary architecture."
-                            cta={{
-                                label: "Explore School",
-                                linkComponentProps: { href: "/schools/arts" }
-                            }}
-                        />
-                        <Card
-                            title="School of Business"
-                            body="Empowering future leaders with programs in international management, finance, and entrepreneurship."
-                            cta={{
-                                label: "Explore School",
-                                linkComponentProps: { href: "/schools/business" }
-                            }}
-                        />
-                        <Card
-                            title="School of Technology"
-                            body="Specializing in the development of smart infrastructure, automation, and industrial engineering solutions."
-                            cta={{
-                                label: "Explore School",
-                                linkComponentProps: { href: "/schools/technology" }
-                            }}
-                        />
-                        <Card
-                            title="School of Science"
-                            body="Focusing on applied scientific research, data-driven innovation, and the development of transformative materials."
-                            cta={{
-                                label: "Explore School",
-                                linkComponentProps: { href: "/schools/science" }
-                            }}
-                        />
-                        <Card
-                            title="School of Health & Community Services"
-                            body="Preparing compassionate healthcare and community professionals through practical nursing, pharmacy, and support pathways."
-                            cta={{
-                                label: "Explore School",
-                                linkComponentProps: { href: "/schools/health-community" }
-                            }}
-                        />
-                        <Card
-                            title="School of Hospitality & Tourism"
-                            body="Fostering excellence in event planning, culinary management, hotel operations, and global tourism."
-                            cta={{
-                                label: "Explore School",
-                                linkComponentProps: { href: "/schools/hospitality-tourism" }
-                            }}
-                        />
-                        <Card
-                            title="School of Education & Social Sciences"
-                            body="Developing future educators and social service leaders through hands-on teaching, youth care, and justice programs."
-                            cta={{
-                                label: "Explore School",
-                                linkComponentProps: { href: "/schools/education-social-sciences" }
-                            }}
-                        />
-                        <Card
-                            title="School of Transportation & Aviation"
-                            body="Specializing in flight services, aviation management, and advanced aircraft and automotive maintenance."
-                            cta={{
-                                label: "Explore School",
-                                linkComponentProps: { href: "/schools/transportation-aviation" }
-                            }}
-                        />
+                <section className="mb-16">
+                    <div className="cc-section-divider text-center mb-10">
+                        <h2 className="cc-h2">Our Schools</h2>
+                        <p className="cc-label">Discover Cannoga College's specialized academic divisions.</p>
                     </div>
-                </div>
+                    <AcademicSchoolsCarousel schools={schools || []} />
+                </section>
             </div>
 
             <div className="py-20 bg-[#0f2027] text-white w-full border-y border-[#1e3a47]">
