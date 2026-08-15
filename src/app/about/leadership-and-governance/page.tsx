@@ -31,19 +31,19 @@ const BOARD_OF_GOVERNORS = [
         image: "/images/president-luke-schaffner.jpg",
     },
     {
-        name: "DR. DAVE MCHARDY",
+        name: "LUKE SCHAFFNER",
         image: "/images/collins-huang.jpg",
     },
     {
-        name: "STEPHANE DESEAU",
+        name: "JAMES TREMBLAY",
         image: "/images/chinaza-kamisiyochukwu.jpg",
     },
     {
-        name: "RACHEL MOENS",
+        name: "MARGARET SINCLAIR",
         image: "/images/student-story-2.jpg",
     },
     {
-        name: "JANINA M. KON",
+        name: "CATHERINE BOUCHARD",
         image: "/images/student-story-4.jpg",
     },
 ];
