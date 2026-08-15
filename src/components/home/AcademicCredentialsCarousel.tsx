@@ -154,9 +154,9 @@ export function AcademicCredentialsCarousel() {
                                     sizes="(max-width: 768px) 340px, 500px"
                                 />
 
-                                 {/* Organic Wavy Bottom Edge overlay extending past photo with smooth rising wave animation */}
+                                {/* Organic Wavy Edge overlay at TOP of image with smooth wave animation */}
                                 <div 
-                                    className="absolute bottom-[-24px] left-0 right-0 h-16 sm:h-24 overflow-hidden leading-none z-10 pointer-events-none animate-wave-element"
+                                    className="absolute top-[-16px] left-0 right-0 h-16 sm:h-24 overflow-hidden leading-none z-10 pointer-events-none rotate-180 animate-wave-element"
                                     style={{ animationDelay: `${idx * 0.4}s` }}
                                 >
                                     <svg
