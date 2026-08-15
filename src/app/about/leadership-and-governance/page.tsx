@@ -27,24 +27,24 @@ const sections = [
 
 const BOARD_OF_GOVERNORS = [
     {
-        name: "DR. ATAMAN AVDAN",
-        image: "/images/president-luke-schaffner.jpg",
+        name: "DR. LUKE SCHAFFNER",
+        image: "/images/leadership-luke.jpg",
     },
     {
-        name: "LUKE SCHAFFNER",
-        image: "/images/collins-huang.jpg",
+        name: "BLAKE HIGGELY",
+        image: "/images/leadership-blake.jpg",
     },
     {
-        name: "JAMES TREMBLAY",
-        image: "/images/chinaza-kamisiyochukwu.jpg",
+        name: "MIKE STUYVESANT",
+        image: "/images/leadership-mike.jpg",
     },
     {
         name: "MARGARET SINCLAIR",
-        image: "/images/student-story-2.jpg",
+        image: "/images/leadership-margaret.jpg",
     },
     {
         name: "CATHERINE BOUCHARD",
-        image: "/images/student-story-4.jpg",
+        image: "/images/leadership-catherine.jpg",
     },
 ];
 
@@ -195,7 +195,7 @@ export default function LeadershipGovernancePage() {
                                         src={gov.image}
                                         alt={gov.name}
                                         fill
-                                        className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                        className="object-cover object-center"
                                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                                     />
                                     {/* Static dark gradient for text legibility when not hovered */}
@@ -244,8 +244,8 @@ export default function LeadershipGovernancePage() {
                             {SENIOR_ADMIN_DATA.map((dept) => {
                                 const isOpen = !!openAccordions[dept.id];
                                 return (
-                                    <div 
-                                        key={dept.id} 
+                                    <div
+                                        key={dept.id}
                                         className="border-t-2 border-[#0a151a] bg-white transition-colors"
                                     >
                                         <button
