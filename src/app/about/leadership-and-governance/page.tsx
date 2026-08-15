@@ -198,15 +198,32 @@ export default function LeadershipGovernancePage() {
                                         className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                                     />
-                                    {/* Bottom dark gradient overlay for text legibility */}
-                                    <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/85 via-black/40 to-transparent pointer-events-none" />
+                                    {/* Static dark gradient for text legibility when not hovered */}
+                                    <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none transition-opacity duration-300 group-hover:opacity-0" />
 
-                                    {/* Bottom text and diagonal arrow */}
-                                    <div className="absolute inset-x-0 bottom-0 p-3.5 flex items-end justify-between z-10 text-white">
+                                    {/* Wavy green panel - slides up on hover */}
+                                    <div className="absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out pointer-events-none z-10">
+                                        {/* Wave SVG sitting on top of the panel */}
+                                        <svg
+                                            viewBox="0 0 400 40"
+                                            preserveAspectRatio="none"
+                                            className="w-full h-8 text-[#1a6b4a] fill-current block -mb-px"
+                                        >
+                                            <path d="M0,30 C60,5 120,35 200,20 C280,5 340,35 400,20 V40 H0 Z" />
+                                        </svg>
+                                        <div className="bg-[#1a6b4a] px-3.5 pt-1 pb-3.5">
+                                            <h3 className="font-black text-xs sm:text-sm tracking-wider uppercase leading-tight text-white drop-shadow-sm font-sans">
+                                                {gov.name}
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    {/* Static name (visible when not hovered) */}
+                                    <div className="absolute inset-x-0 bottom-0 p-3.5 flex items-end justify-between z-10 text-white group-hover:opacity-0 transition-opacity duration-300">
                                         <h3 className="font-black text-xs sm:text-sm tracking-wider uppercase leading-tight max-w-[75%] drop-shadow-sm font-sans">
                                             {gov.name}
                                         </h3>
-                                        <div className="shrink-0 mb-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                                        <div className="shrink-0 mb-0.5">
                                             <ArrowUpRight size={26} weight="bold" className="text-white" />
                                         </div>
                                     </div>
