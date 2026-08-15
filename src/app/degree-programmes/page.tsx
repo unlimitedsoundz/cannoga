@@ -2,13 +2,16 @@ import { Link } from "@aalto-dx/react-components";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { ProgramsAZTableView } from '@/components/programs/ProgramsAZTableView';
+import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarousel';
+import { createStaticClient } from '@/lib/supabase/static';
 
 const sections = [
     { id: 'programs-az', title: 'Programs Directory (A-Z)', content: '' },
+    { id: 'academic-schools', title: 'Academic Schools', content: '' },
     { id: 'certificates', title: 'Certificate Programs', content: '' },
     { id: 'diplomas', title: 'Diploma Programs', content: '' },
-    { id: 'bachelor', title: 'Bachelor\u2019s Degrees', content: '' },
-    { id: 'master', title: 'Master\u2019s Degrees', content: '' },
+    { id: 'bachelor', title: 'Bachelor’s Degrees', content: '' },
+    { id: 'master', title: 'Master’s Degrees', content: '' },
     { id: 'admission', title: 'Admission Requirements', content: '' },
     { id: 'fees', title: 'Tuition & Fees', content: '' },
 ];
@@ -57,7 +60,13 @@ function ProgramCard({ id, duration, title, overview, requirements, admissionHre
     );
 }
 
-export default function DegreeProgrammesPage() {
+export default async function DegreeProgrammesPage() {
+    const supabase = createStaticClient();
+    const { data: schools } = await supabase
+        .from('School')
+        .select('id, name, slug, description, imageUrl')
+        .order('name', { ascending: true });
+
     return (
         <GuideSidebarLayout sections={sections}>
             <div className="min-h-screen bg-white">
@@ -80,6 +89,15 @@ export default function DegreeProgrammesPage() {
                     {/* Interactive Programs A-Z Directory Table View */}
                     <section id="programs-az" className="scroll-mt-32">
                         <ProgramsAZTableView />
+                    </section>
+
+                    {/* Academic Schools Carousel */}
+                    <section id="academic-schools" className="scroll-mt-32">
+                        <div className="cc-section-divider text-center mb-8">
+                            <h2 className="cc-h2">Academic Schools</h2>
+                            <p className="cc-label">Explore specialized schools and faculties across Cannoga College</p>
+                        </div>
+                        <AcademicSchoolsCarousel schools={schools || []} />
                     </section>
 
                     <ProgramCard
