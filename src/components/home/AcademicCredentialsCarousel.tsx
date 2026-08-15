@@ -155,7 +155,7 @@ export function AcademicCredentialsCarousel() {
                                 />
 
                                 {/* Organic Wavy Edge overlay at BOTTOM of image with smooth wave animation */}
-                                <div 
+                                <div
                                     className="absolute bottom-[-24px] left-0 right-0 h-16 sm:h-24 overflow-hidden leading-none z-10 pointer-events-none animate-wave-element"
                                     style={{ animationDelay: `${idx * 0.4}s` }}
                                 >
@@ -180,7 +180,7 @@ export function AcademicCredentialsCarousel() {
                                 </h3>
 
                                 {/* Thick Arrow Icon in Bottom Right with Floating Animation */}
-                                <div 
+                                <div
                                     className="shrink-0 mb-1 animate-arrow-element"
                                     style={{ animationDelay: `${idx * 0.4}s` }}
                                 >
@@ -216,9 +216,8 @@ export function AcademicCredentialsCarousel() {
                     {CREDENTIAL_CARDS.map((_, idx) => (
                         <div
                             key={idx}
-                            className={`h-2.5 transition-all rounded-full ${
-                                idx === activeIndex ? 'w-8 bg-[#0a151a]' : 'w-2.5 bg-slate-300'
-                            }`}
+                            className={`h-2.5 transition-all rounded-full ${idx === activeIndex ? 'w-8 bg-[#0a151a]' : 'w-2.5 bg-slate-300'
+                                }`}
                         />
                     ))}
                 </div>

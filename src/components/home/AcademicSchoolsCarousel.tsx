@@ -268,9 +268,8 @@ export function AcademicSchoolsCarousel({ schools }: AcademicSchoolsCarouselProp
                     {cardsToRender.map((_, idx) => (
                         <div
                             key={idx}
-                            className={`h-2.5 transition-all rounded-full ${
-                                idx === activeIndex ? 'w-8 bg-[#0a151a]' : 'w-2.5 bg-slate-300'
-                            }`}
+                            className={`h-2.5 transition-all rounded-full ${idx === activeIndex ? 'w-8 bg-[#0a151a]' : 'w-2.5 bg-slate-300'
+                                }`}
                         />
                     ))}
                 </div>
