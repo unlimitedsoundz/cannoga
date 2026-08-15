@@ -76,11 +76,8 @@ export default async function AboutPage() {
                 }}
             />
 
-            <GuideSidebarLayout sections={sections} breadcrumbs={[
-                { label: 'Home', href: '/' },
-                { label: 'About' }
-            ]}>
-                <div className="py-8 md:py-20 space-y-24">
+            <GuideSidebarLayout sections={sections}>
+                <div className="cc-container py-8 md:py-20 space-y-24">
 
                     {/* Overview */}
                     <section id="overview" className="scroll-mt-32 max-w-4xl space-y-5 text-lg leading-relaxed">

@@ -40,23 +40,26 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
   const [activeId, setActiveId] = useState<string>('');
   const [mobileAccordionOpen, setMobileAccordionOpen] = useState<boolean>(false);
 
-  // Extract flat list of nav items
+  // Extract flat list of nav items — supports both #anchor and full-path hrefs
   const navItems = sections.flatMap(s => {
     if (s.header) {
-      const items = [];
+      const items: { id: string; label: string; href: string }[] = [];
       if (s.header.linkComponentProps?.href) {
-        items.push({ id: s.header.linkComponentProps.href.replace('#', ''), label: s.header.label });
+        const href = s.header.linkComponentProps.href;
+        items.push({ id: href.replace(/^#/, ''), label: s.header.label, href });
       }
       if (s.links) {
         s.links.forEach((l: any) => {
-          if (l.linkComponentProps?.href?.startsWith('#')) {
-            items.push({ id: l.linkComponentProps.href.replace('#', ''), label: l.label });
+          const href = l.linkComponentProps?.href;
+          if (href) {
+            items.push({ id: href.replace(/^#/, ''), label: l.label, href });
           }
         });
       }
       return items;
     }
-    return [{ id: s.id || '', label: s.title || s.label }];
+    const href = s.id ? `#${s.id}` : '';
+    return [{ id: s.id || '', label: s.title || s.label, href }];
   }).filter(item => item.id);
 
   const activeItem = navItems.find(item => item.id === activeId) || navItems[0];
@@ -116,7 +119,7 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
                 return (
                   <a
                     key={item.id}
-                    href={`#${item.id}`}
+                    href={item.href}
                     onClick={() => setMobileAccordionOpen(false)}
                     className={`block py-2.5 px-4 text-xs font-bold transition-colors no-underline rounded-sm ${
                       isActive ? 'bg-white text-black font-black shadow-xs' : 'text-neutral-700 hover:bg-white/60'
@@ -149,7 +152,7 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
                 return (
                   <a
                     key={item.id}
-                    href={`#${item.id}`}
+                    href={item.href}
                     style={{
                       borderBottomColor: isActive ? tagBgColor : 'transparent',
                     }}
