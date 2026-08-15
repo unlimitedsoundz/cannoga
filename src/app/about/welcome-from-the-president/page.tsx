@@ -3,7 +3,7 @@ import { Hero } from "@/components/layout/Hero";
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
 import GuideSidebarLayout from "@/components/layout/StudentGuideLayout";
-import { Quotes } from "@phosphor-icons/react/dist/ssr";
+
 
 export const metadata = {
     title: 'Welcome from the President | About — Cannoga College',
@@ -94,13 +94,6 @@ export default function WelcomeFromPresidentPage() {
 
                             {/* Welcome Letter */}
                             <div className="space-y-6">
-                                {/* Pull quote */}
-                                <div className="relative bg-[#0f2027] text-white p-8 rounded-2xl shadow-lg">
-                                    <Quotes size={40} weight="fill" className="absolute top-5 left-5 text-[#c89211] opacity-30" />
-                                    <p className="relative text-xl md:text-2xl font-bold leading-snug italic pl-4">
-                                        At Cannoga College, we believe that education is the single most powerful tool for transforming lives and shaping the future of our communities.
-                                    </p>
-                                </div>
 
                                 <div className="space-y-5 text-neutral-700 leading-relaxed text-base md:text-[17px]">
                                     <p>
@@ -189,29 +182,6 @@ export default function WelcomeFromPresidentPage() {
                         </div>
                     </section>
 
-                    {/* CTA */}
-                    <section id="next-steps" className="scroll-mt-32">
-                        <div className="bg-[#f8fafc] border border-neutral-200 rounded-2xl p-10 flex flex-col md:flex-row items-start md:items-center gap-8 justify-between">
-                            <div>
-                                <h2 className="text-xl font-black text-[#0f2027] mb-2">Ready to Join Us?</h2>
-                                <p className="text-neutral-600 text-base max-w-lg">Start your application today or explore our programs to find the right fit for your goals.</p>
-                            </div>
-                            <div className="flex flex-wrap gap-4 shrink-0">
-                                <a
-                                    href="/admissions"
-                                    className="inline-block bg-[#0f2027] text-white font-bold text-sm uppercase tracking-wider px-7 py-3.5 rounded-lg hover:bg-[#1a3545] transition-colors no-underline"
-                                >
-                                    Apply Now
-                                </a>
-                                <a
-                                    href="/studies"
-                                    className="inline-block border-2 border-[#0f2027] text-[#0f2027] font-bold text-sm uppercase tracking-wider px-7 py-3.5 rounded-lg hover:bg-[#0f2027] hover:text-white transition-colors no-underline"
-                                >
-                                    Browse Programs
-                                </a>
-                            </div>
-                        </div>
-                    </section>
 
                 </div>
             </GuideSidebarLayout>
