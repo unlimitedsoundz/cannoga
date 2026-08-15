@@ -28,14 +28,14 @@ export function PreFooterBanner() {
                 {/* Content Overlay */}
                 <div className="relative z-10 text-white max-w-6xl">
                     
-                    {/* White Cannoga Logo (Prominently Larger on Mobile) */}
+                    {/* White Cannoga Logo (Prominently Extra Large on Mobile) */}
                     <div className="mb-5 sm:mb-8">
                         <Image
                             src="/images/logo-cannoga.png"
                             alt="Cannoga College"
-                            width={320}
-                            height={100}
-                            className="h-16 sm:h-14 md:h-20 w-auto object-contain brightness-0 invert"
+                            width={450}
+                            height={140}
+                            className="h-24 sm:h-14 md:h-20 w-auto object-contain brightness-0 invert"
                         />
                     </div>
 
