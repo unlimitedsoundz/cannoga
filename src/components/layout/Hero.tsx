@@ -50,7 +50,7 @@ export function Hero({
         <>
         <div className="w-full container mx-auto px-4 sm:px-6 lg:px-8 pt-0">
             <section 
-                className={`relative overflow-hidden transition-all duration-700 ease-aalto-in-out border-b border-[#0f2027]/10 aspect-[9/16] sm:aspect-auto sm:min-h-[520px] md:min-h-[600px] lg:h-[680px] lg:min-h-[680px] flex items-center ${className || ''}`}
+                className={`relative w-full overflow-hidden transition-all duration-700 ease-aalto-in-out border-b border-[#0f2027]/10 aspect-[9/16] sm:aspect-auto sm:min-h-[520px] md:min-h-[600px] lg:h-[680px] lg:min-h-[680px] flex items-center ${className || ''}`}
                 style={{ backgroundColor: backgroundColor }}
             >
                 {/* Background Video */}
