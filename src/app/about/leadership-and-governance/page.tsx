@@ -261,7 +261,7 @@ export default function LeadershipGovernancePage() {
                                                     <tbody className="divide-y divide-slate-100">
                                                         {dept.staff.map((staff, sIdx) => (
                                                             <tr key={sIdx} className="hover:bg-slate-50 transition-colors">
-                                                                <td className="py-3 pr-4 font-bold text-black whitespace-nowrap">
+                                                                <td className="py-3 pr-4 text-black whitespace-nowrap">
                                                                     {staff.name}
                                                                 </td>
                                                                 <td className="py-3 pr-4 text-neutral-700 font-medium">
