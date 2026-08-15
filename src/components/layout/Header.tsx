@@ -155,26 +155,26 @@ export function Header() {
             className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-sm flex flex-col"
         >
             {/* Top Utility Bar (Desktop only) */}
-            <div className="hidden lg:block bg-[#0f2027] text-slate-200 text-xs h-9 w-full border-b border-[#1e3a47]">
+            <div className="hidden lg:block bg-[#0f2027] text-white text-xs h-9 w-full border-b border-[#1e3a47]">
                 <div className="container mx-auto px-4 h-full flex items-center justify-between font-medium">
-                    <div className="flex items-center gap-6">
-                        <span className="text-[#c89211] font-semibold flex items-center gap-1.5">
-                            <MapPin size={14} weight="fill" className="text-[#c89211]" />
+                    <div className="flex items-center gap-6 text-white">
+                        <span className="text-white font-semibold flex items-center gap-1.5">
+                            <MapPin size={14} weight="fill" className="text-white" />
                             Ottawa Campus
                         </span>
-                        <span className="text-slate-400">|</span>
-                        <Link href="/admissions" className="hover:text-white text-slate-300 no-underline transition-colors">Future Students</Link>
-                        <Link href="/student-guide" className="hover:text-white text-slate-300 no-underline transition-colors">Current Students</Link>
-                        <Link href="/about" className="hover:text-white text-slate-300 no-underline transition-colors">Faculty &amp; Staff</Link>
-                        <Link href="/alumni" className="hover:text-white text-slate-300 no-underline transition-colors">Alumni</Link>
+                        <span className="text-white/40">|</span>
+                        <Link href="/admissions" className="text-white hover:text-white/80 no-underline transition-colors">Future Students</Link>
+                        <Link href="/student-guide" className="text-white hover:text-white/80 no-underline transition-colors">Current Students</Link>
+                        <Link href="/about" className="text-white hover:text-white/80 no-underline transition-colors">Faculty &amp; Staff</Link>
+                        <Link href="/alumni" className="text-white hover:text-white/80 no-underline transition-colors">Alumni</Link>
                     </div>
-                    <div className="flex items-center gap-6">
-                        <Link href="/student-guide/international" className="hover:text-white text-slate-300 no-underline transition-colors font-semibold">International Students</Link>
-                        <Link href="/portal/support" className="hover:text-white text-slate-300 no-underline transition-colors">IT Support</Link>
-                        <div className="flex items-center gap-2 pl-4 border-l border-[#1e3a47] text-slate-300 font-semibold">
+                    <div className="flex items-center gap-6 text-white">
+                        <Link href="/student-guide/international" className="text-white hover:text-white/80 no-underline transition-colors font-semibold">International Students</Link>
+                        <Link href="/portal/support" className="text-white hover:text-white/80 no-underline transition-colors">IT Support</Link>
+                        <div className="flex items-center gap-2 pl-4 border-l border-[#1e3a47] text-white font-semibold">
                             <span className="text-white hover:underline cursor-pointer">EN</span>
-                            <span className="text-slate-500">/</span>
-                            <span className="text-slate-400 hover:text-white cursor-pointer">FR</span>
+                            <span className="text-white/40">/</span>
+                            <span className="text-white hover:underline cursor-pointer">FR</span>
                         </div>
                     </div>
                 </div>
