@@ -7,9 +7,21 @@ import { Logo } from "@/components/ui/Logo";
 
 export function PreFooterBanner() {
     return (
-        <section className="bg-[#cad6ce] py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-12">
+        <section className="bg-white py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-12 relative">
             <div className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 border border-white/10 shadow-2xl">
                 
+                {/* Wavy Decorative Cut Element Top */}
+                <div className="absolute top-0 left-0 right-0 z-20 overflow-hidden leading-none pointer-events-none">
+                    <svg 
+                        className="relative block w-full h-10 sm:h-14 md:h-16 text-white" 
+                        viewBox="0 0 1200 120" 
+                        preserveAspectRatio="none"
+                        fill="currentColor"
+                    >
+                        <path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,50 L1200,0 L0,0 Z"></path>
+                    </svg>
+                </div>
+
                 {/* Background Library Imagery */}
                 <Image
                     src="/images/start-your-journey.jpg"
