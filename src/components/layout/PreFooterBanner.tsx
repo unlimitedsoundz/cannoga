@@ -40,7 +40,7 @@ export function PreFooterBanner() {
         <section className="bg-white py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-12 relative overflow-hidden">
             <div 
                 ref={containerRef}
-                className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 border border-white/10 shadow-2xl"
+                className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 border-0 shadow-2xl"
             >
                 {/* Parallax Background Container */}
                 <div 
@@ -58,14 +58,13 @@ export function PreFooterBanner() {
                 </div>
 
                 {/* Wavy Decorative Cut Element Top */}
-                <div className="absolute top-0 left-0 right-0 z-20 overflow-hidden leading-none pointer-events-none">
+                <div className="absolute top-0 left-0 right-0 z-30 overflow-hidden leading-none pointer-events-none -mt-[1px]">
                     <svg 
-                        className="relative block w-full h-10 sm:h-14 md:h-16 text-white" 
+                        className="relative block w-full h-10 sm:h-14 md:h-16 text-white fill-white" 
                         viewBox="0 0 1200 120" 
                         preserveAspectRatio="none"
-                        fill="currentColor"
                     >
-                        <path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,50 L1200,0 L0,0 Z"></path>
+                        <path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,50 L1200,0 L0,0 Z" fill="currentColor"></path>
                     </svg>
                 </div>
 
