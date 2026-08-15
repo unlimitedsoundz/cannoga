@@ -102,11 +102,6 @@ export default function StudentStoriesCarousel() {
                 {/* Left Side Static Title Section */}
                 <div className="w-full lg:w-[360px] shrink-0 flex flex-col justify-between py-2">
                     <div>
-                        {/* Cyan Quote Mark */}
-                        <div className="text-[#008cc9] text-7xl font-serif font-black leading-none mb-1 select-none">
-                            “
-                        </div>
-
                         {/* Bold Vertical Heading */}
                         <h2 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-[#1b2a4a] leading-[0.88] uppercase font-sans mb-6">
                             FIND<br />YOUR<br />PEOPLE
