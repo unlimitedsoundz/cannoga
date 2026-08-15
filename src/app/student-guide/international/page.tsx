@@ -287,6 +287,8 @@ export default function InternationalGuidePage() {
                                     </div>
                                 </div>
                             </div>
+                        </section>
+
                         {/* Student Resource Hub */}
                         <section id="resource-hub" className="scroll-mt-32 pt-8 border-t border-neutral-200">
                             <div className="mb-6">
