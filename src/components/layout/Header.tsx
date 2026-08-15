@@ -22,11 +22,13 @@ type NavItem = {
 const navigation: NavItem[] = [
     {
         name: "Programs",
-        href: "/schools",
+        href: "/studies",
         sections: [
             {
                 title: "Schools",
                 items: [
+                    { name: "Academic Programs & Studies Directory", href: "/studies" },
+                    { name: "All Academic Schools Directory", href: "/schools" },
                     { name: "School of Arts, Design and Architecture", href: "/schools/arts" },
                     { name: "School of Business", href: "/schools/business" },
                     { name: "School of Science", href: "/schools/science" },

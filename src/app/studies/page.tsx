@@ -17,6 +17,7 @@ import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { Hero } from '@/components/layout/Hero';
 import { ProgramsAZTableView } from '@/components/programs/ProgramsAZTableView';
 import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarousel';
+import { AcademicCredentialsCarousel } from '@/components/home/AcademicCredentialsCarousel';
 import { createStaticClient } from '@/lib/supabase/static';
 
 export const metadata: Metadata = {
@@ -203,6 +204,17 @@ export default async function StudiesPage() {
                             </Link>
                         ))}
                     </div>
+                </div>
+            </div>
+
+            {/* Academic Credentials & Programs Carousel */}
+            <div className="bg-white py-12 md:py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="mb-10">
+                        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Academic Credentials &amp; Programs</h2>
+                        <p className="text-sm text-slate-600 mt-1">Explore career-focused certificates, diplomas, bachelor's degrees, and graduate master studies.</p>
+                    </div>
+                    <AcademicCredentialsCarousel />
                 </div>
             </div>
 
