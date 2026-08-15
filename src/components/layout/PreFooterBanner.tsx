@@ -37,18 +37,7 @@ export function PreFooterBanner() {
     }, []);
 
     return (
-        <section className="bg-white relative py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-12">
-            {/* Full-Width Wavy Edge on the Main White Background */}
-            <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 -translate-y-[calc(100%-1px)] pointer-events-none">
-                <svg 
-                    className="w-full h-10 sm:h-14 md:h-20 text-white fill-current block" 
-                    viewBox="0 0 1440 90" 
-                    preserveAspectRatio="none"
-                >
-                    <path d="M0,50 C240,15 480,85 720,40 C960,-5 1200,70 1440,35 V100 H0 Z" />
-                </svg>
-            </div>
-
+        <section className="bg-white py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-12">
             <div 
                 ref={containerRef}
                 className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 shadow-2xl"
