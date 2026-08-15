@@ -31,7 +31,7 @@ export default function DocumentsPage() {
     <div className="space-y-6">
       <PageHeader
         title="Documents"
-        subtitle={`Student: CC10231 â€¢ Sarah Mitchell`}
+        subtitle={`Student: CC10231 • Sarah Mitchell`}
         actions={
           <button className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors">
             <HugeiconsIcon icon={Upload} size={14} strokeWidth={2} /> Upload Document

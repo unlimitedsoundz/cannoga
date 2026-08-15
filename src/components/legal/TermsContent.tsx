@@ -187,10 +187,10 @@ export default function TermsContent() {
                         </p>
                         <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-200">
                             <Link href="/cookies" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
-                                Cookie Policy â†’
+                                Cookie Policy →
                             </Link>
                             <Link href="/accessibility" className="border border-[#0a151a] text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-[#0a151a] hover:text-white transition-colors no-underline">
-                                Accessibility Statement â†’
+                                Accessibility Statement →
                             </Link>
                         </div>
                     </section>

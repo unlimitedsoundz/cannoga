@@ -2,7 +2,7 @@
 import { Link } from "@aalto-dx/react-components";
 
 export const metadata: Metadata = {
-    title: 'Academic Guidelines & Regulations â€” Cannoga College',
+    title: 'Academic Guidelines & Regulations — Cannoga College',
     description: 'Review the official policies, rules, and academic standards governing coursework, evaluations, and student progression at Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/academic-regulations/',
@@ -282,10 +282,10 @@ export default function AcademicRegulationsPage() {
                         <h3 className="font-bold text-lg mb-6">Related Documents</h3>
                         <div className="flex flex-wrap gap-4">
                             <Link href="/admissions-policy" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-sm hover:bg-neutral-800 transition-colors">
-                                Admissions Policy â†’
+                                Admissions Policy →
                             </Link>
                             <Link href="/admissions" className="border border-[#0a151a] px-6 py-3 font-bold text-sm hover:bg-[#0a151a] hover:text-white transition-colors">
-                                Admissions Overview â†’
+                                Admissions Overview →
                             </Link>
                         </div>
                     </div>

@@ -3,7 +3,7 @@ import { Link } from "@aalto-dx/react-components";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
-    title: 'Complete Master Site Directory â€” Cannoga College',
+    title: 'Complete Master Site Directory — Cannoga College',
     description: 'The complete directory indexing all academic schools, departments, degree programs, student guides, portals, and administrative policies across Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/site-index/',
@@ -329,7 +329,7 @@ export default function SiteIndexPage() {
                             href="/contact"
                             className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition-colors no-underline shrink-0"
                         >
-                            Contact Support Desk â†’
+                            Contact Support Desk →
                         </Link>
                     </div>
                 </div>

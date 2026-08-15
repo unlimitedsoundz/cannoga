@@ -69,7 +69,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                         News
                     </h3>
                     <a href="/news" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors no-underline">
-                        VIEW MORE NEWS â†’
+                        VIEW MORE NEWS →
                     </a>
                 </div>
 

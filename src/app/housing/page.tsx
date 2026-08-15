@@ -7,7 +7,7 @@ import { Highlight } from '@/components/ui/Highlight';
 import { CheckCircle } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
-    title: 'Student Housing & Residences â€” Cannoga College Ottawa',
+    title: 'Student Housing & Residences — Cannoga College Ottawa',
     description: 'Discover on-campus residences, homestay programs, and verified off-campus rentals in Ottawa. Complete guide to student accommodations at Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/housing/',
@@ -89,17 +89,17 @@ export default function HousingPage() {
                             <div>
                                 <h3 className="font-bold text-base text-black mb-1">On-Campus Residence</h3>
                                 <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Furnished private bedrooms with shared modern kitchens, high-speed Wi-Fi, study lounges, and social common rooms. Located steps from lecture halls and student services.</p>
-                                <Link href="#application" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">View Residence Suites â†’</Link>
+                                <Link href="#application" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">View Residence Suites →</Link>
                             </div>
                             <div>
                                 <h3 className="font-bold text-base text-black mb-1">Canadian Homestay Program</h3>
                                 <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Immerse yourself in Canadian culture by living with a welcoming local Ottawa family. Includes a private furnished bedroom, utility bills, and home-cooked meal plans.</p>
-                                <Link href="#application" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Explore Homestay â†’</Link>
+                                <Link href="#application" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Explore Homestay →</Link>
                             </div>
                             <div>
                                 <h3 className="font-bold text-base text-black mb-1">Off-Campus Private Rentals</h3>
                                 <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Prefer independent living? Discover trusted rental partners and verified apartment listings in Sandy Hill, Centretown, Byward Market, and Glebe.</p>
-                                <Link href="#tenant-rights" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Search Private Rentals â†’</Link>
+                                <Link href="#tenant-rights" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Search Private Rentals →</Link>
                             </div>
                         </div>
                     </section>
@@ -124,19 +124,19 @@ export default function HousingPage() {
                             {[
                                 {
                                     type: "Shared Student Apartment",
-                                    price: "$550 â€“ $850",
+                                    price: "$550 – $850",
                                     period: "per month",
                                     features: ["Private bedroom in 3-4 bed suite", "Shared kitchen & bathroom", "Utilities & High-Speed Wi-Fi included", "Flexible 8-month academic leases"]
                                 },
                                 {
                                     type: "On-Campus Residence Suite",
-                                    price: "$900 â€“ $1,250",
+                                    price: "$900 – $1,250",
                                     period: "per month",
                                     features: ["Fully furnished private room", "24/7 security & residence advisor", "Campus dining hall pass optional", "Steps to academic buildings"]
                                 },
                                 {
                                     type: "Private Studio / 1-Bed Apartment",
-                                    price: "$1,200 â€“ $1,600",
+                                    price: "$1,200 – $1,600",
                                     period: "per month",
                                     features: ["100% private living space", "In-suite kitchen & laundry", "Located in prime Ottawa downtown", "Ideal for senior or graduate students"]
                                 }
@@ -160,7 +160,7 @@ export default function HousingPage() {
                                             href="/portal/account/login"
                                             className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]"
                                         >
-                                            Apply via Housing Portal â†’
+                                            Apply via Housing Portal →
                                         </Link>
                                     </div>
                                 </div>
@@ -208,7 +208,7 @@ export default function HousingPage() {
                     {/* TENANT RIGHTS & LEGAL ADVICE */}
                     <section id="tenant-rights" className="scroll-mt-32">
                         <h2 className="text-aalto-5 font-bold text-black tracking-tight mb-2">Ontario Tenant Rights & Legal Protections</h2>
-                        <p className="text-xs text-neutral-500 font-medium mb-3">Residential Tenancies Act (RTA) â€” Province of Ontario</p>
+                        <p className="text-xs text-neutral-500 font-medium mb-3">Residential Tenancies Act (RTA) — Province of Ontario</p>
                         <p className="text-xs md:text-sm text-neutral-700 leading-relaxed font-medium mb-3">
                             All off-campus student tenants in Ontario are protected under provincial law. Your landlord cannot request illegal key deposits, perform unlawful evictions, or raise rent outside annual government guidelines.
                         </p>
@@ -245,15 +245,15 @@ export default function HousingPage() {
                         <h3 className="text-lg font-bold text-black mb-3">Related Student Guides</h3>
                         <div className="grid md:grid-cols-3 gap-4">
                             <div>
-                                <Link href="/student-guide/housing-for-students" className="font-bold text-black hover:text-[#c89211] transition-colors text-sm block mb-1">Housing Guide for Students â†’</Link>
+                                <Link href="/student-guide/housing-for-students" className="font-bold text-black hover:text-[#c89211] transition-colors text-sm block mb-1">Housing Guide for Students →</Link>
                                 <p className="text-xs text-neutral-600 leading-relaxed font-medium">Detailed rental market breakdowns, neighbourhood guides, and landlord checklists.</p>
                             </div>
                             <div>
-                                <Link href="/student-guide/arrival" className="font-bold text-black hover:text-[#c89211] transition-colors text-sm block mb-1">Ottawa Arrival Guide â†’</Link>
+                                <Link href="/student-guide/arrival" className="font-bold text-black hover:text-[#c89211] transition-colors text-sm block mb-1">Ottawa Arrival Guide →</Link>
                                 <p className="text-xs text-neutral-600 leading-relaxed font-medium">Airport pickup, SIM cards, opening Canadian bank accounts, and settling into Ottawa.</p>
                             </div>
                             <div>
-                                <Link href="/student-guide/international" className="font-bold text-black hover:text-[#c89211] transition-colors text-sm block mb-1">International Student Guide â†’</Link>
+                                <Link href="/student-guide/international" className="font-bold text-black hover:text-[#c89211] transition-colors text-sm block mb-1">International Student Guide →</Link>
                                 <p className="text-xs text-neutral-600 leading-relaxed font-medium">Study permits, visa compliance, health insurance (UHIP), and orientation programs.</p>
                             </div>
                         </div>

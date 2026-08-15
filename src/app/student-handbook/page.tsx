@@ -3,7 +3,7 @@ import { Link } from "@aalto-dx/react-components";
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 export const metadata: Metadata = {
-    title: 'Official Student Handbook & Regulations â€” Cannoga College',
+    title: 'Official Student Handbook & Regulations — Cannoga College',
     description: 'Read the official student handbook detailing code of ethics, grade appeal procedures, housing policies, and campus rules.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-handbook/',
@@ -25,7 +25,7 @@ export default function StudentHandbookPage() {
                         Student Handbook
                     </h1>
                     <p className="text-lg md:text-xl text-slate-300 max-w-3xl leading-relaxed">
-                        Academic Year 2026â€“2027 official guide to academic life, institutional policies, student responsibilities, and regulations at Cannoga College in Ottawa, Ontario.
+                        Academic Year 2026–2027 official guide to academic life, institutional policies, student responsibilities, and regulations at Cannoga College in Ottawa, Ontario.
                     </p>
                 </div>
             </section>
@@ -158,7 +158,7 @@ export default function StudentHandbookPage() {
                         </p>
                         <ul className="list-disc pl-6 space-y-2 text-base text-slate-800 marker:text-black">
                             <li>Registration deadlines and drop dates are specified in the official Academic Calendar.</li>
-                            <li>The academic year consists of Fall (September â€“ December) and Winter (January â€“ April) semesters.</li>
+                            <li>The academic year consists of Fall (September – December) and Winter (January – April) semesters.</li>
                             <li>All curriculum structures comply with provincial post-secondary accreditation frameworks.</li>
                         </ul>
                     </section>
@@ -352,10 +352,10 @@ export default function StudentHandbookPage() {
                         </p>
                         <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-200">
                             <Link href="/admissions-policy" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
-                                Admissions Policy â†’
+                                Admissions Policy →
                             </Link>
                             <Link href="/academic-regulations" className="border border-[#0a151a] text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-[#0a151a] hover:text-white transition-colors no-underline">
-                                Academic Regulations â†’
+                                Academic Regulations →
                             </Link>
                         </div>
                     </section>

@@ -19,7 +19,7 @@ const tocSections = [
 ];
 
 export const metadata = {
-    title: 'Global Students Checklist & Resource Guide â€” Cannoga College',
+    title: 'Global Students Checklist & Resource Guide — Cannoga College',
     description: 'Access pre-arrival checklists, registration guides, residency advice, and campus services tailored for international students.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-guide/international/',
@@ -91,7 +91,7 @@ export default function InternationalGuidePage() {
                             <div className="grid lg:grid-cols-2 gap-6 items-center">
                                 <div className="space-y-3">
                                     <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed">
-                                        Ottawa is Canada&apos;s capital â€” a bilingual, safe, and cosmopolitan city that consistently ranks among the best places in the world to live and study. With a thriving tech sector, world-class research institutions, and a welcoming multicultural community, Ottawa offers international students an unparalleled experience.
+                                        Ottawa is Canada&apos;s capital — a bilingual, safe, and cosmopolitan city that consistently ranks among the best places in the world to live and study. With a thriving tech sector, world-class research institutions, and a welcoming multicultural community, Ottawa offers international students an unparalleled experience.
                                     </p>
                                     <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed">
                                         The Canadian education system is internationally recognized for its high quality, student-centered approach, and strong focus on research and innovation.
@@ -102,9 +102,9 @@ export default function InternationalGuidePage() {
                                         </p>
                                     </div>
                                     <div className="flex flex-wrap gap-4 pt-1">
-                                        <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Study in Canada â†’</Link>
-                                        <Link href="https://www.ottawatourism.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Visit Ottawa â†’</Link>
-                                        <Link href="https://www.investottawa.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Invest Ottawa â†’</Link>
+                                        <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Study in Canada →</Link>
+                                        <Link href="https://www.ottawatourism.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Visit Ottawa →</Link>
+                                        <Link href="https://www.investottawa.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Invest Ottawa →</Link>
                                     </div>
                                 </div>
                                 <div className="relative aspect-video overflow-hidden rounded-lg">
@@ -120,7 +120,7 @@ export default function InternationalGuidePage() {
                         </section>
 
                         <Highlight
-                            body="The mix of innovation, nature, and culture in Ottawa is something special. I felt welcome from day one â€” the city and college community really made this an amazing experience."
+                            body="The mix of innovation, nature, and culture in Ottawa is something special. I felt welcome from day one — the city and college community really made this an amazing experience."
                             source="Marco Rossi, International Student"
                             alignment="right"
                         />
@@ -132,22 +132,22 @@ export default function InternationalGuidePage() {
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">Study Permit</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Apply for your Canadian study permit through Immigration, Refugees and Citizenship Canada (IRCC) as soon as you receive your acceptance letter. Processing times vary but typically take 1-3 months.</p>
-                                    <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Apply via IRCC â†’</Link>
+                                    <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Apply via IRCC →</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">Housing</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Arrange accommodation before arrival. Ottawa student housing providers and private rentals should be booked early, especially for August/September intake.</p>
-                                    <Link href="/student-guide/housing-for-students" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Housing Guide â†’</Link>
+                                    <Link href="/student-guide/housing-for-students" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Housing Guide →</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">Health Insurance</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">All residents in Canada are entitled to public healthcare through provincial health insurance (OHIP in Ontario). International students may need private insurance for the first 3 months until eligible for provincial coverage. Cannoga partners with local clinics for walk-in care.</p>
-                                    <Link href="https://www.ontario.ca/page/apply-ohip-health-card" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">OHIP Info â†’</Link>
+                                    <Link href="https://www.ontario.ca/page/apply-ohip-health-card" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">OHIP Info →</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">Tuition & Scholarships</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">International tuition fees apply. Check our merit scholarship opportunities â€” awards of up to 50% tuition waiver are available.</p>
-                                    <Link href="/admissions/tuition" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Tuition Info â†’</Link>
+                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">International tuition fees apply. Check our merit scholarship opportunities — awards of up to 50% tuition waiver are available.</p>
+                                    <Link href="/admissions/tuition" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Tuition Info →</Link>
                                 </div>
                             </div>
                         </section>
@@ -162,14 +162,14 @@ export default function InternationalGuidePage() {
                                         Ottawa&apos;s public transport is operated by <strong>OC Transpo</strong>, offering bus, light rail, and paratransit services. Students qualify for discounted fares with a valid student card.
                                     </p>
                                     <div className="flex flex-wrap gap-4">
-                                        <Link href="https://www.octranspo.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">OC Transpo â†’</Link>
-                                        <Link href="https://www.octranspo.com/en/fares/student-fares" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Student Tickets â†’</Link>
+                                        <Link href="https://www.octranspo.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">OC Transpo →</Link>
+                                        <Link href="https://www.octranspo.com/en/fares/student-fares" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Student Tickets →</Link>
                                     </div>
                                     <h3 className="font-bold text-base text-black pt-1">Registering with Authorities</h3>
                                     <div className="space-y-2 text-xs md:text-sm font-medium text-neutral-700">
                                         <p className="flex gap-2 items-start"><ArrowRight size={14} className="mt-1 shrink-0 text-[#0a151a]" /> All international students must register their address with ServiceOntario after arrival.</p>
                                         <p className="flex gap-2 items-start"><ArrowRight size={14} className="mt-1 shrink-0 text-[#0a151a]" /> Canadian citizens and permanent residents must carry valid identification; international students apply for a study permit through IRCC.</p>
-                                        <p className="flex gap-2 items-start"><ArrowRight size={14} className="mt-1 shrink-0 text-[#0a151a]" /> Open a Canadian bank account early â€” RBC, TD, Scotiabank, and others offer student accounts with low fees.</p>
+                                        <p className="flex gap-2 items-start"><ArrowRight size={14} className="mt-1 shrink-0 text-[#0a151a]" /> Open a Canadian bank account early — RBC, TD, Scotiabank, and others offer student accounts with low fees.</p>
                                     </div>
                                     <div className="pt-1">
                                         <Link href="/student-guide/arrival" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">
@@ -228,7 +228,7 @@ export default function InternationalGuidePage() {
                                 <div>
                                     <h3 className="font-bold text-base mb-1 text-black">Language & Careers</h3>
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Cannoga&apos;s Career Centre offers job boards, resume workshops, internships, and networking events with Ottawa&apos;s tech, government, and business sectors.</p>
-                                    <Link href="/careers" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Career Centre â†’</Link>
+                                    <Link href="/careers" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Career Centre →</Link>
                                 </div>
                             </div>
                         </section>

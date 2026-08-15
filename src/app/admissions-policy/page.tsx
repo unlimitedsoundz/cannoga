@@ -2,7 +2,7 @@
 import { Link } from "@aalto-dx/react-components";
 
 export const metadata: Metadata = {
-    title: 'Institutional Admissions Policy â€” Cannoga College',
+    title: 'Institutional Admissions Policy — Cannoga College',
     description: 'Read the official policy governing selection standards, fairness, equality, and admission decisions at Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions-policy/',
@@ -222,10 +222,10 @@ export default function AdmissionsPolicyPage() {
                         </p>
                         <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-200">
                             <Link href="/refund-withdrawal-policy" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
-                                Refund & Withdrawal Policy â†’
+                                Refund & Withdrawal Policy →
                             </Link>
                             <Link href="/admissions" className="border border-[#0a151a] text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-[#0a151a] hover:text-white transition-colors no-underline">
-                                Admissions Overview â†’
+                                Admissions Overview →
                             </Link>
                         </div>
                     </section>

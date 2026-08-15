@@ -7,7 +7,7 @@ import { Hero } from '@/components/layout/Hero';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-    title: 'Contact Directory & General Inquiries â€” Cannoga College',
+    title: 'Contact Directory & General Inquiries — Cannoga College',
     description: 'Find primary phone lines, office locations, email directories, and contact forms for administrative departments at Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/contact/',
@@ -106,10 +106,10 @@ export default function ContactPage() {
                                 <div className="text-xs text-slate-800 space-y-1 pt-1">
                                     <p className="font-bold text-slate-900 text-xs uppercase tracking-wider text-[#c89211] mb-1">Telephone service hours (UTC +2):</p>
                                     <ul className="space-y-0.5 text-xs text-slate-700 font-medium">
-                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Mon:</span><span>12:30 pm â€“ 2:00 pm</span></li>
-                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Tue:</span><span>9:30 am â€“ 11:00 am</span></li>
-                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Wed:</span><span>9:30 am â€“ 11:00 am</span></li>
-                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Thu:</span><span>9:30 am â€“ 11:00 am</span></li>
+                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Mon:</span><span>12:30 pm – 2:00 pm</span></li>
+                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Tue:</span><span>9:30 am – 11:00 am</span></li>
+                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Wed:</span><span>9:30 am – 11:00 am</span></li>
+                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Thu:</span><span>9:30 am – 11:00 am</span></li>
                                         <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Fri:</span><span className="text-red-600 font-bold">Closed</span></li>
                                     </ul>
                                 </div>
@@ -127,7 +127,7 @@ export default function ContactPage() {
                                     <div>
                                         <h4 className="font-bold text-slate-900 text-sm">Campus Address</h4>
                                         <p className="leading-relaxed mt-0.5">
-                                            Cannoga College â€“ Ottawa campus<br />
+                                            Cannoga College – Ottawa campus<br />
                                             81 Montreal Rd,<br />
                                             K1L 6E8 Ottawa, Ontario, Canada
                                         </p>
@@ -135,7 +135,7 @@ export default function ContactPage() {
                                     <div>
                                         <h4 className="font-bold text-slate-900 text-sm">Mailing Address</h4>
                                         <p className="leading-relaxed mt-0.5">
-                                            Cannoga College â€“ Ottawa campus<br />
+                                            Cannoga College – Ottawa campus<br />
                                             81 Montreal Rd,<br />
                                             K1L 6E8 Ottawa, Ontario, Canada
                                         </p>
@@ -237,7 +237,7 @@ export default function ContactPage() {
                                 className="group flex justify-between items-center py-4 border-b border-slate-200 hover:border-[#0a151a] font-bold text-slate-900 uppercase tracking-wider text-xs no-underline transition-colors"
                             >
                                 <span>{school.name}</span>
-                                <span className="text-slate-400 group-hover:text-black group-hover:translate-x-1 transition-all">â†’</span>
+                                <span className="text-slate-400 group-hover:text-black group-hover:translate-x-1 transition-all">→</span>
                             </Link>
                         ))}
                     </div>

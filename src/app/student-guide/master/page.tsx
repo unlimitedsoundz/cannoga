@@ -9,7 +9,7 @@ import { ContentBox } from '@/components/ui/ContentBox';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 export const metadata: Metadata = {
-    title: 'Postgraduate Study Guide & Reference â€” Cannoga College',
+    title: 'Postgraduate Study Guide & Reference — Cannoga College',
     description: 'Guidance on academic advisor matching, thesis requirements, and credit systems for Master\'s students.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-guide/master/',
@@ -32,8 +32,8 @@ export default function MastersGuidePage() {
         <div className="min-h-screen bg-white text-black font-sans pb-20">
             {/* HERO SECTION */}
             <Hero
-                title="Masterâ€™s Students Guide"
-                body="Essential steps and instructions for newly admitted Masterâ€™s students at Cannoga College. Follow this guide to ensure a smooth start to your studies."
+                title="Master’s Students Guide"
+                body="Essential steps and instructions for newly admitted Master’s students at Cannoga College. Follow this guide to ensure a smooth start to your studies."
                 backgroundColor="#0a151a"
                 tinted
                 lightText={true}
@@ -62,14 +62,14 @@ export default function MastersGuidePage() {
                                 body={
                                     <div className="space-y-6 text-left">
                                         <p className="text-aalto-3 text-black font-medium leading-relaxed">
-                                            Once your admission is confirmed, your schoolâ€™s Learning Services team will be your main point of contact.
+                                            Once your admission is confirmed, your school’s Learning Services team will be your main point of contact.
                                         </p>
                                         <div className="flex flex-wrap gap-6">
                                             <Link href="/student-guide/international" className="text-xs font-bold underline hover:text-black uppercase tracking-widest">
-                                                International Info â†’
+                                                International Info →
                                             </Link>
                                             <Link href="/student-guide/arrival" className="text-xs font-bold underline hover:text-black uppercase tracking-widest">
-                                                Arrival Guide â†’
+                                                Arrival Guide →
                                             </Link>
                                         </div>
                                     </div>
@@ -93,8 +93,8 @@ export default function MastersGuidePage() {
                                         <div className="bg-neutral-100 p-6 rounded-xl border-l-4 border-[#0a151a]">
                                             <h4 className="font-bold text-lg mb-2">Important Conditions</h4>
                                             <ul className="text-sm font-bold space-y-2">
-                                                <li>â€¢ You can accept only one study place in Ottawa, Ontario, Canada per term.</li>
-                                                <li>â€¢ Binding acceptance: strictly no cancellations after acceptance.</li>
+                                                <li>• You can accept only one study place in Ottawa, Ontario, Canada per term.</li>
+                                                <li>• Binding acceptance: strictly no cancellations after acceptance.</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -150,7 +150,7 @@ export default function MastersGuidePage() {
                                 title="Enrolment Opens 18 May"
                                 body={
                                     <div className="space-y-6 text-left">
-                                        <p className="text-sm font-bold text-neutral-700 leading-relaxed">Apply for your chosen intake. September intake: Octoberâ€“February. January intake: Juneâ€“September.</p>
+                                        <p className="text-sm font-bold text-neutral-700 leading-relaxed">Apply for your chosen intake. September intake: October–February. January intake: June–September.</p>
                                         <div className="grid sm:grid-cols-2 gap-8">
                                             <div>
                                                 <h4 className="font-bold text-black mb-1">Attending</h4>

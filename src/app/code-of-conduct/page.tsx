@@ -2,7 +2,7 @@
 import { Link } from "@aalto-dx/react-components";
 
 export const metadata: Metadata = {
-    title: 'Community Code of Conduct & Ethics â€” Cannoga College',
+    title: 'Community Code of Conduct & Ethics — Cannoga College',
     description: 'Learn about the behavioral standards, ethics, and values that guide interactions and maintain a respectful campus environment.',
     alternates: {
         canonical: 'https://cannogacollege.ca/code-of-conduct/',
@@ -292,14 +292,14 @@ export default function CodeOfConductPage() {
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Effective Date</h2>
                         </div>
                         <p className="text-base text-slate-700 leading-relaxed mb-6">
-                            This Code of Conduct is effective for the 2026â€“2027 Academic Year and applies to all active students.
+                            This Code of Conduct is effective for the 2026–2027 Academic Year and applies to all active students.
                         </p>
                         <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-200">
                             <Link href="/admissions-policy" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
-                                Admissions Policy â†’
+                                Admissions Policy →
                             </Link>
                             <Link href="/student-handbook" className="border border-[#0a151a] text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-[#0a151a] hover:text-white transition-colors no-underline">
-                                Student Handbook â†’
+                                Student Handbook →
                             </Link>
                         </div>
                     </section>
