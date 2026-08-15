@@ -139,13 +139,13 @@ export default async function Home() {
                                 <Link
                                     key={idx}
                                     linkComponentProps={{ href: link.href }}
-                                    className="group flex items-start gap-4 p-5 bg-white hover:bg-purple-50/60 border border-purple-200/60 hover:border-[#0f2027] hover:shadow-md transition-all no-underline rounded-sm"
+                                    className="flex items-start gap-4 p-5 bg-white border border-purple-200/60 no-underline rounded-sm"
                                 >
-                                    <div className="p-3 bg-[#0f2027] text-white group-hover:bg-[#c89211] transition-colors rounded-full shrink-0 flex items-center justify-center w-11 h-11">
+                                    <div className="p-3 bg-[#0f2027] text-white rounded-full shrink-0 flex items-center justify-center w-11 h-11">
                                         <Icon size={20} weight="bold" />
                                     </div>
                                     <div>
-                                        <h4 className="font-semibold text-[#0f2027] group-hover:text-[#0f2027] transition-colors mt-0.5 text-base">
+                                        <h4 className="font-semibold text-[#0f2027] mt-0.5 text-base">
                                             {link.title}
                                         </h4>
                                     </div>
