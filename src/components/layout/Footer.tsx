@@ -3,7 +3,7 @@
 import { Link } from "@aalto-dx/react-components"
 import { usePathname } from "next/navigation"
 import { Logo } from "@/components/ui/Logo"
-import { EnvelopeSimple, MapPin, Phone, TiktokLogo, YoutubeLogo } from "@phosphor-icons/react"
+import { TiktokLogo, YoutubeLogo } from "@phosphor-icons/react"
 import { PreFooterBanner } from "@/components/layout/PreFooterBanner"
 
 export function Footer() {
@@ -96,16 +96,14 @@ export function Footer() {
                         <div>
                             <h3 className="font-bold text-sm uppercase tracking-widest mb-5 text-white">Contact</h3>
                             <ul className="space-y-4">
-                                <li className="flex items-start gap-3 text-white text-sm">
-                                    <MapPin size={16} className="shrink-0 text-white mt-0.5" />
+                                <li className="text-white text-sm">
                                     <div className="space-y-2">
                                         <span className="block font-semibold text-white">Cannoga College – Ottawa campus</span>
                                         <span className="block text-xs text-white">81 Montreal Rd,</span>
                                         <span className="block text-xs text-white">K1L 6E8 Ottawa, Ontario, Canada</span>
                                     </div>
                                 </li>
-                                <li className="flex items-center gap-3 text-white text-sm">
-                                    <EnvelopeSimple size={16} className="shrink-0 text-white" />
+                                <li className="text-white text-sm">
                                     <a href="mailto:info@cannogacollege.ca" className="hover:text-white transition-colors no-underline text-white">info@cannogacollege.ca</a>
                                 </li>
                             </ul>
