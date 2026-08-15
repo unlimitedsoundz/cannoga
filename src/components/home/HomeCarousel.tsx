@@ -116,39 +116,43 @@ export function HomeCarousel() {
                     ))}
                 </div>
 
-                {/* Manual Controls */}
-                <button
-                    onClick={prevSlide}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 w-10 h-10 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center text-slate-900 shadow-md transition-all duration-300 rounded-none opacity-0 group-hover:opacity-100"
-                    aria-label="Previous slide"
-                >
-                    <CaretLeft size={20} weight="bold" />
-                </button>
-                <button
-                    onClick={nextSlide}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 w-10 h-10 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center text-slate-900 shadow-md transition-all duration-300 rounded-none opacity-0 group-hover:opacity-100"
-                    aria-label="Next slide"
-                >
-                    <CaretRight size={20} weight="bold" />
-                </button>
-
-                {/* Pagination Indicators */}
-                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30 flex items-center justify-center gap-2 py-1">
-                    {slides.map((_, idx) => (
+                {/* Bottom Navigation & Indicator Controls */}
+                <div className="absolute bottom-6 left-6 right-6 md:left-12 md:right-12 z-30 flex items-center justify-between pointer-events-none">
+                    <div className="flex items-center gap-3 pointer-events-auto">
                         <button
-                            key={idx}
-                            onClick={() => setCurrent(idx)}
-                            className="transition-all duration-300 shadow-sm"
-                            style={{
-                                width: idx === current ? 24 : 10,
-                                height: 10,
-                                background: idx === current ? '#ffffff' : 'rgba(255, 255, 255, 0.4)',
-                                border: 'none',
-                                cursor: 'pointer',
-                            }}
-                            aria-label={`Go to slide ${idx + 1}`}
-                        />
-                    ))}
+                            onClick={prevSlide}
+                            className="p-3 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-white/20 shadow-md"
+                            aria-label="Previous slide"
+                        >
+                            <CaretLeft size={20} weight="bold" />
+                        </button>
+                        <button
+                            onClick={nextSlide}
+                            className="p-3 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-white/20 shadow-md"
+                            aria-label="Next slide"
+                        >
+                            <CaretRight size={20} weight="bold" />
+                        </button>
+                    </div>
+
+                    {/* Pagination Indicators */}
+                    <div className="flex items-center gap-2 pointer-events-auto">
+                        {slides.map((_, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => setCurrent(idx)}
+                                className="transition-all duration-300 rounded-full"
+                                style={{
+                                    width: idx === current ? 28 : 10,
+                                    height: 10,
+                                    background: idx === current ? '#ffffff' : 'rgba(255, 255, 255, 0.4)',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                }}
+                                aria-label={`Go to slide ${idx + 1}`}
+                            />
+                        ))}
+                    </div>
                 </div>
             </section>
         </div>
