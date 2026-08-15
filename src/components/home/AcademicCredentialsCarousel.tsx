@@ -57,7 +57,7 @@ const CREDENTIAL_CARDS: CredentialCard[] = [
         title: 'PROGRAM DIRECTORY A–Z',
         description: 'Browse all approved Ontario post-secondary courses, prerequisite codes, and credential specs.',
         href: '/degree-programmes#programs-az',
-        image: '/images/academic-guidance.jpg',
+        image: '/images/school-of-education-social-sciences.jpg',
         bgColor: 'bg-[#f57c00]', // Vibrant warm orange
         borderColor: 'border-[#f57c00]',
     },
