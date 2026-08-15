@@ -52,7 +52,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
     if (loading) {
         return (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 animate-pulse">
-                <div className="lg:col-span-2 bg-neutral-100" style={{ height: 589 }} />
+                <div className="lg:col-span-2 bg-neutral-100 min-h-[589px]" />
                 <div className="bg-[#0a151a] h-64 lg:h-auto" />
             </div>
         );
@@ -62,7 +62,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 items-stretch border border-neutral-200 shadow-sm overflow-hidden">
 
             {/* ── LEFT: News Carousel ── */}
-            <div className="lg:col-span-2 flex flex-col bg-white" style={{ height: 589 }}>
+            <div className="lg:col-span-2 flex flex-col bg-white min-h-[589px]">
                 {/* Header row */}
                 <div className="flex items-center justify-between px-8 sm:px-10 md:px-12 py-5 border-b border-neutral-200">
                     <h3 className="text-xl md:text-2xl font-serif font-bold text-[#0f2027] tracking-tight">
