@@ -40,24 +40,33 @@ export function PreFooterBanner() {
                     <div className="flex flex-wrap items-center gap-6 sm:gap-10 md:gap-14 font-extrabold text-base sm:text-xl md:text-2xl text-white uppercase tracking-wider">
                         <Link 
                             href="/about" 
-                            className="inline-flex items-center gap-2 text-white no-underline"
+                            className="group relative inline-flex items-center gap-3 text-white hover:text-[#c89211] transition-all duration-300 no-underline py-1"
                         >
-                            <span>WHY CANNOGA COLLEGE?</span>
-                            <ArrowRight size={24} weight="bold" />
+                            <span className="relative z-10">WHY CANNOGA COLLEGE?</span>
+                            <span className="p-2 rounded-full bg-white/10 group-hover:bg-[#c89211] group-hover:text-black transition-all duration-300 flex items-center justify-center transform group-hover:translate-x-2 shadow-sm">
+                                <ArrowRight size={20} weight="bold" />
+                            </span>
+                            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#c89211] transition-all duration-300 group-hover:w-full" />
                         </Link>
                         <Link 
                             href="/admissions/application-process" 
-                            className="inline-flex items-center gap-2 text-white no-underline"
+                            className="group relative inline-flex items-center gap-3 text-white hover:text-[#c89211] transition-all duration-300 no-underline py-1"
                         >
-                            <span>APPLY NOW</span>
-                            <ArrowRight size={24} weight="bold" />
+                            <span className="relative z-10">APPLY NOW</span>
+                            <span className="p-2 rounded-full bg-white/10 group-hover:bg-[#c89211] group-hover:text-black transition-all duration-300 flex items-center justify-center transform group-hover:translate-x-2 shadow-sm">
+                                <ArrowRight size={20} weight="bold" />
+                            </span>
+                            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#c89211] transition-all duration-300 group-hover:w-full" />
                         </Link>
                         <Link 
                             href="/contact" 
-                            className="inline-flex items-center gap-2 text-white no-underline"
+                            className="group relative inline-flex items-center gap-3 text-white hover:text-[#c89211] transition-all duration-300 no-underline py-1"
                         >
-                            <span>CONTACT US</span>
-                            <ArrowRight size={24} weight="bold" />
+                            <span className="relative z-10">CONTACT US</span>
+                            <span className="p-2 rounded-full bg-white/10 group-hover:bg-[#c89211] group-hover:text-black transition-all duration-300 flex items-center justify-center transform group-hover:translate-x-2 shadow-sm">
+                                <ArrowRight size={20} weight="bold" />
+                            </span>
+                            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#c89211] transition-all duration-300 group-hover:w-full" />
                         </Link>
                     </div>
 
