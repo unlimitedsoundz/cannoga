@@ -465,13 +465,13 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'certificate_fees_content',
         label: 'Certificate Fees Section',
-        defaultContent: `<p class="text-black mb-6 font-medium">Annual tuition fee and deposit for Certificate programs (6 months – 1 year)</p>
-<div class="rounded-xl overflow-hidden">
-    <table class="w-full text-left border-collapse">
-        <thead class="bg-[#0f2027] text-white"><tr><th class="p-4 font-bold">Student Residency</th><th class="p-4 font-bold">Tuition Fee / Year</th><th class="p-4 font-bold">Tuition Deposit</th></tr></thead>
+        defaultContent: `<p class="text-black mb-6 font-normal">Annual tuition fee and deposit for Certificate programs (6 months – 1 year)</p>
+<div class="w-full overflow-x-auto rounded-xl">
+    <table class="w-full table-fixed text-left border-collapse">
+        <thead class="bg-[#0f2027] text-white"><tr><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Student Residency</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Fee / yr</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Deposit</th></tr></thead>
         <tbody class="divide-y divide-neutral-200 text-black">
-            <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">Domestic Students</td><td class="p-4">$3,500</td><td class="p-4">$750</td></tr>
-            <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">International Students</td><td class="p-4">$9,500</td><td class="p-4">$2,500</td></tr>
+            <tr class="hover:bg-neutral-50"><td class="px-2 py-2.5 font-normal whitespace-normal break-words">Domestic Students</td><td class="px-2 py-2.5 whitespace-normal break-words">$3,500</td><td class="px-2 py-2.5 whitespace-normal break-words">$2,000</td></tr>
+            <tr class="hover:bg-neutral-50"><td class="px-2 py-2.5 font-normal whitespace-normal break-words">International Students</td><td class="px-2 py-2.5 whitespace-normal break-words">$9,500</td><td class="px-2 py-2.5 whitespace-normal break-words">$2,000</td></tr>
         </tbody>
     </table>
 </div>`,
@@ -480,13 +480,13 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'diploma_fees_content',
         label: 'Diploma Fees Section',
-        defaultContent: `<p class="text-black mb-6 font-medium">Annual tuition fee and deposit for Diploma and Advanced Diploma programs (2 – 3 years)</p>
-<div class="rounded-xl overflow-hidden">
-    <table class="w-full text-left border-collapse">
-        <thead class="bg-[#0f2027] text-white"><tr><th class="p-4 font-bold">Student Residency</th><th class="p-4 font-bold">Tuition Fee / Year</th><th class="p-4 font-bold">Tuition Deposit</th></tr></thead>
+        defaultContent: `<p class="text-black mb-6 font-normal">Annual tuition fee and deposit for Diploma and Advanced Diploma programs (2 – 3 years)</p>
+<div class="w-full overflow-x-auto rounded-xl">
+    <table class="w-full table-fixed text-left border-collapse">
+        <thead class="bg-[#0f2027] text-white"><tr><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Student Residency</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Fee / yr</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Deposit</th></tr></thead>
         <tbody class="divide-y divide-neutral-200 text-black">
-            <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">Domestic Students</td><td class="p-4">$3,500</td><td class="p-4">$750</td></tr>
-            <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">International Students</td><td class="p-4">$9,500</td><td class="p-4">$2,500</td></tr>
+            <tr class="hover:bg-neutral-50"><td class="px-2 py-2.5 font-normal whitespace-normal break-words">Domestic Students</td><td class="px-2 py-2.5 whitespace-normal break-words">$3,500</td><td class="px-2 py-2.5 whitespace-normal break-words">$2,000</td></tr>
+            <tr class="hover:bg-neutral-50"><td class="px-2 py-2.5 font-normal whitespace-normal break-words">International Students</td><td class="px-2 py-2.5 whitespace-normal break-words">$9,500</td><td class="px-2 py-2.5 whitespace-normal break-words">$2,000</td></tr>
         </tbody>
     </table>
 </div>`,
@@ -495,13 +495,13 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'bachelor_fees_content',
         label: 'Bachelor Fees Section',
-        defaultContent: `<p class="text-black mb-6 font-medium">Annual tuition fee and deposit for Bachelor's degree programs (4-year programs)</p>
-<div class="rounded-xl overflow-hidden">
-    <table class="w-full text-left border-collapse">
-        <thead class="bg-[#0f2027] text-white"><tr><th class="p-4 font-bold">Student Residency</th><th class="p-4 font-bold">Tuition Fee / Year</th><th class="p-4 font-bold">Tuition Deposit</th></tr></thead>
+        defaultContent: `<p class="text-black mb-6 font-normal">Annual tuition fee and deposit for Bachelor's degree programs (4-year programs)</p>
+<div class="w-full overflow-x-auto rounded-xl">
+    <table class="w-full table-fixed text-left border-collapse">
+        <thead class="bg-[#0f2027] text-white"><tr><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Student Residency</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Fee / yr</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Deposit</th></tr></thead>
         <tbody class="divide-y divide-neutral-200 text-black">
-            <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">Domestic Students</td><td class="p-4">$2,000</td><td class="p-4">$1,000</td></tr>
-            <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">International Students</td><td class="p-4">$4,000</td><td class="p-4">$2,000</td></tr>
+            <tr class="hover:bg-neutral-50"><td class="px-2 py-2.5 font-normal whitespace-normal break-words">Domestic Students</td><td class="px-2 py-2.5 whitespace-normal break-words">$2,000</td><td class="px-2 py-2.5 whitespace-normal break-words">$2,000</td></tr>
+            <tr class="hover:bg-neutral-50"><td class="px-2 py-2.5 font-normal whitespace-normal break-words">International Students</td><td class="px-2 py-2.5 whitespace-normal break-words">$4,000</td><td class="px-2 py-2.5 whitespace-normal break-words">$2,000</td></tr>
         </tbody>
     </table>
 </div>`,
@@ -510,13 +510,13 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'master_fees_content',
         label: 'Master Fees Section',
-        defaultContent: `<p class="text-black mb-6 font-medium">Annual tuition fee and deposit for Master's degree programs (2-year programs)</p>
-<div class="rounded-xl overflow-hidden">
-    <table class="w-full text-left border-collapse">
-        <thead class="bg-[#0f2027] text-white"><tr><th class="p-4 font-bold">Student Residency</th><th class="p-4 font-bold">Tuition Fee / Year</th><th class="p-4 font-bold">Tuition Deposit</th></tr></thead>
+        defaultContent: `<p class="text-black mb-6 font-normal">Annual tuition fee and deposit for Master's degree programs (2-year programs)</p>
+<div class="w-full overflow-x-auto rounded-xl">
+    <table class="w-full table-fixed text-left border-collapse">
+        <thead class="bg-[#0f2027] text-white"><tr><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Student Residency</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Fee / yr</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Deposit</th></tr></thead>
         <tbody class="divide-y divide-neutral-200 text-black">
-            <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">Domestic Students</td><td class="p-4">$8,500</td><td class="p-4">$2,000</td></tr>
-            <tr class="hover:bg-neutral-50"><td class="p-4 font-medium">International Students</td><td class="p-4">$18,000</td><td class="p-4">$5,000</td></tr>
+            <tr class="hover:bg-neutral-50"><td class="px-2 py-2.5 font-normal whitespace-normal break-words">Domestic Students</td><td class="px-2 py-2.5 whitespace-normal break-words">$8,500</td><td class="px-2 py-2.5 whitespace-normal break-words">$2,000</td></tr>
+            <tr class="hover:bg-neutral-50"><td class="px-2 py-2.5 font-normal whitespace-normal break-words">International Students</td><td class="px-2 py-2.5 whitespace-normal break-words">$18,000</td><td class="px-2 py-2.5 whitespace-normal break-words">$2,000</td></tr>
         </tbody>
     </table>
 </div>`,
