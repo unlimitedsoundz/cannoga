@@ -88,20 +88,20 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                             </div>
                         )}
 
-                        {/* Carousel arrows */}
+                        {/* Carousel arrows on image */}
                         {news.length > 1 && (
                             <>
                                 <button
                                     onClick={prev}
                                     aria-label="Previous"
-                                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center shadow transition-all duration-300 opacity-0 group-hover:opacity-100"
+                                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] border border-white/20 flex items-center justify-center shadow-md transition-all duration-300 z-10"
                                 >
                                     <CaretLeft size={18} weight="bold" />
                                 </button>
                                 <button
                                     onClick={next}
                                     aria-label="Next"
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center shadow transition-all duration-300 opacity-0 group-hover:opacity-100"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] border border-white/20 flex items-center justify-center shadow-md transition-all duration-300 z-10"
                                 >
                                     <CaretRight size={18} weight="bold" />
                                 </button>
@@ -111,7 +111,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
 
                     {/* Article content */}
                     {activeNews && (
-                        <div className="p-6 flex-1 flex flex-col justify-between border-b border-neutral-200">
+                        <div className="p-6 flex-1 flex flex-col justify-between">
                             <div>
                                 <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">
                                     {formatDate(activeNews.publishDate || activeNews.date || new Date().toISOString()).full}
@@ -135,24 +135,43 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                         </div>
                     )}
 
-                    {/* Pagination dots */}
+                    {/* Pagination & Navigation controls */}
                     {news.length > 1 && (
-                        <div className="flex items-center justify-center gap-2 py-4">
-                            {news.map((_, i) => (
+                        <div className="flex items-center justify-between px-6 py-3 border-t border-neutral-100 bg-slate-50/50">
+                            <div className="flex items-center gap-2">
                                 <button
-                                    key={i}
-                                    onClick={() => setActiveIndex(i)}
-                                    className="transition-all"
-                                    style={{
-                                        width: i === activeIndex ? 20 : 10,
-                                        height: 10,
-                                        background: i === activeIndex ? ACCENT : '#cbd5e1',
-                                        border: 'none',
-                                        cursor: 'pointer',
-                                    }}
-                                    aria-label={`Go to slide ${i + 1}`}
-                                />
-                            ))}
+                                    onClick={prev}
+                                    aria-label="Previous News"
+                                    className="p-2 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-white/10 shadow-sm"
+                                >
+                                    <CaretLeft size={16} weight="bold" />
+                                </button>
+                                <button
+                                    onClick={next}
+                                    aria-label="Next News"
+                                    className="p-2 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-white/10 shadow-sm"
+                                >
+                                    <CaretRight size={16} weight="bold" />
+                                </button>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                {news.map((_, i) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => setActiveIndex(i)}
+                                        className="transition-all rounded-full"
+                                        style={{
+                                            width: i === activeIndex ? 20 : 8,
+                                            height: 8,
+                                            background: i === activeIndex ? ACCENT : '#cbd5e1',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                        }}
+                                        aria-label={`Go to slide ${i + 1}`}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     )}
                 </div>
