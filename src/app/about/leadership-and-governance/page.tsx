@@ -6,7 +6,7 @@ import { Hero } from "@/components/layout/Hero";
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
 import GuideSidebarLayout from "@/components/layout/StudentGuideLayout";
-import { ArrowUpRight, CaretDown, CaretUp, EnvelopeSimple, Phone, Users, ShieldCheck, TreeStructure } from '@phosphor-icons/react';
+import { ArrowUpRight, EnvelopeSimple, Plus, Minus } from '@phosphor-icons/react';
 import { Link } from '@/components/ui/Link';
 
 const sections = [
@@ -214,64 +214,66 @@ export default function LeadershipGovernancePage() {
                         </div>
                     </section>
 
-                    {/* Section 3: Senior Administration Accordions */}
+                    {/* Section 3: Senior Administration Accordions - FAQ Style */}
                     <section id="senior-administration" className="scroll-mt-32 space-y-6">
-                        <div className="border-b-2 border-[#0a151a] pb-4">
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0a151a] uppercase tracking-tight">
+                        <div className="pb-2">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#1e3a5f] uppercase tracking-tight font-serif">
                                 SENIOR ADMINISTRATION
                             </h2>
                         </div>
 
-                        <div className="divide-y divide-neutral-200 border-t border-b border-neutral-200">
+                        <div className="w-full space-y-0 border-b-2 border-[#0a151a]">
                             {SENIOR_ADMIN_DATA.map((dept) => {
                                 const isOpen = !!openAccordions[dept.id];
                                 return (
-                                    <div key={dept.id} className="py-2">
+                                    <div 
+                                        key={dept.id} 
+                                        className="border-t-2 border-[#0a151a] bg-white transition-colors"
+                                    >
                                         <button
                                             onClick={() => toggleAccordion(dept.id)}
-                                            className="w-full flex items-center justify-between py-4 text-left font-bold text-lg md:text-xl text-[#0a151a] hover:text-[#c89211] transition-colors focus:outline-none"
+                                            className="w-full flex items-center justify-between py-4 px-1 text-left hover:bg-[#0a151a]/5 transition-colors focus:outline-none group"
                                             aria-expanded={isOpen}
                                         >
-                                            <span className="flex items-center gap-3">
-                                                <span className="text-xs font-mono font-normal text-slate-500">
-                                                    {isOpen ? '—' : '+'}
-                                                </span>
+                                            <span className="text-base sm:text-lg md:text-xl font-bold text-black pr-4 tracking-tight">
                                                 {dept.title}
                                             </span>
-                                            {isOpen ? (
-                                                <CaretUp size={18} weight="bold" />
-                                            ) : (
-                                                <CaretDown size={18} weight="bold" />
-                                            )}
+                                            <div className="flex-shrink-0 bg-[#0a151a] text-white p-1.5 rounded-none group-hover:bg-[#c89211] transition-colors">
+                                                {isOpen ? (
+                                                    <Minus size={16} weight="bold" />
+                                                ) : (
+                                                    <Plus size={16} weight="bold" />
+                                                )}
+                                            </div>
                                         </button>
 
                                         {isOpen && (
-                                            <div className="pb-6 pt-2 pl-6 overflow-x-auto">
-                                                <table className="w-full text-left border-collapse text-xs md:text-sm">
+                                            <div className="pb-6 pt-1 px-1 overflow-x-auto">
+                                                <table className="w-full text-left border-collapse text-xs sm:text-sm">
                                                     <thead>
-                                                        <tr className="border-b border-neutral-200 text-neutral-500 font-bold uppercase tracking-wider text-[11px]">
+                                                        <tr className="border-b-2 border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[10px] sm:text-[11px]">
                                                             <th className="py-2 pr-4">Name</th>
                                                             <th className="py-2 pr-4">Title</th>
                                                             <th className="py-2 pr-4">Academic Credential / Status</th>
                                                             <th className="py-2">Contact</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody className="divide-y divide-neutral-100">
+                                                    <tbody className="divide-y divide-slate-100">
                                                         {dept.staff.map((staff, sIdx) => (
-                                                            <tr key={sIdx} className="hover:bg-neutral-50/80 transition-colors">
-                                                                <td className="py-3.5 pr-4 font-bold text-[#0a151a] whitespace-nowrap">
+                                                            <tr key={sIdx} className="hover:bg-slate-50 transition-colors">
+                                                                <td className="py-3 pr-4 font-bold text-black whitespace-nowrap">
                                                                     {staff.name}
                                                                 </td>
-                                                                <td className="py-3.5 pr-4 text-neutral-700 font-medium">
+                                                                <td className="py-3 pr-4 text-neutral-700 font-medium">
                                                                     {staff.title}
                                                                 </td>
-                                                                <td className="py-3.5 pr-4 text-neutral-500 font-mono text-xs">
+                                                                <td className="py-3 pr-4 text-neutral-500 font-mono text-xs">
                                                                     {staff.credential}
                                                                 </td>
-                                                                <td className="py-3.5 whitespace-nowrap">
+                                                                <td className="py-3 whitespace-nowrap">
                                                                     <a
                                                                         href={`mailto:${staff.email}`}
-                                                                        className="font-bold underline text-[#0a151a] hover:text-[#c89211] transition-colors inline-flex items-center gap-1.5"
+                                                                        className="font-bold underline text-black hover:text-[#c89211] transition-colors inline-flex items-center gap-1.5 text-xs uppercase tracking-wider"
                                                                     >
                                                                         <EnvelopeSimple size={14} weight="bold" /> Email
                                                                     </a>
