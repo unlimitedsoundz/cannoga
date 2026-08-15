@@ -180,13 +180,13 @@ export default function StudentStoriesCarousel() {
                                     {/* Bottom / Sliding Up Full Height Panel */}
                                     <div
                                         className={`absolute inset-x-0 bottom-0 z-20 ${peer.cardBgClass} text-white transition-all duration-500 ease-out flex flex-col justify-between ${
-                                            isOpen ? 'h-full p-6 sm:p-7 pt-14' : 'h-[88px] sm:h-[96px] p-4 sm:p-5'
+                                            isOpen ? 'h-full p-6 sm:p-7 pt-14' : 'min-h-[96px] sm:min-h-[110px] p-4 sm:p-5'
                                         }`}
                                     >
                                         {/* Header area in slider */}
                                         <div className="flex items-start justify-between gap-2">
                                             <div>
-                                                <span className="font-black text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight leading-none font-sans block">
+                                                <span className="font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter leading-[0.9] font-sans block">
                                                     {isOpen ? peer.name : `MEET ${peer.firstName}`}
                                                 </span>
                                                 {isOpen && (
