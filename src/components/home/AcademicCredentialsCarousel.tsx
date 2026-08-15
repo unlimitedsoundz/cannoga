@@ -106,10 +106,10 @@ export function AcademicCredentialsCarousel() {
             <style jsx>{`
                 @keyframes waveFloat {
                     0%, 100% {
-                        transform: translateY(8px) scaleY(0.95);
+                        transform: translateY(16px) scaleY(1);
                     }
                     50% {
-                        transform: translateY(-4px) scaleY(1.1);
+                        transform: translateY(-10px) scaleY(1.15);
                     }
                 }
                 @keyframes arrowFloat {
@@ -121,7 +121,7 @@ export function AcademicCredentialsCarousel() {
                     }
                 }
                 .animate-wave-element {
-                    animation: waveFloat 3.2s ease-in-out infinite;
+                    animation: waveFloat 3.4s ease-in-out infinite;
                 }
                 .animate-arrow-element {
                     animation: arrowFloat 2.2s ease-in-out infinite;
@@ -142,7 +142,7 @@ export function AcademicCredentialsCarousel() {
                     >
                         <Link
                             linkComponentProps={{ href: card.href }}
-                            className={`block w-full p-3 sm:p-4 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline`}
+                            className={`block w-full p-3 sm:p-4 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden`}
                         >
                             {/* Card Top Image with Animated Wavy Cutout */}
                             <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden rounded-sm bg-black/10">
@@ -154,20 +154,20 @@ export function AcademicCredentialsCarousel() {
                                     sizes="(max-width: 768px) 340px, 500px"
                                 />
 
-                                 {/* Organic Wavy Bottom Edge overlay with smooth rising wave animation */}
+                                 {/* Organic Wavy Bottom Edge overlay extending past photo with smooth rising wave animation */}
                                 <div 
-                                    className="absolute bottom-0 left-0 right-0 h-10 sm:h-14 overflow-hidden leading-none z-10 pointer-events-none animate-wave-element"
+                                    className="absolute bottom-[-24px] left-0 right-0 h-16 sm:h-24 overflow-hidden leading-none z-10 pointer-events-none animate-wave-element"
                                     style={{ animationDelay: `${idx * 0.4}s` }}
                                 >
                                     <svg
-                                        viewBox="0 0 1440 120"
+                                        viewBox="0 0 1440 160"
                                         preserveAspectRatio="none"
                                         className="w-full h-full fill-current block"
                                         style={{ color: card.waveColor }}
                                     >
                                         <path
                                             fill="currentColor"
-                                            d="M0,45 C320,105 640,-15 960,75 C1200,115 1380,45 1440,65 V120 H0 Z"
+                                            d="M0,45 C320,105 640,-15 960,75 C1200,115 1380,45 1440,65 V160 H0 Z"
                                         />
                                     </svg>
                                 </div>
