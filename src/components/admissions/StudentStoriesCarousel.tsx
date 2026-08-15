@@ -106,20 +106,20 @@ export default function StudentStoriesCarousel() {
                     </div>
 
                     {/* Left / Right Arrow Navigation Controls */}
-                    <div className="flex items-center gap-6 pt-4">
+                    <div className="flex items-center gap-3 pt-4">
                         <button
                             onClick={scrollLeft}
-                            className="p-2 rounded-full text-[#1b2a4a] hover:text-[#008cc9] hover:bg-slate-100 transition-colors focus:outline-none"
+                            className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-slate-700"
                             aria-label="Scroll previous student"
                         >
-                            <ArrowLeft size={36} weight="bold" />
+                            <ArrowLeft size={20} weight="bold" />
                         </button>
                         <button
                             onClick={scrollRight}
-                            className="p-2 rounded-full text-[#1b2a4a] hover:text-[#008cc9] hover:bg-slate-100 transition-colors focus:outline-none"
+                            className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-slate-700"
                             aria-label="Scroll next student"
                         >
-                            <ArrowRight size={36} weight="bold" />
+                            <ArrowRight size={20} weight="bold" />
                         </button>
                     </div>
                 </div>
