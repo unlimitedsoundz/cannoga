@@ -62,6 +62,7 @@ export function Hero({
                             loop
                             muted
                             playsInline
+                            suppressHydrationWarning
                             className={`w-full h-full object-cover ${overlayOpacity || (overlay ? 'opacity-40' : 'opacity-100')}`}
                         />
                         {overlay && (
