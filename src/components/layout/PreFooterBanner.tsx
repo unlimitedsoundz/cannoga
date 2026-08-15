@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ShieldCheck } from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react";
+import { Logo } from "@/components/ui/Logo";
 
 export function PreFooterBanner() {
     return (
@@ -11,7 +12,7 @@ export function PreFooterBanner() {
                 
                 {/* Background Library Imagery */}
                 <Image
-                    src="/images/start-your-journey.png"
+                    src="/images/start-your-journey.jpg"
                     alt="Cannoga College student reading in library"
                     fill
                     priority
@@ -25,11 +26,9 @@ export function PreFooterBanner() {
                 {/* Content Overlay */}
                 <div className="relative z-10 text-white max-w-4xl">
                     
-                    {/* College Crest Icon */}
-                    <div className="mb-6 flex items-center">
-                        <div className="w-12 h-14 bg-white/10 backdrop-blur-md border border-white/30 rounded-t-md rounded-b-xl flex items-center justify-center text-white shadow-lg">
-                            <ShieldCheck size={28} weight="fill" className="text-white" />
-                        </div>
+                    {/* White Cannoga Logo */}
+                    <div className="mb-6">
+                        <Logo className="h-10 md:h-12 text-white" />
                     </div>
 
                     {/* Bold Headline */}
