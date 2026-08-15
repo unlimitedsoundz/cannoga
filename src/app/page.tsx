@@ -143,9 +143,9 @@ export default async function Home() {
                     </div>
                 </div>
 
-                {/* Bottom Prominent Wavy Edge (behind content & pre-footer banner) */}
+                {/* Bottom Prominent Wavy Edge (behind pre-footer banner card) */}
                 <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none z-0 translate-y-[calc(100%-2px)] pointer-events-none">
-                    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-14 sm:h-20 md:h-28 text-[#e8d5ff] fill-current block scale-y-[1.1] origin-top">
+                    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-16 sm:h-24 md:h-36 text-[#e8d5ff] fill-current block scale-y-[1.1] origin-top">
                         <path d="M0,0 C320,90 640,-30 960,70 C1200,120 1360,30 1440,50 V0 H0 Z" />
                     </svg>
                 </div>
