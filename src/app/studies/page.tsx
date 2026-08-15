@@ -16,6 +16,8 @@ import {
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { Hero } from '@/components/layout/Hero';
 import { ProgramsAZTableView } from '@/components/programs/ProgramsAZTableView';
+import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarousel';
+import { createStaticClient } from '@/lib/supabase/static';
 
 export const metadata: Metadata = {
     title: 'Academic Programs & Studies Directory — Cannoga College',
@@ -118,7 +120,13 @@ const SCHOOLS_DIRECTORY = [
     }
 ];
 
-export default function StudiesPage() {
+export default async function StudiesPage() {
+    const supabase = createStaticClient();
+    const { data: schools } = await supabase
+        .from('School')
+        .select('id, name, slug, description, imageUrl')
+        .order('name', { ascending: true });
+
     return (
         <div className="min-h-screen bg-white">
             <BreadcrumbSchema items={[
@@ -208,43 +216,15 @@ export default function StudiesPage() {
                 <ProgramsAZTableView />
             </div>
 
-            {/* Schools & Faculties Grid */}
+            {/* Schools & Faculties Carousel */}
             <div className="bg-slate-50 py-16 border-t border-slate-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-                        <div>
-                            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Explore by School</h2>
-                        </div>
-                        <Link href="/admissions" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-[#c89211] transition-colors">
-                            View All School Faculties <ArrowRight size={14} weight="bold" />
-                        </Link>
+                    <div className="mb-10">
+                        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Explore by Academic School</h2>
+                        <p className="text-sm text-slate-600 mt-1">Discover Cannoga College's specialized academic divisions and hero degree programs.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {SCHOOLS_DIRECTORY.map((school, idx) => (
-                            <div key={idx} className="group relative bg-[#0a151a] rounded-2xl overflow-hidden border border-white/10 shadow-lg min-h-[360px] flex flex-col justify-end p-8">
-                                <div className="absolute inset-0">
-                                    <Image
-                                        src={school.image}
-                                        alt={school.name}
-                                        fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-40"
-                                        sizes="(max-width: 768px) 100vw, 50vw"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a151a] via-[#0a151a]/80 to-transparent" />
-                                </div>
-                                <div className="relative z-10 text-white">
-                                    <h3 className="text-xl font-extrabold text-white mb-4">{school.name}</h3>
-                                    <Link 
-                                        href={`/schools/${school.slug}`} 
-                                        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white hover:text-[#c89211] transition-colors"
-                                    >
-                                        Browse School Programs <ArrowRight size={14} weight="bold" />
-                                    </Link>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                    <AcademicSchoolsCarousel schools={schools || []} />
                 </div>
             </div>
 

@@ -1,10 +1,8 @@
 
-import { Link } from "@aalto-dx/react-components";
-import Image from 'next/image';
+import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarousel';
 import { School } from '@/types/database';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { Hero } from '@/components/layout/Hero';
-import { Card } from '@/components/ui/Card';
 import { createStaticClient } from '@/lib/supabase/static';
 
 export const metadata = {
@@ -41,27 +39,8 @@ export default async function SchoolsPage() {
                 ]}
             />
 
-            <div className="container mx-auto px-4 py-16 md:py-24">
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    {(schools as School[])?.map((school) => (
-                        <Card
-                            key={school.id}
-                            title={school.name}
-                            image={school.imageUrl ? {
-                                src: school.imageUrl,
-                                alt: school.name
-                            } : undefined}
-                            body={school.description || ""}
-                            cta={{
-                                label: "Explore School",
-                                linkComponentProps: {
-                                    href: `/schools/${school.slug}`
-                                }
-                            }}
-                        />
-                    ))}
-                </div>
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+                <AcademicSchoolsCarousel schools={schools || []} />
             </div>
         </div>
     );
