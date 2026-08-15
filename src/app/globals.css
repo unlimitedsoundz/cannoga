@@ -963,7 +963,6 @@ button.sis-btn,
 }
 
 /* Enforce pure white text for all elements in Admin SIS dark theme */
-[data-theme="sis-dark"],
 [data-theme="sis-dark"] body,
 [data-theme="sis-dark"] main,
 [data-theme="sis-dark"] table,

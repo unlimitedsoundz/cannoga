@@ -72,7 +72,7 @@ export default async function AboutPage() {
                     { label: 'About' }
                 ]}
                 image={{
-                    src: "/images/home-carousel-3.png",
+                    src: "/images/about-hero.png",
                     alt: "Cannoga College Ottawa Campus main building"
                 }}
             />
@@ -194,16 +194,16 @@ export default async function AboutPage() {
                         <div className="py-16 bg-[#0f2027] text-white w-full border-y border-[#1e3a47] -mx-4 px-4 sm:-mx-8 sm:px-8 md:-mx-12 md:px-12">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center max-w-4xl mx-auto">
                                 <div className="flex flex-col items-center">
-                                    <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3 text-[#c89211]">2.4k</span>
-                                    <span className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-300">Enrolled Students</span>
+                                    <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3 text-white">2.4k</span>
+                                    <span className="text-sm font-semibold uppercase tracking-[0.3em] text-white !text-white">Enrolled Students</span>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                    <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3 text-[#c89211]">250</span>
-                                    <span className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-300">Faculty &amp; Instructors</span>
+                                    <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3 text-white">250</span>
+                                    <span className="text-sm font-semibold uppercase tracking-[0.3em] text-white !text-white">Faculty &amp; Instructors</span>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                    <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3 text-[#c89211]">60+</span>
-                                    <span className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-300">Countries Represented</span>
+                                    <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3 text-white">60+</span>
+                                    <span className="text-sm font-semibold uppercase tracking-[0.3em] text-white !text-white">Countries Represented</span>
                                 </div>
                             </div>
                         </div>
