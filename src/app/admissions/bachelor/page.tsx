@@ -133,11 +133,11 @@ export default function BachelorAdmissionsPage() {
                             weight="fill"
                             className="text-blue-500 mb-3"
                         />
-                        <div className="space-y-4 text-neutral-800 leading-relaxed pl-4 border-l-4 border-blue-400">
+                        <div className="space-y-4 pl-4 border-l-4 border-blue-400">
                             <h3 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-neutral-900 leading-snug">
                                 &ldquo;We empower students with the analytical skills and global mindset needed for complex financial decision-making.&rdquo;
                             </h3>
-                            <p className="text-sm md:text-base text-neutral-600 font-medium leading-relaxed">
+                            <p className="text-base md:text-lg font-bold text-neutral-900 leading-relaxed">
                                 Our undergraduate curriculum bridges foundational economic theory with hands-on fintech modeling, case competitions, and real-world internships. From day one, students receive direct mentorship to navigate international career pathways and graduate school admissions across Canada and globally.
                             </p>
                             <div className="flex items-center gap-3 pt-2">
