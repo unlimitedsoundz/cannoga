@@ -25,43 +25,26 @@ const sections = [
     }
 ];
 
-interface GovernorMember {
-    name: string;
-    role: string;
-    image: string;
-    affiliation: string;
-}
-
-const BOARD_OF_GOVERNORS: GovernorMember[] = [
+const BOARD_OF_GOVERNORS = [
     {
-        name: "DR. LUKE SCHAFFNER",
-        role: "President & CEO",
+        name: "DR. ATAMAN AVDAN",
         image: "/images/president-luke-schaffner.jpg",
-        affiliation: "Ex-Officio Member",
     },
     {
-        name: "DR. ERIC REMEDI",
-        role: "Chair, Board of Governors",
+        name: "DR. DAVE MCHARDY",
         image: "/images/collins-huang.jpg",
-        affiliation: "External Governor (Industry & Tech)",
     },
     {
-        name: "STEPHANE DUBOIS",
-        role: "Vice-Chair & Audit Committee Lead",
+        name: "STEPHANE DESEAU",
         image: "/images/chinaza-kamisiyochukwu.jpg",
-        affiliation: "External Governor (Finance & Risk)",
     },
     {
-        name: "RACHEL WOODS",
-        role: "Academic Governance Lead",
+        name: "RACHEL MOENS",
         image: "/images/student-story-2.jpg",
-        affiliation: "Faculty Representative",
     },
     {
-        name: "LAUREN SILVA",
-        role: "Student Experience & Advocacy",
+        name: "JANINA M. KON",
         image: "/images/student-story-4.jpg",
-        affiliation: "Student Representative Governor",
     },
 ];
 
@@ -204,48 +187,37 @@ export default function LeadershipGovernancePage() {
                     </section>
 
                     {/* Section 2: Board of Governors */}
-                    <section id="board-of-governors" className="scroll-mt-32 space-y-8">
-                        <div className="border-b-2 border-[#0a151a] pb-4 flex items-center justify-between">
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0a151a] uppercase tracking-tight">
+                    <section id="board-of-governors" className="scroll-mt-32 space-y-6">
+                        <div className="pb-2">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#1e3a5f] uppercase tracking-tight font-serif">
                                 BOARD OF GOVERNORS
                             </h2>
-                            <span className="hidden sm:inline-flex text-xs font-bold uppercase tracking-widest text-[#0a151a] bg-slate-100 px-3 py-1.5 rounded-sm">
-                                2026–2027 Term
-                            </span>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                             {BOARD_OF_GOVERNORS.map((gov, idx) => (
                                 <div
                                     key={idx}
-                                    className="group bg-[#0a151a] text-white rounded-none overflow-hidden relative border border-slate-800 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                                    className="group relative aspect-square w-full overflow-hidden bg-neutral-100 cursor-pointer"
                                 >
-                                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-slate-900">
-                                        <Image
-                                            src={gov.image}
-                                            alt={gov.name}
-                                            fill
-                                            className="object-cover object-top group-hover:scale-105 transition-transform duration-500 filter grayscale contrast-125 group-hover:filter-none"
-                                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a151a] via-transparent to-transparent opacity-90"></div>
-                                        
-                                        {/* Corner Arrow */}
-                                        <div className="absolute bottom-3 right-3 text-white">
-                                            <ArrowUpRight size={22} weight="bold" />
-                                        </div>
-                                    </div>
+                                    <Image
+                                        src={gov.image}
+                                        alt={gov.name}
+                                        fill
+                                        className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                                    />
+                                    {/* Bottom dark gradient overlay for text legibility */}
+                                    <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/85 via-black/40 to-transparent pointer-events-none" />
 
-                                    <div className="p-4 bg-[#0a151a] z-10">
-                                        <h3 className="font-black text-sm md:text-base tracking-wide text-white uppercase leading-tight mb-1">
+                                    {/* Bottom text and diagonal arrow */}
+                                    <div className="absolute inset-x-0 bottom-0 p-3.5 flex items-end justify-between z-10 text-white">
+                                        <h3 className="font-black text-xs sm:text-sm tracking-wider uppercase leading-tight max-w-[75%] drop-shadow-sm font-sans">
                                             {gov.name}
                                         </h3>
-                                        <p className="text-xs font-semibold text-[#c89211] uppercase tracking-wider">
-                                            {gov.role}
-                                        </p>
-                                        <p className="text-[11px] text-slate-400 mt-1 leading-snug">
-                                            {gov.affiliation}
-                                        </p>
+                                        <div className="shrink-0 mb-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                                            <ArrowUpRight size={26} weight="bold" className="text-white" />
+                                        </div>
                                     </div>
                                 </div>
                             ))}
