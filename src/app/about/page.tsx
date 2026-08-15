@@ -1,7 +1,6 @@
 import { createStaticClient } from "@/lib/supabase/static";
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from "@/components/layout/Hero";
 import DynamicNewsSection from "@/components/news/DynamicNewsSection";
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
@@ -9,7 +8,6 @@ import { SchemaLD } from '@/components/seo/SchemaLD';
 import { ContentBox } from "@/components/ui/ContentBox";
 import { Card } from "@/components/ui/Card";
 import { AcademicSchoolsCarousel } from "@/components/home/AcademicSchoolsCarousel";
-import { StudentResourceHubCarousel } from "@/components/home/StudentResourceHubCarousel";
 import GuideSidebarLayout from "@/components/layout/StudentGuideLayout";
 
 export const metadata = {
@@ -139,29 +137,6 @@ export default async function AboutPage() {
                         </section>
                     </div>
 
-                    {/* Academic Approach */}
-                    <section id="approach" className="scroll-mt-32">
-                        <div className="cc-section-divider text-center mb-12">
-                            <h2 className="cc-h2">Academic Approach</h2>
-                            <p className="cc-label">At Cannoga College, learning is built around:</p>
-                        </div>
-                        <ul className="grid md:grid-cols-2 gap-6 mb-12">
-                            {[
-                                "Applied, project-based education",
-                                "Collaboration with industry partners and community organizations",
-                                "Interdisciplinary academic pathways",
-                                "Strong integration of theory and practical training"
-                            ].map((item, i) => (
-                                <li key={i} className="cc-card flex items-start gap-4 p-5">
-                                    <ArrowRight size={18} weight="bold" className="shrink-0 text-[#0f2027] mt-0.5" />
-                                    <span className="text-neutral-700 font-medium leading-snug">{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="mt-10">
-                            <StudentResourceHubCarousel />
-                        </div>
-                    </section>
 
                     {/* After Graduation */}
                     <section id="graduation" className="scroll-mt-32">
