@@ -6,7 +6,7 @@ import { Hero } from "@/components/layout/Hero";
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
 import GuideSidebarLayout from "@/components/layout/StudentGuideLayout";
-import { ArrowUpRight, EnvelopeSimple, Plus, Minus } from '@phosphor-icons/react';
+import { ArrowUpRight, Plus, Minus } from '@phosphor-icons/react';
 import { Link } from '@/components/ui/Link';
 
 const sections = [
@@ -273,9 +273,9 @@ export default function LeadershipGovernancePage() {
                                                                 <td className="py-3 whitespace-nowrap">
                                                                     <a
                                                                         href={`mailto:${staff.email}`}
-                                                                        className="font-bold underline text-black hover:text-[#c89211] transition-colors inline-flex items-center gap-1.5 text-xs uppercase tracking-wider"
+                                                                        className="font-bold underline text-black hover:text-[#c89211] transition-colors text-xs uppercase tracking-wider"
                                                                     >
-                                                                        <EnvelopeSimple size={14} weight="bold" /> Email
+                                                                        Email
                                                                     </a>
                                                                 </td>
                                                             </tr>
@@ -287,101 +287,6 @@ export default function LeadershipGovernancePage() {
                                     </div>
                                 );
                             })}
-                        </div>
-                    </section>
-
-                    {/* Section 4: Organization Chart */}
-                    <section id="org-chart" className="scroll-mt-32 space-y-8">
-                        <div className="border-b-2 border-[#0a151a] pb-4">
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0a151a] uppercase tracking-tight">
-                                ORGANIZATION CHART
-                            </h2>
-                        </div>
-
-                        <div className="bg-[#0f2027] text-white p-6 sm:p-10 rounded-xl border border-[#1e3a47] shadow-xl">
-                            {/* Top Tier: Board */}
-                            <div className="flex flex-col items-center">
-                                <div className="bg-white text-[#0f2027] px-8 py-4 rounded-md shadow-md font-black text-lg md:text-xl uppercase tracking-tight border-2 border-[#c89211] text-center">
-                                    Board of Governors
-                                </div>
-                                <div className="w-0.5 h-8 bg-[#c89211]"></div>
-                                <div className="w-3/4 max-w-2xl h-0.5 bg-[#c89211]"></div>
-                            </div>
-
-                            {/* Middle Tier: Branches */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
-                                {/* Internal Governors */}
-                                <div className="bg-[#18313c] p-5 rounded-lg border border-[#2b4c5c] space-y-4">
-                                    <div className="flex items-center justify-between border-b border-[#2b4c5c] pb-2">
-                                        <h3 className="font-bold text-sm uppercase tracking-wider text-amber-400">
-                                            Internal Governor(s)
-                                        </h3>
-                                        <span className="text-[10px] bg-amber-400/20 text-amber-300 px-2 py-0.5 rounded font-mono">Academic</span>
-                                    </div>
-                                    <ul className="space-y-2.5 text-xs text-slate-200">
-                                        <li className="p-2.5 bg-[#0f2027] rounded border border-slate-700 flex justify-between items-center">
-                                            <span>Dr. Luke Schaffner</span>
-                                            <span className="text-[10px] text-slate-400 font-bold uppercase">President</span>
-                                        </li>
-                                        <li className="p-2.5 bg-[#0f2027] rounded border border-slate-700 flex justify-between items-center">
-                                            <span>Rachel Woods</span>
-                                            <span className="text-[10px] text-slate-400 font-bold uppercase">Faculty</span>
-                                        </li>
-                                        <li className="p-2.5 bg-[#0f2027] rounded border border-slate-700 flex justify-between items-center">
-                                            <span>Lauren Silva</span>
-                                            <span className="text-[10px] text-slate-400 font-bold uppercase">Student</span>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                {/* External Governors */}
-                                <div className="bg-[#18313c] p-5 rounded-lg border border-[#2b4c5c] space-y-4">
-                                    <div className="flex items-center justify-between border-b border-[#2b4c5c] pb-2">
-                                        <h3 className="font-bold text-sm uppercase tracking-wider text-emerald-400">
-                                            External Governor(s)
-                                        </h3>
-                                        <span className="text-[10px] bg-emerald-400/20 text-emerald-300 px-2 py-0.5 rounded font-mono">Industry</span>
-                                    </div>
-                                    <ul className="space-y-2.5 text-xs text-slate-200">
-                                        <li className="p-2.5 bg-[#0f2027] rounded border border-slate-700 flex justify-between items-center">
-                                            <span>Dr. Eric Remedi</span>
-                                            <span className="text-[10px] text-slate-400 font-bold uppercase">Chair</span>
-                                        </li>
-                                        <li className="p-2.5 bg-[#0f2027] rounded border border-slate-700 flex justify-between items-center">
-                                            <span>Stephane Dubois</span>
-                                            <span className="text-[10px] text-slate-400 font-bold uppercase">Vice-Chair</span>
-                                        </li>
-                                        <li className="p-2.5 bg-[#0f2027] rounded border border-slate-700 flex justify-between items-center">
-                                            <span>Elena Rostova</span>
-                                            <span className="text-[10px] text-slate-400 font-bold uppercase">Finance</span>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                {/* Board Advisors & Officers */}
-                                <div className="bg-[#18313c] p-5 rounded-lg border border-[#2b4c5c] space-y-4">
-                                    <div className="flex items-center justify-between border-b border-[#2b4c5c] pb-2">
-                                        <h3 className="font-bold text-sm uppercase tracking-wider text-sky-400">
-                                            Board Advisor(s)
-                                        </h3>
-                                        <span className="text-[10px] bg-sky-400/20 text-sky-300 px-2 py-0.5 rounded font-mono">Operations</span>
-                                    </div>
-                                    <ul className="space-y-2.5 text-xs text-slate-200">
-                                        <li className="p-2.5 bg-[#0f2027] rounded border border-slate-700 flex justify-between items-center">
-                                            <span>Dr. Karen Veltman</span>
-                                            <span className="text-[10px] text-slate-400 font-bold uppercase">Provost</span>
-                                        </li>
-                                        <li className="p-2.5 bg-[#0f2027] rounded border border-slate-700 flex justify-between items-center">
-                                            <span>Marc Tremblay</span>
-                                            <span className="text-[10px] text-slate-400 font-bold uppercase">VP Admin</span>
-                                        </li>
-                                        <li className="p-2.5 bg-[#0f2027] rounded border border-slate-700 flex justify-between items-center">
-                                            <span>Nadia Benali</span>
-                                            <span className="text-[10px] text-slate-400 font-bold uppercase">Registrar</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </section>
 
