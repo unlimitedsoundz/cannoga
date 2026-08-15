@@ -154,20 +154,20 @@ export function AcademicCredentialsCarousel() {
                                     sizes="(max-width: 768px) 340px, 500px"
                                 />
 
-                                {/* Organic Wavy Edge overlay at TOP of image with smooth wave animation */}
+                                {/* Organic Wavy Edge overlay at BOTTOM of image with smooth wave animation */}
                                 <div 
-                                    className="absolute top-[-16px] left-0 right-0 h-16 sm:h-24 overflow-hidden leading-none z-10 pointer-events-none rotate-180 animate-wave-element"
+                                    className="absolute bottom-[-24px] left-0 right-0 h-16 sm:h-24 overflow-hidden leading-none z-10 pointer-events-none animate-wave-element"
                                     style={{ animationDelay: `${idx * 0.4}s` }}
                                 >
                                     <svg
-                                        viewBox="0 0 1440 160"
+                                        viewBox="0 0 1440 200"
                                         preserveAspectRatio="none"
                                         className="w-full h-full fill-current block"
                                         style={{ color: card.waveColor }}
                                     >
                                         <path
                                             fill="currentColor"
-                                            d="M0,45 C320,105 640,-15 960,75 C1200,115 1380,45 1440,65 V160 H0 Z"
+                                            d="M0,45 C320,105 640,-15 960,75 C1200,115 1380,45 1440,65 V200 H0 Z"
                                         />
                                     </svg>
                                 </div>
