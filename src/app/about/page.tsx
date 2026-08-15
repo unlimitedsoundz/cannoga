@@ -158,9 +158,6 @@ export default async function AboutPage() {
                                 </li>
                             ))}
                         </ul>
-                        <p className="text-slate-700 text-lg leading-relaxed bg-[#f8fafc] p-8 border-l-4 border-[#0f2027]">
-                            Our Ottawa campus provides a supportive and inclusive environment where students and faculty work together to explore real-world challenges and develop innovative, career-ready solutions.
-                        </p>
                         <div className="mt-10">
                             <StudentResourceHubCarousel />
                         </div>
