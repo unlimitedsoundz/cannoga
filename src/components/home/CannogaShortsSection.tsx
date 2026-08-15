@@ -74,13 +74,13 @@ export function CannogaShortsSection() {
                     </div>
                 </div>
 
-                {/* 4 Vertical Shorts Grid - 2 cols on mobile, 4 cols on desktop */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6">
+                {/* 4 Vertical 9:16 Shorts - Single row horizontal scroll on mobile, 4 columns on desktop */}
+                <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 overflow-x-auto sm:overflow-visible pb-4 sm:pb-0 snap-x snap-mandatory scrollbar-none">
                     {SHORTS_DATA.map((short) => {
                         return (
-                            <div key={short.id} className="flex flex-col group">
+                            <div key={short.id} className="flex flex-col group shrink-0 w-[240px] sm:w-auto snap-center">
                                 {/* Vertical 9:16 Direct Embedded YouTube Video Box */}
-                                <div className="relative aspect-[9/16] w-full bg-black rounded-md overflow-hidden block shadow-sm sm:shadow-md group-hover:shadow-xl transition-shadow border border-slate-800">
+                                <div className="relative aspect-[9/16] w-full bg-black rounded-lg overflow-hidden block shadow-md group-hover:shadow-2xl transition-all duration-300 border border-slate-800">
                                     <iframe
                                         src={`https://www.youtube.com/embed/${short.videoId}?rel=0&modestbranding=1`}
                                         title={short.title}
@@ -91,8 +91,8 @@ export function CannogaShortsSection() {
                                 </div>
 
                                 {/* Caption Text Below Video */}
-                                <div className="mt-2 sm:mt-3 text-center px-0.5 sm:px-1">
-                                    <p className="text-[11px] sm:text-xs text-slate-700 font-sans font-medium leading-snug line-clamp-2">
+                                <div className="mt-3 text-center px-1">
+                                    <p className="text-xs text-slate-800 font-sans font-semibold leading-snug line-clamp-2">
                                         {short.caption}
                                     </p>
                                 </div>
