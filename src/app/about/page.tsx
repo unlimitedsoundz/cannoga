@@ -31,6 +31,7 @@ export default async function AboutPage() {
             header: { label: 'About Cannoga College', linkComponentProps: { href: '/about' } },
             links: [
                 { label: 'Our Story', linkComponentProps: { href: '/about' } },
+                { label: 'Welcome from the President', linkComponentProps: { href: '/about/welcome-from-the-president' } },
                 { label: 'News & Events', linkComponentProps: { href: '/news' } },
                 { label: 'Research Hub', linkComponentProps: { href: '/research' } },
                 { label: 'Careers', linkComponentProps: { href: '/careers' } },
