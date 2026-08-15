@@ -6,7 +6,7 @@ import { ArrowRight } from "@phosphor-icons/react";
 
 export function PreFooterBanner() {
     return (
-        <section className="bg-white pt-8 sm:pt-28 md:pt-32 pb-6 sm:pb-12 px-2 sm:px-6 md:px-8 lg:px-12 relative z-0">
+        <section className="bg-white pt-8 sm:pt-28 md:pt-32 pb-6 sm:pb-12 px-2 sm:px-6 md:px-8 lg:px-12 relative z-10">
             <div 
                 className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden aspect-[9/16] sm:aspect-auto sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 shadow-2xl"
             >
