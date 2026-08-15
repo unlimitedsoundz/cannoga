@@ -30,8 +30,8 @@ export function InternationalInfoCard() {
                 {/* Image with wavy cutout */}
                 <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden rounded-sm bg-black/10">
                     <Image
-                        src="/images/ottawa.jpg"
-                        alt="Ottawa Campus"
+                        src="/images/ottawa-campus.jpg"
+                        alt="Cannoga College campus in Ottawa, Ontario, Canada"
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 640px) 350px, (max-width: 768px) 420px, 520px"
