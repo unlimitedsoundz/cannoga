@@ -33,7 +33,7 @@ export function PreFooterBanner() {
 
                     {/* Bold Headline */}
                     <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[100px] font-black text-white uppercase tracking-tight leading-[0.92] mb-8 sm:mb-12 font-sans">
-                        START YOUR<br />JOURNEY
+                        SEE YOU AT<br />THE TOP
                     </h2>
 
                     {/* Bottom Link Options */}
