@@ -68,9 +68,9 @@ export default async function Home() {
             <HomeCarousel />
 
             {/* 2. EXPLORE PROGRAMS & COURSES (COLUMBIA COLLEGE STYLE VIBRANT CAROUSEL) */}
-            <section className="py-20 bg-white border-b border-slate-200">
+            <section className="py-20 bg-white">
                 <div className="container mx-auto px-4 md:px-28 lg:px-40">
-                    <div className="mb-10 border-b border-slate-200 pb-4 max-w-2xl">
+                    <div className="mb-10 max-w-2xl">
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">Academic Programs &amp; Credentials</h2>
                         <p className="text-slate-600 font-normal text-base mt-2">Explore career-focused post-secondary education at our Ottawa campus.</p>
                     </div>
