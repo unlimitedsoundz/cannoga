@@ -1,4 +1,4 @@
-import Link from 'next/link';
+﻿import Link from 'next/link';
 import { Hero } from '@/components/layout/Hero';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { 
@@ -13,7 +13,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata = {
-    title: 'Center for Innovation & Entrepreneurial Support — Cannoga College',
+    title: 'Center for Innovation & Entrepreneurial Support Cannoga College',
     description: 'Discover student incubators, start-up mentoring programs, venture acceleration, and commercialization research at the Cannoga Innovation Hub in Ottawa.',
     alternates: {
         canonical: 'https://cannogacollege.ca/innovation/',

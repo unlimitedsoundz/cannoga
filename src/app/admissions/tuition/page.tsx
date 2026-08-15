@@ -1,4 +1,4 @@
-import { Link } from '@/components/ui/Link';
+﻿import { Link } from '@/components/ui/Link';
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
@@ -10,7 +10,7 @@ import { createStaticClient } from '@/lib/supabase/static';
 import TuitionEstimator from '@/components/admissions/TuitionEstimator';
 
 export const metadata = {
-    title: 'Tuition Fees, Payment Plans & Scholarships — Cannoga College',
+    title: 'Tuition Fees, Payment Plans & Scholarships Cannoga College',
     description: 'Explore current tuition rates, acceptable payment methods, installments, and funding support for domestic and international students.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/tuition/',

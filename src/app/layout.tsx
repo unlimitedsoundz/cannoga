@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ConditionalHeaderFooter } from "@/components/layout/ConditionalHeaderFooter";
@@ -14,7 +14,7 @@ const playfair = { variable: "font-playfair-var" };
 export const metadata: Metadata = {
     metadataBase: new URL('https://cannogacollege.ca'),
     title: {
-        default: "Cannoga College — Ottawa, Ontario",
+        default: "Cannoga College Ottawa, Ontario",
         template: "%s | Cannoga College"
     },
     description: "Cannoga College is a career-focused college located in Ottawa, Ontario, Canada. Explore our programs, admissions, and support for international students.",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
         type: 'website',
         locale: 'en_CA',
         siteName: 'Cannoga College',
-        title: 'Cannoga College — Ottawa, Ontario',
+        title: 'Cannoga College Ottawa, Ontario',
         description: "Cannoga College is a career-focused college located in Ottawa, Ontario, Canada. Explore our programs, admissions, and support for international students.",
         images: [
             {
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Cannoga College — Ottawa, Ontario',
+        title: 'Cannoga College Ottawa, Ontario',
         description: "Cannoga College is a career-focused college located in Ottawa, Ontario, Canada. Explore our programs, admissions, and support for international students.",
         images: ['/images/logo-cannoga.png'],
     }

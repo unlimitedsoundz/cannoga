@@ -1,7 +1,7 @@
-import TermsContent from '@/components/legal/TermsContent';
+﻿import TermsContent from '@/components/legal/TermsContent';
 
 export const metadata = {
-    title: 'Terms of Use & Site Agreements — Cannoga College',
+    title: 'Terms of Use & Site Agreements Cannoga College',
     description: 'Legal terms and standard rules governing access to and usage of the public Cannoga online portal.',
     alternates: {
         canonical: 'https://cannogacollege.ca/terms/',

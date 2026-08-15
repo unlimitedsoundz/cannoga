@@ -1,4 +1,4 @@
-import { Hero } from '@/components/layout/Hero';
+﻿import { Hero } from '@/components/layout/Hero';
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
@@ -6,7 +6,7 @@ import { TagGroup } from '@/components/ui/TagGroup';
 import { LiftupCollection } from '@aalto-dx/react-modules';
 
 export const metadata = {
-    title: 'Scientific Research, Innovation & Labs — Cannoga College',
+    title: 'Scientific Research, Innovation & Labs Cannoga College',
     description: 'Explore research initiatives, faculty publications, and specialist laboratories driving positive global change from Ottawa.',
     alternates: {
         canonical: 'https://cannogacollege.ca/research/',
@@ -35,7 +35,7 @@ export default function ResearchPage() {
                 </div>
                 <div className="prose prose-lg text-neutral-600 max-w-3xl leading-relaxed">
                     <p className="mb-6">
-                        At <strong className="text-[#000000]">Cannoga College</strong>, research is not locked away in labs or journals — it lives in studios, classrooms, communities, and real-world projects. We explore questions that matter now and ideas that shape what comes next, blending <strong className="text-[#000000]">technology, design, business, science, and culture</strong> into a shared space of experimentation and discovery.
+                        At <strong className="text-[#000000]">Cannoga College</strong>, research is not locked away in labs or journals it lives in studios, classrooms, communities, and real-world projects. We explore questions that matter now and ideas that shape what comes next, blending <strong className="text-[#000000]">technology, design, business, science, and culture</strong> into a shared space of experimentation and discovery.
                     </p>
                     <p>
                         Our research culture welcomes both analytical thinkers and creative makers. Whether through data, design, systems, or stories, we believe knowledge grows stronger when disciplines cross paths.
@@ -258,7 +258,7 @@ export default function ResearchPage() {
                     <p className="cc-label uppercase tracking-widest mb-3">Join the Research Community</p>
                     <h2 className="cc-h2 mb-6">Manifest Your Research</h2>
                     <p className="text-lg text-neutral-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-                        Students and staff are invited to actively engage in exploration. At Cannoga College, research is not just something you study — <strong>it's something you do</strong>.
+                        Students and staff are invited to actively engage in exploration. At Cannoga College, research is not just something you study <strong>it's something you do</strong>.
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
                         <Link href="/research/projects" className="cc-btn-primary no-underline">

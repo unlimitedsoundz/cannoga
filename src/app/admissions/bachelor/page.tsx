@@ -1,4 +1,4 @@
-
+﻿
 import { Link } from '@/components/ui/Link';
 import Image from 'next/image';
 import { ArrowRight, CheckCircle, Globe, Users, BookOpen, Briefcase, GraduationCap, Calendar, MapPin, Buildings, Headset, GlobeHemisphereWest, Basketball } from '@phosphor-icons/react/dist/ssr';
@@ -13,7 +13,7 @@ import { SchemaLD } from '@/components/seo/SchemaLD';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 export const metadata = {
-    title: 'Undergraduate Admissions & Bachelor\'s Entry — Cannoga College',
+    title: 'Undergraduate Admissions & Bachelor\'s Entry Cannoga College',
     description: 'Learn about admissions criteria, application pathways, and scholarship options for our English-taught Bachelor\'s programs.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/bachelor/',

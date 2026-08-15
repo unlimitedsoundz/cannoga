@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -212,7 +212,7 @@ export default function AdminDocumentDetailPage() {
                     </div>
                     <div className="p-3 bg-neutral-800 rounded-xl">
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Programme</p>
-                        <p className="text-xs font-bold text-neutral-200 mt-1">{application?.course?.title}{application?.course?.degreeLevel ? ` — ${formatDegreeLevel(application.course.degreeLevel)}` : ''}</p>
+                        <p className="text-xs font-bold text-neutral-200 mt-1">{application?.course?.title}{application?.course?.degreeLevel ? ` ${formatDegreeLevel(application.course.degreeLevel)}` : ''}</p>
                     </div>
                     <div className="p-3 bg-neutral-800 rounded-xl">
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Status</p>

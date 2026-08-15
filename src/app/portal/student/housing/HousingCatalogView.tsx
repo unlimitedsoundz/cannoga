@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Elevator, WifiHigh, WashingMachine, Drop, Users, X, CaretLeft, CaretRight, Info, CheckCircle, Image as ImageIcon } from "@phosphor-icons/react/dist/ssr";
@@ -377,7 +377,7 @@ export default function HousingCatalogView({ onSelectBuilding, onSelectApartment
                                 ))}
                             </div>
 
-                            {/* Carousel Nav — hidden by default, visible on hover */}
+                            {/* Carousel Nav hidden by default, visible on hover */}
                             {selectedBuilding.mainImages.length > 1 && (
                                 <>
                                     <button

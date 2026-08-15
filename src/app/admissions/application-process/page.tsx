@@ -1,4 +1,4 @@
-
+﻿
 import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { Link } from '@/components/ui/Link';
 import { CTA } from '@/components/ui/CTA';
@@ -20,7 +20,7 @@ const sections = [
 ];
 
 export const metadata = {
-    title: 'How to Apply: Step-by-Step Admissions Guide — Cannoga College',
+    title: 'How to Apply: Step-by-Step Admissions Guide Cannoga College',
     description: 'Find clear, step-by-step instructions on submitting your application, preparing your portfolio, tracking deadlines, and joining Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/application-process/',

@@ -1,4 +1,4 @@
-import { ArrowRight, Airplane, MapPin, GraduationCap, ChatCircleDots, BookOpen, Globe } from "@phosphor-icons/react/dist/ssr";
+﻿import { ArrowRight, Airplane, MapPin, GraduationCap, ChatCircleDots, BookOpen, Globe } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
 import Image from 'next/image';
@@ -7,7 +7,7 @@ import { ContentBox } from '@/components/ui/ContentBox';
 import { CTA } from "@aalto-dx/react-modules";
 
 export const metadata = {
-    title: 'New Student Arrival & Campus Welcome Guide — Cannoga College',
+    title: 'New Student Arrival & Campus Welcome Guide Cannoga College',
     description: 'Plan your travel and welcome week. View details on campus pickup options, initial registration steps, and orientation.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-guide/arrival/',

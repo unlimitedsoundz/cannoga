@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { Breadcrumbs } from "@aalto-dx/react-components";
@@ -40,7 +40,7 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
   const [activeId, setActiveId] = useState<string>('');
   const [mobileAccordionOpen, setMobileAccordionOpen] = useState<boolean>(false);
 
-  // Extract flat list of nav items — supports both #anchor and full-path hrefs
+  // Extract flat list of nav items supports both #anchor and full-path hrefs
   const navItems = sections.flatMap(s => {
     if (s.header) {
       const items: { id: string; label: string; href: string }[] = [];

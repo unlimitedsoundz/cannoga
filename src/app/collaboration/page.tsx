@@ -1,4 +1,4 @@
-import { Link } from "@aalto-dx/react-components";
+﻿import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { ArrowRight, Handshake, Lightbulb, Buildings, Users } from '@phosphor-icons/react/dist/ssr';
 
@@ -6,7 +6,7 @@ import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
 
 export const metadata = {
-    title: 'Industry Collaborations & Strategic Partnerships — Cannoga College',
+    title: 'Industry Collaborations & Strategic Partnerships Cannoga College',
     description: 'Partner with Cannoga College on commercial research, internships, knowledge transfer programs, and local innovations.',
     alternates: {
         canonical: 'https://cannogacollege.ca/collaboration/',

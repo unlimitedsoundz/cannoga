@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!project) return { title: 'Project Not Found' };
 
     return {
-        title: `${project.title} — Research Initiative | Cannoga College`,
+        title: `${project.title} Research Initiative | Cannoga College`,
         description: `Explore the findings and objectives of our research project: ${project.title}. ${project.description || ''}`,
         alternates: {
             canonical: `https://cannogacollege.ca/research/projects/${slug}/`,

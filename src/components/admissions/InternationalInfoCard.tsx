@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
@@ -59,13 +59,13 @@ export function InternationalInfoCard() {
                         Study in Ottawa, Ontario, Canada with Cannoga College
                     </h2>
                     <p className="text-base sm:text-lg font-medium mb-3">
-                        <strong>Quality &amp; Safety</strong> – World‑leading education in a safe, inclusive, and equal society.
+                        <strong>Quality &amp; Safety</strong> World‑leading education in a safe, inclusive, and equal society.
                     </p>
                     <p className="text-base sm:text-lg font-medium mb-3">
-                        <strong>Practical Innovation</strong> – Focus on applied learning, independent research, and real‑world industry applications.
+                        <strong>Practical Innovation</strong> Focus on applied learning, independent research, and real‑world industry applications.
                     </p>
                     <p className="text-base sm:text-lg font-medium mb-4">
-                        <strong>Life Balance</strong> – Flexibility and student wellbeing support to shape your own unique academic path.
+                        <strong>Life Balance</strong> Flexibility and student wellbeing support to shape your own unique academic path.
                     </p>
                     <Link
                         linkComponentProps={{ href: '/student-guide/international' }}

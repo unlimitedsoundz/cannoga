@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -48,7 +48,7 @@ export default function ApplicationsPage() {
   const columns = [
     { key: 'application_number', header: 'Application #', render: (a: ApplicationRow) => <span className="font-mono text-xs text-neutral-200">{a.application_number || a.id.slice(0, 8)}</span> },
     { key: 'user', header: 'Student', render: (a: ApplicationRow) => <span className="font-bold text-xs text-neutral-200">{a.user ? `${a.user.first_name} ${a.user.last_name}` : '—'}</span> },
-    { key: 'course', header: 'Program', render: (a: ApplicationRow) => <span className="text-xs text-slate-400">{`${a.course?.title || '—'}${a.course?.degreeLevel ? ` — ${formatDegreeLevel(a.course.degreeLevel)}` : ''}`}</span> },
+    { key: 'course', header: 'Program', render: (a: ApplicationRow) => <span className="text-xs text-slate-400">{`${a.course?.title || '—'}${a.course?.degreeLevel ? ` ${formatDegreeLevel(a.course.degreeLevel)}` : ''}`}</span> },
     { key: 'status', header: 'Status', render: (a: ApplicationRow) => <StatusBadge status={a.status} /> },
     { key: 'submitted_at', header: 'Submitted', render: (a: ApplicationRow) => <span className="text-xs text-neutral-500">{a.submitted_at ? new Date(a.submitted_at).toLocaleDateString('en-CA') : '—'}</span> },
     { key: 'id', header: 'Actions', render: (a: ApplicationRow) => <Link href={`/sis/admin/admissions/${a.id}`} className="text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white transition-colors no-underline">View</Link> },

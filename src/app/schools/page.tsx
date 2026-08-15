@@ -1,4 +1,4 @@
-
+﻿
 import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarousel';
 import { School } from '@/types/database';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
@@ -6,7 +6,7 @@ import { Hero } from '@/components/layout/Hero';
 import { createStaticClient } from '@/lib/supabase/static';
 
 export const metadata = {
-    title: 'Academic Faculties & Schools — Cannoga College',
+    title: 'Academic Faculties & Schools Cannoga College',
     description: 'Explore our diverse schools, including Business, Technology, Science, Health, and Arts. Find your academic department today.',
     alternates: {
         canonical: 'https://cannogacollege.ca/schools/',

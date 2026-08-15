@@ -1,4 +1,4 @@
-import { createStaticClient } from '@/lib/supabase/static';
+﻿import { createStaticClient } from '@/lib/supabase/static';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Course, Subject, Faculty, School, Department } from '@/types/database';
@@ -85,7 +85,7 @@ export async function generateMetadata({ params }: Props) {
     const degreeLevel = course?.degreeLevel || 'DIPLOMA';
 
     return {
-        title: `${title} — ${degreeLevel} | Cannoga College`,
+        title: `${title} ${degreeLevel} | Cannoga College`,
         description: cleanHtml(course?.description)?.replace(/Cannoga College|Cannoga|Cannoga C\x6Fllege|SYKLI|College/gi, 'Cannoga College').substring(0, 160) || `Study ${title} at Cannoga College.`,
         alternates: {
             canonical: `https://cannogacollege.ca/studies/${slug}/`,
@@ -415,7 +415,7 @@ export default async function CourseDetailPage({ params }: Props) {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                             <div className="p-4 border border-slate-200 rounded-none">
                                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Average Starting Salary</p>
-                                <p className="font-black text-slate-900 text-lg">$58,000 – $74,000 CAD</p>
+                                <p className="font-black text-slate-900 text-lg">$58,000 $74,000 CAD</p>
                             </div>
                             <div className="p-4 border border-slate-200 rounded-none">
                                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Graduate Employment Rate</p>

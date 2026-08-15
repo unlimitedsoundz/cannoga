@@ -1,10 +1,10 @@
-import { Link } from '@/components/ui/Link';
+﻿import { Link } from '@/components/ui/Link';
 import Image from 'next/image';
 import { EnvelopeSimple, Phone, MapPin, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 export const metadata = {
-    title: 'Admissions Contact Directory & Inquiry Desk — Cannoga College',
+    title: 'Admissions Contact Directory & Inquiry Desk Cannoga College',
     description: 'Reach out to our admissions team for personalized guidance. Find telephone numbers, email addresses, and support hours.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/contact-information/',
@@ -144,10 +144,10 @@ export default function AdmissionsContactInfo() {
                                             <div className="text-xs text-slate-800 space-y-1 pt-1">
                                                 <p className="font-bold text-slate-900 text-xs uppercase tracking-wider text-[#c89211] mb-1">Telephone service hours (UTC +2):</p>
                                                 <ul className="space-y-0.5 text-xs text-slate-700 font-medium">
-                                                    <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Mon:</span><span>12:30 pm – 2:00 pm</span></li>
-                                                    <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Tue:</span><span>9:30 am – 11:00 am</span></li>
-                                                    <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Wed:</span><span>9:30 am – 11:00 am</span></li>
-                                                    <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Thu:</span><span>9:30 am – 11:00 am</span></li>
+                                                    <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Mon:</span><span>12:30 pm 2:00 pm</span></li>
+                                                    <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Tue:</span><span>9:30 am 11:00 am</span></li>
+                                                    <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Wed:</span><span>9:30 am 11:00 am</span></li>
+                                                    <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Thu:</span><span>9:30 am 11:00 am</span></li>
                                                     <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Fri:</span><span className="text-red-600 font-bold">Closed</span></li>
                                                 </ul>
                                             </div>
@@ -165,7 +165,7 @@ export default function AdmissionsContactInfo() {
                                                 <div>
                                                     <h4 className="font-bold text-slate-900 text-sm">Campus Address</h4>
                                                     <p className="leading-relaxed mt-0.5">
-                                                        Cannoga College – Ottawa campus<br />
+                                                        Cannoga College Ottawa campus<br />
                                                         81 Montreal Rd,<br />
                                                         K1L 6E8 Ottawa, Ontario, Canada
                                                     </p>
@@ -173,7 +173,7 @@ export default function AdmissionsContactInfo() {
                                                 <div>
                                                     <h4 className="font-bold text-slate-900 text-sm">Mailing Address</h4>
                                                     <p className="leading-relaxed mt-0.5">
-                                                        Cannoga College – Ottawa campus<br />
+                                                        Cannoga College Ottawa campus<br />
                                                         81 Montreal Rd,<br />
                                                         K1L 6E8 Ottawa, Ontario, Canada
                                                     </p>

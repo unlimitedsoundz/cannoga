@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useRef, useState } from 'react';
 
@@ -20,7 +20,7 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
 
         async function initEditor() {
             try {
-                // Dynamic imports — keeps this out of SSR
+                // Dynamic imports keeps this out of SSR
                 const [
                     { ClassicEditor },
                     { Essentials },

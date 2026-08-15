@@ -1,10 +1,10 @@
-
+﻿
 import { createStaticClient } from '@/lib/supabase/static';
 import { Link } from "@aalto-dx/react-components";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata = {
-    title: 'Active Scientific & Collaborative Projects — Cannoga College',
+    title: 'Active Scientific & Collaborative Projects Cannoga College',
     description: 'Discover current and historical research projects across technology, arts, sciences, and sustainability at Cannoga.',
     alternates: {
         canonical: 'https://cannogacollege.ca/research/projects/',

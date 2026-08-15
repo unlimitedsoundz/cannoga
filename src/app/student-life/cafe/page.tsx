@@ -1,11 +1,11 @@
-
+﻿
 import Image from 'next/image';
 import { Link } from "@aalto-dx/react-components";
 import { ForkKnife as Utensils, Clock, MapPin, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from '@/components/layout/Hero';
 
 export const metadata = {
-    title: 'Campus Café Dining Menu & Operations — Cannoga College',
+    title: 'Campus Café Dining Menu & Operations Cannoga College',
     description: 'Check menus, dietary details, student pricing, and opening hours for the Campus dining room.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-life/cafe/',
@@ -45,14 +45,14 @@ export default function CafePage() {
                             <Clock className="text-black" size={20} weight="regular" />
                             <div>
                                 <p className="text-[10px] font-black uppercase tracking-widest text-black leading-none mb-1">Opening Hours</p>
-                                <p className="text-sm font-bold text-black">Mon–Fri: 08:30 – 16:30</p>
+                                <p className="text-sm font-bold text-black">Mon–Fri: 08:30 16:30</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-3">
                             <Utensils className="text-black" size={20} weight="regular" />
                             <div>
                                 <p className="text-[10px] font-black uppercase tracking-widest text-black leading-none mb-1">Lunch Service</p>
-                                <p className="text-sm font-bold text-black">Daily: 11:00 – 14:00</p>
+                                <p className="text-sm font-bold text-black">Daily: 11:00 14:00</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-3">

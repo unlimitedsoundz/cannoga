@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+﻿import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -21,7 +21,7 @@ import { AcademicCredentialsCarousel } from '@/components/home/AcademicCredentia
 import { createStaticClient } from '@/lib/supabase/static';
 
 export const metadata: Metadata = {
-    title: 'Academic Programs & Studies Directory — Cannoga College',
+    title: 'Academic Programs & Studies Directory Cannoga College',
     description: 'Explore all career-focused certificates, diplomas, bachelor degrees, and master graduate programs at Cannoga College Ottawa campus.',
     alternates: {
         canonical: 'https://cannogacollege.ca/studies/',

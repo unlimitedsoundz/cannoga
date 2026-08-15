@@ -1,4 +1,4 @@
-import Link from 'next/link';
+﻿import Link from 'next/link';
 import Image from 'next/image';
 import { School, Department, Course } from '@/types/database';
 import { notFound } from 'next/navigation';
@@ -34,8 +34,8 @@ export async function generateMetadata({ params }: Props) {
     }
 
     return {
-        title: `${school.name} — Academic School | Cannoga College`,
-        description: `Explore faculty research, specialized departments, and academic options at the ${school.name} — Cannoga College.`,
+        title: `${school.name} Academic School | Cannoga College`,
+        description: `Explore faculty research, specialized departments, and academic options at the ${school.name} Cannoga College.`,
         alternates: {
             canonical: `https://cannogacollege.ca/schools/${slug}/`,
         },
@@ -431,7 +431,7 @@ export default async function SchoolDetails({ params }: Props) {
                             <div className="space-y-8">
                                 <div className="flex gap-4 items-start">
                                     <div className="bg-neutral-100 p-10 border border-[#0a151a]">
-                                        <p className="font-bold text-lg">Cannoga College – Ottawa campus</p>
+                                        <p className="font-bold text-lg">Cannoga College Ottawa campus</p>
                                         <p className="font-medium text-neutral-800">81 Montreal Rd, K1L 6E8 Ottawa, Ontario, Canada</p>
                                     </div>
                                 </div>

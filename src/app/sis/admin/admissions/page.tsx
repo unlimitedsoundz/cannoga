@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -96,7 +96,7 @@ export default function AdmissionsPage() {
         </div>
       ),
     },
-    { key: 'program', header: 'Program', render: (a: ApplicationRow) => <span className="text-xs text-slate-400">{`${a.course?.title || '—'}${a.course?.degreeLevel ? ` — ${formatDegreeLevel(a.course.degreeLevel)}` : ''}`}</span> },
+    { key: 'program', header: 'Program', render: (a: ApplicationRow) => <span className="text-xs text-slate-400">{`${a.course?.title || '—'}${a.course?.degreeLevel ? ` ${formatDegreeLevel(a.course.degreeLevel)}` : ''}`}</span> },
     {
       key: 'submitted_at',
       header: 'Submitted',

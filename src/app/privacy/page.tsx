@@ -1,7 +1,7 @@
-import { Link } from "@aalto-dx/react-components";
+﻿import { Link } from "@aalto-dx/react-components";
 
 export const metadata = {
-    title: 'Privacy & Data Protection Notice — Cannoga College',
+    title: 'Privacy & Data Protection Notice Cannoga College',
     description: 'Our formal privacy notice detailing how we collect, process, and protect student and website user data under GDPR rules.',
     alternates: {
         canonical: 'https://cannogacollege.ca/privacy/',

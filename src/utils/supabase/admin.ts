@@ -1,8 +1,8 @@
-import { createClient } from '@supabase/supabase-js';
+﻿import { createClient } from '@supabase/supabase-js';
 
 /**
  * Server-side admin Supabase client using the Service Role key.
- * Bypasses RLS — call only from Server Actions or Route Handlers.
+ * Bypasses RLS call only from Server Actions or Route Handlers.
  * NEVER import this into client components.
  */
 export function createAdminClient() {

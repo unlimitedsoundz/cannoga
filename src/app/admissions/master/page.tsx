@@ -1,4 +1,4 @@
-import { Link } from '@/components/ui/Link';
+﻿import { Link } from '@/components/ui/Link';
 import Image from 'next/image';
 import { CaretLeft, ArrowRight, Calendar, FileText, CheckCircle, GraduationCap, Globe, Clock, User, Trophy as Award } from '@phosphor-icons/react/dist/ssr';
 import { Hero } from '@/components/layout/Hero';
@@ -11,7 +11,7 @@ import { getPageContentSection } from '@/lib/pageContentConfig';
 
 
 export const metadata = {
-    title: 'Postgraduate Admissions & Master\'s Entry — Cannoga College',
+    title: 'Postgraduate Admissions & Master\'s Entry Cannoga College',
     description: 'Discover admissions criteria, application requirements, and selection procedures for our advanced Master\'s degree programs.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/master/',

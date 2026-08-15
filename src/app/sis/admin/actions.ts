@@ -1,4 +1,4 @@
-'use server';
+﻿'use server';
 
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 
@@ -543,7 +543,7 @@ export async function getSISCourseMap() {
 
     const map: Record<string, string> = {};
     for (const c of data || []) {
-      map[c.id] = c.degreeLevel ? `${c.title} — ${formatDegreeLevel(c.degreeLevel)}` : (c.title || c.id);
+      map[c.id] = c.degreeLevel ? `${c.title} ${formatDegreeLevel(c.degreeLevel)}` : (c.title || c.id);
     }
 
     console.log('Course map loaded:', Object.keys(map).length, 'courses');

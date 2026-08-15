@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, type FormEvent } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -240,7 +240,7 @@ export default function ApplyPage() {
                   >
                     <option value="">Select your programme</option>
                     {courses.map((course) => (
-                      <option key={course.id} value={course.id}>{course.title} — {course.degreeLevel}</option>
+                      <option key={course.id} value={course.id}>{course.title} {course.degreeLevel}</option>
                     ))}
                   </select>
                   <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
@@ -258,7 +258,7 @@ export default function ApplyPage() {
                   >
                     <option value="">Select an alternate programme</option>
                     {courses.map((course) => (
-                      <option key={course.id} value={course.id}>{course.title} — {course.degreeLevel}</option>
+                      <option key={course.id} value={course.id}>{course.title} {course.degreeLevel}</option>
                     ))}
                   </select>
                   <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />

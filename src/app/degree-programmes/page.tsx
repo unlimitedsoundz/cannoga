@@ -1,4 +1,4 @@
-import { Link } from "@aalto-dx/react-components";
+﻿import { Link } from "@aalto-dx/react-components";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { ProgramsAZTableView } from '@/components/programs/ProgramsAZTableView';
@@ -13,7 +13,7 @@ const sections = [
 ];
 
 export const metadata = {
-    title: 'Academic Degree Programmes & Certifications — Cannoga College',
+    title: 'Academic Degree Programmes & Certifications Cannoga College',
     description: 'Find your ideal learning pathway. Browse our wide selection of certified Diploma, Bachelor\'s, and Master\'s courses.',
     alternates: {
         canonical: 'https://cannogacollege.ca/degree-programmes/',

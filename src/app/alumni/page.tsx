@@ -1,9 +1,9 @@
-import Image from 'next/image';
+﻿import Image from 'next/image';
 import { Link } from '@/components/ui/Link';
 import { ArrowRight, Globe, Users, GraduationCap, Briefcase, CalendarCheck, BookOpen, Medal, EnvelopeSimple } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata = {
-    title: 'Global Alumni Network & Community — Cannoga College',
+    title: 'Global Alumni Network & Community Cannoga College',
     description: 'Connect with over 18,000+ Cannoga College graduates worldwide. Access career services, research databases, mentorship programs, and regional alumni chapters.',
     alternates: {
         canonical: 'https://cannogacollege.ca/alumni/',

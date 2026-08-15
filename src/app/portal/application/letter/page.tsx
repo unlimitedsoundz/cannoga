@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -103,7 +103,7 @@ export default function AdmissionLetterPage() {
     }
 
     const programName = application.course?.title
-        ? `${application.course.title} — ${formatDegreeLevel(application.course.degreeLevel || '')}`
+        ? `${application.course.title} ${formatDegreeLevel(application.course.degreeLevel || '')}`
         : 'Your Program';
 
     return (

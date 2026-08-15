@@ -1,4 +1,4 @@
-import { createStaticClient } from '@/lib/supabase/static';
+﻿import { createStaticClient } from '@/lib/supabase/static';
 
 // Revalidate every hour; admin mutations call revalidatePath() for immediate updates.
 export const revalidate = 3600;
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: Props) {
     if (!event) return { title: 'Event Not Found' };
 
     return {
-        title: `${event.title} — Events Calendar | Cannoga College`,
+        title: `${event.title} Events Calendar | Cannoga College`,
         description: `Discover our upcoming campus event: ${event.title}. ${event.content?.substring(0, 120) || ''}`,
         alternates: {
             canonical: `https://cannogacollege.ca/news/events/${slug}/`,
@@ -75,7 +75,7 @@ export default async function EventDetailPage({ params }: Props) {
         eventStatus: 'https://schema.org/EventScheduled',
         location: {
             '@type': 'Place',
-            name: item.location || 'Cannoga College – Ottawa campus',
+            name: item.location || 'Cannoga College Ottawa campus',
             address: {
                 '@type': 'PostalAddress',
                 streetAddress: '81 Montreal Rd',

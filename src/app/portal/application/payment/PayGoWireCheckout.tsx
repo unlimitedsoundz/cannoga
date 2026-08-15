@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useMemo, useEffect } from 'react';
 import {
@@ -818,7 +818,7 @@ export default function PayGoWireCheckout({
                                     >
                                         Authorization Letter (.pdf)
                                     </a>
-                                    <span className="text-black"> — Provided by Cannoga College to confirm the payment arrangement with our payment partner.</span>
+                                    <span className="text-black"> Provided by Cannoga College to confirm the payment arrangement with our payment partner.</span>
                                 </p>
                                 <p>
                                     <a
@@ -829,7 +829,7 @@ export default function PayGoWireCheckout({
                                     >
                                         Flywire Nigerian Payments (.pdf)
                                     </a>
-                                    <span className="text-black"> — Provided by our payment partner regarding acceptance of Nigerian Naira and payment methods.</span>
+                                    <span className="text-black"> Provided by our payment partner regarding acceptance of Nigerian Naira and payment methods.</span>
                                 </p>
                                 <p>
                                     <a
@@ -840,7 +840,7 @@ export default function PayGoWireCheckout({
                                     >
                                         General Authorization Letter (.pdf)
                                     </a>
-                                    <span className="text-black"> — Provided by Flywire to confirm the payment arrangement with Cannoga College.</span>
+                                    <span className="text-black"> Provided by Flywire to confirm the payment arrangement with Cannoga College.</span>
                                 </p>
                             </div>
                         </div>

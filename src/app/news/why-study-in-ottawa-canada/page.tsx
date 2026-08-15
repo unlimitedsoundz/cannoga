@@ -1,4 +1,4 @@
-import { Link } from "@aalto-dx/react-components";
+﻿import { Link } from "@aalto-dx/react-components";
 import { CTA } from "@aalto-dx/react-modules";
 import Image from 'next/image';
 import { CaretLeft } from "@phosphor-icons/react/dist/ssr";
@@ -7,7 +7,7 @@ import { Highlight } from '@/components/ui/Highlight';
 import { Hero } from '@/components/layout/Hero';
 
 export const metadata = {
-    title: 'Choosing Ottawa: Top 10 Reasons for International Students — Cannoga College',
+    title: 'Choosing Ottawa: Top 10 Reasons for International Students Cannoga College',
     description: 'Explore why Ottawa, Ontario, Canada stands out as a top global study destination, highlighting its standard of living, tech industry, and high-quality education.',
     keywords: 'study in ottawa, why ottawa for international students, study in canada, canadian education, study abroad canada',
     alternates: {

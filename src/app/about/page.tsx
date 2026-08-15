@@ -1,4 +1,4 @@
-import { createStaticClient } from "@/lib/supabase/static";
+﻿import { createStaticClient } from "@/lib/supabase/static";
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
@@ -12,7 +12,7 @@ import { AcademicSchoolsCarousel } from "@/components/home/AcademicSchoolsCarous
 import GuideSidebarLayout from "@/components/layout/StudentGuideLayout";
 
 export const metadata = {
-    title: 'About Us | Our Mission, History & Ottawa Campus — Cannoga College',
+    title: 'About Us | Our Mission, History & Ottawa Campus Cannoga College',
     description: 'Learn about Cannoga College, our mission, and how we support student success and career-focused education on our Ottawa campus.',
     alternates: {
         canonical: 'https://cannogacollege.ca/about/',
@@ -73,7 +73,7 @@ export default async function AboutPage() {
                 ]}
                 image={{
                     src: "/images/home-carousel-3.png",
-                    alt: "Cannoga College – Ottawa Campus main building"
+                    alt: "Cannoga College Ottawa Campus main building"
                 }}
             />
 

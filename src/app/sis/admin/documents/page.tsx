@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -96,7 +96,7 @@ export default function DocumentsPage() {
         </div>
       ),
     },
-    { key: 'program', header: 'Program', render: (d: DocumentRow) => <span className="text-xs text-neutral-300">{`${d.course?.title || '—'}${d.course?.degreeLevel ? ` — ${formatDegreeLevel(d.course.degreeLevel)}` : ''}`}</span> },
+    { key: 'program', header: 'Program', render: (d: DocumentRow) => <span className="text-xs text-neutral-300">{`${d.course?.title || '—'}${d.course?.degreeLevel ? ` ${formatDegreeLevel(d.course.degreeLevel)}` : ''}`}</span> },
     {
       key: 'documents',
       header: 'Documents',

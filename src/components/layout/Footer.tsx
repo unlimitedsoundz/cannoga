@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Link } from "@aalto-dx/react-components"
 import { usePathname } from "next/navigation"
@@ -98,7 +98,7 @@ export function Footer() {
                             <ul className="space-y-4">
                                 <li className="text-white text-sm">
                                     <div className="space-y-2">
-                                        <span className="block font-semibold text-white">Cannoga College – Ottawa campus</span>
+                                        <span className="block font-semibold text-white">Cannoga College Ottawa campus</span>
                                         <span className="block text-xs text-white">81 Montreal Rd,</span>
                                         <span className="block text-xs text-white">K1L 6E8 Ottawa, Ontario, Canada</span>
                                     </div>

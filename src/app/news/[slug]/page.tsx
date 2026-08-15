@@ -1,4 +1,4 @@
- 
+﻿ 
 import { createStaticClient } from '@/lib/supabase/static';
 
 // Revalidate every hour; admin mutations call revalidatePath() for immediate updates.
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: Props) {
     if (!news) return { title: 'News Not Found' };
 
     return {
-        title: `${news.title} — Institutional News | Cannoga College`,
+        title: `${news.title} Institutional News | Cannoga College`,
         description: `Read the latest update from Cannoga College: ${news.excerpt?.substring(0, 120) || ''}`,
         alternates: {
             canonical: `https://cannogacollege.ca/news/${slug}/`,

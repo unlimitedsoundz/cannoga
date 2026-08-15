@@ -1,11 +1,11 @@
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+﻿import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 
 export const metadata = {
-    title: 'International Exchange Program Guide — Cannoga College',
+    title: 'International Exchange Program Guide Cannoga College',
     description: 'Find checklists, enrollment procedures, and learning agreement guidelines for exchange students.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-guide/exchange/',

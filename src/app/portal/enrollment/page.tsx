@@ -113,7 +113,7 @@ function EnrollmentContent() {
                         </div>
                     </div>
                     <div className="text-right text-[10px] font-medium text-neutral-600 leading-relaxed uppercase tracking-wide">
-                        <strong className="text-black">Cannoga College – Ottawa campus</strong><br />
+                        <strong className="text-black">Cannoga College Ottawa campus</strong><br />
                         Office of the Registrar<br />
                         81 Montreal Rd<br />
                         K1L 6E8 Ottawa, Ontario, Canada
@@ -227,7 +227,7 @@ function EnrollmentContent() {
                 {/* Footer */}
                 <div className="absolute bottom-[10mm] left-[20mm] right-[20mm] border-t border-neutral-100 pt-2 flex justify-between items-center opacity-60">
                     <div className="text-[8px] font-bold uppercase tracking-widest text-neutral-400">
-                        Cannoga College – Ottawa campus | 81 Montreal Rd, K1L 6E8 Ottawa, Ontario, Canada
+                        Cannoga College Ottawa campus | 81 Montreal Rd, K1L 6E8 Ottawa, Ontario, Canada
                     </div>
                     <div className="text-[8px] font-bold uppercase tracking-widest text-neutral-400">
                         Page 1 of 1

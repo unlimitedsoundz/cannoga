@@ -1,9 +1,9 @@
-import { Link } from "@aalto-dx/react-components";
+﻿import { Link } from "@aalto-dx/react-components";
 import { ArrowLeft, FileText, CheckCircle, Warning, Envelope, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from '@/components/layout/Hero';
 
 export const metadata = {
-    title: 'Tuition Refund & Course Withdrawal Terms — Cannoga College',
+    title: 'Tuition Refund & Course Withdrawal Terms Cannoga College',
     description: 'Review official guidelines, Canadian IRCC study permit refund policies, withdrawal deadlines, and administrative procedures for tuition and fee refunds.',
     alternates: {
         canonical: 'https://cannogacollege.ca/refund-withdrawal-policy/',

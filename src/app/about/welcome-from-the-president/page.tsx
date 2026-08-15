@@ -1,4 +1,4 @@
-import Image from 'next/image';
+﻿import Image from 'next/image';
 import { Hero } from "@/components/layout/Hero";
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
@@ -6,7 +6,7 @@ import GuideSidebarLayout from "@/components/layout/StudentGuideLayout";
 
 
 export const metadata = {
-    title: 'Welcome from the President | About — Cannoga College',
+    title: 'Welcome from the President | About Cannoga College',
     description: 'A personal welcome from the President of Cannoga College, sharing our vision, values, and commitment to student success in Ottawa, Ontario.',
     alternates: {
         canonical: 'https://cannogacollege.ca/about/welcome-from-the-president/',
@@ -40,7 +40,7 @@ export default function WelcomeFromPresidentPage() {
             <SchemaLD data={{
                 "@context": "https://schema.org",
                 "@type": "WebPage",
-                "name": "Welcome from the President – Cannoga College",
+                "name": "Welcome from the President Cannoga College",
                 "url": "https://cannogacollege.ca/about/welcome-from-the-president/",
                 "isPartOf": { "@type": "WebSite", "url": "https://cannogacollege.ca" }
             }} />
@@ -58,7 +58,7 @@ export default function WelcomeFromPresidentPage() {
                 ]}
                 image={{
                     src: "/images/home-carousel-3.png",
-                    alt: "Cannoga College – Ottawa Campus"
+                    alt: "Cannoga College Ottawa Campus"
                 }}
             />
 
@@ -74,7 +74,7 @@ export default function WelcomeFromPresidentPage() {
                                 <div className="relative w-full aspect-[3/4] max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden shadow-2xl">
                                     <Image
                                         src="/images/president-luke-schaffner.jpg"
-                                        alt="Luke Schaffer – President of Cannoga College"
+                                        alt="Luke Schaffer President of Cannoga College"
                                         fill
                                         className="object-cover object-top"
                                         sizes="(max-width: 768px) 100vw, 400px"
@@ -100,10 +100,10 @@ export default function WelcomeFromPresidentPage() {
                                         On behalf of our faculty, staff, and the entire Cannoga College community, it is my honour and privilege to welcome you to our institution.
                                     </p>
                                     <p>
-                                        Whether you are a prospective student exploring your options, a current student navigating your academic journey, or an industry partner considering collaboration — I want you to know that you belong here. Cannoga College was built on the belief that career-focused, applied education has the power to change lives.
+                                        Whether you are a prospective student exploring your options, a current student navigating your academic journey, or an industry partner considering collaboration I want you to know that you belong here. Cannoga College was built on the belief that career-focused, applied education has the power to change lives.
                                     </p>
                                     <p>
-                                        Located in the heart of Ottawa, Ontario, we sit at the intersection of government, technology, health sciences, and culture — industries that define Canada's present and future. Our programs are intentionally designed to connect the classroom with the real world, and our graduates consistently enter the workforce with confidence, competence, and character.
+                                        Located in the heart of Ottawa, Ontario, we sit at the intersection of government, technology, health sciences, and culture industries that define Canada's present and future. Our programs are intentionally designed to connect the classroom with the real world, and our graduates consistently enter the workforce with confidence, competence, and character.
                                     </p>
                                 </div>
                             </div>
@@ -116,13 +116,13 @@ export default function WelcomeFromPresidentPage() {
                             <h2 className="text-2xl md:text-3xl font-black text-[#0f2027] tracking-tight">Our Vision for the Future</h2>
 
                             <p>
-                                As we look ahead, Cannoga College is committed to expanding access to quality education for students from all backgrounds — domestic and international alike. We are investing in new research facilities, growing our industry partnerships, and continuing to enhance the student experience in every way we can.
+                                As we look ahead, Cannoga College is committed to expanding access to quality education for students from all backgrounds domestic and international alike. We are investing in new research facilities, growing our industry partnerships, and continuing to enhance the student experience in every way we can.
                             </p>
                             <p>
                                 We understand that choosing where to study is one of the most significant decisions you will make. I want to assure you that at Cannoga College, you will be challenged, supported, and inspired every step of the way. Our dedicated instructors bring both academic rigour and real-world experience to the classroom, and our student services teams are here to ensure your time with us is successful and fulfilling.
                             </p>
                             <p>
-                                Our campus is a vibrant, diverse, and welcoming community — representing over 60 countries and united by a shared commitment to learning and growth. I am incredibly proud of the culture we have built together, and I am excited about what lies ahead for our students, our institution, and our city.
+                                Our campus is a vibrant, diverse, and welcoming community representing over 60 countries and united by a shared commitment to learning and growth. I am incredibly proud of the culture we have built together, and I am excited about what lies ahead for our students, our institution, and our city.
                             </p>
                             <p>
                                 Thank you for your interest in Cannoga College. I look forward to welcoming you personally as part of our community.
@@ -135,7 +135,7 @@ export default function WelcomeFromPresidentPage() {
                                 <div className="w-16 h-16 rounded-full overflow-hidden relative shrink-0 ring-4 ring-[#c89211]/30">
                                     <Image
                                         src="/images/president-luke-schaffner.jpg"
-                                        alt="Luke Schaffer – President of Cannoga College"
+                                        alt="Luke Schaffer President of Cannoga College"
                                         fill
                                         className="object-cover object-top"
                                         sizes="64px"

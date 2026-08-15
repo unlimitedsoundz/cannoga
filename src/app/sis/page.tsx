@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -2157,7 +2157,7 @@ function formatRelativeTime(dateInput: any): string {
                             <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
                                     <h3 className="text-lg font-extrabold tracking-tight text-white">Degree Progress: {programName}</h3>
-                                    <p className="text-xs text-slate-300 mt-1 font-medium">Cannoga College — {schoolName}</p>
+                                    <p className="text-xs text-slate-300 mt-1 font-medium">Cannoga College {schoolName}</p>
                                 </div>
                                 <span className="inline-block bg-slate-800 text-slate-200 text-xs font-semibold px-3.5 py-1.5 rounded-lg border border-slate-700 self-start md:self-auto shrink-0">
                                     Expected Graduation: {student?.expected_graduation_date ? new Date(student.expected_graduation_date).toLocaleDateString('en-CA') : 'N/A'}
@@ -2678,7 +2678,7 @@ function formatRelativeTime(dateInput: any): string {
                                         </div>
                                         <h4 className="font-bold text-slate-900 text-base mt-2">{profileForm.firstName} {profileForm.lastName}</h4>
                                         <p className="text-xs font-semibold text-slate-500">Student ID: {studentId}</p>
-                                        <p className="text-xs text-slate-600 mt-1 font-medium">Cannoga College — {programName}</p>
+                                        <p className="text-xs text-slate-600 mt-1 font-medium">Cannoga College {programName}</p>
                                         <button
                                             type="button"
                                             onClick={() => avatarFileRef.current?.click()}

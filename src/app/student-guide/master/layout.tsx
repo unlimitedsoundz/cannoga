@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Master\'s Student Portal & Resources — Cannoga College',
+    title: 'Master\'s Student Portal & Resources Cannoga College',
     description: 'Explore checklists, research thesis guidelines, and postgraduate events for newly enrolled master\'s students.',
 };
 
