@@ -161,7 +161,7 @@ export default async function TuitionPaymentPage() {
                             <h2 className="cc-h2">How Much is the Tuition Fee?</h2>
                         </div>
                         <DbPageContent pageSlug={pageSlug} sectionKey="costs_intro_content" fallbackContent={getSectionDefault('costs_intro_content')} />
-                        <div className="w-full overflow-x-auto my-6 rounded-lg border border-neutral-200 shadow-sm bg-white">
+                        <div className="w-full overflow-x-auto touch-pan-x overscroll-x-contain my-6 rounded-lg border border-neutral-200 shadow-sm bg-white">
                             <table className="w-full border-collapse min-w-[540px]">
                                 <thead>
                                     <tr className="bg-[#0a151a] text-white">
