@@ -87,26 +87,6 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                                 </div>
                             </div>
                         )}
-
-                        {/* Carousel arrows on image */}
-                        {news.length > 1 && (
-                            <>
-                                <button
-                                    onClick={prev}
-                                    aria-label="Previous"
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] border border-white/20 flex items-center justify-center shadow-md transition-all duration-300 z-10"
-                                >
-                                    <CaretLeft size={18} weight="bold" />
-                                </button>
-                                <button
-                                    onClick={next}
-                                    aria-label="Next"
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] border border-white/20 flex items-center justify-center shadow-md transition-all duration-300 z-10"
-                                >
-                                    <CaretRight size={18} weight="bold" />
-                                </button>
-                            </>
-                        )}
                     </div>
 
                     {/* Article content */}
