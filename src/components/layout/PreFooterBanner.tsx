@@ -37,10 +37,21 @@ export function PreFooterBanner() {
     }, []);
 
     return (
-        <section className="bg-white py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-12 relative overflow-hidden">
+        <section className="bg-white relative pt-4 sm:pt-6 pb-8 sm:pb-12 px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden">
+            {/* Top Wavy Section Divider Element on White Background */}
+            <div className="w-full max-w-[1700px] mx-auto overflow-hidden leading-none mb-3 pointer-events-none">
+                <svg 
+                    className="w-full h-8 sm:h-12 md:h-14 text-slate-100 fill-current block" 
+                    viewBox="0 0 1200 120" 
+                    preserveAspectRatio="none"
+                >
+                    <path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,50 L1200,120 L0,120 Z"></path>
+                </svg>
+            </div>
+
             <div 
                 ref={containerRef}
-                className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 border-0 shadow-2xl"
+                className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 shadow-2xl"
             >
                 {/* Parallax Background Container */}
                 <div 
@@ -55,17 +66,6 @@ export function PreFooterBanner() {
                         className="object-cover object-[30%_center] sm:object-center"
                         sizes="100vw"
                     />
-                </div>
-
-                {/* Wavy Decorative Cut Element Top */}
-                <div className="absolute top-0 left-0 right-0 z-30 overflow-hidden leading-none pointer-events-none -mt-[1px]">
-                    <svg 
-                        className="relative block w-full h-10 sm:h-14 md:h-16 text-white fill-white" 
-                        viewBox="0 0 1200 120" 
-                        preserveAspectRatio="none"
-                    >
-                        <path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,50 L1200,0 L0,0 Z" fill="currentColor"></path>
-                    </svg>
                 </div>
 
                 {/* Dark Contrast Gradient Overlay */}
