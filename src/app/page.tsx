@@ -10,6 +10,7 @@ import { createStaticClient } from "@/lib/supabase/static";
 import StudentStoriesCarousel from "@/components/admissions/StudentStoriesCarousel";
 import { CannogaShortsSection } from "@/components/home/CannogaShortsSection";
 import { AcademicCredentialsCarousel } from "@/components/home/AcademicCredentialsCarousel";
+import { AcademicSchoolsCarousel } from "@/components/home/AcademicSchoolsCarousel";
 
 export const metadata: Metadata = {
   title: 'Cannoga College | International Higher Education in Canada',
@@ -86,25 +87,17 @@ export default async function Home() {
             {/* 3.5 CANNOGA SHORTS SECTION */}
             <CannogaShortsSection />
 
-            {/* 4. FEATURED SCHOOLS */}
-            {schools && schools.length > 0 && (
-                <section className="py-20 bg-[#f8fafc] border-b border-slate-200">
-                    <div className="container mx-auto px-4 md:px-28 lg:px-40">
-                        <div className="mb-12 border-b border-slate-200 pb-4">
-                            <h2 className="text-3xl font-serif font-bold text-[#0f2027]">Academic Schools</h2>
-                            <p className="text-slate-600 text-sm mt-1">Discover Cannoga College's specialized academic divisions.</p>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {schools.map((school) => (
-                                <Link key={school.slug} href={`/schools/${school.slug}`} className="group bg-white border border-slate-200 p-6 hover:border-[#0f2027] hover:shadow-md transition-all no-underline rounded-sm">
-                                    <h3 className="font-serif font-bold text-[#0f2027] group-hover:text-[#c89211] transition-colors mb-2">{school.name}</h3>
-                                    <p className="text-sm text-slate-600 line-clamp-2 leading-relaxed">{school.description}</p>
-                                </Link>
-                            ))}
-                        </div>
+            {/* 4. FEATURED SCHOOLS (COLUMBIA COLLEGE STYLE VIBRANT CAROUSEL) */}
+            <section className="py-20 bg-white border-b border-slate-200">
+                <div className="container mx-auto px-4 md:px-28 lg:px-40">
+                    <div className="mb-10 border-b border-slate-200 pb-4 max-w-2xl">
+                        <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">Academic Schools</h2>
+                        <p className="text-slate-600 font-normal text-base mt-2">Discover Cannoga College's specialized academic divisions.</p>
                     </div>
-                </section>
-            )}
+
+                    <AcademicSchoolsCarousel schools={schools || []} />
+                </div>
+            </section>
 
             {/* 5. STUDENT STORIES & EXPERIENCE */}
             <section className="py-16 bg-white text-black">
