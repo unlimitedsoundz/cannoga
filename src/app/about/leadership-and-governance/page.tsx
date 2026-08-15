@@ -117,6 +117,7 @@ const SENIOR_ADMIN_DATA: SeniorAdminGroup[] = [
         staff: [
             { name: "Nadia Benali", title: "Director of International Admissions & Registrar", credential: "M.Ed., B.A.", email: "admissions@cannogacollege.ca" },
             { name: "Gabriel Santos", title: "Associate Registrar & Student Records", credential: "B.A. Admin", email: "registrar@cannogacollege.ca" },
+            { name: "Todd Banning", title: "Senior Admissions Advisor", credential: "B.A.", email: "admissions@cannogacollege.ca" },
         ]
     },
 ];
@@ -238,7 +239,7 @@ export default function LeadershipGovernancePage() {
                                             <span className="text-base sm:text-lg md:text-xl font-bold text-black pr-4 tracking-tight">
                                                 {dept.title}
                                             </span>
-                                            <div className="flex-shrink-0 bg-[#0a151a] text-white p-1.5 rounded-none group-hover:bg-[#c89211] transition-colors">
+                                            <div className="flex-shrink-0 bg-[#0a151a] text-white p-1.5 rounded-none">
                                                 {isOpen ? (
                                                     <Minus size={16} weight="bold" />
                                                 ) : (
