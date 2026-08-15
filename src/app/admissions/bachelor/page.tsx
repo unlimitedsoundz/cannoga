@@ -1,7 +1,7 @@
 
 import { Link } from '@/components/ui/Link';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle, Globe, Users, BookOpen, Briefcase, GraduationCap, Calendar, MapPin, Buildings, Headset, GlobeHemisphereWest, Basketball } from '@phosphor-icons/react/dist/ssr';
+import { ArrowRight, CheckCircle, Globe, Users, BookOpen, Briefcase, GraduationCap, Calendar, MapPin, Buildings, Headset, GlobeHemisphereWest, Basketball, Quotes } from '@phosphor-icons/react/dist/ssr';
 import { Hero } from '@/components/layout/Hero';
 import BachelorFAQ from '@/components/admissions/BachelorFAQ';
 import { StudyingAtCannogaCarousel } from '@/components/admissions/StudyingAtCannogaCarousel';
@@ -123,14 +123,31 @@ export default function BachelorAdmissionsPage() {
                 </div>
             </div>
 
-            {/* QUOTE BANNER */}
-            <div className="w-full cc-section-tinted py-8 my-0">
-                <div className="cc-container text-left md:text-center max-w-4xl mx-auto">
-                    <DbPageContent
-                        pageSlug={pageSlug}
-                        sectionKey="quote_content"
-                        fallbackContent={getSectionDefault('quote_content')}
-                    />
+            {/* QUOTE BANNER - Styled after Welcome from President Quote */}
+            <div className="w-full bg-[#f8fafc] border-y border-slate-200 py-12 md:py-16 my-8">
+                <div className="cc-container max-w-4xl mx-auto">
+                    <div className="relative">
+                        {/* Blue quote icon */}
+                        <Quotes
+                            size={52}
+                            weight="fill"
+                            className="text-blue-500 mb-3"
+                        />
+                        <div className="space-y-4 text-neutral-800 leading-relaxed pl-4 border-l-4 border-blue-400">
+                            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-neutral-900 leading-snug">
+                                &ldquo;We empower students with the analytical skills and global mindset needed for complex financial decision-making.&rdquo;
+                            </h3>
+                            <p className="text-sm md:text-base text-neutral-600 font-medium leading-relaxed">
+                                Our undergraduate curriculum bridges foundational economic theory with hands-on fintech modeling, case competitions, and real-world internships. From day one, students receive direct mentorship to navigate international career pathways and graduate school admissions across Canada and globally.
+                            </p>
+                            <div className="flex items-center gap-3 pt-2">
+                                <div className="w-8 h-0.5 bg-[#c89211]"></div>
+                                <p className="text-xs md:text-sm font-bold uppercase tracking-widest text-[#0f2027]">
+                                    International Admissions Officer
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

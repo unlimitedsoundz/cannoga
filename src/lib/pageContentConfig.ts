@@ -1,4 +1,4 @@
-﻿export interface PageContentSection {
+export interface PageContentSection {
     pageSlug: string;
     sectionKey: string;
     label: string;
@@ -203,7 +203,8 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'quote_content',
         label: 'Quote Banner',
         defaultContent: `<h3 class="text-2xl md:text-3xl leading-tight mb-4 font-bold">"We empower students with the analytical skills and global mindset needed for complex financial decision-making."</h3>
-<p class="text-sm font-bold tracking-widest">— Dean of Admissions</p>`,
+<p class="text-base text-neutral-600 mb-3">Our undergraduate curriculum bridges foundational economic theory with hands-on fintech modeling, case competitions, and real-world internships. From day one, students receive direct mentorship to navigate international career pathways and graduate school admissions across Canada and globally.</p>
+<p class="text-sm font-bold tracking-widest">— International Admissions Officer</p>`,
     },
     {
         pageSlug: 'admissions/master',

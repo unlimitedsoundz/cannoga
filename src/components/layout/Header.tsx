@@ -131,6 +131,7 @@ const navigation: NavItem[] = [
         children: [
             { name: "Our Story", href: "/about" },
             { name: "Welcome from the President", href: "/about/welcome-from-the-president" },
+            { name: "Leadership & Governance", href: "/about/leadership-and-governance" },
             { name: "News & Events", href: "/news" },
             { name: "Research Hub", href: "/research" },
             { name: "Careers", href: "/careers" },
