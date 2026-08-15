@@ -3,7 +3,7 @@ import { Hero } from "@/components/layout/Hero";
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
 import GuideSidebarLayout from "@/components/layout/StudentGuideLayout";
-import { Quote } from "@phosphor-icons/react/dist/ssr";
+import { Quotes } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata = {
     title: 'Welcome from the President | About — Cannoga College',
@@ -96,7 +96,7 @@ export default function WelcomeFromPresidentPage() {
                             <div className="space-y-6">
                                 {/* Pull quote */}
                                 <div className="relative bg-[#0f2027] text-white p-8 rounded-2xl shadow-lg">
-                                    <Quote size={40} weight="fill" className="absolute top-5 left-5 text-[#c89211] opacity-30" />
+                                    <Quotes size={40} weight="fill" className="absolute top-5 left-5 text-[#c89211] opacity-30" />
                                     <p className="relative text-xl md:text-2xl font-bold leading-snug italic pl-4">
                                         At Cannoga College, we believe that education is the single most powerful tool for transforming lives and shaping the future of our communities.
                                     </p>
