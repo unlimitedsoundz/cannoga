@@ -136,29 +136,8 @@ export function StudentResourceHubCarousel() {
                             linkComponentProps={{ href: card.href }}
                             className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[260px] sm:min-h-[300px] flex flex-col justify-between`}
                         >
-                            {/* Decorative Organic Wavy Edge inside top of card */}
-                            <div
-                                className="absolute top-0 left-0 right-0 h-16 sm:h-20 overflow-hidden leading-none z-10 pointer-events-none opacity-40 animate-wave-hub"
-                                style={{ animationDelay: `${idx * 0.4}s` }}
-                            >
-                                <svg
-                                    viewBox="0 0 1440 200"
-                                    preserveAspectRatio="none"
-                                    className="w-full h-full fill-current block"
-                                    style={{ color: card.waveColor }}
-                                >
-                                    <path
-                                        fill="currentColor"
-                                        d="M0,45 C320,105 640,-15 960,75 C1200,115 1380,45 1440,65 V0 H0 Z"
-                                    />
-                                </svg>
-                            </div>
-
                             {/* Card Content Header */}
                             <div className="relative z-20">
-                                <span className="text-xs font-black uppercase tracking-widest text-white/80 block mb-2 font-sans">
-                                    RESOURCE LINK 0{idx + 1}
-                                </span>
                                 <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-[1.02]">
                                     {card.title}
                                 </h3>
