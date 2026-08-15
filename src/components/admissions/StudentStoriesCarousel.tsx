@@ -13,6 +13,7 @@ interface Peer {
     programme: string;
     image: string;
     quote: string;
+    cardBgClass: string;
     imagePosition?: string;
 }
 
@@ -26,6 +27,7 @@ const peers: Peer[] = [
         programme: "Honours Bachelor of Computer Science",
         image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&q=80&w=800",
         quote: "Cannoga College gave me direct access to tech co-op placements in Ottawa and hands-on software laboratory projects from day one.",
+        cardBgClass: "bg-[#008cc9] hover:bg-[#0077b6]",
     },
     {
         id: 2,
@@ -36,6 +38,7 @@ const peers: Peer[] = [
         programme: "Advanced Diploma in Biotechnology",
         image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
         quote: "The state-of-the-art lab facilities and personalized mentorship from faculty made my transition to studying in Ottawa seamless.",
+        cardBgClass: "bg-[#0d9488] hover:bg-[#0f766e]",
     },
     {
         id: 3,
@@ -46,6 +49,7 @@ const peers: Peer[] = [
         programme: "Honours Bachelor of Environmental Science",
         image: "https://i.pinimg.com/1200x/72/a1/7c/72a17cb6e8bda24fd421065e8ad24296.jpg",
         quote: "Conducting field research along the Rideau Canal and participating in campus sustainability projects gave me invaluable experience.",
+        cardBgClass: "bg-[#e11d48] hover:bg-[#be123c]",
     },
     {
         id: 4,
@@ -56,6 +60,7 @@ const peers: Peer[] = [
         programme: "Bachelor's in International Business",
         image: "/images/collins-huang.jpg",
         quote: "Earn while you learn. The co-op program allowed me to gain real Canadian work experience in Ottawa's top firms.",
+        cardBgClass: "bg-[#7c3aed] hover:bg-[#6d28d9]",
     },
     {
         id: 5,
@@ -66,6 +71,7 @@ const peers: Peer[] = [
         programme: "Master's in Design Management",
         image: "/images/student-story-2.jpg",
         quote: "Studying in Ottawa has been life-changing. Collaborative research and welcoming community at Cannoga are truly world-class.",
+        cardBgClass: "bg-[#d97706] hover:bg-[#b45309]",
     },
     {
         id: 6,
@@ -76,6 +82,7 @@ const peers: Peer[] = [
         programme: "Advanced Diploma in Software Engineering",
         image: "/images/student-story-4.jpg",
         quote: "The practical coding labs helped me land a full-time software engineering offer in Ottawa's tech hub before graduation.",
+        cardBgClass: "bg-[#2563eb] hover:bg-[#1d4ed8]",
     }
 ];
 
@@ -156,8 +163,8 @@ export default function StudentStoriesCarousel() {
                                     </span>
                                 </div>
 
-                                {/* Bottom Blue Box Button */}
-                                <div className="absolute bottom-0 inset-x-0 z-10 bg-[#008cc9] group-hover:bg-[#0077b6] transition-colors p-4 sm:p-5 flex items-center justify-between text-white">
+                                {/* Bottom Vibrant Box Button */}
+                                <div className={`absolute bottom-0 inset-x-0 z-10 ${peer.cardBgClass} transition-colors p-4 sm:p-5 flex items-center justify-between text-white`}>
                                     <span className="font-black text-xl sm:text-2xl uppercase tracking-tight leading-none font-sans">
                                         MEET<br />{peer.firstName}
                                     </span>
@@ -196,14 +203,13 @@ export default function StudentStoriesCarousel() {
 
                             <div className="p-6 sm:p-8 flex flex-col justify-between w-full md:w-1/2 bg-white">
                                 <div>
-                                    <span className="text-[#008cc9] text-5xl font-serif font-black leading-none block mb-2">“</span>
                                     <p className="text-slate-700 text-base leading-relaxed italic mb-6 font-serif">
                                         "{selectedPeer.quote}"
                                     </p>
                                     <h3 className="text-2xl font-black text-[#1b2a4a] uppercase tracking-tight">
                                         {selectedPeer.name}
                                     </h3>
-                                    <p className="text-xs font-bold text-[#008cc9] uppercase tracking-wider mt-1">
+                                    <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">
                                         {selectedPeer.programme}
                                     </p>
                                 </div>
@@ -211,7 +217,7 @@ export default function StudentStoriesCarousel() {
                                 <div className="pt-6 border-t border-slate-100 mt-6">
                                     <a
                                         href="/student-guide"
-                                        className="inline-flex items-center justify-center w-full bg-[#008cc9] hover:bg-[#0077b6] text-white font-bold text-xs uppercase tracking-wider py-3 px-4 rounded-sm transition-colors no-underline gap-2"
+                                        className={`inline-flex items-center justify-center w-full ${selectedPeer.cardBgClass} text-white font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-sm transition-colors no-underline gap-2 shadow-md`}
                                     >
                                         Read Full Student Guide <ArrowUpRight size={18} weight="bold" />
                                     </a>
