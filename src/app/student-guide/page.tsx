@@ -266,11 +266,11 @@ export default function StudentGuidePage() {
                                     <div className="space-y-2 text-xs md:text-sm font-medium">
                                         <div>
                                             <h5 className="font-bold text-black mb-0.5">Fall Semester</h5>
-                                            <p className="text-neutral-600">September — December</p>
+                                            <p className="text-neutral-600">September to December</p>
                                         </div>
                                         <div>
                                             <h5 className="font-bold text-black mb-0.5">Winter Semester</h5>
-                                            <p className="text-neutral-600">January — April</p>
+                                            <p className="text-neutral-600">January to April</p>
                                         </div>
                                     </div>
                                 </div>

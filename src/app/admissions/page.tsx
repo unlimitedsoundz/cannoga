@@ -15,6 +15,9 @@ import { ContentBox } from '@/components/ui/ContentBox';
 import { createStaticClient } from '@/lib/supabase/static';
 import CountryRequirementsDropdown from '@/components/admissions/CountryRequirementsDropdown';
 import ApplicationProcess from '@/components/admissions/ApplicationProcess';
+import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarousel';
+import { AdmissionsQuickLinksCarousel } from '@/components/admissions/AdmissionsQuickLinksCarousel';
+import { AdmissionsCareerOpportunitiesCarousel } from '@/components/admissions/AdmissionsCareerOpportunitiesCarousel';
 
 export const metadata = {
     title: 'Admissions & Enrollment Hub — Cannoga College',
@@ -50,7 +53,7 @@ export default async function AdmissionsPage() {
     const supabase = createStaticClient();
     const { data: schools } = await supabase
         .from('School')
-        .select('id, slug, name, description')
+        .select('id, slug, name, description, imageUrl')
         .order('name');
     const schoolList = schools || [];
 
@@ -145,22 +148,8 @@ export default async function AdmissionsPage() {
                             <p className="text-lg text-black mb-6">
                                 Cannoga College is organised into eight academic schools. Explore each school to discover its Bachelor's and Master's programmes, departments, and research.
                             </p>
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                                {schoolList.map((school: { id: string; slug: string; name: string; description: string | null }) => (
-                                    <Link
-                                        key={school.id}
-                                        href={`/schools/${school.slug}`}
-                                        className="group block bg-white border border-slate-200 p-6 hover:border-[#0f2027] hover:shadow-md transition-all no-underline rounded-sm"
-                                    >
-                                        <h3 className="font-bold text-lg mb-2 text-black flex justify-between items-center">
-                                            {school.name}
-                                            <ArrowRight weight="bold" size={18} className="group-hover:translate-x-1 transition-transform text-[#c89211]" />
-                                        </h3>
-                                        <p className="text-black opacity-60 text-sm leading-relaxed">
-                                            {school.description || 'Explore programmes, departments, and research.'}
-                                        </p>
-                                    </Link>
-                                ))}
+                            <div className="mb-6">
+                                <AcademicSchoolsCarousel schools={schoolList} />
                             </div>
                             <p className="text-black">
                                 Students can pursue degrees in their chosen field or explore courses across fields, gaining new perspectives and collaborative opportunities as part of a multidisciplinary community.
@@ -185,23 +174,13 @@ export default async function AdmissionsPage() {
                                 <ApplicationProcess />
                             </div>
 
-                            {/* Quick Links */}
-                            <div className="bg-[#f8fafc] p-8 border-l-4 border-[#0f2027] rounded-r-sm">
-                                <h3 className="text-lg font-bold font-serif text-[#0f2027] mb-4">Admissions Quick Links</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <Link href="/portal/apply" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
-                                        Start Application <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
-                                    </Link>
-                                    <Link href="/portal/dashboard" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
-                                        Pay Your Fees <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
-                                    </Link>
-                                    <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
-                                        Study in Canada (IRCC) <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
-                                    </a>
-                                    <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/apply.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-[#0f2027] hover:underline">
-                                        Study Permit Guide <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
-                                    </a>
+                            {/* Admissions Quick Links Carousel */}
+                            <div className="pt-2">
+                                <div className="mb-6">
+                                    <h3 className="text-2xl font-black text-black tracking-tight">Admissions Quick Links</h3>
+                                    <p className="text-sm text-neutral-600 font-medium mt-1">Essential portals, fee payments, and Canadian immigration application resources.</p>
                                 </div>
+                                <AdmissionsQuickLinksCarousel />
                             </div>
                         </section>
 
@@ -257,35 +236,13 @@ export default async function AdmissionsPage() {
                             <p className="text-lg text-black leading-relaxed">
                                 Cannoga College’s campus provides vibrant learning spaces, studios, libraries, and collaborative hubs where students experience academic life and community activities. The campus environment supports both study and leisure, encouraging a balanced student experience.
                             </p>
-                        </section>
-
-                        <section id="careers" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Career Opportunities</h2>
-                            <p className="text-lg text-black mb-8">
-                                Cannoga College offers support and services to help students plan and pursue careers after graduation. Our strong industry ties ensure your education translates into real-world success.
-                            </p>
-                            <div className="grid md:grid-cols-3 gap-8">
-                                {[
-                                    { title: "Industry Collaboration", image: "/images/018a4f1509eeb2689b7d07a9cc7f89ba.jpg", desc: "Work on real projects with our global partners." },
-                                    { title: "Alumni Networks", image: "/images/81bf468416f63752a8a72ca7896666ab.jpg", desc: "Connect with graduates working in leading industries." },
-                                    { title: "Career Services", image: "/images/f845f2f0c16fa812a425753a4b26328a.jpg", desc: "Expert guidance for your professional journey." }
-                                ].map(item => (
-                                    <Card
-                                        key={item.title}
-                                        title={item.title}
-                                        image={{
-                                            src: item.image,
-                                            alt: item.title
-                                        }}
-                                        body={item.desc}
-                                        cta={{
-                                            label: "Learn more",
-                                            linkComponentProps: {
-                                                href: "/contact"
-                                            }
-                                        }}
-                                    />
-                                ))}
+                            {/* Career Opportunities Carousel */}
+                            <div className="pt-2">
+                                <div className="mb-6">
+                                    <h2 className="text-2xl font-black text-black tracking-tight">Career Opportunities</h2>
+                                    <p className="text-sm text-neutral-600 font-medium mt-1">Support and services to help plan and pursue post‑graduation careers, powered by strong industry ties.</p>
+                                </div>
+                                <AdmissionsCareerOpportunitiesCarousel />
                             </div>
                         </section>
 
