@@ -70,9 +70,9 @@ export function HomeCarousel() {
 
     return (
         <div className="w-full container mx-auto px-4 sm:px-6 lg:px-8 pt-0">
-            <section className="relative group overflow-hidden text-white min-h-[450px] lg:h-[500px] flex items-center border-b border-[#0f2027]/10">
+            <section className="relative group overflow-hidden text-white min-h-[520px] md:min-h-[600px] lg:h-[680px] flex items-center border-b border-[#0f2027]/10">
                 {/* Slide Container */}
-                <div className="relative w-full h-full min-h-[450px] lg:h-[500px]">
+                <div className="relative w-full h-full min-h-[520px] md:min-h-[600px] lg:h-[680px]">
                     {slides.map((slide, idx) => (
                         <div
                             key={idx}
