@@ -37,15 +37,15 @@ export function PreFooterBanner() {
     }, []);
 
     return (
-        <section className="bg-white relative pt-4 sm:pt-6 pb-8 sm:pb-12 px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden">
-            {/* Top Wavy Section Divider Element on White Background */}
-            <div className="w-full max-w-[1700px] mx-auto overflow-hidden leading-none mb-3 pointer-events-none">
+        <section className="bg-white relative py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-12">
+            {/* Full-Width Wavy Edge on the Main White Background */}
+            <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 -translate-y-[calc(100%-1px)] pointer-events-none">
                 <svg 
-                    className="w-full h-8 sm:h-12 md:h-14 text-slate-100 fill-current block" 
-                    viewBox="0 0 1200 120" 
+                    className="w-full h-10 sm:h-14 md:h-20 text-white fill-current block" 
+                    viewBox="0 0 1440 90" 
                     preserveAspectRatio="none"
                 >
-                    <path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,50 L1200,120 L0,120 Z"></path>
+                    <path d="M0,50 C240,15 480,85 720,40 C960,-5 1200,70 1440,35 V100 H0 Z" />
                 </svg>
             </div>
 
