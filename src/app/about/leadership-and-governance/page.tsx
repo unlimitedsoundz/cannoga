@@ -249,9 +249,9 @@ export default function LeadershipGovernancePage() {
 
                                         {isOpen && (
                                             <div className="pb-6 pt-1 px-1 overflow-x-auto">
-                                                <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                                                <table className="w-full text-left border-collapse text-sm sm:text-base">
                                                     <thead>
-                                                        <tr className="border-b-2 border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[10px] sm:text-[11px]">
+                                                        <tr className="border-b-2 border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-xs sm:text-sm">
                                                             <th className="py-2 pr-4">Name</th>
                                                             <th className="py-2 pr-4">Title</th>
                                                             <th className="py-2 pr-4">Academic Credential / Status</th>
@@ -267,13 +267,13 @@ export default function LeadershipGovernancePage() {
                                                                 <td className="py-3 pr-4 text-neutral-700 font-medium">
                                                                     {staff.title}
                                                                 </td>
-                                                                <td className="py-3 pr-4 text-neutral-500 font-mono text-xs">
+                                                                <td className="py-3 pr-4 text-neutral-500 font-mono text-sm">
                                                                     {staff.credential}
                                                                 </td>
                                                                 <td className="py-3 whitespace-nowrap">
                                                                     <a
                                                                         href={`mailto:${staff.email}`}
-                                                                        className="font-bold underline text-black hover:text-[#c89211] transition-colors text-xs uppercase tracking-wider"
+                                                                        className="font-bold underline text-black hover:text-[#c89211] transition-colors text-sm uppercase tracking-wider"
                                                                     >
                                                                         Email
                                                                     </a>
