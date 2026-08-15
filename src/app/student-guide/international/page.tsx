@@ -1,4 +1,5 @@
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { StepBadge } from '@/components/ui/StepBadge';
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { Hero } from '@/components/layout/Hero';
@@ -190,7 +191,7 @@ export default function InternationalGuidePage() {
                                             "Join the Cannoga student community platform",
                                         ].map((item, i) => (
                                             <li key={i} className="flex gap-2 items-start font-medium text-neutral-700">
-                                                <span className="w-4 h-4 rounded-full bg-[#0a151a] text-white text-[10px] flex items-center justify-center shrink-0 mt-0.5 font-bold">{i + 1}</span>
+                                                <StepBadge step={i + 1} size="w-5 h-5" fontSize="text-[10px]" />
                                                 {item}
                                             </li>
                                         ))}

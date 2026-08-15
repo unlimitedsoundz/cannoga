@@ -1,4 +1,5 @@
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { StepBadge } from '@/components/ui/StepBadge';
 import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
@@ -139,7 +140,7 @@ export default function HousingGuidePage() {
                                     },
                                 ].map(({ step, title, desc }) => (
                                     <div key={step} className="flex gap-3 items-start">
-                                        <div className="w-7 h-7 bg-[#0a151a] text-white flex items-center justify-center font-bold text-xs shrink-0 rounded-full">{step}</div>
+                                    <StepBadge step={step} size="w-8 h-8" />
                                         <div>
                                             <h4 className="font-bold text-black mb-0.5 text-sm md:text-base">{title}</h4>
                                             <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">{desc}</p>
