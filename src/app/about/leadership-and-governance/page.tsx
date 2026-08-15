@@ -176,21 +176,11 @@ export default function LeadershipGovernancePage() {
             <GuideSidebarLayout sections={sections}>
                 <div className="cc-container py-8 md:py-16 space-y-20 max-w-5xl">
 
-                    {/* Section 1: Intro */}
-                    <section id="governance-overview" className="scroll-mt-32 space-y-4">
-                        <div className="cc-section-divider mb-6">
-                            <h2 className="cc-h2">Institutional Leadership</h2>
-                        </div>
-                        <p className="text-lg text-neutral-700 leading-relaxed font-medium">
-                            Cannoga College operates under a bicameral governance model comprising the <strong>Board of Governors</strong> (fiduciary, financial, and strategic stewardship) and senior administrative leadership responsible for academic excellence, student success, and institutional operations.
-                        </p>
-                    </section>
-
-                    {/* Section 2: Board of Governors */}
-                    <section id="board-of-governors" className="scroll-mt-32 space-y-6">
+                    {/* Section: Leadership */}
+                    <section id="leadership" className="scroll-mt-32 space-y-6">
                         <div className="pb-2">
                             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#1e3a5f] uppercase tracking-tight font-serif">
-                                BOARD OF GOVERNORS
+                                LEADERSHIP
                             </h2>
                         </div>
 
