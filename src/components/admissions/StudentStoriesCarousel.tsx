@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "@phosphor-icons/react";
 
@@ -88,22 +88,34 @@ const peers: Peer[] = [
 
 export default function StudentStoriesCarousel() {
     const scrollRef = useRef<HTMLDivElement>(null);
-    const [selectedPeer, setSelectedPeer] = useState<Peer | null>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [activeCardId, setActiveCardId] = useState<number | null>(null);
+
+    // Close open card overlay when clicking outside the carousel component
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+                setActiveCardId(null);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const scrollLeft = () => {
         if (scrollRef.current) {
-            scrollRef.current.scrollBy({ left: -340, behavior: 'smooth' });
+            scrollRef.current.scrollBy({ left: -350, behavior: 'smooth' });
         }
     };
 
     const scrollRight = () => {
         if (scrollRef.current) {
-            scrollRef.current.scrollBy({ left: 340, behavior: 'smooth' });
+            scrollRef.current.scrollBy({ left: 350, behavior: 'smooth' });
         }
     };
 
     return (
-        <div className="w-full relative">
+        <div ref={containerRef} className="w-full relative">
             <div className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-12">
                 
                 {/* Left Side Static Title Section */}
@@ -141,92 +153,79 @@ export default function StudentStoriesCarousel() {
                         className="flex gap-5 sm:gap-6 overflow-x-auto scrollbar-none py-2 px-1 scroll-smooth snap-x snap-mandatory"
                         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                     >
-                        {peers.map((peer) => (
-                            <div
-                                key={peer.id}
-                                onClick={() => setSelectedPeer(peer)}
-                                className="w-[350px] sm:w-[350px] h-[380px] sm:h-[440px] shrink-0 relative overflow-hidden group rounded-none shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer snap-start"
-                            >
-                                {/* Background Image */}
-                                <Image
-                                    src={peer.image}
-                                    alt={peer.name}
-                                    fill
-                                    className={`object-cover group-hover:scale-105 transition-transform duration-700 ${peer.imagePosition || 'object-center'}`}
-                                    sizes="(max-width: 768px) 350px, 350px"
-                                />
+                        {peers.map((peer) => {
+                            const isOpen = activeCardId === peer.id;
+                            return (
+                                <div
+                                    key={peer.id}
+                                    onClick={() => setActiveCardId(isOpen ? null : peer.id)}
+                                    className="w-[350px] sm:w-[350px] h-[380px] sm:h-[440px] shrink-0 relative overflow-hidden group rounded-none shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer snap-start"
+                                >
+                                    {/* Background Image */}
+                                    <Image
+                                        src={peer.image}
+                                        alt={peer.name}
+                                        fill
+                                        className={`object-cover transition-transform duration-700 ${peer.imagePosition || 'object-center'} ${isOpen ? 'scale-105 filter brightness-75' : 'group-hover:scale-105'}`}
+                                        sizes="(max-width: 768px) 350px, 350px"
+                                    />
 
-                                {/* Top Gradient & Student Origin Banner */}
-                                <div className="absolute top-0 inset-x-0 z-10 p-5 bg-gradient-to-b from-black/85 via-black/40 to-transparent">
-                                    <span className="text-xs sm:text-sm font-black tracking-wider text-white uppercase font-sans">
-                                        STUDENT FROM {peer.country}
-                                    </span>
-                                </div>
+                                    {/* Top Gradient & Student Origin Banner */}
+                                    <div className="absolute top-0 inset-x-0 z-10 p-5 bg-gradient-to-b from-black/85 via-black/40 to-transparent">
+                                        <span className="text-xs sm:text-sm font-black tracking-wider text-white uppercase font-sans flex items-center gap-2">
+                                            <span>{peer.flag}</span> STUDENT FROM {peer.country}
+                                        </span>
+                                    </div>
 
-                                {/* Bottom Vibrant Box Button */}
-                                <div className={`absolute bottom-0 inset-x-0 z-10 ${peer.cardBgClass} transition-colors p-4 sm:p-5 flex items-center justify-between text-white`}>
-                                    <span className="font-black text-xl sm:text-2xl uppercase tracking-tight leading-none font-sans">
-                                        MEET<br />{peer.firstName}
-                                    </span>
-                                    <ArrowUpRight size={32} weight="bold" className="text-white shrink-0 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                    {/* Bottom / Sliding Up Full Height Panel */}
+                                    <div
+                                        className={`absolute inset-x-0 bottom-0 z-20 ${peer.cardBgClass} text-white transition-all duration-500 ease-out flex flex-col justify-between ${
+                                            isOpen ? 'h-full p-6 sm:p-7 pt-14' : 'h-[88px] sm:h-[96px] p-4 sm:p-5'
+                                        }`}
+                                    >
+                                        {/* Header area in slider */}
+                                        <div className="flex items-start justify-between gap-2">
+                                            <div>
+                                                <span className="font-black text-xl sm:text-2xl uppercase tracking-tight leading-none font-sans block">
+                                                    {isOpen ? peer.name : `MEET ${peer.firstName}`}
+                                                </span>
+                                                {isOpen && (
+                                                    <span className="text-xs font-bold text-white/80 uppercase tracking-wider block mt-1">
+                                                        {peer.programme}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div className="shrink-0 p-1">
+                                                {isOpen ? (
+                                                    <X size={28} weight="bold" className="text-white" />
+                                                ) : (
+                                                    <ArrowUpRight size={32} weight="bold" className="text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        {/* Testimonial body content revealed when slid up */}
+                                        {isOpen && (
+                                            <div className="flex flex-col justify-between flex-1 mt-4 pt-4 border-t border-white/20 animate-in fade-in slide-in-from-bottom-4 duration-300">
+                                                <p className="text-white/95 text-base sm:text-lg leading-relaxed italic font-serif my-auto">
+                                                    "{peer.quote}"
+                                                </p>
+                                                <a
+                                                    href="/student-guide"
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    className="inline-flex items-center justify-center w-full bg-white text-slate-900 font-black text-xs uppercase tracking-wider py-3 px-4 rounded-sm transition-colors hover:bg-slate-100 no-underline gap-2 shadow-md mt-4"
+                                                >
+                                                    Read Full Student Guide <ArrowUpRight size={16} weight="bold" />
+                                                </a>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             </div>
-
-            {/* Student Story Detail Modal */}
-            {selectedPeer && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-200">
-                    <div className="bg-white max-w-2xl w-full relative overflow-hidden shadow-2xl rounded-sm">
-                        <button
-                            onClick={() => setSelectedPeer(null)}
-                            className="absolute top-4 right-4 z-20 bg-black/10 hover:bg-black/20 text-slate-800 p-2 rounded-full transition-colors"
-                            aria-label="Close story"
-                        >
-                            <X size={24} weight="bold" />
-                        </button>
-
-                        <div className="flex flex-col md:flex-row min-h-[380px]">
-                            <div className="relative w-full md:w-1/2 h-[260px] md:h-auto shrink-0">
-                                <Image
-                                    src={selectedPeer.image}
-                                    alt={selectedPeer.name}
-                                    fill
-                                    className="object-cover"
-                                />
-                                <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1 text-white text-xs font-black uppercase tracking-wider">
-                                    {selectedPeer.flag} Student from {selectedPeer.country}
-                                </div>
-                            </div>
-
-                            <div className="p-6 sm:p-8 flex flex-col justify-between w-full md:w-1/2 bg-white">
-                                <div>
-                                    <p className="text-slate-700 text-base leading-relaxed italic mb-6 font-serif">
-                                        "{selectedPeer.quote}"
-                                    </p>
-                                    <h3 className="text-2xl font-black text-[#1b2a4a] uppercase tracking-tight">
-                                        {selectedPeer.name}
-                                    </h3>
-                                    <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">
-                                        {selectedPeer.programme}
-                                    </p>
-                                </div>
-
-                                <div className="pt-6 border-t border-slate-100 mt-6">
-                                    <a
-                                        href="/student-guide"
-                                        className={`inline-flex items-center justify-center w-full ${selectedPeer.cardBgClass} text-white font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-sm transition-colors no-underline gap-2 shadow-md`}
-                                    >
-                                        Read Full Student Guide <ArrowUpRight size={18} weight="bold" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
