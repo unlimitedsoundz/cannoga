@@ -137,9 +137,9 @@ export default function BachelorAdmissionsPage() {
                             <h3 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-neutral-900 leading-snug">
                                 &ldquo;We empower students with the analytical skills and global mindset needed for complex financial decision-making.&rdquo;
                             </h3>
-                            <p className="text-base md:text-lg font-bold text-neutral-900 leading-relaxed">
-                                Our undergraduate curriculum bridges foundational economic theory with hands-on fintech modeling, case competitions, and real-world internships. From day one, students receive direct mentorship to navigate international career pathways and graduate school admissions across Canada and globally.
-                            </p>
+                            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-neutral-900 leading-snug">
+                                &ldquo;Our undergraduate curriculum bridges foundational economic theory with hands-on fintech modeling, case competitions, and real-world internships. From day one, students receive direct mentorship to navigate international career pathways and graduate school admissions across Canada and globally.&rdquo;
+                            </h3>
                             <div className="flex items-center gap-3 pt-2">
                                 <div className="w-8 h-0.5 bg-[#c89211]"></div>
                                 <p className="text-xs md:text-sm font-bold uppercase tracking-widest text-[#0f2027]">
