@@ -11,6 +11,7 @@ import StudentStoriesCarousel from "@/components/admissions/StudentStoriesCarous
 import { CannogaShortsSection } from "@/components/home/CannogaShortsSection";
 import { AcademicCredentialsCarousel } from "@/components/home/AcademicCredentialsCarousel";
 import { AcademicSchoolsCarousel } from "@/components/home/AcademicSchoolsCarousel";
+import { StudentResourceHubCarousel } from "@/components/home/StudentResourceHubCarousel";
 
 export const metadata: Metadata = {
   title: 'Cannoga College | International Higher Education in Canada',
@@ -121,26 +122,7 @@ export default async function Home() {
                         <p className="text-slate-700 text-sm mt-1">Direct access to campus services, financial aid, and academic governance.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {[
-                            { title: "Explore Campus & Book a Tour", href: "/contact" },
-                            { title: "Student Support & Health Services", href: "/student-guide#support" },
-                            { title: "Graduate Employment & Career Services", href: "/careers" },
-                            { title: "Financial Aid & OSAP Guidance", href: "/admissions/tuition" },
-                            { title: "Admissions & Entry Requirements", href: "/admissions" },
-                            { title: "Student Rights & Code of Conduct", href: "/code-of-conduct" },
-                        ].map((link, idx) => (
-                            <Link
-                                key={idx}
-                                linkComponentProps={{ href: link.href }}
-                                className="flex items-center p-5 bg-white border border-purple-200/60 no-underline rounded-sm"
-                            >
-                                <h4 className="font-semibold text-[#0f2027] text-base">
-                                    {link.title}
-                                </h4>
-                            </Link>
-                        ))}
-                    </div>
+                    <StudentResourceHubCarousel />
                 </div>
 
                 {/* Bottom Prominent Wavy Edge (behind pre-footer banner card) */}
