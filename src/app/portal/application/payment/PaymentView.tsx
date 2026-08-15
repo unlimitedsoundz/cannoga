@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { invokeEdgeFunction } from '@/utils/supabase/invoke';
 import PayGoWireCheckout from './PayGoWireCheckout';
-import { getProgramYears } from '@/utils/tuition';
+import { getProgramYears, ANCILLARY_FEES, ANCILLARY_FEES_TOTAL } from '@/utils/tuition';
 import Image from 'next/image';
 import { FileText, Clock, CheckCircle, CreditCard, ArrowLeft } from "@phosphor-icons/react";
 import { formatToDDMMYYYY } from '@/utils/date';
@@ -24,18 +24,10 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
     const rawInvoiceType = admissionOffer.invoice_type || 'TUITION_DEPOSIT';
     const invoiceTypeLabel = rawInvoiceType.replaceAll('_', ' ');
 
-    const ancillaryFees = [
-        { name: 'Student Activity Fee', amount: 100 },
-        { name: 'Technology Fee', amount: 100 },
-        { name: 'Athletics and Recreation Fee', amount: 100 },
-        { name: 'Convocation Fee', amount: 100 },
-        { name: 'Student Counselling Fee', amount: 100 },
-        { name: 'Program Transcript Fee', amount: 100 },
-        { name: 'Student Experience Fee', amount: 100 }
-    ];
+    const ancillaryFees = ANCILLARY_FEES;
     // Ancillary fees are only charged on the first (initial) invoice
     const includeAncillary = !admissionOffer.ancillary_charged;
-    const totalAncillary = includeAncillary ? ancillaryFees.reduce((acc, item) => acc + item.amount, 0) : 0;
+    const totalAncillary = includeAncillary ? ANCILLARY_FEES_TOTAL : 0;
     const invoiceTotal = finalAmount + totalAncillary;
 
     // Track the actual payment records for this offer so we can show the real

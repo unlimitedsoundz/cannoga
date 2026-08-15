@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/client';
 import { CreditCard, Envelope, FileText, CheckCircle, Clock, CircleNotch as Loader2, ShieldCheck } from "@phosphor-icons/react";
 import { useState, useEffect } from 'react';
 import { pushInvoice, verifyTuitionPayment, getAdminInvoiceData, getPendingPayments } from '../actions';
-import { getProgramYears } from '@/utils/tuition';
+import { getProgramYears, ANCILLARY_FEES_TOTAL } from '@/utils/tuition';
 
 export default function AdminInvoicesPage() {
     const [applications, setApplications] = useState<any[]>([]);
@@ -132,9 +132,9 @@ export default function AdminInvoicesPage() {
         // Ancillary fees are only charged on the first (initial) invoice
         const app = applications.find(a => a.id === appId);
         const isFirstInvoice = !app?.offer?.ancillary_charged;
-        const ancillaryTotal = isFirstInvoice ? 700 : 0;
+        const ancillaryTotal = isFirstInvoice ? ANCILLARY_FEES_TOTAL : 0;
 
-        if (!confirm(`Are you sure you want to push a ${invoiceType.replace(/_/g, ' ')} invoice of $${feeToPush} (tuition)${isFirstInvoice ? ' + $700 ancillary' : ''} = $${feeToPush + ancillaryTotal} total to this student?`)) return;
+        if (!confirm(`Are you sure you want to push a ${invoiceType.replace(/_/g, ' ')} invoice of $${feeToPush} (tuition)${isFirstInvoice ? ` + $${ANCILLARY_FEES_TOTAL} ancillary` : ''} = $${feeToPush + ancillaryTotal} total to this student?`)) return;
 
         try {
             setActionLoading(appId);
@@ -191,7 +191,7 @@ export default function AdminInvoicesPage() {
                             <th className="p-4 font-bold text-neutral-600 text-xs uppercase">Applicant</th>
                             <th className="p-4 font-bold text-neutral-600 text-xs uppercase">Program</th>
                             <th className="p-4 font-bold text-neutral-600 text-xs uppercase">Status</th>
-                            <th className="p-4 font-bold text-neutral-600 text-xs uppercase">Fee ($ incl. $700 ancillary)</th>
+                            <th className="p-4 font-bold text-neutral-600 text-xs uppercase">Fee ($ incl. ${ANCILLARY_FEES_TOTAL} ancillary)</th>
                             <th className="p-4 font-bold text-neutral-600 text-xs uppercase text-right">Actions</th>
                         </tr>
                     </thead>

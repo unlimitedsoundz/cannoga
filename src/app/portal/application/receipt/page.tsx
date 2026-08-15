@@ -8,7 +8,7 @@ import { formatToDDMMYYYY } from '@/utils/date';
 import PrintButton from '@/components/portal/PrintButton';
 import Image from 'next/image';
 import { useState, useEffect, Suspense } from 'react';
-import { getTuitionFeeSync } from '@/utils/tuition';
+import { getTuitionFeeSync, ANCILLARY_FEES, ANCILLARY_FEES_TOTAL } from '@/utils/tuition';
 
 function ReceiptContent() {
     const router = useRouter();
@@ -166,18 +166,10 @@ function ReceiptContent() {
         );
     }
 
-    const ancillaryFees = [
-        { name: 'Student Activity Fee', amount: 100 },
-        { name: 'Technology Fee', amount: 100 },
-        { name: 'Athletics and Recreation Fee', amount: 100 },
-        { name: 'Convocation Fee', amount: 100 },
-        { name: 'Student Counselling Fee', amount: 100 },
-        { name: 'Program Transcript Fee', amount: 100 },
-        { name: 'Student Experience Fee', amount: 100 }
-    ];
+    const ancillaryFees = ANCILLARY_FEES;
     // Ancillary fees are only charged on the first invoice; reflect what was actually paid
     const includeAncillary = payment?.ancillary_included ?? true;
-    const totalAncillary = includeAncillary ? ancillaryFees.reduce((acc, item) => acc + item.amount, 0) : 0;
+    const totalAncillary = includeAncillary ? ANCILLARY_FEES_TOTAL : 0;
     const receiptTotal = (payment?.amount || 0);
     const intake = admission?.intake || 'Fall 2026';
     const academicYear = admission?.academic_year || '2026/2027';
