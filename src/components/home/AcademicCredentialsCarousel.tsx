@@ -140,18 +140,14 @@ export function AcademicCredentialsCarousel() {
                             </div>
 
                             {/* Card Bottom Solid Color Content */}
-                            <div className="pt-5 pb-3 px-3 sm:px-5 flex flex-col justify-between min-h-[160px] sm:min-h-[180px] text-white">
-                                <div>
-                                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-[1.05] group-hover:text-white transition-colors">
-                                        {card.title}
-                                    </h3>
-                                </div>
+                            <div className="pt-6 pb-4 px-4 sm:px-6 flex items-end justify-between gap-4 min-h-[160px] sm:min-h-[190px] text-white">
+                                <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-[1.02] transition-colors flex-1">
+                                    {card.title}
+                                </h3>
 
-                                {/* Arrow Icon in Bottom Right */}
-                                <div className="mt-4 flex items-center justify-end">
-                                    <div className="p-2.5 sm:p-3 rounded-full bg-white/20 group-hover:bg-white text-white group-hover:text-slate-900 transition-all transform group-hover:scale-110">
-                                        <ArrowUpRight size={28} weight="bold" />
-                                    </div>
+                                {/* Thick Arrow Icon in Bottom Right (No Circle) */}
+                                <div className="shrink-0 mb-1">
+                                    <ArrowUpRight size={44} weight="bold" className="text-white transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                                 </div>
                             </div>
                         </Link>
