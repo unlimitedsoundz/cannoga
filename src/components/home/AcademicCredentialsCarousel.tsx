@@ -103,6 +103,31 @@ export function AcademicCredentialsCarousel() {
 
     return (
         <div className="relative w-full">
+            <style jsx>{`
+                @keyframes waveFloat {
+                    0%, 100% {
+                        transform: translateY(8px) scaleY(0.95);
+                    }
+                    50% {
+                        transform: translateY(-4px) scaleY(1.1);
+                    }
+                }
+                @keyframes arrowFloat {
+                    0%, 100% {
+                        transform: translate(0, 0);
+                    }
+                    50% {
+                        transform: translate(5px, -5px);
+                    }
+                }
+                .animate-wave-element {
+                    animation: waveFloat 3.2s ease-in-out infinite;
+                }
+                .animate-arrow-element {
+                    animation: arrowFloat 2.2s ease-in-out infinite;
+                }
+            `}</style>
+
             {/* Scrollable Cards Track */}
             <div
                 ref={scrollContainerRef}
@@ -110,27 +135,30 @@ export function AcademicCredentialsCarousel() {
                 className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none py-2 px-1 scroll-smooth"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-                {CREDENTIAL_CARDS.map((card) => (
+                {CREDENTIAL_CARDS.map((card, idx) => (
                     <div
                         key={card.id}
-                        className="snap-start shrink-0 w-[320px] sm:w-[440px] md:w-[500px] flex flex-col group no-underline"
+                        className="snap-start shrink-0 w-[320px] sm:w-[440px] md:w-[500px] flex flex-col no-underline"
                     >
                         <Link
                             linkComponentProps={{ href: card.href }}
-                            className={`block w-full p-3 sm:p-4 rounded-md ${card.bgColor} ${card.borderColor} border-4 transition-transform duration-300 group-hover:-translate-y-1.5 no-underline`}
+                            className={`block w-full p-3 sm:p-4 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline`}
                         >
-                            {/* Card Top Image with Wavy Cutout */}
+                            {/* Card Top Image with Animated Wavy Cutout */}
                             <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden rounded-sm bg-black/10">
                                 <Image
                                     src={card.image}
                                     alt={card.title}
                                     fill
-                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                    className="object-cover"
                                     sizes="(max-width: 768px) 340px, 500px"
                                 />
 
-                                 {/* Organic Wavy Bottom Edge overlay cut out matching the darker card color shade */}
-                                <div className="absolute bottom-0 left-0 right-0 h-10 sm:h-14 overflow-hidden leading-none z-10 pointer-events-none">
+                                 {/* Organic Wavy Bottom Edge overlay with smooth rising wave animation */}
+                                <div 
+                                    className="absolute bottom-0 left-0 right-0 h-10 sm:h-14 overflow-hidden leading-none z-10 pointer-events-none animate-wave-element"
+                                    style={{ animationDelay: `${idx * 0.4}s` }}
+                                >
                                     <svg
                                         viewBox="0 0 1440 120"
                                         preserveAspectRatio="none"
@@ -147,13 +175,16 @@ export function AcademicCredentialsCarousel() {
 
                             {/* Card Bottom Solid Color Content */}
                             <div className="pt-6 pb-4 px-4 sm:px-6 flex items-end justify-between gap-4 min-h-[160px] sm:min-h-[190px] text-white">
-                                <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-[1.02] transition-colors flex-1">
+                                <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-[1.02] flex-1">
                                     {card.title}
                                 </h3>
 
-                                {/* Thick Arrow Icon in Bottom Right (No Circle) */}
-                                <div className="shrink-0 mb-1">
-                                    <ArrowUpRight size={44} weight="bold" className="text-white transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                {/* Thick Arrow Icon in Bottom Right with Floating Animation */}
+                                <div 
+                                    className="shrink-0 mb-1 animate-arrow-element"
+                                    style={{ animationDelay: `${idx * 0.4}s` }}
+                                >
+                                    <ArrowUpRight size={44} weight="bold" className="text-white" />
                                 </div>
                             </div>
                         </Link>
