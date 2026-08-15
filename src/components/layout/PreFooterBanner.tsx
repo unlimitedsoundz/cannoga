@@ -1,52 +1,17 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "@phosphor-icons/react";
 
 export function PreFooterBanner() {
-    const [translateY, setTranslateY] = useState(0);
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        let ticking = false;
-        const handleScroll = () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    if (containerRef.current) {
-                        const rect = containerRef.current.getBoundingClientRect();
-                        const windowHeight = window.innerHeight;
-                        if (rect.top < windowHeight && rect.bottom > 0) {
-                            const centerY = rect.top + rect.height / 2;
-                            const viewportCenter = windowHeight / 2;
-                            const offsetFromCenter = centerY - viewportCenter;
-                            // 18% parallax movement ratio for subtle, natural depth without zoom
-                            setTranslateY(offsetFromCenter * 0.18);
-                        }
-                    }
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        handleScroll();
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
     return (
         <section className="bg-white pt-20 sm:pt-28 md:pt-32 pb-8 sm:pb-12 px-4 sm:px-6 md:px-8 lg:px-12 relative z-0">
             <div 
-                ref={containerRef}
-                className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 shadow-2xl"
+                className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden aspect-[9/16] sm:aspect-auto sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 shadow-2xl"
             >
-                {/* Parallax Background Container */}
-                <div 
-                    className="absolute -top-[12%] -bottom-[12%] left-0 right-0 w-full h-[124%] will-change-transform pointer-events-none"
-                    style={{ transform: `translate3d(0, ${translateY}px, 0)` }}
-                >
+                {/* Background Container */}
+                <div className="absolute inset-0 w-full h-full pointer-events-none">
                     <Image
                         src="/images/start-your-journey.jpg"
                         alt="Cannoga College student reading in library"
