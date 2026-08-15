@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import Image from 'next/image';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from '@phosphor-icons/react';
 import { Link } from '@/components/ui/Link';
 
@@ -10,7 +9,6 @@ interface ResourceCardItem {
     title: string;
     description: string;
     href: string;
-    image: string;
     bgColor: string;
     borderColor: string;
     waveColor: string;
@@ -22,60 +20,54 @@ const RESOURCE_CARDS: ResourceCardItem[] = [
         title: 'EXPLORE CAMPUS & BOOK A TOUR',
         description: 'Guided tours of our Ottawa campus labs, student residence, and academic facilities.',
         href: '/contact',
-        image: '/images/vibrant-community.png',
         bgColor: 'bg-[#6366f1]', // Electric Indigo
         borderColor: 'border-[#6366f1]',
-        waveColor: '#3730a3',
+        waveColor: '#4f46e5',
     },
     {
         id: 'student-support',
         title: 'STUDENT SUPPORT & HEALTH SERVICES',
         description: 'Comprehensive health, mental wellness, accessibility, and personal advising resources.',
         href: '/student-guide#support',
-        image: '/images/health-community.jpg',
         bgColor: 'bg-[#ec4899]', // Vibrant Hot Pink
         borderColor: 'border-[#ec4899]',
-        waveColor: '#831843',
+        waveColor: '#db2777',
     },
     {
         id: 'careers',
         title: 'GRADUATE EMPLOYMENT & CAREERS',
         description: 'Direct connections with top employers, co-op hub, resume workshops, and career coaching.',
         href: '/careers',
-        image: '/images/technology.jpg',
         bgColor: 'bg-[#10b981]', // Electric Emerald
         borderColor: 'border-[#10b981]',
-        waveColor: '#064e3b',
+        waveColor: '#059669',
     },
     {
         id: 'financial-aid',
         title: 'FINANCIAL AID & OSAP GUIDANCE',
         description: 'Explore scholarships, bursaries, work-study opportunities, and government assistance.',
         href: '/admissions/tuition',
-        image: '/images/studies-hero.jpg',
         bgColor: 'bg-[#f97316]', // Vibrant Orange
         borderColor: 'border-[#f97316]',
-        waveColor: '#7c2d12',
+        waveColor: '#ea580c',
     },
     {
         id: 'admissions-req',
         title: 'ADMISSIONS & ENTRY REQUIREMENTS',
         description: 'Detailed program entry specs, prerequisite codes, and international qualification guides.',
         href: '/admissions',
-        image: '/images/school-of-science-hero.jpg',
         bgColor: 'bg-[#06b6d4]', // Electric Cyan
         borderColor: 'border-[#06b6d4]',
-        waveColor: '#164e63',
+        waveColor: '#0891b2',
     },
     {
         id: 'code-of-conduct',
         title: 'STUDENT RIGHTS & CODE OF CONDUCT',
         description: 'Academic integrity, student governance, rights, regulations, and institutional policies.',
         href: '/code-of-conduct',
-        image: '/images/arts-design.jpg',
         bgColor: 'bg-[#8b5cf6]', // Deep Purple
         borderColor: 'border-[#8b5cf6]',
-        waveColor: '#4c1d95',
+        waveColor: '#7c3aed',
     },
 ];
 
@@ -106,10 +98,10 @@ export function StudentResourceHubCarousel() {
             <style jsx>{`
                 @keyframes waveFloatHub {
                     0%, 100% {
-                        transform: translateY(16px) scaleY(1);
+                        transform: translateY(8px) scaleY(1);
                     }
                     50% {
-                        transform: translateY(-10px) scaleY(1.15);
+                        transform: translateY(-6px) scaleY(1.1);
                     }
                 }
                 @keyframes arrowFloatHub {
@@ -142,46 +134,44 @@ export function StudentResourceHubCarousel() {
                     >
                         <Link
                             linkComponentProps={{ href: card.href }}
-                            className={`block w-full p-3 sm:p-4 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden`}
+                            className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[260px] sm:min-h-[300px] flex flex-col justify-between`}
                         >
-                            {/* Card Top Image with Animated Wavy Cutout */}
-                            <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden rounded-sm bg-black/10">
-                                <Image
-                                    src={card.image}
-                                    alt={card.title}
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 640px) 350px, (max-width: 768px) 440px, 500px"
-                                />
-
-                                {/* Organic Wavy Edge overlay at BOTTOM of image with smooth wave animation */}
-                                <div
-                                    className="absolute bottom-[-24px] left-0 right-0 h-16 sm:h-24 overflow-hidden leading-none z-10 pointer-events-none animate-wave-hub"
-                                    style={{ animationDelay: `${idx * 0.4}s` }}
+                            {/* Decorative Organic Wavy Edge inside top of card */}
+                            <div
+                                className="absolute top-0 left-0 right-0 h-16 sm:h-20 overflow-hidden leading-none z-10 pointer-events-none opacity-40 animate-wave-hub"
+                                style={{ animationDelay: `${idx * 0.4}s` }}
+                            >
+                                <svg
+                                    viewBox="0 0 1440 200"
+                                    preserveAspectRatio="none"
+                                    className="w-full h-full fill-current block"
+                                    style={{ color: card.waveColor }}
                                 >
-                                    <svg
-                                        viewBox="0 0 1440 200"
-                                        preserveAspectRatio="none"
-                                        className="w-full h-full fill-current block"
-                                        style={{ color: card.waveColor }}
-                                    >
-                                        <path
-                                            fill="currentColor"
-                                            d="M0,45 C320,105 640,-15 960,75 C1200,115 1380,45 1440,65 V200 H0 Z"
-                                        />
-                                    </svg>
-                                </div>
+                                    <path
+                                        fill="currentColor"
+                                        d="M0,45 C320,105 640,-15 960,75 C1200,115 1380,45 1440,65 V0 H0 Z"
+                                    />
+                                </svg>
                             </div>
 
-                            {/* Card Bottom Solid Color Content */}
-                            <div className="pt-6 pb-4 px-4 sm:px-6 flex items-end justify-between gap-4 min-h-[160px] sm:min-h-[190px] text-white">
-                                <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-[1.02] flex-1">
+                            {/* Card Content Header */}
+                            <div className="relative z-20">
+                                <span className="text-xs font-black uppercase tracking-widest text-white/80 block mb-2 font-sans">
+                                    RESOURCE LINK 0{idx + 1}
+                                </span>
+                                <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-[1.02]">
                                     {card.title}
                                 </h3>
+                            </div>
 
-                                {/* Thick Arrow Icon in Bottom Right with Floating Animation */}
+                            {/* Card Bottom Description & Arrow Icon */}
+                            <div className="relative z-20 pt-6 flex items-end justify-between gap-4 text-white">
+                                <p className="text-sm sm:text-base font-medium text-white/95 leading-relaxed max-w-[85%] font-sans">
+                                    {card.description}
+                                </p>
+
                                 <div
-                                    className="shrink-0 mb-1 animate-arrow-hub"
+                                    className="shrink-0 mb-0.5 animate-arrow-hub"
                                     style={{ animationDelay: `${idx * 0.4}s` }}
                                 >
                                     <ArrowUpRight size={44} weight="bold" className="text-white" />
