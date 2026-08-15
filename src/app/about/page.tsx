@@ -1,6 +1,7 @@
 import { createStaticClient } from "@/lib/supabase/static";
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from "@/components/layout/Hero";
 import DynamicNewsSection from "@/components/news/DynamicNewsSection";
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
