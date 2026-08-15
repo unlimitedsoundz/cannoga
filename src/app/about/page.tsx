@@ -182,9 +182,9 @@ export default async function AboutPage() {
                 </section>
 
                 <section className="mb-16">
-                    <div className="cc-section-divider text-center mb-10">
-                        <h2 className="cc-h2">Our Schools</h2>
-                        <p className="cc-label">Discover Cannoga College's specialized academic divisions.</p>
+                    <div className="mb-8 max-w-2xl text-left">
+                        <h2 className="cc-h2">Academic Schools</h2>
+                        <p className="text-neutral-600 font-normal text-base mt-2">Explore specialized schools and faculties across Cannoga College.</p>
                     </div>
                     <AcademicSchoolsCarousel schools={schools || []} />
                 </section>

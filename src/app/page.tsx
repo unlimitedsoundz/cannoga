@@ -90,9 +90,9 @@ export default async function Home() {
             {/* 4. FEATURED SCHOOLS (COLUMBIA COLLEGE STYLE VIBRANT CAROUSEL) */}
             <section className="py-20 bg-white">
                 <div className="container mx-auto px-4 md:px-28 lg:px-40">
-                    <div className="mb-10 max-w-2xl">
+                    <div className="mb-10 max-w-2xl text-left">
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">Academic Schools</h2>
-                        <p className="text-slate-600 font-normal text-base mt-2">Discover Cannoga College's specialized academic divisions.</p>
+                        <p className="text-slate-600 font-normal text-base mt-2">Explore specialized schools and faculties across Cannoga College.</p>
                     </div>
 
                     <AcademicSchoolsCarousel schools={schools || []} />

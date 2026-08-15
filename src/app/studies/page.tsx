@@ -137,9 +137,9 @@ export default async function StudiesPage() {
             {/* Schools & Faculties Carousel */}
             <div className="bg-slate-50 py-16 border-t border-slate-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="mb-10">
-                        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Explore by Academic School</h2>
-                        <p className="text-sm text-slate-600 mt-1">Discover Cannoga College's specialized academic divisions and hero degree programs.</p>
+                    <div className="mb-10 text-left max-w-2xl">
+                        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Academic Schools</h2>
+                        <p className="text-sm text-slate-600 mt-2">Explore specialized schools and faculties across Cannoga College.</p>
                     </div>
 
                     <AcademicSchoolsCarousel schools={schools || []} />

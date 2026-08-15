@@ -53,9 +53,9 @@ export default async function DegreeProgrammesPage() {
 
                     {/* Academic Schools Carousel */}
                     <section id="academic-schools" className="scroll-mt-32">
-                        <div className="cc-section-divider text-center mb-8">
+                        <div className="mb-8 max-w-2xl text-left">
                             <h2 className="cc-h2">Academic Schools</h2>
-                            <p className="cc-label">Explore specialized schools and faculties across Cannoga College</p>
+                            <p className="text-neutral-600 font-normal text-base mt-2">Explore specialized schools and faculties across Cannoga College.</p>
                         </div>
                         <AcademicSchoolsCarousel schools={schools || []} />
                     </section>
