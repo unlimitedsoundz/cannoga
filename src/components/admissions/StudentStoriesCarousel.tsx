@@ -19,6 +19,17 @@ interface Peer {
 
 const peers: Peer[] = [
     {
+        id: 3,
+        name: "Chinaza Kamsiyochukwu",
+        firstName: "CHINAZA",
+        country: "NIGERIA",
+        flag: "🇳🇬",
+        programme: "Honours Bachelor of Environmental Science",
+        image: "https://i.pinimg.com/1200x/72/a1/7c/72a17cb6e8bda24fd421065e8ad24296.jpg",
+        quote: "Conducting field research along the Rideau Canal and participating in campus sustainability projects gave me invaluable experience.",
+        cardBgClass: "bg-[#e11d48] hover:bg-[#be123c]",
+    },
+    {
         id: 1,
         name: "Tanmehar Singh",
         firstName: "TANMEHAR",
@@ -39,17 +50,6 @@ const peers: Peer[] = [
         image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
         quote: "The state-of-the-art lab facilities and personalized mentorship from faculty made my transition to studying in Ottawa seamless.",
         cardBgClass: "bg-[#0d9488] hover:bg-[#0f766e]",
-    },
-    {
-        id: 3,
-        name: "Chinaza Kamsiyochukwu",
-        firstName: "CHINAZA",
-        country: "NIGERIA",
-        flag: "🇳🇬",
-        programme: "Honours Bachelor of Environmental Science",
-        image: "https://i.pinimg.com/1200x/72/a1/7c/72a17cb6e8bda24fd421065e8ad24296.jpg",
-        quote: "Conducting field research along the Rideau Canal and participating in campus sustainability projects gave me invaluable experience.",
-        cardBgClass: "bg-[#e11d48] hover:bg-[#be123c]",
     },
     {
         id: 4,
