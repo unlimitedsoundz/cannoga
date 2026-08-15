@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { MapPin, Train, Building, BookOpen, Books as Library, House as Home, Users, Coffee, Compass, Info, ArrowRight, GraduationCap } from "@phosphor-icons/react";
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
+import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 export default function StudentLifeContent() {
     const sections = [
@@ -281,6 +282,15 @@ export default function StudentLifeContent() {
                             </p>
                         </section>
 
+
+                        {/* Student Resource Hub */}
+                        <section id="resource-hub" className="scroll-mt-32 pt-8 border-t border-neutral-200">
+                            <div className="mb-8">
+                                <h2 className="text-aalto-5 font-bold mb-2 text-black tracking-tight">Student Resource Hub</h2>
+                                <p className="text-sm text-neutral-600 font-medium">Explore key tools, campus services, health support, and academic guidance.</p>
+                            </div>
+                            <StudentResourceHubCarousel />
+                        </section>
 
                         {/* Summary */}
                         <section id="summary" className="scroll-mt-32 bg-[#0f2027] text-white p-12 md:p-20 border-y border-[#1e3a47]">

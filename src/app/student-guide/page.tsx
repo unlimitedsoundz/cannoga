@@ -4,6 +4,7 @@ import {
 import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
+import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 export const metadata = {
     title: 'Undergraduate & Postgraduate Resources — Cannoga College',
@@ -385,6 +386,15 @@ export default function StudentGuidePage() {
                                     <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">Connect with senior students for advice on student life and settling in.</p>
                                 </div>
                             </div>
+                        </section>
+
+                        {/* Student Resource Hub */}
+                        <section id="resource-hub" className="scroll-mt-32 pt-6 border-t border-neutral-200">
+                            <div className="mb-6">
+                                <h2 className="text-aalto-5 font-bold mb-1 text-black tracking-tight">Student Resource Hub</h2>
+                                <p className="text-xs md:text-sm text-neutral-600 font-medium">Direct access to campus services, health support, careers, and academic governance.</p>
+                            </div>
+                            <StudentResourceHubCarousel />
                         </section>
 
                     </main>

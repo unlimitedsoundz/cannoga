@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Link } from "@aalto-dx/react-components";
+import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 export const metadata: Metadata = {
     title: 'Official Student Handbook & Regulations — Cannoga College',
@@ -357,6 +358,15 @@ export default function StudentHandbookPage() {
                                 Academic Regulations →
                             </Link>
                         </div>
+                    </section>
+
+                    {/* STUDENT RESOURCE HUB */}
+                    <section id="resource-hub" className="scroll-mt-28 border-t border-slate-200 pt-8">
+                        <div className="mb-6">
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-2">Student Resource Hub</h2>
+                            <p className="text-sm text-slate-600 font-medium">Quick access to student support desks, health resources, careers, and financial guidance.</p>
+                        </div>
+                        <StudentResourceHubCarousel />
                     </section>
 
                 </div>

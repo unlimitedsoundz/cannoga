@@ -5,6 +5,7 @@ import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { SchemaLD } from '@/components/seo/SchemaLD';
 import { Highlight } from '@/components/ui/Highlight';
+import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 const tocSections = [
     { id: 'intro', title: 'Purpose of Guide', content: '' },
@@ -286,6 +287,13 @@ export default function InternationalGuidePage() {
                                     </div>
                                 </div>
                             </div>
+                        {/* Student Resource Hub */}
+                        <section id="resource-hub" className="scroll-mt-32 pt-8 border-t border-neutral-200">
+                            <div className="mb-6">
+                                <h2 className="text-aalto-5 font-bold mb-1 text-black tracking-tight">Student Resource Hub</h2>
+                                <p className="text-xs md:text-sm text-neutral-600 font-medium">Access additional campus services, health support, careers, and student policies.</p>
+                            </div>
+                            <StudentResourceHubCarousel />
                         </section>
 
                         <div className="pt-4 border-t border-neutral-100 text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400">

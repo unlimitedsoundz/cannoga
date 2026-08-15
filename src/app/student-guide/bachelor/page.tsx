@@ -6,6 +6,7 @@ import { Metadata } from 'next';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { Card } from '@/components/ui/Card';
 import { ContentBox } from '@/components/ui/ContentBox';
+import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 export const metadata: Metadata = {
     title: 'Undergraduate Student Reference Guide — Cannoga College',
@@ -190,6 +191,15 @@ export default function BachelorsGuidePage() {
                                     body="Check eligibility for Canadian student financial aid (OSAP) early and apply before the deadline."
                                 />
                             </div>
+                        </section>
+
+                        {/* Student Resource Hub */}
+                        <section id="resource-hub" className="scroll-mt-32 pt-8 border-t border-neutral-200">
+                            <div className="mb-6">
+                                <h2 className="text-aalto-5 font-bold mb-2 text-black tracking-tight">Student Resource Hub</h2>
+                                <p className="text-sm text-neutral-600 font-medium">Explore campus services, financial aid, health support, and student rights.</p>
+                            </div>
+                            <StudentResourceHubCarousel />
                         </section>
 
                     </div>
