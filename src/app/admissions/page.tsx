@@ -1,4 +1,4 @@
-import { Link } from '@/components/ui/Link';
+﻿import { Link } from '@/components/ui/Link';
 import { CTA } from '@/components/ui/CTA';
 import Image from 'next/image';
 import { ArrowRight, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react/dist/ssr";
@@ -18,9 +18,10 @@ import ApplicationProcess from '@/components/admissions/ApplicationProcess';
 import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarousel';
 import { AdmissionsQuickLinksCarousel } from '@/components/admissions/AdmissionsQuickLinksCarousel';
 import { AdmissionsCareerOpportunitiesCarousel } from '@/components/admissions/AdmissionsCareerOpportunitiesCarousel';
+import { InternationalInfoCard } from '@/components/admissions/InternationalInfoCard';
 
 export const metadata = {
-    title: 'Admissions & Enrollment Hub — Cannoga College',
+    title: 'Admissions & Enrollment Hub â€” Cannoga College',
     description: 'Explore educational options at Cannoga. Get information on entry pathways, deadlines, fees, and requirements for all programs.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/',
@@ -69,7 +70,7 @@ export default async function AdmissionsPage() {
                 "@type": "WebPage",
                 "name": "Admissions to Cannoga College",
                 "url": "https://cannogacollege.ca/admissions",
-                "description": "Admissions information for Bachelor’s and Master’s level programmes at Cannoga College in Ottawa, Ontario, Canada.",
+                "description": "Admissions information for Bachelorâ€™s and Masterâ€™s level programmes at Cannoga College in Ottawa, Ontario, Canada.",
                 "mainEntity": {
                     "@type": "EducationalOccupationalProgram",
                     "name": "Degree Programmes at Cannoga College",
@@ -139,7 +140,7 @@ export default async function AdmissionsPage() {
                         <section id="overview" className="scroll-mt-32">
                             <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Explore our fields</h2>
                             <p className="text-lg text-black leading-relaxed mb-4">
-                                Studying at Cannoga College offers a rich academic experience where innovation, multidisciplinary collaboration, and student community thrive together. You can pursue degree education at all levels Bachelor’s and Master’s as well as various lifelong learning options. In the Cannoga College community, students have the freedom to specialise in one field or combine courses across several fields.
+                                Studying at Cannoga College offers a rich academic experience where innovation, multidisciplinary collaboration, and student community thrive together. You can pursue degree education at all levels Bachelorâ€™s and Masterâ€™s as well as various lifelong learning options. In the Cannoga College community, students have the freedom to specialise in one field or combine courses across several fields.
                             </p>
                         </section>
 
@@ -234,13 +235,13 @@ export default async function AdmissionsPage() {
                         <section id="campus" className="scroll-mt-32">
                             <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Studying on Campus</h2>
                             <p className="text-lg text-black leading-relaxed">
-                                Cannoga College’s campus provides vibrant learning spaces, studios, libraries, and collaborative hubs where students experience academic life and community activities. The campus environment supports both study and leisure, encouraging a balanced student experience.
+                                Cannoga Collegeâ€™s campus provides vibrant learning spaces, studios, libraries, and collaborative hubs where students experience academic life and community activities. The campus environment supports both study and leisure, encouraging a balanced student experience.
                             </p>
                             {/* Career Opportunities Carousel */}
                             <div className="pt-2">
                                 <div className="mb-6">
                                     <h2 className="text-2xl font-black text-black tracking-tight">Career Opportunities</h2>
-                                    <p className="text-sm text-neutral-600 font-medium mt-1">Support and services to help plan and pursue post‑graduation careers, powered by strong industry ties.</p>
+                                    <p className="text-sm text-neutral-600 font-medium mt-1">Support and services to help plan and pursue postâ€‘graduation careers, powered by strong industry ties.</p>
                                 </div>
                                 <AdmissionsCareerOpportunitiesCarousel />
                             </div>
@@ -255,7 +256,7 @@ export default async function AdmissionsPage() {
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-bold mb-2">Podcasts About Studying</h3>
-                                    <p className="text-black">Listen to podcasts where current students and staff discuss what it’s like to study at Cannoga College, how programmes are structured, and tips for success.</p>
+                                    <p className="text-black">Listen to podcasts where current students and staff discuss what itâ€™s like to study at Cannoga College, how programmes are structured, and tips for success.</p>
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-bold mb-2">Chat with Students</h3>
@@ -331,45 +332,7 @@ export default async function AdmissionsPage() {
 
 
                         <section id="study-in-ottawa-canada" className="scroll-mt-32">
-                            <ContentBox
-                                size="large"
-                                icon="globeHemisphereWest"
-                                title="study in Ottawa, Ontario, Canada with Cannoga College"
-                                body={
-                                    <div className="space-y-6">
-                                        <div className="grid grid-cols-1 gap-4 pt-2">
-                                            {[
-                                                { title: "Quality & Safety", desc: "World-leading education in a safe, inclusive, and equal society." },
-                                                { title: "Practical Innovation", desc: "Focus on applied learning, independent research, and real-world industry applications." },
-                                                { title: "Life Balance", desc: "Flexibility and student wellbeing support to shape your own unique academic path." }
-                                            ].map(item => (
-                                                <div key={item.title} className="flex items-start gap-3.5">
-                                                    <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
-                                                        <ArrowRight size={14} weight="bold" />
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="text-slate-900 font-bold text-base leading-snug">{item.title}</h4>
-                                                        <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">{item.desc}</p>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <div className="pt-2">
-                                            <Link 
-                                                href="/student-guide/international" 
-                                                className="inline-flex items-center gap-2 bg-white hover:bg-neutral-100 text-[#0a151a] font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-sm transition-colors shadow-md no-underline"
-                                            >
-                                                <span>Read Our International Student Guide</span>
-                                                <ArrowRight size={16} weight="bold" className="text-[#c89211]" />
-                                            </Link>
-                                        </div>
-                                    </div>
-                                }
-                                image={{
-                                    src: "/images/home-carousel-2.png",
-                                    alt: "Ottawa, Ontario, Canada Campus"
-                                }}
-                            />
+                            <InternationalInfoCard />
                         </section>
 
                         <section id="lifelong" className="scroll-mt-32">
@@ -458,10 +421,10 @@ export default async function AdmissionsPage() {
                                         <div className="text-xs text-slate-800 space-y-1 pt-1">
                                             <p className="font-bold text-slate-900 text-xs uppercase tracking-wider text-[#c89211] mb-1">Telephone service hours (UTC +2):</p>
                                             <ul className="space-y-0.5 text-xs text-slate-700 font-medium">
-                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Mon:</span><span>12:30 pm – 2:00 pm</span></li>
-                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Tue:</span><span>9:30 am – 11:00 am</span></li>
-                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Wed:</span><span>9:30 am – 11:00 am</span></li>
-                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Thu:</span><span>9:30 am – 11:00 am</span></li>
+                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Mon:</span><span>12:30 pm â€“ 2:00 pm</span></li>
+                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Tue:</span><span>9:30 am â€“ 11:00 am</span></li>
+                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Wed:</span><span>9:30 am â€“ 11:00 am</span></li>
+                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Thu:</span><span>9:30 am â€“ 11:00 am</span></li>
                                                 <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Fri:</span><span className="text-red-600 font-bold">Closed</span></li>
                                             </ul>
                                         </div>
@@ -479,7 +442,7 @@ export default async function AdmissionsPage() {
                                             <div>
                                                 <h4 className="font-bold text-slate-900 text-sm">Campus Address</h4>
                                                 <p className="leading-relaxed mt-0.5">
-                                                    Cannoga College – Ottawa campus<br />
+                                                    Cannoga College â€“ Ottawa campus<br />
                                                     81 Montreal Rd,<br />
                                                     K1L 6E8 Ottawa, Ontario, Canada
                                                 </p>
@@ -487,7 +450,7 @@ export default async function AdmissionsPage() {
                                             <div>
                                                 <h4 className="font-bold text-slate-900 text-sm">Mailing Address</h4>
                                                 <p className="leading-relaxed mt-0.5">
-                                                    Cannoga College – Ottawa campus<br />
+                                                    Cannoga College â€“ Ottawa campus<br />
                                                     81 Montreal Rd,<br />
                                                     K1L 6E8 Ottawa, Ontario, Canada
                                                 </p>
