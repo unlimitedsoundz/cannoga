@@ -64,8 +64,8 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
             {/* ── LEFT: News Carousel ── */}
             <div className="lg:col-span-2 flex flex-col bg-white" style={{ height: 589 }}>
                 {/* Header row */}
-                <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200">
-                    <h3 className="text-xl font-serif font-bold text-[#0f2027] tracking-tight">
+                <div className="flex items-center justify-between px-8 sm:px-10 md:px-12 py-5 border-b border-neutral-200">
+                    <h3 className="text-xl md:text-2xl font-serif font-bold text-[#0f2027] tracking-tight">
                         News
                     </h3>
                     <a href="/news" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors no-underline">
@@ -94,14 +94,14 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                                 <button
                                     onClick={prev}
                                     aria-label="Previous"
-                                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] border border-white/20 flex items-center justify-center shadow-md transition-all duration-300 z-10"
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] border border-white/20 flex items-center justify-center shadow-md transition-all duration-300 z-10"
                                 >
                                     <CaretLeft size={18} weight="bold" />
                                 </button>
                                 <button
                                     onClick={next}
                                     aria-label="Next"
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] border border-white/20 flex items-center justify-center shadow-md transition-all duration-300 z-10"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] border border-white/20 flex items-center justify-center shadow-md transition-all duration-300 z-10"
                                 >
                                     <CaretRight size={18} weight="bold" />
                                 </button>
@@ -111,7 +111,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
 
                     {/* Article content */}
                     {activeNews && (
-                        <div className="p-6 flex-1 flex flex-col justify-between">
+                        <div className="px-8 sm:px-10 md:px-12 py-6 flex-1 flex flex-col justify-between">
                             <div>
                                 <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">
                                     {formatDate(activeNews.publishDate || activeNews.date || new Date().toISOString()).full}
@@ -137,7 +137,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
 
                     {/* Pagination & Navigation controls */}
                     {news.length > 1 && (
-                        <div className="flex items-center justify-between px-6 py-3 border-t border-neutral-100 bg-slate-50/50">
+                        <div className="flex items-center justify-between px-8 sm:px-10 md:px-12 py-4 border-t border-neutral-100 bg-slate-50/50">
                             <div className="flex items-center gap-2">
                                 <button
                                     onClick={prev}
@@ -180,7 +180,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
             {/* ── RIGHT: Important Dates ── */}
             <div className="flex flex-col" style={{ background: ACCENT }}>
                 {/* Header */}
-                <div className="px-6 py-5">
+                <div className="px-8 sm:px-10 py-5">
                     <h3 className="text-lg font-black text-white tracking-tight uppercase">Important Dates</h3>
                 </div>
 
@@ -192,7 +192,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                             <a
                                 key={ev.id}
                                 href={ev.slug ? `/news/events/${ev.slug}` : '/news'}
-                                className="flex items-start gap-4 px-6 py-5 hover:bg-white/5 transition-colors no-underline group"
+                                className="flex items-start gap-4 px-8 sm:px-10 py-5 hover:bg-white/5 transition-colors no-underline group"
                             >
                                 {/* Date block */}
                                 <div className="shrink-0 text-white text-center w-14">
@@ -216,7 +216,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                 </div>
 
                 {/* Footer CTA */}
-                <div className="px-6 py-5">
+                <div className="px-8 sm:px-10 py-5">
                     <a
                         href="/news"
                         className="inline-block border border-white text-white text-xs font-bold uppercase tracking-widest px-6 py-2.5 hover:bg-white transition-colors no-underline"
