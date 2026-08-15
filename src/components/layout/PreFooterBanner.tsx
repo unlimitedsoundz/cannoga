@@ -37,7 +37,7 @@ export function PreFooterBanner() {
     }, []);
 
     return (
-        <section className="bg-white py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-12">
+        <section className="bg-white pt-20 sm:pt-28 md:pt-32 pb-8 sm:pb-12 px-4 sm:px-6 md:px-8 lg:px-12 relative z-0">
             <div 
                 ref={containerRef}
                 className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 shadow-2xl"
