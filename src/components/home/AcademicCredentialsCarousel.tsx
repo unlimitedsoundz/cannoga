@@ -106,24 +106,24 @@ export function AcademicCredentialsCarousel() {
                 {CREDENTIAL_CARDS.map((card) => (
                     <div
                         key={card.id}
-                        className="snap-start shrink-0 w-[290px] sm:w-[360px] md:w-[410px] flex flex-col group no-underline"
+                        className="snap-start shrink-0 w-[320px] sm:w-[440px] md:w-[500px] flex flex-col group no-underline"
                     >
                         <Link
                             linkComponentProps={{ href: card.href }}
-                            className={`block w-full p-2.5 sm:p-3 rounded-md ${card.bgColor} ${card.borderColor} border-4 transition-transform duration-300 group-hover:-translate-y-1.5 no-underline`}
+                            className={`block w-full p-3 sm:p-4 rounded-md ${card.bgColor} ${card.borderColor} border-4 transition-transform duration-300 group-hover:-translate-y-1.5 no-underline`}
                         >
                             {/* Card Top Image with Wavy Cutout */}
-                            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm bg-black/10">
+                            <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden rounded-sm bg-black/10">
                                 <Image
                                     src={card.image}
                                     alt={card.title}
                                     fill
                                     className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                    sizes="(max-width: 768px) 300px, 420px"
+                                    sizes="(max-width: 768px) 340px, 500px"
                                 />
 
                                 {/* Organic Wavy Bottom Edge overlay cut out matching the vibrant card color */}
-                                <div className="absolute bottom-0 left-0 right-0 h-10 sm:h-12 overflow-hidden leading-none z-10 pointer-events-none">
+                                <div className="absolute bottom-0 left-0 right-0 h-10 sm:h-14 overflow-hidden leading-none z-10 pointer-events-none">
                                     <svg
                                         viewBox="0 0 1440 120"
                                         preserveAspectRatio="none"
@@ -140,20 +140,17 @@ export function AcademicCredentialsCarousel() {
                             </div>
 
                             {/* Card Bottom Solid Color Content */}
-                            <div className="pt-4 pb-3 px-3 sm:px-4 flex flex-col justify-between min-h-[170px] sm:min-h-[190px] text-white">
+                            <div className="pt-5 pb-3 px-3 sm:px-5 flex flex-col justify-between min-h-[160px] sm:min-h-[180px] text-white">
                                 <div>
-                                    <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white uppercase tracking-tight leading-tight group-hover:text-white transition-colors">
+                                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-[1.05] group-hover:text-white transition-colors">
                                         {card.title}
                                     </h3>
-                                    <p className="text-xs sm:text-sm text-white/90 font-medium leading-relaxed mt-2 line-clamp-2">
-                                        {card.description}
-                                    </p>
                                 </div>
 
                                 {/* Arrow Icon in Bottom Right */}
                                 <div className="mt-4 flex items-center justify-end">
-                                    <div className="p-2 sm:p-2.5 rounded-full bg-white/20 group-hover:bg-white text-white group-hover:text-slate-900 transition-all transform group-hover:scale-110">
-                                        <ArrowUpRight size={22} weight="bold" />
+                                    <div className="p-2.5 sm:p-3 rounded-full bg-white/20 group-hover:bg-white text-white group-hover:text-slate-900 transition-all transform group-hover:scale-110">
+                                        <ArrowUpRight size={28} weight="bold" />
                                     </div>
                                 </div>
                             </div>
