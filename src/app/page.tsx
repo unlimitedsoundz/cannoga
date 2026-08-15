@@ -127,31 +127,23 @@ export default async function Home() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {[
-                            { title: "Explore Campus & Book a Tour", href: "/contact", icon: MapPin },
-                            { title: "Student Support & Health Services", href: "/student-guide#support", icon: Notebook },
-                            { title: "Graduate Employment & Career Services", href: "/careers", icon: GraduationCap },
-                            { title: "Financial Aid & OSAP Guidance", href: "/admissions/tuition", icon: Calendar },
-                            { title: "Admissions & Entry Requirements", href: "/admissions", icon: GraduationCap },
-                            { title: "Student Rights & Code of Conduct", href: "/code-of-conduct", icon: Notebook },
-                        ].map((link, idx) => {
-                            const Icon = link.icon;
-                            return (
-                                <Link
-                                    key={idx}
-                                    linkComponentProps={{ href: link.href }}
-                                    className="flex items-start gap-4 p-5 bg-white border border-purple-200/60 no-underline rounded-sm"
-                                >
-                                    <div className="p-3 bg-[#0f2027] text-white rounded-full shrink-0 flex items-center justify-center w-11 h-11">
-                                        <Icon size={20} weight="bold" />
-                                    </div>
-                                    <div>
-                                        <h4 className="font-semibold text-[#0f2027] mt-0.5 text-base">
-                                            {link.title}
-                                        </h4>
-                                    </div>
-                                </Link>
-                            );
-                        })}
+                            { title: "Explore Campus & Book a Tour", href: "/contact" },
+                            { title: "Student Support & Health Services", href: "/student-guide#support" },
+                            { title: "Graduate Employment & Career Services", href: "/careers" },
+                            { title: "Financial Aid & OSAP Guidance", href: "/admissions/tuition" },
+                            { title: "Admissions & Entry Requirements", href: "/admissions" },
+                            { title: "Student Rights & Code of Conduct", href: "/code-of-conduct" },
+                        ].map((link, idx) => (
+                            <Link
+                                key={idx}
+                                linkComponentProps={{ href: link.href }}
+                                className="flex items-center p-5 bg-white border border-purple-200/60 no-underline rounded-sm"
+                            >
+                                <h4 className="font-semibold text-[#0f2027] text-base">
+                                    {link.title}
+                                </h4>
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </section>
