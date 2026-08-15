@@ -9,6 +9,7 @@ import { SchemaLD } from '@/components/seo/SchemaLD';
 import { ContentBox } from "@/components/ui/ContentBox";
 import { Card } from "@/components/ui/Card";
 import { AcademicSchoolsCarousel } from "@/components/home/AcademicSchoolsCarousel";
+import { StudentResourceHubCarousel } from "@/components/home/StudentResourceHubCarousel";
 import GuideSidebarLayout from "@/components/layout/StudentGuideLayout";
 
 export const metadata = {
@@ -160,6 +161,9 @@ export default async function AboutPage() {
                         <p className="text-slate-700 text-lg leading-relaxed bg-[#f8fafc] p-8 border-l-4 border-[#0f2027]">
                             Our Ottawa campus provides a supportive and inclusive environment where students and faculty work together to explore real-world challenges and develop innovative, career-ready solutions.
                         </p>
+                        <div className="mt-10">
+                            <StudentResourceHubCarousel />
+                        </div>
                     </section>
 
                     {/* After Graduation */}

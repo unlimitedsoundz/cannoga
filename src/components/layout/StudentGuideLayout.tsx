@@ -44,9 +44,13 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
   const navItems = sections.flatMap(s => {
     if (s.header) {
       const items: { id: string; label: string; href: string }[] = [];
-      if (s.header.linkComponentProps?.href) {
-        const href = s.header.linkComponentProps.href;
-        items.push({ id: href.replace(/^#/, ''), label: s.header.label, href });
+      const headerHref = s.header.linkComponentProps?.href;
+      // Collect child link hrefs first so we can skip duplicate header entries
+      const childHrefs = new Set(
+        (s.links || []).map((l: any) => l.linkComponentProps?.href).filter(Boolean)
+      );
+      if (headerHref && !childHrefs.has(headerHref)) {
+        items.push({ id: headerHref.replace(/^#/, ''), label: s.header.label, href: headerHref });
       }
       if (s.links) {
         s.links.forEach((l: any) => {
@@ -114,11 +118,11 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
                 mobileAccordionOpen ? 'max-h-[500px] opacity-100 mt-2 p-2' : 'max-h-0 opacity-0'
               } overflow-hidden bg-[#f4f6f8] rounded-sm`}
             >
-              {navItems.map((item) => {
+              {navItems.map((item, index) => {
                 const isActive = activeId === item.id;
                 return (
                   <a
-                    key={item.id}
+                    key={`${item.id}-${index}`}
                     href={item.href}
                     onClick={() => setMobileAccordionOpen(false)}
                     className={`block py-2.5 px-4 text-xs font-bold transition-colors no-underline rounded-sm ${
@@ -147,11 +151,11 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
 
             {/* Navigation Items */}
             <div className="flex items-center justify-start flex-wrap gap-x-6 md:gap-x-8 gap-y-3 py-8 pr-6 lg:pr-12">
-              {navItems.map((item) => {
+              {navItems.map((item, index) => {
                 const isActive = activeId === item.id;
                 return (
                   <a
-                    key={item.id}
+                    key={`${item.id}-${index}`}
                     href={item.href}
                     style={{
                       borderBottomColor: isActive ? tagBgColor : 'transparent',
