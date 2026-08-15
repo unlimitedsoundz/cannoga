@@ -21,8 +21,8 @@ export function PreFooterBanner() {
                             const centerY = rect.top + rect.height / 2;
                             const viewportCenter = windowHeight / 2;
                             const offsetFromCenter = centerY - viewportCenter;
-                            // 35% parallax movement ratio for strong visible depth
-                            setTranslateY(offsetFromCenter * 0.35);
+                            // 18% parallax movement ratio for subtle, natural depth without zoom
+                            setTranslateY(offsetFromCenter * 0.18);
                         }
                     }
                     ticking = false;
@@ -44,7 +44,7 @@ export function PreFooterBanner() {
             >
                 {/* Parallax Background Container */}
                 <div 
-                    className="absolute -top-[35%] -bottom-[35%] left-0 right-0 w-full h-[170%] will-change-transform pointer-events-none"
+                    className="absolute -top-[12%] -bottom-[12%] left-0 right-0 w-full h-[124%] will-change-transform pointer-events-none"
                     style={{ transform: `translate3d(0, ${translateY}px, 0)` }}
                 >
                     <Image
@@ -52,7 +52,7 @@ export function PreFooterBanner() {
                         alt="Cannoga College student reading in library"
                         fill
                         priority
-                        className="object-cover object-center scale-110"
+                        className="object-cover object-center"
                         sizes="100vw"
                     />
                 </div>
