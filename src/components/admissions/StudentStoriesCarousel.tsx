@@ -145,7 +145,7 @@ export default function StudentStoriesCarousel() {
                             <div
                                 key={peer.id}
                                 onClick={() => setSelectedPeer(peer)}
-                                className="w-[270px] sm:w-[320px] h-[450px] sm:h-[510px] shrink-0 relative overflow-hidden group rounded-none shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer snap-start"
+                                className="w-[350px] sm:w-[350px] h-[380px] sm:h-[440px] shrink-0 relative overflow-hidden group rounded-none shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer snap-start"
                             >
                                 {/* Background Image */}
                                 <Image
@@ -153,7 +153,7 @@ export default function StudentStoriesCarousel() {
                                     alt={peer.name}
                                     fill
                                     className={`object-cover group-hover:scale-105 transition-transform duration-700 ${peer.imagePosition || 'object-center'}`}
-                                    sizes="(max-width: 768px) 270px, 320px"
+                                    sizes="(max-width: 768px) 350px, 350px"
                                 />
 
                                 {/* Top Gradient & Student Origin Banner */}
