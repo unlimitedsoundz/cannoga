@@ -125,7 +125,7 @@ export function StudyingAtCannogaCarousel() {
                     >
                         <Link
                             linkComponentProps={{ href: card.href }}
-                            className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[260px] sm:min-h-[290px] flex flex-col justify-between group shadow-sm hover:shadow-xl transition-all duration-300`}
+                            className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[260px] sm:min-h-[290px] flex flex-col justify-between group`}
                         >
                             {/* Card Content Header */}
                             <div className="relative z-20">
@@ -139,11 +139,11 @@ export function StudyingAtCannogaCarousel() {
                                 <p className="text-xs sm:text-sm md:text-base font-medium text-white/95 leading-relaxed max-w-[82%] font-sans">
                                     {card.description}
                                 </p>
-                                <div className="p-3 bg-white text-black rounded-sm group-hover:bg-black group-hover:text-white transition-colors duration-200 shrink-0 flex items-center justify-center">
+                                <div className="shrink-0 mb-1 animate-arrow-studying">
                                     <ArrowUpRight
-                                        size={20}
+                                        size={40}
                                         weight="bold"
-                                        className="animate-arrow-studying"
+                                        className="text-white"
                                     />
                                 </div>
                             </div>

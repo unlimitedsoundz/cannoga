@@ -56,9 +56,15 @@ export default function DbFAQ({ pageSlug, fallbackFaqs, refreshKey }: DbFAQProps
         const unique: FAQItem[] = [];
 
         for (const item of items) {
-            const key = `${(item.question || '').toString().trim().toLowerCase()}::${(item.answer || '').toString().trim().toLowerCase()}`;
-            if (seen.has(key)) continue;
-            seen.add(key);
+            const cleanQ = (item.question || '')
+                .toString()
+                .trim()
+                .toLowerCase()
+                .replace(/[^\w\s]/g, '')
+                .replace(/\s+/g, ' ');
+            if (!cleanQ) continue;
+            if (seen.has(cleanQ)) continue;
+            seen.add(cleanQ);
             unique.push(item);
         }
 

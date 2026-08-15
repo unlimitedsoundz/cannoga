@@ -37,8 +37,22 @@ export default function FAQ({ faqs }: FAQProps) {
         );
     }
 
-    // Sort FAQs by order_index
-    const sortedFaqs = [...faqList].sort((a, b) => a.order_index - b.order_index);
+    // Deduplicate FAQs by question (normalized) and sort by order_index
+    const seenQuestions = new Set<string>();
+    const deduplicatedFaqs: FAQItem[] = [];
+    for (const item of faqList) {
+        const cleanQ = (item.question || '')
+            .toString()
+            .trim()
+            .toLowerCase()
+            .replace(/[^\w\s]/g, '')
+            .replace(/\s+/g, ' ');
+        if (!cleanQ || seenQuestions.has(cleanQ)) continue;
+        seenQuestions.add(cleanQ);
+        deduplicatedFaqs.push(item);
+    }
+
+    const sortedFaqs = deduplicatedFaqs.sort((a, b) => a.order_index - b.order_index);
 
     return (
         <div className="w-full space-y-0">
