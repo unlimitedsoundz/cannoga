@@ -13,6 +13,7 @@ interface CredentialCard {
     image: string;
     bgColor: string; // Tailored vibrant hex or class
     borderColor: string;
+    waveColor: string; // Darker matching shade for wave edge
 }
 
 const CREDENTIAL_CARDS: CredentialCard[] = [
@@ -24,6 +25,7 @@ const CREDENTIAL_CARDS: CredentialCard[] = [
         image: '/images/technology.jpg',
         bgColor: 'bg-[#4da674]', // Vibrant green
         borderColor: 'border-[#4da674]',
+        waveColor: '#28583c', // Darker green shade
     },
     {
         id: 'diplomas',
@@ -33,6 +35,7 @@ const CREDENTIAL_CARDS: CredentialCard[] = [
         image: '/images/school-of-science.jpg',
         bgColor: 'bg-[#0088dd]', // Vibrant electric blue
         borderColor: 'border-[#0088dd]',
+        waveColor: '#004c80', // Darker blue shade
     },
     {
         id: 'degrees',
@@ -42,6 +45,7 @@ const CREDENTIAL_CARDS: CredentialCard[] = [
         image: '/images/student-story-2.jpg',
         bgColor: 'bg-[#e53935]', // Vibrant bold red
         borderColor: 'border-[#e53935]',
+        waveColor: '#8e1917', // Darker red shade
     },
     {
         id: 'schools',
@@ -51,6 +55,7 @@ const CREDENTIAL_CARDS: CredentialCard[] = [
         image: '/images/arts-design.jpg',
         bgColor: 'bg-[#8e24aa]', // Vibrant deep purple
         borderColor: 'border-[#8e24aa]',
+        waveColor: '#521363', // Darker purple shade
     },
     {
         id: 'directory',
@@ -60,6 +65,7 @@ const CREDENTIAL_CARDS: CredentialCard[] = [
         image: '/images/school-of-education-social-sciences.jpg',
         bgColor: 'bg-[#f57c00]', // Vibrant warm orange
         borderColor: 'border-[#f57c00]',
+        waveColor: '#964b00', // Darker burnt orange shade
     },
     {
         id: 'coop',
@@ -69,6 +75,7 @@ const CREDENTIAL_CARDS: CredentialCard[] = [
         image: '/images/vibrant-community.png',
         bgColor: 'bg-[#0097a7]', // Vibrant cyan teal
         borderColor: 'border-[#0097a7]',
+        waveColor: '#00535c', // Darker teal shade
     },
 ];
 
@@ -122,17 +129,16 @@ export function AcademicCredentialsCarousel() {
                                     sizes="(max-width: 768px) 340px, 500px"
                                 />
 
-                                {/* Organic Wavy Bottom Edge overlay cut out matching the vibrant card color */}
+                                 {/* Organic Wavy Bottom Edge overlay cut out matching the darker card color shade */}
                                 <div className="absolute bottom-0 left-0 right-0 h-10 sm:h-14 overflow-hidden leading-none z-10 pointer-events-none">
                                     <svg
                                         viewBox="0 0 1440 120"
                                         preserveAspectRatio="none"
-                                        className="w-full h-full text-current fill-current block"
-                                        style={{ color: 'inherit' }}
+                                        className="w-full h-full fill-current block"
+                                        style={{ color: card.waveColor }}
                                     >
                                         <path
                                             fill="currentColor"
-                                            className="text-current"
                                             d="M0,45 C320,105 640,-15 960,75 C1200,115 1380,45 1440,65 V120 H0 Z"
                                         />
                                     </svg>
