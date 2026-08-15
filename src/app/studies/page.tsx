@@ -28,64 +28,6 @@ export const metadata: Metadata = {
     },
 };
 
-const PROGRAM_LEVELS = [
-    {
-        title: "Certificate Programs",
-        level: "Certificate",
-        duration: "1 Year (2 Semesters)",
-        credits: "30 Credits",
-        desc: "Short, targeted pathways designed for rapid skill acquisition, professional certification, and immediate entry into Ontario's workforce.",
-        coop: "Co-op Available",
-        link: "/degree-programmes#certificates",
-        icon: Certificate,
-        color: "from-amber-500/20 to-amber-700/10 border-amber-500/30 text-amber-400"
-    },
-    {
-        title: "Diploma Programs",
-        level: "Diploma",
-        duration: "2 Years (4 Semesters)",
-        credits: "60 Credits",
-        desc: "Applied two-year post-secondary qualifications combining core academic fundamentals with intensive hands-on lab training.",
-        coop: "Co-op Included",
-        link: "/degree-programmes#diplomas",
-        icon: BookOpen,
-        color: "from-blue-500/20 to-blue-700/10 border-blue-500/30 text-blue-400"
-    },
-    {
-        title: "Advanced Diplomas",
-        level: "Advanced Diploma",
-        duration: "3 Years (6 Semesters)",
-        credits: "90 Credits",
-        desc: "In-depth technical and technological training with specialized industry internships for senior technical roles.",
-        coop: "Co-op & Capstone",
-        link: "/degree-programmes#diplomas",
-        icon: Briefcase,
-        color: "from-purple-500/20 to-purple-700/10 border-purple-500/30 text-purple-400"
-    },
-    {
-        title: "Bachelor's Degrees",
-        level: "Bachelor",
-        duration: "4 Years (8 Semesters)",
-        credits: "120 Credits",
-        desc: "Four-year undergraduate degree programs combining theoretical rigor, practical internships, and global academic standards.",
-        coop: "Paid Co-op Terms",
-        link: "/admissions/bachelor",
-        icon: GraduationCap,
-        color: "from-emerald-500/20 to-emerald-700/10 border-emerald-500/30 text-emerald-400"
-    },
-    {
-        title: "Master's & Postgrad",
-        level: "Master",
-        duration: "1–2 Years",
-        credits: "45–60 Credits",
-        desc: "Advanced graduate studies and postgraduate certificates for professionals seeking leadership, specialization, or research excellence.",
-        coop: "Industry Applied Thesis",
-        link: "/admissions/master",
-        icon: Globe,
-        color: "from-rose-500/20 to-rose-700/10 border-rose-500/30 text-rose-400"
-    }
-];
-
 const SCHOOLS_DIRECTORY = [
     {
         name: "School of Technology & Computing",
@@ -170,42 +112,6 @@ export default async function StudiesPage() {
                     </Link>
                 </div>
             </Hero>
-
-            {/* Program Levels Banner Grid */}
-            <div className="bg-neutral-50/60 py-12 md:py-16 border-b border-neutral-200">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center max-w-2xl mx-auto mb-10">
-                        <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">Choose Your Study Pathway</h2>
-                        <p className="text-xs sm:text-sm text-neutral-600 mt-2">Every program is structured with high academic standards, hands-on learning, and Post-Graduation Work Permit (PGWP) eligibility.</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-stretch">
-                        {PROGRAM_LEVELS.map((item, idx) => (
-                            <Link
-                                key={idx}
-                                href={item.link}
-                                className="group bg-white border border-neutral-200 p-5 hover:border-black hover:shadow-md transition-all flex flex-col justify-between no-underline h-full"
-                            >
-                                <div>
-                                    <div className="flex items-center justify-between mb-2">
-                                        <h3 className="text-sm font-bold text-black group-hover:underline transition-colors leading-snug">{item.title}</h3>
-                                        <ArrowRight size={14} weight="bold" className="text-neutral-400 group-hover:text-black group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
-                                    </div>
-                                    <p className="text-[11px] text-neutral-500 font-semibold mb-3 flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
-                                        <span>{item.duration}</span>
-                                        <span>•</span>
-                                        <span>{item.credits}</span>
-                                    </p>
-                                    <p className="text-xs text-neutral-600 leading-relaxed mb-4">{item.desc}</p>
-                                </div>
-                                <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-[11px] font-bold text-black">
-                                    <span>{item.coop}</span>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            </div>
 
             {/* Academic Credentials & Programs Carousel */}
             <div className="bg-white py-12 md:py-16">
