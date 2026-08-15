@@ -161,7 +161,41 @@ export default async function TuitionPaymentPage() {
                             <h2 className="cc-h2">How Much is the Tuition Fee?</h2>
                         </div>
                         <DbPageContent pageSlug={pageSlug} sectionKey="costs_intro_content" fallbackContent={getSectionDefault('costs_intro_content')} />
-                        <div className="w-full overflow-x-auto touch-pan-x overscroll-x-contain my-6 rounded-lg border border-neutral-200 shadow-sm bg-white">
+                        {/* Mobile View: Vertical Stacked Cards */}
+                        <div className="sm:hidden flex flex-col gap-3 my-6">
+                            {['CERTIFICATE', 'DIPLOMA', 'BACHELOR', 'MASTER'].map((credentialType) => {
+                                const info = tuitionRates.find((t: any) => t.credential_type === credentialType);
+                                const display = credentialDisplay[credentialType] || { label: credentialType, duration: '—', credits: '—' };
+                                const fallback = fallbackRates[credentialType] || { domestic: 0, international: 0 };
+                                const domestic = info ? getAnnualTuition(info.domestic_tuition, fallback.domestic) : fallback.domestic;
+                                const international = info ? getAnnualTuition(info.international_tuition, fallback.international) : fallback.international;
+                                return (
+                                    <div key={credentialType} className="bg-neutral-50 rounded-lg p-4 border border-neutral-200 shadow-xs space-y-2.5">
+                                        <div className="flex items-center justify-between border-b border-neutral-200 pb-2">
+                                            <h3 className="font-bold text-base text-[#0a151a]">{display.label}</h3>
+                                            <span className="text-xs font-semibold px-2.5 py-0.5 bg-[#0a151a] text-white rounded">{display.duration}</span>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-2 text-xs pt-1">
+                                            <div>
+                                                <span className="text-neutral-500 block uppercase text-[10px] font-bold">Credits</span>
+                                                <span className="font-semibold text-neutral-800">{display.credits}</span>
+                                            </div>
+                                            <div>
+                                                <span className="text-neutral-500 block uppercase text-[10px] font-bold">Domestic</span>
+                                                <span className="font-bold text-black">${domestic.toLocaleString()}/year</span>
+                                            </div>
+                                        </div>
+                                        <div className="pt-2 border-t border-neutral-200/80 flex items-center justify-between text-xs">
+                                            <span className="text-neutral-500 uppercase text-[10px] font-bold">International Tuition</span>
+                                            <span className="font-extrabold text-[#0a151a] text-sm">${international.toLocaleString()}/year</span>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        {/* Desktop View: Full Table */}
+                        <div className="hidden sm:block w-full overflow-x-auto touch-pan-x overscroll-x-contain my-6 rounded-lg border border-neutral-200 shadow-sm bg-white">
                             <table className="w-full border-collapse min-w-[540px]">
                                 <thead>
                                     <tr className="bg-[#0a151a] text-white">
