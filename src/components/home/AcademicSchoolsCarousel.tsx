@@ -190,7 +190,7 @@ export function AcademicSchoolsCarousel({ schools }: AcademicSchoolsCarouselProp
                 {cardsToRender.map((card, idx) => (
                     <div
                         key={card.id}
-                        className="snap-start shrink-0 w-[330px] sm:w-[440px] md:w-[500px] flex flex-col no-underline"
+                        className="snap-start shrink-0 w-[350px] sm:w-[440px] md:w-[500px] flex flex-col no-underline"
                     >
                         <Link
                             linkComponentProps={{ href: card.href }}
@@ -203,7 +203,7 @@ export function AcademicSchoolsCarousel({ schools }: AcademicSchoolsCarouselProp
                                     alt={card.title}
                                     fill
                                     className="object-cover"
-                                    sizes="(max-width: 640px) 330px, (max-width: 768px) 440px, 500px"
+                                    sizes="(max-width: 640px) 350px, (max-width: 768px) 440px, 500px"
                                 />
 
                                 {/* Organic Wavy Edge overlay at BOTTOM of image with smooth wave animation */}
