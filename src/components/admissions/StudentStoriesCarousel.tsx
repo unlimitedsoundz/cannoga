@@ -186,7 +186,7 @@ export default function StudentStoriesCarousel() {
                                         {/* Header area in slider */}
                                         <div className="flex items-start justify-between gap-2">
                                             <div>
-                                                <span className="font-black text-xl sm:text-2xl uppercase tracking-tight leading-none font-sans block">
+                                                <span className="font-black text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight leading-none font-sans block">
                                                     {isOpen ? peer.name : `MEET ${peer.firstName}`}
                                                 </span>
                                                 {isOpen && (
