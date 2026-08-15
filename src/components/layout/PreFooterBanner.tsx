@@ -7,8 +7,8 @@ import { Logo } from "@/components/ui/Logo";
 
 export function PreFooterBanner() {
     return (
-        <section className="bg-[#cad6ce] py-3 sm:py-4 px-1 sm:px-2 md:px-3">
-            <div className="w-full max-w-[1850px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 border border-white/10 shadow-2xl">
+        <section className="bg-[#cad6ce] py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-12">
+            <div className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 border border-white/10 shadow-2xl">
                 
                 {/* Background Library Imagery */}
                 <Image
