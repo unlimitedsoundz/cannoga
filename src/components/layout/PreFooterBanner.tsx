@@ -37,36 +37,30 @@ export function PreFooterBanner() {
                     </h2>
 
                     {/* Bottom Link Options */}
-                    <div className="flex flex-wrap items-center gap-6 sm:gap-10 md:gap-14 font-extrabold text-base sm:text-xl md:text-2xl text-white uppercase tracking-wider">
+                    <div className="flex flex-wrap items-center gap-6 sm:gap-10 md:gap-14 font-black text-base sm:text-xl md:text-2xl text-white uppercase tracking-wider">
                         <Link 
                             href="/about" 
-                            className="group relative inline-flex items-center gap-3 text-white hover:text-[#c89211] transition-all duration-300 no-underline py-1"
+                            className="group relative inline-flex items-center gap-3 text-white no-underline py-1"
                         >
-                            <span className="relative z-10">WHY CANNOGA COLLEGE?</span>
-                            <span className="p-2 rounded-full bg-white/10 group-hover:bg-[#c89211] group-hover:text-black transition-all duration-300 flex items-center justify-center transform group-hover:translate-x-2 shadow-sm">
-                                <ArrowRight size={20} weight="bold" />
-                            </span>
-                            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#c89211] transition-all duration-300 group-hover:w-full" />
+                            <span className="relative z-10 font-black">WHY CANNOGA COLLEGE?</span>
+                            <ArrowRight size={24} weight="bold" className="text-white transition-transform duration-300 group-hover:translate-x-2.5 shrink-0" />
+                            <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-white transition-all duration-300 group-hover:w-full" />
                         </Link>
                         <Link 
                             href="/admissions/application-process" 
-                            className="group relative inline-flex items-center gap-3 text-white hover:text-[#c89211] transition-all duration-300 no-underline py-1"
+                            className="group relative inline-flex items-center gap-3 text-white no-underline py-1"
                         >
-                            <span className="relative z-10">APPLY NOW</span>
-                            <span className="p-2 rounded-full bg-white/10 group-hover:bg-[#c89211] group-hover:text-black transition-all duration-300 flex items-center justify-center transform group-hover:translate-x-2 shadow-sm">
-                                <ArrowRight size={20} weight="bold" />
-                            </span>
-                            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#c89211] transition-all duration-300 group-hover:w-full" />
+                            <span className="relative z-10 font-black">APPLY NOW</span>
+                            <ArrowRight size={24} weight="bold" className="text-white transition-transform duration-300 group-hover:translate-x-2.5 shrink-0" />
+                            <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-white transition-all duration-300 group-hover:w-full" />
                         </Link>
                         <Link 
                             href="/contact" 
-                            className="group relative inline-flex items-center gap-3 text-white hover:text-[#c89211] transition-all duration-300 no-underline py-1"
+                            className="group relative inline-flex items-center gap-3 text-white no-underline py-1"
                         >
-                            <span className="relative z-10">CONTACT US</span>
-                            <span className="p-2 rounded-full bg-white/10 group-hover:bg-[#c89211] group-hover:text-black transition-all duration-300 flex items-center justify-center transform group-hover:translate-x-2 shadow-sm">
-                                <ArrowRight size={20} weight="bold" />
-                            </span>
-                            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#c89211] transition-all duration-300 group-hover:w-full" />
+                            <span className="relative z-10 font-black">CONTACT US</span>
+                            <ArrowRight size={24} weight="bold" className="text-white transition-transform duration-300 group-hover:translate-x-2.5 shrink-0" />
+                            <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-white transition-all duration-300 group-hover:w-full" />
                         </Link>
                     </div>
 
