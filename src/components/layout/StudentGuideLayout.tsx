@@ -91,31 +91,25 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
       {navItems.length > 0 && (
         <nav aria-label="Section Navigation" className="w-full bg-neutral-100 p-0">
           {/* ── Mobile View: Compact FAQ Accordion ── */}
-          <div className="sm:hidden container mx-auto px-4 py-3">
+          <div className="sm:hidden container mx-auto px-4 py-3 bg-[#f4f6f8]">
             <button
               onClick={() => setMobileAccordionOpen(!mobileAccordionOpen)}
-              className="w-full flex items-center justify-between py-2 px-3 bg-white border border-neutral-200 text-left transition-colors focus:outline-none"
+              style={{ backgroundColor: tagBgColor }}
+              className="w-full flex items-center justify-between py-3 px-4 text-white text-left transition-colors focus:outline-none rounded-sm shadow-sm"
               aria-expanded={mobileAccordionOpen}
             >
               <div className="flex items-center gap-2">
-                <List size={18} weight="bold" className="text-black" />
-                <span className="text-sm font-bold text-black">
+                <List size={20} weight="bold" className="text-white" />
+                <span className="text-sm font-extrabold uppercase tracking-wide text-white">
                   {activeItem ? activeItem.label : 'Jump to Section'}
                 </span>
-              </div>
-              <div className="bg-[#0a151a] text-white p-1">
-                {mobileAccordionOpen ? (
-                  <Minus size={16} weight="bold" />
-                ) : (
-                  <Plus size={16} weight="bold" />
-                )}
               </div>
             </button>
 
             <div
               className={`transition-all duration-300 ease-in-out ${
-                mobileAccordionOpen ? 'max-h-[500px] opacity-100 mt-2 border-t border-neutral-200 pt-2' : 'max-h-0 opacity-0'
-              } overflow-hidden bg-white border-x border-b border-neutral-200 divide-y divide-neutral-100`}
+                mobileAccordionOpen ? 'max-h-[500px] opacity-100 mt-2 p-2' : 'max-h-0 opacity-0'
+              } overflow-hidden bg-[#f4f6f8] rounded-sm`}
             >
               {navItems.map((item) => {
                 const isActive = activeId === item.id;
@@ -124,8 +118,8 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
                     key={item.id}
                     href={`#${item.id}`}
                     onClick={() => setMobileAccordionOpen(false)}
-                    className={`block py-2.5 px-4 text-xs font-bold transition-colors no-underline ${
-                      isActive ? 'bg-neutral-100 text-black font-extrabold' : 'text-neutral-700 hover:bg-neutral-50'
+                    className={`block py-2.5 px-4 text-xs font-bold transition-colors no-underline rounded-sm ${
+                      isActive ? 'bg-white text-black font-black shadow-xs' : 'text-neutral-700 hover:bg-white/60'
                     }`}
                   >
                     {item.label}
