@@ -73,8 +73,8 @@ export default function WelcomeFromPresidentPage() {
                             <div className="relative">
                                 <div className="relative w-full aspect-[3/4] max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden shadow-2xl">
                                     <Image
-                                        src="/images/0f4315c00b2784fbddf4239ce341dd7e.jpg"
-                                        alt="President of Cannoga College"
+                                        src="/images/president-luke-schaffner.jpg"
+                                        alt="Luke Schaffer – President of Cannoga College"
                                         fill
                                         className="object-cover object-top"
                                         sizes="(max-width: 768px) 100vw, 400px"
@@ -82,7 +82,7 @@ export default function WelcomeFromPresidentPage() {
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#0f2027]/70 via-transparent to-transparent" />
                                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                                        <p className="text-lg font-black tracking-tight leading-tight">Dr. Margaret Osei-Bonsu</p>
+                                        <p className="text-lg font-black tracking-tight leading-tight">Luke Schaffer</p>
                                         <p className="text-sm font-semibold text-white/80 uppercase tracking-widest mt-0.5">President & Vice-Chancellor</p>
                                         <p className="text-xs text-white/60 mt-1">Cannoga College, Ottawa</p>
                                     </div>
@@ -141,15 +141,15 @@ export default function WelcomeFromPresidentPage() {
                             <div className="flex items-center gap-6">
                                 <div className="w-16 h-16 rounded-full overflow-hidden relative shrink-0 ring-4 ring-[#c89211]/30">
                                     <Image
-                                        src="/images/2ea8f4b07a6cd09f34810c687fd924dc.jpg"
-                                        alt="President signature photo"
+                                        src="/images/president-luke-schaffner.jpg"
+                                        alt="Luke Schaffer – President of Cannoga College"
                                         fill
                                         className="object-cover object-top"
                                         sizes="64px"
                                     />
                                 </div>
                                 <div>
-                                    <p className="text-xl font-black text-[#0f2027] tracking-tight">Dr. Margaret Osei-Bonsu</p>
+                                    <p className="text-xl font-black text-[#0f2027] tracking-tight">Luke Schaffer</p>
                                     <p className="text-sm font-semibold text-neutral-500 uppercase tracking-widest">President & Vice-Chancellor</p>
                                     <p className="text-sm text-neutral-400 mt-0.5">Cannoga College · Ottawa, Ontario</p>
                                 </div>
