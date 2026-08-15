@@ -3,12 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "@phosphor-icons/react";
-import { Logo } from "@/components/ui/Logo";
 
 export function PreFooterBanner() {
     return (
-        <section className="bg-[#cad6ce] py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[460px] sm:min-h-[520px] md:min-h-[580px] flex flex-col justify-end p-8 sm:p-12 md:p-16 border border-white/10 shadow-2xl group">
+        <section className="bg-[#cad6ce] py-6 sm:py-10 md:py-12 px-2 sm:px-4 md:px-6">
+            <div className="max-w-[1400px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 border border-white/10 shadow-2xl">
                 
                 {/* Background Library Imagery */}
                 <Image
@@ -16,48 +15,43 @@ export function PreFooterBanner() {
                     alt="Cannoga College student reading in library"
                     fill
                     priority
-                    className="object-cover object-center transition-transform duration-1000 group-hover:scale-105"
-                    sizes="(max-width: 1280px) 100vw, 1280px"
+                    className="object-cover object-center"
+                    sizes="(max-width: 1500px) 100vw, 1500px"
                 />
 
                 {/* Dark Contrast Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/25" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
 
                 {/* Content Overlay */}
-                <div className="relative z-10 text-white max-w-4xl">
+                <div className="relative z-10 text-white max-w-5xl">
                     
-                    {/* White Cannoga Logo */}
-                    <div className="mb-6">
-                        <Logo className="h-10 md:h-12 text-white" />
-                    </div>
-
                     {/* Bold Headline */}
-                    <h2 className="text-4xl sm:text-6xl md:text-7xl font-black text-white uppercase tracking-tight leading-[0.95] mb-8 sm:mb-12 font-sans">
+                    <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[100px] font-black text-white uppercase tracking-tight leading-[0.92] mb-8 sm:mb-12 font-sans">
                         START YOUR<br />JOURNEY
                     </h2>
 
                     {/* Bottom Link Options */}
-                    <div className="flex flex-wrap items-center gap-6 sm:gap-10 md:gap-14 font-extrabold text-sm sm:text-base md:text-lg text-white uppercase tracking-wider">
+                    <div className="flex flex-wrap items-center gap-6 sm:gap-10 md:gap-14 font-extrabold text-base sm:text-xl md:text-2xl text-white uppercase tracking-wider">
                         <Link 
                             href="/about" 
-                            className="inline-flex items-center gap-2 text-white hover:text-[#c89211] transition-colors no-underline group/link"
+                            className="inline-flex items-center gap-2 text-white no-underline"
                         >
                             <span>WHY CANNOGA COLLEGE?</span>
-                            <ArrowRight size={20} weight="bold" className="group-hover/link:translate-x-1.5 transition-transform" />
+                            <ArrowRight size={24} weight="bold" />
                         </Link>
                         <Link 
                             href="/admissions/application-process" 
-                            className="inline-flex items-center gap-2 text-white hover:text-[#c89211] transition-colors no-underline group/link"
+                            className="inline-flex items-center gap-2 text-white no-underline"
                         >
                             <span>APPLY NOW</span>
-                            <ArrowRight size={20} weight="bold" className="group-hover/link:translate-x-1.5 transition-transform" />
+                            <ArrowRight size={24} weight="bold" />
                         </Link>
                         <Link 
                             href="/contact" 
-                            className="inline-flex items-center gap-2 text-white hover:text-[#c89211] transition-colors no-underline group/link"
+                            className="inline-flex items-center gap-2 text-white no-underline"
                         >
                             <span>CONTACT US</span>
-                            <ArrowRight size={20} weight="bold" className="group-hover/link:translate-x-1.5 transition-transform" />
+                            <ArrowRight size={24} weight="bold" />
                         </Link>
                     </div>
 
