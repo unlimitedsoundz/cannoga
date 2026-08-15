@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "@phosphor-icons/react";
-import { Logo } from "@/components/ui/Logo";
 
 export function PreFooterBanner() {
     return (
@@ -38,9 +37,15 @@ export function PreFooterBanner() {
                 {/* Content Overlay */}
                 <div className="relative z-10 text-white max-w-6xl">
                     
-                    {/* White Cannoga Logo */}
+                    {/* White Cannoga Logo (Non-clickable) */}
                     <div className="mb-6 md:mb-8">
-                        <Logo className="h-10 md:h-14 text-white" />
+                        <Image
+                            src="/images/logo-cannoga.png"
+                            alt="Cannoga College"
+                            width={180}
+                            height={60}
+                            className="h-10 md:h-14 w-auto object-contain brightness-0 invert"
+                        />
                     </div>
 
                     {/* Bold Headline */}
