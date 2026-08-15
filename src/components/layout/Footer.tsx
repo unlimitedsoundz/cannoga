@@ -4,6 +4,7 @@ import { Link } from "@aalto-dx/react-components"
 import { usePathname } from "next/navigation"
 import { Logo } from "@/components/ui/Logo"
 import { EnvelopeSimple, MapPin, Phone, TiktokLogo, YoutubeLogo } from "@phosphor-icons/react"
+import { PreFooterBanner } from "@/components/layout/PreFooterBanner"
 
 export function Footer() {
     const pathname = usePathname();
@@ -13,6 +14,7 @@ export function Footer() {
     if (isPortalOrAdmin) return null;
     return (
         <>
+            <PreFooterBanner />
             <footer className="bg-[#0a151a] text-white pt-16 pb-10 border-t border-white/10 font-sans">
                 {/* Main Footer Content */}
                 <div className="container mx-auto px-4 max-w-7xl">
