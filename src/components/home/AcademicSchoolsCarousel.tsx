@@ -33,12 +33,25 @@ const SCHOOL_COLOR_PALETTES = [
     { bgColor: 'bg-[#84cc16]', borderColor: 'border-[#84cc16]', waveColor: '#365314' }, // Vibrant Lime Green
 ];
 
+function getSchoolHeroImage(slug: string, dbImageUrl?: string): string {
+    const s = slug.toLowerCase();
+    if (s === 'business') return '/images/studies-hero.jpg';
+    if (s === 'science' || s === 'environmental-science') return '/images/school-of-science-hero.jpg';
+    if (s === 'health-community' || s === 'health-sciences') return '/images/health-community.jpg';
+    if (s === 'technology' || s === 'computer-science') return '/images/technology.jpg';
+    if (s === 'arts' || s === 'arts-design') return '/images/arts-design.jpg';
+    if (s === 'transportation-aviation') return '/images/transportation-aviation.jpg';
+    if (s === 'hospitality-tourism') return '/images/hospitality-tourism.jpg';
+    if (s === 'education-social-sciences') return '/images/education-social-sciences.jpg';
+    return dbImageUrl || '/images/arts-design.jpg';
+}
+
 const DEFAULT_SCHOOLS: SchoolCardItem[] = [
     {
         id: 'technology',
         title: 'SCHOOL OF TECHNOLOGY',
         href: '/schools/technology',
-        image: '/images/school-of-technology.jpg',
+        image: '/images/technology.jpg',
         bgColor: 'bg-[#6366f1]',
         borderColor: 'border-[#6366f1]',
         waveColor: '#3730a3',
@@ -47,7 +60,7 @@ const DEFAULT_SCHOOLS: SchoolCardItem[] = [
         id: 'health',
         title: 'SCHOOL OF HEALTH & COMMUNITY',
         href: '/schools/health-community',
-        image: '/images/school-of-health.jpg',
+        image: '/images/health-community.jpg',
         bgColor: 'bg-[#ec4899]',
         borderColor: 'border-[#ec4899]',
         waveColor: '#831843',
@@ -56,7 +69,7 @@ const DEFAULT_SCHOOLS: SchoolCardItem[] = [
         id: 'business',
         title: 'SCHOOL OF BUSINESS',
         href: '/schools/business',
-        image: '/images/school-of-business.jpg',
+        image: '/images/studies-hero.jpg',
         bgColor: 'bg-[#f97316]',
         borderColor: 'border-[#f97316]',
         waveColor: '#7c2d12',
@@ -65,7 +78,7 @@ const DEFAULT_SCHOOLS: SchoolCardItem[] = [
         id: 'arts',
         title: 'SCHOOL OF ARTS & DESIGN',
         href: '/schools/arts-design',
-        image: '/images/school-of-arts.jpg',
+        image: '/images/arts-design.jpg',
         bgColor: 'bg-[#10b981]',
         borderColor: 'border-[#10b981]',
         waveColor: '#064e3b',
@@ -74,7 +87,7 @@ const DEFAULT_SCHOOLS: SchoolCardItem[] = [
         id: 'science',
         title: 'SCHOOL OF SCIENCE & ENG.',
         href: '/schools/science',
-        image: '/images/school-of-science.jpg',
+        image: '/images/school-of-science-hero.jpg',
         bgColor: 'bg-[#06b6d4]',
         borderColor: 'border-[#06b6d4]',
         waveColor: '#164e63',
@@ -83,7 +96,7 @@ const DEFAULT_SCHOOLS: SchoolCardItem[] = [
         id: 'transportation',
         title: 'TRANSPORTATION & AVIATION',
         href: '/schools/transportation-aviation',
-        image: '/images/school-of-transportation.jpg',
+        image: '/images/transportation-aviation.jpg',
         bgColor: 'bg-[#8b5cf6]',
         borderColor: 'border-[#8b5cf6]',
         waveColor: '#4c1d95',
@@ -92,7 +105,7 @@ const DEFAULT_SCHOOLS: SchoolCardItem[] = [
         id: 'education',
         title: 'EDUCATION & SOCIAL SCIENCES',
         href: '/schools/education-social-sciences',
-        image: '/images/school-of-education-social-sciences.jpg',
+        image: '/images/education-social-sciences.jpg',
         bgColor: 'bg-[#ef4444]',
         borderColor: 'border-[#ef4444]',
         waveColor: '#7f1d1d',
@@ -114,7 +127,7 @@ export function AcademicSchoolsCarousel({ schools }: AcademicSchoolsCarouselProp
                 id: s.slug,
                 title: s.name.toUpperCase(),
                 href: `/schools/${s.slug}`,
-                image: s.imageUrl || DEFAULT_SCHOOLS[idx % DEFAULT_SCHOOLS.length].image,
+                image: getSchoolHeroImage(s.slug, s.imageUrl),
                 bgColor: palette.bgColor,
                 borderColor: palette.borderColor,
                 waveColor: palette.waveColor,
