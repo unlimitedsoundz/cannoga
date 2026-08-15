@@ -52,7 +52,7 @@ export function PreFooterBanner() {
                         alt="Cannoga College student reading in library"
                         fill
                         priority
-                        className="object-cover object-center"
+                        className="object-cover object-[30%_center] sm:object-center"
                         sizes="100vw"
                     />
                 </div>
