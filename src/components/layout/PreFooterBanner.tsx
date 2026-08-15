@@ -10,13 +10,24 @@ export function PreFooterBanner() {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        let ticking = false;
         const handleScroll = () => {
-            if (!containerRef.current) return;
-            const rect = containerRef.current.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            if (rect.top < windowHeight && rect.bottom > 0) {
-                const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
-                setTranslateY((scrollProgress - 0.5) * 80);
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    if (containerRef.current) {
+                        const rect = containerRef.current.getBoundingClientRect();
+                        const windowHeight = window.innerHeight;
+                        if (rect.top < windowHeight && rect.bottom > 0) {
+                            const centerY = rect.top + rect.height / 2;
+                            const viewportCenter = windowHeight / 2;
+                            const offsetFromCenter = centerY - viewportCenter;
+                            // 35% parallax movement ratio for strong visible depth
+                            setTranslateY(offsetFromCenter * 0.35);
+                        }
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
         };
 
@@ -33,7 +44,7 @@ export function PreFooterBanner() {
             >
                 {/* Parallax Background Container */}
                 <div 
-                    className="absolute -top-20 -bottom-20 left-0 right-0 w-full h-[calc(100%+10rem)] transition-transform duration-100 ease-out will-change-transform"
+                    className="absolute -top-[35%] -bottom-[35%] left-0 right-0 w-full h-[170%] will-change-transform pointer-events-none"
                     style={{ transform: `translate3d(0, ${translateY}px, 0)` }}
                 >
                     <Image
@@ -41,7 +52,7 @@ export function PreFooterBanner() {
                         alt="Cannoga College student reading in library"
                         fill
                         priority
-                        className="object-cover object-center scale-105"
+                        className="object-cover object-center scale-110"
                         sizes="100vw"
                     />
                 </div>
