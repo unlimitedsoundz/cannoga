@@ -121,6 +121,18 @@ const steps = [
   }
 ];
 
+const STEP_COLORS = [
+  '#f43f5e', // rose
+  '#f97316', // orange
+  '#eab308', // yellow
+  '#22c55e', // green
+  '#06b6d4', // cyan
+  '#6366f1', // indigo
+  '#a855f7', // purple
+  '#ec4899', // pink
+  '#10b981', // emerald
+];
+
 export default function ApplicationProcess() {
   return (
     <div className="max-w-4xl">
@@ -130,21 +142,27 @@ export default function ApplicationProcess() {
       </p>
 
       <div className="space-y-8 divide-y divide-neutral-200">
-        {steps.map((step) => (
-          <div key={step.step} className="pt-6 first:pt-0">
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-black text-white flex items-center justify-center font-bold text-xs">
-                {step.step}
-              </div>
-              <div className="flex-1">
-                <h3 className="text-base font-bold text-black mb-2">{step.title}</h3>
-                <div className="text-sm text-neutral-700 font-medium leading-relaxed">
-                  {step.content}
+        {steps.map((step) => {
+          const color = STEP_COLORS[(step.step - 1) % STEP_COLORS.length];
+          return (
+            <div key={step.step} className="pt-6 first:pt-0">
+              <div className="flex items-start gap-4">
+                <div
+                  className="flex-shrink-0 w-9 h-9 rounded-full text-white flex items-center justify-center font-black text-sm shadow-md"
+                  style={{ backgroundColor: color }}
+                >
+                  {step.step}
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-base font-bold text-black mb-2">{step.title}</h3>
+                  <div className="text-sm text-neutral-700 font-medium leading-relaxed">
+                    {step.content}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="mt-8 pt-6 border-t border-neutral-200">
