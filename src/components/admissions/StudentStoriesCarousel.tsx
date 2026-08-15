@@ -109,7 +109,7 @@ export default function StudentStoriesCarousel() {
 
                         {/* Bold Vertical Heading */}
                         <h2 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-[#1b2a4a] leading-[0.88] uppercase font-sans mb-6">
-                            MEET<br />YOUR<br />PEERS
+                            FIND<br />YOUR<br />PEOPLE
                         </h2>
                     </div>
 

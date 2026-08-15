@@ -99,7 +99,7 @@ export default async function Home() {
                 </div>
             </section>
 
-            {/* 5. MEET YOUR PEERS (COLUMBIA COLLEGE STYLE CAROUSEL) */}
+            {/* 5. FIND YOUR PEOPLE (COLUMBIA COLLEGE STYLE CAROUSEL) */}
             <section className="py-16 md:py-24 bg-white text-black overflow-hidden">
                 <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
                     <StudentStoriesCarousel />
