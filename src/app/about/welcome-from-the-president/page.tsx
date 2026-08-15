@@ -1,4 +1,5 @@
-﻿import Image from 'next/image';
+import Image from 'next/image';
+import { Quotes } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from "@/components/layout/Hero";
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
@@ -95,16 +96,24 @@ export default function WelcomeFromPresidentPage() {
                             {/* Welcome Letter */}
                             <div className="space-y-6">
 
-                                <div className="space-y-5 text-neutral-700 leading-relaxed text-base md:text-[17px]">
-                                    <p>
-                                        On behalf of our faculty, staff, and the entire Cannoga College community, it is my honour and privilege to welcome you to our institution.
-                                    </p>
-                                    <p>
-                                        Whether you are a prospective student exploring your options, a current student navigating your academic journey, or an industry partner considering collaboration I want you to know that you belong here. Cannoga College was built on the belief that career-focused, applied education has the power to change lives.
-                                    </p>
-                                    <p>
-                                        Located in the heart of Ottawa, Ontario, we sit at the intersection of government, technology, health sciences, and culture industries that define Canada's present and future. Our programs are intentionally designed to connect the classroom with the real world, and our graduates consistently enter the workforce with confidence, competence, and character.
-                                    </p>
+                                <div className="relative">
+                                    {/* Blue quote icon */}
+                                    <Quotes
+                                        size={56}
+                                        weight="fill"
+                                        className="text-blue-500 mb-3"
+                                    />
+                                    <div className="space-y-5 text-neutral-700 leading-relaxed text-base md:text-[17px] pl-2 border-l-4 border-blue-400">
+                                        <p>
+                                            On behalf of our faculty, staff, and the entire Cannoga College community, it is my honour and privilege to welcome you to our institution.
+                                        </p>
+                                        <p>
+                                            Whether you are a prospective student exploring your options, a current student navigating your academic journey, or an industry partner considering collaboration I want you to know that you belong here. Cannoga College was built on the belief that career-focused, applied education has the power to change lives.
+                                        </p>
+                                        <p>
+                                            Located in the heart of Ottawa, Ontario, we sit at the intersection of government, technology, health sciences, and culture industries that define Canada's present and future. Our programs are intentionally designed to connect the classroom with the real world, and our graduates consistently enter the workforce with confidence, competence, and character.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
