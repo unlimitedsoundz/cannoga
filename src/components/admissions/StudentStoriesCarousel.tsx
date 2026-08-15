@@ -172,8 +172,8 @@ export default function StudentStoriesCarousel() {
 
                                     {/* Top Gradient & Student Origin Banner */}
                                     <div className="absolute top-0 inset-x-0 z-10 p-5 bg-gradient-to-b from-black/85 via-black/40 to-transparent">
-                                        <span className="text-xs sm:text-sm font-black tracking-wider text-white uppercase font-sans flex items-center gap-2">
-                                            <span>{peer.flag}</span> STUDENT FROM {peer.country}
+                                        <span className="text-xs sm:text-sm font-black tracking-wider text-white uppercase font-sans">
+                                            STUDENT FROM {peer.country}
                                         </span>
                                     </div>
 
