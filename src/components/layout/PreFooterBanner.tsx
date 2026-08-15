@@ -1,14 +1,51 @@
 "use client";
 
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "@phosphor-icons/react";
 
 export function PreFooterBanner() {
+    const [translateY, setTranslateY] = useState(0);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!containerRef.current) return;
+            const rect = containerRef.current.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            if (rect.top < windowHeight && rect.bottom > 0) {
+                const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+                setTranslateY((scrollProgress - 0.5) * 80);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        handleScroll();
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
-        <section className="bg-white py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-12 relative">
-            <div className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 border border-white/10 shadow-2xl">
-                
+        <section className="bg-white py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-12 relative overflow-hidden">
+            <div 
+                ref={containerRef}
+                className="w-full max-w-[1700px] mx-auto relative rounded-none md:rounded-sm overflow-hidden min-h-[520px] sm:min-h-[620px] md:min-h-[700px] flex flex-col justify-end p-6 sm:p-12 md:p-16 border border-white/10 shadow-2xl"
+            >
+                {/* Parallax Background Container */}
+                <div 
+                    className="absolute -top-20 -bottom-20 left-0 right-0 w-full h-[calc(100%+10rem)] transition-transform duration-100 ease-out will-change-transform"
+                    style={{ transform: `translate3d(0, ${translateY}px, 0)` }}
+                >
+                    <Image
+                        src="/images/start-your-journey.jpg"
+                        alt="Cannoga College student reading in library"
+                        fill
+                        priority
+                        className="object-cover object-center scale-105"
+                        sizes="100vw"
+                    />
+                </div>
+
                 {/* Wavy Decorative Cut Element Top */}
                 <div className="absolute top-0 left-0 right-0 z-20 overflow-hidden leading-none pointer-events-none">
                     <svg 
@@ -21,18 +58,8 @@ export function PreFooterBanner() {
                     </svg>
                 </div>
 
-                {/* Background Library Imagery */}
-                <Image
-                    src="/images/start-your-journey.jpg"
-                    alt="Cannoga College student reading in library"
-                    fill
-                    priority
-                    className="object-cover object-center"
-                    sizes="100vw"
-                />
-
                 {/* Dark Contrast Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
+                <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/85 via-black/40 to-black/20 pointer-events-none" />
 
                 {/* Content Overlay */}
                 <div className="relative z-10 text-white max-w-6xl">
