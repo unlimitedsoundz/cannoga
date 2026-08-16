@@ -52,7 +52,7 @@ const LEARNING_SPACE_CARDS: LearningSpaceCard[] = [
         title: 'RESEARCH COMMONS',
         description: 'Digital research data repositories, capstone workspaces, and faculty mentorship lounges.',
         href: '/research',
-        image: '/images/school-of-science.jpg',
+        image: 'https://i.pinimg.com/736x/10/84/9c/10849c6fb5d9eced68c33c50b0a5fecd.jpg',
         bgColor: 'bg-[#f57c00]', // Warm Orange
         borderColor: 'border-[#f57c00]',
         waveColor: '#964b00',
