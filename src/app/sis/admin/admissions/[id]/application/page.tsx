@@ -461,7 +461,160 @@ export default function AdmissionApplicationPage() {
             </button>
           </div>
 
+          {/* Admission Actions */}
+          <div className="bg-[#0f2027] border border-white/10 p-5 rounded-2xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Admission Actions</h3>
+            <div className="space-y-2">
+              <button 
+                onClick={handleIssueOffer} 
+                disabled={actionLoading === 'offer'} 
+                className="w-full text-left px-3.5 py-2.5 bg-[#14232c] hover:bg-[#1a2f3b] border border-sky-500/30 hover:border-sky-400/60 rounded-xl flex items-center justify-between text-xs font-bold tracking-wide transition-all disabled:opacity-50 group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-7 h-7 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center shrink-0 group-hover:bg-sky-500/20 transition-colors">
+                    <HugeiconsIcon icon={GraduationCap} size={15} strokeWidth={2.5} className="text-sky-400" />
+                  </div>
+                  <span className="text-white font-medium truncate">Issue Offer / LOA</span>
+                </div>
+                <HugeiconsIcon icon={ArrowRight} size={13} strokeWidth={2.5} className="text-slate-500 group-hover:text-sky-400 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+              </button>
 
+              <button 
+                onClick={handleRegenerateLOA} 
+                disabled={actionLoading === 'loa'} 
+                className="w-full text-left px-3.5 py-2.5 bg-[#14232c] hover:bg-[#1a2f3b] border border-white/10 hover:border-white/20 rounded-xl flex items-center justify-between text-xs font-bold tracking-wide transition-all disabled:opacity-50 group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-white/10 transition-colors">
+                    <HugeiconsIcon icon={Printer} size={15} strokeWidth={2.5} className="text-slate-300" />
+                  </div>
+                  <span className="text-white font-medium truncate">Regenerate LOA</span>
+                </div>
+                <HugeiconsIcon icon={ArrowRight} size={13} strokeWidth={2.5} className="text-slate-500 group-hover:text-white group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+              </button>
+
+              <button 
+                onClick={handleGenerateAdmissionLetter} 
+                disabled={actionLoading === 'admission-letter'} 
+                className="w-full text-left px-3.5 py-2.5 bg-[#14232c] hover:bg-[#1a2f3b] border border-white/10 hover:border-white/20 rounded-xl flex items-center justify-between text-xs font-bold tracking-wide transition-all disabled:opacity-50 group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-white/10 transition-colors">
+                    <HugeiconsIcon icon={FileText} size={15} strokeWidth={2.5} className="text-slate-300" />
+                  </div>
+                  <span className="text-white font-medium truncate">Generate Admission Letter</span>
+                </div>
+                <HugeiconsIcon icon={ArrowRight} size={13} strokeWidth={2.5} className="text-slate-500 group-hover:text-white group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+              </button>
+
+              <button 
+                onClick={handleIssuePAL} 
+                disabled={actionLoading === 'pal'} 
+                className="w-full text-left px-3.5 py-2.5 bg-[#14232c] hover:bg-[#1a2f3b] border border-emerald-500/30 hover:border-emerald-400/60 rounded-xl flex items-center justify-between text-xs font-bold tracking-wide transition-all disabled:opacity-50 group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0 group-hover:bg-emerald-500/20 transition-colors">
+                    <HugeiconsIcon icon={Shield} size={15} strokeWidth={2.5} className="text-emerald-400" />
+                  </div>
+                  <span className="text-white font-medium truncate">Issue PAL</span>
+                </div>
+                <HugeiconsIcon icon={ArrowRight} size={13} strokeWidth={2.5} className="text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+              </button>
+
+              <button 
+                onClick={() => setShowInvoiceModal(true)} 
+                className="w-full text-left px-3.5 py-2.5 bg-[#14232c] hover:bg-[#1a2f3b] border border-amber-500/30 hover:border-amber-400/60 rounded-xl flex items-center justify-between text-xs font-bold tracking-wide transition-all group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-7 h-7 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0 group-hover:bg-amber-500/20 transition-colors">
+                    <HugeiconsIcon icon={FileText} size={15} strokeWidth={2.5} className="text-amber-400" />
+                  </div>
+                  <span className="text-white font-medium truncate">Issue Invoice</span>
+                </div>
+                <HugeiconsIcon icon={ArrowRight} size={13} strokeWidth={2.5} className="text-slate-500 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+              </button>
+
+              <button 
+                onClick={() => handleStatusUpdate('REJECTED')} 
+                disabled={actionLoading === 'status'} 
+                className="w-full text-left px-3.5 py-2.5 bg-[#1f1618] hover:bg-[#2b1b1e] border border-red-500/30 hover:border-red-500/60 rounded-xl flex items-center justify-between text-xs font-bold tracking-wide transition-all disabled:opacity-50 group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-7 h-7 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0 group-hover:bg-red-500/20 transition-colors">
+                    <HugeiconsIcon icon={XCircle} size={15} strokeWidth={2.5} className="text-red-400" />
+                  </div>
+                  <span className="text-red-300 font-medium truncate">Reject Application</span>
+                </div>
+                <HugeiconsIcon icon={ArrowRight} size={13} strokeWidth={2.5} className="text-red-500/50 group-hover:text-red-400 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+              </button>
+
+              <button 
+                onClick={() => setShowMessageForm(!showMessageForm)} 
+                disabled={actionLoading === 'message'} 
+                className="w-full text-left px-3.5 py-2.5 bg-[#14232c] hover:bg-[#1a2f3b] border border-white/10 hover:border-white/20 rounded-xl flex items-center justify-between text-xs font-bold tracking-wide transition-all disabled:opacity-50 group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-7 h-7 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center shrink-0 group-hover:bg-sky-500/20 transition-colors">
+                    <HugeiconsIcon icon={Message} size={15} strokeWidth={2.5} className="text-sky-400" />
+                  </div>
+                  <span className="text-white font-medium truncate">Send Message</span>
+                </div>
+                <HugeiconsIcon icon={ArrowRight} size={13} strokeWidth={2.5} className="text-slate-500 group-hover:text-sky-400 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+              </button>
+
+              {showMessageForm && (
+                <div className="space-y-2 pt-1">
+                  <textarea
+                    value={messageText}
+                    onChange={e => setMessageText(e.target.value)}
+                    placeholder="Type your message to the student..."
+                    className="w-full px-3.5 py-2.5 text-xs bg-[#16262e] border border-white/15 text-white placeholder:text-slate-500 focus:border-sky-500 focus:outline-none h-20 resize-none rounded-xl"
+                  />
+                  <div className="flex gap-2">
+                    <button onClick={handleSendMessage} disabled={actionLoading === 'message'} className="flex-1 px-4 py-2 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm">
+                      {actionLoading === 'message' ? 'Sending...' : 'Send'}
+                    </button>
+                    <button onClick={() => setShowMessageForm(false)} className="flex-1 px-4 py-2 bg-[#16262e] border border-white/10 text-slate-300 text-xs font-bold uppercase tracking-wider hover:bg-[#1a2f3b] transition-colors rounded-xl">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {!isEditing ? (
+                <button 
+                  onClick={handleEditRecord} 
+                  disabled={actionLoading === 'edit'} 
+                  className="w-full text-left px-3.5 py-2.5 bg-[#14232c] hover:bg-[#1a2f3b] border border-white/10 hover:border-white/20 rounded-xl flex items-center justify-between text-xs font-bold tracking-wide transition-all disabled:opacity-50 group"
+                >
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-white/10 transition-colors">
+                      <HugeiconsIcon icon={Edit} size={15} strokeWidth={2.5} className="text-slate-300" />
+                    </div>
+                    <span className="text-white font-medium truncate">Edit Record</span>
+                  </div>
+                  <HugeiconsIcon icon={ArrowRight} size={13} strokeWidth={2.5} className="text-slate-500 group-hover:text-white group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+                </button>
+              ) : (
+                <div className="space-y-2 pt-1">
+                  <textarea
+                    value={editForm?.personal_info?.statement || ''}
+                    onChange={e => setEditForm({ ...editForm, personal_info: { ...editForm.personal_info, statement: e.target.value } })}
+                    placeholder="Edit record notes..."
+                    className="w-full px-3.5 py-2.5 text-xs bg-[#16262e] border border-white/15 text-white placeholder:text-slate-500 focus:border-sky-500 focus:outline-none h-20 resize-none rounded-xl"
+                  />
+                  <div className="flex gap-2">
+                    <button onClick={handleSaveEdit} disabled={actionLoading === 'edit'} className="flex-1 px-4 py-2 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm">
+                      {actionLoading === 'edit' ? 'Saving...' : 'Save'}
+                    </button>
+                    <button onClick={() => setIsEditing(false)} className="flex-1 px-4 py-2 bg-[#16262e] border border-white/10 text-slate-300 text-xs font-bold uppercase tracking-wider hover:bg-[#1a2f3b] transition-colors rounded-xl">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
 
           {/* Student Journey Status */}
           {student && (
