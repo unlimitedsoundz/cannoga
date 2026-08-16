@@ -54,6 +54,8 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
+        site: '@CannogaCollege',
+        creator: '@CannogaCollege',
         title: 'Cannoga College Ottawa, Ontario',
         description: "Cannoga College is a career-focused college located in Ottawa, Ontario, Canada. Explore our programs, admissions, and support for international students.",
         images: ['/images/logo-cannoga.png'],
