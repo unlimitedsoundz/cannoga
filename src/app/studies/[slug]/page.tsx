@@ -451,44 +451,79 @@ export default async function CourseDetailPage({ params }: Props) {
 
                 {/* Sidebar Column: Entry Requirements & Application Action */}
                 <div className="space-y-8">
-                    {/* Admissions Card */}
-                    <div className="p-6 md:p-8 bg-slate-50/80 border border-slate-200 rounded-none sticky top-28">
-                        <h3 className="text-xl font-black text-slate-900 mb-6 tracking-tight">Admission Requirements</h3>
-                        
-                        <div className="space-y-4 text-sm text-slate-700 mb-8">
-                            <div>
-                                <p className="font-bold text-slate-900 mb-1">Academic Requirement:</p>
-                                <p className="text-slate-600 leading-normal">{c.entryRequirements || 'Ontario Secondary School Diploma (OSSD) or equivalent with senior credits.'}</p>
+                    {/* Admissions Card (AcademicSchoolsCarousel Style - Compact, No Image) */}
+                    <div className="border-4 border-[#0a151a] bg-white rounded-md overflow-hidden shadow-lg sticky top-28">
+                        {/* Top Solid Banner with Organic Wavy Edge */}
+                        <div className="bg-[#0a151a] p-5 pb-8 relative text-white">
+                            <div className="flex items-center justify-between">
+                                <span className="text-[11px] font-black uppercase tracking-widest text-[#c89211]">Admissions 2026</span>
+                                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">{c.degreeLevel || 'Diploma'} • {c.duration || '2 Years'}</span>
                             </div>
-                            <div>
-                                <p className="font-bold text-slate-900 mb-1">Minimum Admission Grade:</p>
-                                <p className="text-slate-600 leading-normal font-semibold">{c.minimumGrade || 'B- / 70% Overall Average'}</p>
-                            </div>
-                            <div>
-                                <p className="font-bold text-slate-900 mb-1">Language Proficiency:</p>
-                                <p className="text-slate-600 leading-normal">IELTS 6.0 overall (no band under 5.5) or TOEFL iBT 80. See <Link href="/student-guide/international" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">International Requirements</Link>.</p>
+                            <h3 className="text-2xl font-black uppercase tracking-tight text-white mt-1 leading-tight">
+                                Admission Requirements
+                            </h3>
+
+                            {/* Organic Wavy Cutout Bottom Divider */}
+                            <div className="absolute bottom-[-1px] left-0 right-0 h-5 overflow-hidden leading-none z-10 pointer-events-none">
+                                <svg
+                                    viewBox="0 0 1440 200"
+                                    preserveAspectRatio="none"
+                                    className="w-full h-full fill-white block"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M0,45 C320,105 640,-15 960,75 C1200,115 1380,45 1440,65 V200 H0 Z"
+                                    />
+                                </svg>
                             </div>
                         </div>
 
-                        {/* Tuition Summary Box */}
-                        <div className="p-5 bg-slate-50 rounded-none border border-slate-200 mb-8">
-                            <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Estimated Tuition (2026–2027)</p>
-                            <div className="flex justify-between items-center text-sm py-1 border-b border-slate-200">
-                                <span className="text-slate-600">Domestic Students:</span>
-                                <span className="font-bold text-slate-900">{domesticFeeFormatted} CAD / Year</span>
+                        {/* Card Body - Compact Info */}
+                        <div className="p-5 pt-3 space-y-4">
+                            <div>
+                                <p className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">Academic Requirement</p>
+                                <p className="text-xs font-medium text-slate-800 leading-relaxed mt-0.5">
+                                    {c.entryRequirements || 'Ontario Secondary School Diploma (OSSD) or equivalent with senior credits.'}
+                                </p>
                             </div>
-                            <div className="flex justify-between items-center text-sm pt-2">
-                                <span className="text-slate-600">International Students:</span>
-                                <span className="font-bold text-slate-900">{internationalFeeFormatted} CAD / Year</span>
-                            </div>
-                        </div>
 
-                        <Link
-                            href={`/portal/apply?program=${c.slug}`}
-                            className="block w-full bg-[#0a151a] text-white text-center py-4 rounded-none font-bold uppercase tracking-wider text-sm hover:bg-slate-800 transition-colors shadow-sm"
-                        >
-                            Apply Now
-                        </Link>
+                            <div className="grid grid-cols-2 gap-3 pt-2 border-t border-slate-100">
+                                <div>
+                                    <p className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">Min. Grade</p>
+                                    <p className="text-sm font-black text-slate-900 mt-0.5">{c.minimumGrade || '65% / B-'}</p>
+                                </div>
+                                <div>
+                                    <p className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">Language</p>
+                                    <p className="text-xs font-semibold text-slate-800 mt-0.5">IELTS 6.0+ / TOEFL 80</p>
+                                </div>
+                            </div>
+
+                            <p className="text-[11px] text-slate-500 pt-1">
+                                See <Link href="/student-guide/international/" className="font-bold underline text-slate-900 hover:text-sky-700">International Requirements</Link> for country equivalencies.
+                            </p>
+
+                            {/* Estimated Tuition Box */}
+                            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-sm">
+                                <p className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 mb-2">Estimated Tuition (2026–2027)</p>
+                                <div className="flex justify-between items-center text-xs py-1 border-b border-slate-200">
+                                    <span className="text-slate-600 font-medium">Domestic Students:</span>
+                                    <span className="font-extrabold text-slate-900">{domesticFeeFormatted} CAD / Yr</span>
+                                </div>
+                                <div className="flex justify-between items-center text-xs pt-1.5">
+                                    <span className="text-slate-600 font-medium">International Students:</span>
+                                    <span className="font-extrabold text-slate-900">{internationalFeeFormatted} CAD / Yr</span>
+                                </div>
+                            </div>
+
+                            {/* Apply Now Button with Carousel Arrow */}
+                            <Link
+                                href={`/portal/apply/?program=${c.slug}`}
+                                className="group w-full bg-[#0a151a] hover:bg-slate-800 text-white flex items-center justify-between p-3.5 px-5 rounded-sm font-black uppercase tracking-wider text-xs transition-all shadow-sm no-underline"
+                            >
+                                <span>Apply for this Program</span>
+                                <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                            </Link>
+                        </div>
                     </div>
 
                     {/* Program Faculty Sidebar */}
