@@ -121,26 +121,12 @@ const LOCATIONS: CampusLocation[] = [
     },
 ];
 
-const CATEGORIES = [
-    { id: 'all', label: 'All Highlights', icon: Buildings },
-    { id: 'academic', label: 'Academic Halls', icon: GraduationCap },
-    { id: 'labs', label: 'Tech & Science Labs', icon: Flask },
-    { id: 'admin', label: 'Admissions & Registry', icon: BookOpen },
-    { id: 'residence', label: 'Student Housing', icon: HouseLine },
-    { id: 'services', label: 'Dining & Library', icon: ForkKnife },
-];
-
 export function InteractiveCampusMap() {
-    const [selectedCategory, setSelectedCategory] = useState<string>('all');
     const [activeLocationId, setActiveLocationId] = useState<string>(LOCATIONS[0].id);
     const [zoomLevel, setZoomLevel] = useState<number>(1);
     const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
 
     const activeLocation = LOCATIONS.find((loc) => loc.id === activeLocationId) || LOCATIONS[0];
-
-    const filteredLocations = selectedCategory === 'all'
-        ? LOCATIONS
-        : LOCATIONS.filter((loc) => loc.category === selectedCategory);
 
     const handleZoomIn = () => setZoomLevel((prev) => Math.min(prev + 0.25, 2));
     const handleZoomOut = () => setZoomLevel((prev) => Math.max(prev - 0.25, 1));
@@ -148,38 +134,6 @@ export function InteractiveCampusMap() {
 
     return (
         <div className="w-full bg-white border border-slate-200 rounded-md overflow-hidden shadow-sm">
-            {/* Top Filter Category Bar */}
-            <div className="bg-[#0a151a] p-4 text-white flex flex-wrap items-center justify-between gap-3 border-b border-slate-800">
-                <div className="flex items-center gap-2">
-                    <NavigationArrow size={22} weight="fill" className="text-[#c89211]" />
-                    <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-100">
-                        Interactive Ottawa Campus Navigator
-                    </span>
-                </div>
-
-                {/* Categories Filter Pills */}
-                <div className="flex flex-wrap items-center gap-1.5">
-                    {CATEGORIES.map((cat) => {
-                        const Icon = cat.icon;
-                        const isActive = selectedCategory === cat.id;
-                        return (
-                            <button
-                                key={cat.id}
-                                onClick={() => setSelectedCategory(cat.id)}
-                                className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                                    isActive
-                                        ? 'bg-[#c89211] text-black shadow-sm'
-                                        : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white'
-                                }`}
-                            >
-                                <Icon size={14} weight={isActive ? 'fill' : 'regular'} />
-                                <span>{cat.label}</span>
-                            </button>
-                        );
-                    })}
-                </div>
-            </div>
-
             {/* Main Interactive Map Stage */}
             <div className="grid lg:grid-cols-12 gap-0 relative">
                 {/* Left/Main Column: Zoomable Map with Interactive Hotspots */}
@@ -237,7 +191,7 @@ export function InteractiveCampusMap() {
                         />
 
                         {/* Interactive Hotspot Pins */}
-                        {filteredLocations.map((loc) => {
+                        {LOCATIONS.map((loc) => {
                             const isSelected = activeLocationId === loc.id;
                             return (
                                 <button
