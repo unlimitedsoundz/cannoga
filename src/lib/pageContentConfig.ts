@@ -485,8 +485,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'fee_structure_content',
         label: 'Fee Structure Section',
-        defaultContent: `<p class="text-lg leading-relaxed mb-6">Tuition fees at Cannoga College depend on your degree level, field of study, and start date. The exact amount for your programme is always listed in your personal admission letter.</p>
- <div class="bg-gray-100 p-6 md:p-12 pl-6 md:pl-16 rounded-xl"><p class="font-medium">Note: Students whose right to study began on or before 1 August 2025 may have different fee levels. The tables below apply to new students starting in 2026.</p></div>`,
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Tuition fees at Cannoga College depend on your degree level, field of study, and start date. The exact amount for your programme is always listed in your personal admission letter.</p>`,
     },
     {
         pageSlug: 'admissions/tuition',
