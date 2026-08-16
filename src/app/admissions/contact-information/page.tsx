@@ -100,81 +100,61 @@ export default function AdmissionsContactInfo() {
                                 </div>
 
                                 <div className="flex flex-col gap-6 pt-2">
-                                    {/* Email */}
-                                    <div className="flex items-start gap-4">
-                                        <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
-                                            <EnvelopeSimple size={16} weight="bold" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-slate-900 font-bold text-base leading-snug">Email</h3>
-                                            <a href="mailto:admissions@cannogacollege.ca" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm mt-1 block">
-                                                admissions@cannogacollege.ca
-                                            </a>
-                                            <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
-                                                Ottawa, Ontario, Canada resident enquiries
-                                            </p>
-                                        </div>
-                                    </div>
+                                     {/* Email */}
+                                     <div>
+                                         <h3 className="text-slate-900 font-bold text-base leading-snug">Email</h3>
+                                         <a href="mailto:admissions@cannogacollege.ca" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm mt-1 block">
+                                             admissions@cannogacollege.ca
+                                         </a>
+                                         <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
+                                             Ottawa, Ontario, Canada resident enquiries
+                                         </p>
+                                     </div>
 
-                                    {/* Talk to Cannoga */}
-                                    <div className="flex items-start gap-4">
-                                        <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
-                                            <Phone size={16} weight="bold" />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <div>
-                                                <h3 className="text-slate-900 font-bold text-base leading-snug">Talk to Cannoga</h3>
-                                                <div className="mt-1 space-y-1">
-                                                    <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
-                                                    <a href="tel:+12272500427" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block">
-                                                        Talk to Admissions: +1 (227) 250-0427
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                     {/* Talk to Cannoga */}
+                                     <div className="space-y-2">
+                                         <div>
+                                             <h3 className="text-slate-900 font-bold text-base leading-snug">Talk to Cannoga</h3>
+                                             <div className="mt-1 space-y-1">
+                                                 <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
+                                                 <a href="tel:+12272500427" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block">
+                                                     Talk to Admissions: +1 (227) 250-0427
+                                                 </a>
+                                             </div>
+                                         </div>
+                                     </div>
 
-                                    {/* Where to reach us */}
-                                    <div className="flex items-start gap-4">
-                                        <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
-                                            <MapPin size={16} weight="bold" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-slate-900 font-bold text-base leading-snug">Where to reach us</h3>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2 text-sm text-slate-700">
-                                                <div>
-                                                    <h4 className="font-bold text-slate-900 text-sm">Campus Address</h4>
-                                                    <p className="leading-relaxed mt-0.5">
-                                                        Cannoga College Ottawa campus<br />
-                                                        81 Montreal Rd,<br />
-                                                        K1L 6E8 Ottawa, Ontario, Canada
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <h4 className="font-bold text-slate-900 text-sm">Mailing Address</h4>
-                                                    <p className="leading-relaxed mt-0.5">
-                                                        Cannoga College Ottawa campus<br />
-                                                        81 Montreal Rd,<br />
-                                                        K1L 6E8 Ottawa, Ontario, Canada
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                     {/* Where to reach us */}
+                                     <div>
+                                         <h3 className="text-slate-900 font-bold text-base leading-snug">Where to reach us</h3>
+                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2 text-sm text-slate-700">
+                                             <div>
+                                                 <h4 className="font-bold text-slate-900 text-sm">Campus Address</h4>
+                                                 <p className="leading-relaxed mt-0.5">
+                                                     Cannoga College Ottawa campus<br />
+                                                     81 Montreal Rd,<br />
+                                                     K1L 6E8 Ottawa, Ontario, Canada
+                                                 </p>
+                                             </div>
+                                             <div>
+                                                 <h4 className="font-bold text-slate-900 text-sm">Mailing Address</h4>
+                                                 <p className="leading-relaxed mt-0.5">
+                                                     Cannoga College Ottawa campus<br />
+                                                     81 Montreal Rd,<br />
+                                                     K1L 6E8 Ottawa, Ontario, Canada
+                                                 </p>
+                                             </div>
+                                         </div>
+                                     </div>
 
-                                    {/* Application Note */}
-                                    <div className="flex items-start gap-4 pt-2">
-                                        <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
-                                            <ArrowRight size={16} weight="bold" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-slate-900 font-bold text-base leading-snug">Application Note</h3>
-                                            <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
-                                                All formal applications must be submitted through the Cannoga College online portal during the official application periods.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                     {/* Application Note */}
+                                     <div className="pt-2">
+                                         <h3 className="text-slate-900 font-bold text-base leading-snug">Application Note</h3>
+                                         <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
+                                             All formal applications must be submitted through the Cannoga College online portal during the official application periods.
+                                         </p>
+                                     </div>
+                                 </div>
                             </section>
 
                             {/* Secondary Liftups */}
