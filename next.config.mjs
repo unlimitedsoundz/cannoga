@@ -32,9 +32,6 @@ const nextConfig = {
     trailingSlash: true,
     output: 'standalone',
     serverExternalPackages: [],
-    generateBuildId: async () => {
-        return Date.now().toString();
-    },
 
     typescript: {
         ignoreBuildErrors: true,
