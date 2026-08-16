@@ -485,7 +485,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'fee_structure_content',
         label: 'Fee Structure Section',
-        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Tuition fees at Cannoga College depend on your degree level, field of study, and start date. The exact amount for your programme is always listed in your personal admission letter.</p>`,
+        defaultContent: '',
     },
     {
         pageSlug: 'admissions/tuition',

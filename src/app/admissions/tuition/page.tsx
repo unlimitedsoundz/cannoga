@@ -166,19 +166,18 @@ export default async function TuitionPaymentPage() {
                                 <h2 className="cc-h2">How Much is the Tuition Fee?</h2>
                             </div>
                             <div className="space-y-4">
-                                <DbPageContent pageSlug={pageSlug} sectionKey="costs_intro_content" fallbackContent={getContent('costs_intro_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
-                                <DbPageContent pageSlug={pageSlug} sectionKey="fee_structure_content" fallbackContent={getContent('fee_structure_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                                <DbPageContent pageSlug={pageSlug} sectionKey="costs_intro_content" fallbackContent={getContent('costs_intro_content')} className="space-y-4 text-lg font-normal text-slate-700 leading-relaxed" />
                             </div>
 
                             <div className="w-full overflow-x-auto my-4 rounded-lg border border-neutral-200 shadow-sm bg-white">
                                 <table className="w-full table-fixed border-collapse">
                                     <thead>
                                         <tr className="bg-[#0a151a] text-white">
-                                            <th className="w-[26%] border-b border-neutral-700 px-1.5 py-2 md:px-2.5 md:py-2.5 text-left text-[11px] md:text-xs font-normal uppercase tracking-tight">Programme</th>
-                                            <th className="w-[15%] border-b border-neutral-700 px-1.5 py-2 md:px-2.5 md:py-2.5 text-left text-[11px] md:text-xs font-normal uppercase tracking-tight">Duration</th>
-                                            <th className="w-[15%] border-b border-neutral-700 px-1.5 py-2 md:px-2.5 md:py-2.5 text-left text-[11px] md:text-xs font-normal uppercase tracking-tight">Credits</th>
-                                            <th className="w-[22%] border-b border-neutral-700 px-1.5 py-2 md:px-2.5 md:py-2.5 text-right text-[11px] md:text-xs font-normal uppercase tracking-tight">Domestic<br />Students</th>
-                                            <th className="w-[22%] border-b border-neutral-700 px-1.5 py-2 md:px-2.5 md:py-2.5 text-right text-[11px] md:text-xs font-normal uppercase tracking-tight">International<br />Students</th>
+                                            <th className="w-[26%] border-b border-neutral-700 px-2 py-3 text-left text-sm font-semibold uppercase tracking-tight">Programme</th>
+                                            <th className="w-[15%] border-b border-neutral-700 px-2 py-3 text-left text-sm font-semibold uppercase tracking-tight">Duration</th>
+                                            <th className="w-[15%] border-b border-neutral-700 px-2 py-3 text-left text-sm font-semibold uppercase tracking-tight">Credits</th>
+                                            <th className="w-[22%] border-b border-neutral-700 px-2 py-3 text-right text-sm font-semibold uppercase tracking-tight">Domestic<br />Students</th>
+                                            <th className="w-[22%] border-b border-neutral-700 px-2 py-3 text-right text-sm font-semibold uppercase tracking-tight">International<br />Students</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -190,11 +189,11 @@ export default async function TuitionPaymentPage() {
                                             const international = info ? getAnnualTuition(info.international_tuition, fallback.international) : fallback.international;
                                             return (
                                                 <tr key={credentialType} className={idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50/80'}>
-                                                    <td className="border-b border-neutral-200 px-1.5 py-2 md:px-2.5 md:py-2.5 text-xs md:text-sm font-normal text-black">{display.label}</td>
-                                                    <td className="border-b border-neutral-200 px-1.5 py-2 md:px-2.5 md:py-2.5 text-xs md:text-sm font-normal text-neutral-800">{display.duration}</td>
-                                                    <td className="border-b border-neutral-200 px-1.5 py-2 md:px-2.5 md:py-2.5 text-xs md:text-sm font-normal text-neutral-800">{display.credits}</td>
-                                                    <td className="border-b border-neutral-200 px-1.5 py-2 md:px-2.5 md:py-2.5 text-xs md:text-sm font-normal text-black text-right">${domestic.toLocaleString()}<span className="text-[11px] font-normal text-neutral-600"><br />/yr</span></td>
-                                                    <td className="border-b border-neutral-200 px-1.5 py-2 md:px-2.5 md:py-2.5 text-xs md:text-sm font-normal text-[#0a151a] text-right">${international.toLocaleString()}<span className="text-[11px] font-normal text-neutral-600"><br />/yr</span></td>
+                                                    <td className="border-b border-neutral-200 px-2 py-3 text-base md:text-lg font-medium text-black">{display.label}</td>
+                                                    <td className="border-b border-neutral-200 px-2 py-3 text-base md:text-lg font-normal text-neutral-800">{display.duration}</td>
+                                                    <td className="border-b border-neutral-200 px-2 py-3 text-base md:text-lg font-normal text-neutral-800">{display.credits}</td>
+                                                    <td className="border-b border-neutral-200 px-2 py-3 text-base md:text-lg font-semibold text-black text-right">${domestic.toLocaleString()}<span className="text-xs font-normal text-neutral-600"><br />/yr</span></td>
+                                                    <td className="border-b border-neutral-200 px-2 py-3 text-base md:text-lg font-semibold text-[#0a151a] text-right">${international.toLocaleString()}<span className="text-xs font-normal text-neutral-600"><br />/yr</span></td>
                                                 </tr>
                                             );
                                         })}
@@ -205,19 +204,19 @@ export default async function TuitionPaymentPage() {
                             <div className="space-y-6 mt-8">
                                 <div>
                                     <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Certificate Program Fees</h3>
-                                    <DbPageContent pageSlug={pageSlug} sectionKey="certificate_fees_content" fallbackContent={getContent('certificate_fees_content')} className="space-y-3 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                                    <DbPageContent pageSlug={pageSlug} sectionKey="certificate_fees_content" fallbackContent={getContent('certificate_fees_content')} className="space-y-3 text-lg font-normal text-slate-700 leading-relaxed" />
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Diploma Program Fees</h3>
-                                    <DbPageContent pageSlug={pageSlug} sectionKey="diploma_fees_content" fallbackContent={getContent('diploma_fees_content')} className="space-y-3 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                                    <DbPageContent pageSlug={pageSlug} sectionKey="diploma_fees_content" fallbackContent={getContent('diploma_fees_content')} className="space-y-3 text-lg font-normal text-slate-700 leading-relaxed" />
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Bachelor's Program Fees</h3>
-                                    <DbPageContent pageSlug={pageSlug} sectionKey="bachelor_fees_content" fallbackContent={getContent('bachelor_fees_content')} className="space-y-3 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                                    <DbPageContent pageSlug={pageSlug} sectionKey="bachelor_fees_content" fallbackContent={getContent('bachelor_fees_content')} className="space-y-3 text-lg font-normal text-slate-700 leading-relaxed" />
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Master's Program Fees</h3>
-                                    <DbPageContent pageSlug={pageSlug} sectionKey="master_fees_content" fallbackContent={getContent('master_fees_content')} className="space-y-3 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                                    <DbPageContent pageSlug={pageSlug} sectionKey="master_fees_content" fallbackContent={getContent('master_fees_content')} className="space-y-3 text-lg font-normal text-slate-700 leading-relaxed" />
                                 </div>
                             </div>
                         </section>
@@ -237,10 +236,10 @@ export default async function TuitionPaymentPage() {
                             <div className="space-y-6">
                                 <div className="space-y-4">
                                     <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Continuing Merit Scholarship</h3>
-                                    <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                                    <p className="text-lg font-normal text-slate-700 leading-relaxed">
                                         Cannoga College rewards academic excellence. After the first year, international students can apply for a merit scholarship covering 50% of tuition for the next academic year:
                                     </p>
-                                    <ul className="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                                    <ul className="space-y-2 pt-1 text-lg font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
                                         <li><strong className="text-slate-900 font-bold">Academic Criteria:</strong> Complete at least 55 credits per academic year and maintain a minimum weighted GPA of 3.5 / 5.0.</li>
                                         <li><strong className="text-slate-900 font-bold">Application &amp; Review:</strong> Scholarship eligibility is automatically reviewed every August and eligible students will be notified before the autumn tuition deadline.</li>
                                     </ul>
@@ -264,14 +263,14 @@ export default async function TuitionPaymentPage() {
                                         </h3>
                                     </div>
 
-                                    <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                                    <p className="text-lg font-normal text-slate-700 leading-relaxed">
                                         For Canadian citizens, Permanent Residents (PR), and protected persons residing in Ontario, get help with the cost of your Cannoga College post-secondary education through provincial and federal student loans, non-repayable grants, and bursaries.
                                     </p>
-                                    <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                                    <p className="text-lg font-normal text-slate-700 leading-relaxed">
                                         The <strong className="text-slate-900 font-bold">Ontario Student Assistance Program (OSAP)</strong> and the National Student Loans Service Centre (NSLSC) offer flexible programs to calculate aid funding, cover educational living expenses, and assist with income-tailored loan repayment plans after graduation.
                                     </p>
 
-                                    <ul className="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                                    <ul className="space-y-2 pt-1 text-lg font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
                                         <li>
                                             <strong className="text-slate-900 font-bold">Non-Repayable Grants:</strong> Direct government funding that you do not need to pay back.
                                         </li>
@@ -283,9 +282,9 @@ export default async function TuitionPaymentPage() {
                                         </li>
                                     </ul>
 
-                                    <div className="pt-3 flex flex-wrap items-center gap-4 text-xs font-bold text-slate-900">
-                                        <Link href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank" className="underline hover:text-[#002f6c]">
-                                            Check OSAP Eligibility Criteria &rarr;
+                                    <div className="flex flex-wrap items-center gap-4 text-base font-bold text-slate-900 pt-2">
+                                        <Link href="https://www.ontario.ca/page/how-apply-osap" target="_blank" className="underline hover:text-[#002f6c]">
+                                            Learn How to Apply for OSAP &rarr;
                                         </Link>
                                         <span className="text-slate-300">•</span>
                                         <Link href="https://osap.gov.on.ca/AidEstimator2627Web/enterapp/enter.xhtml" target="_blank" className="underline hover:text-[#002f6c]">
@@ -300,28 +299,28 @@ export default async function TuitionPaymentPage() {
                             <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">How Do I Pay?</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="payment_methods_content" fallbackContent={getContent('payment_methods_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                            <DbPageContent pageSlug={pageSlug} sectionKey="payment_methods_content" fallbackContent={getContent('payment_methods_content')} className="space-y-4 text-lg font-normal text-slate-700 leading-relaxed" />
                         </section>
 
                         <section id="timing" className="scroll-mt-32 space-y-4">
                             <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">Tuition Fee Payment Schedule</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="timing_content" fallbackContent={getContent('timing_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                            <DbPageContent pageSlug={pageSlug} sectionKey="timing_content" fallbackContent={getContent('timing_content')} className="space-y-4 text-lg font-normal text-slate-700 leading-relaxed" />
                         </section>
 
                         <section id="additional-fees" className="scroll-mt-32 space-y-4">
                             <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">Additional Fees &amp; Student Benefits</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="additional_fees_content" fallbackContent={getContent('additional_fees_content')} className="space-y-6 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                            <DbPageContent pageSlug={pageSlug} sectionKey="additional_fees_content" fallbackContent={getContent('additional_fees_content')} className="space-y-6 text-lg font-normal text-slate-700 leading-relaxed" />
                         </section>
 
                         <section id="refunds" className="scroll-mt-32 space-y-4">
                             <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">Refund Policy</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="refunds_content" fallbackContent={getContent('refunds_content')} className="space-y-6 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                            <DbPageContent pageSlug={pageSlug} sectionKey="refunds_content" fallbackContent={getContent('refunds_content')} className="space-y-6 text-lg font-normal text-slate-700 leading-relaxed" />
                         </section>
 
                         <section id="faq" className="scroll-mt-32 space-y-4">
@@ -335,7 +334,7 @@ export default async function TuitionPaymentPage() {
                             <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">Need Help?</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="contact_content" fallbackContent={getContent('contact_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                            <DbPageContent pageSlug={pageSlug} sectionKey="contact_content" fallbackContent={getContent('contact_content')} className="space-y-4 text-lg font-normal text-slate-700 leading-relaxed" />
                         </section>
 
                     </main>
