@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Shared vibrant step-number circle badge.
  * Used consistently across all public-facing pages.
  */
@@ -28,7 +28,7 @@ export function StepBadge({ step, size = 'w-9 h-9', fontSize = 'text-sm' }: Step
     const color = STEP_COLORS[(step - 1) % STEP_COLORS.length];
     return (
         <div
-            className={`flex-shrink-0 ${size} rounded-full text-white flex items-center justify-center font-black ${fontSize} shadow-md`}
+            className={`flex-shrink-0 ${size} rounded-full text-white flex items-center justify-center font-black ${fontSize}`}
             style={{ backgroundColor: color }}
         >
             {step}
