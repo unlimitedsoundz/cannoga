@@ -16,13 +16,14 @@ import {
     NavigationArrow,
     Info,
     CheckCircle,
+    ArrowUpRight,
 } from '@phosphor-icons/react';
 import Link from 'next/link';
 
 interface CampusLocation {
     id: string;
     title: string;
-    buildingNumber: string;
+    shortName: string;
     x: number; // percentage from left
     y: number; // percentage from top
     description: string;
@@ -30,40 +31,16 @@ interface CampusLocation {
     hours: string;
     link: string;
     linkText: string;
+    bgColor: string;
+    borderColor: string;
     accentColor: string;
 }
 
 const LOCATIONS: CampusLocation[] = [
     {
-        id: 'business',
-        title: 'School of Business',
-        buildingNumber: 'Building B — Business',
-        x: 32,
-        y: 42,
-        description: 'Home to international commerce, corporate finance simulation rooms, accounting suites, and executive lecture theatres.',
-        facilities: ['FinTech & Analytics Lab', 'Executive Boardrooms', 'Commerce Study Commons'],
-        hours: 'Mon – Fri: 7:30 AM – 9:30 PM | Sat: 8:00 AM – 5:00 PM',
-        link: '/schools/business/',
-        linkText: 'Explore School of Business',
-        accentColor: '#f97316', // Vibrant Orange
-    },
-    {
-        id: 'technology',
-        title: 'School of Technology',
-        buildingNumber: 'Building T — Technology',
-        x: 58,
-        y: 35,
-        description: 'Advanced software engineering studios, AI research labs, cybersecurity defensive ranges, and cloud compute bays.',
-        facilities: ['AI & Machine Learning Hub', 'Cybersecurity Testbed', 'Full-Stack Software Lab'],
-        hours: 'Mon – Sun: 24/7 (Student Keycard Access)',
-        link: '/schools/technology/',
-        linkText: 'Explore School of Technology',
-        accentColor: '#6366f1', // Electric Indigo
-    },
-    {
         id: 'health-community',
         title: 'School of Health & Community',
-        buildingNumber: 'Building H — Health & Community',
+        shortName: 'Health & Community',
         x: 74,
         y: 46,
         description: 'Modern healthcare simulation clinics, practical nursing observation suites, and community support counseling rooms.',
@@ -71,12 +48,44 @@ const LOCATIONS: CampusLocation[] = [
         hours: 'Mon – Fri: 8:00 AM – 8:00 PM | Sat: 9:00 AM – 4:00 PM',
         link: '/schools/health-community/',
         linkText: 'Explore School of Health',
-        accentColor: '#ec4899', // Vibrant Hot Pink
+        bgColor: 'bg-[#ec4899]', // Vibrant Hot Pink
+        borderColor: 'border-[#ec4899]',
+        accentColor: '#ec4899',
+    },
+    {
+        id: 'business',
+        title: 'School of Business',
+        shortName: 'Business',
+        x: 32,
+        y: 42,
+        description: 'Home to international commerce, corporate finance simulation rooms, accounting suites, and executive lecture theatres.',
+        facilities: ['FinTech & Analytics Lab', 'Executive Boardrooms', 'Commerce Study Commons'],
+        hours: 'Mon – Fri: 7:30 AM – 9:30 PM | Sat: 8:00 AM – 5:00 PM',
+        link: '/schools/business/',
+        linkText: 'Explore School of Business',
+        bgColor: 'bg-[#f97316]', // Vibrant Orange
+        borderColor: 'border-[#f97316]',
+        accentColor: '#f97316',
+    },
+    {
+        id: 'technology',
+        title: 'School of Technology',
+        shortName: 'Technology',
+        x: 58,
+        y: 35,
+        description: 'Advanced software engineering studios, AI research labs, cybersecurity defensive ranges, and cloud compute bays.',
+        facilities: ['AI & Machine Learning Hub', 'Cybersecurity Testbed', 'Full-Stack Software Lab'],
+        hours: 'Mon – Sun: 24/7 (Student Keycard Access)',
+        link: '/schools/technology/',
+        linkText: 'Explore School of Technology',
+        bgColor: 'bg-[#6366f1]', // Electric Indigo
+        borderColor: 'border-[#6366f1]',
+        accentColor: '#6366f1',
     },
     {
         id: 'arts-design',
         title: 'School of Arts & Design',
-        buildingNumber: 'Building A — Arts & Design',
+        shortName: 'Arts & Design',
         x: 22,
         y: 58,
         description: 'Creative design studios, digital media workstations, exhibition galleries, and experimental fashion workshops.',
@@ -84,12 +93,14 @@ const LOCATIONS: CampusLocation[] = [
         hours: 'Mon – Sun: 7:00 AM – 10:00 PM',
         link: '/schools/arts-design/',
         linkText: 'Explore School of Arts',
-        accentColor: '#10b981', // Electric Emerald
+        bgColor: 'bg-[#10b981]', // Electric Emerald
+        borderColor: 'border-[#10b981]',
+        accentColor: '#10b981',
     },
     {
         id: 'science',
         title: 'School of Science & Engineering',
-        buildingNumber: 'Building S — Science & Eng.',
+        shortName: 'Science & Engineering',
         x: 48,
         y: 28,
         description: 'State-of-the-art biochemistry laboratories, environmental research units, and applied materials testing facilities.',
@@ -97,12 +108,14 @@ const LOCATIONS: CampusLocation[] = [
         hours: 'Mon – Fri: 8:00 AM – 9:00 PM | Sat: 9:00 AM – 5:00 PM',
         link: '/schools/science/',
         linkText: 'Explore School of Science',
-        accentColor: '#06b6d4', // Electric Cyan
+        bgColor: 'bg-[#06b6d4]', // Electric Cyan
+        borderColor: 'border-[#06b6d4]',
+        accentColor: '#06b6d4',
     },
     {
         id: 'transportation-aviation',
         title: 'School of Transportation & Aviation',
-        buildingNumber: 'Building V — Transportation',
+        shortName: 'Transportation & Aviation',
         x: 82,
         y: 28,
         description: 'Flight simulation cockpits, avionics troubleshooting bays, logistics planning centres, and propulsion test labs.',
@@ -110,12 +123,14 @@ const LOCATIONS: CampusLocation[] = [
         hours: 'Mon – Fri: 7:30 AM – 7:30 PM | Sat: 8:30 AM – 4:00 PM',
         link: '/schools/transportation-aviation/',
         linkText: 'Explore Transportation & Aviation',
-        accentColor: '#8b5cf6', // Deep Purple
+        bgColor: 'bg-[#8b5cf6]', // Deep Purple
+        borderColor: 'border-[#8b5cf6]',
+        accentColor: '#8b5cf6',
     },
     {
         id: 'education-social-sciences',
         title: 'School of Education & Social Sciences',
-        buildingNumber: 'Building E — Education',
+        shortName: 'Education & Social Sciences',
         x: 45,
         y: 65,
         description: 'Early childhood education mock classrooms, social policy research units, and interactive behavioral study labs.',
@@ -123,12 +138,14 @@ const LOCATIONS: CampusLocation[] = [
         hours: 'Mon – Fri: 8:00 AM – 8:00 PM | Sat: 9:00 AM – 3:00 PM',
         link: '/schools/education-social-sciences/',
         linkText: 'Explore Education & Social Sciences',
-        accentColor: '#ef4444', // Electric Crimson
+        bgColor: 'bg-[#ef4444]', // Electric Crimson
+        borderColor: 'border-[#ef4444]',
+        accentColor: '#ef4444',
     },
     {
         id: 'hospitality-tourism',
         title: 'School of Hospitality & Tourism',
-        buildingNumber: 'Building P — Hospitality',
+        shortName: 'Hospitality & Tourism',
         x: 36,
         y: 78,
         description: 'Culinary arts teaching kitchens, hotel operations simulation front desks, and international event management suites.',
@@ -136,7 +153,9 @@ const LOCATIONS: CampusLocation[] = [
         hours: 'Mon – Fri: 7:00 AM – 8:30 PM | Sat: 8:00 AM – 6:00 PM',
         link: '/schools/hospitality-tourism/',
         linkText: 'Explore Hospitality & Tourism',
-        accentColor: '#84cc16', // Lime Green
+        bgColor: 'bg-[#84cc16]', // Lime Green
+        borderColor: 'border-[#84cc16]',
+        accentColor: '#84cc16',
     },
 ];
 
@@ -227,7 +246,7 @@ export function InteractiveCampusMap() {
 
                                     {/* Pin Body */}
                                     <div
-                                        className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full flex items-center gap-1.5 text-xs font-black shadow-2xl transition-transform ${
+                                        className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-black shadow-2xl transition-transform ${
                                             isSelected
                                                 ? 'bg-[#0a151a] text-white ring-2 ring-[#c89211] scale-110'
                                                 : 'bg-white/95 text-slate-900 hover:scale-105 hover:bg-[#0a151a] hover:text-white'
@@ -239,7 +258,7 @@ export function InteractiveCampusMap() {
                                             style={{ color: isSelected ? '#c89211' : loc.accentColor }}
                                         />
                                         <span className="tracking-tight text-[11px] whitespace-nowrap">
-                                            {loc.buildingNumber}
+                                            {loc.shortName}
                                         </span>
                                     </div>
                                 </button>
@@ -248,66 +267,67 @@ export function InteractiveCampusMap() {
                     </div>
                 </div>
 
-                {/* Right Column: Detailed Location Card Inspector */}
-                <div className="lg:col-span-4 p-6 sm:p-8 bg-slate-50 border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col justify-between">
-                    <div>
-                        {/* Selected Location Header */}
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-[11px] font-black uppercase tracking-widest text-[#c89211] bg-slate-900 px-2.5 py-0.5 rounded-sm">
-                                {activeLocation.buildingNumber}
-                            </span>
-                            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                                Academic School
-                            </span>
-                        </div>
+                {/* Right Column: Student Resource Hub Styled Location Card Inspector */}
+                <div className="lg:col-span-4 p-4 sm:p-6 bg-slate-100/70 border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col justify-center">
+                    <div
+                        className={`w-full p-6 sm:p-7 rounded-md ${activeLocation.bgColor} ${activeLocation.borderColor} border-4 text-white overflow-hidden relative shadow-lg flex flex-col justify-between min-h-[440px]`}
+                    >
+                        <div>
+                            {/* Card Header */}
+                            <div className="flex items-center justify-between mb-3">
+                                <span className="text-[10px] font-black uppercase tracking-widest text-black bg-white/90 px-2.5 py-0.5 rounded-sm">
+                                    Academic School
+                                </span>
+                            </div>
 
-                        <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug mt-2 mb-3">
-                            {activeLocation.title}
-                        </h3>
+                            <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight leading-[1.08] mb-3">
+                                {activeLocation.title}
+                            </h3>
 
-                        <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed mb-6">
-                            {activeLocation.description}
-                        </p>
-
-                        {/* Key Facilities Checklist */}
-                        <div className="space-y-3 pt-4 border-t border-slate-200">
-                            <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
-                                <Info size={16} weight="bold" className="text-slate-600" />
-                                <span>Building Facilities & Highlights</span>
-                            </h4>
-                            <ul className="space-y-2 text-xs font-medium text-slate-700">
-                                {activeLocation.facilities.map((fac, idx) => (
-                                    <li key={idx} className="flex items-center gap-2">
-                                        <CheckCircle size={14} weight="fill" className="text-emerald-600 shrink-0" />
-                                        <span>{fac}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Operating Hours */}
-                        <div className="mt-5 p-3.5 bg-white border border-slate-200 rounded-sm">
-                            <p className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-0.5">
-                                Operating Hours & Access
+                            <p className="text-xs sm:text-sm font-medium text-white/95 leading-relaxed mb-5">
+                                {activeLocation.description}
                             </p>
-                            <p className="text-xs font-bold text-slate-800 leading-snug">
-                                {activeLocation.hours}
-                            </p>
-                        </div>
-                    </div>
 
-                    {/* Bottom Action CTA */}
-                    {activeLocation.link && (
-                        <div className="mt-8 pt-4 border-t border-slate-200">
+                            {/* Facilities Checklist */}
+                            <div className="pt-3 border-t border-white/20">
+                                <h4 className="text-[11px] font-black uppercase tracking-wider text-white/90 mb-2 flex items-center gap-1.5">
+                                    <Info size={14} weight="bold" />
+                                    <span>Building Facilities & Highlights</span>
+                                </h4>
+                                <ul className="space-y-1.5 text-xs font-medium text-white/90">
+                                    {activeLocation.facilities.map((fac, idx) => (
+                                        <li key={idx} className="flex items-center gap-2">
+                                            <CheckCircle size={14} weight="fill" className="text-white shrink-0" />
+                                            <span>{fac}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            {/* Operating Hours */}
+                            <div className="mt-4 p-3 bg-black/20 rounded-sm border border-white/15">
+                                <p className="text-[10px] font-extrabold uppercase tracking-wider text-white/75 mb-0.5">
+                                    Operating Hours & Access
+                                </p>
+                                <p className="text-xs font-bold text-white leading-snug">
+                                    {activeLocation.hours}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Bottom CTA Link with Floating Arrow */}
+                        <div className="pt-4 mt-4 border-t border-white/20">
                             <Link
                                 href={activeLocation.link}
-                                className="group w-full bg-[#0a151a] hover:bg-slate-800 text-white flex items-center justify-between p-3.5 px-5 rounded-sm font-black uppercase tracking-wider text-xs transition-all shadow-sm no-underline"
+                                className="group flex items-center justify-between text-white font-black uppercase tracking-wider text-xs sm:text-sm no-underline hover:text-slate-100"
                             >
-                                <span>{activeLocation.linkText || 'Learn More'}</span>
-                                <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                                <span className="underline">{activeLocation.linkText}</span>
+                                <div className="shrink-0 p-1.5 bg-white text-slate-900 rounded-full group-hover:scale-110 transition-transform">
+                                    <ArrowUpRight size={18} weight="bold" />
+                                </div>
                             </Link>
                         </div>
-                    )}
+                    </div>
                 </div>
             </div>
 
