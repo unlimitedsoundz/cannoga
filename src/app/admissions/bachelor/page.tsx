@@ -14,7 +14,7 @@ import { SchemaLD } from '@/components/seo/SchemaLD';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 export const metadata = {
-    title: 'Undergraduate Admissions & Bachelor\'s Entry Cannoga College',
+    title: "Undergraduate Admissions & Bachelor's Entry",
     description: 'Learn about admissions criteria, application pathways, and scholarship options for our English-taught Bachelor\'s programs.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/bachelor/',

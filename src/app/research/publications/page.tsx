@@ -4,7 +4,7 @@ import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import Link from 'next/link';
 
 export const metadata = {
-    title: 'Peer-Reviewed Academic Publications Cannoga College Ottawa',
+    title: 'Peer-Reviewed Academic Publications',
     description: 'Explore scientific journals, Canadian research publications, engineering papers, and project results published by Cannoga College faculty.',
     alternates: {
         canonical: 'https://cannogacollege.ca/research/publications/',

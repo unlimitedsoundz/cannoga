@@ -19,7 +19,7 @@ const sections = [
 ];
 
 export const metadata = {
-    title: 'Academic Admission Requirements & Criteria Cannoga College',
+    title: 'Academic Admission Requirements & Criteria',
     description: 'Find clear, step-by-step instructions on submitting your application, preparing your portfolio, tracking deadlines, and joining Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/requirements/',

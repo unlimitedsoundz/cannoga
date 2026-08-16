@@ -20,7 +20,7 @@ const sections = [
 ];
 
 export const metadata = {
-    title: 'How to Apply: Step-by-Step Admissions Guide Cannoga College',
+    title: 'How to Apply: Step-by-Step Admissions Guide',
     description: 'Find clear, step-by-step instructions on submitting your application, preparing your portfolio, tracking deadlines, and joining Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/application-process/',

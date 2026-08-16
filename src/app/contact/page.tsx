@@ -7,7 +7,7 @@ import { InteractiveCampusMap } from '@/components/campus/InteractiveCampusMap';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-    title: 'Contact Directory & General Inquiries — Cannoga College',
+    title: 'Contact Directory & General Inquiries',
     description: 'Find primary phone lines, office locations, email directories, and contact forms for administrative departments at Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/contact/',

@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/Card';
 import { ContentBox } from '@/components/ui/ContentBox';
 
 export const metadata = {
-    title: 'Connect with Current Student Ambassadors Cannoga College',
+    title: 'Connect with Current Student Ambassadors',
     description: 'Chat directly with our current student ambassadors to hear first-hand about campus culture and living in Ottawa.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-guide/chat-with-cannoga-students/',

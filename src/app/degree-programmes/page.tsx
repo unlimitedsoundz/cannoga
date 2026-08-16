@@ -13,7 +13,7 @@ const sections = [
 ];
 
 export const metadata = {
-    title: 'Academic Degree Programmes & Certifications Cannoga College',
+    title: 'Academic Degree Programmes & Certifications',
     description: 'Find your ideal learning pathway. Browse our wide selection of certified Diploma, Bachelor\'s, and Master\'s courses.',
     alternates: {
         canonical: 'https://cannogacollege.ca/degree-programmes/',

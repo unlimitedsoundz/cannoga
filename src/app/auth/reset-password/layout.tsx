@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Reset Password | Cannoga College',
+    title: 'Reset Password',
     description: 'Set a new secure password for your Cannoga College portal account.',
     robots: {
         index: false,

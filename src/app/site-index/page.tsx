@@ -3,7 +3,7 @@ import { Link } from "@aalto-dx/react-components";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
-    title: 'Complete Master Site Directory — Cannoga College',
+    title: 'Complete Master Site Directory',
     description: 'The complete directory indexing all academic schools, departments, degree programs, student guides, portals, and administrative policies across Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/site-index/',
@@ -160,7 +160,7 @@ const masterDirectory = [
     },
     {
         id: 'about-news',
-        title: '6. About Cannoga & Campus News',
+        title: '6. About & Campus News',
         description: 'Institutional background, news articles, events, and campus location details.',
         links: [
             { name: 'Our History & Campus Story', href: '/about' },

@@ -31,6 +31,7 @@ interface CampusLocation {
     hours: string;
     link: string;
     linkText: string;
+    schools?: { name: string; link: string }[];
     bgColor: string;
     borderColor: string;
     accentColor: string;
@@ -83,19 +84,28 @@ const LOCATIONS: CampusLocation[] = [
         accentColor: '#f97316',
     },
     {
-        id: 'technology',
-        title: 'School of Technology',
-        shortName: 'Technology',
-        x: 58,
-        y: 35,
-        description: 'Advanced software engineering studios, AI research labs, cybersecurity defensive ranges, and cloud compute bays.',
-        facilities: ['AI & Machine Learning Hub', 'Cybersecurity Testbed', 'Full-Stack Software Lab'],
+        id: 'science-technology',
+        title: 'Science & Technology Complex',
+        shortName: 'Science & Technology',
+        x: 54,
+        y: 32,
+        description: 'Integrated STEM academic complex housing both the School of Science & Engineering and the School of Technology. Features AI compute clusters, cybersecurity ranges, biochemistry research suites, and robotics prototyping bays.',
+        facilities: [
+            'School of Technology: AI Lab & Cyber Ranges',
+            'School of Science: Biochemistry & Materials Suites',
+            'Shared Robotics & Hardware Prototyping Workshop',
+            'Joint STEM Collaborative Lecture Theatres'
+        ],
         hours: 'Mon – Fri: 9:00 AM – 4:00 PM | Sat: 9:00 AM – 4:00 PM',
         link: '/schools/technology/',
         linkText: 'Explore School of Technology',
-        bgColor: 'bg-[#6366f1]', // Electric Indigo
-        borderColor: 'border-[#6366f1]',
-        accentColor: '#6366f1',
+        schools: [
+            { name: 'Explore School of Technology', link: '/schools/technology/' },
+            { name: 'Explore School of Science', link: '/schools/science/' }
+        ],
+        bgColor: 'bg-[#4f46e5]', // Electric Indigo
+        borderColor: 'border-[#4f46e5]',
+        accentColor: '#4f46e5',
     },
     {
         id: 'arts-design',
@@ -111,21 +121,6 @@ const LOCATIONS: CampusLocation[] = [
         bgColor: 'bg-[#10b981]', // Electric Emerald
         borderColor: 'border-[#10b981]',
         accentColor: '#10b981',
-    },
-    {
-        id: 'science',
-        title: 'School of Science & Engineering',
-        shortName: 'Science & Engineering',
-        x: 48,
-        y: 28,
-        description: 'State-of-the-art biochemistry laboratories, environmental research units, and applied materials testing facilities.',
-        facilities: ['Analytical Chemistry Lab', 'Environmental Science Unit', 'Robotics & Hardware Bay'],
-        hours: 'Mon – Fri: 9:00 AM – 4:00 PM | Sat: 9:00 AM – 4:00 PM',
-        link: '/schools/science/',
-        linkText: 'Explore School of Science',
-        bgColor: 'bg-[#06b6d4]', // Electric Cyan
-        borderColor: 'border-[#06b6d4]',
-        accentColor: '#06b6d4',
     },
     {
         id: 'transportation-aviation',
@@ -319,17 +314,34 @@ export function InteractiveCampusMap() {
                             </div>
                         </div>
 
-                        {/* Bottom CTA Link with Floating Arrow */}
+                        {/* Bottom CTA Links */}
                         <div className="pt-4 mt-4 border-t border-white/20">
-                            <Link
-                                href={activeLocation.link}
-                                className="group flex items-center justify-between text-white font-black uppercase tracking-wider text-xs sm:text-sm no-underline hover:text-slate-100"
-                            >
-                                <span className="underline">{activeLocation.linkText}</span>
-                                <div className="shrink-0 p-1.5 bg-white text-slate-900 rounded-full group-hover:scale-110 transition-transform">
-                                    <ArrowUpRight size={18} weight="bold" />
+                            {activeLocation.schools && activeLocation.schools.length > 0 ? (
+                                <div className="flex flex-col gap-2">
+                                    {activeLocation.schools.map((school, sIdx) => (
+                                        <Link
+                                            key={sIdx}
+                                            href={school.link}
+                                            className="group flex items-center justify-between text-white font-black uppercase tracking-wider text-xs sm:text-sm no-underline hover:text-slate-100 py-1"
+                                        >
+                                            <span className="underline">{school.name}</span>
+                                            <div className="shrink-0 p-1.5 bg-white text-slate-900 rounded-full group-hover:scale-110 transition-transform">
+                                                <ArrowUpRight size={16} weight="bold" />
+                                            </div>
+                                        </Link>
+                                    ))}
                                 </div>
-                            </Link>
+                            ) : (
+                                <Link
+                                    href={activeLocation.link}
+                                    className="group flex items-center justify-between text-white font-black uppercase tracking-wider text-xs sm:text-sm no-underline hover:text-slate-100"
+                                >
+                                    <span className="underline">{activeLocation.linkText}</span>
+                                    <div className="shrink-0 p-1.5 bg-white text-slate-900 rounded-full group-hover:scale-110 transition-transform">
+                                        <ArrowUpRight size={18} weight="bold" />
+                                    </div>
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>

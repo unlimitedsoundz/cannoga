@@ -6,7 +6,7 @@ import { SchemaLD } from '@/components/seo/SchemaLD';
 import { Hero } from '@/components/layout/Hero';
 
 export const metadata = {
-    title: 'Careers & Faculty Vacancies — Cannoga College Ottawa',
+    title: 'Careers & Faculty Vacancies',
     description: 'Explore academic faculty appointments, administrative positions, research fellowships, and staff career opportunities at Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/careers/',

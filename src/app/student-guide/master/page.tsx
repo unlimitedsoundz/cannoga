@@ -9,7 +9,7 @@ import { ContentBox } from '@/components/ui/ContentBox';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 export const metadata: Metadata = {
-    title: 'Postgraduate Study Guide & Reference — Cannoga College',
+    title: 'Postgraduate Study Guide & Reference',
     description: 'Guidance on academic advisor matching, thesis requirements, and credit systems for Master\'s students.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-guide/master/',

@@ -7,7 +7,7 @@ import { ContentBox } from '@/components/ui/ContentBox';
 import { CTA } from "@aalto-dx/react-modules";
 
 export const metadata = {
-    title: 'New Student Arrival & Campus Welcome Guide Cannoga College',
+    title: 'New Student Arrival & Campus Welcome Guide',
     description: 'Plan your travel and welcome week. View details on campus pickup options, initial registration steps, and orientation.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-guide/arrival/',
@@ -17,7 +17,7 @@ export const metadata = {
 const sections = [
     { id: 'before-you-arrive', title: 'Before You Arrive', content: '' },
     { id: 'arriving', title: 'Arriving in the Country', content: '' },
-    { id: 'starting', title: 'Starting at Cannoga', content: '' },
+    { id: 'starting', title: 'Starting at', content: '' },
     { id: 'living', title: 'Living & Studying', content: '' },
     { id: 'campus-life', title: 'Campus Experience', content: '' },
     { id: 'welcome', title: 'Welcome Message', content: '' },

@@ -3,7 +3,7 @@ import { ArrowLeft, FileText, CheckCircle, Warning, Envelope, ArrowRight } from 
 import { Hero } from '@/components/layout/Hero';
 
 export const metadata = {
-    title: 'Tuition Refund & Course Withdrawal Terms Cannoga College',
+    title: 'Tuition Refund & Course Withdrawal Terms',
     description: 'Review official guidelines, Canadian IRCC study permit refund policies, withdrawal deadlines, and administrative procedures for tuition and fee refunds.',
     alternates: {
         canonical: 'https://cannogacollege.ca/refund-withdrawal-policy/',

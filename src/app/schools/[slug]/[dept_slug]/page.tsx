@@ -259,7 +259,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
                         items={[
                             { label: 'Home', linkComponentProps: { href: '/' } },
                             { label: 'Schools', linkComponentProps: { href: '/schools' } },
-                            { label: school.name, linkComponentProps: { href: `/schools/${slug}` } },
+                            { label: dept.school?.name || 'School', linkComponentProps: { href: `/schools/${slug}` } },
                             { label: dept.name }
                         ]} 
                     />
@@ -297,7 +297,12 @@ export default async function DepartmentDetailPage({ params }: Props) {
                                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-sm mt-4 pt-4 border-t border-white/10">
                                                 <div>
                                                     <p className="text-white uppercase tracking-wider text-[10px] font-bold mb-1">Code</p>
-                                                    <p className="font-semibold text-white">{parseInt(course.id.substring(0, 5), 16).toString().substring(0, 5).padStart(5, '0')}</p>
+                                                    <p className="font-semibold text-white">
+                                                        {(() => {
+                                                            const digits = course.id.replace(/\D/g, '');
+                                                            return digits ? digits.substring(0, 5).padStart(5, '0') : '10101';
+                                                        })()}
+                                                    </p>
                                                 </div>
                                                 <div>
                                                     <p className="text-white uppercase tracking-wider text-[10px] font-bold mb-1">Start</p>

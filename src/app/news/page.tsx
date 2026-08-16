@@ -8,7 +8,7 @@ import { Newspaper } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from '@/components/layout/Hero';
 
 export const metadata = {
-    title: 'Newsroom, Press Releases & Event Calendar Cannoga College Ottawa',
+    title: 'Newsroom, Press Releases & Event Calendar',
     description: 'Explore current Ottawa campus news, academic research breakthroughs, official press releases, and upcoming events at Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/news/',

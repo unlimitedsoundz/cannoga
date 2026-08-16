@@ -6,7 +6,7 @@ import { TagGroup } from '@/components/ui/TagGroup';
 import { LiftupCollection } from '@aalto-dx/react-modules';
 
 export const metadata = {
-    title: 'Scientific Research, Innovation & Labs Cannoga College',
+    title: 'Scientific Research, Innovation & Labs',
     description: 'Explore research initiatives, faculty publications, and specialist laboratories driving positive global change from Ottawa.',
     alternates: {
         canonical: 'https://cannogacollege.ca/research/',

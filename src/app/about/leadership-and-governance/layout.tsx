@@ -7,7 +7,7 @@ export const metadata: Metadata = {
         canonical: 'https://cannogacollege.ca/about/leadership-and-governance/',
     },
     openGraph: {
-        title: 'Leadership & Governance | Cannoga College',
+        title: 'Leadership & Governance',
         description: 'Learn about the leadership team, Board of Governors, and senior administrative governance structure at Cannoga College.',
         url: 'https://cannogacollege.ca/about/leadership-and-governance/',
     },

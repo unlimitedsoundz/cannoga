@@ -6,7 +6,7 @@ import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
 
 export const metadata = {
-    title: 'Industry Collaborations & Strategic Partnerships Cannoga College',
+    title: 'Industry Collaborations & Strategic Partnerships',
     description: 'Partner with Cannoga College on commercial research, internships, knowledge transfer programs, and local innovations.',
     alternates: {
         canonical: 'https://cannogacollege.ca/collaboration/',

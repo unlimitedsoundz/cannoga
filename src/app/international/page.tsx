@@ -20,7 +20,7 @@ const tocSections = [
 ];
 
 export const metadata = {
-    title: 'Global Students Checklist & Resource Guide — Cannoga College',
+    title: 'Global Students Checklist & Resource Guide',
     description: 'Access pre-arrival checklists, registration guides, residency advice, and campus services tailored for international students.',
     alternates: {
         canonical: 'https://cannogacollege.ca/international/',

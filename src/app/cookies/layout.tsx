@@ -1,7 +1,7 @@
 ﻿import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Cookies & Digital Privacy Policy Cannoga College',
+    title: 'Cookies & Digital Privacy Policy',
     description: 'Read how our online systems utilize cookies to deliver personalized content, ensure security, and improve website navigation.',
 };
 

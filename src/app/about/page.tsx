@@ -12,7 +12,7 @@ import { AcademicSchoolsCarousel } from "@/components/home/AcademicSchoolsCarous
 import GuideSidebarLayout from "@/components/layout/StudentGuideLayout";
 
 export const metadata = {
-    title: 'About Us | Our Mission, History & Ottawa Campus Cannoga College',
+    title: 'About Us | Our Mission, History & Ottawa Campus',
     description: 'Learn about Cannoga College, our mission, and how we support student success and career-focused education on our Ottawa campus.',
     alternates: {
         canonical: 'https://cannogacollege.ca/about/',

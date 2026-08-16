@@ -2,7 +2,7 @@
 import { Link } from "@aalto-dx/react-components";
 
 export const metadata: Metadata = {
-    title: 'Institutional Admissions Policy — Cannoga College',
+    title: 'Institutional Admissions Policy',
     description: 'Read the official policy governing selection standards, fairness, equality, and admission decisions at Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions-policy/',

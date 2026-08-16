@@ -9,7 +9,7 @@ import { HousingOptionsHubCarousel } from '@/components/housing/HousingOptionsHu
 import { ExploreHousingCarousel } from '@/components/housing/ExploreHousingCarousel';
 
 export const metadata: Metadata = {
-    title: 'Student Housing & Residences — Cannoga College Ottawa',
+    title: 'Student Housing & Residences',
     description: 'Discover on-campus residences, homestay programs, and verified off-campus rentals in Ottawa. Complete guide to student accommodations at Cannoga College.',
     alternates: {
         canonical: 'https://cannogacollege.ca/housing/',
@@ -135,7 +135,7 @@ export default function HousingPage() {
                                 },
                                 {
                                     step: 2,
-                                    title: "Log into the Cannoga Student Housing Portal",
+                                    title: "Log into the Student Housing Portal",
                                     desc: "Access the online portal to indicate your accommodation preferences (On-Campus Residence, Homestay, or Off-Campus assistance)."
                                 },
                                 {

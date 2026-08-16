@@ -14,7 +14,7 @@ import { AcademicSchoolsCarousel } from "@/components/home/AcademicSchoolsCarous
 import { StudentResourceHubCarousel } from "@/components/home/StudentResourceHubCarousel";
 
 export const metadata: Metadata = {
-  title: 'Cannoga College | International Higher Education in Canada',
+  title: { absolute: 'Cannoga College | International Higher Education in Canada' },
   description: 'Pursue your academic and career goals at Cannoga College. We offer Degree, Diploma, and Certificate programs in Ottawa, Ontario, Canada.',
   alternates: {
     canonical: 'https://cannogacollege.ca/',

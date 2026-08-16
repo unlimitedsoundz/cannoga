@@ -6,7 +6,7 @@ import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { Highlight } from '@/components/ui/Highlight';
 
 export const metadata = {
-    title: 'Student Accommodations & Off-Campus Rentals — Cannoga College',
+    title: 'Student Accommodations & Off-Campus Rentals',
     description: 'Explore student housing options in Ottawa. Learn about university partners, average rental costs, and local neighborhoods.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-guide/housing-for-students/',

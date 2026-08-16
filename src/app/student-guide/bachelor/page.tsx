@@ -9,7 +9,7 @@ import { ContentBox } from '@/components/ui/ContentBox';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 export const metadata: Metadata = {
-    title: 'Undergraduate Student Reference Guide Cannoga College',
+    title: 'Undergraduate Student Reference Guide',
     description: 'Essential information on degree requirements, credit hours, and university systems for undergraduate students.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-guide/bachelor/',

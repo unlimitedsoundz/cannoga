@@ -2,7 +2,7 @@
 import { Link } from "@aalto-dx/react-components";
 
 export const metadata: Metadata = {
-    title: 'Community Code of Conduct & Ethics — Cannoga College',
+    title: 'Community Code of Conduct & Ethics',
     description: 'Learn about the behavioral standards, ethics, and values that guide interactions and maintain a respectful campus environment.',
     alternates: {
         canonical: 'https://cannogacollege.ca/code-of-conduct/',

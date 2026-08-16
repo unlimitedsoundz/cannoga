@@ -7,7 +7,7 @@ import GuideSidebarLayout from "@/components/layout/StudentGuideLayout";
 
 
 export const metadata = {
-    title: 'Welcome from the President | About Cannoga College',
+    title: 'Welcome from the President | About',
     description: 'A personal welcome from the President of Cannoga College, sharing our vision, values, and commitment to student success in Ottawa, Ontario.',
     alternates: {
         canonical: 'https://cannogacollege.ca/about/welcome-from-the-president/',

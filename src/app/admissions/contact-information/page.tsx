@@ -5,7 +5,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { InteractiveCampusMap } from '@/components/campus/InteractiveCampusMap';
 
 export const metadata = {
-    title: 'Admissions Contact Directory & Inquiry Desk Cannoga College',
+    title: 'Admissions Contact Directory & Inquiry Desk',
     description: 'Reach out to our admissions team for personalized guidance. Find telephone numbers, email addresses, and support hours.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/contact-information/',

@@ -3,7 +3,7 @@ import { Link } from "@aalto-dx/react-components";
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 export const metadata: Metadata = {
-    title: 'Official Student Handbook & Regulations — Cannoga College',
+    title: 'Official Student Handbook & Regulations',
     description: 'Read the official student handbook detailing code of ethics, grade appeal procedures, housing policies, and campus rules.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-handbook/',

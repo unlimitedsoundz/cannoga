@@ -7,7 +7,7 @@ import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 export const metadata = {
-    title: 'Undergraduate & Postgraduate Resources — Cannoga College',
+    title: 'Undergraduate & Postgraduate Resources',
     description: 'Browse essential student tools, links to student services, calendars, and support desks for a successful academic year.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-guide/',

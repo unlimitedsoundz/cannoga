@@ -2,7 +2,7 @@
 import { Link } from "@aalto-dx/react-components";
 
 export const metadata: Metadata = {
-    title: 'Digital Accessibility Commitment & Policy — Cannoga College',
+    title: 'Digital Accessibility Commitment & Policy',
     description: 'Read our dedication to providing accessible digital experiences, learning tools, and web platforms for all members of our community.',
     alternates: {
         canonical: 'https://cannogacollege.ca/accessibility/',
