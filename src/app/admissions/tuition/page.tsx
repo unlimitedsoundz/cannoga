@@ -236,7 +236,7 @@ export default async function TuitionPaymentPage() {
                                     <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
                                         Cannoga College rewards academic excellence. After the first year, international students can apply for a merit scholarship covering 50% of tuition for the next academic year:
                                     </p>
-                                    <ul className="space-y-3 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                                    <ul className="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
                                         <li><strong className="text-slate-900 font-bold">Academic Criteria:</strong> Complete at least 55 credits per academic year and maintain a minimum weighted GPA of 3.5 / 5.0.</li>
                                         <li><strong className="text-slate-900 font-bold">Application &amp; Review:</strong> Scholarship eligibility is automatically reviewed every August and eligible students will be notified before the autumn tuition deadline.</li>
                                     </ul>
@@ -267,7 +267,7 @@ export default async function TuitionPaymentPage() {
                                         The <strong className="text-slate-900 font-bold">Ontario Student Assistance Program (OSAP)</strong> and the National Student Loans Service Centre (NSLSC) offer flexible programs to calculate aid funding, cover educational living expenses, and assist with income-tailored loan repayment plans after graduation.
                                     </p>
 
-                                    <ul className="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                                    <ul className="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
                                         <li>
                                             <strong className="text-slate-900 font-bold">Non-Repayable Grants:</strong> Direct government funding that you do not need to pay back.
                                         </li>
@@ -327,7 +327,7 @@ export default async function TuitionPaymentPage() {
                                     <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
                                         The tuition fee includes teaching and access to modern learning facilities. Core student services are free of charge:
                                     </p>
-                                    <ul className="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                                    <ul className="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
                                         <li><strong className="text-slate-900 font-bold">Library access</strong></li>
                                         <li><strong className="text-slate-900 font-bold">Student Services</strong></li>
                                         <li><strong className="text-slate-900 font-bold">Career Services</strong></li>
@@ -341,7 +341,7 @@ export default async function TuitionPaymentPage() {
                                     <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
                                         All enrolled students are members of the Cannoga Student Association (CSA), offering advocacy, events, discounts, and community:
                                     </p>
-                                    <ul className="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                                    <ul className="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
                                         <li>Campus dining discounts</li>
                                         <li>OC Transpo U-Pass subsidy</li>
                                     </ul>
@@ -359,7 +359,7 @@ export default async function TuitionPaymentPage() {
                                     <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
                                         A full refund of paid tuition fees will be granted under the following circumstances:
                                     </p>
-                                    <ul className="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                                    <ul className="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
                                         <li>Conditional offer cancelled (conditions not met)</li>
                                         <li>Renounce study right during enrolment</li>
                                         <li>Study permit denied</li>

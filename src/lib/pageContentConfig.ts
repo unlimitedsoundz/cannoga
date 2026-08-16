@@ -267,7 +267,7 @@ export const pageContentSections: PageContentSection[] = [
 
     <div class="space-y-3 pt-2">
         <h3 class="text-xl font-bold text-slate-900 tracking-tight">Master’s Degrees Granted</h3>
-        <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
             <li><strong class="text-slate-900 font-bold">Art & Design:</strong> Master of Arts (Art & Design)</li>
             <li><strong class="text-slate-900 font-bold">Business & Economics:</strong> Master of Science (Economics & Business Administration)</li>
             <li><strong class="text-slate-900 font-bold">Technology & Engineering:</strong> Master of Science (Technology), Master of Science (Architecture), or Master of Science (Landscape Architecture)</li>
@@ -285,7 +285,7 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Scholarships Section',
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">At Cannoga College, we believe in rewarding academic excellence and supporting students through various financial aid options. Our scholarship programme is designed to help international talent thrive in Ottawa, Ontario, Canada:</p>
-    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+    <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
         <li><strong class="text-slate-900 font-bold">Merit-Based Scholarships:</strong> Awarded to top-performing applicants based on academic record.</li>
         <li><strong class="text-slate-900 font-bold">Performance Waivers:</strong> Maintain a 3.5 GPA and 55 credits/year for a 50% waiver from the 2nd year onwards.</li>
     </ul>
@@ -300,12 +300,12 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Eligibility Section',
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">To be eligible for Master's degree studies at Cannoga College, applicants must meet the following baseline requirements:</p>
-    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+    <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
         <li>Hold a Bachelor’s degree (180 ECTS credits / 3-4 year degree) or equivalent recognized credential.</li>
         <li>Degree must enable eligibility for Master’s study in the awarding country.</li>
         <li>Only long-cycle degrees are considered in place of a Bachelor’s.</li>
     </ul>
-    <p class="text-xs sm:text-sm font-bold text-slate-900 pt-2"><strong class="text-amber-800">Important:</strong> Previous Master’s degrees alone do not qualify you for admission without a recognized Bachelor's foundation.</p>
+    <p class="text-xs sm:text-sm font-bold text-slate-900 pt-1"><strong class="text-amber-800">Important:</strong> Previous Master’s degrees alone do not qualify you for admission without a recognized Bachelor's foundation.</p>
 </div>`,
     },
     {
@@ -314,7 +314,7 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Field Requirements Section',
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Depending on your chosen faculty, specific subject prerequisites apply:</p>
-    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+    <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
         <li><strong class="text-slate-900 font-bold">Art and Design:</strong> Applicants without a formal Bachelor’s degree may apply if they demonstrate equivalent skills through portfolios, work experience, or accredited design studies.</li>
         <li><strong class="text-slate-900 font-bold">Business and Economics:</strong> Quantitative background required; some programmes require official GMAT or GRE scores.</li>
         <li><strong class="text-slate-900 font-bold">Technology &amp; Engineering:</strong> Requires relevant coursework in mathematics, physics, computer programming, or engineering design.</li>
@@ -328,7 +328,7 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Incomplete Degree Section',
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">You may apply before your Bachelor’s degree is officially completed if you are on track to graduate by 31 July 2026:</p>
-    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+    <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
         <li>Admission is conditional upon submission of certified final degree documents and official transcripts within 14 days of your admission decision.</li>
         <li>Failure to submit official graduation certificates by the specified deadline will result in cancellation of the offer.</li>
     </ul>
@@ -341,7 +341,7 @@ export const pageContentSections: PageContentSection[] = [
         defaultContent: `<div class="space-y-6">
     <div class="space-y-3">
         <h3 class="text-xl font-bold text-slate-900 tracking-tight">1. Prepare in Advance</h3>
-        <ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
             <li>Check programme-specific eligibility and entry deadlines.</li>
             <li>Prepare official certified academic documents and English translations.</li>
             <li>Schedule language proficiency tests and GMAT/GRE if required.</li>
@@ -350,7 +350,7 @@ export const pageContentSections: PageContentSection[] = [
     
     <div class="space-y-3">
         <h3 class="text-xl font-bold text-slate-900 tracking-tight">2. Fill in the Online Application 2026</h3>
-        <ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
             <li><strong class="text-slate-900 font-bold">September Intake:</strong> Apply October – February</li>
             <li><strong class="text-slate-900 font-bold">January Intake:</strong> Apply June – September</li>
             <li>Submit only one application form per candidate (can rank up to two programmes).</li>
@@ -360,7 +360,7 @@ export const pageContentSections: PageContentSection[] = [
 
     <div class="space-y-3">
         <h3 class="text-xl font-bold text-slate-900 tracking-tight">3. Application Fee</h3>
-        <ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
             <li><strong class="text-slate-900 font-bold">International Applicants:</strong> Free ($0 Application Fee)</li>
             <li><strong class="text-slate-900 font-bold">Domestic Applicants (Canada &amp; PR):</strong> Free ($0 Application Fee)</li>
         </ul>
@@ -369,7 +369,7 @@ export const pageContentSections: PageContentSection[] = [
     <div class="space-y-3">
         <h3 class="text-xl font-bold text-slate-900 tracking-tight">4. Upload Required Documents</h3>
         <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Submit all documents in clear PDF format through your portal. Late documents may delay evaluation decisions:</p>
-        <ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
             <li>Bachelor’s degree diploma &amp; official transcript of records</li>
             <li>Proof of English language proficiency</li>
             <li>Valid international passport identification page</li>
@@ -385,7 +385,7 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Required Documents Section',
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Ensure all submitted documentation conforms to official verification standards:</p>
-    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+    <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
         <li><strong class="text-slate-900 font-bold">Certified Educational Documents:</strong> Must be submitted after admission decision by 13 May or 14 August 2026.</li>
         <li><strong class="text-slate-900 font-bold">Certified Translations:</strong> All non-English documents require official certified translations provided by authorized translators.</li>
         <li><strong class="text-slate-900 font-bold">Passport Identification:</strong> High-resolution color PDF of your passport personal details page.</li>
@@ -398,7 +398,7 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Language Requirements Section',
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">English language proficiency is mandatory for all Master’s programmes taught in English. Demonstrate your skills via an accepted language test or previous qualifying degree:</p>
-    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+    <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
         <li><strong class="text-slate-900 font-bold">Accepted Standardized Tests:</strong> IELTS Academic (min 6.5 overall, 6.0 in writing), TOEFL iBT (min 92), PTE Academic (min 62), or Cambridge C1 Advanced / C2 Proficiency.</li>
         <li><strong class="text-slate-900 font-bold">Exemption Criteria:</strong> Applicants who completed a secondary or higher education degree taught entirely in English in Canada, the United States, the UK, Australia, or New Zealand.</li>
     </ul>
@@ -410,7 +410,7 @@ export const pageContentSections: PageContentSection[] = [
         label: 'GMAT / GRE Section',
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Certain programmes within the School of Business &amp; Economics require a standardized quantitative examination score:</p>
-    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+    <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
         <li><strong class="text-slate-900 font-bold">GMAT Focus Edition:</strong> Minimum score of 555</li>
         <li><strong class="text-slate-900 font-bold">GRE General Test:</strong> Equivalent score percentile in Quantitative and Verbal sections accepted.</li>
     </ul>
@@ -423,7 +423,7 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Decisions Section',
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Only complete applications are evaluated based on programme-specific academic criteria. Decision results are published within less than a week of submitting your application:</p>
-    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+    <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
         <li><strong class="text-slate-900 font-bold">Direct Offers:</strong> Sent electronically to your registered email and student portal account.</li>
         <li><strong class="text-slate-900 font-bold">Waiting List Procedure:</strong> Places on the waiting list may be offered until 26 June 2026. Keep an eye on your email for updates.</li>
     </ul>
@@ -435,7 +435,7 @@ export const pageContentSections: PageContentSection[] = [
         label: 'After Admission Section',
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Once you receive your Letter of Acceptance, complete the following onboarding steps to secure your study place:</p>
-    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+    <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
         <li>Accept your offer in the student portal before the stated deadline.</li>
         <li>Submit certified degree documents and final transcripts.</li>
         <li>Pay tuition fees and obtain your Provincial Attestation Letter (PAL).</li>
