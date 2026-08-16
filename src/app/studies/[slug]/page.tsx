@@ -392,27 +392,27 @@ export default async function CourseDetailPage({ params }: Props) {
                         </div>
                         
                         <div className="overflow-hidden border border-slate-200 rounded-none">
-                            <table className="w-full text-left text-sm border-collapse">
-                                <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 uppercase tracking-wider text-[11px] font-bold">
+                            <table className="w-full text-left text-sm border-collapse font-normal">
+                                <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase tracking-wider text-[11px] font-medium">
                                     <tr>
-                                        <th className="p-3.5 px-4">Code</th>
-                                        <th className="p-3.5 px-4">Area</th>
-                                        <th className="p-3.5 px-4">Course Title</th>
-                                        <th className="p-3.5 px-4">Credits</th>
-                                        <th className="p-3.5 px-4">Prerequisite / Eligibility</th>
+                                        <th className="p-3.5 px-4 font-medium">Code</th>
+                                        <th className="p-3.5 px-4 font-medium">Area</th>
+                                        <th className="p-3.5 px-4 font-medium">Course Title</th>
+                                        <th className="p-3.5 px-4 font-medium">Credits</th>
+                                        <th className="p-3.5 px-4 font-medium">Prerequisite / Eligibility</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">
                                     {(c.subjects && c.subjects.length > 0 ? c.subjects : getDetailedSubjects(slug, c.title)).map((subject: any) => (
-                                        <tr key={subject.id} className="hover:bg-slate-50 transition-colors">
-                                            <td className="p-3.5 px-4 font-mono font-bold text-slate-900 text-xs">{subject.code || 'CAN-100'}</td>
-                                            <td className="p-3.5 px-4 font-semibold text-slate-700 text-xs">{subject.area || 'Core'}</td>
+                                        <tr key={subject.id} className="hover:bg-slate-50 transition-colors text-slate-700 font-normal">
+                                            <td className="p-3.5 px-4 font-mono text-slate-700 text-xs font-normal">{subject.code || 'CAN-100'}</td>
+                                            <td className="p-3.5 px-4 text-slate-600 text-xs font-normal">{subject.area || 'Core'}</td>
                                             <td className="p-3.5 px-4">
-                                                <div className="font-bold text-slate-900 text-sm">{subject.name}</div>
-                                                {subject.semester && <div className="text-[11px] font-medium text-slate-400 mt-0.5">Semester {subject.semester}</div>}
+                                                <div className="text-slate-900 text-sm font-normal">{subject.name}</div>
+                                                {subject.semester && <div className="text-[11px] text-slate-400 mt-0.5 font-normal">Semester {subject.semester}</div>}
                                             </td>
-                                            <td className="p-3.5 px-4 font-bold text-slate-900">{subject.creditUnits || 6} CR</td>
-                                            <td className="p-3.5 px-4 text-slate-600 font-medium text-xs">{subject.eligibility || 'Open Enrollment'}</td>
+                                            <td className="p-3.5 px-4 text-slate-700 font-normal">{subject.creditUnits || 6} CR</td>
+                                            <td className="p-3.5 px-4 text-slate-600 text-xs font-normal">{subject.eligibility || 'Open Enrollment'}</td>
                                         </tr>
                                     ))}
                                 </tbody>
