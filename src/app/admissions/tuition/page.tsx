@@ -1,4 +1,4 @@
-﻿import { Link } from '@/components/ui/Link';
+import { Link } from '@/components/ui/Link';
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
@@ -225,17 +225,79 @@ export default async function TuitionPaymentPage() {
 
                         <section id="merit-scholarship" className="scroll-mt-32">
                             <div className="cc-section-divider">
-                                <h2 className="cc-h2">Merit Scholarship</h2>
+                                <h2 className="cc-h2">Merit Scholarships &amp; Financial Aid</h2>
                             </div>
-                            <div className="space-y-4">
+                            <div className="space-y-6">
                                 <DbPageContent pageSlug={pageSlug} sectionKey="merit_scholarship_content" fallbackContent={getSectionDefault('merit_scholarship_content')} />
-                                <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6">
-                                    <h3 className="text-lg font-bold text-black mb-2">Apply for OSAP / student financial aid</h3>
-                                    <p className="text-sm text-neutral-600 mb-4">If you are eligible for Canadian student financial aid, you can start your application directly through the official provincial portal.</p>
+                                
+                                {/* OSAP / ONTARIO STUDENT FINANCIAL AID CARD */}
+                                <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
+                                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+                                        <div className="flex items-center gap-4">
+                                            {/* OSAP Emblem / Logo */}
+                                            <div className="w-14 h-14 rounded-lg bg-[#002f6c] text-white flex flex-col items-center justify-center font-black tracking-tight shadow-sm shrink-0 border border-[#00204d]">
+                                                <span className="text-xs uppercase tracking-widest text-[#f5a623] leading-none mb-0.5">Ontario</span>
+                                                <span className="text-base font-black tracking-tighter leading-none">OSAP</span>
+                                            </div>
+                                            <div>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-[10px] font-black uppercase tracking-widest bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-sm">
+                                                        Government of Ontario
+                                                    </span>
+                                                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                                                        Financial Assistance
+                                                    </span>
+                                                </div>
+                                                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-1">
+                                                    Ontario Student Assistance Program (OSAP)
+                                                </h3>
+                                            </div>
+                                        </div>
 
-                                    <Link href="https://www.ontario.ca/osap" target="_blank" className="inline-flex items-center gap-2 text-sm font-semibold text-black underline">
-                                        Go to OSAP <ArrowRight size={16} weight="bold" />
-                                    </Link>
+                                        <Link
+                                            href="https://www.ontario.ca/osap"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 bg-[#002f6c] hover:bg-[#001f48] text-white text-xs font-black uppercase tracking-wider px-5 py-3 rounded-md transition-colors shrink-0 shadow-sm no-underline"
+                                        >
+                                            <span>Apply on OSAP</span>
+                                            <ArrowRight size={16} weight="bold" />
+                                        </Link>
+                                    </div>
+
+                                    <div className="pt-6 space-y-4 text-slate-700">
+                                        <p className="text-sm sm:text-base font-medium leading-relaxed">
+                                            For Canadian citizens, Permanent Residents (PR), and protected persons residing in Ontario, get help with the cost of your Cannoga College post-secondary education through provincial and federal student loans, non-repayable grants, and bursaries.
+                                        </p>
+                                        <p className="text-sm sm:text-base font-medium leading-relaxed">
+                                            The <strong className="text-slate-900 font-bold">Ontario Student Assistance Program (OSAP)</strong> and the National Student Loans Service Centre (NSLSC) offer flexible programs to calculate aid funding, cover educational living expenses, and assist with income-tailored loan repayment plans after graduation.
+                                        </p>
+
+                                        <div className="grid sm:grid-cols-3 gap-3 pt-2">
+                                            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-md">
+                                                <p className="text-[11px] font-black uppercase tracking-wider text-[#002f6c] mb-1">Non-Repayable Grants</p>
+                                                <p className="text-xs text-slate-600 font-medium leading-normal">Direct government funding that you do not need to pay back.</p>
+                                            </div>
+                                            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-md">
+                                                <p className="text-[11px] font-black uppercase tracking-wider text-[#002f6c] mb-1">Student Loans</p>
+                                                <p className="text-xs text-slate-600 font-medium leading-normal">Interest-free funding throughout your full-time period of study.</p>
+                                            </div>
+                                            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-md">
+                                                <p className="text-[11px] font-black uppercase tracking-wider text-[#002f6c] mb-1">Repayment Assistance</p>
+                                                <p className="text-xs text-slate-600 font-medium leading-normal">Repayment Assistance Plan (RAP) based on income after graduation.</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-bold text-slate-900">
+                                            <Link href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#002f6c]">
+                                                Check OSAP Eligibility Criteria &rarr;
+                                            </Link>
+                                            <span className="text-slate-300">•</span>
+                                            <Link href="https://osap.gov.on.ca/AidEstimator2627Web/enterapp/enter.xhtml" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#002f6c]">
+                                                Estimate OSAP Aid Amount &rarr;
+                                            </Link>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </section>
