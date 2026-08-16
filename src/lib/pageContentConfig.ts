@@ -497,24 +497,24 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Certificate Fees Section',
         defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">Annual tuition fee and deposit for Certificate programs (6 months – 1 year)</p>
 <div class="w-full overflow-x-auto my-3 rounded-lg border border-neutral-200 shadow-sm bg-white">
-    <table class="w-full table-fixed border-collapse">
+    <table class="w-full min-w-[500px] table-fixed border-collapse">
         <thead>
             <tr class="bg-[#0a151a] text-white">
-                <th class="w-1/3 border-b border-neutral-700 px-3 py-2.5 text-left text-xs md:text-sm font-semibold uppercase tracking-tight">Student Residency</th>
-                <th class="w-1/3 border-b border-neutral-700 px-3 py-2.5 text-right text-xs md:text-sm font-semibold uppercase tracking-tight">Tuition Fee / yr</th>
-                <th class="w-1/3 border-b border-neutral-700 px-3 py-2.5 text-right text-xs md:text-sm font-semibold uppercase tracking-tight">Tuition Deposit</th>
+                <th class="w-1/2 border-b border-neutral-700 px-4 py-3 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Student Residency</th>
+                <th class="w-1/4 border-b border-neutral-700 px-4 py-3 text-right text-xs md:text-sm font-bold uppercase tracking-wider">Tuition Fee / yr</th>
+                <th class="w-1/4 border-b border-neutral-700 px-4 py-3 text-right text-xs md:text-sm font-bold uppercase tracking-wider">Tuition Deposit</th>
             </tr>
         </thead>
         <tbody class="divide-y divide-neutral-200">
-            <tr class="bg-white hover:bg-neutral-50/80">
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-medium text-black">Domestic Students</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-semibold text-black text-right">CAD $2,400</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-normal text-neutral-800 text-right">CAD $2,000</td>
+            <tr class="bg-white hover:bg-neutral-50/60">
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 text-right align-middle">CAD $2,400</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-normal text-slate-700 text-right align-middle">CAD $2,000</td>
             </tr>
-            <tr class="bg-neutral-50/80 hover:bg-neutral-50">
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-medium text-black">International Students</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-semibold text-[#0a151a] text-right">CAD $4,000</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-normal text-neutral-800 text-right">CAD $2,000</td>
+            <tr class="bg-neutral-50/80 hover:bg-neutral-100/60">
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 align-middle">International Students</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-[#0a151a] text-right align-middle">CAD $4,000</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-normal text-slate-700 text-right align-middle">CAD $2,000</td>
             </tr>
         </tbody>
     </table>
@@ -526,24 +526,24 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Diploma Fees Section',
         defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">Annual tuition fee and deposit for Diploma and Advanced Diploma programs (2 – 3 years)</p>
 <div class="w-full overflow-x-auto my-3 rounded-lg border border-neutral-200 shadow-sm bg-white">
-    <table class="w-full table-fixed border-collapse">
+    <table class="w-full min-w-[500px] table-fixed border-collapse">
         <thead>
             <tr class="bg-[#0a151a] text-white">
-                <th class="w-1/3 border-b border-neutral-700 px-3 py-2.5 text-left text-xs md:text-sm font-semibold uppercase tracking-tight">Student Residency</th>
-                <th class="w-1/3 border-b border-neutral-700 px-3 py-2.5 text-right text-xs md:text-sm font-semibold uppercase tracking-tight">Tuition Fee / yr</th>
-                <th class="w-1/3 border-b border-neutral-700 px-3 py-2.5 text-right text-xs md:text-sm font-semibold uppercase tracking-tight">Tuition Deposit</th>
+                <th class="w-1/2 border-b border-neutral-700 px-4 py-3 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Student Residency</th>
+                <th class="w-1/4 border-b border-neutral-700 px-4 py-3 text-right text-xs md:text-sm font-bold uppercase tracking-wider">Tuition Fee / yr</th>
+                <th class="w-1/4 border-b border-neutral-700 px-4 py-3 text-right text-xs md:text-sm font-bold uppercase tracking-wider">Tuition Deposit</th>
             </tr>
         </thead>
         <tbody class="divide-y divide-neutral-200">
-            <tr class="bg-white hover:bg-neutral-50/80">
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-medium text-black">Domestic Students</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-semibold text-black text-right">CAD $2,400</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-normal text-neutral-800 text-right">CAD $2,000</td>
+            <tr class="bg-white hover:bg-neutral-50/60">
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 text-right align-middle">CAD $2,400</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-normal text-slate-700 text-right align-middle">CAD $2,000</td>
             </tr>
-            <tr class="bg-neutral-50/80 hover:bg-neutral-50">
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-medium text-black">International Students</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-semibold text-[#0a151a] text-right">CAD $4,000</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-normal text-neutral-800 text-right">CAD $2,000</td>
+            <tr class="bg-neutral-50/80 hover:bg-neutral-100/60">
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 align-middle">International Students</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-[#0a151a] text-right align-middle">CAD $4,000</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-normal text-slate-700 text-right align-middle">CAD $2,000</td>
             </tr>
         </tbody>
     </table>
@@ -555,24 +555,24 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Bachelor Fees Section',
         defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">Annual tuition fee and deposit for Bachelor's degree programs (4-year programs)</p>
 <div class="w-full overflow-x-auto my-3 rounded-lg border border-neutral-200 shadow-sm bg-white">
-    <table class="w-full table-fixed border-collapse">
+    <table class="w-full min-w-[500px] table-fixed border-collapse">
         <thead>
             <tr class="bg-[#0a151a] text-white">
-                <th class="w-1/3 border-b border-neutral-700 px-3 py-2.5 text-left text-xs md:text-sm font-semibold uppercase tracking-tight">Student Residency</th>
-                <th class="w-1/3 border-b border-neutral-700 px-3 py-2.5 text-right text-xs md:text-sm font-semibold uppercase tracking-tight">Tuition Fee / yr</th>
-                <th class="w-1/3 border-b border-neutral-700 px-3 py-2.5 text-right text-xs md:text-sm font-semibold uppercase tracking-tight">Tuition Deposit</th>
+                <th class="w-1/2 border-b border-neutral-700 px-4 py-3 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Student Residency</th>
+                <th class="w-1/4 border-b border-neutral-700 px-4 py-3 text-right text-xs md:text-sm font-bold uppercase tracking-wider">Tuition Fee / yr</th>
+                <th class="w-1/4 border-b border-neutral-700 px-4 py-3 text-right text-xs md:text-sm font-bold uppercase tracking-wider">Tuition Deposit</th>
             </tr>
         </thead>
         <tbody class="divide-y divide-neutral-200">
-            <tr class="bg-white hover:bg-neutral-50/80">
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-medium text-black">Domestic Students</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-semibold text-black text-right">CAD $4,000</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-normal text-neutral-800 text-right">CAD $2,000</td>
+            <tr class="bg-white hover:bg-neutral-50/60">
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 text-right align-middle">CAD $4,000</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-normal text-slate-700 text-right align-middle">CAD $2,000</td>
             </tr>
-            <tr class="bg-neutral-50/80 hover:bg-neutral-50">
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-medium text-black">International Students</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-semibold text-[#0a151a] text-right">CAD $6,400</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-normal text-neutral-800 text-right">CAD $2,000</td>
+            <tr class="bg-neutral-50/80 hover:bg-neutral-100/60">
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 align-middle">International Students</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-[#0a151a] text-right align-middle">CAD $6,400</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-normal text-slate-700 text-right align-middle">CAD $2,000</td>
             </tr>
         </tbody>
     </table>
@@ -584,24 +584,24 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Master Fees Section',
         defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">Annual tuition fee and deposit for Master's degree programs (2-year programs)</p>
 <div class="w-full overflow-x-auto my-3 rounded-lg border border-neutral-200 shadow-sm bg-white">
-    <table class="w-full table-fixed border-collapse">
+    <table class="w-full min-w-[500px] table-fixed border-collapse">
         <thead>
             <tr class="bg-[#0a151a] text-white">
-                <th class="w-1/3 border-b border-neutral-700 px-3 py-2.5 text-left text-xs md:text-sm font-semibold uppercase tracking-tight">Student Residency</th>
-                <th class="w-1/3 border-b border-neutral-700 px-3 py-2.5 text-right text-xs md:text-sm font-semibold uppercase tracking-tight">Tuition Fee / yr</th>
-                <th class="w-1/3 border-b border-neutral-700 px-3 py-2.5 text-right text-xs md:text-sm font-semibold uppercase tracking-tight">Tuition Deposit</th>
+                <th class="w-1/2 border-b border-neutral-700 px-4 py-3 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Student Residency</th>
+                <th class="w-1/4 border-b border-neutral-700 px-4 py-3 text-right text-xs md:text-sm font-bold uppercase tracking-wider">Tuition Fee / yr</th>
+                <th class="w-1/4 border-b border-neutral-700 px-4 py-3 text-right text-xs md:text-sm font-bold uppercase tracking-wider">Tuition Deposit</th>
             </tr>
         </thead>
         <tbody class="divide-y divide-neutral-200">
-            <tr class="bg-white hover:bg-neutral-50/80">
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-medium text-black">Domestic Students</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-semibold text-black text-right">CAD $5,600</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-normal text-neutral-800 text-right">CAD $2,000</td>
+            <tr class="bg-white hover:bg-neutral-50/60">
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 text-right align-middle">CAD $5,600</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-normal text-slate-700 text-right align-middle">CAD $2,000</td>
             </tr>
-            <tr class="bg-neutral-50/80 hover:bg-neutral-50">
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-medium text-black">International Students</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-semibold text-[#0a151a] text-right">CAD $9,600</td>
-                <td class="border-b border-neutral-200 px-3 py-2.5 text-sm md:text-base font-normal text-neutral-800 text-right">CAD $2,000</td>
+            <tr class="bg-neutral-50/80 hover:bg-neutral-100/60">
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 align-middle">International Students</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-semibold text-[#0a151a] text-right align-middle">CAD $9,600</td>
+                <td class="px-4 py-3.5 text-sm md:text-base font-normal text-slate-700 text-right align-middle">CAD $2,000</td>
             </tr>
         </tbody>
     </table>

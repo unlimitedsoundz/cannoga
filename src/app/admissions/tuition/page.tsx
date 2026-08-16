@@ -170,17 +170,17 @@ export default async function TuitionPaymentPage() {
                             </div>
 
                             <div className="w-full overflow-x-auto my-4 rounded-lg border border-neutral-200 shadow-sm bg-white">
-                                <table className="w-full table-fixed border-collapse">
+                                <table className="w-full min-w-[640px] table-fixed border-collapse">
                                     <thead>
                                         <tr className="bg-[#0a151a] text-white">
-                                            <th className="w-[26%] border-b border-neutral-700 px-2 py-3 text-left text-sm font-semibold uppercase tracking-tight">Programme</th>
-                                            <th className="w-[15%] border-b border-neutral-700 px-2 py-3 text-left text-sm font-semibold uppercase tracking-tight">Duration</th>
-                                            <th className="w-[15%] border-b border-neutral-700 px-2 py-3 text-left text-sm font-semibold uppercase tracking-tight">Credits</th>
-                                            <th className="w-[22%] border-b border-neutral-700 px-2 py-3 text-right text-sm font-semibold uppercase tracking-tight">Domestic<br />Students</th>
-                                            <th className="w-[22%] border-b border-neutral-700 px-2 py-3 text-right text-sm font-semibold uppercase tracking-tight">International<br />Students</th>
+                                            <th className="w-[30%] border-b border-neutral-700 px-4 py-3 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Programme</th>
+                                            <th className="w-[18%] border-b border-neutral-700 px-4 py-3 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Duration</th>
+                                            <th className="w-[14%] border-b border-neutral-700 px-4 py-3 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Credits</th>
+                                            <th className="w-[19%] border-b border-neutral-700 px-4 py-3 text-right text-xs md:text-sm font-bold uppercase tracking-wider">Domestic</th>
+                                            <th className="w-[19%] border-b border-neutral-700 px-4 py-3 text-right text-xs md:text-sm font-bold uppercase tracking-wider">International</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody className="divide-y divide-neutral-200">
                                         {['CERTIFICATE', 'DIPLOMA', 'BACHELOR', 'MASTER'].map((credentialType, idx) => {
                                             const info = tuitionRates.find((t: any) => t.credential_type === credentialType);
                                             const display = credentialDisplay[credentialType] || { label: credentialType, duration: '—', credits: '—' };
@@ -188,12 +188,12 @@ export default async function TuitionPaymentPage() {
                                             const domestic = info ? getAnnualTuition(info.domestic_tuition, fallback.domestic) : fallback.domestic;
                                             const international = info ? getAnnualTuition(info.international_tuition, fallback.international) : fallback.international;
                                             return (
-                                                <tr key={credentialType} className={idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50/80'}>
-                                                    <td className="border-b border-neutral-200 px-2 py-3 text-base md:text-lg font-medium text-black">{display.label}</td>
-                                                    <td className="border-b border-neutral-200 px-2 py-3 text-base md:text-lg font-normal text-neutral-800">{display.duration}</td>
-                                                    <td className="border-b border-neutral-200 px-2 py-3 text-base md:text-lg font-normal text-neutral-800">{display.credits}</td>
-                                                    <td className="border-b border-neutral-200 px-2 py-3 text-base md:text-lg font-semibold text-black text-right">${domestic.toLocaleString()}<span className="text-xs font-normal text-neutral-600"><br />/yr</span></td>
-                                                    <td className="border-b border-neutral-200 px-2 py-3 text-base md:text-lg font-semibold text-[#0a151a] text-right">${international.toLocaleString()}<span className="text-xs font-normal text-neutral-600"><br />/yr</span></td>
+                                                <tr key={credentialType} className={idx % 2 === 0 ? 'bg-white hover:bg-neutral-50/60' : 'bg-neutral-50/80 hover:bg-neutral-100/60'}>
+                                                    <td className="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 align-middle">{display.label}</td>
+                                                    <td className="px-4 py-3.5 text-sm md:text-base font-normal text-slate-700 align-middle">{display.duration}</td>
+                                                    <td className="px-4 py-3.5 text-sm md:text-base font-normal text-slate-700 align-middle">{display.credits}</td>
+                                                    <td className="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 text-right align-middle">CAD ${domestic.toLocaleString()}<span className="text-xs font-normal text-slate-500 ml-1">/yr</span></td>
+                                                    <td className="px-4 py-3.5 text-sm md:text-base font-semibold text-[#0a151a] text-right align-middle">CAD ${international.toLocaleString()}<span className="text-xs font-normal text-slate-500 ml-1">/yr</span></td>
                                                 </tr>
                                             );
                                         })}
