@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Link } from '@/components/ui/Link';
 import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
@@ -31,7 +31,7 @@ const positions = [
         link: '/admissions/contact-information'
     },
     {
-        title: 'Assistant Professor, Computer Science & AI',
+        title: 'Assistant Instructor, Computer Science & AI',
         department: 'School of Science',
         type: 'Tenure-track',
         location: 'Ottawa campus',

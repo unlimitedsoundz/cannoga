@@ -66,7 +66,7 @@ const STUDENT_PAGES: SearchResultItem[] = [
   { id: 'student-grades', title: 'Transcripts & Grades', subtitle: 'Academic history & GPA report', category: 'Pages', pageId: 'grades', icon: FileText },
   { id: 'student-holds', title: 'Holds & Tasks', subtitle: 'Active holds & pending requirements', category: 'Pages', pageId: 'holds', icon: Shield },
   { id: 'student-news', title: 'Campus News Feed', subtitle: 'Latest college announcements', category: 'Pages', pageId: 'news', icon: Bell },
-  { id: 'student-directory', title: 'Faculty & Campus Directory', subtitle: 'Find professors & office contacts', category: 'Pages', pageId: 'directory', icon: User },
+  { id: 'student-directory', title: 'Faculty & Campus Directory', subtitle: 'Find instructors & office contacts', category: 'Pages', pageId: 'directory', icon: User },
   { id: 'student-life', title: 'Student Life & Support', subtitle: 'Clubs, messaging & wellness resources', category: 'Pages', pageId: 'student-life', icon: Sparkles },
   { id: 'student-profile', title: 'My Profile & Settings', subtitle: 'Contact info & student ID details', category: 'Pages', pageId: 'profile', icon: User },
 ];

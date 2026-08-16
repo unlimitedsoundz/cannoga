@@ -376,14 +376,14 @@ export default async function SchoolDetails({ params }: Props) {
                             <div className="space-y-8">
                                 <div>
                                     <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#f3e600] mb-2">Dean of the School</p>
-                                    <p className="text-2xl font-bold">{faculty?.find(f => f.role === 'Professor')?.name || 'To be appointed'}</p>
+                                    <p className="text-2xl font-bold">{faculty?.find(f => f.role === 'Instructor' || f.role === 'Dean')?.name || 'To be appointed'}</p>
                                     <p className="text-neutral-400 text-sm">Dean, {school.name}</p>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm">
                                     <div>
                                         <p className="text-neutral-500 mb-2">Administrative</p>
                                         <ul className="space-y-1 text-neutral-300">
-                                            {faculty?.filter(f => f.role === 'Professor').slice(1, 4).map((p) => (
+                                            {faculty?.filter(f => f.role === 'Instructor' || f.role === 'Associate Instructor').slice(1, 4).map((p) => (
                                                 <li key={p.id}>{p.name}</li>
                                             ))}
                                         </ul>
