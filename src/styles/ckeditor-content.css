@@ -52,3 +52,22 @@
   padding-top: 0.2em;
   margin-bottom: var(--ck-spacing-large);
 }
+
+/* Default image sizing in editor: 50% left-aligned, Author image: 25% */
+.ck-content figure.image:not(.image_resized) {
+  width: 50% !important;
+  max-width: 50% !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  text-align: left !important;
+}
+
+.ck-content figure.image:has(img[alt*="Author" i]),
+.ck-content figure.image:has(img[src*="author" i]),
+.ck-content img[alt*="Author" i] {
+  width: 25% !important;
+  max-width: 25% !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  text-align: left !important;
+}
