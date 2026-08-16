@@ -116,10 +116,29 @@ export function RelatedStudentGuidesCarousel() {
                 ))}
             </div>
 
-            {/* Navigation Dots and Arrows */}
-            <div className="flex items-center justify-between mt-3 px-1">
-                {/* Dots indicator */}
-                <div className="flex items-center gap-1.5">
+            {/* Navigation Controls below the carousel (Academic Credentials Carousel Style) */}
+            <div className="flex items-center justify-between mt-8 pt-2">
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={() => scrollTo('left')}
+                        className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-slate-700 disabled:opacity-30 disabled:hover:bg-slate-900"
+                        aria-label="Previous slide"
+                        disabled={activeIndex === 0}
+                    >
+                        <ArrowLeft size={20} weight="bold" />
+                    </button>
+                    <button
+                        onClick={() => scrollTo('right')}
+                        className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-slate-700 disabled:opacity-30 disabled:hover:bg-slate-900"
+                        aria-label="Next slide"
+                        disabled={activeIndex === RELATED_GUIDES.length - 1}
+                    >
+                        <ArrowRight size={20} weight="bold" />
+                    </button>
+                </div>
+
+                {/* Dot Indicators */}
+                <div className="flex gap-2">
                     {RELATED_GUIDES.map((_, idx) => (
                         <button
                             key={idx}
@@ -131,32 +150,12 @@ export function RelatedStudentGuidesCarousel() {
                                     behavior: 'smooth'
                                 });
                             }}
-                            className={`h-2 rounded-full transition-all duration-300 ${
-                                activeIndex === idx ? 'w-6 bg-slate-900' : 'w-2 bg-slate-300 hover:bg-slate-400'
+                            className={`h-2.5 transition-all rounded-full ${
+                                idx === activeIndex ? 'w-8 bg-[#0a151a]' : 'w-2.5 bg-slate-300'
                             }`}
                             aria-label={`Go to slide ${idx + 1}`}
                         />
                     ))}
-                </div>
-
-                {/* Left/Right arrow controls */}
-                <div className="flex items-center gap-2">
-                    <button
-                        onClick={() => scrollTo('left')}
-                        className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all shadow-sm active:scale-95 disabled:opacity-30"
-                        aria-label="Previous slide"
-                        disabled={activeIndex === 0}
-                    >
-                        <ArrowLeft size={14} weight="bold" />
-                    </button>
-                    <button
-                        onClick={() => scrollTo('right')}
-                        className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all shadow-sm active:scale-95 disabled:opacity-30"
-                        aria-label="Next slide"
-                        disabled={activeIndex === RELATED_GUIDES.length - 1}
-                    >
-                        <ArrowRight size={14} weight="bold" />
-                    </button>
                 </div>
             </div>
         </div>
