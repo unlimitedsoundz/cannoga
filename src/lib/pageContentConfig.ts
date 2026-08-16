@@ -679,7 +679,31 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'refunds_content',
         label: 'Refund Policy Section',
-        defaultContent: `<div class="space-y-8"><div><h3 class="text-xl font-bold mb-3">Full Refund Cases</h3><ul class="grid md:grid-cols-2 gap-4 text-sm"><li>Conditional offer cancelled (conditions not met)</li><li>Renounce study right during enrolment</li><li>Residence permit denied</li><li>Residence status becomes exempt</li><li>Programme cancellation by University</li></ul></div><div class="bg-gray-100 p-6 rounded-xl"><h3 class="font-bold text-lg mb-2">Refund Application</h3><p class="leading-relaxed mb-4">To request a refund, contact the tuition fee team by the relevant deadline.</p><p class="text-sm">Refunds normally exclude service and bank charges. For the full policy, visit our <a href="/refund-withdrawal-policy/" class="underline font-bold">Refund & Withdrawal Policy</a>.</p></div></div>`,
+        defaultContent: `<div class="space-y-6">
+    <div class="space-y-3">
+        <h3 class="text-xl font-bold text-slate-900 tracking-tight">Full Refund Cases</h3>
+        <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+            A full refund of paid tuition fees will be granted under the following circumstances:
+        </p>
+        <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+            <li>Conditional offer cancelled (conditions not met)</li>
+            <li>Renounce study right during enrolment</li>
+            <li>Study permit denied</li>
+            <li>Residence status becomes exempt</li>
+            <li>Programme cancellation by University</li>
+        </ul>
+    </div>
+
+    <div class="space-y-3 pt-4 border-t border-slate-200">
+        <h3 class="text-xl font-bold text-slate-900 tracking-tight">Refund Application</h3>
+        <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+            To request a refund, contact the tuition fee team by the relevant deadline.
+        </p>
+        <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+            Refunds normally exclude service and bank charges. For the full policy, visit our <a href="/refund-withdrawal-policy/" class="underline font-bold text-slate-900 hover:text-[#002f6c]">Refund &amp; Withdrawal Policy &rarr;</a>
+        </p>
+    </div>
+</div>`,
     },
     {
         pageSlug: 'admissions/tuition',
