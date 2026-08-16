@@ -231,10 +231,19 @@ export default async function TuitionPaymentPage() {
                                 <h2 className="cc-h2">Merit Scholarships &amp; Financial Aid</h2>
                             </div>
                             <div className="space-y-6">
-                                <DbPageContent pageSlug={pageSlug} sectionKey="merit_scholarship_content" fallbackContent={getSectionDefault('merit_scholarship_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                                <div className="space-y-4">
+                                    <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Continuing Merit Scholarship</h3>
+                                    <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                                        Cannoga College rewards academic excellence. After the first year, international students can apply for a merit scholarship covering 50% of tuition for the next academic year:
+                                    </p>
+                                    <ul className="space-y-3 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                                        <li><strong className="text-slate-900 font-bold">Academic Criteria:</strong> Complete at least 55 credits per academic year and maintain a minimum weighted GPA of 3.5 / 5.0.</li>
+                                        <li><strong className="text-slate-900 font-bold">Application &amp; Review:</strong> Scholarship eligibility is automatically reviewed every August and eligible students will be notified before the autumn tuition deadline.</li>
+                                    </ul>
+                                </div>
                                 
                                 {/* OSAP / ONTARIO STUDENT FINANCIAL AID (Clean Layout - No Containers) */}
-                                <div className="space-y-4 pt-2">
+                                <div className="space-y-4 pt-4 border-t border-slate-200">
                                     <div className="flex items-center gap-3.5 pb-2">
                                         {/* Official OSAP Logo */}
                                         <div className="relative w-16 h-12 shrink-0">
@@ -270,11 +279,11 @@ export default async function TuitionPaymentPage() {
                                     </ul>
 
                                     <div className="pt-3 flex flex-wrap items-center gap-4 text-xs font-bold text-slate-900">
-                                        <Link href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#002f6c]">
+                                        <Link href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank" className="underline hover:text-[#002f6c]">
                                             Check OSAP Eligibility Criteria &rarr;
                                         </Link>
                                         <span className="text-slate-300">•</span>
-                                        <Link href="https://osap.gov.on.ca/AidEstimator2627Web/enterapp/enter.xhtml" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#002f6c]">
+                                        <Link href="https://osap.gov.on.ca/AidEstimator2627Web/enterapp/enter.xhtml" target="_blank" className="underline hover:text-[#002f6c]">
                                             Estimate OSAP Aid Amount &rarr;
                                         </Link>
                                     </div>
@@ -343,7 +352,27 @@ export default async function TuitionPaymentPage() {
                             <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">Refund Policy</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="refunds_content" fallbackContent={getSectionDefault('refunds_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                            <div className="space-y-6">
+                                <div className="space-y-3">
+                                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Full Refund Cases</h3>
+                                    <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                                        A full refund of paid tuition fees will be granted under the following circumstances:
+                                    </p>
+                                    <ul className="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                                        <li>Conditional offer cancelled (conditions not met)</li>
+                                        <li>Renounce study right during enrolment</li>
+                                        <li>Study permit denied</li>
+                                        <li>Residence status becomes exempt</li>
+                                        <li>Programme cancellation by University</li>
+                                    </ul>
+                                </div>
+                                <div className="space-y-3 pt-2">
+                                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Refund Application</h3>
+                                    <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                                        To request a refund, contact the tuition fee team by the relevant deadline. Refunds normally exclude service and bank charges. For the full policy, visit our <Link href="/refund-withdrawal-policy/" className="underline font-bold text-slate-900 hover:text-[#002f6c]">Refund &amp; Withdrawal Policy &rarr;</Link>
+                                    </p>
+                                </div>
+                            </div>
                         </section>
 
                         <section id="faq" className="scroll-mt-32 space-y-4">
