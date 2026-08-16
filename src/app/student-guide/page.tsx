@@ -8,6 +8,7 @@ import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHub
 import { ProgramLevelsCarousel } from '@/components/student-guide/ProgramLevelsCarousel';
 import { StudySupportCarousel } from '@/components/student-guide/StudySupportCarousel';
 import { AcademicCalendarCarousel } from '@/components/student-guide/AcademicCalendarCarousel';
+import { StudentCategoriesCarousel } from '@/components/student-guide/StudentCategoriesCarousel';
 
 export const metadata = {
     title: 'Undergraduate & Postgraduate Resources',
@@ -289,23 +290,7 @@ export default function StudentGuidePage() {
                         {/* Student Categories / Breakdown */}
                         <section id="student-types" className="scroll-mt-32">
                             <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Student Categories</h2>
-                            <div className="grid md:grid-cols-3 gap-4">
-                                <div>
-                                    <h3 className="font-bold text-base mb-1 text-black">Chat with Students</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Connect with current students and ambassadors to learn about life at Cannoga.</p>
-                                    <Link href="/student-guide/chat-with-cannoga-students" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Chat now →</Link>
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-base mb-1 text-black">International Students</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Support services, study permits, and integration into Ottawa&apos;s multicultural community.</p>
-                                    <Link href="/student-guide/international" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">View guide →</Link>
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-base mb-1 text-black">Exchange Students</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Orientation, course selection, and cultural adaptation for short-term studies.</p>
-                                    <Link href="/student-guide/exchange" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
-                                </div>
-                            </div>
+                            <StudentCategoriesCarousel />
                         </section>
 
                         {/* Contact */}
