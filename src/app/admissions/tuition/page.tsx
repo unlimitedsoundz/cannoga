@@ -1,4 +1,5 @@
 import { Link } from '@/components/ui/Link';
+import Image from 'next/image';
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
@@ -232,11 +233,15 @@ export default async function TuitionPaymentPage() {
                                 
                                 {/* OSAP / ONTARIO STUDENT FINANCIAL AID (Clean Layout - No Containers) */}
                                 <div className="space-y-4 pt-2">
-                                    <div className="flex items-center gap-3.5 pb-3">
-                                        {/* OSAP Emblem / Logo */}
-                                        <div className="w-12 h-12 rounded-lg bg-[#002f6c] text-white flex flex-col items-center justify-center font-black tracking-tight shrink-0">
-                                            <span className="text-[10px] uppercase tracking-widest text-[#f5a623] leading-none mb-0.5">Ontario</span>
-                                            <span className="text-sm font-black tracking-tighter leading-none">OSAP</span>
+                                    <div className="flex items-center gap-3.5 pb-2">
+                                        {/* Official OSAP Logo */}
+                                        <div className="relative w-16 h-12 shrink-0">
+                                            <Image
+                                                src="/images/osap-logo.jpg"
+                                                alt="Ontario Student Assistance Program (OSAP) Logo"
+                                                fill
+                                                className="object-contain"
+                                            />
                                         </div>
                                         <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                                             Ontario Student Assistance Program (OSAP)
