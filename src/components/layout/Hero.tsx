@@ -91,12 +91,12 @@ export function Hero({
 
                     {/* Content Container */}
                     <div className="w-full h-full relative z-20 flex flex-col justify-end sm:justify-center items-start px-6 md:px-10 lg:px-12 pb-14 sm:pb-8 lg:py-12">
-                        <div className={`w-full lg:w-3/5 flex flex-col space-y-6 ${textColorClass} text-left items-start`}>
+                        <div className={`w-full lg:w-4/5 flex flex-col space-y-6 ${textColorClass} text-left items-start`}>
                             <div className="space-y-4">
-                                <h1 className="font-black text-3xl md:text-5xl lg:text-6xl leading-tight tracking-tight">
+                                <h1 className="font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight">
                                     {title}
                                 </h1>
-                                <p className={`text-lg lg:text-xl ${bodyColorClass} max-w-xl font-medium leading-relaxed`}>
+                                <p className={`text-lg lg:text-xl ${bodyColorClass} max-w-2xl font-medium leading-relaxed`}>
                                     {body}
                                 </p>
                             </div>
