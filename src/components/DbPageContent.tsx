@@ -34,6 +34,12 @@ export default function DbPageContent({
                 .replace(/Apply for Kela/gi, 'Apply for OHIP at ServiceOntario')
                 .replace(/\bKela\b/gi, 'OHIP');
         }
+        if (pageSlug === 'admissions/master' && sectionKey === 'study_options_content') {
+            return text
+                .replace(/<div class="grid md:grid-cols-2 lg:grid-cols-3[\s\S]*?<\/div>\s*<\/div>/gi, '')
+                .replace(/<p[^>]*>You can find all Cannoga College study options on the[\s\S]*?<\/p>/gi, '')
+                .replace(/<p[^>]*>Explore our postgraduate study options in the interactive carousel[\s\S]*?<\/p>/gi, '');
+        }
         return text;
     };
     const [content, setContent] = useState(() => sanitize(fallbackContent));

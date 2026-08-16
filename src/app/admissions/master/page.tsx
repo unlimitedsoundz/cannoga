@@ -6,6 +6,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import AdmissionsCTA from '@/components/admissions/AdmissionsCTA';
 import MasterFAQ from '@/components/admissions/MasterFAQ';
+import { MasterStudyOptionsCarousel } from '@/components/admissions/MasterStudyOptionsCarousel';
 import DbPageContent from '@/components/DbPageContent';
 import { getPageContentSection } from '@/lib/pageContentConfig';
 
@@ -98,6 +99,7 @@ export default function MasterAdmissionsPage() {
                     <section id="study-options" className="scroll-mt-32">
                         <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">Study Options</h2></div>
                         <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="study_options_content" fallbackContent={getSectionDefault('study_options_content')} /></div>
+                        <MasterStudyOptionsCarousel />
                     </section>
 
                     <section id="scholarships" className="scroll-mt-32">
