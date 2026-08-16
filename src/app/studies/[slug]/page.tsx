@@ -1,4 +1,4 @@
-﻿import { createStaticClient } from '@/lib/supabase/static';
+import { createStaticClient } from '@/lib/supabase/static';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Course, Subject, Faculty, School, Department } from '@/types/database';
@@ -85,7 +85,7 @@ export async function generateMetadata({ params }: Props) {
     const degreeLevel = course?.degreeLevel || 'DIPLOMA';
 
     return {
-        title: `${title} ${degreeLevel} | Cannoga College`,
+        title: `${title} ${degreeLevel}`,
         description: cleanHtml(course?.description)?.replace(/Cannoga College|Cannoga|Cannoga C\x6Fllege|SYKLI|College/gi, 'Cannoga College').substring(0, 160) || `Study ${title} at Cannoga College.`,
         alternates: {
             canonical: `https://cannogacollege.ca/studies/${slug}/`,

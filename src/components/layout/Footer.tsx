@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { Link } from "@aalto-dx/react-components"
 import { usePathname } from "next/navigation"
@@ -43,12 +43,12 @@ export function Footer() {
                         <div>
                             <h3 className="font-bold text-sm uppercase tracking-widest mb-5 text-white">Study</h3>
                             <ul className="space-y-3">
-                                <li><Link href="/studies" className="text-white text-sm hover:text-white transition-colors no-underline">All Courses</Link></li>
-                                <li><Link href="/admissions" className="text-white text-sm hover:text-white transition-colors no-underline">Admissions</Link></li>
-                                <li><Link href="/housing" className="text-white text-sm hover:text-white transition-colors no-underline">Student Housing</Link></li>
-                                <li><Link href="/admissions/tuition" className="text-white text-sm hover:text-white transition-colors no-underline">Scholarships</Link></li>
-                                <li><Link href="/international" className="text-white text-sm hover:text-white transition-colors no-underline">International</Link></li>
-                                <li><Link href="/student-guide/international" className="text-white text-sm hover:text-white transition-colors no-underline">International Students</Link></li>
+                                <li><Link href="/studies/" className="text-white text-sm hover:text-white transition-colors no-underline">All Courses</Link></li>
+                                <li><Link href="/admissions/" className="text-white text-sm hover:text-white transition-colors no-underline">Admissions</Link></li>
+                                <li><Link href="/housing/" className="text-white text-sm hover:text-white transition-colors no-underline">Student Housing</Link></li>
+                                <li><Link href="/admissions/tuition/" className="text-white text-sm hover:text-white transition-colors no-underline">Scholarships</Link></li>
+                                <li><Link href="/international/" className="text-white text-sm hover:text-white transition-colors no-underline">International</Link></li>
+                                <li><Link href="/student-guide/international/" className="text-white text-sm hover:text-white transition-colors no-underline">International Students</Link></li>
                             </ul>
                         </div>
 
@@ -56,11 +56,11 @@ export function Footer() {
                         <div>
                             <h3 className="font-bold text-sm uppercase tracking-widest mb-5 text-white">About</h3>
                             <ul className="space-y-3">
-                                <li><Link href="/about" className="text-white text-sm hover:text-white transition-colors no-underline">Our Story</Link></li>
-                                <li><Link href="/art" className="text-white text-sm hover:text-white transition-colors no-underline">Creative Arts</Link></li>
-                                <li><Link href="/news" className="text-white text-sm hover:text-white transition-colors no-underline">News & Events</Link></li>
-                                <li><Link href="/research" className="text-white text-sm hover:text-white transition-colors no-underline">Research</Link></li>
-                                <li><Link href="/student-life" className="text-white text-sm hover:text-white transition-colors no-underline">Campus Life</Link></li>
+                                <li><Link href="/about/" className="text-white text-sm hover:text-white transition-colors no-underline">Our Story</Link></li>
+                                <li><Link href="/art/" className="text-white text-sm hover:text-white transition-colors no-underline">Creative Arts</Link></li>
+                                <li><Link href="/news/" className="text-white text-sm hover:text-white transition-colors no-underline">News & Events</Link></li>
+                                <li><Link href="/research/" className="text-white text-sm hover:text-white transition-colors no-underline">Research</Link></li>
+                                <li><Link href="/student-life/" className="text-white text-sm hover:text-white transition-colors no-underline">Campus Life</Link></li>
                             </ul>
                         </div>
 
@@ -68,14 +68,14 @@ export function Footer() {
                         <div>
                             <h3 className="font-bold text-sm uppercase tracking-widest mb-5 text-white">Resources</h3>
                             <ul className="space-y-3">
-                                <li><Link href="/admissions-policy" className="text-white text-sm hover:text-white transition-colors no-underline">Admissions Policy</Link></li>
-                                <li><Link href="/academic-regulations" className="text-white text-sm hover:text-white transition-colors no-underline">Academic Regulations</Link></li>
-                                <li><Link href="/student-handbook" className="text-white text-sm hover:text-white transition-colors no-underline">Student Handbook</Link></li>
-                                <li><Link href="/refund-withdrawal-policy" className="text-white text-sm hover:text-white transition-colors no-underline">Refund Policy</Link></li>
-                                <li><Link href="/code-of-conduct" className="text-white text-sm hover:text-white transition-colors no-underline">Code of Conduct</Link></li>
-                                <li><Link href="/alumni" className="text-white text-sm hover:text-white transition-colors no-underline">Alumni</Link></li>
+                                <li><Link href="/admissions-policy/" className="text-white text-sm hover:text-white transition-colors no-underline">Admissions Policy</Link></li>
+                                <li><Link href="/academic-regulations/" className="text-white text-sm hover:text-white transition-colors no-underline">Academic Regulations</Link></li>
+                                <li><Link href="/student-handbook/" className="text-white text-sm hover:text-white transition-colors no-underline">Student Handbook</Link></li>
+                                <li><Link href="/refund-withdrawal-policy/" className="text-white text-sm hover:text-white transition-colors no-underline">Refund Policy</Link></li>
+                                <li><Link href="/code-of-conduct/" className="text-white text-sm hover:text-white transition-colors no-underline">Code of Conduct</Link></li>
+                                <li><Link href="/alumni/" className="text-white text-sm hover:text-white transition-colors no-underline">Alumni</Link></li>
                                 <li><Link href="/portal/support" className="text-white text-sm hover:text-white transition-colors no-underline">IT Support</Link></li>
-                                <li><Link href="/contact" className="text-white text-sm hover:text-white transition-colors no-underline">Contact Us</Link></li>
+                                <li><Link href="/contact/" className="text-white text-sm hover:text-white transition-colors no-underline">Contact Us</Link></li>
                             </ul>
                         </div>
 
@@ -83,12 +83,12 @@ export function Footer() {
                         <div>
                             <h3 className="font-bold text-sm uppercase tracking-widest mb-5 text-white">Explore</h3>
                             <ul className="space-y-3">
-                                <li><Link href="/admissions/requirements" className="text-white text-sm hover:text-white transition-colors no-underline">Admission Requirements</Link></li>
-                                <li><Link href="/admissions/contact-information" className="text-white text-sm hover:text-white transition-colors no-underline">Admissions Contact</Link></li>
-                                <li><Link href="/research/publications" className="text-white text-sm hover:text-white transition-colors no-underline">Publications</Link></li>
-                                <li><Link href="/innovation" className="text-white text-sm hover:text-white transition-colors no-underline">Innovation</Link></li>
-                                <li><Link href="/terms" className="text-white text-sm hover:text-white transition-colors no-underline">Terms of Use</Link></li>
-                                <li><Link href="/student-guide/chat-with-cannoga-students" className="text-white text-sm hover:text-white transition-colors no-underline">Chat with Students</Link></li>
+                                <li><Link href="/admissions/requirements/" className="text-white text-sm hover:text-white transition-colors no-underline">Admission Requirements</Link></li>
+                                <li><Link href="/admissions/contact-information/" className="text-white text-sm hover:text-white transition-colors no-underline">Admissions Contact</Link></li>
+                                <li><Link href="/research/publications/" className="text-white text-sm hover:text-white transition-colors no-underline">Publications</Link></li>
+                                <li><Link href="/innovation/" className="text-white text-sm hover:text-white transition-colors no-underline">Innovation</Link></li>
+                                <li><Link href="/terms/" className="text-white text-sm hover:text-white transition-colors no-underline">Terms of Use</Link></li>
+                                <li><Link href="/student-guide/chat-with-cannoga-students/" className="text-white text-sm hover:text-white transition-colors no-underline">Chat with Students</Link></li>
                             </ul>
                         </div>
 

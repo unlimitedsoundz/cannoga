@@ -1,9 +1,10 @@
-﻿import { Metadata } from 'next';
+import { Metadata } from 'next';
 import { EnvelopeSimple, Phone, MapPin, ArrowRight, IdentificationBadge, Users, ChatCircleDots, Archive } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@/components/ui/Link";
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
 import { Hero } from '@/components/layout/Hero';
+import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarousel';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
@@ -102,16 +103,6 @@ export default function ContactPage() {
                                             Talk to Admissions: +1 (227) 250-0427
                                         </a>
                                     </div>
-                                </div>
-                                <div className="text-xs text-slate-800 space-y-1 pt-1">
-                                    <p className="font-bold text-slate-900 text-xs uppercase tracking-wider text-[#c89211] mb-1">Telephone service hours (UTC +2):</p>
-                                    <ul className="space-y-0.5 text-xs text-slate-700 font-medium">
-                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Mon:</span><span>12:30 pm – 2:00 pm</span></li>
-                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Tue:</span><span>9:30 am – 11:00 am</span></li>
-                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Wed:</span><span>9:30 am – 11:00 am</span></li>
-                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Thu:</span><span>9:30 am – 11:00 am</span></li>
-                                        <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Fri:</span><span className="text-red-600 font-bold">Closed</span></li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -220,27 +211,7 @@ export default function ContactPage() {
                 {/* Academic Schools */}
                 <section className="pt-8 border-t border-slate-200">
                     <h2 className="text-2xl font-black text-black tracking-tight mb-8">Academic Schools & Faculties</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
-                        {[
-                            { name: "School of Arts, Design and Architecture", href: "/schools/arts" },
-                            { name: "School of Science", href: "/schools/science" },
-                            { name: "School of Technology", href: "/schools/technology" },
-                            { name: "School of Business", href: "/schools/business" },
-                            { name: "School of Health and Community Services", href: "/schools/health-community" },
-                            { name: "School of Transportation and Aviation", href: "/schools/transportation-aviation" },
-                            { name: "School of Education and Social Sciences", href: "/schools/education-social-sciences" },
-                            { name: "School of Hospitality and Tourism", href: "/schools/hospitality-tourism" }
-                        ].map((school) => (
-                            <Link 
-                                key={school.name} 
-                                href={school.href}
-                                className="group flex justify-between items-center py-4 border-b border-slate-200 hover:border-[#0a151a] font-bold text-slate-900 uppercase tracking-wider text-xs no-underline transition-colors"
-                            >
-                                <span>{school.name}</span>
-                                <span className="text-slate-400 group-hover:text-black group-hover:translate-x-1 transition-all">→</span>
-                            </Link>
-                        ))}
-                    </div>
+                    <AcademicSchoolsCarousel />
                 </section>
 
                 {/* Campus Map & Directions */}

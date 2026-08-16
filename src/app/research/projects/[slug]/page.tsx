@@ -1,4 +1,4 @@
-﻿import { createStaticClient } from '@/lib/supabase/static';
+import { createStaticClient } from '@/lib/supabase/static';
 
 // Revalidate every hour; admin mutations call revalidatePath() for immediate updates.
 export const revalidate = 3600;
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!project) return { title: 'Project Not Found' };
 
     return {
-        title: `${project.title} Research Initiative | Cannoga College`,
+        title: `${project.title} Research Initiative`,
         description: `Explore the findings and objectives of our research project: ${project.title}. ${project.description || ''}`,
         alternates: {
             canonical: `https://cannogacollege.ca/research/projects/${slug}/`,

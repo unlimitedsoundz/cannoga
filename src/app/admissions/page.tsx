@@ -1,4 +1,4 @@
-﻿import { Link } from '@/components/ui/Link';
+import { Link } from '@/components/ui/Link';
 import { CTA } from '@/components/ui/CTA';
 import Image from 'next/image';
 import { ArrowRight, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react/dist/ssr";
@@ -21,7 +21,7 @@ import { AdmissionsCareerOpportunitiesCarousel } from '@/components/admissions/A
 import { InternationalInfoCard } from '@/components/admissions/InternationalInfoCard';
 
 export const metadata = {
-    title: 'Admissions & Enrollment Hub â€” Cannoga College',
+    title: 'Admissions & Enrollment Hub',
     description: 'Explore educational options at Cannoga. Get information on entry pathways, deadlines, fees, and requirements for all programs.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/',

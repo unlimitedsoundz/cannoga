@@ -1,4 +1,4 @@
-﻿
+
 import { createStaticClient } from '@/lib/supabase/static';
 
 // Revalidate every hour; admin mutations call revalidatePath() for immediate updates.
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props) {
         .single();
 
     return {
-        title: dept ? `${dept.name} ${(Array.isArray(dept.school) ? dept.school[0] : dept.school)?.name || 'School'} | Cannoga College` : 'Department | Cannoga College',
+        title: dept ? `${dept.name} ${(Array.isArray(dept.school) ? dept.school[0] : dept.school)?.name || 'School'}` : 'Department',
         description: dept?.description?.substring(0, 160) || `Learn about the ${dept?.name} at Cannoga College. Research, faculty, and academic programs.`,
         alternates: {
             canonical: `https://cannogacollege.ca/schools/${resolvedParams.slug}/${dept_slug}/`,

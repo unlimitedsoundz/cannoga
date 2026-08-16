@@ -1,4 +1,4 @@
-﻿import Link from 'next/link';
+import Link from 'next/link';
 import Image from 'next/image';
 import { School, Department, Course } from '@/types/database';
 import { notFound } from 'next/navigation';
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props) {
     }
 
     return {
-        title: `${school.name} Academic School | Cannoga College`,
+        title: `${school.name} Academic School`,
         description: `Explore faculty research, specialized departments, and academic options at the ${school.name} Cannoga College.`,
         alternates: {
             canonical: `https://cannogacollege.ca/schools/${slug}/`,

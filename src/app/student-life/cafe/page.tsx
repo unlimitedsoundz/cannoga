@@ -1,11 +1,11 @@
-﻿
+
 import Image from 'next/image';
 import { Link } from "@aalto-dx/react-components";
 import { ForkKnife as Utensils, Clock, MapPin, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from '@/components/layout/Hero';
 
 export const metadata = {
-    title: 'Campus Café Dining Menu & Operations Cannoga College',
+    title: 'Campus Dining & Café Operations',
     description: 'Check menus, dietary details, student pricing, and opening hours for the Campus dining room.',
     alternates: {
         canonical: 'https://cannogacollege.ca/student-life/cafe/',

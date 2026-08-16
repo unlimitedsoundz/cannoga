@@ -107,6 +107,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // --- Institutional pages ---
     const institutionalPages: SitemapEntry[] = [
         make(`${BASE_URL}/about`, 'monthly', 0.5),
+        make(`${BASE_URL}/about/leadership-and-governance`, 'monthly', 0.5),
         make(`${BASE_URL}/contact`, 'monthly', 0.5),
         make(`${BASE_URL}/alumni`, 'monthly', 0.4),
         make(`${BASE_URL}/collaboration`, 'monthly', 0.4),

@@ -75,68 +75,69 @@ const navigation: NavItem[] = [
     {
         name: "Financial Aid",
         href: "/admissions/tuition",
+        href: "/admissions/tuition/",
         children: [
-            { name: "Scholarships & Tuition Fees", href: "/admissions/tuition" },
-            { name: "Refund & Withdrawal Policy", href: "/refund-withdrawal-policy" },
+            { name: "Scholarships & Tuition Fees", href: "/admissions/tuition/" },
+            { name: "Refund & Withdrawal Policy", href: "/refund-withdrawal-policy/" },
         ]
     },
     {
-        name: "Future Students",
-        href: "/admissions",
+        name: "Admissions",
+        href: "/admissions/",
         children: [
-            { name: "Degree Programs", href: "/degree-programmes" },
-            { name: "Certificate & Diploma Programs", href: "/degree-programmes#certificates" },
-            { name: "How to Apply", href: "/admissions/application-process" },
-            { name: "Bachelor's Admission", href: "/admissions/bachelor" },
-            { name: "Master's Admissions", href: "/admissions/master" },
-            { name: "Admissions Policy", href: "/admissions-policy" },
-            { name: "Admission Services Contact", href: "/admissions/contact-information" },
+            { name: "Degree Programs", href: "/degree-programmes/" },
+            { name: "Certificate & Diploma Programs", href: "/degree-programmes/#certificates" },
+            { name: "How to Apply", href: "/admissions/application-process/" },
+            { name: "Bachelor's Admission", href: "/admissions/bachelor/" },
+            { name: "Master's Admissions", href: "/admissions/master/" },
+            { name: "Admissions Policy", href: "/admissions-policy/" },
+            { name: "Admission Services Contact", href: "/admissions/contact-information/" },
         ]
     },
     {
         name: "Current Students",
-        href: "/student-guide",
+        href: "/student-guide/",
         children: [
-            { name: "Student Guide", href: "/student-guide" },
-            { name: "Student Housing & Accommodations", href: "/housing" },
-            { name: "Academic Calendar", href: "/student-guide#calendar" },
-            { name: "Support Services", href: "/student-guide#support" },
-            { name: "Student Handbook", href: "/student-handbook" },
-            { name: "Academic Regulations", href: "/academic-regulations" },
-            { name: "Code of Conduct", href: "/code-of-conduct" },
+            { name: "Student Guide", href: "/student-guide/" },
+            { name: "Student Housing & Accommodations", href: "/housing/" },
+            { name: "Academic Calendar", href: "/student-guide/#calendar" },
+            { name: "Support Services", href: "/student-guide/#support" },
+            { name: "Student Handbook", href: "/student-handbook/" },
+            { name: "Academic Regulations", href: "/academic-regulations/" },
+            { name: "Code of Conduct", href: "/code-of-conduct/" },
         ]
     },
     {
         name: "International Students",
-        href: "/student-guide/international",
+        href: "/student-guide/international/",
         children: [
-            { name: "International Student Guide", href: "/student-guide/international" },
-            { name: "Student Housing & Accommodations", href: "/housing" },
-            { name: "Arrival Guide", href: "/student-guide/arrival" },
-            { name: "Exchange Guide", href: "/student-guide/exchange" },
-            { name: "Chat with Students", href: "/student-guide/chat-with-cannoga-students" },
+            { name: "International Student Guide", href: "/student-guide/international/" },
+            { name: "Student Housing & Accommodations", href: "/housing/" },
+            { name: "Arrival Guide", href: "/student-guide/arrival/" },
+            { name: "Exchange Guide", href: "/student-guide/exchange/" },
+            { name: "Chat with Students", href: "/student-guide/chat-with-cannoga-students/" },
         ]
     },
     {
         name: "Employees",
-        href: "/portal",
+        href: "/portal/",
         children: [
-            { name: "IT Support", href: "/portal/support" },
-            { name: "Student Portal Login", href: "/portal/account/login" },
+            { name: "IT Support", href: "/portal/support/" },
+            { name: "Student Portal Login", href: "/portal/account/login/" },
         ]
     },
     {
         name: "About",
-        href: "/about",
+        href: "/about/",
         children: [
-            { name: "Our Story", href: "/about" },
-            { name: "Welcome from the President", href: "/about/welcome-from-the-president" },
-            { name: "Leadership & Governance", href: "/about/leadership-and-governance" },
-            { name: "News & Events", href: "/news" },
-            { name: "Research Hub", href: "/research" },
-            { name: "Careers", href: "/careers" },
-            { name: "Alumni", href: "/alumni" },
-            { name: "Contact Us", href: "/contact" },
+            { name: "Our Story", href: "/about/" },
+            { name: "Welcome from the President", href: "/about/welcome-from-the-president/" },
+            { name: "Leadership & Governance", href: "/about/leadership-and-governance/" },
+            { name: "News & Events", href: "/news/" },
+            { name: "Research Hub", href: "/research/" },
+            { name: "Careers", href: "/careers/" },
+            { name: "Alumni", href: "/alumni/" },
+            { name: "Contact Us", href: "/contact/" },
         ]
     }
 ]
