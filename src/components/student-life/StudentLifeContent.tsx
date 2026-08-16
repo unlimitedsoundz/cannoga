@@ -1,311 +1,291 @@
 'use client';
 
-import { Link } from "@aalto-dx/react-components";
+import React from 'react';
 import Image from 'next/image';
-import { MapPin, Train, Building, BookOpen, Books as Library, House as Home, Users, Coffee, Compass, Info, ArrowRight, GraduationCap } from "@phosphor-icons/react";
+import Link from 'next/link';
+import { ArrowRight, CheckCircle, MapPin, Coffee, Users, House, Sparkle } from '@phosphor-icons/react';
 import { Hero } from '@/components/layout/Hero';
-import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
+import { StudentLifeExperienceCarousel } from '@/components/student-life/StudentLifeExperienceCarousel';
+import StudentStoriesCarousel from '@/components/admissions/StudentStoriesCarousel';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
 export default function StudentLifeContent() {
-    const sections = [
-        { id: 'location', title: 'Location & Setting', content: '' },
-        { id: 'accessibility', title: 'Accessibility', content: '' },
-        { id: 'architecture', title: 'Campus Architecture', content: '' },
-        { id: 'facilities', title: 'Academic Facilities', content: '' },
-        { id: 'library', title: 'Library & Centres', content: '' },
-        { id: 'housing', title: 'Housing & Daily Living', content: '' },
-        { id: 'organizations', title: 'Student Organisations', content: '' },
-
-        { id: 'services', title: 'Services & Amenities', content: '' },
-    ];
-
     return (
-        <GuideSidebarLayout sections={sections}>
-            <div className="min-h-screen bg-white">
-            {/* HERO SECTION */}
+        <div className="flex flex-col min-h-screen bg-white text-black font-sans">
+            {/* 1. HERO SECTION */}
             <Hero
-                title="Student life"
-                body="Experience a supportive and vibrant campus environment. From coastal landscapes to modern academic facilities, discover how our community thrives in the heart of Ottawa."
+                title="Student Life"
+                body="Experience a supportive, diverse, and globally connected community in the heart of Ottawa. From modern collaborative studios to student-led societies, discover your campus life."
                 backgroundColor="#0f2027"
                 tinted
                 lightText={true}
                 breadcrumbs={[
                     { label: 'Home', href: '/' },
-                    { label: 'Student life' }
+                    { label: 'Student Life' }
                 ]}
                 image={{
                     src: "/images/vibrant-community.png",
-                    alt: "Cannoga College Student Life"
+                    alt: "Cannoga College Student Life in Ottawa"
                 }}
             />
 
-            <div className="container mx-auto px-4 py-12 md:py-24">
-                <div className="flex flex-col lg:flex-row gap-16">
-                    {/* Main Content */}
-                    <main className="lg:w-full space-y-16 md:space-y-32">
+            {/* 2. VIBRANT STUDENT LIFE HIGHLIGHTS CAROUSEL */}
+            <section className="py-16 md:py-20 bg-white">
+                <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
+                    <div className="mb-10 max-w-2xl text-left">
+                        <span className="text-xs font-black uppercase tracking-widest text-[#c89211] mb-2 block">
+                            Campus Experience
+                        </span>
+                        <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">
+                            Explore Student Life
+                        </h2>
+                        <p className="text-slate-600 font-normal text-base mt-2">
+                            Dive into clubs, modern residences, student dining, and wellness support across our Ottawa campus.
+                        </p>
+                    </div>
 
-                        {/* Location */}
-                        <section id="location" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p6 text-black tracking-tight">Campus setting</h2>
-                            <div className="grid lg:grid-cols-2 gap-0 overflow-hidden group">
-                                {/* Left: Text Content */}
-                                <div className="p-12 md:p-20 flex flex-col justify-center bg-white order-2 lg:order-1">
-                                    <p className="text-aalto-3 text-black leading-aalto-3">
-                                        The Cannoga College campus is located in the Ottawa region and forms a compact academic district where teaching facilities, student services, housing, and leisure areas are closely integrated. The campus is surrounded by coastal landscapes and protected green areas, offering a unique balance between urban infrastructure and natural surroundings.
-                                    </p>
-                                </div>
+                    <StudentLifeExperienceCarousel />
+                </div>
+            </section>
 
-                                {/* Right: Square Image */}
-                                <div className="relative aspect-square overflow-hidden bg-white order-1 lg:order-2">
+            {/* 3. CAMPUS SETTING & ENVIRONMENT */}
+            <section id="location" className="py-16 md:py-24 bg-slate-50 border-y border-slate-200">
+                <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
+                    <div className="grid lg:grid-cols-12 gap-12 items-center">
+                        <div className="lg:col-span-6 space-y-6">
+                            <span className="text-xs font-black uppercase tracking-widest text-slate-500 block">
+                                Ottawa Campus Setting
+                            </span>
+                            <h2 className="text-3xl md:text-4xl font-black text-[#0f2027] tracking-tight leading-tight font-serif">
+                                An Urban Academic District in Canada’s Capital
+                            </h2>
+                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-medium">
+                                Cannoga College forms a compact, accessible academic district in Ottawa where teaching facilities, student lounges, research labs, and transit routes are seamlessly integrated.
+                            </p>
+                            <div className="grid sm:grid-cols-2 gap-4 pt-2">
+                                {[
+                                    { t: "Fast Transit", d: "Under 20 minutes to downtown Ottawa" },
+                                    { t: "Bike Infrastructure", d: "Protected campus cycling lanes & racks" },
+                                    { t: "Green Spaces", d: "Surrounded by natural parklands" },
+                                    { t: "Global Network", d: "Students from over 60+ countries" }
+                                ].map((item, idx) => (
+                                    <div key={idx} className="p-4 bg-white border border-slate-200 rounded-md">
+                                        <h4 className="font-bold text-black text-sm mb-0.5">{item.t}</h4>
+                                        <p className="text-xs text-slate-600 font-medium">{item.d}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="lg:col-span-6 relative aspect-square sm:aspect-[4/3] rounded-xl overflow-hidden border border-slate-200">
+                            <Image
+                                src="/images/ottawa-campus.jpg"
+                                alt="Ottawa Campus Environment"
+                                fill
+                                className="object-cover object-top"
+                                sizes="(max-width: 1024px) 100vw, 50vw"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 4. LEARNING SPACES & STUDIOS */}
+            <section id="facilities" className="py-20 bg-white">
+                <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
+                    <div className="mb-12 max-w-2xl text-left">
+                        <span className="text-xs font-black uppercase tracking-widest text-[#c89211] mb-2 block">
+                            Infrastructure &amp; Innovation
+                        </span>
+                        <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">
+                            Modern Learning Spaces
+                        </h2>
+                        <p className="text-slate-600 font-normal text-base mt-2">
+                            Spaces engineered for hands-on technical training, creative design, and focused research.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6 mb-8">
+                        {[
+                            { title: "Labs & Tech Workshops", desc: "Equipped with high-performance computing, robotics, and hardware testing kits.", image: "/images/technology.jpg" },
+                            { title: "Collaborative Studios", desc: "Open architecture suites, media production suites, and multidisciplinary design desks.", image: "/images/arts-design.jpg" },
+                            { title: "Quiet Study & Commons", desc: "Acoustically treated quiet zones, presentation practice rooms, and reading pods.", image: "/images/academic-guidance.jpg" }
+                        ].map((item) => (
+                            <div key={item.title} className="bg-slate-50 border border-slate-200 rounded-md overflow-hidden flex flex-col justify-between group">
+                                <div className="h-56 relative overflow-hidden">
                                     <Image
-                                        src="/images/ottawa-campus.jpg"
-                                        alt="Campus Setting"
+                                        src={item.image}
+                                        alt={item.title}
                                         fill
-                                        className="object-cover object-top"
-                                        sizes="(max-width: 1024px) 100vw, 50vw"
+                                        className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                                        sizes="(max-width: 768px) 100vw, 33vw"
                                     />
                                 </div>
+                                <div className="p-6">
+                                    <h3 className="font-black text-lg uppercase tracking-tight text-black mb-2">{item.title}</h3>
+                                    <p className="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">{item.desc}</p>
+                                </div>
                             </div>
-                        </section>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
-                        {/* Accessibility */}
-                        <section id="accessibility" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p6 text-black tracking-tight">Global access</h2>
-                            <div className="grid lg:grid-cols-2 gap-0 overflow-hidden group">
-                                {/* Left: Square Image */}
-                                <div className="relative aspect-square overflow-hidden bg-white">
+            {/* 5. HOUSING & ACCOMMODATION SPOTLIGHT */}
+            <section id="housing" className="py-20 bg-slate-900 text-white">
+                <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
+                    <div className="mb-12 max-w-2xl text-left">
+                        <span className="text-xs font-black uppercase tracking-widest text-[#c89211] mb-2 block">
+                            Student Accommodation
+                        </span>
+                        <h2 className="text-3xl md:text-4xl font-serif font-bold text-white tracking-tight">
+                            Living at Cannoga
+                        </h2>
+                        <p className="text-slate-300 font-normal text-base mt-2">
+                            Secure, affordable on-campus and off-campus housing tailored for student life.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-8">
+                        <div className="bg-slate-800/80 border border-slate-700 rounded-md p-6 sm:p-8 flex flex-col justify-between">
+                            <div>
+                                <div className="h-60 relative rounded-md overflow-hidden mb-6 border border-slate-700">
                                     <Image
-                                        src="/images/transportation-aviation.jpg"
-                                        alt="Accessibility & Transit"
+                                        src="/images/student-housing-hero.png"
+                                        alt="Shared Residences"
                                         fill
                                         className="object-cover object-top"
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                     />
                                 </div>
-
-                                {/* Right: Text Content */}
-                                <div className="p-12 md:p-20 flex flex-col justify-center bg-[#0f2027] text-white">
-                                    <div className="space-y-8">
-                                        <p className="text-aalto-3 text-white/90 leading-aalto-3">
-                                            The campus is directly connected to public transport networks. A dedicated transit route provides fast access to central Ottawa, with travel times typically under twenty minutes.
-                                        </p>
-                                        <p className="text-aalto-3 text-white/90 leading-aalto-3">
-                                            Cycling infrastructure is well developed, with marked bike paths and secure bicycle parking available throughout the campus area.
-                                        </p>
-                                    </div>
+                                <div className="flex items-center justify-between mb-3">
+                                    <h3 className="text-2xl font-black text-white uppercase tracking-tight">Shared Residences</h3>
+                                    <span className="bg-[#c89211] text-black font-black text-xs uppercase px-3 py-1 rounded-sm">From ~$300/mo</span>
                                 </div>
+                                <p className="text-slate-300 text-sm leading-relaxed font-medium mb-6">
+                                    Private furnished bedroom with shared contemporary kitchens, student lounges, high-speed Wi-Fi, and laundry facilities.
+                                </p>
                             </div>
-                        </section>
+                            <Link
+                                href="/student-guide/housing-for-students"
+                                className="inline-flex items-center gap-2 text-[#c89211] font-bold text-sm uppercase tracking-wider hover:underline"
+                            >
+                                Explore Shared Housing <ArrowRight size={16} weight="bold" />
+                            </Link>
+                        </div>
 
-                        {/* Architecture */}
-                        <section id="architecture" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p6 text-black tracking-tight">Built environment</h2>
-                            <p className="text-aalto-3 text-black leading-aalto-3 max-w-4xl">
-                                The campus features a mix of historically significant buildings and modern academic facilities. Architectural planning emphasizes openness and shared spaces. Teaching buildings, research facilities, and libraries are designed to support collaboration, independent study, and project-based learning.
-                            </p>
-                        </section>
-
-                        {/* Academic Facilities */}
-                        <section id="facilities" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p6 text-black tracking-tight">
-                                Learning Spaces
-                            </h2>
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-0 mb-12">
-                                {[
-                                    { title: "Labs & Workshops", image: "/images/technology.jpg" },
-                                    { title: "Collaborative Studios", image: "/images/arts-design.jpg" },
-                                    { title: "Quiet Study Zones", image: "/images/academic-guidance.jpg" }
-                                ].map((item, idx) => (
-                                    <div key={item.title} className={`group cursor-pointer bg-card overflow-hidden p-8`}>
-                                        <div className="h-64 mb-8 overflow-hidden relative">
-                                            <Image
-                                                src={item.image}
-                                                alt={item.title}
-                                                fill
-                                                className="object-cover object-top"
-                                                sizes="(max-width: 768px) 100vw, 33vw"
-                                            />
-                                        </div>
-                                        <h3 className="font-bold text-xl uppercase tracking-tighter">{item.title}</h3>
-                                    </div>
-                                ))}
-                            </div>
+                        <div className="bg-slate-800/80 border border-slate-700 rounded-md p-6 sm:p-8 flex flex-col justify-between">
                             <div>
-                                <ul className="grid sm:grid-cols-2 gap-6 p-10 bg-neutral-100 text-black">
-                                    {["Individual self study areas", "Group work rooms", "Technical workshops", "Creative design spaces"].map((item) => (
-                                        <li key={item} className="font-bold uppercase tracking-widest text-sm flex items-center gap-4">
-                                            <ArrowRight size={18} weight="bold" className="text-black" />
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </section>
-
-                        {/* Library */}
-                        <section id="library" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p6 text-black tracking-tight">Knowledge center</h2>
-                            <div className="grid lg:grid-cols-2 gap-0 overflow-hidden group">
-                                {/* Left: Text Content */}
-                                <div className="p-12 md:p-20 flex flex-col justify-center bg-white order-2 lg:order-1">
-                                    <p className="text-xl text-black leading-relaxed font-medium mb-10">
-                                        The central Learning Centre combines library services, digital resources, quiet reading zones, and collaborative areas. It serves as a primary academic hub for students across all fields of study.
-                                    </p>
-                                    <p className="text-lg text-black/60 italic leading-relaxed border-l-4 border-[#0f2027] pl-8 font-medium">
-                                        "Designed to foster cross-disciplinary synergy, the center bridges the gap between traditional research and modern creative workflows."
-                                    </p>
-                                </div>
-
-                                {/* Right: Square Image */}
-                                <div className="relative aspect-square overflow-hidden bg-white order-1 lg:order-2">
-                                     <Image
-                                         src="/images/student-ambassadors.png"
-                                         alt="Library"
-                                         fill
-                                         className="object-cover object-top"
-                                         sizes="(max-width: 1024px) 100vw, 50vw"
-                                     />
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Housing */}
-                        <section id="housing" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p6 text-black tracking-tight">Living at Cannoga</h2>
-                            <div className="grid md:grid-cols-2 gap-4 lg:gap-8">
-                                <div className="bg-card p-12 group">
-                                    <div className="h-64 mb-10 relative overflow-hidden">
-                                        <Image
-                                            src="/images/student-housing-hero.png"
-                                            alt="Shared Residences"
-                                            fill
-                                            className="object-cover object-top"
-                                            sizes="(max-width: 768px) 100vw, 50vw"
-                                        />
-                                    </div>
-                                    <h3 className="text-2xl font-black uppercase tracking-tighter mb-4">Shared Residences</h3>
-                                    <p className="text-black leading-relaxed font-medium mb-8">Private room with shared kitchen and bathroom facilities. Affordable and social options for students looking for community.</p>
-                                    <span className="inline-block bg-[#0f2027] text-[#c89211] px-6 py-2 text-sm font-bold uppercase tracking-[0.3em]">From ~300$/month</span>
-                                </div>
-                                <div className="bg-card p-12 group">
-                                    <div className="h-64 mb-10 relative overflow-hidden">
-                                        <Image
-                                            src="/images/housing/homestay.jpg"
-                                            alt="Studio Apartments"
-                                            fill
-                                            className="object-cover object-top"
-                                            sizes="(max-width: 768px) 100vw, 50vw"
-                                        />
-                                    </div>
-                                    <h3 className="text-2xl font-black uppercase tracking-tighter mb-4">Private Studios</h3>
-                                    <p className="text-black leading-relaxed font-medium mb-8">Private apartments with individual kitchen and bathroom. Ideal for students who prefer focus and total independence.</p>
-                                    <span className="inline-block bg-[#0f2027] text-[#c89211] px-6 py-2 text-sm font-bold uppercase tracking-[0.3em]">From ~450$/month</span>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Organizations */}
-                        <section id="organizations" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p6 text-black tracking-tight">Associations</h2>
-                            <div className="grid lg:grid-cols-2 gap-0 overflow-hidden group mb-12">
-                                {/* Left: Square Image */}
-                                <div className="relative aspect-square md:aspect-auto md:h-full min-h-[400px] overflow-hidden bg-white">
+                                <div className="h-60 relative rounded-md overflow-hidden mb-6 border border-slate-700">
                                     <Image
-                                        src="/images/exchange-students.png"
-                                        alt="Student Union & Communities"
+                                        src="/images/housing/homestay.jpg"
+                                        alt="Studio Apartments"
                                         fill
                                         className="object-cover object-top"
-                                        sizes="(max-width: 1024px) 100vw, 50vw"
+                                        sizes="(max-width: 768px) 100vw, 50vw"
                                     />
                                 </div>
-
-                                {/* Right: Text Content */}
-                                <div className="p-12 md:p-20 flex flex-col justify-center bg-[#0f2027] text-white border-l border-[#1e3a47]">
-                                    <div className="space-y-12">
-                                        <div>
-                                            <h3 className="text-3xl lg:text-4xl font-serif font-bold tracking-tight mb-2 text-white">Student Union</h3>
-                                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#c89211]">Advocacy &amp; Events</p>
-                                        </div>
-                                        <div>
-                                            <h3 className="text-3xl lg:text-4xl font-serif font-bold tracking-tight mb-2 text-white">Subject Clubs</h3>
-                                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#c89211]">Field Specifics</p>
-                                        </div>
-                                    </div>
+                                <div className="flex items-center justify-between mb-3">
+                                    <h3 className="text-2xl font-black text-white uppercase tracking-tight">Private Studios</h3>
+                                    <span className="bg-[#c89211] text-black font-black text-xs uppercase px-3 py-1 rounded-sm">From ~$450/mo</span>
                                 </div>
+                                <p className="text-slate-300 text-sm leading-relaxed font-medium mb-6">
+                                    Independent private apartments featuring dedicated private kitchens, en-suite bathrooms, study desks, and full utility packages.
+                                </p>
                             </div>
-                            <div>
-                                <ul className="grid sm:grid-cols-2 gap-6">
-                                    {["Academic networking", "Cultural events", "Sports teams", "Debate & hobbies"].map((item) => (
-                                        <li key={item} className="p-6 border-b border-neutral-100 font-bold uppercase tracking-widest text-sm flex items-center gap-4">
-                                            <ArrowRight size={20} weight="bold" className="text-black" />
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </section>
-
-                        {/* Services */}
-                        <section id="services" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p6 text-black tracking-tight">Integrated help</h2>
-                            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-0">
-                                {[
-                                    { name: "Restaurants", desc: "Campus Dining & Cafe", image: "/images/hospitality-tourism.jpg" },
-                                    { name: "Retail", desc: "Campus Supplies", image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop" },
-                                    { name: "Health", desc: "Medical Support", image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop" },
-                                    { name: "Guidance", desc: "Career Support", image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=800&auto=format&fit=crop" }
-                                ].map((item, idx) => (
-                                    <Link key={item.name} href={item.name === "Restaurants" ? "/student-life/cafe/" : "#"} className={`bg-card group hover:bg-[#0f2027] hover:text-white transition-all p-8 flex flex-col no-underline`}>
-                                        <div className="h-32 relative mb-6">
-                                            <Image
-                                                src={item.image}
-                                                alt={item.name}
-                                                fill
-                                                className="object-cover object-top"
-                                            />
-                                        </div>
-                                        <h3 className="font-bold text-lg uppercase tracking-tighter mb-2">{item.name}</h3>
-                                        <p className="text-xs text-black/50 group-hover:text-white/50 font-bold uppercase tracking-widest">{item.desc}</p>
-                                    </Link>
-                                ))}
-                            </div>
-                        </section>
-
-                        {/* Future Growth */}
-                        <section id="future" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-aalto-p6 text-black tracking-tight">
-                                Evolution
-                            </h2>
-                            <p className="text-xl text-black leading-relaxed font-medium max-w-4xl">
-                                Cannoga College continues to expand its infrastructure to support modern pedagogical methods and sustainability. Every new renovation focuses on energy efficiency, accessibility, and radically flexible learning environments.
-                            </p>
-                        </section>
-
-
-                        {/* Student Resource Hub */}
-                        <section id="resource-hub" className="scroll-mt-32 pt-8 border-t border-neutral-200">
-                            <div className="mb-8">
-                                <h2 className="text-aalto-5 font-bold mb-2 text-black tracking-tight">Student Resource Hub</h2>
-                                <p className="text-sm text-neutral-600 font-medium">Explore key tools, campus services, health support, and academic guidance.</p>
-                            </div>
-                            <StudentResourceHubCarousel />
-                        </section>
-
-                        {/* Summary */}
-                        <section id="summary" className="scroll-mt-32 bg-[#0f2027] text-white p-12 md:p-20 border-y border-[#1e3a47]">
-                            <h2 className="text-aalto-5 font-serif font-bold mb-8 text-white tracking-tight">Integrated Experience</h2>
-                            <p className="text-xl text-white/90 leading-relaxed font-medium max-w-4xl">
-                                Studying at Cannoga College means being part of an integrated academic ecosystem where teaching, research, and daily living coexist seamlessly. The combination of first-class infrastructure and natural surroundings supports both academic success and radical personal wellbeing.
-                            </p>
-                        </section>
-
-                    </main>
+                            <Link
+                                href="/student-guide/housing-for-students"
+                                className="inline-flex items-center gap-2 text-[#c89211] font-bold text-sm uppercase tracking-wider hover:underline"
+                            >
+                                View Private Studios <ArrowRight size={16} weight="bold" />
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
+
+            {/* 6. FIND YOUR PEOPLE & STUDENT STORIES CAROUSEL (COLUMBIA COLLEGE STYLE) */}
+            <section className="py-16 md:py-24 bg-white text-black overflow-hidden">
+                <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
+                    <StudentStoriesCarousel />
+                </div>
+            </section>
+
+            {/* 7. CAMPUS DINING & SERVICES */}
+            <section id="services" className="py-20 bg-slate-50 border-y border-slate-200">
+                <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
+                    <div className="mb-12 max-w-2xl text-left">
+                        <span className="text-xs font-black uppercase tracking-widest text-[#c89211] mb-2 block">
+                            Campus Amenities
+                        </span>
+                        <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">
+                            Dining, Retail &amp; Support
+                        </h2>
+                        <p className="text-slate-600 font-normal text-base mt-2">
+                            Convenient services located on-campus to make your student life smooth and enjoyable.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { name: "Campus Café & Dining", desc: "Fresh artisan coffee, wholesome meals, and halal/vegan options.", image: "/images/hospitality-tourism.jpg", href: "/student-life/cafe" },
+                            { name: "Bookstore & Tech Supplies", desc: "Textbooks, art materials, laptops, and college merchandise.", image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop", href: "#" },
+                            { name: "Health & Medical Desk", desc: "On-site nursing support, immunization advice, and counseling.", image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop", href: "/student-guide#support" },
+                            { name: "Career Advisory Hub", desc: "Resume reviews, co-op interview prep, and employer job fairs.", image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=800&auto=format&fit=crop", href: "/careers" }
+                        ].map((item, idx) => (
+                            <Link
+                                key={idx}
+                                href={item.href}
+                                className="bg-white border border-slate-200 rounded-md overflow-hidden p-6 flex flex-col justify-between no-underline group hover:border-[#0f2027] transition-all"
+                            >
+                                <div>
+                                    <div className="h-36 relative mb-4 rounded-sm overflow-hidden">
+                                        <Image
+                                            src={item.image}
+                                            alt={item.name}
+                                            fill
+                                            className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                                        />
+                                    </div>
+                                    <h3 className="font-bold text-base uppercase tracking-tight text-black mb-1 group-hover:text-[#c89211] transition-colors">
+                                        {item.name}
+                                    </h3>
+                                    <p className="text-xs text-slate-600 font-medium leading-relaxed">{item.desc}</p>
+                                </div>
+                                <span className="text-xs font-bold uppercase tracking-wider text-black pt-4 block group-hover:translate-x-1 transition-transform">
+                                    Learn More &rarr;
+                                </span>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* 8. STUDENT RESOURCE LINKS WITH LILAC BACKGROUND & SMOOTH HILL TOP EDGE (JUST LIKE HOME) */}
+            <section className="relative bg-[#e8d5ff] pt-14 pb-20 md:pt-28 md:pb-24 text-slate-900">
+                {/* Top Smooth Rolling Hills Wavy Edge (4px overlap closes any mobile gap line) */}
+                <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 -translate-y-[calc(100%-4px)] pointer-events-none">
+                    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-10 sm:h-14 md:h-20 text-[#e8d5ff] fill-current block scale-y-[1.05] origin-bottom">
+                        <path d="M0,50 C240,15 480,85 720,40 C960,-5 1200,70 1440,35 V100 H0 Z" />
+                    </svg>
+                </div>
+
+                <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl relative z-20">
+                    <div className="mb-12">
+                        <h2 className="text-3xl font-serif font-bold text-[#0f2027]">Student Resource Hub</h2>
+                        <p className="text-slate-700 text-sm mt-1">Direct access to campus services, health support, and academic governance.</p>
+                    </div>
+
+                    <StudentResourceHubCarousel />
+                </div>
+
+                {/* Bottom Prominent Wavy Edge */}
+                <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none z-0 translate-y-[calc(100%-2px)] pointer-events-none">
+                    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-16 sm:h-24 md:h-36 text-[#e8d5ff] fill-current block scale-y-[1.1] origin-top">
+                        <path d="M0,0 C320,90 640,-30 960,70 C1200,120 1360,30 1440,50 V0 H0 Z" />
+                    </svg>
+                </div>
+            </section>
         </div>
-        </GuideSidebarLayout>
     );
 }
-
-
