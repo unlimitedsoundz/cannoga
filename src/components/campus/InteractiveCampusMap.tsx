@@ -38,6 +38,21 @@ interface CampusLocation {
 
 const LOCATIONS: CampusLocation[] = [
     {
+        id: 'cannoga-main',
+        title: 'Cannoga College Main Campus',
+        shortName: 'Cannoga College Campus',
+        x: 50,
+        y: 49,
+        description: 'Main Campus Headquarters at 81 Montreal Rd, Ottawa. Housing the Central Welcome Centre, Student Services, Registrar, Admissions, and Administrative Leadership.',
+        facilities: ['Central Welcome Centre', 'Admissions & Registrar Hall', 'Student Life Services & Career Hub', 'Executive Administration'],
+        hours: 'Mon – Fri: 9:00 AM – 4:00 PM | Sat: 9:00 AM – 4:00 PM',
+        link: '/contact/',
+        linkText: 'Contact Campus Services',
+        bgColor: 'bg-[#dc2626]', // Vibrant Red
+        borderColor: 'border-[#dc2626]',
+        accentColor: '#dc2626',
+    },
+    {
         id: 'health-community',
         title: 'School of Health & Community',
         shortName: 'Health & Community',
