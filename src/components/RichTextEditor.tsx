@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useRef, useState } from 'react';
 
@@ -31,7 +31,6 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
                     { List },
                     { BlockQuote },
                     { Image, ImageCaption, ImageStyle, ImageToolbar, ImageUpload },
-                    { Base64UploadAdapter },
                     { Table, TableToolbar },
                 ] = await Promise.all([
                     import('@ckeditor/ckeditor5-editor-classic'),
@@ -43,14 +42,60 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
                     import('@ckeditor/ckeditor5-list'),
                     import('@ckeditor/ckeditor5-block-quote'),
                     import('@ckeditor/ckeditor5-image'),
-                    import('@ckeditor/ckeditor5-upload'),
                     import('@ckeditor/ckeditor5-table'),
                 ]);
 
                 if (destroyed || !editorContainerRef.current) return;
 
+                // Custom Supabase Storage Upload Adapter for CKEditor
+                class SupabaseUploadAdapter {
+                    loader: any;
+                    constructor(loader: any) {
+                        this.loader = loader;
+                    }
+
+                    async upload() {
+                        const file = await this.loader.file;
+                        const { createBlogClient } = await import('@/utils/supabase/blogClient');
+                        const supabase = createBlogClient();
+                        const fileExt = file.name ? file.name.split('.').pop() : 'jpg';
+                        const fileName = `blog-${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
+
+                        const { error } = await supabase.storage
+                            .from('blog-images')
+                            .upload(fileName, file, {
+                                cacheControl: '31536000',
+                                upsert: false,
+                            });
+
+                        if (error) {
+                            console.error('Supabase storage upload error:', error);
+                            throw error;
+                        }
+
+                        const { data: { publicUrl } } = supabase.storage
+                            .from('blog-images')
+                            .getPublicUrl(fileName);
+
+                        return {
+                            default: publicUrl,
+                        };
+                    }
+
+                    abort() {
+                        // Abort request if needed
+                    }
+                }
+
+                function SupabaseUploadAdapterPlugin(editorInstance: any) {
+                    editorInstance.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
+                        return new SupabaseUploadAdapter(loader);
+                    };
+                }
+
                 const editor = await ClassicEditor.create(editorContainerRef.current, {
                     licenseKey: 'GPL',
+                    extraPlugins: [SupabaseUploadAdapterPlugin],
                     plugins: [
                         Essentials,
                         Paragraph,
@@ -65,7 +110,6 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
                         ImageStyle,
                         ImageToolbar,
                         ImageUpload,
-                        Base64UploadAdapter,
                         Table,
                         TableToolbar,
                     ],
