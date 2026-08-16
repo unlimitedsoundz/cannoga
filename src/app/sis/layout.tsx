@@ -203,23 +203,33 @@ export default function SISLayout({ children }: { children: ReactNode }) {
 
     const navItems = profile.role === 'ADMIN' ? [...adminNavItems, ...websiteNavItems] : [];
 
-    if (profile.role === 'ADMIN' && isAdminPath) {
+    if (isAdminPath) {
         return (
             <div className="min-h-screen bg-[#0a151a] font-sans text-white flex flex-col" data-theme="sis-dark">
-                <SISHeader onMenuToggle={() => setSidebarOpen(!sidebarOpen)} role={profile.role} profile={profile} studentId={profile.student_id || ''} />
-                <div className="flex flex-1 overflow-hidden">
-                    <SISSidebar
-                        items={navItems}
-                        pathname={pathname}
-                        open={sidebarOpen}
-                        onClose={() => setSidebarOpen(false)}
-                    />
+                {profile?.role === 'ADMIN' ? (
+                    <>
+                        <SISHeader onMenuToggle={() => setSidebarOpen(!sidebarOpen)} role={profile.role} profile={profile} studentId={profile.student_id || ''} />
+                        <div className="flex flex-1 overflow-hidden">
+                            <SISSidebar
+                                items={navItems}
+                                pathname={pathname}
+                                open={sidebarOpen}
+                                onClose={() => setSidebarOpen(false)}
+                            />
+                            <main className="flex-1 overflow-y-auto no-scrollbar">
+                                <div className="p-4 md:p-6 lg:p-8 max-w-[1400px] mx-auto">
+                                    {children}
+                                </div>
+                            </main>
+                        </div>
+                    </>
+                ) : (
                     <main className="flex-1 overflow-y-auto no-scrollbar">
                         <div className="p-4 md:p-6 lg:p-8 max-w-[1400px] mx-auto">
                             {children}
                         </div>
                     </main>
-                </div>
+                )}
                 <Toaster position="top-right" theme="dark" />
             </div>
         );

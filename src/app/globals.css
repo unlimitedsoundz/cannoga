@@ -945,10 +945,6 @@ button[type="submit"],
 button[type="button"].bg-sky-500,
 button[type="button"].bg-sky-600,
 button[type="button"].bg-sky-400,
-button[type="button"].bg-black,
-button[type="button"].bg-neutral-900,
-button[type="button"].bg-slate-900,
-button[type="button"].bg-\[\#0a151a\],
 button.bg-sky-500,
 button.bg-sky-600,
 button.bg-sky-400,
@@ -958,7 +954,6 @@ button.bg-slate-900,
 button.bg-blue-600,
 button.bg-indigo-600,
 button.bg-\[\#0a151a\],
-.bg-\[\#0a151a\],
 .btn-primary,
 .cc-btn-primary,
 .sis-btn,
@@ -966,72 +961,29 @@ button.sis-btn,
 [data-theme="portal"] button[type="submit"],
 [data-theme="portal"] button.bg-sky-500,
 [data-theme="sis"] button[type="submit"],
-[data-theme="sis"] button.bg-sky-500,
-[data-theme="sis"] button.bg-\[\#0a151a\] {
+[data-theme="sis"] button.bg-sky-500 {
   color: #ffffff !important;
-  background-color: #0a151a;
 }
 
-/* Enforce pure white text for all elements in Admin SIS dark theme */
+/* Enforce dark theme contrast and container styling for Admin SIS */
+[data-theme="sis-dark"] {
+  color-scheme: dark;
+}
+
 [data-theme="sis-dark"] body,
-[data-theme="sis-dark"] main,
-[data-theme="sis-dark"] table,
-[data-theme="sis-dark"] p,
-[data-theme="sis-dark"] span,
-[data-theme="sis-dark"] h1,
-[data-theme="sis-dark"] h2,
-[data-theme="sis-dark"] h3,
-[data-theme="sis-dark"] h4,
-[data-theme="sis-dark"] h5,
-[data-theme="sis-dark"] h6,
-[data-theme="sis-dark"] label,
-[data-theme="sis-dark"] td,
-[data-theme="sis-dark"] th,
-[data-theme="sis-dark"] input,
-[data-theme="sis-dark"] select,
-[data-theme="sis-dark"] textarea,
-[data-theme="sis-dark"] div {
+[data-theme="sis-dark"] main {
+  background-color: #0a151a !important;
   color: #ffffff;
 }
 
-[data-theme="sis-dark"] .text-neutral-900,
-[data-theme="sis-dark"] .text-neutral-800,
-[data-theme="sis-dark"] .text-neutral-700,
-[data-theme="sis-dark"] .text-neutral-600,
-[data-theme="sis-dark"] .text-slate-900,
-[data-theme="sis-dark"] .text-slate-800,
-[data-theme="sis-dark"] .text-slate-700,
-[data-theme="sis-dark"] .text-slate-600,
-[data-theme="sis-dark"] .text-gray-900,
-[data-theme="sis-dark"] .text-gray-800,
-[data-theme="sis-dark"] .text-gray-700,
-[data-theme="sis-dark"] .text-gray-600,
-[data-theme="sis-dark"] .text-black,
-[data-theme="sis-dark"] .text-\[\#0a151a\] {
-  color: #ffffff !important;
-}
-
-[data-theme="sis-dark"] input:not([class*="ck"]),
-[data-theme="sis-dark"] textarea:not([class*="ck"]),
-[data-theme="sis-dark"] select {
-  color: #ffffff !important;
-}
-
-[data-theme="sis-dark"] a:not(.text-red-500):not(.text-red-600):not(.text-red-400) {
-  color: #ffffff !important;
-}
-
-/* Force Deep Blue background for all container cards, panels, and dark grey elements in Admin SIS */
+/* Container cards and panels */
 [data-theme="sis-dark"] .bg-white,
 [data-theme="sis-dark"] .bg-gray-50,
 [data-theme="sis-dark"] .bg-gray-100,
 [data-theme="sis-dark"] .bg-neutral-50,
 [data-theme="sis-dark"] .bg-neutral-100,
-[data-theme="sis-dark"] .bg-neutral-800,
 [data-theme="sis-dark"] .bg-neutral-900,
 [data-theme="sis-dark"] .bg-neutral-950,
-[data-theme="sis-dark"] .bg-slate-800,
-[data-theme="sis-dark"] .bg-slate-900,
 [data-theme="sis-dark"] [class*="bg-[#141414]"],
 [data-theme="sis-dark"] [class*="bg-[#181818]"],
 [data-theme="sis-dark"] [class*="bg-[#1a1a1a]"],
@@ -1043,6 +995,34 @@ button.sis-btn,
 [data-theme="sis-dark"] aside {
   background-color: #0a151a !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Dark theme form controls */
+[data-theme="sis-dark"] input:not([class*="ck"]),
+[data-theme="sis-dark"] textarea:not([class*="ck"]),
+[data-theme="sis-dark"] select {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* Text color contrast rules in Admin SIS */
+[data-theme="sis-dark"] .text-neutral-900,
+[data-theme="sis-dark"] .text-neutral-800,
+[data-theme="sis-dark"] .text-neutral-700,
+[data-theme="sis-dark"] .text-slate-900,
+[data-theme="sis-dark"] .text-slate-800,
+[data-theme="sis-dark"] .text-gray-900,
+[data-theme="sis-dark"] .text-gray-800,
+[data-theme="sis-dark"] .text-black,
+[data-theme="sis-dark"] .text-\[\#0a151a\] {
+  color: #ffffff !important;
+}
+
+[data-theme="sis-dark"] .text-neutral-500,
+[data-theme="sis-dark"] .text-slate-400,
+[data-theme="sis-dark"] .text-slate-500 {
+  color: #94a3b8 !important;
 }
 
 /* Hide scrollbars across Admin SIS desktop view while preserving scroll functionality */

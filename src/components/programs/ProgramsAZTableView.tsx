@@ -550,7 +550,7 @@ export function ProgramsAZTableView() {
                         const domesticTuition = levelFormatted === 'Master' ? '$5,600/yr' : levelFormatted === 'Bachelor' ? '$4,000/yr' : '$2,400/yr';
                         const intlTuition = levelFormatted === 'Master' ? '$9,600/yr' : levelFormatted === 'Bachelor' ? '$6,400/yr' : '$4,000/yr';
 
-                        const isPgwpEligible = levelFormatted === 'Master' || levelFormatted === 'Bachelor' || levelFormatted === 'Diploma' || levelFormatted === 'Advanced Diploma';
+                        const isPgwpEligible = levelFormatted === 'Master' || levelFormatted === 'Bachelor' || levelFormatted === 'Diploma';
 
                         return {
                             id: item.id,

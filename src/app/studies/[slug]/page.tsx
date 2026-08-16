@@ -444,7 +444,7 @@ export default async function CourseDetailPage({ params }: Props) {
                             <div className="p-4 border border-slate-200 rounded-none">
                                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Work Permit Eligibility</p>
                                 <p className="font-black text-slate-900 text-lg">
-                                    {(c.degreeLevel === 'MASTER' || c.degreeLevel === 'BACHELOR' || c.degreeLevel === 'DIPLOMA' || c.degreeLevel === 'ADVANCED_DIPLOMA') 
+                                    {(c.degreeLevel === 'MASTER' || c.degreeLevel === 'BACHELOR' || c.degreeLevel === 'DIPLOMA') 
                                         ? 'Eligible (PGWP Pathway)' 
                                         : 'Not PGWP Eligible'}
                                 </p>
