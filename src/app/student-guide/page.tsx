@@ -1,10 +1,11 @@
-﻿import {
+import {
     ArrowRight
 } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
+import { ProgramLevelsCarousel } from '@/components/student-guide/ProgramLevelsCarousel';
 
 export const metadata = {
     title: 'Undergraduate & Postgraduate Resources',
@@ -135,30 +136,9 @@ export default function StudentGuidePage() {
                                 Cannoga College offers Certificate, Diploma, Advanced Diploma, Bachelor’s, and Master’s programmes across business, economics, management, finance, information systems, entrepreneurship, and interdisciplinary fields. All academic programs at Cannoga College are eligible for the Post-Graduation Work Permit (PGWP).
                             </p>
 
-                            <div className="grid md:grid-cols-2 gap-4 mb-4">
-                                <div>
-                                    <h3 className="font-bold text-base text-black mb-1">Certificate Programs</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Rapid, career-focused training in specific technical or business domains.</p>
-                                    <Link href="/degree-programmes#certificates" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-base text-black mb-1">Diploma Programs</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Comprehensive 2-year and 3-year programs combining theory with practical skills.</p>
-                                    <Link href="/degree-programmes#diplomas" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-base text-black mb-1">Bachelor’s Degree</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Structured curriculum focused on core knowledge and skills.</p>
-                                    <Link href="/admissions/bachelor" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-base text-black mb-1">Master’s Degree</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Advanced studies focusing on specialized expertise and research-oriented development.</p>
-                                    <Link href="/admissions/master" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Learn more →</Link>
-                                </div>
-                            </div>
+                            <ProgramLevelsCarousel />
 
-                            <div className="pt-2">
+                            <div className="pt-4">
                                 <h3 className="font-bold text-base mb-2 text-black">Curriculum Structure</h3>
                                 <ul className="grid sm:grid-cols-2 gap-2 text-xs md:text-sm text-neutral-700 font-medium">
                                     {[
