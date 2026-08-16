@@ -85,7 +85,7 @@ export default function WelcomeFromPresidentPage() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#0f2027]/70 via-transparent to-transparent" />
                                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                                         <p className="text-lg font-black tracking-tight leading-tight">Dr. Luke Schaffner</p>
-                                        <p className="text-sm font-semibold text-white/80 uppercase tracking-widest mt-0.5">President &amp; Vice-Chancellor</p>
+                                        <p className="text-sm font-semibold text-white/80 uppercase tracking-widest mt-0.5">President</p>
                                         <p className="text-xs text-white/60 mt-1">Cannoga College, Ottawa</p>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@ export default function WelcomeFromPresidentPage() {
                                 </div>
                                 <div>
                                     <p className="text-xl font-black text-[#0f2027] tracking-tight">Dr. Luke Schaffner</p>
-                                    <p className="text-sm font-semibold text-neutral-500 uppercase tracking-widest">President &amp; Vice-Chancellor</p>
+                                    <p className="text-sm font-semibold text-neutral-500 uppercase tracking-widest">President</p>
                                     <p className="text-sm text-neutral-400 mt-0.5">Cannoga College · Ottawa, Ontario</p>
                                 </div>
                             </div>

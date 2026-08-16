@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -1489,7 +1489,7 @@ function formatRelativeTime(dateInput: any): string {
                                         <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-slate-800">
                                             <div>
                                                 <p className="text-xs font-bold text-white">Dr. Luke Schaffner</p>
-                                                <p className="text-[10px] text-slate-300 font-medium">President & Vice-Chancellor, Cannoga College</p>
+                                                <p className="text-[10px] text-slate-300 font-medium">President, Cannoga College</p>
                                             </div>
                                             <button type="button" onClick={() => navigateTo('news')} className="text-xs font-semibold text-white hover:text-slate-200 hover:underline transition">
                                                 Read Full Address & Campus Updates &rarr;
