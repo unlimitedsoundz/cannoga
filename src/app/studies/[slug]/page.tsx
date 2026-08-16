@@ -8,6 +8,7 @@ import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { Breadcrumbs } from '@aalto-dx/react-modules';
 import { ArrowLeft, CaretLeft as ChevronLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { getTuitionFeeSync } from '@/utils/tuition';
+import { RelatedAcademicProgramsCarousel, RelatedProgramItem } from '@/components/programs/RelatedAcademicProgramsCarousel';
 // Revalidate every hour. Admin mutations call revalidatePath() for immediate cache busting.
 export const revalidate = 3600;
 
@@ -198,14 +199,22 @@ export default async function CourseDetailPage({ params }: Props) {
     }
 
     // Fetch related academic courses (mesh linking across studies)
-    let relatedCourses: any[] = [];
+    let relatedCourses: RelatedProgramItem[] = [];
     const { data: siblingCourses } = await supabase
         .from('Course')
-        .select('id, title, slug, degreeLevel, duration, description')
+        .select('id, title, slug, degreeLevel, duration, description, school:School(slug)')
         .neq('slug', slug)
-        .limit(4);
+        .limit(8);
     if (siblingCourses && siblingCourses.length > 0) {
-        relatedCourses = siblingCourses;
+        relatedCourses = siblingCourses.map((sc: any) => ({
+            id: sc.id,
+            title: sc.title,
+            slug: sc.slug,
+            degreeLevel: sc.degreeLevel,
+            duration: sc.duration,
+            description: sc.description,
+            schoolSlug: (Array.isArray(sc.school) ? sc.school[0] : sc.school)?.slug || c.school?.slug,
+        }));
     }
 
     // Resolve the correct school slug for department back-links
@@ -438,47 +447,6 @@ export default async function CourseDetailPage({ params }: Props) {
                             </div>
                         </div>
                     </section>
-
-                    {/* 4. Related Programs & Pathways Mesh */}
-                    {relatedCourses.length > 0 && (
-                        <section className="py-8 border-t border-slate-200">
-                            <div className="flex items-center justify-between mb-6">
-                                <div>
-                                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">Related Academic Programs</h2>
-                                    <p className="text-sm text-slate-600 mt-1">Explore other accredited credentials and specializations at Cannoga College.</p>
-                                </div>
-                                <Link href="/studies/" className="text-xs font-bold uppercase tracking-wider text-slate-900 hover:text-sky-700 underline hidden sm:inline-block">
-                                    All Programs &rarr;
-                                </Link>
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                {relatedCourses.map((rc: any) => (
-                                    <Link
-                                        key={rc.id}
-                                        href={`/studies/${rc.slug}/`}
-                                        className="group p-5 border border-slate-200 hover:border-slate-900 bg-white hover:bg-slate-50 transition-all flex flex-col justify-between no-underline"
-                                    >
-                                        <div>
-                                            <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-                                                <span>{rc.degreeLevel || 'Diploma'}</span>
-                                                <span>{rc.duration || '2 Years'}</span>
-                                            </div>
-                                            <h3 className="font-black text-slate-900 text-base group-hover:text-sky-700 transition-colors leading-snug">
-                                                {rc.title}
-                                            </h3>
-                                            <p className="text-xs text-slate-600 mt-2 line-clamp-2 leading-relaxed">
-                                                {rc.description?.substring(0, 120)}...
-                                            </p>
-                                        </div>
-                                        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-900">
-                                            <span>Explore Program</span>
-                                            <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
-                        </section>
-                    )}
                 </div>
 
                 {/* Sidebar Column: Entry Requirements & Application Action */}
@@ -539,6 +507,19 @@ export default async function CourseDetailPage({ params }: Props) {
                     )}
                 </div>
             </div>
+
+            {/* 4. Related Programs & Pathways Mesh (AcademicSchoolsCarousel Style) */}
+            {relatedCourses.length > 0 && (
+                <div className="bg-slate-50 py-16 md:py-24 border-t border-slate-200 mt-16">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <RelatedAcademicProgramsCarousel
+                            programs={relatedCourses}
+                            title="Related Academic Programs"
+                            subtitle="Explore other accredited credentials, degrees, and specializations across Cannoga College."
+                        />
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
