@@ -232,37 +232,17 @@ export default async function TuitionPaymentPage() {
                                 
                                 {/* OSAP / ONTARIO STUDENT FINANCIAL AID CARD */}
                                 <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
-                                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
-                                        <div className="flex items-center gap-4">
-                                            {/* OSAP Emblem / Logo */}
-                                            <div className="w-14 h-14 rounded-lg bg-[#002f6c] text-white flex flex-col items-center justify-center font-black tracking-tight shadow-sm shrink-0 border border-[#00204d]">
-                                                <span className="text-xs uppercase tracking-widest text-[#f5a623] leading-none mb-0.5">Ontario</span>
-                                                <span className="text-base font-black tracking-tighter leading-none">OSAP</span>
-                                            </div>
-                                            <div>
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-[10px] font-black uppercase tracking-widest bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-sm">
-                                                        Government of Ontario
-                                                    </span>
-                                                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                                                        Financial Assistance
-                                                    </span>
-                                                </div>
-                                                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-1">
-                                                    Ontario Student Assistance Program (OSAP)
-                                                </h3>
-                                            </div>
+                                    <div className="flex items-center gap-4 pb-6 border-b border-slate-200">
+                                        {/* OSAP Emblem / Logo */}
+                                        <div className="w-14 h-14 rounded-lg bg-[#002f6c] text-white flex flex-col items-center justify-center font-black tracking-tight shadow-sm shrink-0 border border-[#00204d]">
+                                            <span className="text-xs uppercase tracking-widest text-[#f5a623] leading-none mb-0.5">Ontario</span>
+                                            <span className="text-base font-black tracking-tighter leading-none">OSAP</span>
                                         </div>
-
-                                        <Link
-                                            href="https://www.ontario.ca/osap"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 bg-[#002f6c] hover:bg-[#001f48] text-white text-xs font-black uppercase tracking-wider px-5 py-3 rounded-md transition-colors shrink-0 shadow-sm no-underline"
-                                        >
-                                            <span>Apply on OSAP</span>
-                                            <ArrowRight size={16} weight="bold" />
-                                        </Link>
+                                        <div>
+                                            <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                                                Ontario Student Assistance Program (OSAP)
+                                            </h3>
+                                        </div>
                                     </div>
 
                                     <div className="pt-6 space-y-4 text-slate-700">
