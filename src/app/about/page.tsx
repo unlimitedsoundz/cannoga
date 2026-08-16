@@ -192,7 +192,7 @@ export default async function AboutPage() {
 
                     {/* Key Statistics */}
                     <section id="stats" className="scroll-mt-32">
-                        <div className="py-16 bg-[#0f2027] text-white w-full border-y border-[#1e3a47] -mx-4 px-4 sm:-mx-8 sm:px-8 md:-mx-12 md:px-12">
+                        <div className="relative w-screen left-1/2 -translate-x-1/2 px-4 py-16 bg-[#0f2027] text-white border-y border-[#1e3a47] md:static md:w-full md:translate-x-0 md:px-8">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center max-w-4xl mx-auto">
                                 <div className="flex flex-col items-center">
                                     <span className="text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-3 text-white">2.4k</span>
