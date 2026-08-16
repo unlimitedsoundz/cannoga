@@ -29,22 +29,27 @@ const BOARD_OF_GOVERNORS = [
     {
         name: "DR. LUKE SCHAFFNER",
         image: "/images/leadership-luke.jpg",
+        objectPosition: "object-[center_20%]",
     },
     {
         name: "BLAKE HIGGELY",
         image: "/images/leadership-blake.jpg",
+        objectPosition: "object-top",
     },
     {
         name: "MIKE STUYVESANT",
         image: "/images/leadership-mike.jpg",
+        objectPosition: "object-[center_12%]",
     },
     {
         name: "MARGARET SINCLAIR",
         image: "/images/leadership-margaret.jpg",
+        objectPosition: "object-[center_20%]",
     },
     {
         name: "CATHERINE BOUCHARD",
         image: "/images/leadership-catherine.jpg",
+        objectPosition: "object-[center_25%]",
     },
 ];
 
@@ -195,7 +200,7 @@ export default function LeadershipGovernancePage() {
                                         src={gov.image}
                                         alt={gov.name}
                                         fill
-                                        className="object-cover object-center"
+                                        className={`object-cover ${gov.objectPosition || 'object-center'}`}
                                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                                     />
                                     {/* Static dark gradient for text legibility when not hovered */}
