@@ -346,50 +346,50 @@ export function InteractiveCampusMap() {
                     }`}
                 >
                     {/* Google Maps Style Floating Control Stack */}
-                    <div className="absolute top-4 right-4 z-30 flex flex-col items-center bg-white/95 backdrop-blur-md rounded-lg shadow-lg border border-slate-200/80 overflow-hidden text-slate-800">
+                    <div className="absolute top-3 right-3 z-30 flex flex-col items-center bg-white/95 backdrop-blur-md rounded-md border border-slate-300 overflow-hidden text-slate-800">
                         <button
                             onClick={handleZoomIn}
                             title="Zoom In (+)"
-                            className="p-2.5 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors border-b border-slate-100 flex items-center justify-center"
+                            className="p-2 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors border-b border-slate-200 flex items-center justify-center"
                             aria-label="Zoom In"
                         >
-                            <Plus size={16} weight="bold" />
+                            <Plus size={14} weight="bold" />
                         </button>
                         
                         {/* Zoom Level Indicator */}
-                        <div className="px-2 py-1 text-[10px] font-extrabold text-slate-500 bg-slate-50 w-full text-center border-b border-slate-100 tracking-tighter">
+                        <div className="px-1.5 py-0.5 text-[9px] font-extrabold text-slate-600 bg-slate-100 w-full text-center border-b border-slate-200 tracking-tighter">
                             {Math.round(scale * 100)}%
                         </div>
 
                         <button
                             onClick={handleZoomOut}
                             title="Zoom Out (-)"
-                            className="p-2.5 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors border-b border-slate-100 flex items-center justify-center"
+                            className="p-2 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors border-b border-slate-200 flex items-center justify-center"
                             aria-label="Zoom Out"
                         >
-                            <Minus size={16} weight="bold" />
+                            <Minus size={14} weight="bold" />
                         </button>
                         <button
                             onClick={handleResetView}
                             title="Reset View & Recenter"
-                            className="p-2.5 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors border-b border-slate-100 flex items-center justify-center"
+                            className="p-2 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors border-b border-slate-200 flex items-center justify-center"
                             aria-label="Recenter Map"
                         >
-                            <Target size={16} weight="bold" />
+                            <Target size={14} weight="bold" />
                         </button>
                         <button
                             onClick={() => setIsLightboxOpen(true)}
                             title="Expand Full View"
-                            className="p-2.5 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors flex items-center justify-center"
+                            className="p-2 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors flex items-center justify-center"
                             aria-label="Fullscreen Map"
                         >
-                            <ArrowsOut size={16} weight="bold" />
+                            <ArrowsOut size={14} weight="bold" />
                         </button>
                     </div>
 
                     {/* Google Maps Info Pill */}
-                    <div className="absolute top-4 left-4 z-30 bg-black/80 backdrop-blur-md px-3.5 py-1.5 rounded-full text-white text-[11px] font-bold uppercase tracking-wider flex items-center gap-2 border border-white/15 shadow-md pointer-events-none">
-                        <MapPin size={14} weight="fill" className="text-[#c89211]" />
+                    <div className="absolute top-3 left-3 z-30 bg-black/85 backdrop-blur-sm px-2.5 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 border border-white/20 pointer-events-none">
+                        <MapPin size={12} weight="fill" className="text-[#c89211]" />
                         <span className="hidden sm:inline">Scroll to Zoom • Drag to Pan</span>
                         <span className="sm:hidden">Pinch / Drag Map</span>
                     </div>
@@ -428,23 +428,23 @@ export function InteractiveCampusMap() {
                                 >
                                     <button
                                         onClick={(e) => handleLocationSelect(loc, e)}
-                                        className="group transition-all duration-200 focus:outline-hidden drop-shadow-md hover:drop-shadow-xl"
+                                        className="group transition-all duration-150 focus:outline-hidden"
                                         aria-label={`Select ${loc.title}`}
                                     >
                                         <div
-                                            className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-black transition-all ${
+                                            className={`px-2 py-0.5 rounded-full flex items-center gap-1 text-[10px] font-bold transition-all ${
                                                 isSelected
-                                                    ? `${loc.bgColor} text-white ring-3 ring-white scale-110 shadow-lg`
-                                                    : 'bg-white/95 text-slate-900 hover:scale-105 hover:bg-[#0a151a] hover:text-white border border-slate-300/80'
+                                                    ? `${loc.bgColor} text-white ring-2 ring-white scale-105`
+                                                    : 'bg-white/95 text-slate-900 hover:scale-105 hover:bg-[#0a151a] hover:text-white border border-slate-300'
                                             }`}
                                         >
                                             <MapPin
-                                                size={14}
+                                                size={11}
                                                 weight="fill"
                                                 className={isSelected ? 'text-white' : ''}
                                                 style={!isSelected ? { color: loc.accentColor } : undefined}
                                             />
-                                            <span className="tracking-tight text-[11px] whitespace-nowrap">
+                                            <span className="tracking-tight text-[10px] whitespace-nowrap">
                                                 {loc.shortName}
                                             </span>
                                         </div>
