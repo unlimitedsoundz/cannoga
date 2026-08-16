@@ -72,8 +72,10 @@ const SENIOR_ADMIN_DATA: SeniorAdminGroup[] = [
         title: 'Executive Leadership',
         staff: [
             { name: "Dr. Luke Schaffner", title: "President & Chief Executive Officer", credential: "Ph.D., M.Ed.", email: "president@cannogacollege.ca" },
-            { name: "Dr. Karen Veltman", title: "Vice President, Academic & Provost", credential: "Ph.D., M.Sc.", email: "provost@cannogacollege.ca" },
-            { name: "Marc Tremblay", title: "Vice President, Finance & Administration", credential: "CPA, MBA", email: "finance@cannogacollege.ca" },
+            { name: "Blake Higgely", title: "Vice President, Finance & Administration", credential: "CPA, MBA", email: "finance@cannogacollege.ca" },
+            { name: "Mike Stuyvesant", title: "Vice President, Academic & Provost", credential: "Ph.D., M.Sc.", email: "provost@cannogacollege.ca" },
+            { name: "Margaret Sinclair", title: "Vice President, External Relations & Advancement", credential: "M.A., B.Comm.", email: "advancement@cannogacollege.ca" },
+            { name: "Catherine Bouchard", title: "Vice President, Student Affairs & Experience", credential: "M.Ed., B.A.", email: "studentaffairs@cannogacollege.ca" },
         ]
     },
     {
