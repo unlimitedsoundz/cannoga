@@ -74,7 +74,6 @@ const navigation: NavItem[] = [
     },
     {
         name: "Financial Aid",
-        href: "/admissions/tuition",
         href: "/admissions/tuition/",
         children: [
             { name: "Scholarships & Tuition Fees", href: "/admissions/tuition/" },
