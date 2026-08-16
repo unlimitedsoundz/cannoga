@@ -52,7 +52,7 @@ const SERVICE_CARDS: ServiceCard[] = [
         title: 'CAREER ADVISORY HUB',
         description: 'Internship placement, resume reviews, employer networking, and co-op interview workshops.',
         href: '/careers',
-        image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=800&auto=format&fit=crop',
+        image: 'https://i.pinimg.com/736x/5b/f5/61/5bf561efb493ac87e969265065ee8004.jpg',
         bgColor: 'bg-[#8e24aa]', // Vibrant purple
         borderColor: 'border-[#8e24aa]',
         waveColor: '#521363',
