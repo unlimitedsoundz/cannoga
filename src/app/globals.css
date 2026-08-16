@@ -896,8 +896,7 @@ button.sis-btn:hover,
 /* SIS Global Header & Navigation Overrides: Remove White Cards & Enforce Pure White Text & Icons */
 [data-theme="sis"] header,
 [data-theme="sis-dark"] header,
-[data-theme="sis"] aside,
-[data-theme="sis-dark"] aside {
+.sis-sidebar {
   background-color: #0a151a !important;
 }
 
@@ -905,10 +904,8 @@ button.sis-btn:hover,
 [data-theme="sis-dark"] header button,
 [data-theme="sis"] header a,
 [data-theme="sis-dark"] header a,
-[data-theme="sis"] aside a,
-[data-theme="sis-dark"] aside a,
-[data-theme="sis"] aside button,
-[data-theme="sis-dark"] aside button {
+.sis-sidebar a,
+.sis-sidebar button {
   background-color: transparent !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -919,10 +916,8 @@ button.sis-btn:hover,
 [data-theme="sis-dark"] header button:hover,
 [data-theme="sis"] header a:hover,
 [data-theme="sis-dark"] header a:hover,
-[data-theme="sis"] aside a:hover,
-[data-theme="sis-dark"] aside a:hover,
-[data-theme="sis"] aside button:hover,
-[data-theme="sis-dark"] aside button:hover {
+.sis-sidebar a:hover,
+.sis-sidebar button:hover {
   background-color: transparent !important;
   background: transparent !important;
   opacity: 0.85 !important;
@@ -930,12 +925,10 @@ button.sis-btn:hover,
 
 [data-theme="sis"] header svg,
 [data-theme="sis-dark"] header svg,
-[data-theme="sis"] aside svg,
-[data-theme="sis-dark"] aside svg,
+.sis-sidebar svg,
 [data-theme="sis"] header svg *,
 [data-theme="sis-dark"] header svg *,
-[data-theme="sis"] aside svg *,
-[data-theme="sis-dark"] aside svg * {
+.sis-sidebar svg * {
   color: #ffffff !important;
   stroke: #ffffff !important;
 }
