@@ -386,9 +386,9 @@ export const pageContentSections: PageContentSection[] = [
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Ensure all submitted documentation conforms to official verification standards:</p>
     <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
-        <li><strong class="text-slate-900 font-bold">Certified Educational Documents:</strong> Must be submitted after admission decision by 13 May or 14 August 2026.</li>
-        <li><strong class="text-slate-900 font-bold">Certified Translations:</strong> All non-English documents require official certified translations provided by authorized translators.</li>
-        <li><strong class="text-slate-900 font-bold">Passport Identification:</strong> High-resolution color PDF of your passport personal details page.</li>
+        <li><strong class="text-slate-900 font-bold">Certified Educational Documents:</strong> Must be submitted after admission decision within 14 days of your admission decision.</li>
+        <li><strong class="text-slate-900 font-bold">Translations:</strong> Non-English/Non-English documents require official translations.</li>
+        <li><strong class="text-slate-900 font-bold">Passport/ID:</strong> Color PDF of the personal information page.</li>
     </ul>
 </div>`,
     },

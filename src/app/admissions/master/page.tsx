@@ -7,6 +7,7 @@ import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import AdmissionsCTA from '@/components/admissions/AdmissionsCTA';
 import MasterFAQ from '@/components/admissions/MasterFAQ';
 import { MasterStudyOptionsCarousel } from '@/components/admissions/MasterStudyOptionsCarousel';
+import { MasterRequiredDocumentsCarousel } from '@/components/admissions/MasterRequiredDocumentsCarousel';
 import DbPageContent from '@/components/DbPageContent';
 import { getPageContentSection } from '@/lib/pageContentConfig';
 
@@ -134,6 +135,9 @@ export default function MasterAdmissionsPage() {
                     <section id="documents" className="scroll-mt-32 space-y-4">
                         <div className="cc-section-divider !mb-6"><h2 className="cc-h2">Required Documents</h2></div>
                         <DbPageContent pageSlug={pageSlug} sectionKey="documents_content" fallbackContent={getSectionDefault('documents_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                        <div className="pt-2">
+                            <MasterRequiredDocumentsCarousel />
+                        </div>
                     </section>
 
                     <section id="language" className="scroll-mt-32 space-y-4">
