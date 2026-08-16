@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ConditionalHeaderFooter } from "@/components/layout/ConditionalHeaderFooter";
@@ -13,6 +13,9 @@ const playfair = { variable: "font-playfair-var" };
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://cannogacollege.ca'),
+    alternates: {
+        canonical: '/',
+    },
     title: {
         default: "Cannoga College Ottawa, Ontario",
         template: "%s | Cannoga College"
