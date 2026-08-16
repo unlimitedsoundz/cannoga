@@ -7,6 +7,7 @@ import { Highlight } from '@/components/ui/Highlight';
 import { CheckCircle, Quotes } from "@phosphor-icons/react/dist/ssr";
 import { HousingOptionsHubCarousel } from '@/components/housing/HousingOptionsHubCarousel';
 import { ExploreHousingCarousel } from '@/components/housing/ExploreHousingCarousel';
+import { RelatedStudentGuidesCarousel } from '@/components/housing/RelatedStudentGuidesCarousel';
 
 export const metadata: Metadata = {
     title: 'Student Housing & Residences',
@@ -196,22 +197,12 @@ export default function HousingPage() {
                     </section>
 
                     {/* RELATED INTERNAL GUIDES */}
-                    <section id="related" className="scroll-mt-32 pt-4 border-t border-neutral-200">
-                        <h3 className="text-lg font-bold text-black mb-3">Related Student Guides</h3>
-                        <div className="grid md:grid-cols-3 gap-4">
-                            <div>
-                                <Link href="/student-guide/housing-for-students" className="font-bold text-black hover:text-[#c89211] transition-colors text-sm block mb-1">Housing Guide for Students →</Link>
-                                <p className="text-xs text-neutral-600 leading-relaxed font-medium">Detailed rental market breakdowns, neighbourhood guides, and landlord checklists.</p>
-                            </div>
-                            <div>
-                                <Link href="/student-guide/arrival" className="font-bold text-black hover:text-[#c89211] transition-colors text-sm block mb-1">Ottawa Arrival Guide →</Link>
-                                <p className="text-xs text-neutral-600 leading-relaxed font-medium">Airport pickup, SIM cards, opening Canadian bank accounts, and settling into Ottawa.</p>
-                            </div>
-                            <div>
-                                <Link href="/student-guide/international" className="font-bold text-black hover:text-[#c89211] transition-colors text-sm block mb-1">International Student Guide →</Link>
-                                <p className="text-xs text-neutral-600 leading-relaxed font-medium">Study permits, visa compliance, health insurance (UHIP), and orientation programs.</p>
-                            </div>
+                    <section id="related" className="scroll-mt-32 pt-8 border-t border-neutral-200">
+                        <div className="mb-4">
+                            <h3 className="text-xl font-black text-black tracking-tight">Related Student Guides</h3>
+                            <p className="text-sm text-neutral-600 font-medium">Explore detailed guidance on arrival, housing checklists, and international student compliance.</p>
                         </div>
+                        <RelatedStudentGuidesCarousel />
                     </section>
 
                 </div>
