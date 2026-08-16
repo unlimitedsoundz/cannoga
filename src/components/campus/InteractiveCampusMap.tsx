@@ -1,22 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import {
-    Buildings,
-    Flask,
-    GraduationCap,
-    BookOpen,
-    HouseLine,
-    ForkKnife,
-    MagnifyingGlassPlus,
-    MagnifyingGlassMinus,
+    Plus,
+    Minus,
     ArrowsOut,
     MapPin,
-    NavigationArrow,
+    Target,
     Info,
     CheckCircle,
     ArrowUpRight,
+    HandGrabbing,
 } from '@phosphor-icons/react';
 import Link from 'next/link';
 
@@ -169,105 +164,292 @@ const LOCATIONS: CampusLocation[] = [
     },
 ];
 
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 3.5;
+
 export function InteractiveCampusMap() {
     const [activeLocationId, setActiveLocationId] = useState<string>(LOCATIONS[0].id);
-    const [zoomLevel, setZoomLevel] = useState<number>(1);
+    const [scale, setScale] = useState<number>(1);
+    const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+    const [isDragging, setIsDragging] = useState<boolean>(false);
     const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
+
+    const viewportRef = useRef<HTMLDivElement>(null);
+    const dragStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+    const lastPosRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+    const touchDistanceRef = useRef<number | null>(null);
 
     const activeLocation = LOCATIONS.find((loc) => loc.id === activeLocationId) || LOCATIONS[0];
 
-    const handleZoomIn = () => setZoomLevel((prev) => Math.min(prev + 0.25, 2));
-    const handleZoomOut = () => setZoomLevel((prev) => Math.max(prev - 0.25, 1));
-    const handleResetZoom = () => setZoomLevel(1);
+    // Clamps position so the map cannot be dragged out of view
+    const clampPosition = useCallback((x: number, y: number, currentScale: number) => {
+        if (!viewportRef.current || currentScale <= 1) {
+            return { x: 0, y: 0 };
+        }
+        const rect = viewportRef.current.getBoundingClientRect();
+        const maxPanX = (rect.width * (currentScale - 1)) / 2;
+        const maxPanY = (rect.height * (currentScale - 1)) / 2;
+
+        return {
+            x: Math.max(-maxPanX, Math.min(maxPanX, x)),
+            y: Math.max(-maxPanY, Math.min(maxPanY, y)),
+        };
+    }, []);
+
+    // Smooth focal zoom (Google Maps behavior)
+    const zoomAtPoint = useCallback((targetScale: number, focalPoint?: { clientX: number; clientY: number }) => {
+        if (!viewportRef.current) return;
+        const newScale = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, targetScale));
+        
+        setScale((prevScale) => {
+            if (newScale === prevScale) return prevScale;
+            
+            setPosition((prevPos) => {
+                if (newScale === 1) return { x: 0, y: 0 };
+
+                if (!focalPoint || !viewportRef.current) {
+                    const ratio = newScale / prevScale;
+                    return clampPosition(prevPos.x * ratio, prevPos.y * ratio, newScale);
+                }
+
+                const rect = viewportRef.current.getBoundingClientRect();
+                const mouseX = focalPoint.clientX - rect.left - rect.width / 2;
+                const mouseY = focalPoint.clientY - rect.top - rect.height / 2;
+
+                const ratio = newScale / prevScale;
+                const newX = mouseX - (mouseX - prevPos.x) * ratio;
+                const newY = mouseY - (mouseY - prevPos.y) * ratio;
+
+                return clampPosition(newX, newY, newScale);
+            });
+
+            return newScale;
+        });
+    }, [clampPosition]);
+
+    // Attach non-passive wheel event listener to container for smooth Google Maps scroll zoom
+    useEffect(() => {
+        const viewport = viewportRef.current;
+        if (!viewport) return;
+
+        const onWheel = (e: WheelEvent) => {
+            e.preventDefault();
+            const zoomDelta = e.deltaY < 0 ? 1.18 : 0.85;
+            setScale((currScale) => {
+                const target = currScale * zoomDelta;
+                zoomAtPoint(target, { clientX: e.clientX, clientY: e.clientY });
+                return currScale; // zoomAtPoint will manage setScale
+            });
+        };
+
+        viewport.addEventListener('wheel', onWheel, { passive: false });
+        return () => viewport.removeEventListener('wheel', onWheel);
+    }, [zoomAtPoint]);
+
+    // Button controls
+    const handleZoomIn = () => zoomAtPoint(scale * 1.35);
+    const handleZoomOut = () => zoomAtPoint(scale / 1.35);
+    const handleResetView = () => {
+        setScale(1);
+        setPosition({ x: 0, y: 0 });
+    };
+
+    // Double click to zoom in at that spot
+    const handleDoubleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        zoomAtPoint(scale * 1.5, { clientX: e.clientX, clientY: e.clientY });
+    };
+
+    // Mouse Drag (Pan) Handlers
+    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+        // Only start drag on primary mouse button
+        if (e.button !== 0) return;
+        setIsDragging(true);
+        dragStartRef.current = { x: e.clientX, y: e.clientY };
+        lastPosRef.current = { ...position };
+    };
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!isDragging) return;
+        const dx = e.clientX - dragStartRef.current.x;
+        const dy = e.clientY - dragStartRef.current.y;
+        setPosition(clampPosition(lastPosRef.current.x + dx, lastPosRef.current.y + dy, scale));
+    };
+
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    // Touch Handlers for Mobile Gestures (Pinch to Zoom + Drag Pan)
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+        if (e.touches.length === 1) {
+            setIsDragging(true);
+            dragStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            lastPosRef.current = { ...position };
+            touchDistanceRef.current = null;
+        } else if (e.touches.length === 2) {
+            setIsDragging(false);
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            touchDistanceRef.current = Math.hypot(dx, dy);
+        }
+    };
+
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        if (e.touches.length === 1 && isDragging) {
+            const dx = e.touches[0].clientX - dragStartRef.current.x;
+            const dy = e.touches[0].clientY - dragStartRef.current.y;
+            setPosition(clampPosition(lastPosRef.current.x + dx, lastPosRef.current.y + dy, scale));
+        } else if (e.touches.length === 2 && touchDistanceRef.current !== null) {
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            const newDist = Math.hypot(dx, dy);
+            const pinchRatio = newDist / touchDistanceRef.current;
+            touchDistanceRef.current = newDist;
+
+            const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+            const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+            zoomAtPoint(scale * pinchRatio, { clientX: midX, clientY: midY });
+        }
+    };
+
+    const handleTouchEnd = () => {
+        setIsDragging(false);
+        touchDistanceRef.current = null;
+    };
+
+    // Center on selected location when clicked
+    const handleLocationSelect = (loc: CampusLocation, e: React.MouseEvent) => {
+        e.stopPropagation();
+        setActiveLocationId(loc.id);
+    };
+
+    // Counter scale factor so pins stay legible and appropriately sized
+    const markerScale = 1 / Math.pow(scale, 0.45);
 
     return (
-        <div className="w-full bg-white border border-slate-200 rounded-md overflow-hidden">
+        <div className="w-full bg-white border border-slate-200 rounded-md overflow-hidden shadow-xs">
             {/* Main Interactive Map Stage */}
             <div className="grid lg:grid-cols-12 gap-0 relative">
-                {/* Left/Main Column: Zoomable Map with Interactive Hotspots */}
-                <div className="lg:col-span-8 relative bg-slate-900 overflow-hidden min-h-[420px] sm:min-h-[500px] flex items-center justify-center select-none">
-                    {/* Zoom Controls Overlay */}
-                    <div className="absolute top-4 right-4 z-30 flex flex-col gap-1.5 bg-black/75 backdrop-blur-xs p-1.5 rounded-md border border-white/10 text-white">
+                {/* Left/Main Column: Google Maps Style Interactive Canvas */}
+                <div
+                    ref={viewportRef}
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseUp}
+                    onDoubleClick={handleDoubleClick}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                    className={`lg:col-span-8 relative bg-slate-950 overflow-hidden min-h-[440px] sm:min-h-[520px] flex items-center justify-center select-none ${
+                        isDragging ? 'cursor-grabbing' : scale > 1 ? 'cursor-grab' : 'cursor-default'
+                    }`}
+                >
+                    {/* Google Maps Style Floating Control Stack */}
+                    <div className="absolute top-4 right-4 z-30 flex flex-col items-center bg-white/95 backdrop-blur-md rounded-lg shadow-lg border border-slate-200/80 overflow-hidden text-slate-800">
                         <button
                             onClick={handleZoomIn}
-                            title="Zoom in"
-                            className="p-2 hover:bg-white/20 rounded text-slate-200 hover:text-white transition-colors"
+                            title="Zoom In (+)"
+                            className="p-2.5 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors border-b border-slate-100 flex items-center justify-center"
+                            aria-label="Zoom In"
                         >
-                            <MagnifyingGlassPlus size={18} weight="bold" />
+                            <Plus size={16} weight="bold" />
                         </button>
+                        
+                        {/* Zoom Level Indicator */}
+                        <div className="px-2 py-1 text-[10px] font-extrabold text-slate-500 bg-slate-50 w-full text-center border-b border-slate-100 tracking-tighter">
+                            {Math.round(scale * 100)}%
+                        </div>
+
                         <button
                             onClick={handleZoomOut}
-                            title="Zoom out"
-                            className="p-2 hover:bg-white/20 rounded text-slate-200 hover:text-white transition-colors"
+                            title="Zoom Out (-)"
+                            className="p-2.5 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors border-b border-slate-100 flex items-center justify-center"
+                            aria-label="Zoom Out"
                         >
-                            <MagnifyingGlassMinus size={18} weight="bold" />
+                            <Minus size={16} weight="bold" />
                         </button>
                         <button
-                            onClick={handleResetZoom}
-                            title="Reset view"
-                            className="p-2 hover:bg-white/20 rounded text-slate-200 hover:text-white transition-colors text-[10px] font-bold"
+                            onClick={handleResetView}
+                            title="Reset View & Recenter"
+                            className="p-2.5 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors border-b border-slate-100 flex items-center justify-center"
+                            aria-label="Recenter Map"
                         >
-                            1:1
+                            <Target size={16} weight="bold" />
                         </button>
                         <button
                             onClick={() => setIsLightboxOpen(true)}
-                            title="Full size view"
-                            className="p-2 hover:bg-white/20 rounded text-slate-200 hover:text-white transition-colors"
+                            title="Expand Full View"
+                            className="p-2.5 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors flex items-center justify-center"
+                            aria-label="Fullscreen Map"
                         >
-                            <ArrowsOut size={18} weight="bold" />
+                            <ArrowsOut size={16} weight="bold" />
                         </button>
                     </div>
 
-                    {/* Instructions badge */}
-                    <div className="absolute top-4 left-4 z-30 bg-black/75 backdrop-blur-xs px-3 py-1.5 rounded text-white text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 border border-white/10">
+                    {/* Google Maps Info Pill */}
+                    <div className="absolute top-4 left-4 z-30 bg-black/80 backdrop-blur-md px-3.5 py-1.5 rounded-full text-white text-[11px] font-bold uppercase tracking-wider flex items-center gap-2 border border-white/15 shadow-md pointer-events-none">
                         <MapPin size={14} weight="fill" className="text-[#c89211]" />
-                        <span>Click any marker to inspect</span>
+                        <span className="hidden sm:inline">Scroll to Zoom • Drag to Pan</span>
+                        <span className="sm:hidden">Pinch / Drag Map</span>
                     </div>
 
-                    {/* Map Image Container with CSS transform zoom */}
+                    {/* Transform Stage (Smooth GPU-accelerated Zoom & Pan) */}
                     <div
-                        className="relative w-full h-full aspect-[4/3] sm:aspect-[16/10] transition-transform duration-300 ease-out origin-center cursor-grab active:cursor-grabbing"
-                        style={{ transform: `scale(${zoomLevel})` }}
+                        className="relative w-full h-full aspect-[4/3] sm:aspect-[16/10] origin-center will-change-transform"
+                        style={{
+                            transform: `translate3d(${position.x}px, ${position.y}px, 0) scale(${scale})`,
+                            transition: isDragging ? 'none' : 'transform 200ms cubic-bezier(0.2, 0, 0, 1)',
+                        }}
                     >
                         <Image
                             src="/images/Cannoga College Campus MAp.png"
                             alt="Cannoga College Ottawa Campus Map"
                             fill
                             priority
+                            draggable={false}
                             className="object-cover object-center pointer-events-none"
                             sizes="(max-width: 1024px) 100vw, 66vw"
                         />
 
-                        {/* Interactive Hotspot Pins */}
+                        {/* Interactive Hotspot Pins with Counter-Scaling */}
                         {LOCATIONS.map((loc) => {
                             const isSelected = activeLocationId === loc.id;
                             return (
-                                <button
+                                <div
                                     key={loc.id}
-                                    onClick={() => setActiveLocationId(loc.id)}
-                                    style={{ left: `${loc.x}%`, top: `${loc.y}%` }}
-                                    className="absolute -translate-x-1/2 -translate-y-1/2 z-20 group transition-all duration-200 focus:outline-hidden"
-                                    aria-label={`Select ${loc.title}`}
+                                    style={{
+                                        left: `${loc.x}%`,
+                                        top: `${loc.y}%`,
+                                        transform: `translate(-50%, -50%) scale(${markerScale})`,
+                                        transformOrigin: 'center center',
+                                    }}
+                                    className="absolute z-20 will-change-transform"
                                 >
-                                    {/* Pin Body */}
-                                    <div
-                                        className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-black transition-transform ${
-                                            isSelected
-                                                ? `${loc.bgColor} text-white scale-110`
-                                                : 'bg-white/95 text-slate-900 hover:scale-105 hover:bg-[#0a151a] hover:text-white'
-                                        }`}
+                                    <button
+                                        onClick={(e) => handleLocationSelect(loc, e)}
+                                        className="group transition-all duration-200 focus:outline-hidden drop-shadow-md hover:drop-shadow-xl"
+                                        aria-label={`Select ${loc.title}`}
                                     >
-                                        <MapPin
-                                            size={14}
-                                            weight="fill"
-                                            className={isSelected ? 'text-white' : ''}
-                                            style={!isSelected ? { color: loc.accentColor } : undefined}
-                                        />
-                                        <span className="tracking-tight text-[11px] whitespace-nowrap">
-                                            {loc.shortName}
-                                        </span>
-                                    </div>
-                                </button>
+                                        <div
+                                            className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-black transition-all ${
+                                                isSelected
+                                                    ? `${loc.bgColor} text-white ring-3 ring-white scale-110 shadow-lg`
+                                                    : 'bg-white/95 text-slate-900 hover:scale-105 hover:bg-[#0a151a] hover:text-white border border-slate-300/80'
+                                            }`}
+                                        >
+                                            <MapPin
+                                                size={14}
+                                                weight="fill"
+                                                className={isSelected ? 'text-white' : ''}
+                                                style={!isSelected ? { color: loc.accentColor } : undefined}
+                                            />
+                                            <span className="tracking-tight text-[11px] whitespace-nowrap">
+                                                {loc.shortName}
+                                            </span>
+                                        </div>
+                                    </button>
+                                </div>
                             );
                         })}
                     </div>
@@ -276,7 +458,7 @@ export function InteractiveCampusMap() {
                 {/* Right Column: Student Resource Hub Styled Location Card Inspector */}
                 <div className="lg:col-span-4 p-3 sm:p-5 bg-white border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col justify-center">
                     <div
-                        className={`w-full p-6 sm:p-7 rounded-md ${activeLocation.bgColor} ${activeLocation.borderColor} border-4 text-white overflow-hidden relative flex flex-col justify-between min-h-[440px]`}
+                        className={`w-full p-6 sm:p-7 rounded-md ${activeLocation.bgColor} ${activeLocation.borderColor} border-4 text-white overflow-hidden relative flex flex-col justify-between min-h-[440px] shadow-sm`}
                     >
                         <div>
                             <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight leading-[1.08] mb-3">
