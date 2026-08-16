@@ -28,7 +28,7 @@ const peers: Peer[] = [
         flag: "🇳🇬",
         programme: "Honours Bachelor of Environmental Science",
         image: "https://i.pinimg.com/1200x/72/a1/7c/72a17cb6e8bda24fd421065e8ad24296.jpg",
-        quote: "Conducting field research along the Rideau Canal and participating in campus sustainability projects gave me invaluable experience.",
+        quote: "My study abroad journey in Ottawa, Ontario, Canada has been a rollercoaster of emotions, challenges, and growth.",
         cardBgClass: "bg-[#e11d48] hover:bg-[#be123c]",
         storyUrl: "https://ourblogs.cannogacollege.ca/study-abroad-journey-ottawa,%20canada",
         buttonText: "Read Full Story",
