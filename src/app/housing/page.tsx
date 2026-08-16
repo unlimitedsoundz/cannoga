@@ -4,7 +4,7 @@ import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { Highlight } from '@/components/ui/Highlight';
-import { CheckCircle } from "@phosphor-icons/react/dist/ssr";
+import { CheckCircle, Quotes } from "@phosphor-icons/react/dist/ssr";
 import { HousingOptionsHubCarousel } from '@/components/housing/HousingOptionsHubCarousel';
 
 export const metadata: Metadata = {
@@ -105,12 +105,26 @@ export default function HousingPage() {
                         </div>
                     </section>
 
-                    {/* FEATURED HIGHLIGHT QUOTE */}
-                    <Highlight
-                        body="Finding housing through Cannoga's residence portal was smooth and worry-free. Having a fully furnished apartment right next to my classes allowed me to focus 100% on my studies and meet friends from day one."
-                        source="Anav Mukesh, MSc Student"
-                        alignment="left"
-                    />
+                    {/* FEATURED STUDENT QUOTE (President Quote Style - No Background Container) */}
+                    <div className="relative py-4 my-2">
+                        {/* Blue quote icon */}
+                        <Quotes
+                            size={52}
+                            weight="fill"
+                            className="text-blue-500 mb-3"
+                        />
+                        <div className="space-y-4 pl-4 md:pl-6 border-l-4 border-blue-400">
+                            <blockquote className="text-xl md:text-2xl font-bold tracking-tight text-neutral-900 leading-snug">
+                                &ldquo;Finding housing through Cannoga&apos;s residence portal was smooth and worry-free. Having a fully furnished apartment right next to my classes allowed me to focus 100% on my studies and meet friends from day one.&rdquo;
+                            </blockquote>
+                            <div className="flex items-center gap-3 pt-1">
+                                <div className="w-8 h-0.5 bg-[#c89211]"></div>
+                                <p className="text-xs md:text-sm font-bold uppercase tracking-widest text-[#0f2027]">
+                                    Anav Mukesh, MSc Student
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
                     {/* PRICING & COMPARISON (Student Resource Hub Carousel Style) */}
                     <section id="pricing" className="scroll-mt-32 space-y-6">
