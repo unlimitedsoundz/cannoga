@@ -155,14 +155,16 @@ export default async function TuitionPaymentPage() {
                 ]}
             >
                 <div className="cc-container py-8 md:py-16">
-                    <main className="space-y-12 md:space-y-20">
+                    <main className="space-y-12 md:space-y-16 text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
 
-                        <section id="fee-structure" className="scroll-mt-32">
-                            <div className="cc-section-divider">
+                        <section id="fee-structure" className="scroll-mt-32 space-y-4">
+                            <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">How Much is the Tuition Fee?</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="costs_intro_content" fallbackContent={getSectionDefault('costs_intro_content')} />
-                            <DbPageContent pageSlug={pageSlug} sectionKey="fee_structure_content" fallbackContent={getSectionDefault('fee_structure_content')} />
+                            <div className="space-y-4">
+                                <DbPageContent pageSlug={pageSlug} sectionKey="costs_intro_content" fallbackContent={getSectionDefault('costs_intro_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                                <DbPageContent pageSlug={pageSlug} sectionKey="fee_structure_content" fallbackContent={getSectionDefault('fee_structure_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                            </div>
 
                             <div className="w-full overflow-x-auto my-4 rounded-lg border border-neutral-200 shadow-sm bg-white">
                                 <table className="w-full table-fixed border-collapse">
@@ -196,40 +198,40 @@ export default async function TuitionPaymentPage() {
                                 </table>
                             </div>
 
-                            <div className="space-y-8 mt-8">
+                            <div className="space-y-6 mt-8">
                                 <div>
-                                    <h3 className="text-xl font-bold mb-3 text-black">Certificate Program Fees</h3>
-                                    <DbPageContent pageSlug={pageSlug} sectionKey="certificate_fees_content" fallbackContent={getSectionDefault('certificate_fees_content')} />
+                                    <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Certificate Program Fees</h3>
+                                    <DbPageContent pageSlug={pageSlug} sectionKey="certificate_fees_content" fallbackContent={getSectionDefault('certificate_fees_content')} className="space-y-3 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-bold mb-3 text-black">Diploma Program Fees</h3>
-                                    <DbPageContent pageSlug={pageSlug} sectionKey="diploma_fees_content" fallbackContent={getSectionDefault('diploma_fees_content')} />
+                                    <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Diploma Program Fees</h3>
+                                    <DbPageContent pageSlug={pageSlug} sectionKey="diploma_fees_content" fallbackContent={getSectionDefault('diploma_fees_content')} className="space-y-3 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-bold mb-3 text-black">Bachelor's Program Fees</h3>
-                                    <DbPageContent pageSlug={pageSlug} sectionKey="bachelor_fees_content" fallbackContent={getSectionDefault('bachelor_fees_content')} />
+                                    <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Bachelor's Program Fees</h3>
+                                    <DbPageContent pageSlug={pageSlug} sectionKey="bachelor_fees_content" fallbackContent={getSectionDefault('bachelor_fees_content')} className="space-y-3 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-bold mb-3 text-black">Master's Program Fees</h3>
-                                    <DbPageContent pageSlug={pageSlug} sectionKey="master_fees_content" fallbackContent={getSectionDefault('master_fees_content')} />
+                                    <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Master's Program Fees</h3>
+                                    <DbPageContent pageSlug={pageSlug} sectionKey="master_fees_content" fallbackContent={getSectionDefault('master_fees_content')} className="space-y-3 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                                 </div>
                             </div>
                         </section>
 
-                        <section id="tuition-estimator" className="scroll-mt-32">
-                            <div className="cc-section-divider">
+                        <section id="tuition-estimator" className="scroll-mt-32 space-y-4">
+                            <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">Interactive Tuition &amp; Fees Estimator</h2>
                                 <p className="cc-label">Estimate your tuition and ancillary fees per semester</p>
                             </div>
                             <TuitionEstimator courses={courses || []} />
                         </section>
 
-                        <section id="merit-scholarship" className="scroll-mt-32">
-                            <div className="cc-section-divider">
+                        <section id="merit-scholarship" className="scroll-mt-32 space-y-4">
+                            <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">Merit Scholarships &amp; Financial Aid</h2>
                             </div>
                             <div className="space-y-6">
-                                <DbPageContent pageSlug={pageSlug} sectionKey="merit_scholarship_content" fallbackContent={getSectionDefault('merit_scholarship_content')} />
+                                <DbPageContent pageSlug={pageSlug} sectionKey="merit_scholarship_content" fallbackContent={getSectionDefault('merit_scholarship_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                                 
                                 {/* OSAP / ONTARIO STUDENT FINANCIAL AID (Clean Layout - No Containers) */}
                                 <div className="space-y-4 pt-2">
@@ -283,46 +285,46 @@ export default async function TuitionPaymentPage() {
                             </div>
                         </section>
 
-                        <section id="payment-methods" className="scroll-mt-32">
-                            <div className="cc-section-divider">
+                        <section id="payment-methods" className="scroll-mt-32 space-y-4">
+                            <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">How Do I Pay?</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="payment_methods_content" fallbackContent={getSectionDefault('payment_methods_content')} />
+                            <DbPageContent pageSlug={pageSlug} sectionKey="payment_methods_content" fallbackContent={getSectionDefault('payment_methods_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                         </section>
 
-                        <section id="timing" className="scroll-mt-32">
-                            <div className="cc-section-divider">
+                        <section id="timing" className="scroll-mt-32 space-y-4">
+                            <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">Tuition Fee Payment Schedule</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="timing_content" fallbackContent={getSectionDefault('timing_content')} />
+                            <DbPageContent pageSlug={pageSlug} sectionKey="timing_content" fallbackContent={getSectionDefault('timing_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                         </section>
 
-                        <section id="additional-fees" className="scroll-mt-32">
-                            <div className="cc-section-divider">
+                        <section id="additional-fees" className="scroll-mt-32 space-y-4">
+                            <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">Additional Fees &amp; Student Benefits</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="additional_fees_content" fallbackContent={getSectionDefault('additional_fees_content')} />
+                            <DbPageContent pageSlug={pageSlug} sectionKey="additional_fees_content" fallbackContent={getSectionDefault('additional_fees_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                         </section>
 
-                        <section id="refunds" className="scroll-mt-32">
-                            <div className="cc-section-divider">
+                        <section id="refunds" className="scroll-mt-32 space-y-4">
+                            <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">Refund Policy</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="refunds_content" fallbackContent={getSectionDefault('refunds_content')} />
+                            <DbPageContent pageSlug={pageSlug} sectionKey="refunds_content" fallbackContent={getSectionDefault('refunds_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                         </section>
 
-                        <section id="faq" className="scroll-mt-32">
-                            <div className="cc-section-divider">
+                        <section id="faq" className="scroll-mt-32 space-y-4">
+                            <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">General FAQ</h2>
                             </div>
                             <TuitionFAQ />
                         </section>
 
-                        <section id="contact" className="scroll-mt-32">
-                            <div className="cc-section-divider">
+                        <section id="contact" className="scroll-mt-32 space-y-4">
+                            <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">Need Help?</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="contact_content" fallbackContent={getSectionDefault('contact_content')} />
+                            <DbPageContent pageSlug={pageSlug} sectionKey="contact_content" fallbackContent={getSectionDefault('contact_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                         </section>
 
                     </main>
