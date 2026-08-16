@@ -82,7 +82,7 @@ export function RelatedStudentGuidesCarousel() {
                     >
                         <Link
                             href={item.href}
-                            className={`group relative flex flex-col justify-between ${item.bgColor} border-4 ${item.borderColor} text-white p-6 sm:p-7 min-h-[220px] sm:min-h-[240px] shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block no-underline overflow-hidden`}
+                            className={`group relative flex flex-col justify-between ${item.bgColor} border-4 ${item.borderColor} text-white p-6 sm:p-7 min-h-[220px] sm:min-h-[240px] transition-all duration-300 hover:-translate-y-1 block no-underline overflow-hidden`}
                         >
                             {/* Decorative Rolling Hill / Wave Edge */}
                             <div className="absolute top-0 right-0 w-36 h-36 opacity-30 pointer-events-none -mr-8 -mt-8">
