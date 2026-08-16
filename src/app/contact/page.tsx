@@ -3,6 +3,7 @@ import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
 import { Hero } from '@/components/layout/Hero';
 import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarousel';
+import { InteractiveCampusMap } from '@/components/campus/InteractiveCampusMap';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
@@ -172,19 +173,11 @@ export default function ContactPage() {
 
                 {/* Campus Map & Directions */}
                 <section className="pt-8 border-t border-slate-200">
-                    <h2 className="text-2xl font-black text-black tracking-tight mb-6">Campus Location Map</h2>
+                    <h2 className="text-2xl font-black text-black tracking-tight mb-2">Campus Location Map</h2>
                     <p className="text-slate-700 mb-6 leading-relaxed font-medium">
                         Explore learning spaces, laboratories, and administrative centers at our Ottawa campus.
                     </p>
-                    <div className="overflow-hidden border border-slate-200">
-                        <Image 
-                            src="/images/Cannoga College Campus MAp.png" 
-                            alt="Cannoga College Campus Map" 
-                            width={1200}
-                            height={800}
-                            className="w-full h-auto object-cover"
-                        />
-                    </div>
+                    <InteractiveCampusMap />
                 </section>
 
             </div>

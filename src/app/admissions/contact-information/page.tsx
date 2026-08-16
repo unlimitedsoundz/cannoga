@@ -1,7 +1,8 @@
-﻿import { Link } from '@/components/ui/Link';
+import { Link } from '@/components/ui/Link';
 import Image from 'next/image';
 import { EnvelopeSimple, Phone, MapPin, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { InteractiveCampusMap } from '@/components/campus/InteractiveCampusMap';
 
 export const metadata = {
     title: 'Admissions Contact Directory & Inquiry Desk Cannoga College',
@@ -84,20 +85,9 @@ export default function AdmissionsContactInfo() {
                                 </p>
                             </div>
 
-                            {/* Hero Image */}
+                            {/* Interactive Campus Map */}
                             <div className="mb-16">
-                                <div className="rounded-none overflow-hidden aspect-[21/9] relative group mb-4">
-                                    <Image 
-                                        src="/images/Cannoga College Campus MAp.png" 
-                                        alt="Cannoga College Campus Map" 
-                                        width={1600}
-                                        height={900}
-                                        className="w-full h-full object-cover object-top"
-                                    />
-                                </div>
-                                <div className="text-xs text-slate-500 font-medium">
-                                    Photo: Cannoga College Campus, Ottawa
-                                </div>
+                                <InteractiveCampusMap />
                             </div>
 
                             {/* ASK ABOUT APPLYING - CLEAN HORIZONTAL ROWS */}
