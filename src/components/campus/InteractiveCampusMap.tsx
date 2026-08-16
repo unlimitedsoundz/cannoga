@@ -243,14 +243,15 @@ export function InteractiveCampusMap() {
                                     <div
                                         className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-black transition-transform ${
                                             isSelected
-                                                ? 'bg-[#0a151a] text-white ring-2 ring-[#c89211] scale-110'
+                                                ? `${loc.bgColor} text-white scale-110`
                                                 : 'bg-white/95 text-slate-900 hover:scale-105 hover:bg-[#0a151a] hover:text-white'
                                         }`}
                                     >
                                         <MapPin
                                             size={14}
                                             weight="fill"
-                                            style={{ color: isSelected ? '#c89211' : loc.accentColor }}
+                                            className={isSelected ? 'text-white' : ''}
+                                            style={!isSelected ? { color: loc.accentColor } : undefined}
                                         />
                                         <span className="tracking-tight text-[11px] whitespace-nowrap">
                                             {loc.shortName}
