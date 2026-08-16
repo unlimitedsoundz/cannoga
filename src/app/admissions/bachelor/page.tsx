@@ -90,130 +90,91 @@ export default function BachelorAdmissionsPage() {
             >
 
             <div className="cc-container py-8 md:py-16">
-                <div className="space-y-12 md:space-y-20">
+                <main className="space-y-10 md:space-y-14 text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
 
                     {/* How You Benefit */}
-                    <section id="benefits" className="scroll-mt-32">
-                        <div className="cc-section-divider">
+                    <section id="benefits" className="scroll-mt-32 space-y-2">
+                        <div className="cc-section-divider !mb-3 !pb-2">
                             <h2 className="cc-h2">How You Benefit from Our Programmes</h2>
                         </div>
-                        <div className="prose-arrows">
-                            <DbPageContent
-                                pageSlug={pageSlug}
-                                sectionKey="benefits_content"
-                                fallbackContent={getSectionDefault('benefits_content')}
-                            />
-                        </div>
+                        <DbPageContent
+                            pageSlug={pageSlug}
+                            sectionKey="benefits_content"
+                            fallbackContent={getSectionDefault('benefits_content')}
+                            className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
+                        />
                     </section>
 
                     {/* From Bachelor's to Master's */}
-                    <section id="progression" className="scroll-mt-32">
-                        <div className="cc-section-divider">
+                    <section id="progression" className="scroll-mt-32 space-y-2">
+                        <div className="cc-section-divider !mb-3 !pb-2">
                             <h2 className="cc-h2">From Bachelor's to Master's</h2>
                         </div>
-                        <div className="prose-arrows">
-                            <DbPageContent
-                                pageSlug={pageSlug}
-                                sectionKey="progression_content"
-                                fallbackContent={getSectionDefault('progression_content')}
-                            />
-                        </div>
+                        <DbPageContent
+                            pageSlug={pageSlug}
+                            sectionKey="progression_content"
+                            fallbackContent={getSectionDefault('progression_content')}
+                            className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
+                        />
                     </section>
 
-                </div>
-            </div>
-
-            {/* QUOTE SECTION - Clean Seamless Typography */}
-            <div className="py-8 md:py-12 my-6">
-                <div className="cc-container max-w-4xl mx-auto">
-                    <div className="relative">
-                        {/* Blue quote icon */}
-                        <Quotes
-                            size={44}
-                            weight="fill"
-                            className="text-blue-500 mb-3"
-                        />
-                        <div className="space-y-4 pl-4 border-l-4 border-blue-400">
-                            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-neutral-900 leading-snug">
-                                &ldquo;We empower students with the analytical skills and global mindset needed for complex financial decision-making.&rdquo;
-                            </h3>
-                            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-neutral-900 leading-snug">
-                                &ldquo;Our undergraduate curriculum bridges foundational economic theory with hands-on fintech modeling, case competitions, and real-world internships. From day one, students receive direct mentorship to navigate international career pathways and graduate school admissions across Canada and globally.&rdquo;
-                            </h3>
-                            <div className="flex items-center gap-3 pt-2">
-                                <div className="w-8 h-0.5 bg-[#c89211]"></div>
-                                <p className="text-xs md:text-sm font-bold uppercase tracking-widest text-[#0f2027]">
-                                    International Admissions Officer
-                                </p>
-                            </div>
+                    {/* Scholarships */}
+                    <section id="scholarships" className="scroll-mt-32 space-y-2">
+                        <div className="cc-section-divider !mb-3 !pb-2">
+                            <h2 className="cc-h2">Scholarships and Tuition Fees</h2>
                         </div>
-                    </div>
-                </div>
-            </div>
+                        <DbPageContent
+                            pageSlug={pageSlug}
+                            sectionKey="scholarships_content"
+                            fallbackContent={getSectionDefault('scholarships_content')}
+                            className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
+                        />
+                    </section>
 
-            <div className="cc-container py-8 md:py-16">
-                <div className="space-y-12 md:space-y-20">
+                    {/* Admissions Info */}
+                    <section id="admissions" className="scroll-mt-32 space-y-2">
+                        <div className="cc-section-divider !mb-3 !pb-2">
+                            <h2 className="cc-h2">Information on Student Admissions</h2>
+                        </div>
+                        <DbPageContent
+                            pageSlug={pageSlug}
+                            sectionKey="admissions_content"
+                            fallbackContent={getSectionDefault('admissions_content')}
+                            className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
+                        />
+                    </section>
 
-                        {/* Scholarships */}
-                        <section id="scholarships" className="scroll-mt-32">
-                            <div className="cc-section-divider">
-                                <h2 className="cc-h2">Scholarships and Tuition Fees</h2>
-                            </div>
-                            <div className="prose-arrows">
-                                <DbPageContent
-                                    pageSlug={pageSlug}
-                                    sectionKey="scholarships_content"
-                                    fallbackContent={getSectionDefault('scholarships_content')}
-                                />
-                            </div>
-                        </section>
+                    {/* Learn More */}
+                    <section id="more" className="scroll-mt-32 space-y-2">
+                        <div className="cc-section-divider !mb-3 !pb-2">
+                            <h2 className="cc-h2">Learn More About Studying at Cannoga</h2>
+                        </div>
+                        <p className="text-sm sm:text-base text-slate-600 font-normal mb-2">Explore campus spaces, student services, global community, careers, and athletics.</p>
+                        <StudyingAtCannogaCarousel />
+                    </section>
 
-                        {/* Admissions Info */}
-                        <section id="admissions" className="scroll-mt-32">
-                            <div className="cc-section-divider">
-                                <h2 className="cc-h2">Information on Student Admissions</h2>
-                            </div>
-                            <div className="prose-arrows">
-                                <DbPageContent
-                                    pageSlug={pageSlug}
-                                    sectionKey="admissions_content"
-                                    fallbackContent={getSectionDefault('admissions_content')}
-                                />
-                            </div>
-                        </section>
+                    {/* Fairs & Events */}
+                    <section id="events" className="scroll-mt-32 space-y-2">
+                        <div className="cc-section-divider !mb-3 !pb-2">
+                            <h2 className="cc-h2">Fairs and Events</h2>
+                        </div>
+                        <DbPageContent
+                            pageSlug={pageSlug}
+                            sectionKey="events_content"
+                            fallbackContent={getSectionDefault('events_content')}
+                            className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
+                        />
+                    </section>
 
-                          {/* Learn More */}
-                          <section id="more" className="scroll-mt-32">
-                              <div className="cc-section-divider mb-6">
-                                  <h2 className="cc-h2">Learn More About Studying at Cannoga</h2>
-                                  <p className="text-sm text-neutral-600 font-medium mt-1">Explore campus spaces, student services, global community, careers, and athletics.</p>
-                              </div>
-                              <StudyingAtCannogaCarousel />
-                          </section>
+                    {/* FAQ */}
+                    <section id="faq" className="scroll-mt-32 space-y-2">
+                        <div className="cc-section-divider !mb-3 !pb-2">
+                            <h2 className="cc-h2">Frequently Asked Questions</h2>
+                        </div>
+                        <BachelorFAQ />
+                    </section>
 
-                         {/* Fairs & Events */}
-                         <section id="events" className="scroll-mt-32">
-                             <div className="cc-section-divider">
-                                 <h2 className="cc-h2">Fairs and Events</h2>
-                             </div>
-                             <div className="prose-arrows">
-                                 <DbPageContent
-                                     pageSlug={pageSlug}
-                                     sectionKey="events_content"
-                                     fallbackContent={getSectionDefault('events_content')}
-                                 />
-                             </div>
-                         </section>
-
-                         {/* FAQ */}
-                         <section id="faq" className="scroll-mt-32">
-                             <div className="cc-section-divider">
-                                 <h2 className="cc-h2">Frequently Asked Questions</h2>
-                             </div>
-                             <BachelorFAQ />
-                         </section>
-
-                </div>
+                </main>
             </div>
             <BreadcrumbSchema items={[
                 { name: 'Home', item: '/' },

@@ -110,92 +110,81 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions-bachelor',
         sectionKey: 'benefits_content',
         label: 'Benefits Section',
-        defaultContent: `<p class="text-lg text-black leading-relaxed">Studying at Cannoga combines small-group teaching, practical case work, and a modern campus environment. Our Bachelor’s students benefit from personalised guidance, strong industry links, and a curriculum designed for international careers.</p>
-<ul class="space-y-3">
-    <li class="flex gap-3 items-start">International Classroom: Study with students from around the world.</li>
-    <li class="flex gap-3 items-start">Career-Ready Skills: Focus on finance, management, and economics.</li>
-    <li class="flex gap-3 items-start">Practical Learning: Case studies, projects, and internships.</li>
-    <li class="flex gap-3 items-start">Personalised Support: Small class sizes and close faculty contact.</li>
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-4">Studying at Cannoga combines small-group teaching, practical case work, and a modern campus environment. Our Bachelor’s students benefit from personalised guidance, strong industry links, and a curriculum designed for international careers.</p>
+<ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+    <li><strong class="text-slate-900 font-bold">International Classroom:</strong> Study with students from around the world.</li>
+    <li><strong class="text-slate-900 font-bold">Career-Ready Skills:</strong> Focus on finance, management, and economics.</li>
+    <li><strong class="text-slate-900 font-bold">Practical Learning:</strong> Case studies, projects, and internships.</li>
+    <li><strong class="text-slate-900 font-bold">Personalised Support:</strong> Small class sizes and close faculty contact.</li>
 </ul>`,
     },
     {
         pageSlug: 'admissions-bachelor',
         sectionKey: 'progression_content',
         label: 'Progression Section',
-        defaultContent: `<p class="text-lg text-black leading-relaxed">Completing a Bachelor’s degree at Cannoga opens seamless progression paths into Master’s programmes, specialised tracks, and international partner universities.</p>
-<ul class="space-y-3">
-    <li class="flex gap-3 items-start">Internal Continuation: Direct progression to Cannoga Master’s programmes.</li>
-    <li class="flex gap-3 items-start">Specialised Tracks: Accounting, Economics, or Management.</li>
-    <li class="flex gap-3 items-start">International Opportunities: Partner universities worldwide.</li>
-    <li class="flex gap-3 items-start">Research Integration: Bachelor theses as a bridge to advanced research.</li>
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-4">Completing a Bachelor’s degree at Cannoga opens seamless progression paths into Master’s programmes, specialised tracks, and international partner universities.</p>
+<ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+    <li><strong class="text-slate-900 font-bold">Internal Continuation:</strong> Direct progression to Cannoga Master’s programmes.</li>
+    <li><strong class="text-slate-900 font-bold">Specialised Tracks:</strong> Accounting, Economics, or Management.</li>
+    <li><strong class="text-slate-900 font-bold">International Opportunities:</strong> Partner universities worldwide.</li>
+    <li><strong class="text-slate-900 font-bold">Research Integration:</strong> Bachelor theses as a bridge to advanced research.</li>
 </ul>`,
     },
     {
         pageSlug: 'admissions-bachelor',
         sectionKey: 'scholarships_content',
         label: 'Scholarships Section',
-        defaultContent: `<div class="space-y-4 text-lg text-black">
-    <div class="p-8 pl-16 bg-neutral-50 border-l-4 border-[#0f2027] rounded-r-lg">
-        Tuition Fee: Included in degree tuition for full-time BSc students.
-    </div>
-    <ul class="space-y-3 pt-4">
-        <li class="flex gap-3 items-start">Merit-Based: For exceptional academic records.</li>
-        <li class="flex gap-3 items-start">Need-Based: Financial assistance for eligible students.</li>
-        <li class="flex gap-3 items-start">International: Merit and need-based support for global talent.</li>
+        defaultContent: `<div class="space-y-4">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+        Cannoga College offers several financial support and scholarship pathways for undergraduate students:
+    </p>
+    <ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <li><strong class="text-slate-900 font-bold">Merit-Based:</strong> For exceptional high school academic records and standardized achievements.</li>
+        <li><strong class="text-slate-900 font-bold">Need-Based:</strong> Financial assistance and bursaries for eligible domestic and international students.</li>
+        <li><strong class="text-slate-900 font-bold">Continuing Merit:</strong> 50% tuition reduction after first year based on academic performance.</li>
     </ul>
-    <p><a href="/admissions/tuition" class="text-black font-bold hover:underline inline-block mt-2">See detailed scholarship info →</a></p>
+    <p class="pt-2"><a href="/admissions/tuition" class="underline font-bold text-slate-900 hover:text-[#002f6c]">See detailed tuition and scholarship information &rarr;</a></p>
 </div>`,
     },
     {
         pageSlug: 'admissions-bachelor',
         sectionKey: 'admissions_content',
         label: 'Admissions Info Section',
-        defaultContent: `<div class="grid md:grid-cols-2 gap-12">
-    <div class="bg-card p-8 rounded-2xl">
-        <h3 class="text-xl font-bold mb-6 text-black">Eligibility</h3>
-        <ul class="space-y-3 text-black pt-4">
-            <li class="flex gap-3 items-start">High school diploma or equivalent</li>
-            <li class="flex gap-3 items-start">Proficiency in English (IELTS/TOEFL)</li>
-            <li class="flex gap-3 items-start">Strong mathematics and academic records</li>
+        defaultContent: `<div class="grid md:grid-cols-2 gap-6">
+    <div class="space-y-2">
+        <h3 class="text-lg font-bold text-slate-900 tracking-tight">Eligibility Criteria</h3>
+        <ul class="space-y-1.5 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+            <li>High school diploma or recognized equivalent</li>
+            <li>Proficiency in English (IELTS, TOEFL, Duolingo, or equivalent)</li>
+            <li>Strong mathematics and general academic background</li>
         </ul>
     </div>
-    <div class="bg-card p-8 rounded-2xl">
-        <h3 class="text-xl font-bold mb-6 text-black">Selection Criteria</h3>
-        <ul class="space-y-3 text-black pt-4">
-            <li class="flex gap-3 items-start">Academic excellence</li>
-            <li class="flex gap-3 items-start">Motivation and personal statement</li>
-            <li class="flex gap-3 items-start">Leadership and extracurricular activities</li>
+    <div class="space-y-2">
+        <h3 class="text-lg font-bold text-slate-900 tracking-tight">Selection Process</h3>
+        <ul class="space-y-1.5 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+            <li>Overall academic excellence and grade transcript review</li>
+            <li>Motivation letter and personal statement evaluation</li>
+            <li>Extracurricular leadership and community engagement</li>
         </ul>
     </div>
-</div>`,
-    },
-    {
-        pageSlug: 'admissions-bachelor',
-        sectionKey: 'more_content',
-        label: 'Learn More Section',
-        defaultContent: `<div class="grid grid-cols-2 md:grid-cols-5 gap-6 text-left">
-    <a href="/student-life#facilities" style="text-decoration: none !important;" class="p-4 bg-card rounded-xl hover:bg-neutral-100 transition-colors block"><h4 class="font-bold mb-1">Modern Campus</h4><p class="text-xs text-black">State-of-the-art facilities</p></a>
-    <a href="/student-life#services" style="text-decoration: none !important;" class="p-4 bg-card rounded-xl hover:bg-neutral-100 transition-colors block"><h4 class="font-bold mb-1">Support</h4><p class="text-xs text-black">Advisors and counseling</p></a>
-    <a href="/student-life#organizations" style="text-decoration: none !important;" class="p-4 bg-card rounded-xl hover:bg-neutral-100 transition-colors block"><h4 class="font-bold mb-1">Community</h4><p class="text-xs text-black">Global network</p></a>
-    <a href="/collaboration" style="text-decoration: none !important;" class="p-4 bg-card rounded-xl hover:bg-neutral-100 transition-colors block"><h4 class="font-bold mb-1">Careers</h4><p class="text-xs text-black">Internships and mentoring</p></a>
-    <a href="/student-life" style="text-decoration: none !important;" class="p-4 bg-card rounded-xl hover:bg-neutral-100 transition-colors block"><h4 class="font-bold mb-1">Student Life</h4><p class="text-xs text-black">Clubs and sports</p></a>
 </div>`,
     },
     {
         pageSlug: 'admissions-bachelor',
         sectionKey: 'events_content',
         label: 'Events Section',
-        defaultContent: `<div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-    <div>
-        <h2 class="text-3xl font-bold mb-6 text-black">Fairs and Events</h2>
-        <ul class="space-y-4 text-black">
-            <li class="flex gap-3 items-start">Open Days: Explore campus and meet faculty.</li>
-            <li class="flex gap-3 items-start">Virtual Info Sessions: Online webinars on applications.</li>
-            <li class="flex gap-3 items-start">Education Fairs: Meet us in your city.</li>
-        </ul>
-        <div class="mt-8"><a href="/news" class="bg-white text-black px-6 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors inline-block">See Upcoming Events</a></div>
+        defaultContent: `<div class="space-y-4">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+        Connect with our admissions team, explore student life, and learn about undergraduate programmes through our upcoming events:
+    </p>
+    <ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <li><strong class="text-slate-900 font-bold">Open Days:</strong> Explore the campus, tour facilities, and meet faculty members.</li>
+        <li><strong class="text-slate-900 font-bold">Virtual Info Sessions:</strong> Live online webinars explaining requirements and visa pathways.</li>
+        <li><strong class="text-slate-900 font-bold">Education Fairs:</strong> In-person representative meetings in select cities across Canada and abroad.</li>
+    </ul>
+    <div class="pt-2">
+        <a href="/news" class="underline font-bold text-slate-900 hover:text-[#002f6c]">View upcoming campus and online events &rarr;</a>
     </div>
-    <div class="w-full relative h-[250px] md:h-80 mt-8 md:mt-0"></div>
 </div>`,
     },
     {
