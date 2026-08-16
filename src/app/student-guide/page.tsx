@@ -7,6 +7,7 @@ import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 import { ProgramLevelsCarousel } from '@/components/student-guide/ProgramLevelsCarousel';
 import { StudySupportCarousel } from '@/components/student-guide/StudySupportCarousel';
+import { AcademicCalendarCarousel } from '@/components/student-guide/AcademicCalendarCarousel';
 
 export const metadata = {
     title: 'Undergraduate & Postgraduate Resources',
@@ -241,38 +242,7 @@ export default function StudentGuidePage() {
                         {/* Calendar */}
                         <section id="calendar" className="scroll-mt-32">
                             <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Academic Calendar</h2>
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <div className="space-y-3">
-                                    <h4 className="font-bold text-base text-black">The Academic Year</h4>
-                                    <div className="space-y-2 text-xs md:text-sm font-medium">
-                                        <div>
-                                            <h5 className="font-bold text-black mb-0.5">Fall Semester</h5>
-                                            <p className="text-neutral-600">September to December</p>
-                                        </div>
-                                        <div>
-                                            <h5 className="font-bold text-black mb-0.5">Winter Semester</h5>
-                                            <p className="text-neutral-600">January to April</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="space-y-3">
-                                    <h4 className="font-bold text-base text-black">Teaching Periods &amp; Dates</h4>
-                                    <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed">Each term consists of multiple teaching periods. Courses may run intensively or throughout the semester.</p>
-                                    <div className="grid grid-cols-2 gap-3">
-                                        {[
-                                            { t: "Teaching Periods", d: "Scheduled sessions" },
-                                            { t: "Exam Periods", d: "Assessment weeks" },
-                                            { t: "Registration", d: "Sign-up deadlines" },
-                                            { t: "Breaks", d: "Winter & Summer" }
-                                        ].map(item => (
-                                            <div key={item.t} className="space-y-0.5">
-                                                <span className="block font-bold text-black text-xs md:text-sm">{item.t}</span>
-                                                <span className="text-[10px] text-neutral-500 font-medium uppercase tracking-wider">{item.d}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
+                            <AcademicCalendarCarousel />
                         </section>
 
                         {/* Support */}
