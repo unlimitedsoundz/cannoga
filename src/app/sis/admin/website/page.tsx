@@ -11,6 +11,7 @@ import { Add01Icon as Plus, Book01Icon as Book, Newspaper as News, HelpCircleIco
 export default function WebsiteDashboardPage() {
   const sections = [
     { label: 'Pages', href: '/sis/admin/website/pages', icon: Book, description: 'Manage website pages' },
+    { label: 'Blog', href: '/sis/admin/blog', icon: News, description: 'Manage blog posts & student stories' },
     { label: 'Schools', href: '/sis/admin/website/schools', icon: School, description: 'Manage school listings' },
     { label: 'News', href: '/sis/admin/website/news', icon: News, description: 'Manage news articles' },
     { label: 'FAQs', href: '/sis/admin/website/faqs', icon: Help, description: 'Manage frequently asked questions' },
