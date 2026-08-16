@@ -285,14 +285,10 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/master',
         sectionKey: 'eligibility_content',
         label: 'Eligibility Section',
-        defaultContent: `<div class="space-y-4">
-    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">To be eligible for Master's degree studies at Cannoga College, applicants must meet the following baseline requirements:</p>
-    <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
-        <li>Hold a Bachelor’s degree (180 ECTS credits / 3-4 year degree) or equivalent recognized credential.</li>
-        <li>Degree must enable eligibility for Master’s study in the awarding country.</li>
-        <li>Only long-cycle degrees are considered in place of a Bachelor’s.</li>
-    </ul>
-    <p class="text-xs sm:text-sm font-bold text-slate-900 pt-1"><strong class="text-amber-800">Important:</strong> Previous Master’s degrees alone do not qualify you for admission without a recognized Bachelor's foundation.</p>
+        defaultContent: `<div class="space-y-3">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Applications must fulfil general eligibility criteria to be evaluated by the study options.</p>
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">To meet the general eligibility criteria, applicants must have a bachelor's degree that grants eligibility to master's level education. In addition, the application must include an accepted proof of language proficiency and all required documents submitted by the deadline.</p>
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Complete applications that meet the general eligibility requirements will be evaluated by the study options according to their specific evaluation criteria.</p>
 </div>`,
     },
     {
