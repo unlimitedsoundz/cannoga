@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ArrowRight, CheckCircle, MapPin, Coffee, Users, House, Sparkle } from '@phosphor-icons/react';
 import { Hero } from '@/components/layout/Hero';
 import { StudentLifeExperienceCarousel } from '@/components/student-life/StudentLifeExperienceCarousel';
+import { LearningSpacesAcademicCarousel } from '@/components/student-life/LearningSpacesAcademicCarousel';
 import { CampusServicesAcademicCarousel } from '@/components/student-life/CampusServicesAcademicCarousel';
 import StudentStoriesCarousel from '@/components/admissions/StudentStoriesCarousel';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
@@ -78,10 +79,7 @@ export default function StudentLifeContent() {
             {/* 4. LEARNING SPACES & STUDIOS */}
             <section id="facilities" className="py-20 bg-white">
                 <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
-                    <div className="mb-12 max-w-2xl text-left">
-                        <span className="text-xs font-black uppercase tracking-widest text-[#c89211] mb-2 block">
-                            Infrastructure &amp; Innovation
-                        </span>
+                    <div className="mb-10 max-w-2xl text-left">
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">
                             Modern Learning Spaces
                         </h2>
@@ -90,29 +88,7 @@ export default function StudentLifeContent() {
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6 mb-8">
-                        {[
-                            { title: "Labs & Tech Workshops", desc: "Equipped with high-performance computing, robotics, and hardware testing kits.", image: "/images/technology.jpg" },
-                            { title: "Collaborative Studios", desc: "Open architecture suites, media production suites, and multidisciplinary design desks.", image: "/images/arts-design.jpg" },
-                            { title: "Quiet Study & Commons", desc: "Acoustically treated quiet zones, presentation practice rooms, and reading pods.", image: "/images/academic-guidance.jpg" }
-                        ].map((item) => (
-                            <div key={item.title} className="bg-slate-50 border border-slate-200 rounded-md overflow-hidden flex flex-col justify-between group">
-                                <div className="h-56 relative overflow-hidden">
-                                    <Image
-                                        src={item.image}
-                                        alt={item.title}
-                                        fill
-                                        className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                                        sizes="(max-width: 768px) 100vw, 33vw"
-                                    />
-                                </div>
-                                <div className="p-6">
-                                    <h3 className="font-black text-lg uppercase tracking-tight text-black mb-2">{item.title}</h3>
-                                    <p className="text-xs md:text-sm text-slate-600 leading-relaxed font-medium">{item.desc}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                    <LearningSpacesAcademicCarousel />
                 </div>
             </section>
 
@@ -120,9 +96,6 @@ export default function StudentLifeContent() {
             <section id="housing" className="py-20 bg-slate-900 text-white">
                 <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
                     <div className="mb-12 max-w-2xl text-left">
-                        <span className="text-xs font-black uppercase tracking-widest text-[#c89211] mb-2 block">
-                            Student Accommodation
-                        </span>
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-white tracking-tight">
                             Living at Cannoga
                         </h2>
@@ -200,9 +173,6 @@ export default function StudentLifeContent() {
             <section id="services" className="py-20 bg-slate-50 border-y border-slate-200">
                 <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
                     <div className="mb-10 max-w-2xl text-left">
-                        <span className="text-xs font-black uppercase tracking-widest text-[#c89211] mb-2 block">
-                            Campus Amenities
-                        </span>
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">
                             Dining, Retail &amp; Support
                         </h2>
