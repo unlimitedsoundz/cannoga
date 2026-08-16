@@ -201,21 +201,21 @@ export default async function TuitionPaymentPage() {
                                 </table>
                             </div>
 
-                            <div className="space-y-6 mt-8">
-                                <div>
-                                    <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Certificate Program Fees</h3>
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                                <div className="space-y-2">
+                                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Certificate Program Fees</h3>
                                     <DbPageContent pageSlug={pageSlug} sectionKey="certificate_fees_content" fallbackContent={getContent('certificate_fees_content')} className="space-y-3 text-lg font-normal text-slate-700 leading-relaxed" />
                                 </div>
-                                <div>
-                                    <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Diploma Program Fees</h3>
+                                <div className="space-y-2">
+                                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Diploma Program Fees</h3>
                                     <DbPageContent pageSlug={pageSlug} sectionKey="diploma_fees_content" fallbackContent={getContent('diploma_fees_content')} className="space-y-3 text-lg font-normal text-slate-700 leading-relaxed" />
                                 </div>
-                                <div>
-                                    <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Bachelor's Program Fees</h3>
+                                <div className="space-y-2">
+                                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Bachelor's Program Fees</h3>
                                     <DbPageContent pageSlug={pageSlug} sectionKey="bachelor_fees_content" fallbackContent={getContent('bachelor_fees_content')} className="space-y-3 text-lg font-normal text-slate-700 leading-relaxed" />
                                 </div>
-                                <div>
-                                    <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Master's Program Fees</h3>
+                                <div className="space-y-2">
+                                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Master's Program Fees</h3>
                                     <DbPageContent pageSlug={pageSlug} sectionKey="master_fees_content" fallbackContent={getContent('master_fees_content')} className="space-y-3 text-lg font-normal text-slate-700 leading-relaxed" />
                                 </div>
                             </div>
