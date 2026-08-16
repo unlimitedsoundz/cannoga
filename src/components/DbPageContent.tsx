@@ -58,8 +58,30 @@ export default function DbPageContent({
 
         loadPageContent();
 
+        // ── Realtime Subscription: Instantly reflect edits made from /sis/admin/website/page-contents/ without page refresh ──
+        const channelName = `realtime:page_content:${pageSlug.replace(/[^a-zA-Z0-9]/g, '_')}:${sectionKey.replace(/[^a-zA-Z0-9]/g, '_')}`;
+        const channel = supabase
+            .channel(channelName)
+            .on(
+                'postgres_changes',
+                {
+                    event: '*',
+                    schema: 'public',
+                    table: 'page_content',
+                    filter: `page_slug=eq.${pageSlug}`,
+                },
+                (payload: any) => {
+                    const newRow = payload.new;
+                    if (newRow && newRow.section_key === sectionKey && mounted) {
+                        setContent(newRow.content || '');
+                    }
+                }
+            )
+            .subscribe();
+
         return () => {
             mounted = false;
+            supabase.removeChannel(channel);
         };
     }, [pageSlug, sectionKey, supabase, skipDbFetch]);
 
