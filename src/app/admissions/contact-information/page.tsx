@@ -18,53 +18,7 @@ export default function AdmissionsContactInfo() {
             
             <main className="pt-24 pb-32">
                 <div className="max-w-7xl mx-auto px-4 lg:px-8">
-                    <div className="flex flex-col lg:flex-row gap-12">
-                        
-                        {/* Sidebar */}
-                        <aside className="lg:w-1/4">
-                            <div className="sticky top-32">
-                                <h2 className="text-xs font-bold uppercase tracking-widest text-black mb-8 px-4">Admission Services</h2>
-                                <ul className="space-y-1">
-                                    <li>
-                                         <Link href="/admissions" className="block py-2 px-4 text-black hover:opacity-70 transition-opacity no-underline font-medium text-sm">
-                                             Study at Cannoga
-                                         </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/degree-programmes" className="block py-2 px-4 text-black hover:opacity-70 transition-opacity no-underline font-medium text-sm">
-                                            Degree programmes
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <Link href="/admissions" className="flex items-center justify-between py-2 px-4 text-black font-bold text-sm no-underline">
-                                                How to apply
-                                            </Link>
-                                            <ul className="mt-1 space-y-1">
-                                                <li>
-                                                    <Link href="/admissions/contact-information" className="block py-2 px-8 text-black font-bold text-sm no-underline text-[#c89211]">
-                                                        Contact Admission Services
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <Link href="/admissions" className="block py-2 px-4 text-black hover:opacity-70 transition-opacity no-underline font-medium text-sm">
-                                            Events for applicants
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="https://ourblogs.cannogacollege.ca" target="_blank" className="block py-2 px-4 text-black hover:opacity-70 transition-opacity no-underline font-medium text-sm">
-                                            Student stories
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </aside>
-
-                        {/* Page Body */}
-                        <div className="lg:w-3/4">
+                    <div className="max-w-4xl mx-auto">
                             
                             {/* Breadcrumbs */}
                             <Breadcrumbs 
@@ -171,7 +125,6 @@ export default function AdmissionsContactInfo() {
                                 </Link>
                             </div>
 
-                        </div>
                     </div>
                 </div>
             </main>
