@@ -32,7 +32,7 @@ const LEARNING_SPACE_CARDS: LearningSpaceCard[] = [
         title: 'COLLABORATIVE STUDIOS',
         description: 'Open architecture drafting spaces, digital media editing suites, and multidisciplinary design bays.',
         href: '/schools/arts-design',
-        image: '/images/arts-design.jpg',
+        image: 'https://i.pinimg.com/1200x/84/a4/21/84a421a4a2e279978309e91023400d23.jpg',
         bgColor: 'bg-[#8e24aa]', // Deep Purple
         borderColor: 'border-[#8e24aa]',
         waveColor: '#521363',
@@ -42,7 +42,7 @@ const LEARNING_SPACE_CARDS: LearningSpaceCard[] = [
         title: 'QUIET STUDY ZONES',
         description: 'Acoustically isolated study cubicles, presentation rehearsal rooms, and comfortable reading pods.',
         href: '/student-guide#support',
-        image: '/images/academic-guidance.jpg',
+        image: 'https://i.pinimg.com/736x/8f/f0/39/8ff039189a6f5191e341afbc0102e750.jpg',
         bgColor: 'bg-[#4da674]', // Emerald Green
         borderColor: 'border-[#4da674]',
         waveColor: '#28583c',
