@@ -42,7 +42,7 @@ const CREDENTIAL_CARDS: CredentialCard[] = [
         title: 'ADVANCED DIPLOMAS & DEGREES',
         description: "3-year advanced diplomas and 4-year Honours Bachelor's Degrees combining academic depth with co-op pathways.",
         href: '/degree-programmes',
-        image: '/images/student-story-2.jpg',
+        image: '/images/advanced-diploma.jpg',
         bgColor: 'bg-[#e53935]', // Vibrant bold red
         borderColor: 'border-[#e53935]',
         waveColor: '#8e1917', // Darker red shade
