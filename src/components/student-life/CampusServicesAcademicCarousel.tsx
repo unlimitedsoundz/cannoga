@@ -22,7 +22,7 @@ const SERVICE_CARDS: ServiceCard[] = [
         title: 'CAMPUS DINING & CAFÉ',
         description: 'Fresh artisan coffee, hot breakfast, daily chef specials, and halal/vegan options.',
         href: '/student-life/cafe',
-        image: '/images/hospitality-tourism.jpg',
+        image: 'https://i.pinimg.com/736x/ab/0d/b6/ab0db67e99c875d113eebed78e4a1542.jpg',
         bgColor: 'bg-[#f57c00]', // Vibrant warm orange
         borderColor: 'border-[#f57c00]',
         waveColor: '#964b00',
