@@ -70,7 +70,7 @@ export default async function AdmissionsPage() {
                 "@type": "WebPage",
                 "name": "Admissions to Cannoga College",
                 "url": "https://cannogacollege.ca/admissions",
-                "description": "Admissions information for Bachelorâ€™s and Masterâ€™s level programmes at Cannoga College in Ottawa, Ontario, Canada.",
+                "description": "Admissions information for Bachelor's and Master's level programmes at Cannoga College in Ottawa, Ontario, Canada.",
                 "mainEntity": {
                     "@type": "EducationalOccupationalProgram",
                     "name": "Degree Programmes at Cannoga College",
@@ -140,7 +140,7 @@ export default async function AdmissionsPage() {
                         <section id="overview" className="scroll-mt-32">
                             <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Explore our fields</h2>
                             <p className="text-lg text-black leading-relaxed mb-4">
-                                Studying at Cannoga College offers a rich academic experience where innovation, multidisciplinary collaboration, and student community thrive together. You can pursue degree education at all levels Bachelorâ€™s and Masterâ€™s as well as various lifelong learning options. In the Cannoga College community, students have the freedom to specialise in one field or combine courses across several fields.
+                                Studying at Cannoga College offers a rich academic experience where innovation, multidisciplinary collaboration, and student community thrive together. You can pursue degree education at all levels Bachelor's and Master's as well as various lifelong learning options. In the Cannoga College community, students have the freedom to specialise in one field or combine courses across several fields.
                             </p>
                         </section>
 
@@ -235,13 +235,13 @@ export default async function AdmissionsPage() {
                         <section id="campus" className="scroll-mt-32">
                             <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Studying on Campus</h2>
                             <p className="text-lg text-black leading-relaxed">
-                                Cannoga Collegeâ€™s campus provides vibrant learning spaces, studios, libraries, and collaborative hubs where students experience academic life and community activities. The campus environment supports both study and leisure, encouraging a balanced student experience.
+                                Cannoga College's campus provides vibrant learning spaces, studios, libraries, and collaborative hubs where students experience academic life and community activities. The campus environment supports both study and leisure, encouraging a balanced student experience.
                             </p>
                             {/* Career Opportunities Carousel */}
                             <div className="pt-2">
                                 <div className="mb-6">
                                     <h2 className="text-2xl font-black text-black tracking-tight">Career Opportunities</h2>
-                                    <p className="text-sm text-neutral-600 font-medium mt-1">Support and services to help plan and pursue postâ€‘graduation careers, powered by strong industry ties.</p>
+                                    <p className="text-sm text-neutral-600 font-medium mt-1">Support and services to help plan and pursue post-graduation careers, powered by strong industry ties.</p>
                                 </div>
                                 <AdmissionsCareerOpportunitiesCarousel />
                             </div>
@@ -256,7 +256,7 @@ export default async function AdmissionsPage() {
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-bold mb-2">Podcasts About Studying</h3>
-                                    <p className="text-black">Listen to podcasts where current students and staff discuss what itâ€™s like to study at Cannoga College, how programmes are structured, and tips for success.</p>
+                                    <p className="text-black">Listen to podcasts where current students and staff discuss what it's like to study at Cannoga College, how programmes are structured, and tips for success.</p>
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-bold mb-2">Chat with Students</h3>
@@ -417,16 +417,6 @@ export default async function AdmissionsPage() {
                                                     Talk to Admissions: +1 (227) 250-0427
                                                 </a>
                                             </div>
-                                        </div>
-                                        <div className="text-xs text-slate-800 space-y-1 pt-1">
-                                            <p className="font-bold text-slate-900 text-xs uppercase tracking-wider text-[#c89211] mb-1">Telephone service hours (UTC +2):</p>
-                                            <ul className="space-y-0.5 text-xs text-slate-700 font-medium">
-                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Mon:</span><span>12:30 pm – 2:00 pm</span></li>
-                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Tue:</span><span>9:30 am – 11:00 am</span></li>
-                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Wed:</span><span>9:30 am – 11:00 am</span></li>
-                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Thu:</span><span>9:30 am – 11:00 am</span></li>
-                                                <li className="flex gap-2"><span className="font-bold text-slate-900 w-10">Fri:</span><span className="text-red-600 font-bold">Closed</span></li>
-                                            </ul>
                                         </div>
                                     </div>
                                 </div>

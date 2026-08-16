@@ -216,7 +216,7 @@ function EnrollmentContent() {
                             />
                         </div>
                         <div className="text-sm font-bold text-neutral-900 uppercase">
-                            Helena VihreÃ¤
+                            Helena Vihreä
                         </div>
                         <div className="text-[9px] font-bold text-neutral-400 uppercase tracking-widest leading-none mt-1">
                             University Registrar

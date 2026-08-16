@@ -259,7 +259,7 @@ export default function AdminDashboardPage() {
         subtitle="System overview and quick access to administrative functions"
       />
 
-      {/* â”€â”€ Stat Cards â”€â”€ */}
+      {/* ── Stat Cards ── */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {statCards.map((stat, idx) => (
           <Link
@@ -279,7 +279,7 @@ export default function AdminDashboardPage() {
         ))}
       </div>
 
-      {/* â”€â”€ Tables Row â”€â”€ */}
+      {/* ── Tables Row ── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-3">
           <div className="flex justify-between items-center">
@@ -302,7 +302,7 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* â”€â”€ Second Tables Row â”€â”€ */}
+      {/* ── Second Tables Row ── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-3">
           <div className="flex justify-between items-center">
@@ -343,7 +343,7 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* â”€â”€ Quick Links â”€â”€ */}
+      {/* ── Quick Links ── */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {quickLinks.map((ql, idx) => (
           <Link

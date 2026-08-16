@@ -207,13 +207,13 @@ function ApplicationWizardContent() {
                 <h1 className="text-2xl font-black tracking-tighter leading-none mb-1">
                     {application.course?.title}
                     {application.course?.programType && (
-                        <span className="text-black font-bold"> â€” {application.course.programType}</span>
+                        <span className="text-black font-bold"> — {application.course.programType}</span>
                     )}
                     {application.course?.duration && (
-                        <span className="text-black font-bold"> â€” {application.course.duration}</span>
+                        <span className="text-black font-bold"> — {application.course.duration}</span>
                     )}
                     {application.course?.school && (
-                        <span className="text-black font-bold"> â€” {application.course.school.name}</span>
+                        <span className="text-black font-bold"> — {application.course.school.name}</span>
                     )}
                 </h1>
                 <div className="flex items-center justify-between gap-4">

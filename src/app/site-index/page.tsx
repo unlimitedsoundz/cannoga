@@ -129,7 +129,7 @@ const masterDirectory = [
         links: [
             { name: 'Student Housing & Residences', href: '/housing' },
             { name: 'Campus Life & Community', href: '/student-life' },
-            { name: 'Campus CafÃ© & Dining Services', href: '/student-life/cafe' },
+            { name: 'Campus Café & Dining Services', href: '/student-life/cafe' },
             { name: 'Alumni Network & Guild', href: '/alumni' },
             { name: 'Career Opportunities & Services', href: '/careers' },
         ],
