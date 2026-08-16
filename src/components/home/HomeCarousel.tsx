@@ -103,7 +103,7 @@ export function HomeCarousel() {
                                     <div className="pt-2">
                                         <Link
                                             href={slide.btnHref}
-                                            className="inline-flex items-center gap-2 bg-white hover:bg-neutral-100 text-[#0a151a] font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline rounded-sm transition-colors shadow-md"
+                                            className="inline-flex items-center gap-2 bg-white hover:bg-neutral-100 text-[#0a151a] font-bold text-sm tracking-wider uppercase px-8 py-4 no-underline rounded-sm transition-colors"
                                             noHover
                                         >
                                             <span>{slide.btnText}</span>
@@ -121,14 +121,14 @@ export function HomeCarousel() {
                     <div className="flex items-center gap-3 pointer-events-auto">
                         <button
                             onClick={prevSlide}
-                            className="p-3 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-white/20 shadow-md"
+                            className="p-3 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-white/20"
                             aria-label="Previous slide"
                         >
                             <CaretLeft size={20} weight="bold" />
                         </button>
                         <button
                             onClick={nextSlide}
-                            className="p-3 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-white/20 shadow-md"
+                            className="p-3 rounded-full bg-[#0a151a] text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-white/20"
                             aria-label="Next slide"
                         >
                             <CaretRight size={20} weight="bold" />

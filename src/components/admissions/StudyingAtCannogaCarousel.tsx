@@ -176,14 +176,14 @@ export function StudyingAtCannogaCarousel() {
                 <div className="flex items-center gap-3">
                     <button
                         onClick={() => scrollTo('left')}
-                        className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-slate-700 shadow-sm"
+                        className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-slate-700"
                         aria-label="Previous slide"
                     >
                         <ArrowLeft size={20} weight="bold" />
                     </button>
                     <button
                         onClick={() => scrollTo('right')}
-                        className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-slate-700 shadow-sm"
+                        className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-slate-700"
                         aria-label="Next slide"
                     >
                         <ArrowRight size={20} weight="bold" />

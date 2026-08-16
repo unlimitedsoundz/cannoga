@@ -100,7 +100,7 @@ export function StudySupportCarousel() {
                     >
                         <Link
                             href={card.href}
-                            className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[240px] sm:min-h-[270px] flex flex-col justify-between group cursor-pointer hover:shadow-xl transition-all duration-300`}
+                            className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[240px] sm:min-h-[270px] flex flex-col justify-between group cursor-pointer  transition-all duration-300`}
                         >
                             {/* Card Content Header */}
                             <div className="relative z-20">

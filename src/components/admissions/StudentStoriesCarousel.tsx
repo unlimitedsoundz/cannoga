@@ -137,7 +137,7 @@ export default function StudentStoriesCarousel() {
                                 <div
                                     key={peer.id}
                                     onClick={() => setActiveCardId(isOpen ? null : peer.id)}
-                                    className="w-[350px] sm:w-[350px] h-[380px] sm:h-[440px] shrink-0 relative overflow-hidden group rounded-none shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer snap-start"
+                                    className="w-[350px] sm:w-[350px] h-[380px] sm:h-[440px] shrink-0 relative overflow-hidden group rounded-none transition-all duration-300 cursor-pointer snap-start"
                                 >
                                     {/* Background Image */}
                                     <Image
@@ -193,7 +193,7 @@ export default function StudentStoriesCarousel() {
                                                 <a
                                                     href="/student-guide"
                                                     onClick={(e) => e.stopPropagation()}
-                                                    className="inline-flex items-center justify-center w-full bg-white text-slate-900 font-black text-xs uppercase tracking-wider py-3 px-4 rounded-sm transition-colors hover:bg-slate-100 no-underline gap-2 shadow-md mt-4"
+                                                    className="inline-flex items-center justify-center w-full bg-white text-slate-900 font-black text-xs uppercase tracking-wider py-3 px-4 rounded-sm transition-colors hover:bg-slate-100 no-underline gap-2 mt-4"
                                                 >
                                                     Read Full Student Guide <ArrowUpRight size={16} weight="bold" />
                                                 </a>

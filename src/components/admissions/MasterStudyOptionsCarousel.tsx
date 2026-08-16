@@ -132,7 +132,7 @@ export function MasterStudyOptionsCarousel() {
                     >
                         <Link
                             href={card.href}
-                            className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[260px] sm:min-h-[300px] flex flex-col justify-between shadow-sm hover:shadow-lg transition-shadow group`}
+                            className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[260px] sm:min-h-[300px] flex flex-col justify-between   transition- group`}
                         >
                             {/* Card Content Header */}
                             <div className="relative z-20">

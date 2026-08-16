@@ -122,7 +122,7 @@ export function AdmissionsCareerOpportunitiesCarousel() {
                     >
                         <Link
                             linkComponentProps={{ href: card.href }}
-                            className={`block w-full p-3 sm:p-4 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden group hover:shadow-xl transition-all duration-300`}
+                            className={`block w-full p-3 sm:p-4 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden group  transition-all duration-300`}
                         >
                             {/* Card Top Image with Animated Wavy Cutout */}
                             <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden rounded-sm bg-black/10">
