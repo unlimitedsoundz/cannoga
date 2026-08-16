@@ -35,8 +35,8 @@ export default function StudentLifeContent() {
                     { label: 'Student life' }
                 ]}
                 image={{
-                    src: "/images/1775992308619-019d8163-44a0-737f-adcd-915c11eb6189.png",
-                    alt: "Student Life"
+                    src: "/images/vibrant-community.png",
+                    alt: "Cannoga College Student Life"
                 }}
             />
 
@@ -59,7 +59,7 @@ export default function StudentLifeContent() {
                                 {/* Right: Square Image */}
                                 <div className="relative aspect-square overflow-hidden bg-white order-1 lg:order-2">
                                     <Image
-                                        src="/images/news/helsinki_study_hero_1771086748710.png"
+                                        src="/images/ottawa-campus.jpg"
                                         alt="Campus Setting"
                                         fill
                                         className="object-cover object-top"
@@ -76,8 +76,8 @@ export default function StudentLifeContent() {
                                 {/* Left: Square Image */}
                                 <div className="relative aspect-square overflow-hidden bg-white">
                                     <Image
-                                        src="/images/student-life/accessibility.jpg"
-                                        alt="Accessibility"
+                                        src="/images/transportation-aviation.jpg"
+                                        alt="Accessibility & Transit"
                                         fill
                                         className="object-cover object-top"
                                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -113,9 +113,9 @@ export default function StudentLifeContent() {
                             </h2>
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-0 mb-12">
                                 {[
-                                    { title: "Labs & Workshops", image: "/images/student-life/labs.png" },
-                                    { title: "Collaborative Studios", image: "/images/student-life/studios.jpg" },
-                                    { title: "Quiet Study Zones", image: "/images/student-life/quiet.jpg" }
+                                    { title: "Labs & Workshops", image: "/images/technology.jpg" },
+                                    { title: "Collaborative Studios", image: "/images/arts-design.jpg" },
+                                    { title: "Quiet Study Zones", image: "/images/academic-guidance.jpg" }
                                 ].map((item, idx) => (
                                     <div key={item.title} className={`group cursor-pointer bg-card overflow-hidden p-8`}>
                                         <div className="h-64 mb-8 overflow-hidden relative">
@@ -160,7 +160,7 @@ export default function StudentLifeContent() {
                                 {/* Right: Square Image */}
                                 <div className="relative aspect-square overflow-hidden bg-white order-1 lg:order-2">
                                      <Image
-                                         src="/images/1775991969255-019d815e-0f7b-7a9f-8c49-7c04a49f0de8.png"
+                                         src="/images/student-ambassadors.png"
                                          alt="Library"
                                          fill
                                          className="object-cover object-top"
@@ -177,7 +177,7 @@ export default function StudentLifeContent() {
                                 <div className="bg-card p-12 group">
                                     <div className="h-64 mb-10 relative overflow-hidden">
                                         <Image
-                                            src="/images/student-life/apartments.jpg"
+                                            src="/images/student-housing-hero.png"
                                             alt="Shared Residences"
                                             fill
                                             className="object-cover object-top"
@@ -191,7 +191,7 @@ export default function StudentLifeContent() {
                                 <div className="bg-card p-12 group">
                                     <div className="h-64 mb-10 relative overflow-hidden">
                                         <Image
-                                            src="/images/student-life/studio-apartments.jpg"
+                                            src="/images/housing/homestay.jpg"
                                             alt="Studio Apartments"
                                             fill
                                             className="object-cover object-top"
@@ -212,7 +212,7 @@ export default function StudentLifeContent() {
                                 {/* Left: Square Image */}
                                 <div className="relative aspect-square md:aspect-auto md:h-full min-h-[400px] overflow-hidden bg-white">
                                     <Image
-                                        src="/images/1775951882929-019d7efa-a205-73f9-9f42-775ee91c38fe.png"
+                                        src="/images/exchange-students.png"
                                         alt="Student Union & Communities"
                                         fill
                                         className="object-cover object-top"
@@ -251,7 +251,7 @@ export default function StudentLifeContent() {
                             <h2 className="text-aalto-5 font-bold mb-aalto-p6 text-black tracking-tight">Integrated help</h2>
                             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-0">
                                 {[
-                                    { name: "Restaurants", desc: "Campus Cafe", image: "/images/student-cafe.png" },
+                                    { name: "Restaurants", desc: "Campus Dining & Cafe", image: "/images/hospitality-tourism.jpg" },
                                     { name: "Retail", desc: "Campus Supplies", image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop" },
                                     { name: "Health", desc: "Medical Support", image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop" },
                                     { name: "Guidance", desc: "Career Support", image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=800&auto=format&fit=crop" }

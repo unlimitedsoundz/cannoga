@@ -1,4 +1,4 @@
-﻿import { ArrowLeft, Calendar, CaretRight, CheckCircle, FileText, Info, MapPin, ArrowRight, IdentificationBadge, Laptop, GraduationCap, House, Briefcase } from "@phosphor-icons/react/dist/ssr";
+import { ArrowLeft, Calendar, CaretRight, CheckCircle, FileText, Info, MapPin, ArrowRight, IdentificationBadge, Laptop, GraduationCap, House, Briefcase } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { Hero } from '@/components/layout/Hero';
@@ -38,8 +38,8 @@ export default function MastersGuidePage() {
                 tinted
                 lightText={true}
                 image={{
-                    src: "/images/student-guide-hero.png",
-                    alt: "Master Students"
+                    src: "/images/student-guide-master.png",
+                    alt: "Master Students Guide"
                 }}
             />
 

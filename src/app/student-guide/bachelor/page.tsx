@@ -1,4 +1,4 @@
-﻿import { ArrowLeft, Calendar, CaretRight, CheckCircle, FileText, Info, MapPin, CreditCard, ArrowRight, IdentificationBadge, Laptop, Heart, GraduationCap, House } from "@phosphor-icons/react/dist/ssr";
+import { ArrowLeft, Calendar, CaretRight, CheckCircle, FileText, Info, MapPin, CreditCard, ArrowRight, IdentificationBadge, Laptop, Heart, GraduationCap, House } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
 import Image from 'next/image';
@@ -39,8 +39,8 @@ export default function BachelorsGuidePage() {
                 tinted
                 lightText={true}
                 image={{
-                    src: "/images/download (2).jpg",
-                    alt: "Bachelor Students"
+                    src: "/images/student-guide-bachelor.jpg",
+                    alt: "Bachelor Students Guide"
                 }}
             />
 

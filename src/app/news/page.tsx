@@ -1,4 +1,4 @@
-﻿import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import { News, Event } from '@/types/database';
 import NewsList from '@/components/news/NewsList';
@@ -74,7 +74,7 @@ export default async function NewsPage() {
                 overlay={true}
                 overlayOpacity="opacity-40"
                 image={{
-                    src: "/images/admissions-hero.jpg",
+                    src: "/images/admissions/admissions-hero.png",
                     alt: "Cannoga College Newsroom"
                 }}
                 breadcrumbs={[

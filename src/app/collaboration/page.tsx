@@ -1,4 +1,4 @@
-﻿import { Link } from "@aalto-dx/react-components";
+import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { ArrowRight, Handshake, Lightbulb, Buildings, Users } from '@phosphor-icons/react/dist/ssr';
 
@@ -52,7 +52,7 @@ export default function CollaborationPage() {
                         <div className="h-full w-full">
                             <div className="relative w-full aspect-square md:aspect-auto lg:w-full lg:h-full bg-neutral-800">
                                 <Image
-                                    src="/images/about/student-collab.jpg"
+                                    src="/images/vibrant-community.png"
                                     alt="Collaboration Hero"
                                     fill
                                     priority
@@ -136,7 +136,7 @@ export default function CollaborationPage() {
                         </div>
                         <div className="relative h-[600px] w-full overflow-hidden">
                             <Image
-                                src="/images/about/student-collab.jpg"
+                                src="/images/chat-with-students-hero.jpg"
                                 alt="Students and industry partners collaborating"
                                 fill
                                 className="object-cover object-top"

@@ -119,7 +119,7 @@ export default function CafePage() {
                     <div className="grid md:grid-cols-3 gap-6">
                         <div className="group relative h-[400px] overflow-hidden rounded-none cursor-pointer">
                             <Image
-                                src="/images/unnamed (18).jpg"
+                                src="/images/academic-guidance.jpg"
                                 alt="Silent Study"
                                 fill
                                 className="object-cover object-top group-hover:scale-110 transition-transform duration-700"
@@ -143,7 +143,7 @@ export default function CafePage() {
                         </div>
                         <div className="group relative h-[400px] overflow-hidden rounded-none cursor-pointer">
                             <Image
-                                src="/images/unnamed (20).jpg"
+                                src="/images/hospitality-tourism.jpg"
                                 alt="Summer Terrace"
                                 fill
                                 className="object-cover object-top group-hover:scale-110 transition-transform duration-700"

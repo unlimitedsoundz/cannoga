@@ -1,4 +1,4 @@
-﻿import PublicationList from './PublicationList';
+import PublicationList from './PublicationList';
 import { Hero } from '@/components/layout/Hero';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import Link from 'next/link';
@@ -68,7 +68,7 @@ export default function PublicationsPage() {
                 overlay={true}
                 overlayOpacity="opacity-40"
                 image={{
-                    src: "/images/research-hero.png",
+                    src: "/images/technology.jpg",
                     alt: "Cannoga Academic Publications"
                 }}
                 breadcrumbs={[
