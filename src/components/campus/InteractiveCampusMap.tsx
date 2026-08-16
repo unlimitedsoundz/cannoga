@@ -60,7 +60,7 @@ const LOCATIONS: CampusLocation[] = [
         y: 42,
         description: 'Home to international commerce, corporate finance simulation rooms, accounting suites, and executive lecture theatres.',
         facilities: ['FinTech & Analytics Lab', 'Executive Boardrooms', 'Commerce Study Commons'],
-        hours: 'Mon – Fri: 7:30 AM – 9:30 PM | Sat: 8:00 AM – 5:00 PM',
+        hours: 'Mon – Fri: 9:00 AM – 4:00 PM | Sat: 9:00 AM – 4:00 PM',
         link: '/schools/business/',
         linkText: 'Explore School of Business',
         bgColor: 'bg-[#f97316]', // Vibrant Orange
@@ -75,7 +75,7 @@ const LOCATIONS: CampusLocation[] = [
         y: 35,
         description: 'Advanced software engineering studios, AI research labs, cybersecurity defensive ranges, and cloud compute bays.',
         facilities: ['AI & Machine Learning Hub', 'Cybersecurity Testbed', 'Full-Stack Software Lab'],
-        hours: 'Mon – Sun: 24/7 (Student Keycard Access)',
+        hours: 'Mon – Fri: 9:00 AM – 4:00 PM | Sat: 9:00 AM – 4:00 PM',
         link: '/schools/technology/',
         linkText: 'Explore School of Technology',
         bgColor: 'bg-[#6366f1]', // Electric Indigo
@@ -90,7 +90,7 @@ const LOCATIONS: CampusLocation[] = [
         y: 58,
         description: 'Creative design studios, digital media workstations, exhibition galleries, and experimental fashion workshops.',
         facilities: ['Digital Media Suites', 'Fine Art & Design Studios', 'Student Exhibition Gallery'],
-        hours: 'Mon – Sun: 7:00 AM – 10:00 PM',
+        hours: 'Mon – Fri: 9:00 AM – 4:00 PM | Sat: 9:00 AM – 4:00 PM',
         link: '/schools/arts-design/',
         linkText: 'Explore School of Arts',
         bgColor: 'bg-[#10b981]', // Electric Emerald
@@ -105,7 +105,7 @@ const LOCATIONS: CampusLocation[] = [
         y: 28,
         description: 'State-of-the-art biochemistry laboratories, environmental research units, and applied materials testing facilities.',
         facilities: ['Analytical Chemistry Lab', 'Environmental Science Unit', 'Robotics & Hardware Bay'],
-        hours: 'Mon – Fri: 8:00 AM – 9:00 PM | Sat: 9:00 AM – 5:00 PM',
+        hours: 'Mon – Fri: 9:00 AM – 4:00 PM | Sat: 9:00 AM – 4:00 PM',
         link: '/schools/science/',
         linkText: 'Explore School of Science',
         bgColor: 'bg-[#06b6d4]', // Electric Cyan
@@ -120,7 +120,7 @@ const LOCATIONS: CampusLocation[] = [
         y: 28,
         description: 'Flight simulation cockpits, avionics troubleshooting bays, logistics planning centres, and propulsion test labs.',
         facilities: ['Flight Simulators', 'Avionics Diagnostics Lab', 'Logistics Management Centre'],
-        hours: 'Mon – Fri: 7:30 AM – 7:30 PM | Sat: 8:30 AM – 4:00 PM',
+        hours: 'Mon – Fri: 9:00 AM – 4:00 PM | Sat: 9:00 AM – 4:00 PM',
         link: '/schools/transportation-aviation/',
         linkText: 'Explore Transportation & Aviation',
         bgColor: 'bg-[#8b5cf6]', // Deep Purple
@@ -135,7 +135,7 @@ const LOCATIONS: CampusLocation[] = [
         y: 65,
         description: 'Early childhood education mock classrooms, social policy research units, and interactive behavioral study labs.',
         facilities: ['Teaching Observation Lab', 'Policy Research Centre', 'Student Counseling Suites'],
-        hours: 'Mon – Fri: 8:00 AM – 8:00 PM | Sat: 9:00 AM – 3:00 PM',
+        hours: 'Mon – Fri: 9:00 AM – 4:00 PM | Sat: 9:00 AM – 4:00 PM',
         link: '/schools/education-social-sciences/',
         linkText: 'Explore Education & Social Sciences',
         bgColor: 'bg-[#ef4444]', // Electric Crimson
@@ -150,7 +150,7 @@ const LOCATIONS: CampusLocation[] = [
         y: 78,
         description: 'Culinary arts teaching kitchens, hotel operations simulation front desks, and international event management suites.',
         facilities: ['Commercial Training Kitchen', 'Hotel Front-Desk Simulator', 'Wine & Beverage Lab'],
-        hours: 'Mon – Fri: 7:00 AM – 8:30 PM | Sat: 8:00 AM – 6:00 PM',
+        hours: 'Mon – Fri: 9:00 AM – 4:00 PM | Sat: 9:00 AM – 4:00 PM',
         link: '/schools/hospitality-tourism/',
         linkText: 'Explore Hospitality & Tourism',
         bgColor: 'bg-[#84cc16]', // Lime Green
@@ -171,13 +171,13 @@ export function InteractiveCampusMap() {
     const handleResetZoom = () => setZoomLevel(1);
 
     return (
-        <div className="w-full bg-white border border-slate-200 rounded-md overflow-hidden shadow-sm">
+        <div className="w-full bg-white border border-slate-200 rounded-md overflow-hidden">
             {/* Main Interactive Map Stage */}
             <div className="grid lg:grid-cols-12 gap-0 relative">
                 {/* Left/Main Column: Zoomable Map with Interactive Hotspots */}
                 <div className="lg:col-span-8 relative bg-slate-900 overflow-hidden min-h-[420px] sm:min-h-[500px] flex items-center justify-center select-none">
                     {/* Zoom Controls Overlay */}
-                    <div className="absolute top-4 right-4 z-30 flex flex-col gap-1.5 bg-black/75 backdrop-blur-xs p-1.5 rounded-md border border-white/10 text-white shadow-lg">
+                    <div className="absolute top-4 right-4 z-30 flex flex-col gap-1.5 bg-black/75 backdrop-blur-xs p-1.5 rounded-md border border-white/10 text-white">
                         <button
                             onClick={handleZoomIn}
                             title="Zoom in"
@@ -236,17 +236,12 @@ export function InteractiveCampusMap() {
                                     key={loc.id}
                                     onClick={() => setActiveLocationId(loc.id)}
                                     style={{ left: `${loc.x}%`, top: `${loc.y}%` }}
-                                    className={`absolute -translate-x-1/2 -translate-y-1/2 z-20 group transition-all duration-200 focus:outline-hidden`}
+                                    className="absolute -translate-x-1/2 -translate-y-1/2 z-20 group transition-all duration-200 focus:outline-hidden"
                                     aria-label={`Select ${loc.title}`}
                                 >
-                                    {/* Pulse ring for active pin */}
-                                    {isSelected && (
-                                        <span className="absolute inset-[-6px] rounded-full animate-ping bg-[#c89211]/60 pointer-events-none" />
-                                    )}
-
                                     {/* Pin Body */}
                                     <div
-                                        className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-black shadow-2xl transition-transform ${
+                                        className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-black transition-transform ${
                                             isSelected
                                                 ? 'bg-[#0a151a] text-white ring-2 ring-[#c89211] scale-110'
                                                 : 'bg-white/95 text-slate-900 hover:scale-105 hover:bg-[#0a151a] hover:text-white'
@@ -270,7 +265,7 @@ export function InteractiveCampusMap() {
                 {/* Right Column: Student Resource Hub Styled Location Card Inspector */}
                 <div className="lg:col-span-4 p-3 sm:p-5 bg-white border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col justify-center">
                     <div
-                        className={`w-full p-6 sm:p-7 rounded-md ${activeLocation.bgColor} ${activeLocation.borderColor} border-4 text-white overflow-hidden relative shadow-lg flex flex-col justify-between min-h-[440px]`}
+                        className={`w-full p-6 sm:p-7 rounded-md ${activeLocation.bgColor} ${activeLocation.borderColor} border-4 text-white overflow-hidden relative flex flex-col justify-between min-h-[440px]`}
                     >
                         <div>
                             <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight leading-[1.08] mb-3">
