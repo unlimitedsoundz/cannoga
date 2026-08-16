@@ -478,64 +478,57 @@ export default function AdmissionApplicationPage() {
               <button 
                 onClick={handleIssueOffer} 
                 disabled={actionLoading === 'offer'} 
-                style={{ backgroundColor: '#ffffff', color: '#000000' }}
-                className="w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider !text-black !bg-white hover:!bg-slate-100 border border-slate-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
+                className="admission-action-btn w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider border border-slate-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
               >
                 <HugeiconsIcon icon={GraduationCap} size={16} strokeWidth={2.5} className="text-sky-600 shrink-0" />
-                <span style={{ color: '#000000' }} className="!text-black font-bold">Issue Offer / LOA</span>
+                <span>Issue Offer / LOA</span>
               </button>
               <button 
                 onClick={handleRegenerateLOA} 
                 disabled={actionLoading === 'loa'} 
-                style={{ backgroundColor: '#ffffff', color: '#000000' }}
-                className="w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider !text-black !bg-white hover:!bg-slate-100 border border-slate-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
+                className="admission-action-btn w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider border border-slate-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
               >
-                <HugeiconsIcon icon={Printer} size={16} strokeWidth={2.5} className="text-slate-700 shrink-0" />
-                <span style={{ color: '#000000' }} className="!text-black font-bold">Regenerate LOA</span>
+                <HugeiconsIcon icon={Printer} size={16} strokeWidth={2.5} className="text-slate-500 shrink-0" />
+                <span>Regenerate LOA</span>
               </button>
               <button 
                 onClick={handleGenerateAdmissionLetter} 
                 disabled={actionLoading === 'admission-letter'} 
-                style={{ backgroundColor: '#ffffff', color: '#000000' }}
-                className="w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider !text-black !bg-white hover:!bg-slate-100 border border-slate-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
+                className="admission-action-btn w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider border border-slate-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
               >
-                <HugeiconsIcon icon={FileText} size={16} strokeWidth={2.5} className="text-slate-700 shrink-0" />
-                <span style={{ color: '#000000' }} className="!text-black font-bold">Generate Admission Letter</span>
+                <HugeiconsIcon icon={FileText} size={16} strokeWidth={2.5} className="text-slate-500 shrink-0" />
+                <span>Generate Admission Letter</span>
               </button>
               <button 
                 onClick={handleIssuePAL} 
                 disabled={actionLoading === 'pal'} 
-                style={{ backgroundColor: '#ffffff', color: '#000000' }}
-                className="w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider !text-black !bg-white hover:!bg-slate-100 border border-slate-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
+                className="admission-action-btn w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider border border-slate-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
               >
                 <HugeiconsIcon icon={Shield} size={16} strokeWidth={2.5} className="text-emerald-600 shrink-0" />
-                <span style={{ color: '#000000' }} className="!text-black font-bold">Issue PAL</span>
+                <span>Issue PAL</span>
               </button>
               <button 
                 onClick={() => setShowInvoiceModal(true)} 
-                style={{ backgroundColor: '#ffffff', color: '#000000' }}
-                className="w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider !text-black !bg-white hover:!bg-slate-100 border border-slate-200 rounded-xl flex items-center gap-3 transition-all shadow-sm"
+                className="admission-action-btn w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider border border-slate-200 rounded-xl flex items-center gap-3 transition-all shadow-sm"
               >
                 <HugeiconsIcon icon={FileText} size={16} strokeWidth={2.5} className="text-amber-600 shrink-0" />
-                <span style={{ color: '#000000' }} className="!text-black font-bold">Issue Invoice</span>
+                <span>Issue Invoice</span>
               </button>
               <button 
                 onClick={() => handleStatusUpdate('REJECTED')} 
                 disabled={actionLoading === 'status'} 
-                style={{ backgroundColor: '#ffffff', color: '#dc2626' }}
-                className="w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider !text-red-600 !bg-white hover:!bg-red-50 border border-red-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
+                className="admission-action-reject w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider border border-red-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
               >
-                <HugeiconsIcon icon={XCircle} size={16} strokeWidth={2.5} className="text-red-600 shrink-0" />
-                <span style={{ color: '#dc2626' }} className="!text-red-600 font-bold">Reject Application</span>
+                <HugeiconsIcon icon={XCircle} size={16} strokeWidth={2.5} className="shrink-0" />
+                <span>Reject Application</span>
               </button>
               <button 
                 onClick={() => setShowMessageForm(!showMessageForm)} 
                 disabled={actionLoading === 'message'} 
-                style={{ backgroundColor: '#ffffff', color: '#000000' }}
-                className="w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider !text-black !bg-white hover:!bg-slate-100 border border-slate-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
+                className="admission-action-btn w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider border border-slate-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
               >
                 <HugeiconsIcon icon={Message} size={16} strokeWidth={2.5} className="text-sky-600 shrink-0" />
-                <span style={{ color: '#000000' }} className="!text-black font-bold">Send Message</span>
+                <span>Send Message</span>
               </button>
                {showMessageForm && (
                  <div className="space-y-2 pt-2">
@@ -543,14 +536,14 @@ export default function AdmissionApplicationPage() {
                      value={messageText}
                      onChange={e => setMessageText(e.target.value)}
                      placeholder="Type your message to the student..."
-                     style={{ backgroundColor: '#ffffff', color: '#000000' }}
-                     className="w-full px-3.5 py-2.5 text-xs !bg-white border border-slate-200 !text-black placeholder:text-slate-400 focus:border-sky-500 focus:outline-none h-20 resize-none rounded-xl"
+                     style={{ backgroundColor: '#ffffff', color: '#000000', borderColor: '#e2e8f0' }}
+                     className="w-full px-3.5 py-2.5 text-xs border focus:border-sky-500 focus:outline-none h-20 resize-none rounded-xl"
                    />
                    <div className="flex gap-2">
                      <button onClick={handleSendMessage} disabled={actionLoading === 'message'} className="flex-1 px-4 py-2.5 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm">
                        {actionLoading === 'message' ? 'Sending...' : 'Send'}
                      </button>
-                     <button onClick={() => setShowMessageForm(false)} style={{ backgroundColor: '#ffffff', color: '#000000' }} className="flex-1 px-4 py-2.5 !bg-white border border-slate-200 !text-black text-xs font-bold uppercase tracking-wider hover:!bg-slate-100 transition-colors rounded-xl">
+                     <button onClick={() => setShowMessageForm(false)} className="admission-action-btn flex-1 px-4 py-2.5 text-xs font-bold uppercase tracking-wider border border-slate-200 hover:bg-slate-100 transition-colors rounded-xl">
                        Cancel
                      </button>
                    </div>
@@ -560,11 +553,10 @@ export default function AdmissionApplicationPage() {
                  <button 
                    onClick={handleEditRecord} 
                    disabled={actionLoading === 'edit'} 
-                   style={{ backgroundColor: '#ffffff', color: '#000000' }}
-                   className="w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider !text-black !bg-white hover:!bg-slate-100 border border-slate-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
+                   className="admission-action-btn w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-wider border border-slate-200 rounded-xl flex items-center gap-3 transition-all disabled:opacity-50 shadow-sm"
                  >
-                   <HugeiconsIcon icon={Edit} size={16} strokeWidth={2.5} className="text-slate-700 shrink-0" />
-                   <span style={{ color: '#000000' }} className="!text-black font-bold">Edit Record</span>
+                   <HugeiconsIcon icon={Edit} size={16} strokeWidth={2.5} className="text-slate-500 shrink-0" />
+                   <span>Edit Record</span>
                  </button>
                ) : (
                  <div className="space-y-2 pt-2">
@@ -572,14 +564,14 @@ export default function AdmissionApplicationPage() {
                      value={editForm?.personal_info?.statement || ''}
                      onChange={e => setEditForm({ ...editForm, personal_info: { ...editForm.personal_info, statement: e.target.value } })}
                      placeholder="Edit record notes..."
-                     style={{ backgroundColor: '#ffffff', color: '#000000' }}
-                     className="w-full px-3.5 py-2.5 text-xs !bg-white border border-slate-200 !text-black placeholder:text-slate-400 focus:border-sky-500 focus:outline-none h-20 resize-none rounded-xl"
+                     style={{ backgroundColor: '#ffffff', color: '#000000', borderColor: '#e2e8f0' }}
+                     className="w-full px-3.5 py-2.5 text-xs border focus:border-sky-500 focus:outline-none h-20 resize-none rounded-xl"
                    />
                    <div className="flex gap-2">
                      <button onClick={handleSaveEdit} disabled={actionLoading === 'edit'} className="flex-1 px-4 py-2.5 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm">
                        {actionLoading === 'edit' ? 'Saving...' : 'Save'}
                      </button>
-                     <button onClick={() => setIsEditing(false)} style={{ backgroundColor: '#ffffff', color: '#000000' }} className="flex-1 px-4 py-2.5 !bg-white border border-slate-200 !text-black text-xs font-bold uppercase tracking-wider hover:!bg-slate-100 transition-colors rounded-xl">
+                     <button onClick={() => setIsEditing(false)} className="admission-action-btn flex-1 px-4 py-2.5 text-xs font-bold uppercase tracking-wider border border-slate-200 hover:bg-slate-100 transition-colors rounded-xl">
                        Cancel
                      </button>
                    </div>

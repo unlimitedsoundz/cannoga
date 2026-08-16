@@ -958,6 +958,33 @@ button.sis-btn,
   color: #ffffff !important;
 }
 
+/* Admission Action Buttons: guaranteed black text on white background */
+[data-theme="sis-dark"] button.admission-action-btn,
+[data-theme="sis-dark"] button.admission-action-btn *,
+button.admission-action-btn,
+button.admission-action-btn * {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+[data-theme="sis-dark"] button.admission-action-btn:hover,
+button.admission-action-btn:hover {
+  background-color: #f1f5f9 !important;
+}
+[data-theme="sis-dark"] button.admission-action-reject,
+button.admission-action-reject {
+  background-color: #ffffff !important;
+  color: #dc2626 !important;
+}
+[data-theme="sis-dark"] button.admission-action-reject *,
+button.admission-action-reject * {
+  color: #dc2626 !important;
+}
+[data-theme="sis-dark"] button.admission-action-reject:hover,
+button.admission-action-reject:hover {
+  background-color: #fef2f2 !important;
+}
+
+
 /* Enforce dark theme contrast and container styling for Admin SIS */
 [data-theme="sis-dark"] {
   color-scheme: dark;
