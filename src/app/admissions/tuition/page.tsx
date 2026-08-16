@@ -300,7 +300,43 @@ export default async function TuitionPaymentPage() {
                             <div className="cc-section-divider !mb-6">
                                 <h2 className="cc-h2">Additional Fees &amp; Student Benefits</h2>
                             </div>
-                            <DbPageContent pageSlug={pageSlug} sectionKey="additional_fees_content" fallbackContent={getSectionDefault('additional_fees_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                            
+                            <div className="space-y-6">
+                                <div>
+                                    <h3 className="text-xl font-bold mb-3 text-slate-900 tracking-tight">Financial Requirements &amp; Living Costs</h3>
+                                    <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">
+                                        Beyond tuition, ensure you have sufficient funds for rent, personal expenses, transportation, meals, insurance, and any Immigration, Refugees and Citizenship Canada (IRCC) requirements.
+                                    </p>
+                                    <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                                        Cannoga College supports international students in finding accommodation in Ottawa, Ontario, Canada. Our housing guide covers all major providers and neighbourhoods.
+                                    </p>
+                                </div>
+
+                                <div className="space-y-4 pt-2">
+                                    <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">What's Included?</h3>
+                                    <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                                        The tuition fee includes teaching and access to modern learning facilities. Core student services are free of charge:
+                                    </p>
+                                    <ul className="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                                        <li><strong className="text-slate-900 font-bold">Library access</strong></li>
+                                        <li><strong className="text-slate-900 font-bold">Student Services</strong></li>
+                                        <li><strong className="text-slate-900 font-bold">Career Services</strong></li>
+                                        <li><strong className="text-slate-900 font-bold">Exchange Services</strong></li>
+                                        <li><strong className="text-slate-900 font-bold">Study support</strong></li>
+                                    </ul>
+                                </div>
+
+                                <div className="space-y-4 pt-2">
+                                    <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Cannoga Student Association</h3>
+                                    <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                                        All enrolled students are members of the Cannoga Student Association (CSA), offering advocacy, events, discounts, and community:
+                                    </p>
+                                    <ul className="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                                        <li>Campus dining discounts</li>
+                                        <li>OC Transpo U-Pass subsidy</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </section>
 
                         <section id="refunds" className="scroll-mt-32 space-y-4">
