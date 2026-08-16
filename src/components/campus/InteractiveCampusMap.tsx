@@ -22,102 +22,121 @@ import Link from 'next/link';
 interface CampusLocation {
     id: string;
     title: string;
-    category: 'academic' | 'labs' | 'admin' | 'services' | 'residence';
     buildingNumber: string;
     x: number; // percentage from left
     y: number; // percentage from top
     description: string;
     facilities: string[];
     hours: string;
-    link?: string;
-    linkText?: string;
+    link: string;
+    linkText: string;
     accentColor: string;
 }
 
 const LOCATIONS: CampusLocation[] = [
     {
-        id: 'main-academic',
-        title: 'Academic Centre & Lecture Theatres',
-        category: 'academic',
-        buildingNumber: 'Building A',
-        x: 38,
+        id: 'business',
+        title: 'School of Business',
+        buildingNumber: 'Building B — Business',
+        x: 32,
         y: 42,
-        description: 'Main lecture halls, multimedia presentation rooms, and faculty advising suites.',
-        facilities: ['Smart Classrooms 101–210', 'Main Auditorium (400 seats)', 'Faculty Advisory Offices'],
+        description: 'Home to international commerce, corporate finance simulation rooms, accounting suites, and executive lecture theatres.',
+        facilities: ['FinTech & Analytics Lab', 'Executive Boardrooms', 'Commerce Study Commons'],
         hours: 'Mon – Fri: 7:30 AM – 9:30 PM | Sat: 8:00 AM – 5:00 PM',
-        link: '/studies/',
-        linkText: 'Explore Academic Programs',
-        accentColor: '#3b82f6', // Blue
+        link: '/schools/business/',
+        linkText: 'Explore School of Business',
+        accentColor: '#f97316', // Vibrant Orange
     },
     {
-        id: 'tech-labs',
-        title: 'Technology & Applied Engineering Hub',
-        category: 'labs',
-        buildingNumber: 'Building T',
+        id: 'technology',
+        title: 'School of Technology',
+        buildingNumber: 'Building T — Technology',
         x: 58,
         y: 35,
-        description: 'Advanced computing facilities, AI simulation labs, cybersecurity testbeds, and robotics suites.',
-        facilities: ['Cybersecurity Lab', 'Robotics & Automation Bay', 'Cloud Compute Workstations'],
-        hours: 'Mon – Sun: 24/7 (Student Access Pass Required)',
+        description: 'Advanced software engineering studios, AI research labs, cybersecurity defensive ranges, and cloud compute bays.',
+        facilities: ['AI & Machine Learning Hub', 'Cybersecurity Testbed', 'Full-Stack Software Lab'],
+        hours: 'Mon – Sun: 24/7 (Student Keycard Access)',
         link: '/schools/technology/',
-        linkText: 'School of Technology',
-        accentColor: '#06b6d4', // Cyan
+        linkText: 'Explore School of Technology',
+        accentColor: '#6366f1', // Electric Indigo
     },
     {
-        id: 'admissions-admin',
-        title: 'Admissions & Central Registry Office',
-        category: 'admin',
-        buildingNumber: 'Building R',
-        x: 24,
+        id: 'health-community',
+        title: 'School of Health & Community',
+        buildingNumber: 'Building H — Health & Community',
+        x: 74,
+        y: 46,
+        description: 'Modern healthcare simulation clinics, practical nursing observation suites, and community support counseling rooms.',
+        facilities: ['Clinical Simulation Suite', 'Health Assessment Wards', 'Community Care Lab'],
+        hours: 'Mon – Fri: 8:00 AM – 8:00 PM | Sat: 9:00 AM – 4:00 PM',
+        link: '/schools/health-community/',
+        linkText: 'Explore School of Health',
+        accentColor: '#ec4899', // Vibrant Hot Pink
+    },
+    {
+        id: 'arts-design',
+        title: 'School of Arts & Design',
+        buildingNumber: 'Building A — Arts & Design',
+        x: 22,
         y: 58,
-        description: 'Official student admissions, transcript verifications, international visa desk, and tuition inquiries.',
-        facilities: ['Admissions Counter', 'Student Financial Services', 'International Student Desk'],
-        hours: 'Mon – Fri: 8:30 AM – 4:30 PM (EST)',
-        link: '/admissions/',
-        linkText: 'Admissions Services',
-        accentColor: '#c89211', // Gold
+        description: 'Creative design studios, digital media workstations, exhibition galleries, and experimental fashion workshops.',
+        facilities: ['Digital Media Suites', 'Fine Art & Design Studios', 'Student Exhibition Gallery'],
+        hours: 'Mon – Sun: 7:00 AM – 10:00 PM',
+        link: '/schools/arts-design/',
+        linkText: 'Explore School of Arts',
+        accentColor: '#10b981', // Electric Emerald
     },
     {
-        id: 'learning-centre',
-        title: 'Campus Library & Digital Learning Centre',
-        category: 'services',
-        buildingNumber: 'Building L',
+        id: 'science',
+        title: 'School of Science & Engineering',
+        buildingNumber: 'Building S — Science & Eng.',
         x: 48,
-        y: 62,
-        description: 'Comprehensive academic research stacks, quiet study pods, high-speed workstations, and group discussion rooms.',
-        facilities: ['24/7 Quiet Study Zone', 'Digital Resource Stacks', 'Collaboration Pods'],
-        hours: 'Mon – Sun: 7:00 AM – 11:00 PM',
-        link: '/student-life/',
-        linkText: 'Student Life & Services',
-        accentColor: '#8b5cf6', // Purple
+        y: 28,
+        description: 'State-of-the-art biochemistry laboratories, environmental research units, and applied materials testing facilities.',
+        facilities: ['Analytical Chemistry Lab', 'Environmental Science Unit', 'Robotics & Hardware Bay'],
+        hours: 'Mon – Fri: 8:00 AM – 9:00 PM | Sat: 9:00 AM – 5:00 PM',
+        link: '/schools/science/',
+        linkText: 'Explore School of Science',
+        accentColor: '#06b6d4', // Electric Cyan
     },
     {
-        id: 'residence-suites',
-        title: 'Student Residence & Living Commons',
-        category: 'residence',
-        buildingNumber: 'Building H',
-        x: 76,
-        y: 48,
-        description: 'Modern fully furnished student suites with 24/7 security, shared kitchens, and wellness recreation lounges.',
-        facilities: ['Single & Shared Suites', 'Common Kitchens', 'Residence Support Office'],
-        hours: '24/7 Resident Access (Secured Keycard Entry)',
-        link: '/housing/',
-        linkText: 'Housing Options & Rates',
-        accentColor: '#ec4899', // Pink
+        id: 'transportation-aviation',
+        title: 'School of Transportation & Aviation',
+        buildingNumber: 'Building V — Transportation',
+        x: 82,
+        y: 28,
+        description: 'Flight simulation cockpits, avionics troubleshooting bays, logistics planning centres, and propulsion test labs.',
+        facilities: ['Flight Simulators', 'Avionics Diagnostics Lab', 'Logistics Management Centre'],
+        hours: 'Mon – Fri: 7:30 AM – 7:30 PM | Sat: 8:30 AM – 4:00 PM',
+        link: '/schools/transportation-aviation/',
+        linkText: 'Explore Transportation & Aviation',
+        accentColor: '#8b5cf6', // Deep Purple
     },
     {
-        id: 'campus-dining',
-        title: 'Student Dining Hall & Campus Cafe',
-        category: 'services',
-        buildingNumber: 'Building C',
-        x: 32,
-        y: 30,
-        description: 'Fresh local and international cuisine dining, artisanal coffee lounge, and open outdoor terrace seating.',
-        facilities: ['Full Service Dining Hall', 'Espresso & Bakery Bar', 'Outdoor Summer Terrace'],
-        hours: 'Mon – Fri: 7:00 AM – 8:00 PM | Sat – Sun: 8:00 AM – 6:00 PM',
-        link: '/student-life/cafe/',
-        linkText: 'Dining & Menus',
-        accentColor: '#10b981', // Emerald
+        id: 'education-social-sciences',
+        title: 'School of Education & Social Sciences',
+        buildingNumber: 'Building E — Education',
+        x: 45,
+        y: 65,
+        description: 'Early childhood education mock classrooms, social policy research units, and interactive behavioral study labs.',
+        facilities: ['Teaching Observation Lab', 'Policy Research Centre', 'Student Counseling Suites'],
+        hours: 'Mon – Fri: 8:00 AM – 8:00 PM | Sat: 9:00 AM – 3:00 PM',
+        link: '/schools/education-social-sciences/',
+        linkText: 'Explore Education & Social Sciences',
+        accentColor: '#ef4444', // Electric Crimson
+    },
+    {
+        id: 'hospitality-tourism',
+        title: 'School of Hospitality & Tourism',
+        buildingNumber: 'Building P — Hospitality',
+        x: 36,
+        y: 78,
+        description: 'Culinary arts teaching kitchens, hotel operations simulation front desks, and international event management suites.',
+        facilities: ['Commercial Training Kitchen', 'Hotel Front-Desk Simulator', 'Wine & Beverage Lab'],
+        hours: 'Mon – Fri: 7:00 AM – 8:30 PM | Sat: 8:00 AM – 6:00 PM',
+        link: '/schools/hospitality-tourism/',
+        linkText: 'Explore Hospitality & Tourism',
+        accentColor: '#84cc16', // Lime Green
     },
 ];
 
@@ -238,7 +257,7 @@ export function InteractiveCampusMap() {
                                 {activeLocation.buildingNumber}
                             </span>
                             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                                {activeLocation.category}
+                                Academic School
                             </span>
                         </div>
 
