@@ -1,4 +1,4 @@
-﻿import { Link } from "@aalto-dx/react-components";
+import { Link } from "@aalto-dx/react-components";
 import { CTA } from "@aalto-dx/react-modules";
 import Image from 'next/image';
 import { CaretLeft } from "@phosphor-icons/react/dist/ssr";
@@ -86,23 +86,6 @@ export default function WhyStudyInOttawaCanadaPage() {
             {/* Article body */}
             <div className="container mx-auto px-4 pb-16 md:pb-24 max-w-4xl">
                 
-                <Info 
-                    items={[
-                        { title: "Published", body: "14.2.2026" },
-                        { title: "Updated", body: "15.2.2026" },
-                        { title: "Author", body: "Cannoga Admissions" },
-                        {
-                            tagGroup: {
-                                tags: [
-                                    { label: "News" },
-                                    { label: "International" },
-                                    { label: "Ottawa" }
-                                ]
-                            }
-                        }
-                    ]}
-                />
-
                 {/* Intro */}
                 <div className="mb-12">
                     <p className="text-aalto-4 text-neutral-800 leading-aalto-3 font-medium">
@@ -112,7 +95,7 @@ export default function WhyStudyInOttawaCanadaPage() {
 
                 <Highlight 
                     body="Canada's education system is built on equality and high quality. We don't just teach facts; we teach students how to think and innovate."
-                    source="Linda Cottonmouth, Head of International Admissions"
+                    source="Todd Banning, Head of International Admissions"
                     alignment="right"
                 />
 
@@ -143,8 +126,28 @@ export default function WhyStudyInOttawaCanadaPage() {
                     ))}
                 </div>
 
+                {/* Article Metadata Info Section Moved Below */}
+                <div className="pt-8 border-t border-neutral-200">
+                    <Info 
+                        items={[
+                            { title: "Published", body: "14.2.2026" },
+                            { title: "Updated", body: "15.2.2026" },
+                            { title: "Author", body: "Cannoga Admissions" },
+                            {
+                                tagGroup: {
+                                    tags: [
+                                        { label: "News" },
+                                        { label: "International" },
+                                        { label: "Ottawa" }
+                                    ]
+                                }
+                            }
+                        ]}
+                    />
+                </div>
+
                 {/* Divider */}
-                <div className="my-20 border-t border-neutral-100" />
+                <div className="my-16 border-t border-neutral-100" />
 
                 {/* CTA Section */}
                 <div className="py-12">
