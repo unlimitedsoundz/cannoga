@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ArrowRight, CheckCircle, MapPin, Coffee, Users, House, Sparkle } from '@phosphor-icons/react';
 import { Hero } from '@/components/layout/Hero';
 import { StudentLifeExperienceCarousel } from '@/components/student-life/StudentLifeExperienceCarousel';
+import { CampusServicesAcademicCarousel } from '@/components/student-life/CampusServicesAcademicCarousel';
 import StudentStoriesCarousel from '@/components/admissions/StudentStoriesCarousel';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 
@@ -214,7 +215,7 @@ export default function StudentLifeContent() {
             {/* 7. CAMPUS DINING & SERVICES */}
             <section id="services" className="py-20 bg-slate-50 border-y border-slate-200">
                 <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
-                    <div className="mb-12 max-w-2xl text-left">
+                    <div className="mb-10 max-w-2xl text-left">
                         <span className="text-xs font-black uppercase tracking-widest text-[#c89211] mb-2 block">
                             Campus Amenities
                         </span>
@@ -226,38 +227,7 @@ export default function StudentLifeContent() {
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {[
-                            { name: "Campus Café & Dining", desc: "Fresh artisan coffee, wholesome meals, and halal/vegan options.", image: "/images/hospitality-tourism.jpg", href: "/student-life/cafe" },
-                            { name: "Bookstore & Tech Supplies", desc: "Textbooks, art materials, laptops, and college merchandise.", image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop", href: "#" },
-                            { name: "Health & Medical Desk", desc: "On-site nursing support, immunization advice, and counseling.", image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop", href: "/student-guide#support" },
-                            { name: "Career Advisory Hub", desc: "Resume reviews, co-op interview prep, and employer job fairs.", image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=800&auto=format&fit=crop", href: "/careers" }
-                        ].map((item, idx) => (
-                            <Link
-                                key={idx}
-                                href={item.href}
-                                className="bg-white border border-slate-200 rounded-md overflow-hidden p-6 flex flex-col justify-between no-underline group hover:border-[#0f2027] transition-all"
-                            >
-                                <div>
-                                    <div className="h-36 relative mb-4 rounded-sm overflow-hidden">
-                                        <Image
-                                            src={item.image}
-                                            alt={item.name}
-                                            fill
-                                            className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                                        />
-                                    </div>
-                                    <h3 className="font-bold text-base uppercase tracking-tight text-black mb-1 group-hover:text-[#c89211] transition-colors">
-                                        {item.name}
-                                    </h3>
-                                    <p className="text-xs text-slate-600 font-medium leading-relaxed">{item.desc}</p>
-                                </div>
-                                <span className="text-xs font-bold uppercase tracking-wider text-black pt-4 block group-hover:translate-x-1 transition-transform">
-                                    Learn More &rarr;
-                                </span>
-                            </Link>
-                        ))}
-                    </div>
+                    <CampusServicesAcademicCarousel />
                 </div>
             </section>
 
