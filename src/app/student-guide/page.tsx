@@ -6,6 +6,7 @@ import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 import { ProgramLevelsCarousel } from '@/components/student-guide/ProgramLevelsCarousel';
+import { StudySupportCarousel } from '@/components/student-guide/StudySupportCarousel';
 
 export const metadata = {
     title: 'Undergraduate & Postgraduate Resources',
@@ -277,23 +278,7 @@ export default function StudentGuidePage() {
                         {/* Support */}
                         <section id="support" className="scroll-mt-32">
                             <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Study Support Services</h2>
-                            <div className="grid md:grid-cols-3 gap-4">
-                                <div>
-                                    <h3 className="font-bold text-base mb-1 text-black">Academic Guidance</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Programme level advising and personal study plans.</p>
-                                    <Link href="/contact" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Contact Advisor →</Link>
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-base mb-1 text-black">Learning Support</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Workshops, writing support, and study skills development.</p>
-                                    <Link href="#support" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">View Workshops →</Link>
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-base mb-1 text-black">Wellbeing</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Health services, accessibility, and counseling for all students.</p>
-                                    <Link href="#support" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Get Support →</Link>
-                                </div>
-                            </div>
+                            <StudySupportCarousel />
                         </section>
 
                         {/* New Students */}
