@@ -61,20 +61,26 @@ export default function ArrivalGuidePage() {
                     <section id="arriving" className="scroll-mt-32">
                         <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Arriving in the Country</h2>
                         <div className="space-y-3 text-left">
-                            {/* Border Procedures Overview with Spotlight Image */}
-                            <div className="grid md:grid-cols-3 gap-4 items-center">
-                                <div className="md:col-span-2 space-y-1">
-                                    <h4 className="font-bold text-base text-black">International Students: Border Procedures</h4>
-                                    <p className="text-sm text-neutral-700 leading-relaxed font-medium">
-                                        International students arriving in Ontario, Canada must carry essential identification documents in their carry-on luggage and complete standard border clearance procedures with Canada Border Services Agency (CBSA).
+                            {/* Border Procedures Overview with Spotlight Large Image */}
+                            <div className="grid md:grid-cols-12 gap-6 items-center my-4 bg-slate-50 p-6 md:p-8 rounded-xl border border-slate-200">
+                                <div className="md:col-span-6 lg:col-span-7 space-y-3">
+                                    <span className="inline-block px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-[#0f2027] text-[#c89211]">
+                                        Border Clearance
+                                    </span>
+                                    <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-black tracking-tight leading-tight">
+                                        International Students: Border Clearance in Canada
+                                    </h3>
+                                    <p className="text-sm md:text-base text-neutral-700 leading-relaxed font-medium">
+                                        International students arriving in Ontario, Canada must carry essential identification documents in their carry-on luggage and complete standard border clearance procedures with Canada Border Services Agency (CBSA) at their initial Canadian port of entry.
                                     </p>
                                 </div>
-                                <div className="relative h-32 rounded-xl overflow-hidden w-full">
+                                <div className="md:col-span-6 lg:col-span-5 relative h-64 sm:h-72 md:h-80 lg:h-96 rounded-xl overflow-hidden w-full border border-slate-200">
                                     <Image
                                         src="https://i.pinimg.com/736x/0f/f4/0d/0ff40da102bd55d023e062f482f710f7.jpg"
                                         alt="Arriving in Canada"
                                         fill
                                         className="object-cover"
+                                        sizes="(max-width: 1024px) 100vw, 45vw"
                                     />
                                 </div>
                             </div>
