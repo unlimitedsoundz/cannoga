@@ -2,8 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, ArrowRight, ArrowUpRight } from '@phosphor-icons/react';
-import Link from 'next/link';
+import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 
 interface ServiceCard {
     id: string;
@@ -118,11 +117,10 @@ export function CampusServicesAcademicCarousel() {
                 {SERVICE_CARDS.map((card, idx) => (
                     <div
                         key={card.id}
-                        className="snap-start shrink-0 w-[270px] sm:w-[320px] md:w-[360px] flex flex-col no-underline"
+                        className="snap-start shrink-0 w-[270px] sm:w-[320px] md:w-[360px] flex flex-col select-none"
                     >
-                        <Link
-                            href={card.href}
-                            className={`block w-full p-2.5 sm:p-3 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden group`}
+                        <div
+                            className={`block w-full p-2.5 sm:p-3 rounded-md ${card.bgColor} ${card.borderColor} border-4 overflow-hidden`}
                         >
                             {/* Card Top Image with Animated Organic Wavy Cutout */}
                             <div className="relative aspect-[16/11] w-full overflow-hidden rounded-sm bg-black/10">
@@ -130,7 +128,7 @@ export function CampusServicesAcademicCarousel() {
                                     src={card.image}
                                     alt={card.title}
                                     fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                    className="object-cover"
                                     sizes="(max-width: 640px) 270px, 360px"
                                 />
 
@@ -154,29 +152,15 @@ export function CampusServicesAcademicCarousel() {
                             </div>
 
                             {/* Card Bottom Solid Color Content */}
-                            <div className="pt-4 pb-2 px-3 sm:px-4 flex flex-col justify-between min-h-[140px] text-white">
-                                <div>
-                                    <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-[1.08] mb-1.5">
-                                        {card.title}
-                                    </h3>
-                                    <p className="text-xs sm:text-sm font-medium text-white/95 leading-relaxed line-clamp-2">
-                                        {card.description}
-                                    </p>
-                                </div>
-
-                                <div className="flex items-center justify-between pt-3 mt-1 border-t border-white/20">
-                                    <span className="text-[11px] font-black uppercase tracking-wider text-white">
-                                        Learn More &rarr;
-                                    </span>
-                                    <div
-                                        className="shrink-0 animate-arrow-serv group-hover:scale-110 transition-transform"
-                                        style={{ animationDelay: `${idx * 0.35}s` }}
-                                    >
-                                        <ArrowUpRight size={26} weight="bold" className="text-white" />
-                                    </div>
-                                </div>
+                            <div className="pt-4 pb-3 px-3 sm:px-4 flex flex-col justify-start min-h-[120px] text-white">
+                                <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-[1.08] mb-1.5">
+                                    {card.title}
+                                </h3>
+                                <p className="text-xs sm:text-sm font-medium text-white/95 leading-relaxed">
+                                    {card.description}
+                                </p>
                             </div>
-                        </Link>
+                        </div>
                     </div>
                 ))}
             </div>
