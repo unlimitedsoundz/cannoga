@@ -1,10 +1,11 @@
-﻿import { ArrowRight, Airplane, MapPin, GraduationCap, ChatCircleDots, BookOpen, Globe } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, Airplane, MapPin, GraduationCap, ChatCircleDots, BookOpen, Globe } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
 import Image from 'next/image';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { ContentBox } from '@/components/ui/ContentBox';
 import { CTA } from "@aalto-dx/react-modules";
+import { BeforeYouArriveCarousel } from '@/components/student-guide/BeforeYouArriveCarousel';
 
 export const metadata = {
     title: 'New Student Arrival & Campus Welcome Guide',
@@ -53,32 +54,7 @@ export default function ArrivalGuidePage() {
                     {/* Before You Arrive */}
                     <section id="before-you-arrive" className="scroll-mt-32">
                         <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Before You Arrive</h2>
-                        <div className="grid md:grid-cols-2 gap-4">
-                            <div className="py-2">
-                                <h3 className="font-bold text-lg text-black mb-1">Enrolment</h3>
-                                <p className="text-sm text-neutral-700 leading-relaxed font-medium">
-                                    Ensure you have accepted your <Link href="/admissions/requirements" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">admission offer</Link>, paid <Link href="/admissions/tuition" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">tuition fees</Link>, and completed enrolment.
-                                </p>
-                            </div>
-                            <div className="py-2">
-                                <h3 className="font-bold text-lg text-black mb-1">Visa & Permits</h3>
-                                <p className="text-sm text-neutral-700 leading-relaxed font-medium">
-                                    International students should apply for a Canadian study permit. Learn more about <Link href="/international" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">international student support</Link>.
-                                </p>
-                            </div>
-                            <div className="py-2">
-                                <h3 className="font-bold text-lg text-black mb-1">Accommodation</h3>
-                                <p className="text-sm text-neutral-700 leading-relaxed font-medium">
-                                    Secure housing early. Read our full <Link href="/student-guide/housing-for-students" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Student Housing Guide</Link>.
-                                </p>
-                            </div>
-                            <div className="py-2">
-                                <h3 className="font-bold text-lg text-black mb-1">What to Bring</h3>
-                                <p className="text-sm text-neutral-700 leading-relaxed font-medium">
-                                    Bring your passport, study permit, insurance, and enrolment documents. Pack for the local climate.
-                                </p>
-                            </div>
-                        </div>
+                        <BeforeYouArriveCarousel />
                     </section>
 
                     {/* Arriving */}
