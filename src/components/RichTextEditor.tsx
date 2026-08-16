@@ -30,7 +30,7 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
                     { Link },
                     { List },
                     { BlockQuote },
-                    { Image, ImageCaption, ImageStyle, ImageToolbar, ImageUpload },
+                    { Image, ImageCaption, ImageResize, ImageStyle, ImageToolbar, ImageUpload },
                     { Table, TableToolbar },
                 ] = await Promise.all([
                     import('@ckeditor/ckeditor5-editor-classic'),
@@ -107,6 +107,7 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
                         BlockQuote,
                         Image,
                         ImageCaption,
+                        ImageResize,
                         ImageStyle,
                         ImageToolbar,
                         ImageUpload,
@@ -133,10 +134,34 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
                         ]
                     },
                     image: {
+                        resizeOptions: [
+                            {
+                                name: 'resizeImage:original',
+                                value: null,
+                                label: 'Original'
+                            },
+                            {
+                                name: 'resizeImage:25',
+                                value: '25',
+                                label: '25%'
+                            },
+                            {
+                                name: 'resizeImage:50',
+                                value: '50',
+                                label: '50%'
+                            },
+                            {
+                                name: 'resizeImage:75',
+                                value: '75',
+                                label: '75%'
+                            }
+                        ],
                         toolbar: [
                             'imageTextAlternative', 'toggleImageCaption',
                             '|',
                             'imageStyle:inline', 'imageStyle:block', 'imageStyle:side',
+                            '|',
+                            'resizeImage',
                         ]
                     },
                     link: {
