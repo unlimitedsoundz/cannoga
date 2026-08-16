@@ -322,43 +322,70 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'steps_content',
         label: 'Application Steps Section',
         defaultContent: `<div class="space-y-6">
-    <div class="space-y-3">
-        <h3 class="text-xl font-bold text-slate-900 tracking-tight">1. Prepare in Advance</h3>
-        <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
-            <li>Check programme-specific eligibility and entry deadlines.</li>
-            <li>Prepare official certified academic documents and English translations.</li>
-            <li>Schedule language proficiency tests and GMAT/GRE if required.</li>
-        </ul>
-    </div>
-    
-    <div class="space-y-3">
-        <h3 class="text-xl font-bold text-slate-900 tracking-tight">2. Fill in the Online Application 2026</h3>
-        <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
-            <li><strong class="text-slate-900 font-bold">September Intake:</strong> Apply October – February</li>
-            <li><strong class="text-slate-900 font-bold">January Intake:</strong> Apply June – September</li>
-            <li>Submit only one application form per candidate (can rank up to two programmes).</li>
-            <li>You can edit and update documents in your student portal until the intake closing date.</li>
-        </ul>
+    <div class="flex items-start gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #f43f5e;">1</div>
+        <div class="flex-1 space-y-1.5">
+            <h3 class="text-lg font-bold text-slate-900 tracking-tight">Prepare in Advance</h3>
+            <ul class="space-y-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                <li>Check programme-specific eligibility</li>
+                <li>Prepare official documents and translations</li>
+                <li>Schedule language tests and GMAT/GRE if required</li>
+            </ul>
+        </div>
     </div>
 
-    <div class="space-y-3">
-        <h3 class="text-xl font-bold text-slate-900 tracking-tight">3. Application Fee</h3>
-        <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
-            <li><strong class="text-slate-900 font-bold">International Applicants:</strong> Free ($0 Application Fee)</li>
-            <li><strong class="text-slate-900 font-bold">Domestic Applicants (Canada &amp; PR):</strong> Free ($0 Application Fee)</li>
-        </ul>
+    <div class="flex items-start gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #f97316;">2</div>
+        <div class="flex-1 space-y-1.5">
+            <h3 class="text-lg font-bold text-slate-900 tracking-tight">
+                <a href="https://cannogacollege.ca/portal/account/register" class="underline hover:text-[#002f6c]">Fill in the online application 2026</a>
+            </h3>
+            <ul class="space-y-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                <li>Application period: October (Sept intake) / June (Jan intake) – February (Sept intake) / September (Jan intake)</li>
+                <li>Only one form per applicant</li>
+                <li>Include up to two programmes ranked by preference</li>
+                <li>Edit application until closing date</li>
+            </ul>
+        </div>
     </div>
 
-    <div class="space-y-3">
-        <h3 class="text-xl font-bold text-slate-900 tracking-tight">4. Upload Required Documents</h3>
-        <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Submit all documents in clear PDF format through your portal. Late documents may delay evaluation decisions:</p>
-        <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
-            <li>Bachelor’s degree diploma &amp; official transcript of records</li>
-            <li>Proof of English language proficiency</li>
-            <li>Valid international passport identification page</li>
-            <li>Curriculum Vitae (CV) &amp; Statement of Motivation</li>
-            <li>Portfolio or GMAT/GRE score report (if required by programme)</li>
-        </ul>
+    <div class="flex items-start gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #eab308;">3</div>
+        <div class="flex-1 space-y-1.5">
+            <h3 class="text-lg font-bold text-slate-900 tracking-tight">Application Fee</h3>
+            <ul class="space-y-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                <li><strong class="text-slate-900 font-bold">International Applicants:</strong> Free ($0 Application Fee)</li>
+                <li><strong class="text-slate-900 font-bold">Domestic (Canada/ PR):</strong> Free ($0 Application Fee)</li>
+            </ul>
+            <p class="text-sm font-semibold text-slate-800 pt-0.5">No payment required to submit your application.</p>
+        </div>
+    </div>
+
+    <div class="flex items-start gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #22c55e;">4</div>
+        <div class="flex-1 space-y-1.5">
+            <h3 class="text-lg font-bold text-slate-900 tracking-tight">Upload Required Documents</h3>
+            <p class="text-sm font-semibold text-slate-800">Deadline: February (Sept intake) / September (Jan intake) at 15:00 (UTC+2)</p>
+            <ul class="space-y-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                <li>Bachelor’s degree &amp; transcripts</li>
+                <li>Proof of English proficiency (optional)</li>
+                <li>International passport only</li>
+                <li>CV, Motivation Letter</li>
+                <li>Portfolio (if required)</li>
+                <li>GMAT/GRE (if required)</li>
+            </ul>
+            <p class="text-xs text-neutral-500 pt-0.5">File format: PDF only, named appropriately.</p>
+        </div>
+    </div>
+
+    <div class="flex items-start gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #06b6d4;">5</div>
+        <div class="flex-1 space-y-1.5">
+            <h3 class="text-lg font-bold text-slate-900 tracking-tight">Ready to Start</h3>
+            <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                Begin your postgraduate journey at Cannoga College today. Create your applicant profile to track submissions and admissions decisions.
+            </p>
+        </div>
     </div>
 </div>`,
     },
