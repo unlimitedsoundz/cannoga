@@ -26,7 +26,7 @@ const LIFE_CARDS: StudentLifeItem[] = [
         id: 'student-housing',
         title: 'HOUSING & LIVING',
         description: 'Modern student residences and private studios in Ottawa with flexible leases and utilities.',
-        href: '/student-guide/housing-for-students',
+        href: '/housing',
         bgColor: 'bg-[#ec4899]', // Vibrant Hot Pink
         borderColor: 'border-[#ec4899]',
     },
