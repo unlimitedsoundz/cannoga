@@ -257,20 +257,17 @@ export default async function TuitionPaymentPage() {
                                         The <strong className="text-slate-900 font-bold">Ontario Student Assistance Program (OSAP)</strong> and the National Student Loans Service Centre (NSLSC) offer flexible programs to calculate aid funding, cover educational living expenses, and assist with income-tailored loan repayment plans after graduation.
                                     </p>
 
-                                    <div className="grid sm:grid-cols-3 gap-6 pt-2">
-                                        <div>
-                                            <p className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-1">Non-Repayable Grants</p>
-                                            <p className="text-xs text-slate-600 font-normal leading-relaxed">Direct government funding that you do not need to pay back.</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-1">Student Loans</p>
-                                            <p className="text-xs text-slate-600 font-normal leading-relaxed">Interest-free funding throughout your full-time period of study.</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-1">Repayment Assistance</p>
-                                            <p className="text-xs text-slate-600 font-normal leading-relaxed">Repayment Assistance Plan (RAP) based on income after graduation.</p>
-                                        </div>
-                                    </div>
+                                    <ul className="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+                                        <li>
+                                            <strong className="text-slate-900 font-bold">Non-Repayable Grants:</strong> Direct government funding that you do not need to pay back.
+                                        </li>
+                                        <li>
+                                            <strong className="text-slate-900 font-bold">Student Loans:</strong> Interest-free funding throughout your full-time period of study.
+                                        </li>
+                                        <li>
+                                            <strong className="text-slate-900 font-bold">Repayment Assistance:</strong> Repayment Assistance Plan (RAP) based on income after graduation.
+                                        </li>
+                                    </ul>
 
                                     <div className="pt-3 flex flex-wrap items-center gap-4 text-xs font-bold text-slate-900">
                                         <Link href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#002f6c]">
