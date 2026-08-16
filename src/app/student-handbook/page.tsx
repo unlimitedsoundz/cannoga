@@ -1,6 +1,7 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Link } from "@aalto-dx/react-components";
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
+import { AcademicCalendarCarousel } from '@/components/student-guide/AcademicCalendarCarousel';
 
 export const metadata: Metadata = {
     title: 'Official Student Handbook & Regulations',
@@ -151,16 +152,12 @@ export default function StudentHandbookPage() {
                     <section id="academic-structure" className="scroll-mt-28 border-t border-slate-200 pt-8">
                         <div className="flex items-center gap-3 mb-4">
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">04</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Academic Structure</h2>
+                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Academic Structure &amp; Calendar</h2>
                         </div>
                         <p className="text-base text-slate-700 leading-relaxed mb-4">
                             Cannoga College structures its academic offerings across clear degree pathways. Each programme defines required learning outcomes, credit totals, prerequisite chains, and progression rules.
                         </p>
-                        <ul className="list-disc pl-6 space-y-2 text-base text-slate-800 marker:text-black">
-                            <li>Registration deadlines and drop dates are specified in the official Academic Calendar.</li>
-                            <li>The academic year consists of Fall (September – December) and Winter (January – April) semesters.</li>
-                            <li>All curriculum structures comply with provincial post-secondary accreditation frameworks.</li>
-                        </ul>
+                        <AcademicCalendarCarousel />
                     </section>
 
                     {/* 5. COURSE REGISTRATION */}

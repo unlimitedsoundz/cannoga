@@ -1,15 +1,13 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, CalendarBlank } from '@phosphor-icons/react';
-import Link from 'next/link';
+import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 
 interface CalendarCardItem {
     id: string;
     title: string;
     period: string;
     description: string;
-    href: string;
     bgColor: string;
     borderColor: string;
 }
@@ -20,7 +18,6 @@ const CALENDAR_CARDS: CalendarCardItem[] = [
         title: 'FALL SEMESTER',
         period: 'September – December',
         description: 'New student orientation, course registrations, teaching periods 1 & 2, and mid-term assessments.',
-        href: '#calendar',
         bgColor: 'bg-[#6366f1]', // Electric Indigo
         borderColor: 'border-[#6366f1]',
     },
@@ -29,7 +26,6 @@ const CALENDAR_CARDS: CalendarCardItem[] = [
         title: 'WINTER SEMESTER',
         period: 'January – April',
         description: 'Winter intake start, teaching periods 3 & 4, capstone project submissions, and final assessments.',
-        href: '#calendar',
         bgColor: 'bg-[#06b6d4]', // Electric Cyan
         borderColor: 'border-[#06b6d4]',
     },
@@ -38,7 +34,6 @@ const CALENDAR_CARDS: CalendarCardItem[] = [
         title: 'TEACHING & EXAMS',
         period: 'Modular Sessions',
         description: 'Scheduled lecture blocks, hands-on lab evaluations, assessment weeks, and official grade releases.',
-        href: '#calendar',
         bgColor: 'bg-[#ec4899]', // Vibrant Hot Pink
         borderColor: 'border-[#ec4899]',
     },
@@ -47,7 +42,6 @@ const CALENDAR_CARDS: CalendarCardItem[] = [
         title: 'ACADEMIC BREAKS',
         period: 'Winter & Summer Recess',
         description: 'Reading week, statutory Canadian holiday breaks, winter holidays, and optional summer courses.',
-        href: '#calendar',
         bgColor: 'bg-[#10b981]', // Electric Emerald
         borderColor: 'border-[#10b981]',
     },
@@ -77,20 +71,6 @@ export function AcademicCalendarCarousel() {
 
     return (
         <div className="relative w-full my-6">
-            <style jsx>{`
-                @keyframes arrowFloatCal {
-                    0%, 100% {
-                        transform: translate(0, 0);
-                    }
-                    50% {
-                        transform: translate(5px, -5px);
-                    }
-                }
-                .animate-arrow-cal {
-                    animation: arrowFloatCal 2.2s ease-in-out infinite;
-                }
-            `}</style>
-
             {/* Scrollable Cards Track */}
             <div
                 ref={scrollContainerRef}
@@ -98,13 +78,13 @@ export function AcademicCalendarCarousel() {
                 className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none py-2 px-1 scroll-smooth"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-                {CALENDAR_CARDS.map((card, idx) => (
+                {CALENDAR_CARDS.map((card) => (
                     <div
                         key={card.id}
                         className="snap-start shrink-0 w-[290px] sm:w-[360px] md:w-[420px] flex flex-col no-underline"
                     >
                         <div
-                            className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[240px] sm:min-h-[270px] flex flex-col justify-between group cursor-pointer hover:shadow-xl transition-all duration-300`}
+                            className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[220px] sm:min-h-[250px] flex flex-col justify-between`}
                         >
                             {/* Card Content Header */}
                             <div className="relative z-20">
@@ -116,18 +96,11 @@ export function AcademicCalendarCarousel() {
                                 </h3>
                             </div>
 
-                            {/* Card Bottom Description & Arrow Icon */}
-                            <div className="relative z-20 pt-6 flex items-end justify-between gap-4 text-white">
-                                <p className="text-sm sm:text-base font-medium text-white/95 leading-relaxed max-w-[85%] font-sans">
+                            {/* Card Bottom Description */}
+                            <div className="relative z-20 pt-4 flex items-end justify-between gap-4 text-white">
+                                <p className="text-sm sm:text-base font-medium text-white/95 leading-relaxed font-sans">
                                     {card.description}
                                 </p>
-
-                                <div
-                                    className="shrink-0 mb-0.5 animate-arrow-cal group-hover:scale-110 transition-transform"
-                                    style={{ animationDelay: `${idx * 0.4}s` }}
-                                >
-                                    <ArrowUpRight size={38} weight="bold" className="text-white" />
-                                </div>
                             </div>
                         </div>
                     </div>
