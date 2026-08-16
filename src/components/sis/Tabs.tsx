@@ -17,18 +17,18 @@ export function Tabs({ tabs }: TabsProps) {
   const pathname = usePathname();
 
   return (
-    <div className="border-b border-neutral-200 mb-6">
-      <div className="flex gap-0">
+    <div className="border-b border-white/10 mb-6">
+      <div className="flex gap-1 overflow-x-auto no-scrollbar">
         {tabs.map(tab => {
           const isActive = pathname === tab.href || pathname.startsWith(tab.href + '/');
           return (
             <Link
               key={tab.href}
               href={tab.href}
-              className={`px-4 py-2 text-xs font-bold uppercase tracking-widest border-b-2 transition-colors no-underline ${
+              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors no-underline whitespace-nowrap ${
                 isActive
-                  ? 'border-[#0a151a] text-[#0a151a]'
-                  : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300'
+                  ? 'border-sky-500 text-sky-400'
+                  : 'border-transparent text-slate-400 hover:text-white hover:border-white/20'
               }`}
             >
               {tab.label}

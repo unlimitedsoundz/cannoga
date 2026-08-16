@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -321,10 +321,10 @@ export default function AdmissionApplicationPage() {
         subtitle={`${application.application_number || application.id?.slice(0, 8)} ${course?.title || 'Unknown Program'}${course?.degreeLevel ? ` ${formatDegreeLevel(course?.degreeLevel)}` : ''}`}
         actions={
           <div className="flex gap-2">
-            <button className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors">
+            <button className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold uppercase tracking-wider transition-colors">
               <HugeiconsIcon icon={Printer} size={14} strokeWidth={2.5} /> Print
             </button>
-            <button className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors">
+            <button className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold uppercase tracking-wider transition-colors">
               <HugeiconsIcon icon={Download} size={14} strokeWidth={2.5} /> Export
             </button>
           </div>
@@ -336,115 +336,115 @@ export default function AdmissionApplicationPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           {/* Application Information */}
-          <div className="bg-white border border-neutral-200 p-6">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Application Information</h3>
+          <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Application Information</h3>
             <dl className="grid grid-cols-2 gap-4 text-sm">
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Application ID</dt><dd className="font-mono font-medium text-neutral-900 mt-1">{application.application_number || application.id?.slice(0, 8)}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Application ID</dt><dd className="font-mono font-medium text-white mt-1">{application.application_number || application.id?.slice(0, 8)}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Status</dt><dd className="mt-1"><StatusBadge status={application.status?.replace('_', ' ') || 'DRAFT'} /></dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Program</dt><dd className="font-medium text-neutral-900 mt-1">{course?.title || '—'}{course?.degreeLevel ? ` ${formatDegreeLevel(course?.degreeLevel)}` : ''}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Intake</dt><dd className="font-medium text-neutral-900 mt-1">{application.intake || '—'}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Submitted</dt><dd className="font-medium text-neutral-900 mt-1">{application.submitted_at ? new Date(application.submitted_at).toLocaleDateString('en-CA') : '—'}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student ID</dt><dd className="font-medium text-neutral-900 mt-1">{student?.student_id || 'Not yet enrolled'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Program</dt><dd className="font-medium text-white mt-1">{course?.title || '—'}{course?.degreeLevel ? ` ${formatDegreeLevel(course?.degreeLevel)}` : ''}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Intake</dt><dd className="font-medium text-white mt-1">{application.intake || '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Submitted</dt><dd className="font-medium text-white mt-1">{application.submitted_at ? new Date(application.submitted_at).toLocaleDateString('en-CA') : '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student ID</dt><dd className="font-medium text-white mt-1">{student?.student_id || 'Not yet enrolled'}</dd></div>
             </dl>
           </div>
 
           {/* Personal Information */}
-          <div className="bg-white border border-neutral-200 p-6">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Personal Information</h3>
+          <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Personal Information</h3>
              <dl className="grid grid-cols-2 gap-4 text-sm">
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Full Name</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.firstName || user?.first_name} {personalInfo?.lastName || user?.last_name}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Passport Number</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.passportNumber || user?.passport_number || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Nationality</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.nationality || user?.citizenship || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Date of Birth</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.dateOfBirth || user?.date_of_birth || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Gender</dt><dd className="font-medium text-neutral-900 mt-1">{personalInfo?.gender || user?.gender || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student Type</dt><dd className="font-medium text-neutral-900 mt-1 capitalize">{personalInfo?.studentType || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Full Name</dt><dd className="font-medium text-white mt-1">{personalInfo?.firstName || user?.first_name} {personalInfo?.lastName || user?.last_name}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Passport Number</dt><dd className="font-medium text-white mt-1">{personalInfo?.passportNumber || user?.passport_number || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Nationality</dt><dd className="font-medium text-white mt-1">{personalInfo?.nationality || user?.citizenship || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Date of Birth</dt><dd className="font-medium text-white mt-1">{personalInfo?.dateOfBirth || user?.date_of_birth || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Gender</dt><dd className="font-medium text-white mt-1">{personalInfo?.gender || user?.gender || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student Type</dt><dd className="font-medium text-white mt-1 capitalize">{personalInfo?.studentType || '—'}</dd></div>
              </dl>
           </div>
 
           {/* Contact Details */}
-          <div className="bg-white border border-neutral-200 p-6">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Contact Details</h3>
+          <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Contact Details</h3>
              <dl className="grid grid-cols-2 gap-4 text-sm">
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Email</dt><dd className="font-medium text-neutral-900 mt-1">{contactDetails?.email || user?.email || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Phone</dt><dd className="font-medium text-neutral-900 mt-1">{contactDetails?.phoneCode && contactDetails?.phone ? `${contactDetails.phoneCode} ${contactDetails.phone}` : contactDetails?.phone || (user?.phone_code && user?.phone_number ? `${user.phone_code} ${user.phone_number}` : user?.phone_number || '—')}</dd></div>
-               <div className="col-span-2"><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Address</dt><dd className="font-medium text-neutral-900 mt-1">{[contactDetails?.addressLine1, contactDetails?.city, contactDetails?.country, user?.address, user?.city, user?.state_province, user?.zipcode].filter(Boolean).join(', ') || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Email</dt><dd className="font-medium text-white mt-1">{contactDetails?.email || user?.email || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Phone</dt><dd className="font-medium text-white mt-1">{contactDetails?.phoneCode && contactDetails?.phone ? `${contactDetails.phoneCode} ${contactDetails.phone}` : contactDetails?.phone || (user?.phone_code && user?.phone_number ? `${user.phone_code} ${user.phone_number}` : user?.phone_number || '—')}</dd></div>
+               <div className="col-span-2"><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Address</dt><dd className="font-medium text-white mt-1">{[contactDetails?.addressLine1, contactDetails?.city, contactDetails?.country, user?.address, user?.city, user?.state_province, user?.zipcode].filter(Boolean).join(', ') || '—'}</dd></div>
              </dl>
           </div>
 
           {/* Academic History */}
-          <div className="bg-white border border-neutral-200 p-6">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Academic History</h3>
+          <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Academic History</h3>
             {educationHistory ? (
               <dl className="grid grid-cols-2 gap-4 text-sm">
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">High School</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.highSchool || '—'}</dd></div>
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Graduation Year</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.graduationYear || '—'}</dd></div>
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">GPA</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.gpa || '—'}</dd></div>
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Degree</dt><dd className="font-medium text-neutral-900 mt-1">{educationHistory?.degree || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">High School</dt><dd className="font-medium text-white mt-1">{educationHistory?.highSchool || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Graduation Year</dt><dd className="font-medium text-white mt-1">{educationHistory?.graduationYear || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">GPA</dt><dd className="font-medium text-white mt-1">{educationHistory?.gpa || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Degree</dt><dd className="font-medium text-white mt-1">{educationHistory?.degree || '—'}</dd></div>
               </dl>
             ) : (
-              <p className="text-sm text-neutral-500">No academic history provided</p>
+              <p className="text-sm text-slate-400">No academic history provided</p>
             )}
           </div>
 
           {/* Language Proficiency */}
           {languageProficiency && (
-            <div className="bg-white border border-neutral-200 p-6">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Language Proficiency</h3>
+            <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Language Proficiency</h3>
               <dl className="grid grid-cols-2 gap-4 text-sm">
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Test Type</dt><dd className="font-medium text-neutral-900 mt-1">{languageProficiency?.testType || '—'}</dd></div>
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</dt><dd className="font-medium text-neutral-900 mt-1">{languageProficiency?.score || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Test Type</dt><dd className="font-medium text-white mt-1">{languageProficiency?.testType || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</dt><dd className="font-medium text-white mt-1">{languageProficiency?.score || '—'}</dd></div>
               </dl>
             </div>
           )}
 
           {/* Motivation */}
           {motivation && motivation?.statement && (
-            <div className="bg-white border border-neutral-200 p-6">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Motivation Statement</h3>
-              <p className="text-sm text-neutral-700 leading-relaxed">{motivation?.statement}</p>
+            <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Motivation Statement</h3>
+              <p className="text-sm text-slate-300 leading-relaxed">{motivation?.statement}</p>
               {motivation?.extracurriculars && (
                 <div className="mt-4">
                   <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Extracurriculars</dt>
-                  <dd className="text-sm text-neutral-700 mt-1">{motivation?.extracurriculars}</dd>
+                  <dd className="text-sm text-slate-300 mt-1">{motivation?.extracurriculars}</dd>
                 </div>
               )}
             </div>
           )}
 
           {/* Documents */}
-          <div className="bg-white border border-neutral-200 p-6" id="documents">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Uploaded Documents</h3>
+          <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl" id="documents">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Uploaded Documents</h3>
             {documents.length > 0 ? (
               <div className="space-y-2">
                 {documents.map(doc => (
-                  <div key={doc.id} className="flex items-center justify-between p-3 bg-neutral-50 border border-neutral-100">
+                  <div key={doc.id} className="flex items-center justify-between p-3 bg-white/5 border border-white/10 rounded-xl">
                     <div className="flex items-center gap-2">
                       <HugeiconsIcon icon={FileText} size={14} strokeWidth={2} className="text-slate-400" />
-                      <span className="text-xs font-medium text-neutral-900">{doc?.name}</span>
+                      <span className="text-xs font-medium text-white">{doc?.name}</span>
                       <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{doc?.type}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <a href={doc?.url} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View</a>
-                      <a href={doc?.url} download className="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-neutral-600">Download</a>
+                    <div className="flex items-center gap-3">
+                      <a href={doc?.url} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-wider text-sky-400 hover:text-sky-300 hover:underline">View</a>
+                      <a href={doc?.url} download className="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white">Download</a>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-neutral-500">No documents uploaded</p>
+              <p className="text-sm text-slate-400">No documents uploaded</p>
             )}
           </div>
 
           {/* Review Notes */}
-          <div className="bg-white border border-neutral-200 p-6" id="notes">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Internal Review Notes</h3>
+          <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl" id="notes">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Internal Review Notes</h3>
             <textarea
               value={notes}
               onChange={e => setNotes(e.target.value)}
               placeholder="Add review notes..."
-              className="w-full px-3 py-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none font-sans h-24 resize-none"
+              className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:border-sky-500 focus:outline-none font-sans h-24 resize-none rounded-xl"
             />
-            <button onClick={handleSaveNotes} disabled={actionLoading === 'notes'} className="mt-3 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-50">
+            <button onClick={handleSaveNotes} disabled={actionLoading === 'notes'} className="mt-3 px-5 py-2.5 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm">
               {actionLoading === 'notes' ? 'Saving...' : 'Save Notes'}
             </button>
           </div>
@@ -453,12 +453,12 @@ export default function AdmissionApplicationPage() {
         {/* Sidebar Actions */}
         <div className="space-y-6">
           {/* Status Update */}
-          <div className="bg-white border border-neutral-200 p-4">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3">Update Status</h3>
+          <div className="bg-[#0f2027] border border-white/10 p-5 rounded-2xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Update Status</h3>
             <select
               value={status}
               onChange={e => setStatus(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none mb-3"
+              className="w-full px-3 py-2 text-sm bg-white/5 border border-white/10 text-white focus:border-sky-500 focus:outline-none mb-3 rounded-xl [&>option]:bg-[#0a151a] [&>option]:text-white"
             >
               <option value="SUBMITTED">Submitted</option>
               <option value="UNDER_REVIEW">Under Review</option>
@@ -466,71 +466,71 @@ export default function AdmissionApplicationPage() {
               <option value="ADMITTED">Admitted</option>
               <option value="REJECTED">Rejected</option>
             </select>
-            <button onClick={() => handleStatusUpdate(status)} disabled={actionLoading === 'status' || !status} className="w-full px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-50">
+            <button onClick={() => handleStatusUpdate(status)} disabled={actionLoading === 'status' || !status} className="w-full px-4 py-2.5 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm">
               {actionLoading === 'status' ? 'Updating...' : 'Update Status'}
             </button>
           </div>
 
           {/* Quick Actions */}
-          <div className="bg-white border border-neutral-200 p-4">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3">Admission Actions</h3>
+          <div className="bg-[#0f2027] border border-white/10 p-5 rounded-2xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Admission Actions</h3>
             <div className="space-y-2">
-              <button onClick={handleIssueOffer} disabled={actionLoading === 'offer'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
-                <HugeiconsIcon icon={GraduationCap} size={14} strokeWidth={2} /> Issue Offer / LOA
+              <button onClick={handleIssueOffer} disabled={actionLoading === 'offer'} className="w-full text-left px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-200 hover:bg-white/10 rounded-xl flex items-center gap-2 transition-colors disabled:opacity-50">
+                <HugeiconsIcon icon={GraduationCap} size={14} strokeWidth={2} className="text-sky-400" /> Issue Offer / LOA
               </button>
-              <button onClick={handleRegenerateLOA} disabled={actionLoading === 'loa'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
-                <HugeiconsIcon icon={Printer} size={14} strokeWidth={2} /> Regenerate LOA
+              <button onClick={handleRegenerateLOA} disabled={actionLoading === 'loa'} className="w-full text-left px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-200 hover:bg-white/10 rounded-xl flex items-center gap-2 transition-colors disabled:opacity-50">
+                <HugeiconsIcon icon={Printer} size={14} strokeWidth={2} className="text-sky-400" /> Regenerate LOA
               </button>
-              <button onClick={handleGenerateAdmissionLetter} disabled={actionLoading === 'admission-letter'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
-                <HugeiconsIcon icon={FileText} size={14} strokeWidth={2} /> Generate Admission Letter
+              <button onClick={handleGenerateAdmissionLetter} disabled={actionLoading === 'admission-letter'} className="w-full text-left px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-200 hover:bg-white/10 rounded-xl flex items-center gap-2 transition-colors disabled:opacity-50">
+                <HugeiconsIcon icon={FileText} size={14} strokeWidth={2} className="text-sky-400" /> Generate Admission Letter
               </button>
-              <button onClick={handleIssuePAL} disabled={actionLoading === 'pal'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
-                <HugeiconsIcon icon={Shield} size={14} strokeWidth={2} /> Issue PAL
+              <button onClick={handleIssuePAL} disabled={actionLoading === 'pal'} className="w-full text-left px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-200 hover:bg-white/10 rounded-xl flex items-center gap-2 transition-colors disabled:opacity-50">
+                <HugeiconsIcon icon={Shield} size={14} strokeWidth={2} className="text-emerald-400" /> Issue PAL
               </button>
-              <button onClick={() => setShowInvoiceModal(true)} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors">
-                <HugeiconsIcon icon={FileText} size={14} strokeWidth={2} /> Issue Invoice
+              <button onClick={() => setShowInvoiceModal(true)} className="w-full text-left px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-200 hover:bg-white/10 rounded-xl flex items-center gap-2 transition-colors">
+                <HugeiconsIcon icon={FileText} size={14} strokeWidth={2} className="text-amber-400" /> Issue Invoice
               </button>
-              <button onClick={() => handleStatusUpdate('REJECTED')} disabled={actionLoading === 'status'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors disabled:opacity-50">
+              <button onClick={() => handleStatusUpdate('REJECTED')} disabled={actionLoading === 'status'} className="w-full text-left px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-red-400 hover:bg-red-500/10 rounded-xl flex items-center gap-2 transition-colors disabled:opacity-50">
                 <HugeiconsIcon icon={XCircle} size={14} strokeWidth={2} /> Reject Application
               </button>
-               <button onClick={() => setShowMessageForm(!showMessageForm)} disabled={actionLoading === 'message'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
-                 <HugeiconsIcon icon={Message} size={14} strokeWidth={2} /> Send Message
+               <button onClick={() => setShowMessageForm(!showMessageForm)} disabled={actionLoading === 'message'} className="w-full text-left px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-200 hover:bg-white/10 rounded-xl flex items-center gap-2 transition-colors disabled:opacity-50">
+                 <HugeiconsIcon icon={Message} size={14} strokeWidth={2} className="text-sky-400" /> Send Message
                </button>
                {showMessageForm && (
-                 <div className="space-y-2">
+                 <div className="space-y-2 pt-2">
                    <textarea
                      value={messageText}
                      onChange={e => setMessageText(e.target.value)}
                      placeholder="Type your message to the student..."
-                     className="w-full px-3 py-2 text-xs border border-neutral-200 focus:border-neutral-400 focus:outline-none h-20 resize-none"
+                     className="w-full px-3 py-2 text-xs bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:border-sky-500 focus:outline-none h-20 resize-none rounded-xl"
                    />
                    <div className="flex gap-2">
-                     <button onClick={handleSendMessage} disabled={actionLoading === 'message'} className="flex-1 px-3 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-50">
+                     <button onClick={handleSendMessage} disabled={actionLoading === 'message'} className="flex-1 px-3 py-2 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm">
                        {actionLoading === 'message' ? 'Sending...' : 'Send'}
                      </button>
-                     <button onClick={() => setShowMessageForm(false)} className="flex-1 px-3 py-2 border border-neutral-200 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors">
+                     <button onClick={() => setShowMessageForm(false)} className="flex-1 px-3 py-2 bg-white/5 border border-white/10 text-white text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors rounded-xl">
                        Cancel
                      </button>
                    </div>
                  </div>
                )}
                {!isEditing ? (
-                 <button onClick={handleEditRecord} disabled={actionLoading === 'edit'} className="w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 flex items-center gap-2 transition-colors disabled:opacity-50">
-                   <HugeiconsIcon icon={Edit} size={14} strokeWidth={2} /> Edit Record
+                 <button onClick={handleEditRecord} disabled={actionLoading === 'edit'} className="w-full text-left px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-200 hover:bg-white/10 rounded-xl flex items-center gap-2 transition-colors disabled:opacity-50">
+                   <HugeiconsIcon icon={Edit} size={14} strokeWidth={2} className="text-slate-400" /> Edit Record
                  </button>
                ) : (
-                 <div className="space-y-2">
+                 <div className="space-y-2 pt-2">
                    <textarea
                      value={editForm?.personal_info?.statement || ''}
                      onChange={e => setEditForm({ ...editForm, personal_info: { ...editForm.personal_info, statement: e.target.value } })}
                      placeholder="Edit record notes..."
-                     className="w-full px-3 py-2 text-xs border border-neutral-200 focus:border-neutral-400 focus:outline-none h-20 resize-none"
+                     className="w-full px-3 py-2 text-xs bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:border-sky-500 focus:outline-none h-20 resize-none rounded-xl"
                    />
                    <div className="flex gap-2">
-                     <button onClick={handleSaveEdit} disabled={actionLoading === 'edit'} className="flex-1 px-3 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-50">
+                     <button onClick={handleSaveEdit} disabled={actionLoading === 'edit'} className="flex-1 px-3 py-2 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm">
                        {actionLoading === 'edit' ? 'Saving...' : 'Save'}
                      </button>
-                     <button onClick={() => setIsEditing(false)} className="flex-1 px-3 py-2 border border-neutral-200 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors">
+                     <button onClick={() => setIsEditing(false)} className="flex-1 px-3 py-2 bg-white/5 border border-white/10 text-white text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors rounded-xl">
                        Cancel
                      </button>
                    </div>
@@ -541,32 +541,32 @@ export default function AdmissionApplicationPage() {
 
           {/* Student Journey Status */}
           {student && (
-            <div className="bg-white border border-neutral-200 p-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3">Student Journey</h3>
+            <div className="bg-[#0f2027] border border-white/10 p-5 rounded-2xl">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Student Journey</h3>
               <div className="space-y-2 text-xs">
-                <div className="flex justify-between"><span className="text-neutral-500">Student ID</span><span className="font-medium text-neutral-900">{student?.student_id || '—'}</span></div>
-                <div className="flex justify-between"><span className="text-neutral-500">Enrollment</span><StatusBadge status={student?.enrollment_status || '—'} size="sm" /></div>
-                <div className="flex justify-between"><span className="text-neutral-500">PAL Required</span><span className="font-medium text-neutral-900">{student?.pal_required ? 'Yes' : 'No'}</span></div>
-                <div className="flex justify-between"><span className="text-neutral-500">PAL Status</span><span className="font-medium text-neutral-900">{student?.pal_status || '—'}</span></div>
-                <div className="flex justify-between"><span className="text-neutral-500">Study Permit</span><span className="font-medium text-neutral-900">{student?.study_permit_status || '—'}</span></div>
-                <div className="flex justify-between"><span className="text-neutral-500">Current Stage</span><span className="font-medium text-neutral-900">{student?.current_stage || '—'}</span></div>
+                <div className="flex justify-between"><span className="text-slate-400">Student ID</span><span className="font-medium text-white">{student?.student_id || '—'}</span></div>
+                <div className="flex justify-between"><span className="text-slate-400">Enrollment</span><StatusBadge status={student?.enrollment_status || '—'} size="sm" /></div>
+                <div className="flex justify-between"><span className="text-slate-400">PAL Required</span><span className="font-medium text-white">{student?.pal_required ? 'Yes' : 'No'}</span></div>
+                <div className="flex justify-between"><span className="text-slate-400">PAL Status</span><span className="font-medium text-white">{student?.pal_status || '—'}</span></div>
+                <div className="flex justify-between"><span className="text-slate-400">Study Permit</span><span className="font-medium text-white">{student?.study_permit_status || '—'}</span></div>
+                <div className="flex justify-between"><span className="text-slate-400">Current Stage</span><span className="font-medium text-white">{student?.current_stage || '—'}</span></div>
               </div>
             </div>
           )}
 
           {/* Offer Information */}
           {offer && (
-            <div className="bg-white border border-neutral-200 p-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3">Admission Offer</h3>
+            <div className="bg-[#0f2027] border border-white/10 p-5 rounded-2xl">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Admission Offer</h3>
               <div className="space-y-2 text-xs">
-                <div className="flex justify-between"><span className="text-neutral-500">Offer ID</span><span className="font-medium text-neutral-900">{offer?.id?.slice(0, 8)}</span></div>
-                <div className="flex justify-between"><span className="text-neutral-500">Tuition Fee</span><span className="font-medium text-neutral-900">${Number(offer?.tuition_fee).toLocaleString()} CAD</span></div>
-                <div className="flex justify-between"><span className="text-neutral-500">Payment Deadline</span><span className="font-medium text-neutral-900">{offer?.payment_deadline ? new Date(offer?.payment_deadline).toLocaleDateString('en-CA') : '—'}</span></div>
-                <div className="flex justify-between"><span className="text-neutral-500">Offer Type</span><span className="font-medium text-neutral-900">{offer?.offer_type || '—'}</span></div>
-                <div className="flex justify-between"><span className="text-neutral-500">Offer Status</span><StatusBadge status={offer?.status || 'PENDING'} size="sm" /></div>
+                <div className="flex justify-between"><span className="text-slate-400">Offer ID</span><span className="font-medium text-white">{offer?.id?.slice(0, 8)}</span></div>
+                <div className="flex justify-between"><span className="text-slate-400">Tuition Fee</span><span className="font-medium text-white">${Number(offer?.tuition_fee).toLocaleString()} CAD</span></div>
+                <div className="flex justify-between"><span className="text-slate-400">Payment Deadline</span><span className="font-medium text-white">{offer?.payment_deadline ? new Date(offer?.payment_deadline).toLocaleDateString('en-CA') : '—'}</span></div>
+                <div className="flex justify-between"><span className="text-slate-400">Offer Type</span><span className="font-medium text-white">{offer?.offer_type || '—'}</span></div>
+                <div className="flex justify-between"><span className="text-slate-400">Offer Status</span><StatusBadge status={offer?.status || 'PENDING'} size="sm" /></div>
                 {offer?.document_url && (
                   <div className="mt-3">
-                    <a href={offer?.document_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-2 bg-neutral-900 text-white text-xs font-medium rounded hover:bg-neutral-800 transition-colors">
+                    <a href={offer?.document_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-sky-500 hover:bg-sky-400 text-white text-xs font-medium rounded-xl transition-colors no-underline">
                       <HugeiconsIcon icon={Download} size={12} strokeWidth={2} /> Download Offer Letter
                     </a>
                   </div>
@@ -578,43 +578,43 @@ export default function AdmissionApplicationPage() {
       </div>
 
       {showInvoiceModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
-            <h3 className="text-lg font-bold text-neutral-900 mb-4">Issue Invoice</h3>
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-[#0f2027] border border-white/10 rounded-2xl shadow-2xl max-w-md w-full p-6 text-white">
+            <h3 className="text-lg font-bold text-white mb-4">Issue Invoice</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">Invoice Type</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Invoice Type</label>
                 <select
                   value={invoiceType}
                   onChange={e => setInvoiceType(e.target.value)}
-                  className="w-full px-3 py-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none"
+                  className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white focus:border-sky-500 focus:outline-none rounded-xl [&>option]:bg-[#0a151a] [&>option]:text-white"
                 >
                   <option value="TUITION_DEPOSIT">Tuition Deposit</option>
                   <option value="TUITION_FULL">Full Tuition</option>
                   <option value="ANCILLARY">Ancillary Fees</option>
                 </select>
               </div>
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4">
-                <p className="text-xs text-neutral-500 mb-1">Amount to Issue</p>
-                <p className="text-2xl font-bold text-neutral-900">
+              <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <p className="text-xs text-slate-400 mb-1">Amount to Issue</p>
+                <p className="text-2xl font-bold text-white">
                   {invoiceType === 'TUITION_DEPOSIT' ? '$2,000' : invoiceType === 'ANCILLARY' ? '$700' : 'Custom'} CAD
                 </p>
                 {invoiceType === 'TUITION_DEPOSIT' && (
-                  <p className="text-xs text-neutral-500 mt-1">Standard tuition deposit amount</p>
+                  <p className="text-xs text-slate-400 mt-1">Standard tuition deposit amount</p>
                 )}
               </div>
               <div className="flex gap-3 pt-2">
                 <button
                   onClick={handleIssueInvoice}
                   disabled={actionLoading === 'invoice'}
-                  className="flex-1 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-50"
+                  className="flex-1 px-4 py-2.5 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm"
                 >
                   {actionLoading === 'invoice' ? 'Issuing...' : 'Issue Invoice'}
                 </button>
                 <button
                   onClick={() => setShowInvoiceModal(false)}
                   disabled={actionLoading === 'invoice'}
-                  className="flex-1 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors disabled:opacity-50"
+                  className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 text-white text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors disabled:opacity-50 rounded-xl"
                 >
                   Cancel
                 </button>
