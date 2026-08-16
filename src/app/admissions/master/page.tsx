@@ -88,74 +88,76 @@ export default function MasterAdmissionsPage() {
                 ]}
             >
 
-            <div className="cc-container py-4 md:py-6">
-                <main className="space-y-5 md:space-y-8">
+            <div className="cc-container py-8 md:py-16">
+                <main className="space-y-12 md:space-y-16 text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
 
-                    <section id="schedule" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">Admissions Schedule</h2></div>
-                        <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="schedule_content" fallbackContent={getSectionDefault('schedule_content')} /></div>
+                    <section id="schedule" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider !mb-6"><h2 className="cc-h2">Admissions Schedule</h2></div>
+                        <DbPageContent pageSlug={pageSlug} sectionKey="schedule_content" fallbackContent={getSectionDefault('schedule_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                     </section>
 
-                    <section id="study-options" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">Study Options</h2></div>
-                        <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="study_options_content" fallbackContent={getSectionDefault('study_options_content')} /></div>
-                        <MasterStudyOptionsCarousel />
+                    <section id="study-options" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider !mb-6"><h2 className="cc-h2">Study Options</h2></div>
+                        <DbPageContent pageSlug={pageSlug} sectionKey="study_options_content" fallbackContent={getSectionDefault('study_options_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
+                        <div className="pt-2">
+                            <MasterStudyOptionsCarousel />
+                        </div>
                     </section>
 
-                    <section id="scholarships" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">Scholarships &amp; Fees</h2></div>
-                        <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="scholarships_content" fallbackContent={getSectionDefault('scholarships_content')} /></div>
+                    <section id="scholarships" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider !mb-6"><h2 className="cc-h2">Scholarships &amp; Fees</h2></div>
+                        <DbPageContent pageSlug={pageSlug} sectionKey="scholarships_content" fallbackContent={getSectionDefault('scholarships_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                     </section>
 
-                    <section id="eligibility" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">General Eligibility</h2></div>
-                        <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="eligibility_content" fallbackContent={getSectionDefault('eligibility_content')} /></div>
+                    <section id="eligibility" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider !mb-6"><h2 className="cc-h2">General Eligibility</h2></div>
+                        <DbPageContent pageSlug={pageSlug} sectionKey="eligibility_content" fallbackContent={getSectionDefault('eligibility_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                     </section>
 
-                    <section id="field-reqs" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">Field-Specific Requirements</h2></div>
-                        <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="field_reqs_content" fallbackContent={getSectionDefault('field_reqs_content')} /></div>
+                    <section id="field-reqs" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider !mb-6"><h2 className="cc-h2">Field-Specific Requirements</h2></div>
+                        <DbPageContent pageSlug={pageSlug} sectionKey="field_reqs_content" fallbackContent={getSectionDefault('field_reqs_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                     </section>
 
-                    <section id="incomplete" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">Incomplete Degree</h2></div>
-                        <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="incomplete_content" fallbackContent={getSectionDefault('incomplete_content')} /></div>
+                    <section id="incomplete" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider !mb-6"><h2 className="cc-h2">Incomplete Degree</h2></div>
+                        <DbPageContent pageSlug={pageSlug} sectionKey="incomplete_content" fallbackContent={getSectionDefault('incomplete_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                     </section>
 
-                    <section id="steps" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">How to Apply</h2></div>
-                        <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="steps_content" fallbackContent={getSectionDefault('steps_content')} /></div>
+                    <section id="steps" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider !mb-6"><h2 className="cc-h2">How to Apply</h2></div>
+                        <DbPageContent pageSlug={pageSlug} sectionKey="steps_content" fallbackContent={getSectionDefault('steps_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                     </section>
 
-                    <div className="my-4"><AdmissionsCTA /></div>
+                    <div className="my-8"><AdmissionsCTA /></div>
 
-                    <section id="documents" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">Required Documents</h2></div>
-                        <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="documents_content" fallbackContent={getSectionDefault('documents_content')} /></div>
+                    <section id="documents" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider !mb-6"><h2 className="cc-h2">Required Documents</h2></div>
+                        <DbPageContent pageSlug={pageSlug} sectionKey="documents_content" fallbackContent={getSectionDefault('documents_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                     </section>
 
-                    <section id="language" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">Language Proficiency</h2></div>
-                        <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="language_content" fallbackContent={getSectionDefault('language_content')} /></div>
+                    <section id="language" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider !mb-6"><h2 className="cc-h2">Language Proficiency</h2></div>
+                        <DbPageContent pageSlug={pageSlug} sectionKey="language_content" fallbackContent={getSectionDefault('language_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                     </section>
 
-                    <section id="gmat" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">GMAT &amp; GRE</h2></div>
-                        <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="gmat_content" fallbackContent={getSectionDefault('gmat_content')} /></div>
+                    <section id="gmat" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider !mb-6"><h2 className="cc-h2">GMAT &amp; GRE</h2></div>
+                        <DbPageContent pageSlug={pageSlug} sectionKey="gmat_content" fallbackContent={getSectionDefault('gmat_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                     </section>
 
-                    <section id="decisions" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">Decisions</h2></div>
-                        <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="decisions_content" fallbackContent={getSectionDefault('decisions_content')} /></div>
+                    <section id="decisions" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider !mb-6"><h2 className="cc-h2">Decisions</h2></div>
+                        <DbPageContent pageSlug={pageSlug} sectionKey="decisions_content" fallbackContent={getSectionDefault('decisions_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                     </section>
 
-                    <section id="after" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">After Admission</h2></div>
-                        <div className="prose-arrows"><DbPageContent pageSlug={pageSlug} sectionKey="after_content" fallbackContent={getSectionDefault('after_content')} /></div>
+                    <section id="after" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider !mb-6"><h2 className="cc-h2">After Admission</h2></div>
+                        <DbPageContent pageSlug={pageSlug} sectionKey="after_content" fallbackContent={getSectionDefault('after_content')} className="space-y-4 text-sm sm:text-base font-normal text-slate-700 leading-relaxed" />
                     </section>
 
-                    <section id="faq" className="scroll-mt-32">
-                        <div className="cc-section-divider !mb-4 !pb-2"><h2 className="cc-h2">FAQ</h2></div>
+                    <section id="faq" className="scroll-mt-32 space-y-4">
+                        <div className="pb-1"><h2 className="cc-h2">Frequently Asked Questions</h2></div>
                         <MasterFAQ />
                     </section>
 

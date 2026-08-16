@@ -222,37 +222,37 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/master',
         sectionKey: 'schedule_content',
         label: 'Schedule Section',
-        defaultContent: `<div class="rounded-xl overflow-hidden border border-neutral-200 shadow-sm my-4">
-    <table class="w-full text-left border-collapse">
-        <thead class="bg-[#0f2027] text-white">
+        defaultContent: `<div class="w-full overflow-x-auto my-4 rounded-lg border border-neutral-200 shadow-sm bg-white">
+    <table class="w-full table-fixed border-collapse">
+        <thead class="bg-[#0a151a] text-white">
             <tr>
-                <th class="p-4 font-bold">Intake Stage</th>
-                <th class="p-4 font-bold">Application Window</th>
-                <th class="p-4 font-bold">Best Time to Apply / Details</th>
+                <th class="w-[28%] border-b border-neutral-700 px-3 py-2.5 text-left text-xs font-normal uppercase tracking-tight">Intake Stage</th>
+                <th class="w-[32%] border-b border-neutral-700 px-3 py-2.5 text-left text-xs font-normal uppercase tracking-tight">Application Window</th>
+                <th class="w-[40%] border-b border-neutral-700 px-3 py-2.5 text-left text-xs font-normal uppercase tracking-tight">Best Time to Apply / Details</th>
             </tr>
         </thead>
-        <tbody class="divide-y divide-neutral-200 text-black">
-            <tr class="hover:bg-neutral-50">
-                <td class="p-4 font-medium">September Intake</td>
-                <td class="p-4">October – February</td>
-                <td class="p-4 font-semibold text-black">Early application: October – December</td>
+        <tbody class="divide-y divide-neutral-200 text-slate-800">
+            <tr class="hover:bg-neutral-50/80">
+                <td class="px-3 py-2.5 text-xs md:text-sm font-bold text-slate-900">September Intake</td>
+                <td class="px-3 py-2.5 text-xs md:text-sm font-normal text-neutral-800">October – February</td>
+                <td class="px-3 py-2.5 text-xs md:text-sm font-semibold text-slate-900">Early application: October – December</td>
             </tr>
-            <tr class="hover:bg-neutral-50">
-                <td class="p-4 font-medium">January Intake</td>
-                <td class="p-4">June – September</td>
-                <td class="p-4 font-semibold text-black">Early application: June – August</td>
+            <tr class="hover:bg-neutral-50/80 bg-neutral-50/50">
+                <td class="px-3 py-2.5 text-xs md:text-sm font-bold text-slate-900">January Intake</td>
+                <td class="px-3 py-2.5 text-xs md:text-sm font-normal text-neutral-800">June – September</td>
+                <td class="px-3 py-2.5 text-xs md:text-sm font-semibold text-slate-900">Early application: June – August</td>
             </tr>
-            <tr class="hover:bg-neutral-50">
-                <td class="p-4 font-medium">Evaluation Phase</td>
-                <td class="p-4" colspan="2">Applications reviewed by the admissions committee and faculty within 4–6 weeks.</td>
+            <tr class="hover:bg-neutral-50/80">
+                <td class="px-3 py-2.5 text-xs md:text-sm font-bold text-slate-900">Evaluation Phase</td>
+                <td class="px-3 py-2.5 text-xs md:text-sm font-normal text-neutral-800" colspan="2">Applications reviewed by the admissions committee and faculty within 4–6 weeks.</td>
             </tr>
-            <tr class="hover:bg-neutral-50">
-                <td class="p-4 font-medium">Decision</td>
-                <td class="p-4" colspan="2">Admission decision communicated by email within 1 week of evaluation.</td>
+            <tr class="hover:bg-neutral-50/80 bg-neutral-50/50">
+                <td class="px-3 py-2.5 text-xs md:text-sm font-bold text-slate-900">Decision</td>
+                <td class="px-3 py-2.5 text-xs md:text-sm font-normal text-neutral-800" colspan="2">Admission decision communicated by email within 1 week of evaluation.</td>
             </tr>
-            <tr class="hover:bg-neutral-50">
-                <td class="p-4 font-medium">Studies Start</td>
-                <td class="p-4" colspan="2">September (Fall) or January (Winter)</td>
+            <tr class="hover:bg-neutral-50/80">
+                <td class="px-3 py-2.5 text-xs md:text-sm font-bold text-slate-900">Studies Start</td>
+                <td class="px-3 py-2.5 text-xs md:text-sm font-normal text-neutral-800" colspan="2">September (Fall) or January (Winter)</td>
             </tr>
         </tbody>
     </table>
@@ -262,20 +262,20 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/master',
         sectionKey: 'study_options_content',
         label: 'Study Options Section',
-        defaultContent: `<div class="space-y-6 text-black">
-    <p class="text-lg leading-relaxed">Cannoga College provides master's education across diverse fields of study, including Art & Design, Business & Economics, Technology & Engineering, Education, Science, Health & Life Sciences, and Transportation & Aviation.</p>
+        defaultContent: `<div class="space-y-4">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Cannoga College provides master's education across diverse fields of study, including Art & Design, Business & Economics, Technology & Engineering, Education, Science, Health & Life Sciences, and Transportation & Aviation.</p>
 
-    <div>
-        <h3 class="text-xl font-bold mb-4">Master’s Degrees Granted</h3>
-        <ul class="space-y-3 text-base">
-            <li><strong>In the field of Art & Design:</strong> Master of Arts (Art & Design)</li>
-            <li><strong>In the field of Business & Economics:</strong> Master of Science (Economics & Business Administration)</li>
-            <li><strong>In the field of Technology & Engineering:</strong> Master of Science (Technology), Master of Science (Architecture), or Master of Science (Landscape Architecture)</li>
-            <li><strong>In the field of Education & Science:</strong> Master of Arts (Education), Master of Science (Educational Leadership), or Master of Science (Natural & Applied Sciences)</li>
-            <li><strong>In the field of Health & Life Sciences:</strong> Master of Science (Healthcare Management & Public Health)</li>
-            <li><strong>In the field of Transportation & Aviation:</strong> Master of Science (Aviation Management & Transport Logistics)</li>
+    <div class="space-y-3 pt-2">
+        <h3 class="text-xl font-bold text-slate-900 tracking-tight">Master’s Degrees Granted</h3>
+        <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+            <li><strong class="text-slate-900 font-bold">Art & Design:</strong> Master of Arts (Art & Design)</li>
+            <li><strong class="text-slate-900 font-bold">Business & Economics:</strong> Master of Science (Economics & Business Administration)</li>
+            <li><strong class="text-slate-900 font-bold">Technology & Engineering:</strong> Master of Science (Technology), Master of Science (Architecture), or Master of Science (Landscape Architecture)</li>
+            <li><strong class="text-slate-900 font-bold">Education & Science:</strong> Master of Arts (Education), Master of Science (Educational Leadership), or Master of Science (Natural & Applied Sciences)</li>
+            <li><strong class="text-slate-900 font-bold">Health & Life Sciences:</strong> Master of Science (Healthcare Management & Public Health)</li>
+            <li><strong class="text-slate-900 font-bold">Transportation & Aviation:</strong> Master of Science (Aviation Management & Transport Logistics)</li>
         </ul>
-        <p class="mt-4 font-semibold text-sm text-gray-700">You may apply to a maximum of two study options.</p>
+        <p class="text-sm font-semibold text-slate-800 pt-1">You may apply to a maximum of two study options.</p>
     </div>
 </div>`,
     },
@@ -283,118 +283,167 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/master',
         sectionKey: 'scholarships_content',
         label: 'Scholarships Section',
-        defaultContent: `<p class="text-lg text-black leading-relaxed">At Cannoga College, we believe in rewarding academic excellence and supporting students through various financial aid options. Our scholarship programme is designed to help international talent thrive in Ottawa, Ontario, Canada.</p>
-<ul class="space-y-4">
-    <li class="flex gap-4 items-start">Merit-Based Scholarships Awarded to top-performing applicants based on academic record.</li>
-    <li class="flex gap-4 items-start">Performance Waivers Maintain a 3.5 GPA and 55 credits/year for a 50% waiver from the 2nd year onwards.</li>
-</ul>
-<p><a href="/admissions/tuition" class="inline-flex items-center gap-2 text-black font-bold hover:opacity-70 transition-colors">See detailed tuition info →</a></p>`,
+        defaultContent: `<div class="space-y-4">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">At Cannoga College, we believe in rewarding academic excellence and supporting students through various financial aid options. Our scholarship programme is designed to help international talent thrive in Ottawa, Ontario, Canada:</p>
+    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <li><strong class="text-slate-900 font-bold">Merit-Based Scholarships:</strong> Awarded to top-performing applicants based on academic record.</li>
+        <li><strong class="text-slate-900 font-bold">Performance Waivers:</strong> Maintain a 3.5 GPA and 55 credits/year for a 50% waiver from the 2nd year onwards.</li>
+    </ul>
+    <div class="pt-2">
+        <a href="/admissions/tuition" class="inline-flex items-center gap-2 text-sm font-bold text-slate-900 underline hover:text-[#002f6c] transition-colors">See detailed tuition &amp; OSAP info &rarr;</a>
+    </div>
+</div>`,
     },
     {
         pageSlug: 'admissions/master',
         sectionKey: 'eligibility_content',
         label: 'Eligibility Section',
-        defaultContent: `<div class="bg-gray-50 text-black p-12 rounded-3xl shadow-xl">
-    <ul class="space-y-4 text-lg">
-        <li>Hold a Bachelor’s degree (180 credits) or equivalent.</li>
+        defaultContent: `<div class="space-y-4">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">To be eligible for Master's degree studies at Cannoga College, applicants must meet the following baseline requirements:</p>
+    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <li>Hold a Bachelor’s degree (180 ECTS credits / 3-4 year degree) or equivalent recognized credential.</li>
         <li>Degree must enable eligibility for Master’s study in the awarding country.</li>
         <li>Only long-cycle degrees are considered in place of a Bachelor’s.</li>
     </ul>
-    <div class="mt-8 pt-6 border-t border-gray-200 text-sm">Important: Previous Master’s degrees alone do not qualify you for admission.</div>
+    <p class="text-xs sm:text-sm font-bold text-slate-900 pt-2"><strong class="text-amber-800">Important:</strong> Previous Master’s degrees alone do not qualify you for admission without a recognized Bachelor's foundation.</p>
 </div>`,
     },
     {
         pageSlug: 'admissions/master',
         sectionKey: 'field_reqs_content',
         label: 'Field Requirements Section',
-        defaultContent: `<div class="space-y-6">
-    <div class="p-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl shadow-sm"><h3 class="font-bold text-lg mb-2">Art and Design</h3><p>Applicants without a formal Bachelor’s degree may apply if they have equivalent skills through portfolios, work experience, or other studies.</p></div>
-    <div class="p-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl shadow-sm"><h3 class="font-bold text-lg mb-2">Business and Economics</h3><p>Some programmes require GMAT or GRE scores.</p></div>
-    <div class="p-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl shadow-sm"><h3 class="font-bold text-lg mb-2">Technology/Engineering</h3><p>Some may require relevant coursework or skills in mathematics, programming, or design.</p></div>
-    <div class="p-8 bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl shadow-sm"><h3 class="font-bold text-lg mb-2">Science</h3><p>Requires a relevant Bachelor’s degree in natural sciences, physics, chemistry, or environmental science.</p></div>
+        defaultContent: `<div class="space-y-4">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Depending on your chosen faculty, specific subject prerequisites apply:</p>
+    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <li><strong class="text-slate-900 font-bold">Art and Design:</strong> Applicants without a formal Bachelor’s degree may apply if they demonstrate equivalent skills through portfolios, work experience, or accredited design studies.</li>
+        <li><strong class="text-slate-900 font-bold">Business and Economics:</strong> Quantitative background required; some programmes require official GMAT or GRE scores.</li>
+        <li><strong class="text-slate-900 font-bold">Technology &amp; Engineering:</strong> Requires relevant coursework in mathematics, physics, computer programming, or engineering design.</li>
+        <li><strong class="text-slate-900 font-bold">Natural &amp; Health Sciences:</strong> Requires a relevant Bachelor’s degree in biology, health sciences, chemistry, or environmental sciences.</li>
+    </ul>
 </div>`,
     },
     {
         pageSlug: 'admissions/master',
         sectionKey: 'incomplete_content',
         label: 'Incomplete Degree Section',
-        defaultContent: `<p>You may apply before your Bachelor’s degree is complete if you will graduate by 31 July 2026.</p>
-<ul class="space-y-3 pt-4">
-    <li>Admission is conditional upon submission of certified final degree documents within 14 days of your admission decision.</li>
-    <li>Failure to submit by the deadline will cancel your study right.</li>
-</ul>`,
+        defaultContent: `<div class="space-y-4">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">You may apply before your Bachelor’s degree is officially completed if you are on track to graduate by 31 July 2026:</p>
+    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <li>Admission is conditional upon submission of certified final degree documents and official transcripts within 14 days of your admission decision.</li>
+        <li>Failure to submit official graduation certificates by the specified deadline will result in cancellation of the offer.</li>
+    </ul>
+</div>`,
     },
     {
         pageSlug: 'admissions/master',
         sectionKey: 'steps_content',
         label: 'Application Steps Section',
-        defaultContent: `<div class="space-y-8">
-    <div><h3 class="text-xl font-bold mb-4">Prepare in Advance</h3><ul class="space-y-3 text-sm"><li>Check programme-specific eligibility</li><li>Prepare official documents and translations</li><li>Schedule language tests and GMAT/GRE if required</li></ul></div>
-    <div><h3 class="text-[18px] font-bold mb-4"><a href="https://cannogacollege.ca/portal/account/register" class="text-black underline hover:opacity-80">Fill in the Online Application 2026</a></h3><ul class="space-y-3 text-sm mb-4"><li><a href="https://cannogacollege.ca/portal/account/register" class="font-bold underline text-black hover:opacity-80">Fill in the Online Application 2026 →</a></li><li><strong>September intake:</strong> Apply October – February</li><li><strong>January intake:</strong> Apply June – September</li><li>Only one form per applicant</li><li>Can include two programmes ranked by preference</li><li>Edit application until closing date</li></ul></div>
-    <div><h3 class="text-xl font-bold mb-4">Application Fee</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-4"><div class="p-6 bg-gray-50 rounded-3xl shadow-sm"><div>International Applicants</div><div class="text-2xl font-bold mt-1">Free</div></div><div class="p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-sm"><div>Domestic (Canada & Nordic)</div><div class="text-2xl font-bold mt-1">Free</div></div></div><p class="text-sm">No payment required to submit your application.</p></div>
-    <div><h3 class="text-xl font-bold mb-4">Upload Required Documents</h3><p class="mb-4">Submit documents with your application. Late documents may delay your decision.</p><ul class="grid sm:grid-cols-2 gap-4 text-sm mb-6"><li>Bachelor’s degree & transcripts</li><li>Proof of English proficiency</li><li>International passport only</li><li>CV, Motivation Letter</li><li>Portfolio (if required)</li><li>GMAT/GRE (if required)</li></ul><p class="text-xs text-gray-500">File format: PDF only, named appropriately.</p></div>
-</div>`,
-    },
-    {
-        pageSlug: 'admissions/master',
-        sectionKey: 'documents_content',
-        label: 'Required Documents Section',
-        defaultContent: `<div class="grid gap-6 md:grid-cols-2">
-    <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-8 rounded-3xl shadow-sm"><h4 class="font-bold mb-2">Certified Educational Documents</h4><p class="text-sm">Must be submitted after admission decision by 13 May or 14 August 2026.</p></div>
-    <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-8 rounded-3xl shadow-sm"><h4 class="font-bold mb-2">Translations</h4><p class="text-sm">Non-English documents require official certified translations.</p></div>
-    <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-8 rounded-3xl shadow-sm"><h4 class="font-bold mb-2">Passport</h4><p class="text-sm">Color PDF of the personal information page.</p></div>
-</div>`,
-    },
-    {
-        pageSlug: 'admissions/master',
-        sectionKey: 'language_content',
-        label: 'Language Requirements Section',
-        defaultContent: `<div class="bg-gradient-to-br from-gray-50 to-gray-100 text-black rounded-3xl p-12 shadow-sm">
-    <h3 class="font-bold text-xl mb-6">Language Proficiency Details</h3>
-    <div class="space-y-4">
-        <p class="leading-relaxed">English language proficiency is mandatory for all Master’s programmes taught in English. Demonstrate your skills via an accepted language test or previous studies.</p>
-        <ul class="space-y-6 pt-6 flex flex-col">
-            <li><div class="font-bold uppercase tracking-widest text-[10px] mb-1">Tests</div><div class="text-sm leading-relaxed">Acceptable tests: IELTS Academic, TOEFL iBT, PTE Academic, or C1 Advanced/C2 Proficiency.</div></li>
-            <li><div class="font-bold uppercase tracking-widest text-[10px] mb-1">Exemptions</div><div class="text-sm leading-relaxed">Applicants who completed a degree taught entirely in English in Canada, Australia, New Zealand, the USA, or the UK may be exempt from language requirements.</div></li>
+        defaultContent: `<div class="space-y-6">
+    <div class="space-y-3">
+        <h3 class="text-xl font-bold text-slate-900 tracking-tight">1. Prepare in Advance</h3>
+        <ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+            <li>Check programme-specific eligibility and entry deadlines.</li>
+            <li>Prepare official certified academic documents and English translations.</li>
+            <li>Schedule language proficiency tests and GMAT/GRE if required.</li>
+        </ul>
+    </div>
+    
+    <div class="space-y-3">
+        <h3 class="text-xl font-bold text-slate-900 tracking-tight">2. Fill in the Online Application 2026</h3>
+        <ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+            <li><strong class="text-slate-900 font-bold">September Intake:</strong> Apply October – February</li>
+            <li><strong class="text-slate-900 font-bold">January Intake:</strong> Apply June – September</li>
+            <li>Submit only one application form per candidate (can rank up to two programmes).</li>
+            <li>You can edit and update documents in your student portal until the intake closing date.</li>
+        </ul>
+    </div>
+
+    <div class="space-y-3">
+        <h3 class="text-xl font-bold text-slate-900 tracking-tight">3. Application Fee</h3>
+        <ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+            <li><strong class="text-slate-900 font-bold">International Applicants:</strong> Free ($0 Application Fee)</li>
+            <li><strong class="text-slate-900 font-bold">Domestic Applicants (Canada &amp; PR):</strong> Free ($0 Application Fee)</li>
+        </ul>
+    </div>
+
+    <div class="space-y-3">
+        <h3 class="text-xl font-bold text-slate-900 tracking-tight">4. Upload Required Documents</h3>
+        <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Submit all documents in clear PDF format through your portal. Late documents may delay evaluation decisions:</p>
+        <ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+            <li>Bachelor’s degree diploma &amp; official transcript of records</li>
+            <li>Proof of English language proficiency</li>
+            <li>Valid international passport identification page</li>
+            <li>Curriculum Vitae (CV) &amp; Statement of Motivation</li>
+            <li>Portfolio or GMAT/GRE score report (if required by programme)</li>
         </ul>
     </div>
 </div>`,
     },
     {
         pageSlug: 'admissions/master',
+        sectionKey: 'documents_content',
+        label: 'Required Documents Section',
+        defaultContent: `<div class="space-y-4">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Ensure all submitted documentation conforms to official verification standards:</p>
+    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <li><strong class="text-slate-900 font-bold">Certified Educational Documents:</strong> Must be submitted after admission decision by 13 May or 14 August 2026.</li>
+        <li><strong class="text-slate-900 font-bold">Certified Translations:</strong> All non-English documents require official certified translations provided by authorized translators.</li>
+        <li><strong class="text-slate-900 font-bold">Passport Identification:</strong> High-resolution color PDF of your passport personal details page.</li>
+    </ul>
+</div>`,
+    },
+    {
+        pageSlug: 'admissions/master',
+        sectionKey: 'language_content',
+        label: 'Language Requirements Section',
+        defaultContent: `<div class="space-y-4">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">English language proficiency is mandatory for all Master’s programmes taught in English. Demonstrate your skills via an accepted language test or previous qualifying degree:</p>
+    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <li><strong class="text-slate-900 font-bold">Accepted Standardized Tests:</strong> IELTS Academic (min 6.5 overall, 6.0 in writing), TOEFL iBT (min 92), PTE Academic (min 62), or Cambridge C1 Advanced / C2 Proficiency.</li>
+        <li><strong class="text-slate-900 font-bold">Exemption Criteria:</strong> Applicants who completed a secondary or higher education degree taught entirely in English in Canada, the United States, the UK, Australia, or New Zealand.</li>
+    </ul>
+</div>`,
+    },
+    {
+        pageSlug: 'admissions/master',
         sectionKey: 'gmat_content',
         label: 'GMAT / GRE Section',
-        defaultContent: `<div class="bg-gradient-to-br from-gray-50 to-gray-100 p-12 rounded-3xl text-black shadow-sm">
-    <p class="mb-6 font-medium">Certain programmes in Business and Economics require a GMAT or GRE score.</p>
-    <ul class="space-y-4 text-sm">
-        <li>Minimum Focus Edition score: 555</li>
-        <li>GRE General Test equivalent accepted</li>
+        defaultContent: `<div class="space-y-4">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Certain programmes within the School of Business &amp; Economics require a standardized quantitative examination score:</p>
+    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <li><strong class="text-slate-900 font-bold">GMAT Focus Edition:</strong> Minimum score of 555</li>
+        <li><strong class="text-slate-900 font-bold">GRE General Test:</strong> Equivalent score percentile in Quantitative and Verbal sections accepted.</li>
     </ul>
-    <p class="mt-8 text-sm">Scores must be sent directly by the testing organization to Cannoga College.</p>
+    <p class="text-xs sm:text-sm font-semibold text-slate-800 pt-1">Official test scores must be transmitted electronically by the testing agency to Cannoga College admissions.</p>
 </div>`,
     },
     {
         pageSlug: 'admissions/master',
         sectionKey: 'decisions_content',
         label: 'Decisions Section',
-        defaultContent: `<p class="mb-6 font-medium">Only complete applications are evaluated based on programme-specific criteria. Decision results are published within less than a week of submitting your application.</p>
-<div class="bg-gray-50 text-black p-8 rounded-3xl shadow-lg"><div class="font-bold text-lg mb-1">Waiting List Procedure</div><div class="text-sm">Places on the waiting list may be offered until 26 June 2026. Keep an eye on your email.</div></div>`,
+        defaultContent: `<div class="space-y-4">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Only complete applications are evaluated based on programme-specific academic criteria. Decision results are published within less than a week of submitting your application:</p>
+    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <li><strong class="text-slate-900 font-bold">Direct Offers:</strong> Sent electronically to your registered email and student portal account.</li>
+        <li><strong class="text-slate-900 font-bold">Waiting List Procedure:</strong> Places on the waiting list may be offered until 26 June 2026. Keep an eye on your email for updates.</li>
+    </ul>
+</div>`,
     },
     {
         pageSlug: 'admissions/master',
         sectionKey: 'after_content',
         label: 'After Admission Section',
-        defaultContent: `<div class="bg-gradient-to-br from-gray-50 to-gray-100 p-12 rounded-3xl text-black shadow-sm">
-    <ul class="space-y-6 font-bold text-lg mb-8">
-        <li>Accept the offer by the stated deadline.</li>
-        <li>Submit certified documents by the required deadline.</li>
-        <li>Pay tuition fees if applicable.</li>
-        <li>Complete enrolment and orientation.</li>
+        defaultContent: `<div class="space-y-4">
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Once you receive your Letter of Acceptance, complete the following onboarding steps to secure your study place:</p>
+    <ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
+        <li>Accept your offer in the student portal before the stated deadline.</li>
+        <li>Submit certified degree documents and final transcripts.</li>
+        <li>Pay tuition fees and obtain your Provincial Attestation Letter (PAL).</li>
+        <li>Apply for your Canadian Study Permit and arrange accommodation in Ottawa.</li>
+        <li>Complete online orientation and semester course registration.</li>
     </ul>
-    <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-sm">
-        <h4 class="font-bold mb-2">International Students</h4>
-        <p class="text-sm leading-relaxed mb-6">moving to Ottawa, Ontario, Canada requires planning. Read our comprehensive guide on study permits, housing, and arrival.</p>
-        <a href="/student-guide/international" class="inline-flex items-center gap-2 font-bold uppercase tracking-wider text-sm">Open International Student Guide →</a>
+    <div class="pt-2">
+        <a href="/student-guide/international" class="inline-flex items-center gap-2 text-sm font-bold text-slate-900 underline hover:text-[#002f6c] transition-colors">Open International Student Guide &rarr;</a>
     </div>
 </div>`,
     },
