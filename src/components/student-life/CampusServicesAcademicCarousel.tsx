@@ -8,7 +8,6 @@ interface ServiceCard {
     id: string;
     title: string;
     description: string;
-    href: string;
     image: string;
     bgColor: string;
     borderColor: string;
@@ -20,7 +19,6 @@ const SERVICE_CARDS: ServiceCard[] = [
         id: 'dining-cafe',
         title: 'CAMPUS DINING & CAFÉ',
         description: 'Fresh artisan coffee, hot breakfast, daily chef specials, and halal/vegan options.',
-        href: '/student-life/cafe',
         image: 'https://i.pinimg.com/736x/ab/0d/b6/ab0db67e99c875d113eebed78e4a1542.jpg',
         bgColor: 'bg-[#f57c00]', // Vibrant warm orange
         borderColor: 'border-[#f57c00]',
@@ -30,7 +28,6 @@ const SERVICE_CARDS: ServiceCard[] = [
         id: 'bookstore-supplies',
         title: 'BOOKSTORE & TECH SUPPLIES',
         description: 'Course textbooks, design supplies, digital electronics, and official Cannoga gear.',
-        href: '#',
         image: 'https://i.pinimg.com/736x/12/5c/15/125c15265f92b5d4dd27c1bf051fc3ec.jpg',
         bgColor: 'bg-[#0088dd]', // Vibrant electric blue
         borderColor: 'border-[#0088dd]',
@@ -40,7 +37,6 @@ const SERVICE_CARDS: ServiceCard[] = [
         id: 'health-medical',
         title: 'HEALTH & MEDICAL DESK',
         description: 'On-site nursing support, health insurance advising, and confidential wellness counseling.',
-        href: '/student-guide#support',
         image: 'https://i.pinimg.com/736x/d3/b9/8e/d3b98e89679e5ca4c34400245499245b.jpg',
         bgColor: 'bg-[#4da674]', // Vibrant green
         borderColor: 'border-[#4da674]',
@@ -50,7 +46,6 @@ const SERVICE_CARDS: ServiceCard[] = [
         id: 'career-hub',
         title: 'CAREER ADVISORY HUB',
         description: 'Internship placement, resume reviews, employer networking, and co-op interview workshops.',
-        href: '/careers',
         image: 'https://i.pinimg.com/736x/5b/f5/61/5bf561efb493ac87e969265065ee8004.jpg',
         bgColor: 'bg-[#8e24aa]', // Vibrant purple
         borderColor: 'border-[#8e24aa]',
