@@ -100,24 +100,24 @@ export default async function NewsPage() {
                         <div className="flex flex-col gap-4">
                             {allRecent.map((item: any) => {
                                 const href = item.type === 'event' ? `/news/events/${item.slug}` : `/news/${item.slug}`;
+                                const rawDate = item.publishDate || item.date || '';
+                                const cleanDate = rawDate.includes('T') ? rawDate.split('T')[0] : rawDate.split(' ')[0];
+
                                 return (
-                                    <div key={item.id || item.slug} className="flex items-start gap-4">
-                                        <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
-                                            <Newspaper size={16} weight="bold" />
+                                    <div key={item.id || item.slug} className="space-y-1 w-full border-b border-slate-100 pb-3">
+                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                            <Link href={href} className="text-slate-900 font-bold text-lg leading-snug hover:text-[#c89211] transition-colors no-underline">
+                                                {item.title}
+                                            </Link>
+                                            <span className="text-xs font-bold uppercase tracking-wider text-[#c89211] shrink-0">
+                                                {item.type === 'event' ? 'Event' : 'News'}
+                                            </span>
                                         </div>
-                                        <div className="space-y-1 w-full border-b border-slate-100 pb-3">
-                                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                                                <Link href={href} className="text-slate-900 font-bold text-lg leading-snug hover:text-[#c89211] transition-colors no-underline">
-                                                    {item.title}
-                                                </Link>
-                                                <span className="text-xs font-bold uppercase tracking-wider text-[#c89211] shrink-0">
-                                                    {item.type === 'event' ? 'Event' : 'News'}
-                                                </span>
-                                            </div>
+                                        {cleanDate && (
                                             <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                                                Published: {item.publishDate || item.date}
+                                                Published: {cleanDate}
                                             </p>
-                                        </div>
+                                        )}
                                     </div>
                                 );
                             })}
