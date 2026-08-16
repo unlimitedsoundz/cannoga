@@ -36,9 +36,6 @@ export default function StudentLifeContent() {
             <section className="py-16 md:py-20 bg-white">
                 <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
                     <div className="mb-10 max-w-2xl text-left">
-                        <span className="text-xs font-black uppercase tracking-widest text-[#c89211] mb-2 block">
-                            Campus Experience
-                        </span>
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#0f2027] tracking-tight">
                             Explore Student Life
                         </h2>
