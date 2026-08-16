@@ -22,7 +22,7 @@ const LEARNING_SPACE_CARDS: LearningSpaceCard[] = [
         title: 'LABS & WORKSHOPS',
         description: 'High-performance computing clusters, robotics testbeds, electronics benches, and rapid prototyping kits.',
         href: '/schools/technology',
-        image: '/images/technology.jpg',
+        image: 'https://i.pinimg.com/736x/cd/f7/c1/cdf7c142057a51bf96a072f725d460ea.jpg',
         bgColor: 'bg-[#0088dd]', // Electric Blue
         borderColor: 'border-[#0088dd]',
         waveColor: '#004c80',
