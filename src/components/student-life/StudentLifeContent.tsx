@@ -54,28 +54,12 @@ export default function StudentLifeContent() {
                 <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl">
                     <div className="grid lg:grid-cols-12 gap-12 items-center">
                         <div className="lg:col-span-6 space-y-6">
-                            <span className="text-xs font-black uppercase tracking-widest text-slate-500 block">
-                                Ottawa Campus Setting
-                            </span>
                             <h2 className="text-3xl md:text-4xl font-black text-[#0f2027] tracking-tight leading-tight font-serif">
                                 An Urban Academic District in Canada’s Capital
                             </h2>
                             <p className="text-base md:text-lg text-slate-700 leading-relaxed font-medium">
                                 Cannoga College forms a compact, accessible academic district in Ottawa where teaching facilities, student lounges, research labs, and transit routes are seamlessly integrated.
                             </p>
-                            <div className="grid sm:grid-cols-2 gap-4 pt-2">
-                                {[
-                                    { t: "Fast Transit", d: "Under 20 minutes to downtown Ottawa" },
-                                    { t: "Bike Infrastructure", d: "Protected campus cycling lanes & racks" },
-                                    { t: "Green Spaces", d: "Surrounded by natural parklands" },
-                                    { t: "Global Network", d: "Students from over 60+ countries" }
-                                ].map((item, idx) => (
-                                    <div key={idx} className="p-4 bg-white border border-slate-200 rounded-md">
-                                        <h4 className="font-bold text-black text-sm mb-0.5">{item.t}</h4>
-                                        <p className="text-xs text-slate-600 font-medium">{item.d}</p>
-                                    </div>
-                                ))}
-                            </div>
                         </div>
 
                         <div className="lg:col-span-6 relative aspect-square sm:aspect-[4/3] rounded-xl overflow-hidden border border-slate-200">
