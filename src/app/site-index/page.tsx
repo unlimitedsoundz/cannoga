@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Link } from "@aalto-dx/react-components";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
@@ -12,75 +12,80 @@ export const metadata: Metadata = {
 
 const schoolsAndDepartments = [
     {
-        name: 'School of Arts, Design & Architecture',
-        href: '/schools/arts',
+        name: 'School of Arts, Design and Architecture',
+        href: '/schools/arts/',
         departments: [
-            { name: 'Department of Art & Media', href: '/schools/arts/art-media' },
-            { name: 'Department of Design', href: '/schools/arts/design' },
-            { name: 'Department of Architecture', href: '/schools/arts/architecture' },
-            { name: 'Department of Film & Television', href: '/schools/arts/film-tv' },
+            { name: 'Department of Art and Media', href: '/schools/arts/art-media/' },
+            { name: 'Department of Design', href: '/schools/arts/design/' },
+            { name: 'Department of Architecture', href: '/schools/arts/architecture/' },
+            { name: 'Department of Film, Television and Scenography', href: '/schools/arts/film-tv/' },
+            { name: 'Department of Media & Creative Arts', href: '/schools/arts/media-creative-arts-dept/' },
         ],
     },
     {
-        name: 'School of Business & Management',
-        href: '/schools/business',
+        name: 'School of Business',
+        href: '/schools/business/',
         departments: [
-            { name: 'Department of Accounting & Business Law', href: '/schools/business/accounting-business-law' },
-            { name: 'Department of Finance & Management', href: '/schools/business/finance' },
-            { name: 'Department of Marketing & Logistics', href: '/schools/business/marketing' },
-            { name: 'Department of Economics & Global Business', href: '/schools/business/economics' },
+            { name: 'Department of Accounting & Business Law', href: '/schools/business/accounting-business-law/' },
+            { name: 'Department of Finance', href: '/schools/business/finance/' },
+            { name: 'Department of Marketing', href: '/schools/business/marketing/' },
+            { name: 'Department of Economics', href: '/schools/business/economics/' },
+            { name: 'Department of Business & Management', href: '/schools/business/business-management-dept/' },
+            { name: 'Department of Industrial Engineering & Management', href: '/schools/business/entrepreneurship-digital/' },
+            { name: 'Department of Information & Service Management', href: '/schools/business/info-service/' },
+            { name: 'Department of Management Studies', href: '/schools/business/management/' },
         ],
     },
     {
-        name: 'School of Technology & Engineering',
-        href: '/schools/technology',
+        name: 'School of Technology',
+        href: '/schools/technology/',
         departments: [
-            { name: 'Department of Computer Science & Software', href: '/schools/technology/computer-science-digital' },
-            { name: 'Department of Electrical & Mechanical Engineering', href: '/schools/technology/electrical-electronics' },
-            { name: 'Department of Information Technology', href: '/schools/technology/it' },
-            { name: 'Department of Civil & Environmental Engineering', href: '/schools/technology/civil-engineering' },
+            { name: 'Department of Civil & Environmental Engineering', href: '/schools/technology/civil-environmental/' },
+            { name: 'Department of Electrical Engineering & Automation', href: '/schools/technology/automation-control/' },
+            { name: 'Department of Energy & Mechanical Engineering', href: '/schools/technology/energy-mechanical/' },
+            { name: 'Department of Engineering & Skilled Trades', href: '/schools/technology/engineering-skilled-trades-dept/' },
+            { name: 'Department of Information Technology', href: '/schools/technology/information-technology-dept/' },
         ],
     },
     {
-        name: 'School of Science & Life Sciences',
-        href: '/schools/science',
+        name: 'School of Science',
+        href: '/schools/science/',
         departments: [
-            { name: 'Department of Applied Physics & Mathematics', href: '/schools/science/physics-math' },
-            { name: 'Department of Chemistry & Materials Science', href: '/schools/science/chemistry-materials' },
-            { name: 'Department of Biological & Environmental Sciences', href: '/schools/science/biology-environment' },
+            { name: 'Department of Applied Physics & Mathematics', href: '/schools/science/physics-math/' },
+            { name: 'Department of Chemical & Metallurgical Engineering', href: '/schools/science/chemical-materials/' },
+            { name: 'Department of Computer Science', href: '/schools/science/computer-science-digital/' },
+            { name: 'Department of Environment & Agriculture', href: '/schools/science/environment-agriculture-dept/' },
         ],
     },
     {
-        name: 'School of Health & Community Services',
-        href: '/schools/health-community',
+        name: 'School of Health and Community Services',
+        href: '/schools/health-community/',
         departments: [
-            { name: 'Department of Nursing & Healthcare Support', href: '/schools/health-community/nursing' },
-            { name: 'Department of Community & Social Services', href: '/schools/health-community/community-support' },
+            { name: 'Department of Health & Community Services', href: '/schools/health-community/health-community-dept/' },
+            { name: 'Department of Nursing and Health Sciences', href: '/schools/health-community/nursing-health-sciences/' },
+            { name: 'Department of Kinesiology & Human Movement', href: '/schools/health-community/kinesiology-human-movement/' },
         ],
     },
     {
-        name: 'School of Education & Social Sciences',
-        href: '/schools/education-social-sciences',
+        name: 'School of Education and Social Sciences',
+        href: '/schools/education-social-sciences/',
         departments: [
-            { name: 'Department of Early Childhood Education', href: '/schools/education-social-sciences/ece' },
-            { name: 'Department of Child & Youth Care', href: '/schools/education-social-sciences/cyc' },
-            { name: 'Department of Community Justice & Law', href: '/schools/education-social-sciences/community-justice' },
+            { name: 'Department of Education & Social Sciences', href: '/schools/education-social-sciences/education-social-sciences-dept/' },
+            { name: 'Department of Psychology & Social Work', href: '/schools/education-social-sciences/psychology-social-work/' },
         ],
     },
     {
-        name: 'School of Hospitality & Tourism',
-        href: '/schools/hospitality-tourism',
+        name: 'School of Hospitality and Tourism',
+        href: '/schools/hospitality-tourism/',
         departments: [
-            { name: 'Department of Culinary Arts & Baking', href: '/schools/hospitality-tourism/culinary' },
-            { name: 'Department of Hotel & Tourism Management', href: '/schools/hospitality-tourism/hotel-tourism' },
+            { name: 'Department of Hospitality & Tourism', href: '/schools/hospitality-tourism/hospitality-tourism-dept/' },
         ],
     },
     {
-        name: 'School of Transportation & Aviation',
-        href: '/schools/transportation-aviation',
+        name: 'School of Transportation and Aviation',
+        href: '/schools/transportation-aviation/',
         departments: [
-            { name: 'Department of Aviation Management', href: '/schools/transportation-aviation/aviation' },
-            { name: 'Department of Logistics & Automotive Technologies', href: '/schools/transportation-aviation/logistics-automotive' },
+            { name: 'Department of Transportation & Aviation', href: '/schools/transportation-aviation/transportation-aviation-dept/' },
         ],
     },
 ];

@@ -21,20 +21,30 @@ interface Props {
 
 export async function generateMetadata({ params }: Props) {
     const resolvedParams = await params;
-    const { dept_slug } = resolvedParams;
+    const { slug, dept_slug } = resolvedParams;
     const supabase = createStaticClient();
 
     const { data: dept } = await supabase
         .from('Department')
         .select('name, description, school:School(name)')
         .eq('slug', dept_slug)
-        .single();
+        .maybeSingle();
+
+    function formatSlugToTitle(slugStr: string): string {
+        return slugStr
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    }
+
+    const schoolTitle = (Array.isArray(dept?.school) ? dept.school[0] : dept?.school)?.name || formatSlugToTitle(slug);
+    const deptTitle = dept?.name || formatSlugToTitle(dept_slug);
 
     return {
-        title: dept ? `${dept.name} ${(Array.isArray(dept.school) ? dept.school[0] : dept.school)?.name || 'School'}` : 'Department',
-        description: dept?.description?.substring(0, 160) || `Learn about the ${dept?.name} at Cannoga College. Research, faculty, and academic programs.`,
+        title: `${deptTitle} — ${schoolTitle}`,
+        description: dept?.description?.substring(0, 160) || `Learn about the ${deptTitle} at Cannoga College. Research, faculty, and academic programs.`,
         alternates: {
-            canonical: `https://cannogacollege.ca/schools/${resolvedParams.slug}/${dept_slug}/`,
+            canonical: `https://cannogacollege.ca/schools/${slug}/${dept_slug}/`,
         },
     };
 }
