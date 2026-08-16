@@ -8,7 +8,7 @@ interface StudentLifeItem {
     id: string;
     title: string;
     description: string;
-    href: string;
+    href?: string;
     bgColor: string;
     borderColor: string;
 }
@@ -34,7 +34,6 @@ const LIFE_CARDS: StudentLifeItem[] = [
         id: 'dining-cafe',
         title: 'DINING & CAFÉ',
         description: 'On-campus dining, artisan coffee bars, dietary accommodations, and student meal plans.',
-        href: '/student-life/cafe',
         bgColor: 'bg-[#f97316]', // Vibrant Orange
         borderColor: 'border-[#f97316]',
     },
@@ -109,14 +108,10 @@ export function StudentLifeExperienceCarousel() {
                 className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none py-2 px-1 scroll-smooth"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-                {LIFE_CARDS.map((card, idx) => (
-                    <div
-                        key={card.id}
-                        className="snap-start shrink-0 w-[290px] sm:w-[360px] md:w-[420px] flex flex-col no-underline"
-                    >
-                        <Link
-                            href={card.href}
-                            className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[240px] sm:min-h-[270px] flex flex-col justify-between group cursor-pointer transition-all duration-300`}
+                {LIFE_CARDS.map((card, idx) => {
+                    const cardContent = (
+                        <div
+                            className={`w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[240px] sm:min-h-[270px] flex flex-col justify-between group ${card.href ? 'cursor-pointer' : 'cursor-default'} transition-all duration-300`}
                         >
                             {/* Card Content Header */}
                             <div className="relative z-20">
@@ -131,16 +126,33 @@ export function StudentLifeExperienceCarousel() {
                                     {card.description}
                                 </p>
 
-                                <div
-                                    className="shrink-0 mb-0.5 animate-arrow-life group-hover:scale-110 transition-transform"
-                                    style={{ animationDelay: `${idx * 0.4}s` }}
-                                >
-                                    <ArrowUpRight size={38} weight="bold" className="text-white" />
-                                </div>
+                                {card.href && (
+                                    <div
+                                        className="shrink-0 mb-0.5 animate-arrow-life group-hover:scale-110 transition-transform"
+                                        style={{ animationDelay: `${idx * 0.4}s` }}
+                                    >
+                                        <ArrowUpRight size={38} weight="bold" className="text-white" />
+                                    </div>
+                                )}
                             </div>
-                        </Link>
-                    </div>
-                ))}
+                        </div>
+                    );
+
+                    return (
+                        <div
+                            key={card.id}
+                            className="snap-start shrink-0 w-[290px] sm:w-[360px] md:w-[420px] flex flex-col no-underline"
+                        >
+                            {card.href ? (
+                                <Link href={card.href} className="block w-full no-underline">
+                                    {cardContent}
+                                </Link>
+                            ) : (
+                                cardContent
+                            )}
+                        </div>
+                    );
+                })}
             </div>
 
             {/* Navigation Controls below the carousel */}
