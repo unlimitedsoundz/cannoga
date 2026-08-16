@@ -29,6 +29,7 @@ const nextConfig = {
             },
         ],
     },
+    trailingSlash: true,
     output: 'standalone',
     serverExternalPackages: [],
     generateBuildId: async () => {
