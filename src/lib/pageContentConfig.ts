@@ -264,19 +264,6 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Study Options Section',
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Cannoga College provides master's education across diverse fields of study, including Art & Design, Business & Economics, Technology & Engineering, Education, Science, Health & Life Sciences, and Transportation & Aviation.</p>
-
-    <div class="space-y-3 pt-2">
-        <h3 class="text-xl font-bold text-slate-900 tracking-tight">Master’s Degrees Granted</h3>
-        <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
-            <li><strong class="text-slate-900 font-bold">Art & Design:</strong> Master of Arts (Art & Design)</li>
-            <li><strong class="text-slate-900 font-bold">Business & Economics:</strong> Master of Science (Economics & Business Administration)</li>
-            <li><strong class="text-slate-900 font-bold">Technology & Engineering:</strong> Master of Science (Technology), Master of Science (Architecture), or Master of Science (Landscape Architecture)</li>
-            <li><strong class="text-slate-900 font-bold">Education & Science:</strong> Master of Arts (Education), Master of Science (Educational Leadership), or Master of Science (Natural & Applied Sciences)</li>
-            <li><strong class="text-slate-900 font-bold">Health & Life Sciences:</strong> Master of Science (Healthcare Management & Public Health)</li>
-            <li><strong class="text-slate-900 font-bold">Transportation & Aviation:</strong> Master of Science (Aviation Management & Transport Logistics)</li>
-        </ul>
-        <p class="text-sm font-semibold text-slate-800 pt-1">You may apply to a maximum of two study options.</p>
-    </div>
 </div>`,
     },
     {
