@@ -6,6 +6,7 @@ import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { Highlight } from '@/components/ui/Highlight';
 import { CheckCircle, Quotes } from "@phosphor-icons/react/dist/ssr";
 import { HousingOptionsHubCarousel } from '@/components/housing/HousingOptionsHubCarousel';
+import { ExploreHousingCarousel } from '@/components/housing/ExploreHousingCarousel';
 
 export const metadata: Metadata = {
     title: 'Student Housing & Residences — Cannoga College Ottawa',
@@ -79,30 +80,14 @@ export default function HousingPage() {
                         </div>
                     </section>
 
-                    {/* HOUSING OPTIONS */}
-                    <section id="options" className="scroll-mt-32 space-y-4">
+                    {/* HOUSING OPTIONS (Carousel Style) */}
+                    <section id="options" className="scroll-mt-32 space-y-6">
                         <div>
-                            <h2 className="text-aalto-5 font-bold text-black tracking-tight mb-1">Explore Housing Options</h2>
-                            <p className="text-sm text-neutral-500 font-medium">Find the living environment that matches your study lifestyle and budget.</p>
+                            <h2 className="text-2xl sm:text-3xl font-extrabold text-black tracking-tight mb-2">Explore Housing Options</h2>
+                            <p className="text-sm text-neutral-600 font-medium">Find the living environment that matches your study lifestyle and budget.</p>
                         </div>
 
-                        <div className="grid md:grid-cols-3 gap-4">
-                            <div>
-                                <h3 className="font-bold text-base text-black mb-1">On-Campus Residence</h3>
-                                <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Furnished private bedrooms with shared modern kitchens, high-speed Wi-Fi, study lounges, and social common rooms. Located steps from lecture halls and student services.</p>
-                                <Link href="#application" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">View Residence Suites →</Link>
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-base text-black mb-1">Canadian Homestay Program</h3>
-                                <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Immerse yourself in Canadian culture by living with a welcoming local Ottawa family. Includes a private furnished bedroom, utility bills, and home-cooked meal plans.</p>
-                                <Link href="#application" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Explore Homestay →</Link>
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-base text-black mb-1">Off-Campus Private Rentals</h3>
-                                <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium mb-2">Prefer independent living? Discover trusted rental partners and verified apartment listings in Sandy Hill, Centretown, Byward Market, and Glebe.</p>
-                                <Link href="#tenant-rights" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Search Private Rentals →</Link>
-                            </div>
-                        </div>
+                        <ExploreHousingCarousel />
                     </section>
 
                     {/* FEATURED STUDENT QUOTE (President Quote Style - No Background Container) */}
