@@ -445,10 +445,10 @@ html, body {
   overflow-x: hidden;
 }
 
-body, input, textarea, select, button {
-  font-family: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, sans-serif !important;
+body {
+  font-family: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, sans-serif;
   background: var(--color-background);
-  color: #000000 !important;
+  color: #000000;
   -webkit-font-smoothing: antialiased;
 }
 
