@@ -1,4 +1,3 @@
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { Hero } from '@/components/layout/Hero';
@@ -101,8 +100,8 @@ export default function ExchangeStudentsPage() {
                                     "Welcome Gala & Peer Social Events",
                                     "Meet Your Faculty & Student Buddies"
                                 ].map(item => (
-                                    <div key={item} className="flex items-center gap-2">
-                                        <ArrowRight size={16} className="text-[#0a151a] shrink-0" />
+                                    <div key={item} className="flex items-center gap-2.5">
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full shrink-0" />
                                         <span className="text-xs md:text-sm font-bold text-black">{item}</span>
                                     </div>
                                 ))}
@@ -215,8 +214,8 @@ export default function ExchangeStudentsPage() {
                                     'Comprehensive Health & Travel Insurance Policy',
                                     'Confirmed Ottawa Housing Lease / Residence Receipt'
                                 ].map((item, i) => (
-                                    <li key={i} className="flex gap-2 items-center text-black font-medium text-xs md:text-sm">
-                                        <ArrowRight size={16} className="text-[#0a151a] shrink-0" />
+                                    <li key={i} className="flex gap-2.5 items-center text-black font-medium text-xs md:text-sm">
+                                        <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full shrink-0" />
                                         <span>{item}</span>
                                     </li>
                                 ))}
