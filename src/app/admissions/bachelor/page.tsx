@@ -123,13 +123,13 @@ export default function BachelorAdmissionsPage() {
                 </div>
             </div>
 
-            {/* QUOTE BANNER - Styled after Welcome from President Quote */}
-            <div className="w-full bg-[#f8fafc] border-y border-slate-200 py-12 md:py-16 my-8">
+            {/* QUOTE SECTION - Clean Seamless Typography */}
+            <div className="py-8 md:py-12 my-6">
                 <div className="cc-container max-w-4xl mx-auto">
                     <div className="relative">
                         {/* Blue quote icon */}
                         <Quotes
-                            size={52}
+                            size={44}
                             weight="fill"
                             className="text-blue-500 mb-3"
                         />
