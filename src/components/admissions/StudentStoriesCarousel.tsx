@@ -36,7 +36,7 @@ const peers: Peer[] = [
     {
         id: 4,
         name: "Collins Huang",
-        firstName: "COLLINS",
+        firstName: "HUANG",
         country: "TAIWAN",
         flag: "🇹🇼",
         programme: "Bachelor's in International Business",
