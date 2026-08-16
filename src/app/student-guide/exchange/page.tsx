@@ -1,4 +1,4 @@
-﻿import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { Hero } from '@/components/layout/Hero';
@@ -54,19 +54,19 @@ export default function ExchangeStudentsPage() {
                         <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Welcome to Cannoga College!</h2>
                         <div className="space-y-4 text-left">
                             {/* Welcome Intro & Image Spotlight */}
-                            <div className="grid md:grid-cols-3 gap-4 items-center">
-                                <div className="md:col-span-2 space-y-1">
-                                    <h4 className="font-bold text-base text-black">Exchange Student Community</h4>
-                                    <p className="text-sm text-neutral-700 leading-relaxed font-medium">
+                            <div className="grid md:grid-cols-5 gap-6 items-center">
+                                <div className="md:col-span-3 space-y-2">
+                                    <h4 className="font-bold text-base md:text-lg text-black">Exchange Student Community</h4>
+                                    <p className="text-sm md:text-base text-neutral-700 leading-relaxed font-medium">
                                         Completing an exchange semester or year at Cannoga College in Ottawa, Canada provides a unique opportunity to immerse yourself in high-caliber Canadian higher education, dynamic campus life, and rich cultural experiences.
                                     </p>
                                 </div>
-                                <div className="relative h-36 rounded-xl overflow-hidden w-full">
+                                <div className="md:col-span-2 relative h-56 md:h-64 rounded-2xl overflow-hidden w-full shadow-md">
                                     <Image
                                         src="https://i.pinimg.com/736x/2b/5c/ca/2b5cca9c1d9d3bc9a2e2123a53e26897.jpg"
                                         alt="Cannoga Exchange Students"
                                         fill
-                                        className="object-cover"
+                                        className="object-cover hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>
                             </div>
