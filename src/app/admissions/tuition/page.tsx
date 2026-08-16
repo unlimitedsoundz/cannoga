@@ -230,53 +230,49 @@ export default async function TuitionPaymentPage() {
                             <div className="space-y-6">
                                 <DbPageContent pageSlug={pageSlug} sectionKey="merit_scholarship_content" fallbackContent={getSectionDefault('merit_scholarship_content')} />
                                 
-                                {/* OSAP / ONTARIO STUDENT FINANCIAL AID CARD */}
-                                <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
-                                    <div className="flex items-center gap-4 pb-6 border-b border-slate-200">
+                                {/* OSAP / ONTARIO STUDENT FINANCIAL AID (Clean Layout - No Containers) */}
+                                <div className="space-y-4 pt-2">
+                                    <div className="flex items-center gap-3.5 pb-3">
                                         {/* OSAP Emblem / Logo */}
-                                        <div className="w-14 h-14 rounded-lg bg-[#002f6c] text-white flex flex-col items-center justify-center font-black tracking-tight shadow-sm shrink-0 border border-[#00204d]">
-                                            <span className="text-xs uppercase tracking-widest text-[#f5a623] leading-none mb-0.5">Ontario</span>
-                                            <span className="text-base font-black tracking-tighter leading-none">OSAP</span>
+                                        <div className="w-12 h-12 rounded-lg bg-[#002f6c] text-white flex flex-col items-center justify-center font-black tracking-tight shrink-0">
+                                            <span className="text-[10px] uppercase tracking-widest text-[#f5a623] leading-none mb-0.5">Ontario</span>
+                                            <span className="text-sm font-black tracking-tighter leading-none">OSAP</span>
+                                        </div>
+                                        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                                            Ontario Student Assistance Program (OSAP)
+                                        </h3>
+                                    </div>
+
+                                    <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                                        For Canadian citizens, Permanent Residents (PR), and protected persons residing in Ontario, get help with the cost of your Cannoga College post-secondary education through provincial and federal student loans, non-repayable grants, and bursaries.
+                                    </p>
+                                    <p className="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                                        The <strong className="text-slate-900 font-bold">Ontario Student Assistance Program (OSAP)</strong> and the National Student Loans Service Centre (NSLSC) offer flexible programs to calculate aid funding, cover educational living expenses, and assist with income-tailored loan repayment plans after graduation.
+                                    </p>
+
+                                    <div className="grid sm:grid-cols-3 gap-6 pt-2">
+                                        <div>
+                                            <p className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-1">Non-Repayable Grants</p>
+                                            <p className="text-xs text-slate-600 font-normal leading-relaxed">Direct government funding that you do not need to pay back.</p>
                                         </div>
                                         <div>
-                                            <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                                                Ontario Student Assistance Program (OSAP)
-                                            </h3>
+                                            <p className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-1">Student Loans</p>
+                                            <p className="text-xs text-slate-600 font-normal leading-relaxed">Interest-free funding throughout your full-time period of study.</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-1">Repayment Assistance</p>
+                                            <p className="text-xs text-slate-600 font-normal leading-relaxed">Repayment Assistance Plan (RAP) based on income after graduation.</p>
                                         </div>
                                     </div>
 
-                                    <div className="pt-6 space-y-4 text-slate-700">
-                                        <p className="text-sm sm:text-base font-medium leading-relaxed">
-                                            For Canadian citizens, Permanent Residents (PR), and protected persons residing in Ontario, get help with the cost of your Cannoga College post-secondary education through provincial and federal student loans, non-repayable grants, and bursaries.
-                                        </p>
-                                        <p className="text-sm sm:text-base font-medium leading-relaxed">
-                                            The <strong className="text-slate-900 font-bold">Ontario Student Assistance Program (OSAP)</strong> and the National Student Loans Service Centre (NSLSC) offer flexible programs to calculate aid funding, cover educational living expenses, and assist with income-tailored loan repayment plans after graduation.
-                                        </p>
-
-                                        <div className="grid sm:grid-cols-3 gap-3 pt-2">
-                                            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-md">
-                                                <p className="text-[11px] font-black uppercase tracking-wider text-[#002f6c] mb-1">Non-Repayable Grants</p>
-                                                <p className="text-xs text-slate-600 font-medium leading-normal">Direct government funding that you do not need to pay back.</p>
-                                            </div>
-                                            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-md">
-                                                <p className="text-[11px] font-black uppercase tracking-wider text-[#002f6c] mb-1">Student Loans</p>
-                                                <p className="text-xs text-slate-600 font-medium leading-normal">Interest-free funding throughout your full-time period of study.</p>
-                                            </div>
-                                            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-md">
-                                                <p className="text-[11px] font-black uppercase tracking-wider text-[#002f6c] mb-1">Repayment Assistance</p>
-                                                <p className="text-xs text-slate-600 font-medium leading-normal">Repayment Assistance Plan (RAP) based on income after graduation.</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-bold text-slate-900">
-                                            <Link href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#002f6c]">
-                                                Check OSAP Eligibility Criteria &rarr;
-                                            </Link>
-                                            <span className="text-slate-300">•</span>
-                                            <Link href="https://osap.gov.on.ca/AidEstimator2627Web/enterapp/enter.xhtml" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#002f6c]">
-                                                Estimate OSAP Aid Amount &rarr;
-                                            </Link>
-                                        </div>
+                                    <div className="pt-3 flex flex-wrap items-center gap-4 text-xs font-bold text-slate-900">
+                                        <Link href="https://www.ontario.ca/page/osap-ontario-student-assistance-program" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#002f6c]">
+                                            Check OSAP Eligibility Criteria &rarr;
+                                        </Link>
+                                        <span className="text-slate-300">•</span>
+                                        <Link href="https://osap.gov.on.ca/AidEstimator2627Web/enterapp/enter.xhtml" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#002f6c]">
+                                            Estimate OSAP Aid Amount &rarr;
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
