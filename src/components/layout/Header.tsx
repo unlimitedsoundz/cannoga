@@ -98,6 +98,7 @@ const navigation: NavItem[] = [
         href: "/student-guide/",
         children: [
             { name: "Student Guide", href: "/student-guide/" },
+            { name: "Student Life & Campus", href: "/student-life/" },
             { name: "Student Housing & Accommodations", href: "/housing/" },
             { name: "Academic Calendar", href: "/student-guide/#calendar" },
             { name: "Support Services", href: "/student-guide/#support" },
@@ -111,6 +112,7 @@ const navigation: NavItem[] = [
         href: "/student-guide/international/",
         children: [
             { name: "International Student Guide", href: "/student-guide/international/" },
+            { name: "Student Life", href: "/student-life/" },
             { name: "Student Housing & Accommodations", href: "/housing/" },
             { name: "Arrival Guide", href: "/student-guide/arrival/" },
             { name: "Exchange Guide", href: "/student-guide/exchange/" },
@@ -130,6 +132,7 @@ const navigation: NavItem[] = [
         href: "/about/",
         children: [
             { name: "Our Story", href: "/about/" },
+            { name: "Campus & Student Life", href: "/student-life/" },
             { name: "Welcome from the President", href: "/about/welcome-from-the-president/" },
             { name: "Leadership & Governance", href: "/about/leadership-and-governance/" },
             { name: "News & Events", href: "/news/" },
@@ -167,6 +170,7 @@ export function Header() {
                         <span className="text-white/40">|</span>
                         <Link href="/admissions" className="text-white hover:text-white/80 no-underline transition-colors">Future Students</Link>
                         <Link href="/student-guide" className="text-white hover:text-white/80 no-underline transition-colors">Current Students</Link>
+                        <Link href="/student-life" className="text-white hover:text-white/80 no-underline transition-colors font-semibold">Student Life</Link>
                         <Link href="/about" className="text-white hover:text-white/80 no-underline transition-colors">Faculty &amp; Staff</Link>
                         <Link href="/alumni" className="text-white hover:text-white/80 no-underline transition-colors">Alumni</Link>
                     </div>
