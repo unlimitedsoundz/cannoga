@@ -74,7 +74,7 @@ export default async function NewsPage() {
                 overlay={true}
                 overlayOpacity="opacity-40"
                 image={{
-                    src: "/images/admissions/admissions-hero.png",
+                    src: "/images/home-carousel-3.png",
                     alt: "Cannoga College Newsroom"
                 }}
                 breadcrumbs={[
