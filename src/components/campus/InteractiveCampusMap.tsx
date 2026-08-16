@@ -45,7 +45,7 @@ const LOCATIONS: CampusLocation[] = [
         y: 46,
         description: 'Modern healthcare simulation clinics, practical nursing observation suites, and community support counseling rooms.',
         facilities: ['Clinical Simulation Suite', 'Health Assessment Wards', 'Community Care Lab'],
-        hours: 'Mon – Fri: 8:00 AM – 8:00 PM | Sat: 9:00 AM – 4:00 PM',
+        hours: 'Mon – Fri: 9:00 AM – 4:00 PM | Sat: 9:00 AM – 4:00 PM',
         link: '/schools/health-community/',
         linkText: 'Explore School of Health',
         bgColor: 'bg-[#ec4899]', // Vibrant Hot Pink
@@ -268,18 +268,11 @@ export function InteractiveCampusMap() {
                 </div>
 
                 {/* Right Column: Student Resource Hub Styled Location Card Inspector */}
-                <div className="lg:col-span-4 p-4 sm:p-6 bg-slate-100/70 border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col justify-center">
+                <div className="lg:col-span-4 p-3 sm:p-5 bg-white border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col justify-center">
                     <div
                         className={`w-full p-6 sm:p-7 rounded-md ${activeLocation.bgColor} ${activeLocation.borderColor} border-4 text-white overflow-hidden relative shadow-lg flex flex-col justify-between min-h-[440px]`}
                     >
                         <div>
-                            {/* Card Header */}
-                            <div className="flex items-center justify-between mb-3">
-                                <span className="text-[10px] font-black uppercase tracking-widest text-black bg-white/90 px-2.5 py-0.5 rounded-sm">
-                                    Academic School
-                                </span>
-                            </div>
-
                             <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight leading-[1.08] mb-3">
                                 {activeLocation.title}
                             </h3>
