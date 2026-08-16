@@ -178,11 +178,6 @@ export function RelatedAcademicProgramsCarousel({
                                     sizes="(max-width: 640px) 300px, (max-width: 768px) 380px, 440px"
                                 />
 
-                                {/* Credential badge overlay on top left */}
-                                <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-xs text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-sm z-20">
-                                    {card.degreeLevel} • {card.duration}
-                                </div>
-
                                 {/* Organic Wavy Edge overlay at BOTTOM of image */}
                                 <div
                                     className="absolute bottom-[-24px] left-0 right-0 h-16 sm:h-20 overflow-hidden leading-none z-10 pointer-events-none animate-wave-prog"
