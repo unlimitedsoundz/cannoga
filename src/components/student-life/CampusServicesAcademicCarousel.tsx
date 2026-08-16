@@ -42,7 +42,7 @@ const SERVICE_CARDS: ServiceCard[] = [
         title: 'HEALTH & MEDICAL DESK',
         description: 'On-site nursing support, health insurance advising, and confidential wellness counseling.',
         href: '/student-guide#support',
-        image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop',
+        image: 'https://i.pinimg.com/736x/d3/b9/8e/d3b98e89679e5ca4c34400245499245b.jpg',
         bgColor: 'bg-[#4da674]', // Vibrant green
         borderColor: 'border-[#4da674]',
         waveColor: '#28583c',
