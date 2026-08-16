@@ -36,9 +36,33 @@ const sections = [
 
 
 
-export default function BachelorAdmissionsPage() {
-    const pageSlug = 'admissions-bachelor';
-    const getSectionDefault = (sectionKey: string) => getPageContentSection(pageSlug, sectionKey)?.defaultContent ?? '';
+import { createStaticClient } from '@/lib/supabase/static';
+
+export default async function BachelorAdmissionsPage() {
+    const pageSlug = 'admissions/bachelor';
+    
+    // Server-side fetch DB content
+    let dbContentMap: Record<string, string> = {};
+    try {
+        const supabase = createStaticClient();
+        const { data: dbSections } = await supabase
+            .from('page_content')
+            .select('section_key, content')
+            .in('page_slug', ['admissions/bachelor', 'admissions-bachelor']);
+
+        if (dbSections && dbSections.length > 0) {
+            dbSections.forEach((row: any) => {
+                if (row.section_key && row.content) {
+                    dbContentMap[row.section_key] = row.content;
+                }
+            });
+        }
+    } catch (e) {
+        console.error('Failed to pre-fetch bachelor content from DB:', e);
+    }
+
+    const getContent = (sectionKey: string) => 
+        dbContentMap[sectionKey] || getPageContentSection('admissions/bachelor', sectionKey)?.defaultContent || getPageContentSection('admissions-bachelor', sectionKey)?.defaultContent || '';
 
     return (
         <div className="min-h-screen bg-white">
@@ -49,7 +73,7 @@ export default function BachelorAdmissionsPage() {
                         tagName="span"
                         pageSlug={pageSlug}
                         sectionKey="hero_title"
-                        fallbackContent={getSectionDefault('hero_title')}
+                        fallbackContent={getContent('hero_title')}
                     />
                 }
                 body={
@@ -57,7 +81,7 @@ export default function BachelorAdmissionsPage() {
                         tagName="span"
                         pageSlug={pageSlug}
                         sectionKey="hero_subtitle"
-                        fallbackContent={getSectionDefault('hero_subtitle')}
+                        fallbackContent={getContent('hero_subtitle')}
                     />
                 }
                 backgroundColor="#000000"
@@ -100,7 +124,7 @@ export default function BachelorAdmissionsPage() {
                         <DbPageContent
                             pageSlug={pageSlug}
                             sectionKey="benefits_content"
-                            fallbackContent={getSectionDefault('benefits_content')}
+                            fallbackContent={getContent('benefits_content')}
                             className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
                         />
                     </section>
@@ -113,7 +137,7 @@ export default function BachelorAdmissionsPage() {
                         <DbPageContent
                             pageSlug={pageSlug}
                             sectionKey="progression_content"
-                            fallbackContent={getSectionDefault('progression_content')}
+                            fallbackContent={getContent('progression_content')}
                             className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
                         />
                     </section>
@@ -126,7 +150,7 @@ export default function BachelorAdmissionsPage() {
                         <DbPageContent
                             pageSlug={pageSlug}
                             sectionKey="scholarships_content"
-                            fallbackContent={getSectionDefault('scholarships_content')}
+                            fallbackContent={getContent('scholarships_content')}
                             className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
                         />
                     </section>
@@ -139,7 +163,7 @@ export default function BachelorAdmissionsPage() {
                         <DbPageContent
                             pageSlug={pageSlug}
                             sectionKey="admissions_content"
-                            fallbackContent={getSectionDefault('admissions_content')}
+                            fallbackContent={getContent('admissions_content')}
                             className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
                         />
                     </section>
@@ -161,7 +185,7 @@ export default function BachelorAdmissionsPage() {
                         <DbPageContent
                             pageSlug={pageSlug}
                             sectionKey="events_content"
-                            fallbackContent={getSectionDefault('events_content')}
+                            fallbackContent={getContent('events_content')}
                             className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
                         />
                     </section>
