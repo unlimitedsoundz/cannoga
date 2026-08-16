@@ -476,11 +476,16 @@ body, input, textarea, select, button {
   --font-sans: 'Lato', sans-serif;
 }
 
-/* Input appearance in portal/application areas */
-[data-theme="portal"] input,
-[data-theme="portal"] textarea,
-[data-theme="portal"] select,
-[data-theme="portal"] .form-control {
+/* Input appearance strictly in public applicant portal areas */
+[data-theme="portal"]:not([data-theme="sis-dark"]) input:not(.sis-input),
+[data-theme="portal"]:not([data-theme="sis-dark"]) textarea:not(.sis-input),
+[data-theme="portal"]:not([data-theme="sis-dark"]) select:not(.sis-input),
+.portal-form input,
+.portal-form textarea,
+.portal-form select,
+.application-portal input,
+.application-portal textarea,
+.application-portal select {
   border: 1px solid var(--color-border) !important;
   border-radius: 2px !important;
   padding: 0.5rem 0.75rem !important;
@@ -490,7 +495,9 @@ body, input, textarea, select, button {
 }
 
 /* Ensure selects and textareas match height and appearance */
-[data-theme="portal"] select {
+[data-theme="portal"]:not([data-theme="sis-dark"]) select,
+.portal-form select,
+.application-portal select {
   appearance: none !important;
 }
 
@@ -933,55 +940,38 @@ button.sis-btn:hover,
   stroke: #ffffff !important;
 }
 
-/* Guarantee Pure White Text for All Action, Primary, and Submit Buttons Across Portal, SIS & App */
-button[type="submit"],
+/* Guarantee Pure White Text for specific dark/colored Action and Primary Buttons */
+button[type="submit"]:not(.bg-white):not([class*="text-neutral-900"]):not([class*="text-black"]),
 button[type="button"].bg-sky-500,
 button[type="button"].bg-sky-600,
 button[type="button"].bg-sky-400,
 button.bg-sky-500,
 button.bg-sky-600,
 button.bg-sky-400,
-button.bg-neutral-900,
-button.bg-black,
-button.bg-slate-900,
 button.bg-blue-600,
 button.bg-indigo-600,
-button.bg-\[\#0a151a\],
 .btn-primary,
 .cc-btn-primary,
 .sis-btn,
 button.sis-btn,
-[data-theme="portal"] button[type="submit"],
+[data-theme="portal"] button[type="submit"]:not(.bg-white),
 [data-theme="portal"] button.bg-sky-500,
-[data-theme="sis"] button[type="submit"],
+[data-theme="sis"] button[type="submit"]:not(.bg-white),
 [data-theme="sis"] button.bg-sky-500 {
   color: #ffffff !important;
 }
 
-/* Admission Action Buttons: guaranteed black text on white background */
-[data-theme="sis-dark"] button.admission-action-btn,
-[data-theme="sis-dark"] button.admission-action-btn *,
-button.admission-action-btn,
-button.admission-action-btn * {
-  background-color: #ffffff !important;
-  color: #000000 !important;
+/* Ensure text on white buttons in SIS dark mode is dark neutral #171717 / black */
+[data-theme="sis-dark"] button.bg-white,
+[data-theme="sis-dark"] button.bg-white *,
+[data-theme="sis-dark"] a.bg-white,
+[data-theme="sis-dark"] a.bg-white * {
+  color: #171717 !important;
 }
-[data-theme="sis-dark"] button.admission-action-btn:hover,
-button.admission-action-btn:hover {
-  background-color: #f1f5f9 !important;
-}
-[data-theme="sis-dark"] button.admission-action-reject,
-button.admission-action-reject {
-  background-color: #ffffff !important;
+
+[data-theme="sis-dark"] button.bg-white.text-red-600,
+[data-theme="sis-dark"] button.bg-white.text-red-600 * {
   color: #dc2626 !important;
-}
-[data-theme="sis-dark"] button.admission-action-reject *,
-button.admission-action-reject * {
-  color: #dc2626 !important;
-}
-[data-theme="sis-dark"] button.admission-action-reject:hover,
-button.admission-action-reject:hover {
-  background-color: #fef2f2 !important;
 }
 
 
@@ -1024,11 +1014,16 @@ button.admission-action-reject:hover {
 }
 
 /* Dark theme form controls */
-[data-theme="sis-dark"] input:not([class*="ck"]),
+[data-theme="sis-dark"] input:not([class*="ck"]):not([type="checkbox"]):not([type="radio"]),
 [data-theme="sis-dark"] textarea:not([class*="ck"]),
 [data-theme="sis-dark"] select {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: #16262e !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="sis-dark"] select option {
+  background-color: #0a151a !important;
   color: #ffffff !important;
 }
 
