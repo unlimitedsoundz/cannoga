@@ -342,33 +342,142 @@ export default function AdmissionApplicationPage() {
           <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Personal Information</h3>
              <dl className="grid grid-cols-2 gap-4 text-sm">
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Full Name</dt><dd className="font-medium text-white mt-1">{personalInfo?.firstName || user?.first_name} {personalInfo?.lastName || user?.last_name}</dd></div>
+               <div>
+                 <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Full Name</dt>
+                 <dd className="font-medium text-white mt-1">
+                   {[personalInfo?.firstName || user?.first_name, personalInfo?.middleName, personalInfo?.lastName || user?.last_name].filter(Boolean).join(' ') || '—'}
+                 </dd>
+               </div>
                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Passport Number</dt><dd className="font-medium text-white mt-1">{personalInfo?.passportNumber || user?.passport_number || '—'}</dd></div>
                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Nationality</dt><dd className="font-medium text-white mt-1">{personalInfo?.nationality || user?.citizenship || '—'}</dd></div>
                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Date of Birth</dt><dd className="font-medium text-white mt-1">{personalInfo?.dateOfBirth || user?.date_of_birth || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Gender</dt><dd className="font-medium text-white mt-1">{personalInfo?.gender || user?.gender || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Gender</dt><dd className="font-medium text-white mt-1 capitalize">{personalInfo?.gender || user?.gender || '—'}</dd></div>
                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student Type</dt><dd className="font-medium text-white mt-1 capitalize">{personalInfo?.studentType || '—'}</dd></div>
              </dl>
           </div>
 
-          {/* Contact Details */}
+          {/* Contact Details & Permanent Address */}
           <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Contact Details</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Contact & Permanent Address</h3>
              <dl className="grid grid-cols-2 gap-4 text-sm">
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Email</dt><dd className="font-medium text-white mt-1">{contactDetails?.email || user?.email || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Phone</dt><dd className="font-medium text-white mt-1">{contactDetails?.phoneCode && contactDetails?.phone ? `${contactDetails.phoneCode} ${contactDetails.phone}` : contactDetails?.phone || (user?.phone_code && user?.phone_number ? `${user.phone_code} ${user.phone_number}` : user?.phone_number || '—')}</dd></div>
-               <div className="col-span-2"><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Address</dt><dd className="font-medium text-white mt-1">{[contactDetails?.addressLine1, contactDetails?.city, contactDetails?.country, user?.address, user?.city, user?.state_province, user?.zipcode].filter(Boolean).join(', ') || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Email Address</dt><dd className="font-medium text-white mt-1">{contactDetails?.email || user?.email || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Phone Number</dt><dd className="font-medium text-white mt-1">{contactDetails?.phoneCode && contactDetails?.phone ? `${contactDetails.phoneCode} ${contactDetails.phone}` : contactDetails?.phone || (user?.phone_code && user?.phone_number ? `${user.phone_code} ${user.phone_number}` : user?.phone_number || '—')}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Street Address</dt><dd className="font-medium text-white mt-1">{[contactDetails?.addressLine1, contactDetails?.addressLine2, user?.address].filter(Boolean).join(', ') || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">City</dt><dd className="font-medium text-white mt-1">{contactDetails?.city || user?.city || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">State / Province</dt><dd className="font-medium text-white mt-1">{user?.state_province || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Zip / Postal Code</dt><dd className="font-medium text-white mt-1">{contactDetails?.postalCode || user?.zipcode || '—'}</dd></div>
+               <div className="col-span-2"><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Country</dt><dd className="font-medium text-white mt-1">{contactDetails?.country || user?.country_of_residence || user?.citizenship || '—'}</dd></div>
              </dl>
+          </div>
+
+          {/* Local / Canadian Address */}
+          <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Local / Canadian Address</h3>
+            <dl className="grid grid-cols-2 gap-4 text-sm">
+              <div className="col-span-2">
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Local Street Address</dt>
+                <dd className="font-medium text-white mt-1">{user?.local_address || 'Same as permanent address'}</dd>
+              </div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">City</dt><dd className="font-medium text-white mt-1">{user?.local_city || user?.city || '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Province / State</dt><dd className="font-medium text-white mt-1">{user?.local_state_province || user?.state_province || '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Postal / Zip Code</dt><dd className="font-medium text-white mt-1">{user?.local_zipcode || user?.zipcode || '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Country</dt><dd className="font-medium text-white mt-1">{user?.local_country || user?.country_of_residence || 'Canada'}</dd></div>
+            </dl>
+          </div>
+
+          {/* Guardian / Emergency Contact */}
+          <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Guardian / Emergency Contact Information</h3>
+            <dl className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Age Verification</dt>
+                <dd className="font-medium text-white mt-1">
+                  {user?.is_19_or_older === 'yes' || user?.is_19_or_older === '19_or_older' ? '19 Years Old or Older (Emergency Contact)' : user?.is_19_or_older === 'no' || user?.is_19_or_older === 'under_19' ? 'Under 19 Years Old (Parent / Guardian)' : user?.is_19_or_older || '19 Years Old or Older'}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Contact Full Name</dt>
+                <dd className="font-medium text-white mt-1">
+                  {[user?.contact_first_name, user?.contact_last_name].filter(Boolean).join(' ') || '—'}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Contact Phone</dt>
+                <dd className="font-medium text-white mt-1">{user?.contact_phone || '—'}</dd>
+              </div>
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Contact Email</dt>
+                <dd className="font-medium text-white mt-1">{user?.contact_email || '—'}</dd>
+              </div>
+            </dl>
+          </div>
+
+          {/* Additional Registration Information */}
+          <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Additional Registration Information</h3>
+            <dl className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Siblings at Cannoga College?</dt>
+                <dd className="font-medium text-white mt-1 capitalize">{user?.has_siblings_at_college || 'No'}</dd>
+              </div>
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Who is completing this form?</dt>
+                <dd className="font-medium text-white mt-1 capitalize">{user?.completing_form_person || 'Applicant (Myself)'}</dd>
+              </div>
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Housing Requirements</dt>
+                <dd className="font-medium text-white mt-1 capitalize">{user?.housing_required || 'Not required'}</dd>
+              </div>
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">How did you hear about us?</dt>
+                <dd className="font-medium text-white mt-1">{user?.how_did_you_hear || motivation?.howDidYouHear || '—'}</dd>
+              </div>
+              {(user?.questions_comments || (application as any)?.questions_comments) && (
+                <div className="col-span-2">
+                  <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Questions or Additional Notes</dt>
+                  <dd className="p-3 bg-white/5 border border-white/10 rounded-xl text-slate-200 mt-1 whitespace-pre-wrap">
+                    {user?.questions_comments || (application as any)?.questions_comments}
+                  </dd>
+                </div>
+              )}
+            </dl>
           </div>
 
           {/* Academic History */}
           <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Academic History</h3>
-            {educationHistory ? (
+            {Array.isArray(educationHistory?.education) && educationHistory.education.length > 0 ? (
+              <div className="space-y-4">
+                {educationHistory.education.map((edu: any, index: number) => (
+                  <div key={index} className="p-4 bg-white/5 border border-white/10 rounded-xl space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-sky-400 uppercase tracking-wider">Qualification #{index + 1}</span>
+                      {edu.startYear && edu.endYear && (
+                        <span className="text-xs text-slate-400 font-mono">{edu.startYear} – {edu.endYear}</span>
+                      )}
+                    </div>
+                    <dl className="grid grid-cols-2 gap-3 text-sm pt-1">
+                      <div className="col-span-2">
+                        <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Institution</dt>
+                        <dd className="font-medium text-white mt-0.5">{edu.institution || '—'}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Degree / Certificate</dt>
+                        <dd className="font-medium text-white mt-0.5">{edu.degree || '—'}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">GPA / Grade</dt>
+                        <dd className="font-medium text-white mt-0.5">{edu.grade || '—'}</dd>
+                      </div>
+                    </dl>
+                  </div>
+                ))}
+              </div>
+            ) : educationHistory?.highSchool || educationHistory?.degree ? (
               <dl className="grid grid-cols-2 gap-4 text-sm">
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">High School</dt><dd className="font-medium text-white mt-1">{educationHistory?.highSchool || '—'}</dd></div>
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Graduation Year</dt><dd className="font-medium text-white mt-1">{educationHistory?.graduationYear || '—'}</dd></div>
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">GPA</dt><dd className="font-medium text-white mt-1">{educationHistory?.gpa || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Institution</dt><dd className="font-medium text-white mt-1">{educationHistory?.highSchool || educationHistory?.institution || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Graduation Year</dt><dd className="font-medium text-white mt-1">{educationHistory?.graduationYear || educationHistory?.endYear || '—'}</dd></div>
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">GPA</dt><dd className="font-medium text-white mt-1">{educationHistory?.gpa || educationHistory?.grade || '—'}</dd></div>
                 <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Degree</dt><dd className="font-medium text-white mt-1">{educationHistory?.degree || '—'}</dd></div>
               </dl>
             ) : (
@@ -376,30 +485,61 @@ export default function AdmissionApplicationPage() {
             )}
           </div>
 
-          {/* Language Proficiency */}
-          {languageProficiency && (
-            <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Language Proficiency</h3>
-              <dl className="grid grid-cols-2 gap-4 text-sm">
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Test Type</dt><dd className="font-medium text-white mt-1">{languageProficiency?.testType || '—'}</dd></div>
-                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</dt><dd className="font-medium text-white mt-1">{languageProficiency?.score || '—'}</dd></div>
-              </dl>
-            </div>
-          )}
+          {/* Motivation & Purpose */}
+          <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Motivation & Purpose</h3>
+            <div className="space-y-4 text-sm">
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Statement of Purpose</dt>
+                <dd className="p-4 bg-white/5 border border-white/10 rounded-xl text-slate-200 leading-relaxed whitespace-pre-wrap">
+                  {motivation?.statementOfPurpose || motivation?.statement || motivation?.essay || 'No statement provided.'}
+                </dd>
+              </div>
 
-          {/* Motivation */}
-          {motivation && motivation?.statement && (
-            <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Motivation Statement</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">{motivation?.statement}</p>
-              {motivation?.extracurriculars && (
-                <div className="mt-4">
-                  <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Extracurriculars</dt>
-                  <dd className="text-sm text-slate-300 mt-1">{motivation?.extracurriculars}</dd>
+              <div className="grid grid-cols-2 gap-4 pt-2">
+                <div>
+                  <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">English Proficiency</dt>
+                  <dd className="font-medium text-white mt-1 capitalize">
+                    {motivation?.languageProficiency?.englishLevel || languageProficiency?.level || '—'}
+                  </dd>
                 </div>
-              )}
+                <div>
+                  <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Language Test Taken</dt>
+                  <dd className="font-medium text-white mt-1">
+                    {motivation?.languageProficiency?.testTaken || languageProficiency?.testType || 'None / Not specified'}
+                    {(motivation?.languageProficiency?.testScore || languageProficiency?.score) && (
+                      <span className="text-sky-400 ml-1">({motivation?.languageProficiency?.testScore || languageProficiency?.score})</span>
+                    )}
+                  </dd>
+                </div>
+                {motivation?.extracurriculars && (
+                  <div className="col-span-2">
+                    <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Extracurricular Activities</dt>
+                    <dd className="font-medium text-white mt-1">{motivation.extracurriculars}</dd>
+                  </div>
+                )}
+              </div>
             </div>
-          )}
+          </div>
+
+          {/* Declaration */}
+          <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Applicant Declaration</h3>
+            <div className="p-4 bg-white/5 border border-white/10 rounded-xl space-y-2 text-xs text-slate-300 leading-relaxed">
+              <p className="flex items-start gap-2">
+                <span className="text-emerald-400 font-bold shrink-0 mt-0.5">✓</span>
+                <span>Applicant certified that all information provided is accurate and complete in all aspects.</span>
+              </p>
+              <p className="flex items-start gap-2">
+                <span className="text-emerald-400 font-bold shrink-0 mt-0.5">✓</span>
+                <span>Applicant acknowledged that falsification or misrepresentation of any information or documents will result in rejection of application or withdrawal of offer.</span>
+              </p>
+              <p className="flex items-start gap-2">
+                <span className="text-emerald-400 font-bold shrink-0 mt-0.5">✓</span>
+                <span>Applicant agreed that information submitted will be used for student registration, SIN assignment, program evaluation, and system-level research.</span>
+              </p>
+            </div>
+          </div>
 
           {/* Documents */}
           <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl" id="documents">
