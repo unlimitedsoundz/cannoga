@@ -169,15 +169,15 @@ export default async function TuitionPaymentPage() {
                                 <DbPageContent pageSlug={pageSlug} sectionKey="costs_intro_content" fallbackContent={getContent('costs_intro_content')} className="space-y-4 text-lg font-normal text-slate-700 leading-relaxed" />
                             </div>
 
-                            <div className="w-full overflow-x-auto my-4 rounded-lg border border-neutral-200 shadow-sm bg-white">
-                                <table className="w-full min-w-[640px] table-fixed border-collapse">
+                            <div className="w-full overflow-x-auto my-3 rounded-lg border border-neutral-200 shadow-sm bg-white">
+                                <table className="w-full table-auto sm:table-fixed border-collapse">
                                     <thead>
                                         <tr className="bg-[#0a151a] text-white">
-                                            <th className="w-[30%] border-b border-neutral-700 px-4 py-3 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Programme</th>
-                                            <th className="w-[18%] border-b border-neutral-700 px-4 py-3 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Duration</th>
-                                            <th className="w-[14%] border-b border-neutral-700 px-4 py-3 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Credits</th>
-                                            <th className="w-[19%] border-b border-neutral-700 px-4 py-3 text-right text-xs md:text-sm font-bold uppercase tracking-wider">Domestic</th>
-                                            <th className="w-[19%] border-b border-neutral-700 px-4 py-3 text-right text-xs md:text-sm font-bold uppercase tracking-wider">International</th>
+                                            <th className="px-2.5 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-bold uppercase tracking-wide">Programme</th>
+                                            <th className="px-2 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-bold uppercase tracking-wide">Duration</th>
+                                            <th className="px-2 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-bold uppercase tracking-wide">Credits</th>
+                                            <th className="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Domestic</th>
+                                            <th className="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">International</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-neutral-200">
@@ -189,11 +189,11 @@ export default async function TuitionPaymentPage() {
                                             const international = info ? getAnnualTuition(info.international_tuition, fallback.international) : fallback.international;
                                             return (
                                                 <tr key={credentialType} className={idx % 2 === 0 ? 'bg-white hover:bg-neutral-50/60' : 'bg-neutral-50/80 hover:bg-neutral-100/60'}>
-                                                    <td className="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 align-middle">{display.label}</td>
-                                                    <td className="px-4 py-3.5 text-sm md:text-base font-normal text-slate-700 align-middle">{display.duration}</td>
-                                                    <td className="px-4 py-3.5 text-sm md:text-base font-normal text-slate-700 align-middle">{display.credits}</td>
-                                                    <td className="px-4 py-3.5 text-sm md:text-base font-semibold text-slate-900 text-right align-middle">CAD ${domestic.toLocaleString()}<span className="text-xs font-normal text-slate-500 ml-1">/yr</span></td>
-                                                    <td className="px-4 py-3.5 text-sm md:text-base font-semibold text-[#0a151a] text-right align-middle">CAD ${international.toLocaleString()}<span className="text-xs font-normal text-slate-500 ml-1">/yr</span></td>
+                                                    <td className="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">{display.label}</td>
+                                                    <td className="px-2 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 align-middle">{display.duration}</td>
+                                                    <td className="px-2 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 align-middle">{display.credits}</td>
+                                                    <td className="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-right align-middle whitespace-nowrap">CAD ${domestic.toLocaleString()}<span className="text-[10px] sm:text-xs font-normal text-slate-500 ml-0.5 sm:ml-1">/yr</span></td>
+                                                    <td className="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-right align-middle whitespace-nowrap">CAD ${international.toLocaleString()}<span className="text-[10px] sm:text-xs font-normal text-slate-500 ml-0.5 sm:ml-1">/yr</span></td>
                                                 </tr>
                                             );
                                         })}
