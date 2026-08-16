@@ -118,7 +118,7 @@ export default async function TuitionPaymentPage() {
     const tuitionRates = tuitionInfo || [];
 
     return (
-        <div className="min-h-screen bg-white text-black font-sans">
+        <div className="tuition-page min-h-screen bg-white text-black font-sans">
             {/* HERO SECTION */}
             <Hero
                 title={
