@@ -52,7 +52,7 @@ const CREDENTIAL_CARDS: CredentialCard[] = [
         title: 'ACADEMIC SCHOOLS & FACULTIES',
         description: 'Eight specialized faculties delivering technology, health, business, and creative design education.',
         href: '/schools',
-        image: '/images/arts-design.jpg',
+        image: '/images/academic-schools.jpg',
         bgColor: 'bg-[#8e24aa]', // Vibrant deep purple
         borderColor: 'border-[#8e24aa]',
         waveColor: '#521363', // Darker purple shade
