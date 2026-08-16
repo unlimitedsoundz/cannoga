@@ -32,7 +32,7 @@ const CREDENTIAL_CARDS: CredentialCard[] = [
         title: 'ONTARIO COLLEGE DIPLOMAS',
         description: '2-year applied learning programs integrating hands-on labs, industry software, and co-op placement.',
         href: '/degree-programmes#diplomas',
-        image: '/images/school-of-science.jpg',
+        image: '/images/ontario-college-diploma.jpg',
         bgColor: 'bg-[#0088dd]', // Vibrant electric blue
         borderColor: 'border-[#0088dd]',
         waveColor: '#004c80', // Darker blue shade
