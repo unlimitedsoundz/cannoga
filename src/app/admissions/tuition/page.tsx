@@ -159,7 +159,7 @@ export default async function TuitionPaymentPage() {
                 ]}
             >
                 <div className="cc-container py-8 md:py-16">
-                    <main className="space-y-12 md:space-y-16 text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                    <main className="space-y-12 md:space-y-16 text-lg font-normal text-slate-700 leading-relaxed">
 
                         <section id="fee-structure" className="scroll-mt-32 space-y-4">
                             <div className="cc-section-divider !mb-6">

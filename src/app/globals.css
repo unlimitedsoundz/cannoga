@@ -244,20 +244,18 @@
   font-size: 1.125rem !important; /* aalto-3 */
 }
 
-/* Tuition Page 16px override: Force standard 16px (1rem) body font size across all content sections on /admissions/tuition/ */
+/* Tuition Page: Force 18px (1.125rem) body font size across all content sections on /admissions/tuition/ */
 .tuition-page .ck-content,
 .tuition-page .ck-content p,
 .tuition-page .ck-content span,
-.tuition-page .ck-content div,
+.tuition-page .ck-content div:not(.w-8):not(.h-8),
 .tuition-page .ck-content li,
 .tuition-page .ck-content a,
 .tuition-page .ck-content td,
-.tuition-page .ck-content [class*="text-"],
-.tuition-page .ck-content [style*="font-size"],
 .tuition-page p,
 .tuition-page li,
 .tuition-page span:not(.font-black):not(.font-bold) {
-  font-size: 1rem !important; /* 16px */
+  font-size: 1.125rem !important; /* 18px */
   line-height: 1.625 !important;
 }
 
