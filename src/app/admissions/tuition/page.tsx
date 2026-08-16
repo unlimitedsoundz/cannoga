@@ -244,17 +244,18 @@ export default async function TuitionPaymentPage() {
                                 
                                 {/* OSAP / ONTARIO STUDENT FINANCIAL AID (Clean Layout - No Containers) */}
                                 <div className="space-y-4 pt-4 border-t border-slate-200">
-                                    <div className="flex items-center gap-3.5 pb-2">
-                                        {/* Official OSAP Logo */}
-                                        <div className="relative w-16 h-12 shrink-0">
+                                    <div className="flex flex-col sm:flex-row sm:items-center gap-4 pb-2">
+                                        {/* Official OSAP Logo - Increased Size */}
+                                        <div className="relative w-32 h-20 shrink-0">
                                             <Image
                                                 src="/images/osap-logo.jpg"
                                                 alt="Ontario Student Assistance Program (OSAP) Logo"
                                                 fill
-                                                className="object-contain"
+                                                className="object-contain object-left sm:object-center"
+                                                priority
                                             />
                                         </div>
-                                        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                                        <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                                             Ontario Student Assistance Program (OSAP)
                                         </h3>
                                     </div>
