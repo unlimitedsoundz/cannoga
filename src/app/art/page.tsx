@@ -1,4 +1,4 @@
-﻿
+
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { Palette, Calendar, MapPin } from '@phosphor-icons/react/dist/ssr';
@@ -6,6 +6,9 @@ import { Palette, Calendar, MapPin } from '@phosphor-icons/react/dist/ssr';
 export const metadata = {
     title: 'Creative Arts, Galleries & Student Showcases',
     description: 'Discover upcoming art gallery viewings, design exhibitions, and creative projects by our students and faculty members in Ottawa.',
+    alternates: {
+        canonical: 'https://cannogacollege.ca/art/',
+    },
 };
 
 export default function ArtPage() {

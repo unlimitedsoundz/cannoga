@@ -13,6 +13,15 @@ const ADMIN_PATHS = ['/sis/admin'];
 const AUTH_REQUIRED_PATHS = ['/sis'];
 
 export async function proxy(request: NextRequest) {
+    const host = request.headers.get('host') || '';
+    if (host.startsWith('www.cannogacollege.ca')) {
+        const newUrl = request.nextUrl.clone();
+        newUrl.host = 'cannogacollege.ca';
+        newUrl.protocol = 'https';
+        newUrl.port = '';
+        return NextResponse.redirect(newUrl, { status: 301 });
+    }
+
     let supabaseResponse = NextResponse.next({ request });
 
     const supabase = createServerClient(

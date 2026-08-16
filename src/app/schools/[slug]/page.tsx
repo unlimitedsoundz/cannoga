@@ -25,17 +25,30 @@ export async function generateMetadata({ params }: Props) {
         .from('School')
         .select('name, description')
         .eq('slug', slug)
-        .single();
+        .maybeSingle();
 
-    if (!school) {
-        return {
-            title: 'School Not Found',
-        };
+    const schoolNames: Record<string, string> = {
+        'business': 'School of Business',
+        'technology': 'School of Technology',
+        'arts-design': 'School of Arts & Design',
+        'health-sciences': 'School of Health & Life Sciences',
+        'education-social-sciences': 'School of Education & Social Sciences',
+        'engineering': 'School of Engineering',
+        'science': 'School of Environmental Science'
+    };
+
+    function formatSlugToTitle(slugStr: string): string {
+        return slugStr
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
     }
 
+    const name = school?.name || schoolNames[slug] || formatSlugToTitle(slug);
+
     return {
-        title: `${school.name} Academic School`,
-        description: `Explore faculty research, specialized departments, and academic options at the ${school.name} Cannoga College.`,
+        title: `${name} Academic School`,
+        description: school?.description || `Explore faculty research, specialized departments, and academic options at the ${name} Cannoga College.`,
         alternates: {
             canonical: `https://cannogacollege.ca/schools/${slug}/`,
         },
