@@ -22,7 +22,7 @@ const CREDENTIAL_CARDS: CredentialCard[] = [
         title: 'ONTARIO COLLEGE CERTIFICATES',
         description: '1-year career-focused pathways designed for rapid skill acquisition and practical workforce entry.',
         href: '/degree-programmes#certificates',
-        image: '/images/technology.jpg',
+        image: '/images/ontario-college-cert.jpg',
         bgColor: 'bg-[#4da674]', // Vibrant green
         borderColor: 'border-[#4da674]',
         waveColor: '#28583c', // Darker green shade
