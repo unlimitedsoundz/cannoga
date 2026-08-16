@@ -61,12 +61,9 @@ export default function ArrivalGuidePage() {
                     <section id="arriving" className="scroll-mt-32">
                         <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Arriving in the Country</h2>
                         <div className="space-y-3 text-left">
-                            {/* Border Procedures Overview with Spotlight Large Image */}
-                            <div className="grid md:grid-cols-12 gap-6 items-center my-4 bg-slate-50 p-6 md:p-8 rounded-xl border border-slate-200">
+                            {/* Border Procedures Overview with Large Image */}
+                            <div className="grid md:grid-cols-12 gap-6 items-center my-4">
                                 <div className="md:col-span-6 lg:col-span-7 space-y-3">
-                                    <span className="inline-block px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-[#0f2027] text-[#c89211]">
-                                        Border Clearance
-                                    </span>
                                     <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-black tracking-tight leading-tight">
                                         International Students: Border Clearance in Canada
                                     </h3>
