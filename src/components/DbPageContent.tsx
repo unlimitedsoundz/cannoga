@@ -49,19 +49,7 @@ export default function DbPageContent({
                     .single();
 
                 if (!error && data?.content && mounted) {
-                    let sanitizedContent = data.content;
-                    if (pageSlug === 'admissions/tuition') {
-                        sanitizedContent = sanitizedContent
-                            .replace(/Flywire/gi, 'our secure payment portal')
-                            .replace(/https:\/\/www\.flywire\.com\//gi, '#')
-                            .replace(/mailto:admissions@cannoga\.fi/gi, 'mailto:admissions@cannogacollege.ca')
-                            .replace(/admissions@cannoga\.fi/gi, 'admissions@cannogacollege.ca')
-                            .replace(/cannoga\.fi/gi, 'cannogacollege.ca')
-                            .replace(/https:\/\/www\.kela\.fi\/web\/en/gi, 'https://www.ontario.ca/page/apply-ohip-health-card')
-                            .replace(/Apply for Kela/gi, 'Apply for OHIP at ServiceOntario')
-                            .replace(/\bKela\b/gi, 'OHIP');
-                    }
-                    setContent(sanitizedContent);
+                    setContent(data.content);
                 }
             } catch (err) {
                 console.error('Failed to load page content:', err);
