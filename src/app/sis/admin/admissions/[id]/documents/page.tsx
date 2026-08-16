@@ -16,8 +16,8 @@ export default function AdmissionDocumentsPage() {
         title="Documents"
         subtitle={`Admission #${id}`}
       />
-      <div className="bg-white border border-neutral-200 p-6">
-        <p className="text-sm text-neutral-600">Documents for admission {id}</p>
+      <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
+        <p className="text-sm text-slate-400">Documents for admission {id}</p>
       </div>
     </div>
   );

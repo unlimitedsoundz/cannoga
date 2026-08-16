@@ -321,11 +321,11 @@ export default function AdmissionApplicationPage() {
         subtitle={`${application.application_number || application.id?.slice(0, 8)} ${course?.title || 'Unknown Program'}${course?.degreeLevel ? ` ${formatDegreeLevel(course?.degreeLevel)}` : ''}`}
         actions={
           <div className="flex gap-2">
-            <button className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold uppercase tracking-wider transition-colors">
-              <HugeiconsIcon icon={Printer} size={14} strokeWidth={2.5} /> Print
+            <button className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm">
+              <HugeiconsIcon icon={Printer} size={14} strokeWidth={2.5} className="text-sky-400" /> Print
             </button>
-            <button className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold uppercase tracking-wider transition-colors">
-              <HugeiconsIcon icon={Download} size={14} strokeWidth={2.5} /> Export
+            <button className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm">
+              <HugeiconsIcon icon={Download} size={14} strokeWidth={2.5} className="text-sky-400" /> Export
             </button>
           </div>
         }
