@@ -124,7 +124,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const portalPages: SitemapEntry[] = [
         make(`${BASE_URL}/portal/account/login`, 'monthly', 0.5),
         make(`${BASE_URL}/portal/account/register`, 'monthly', 0.5),
-        make(`${BASE_URL}/auth/reset-password`, 'monthly', 0.3),
     ];
 
     // --- Legal & utility pages ---
