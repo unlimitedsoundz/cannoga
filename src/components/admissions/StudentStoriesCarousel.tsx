@@ -31,7 +31,7 @@ const peers: Peer[] = [
         quote: "My study abroad journey in Ottawa, Ontario, Canada has been a rollercoaster of emotions, challenges, and growth.",
         cardBgClass: "bg-[#e11d48] hover:bg-[#be123c]",
         storyUrl: "https://ourblogs.cannogacollege.ca/study-abroad-journey-ottawa-canada",
-        buttonText: "Read Full Story",
+        buttonText: "View Full Story",
     },
     {
         id: 4,
@@ -201,7 +201,7 @@ export default function StudentStoriesCarousel() {
                                                     onClick={(e) => e.stopPropagation()}
                                                     className="inline-flex items-center justify-center w-full bg-white text-slate-900 font-black text-xs uppercase tracking-wider py-3 px-4 rounded-sm transition-colors hover:bg-slate-100 no-underline gap-2 mt-4"
                                                 >
-                                                    {peer.buttonText || "Read Full Student Guide"} <ArrowUpRight size={16} weight="bold" />
+                                                    {peer.buttonText || "View Full Story"} <ArrowUpRight size={16} weight="bold" />
                                                 </a>
                                             </div>
                                         )}
