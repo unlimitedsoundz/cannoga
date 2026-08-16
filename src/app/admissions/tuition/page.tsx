@@ -176,8 +176,8 @@ export default async function TuitionPaymentPage() {
                                             <th className="px-2.5 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-bold uppercase tracking-wide">Programme</th>
                                             <th className="px-2 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-bold uppercase tracking-wide">Duration</th>
                                             <th className="px-2 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-bold uppercase tracking-wide">Credits</th>
-                                            <th className="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Domestic</th>
-                                            <th className="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">International</th>
+                                            <th className="px-2.5 py-2 sm:px-4 sm:py-3 text-center text-xs sm:text-sm font-bold uppercase tracking-wide">Domestic</th>
+                                            <th className="px-2.5 py-2 sm:px-4 sm:py-3 text-center text-xs sm:text-sm font-bold uppercase tracking-wide">International</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -192,8 +192,8 @@ export default async function TuitionPaymentPage() {
                                                     <td className="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">{display.label}</td>
                                                     <td className="px-2 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 align-middle">{display.duration}</td>
                                                     <td className="px-2 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 align-middle">{display.credits}</td>
-                                                    <td className="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-right align-middle whitespace-nowrap">CAD ${domestic.toLocaleString()}<span className="text-[10px] sm:text-xs font-normal text-slate-500 ml-0.5 sm:ml-1">/yr</span></td>
-                                                    <td className="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-right align-middle whitespace-nowrap">CAD ${international.toLocaleString()}<span className="text-[10px] sm:text-xs font-normal text-slate-500 ml-0.5 sm:ml-1">/yr</span></td>
+                                                    <td className="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-center align-middle whitespace-nowrap">CAD ${domestic.toLocaleString()}<span className="text-[10px] sm:text-xs font-normal text-slate-500 ml-0.5 sm:ml-1">/yr</span></td>
+                                                    <td className="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-center align-middle whitespace-nowrap">CAD ${international.toLocaleString()}<span className="text-[10px] sm:text-xs font-normal text-slate-500 ml-0.5 sm:ml-1">/yr</span></td>
                                                 </tr>
                                             );
                                         })}

@@ -486,20 +486,20 @@ export const pageContentSections: PageContentSection[] = [
         <thead>
             <tr class="bg-[#0a151a] text-white">
                 <th class="px-3 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-bold uppercase tracking-wide">Student Residency</th>
-                <th class="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Fee / yr</th>
-                <th class="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
+                <th class="px-3 py-2 sm:px-4 sm:py-3 text-center text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Fee / yr</th>
+                <th class="px-3 py-2 sm:px-4 sm:py-3 text-center text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
             </tr>
         </thead>
         <tbody>
             <tr class="bg-white hover:bg-neutral-50/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-right align-middle whitespace-nowrap">CAD $2,400</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-right align-middle whitespace-nowrap">CAD $2,000</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-center align-middle whitespace-nowrap">CAD $2,400</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-center align-middle whitespace-nowrap">CAD $2,000</td>
             </tr>
             <tr class="bg-neutral-50/80 hover:bg-neutral-100/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">International Students</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-right align-middle whitespace-nowrap">CAD $4,000</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-right align-middle whitespace-nowrap">CAD $2,000</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-center align-middle whitespace-nowrap">CAD $4,000</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-center align-middle whitespace-nowrap">CAD $2,000</td>
             </tr>
         </tbody>
     </table>
@@ -515,20 +515,20 @@ export const pageContentSections: PageContentSection[] = [
         <thead>
             <tr class="bg-[#0a151a] text-white">
                 <th class="px-3 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-bold uppercase tracking-wide">Student Residency</th>
-                <th class="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Fee / yr</th>
-                <th class="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
+                <th class="px-3 py-2 sm:px-4 sm:py-3 text-center text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Fee / yr</th>
+                <th class="px-3 py-2 sm:px-4 sm:py-3 text-center text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
             </tr>
         </thead>
         <tbody>
             <tr class="bg-white hover:bg-neutral-50/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-right align-middle whitespace-nowrap">CAD $2,400</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-right align-middle whitespace-nowrap">CAD $2,000</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-center align-middle whitespace-nowrap">CAD $2,400</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-center align-middle whitespace-nowrap">CAD $2,000</td>
             </tr>
             <tr class="bg-neutral-50/80 hover:bg-neutral-100/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">International Students</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-right align-middle whitespace-nowrap">CAD $4,000</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-right align-middle whitespace-nowrap">CAD $2,000</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-center align-middle whitespace-nowrap">CAD $4,000</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-center align-middle whitespace-nowrap">CAD $2,000</td>
             </tr>
         </tbody>
     </table>
@@ -544,20 +544,20 @@ export const pageContentSections: PageContentSection[] = [
         <thead>
             <tr class="bg-[#0a151a] text-white">
                 <th class="px-3 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-bold uppercase tracking-wide">Student Residency</th>
-                <th class="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Fee / yr</th>
-                <th class="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
+                <th class="px-3 py-2 sm:px-4 sm:py-3 text-center text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Fee / yr</th>
+                <th class="px-3 py-2 sm:px-4 sm:py-3 text-center text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
             </tr>
         </thead>
         <tbody>
             <tr class="bg-white hover:bg-neutral-50/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-right align-middle whitespace-nowrap">CAD $4,000</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-right align-middle whitespace-nowrap">CAD $2,000</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-center align-middle whitespace-nowrap">CAD $4,000</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-center align-middle whitespace-nowrap">CAD $2,000</td>
             </tr>
             <tr class="bg-neutral-50/80 hover:bg-neutral-100/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">International Students</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-right align-middle whitespace-nowrap">CAD $6,400</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-right align-middle whitespace-nowrap">CAD $2,000</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-center align-middle whitespace-nowrap">CAD $6,400</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-center align-middle whitespace-nowrap">CAD $2,000</td>
             </tr>
         </tbody>
     </table>
@@ -573,20 +573,20 @@ export const pageContentSections: PageContentSection[] = [
         <thead>
             <tr class="bg-[#0a151a] text-white">
                 <th class="px-3 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-bold uppercase tracking-wide">Student Residency</th>
-                <th class="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Fee / yr</th>
-                <th class="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
+                <th class="px-3 py-2 sm:px-4 sm:py-3 text-center text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Fee / yr</th>
+                <th class="px-3 py-2 sm:px-4 sm:py-3 text-center text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
             </tr>
         </thead>
         <tbody>
             <tr class="bg-white hover:bg-neutral-50/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-right align-middle whitespace-nowrap">CAD $5,600</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-right align-middle whitespace-nowrap">CAD $2,000</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-center align-middle whitespace-nowrap">CAD $5,600</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-center align-middle whitespace-nowrap">CAD $2,000</td>
             </tr>
             <tr class="bg-neutral-50/80 hover:bg-neutral-100/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">International Students</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-right align-middle whitespace-nowrap">CAD $9,600</td>
-                <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-right align-middle whitespace-nowrap">CAD $2,000</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-center align-middle whitespace-nowrap">CAD $9,600</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-slate-700 text-center align-middle whitespace-nowrap">CAD $2,000</td>
             </tr>
         </tbody>
     </table>
