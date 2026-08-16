@@ -644,7 +644,30 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'timing_content',
         label: 'Payment Schedule Section',
-        defaultContent: `<div class="grid md:grid-cols-2 gap-8"><div class="bg-gray-100 p-6 rounded-2xl shadow-sm"><h3 class="text-xl font-bold mb-4">First Academic Year</h3><p class="leading-relaxed">After accepting the admission offer, pay the full tuition fee in a single instalment. Payment in multiple instalments is not permitted for first-year enrolment.</p></div><div class="bg-gray-100 p-6 rounded-2xl shadow-sm"><h3 class="text-xl font-bold mb-4">After the First Year</h3><p class="leading-relaxed">Students are encouraged to pay the full fee in one instalment during the annual enrolment period. Alternatively, two instalments may be allowed, but this can affect your attendance status.</p><div class="mt-4 p-4 bg-gray-100 rounded-lg text-sm">Important: Non-attending status may affect visa or study permit conditions.</div></div></div><p class="mt-8 text-black text-center">For further details, consult the official Cannoga College enrolment guidelines.</p>`,
+        defaultContent: `<div class="space-y-6">
+    <div class="space-y-2">
+        <h3 class="text-xl font-bold text-slate-900 tracking-tight">First Academic Year</h3>
+        <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+            After accepting the admission offer, pay the full tuition fee in a single instalment. Payment in multiple instalments is not permitted for first-year enrolment.
+        </p>
+    </div>
+
+    <div class="space-y-2 pt-4 border-t border-slate-200">
+        <h3 class="text-xl font-bold text-slate-900 tracking-tight">After the First Year</h3>
+        <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+            Students are encouraged to pay the full fee in one instalment during the annual enrolment period. Alternatively, two instalments may be allowed, but this can affect your attendance status.
+        </p>
+        <p class="text-xs sm:text-sm font-semibold text-slate-800 pt-1">
+            Important: Non-attending status may affect visa or study permit conditions.
+        </p>
+    </div>
+
+    <div class="pt-4 border-t border-slate-200">
+        <p class="text-xs sm:text-sm font-medium text-slate-600">
+            For further details, consult the official Cannoga College enrolment guidelines.
+        </p>
+    </div>
+</div>`,
     },
     {
         pageSlug: 'admissions/tuition',
