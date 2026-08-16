@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import { Breadcrumbs } from '@aalto-dx/react-modules';
 import { ReactNode } from 'react';

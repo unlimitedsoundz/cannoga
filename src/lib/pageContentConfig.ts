@@ -479,7 +479,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'costs_intro_content',
         label: 'Costs Intro Section',
-        defaultContent: `<p class="text-lg leading-relaxed mb-6">Cannoga College's tuition rates are highly competitive compared to other major colleges across Canada and significantly more affordable than university fees. Postsecondary education in Canada offers excellent value when compared to other English-speaking destinations like the United States or United Kingdom. Your overall expenses will depend on your selected program, housing preferences, and personal lifestyle. All tuition payments include comprehensive health insurance coverage.</p>`,
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Cannoga College's tuition rates are highly competitive compared to other major colleges across Canada and significantly more affordable than university fees. Postsecondary education in Canada offers excellent value when compared to other English-speaking destinations like the United States or United Kingdom. Your overall expenses will depend on your selected program, housing preferences, and personal lifestyle. All tuition payments include comprehensive health insurance coverage.</p>`,
     },
     {
         pageSlug: 'admissions/tuition',
@@ -491,7 +491,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'certificate_fees_content',
         label: 'Certificate Fees Section',
-        defaultContent: `<p class="text-black mb-6 font-normal">Annual tuition fee and deposit for Certificate programs (6 months – 1 year)</p>
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-4">Annual tuition fee and deposit for Certificate programs (6 months – 1 year)</p>
 <div class="w-full overflow-x-auto rounded-xl">
     <table class="w-full table-fixed text-left border-collapse">
         <thead class="bg-[#0f2027] text-white"><tr><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Student Residency</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Fee / yr</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Deposit</th></tr></thead>
@@ -506,7 +506,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'diploma_fees_content',
         label: 'Diploma Fees Section',
-        defaultContent: `<p class="text-black mb-6 font-normal">Annual tuition fee and deposit for Diploma and Advanced Diploma programs (2 – 3 years)</p>
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-4">Annual tuition fee and deposit for Diploma and Advanced Diploma programs (2 – 3 years)</p>
 <div class="w-full overflow-x-auto rounded-xl">
     <table class="w-full table-fixed text-left border-collapse">
         <thead class="bg-[#0f2027] text-white"><tr><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Student Residency</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Fee / yr</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Deposit</th></tr></thead>
@@ -521,7 +521,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'bachelor_fees_content',
         label: 'Bachelor Fees Section',
-        defaultContent: `<p class="text-black mb-6 font-normal">Annual tuition fee and deposit for Bachelor's degree programs (4-year programs)</p>
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-4">Annual tuition fee and deposit for Bachelor's degree programs (4-year programs)</p>
 <div class="w-full overflow-x-auto rounded-xl">
     <table class="w-full table-fixed text-left border-collapse">
         <thead class="bg-[#0f2027] text-white"><tr><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Student Residency</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Fee / yr</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Deposit</th></tr></thead>
@@ -536,7 +536,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'master_fees_content',
         label: 'Master Fees Section',
-        defaultContent: `<p class="text-black mb-6 font-normal">Annual tuition fee and deposit for Master's degree programs (2-year programs)</p>
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-4">Annual tuition fee and deposit for Master's degree programs (2-year programs)</p>
 <div class="w-full overflow-x-auto rounded-xl">
     <table class="w-full table-fixed text-left border-collapse">
         <thead class="bg-[#0f2027] text-white"><tr><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Student Residency</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Fee / yr</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Deposit</th></tr></thead>
@@ -551,7 +551,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'merit_scholarship_content',
         label: 'Merit Scholarship Section',
-        defaultContent: `<div class="mb-8"><h3 class="text-2xl font-bold mb-4">Continuing Merit Scholarship</h3><p class="text-lg leading-relaxed mb-6">Cannoga College rewards academic excellence. After the first year, international students can apply for a merit scholarship covering 50% of tuition for the next academic year.</p><div class="grid md:grid-cols-2 gap-8"><div class="space-y-4"><h4 class="font-bold text-sm uppercase tracking-widest mb-2">Academic Criteria</h4><ul class="space-y-3"><li>Complete at least 55 credits per academic year</li><li>Maintain a minimum weighted GPA of 3.5 / 5.0</li></ul></div><div class="space-y-4"><h4 class="font-bold text-sm uppercase tracking-widest mb-2">Application & Review</h4><p class="text-sm leading-relaxed">Scholarship eligibility is automatically reviewed every August and eligible students will be notified before the autumn tuition deadline.</p></div></div></div>`,
+        defaultContent: `<div class="space-y-4"><h3 class="text-xl font-bold text-slate-900 tracking-tight mb-2">Continuing Merit Scholarship</h3><p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Cannoga College rewards academic excellence. After the first year, international students can apply for a merit scholarship covering 50% of tuition for the next academic year.</p><div class="grid md:grid-cols-2 gap-6 pt-2"><div class="space-y-2"><h4 class="font-bold text-xs uppercase tracking-widest text-slate-900">Academic Criteria</h4><ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 list-disc list-inside"><li>Complete at least 55 credits per academic year</li><li>Maintain a minimum weighted GPA of 3.5 / 5.0</li></ul></div><div class="space-y-2"><h4 class="font-bold text-xs uppercase tracking-widest text-slate-900">Application & Review</h4><p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Scholarship eligibility is automatically reviewed every August and eligible students will be notified before the autumn tuition deadline.</p></div></div></div>`,
     },
     {
         pageSlug: 'admissions/tuition',
@@ -673,7 +673,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'additional_fees_content',
         label: 'Additional Fees Section',
-        defaultContent: `<div class="space-y-8"><div class="max-w-4xl"><h3 class="text-2xl font-bold mb-4 text-slate-900">Financial Requirements &amp; Living Costs</h3><p class="text-slate-700 leading-relaxed mb-6">Beyond tuition, ensure you have sufficient funds for rent, personal expenses, transportation, meals, insurance, and any Immigration, Refugees and Citizenship Canada (IRCC) requirements.</p><p class="text-slate-700 leading-relaxed">Cannoga College supports international students in finding accommodation in Ottawa, Ontario, Canada. Our housing guide covers all major providers and neighbourhoods.</p></div><div class="space-y-6 pt-2"><div><h3 class="text-xl font-bold mb-3 text-slate-900">What's Included?</h3><p class="text-slate-700 leading-relaxed mb-3">The tuition fee includes teaching and access to modern learning facilities. Core student services are free of charge:</p><ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5"><li><strong>Library access</strong></li><li><strong>Student Services</strong></li><li><strong>Career Services</strong></li><li><strong>Exchange Services</strong></li><li><strong>Study support</strong></li></ul></div><div><h3 class="text-xl font-bold mb-3 text-slate-900">Cannoga Student Association</h3><p class="text-slate-700 leading-relaxed mb-3">All enrolled students are members of the Cannoga Student Association (CSA), offering advocacy, events, discounts, and community.</p><ul class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5"><li>Campus dining discounts</li><li>OC Transpo U-Pass subsidy</li></ul></div></div></div>`,
+        defaultContent: `<div class="space-y-8"><div class="max-w-4xl"><h3 class="text-2xl font-bold mb-4 text-slate-900">Financial Requirements &amp; Living Costs</h3><p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-6">Beyond tuition, ensure you have sufficient funds for rent, personal expenses, transportation, meals, insurance, and any Immigration, Refugees and Citizenship Canada (IRCC) requirements.</p><p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Cannoga College supports international students in finding accommodation in Ottawa, Ontario, Canada. Our housing guide covers all major providers and neighbourhoods.</p></div><div class="space-y-6 pt-2"><div><h3 class="text-xl font-bold mb-3 text-slate-900">What's Included?</h3><p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">The tuition fee includes teaching and access to modern learning facilities. Core student services are free of charge:</p><ul class="space-y-2 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5"><li><strong>Library access</strong></li><li><strong>Student Services</strong></li><li><strong>Career Services</strong></li><li><strong>Exchange Services</strong></li><li><strong>Study support</strong></li></ul></div><div><h3 class="text-xl font-bold mb-3 text-slate-900">Cannoga Student Association</h3><p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">All enrolled students are members of the Cannoga Student Association (CSA), offering advocacy, events, discounts, and community.</p><ul class="space-y-2 pt-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5"><li>Campus dining discounts</li><li>OC Transpo U-Pass subsidy</li></ul></div></div></div>`,
     },
     {
         pageSlug: 'admissions/tuition',
@@ -709,7 +709,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'contact_content',
         label: 'Contact Section',
-        defaultContent: `<p class="text-black mb-10 max-w-2xl mx-auto text-lg leading-relaxed">If you have questions about payment processes, deadlines, or refunds, contact the Tuition Fee Office.</p><a href="mailto:tuition@cannogacollege.ca" class="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all shadow-md">Contact Tuition Office</a>`,
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-6">If you have questions about payment processes, deadlines, or refunds, contact the Tuition Fee Office.</p><a href="mailto:tuition@cannogacollege.ca" class="inline-flex items-center gap-2 bg-black text-white px-6 py-3 font-bold hover:bg-slate-800 transition-colors shadow-sm">Contact Tuition Office &rarr;</a>`,
     },
     {
         pageSlug: 'admissions',
