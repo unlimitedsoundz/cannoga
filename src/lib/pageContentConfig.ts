@@ -558,7 +558,88 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'payment_methods_content',
         label: 'Payment Methods Section',
-        defaultContent: `<div class="space-y-8"><div class="bg-gray-100 p-6 md:p-12 rounded-2xl"><p class="text-lg leading-relaxed mb-4">Cannoga provides secure, convenient payment options using local and international channels through our integrated payment gateway.</p><p class="leading-relaxed">All tuition payments are processed through our secure portal for accurate tracking, faster confirmation, and proper allocation to your student account.</p></div><div class="bg-card p-6 md:p-12 shadow-sm rounded-xl"><h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Step-by-Step Payment Process</h3><div class="space-y-6"><div><h4 class="font-bold mb-1">Accept Your Offer</h4><p class="text-sm leading-relaxed">Once you accept your offer through the portal, you will be redirected to the secure payment page.</p></div><div><h4 class="font-bold mb-1">Choose Where You’re Paying From</h4><p class="text-sm leading-relaxed">Select the country from which you will make your payment. The portal shows local payment options specific to your location.</p></div><div><h4 class="font-bold mb-1">Review Payment Details</h4><p class="text-sm leading-relaxed">Confirm your full name, student ID, programme, amount payable, and payment reference before submitting.</p></div><div><h4 class="font-bold mb-1">Select Your Payment Method</h4><p class="text-sm leading-relaxed">Choose one of the available payment methods based on your country and preference.</p></div><div><h4 class="font-bold mb-1">Complete the Payment</h4><p class="text-sm leading-relaxed">Follow the on-screen instructions to pay securely.</p></div><div><h4 class="font-bold mb-1">Payment Confirmation</h4><p class="text-sm leading-relaxed">Once payment is confirmed, your payment status updates automatically and an official receipt is issued.</p></div></div></div><div class="grid md:grid-cols-2 gap-6"><div class="bg-gray-100 p-8 rounded-2xl shadow-sm"><h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Processing Time</h3><p class="leading-relaxed">Most payments are confirmed within 24–72 hours, depending on the selected payment method.</p></div><div class="bg-gray-100 p-8 rounded-2xl shadow-sm"><h3 class="text-xl font-bold mb-4">Need Help With Payment?</h3><p class="leading-relaxed">If you experience any difficulties, contact the Admissions Office through your student portal or by email.</p><a href="mailto:admissions@cannogacollege.ca" class="inline-flex items-center gap-2 font-bold uppercase tracking-widest text-black underline">Email Admissions</a></div></div><div class="bg-gray-100 p-6 rounded-xl shadow-sm"><p class="text-sm">Please pay by the deadline indicated in your official offer of admission to confirm your enrollment.</p></div></div>`,
+        defaultContent: `<div class="space-y-6">
+    <div class="space-y-3">
+        <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+            Cannoga provides secure, convenient payment options using local and international channels through our integrated payment gateway.
+        </p>
+        <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+            All tuition payments are processed through our secure portal for accurate tracking, faster confirmation, and proper allocation to your student account.
+        </p>
+    </div>
+
+    <div class="pt-4 border-t border-slate-200">
+        <h3 class="text-xl font-bold text-slate-900 tracking-tight mb-6">Step-by-Step Payment Process</h3>
+        
+        <div class="space-y-6">
+            <div class="flex items-start gap-4">
+                <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #f43f5e;">1</div>
+                <div class="flex-1 space-y-1">
+                    <h4 class="text-base font-bold text-slate-900 tracking-tight">Accept Your Offer</h4>
+                    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                        Once you accept your offer through the portal, you will be redirected to the secure payment page.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+                <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #f97316;">2</div>
+                <div class="flex-1 space-y-1">
+                    <h4 class="text-base font-bold text-slate-900 tracking-tight">Choose Where You’re Paying From</h4>
+                    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                        Select the country from which you will make your payment. The portal shows local payment options specific to your location.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+                <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #eab308;">3</div>
+                <div class="flex-1 space-y-1">
+                    <h4 class="text-base font-bold text-slate-900 tracking-tight">Review Payment Details</h4>
+                    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                        Confirm your full name, student ID, programme, amount payable, and payment reference before submitting.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+                <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #22c55e;">4</div>
+                <div class="flex-1 space-y-1">
+                    <h4 class="text-base font-bold text-slate-900 tracking-tight">Select Your Payment Method</h4>
+                    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                        Choose one of the available payment methods based on your country and preference.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+                <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #06b6d4;">5</div>
+                <div class="flex-1 space-y-1">
+                    <h4 class="text-base font-bold text-slate-900 tracking-tight">Complete the Payment</h4>
+                    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                        Follow the on-screen instructions to pay securely.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+                <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #8b5cf6;">6</div>
+                <div class="flex-1 space-y-1">
+                    <h4 class="text-base font-bold text-slate-900 tracking-tight">Payment Confirmation</h4>
+                    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                        Once payment is confirmed, your payment status updates automatically and an official receipt is issued.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-4 border-t border-slate-200">
+        <p class="text-xs sm:text-sm font-semibold text-slate-800">
+            Please pay by the deadline indicated in your official offer of admission to confirm your enrollment.
+        </p>
+    </div>
+</div>`,
     },
     {
         pageSlug: 'admissions/tuition',
