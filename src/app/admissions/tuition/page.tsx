@@ -377,7 +377,7 @@ export default async function TuitionPaymentPage() {
                         </section>
 
                         <section id="faq" className="scroll-mt-32 space-y-4">
-                            <div className="cc-section-divider !mb-6">
+                            <div className="pb-1">
                                 <h2 className="cc-h2">General FAQ</h2>
                             </div>
                             <TuitionFAQ />
