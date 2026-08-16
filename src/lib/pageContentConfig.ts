@@ -480,21 +480,6 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'certificate_fees_content',
         label: 'Certificate Fees Section',
-        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-4">Annual tuition fee and deposit for Certificate programs (6 months – 1 year)</p>
-<div class="w-full overflow-x-auto rounded-xl">
-    <table class="w-full table-fixed text-left border-collapse">
-        <thead class="bg-[#0f2027] text-white"><tr><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Student Residency</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Fee / yr</th><th class="w-1/3 px-2 py-2.5 font-normal whitespace-normal break-words">Tuition Deposit</th></tr></thead>
-        <tbody class="divide-y divide-neutral-200 text-black">
-            <tr class="hover:bg-neutral-50"><td class="px-2 py-2.5 font-normal whitespace-normal break-words">Domestic Students</td><td class="px-2 py-2.5 whitespace-normal break-words">$2,400</td><td class="px-2 py-2.5 whitespace-normal break-words">$2,000</td></tr>
-            <tr class="hover:bg-neutral-50"><td class="px-2 py-2.5 font-normal whitespace-normal break-words">International Students</td><td class="px-2 py-2.5 whitespace-normal break-words">$4,000</td><td class="px-2 py-2.5 whitespace-normal break-words">$2,000</td></tr>
-        </tbody>
-    </table>
-</div>`,
-    },
-    {
-        pageSlug: 'admissions/tuition',
-        sectionKey: 'certificate_fees_content',
-        label: 'Certificate Fees Section',
         defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">Annual tuition fee and deposit for Certificate programs (6 months – 1 year)</p>
 <div class="w-full overflow-x-auto my-2 rounded-lg border border-neutral-200 shadow-sm bg-white">
     <table class="w-full table-auto sm:table-fixed border-collapse">
