@@ -31,7 +31,7 @@ export default function HousingPage() {
         <div className="min-h-screen bg-white text-black font-sans pb-12">
             {/* HERO SECTION */}
             <Hero
-                title="Student Housing & Accommodations"
+                title="Housing"
                 body="Welcome to your new home in Ottawa. Explore on-campus student residences, verified local homestays, and off-campus rental support tailored for Cannoga College students."
                 backgroundColor="#0a151a"
                 tinted
@@ -49,7 +49,7 @@ export default function HousingPage() {
                 breadcrumbs={[
                     { label: 'Home', href: '/' },
                     { label: 'Student Life', href: '/student-life' },
-                    { label: 'Housing & Accommodations' }
+                    { label: 'Housing' }
                 ]}
             >
                 <div className="cc-container py-8 md:py-12 space-y-10">
