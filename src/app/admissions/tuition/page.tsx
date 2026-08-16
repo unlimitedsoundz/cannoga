@@ -76,6 +76,7 @@ export default async function TuitionPaymentPage() {
         console.error('Error fetching page_content on server:', e);
     }
 
+    const getSectionDefault = (sectionKey: string) => getPageContentSection(pageSlug, sectionKey)?.defaultContent ?? '';
     const getContent = (sectionKey: string) => dbContentMap[sectionKey] || getSectionDefault(sectionKey);
 
     if (dbContentMap['hero_video_url']) {
