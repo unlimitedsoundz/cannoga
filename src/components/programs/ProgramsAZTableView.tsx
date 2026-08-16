@@ -172,7 +172,7 @@ const programsData: ProgramItem[] = [
         duration: '1 Year',
         credits: 30,
         coop: false,
-        pgwp: true,
+        pgwp: false,
         tuitionDomestic: '$1,500/yr',
         tuitionInternational: '$2,500/yr',
         href: '/admissions',
@@ -340,7 +340,7 @@ const programsData: ProgramItem[] = [
         duration: '1 Year',
         credits: 30,
         coop: false,
-        pgwp: true,
+        pgwp: false,
         tuitionDomestic: '$1,500/yr',
         tuitionInternational: '$2,500/yr',
         href: '/admissions',
@@ -354,7 +354,7 @@ const programsData: ProgramItem[] = [
         duration: '1 Year',
         credits: 30,
         coop: true,
-        pgwp: true,
+        pgwp: false,
         tuitionDomestic: '$1,500/yr',
         tuitionInternational: '$2,500/yr',
         href: '/admissions',
@@ -396,7 +396,7 @@ const programsData: ProgramItem[] = [
         duration: '1 Year',
         credits: 30,
         coop: false,
-        pgwp: true,
+        pgwp: false,
         tuitionDomestic: '$1,500/yr',
         tuitionInternational: '$2,500/yr',
         href: '/admissions',
@@ -494,7 +494,7 @@ const programsData: ProgramItem[] = [
         duration: '1 Year',
         credits: 30,
         coop: false,
-        pgwp: true,
+        pgwp: false,
         tuitionDomestic: '$1,500/yr',
         tuitionInternational: '$2,500/yr',
         href: '/admissions',
@@ -550,6 +550,8 @@ export function ProgramsAZTableView() {
                         const domesticTuition = levelFormatted === 'Master' ? '$5,600/yr' : levelFormatted === 'Bachelor' ? '$4,000/yr' : '$2,400/yr';
                         const intlTuition = levelFormatted === 'Master' ? '$9,600/yr' : levelFormatted === 'Bachelor' ? '$6,400/yr' : '$4,000/yr';
 
+                        const isPgwpEligible = levelFormatted === 'Master' || levelFormatted === 'Bachelor' || levelFormatted === 'Diploma' || levelFormatted === 'Advanced Diploma';
+
                         return {
                             id: item.id,
                             code: item.code || 'CAN-100',
@@ -559,7 +561,7 @@ export function ProgramsAZTableView() {
                             duration: item.duration || '2 Years',
                             credits: Number(item.credits) || (levelFormatted === 'Bachelor' ? 120 : levelFormatted === 'Master' ? 60 : 60),
                             coop: true,
-                            pgwp: true,
+                            pgwp: isPgwpEligible,
                             tuitionDomestic: domesticTuition,
                             tuitionInternational: intlTuition,
                             href: `/studies/${item.slug}`,
@@ -771,7 +773,11 @@ export function ProgramsAZTableView() {
                                         </td>
                                         <td className="p-3.5 text-center">
                                             <div className="flex flex-col items-center gap-0.5 text-xs font-normal text-slate-700 whitespace-nowrap">
-                                                {p.pgwp && <span>PGWP Eligible</span>}
+                                                {p.pgwp ? (
+                                                    <span className="text-emerald-700 font-semibold">PGWP Eligible</span>
+                                                ) : (
+                                                    <span className="text-slate-400">Not PGWP Eligible</span>
+                                                )}
                                                 {p.coop && <span className="text-slate-500 text-[11px]">Co-op Available</span>}
                                             </div>
                                         </td>

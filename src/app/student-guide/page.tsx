@@ -136,7 +136,7 @@ export default function StudentGuidePage() {
                                 Programs &amp; Degrees at Cannoga College
                             </h2>
                             <p className="text-xs md:text-sm text-neutral-600 font-medium mb-4 leading-relaxed">
-                                Cannoga College offers Certificate, Diploma, Advanced Diploma, Bachelor’s, and Master’s programmes across business, economics, management, finance, information systems, entrepreneurship, and interdisciplinary fields. All academic programs at Cannoga College are eligible for the Post-Graduation Work Permit (PGWP).
+                                Cannoga College offers Certificate, Diploma, Advanced Diploma, Bachelor’s, and Master’s programmes across business, economics, management, finance, information systems, entrepreneurship, and interdisciplinary fields. Eligible full-time diploma, undergraduate, and graduate programs qualify for the Post-Graduation Work Permit (PGWP) pathway.
                             </p>
 
                             <ProgramLevelsCarousel />
