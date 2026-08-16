@@ -23,17 +23,6 @@ export default function DbPageContent({
     skipDbFetch = false,
 }: DbPageContentProps) {
     const sanitize = (text: string) => {
-        if (pageSlug === 'admissions/tuition') {
-            return text
-                .replace(/Flywire/gi, 'our secure payment portal')
-                .replace(/https:\/\/www\.flywire\.com\//gi, '#')
-                .replace(/mailto:admissions@cannoga\.fi/gi, 'mailto:admissions@cannogacollege.ca')
-                .replace(/admissions@cannoga\.fi/gi, 'admissions@cannogacollege.ca')
-                .replace(/cannoga\.fi/gi, 'cannogacollege.ca')
-                .replace(/https:\/\/www\.kela\.fi\/web\/en/gi, 'https://www.ontario.ca/page/apply-ohip-health-card')
-                .replace(/Apply for Kela/gi, 'Apply for OHIP at ServiceOntario')
-                .replace(/\bKela\b/gi, 'OHIP');
-        }
         if (pageSlug === 'admissions/master' && sectionKey === 'study_options_content') {
             return text
                 .replace(/<div class="grid md:grid-cols-2 lg:grid-cols-3[\s\S]*?<\/div>\s*<\/div>/gi, '')
