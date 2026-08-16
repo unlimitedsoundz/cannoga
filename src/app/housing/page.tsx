@@ -1,10 +1,11 @@
-﻿import { Metadata } from 'next';
+import { Metadata } from 'next';
 import { StepBadge } from '@/components/ui/StepBadge';
 import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { Highlight } from '@/components/ui/Highlight';
 import { CheckCircle } from "@phosphor-icons/react/dist/ssr";
+import { HousingOptionsHubCarousel } from '@/components/housing/HousingOptionsHubCarousel';
 
 export const metadata: Metadata = {
     title: 'Student Housing & Residences — Cannoga College Ottawa',
@@ -111,61 +112,16 @@ export default function HousingPage() {
                         alignment="left"
                     />
 
-                    {/* PRICING & COMPARISON */}
-                    <section id="pricing" className="scroll-mt-32 space-y-4">
+                    {/* PRICING & COMPARISON (Student Resource Hub Carousel Style) */}
+                    <section id="pricing" className="scroll-mt-32 space-y-6">
                         <div>
-                            <h2 className="text-aalto-5 font-bold text-black tracking-tight mb-1">Average Monthly Housing Costs in Ottawa</h2>
-                            <p className="text-neutral-500 text-xs md:text-sm font-medium">
+                            <h2 className="text-2xl sm:text-3xl font-extrabold text-black tracking-tight mb-2">Average Monthly Housing Costs in Ottawa</h2>
+                            <p className="text-neutral-600 text-sm font-medium">
                                 All prices are estimated in Canadian Dollars (CAD) per month and include utility baseline estimates.
                             </p>
                         </div>
 
-                        <div className="grid md:grid-cols-3 gap-6 pt-2">
-                            {[
-                                {
-                                    type: "Shared Student Apartment",
-                                    price: "$550 – $850",
-                                    period: "per month",
-                                    features: ["Private bedroom in 3-4 bed suite", "Shared kitchen & bathroom", "Utilities & High-Speed Wi-Fi included", "Flexible 8-month academic leases"]
-                                },
-                                {
-                                    type: "On-Campus Residence Suite",
-                                    price: "$900 – $1,250",
-                                    period: "per month",
-                                    features: ["Fully furnished private room", "24/7 security & residence advisor", "Campus dining hall pass optional", "Steps to academic buildings"]
-                                },
-                                {
-                                    type: "Private Studio / 1-Bed Apartment",
-                                    price: "$1,200 – $1,600",
-                                    period: "per month",
-                                    features: ["100% private living space", "In-suite kitchen & laundry", "Located in prime Ottawa downtown", "Ideal for senior or graduate students"]
-                                }
-                            ].map((plan, i) => (
-                                <div key={i} className="space-y-2">
-                                    <h3 className="font-bold text-black text-base">{plan.type}</h3>
-                                    <div>
-                                        <span className="text-2xl md:text-3xl font-black text-black">{plan.price}</span>
-                                        <span className="text-xs text-neutral-500 block font-medium">{plan.period}</span>
-                                    </div>
-                                    <ul className="space-y-1.5 text-xs text-neutral-700 font-medium pt-1">
-                                        {plan.features.map((f, j) => (
-                                            <li key={j} className="flex items-center gap-2">
-                                                <CheckCircle size={14} weight="fill" className="text-[#0a151a] shrink-0" />
-                                                {f}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <div className="pt-1">
-                                        <Link
-                                            href="/portal/account/login"
-                                            className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]"
-                                        >
-                                            Apply via Housing Portal →
-                                        </Link>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        <HousingOptionsHubCarousel />
                     </section>
 
                     {/* HOW TO APPLY & STEPS */}
