@@ -19,6 +19,7 @@ import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarous
 import { AdmissionsQuickLinksCarousel } from '@/components/admissions/AdmissionsQuickLinksCarousel';
 import { AdmissionsCareerOpportunitiesCarousel } from '@/components/admissions/AdmissionsCareerOpportunitiesCarousel';
 import { InternationalInfoCard } from '@/components/admissions/InternationalInfoCard';
+import AdmissionsHelpCard from '@/components/admissions/AdmissionsHelpCard';
 
 export const metadata = {
     title: 'Admissions & Enrollment Hub',
@@ -379,73 +380,44 @@ export default async function AdmissionsPage() {
 
 
                         <section id="ask-about-applying" className="scroll-mt-32 mb-16 space-y-8">
-                            <div>
-                                <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Ask About Applying</h2>
-                                <p className="text-slate-700 text-base md:text-lg font-medium leading-relaxed">
-                                    Cannoga College admissions advisors are available to assist prospective students with application requirements, program entry criteria, and campus information.
-                                </p>
+                            <AdmissionsHelpCard
+                                title="ASK ABOUT APPLYING TO CANNOGA"
+                                description="Cannoga College admissions advisors are available to assist prospective international students with application requirements, program entry criteria, scholarships, and campus arrival."
+                                email="admissions@cannogacollege.ca"
+                                phone="+1 (227) 250-0427"
+                                variant="indigo"
+                            />
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 text-sm text-slate-700 bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                                <div>
+                                    <h4 className="font-bold text-slate-900 text-base mb-1">Campus Address</h4>
+                                    <p className="leading-relaxed text-slate-600">
+                                        Cannoga College Ottawa campus<br />
+                                        81 Montreal Rd,<br />
+                                        K1L 6E8 Ottawa, Ontario, Canada
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-slate-900 text-base mb-1">Mailing &amp; Registry Address</h4>
+                                    <p className="leading-relaxed text-slate-600">
+                                        Cannoga College Admissions &amp; Registrar<br />
+                                        81 Montreal Rd,<br />
+                                        K1L 6E8 Ottawa, Ontario, Canada
+                                    </p>
+                                </div>
                             </div>
 
-                            <div className="flex flex-col gap-6 pt-2">
-                                {/* Email */}
-                                <div>
-                                    <h3 className="text-slate-900 font-bold text-base leading-snug">Email</h3>
-                                    <a href="mailto:admissions@cannogacollege.ca" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm mt-1 block">
-                                        admissions@cannogacollege.ca
-                                    </a>
-                                    <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
-                                        Ottawa, Ontario, Canada resident enquiries
-                                    </p>
-                                </div>
-
-                                {/* Talk to Cannoga */}
-                                <div className="space-y-2">
-                                    <div>
-                                        <h3 className="text-slate-900 font-bold text-base leading-snug">Talk to Cannoga</h3>
-                                        <div className="mt-1 space-y-1">
-                                            <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
-                                            <a href="tel:+12272500427" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block">
-                                                Talk to Admissions: +1 (227) 250-0427
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Where to reach us */}
-                                <div>
-                                    <h3 className="text-slate-900 font-bold text-base leading-snug">Where to reach us</h3>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2 text-sm text-slate-700">
-                                        <div>
-                                            <h4 className="font-bold text-slate-900 text-sm">Campus Address</h4>
-                                            <p className="leading-relaxed mt-0.5">
-                                                Cannoga College Ottawa campus<br />
-                                                81 Montreal Rd,<br />
-                                                K1L 6E8 Ottawa, Ontario, Canada
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <h4 className="font-bold text-slate-900 text-sm">Mailing Address</h4>
-                                            <p className="leading-relaxed mt-0.5">
-                                                Cannoga College Ottawa campus<br />
-                                                81 Montreal Rd,<br />
-                                                K1L 6E8 Ottawa, Ontario, Canada
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Application Note */}
-                                <div className="pt-2">
-                                    <h3 className="text-slate-900 font-bold text-base leading-snug">Application Note</h3>
-                                    <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
-                                        All formal applications must be submitted through the Cannoga College online portal during the official application periods.
-                                    </p>
-                                </div>
+                            {/* Application Note */}
+                            <div className="pt-2">
+                                <h3 className="text-slate-900 font-bold text-base leading-snug">Application Note</h3>
+                                <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
+                                    All formal applications must be submitted through the Cannoga College online portal during the official application periods.
+                                </p>
                             </div>
                         </section>
 
+                    </div>
                 </div>
-            </div>
         </div>
     );
 }

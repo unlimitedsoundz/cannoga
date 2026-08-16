@@ -2,6 +2,7 @@ import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
+import AdmissionsHelpCard from '@/components/admissions/AdmissionsHelpCard';
 
 export const metadata = {
     title: 'International Exchange Program Guide',
@@ -220,7 +221,16 @@ export default function ExchangeStudentsPage() {
                                     </li>
                                 ))}
                             </ul>
-                            <p className="text-xs text-neutral-500 italic pt-1">Questions? Contact the International Office at exchange@cannogacollege.ca</p>
+
+                            <div className="pt-8">
+                                <AdmissionsHelpCard
+                                    title="QUESTIONS ABOUT EXCHANGE PROGRAMS?"
+                                    description="Our International Student Advisors guide you through Learning Agreements, credit transfer verification, visa documentation, and arrival logistics."
+                                    email="exchange@cannogacollege.ca"
+                                    phone="+1 (227) 250-0427"
+                                    variant="purple"
+                                />
+                            </div>
                         </div>
                     </section>
                 </div>
