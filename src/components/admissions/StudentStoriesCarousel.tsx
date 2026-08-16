@@ -30,7 +30,7 @@ const peers: Peer[] = [
         image: "https://i.pinimg.com/1200x/72/a1/7c/72a17cb6e8bda24fd421065e8ad24296.jpg",
         quote: "My study abroad journey in Ottawa, Ontario, Canada has been a rollercoaster of emotions, challenges, and growth.",
         cardBgClass: "bg-[#e11d48] hover:bg-[#be123c]",
-        storyUrl: "https://ourblogs.cannogacollege.ca/study-abroad-journey-ottawa,%20canada",
+        storyUrl: "https://ourblogs.cannogacollege.ca/study-abroad-journey-ottawa-canada",
         buttonText: "Read Full Story",
     },
     {

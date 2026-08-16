@@ -86,11 +86,14 @@ function EditBlogPostForm() {
                 setSaving(false);
                 return;
             }
-            if (!data.slug?.trim()) {
-                alert('Slug is required');
-                setSaving(false);
-                return;
-            }
+            const rawSlug = data.slug?.trim() || data.title?.trim() || '';
+            const sanitizedSlug = rawSlug
+                .toLowerCase()
+                .trim()
+                .replace(/[,._\s/]+/g, '-')
+                .replace(/[^a-z0-9-]/g, '')
+                .replace(/-+/g, '-')
+                .replace(/^-+|-+$/g, '');
 
             const supabase = createBlogClient();
             const cleanedContent = editorContent
@@ -106,10 +109,16 @@ function EditBlogPostForm() {
             const publishDate = data.publishDate ? new Date(data.publishDate) : new Date();
 
             const updateData = {
-                ...data,
+                title: data.title.trim(),
+                slug: sanitizedSlug,
+                excerpt: data.excerpt?.trim() || null,
+                published: Boolean(data.published),
+                imageUrl: data.imageUrl || null,
                 content: cleanedContent,
                 publishDate: publishDate.toISOString(),
                 og_image: data.og_image || ogImageUrl || null,
+                meta_title: data.meta_title?.trim() || null,
+                meta_description: data.meta_description?.trim() || null,
                 updatedAt: new Date().toISOString(),
             };
 
