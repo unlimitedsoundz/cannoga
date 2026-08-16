@@ -481,7 +481,7 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'certificate_fees_content',
         label: 'Certificate Fees Section',
         defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">Annual tuition fee and deposit for Certificate programs (6 months – 1 year)</p>
-<div class="w-full overflow-x-auto my-2 rounded-lg border border-neutral-200 shadow-sm bg-white">
+<div class="w-full overflow-x-auto my-2 bg-white">
     <table class="w-full table-auto sm:table-fixed border-collapse">
         <thead>
             <tr class="bg-[#0a151a] text-white">
@@ -490,7 +490,7 @@ export const pageContentSections: PageContentSection[] = [
                 <th class="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
             </tr>
         </thead>
-        <tbody class="divide-y divide-neutral-200">
+        <tbody>
             <tr class="bg-white hover:bg-neutral-50/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
                 <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-right align-middle whitespace-nowrap">CAD $2,400</td>
@@ -510,7 +510,7 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'diploma_fees_content',
         label: 'Diploma Fees Section',
         defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">Annual tuition fee and deposit for Diploma and Advanced Diploma programs (2 – 3 years)</p>
-<div class="w-full overflow-x-auto my-2 rounded-lg border border-neutral-200 shadow-sm bg-white">
+<div class="w-full overflow-x-auto my-2 bg-white">
     <table class="w-full table-auto sm:table-fixed border-collapse">
         <thead>
             <tr class="bg-[#0a151a] text-white">
@@ -519,7 +519,7 @@ export const pageContentSections: PageContentSection[] = [
                 <th class="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
             </tr>
         </thead>
-        <tbody class="divide-y divide-neutral-200">
+        <tbody>
             <tr class="bg-white hover:bg-neutral-50/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
                 <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-right align-middle whitespace-nowrap">CAD $2,400</td>
@@ -539,7 +539,7 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'bachelor_fees_content',
         label: 'Bachelor Fees Section',
         defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">Annual tuition fee and deposit for Bachelor's degree programs (4-year programs)</p>
-<div class="w-full overflow-x-auto my-2 rounded-lg border border-neutral-200 shadow-sm bg-white">
+<div class="w-full overflow-x-auto my-2 bg-white">
     <table class="w-full table-auto sm:table-fixed border-collapse">
         <thead>
             <tr class="bg-[#0a151a] text-white">
@@ -548,7 +548,7 @@ export const pageContentSections: PageContentSection[] = [
                 <th class="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
             </tr>
         </thead>
-        <tbody class="divide-y divide-neutral-200">
+        <tbody>
             <tr class="bg-white hover:bg-neutral-50/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
                 <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-right align-middle whitespace-nowrap">CAD $4,000</td>
@@ -568,7 +568,7 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'master_fees_content',
         label: 'Master Fees Section',
         defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">Annual tuition fee and deposit for Master's degree programs (2-year programs)</p>
-<div class="w-full overflow-x-auto my-2 rounded-lg border border-neutral-200 shadow-sm bg-white">
+<div class="w-full overflow-x-auto my-2 bg-white">
     <table class="w-full table-auto sm:table-fixed border-collapse">
         <thead>
             <tr class="bg-[#0a151a] text-white">
@@ -577,7 +577,7 @@ export const pageContentSections: PageContentSection[] = [
                 <th class="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
             </tr>
         </thead>
-        <tbody class="divide-y divide-neutral-200">
+        <tbody>
             <tr class="bg-white hover:bg-neutral-50/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
                 <td class="px-2.5 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-right align-middle whitespace-nowrap">CAD $5,600</td>

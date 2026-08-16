@@ -169,7 +169,7 @@ export default async function TuitionPaymentPage() {
                                 <DbPageContent pageSlug={pageSlug} sectionKey="costs_intro_content" fallbackContent={getContent('costs_intro_content')} className="space-y-4 text-lg font-normal text-slate-700 leading-relaxed" />
                             </div>
 
-                            <div className="w-full overflow-x-auto my-3 rounded-lg border border-neutral-200 shadow-sm bg-white">
+                            <div className="w-full overflow-x-auto my-3 bg-white">
                                 <table className="w-full table-auto sm:table-fixed border-collapse">
                                     <thead>
                                         <tr className="bg-[#0a151a] text-white">
@@ -180,7 +180,7 @@ export default async function TuitionPaymentPage() {
                                             <th className="px-2.5 py-2 sm:px-4 sm:py-3 text-right text-xs sm:text-sm font-bold uppercase tracking-wide">International</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-neutral-200">
+                                    <tbody>
                                         {['CERTIFICATE', 'DIPLOMA', 'BACHELOR', 'MASTER'].map((credentialType, idx) => {
                                             const info = tuitionRates.find((t: any) => t.credential_type === credentialType);
                                             const display = credentialDisplay[credentialType] || { label: credentialType, duration: '—', credits: '—' };
