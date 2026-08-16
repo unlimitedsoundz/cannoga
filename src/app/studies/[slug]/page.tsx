@@ -171,15 +171,15 @@ export default async function CourseDetailPage({ params }: Props) {
             careerPaths: `Graduates of ${title} pursue careers in enterprise organization, specialized technical consultation, policy administration, and leadership roles across Canada and internationally.`,
             school: {
                 id: 'school-fallback',
-                name: 'School of Academic Studies',
-                slug: 'academic-studies',
-                description: 'Cannoga College School of Academic Studies'
+                name: 'School of Business',
+                slug: 'business',
+                description: 'Cannoga College School of Business'
             },
             department: {
                 id: 'dept-fallback',
-                name: 'Academic Department',
-                slug: 'academic-department',
-                description: 'Academic Department'
+                name: 'Department of Business & Management',
+                slug: 'business-management-dept',
+                description: 'Department of Business & Management'
             },
             subjects: getDetailedSubjects(slug, title),
             sections: []
@@ -195,6 +195,17 @@ export default async function CourseDetailPage({ params }: Props) {
             .eq('departmentId', c.departmentId || c.department.id)
             .limit(3);
         if (facultyData) relatedFaculty = facultyData;
+    }
+
+    // Fetch related academic courses (mesh linking across studies)
+    let relatedCourses: any[] = [];
+    const { data: siblingCourses } = await supabase
+        .from('Course')
+        .select('id, title, slug, degreeLevel, duration, description')
+        .neq('slug', slug)
+        .limit(4);
+    if (siblingCourses && siblingCourses.length > 0) {
+        relatedCourses = siblingCourses;
     }
 
     // Resolve the correct school slug for department back-links
@@ -404,7 +415,7 @@ export default async function CourseDetailPage({ params }: Props) {
                     <section className="py-8 border-t border-slate-200">
                         <h2 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">Career Prospects & Industry Pathways</h2>
                         <p className="text-slate-600 text-sm mb-6">
-                            Graduates of the {c.title} are equipped for high-demand roles across public and private sector organizations in Ontario and Canada. Learn more about <Link href="/admissions/tuition" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Tuition & Financial Aid Options</Link> or connect with our <Link href="/contact" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Career Advisory Team</Link>.
+                            Graduates of the {c.title} are equipped for high-demand roles across public and private sector organizations in Ontario and Canada. Learn more about <Link href="/admissions/tuition/" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Tuition & Financial Aid Options</Link> or connect with our <Link href="/contact/" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Career Advisory Team</Link>.
                         </p>
                         
                         <div className="p-6 bg-slate-900 text-white rounded-none mb-6">
@@ -427,6 +438,47 @@ export default async function CourseDetailPage({ params }: Props) {
                             </div>
                         </div>
                     </section>
+
+                    {/* 4. Related Programs & Pathways Mesh */}
+                    {relatedCourses.length > 0 && (
+                        <section className="py-8 border-t border-slate-200">
+                            <div className="flex items-center justify-between mb-6">
+                                <div>
+                                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">Related Academic Programs</h2>
+                                    <p className="text-sm text-slate-600 mt-1">Explore other accredited credentials and specializations at Cannoga College.</p>
+                                </div>
+                                <Link href="/studies/" className="text-xs font-bold uppercase tracking-wider text-slate-900 hover:text-sky-700 underline hidden sm:inline-block">
+                                    All Programs &rarr;
+                                </Link>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {relatedCourses.map((rc: any) => (
+                                    <Link
+                                        key={rc.id}
+                                        href={`/studies/${rc.slug}/`}
+                                        className="group p-5 border border-slate-200 hover:border-slate-900 bg-white hover:bg-slate-50 transition-all flex flex-col justify-between no-underline"
+                                    >
+                                        <div>
+                                            <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                                                <span>{rc.degreeLevel || 'Diploma'}</span>
+                                                <span>{rc.duration || '2 Years'}</span>
+                                            </div>
+                                            <h3 className="font-black text-slate-900 text-base group-hover:text-sky-700 transition-colors leading-snug">
+                                                {rc.title}
+                                            </h3>
+                                            <p className="text-xs text-slate-600 mt-2 line-clamp-2 leading-relaxed">
+                                                {rc.description?.substring(0, 120)}...
+                                            </p>
+                                        </div>
+                                        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-900">
+                                            <span>Explore Program</span>
+                                            <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </section>
+                    )}
                 </div>
 
                 {/* Sidebar Column: Entry Requirements & Application Action */}
