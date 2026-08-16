@@ -1,4 +1,4 @@
-﻿import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
+import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { Link } from '@/components/ui/Link';
 import { CTA } from '@/components/ui/CTA';
 import Image from 'next/image';
@@ -107,12 +107,9 @@ export default function RequirementsPage() {
                         </section>
 
                         <section id="faq" className="scroll-mt-32">
-                            <div className="cc-section-divider">
+                            <div className="pb-4">
                                 <h2 className="cc-h2">Frequently Asked Questions</h2>
                             </div>
-                            <p className="text-neutral-500 mb-8 leading-relaxed">
-                                Find quick answers to common questions regarding the application process.
-                            </p>
                             <ApplicationFAQ />
                         </section>
 
