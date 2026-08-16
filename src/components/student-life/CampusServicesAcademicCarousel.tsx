@@ -32,7 +32,7 @@ const SERVICE_CARDS: ServiceCard[] = [
         title: 'BOOKSTORE & TECH SUPPLIES',
         description: 'Course textbooks, design supplies, digital electronics, and official Cannoga gear.',
         href: '#',
-        image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop',
+        image: 'https://i.pinimg.com/736x/12/5c/15/125c15265f92b5d4dd27c1bf051fc3ec.jpg',
         bgColor: 'bg-[#0088dd]', // Vibrant electric blue
         borderColor: 'border-[#0088dd]',
         waveColor: '#004c80',
