@@ -1,4 +1,4 @@
-﻿const { createClient } = require('@supabase/supabase-js');
+const { createClient } = require('@supabase/supabase-js');
 const path = require('path');
 const fs = require('fs');
 require('dotenv').config({ path: '.env.local' });
@@ -1937,11 +1937,11 @@ const blogPosts = [
 <p><strong>Advice for Future Students</strong></p>
 <p>Go with realistic expectations. Embrace the challenges as growth opportunities. Stay open-minded and proactive. Build support networks early. Remember that difficult periods pass, and the rewards are lasting.</p>
 
-<p>Studying abroad in Canada has been the most challenging and rewarding experience of my life. It pushed me beyond my comfort zone and revealed strengths I didn't know I had. For anyone considering this journey, I say yes—it's worth it, but be prepared for the transformation.</p>
+<p>Studying abroad in Ottawa, Ontario, Canada has been the most challenging and rewarding experience of my life. It pushed me beyond my comfort zone and revealed strengths I didn't know I had. For anyone considering this journey, I say yes, it's worth it, but be prepared for the transformation.</p>
 
-<p><em>About the Author: Lina Kowalewski is a second-year European Studies student from Poland studying at Cannoga College.</em></p>`,
-        author: "Lina Kowalewski",
-        authorBio: "Second-year European Studies student from Poland",
+<p><em>About the Author: Chinanza Kamsiyochukwu is a Graduate Environmental Science student from Imo in Nigeria studying at Cannoga College.</em></p>`,
+        author: "Chinanza Kamsiyochukwu",
+        authorBio: "Graduate Environmental Science student from Imo in Nigeria",
         publishDate: "2025-04-01",
         imageUrl: "/images/blog/journey-story.jpg",
         published: true

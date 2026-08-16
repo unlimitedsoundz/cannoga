@@ -15,6 +15,8 @@ interface Peer {
     quote: string;
     cardBgClass: string;
     imagePosition?: string;
+    storyUrl?: string;
+    buttonText?: string;
 }
 
 const peers: Peer[] = [
@@ -28,6 +30,8 @@ const peers: Peer[] = [
         image: "https://i.pinimg.com/1200x/72/a1/7c/72a17cb6e8bda24fd421065e8ad24296.jpg",
         quote: "Conducting field research along the Rideau Canal and participating in campus sustainability projects gave me invaluable experience.",
         cardBgClass: "bg-[#e11d48] hover:bg-[#be123c]",
+        storyUrl: "https://ourblogs.cannogacollege.ca/study-abroad-journey-ottawa,%20canada",
+        buttonText: "Read Full Story",
     },
     {
         id: 4,
@@ -191,11 +195,13 @@ export default function StudentStoriesCarousel() {
                                                     "{peer.quote}"
                                                 </p>
                                                 <a
-                                                    href="/student-guide"
+                                                    href={peer.storyUrl || "/student-guide"}
+                                                    target={peer.storyUrl?.startsWith('http') ? "_blank" : undefined}
+                                                    rel={peer.storyUrl?.startsWith('http') ? "noopener noreferrer" : undefined}
                                                     onClick={(e) => e.stopPropagation()}
                                                     className="inline-flex items-center justify-center w-full bg-white text-slate-900 font-black text-xs uppercase tracking-wider py-3 px-4 rounded-sm transition-colors hover:bg-slate-100 no-underline gap-2 mt-4"
                                                 >
-                                                    Read Full Student Guide <ArrowUpRight size={16} weight="bold" />
+                                                    {peer.buttonText || "Read Full Student Guide"} <ArrowUpRight size={16} weight="bold" />
                                                 </a>
                                             </div>
                                         )}

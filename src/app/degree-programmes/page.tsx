@@ -70,9 +70,9 @@ export default async function DegreeProgrammesPage() {
                                 <h3 className="cc-h3 mb-6">Undergraduate <span className="text-[#000000]">(Certificates &amp; Diplomas)</span></h3>
                                 <ul className="space-y-4">
                                     {["High school diploma or equivalent", "Minimum GPA requirements", "English language proficiency", "Academic transcripts of secondary education"].map((r, i) => (
-                                        <li key={i} className="flex items-start gap-3 text-neutral-600">
-                                            <ArrowRight size={18} weight="bold" className="text-[#000000] flex-shrink-0 mt-0.5" />
-                                            {r}
+                                        <li key={i} className="flex items-start gap-3 text-neutral-700 text-base">
+                                            <span className="w-2 h-2 rounded-full bg-[#0f2027] flex-shrink-0 mt-2" />
+                                            <span>{r}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -81,9 +81,9 @@ export default async function DegreeProgrammesPage() {
                                 <h3 className="cc-h3 mb-6">Degrees <span className="text-[#000000]">(Bachelor's &amp; Master's)</span></h3>
                                 <ul className="space-y-4">
                                     {["Bachelor's degree or equivalent (for Master's)", "High school diploma with required subject prerequisites (for Bachelor's)", "Academic transcripts and letters of recommendation", "Statement of purpose or portfolio (where applicable)"].map((r, i) => (
-                                        <li key={i} className="flex items-start gap-3 text-neutral-600">
-                                            <ArrowRight size={18} weight="bold" className="text-[#000000] flex-shrink-0 mt-0.5" />
-                                            {r}
+                                        <li key={i} className="flex items-start gap-3 text-neutral-700 text-base">
+                                            <span className="w-2 h-2 rounded-full bg-[#0f2027] flex-shrink-0 mt-2" />
+                                            <span>{r}</span>
                                         </li>
                                     ))}
                                 </ul>
