@@ -73,10 +73,10 @@ export default function WelcomeFromPresidentPage() {
 
                             {/* Portrait */}
                             <div className="relative">
-                                <div className="relative w-full aspect-[3/4] max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden shadow-2xl">
+                                <div className="relative w-full aspect-[3/4] max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden border border-slate-200">
                                     <Image
                                         src="/images/president-luke-schaffner.jpg"
-                                        alt="Luke Schaffer President of Cannoga College"
+                                        alt="Dr. Luke Schaffner President of Cannoga College"
                                         fill
                                         className="object-cover object-top"
                                         sizes="(max-width: 768px) 100vw, 400px"
@@ -84,8 +84,8 @@ export default function WelcomeFromPresidentPage() {
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#0f2027]/70 via-transparent to-transparent" />
                                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                                        <p className="text-lg font-black tracking-tight leading-tight">Luke Schaffer</p>
-                                        <p className="text-sm font-semibold text-white/80 uppercase tracking-widest mt-0.5">President & Vice-Chancellor</p>
+                                        <p className="text-lg font-black tracking-tight leading-tight">Dr. Luke Schaffner</p>
+                                        <p className="text-sm font-semibold text-white/80 uppercase tracking-widest mt-0.5">President &amp; Vice-Chancellor</p>
                                         <p className="text-xs text-white/60 mt-1">Cannoga College, Ottawa</p>
                                     </div>
                                 </div>
@@ -145,15 +145,15 @@ export default function WelcomeFromPresidentPage() {
                                 <div className="w-16 h-16 rounded-full overflow-hidden relative shrink-0 ring-4 ring-[#c89211]/30">
                                     <Image
                                         src="/images/president-luke-schaffner.jpg"
-                                        alt="Luke Schaffer President of Cannoga College"
+                                        alt="Dr. Luke Schaffner President of Cannoga College"
                                         fill
                                         className="object-cover object-top"
                                         sizes="64px"
                                     />
                                 </div>
                                 <div>
-                                    <p className="text-xl font-black text-[#0f2027] tracking-tight">Luke Schaffer</p>
-                                    <p className="text-sm font-semibold text-neutral-500 uppercase tracking-widest">President & Vice-Chancellor</p>
+                                    <p className="text-xl font-black text-[#0f2027] tracking-tight">Dr. Luke Schaffner</p>
+                                    <p className="text-sm font-semibold text-neutral-500 uppercase tracking-widest">President &amp; Vice-Chancellor</p>
                                     <p className="text-sm text-neutral-400 mt-0.5">Cannoga College · Ottawa, Ontario</p>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@ export default function WelcomeFromPresidentPage() {
                             ].map((v) => (
                                 <div
                                     key={v.title}
-                                    className="rounded-2xl p-8 text-white shadow-lg"
+                                    className="rounded-2xl p-8 text-white"
                                     style={{ backgroundColor: v.color }}
                                 >
                                     <h3 className="text-xl font-black uppercase tracking-wider mb-3">{v.title}</h3>
