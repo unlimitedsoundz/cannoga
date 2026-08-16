@@ -970,19 +970,25 @@ button.sis-btn,
 }
 
 /* Container cards and panels */
-[data-theme="sis-dark"] .bg-white,
-[data-theme="sis-dark"] .bg-gray-50,
-[data-theme="sis-dark"] .bg-gray-100,
-[data-theme="sis-dark"] .bg-neutral-50,
-[data-theme="sis-dark"] .bg-neutral-100,
-[data-theme="sis-dark"] .bg-neutral-900,
-[data-theme="sis-dark"] .bg-neutral-950,
+[data-theme="sis-dark"] div.bg-white,
+[data-theme="sis-dark"] section.bg-white,
+[data-theme="sis-dark"] article.bg-white,
+[data-theme="sis-dark"] .bg-gray-50:not(button),
+[data-theme="sis-dark"] .bg-gray-100:not(button),
+[data-theme="sis-dark"] .bg-neutral-50:not(button),
+[data-theme="sis-dark"] .bg-neutral-100:not(button),
+[data-theme="sis-dark"] .bg-neutral-900:not(button),
+[data-theme="sis-dark"] .bg-neutral-950:not(button),
 [data-theme="sis-dark"] [class*="bg-[#141414]"],
 [data-theme="sis-dark"] [class*="bg-[#181818]"],
 [data-theme="sis-dark"] [class*="bg-[#1a1a1a]"],
 [data-theme="sis-dark"] [class*="bg-[#262626]"] {
   background-color: #0f2027 !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="sis-dark"] button.bg-white {
+  background-color: #ffffff !important;
 }
 
 [data-theme="sis-dark"] aside {
@@ -1000,16 +1006,17 @@ button.sis-btn,
 }
 
 /* Text color contrast rules in Admin SIS */
-[data-theme="sis-dark"] .text-neutral-900,
-[data-theme="sis-dark"] .text-neutral-800,
-[data-theme="sis-dark"] .text-neutral-700,
-[data-theme="sis-dark"] .text-slate-900,
-[data-theme="sis-dark"] .text-slate-800,
-[data-theme="sis-dark"] .text-gray-900,
-[data-theme="sis-dark"] .text-gray-800,
-[data-theme="sis-dark"] .text-black,
-[data-theme="sis-dark"] .text-\[\#0a151a\] {
-  color: #ffffff !important;
+[data-theme="sis-dark"] .text-neutral-900:not(.text-black):not(button *),
+[data-theme="sis-dark"] .text-neutral-800:not(.text-black):not(button *),
+[data-theme="sis-dark"] .text-neutral-700:not(.text-black):not(button *),
+[data-theme="sis-dark"] .text-slate-800:not(.text-black):not(button *),
+[data-theme="sis-dark"] .text-gray-900:not(.text-black):not(button *),
+[data-theme="sis-dark"] .text-gray-800:not(.text-black):not(button *) {
+  color: #ffffff;
+}
+
+[data-theme="sis-dark"] .text-black {
+  color: #000000 !important;
 }
 
 [data-theme="sis-dark"] .text-neutral-500,
