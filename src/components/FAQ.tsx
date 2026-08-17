@@ -62,7 +62,7 @@ export default function FAQ({ faqs }: FAQProps) {
                 return (
                     <div 
                         key={faq.id} 
-                        className="border-t-2 border-[#0a151a] last:border-b-2 bg-white"
+                        className="border-b border-neutral-200 last:border-b-0 bg-white"
                     >
                         <button
                             onClick={() => toggle(faq.id)}

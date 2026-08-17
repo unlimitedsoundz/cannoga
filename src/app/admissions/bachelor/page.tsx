@@ -192,7 +192,7 @@ export default async function BachelorAdmissionsPage() {
 
                     {/* FAQ */}
                     <section id="faq" className="scroll-mt-32 space-y-2">
-                        <div className="cc-section-divider !mb-3 !pb-2">
+                        <div className="pb-1">
                             <h2 className="cc-h2">Frequently Asked Questions</h2>
                         </div>
                         <BachelorFAQ />
