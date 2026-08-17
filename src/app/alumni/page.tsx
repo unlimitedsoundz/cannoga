@@ -1,6 +1,7 @@
-﻿import Image from 'next/image';
+import Image from 'next/image';
 import { Link } from '@/components/ui/Link';
 import { ArrowRight, Globe, Users, GraduationCap, Briefcase, CalendarCheck, BookOpen, Medal, EnvelopeSimple } from "@phosphor-icons/react/dist/ssr";
+import { Hero } from '@/components/layout/Hero';
 
 export const metadata = {
     title: 'Global Alumni Network & Community',
@@ -55,34 +56,41 @@ export default function AlumniPage() {
     return (
         <div className="min-h-screen bg-white text-black antialiased font-sans pb-24">
             
-            {/* HERO SECTION WITH FULL BACKGROUND OVERLAY */}
-            <section className="relative bg-[#191919] text-white pt-32 pb-24 md:pt-44 md:pb-32 px-4 border-b border-slate-800 overflow-hidden">
-                {/* Background Image with Crisp 40% Opacity Overlay */}
-                <div className="absolute inset-0 z-0">
-                    <Image 
-                        src="/images/alumni-hero.png" 
-                        alt="Cannoga Alumni Network" 
-                        fill
-                        className="object-cover object-top opacity-40"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#191919]/95 via-[#191919]/70 to-[#191919]/40"></div>
+            {/* HERO SECTION MATCHING HOME DESIGN */}
+            <Hero
+                title="Cannoga Alumni Network"
+                body="Empowering a global network of over 18,000+ professionals committed to sustainable impact, leadership, and technological innovation. Graduation is just the beginning."
+                backgroundColor="#0a151a"
+                tinted
+                lightText={true}
+                overlay={true}
+                overlayOpacity="opacity-50"
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Community', href: '/about' },
+                    { label: 'Alumni' }
+                ]}
+                image={{
+                    src: "/images/alumni-hero.png",
+                    alt: "Cannoga Alumni Network"
+                }}
+            >
+                <div className="flex flex-wrap gap-4">
+                    <Link
+                        href="/portal/login"
+                        className="inline-flex items-center gap-2 bg-[#c89211] hover:bg-[#b07f0e] text-[#0f2027] font-extrabold text-xs uppercase tracking-wider px-6 py-4 transition-colors no-underline rounded-sm shadow-md"
+                    >
+                        <span>Access Alumni Portal</span>
+                        <ArrowRight size={16} weight="bold" />
+                    </Link>
+                    <Link
+                        href="#benefits"
+                        className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider px-6 py-4 transition-colors no-underline rounded-sm border border-white/30"
+                    >
+                        <span>Explore Privileges</span>
+                    </Link>
                 </div>
-
-                <div className="container mx-auto max-w-5xl relative z-10">
-                    <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#c89211] mb-6">
-                        <Link href="/" className="text-[#c89211] hover:text-white transition-colors no-underline">HOME</Link>
-                        <span className="text-slate-500">/</span>
-                        <span>COMMUNITY</span>
-                    </div>
-                    <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white leading-tight max-w-3xl">
-                        Cannoga Alumni Network
-                    </h1>
-                    <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl font-medium">
-                        Empowering a global network of over 18,000+ professionals committed to sustainable impact, leadership, and technological innovation. Graduation is just the beginning.
-                    </p>
-                </div>
-            </section>
+            </Hero>
 
             {/* KEY STATS BAR */}
             <section className="bg-[#0f2027] text-white py-10 border-b border-slate-800">
@@ -98,12 +106,12 @@ export default function AlumniPage() {
                 </div>
             </section>
 
-            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16">
+            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
 
                 {/* OVERVIEW SECTION */}
                 <section className="space-y-6">
-                    <h2 className="text-3xl font-black text-black tracking-tight">Lifelong Connection & Impact</h2>
-                    <p className="text-slate-700 text-base md:text-lg font-medium leading-relaxed">
+                    <h2 className="text-3xl font-black text-black tracking-tight">Lifelong Connection &amp; Impact</h2>
+                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                         Cannoga College Master&apos;s and Undergraduate Alumni represent an active global community leading projects across sustainability, public policy, technology, business, and health sciences. Our alumni office provides continuous services, event invitations, and career advancement tools to support your lifelong journey.
                     </p>
                 </section>
@@ -111,21 +119,21 @@ export default function AlumniPage() {
                 {/* BORDERLESS HORIZONTAL ROWS FOR ALUMNI SERVICES & BENEFITS */}
                 <section id="benefits" className="scroll-mt-32 space-y-8 pt-8 border-t border-slate-200">
                     <div>
-                        <h2 className="text-3xl font-black text-black tracking-tight mb-2">Alumni Privileges & Services</h2>
-                        <p className="text-slate-700 text-base md:text-lg font-medium leading-relaxed">
+                        <h2 className="text-3xl font-black text-black tracking-tight mb-2">Alumni Privileges &amp; Services</h2>
+                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                             As a verified Cannoga graduate, you hold lifetime access to institutional resources and career networks.
                         </p>
                     </div>
 
-                    <div className="flex flex-col gap-6 pt-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                         {benefits.map((benefit, idx) => (
-                            <div key={idx} className="flex items-start gap-4">
-                                <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
-                                    <GraduationCap size={16} weight="bold" />
+                            <div key={idx} className="flex items-start gap-4 p-4 border border-slate-200 hover:border-black transition-colors rounded-sm">
+                                <div className="p-2.5 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                    <GraduationCap size={20} weight="bold" />
                                 </div>
-                                <div>
-                                    <h3 className="text-slate-900 font-bold text-base leading-snug">{benefit.title}</h3>
-                                    <p className="text-slate-600 text-sm font-normal mt-1 leading-relaxed">
+                                <div className="space-y-1">
+                                    <h3 className="text-slate-900 font-bold text-base md:text-lg leading-snug">{benefit.title}</h3>
+                                    <p className="text-slate-700 text-base font-normal leading-relaxed">
                                         {benefit.desc}
                                     </p>
                                 </div>
@@ -135,22 +143,22 @@ export default function AlumniPage() {
                 </section>
 
                 {/* REGIONAL CHAPTERS DIRECTORY */}
-                <section className="pt-8 border-t border-slate-200">
-                    <h2 className="text-2xl font-black text-black tracking-tight mb-6">Regional Alumni Chapters</h2>
-                    <p className="text-slate-700 text-base font-medium leading-relaxed mb-8">
+                <section className="pt-8 border-t border-slate-200 space-y-6">
+                    <h2 className="text-2xl md:text-3xl font-black text-black tracking-tight">Regional Alumni Chapters</h2>
+                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                         Connect with local chapter leaders, participate in regional networking mixers, and attend Cannoga speaker panels in your area.
                     </p>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                         {chapters.map((chapter, idx) => (
-                            <div key={idx} className="flex items-start gap-4">
-                                <div className="p-2 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
-                                    <Globe size={16} weight="bold" />
+                            <div key={idx} className="flex items-start gap-4 p-5 border border-slate-200 hover:border-black transition-colors rounded-sm">
+                                <div className="p-2.5 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
+                                    <Globe size={20} weight="bold" />
                                 </div>
-                                <div>
-                                    <h3 className="font-bold text-base text-slate-900">{chapter.city}</h3>
-                                    <span className="inline-block text-xs font-bold text-[#c89211] uppercase tracking-wider mt-0.5 mb-1">{chapter.members}</span>
-                                    <a href={`mailto:${chapter.contact}`} className="text-[#0f2027] font-bold text-sm underline hover:text-[#c89211] transition-colors block">
+                                <div className="space-y-1">
+                                    <h3 className="font-bold text-base md:text-lg text-slate-900">{chapter.city}</h3>
+                                    <span className="inline-block text-xs font-bold text-[#c89211] uppercase tracking-wider">{chapter.members}</span>
+                                    <a href={`mailto:${chapter.contact}`} className="text-[#0f2027] font-bold text-sm underline hover:text-[#c89211] transition-colors block pt-1">
                                         {chapter.contact}
                                     </a>
                                 </div>
@@ -164,8 +172,8 @@ export default function AlumniPage() {
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 bg-[#0f2027] text-white p-8">
                         <div className="space-y-2">
                             <span className="text-[#c89211] font-bold uppercase tracking-wider text-xs block">Official Alumni Portal</span>
-                            <h3 className="text-2xl font-black text-white">Update Your Contact Details & Directory Listing</h3>
-                            <p className="text-slate-300 text-sm max-w-xl font-normal">
+                            <h3 className="text-2xl font-black text-white">Update Your Contact Details &amp; Directory Listing</h3>
+                            <p className="text-slate-300 text-base font-normal max-w-xl">
                                 Access your official transcripts, request alumni identity credentials, or update your current professional title in the Cannoga Alumni Directory.
                             </p>
                         </div>
