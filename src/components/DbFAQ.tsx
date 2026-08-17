@@ -42,31 +42,38 @@ export default function DbFAQ({ pageSlug, fallbackFaqs, refreshKey }: DbFAQProps
                 .replace(/\bCanada\b/gi, 'Canada');
         }
         if (pageSlug === 'admissions/application-process') {
-            return cleaned
+            cleaned = cleaned
                 .replace(/Algonquin College/gi, 'Cannoga College')
                 .replace(/Algonquin/gi, 'Cannoga College')
                 .replace(/https:\/\/www\.algonquincollege\.com\//gi, 'https://cannogacollege.ca/')
                 .replace(/https:\/\/www\.algonquincollege\.ca\//gi, 'https://cannogacollege.ca/');
         }
 
-        // Remove Motivation letter, Recommendation letter, and CV mentions from FAQ text
+        // Specifically remove <li> lines for Motivation letter, Letters of recommendation, CV/Resume
         cleaned = cleaned
+            .replace(/<li>\s*Motivation letter\s*<\/li>/gi, '')
+            .replace(/<li>\s*Letters of recommendation\s*<\/li>/gi, '')
+            .replace(/<li>\s*Letter of recommendation\s*<\/li>/gi, '')
+            .replace(/<li>\s*CV\/Resume\s*<\/li>/gi, '')
+            .replace(/<li>\s*CV\s*<\/li>/gi, '')
+            .replace(/<li>\s*Resume\s*<\/li>/gi, '')
+            .replace(/<li>\s*Curriculum Vitae\s*<\/li>/gi, '')
             .replace(/,\s*motivation letter/gi, '')
             .replace(/motivation letter and\s*/gi, '')
-            .replace(/motivation letter/gi, 'academic documents')
+            .replace(/motivation letter/gi, '')
             .replace(/letters of recommendation and\s*/gi, '')
             .replace(/,\s*letters of recommendation/gi, '')
-            .replace(/letters of recommendation/gi, 'academic transcripts')
-            .replace(/letter of recommendation/gi, 'academic transcript')
+            .replace(/letters of recommendation/gi, '')
+            .replace(/letter of recommendation/gi, '')
             .replace(/,\s*CV\/Resume/gi, '')
             .replace(/CV\/Resume and\s*/gi, '')
-            .replace(/CV\/Resume/gi, 'academic records')
+            .replace(/CV\/Resume/gi, '')
             .replace(/,\s*curriculum vitae/gi, '')
-            .replace(/curriculum vitae/gi, 'academic records')
+            .replace(/curriculum vitae/gi, '')
             .replace(/,\s*CV/gi, '')
             .replace(/CV and\s*/gi, '')
-            .replace(/\bCV\b/g, 'academic records')
-            .replace(/\bResume\b/g, 'academic records');
+            .replace(/\bCV\b/g, '')
+            .replace(/\bResume\b/g, '');
 
         return cleaned;
     };
