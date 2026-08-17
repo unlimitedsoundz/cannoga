@@ -93,13 +93,13 @@ export default function AlumniPage() {
             </Hero>
 
             {/* KEY STATS BAR */}
-            <section className="bg-[#0f2027] text-white py-10 border-b border-slate-800">
+            <section className="bg-[#0f2027] text-white py-12 border-b border-slate-800">
                 <div className="container mx-auto max-w-6xl px-4">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         {alumniStats.map((stat, idx) => (
-                            <div key={idx} className="space-y-1">
-                                <div className="text-3xl md:text-4xl font-black text-[#c89211]">{stat.value}</div>
-                                <div className="text-xs uppercase tracking-wider text-slate-400 font-bold">{stat.label}</div>
+                            <div key={idx} className="flex flex-col items-center space-y-2">
+                                <div className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-none">{stat.value}</div>
+                                <div className="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-white !text-white">{stat.label}</div>
                             </div>
                         ))}
                     </div>
