@@ -201,20 +201,20 @@ export default function AlumniPage() {
 
                 {/* CALL TO ACTION ROW */}
                 <section className="pt-8 border-t border-slate-200">
-                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 bg-[#0a151a] text-white p-8">
-                        <div className="space-y-2">
-                            <span className="text-slate-400 font-bold uppercase tracking-wider text-xs block">Official Alumni Portal</span>
-                            <h3 className="text-2xl font-black text-white">Update Your Contact Details &amp; Directory Listing</h3>
-                            <p className="text-slate-300 text-base font-normal max-w-xl">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 bg-[#0a151a] text-white p-8 md:p-10 rounded-sm">
+                        <div className="space-y-3">
+                            <span className="text-slate-400 font-bold uppercase tracking-widest text-xs block">Official Alumni Portal</span>
+                            <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight leading-tight">Update Your Contact Details &amp; Directory Listing</h3>
+                            <p className="text-slate-300 text-base md:text-lg font-normal max-w-2xl leading-relaxed">
                                 Access your official transcripts, request alumni identity credentials, or update your current professional title in the Cannoga Alumni Directory.
                             </p>
                         </div>
                         <Link 
                             href="/portal/login" 
-                            className="inline-flex items-center gap-2 bg-white hover:bg-slate-200 text-[#0a151a] font-extrabold text-xs uppercase tracking-wider px-6 py-4 whitespace-nowrap transition-colors no-underline shrink-0 rounded-sm"
+                            className="inline-flex items-center gap-2 bg-white hover:bg-slate-200 text-[#0a151a] font-extrabold text-xs uppercase tracking-wider px-6 py-4 whitespace-nowrap transition-colors no-underline shrink-0 rounded-sm shadow-md"
                         >
                             <span>Alumni Portal Access</span>
-                            <ArrowRight size={14} weight="bold" />
+                            <ArrowRight size={16} weight="bold" />
                         </Link>
                     </div>
                 </section>
