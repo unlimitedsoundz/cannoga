@@ -35,7 +35,7 @@ export default async function DegreeProgrammesPage() {
                     {/* Hero */}
                     <section className="border-b-2 border-[#0a151a] pb-12">
                         <h1 className="cc-h1 mb-6">Programs &amp; Degrees</h1>
-                        <p className="text-lg text-neutral-600 leading-relaxed max-w-2xl">
+                        <p className="text-lg text-slate-700 leading-relaxed max-w-2xl">
                             Discover our diverse range of career-focused programs designed to prepare you for success.
                             From certificates and diplomas to undergraduate and graduate degrees, we offer world-class education in Ottawa.
                             Graduates of eligible diploma, undergraduate, and graduate programs can qualify for the Post-Graduation Work Permit (PGWP).
@@ -55,7 +55,7 @@ export default async function DegreeProgrammesPage() {
                     <section id="academic-schools" className="scroll-mt-32">
                         <div className="mb-8 max-w-2xl text-left">
                             <h2 className="cc-h2">Academic Schools</h2>
-                            <p className="text-neutral-600 font-normal text-base mt-2">Explore specialized schools and faculties across Cannoga College.</p>
+                            <p className="text-slate-700 font-normal text-lg mt-2">Explore specialized schools and faculties across Cannoga College.</p>
                         </div>
                         <AcademicSchoolsCarousel schools={schools || []} />
                     </section>
@@ -70,8 +70,8 @@ export default async function DegreeProgrammesPage() {
                                 <h3 className="cc-h3 mb-6">Undergraduate <span className="text-[#000000]">(Certificates &amp; Diplomas)</span></h3>
                                 <ul className="space-y-4">
                                     {["High school diploma or equivalent", "Minimum GPA requirements", "English language proficiency", "Academic transcripts of secondary education"].map((r, i) => (
-                                        <li key={i} className="flex items-start gap-3 text-neutral-700 text-base">
-                                            <span className="w-2 h-2 rounded-full bg-[#0f2027] flex-shrink-0 mt-2" />
+                                        <li key={i} className="flex items-start gap-3 text-slate-700 text-lg">
+                                            <span className="w-2 h-2 rounded-full bg-[#0f2027] flex-shrink-0 mt-2.5" />
                                             <span>{r}</span>
                                         </li>
                                     ))}
@@ -81,8 +81,8 @@ export default async function DegreeProgrammesPage() {
                                 <h3 className="cc-h3 mb-6">Degrees <span className="text-[#000000]">(Bachelor's &amp; Master's)</span></h3>
                                 <ul className="space-y-4">
                                     {["Bachelor's degree or equivalent (for Master's)", "High school diploma with required subject prerequisites (for Bachelor's)", "Academic transcripts and letters of recommendation", "Statement of purpose or portfolio (where applicable)"].map((r, i) => (
-                                        <li key={i} className="flex items-start gap-3 text-neutral-700 text-base">
-                                            <span className="w-2 h-2 rounded-full bg-[#0f2027] flex-shrink-0 mt-2" />
+                                        <li key={i} className="flex items-start gap-3 text-slate-700 text-lg">
+                                            <span className="w-2 h-2 rounded-full bg-[#0f2027] flex-shrink-0 mt-2.5" />
                                             <span>{r}</span>
                                         </li>
                                     ))}
