@@ -274,28 +274,28 @@ export default function LeadershipGovernancePage() {
 
                                         {isOpen && (
                                             <div className="pb-6 pt-1 px-1 overflow-x-auto">
-                                                <table className="w-full text-left border-collapse text-sm sm:text-base">
+                                                <table className="w-full text-left border-collapse text-base md:text-lg">
                                                     <thead>
-                                                        <tr className="border-b-2 border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-xs sm:text-sm">
-                                                            <th className="py-2 pr-4">Name</th>
-                                                            <th className="py-2 pr-4">Title</th>
-                                                            <th className="py-2 pr-4">Academic Credential / Status</th>
-                                                            <th className="py-2">Contact</th>
+                                                        <tr className="border-b-2 border-slate-200 text-slate-700 font-bold uppercase tracking-wider text-xs sm:text-sm">
+                                                            <th className="py-2.5 pr-4">Name</th>
+                                                            <th className="py-2.5 pr-4">Title</th>
+                                                            <th className="py-2.5 pr-4">Academic Credential / Status</th>
+                                                            <th className="py-2.5">Contact</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody className="divide-y divide-slate-100">
                                                         {dept.staff.map((staff, sIdx) => (
                                                             <tr key={sIdx} className="hover:bg-slate-50 transition-colors">
-                                                                <td className="py-3 pr-4 text-black whitespace-nowrap">
+                                                                <td className="py-3.5 pr-4 text-black font-semibold whitespace-nowrap">
                                                                     {staff.name}
                                                                 </td>
-                                                                <td className="py-3 pr-4 text-neutral-700 font-medium">
+                                                                <td className="py-3.5 pr-4 text-slate-700 font-normal">
                                                                     {staff.title}
                                                                 </td>
-                                                                <td className="py-3 pr-4 text-neutral-500 font-mono text-sm">
+                                                                <td className="py-3.5 pr-4 text-slate-600 font-mono text-sm">
                                                                     {staff.credential}
                                                                 </td>
-                                                                <td className="py-3 whitespace-nowrap">
+                                                                <td className="py-3.5 whitespace-nowrap">
                                                                     <a
                                                                         href={`mailto:${staff.email}`}
                                                                         className="font-bold underline text-black hover:text-[#c89211] transition-colors text-sm uppercase tracking-wider"

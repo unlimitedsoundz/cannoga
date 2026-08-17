@@ -79,23 +79,23 @@ export default async function AboutPage() {
             />
 
             <GuideSidebarLayout sections={sections}>
-                <div className="cc-container py-8 md:py-20 space-y-24">
+                <div className="cc-container py-8 md:py-20 space-y-16 md:space-y-24 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
 
                     {/* Overview */}
-                    <section id="overview" className="scroll-mt-32 max-w-4xl space-y-5 text-lg leading-relaxed">
-                        <p className="font-semibold text-xl text-[#0f2027]">
+                    <section id="overview" className="scroll-mt-32 max-w-4xl space-y-5 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                        <p className="font-semibold text-lg md:text-xl text-[#0f2027]">
                             Cannoga College is an approved Ontario post-secondary college located in Ottawa, Ontario. We deliver certificate, diploma, and degree <Link href="/studies" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">programs</Link> designed to equip graduates with practical skills for the Canadian and global workforce.
                         </p>
-                        <p className="text-neutral-600">
+                        <p className="text-slate-700 font-normal">
                             The college welcomes domestic and <Link href="/international" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">international students</Link> into a diverse academic community. Programs span key fields including <Link href="/schools/business" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Business Administration</Link>, <Link href="/schools/technology" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Information Technology</Link>, <Link href="/schools/health-community" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Health Sciences</Link>, <Link href="/schools/hospitality-tourism" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Hospitality and Tourism</Link>, and <Link href="/schools/science" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Applied Sciences</Link>.
                         </p>
-                        <p className="text-neutral-600">
+                        <p className="text-slate-700 font-normal">
                             With a focus on practical learning and student success, Cannoga College combines academic instruction with hands-on training, industry-relevant projects, and experiential learning opportunities. Learn more about our <Link href="/research" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">research hubs</Link> and explore our <Link href="/careers" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">career opportunities</Link>.
                         </p>
-                        <p className="text-neutral-600">
+                        <p className="text-slate-700 font-normal">
                             International students are supported through dedicated services including <Link href="/admissions/requirements" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">admissions guidance</Link>, study permit information, academic advising, career development support, and newcomer integration services to ensure a smooth transition to life and studies in Canada.
                         </p>
-                        <p className="font-semibold text-[#0f2027]">
+                        <p className="font-semibold text-lg md:text-xl text-[#0f2027]">
                             Cannoga College is committed to preparing graduates who are confident, skilled, and ready to contribute meaningfully. Check out our <Link href="/alumni" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">alumni network</Link> and <Link href="/news" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">newsroom</Link>.
                         </p>
                     </section>
@@ -107,7 +107,7 @@ export default async function AboutPage() {
                                 icon="bookOpen"
                                 title="Academic Philosophy"
                                 body={
-                                    <div className="space-y-4">
+                                    <div className="space-y-4 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
                                         <p>Cannoga College is guided by a learner-centered approach that emphasizes critical thinking, applied knowledge, and personal development. Inspired by modern global education practices, the college integrates academic theory with practical application to ensure students gain both understanding and real-world competence.</p>
                                         <p>The learning model focuses on active engagement, collaboration, and problem-solving, encouraging students to take part in project-based learning and industry-aligned experiences.</p>
                                     </div>
@@ -119,18 +119,18 @@ export default async function AboutPage() {
                                 icon="target"
                                 title="Mission Statement"
                                 body={
-                                    <div className="space-y-4">
+                                    <div className="space-y-4 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
                                         <p>Our mission is to empower students with the knowledge, technical skills, and professional values required to succeed in their chosen careers and contribute positively to society and the global economy.</p>
-                                        <ul className="space-y-2">
+                                        <ul className="space-y-2 pt-2">
                                             {[
                                                 "Certificate, Diploma, and Degree programs",
                                                 "Interdisciplinary academic pathways",
                                                 "Applied, project-based learning model",
                                                 "An inclusive international student community in Ottawa"
                                             ].map((item, i) => (
-                                                <li key={i} className="flex items-start gap-4">
-                                                    <ArrowRight size={20} weight="bold" className="shrink-0 text-black mt-0.5" />
-                                                    <span className="text-base font-bold text-black leading-tight">{item}</span>
+                                                <li key={i} className="flex items-start gap-3">
+                                                    <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
+                                                    <span className="text-base md:text-lg font-bold text-black leading-snug">{item}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -142,17 +142,17 @@ export default async function AboutPage() {
 
 
                     {/* After Graduation */}
-                    <section id="graduation" className="scroll-mt-32">
-                        <div className="cc-section-divider mb-10">
+                    <section id="graduation" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider mb-8">
                             <h2 className="cc-h2">After Graduation</h2>
                         </div>
-                        <p className="text-neutral-600 text-lg leading-relaxed mb-8 max-w-3xl">
+                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed mb-8 max-w-3xl">
                             After graduating as an international student in Cannoga College Ontario, you can apply for a Post-Graduation Work Permit (PGWP) to live, find a job, and gain valuable work experience in Canada.
                         </p>
-                        <div className="space-y-12">
+                        <div className="space-y-8">
                             <div>
-                                <h3 className="text-xl font-bold text-black mb-4">1. Apply for a Post-Graduation Work Permit (PGWP)</h3>
-                                <div className="space-y-4 text-neutral-600 leading-relaxed">
+                                <h3 className="text-lg md:text-xl font-bold text-black mb-3">1. Apply for a Post-Graduation Work Permit (PGWP)</h3>
+                                <div className="space-y-3 text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                                     <p><strong>What it is:</strong> An open work permit that allows you to work for almost any employer in Canada.</p>
                                     <p><strong>Duration:</strong> Valid for 8 months up to 3 years, depending on the length of your study program. Programs of 2 years or longer generally qualify for a 3-year work permit.</p>
                                     <p><strong>Deadline:</strong> You must apply within 180 days of receiving your final transcript and an official letter from your school confirming you completed your program.</p>
@@ -160,14 +160,14 @@ export default async function AboutPage() {
                                 </div>
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold text-black mb-4">2. Gain Canadian Work Experience</h3>
-                                <p className="text-neutral-600 leading-relaxed">
+                                <h3 className="text-lg md:text-xl font-bold text-black mb-3">2. Gain Canadian Work Experience</h3>
+                                <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                                     Working on a PGWP allows you to build a professional network and earn Canadian work experience. This work experience is essential if you want to apply to stay in Canada permanently.
                                 </p>
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold text-black mb-4">3. Transition to Permanent Residency (PR)</h3>
-                                <div className="space-y-4 text-neutral-600 leading-relaxed">
+                                <h3 className="text-lg md:text-xl font-bold text-black mb-3">3. Transition to Permanent Residency (PR)</h3>
+                                <div className="space-y-3 text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                                     <div>
                                         <p className="font-bold text-black">Express Entry (Canadian Experience Class):</p>
                                         <p>After completing at least 1 year of skilled work experience in Canada, you can apply through the Express Entry System. Your Canadian education and work history give you higher ranking points.</p>
@@ -182,10 +182,10 @@ export default async function AboutPage() {
                     </section>
 
                     {/* Academic Schools */}
-                    <section id="schools" className="scroll-mt-32">
-                        <div className="mb-8 max-w-2xl text-left">
+                    <section id="schools" className="scroll-mt-32 space-y-4">
+                        <div className="mb-6 max-w-2xl text-left">
                             <h2 className="cc-h2">Academic Schools</h2>
-                            <p className="text-neutral-600 font-normal text-base mt-2">Explore specialized schools and faculties across Cannoga College.</p>
+                            <p className="text-slate-700 font-normal text-base md:text-lg mt-2">Explore specialized schools and faculties across Cannoga College.</p>
                         </div>
                         <AcademicSchoolsCarousel schools={schools || []} />
                     </section>
@@ -211,13 +211,13 @@ export default async function AboutPage() {
                     </section>
 
                     {/* Industry & Research */}
-                    <section id="partnerships" className="scroll-mt-32">
-                        <div className="cc-section-divider mb-12">
+                    <section id="partnerships" className="scroll-mt-32 space-y-4">
+                        <div className="cc-section-divider mb-8">
                             <h2 className="cc-h2">Industry &amp; Research Partnerships</h2>
                         </div>
                         <div className="grid lg:grid-cols-2 gap-16 items-center">
                             <div className="cc-card cc-card-body space-y-5">
-                                <p className="text-neutral-600 leading-relaxed">
+                                <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                                     We don&apos;t just study the future; we build it. Cannoga College maintains strategic partnerships with over 200 global companies and research institutions. Our students have direct access to internships, joint research projects, and innovation labs that bridge the gap between academic theory and market-ready solutions.
                                 </p>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-neutral-100">
@@ -262,7 +262,7 @@ export default async function AboutPage() {
                             icon="users"
                             title="Vibrant Community"
                             body={
-                                <div className="space-y-4">
+                                <div className="space-y-4 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
                                     <h3 className="text-xl font-bold text-black">Life Beyond the Classroom</h3>
                                     <p>
                                         From music festivals to tech hackathons, your time at Cannoga is about more than just studies. Our campus in Ottawa is a hub of activity where students from over 60 countries collaborate and create.

@@ -104,7 +104,7 @@ export default function WelcomeFromPresidentPage() {
                                         weight="fill"
                                         className="text-blue-500 mb-3"
                                     />
-                                    <div className="space-y-5 text-neutral-700 leading-relaxed text-base md:text-[17px] pl-2 border-l-4 border-blue-400">
+                                    <div className="space-y-5 text-slate-700 leading-relaxed text-base md:text-lg font-normal pl-2 border-l-4 border-blue-400">
                                         <p>
                                             On behalf of our faculty, staff, and the entire Cannoga College community, it is my honour and privilege to welcome you to our institution.
                                         </p>
@@ -122,7 +122,7 @@ export default function WelcomeFromPresidentPage() {
 
                     {/* Continued letter */}
                     <section id="vision" className="scroll-mt-32 mb-20 max-w-4xl">
-                        <div className="space-y-6 text-neutral-700 leading-relaxed text-base md:text-[17px]">
+                        <div className="space-y-6 text-slate-700 leading-relaxed text-base md:text-lg font-normal">
                             <h2 className="text-2xl md:text-3xl font-black text-[#0f2027] tracking-tight">Our Vision for the Future</h2>
 
                             <p>
@@ -154,7 +154,7 @@ export default function WelcomeFromPresidentPage() {
                                 <div>
                                     <p className="text-xl font-black text-[#0f2027] tracking-tight">Dr. Luke Schaffner</p>
                                     <p className="text-sm font-semibold text-neutral-500 uppercase tracking-widest">President</p>
-                                    <p className="text-sm text-neutral-400 mt-0.5">Cannoga College · Ottawa, Ontario</p>
+                                    <p className="text-base text-slate-700 mt-0.5">Cannoga College · Ottawa, Ontario</p>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +186,7 @@ export default function WelcomeFromPresidentPage() {
                                     style={{ backgroundColor: v.color }}
                                 >
                                     <h3 className="text-xl font-black uppercase tracking-wider mb-3">{v.title}</h3>
-                                    <p className="text-white/85 leading-relaxed text-sm font-medium">{v.body}</p>
+                                    <p className="text-white/90 leading-relaxed text-base font-normal">{v.body}</p>
                                 </div>
                             ))}
                         </div>
