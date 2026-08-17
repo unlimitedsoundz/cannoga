@@ -5,8 +5,8 @@ import AcademicRegulationsAccordion from '@/components/academic/AcademicRegulati
 import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 
 export const metadata: Metadata = {
-    title: 'Institutional Admissions Policy',
-    description: 'Read the official policy governing selection standards, fairness, equality, and admission decisions at Cannoga College.',
+    title: 'Admissions Policy & Guidelines',
+    description: 'Learn about our admissions principles, selection criteria, eligibility standards, and evaluation framework for prospective students.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions-policy/',
     },
@@ -15,19 +15,19 @@ export const metadata: Metadata = {
 const admissionsPolicies = [
     {
         id: "adm-1",
-        question: "1. Purpose, Core Principles & Diversity Commitment",
+        question: "1. Purpose, Scope & Non-Discrimination Policy",
         order_index: 1,
         answer: (
             <div className="space-y-3">
-                <p>The Admissions Policy of Cannoga College defines the principles, academic criteria, and evaluation procedures governing entry into all Bachelor&apos;s, Master&apos;s, Diploma, and Certificate programmes.</p>
+                <p>Cannoga College is committed to equitable, transparent, and merit-based access to higher education. This policy defines the institutional criteria and procedural framework governing all undergraduate and postgraduate admissions.</p>
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span><strong>Equal Opportunity:</strong> Absolute fairness, transparent merit assessment, and non-discrimination on grounds of nationality, gender, ethnicity, or faith.</span>
+                        <span><strong>Equal Opportunity:</strong> Decisions are made without regard to race, ancestry, place of origin, ethnic origin, citizenship, creed, sex, sexual orientation, gender identity, age, marital status, or disability.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span><strong>Ontario Standards:</strong> Complies fully with Ontario Ministry of Colleges and Universities admission directives.</span>
+                        <span><strong>Integrity:</strong> All applicant dossiers are vetted for authentic academic credentials under Ontario Ministry standards.</span>
                     </li>
                 </ul>
             </div>
@@ -75,7 +75,7 @@ const admissionsPolicies = [
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span><strong>Supporting Portfolio:</strong> Statement of intent, curriculum vitae, 2 academic/professional recommendation letters, and writing samples.</span>
+                        <span><strong>Required Documentation:</strong> Official undergraduate academic transcripts, degree graduation certificate, and proof of English language proficiency.</span>
                     </li>
                 </ul>
             </div>
@@ -111,23 +111,23 @@ const admissionsPolicies = [
     },
     {
         id: "adm-5",
-        question: "5. Application Evaluation, Offers & Acceptance",
+        question: "5. Application Assessment & Selection Process",
         order_index: 5,
         answer: (
             <div className="space-y-3">
-                <p>The Admissions Committee conducts holistic assessments of each applicant profile:</p>
+                <p>How the Admissions Committee reviews and ranks submissions:</p>
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span><strong>Conditional Offer of Admission:</strong> Issued pending the receipt of final secondary/university transcripts or English language test scores.</span>
+                        <span><strong>Holistic Evaluation:</strong> Primary emphasis on certified academic transcripts, prerequisite performance, and overall grade point averages.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span><strong>Unconditional Offer:</strong> Issued once all academic prerequisites and document authentications are satisfied.</span>
+                        <span><strong>Conditional Offers:</strong> Issued to graduating high school or university students pending final transcript submission.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span><strong>Acceptance Deposit:</strong> Securing an enrolment seat requires submitting an official Acceptance Form and tuition confirmation deposit by the deadline.</span>
+                        <span><strong>Provincial Attestation Letter (PAL):</strong> Distributed to eligible international candidates upon acceptance and required tuition deposit.</span>
                     </li>
                 </ul>
             </div>
@@ -139,15 +139,15 @@ const admissionsPolicies = [
         order_index: 6,
         answer: (
             <div className="space-y-3">
-                <p>Cannoga College maintains rigorous verification mechanisms against credential forgery:</p>
+                <p>Institutional verification procedures ensuring academic honesty:</p>
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>All academic transcripts, degree certificates, and test scores are cross-verified with issuing examination bodies and World Education Services (WES).</span>
+                        <span><strong>Direct Verification:</strong> Transcripts and test scores are verified directly with issuing exam boards (WES, ICAS, IELTS, ETS, Duolingo).</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Discovery of falsified documents or misleading statements will result in immediate revocation of offers, expulsion, and notification to Canadian immigration authorities.</span>
+                        <span><strong>Revocation of Offer:</strong> Misrepresentation, forged documents, or fraudulent statements will lead to immediate cancellation of admission and disciplinary barring.</span>
                     </li>
                 </ul>
             </div>
@@ -155,23 +155,19 @@ const admissionsPolicies = [
     },
     {
         id: "adm-7",
-        question: "7. Admissions Appeals & Re-Evaluation Rights",
+        question: "7. Admissions Appeals & Re-evaluation",
         order_index: 7,
         answer: (
             <div className="space-y-3">
-                <p>Applicants whose applications are declined may request a formal re-evaluation if valid grounds exist:</p>
+                <p>Procedures for requesting a review of an adverse admissions decision:</p>
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span><strong>Appeals Window:</strong> Must be submitted in writing within 14 calendar days of receiving the rejection notice.</span>
+                        <span><strong>Submission Window:</strong> Written appeal must be filed with the Registrar within 14 calendar days of decision notice.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span><strong>Valid Grounds:</strong> Documented administrative error, omission of submitted credentials, or substantial updated academic grades.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span><strong>Admissions Review Board:</strong> The Dean of Admissions convenes a review panel whose final written determination is conclusive.</span>
+                        <span><strong>Valid Grounds:</strong> Documented administrative error, calculation mistake, or unforeseen extenuating medical circumstances. Academic discretion alone is not appealable.</span>
                     </li>
                 </ul>
             </div>
@@ -185,7 +181,7 @@ export default function AdmissionsPolicyPage() {
             {/* HERO SECTION */}
             <Hero
                 title="Admissions Policy"
-                body="Defining the principles, evaluation criteria, equality standards, and procedures governing admission to all academic programs at Cannoga College."
+                body="Institutional guidelines, eligibility standards, and evaluation frameworks governing student entry to Cannoga College in Ottawa."
                 backgroundColor="#0a151a"
                 tinted
                 lightText={true}
@@ -204,9 +200,9 @@ export default function AdmissionsPolicyPage() {
             {/* MAIN CONTENT ACCORDION */}
             <main className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
                 <section className="space-y-4">
-                    <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight">Selection Standards &amp; Entry Framework</h2>
+                    <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight">Institutional Admissions Standards</h2>
                     <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed max-w-3xl">
-                        Review academic entry benchmarks, English language requirements, credential authentication, and appeals procedures.
+                        Review the formal guidelines, minimum academic thresholds, and verification criteria applicable to all prospective students.
                     </p>
                 </section>
 
@@ -216,27 +212,27 @@ export default function AdmissionsPolicyPage() {
 
                 {/* RELATED LINKS */}
                 <section className="pt-8 border-t border-slate-200 space-y-6">
-                    <h3 className="text-2xl font-black text-black tracking-tight">Related Admissions Resources</h3>
+                    <h3 className="text-2xl font-black text-black tracking-tight">Related Admissions Links</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         <Link 
-                            href="/admissions" 
+                            href="/admissions/master" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">
-                                <span>Admissions Overview</span>
+                                <span>Master's Admissions</span>
                                 <ArrowRight size={16} weight="bold" />
                             </div>
-                            <p className="text-sm text-slate-600 font-normal leading-normal">Application deadlines and fees</p>
+                            <p className="text-sm text-slate-600 font-normal leading-normal">Entry criteria and deadlines</p>
                         </Link>
                         <Link 
-                            href="/degree-programmes" 
+                            href="/admissions/bachelor" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">
-                                <span>Degree Programmes</span>
+                                <span>Bachelor's Admissions</span>
                                 <ArrowRight size={16} weight="bold" />
                             </div>
-                            <p className="text-sm text-slate-600 font-normal leading-normal">Explore faculty curriculum and majors</p>
+                            <p className="text-sm text-slate-600 font-normal leading-normal">High school entry standards</p>
                         </Link>
                         <Link 
                             href="/refund-withdrawal-policy" 
@@ -246,7 +242,7 @@ export default function AdmissionsPolicyPage() {
                                 <span>Refund Policy</span>
                                 <ArrowRight size={16} weight="bold" />
                             </div>
-                            <p className="text-sm text-slate-600 font-normal leading-normal">Tuition deposit and withdrawal terms</p>
+                            <p className="text-sm text-slate-600 font-normal leading-normal">Tuition deposits and withdrawals</p>
                         </Link>
                     </div>
                 </section>

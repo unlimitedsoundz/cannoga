@@ -163,7 +163,7 @@ export const pageContentSections: PageContentSection[] = [
         <h3 class="text-lg font-bold text-slate-900 tracking-tight">Selection Process</h3>
         <ul class="space-y-1.5 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
             <li>Overall academic excellence and grade transcript review</li>
-            <li>Motivation letter and personal statement evaluation</li>
+            <li>Prerequisite subject evaluation and proficiency assessment</li>
             <li>Extracurricular leadership and community engagement</li>
         </ul>
     </div>
@@ -359,7 +359,6 @@ export const pageContentSections: PageContentSection[] = [
                 <li>Bachelor’s degree &amp; transcripts</li>
                 <li>Proof of English proficiency (optional)</li>
                 <li>International passport only</li>
-                <li>CV, Motivation Letter</li>
                 <li>Portfolio (if required)</li>
                 <li>GMAT/GRE (if required)</li>
             </ul>
