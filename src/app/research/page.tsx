@@ -1,4 +1,4 @@
-﻿import { Hero } from '@/components/layout/Hero';
+import { Hero } from '@/components/layout/Hero';
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
@@ -33,9 +33,9 @@ export default function ResearchPage() {
                 <div className="cc-section-divider">
                     <h2 className="cc-h2">Where Curiosity Meets Creation</h2>
                 </div>
-                <div className="prose prose-lg text-neutral-600 max-w-3xl leading-relaxed">
-                    <p className="mb-6">
-                        At <strong className="text-[#000000]">Cannoga College</strong>, research is not locked away in labs or journals it lives in studios, classrooms, communities, and real-world projects. We explore questions that matter now and ideas that shape what comes next, blending <strong className="text-[#000000]">technology, design, business, science, and culture</strong> into a shared space of experimentation and discovery.
+                <div className="text-base md:text-lg text-slate-700 max-w-3xl leading-relaxed font-normal space-y-4">
+                    <p>
+                        At <strong className="text-[#000000] font-bold">Cannoga College</strong>, research is not locked away in labs or journals it lives in studios, classrooms, communities, and real-world projects. We explore questions that matter now and ideas that shape what comes next, blending <strong className="text-[#000000] font-bold">technology, design, business, science, and culture</strong> into a shared space of experimentation and discovery.
                     </p>
                     <p>
                         Our research culture welcomes both analytical thinkers and creative makers. Whether through data, design, systems, or stories, we believe knowledge grows stronger when disciplines cross paths.
@@ -50,15 +50,15 @@ export default function ResearchPage() {
                         <div className="cc-section-divider">
                             <h2 className="cc-h2">Core Exploration</h2>
                         </div>
-                        <ul className="space-y-5">
+                        <ul className="space-y-4 pt-2">
                             {[
                                 "Turn curiosity into meaningful action",
                                 "Connect theory with hands-on practice",
                                 "Support sustainable, ethical, and inclusive futures",
                                 "Empower students to challenge norms and create alternatives"
                             ].map((item, i) => (
-                                <li key={i} className="flex items-center gap-3 text-neutral-700 font-medium">
-                                    <ArrowRight size={18} weight="bold" className="shrink-0 text-[#000000]" />
+                                <li key={i} className="flex items-center gap-3 text-base md:text-lg text-slate-700 font-normal">
+                                    <span className="w-2 h-2 bg-[#0a151a] rounded-full shrink-0" />
                                     <span>{item}</span>
                                 </li>
                             ))}
@@ -66,8 +66,8 @@ export default function ResearchPage() {
                     </div>
                      <div className="cc-card cc-card-body">
                          <h3 className="cc-h3 mb-4">Core Values</h3>
-                         <p className="text-neutral-600 leading-relaxed">
-                             We value <strong>applied research</strong>, <strong>creative inquiry</strong>, and <strong>practice-based exploration</strong> equally because innovation rarely comes from just one way of thinking.
+                         <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
+                             We value <strong className="text-slate-900 font-bold">applied research</strong>, <strong className="text-slate-900 font-bold">creative inquiry</strong>, and <strong className="text-slate-900 font-bold">practice-based exploration</strong> equally because innovation rarely comes from just one way of thinking.
                         </p>
                     </div>
                 </div>
@@ -75,48 +75,101 @@ export default function ResearchPage() {
 
             {/* Research Focus Areas */}
             <div className="cc-section">
+                <style jsx>{`
+                    @keyframes arrowFloatResearch {
+                        0%, 100% {
+                            transform: translate(0, 0);
+                        }
+                        50% {
+                            transform: translate(5px, -5px);
+                        }
+                    }
+                    .animate-arrow-research {
+                        animation: arrowFloatResearch 2.2s ease-in-out infinite;
+                    }
+                `}</style>
                 <div className="cc-container">
                     <div className="cc-section-divider mb-10">
                         <h2 className="cc-h2">Research Focus Areas</h2>
                         <p className="cc-label">Exploring the radical intersection of technology, humanity, and the global environment.</p>
                     </div>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
                             {
-                                title: "Code & Culture",
+                                id: "code-culture",
+                                title: "CODE & CULTURE",
                                 desc: "Digitalisation beyond the screen examining how technology interacts with people, culture, ethics, and systems.",
-                                tags: ["AI & Data", "Digital Platforms", "Ethics"]
+                                href: "/research/projects",
+                                bgColor: "bg-[#6366f1]", // Electric Indigo
+                                borderColor: "border-[#6366f1]",
                             },
                             {
-                                title: "Smart Materials",
-                                desc: "Rethinking materials and systems for sustainability, performance, and longevity.",
-                                tags: ["Recyclable", "Energy", "Innovation"]
+                                id: "smart-materials",
+                                title: "SMART MATERIALS",
+                                desc: "Rethinking materials and systems for sustainability, performance, and circular longevity.",
+                                href: "/research/projects",
+                                bgColor: "bg-[#ec4899]", // Vibrant Hot Pink
+                                borderColor: "border-[#ec4899]",
                             },
                             {
-                                title: "Art & Media",
-                                desc: "Artistic exploration as a way of knowing, questioning, and communicating.",
-                                tags: ["Practice-based", "Visual", "Prototyping"]
+                                id: "art-media",
+                                title: "ART & MEDIA",
+                                desc: "Artistic exploration as a way of knowing, questioning, prototyping, and communicating.",
+                                href: "/research/projects",
+                                bgColor: "bg-[#10b981]", // Electric Emerald
+                                borderColor: "border-[#10b981]",
                             },
                             {
-                                title: "New Work Models",
-                                desc: "Exploring how organisations can be more adaptive, ethical, and human-centred.",
-                                tags: ["Service Design", "Sustainable", "Leadership"]
+                                id: "new-work-models",
+                                title: "NEW WORK MODELS",
+                                desc: "Exploring how organisations can be more adaptive, ethical, and human-centred in digital eras.",
+                                href: "/research/projects",
+                                bgColor: "bg-[#f97316]", // Vibrant Orange
+                                borderColor: "border-[#f97316]",
                             },
                             {
-                                title: "Powering Tomorrow",
-                                desc: "Connecting engineering, systems analysis, and environmental responsibility.",
-                                tags: ["Renewable", "Smart Infra", "Climate"]
+                                id: "powering-tomorrow",
+                                title: "POWERING TOMORROW",
+                                desc: "Connecting engineering, smart systems analysis, and environmental climate responsibility.",
+                                href: "/research/projects",
+                                bgColor: "bg-[#06b6d4]", // Electric Cyan
+                                borderColor: "border-[#06b6d4]",
                             },
                             {
-                                title: "Integrated Spaces",
-                                desc: "How physical and digital spaces can be designed around real human needs.",
-                                tags: ["Architecture", "Urban", "Inclusive"]
+                                id: "integrated-spaces",
+                                title: "INTEGRATED SPACES",
+                                desc: "How physical and digital spaces can be designed around real human needs and accessibility.",
+                                href: "/research/projects",
+                                bgColor: "bg-[#8b5cf6]", // Deep Purple
+                                borderColor: "border-[#8b5cf6]",
                             }
-                        ].map((theme, i) => (
-                            <div key={i} className="cc-card p-8 group hover:bg-[#0a151a] transition-all">
-                                <h3 className="text-lg font-bold text-[#000000] uppercase tracking-tight mb-3 group-hover:text-white transition-colors">{theme.title}</h3>
-                                <p className="text-neutral-600 mb-6 leading-relaxed text-sm group-hover:text-white/80 transition-colors">{theme.desc}</p>
-                                <TagGroup tags={theme.tags.map(tag => ({ label: tag }))} />
+                        ].map((card, idx) => (
+                            <div key={card.id} className="flex flex-col no-underline">
+                                <Link
+                                    linkComponentProps={{ href: card.href }}
+                                    className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[260px] sm:min-h-[290px] flex flex-col justify-between transition-transform hover:-translate-y-1 duration-200`}
+                                >
+                                    {/* Card Content Header */}
+                                    <div className="relative z-20">
+                                        <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight leading-[1.05]">
+                                            {card.title}
+                                        </h3>
+                                    </div>
+
+                                    {/* Card Bottom Description & Arrow Icon */}
+                                    <div className="relative z-20 pt-6 flex items-end justify-between gap-4 text-white">
+                                        <p className="text-sm sm:text-base font-medium text-white/95 leading-relaxed max-w-[85%] font-sans">
+                                            {card.desc}
+                                        </p>
+
+                                        <div
+                                            className="shrink-0 mb-0.5 animate-arrow-research"
+                                            style={{ animationDelay: `${idx * 0.3}s` }}
+                                        >
+                                            <ArrowUpRight size={40} weight="bold" className="text-white" />
+                                        </div>
+                                    </div>
+                                </Link>
                             </div>
                         ))}
                     </div>
