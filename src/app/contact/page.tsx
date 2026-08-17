@@ -60,55 +60,53 @@ export default function ContactPage() {
                 ]}
             />
 
-            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16">
+            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
 
                 {/* ASK ABOUT APPLYING / CONTACT DIRECTORY - CLEAN HORIZONTAL ROWS */}
                 <section id="contact-directory" className="scroll-mt-32 space-y-8">
                     <div>
                         <h2 className="text-3xl font-black text-black tracking-tight mb-2">Main Contact Directory</h2>
-                        <p className="text-slate-700 text-base md:text-lg font-medium leading-relaxed">
+                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                             Reach out directly to our central admissions team, student registry, or campus location.
                         </p>
                     </div>
 
                     <div className="flex flex-col gap-6 pt-2">
                         {/* Email */}
-                        <div>
-                            <h3 className="text-slate-900 font-bold text-base leading-snug">Email Enquiries</h3>
-                            <a href="mailto:admissions@cannogacollege.ca" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm mt-1 block">
+                        <div className="space-y-1">
+                            <h3 className="text-slate-900 font-bold text-base md:text-lg leading-snug">Email Enquiries</h3>
+                            <a href="mailto:admissions@cannogacollege.ca" className="text-[#0a151a] font-bold underline hover:text-slate-600 transition-colors text-base md:text-lg block">
                                 admissions@cannogacollege.ca
                             </a>
-                            <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
+                            <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                                 Ottawa, Ontario, Canada resident and international inquiries
                             </p>
                         </div>
 
                         {/* Talk to Cannoga */}
-                        <div>
-                            <h3 className="text-slate-900 font-bold text-base leading-snug">Talk to Cannoga</h3>
-                            <div className="mt-1 space-y-1">
-                                <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
-                                <a href="tel:+12272500427" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block">
-                                    Talk to Admissions: +1 (227) 250-0427
-                                </a>
-                            </div>
+                        <div className="space-y-1">
+                            <h3 className="text-slate-900 font-bold text-base md:text-lg leading-snug">Talk to Cannoga</h3>
+                            <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
+                            <a href="tel:+12272500427" className="text-[#0a151a] font-bold underline hover:text-slate-600 transition-colors text-base md:text-lg block">
+                                Talk to Admissions: +1 (227) 250-0427
+                            </a>
                         </div>
 
                         {/* Where to reach us */}
-                        <div>
-                            <h3 className="text-slate-900 font-bold text-base leading-snug">Where to reach us</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2 text-sm text-slate-700">
-                                <div>
-                                    <h4 className="font-bold text-slate-900 text-sm">Campus Address</h4>
-                                    <p className="leading-relaxed mt-0.5">
+                        <div className="space-y-2">
+                            <h3 className="text-slate-900 font-bold text-base md:text-lg leading-snug">Where to reach us</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-base md:text-lg text-slate-700 font-normal">
+                                <div className="p-5 border border-slate-200 hover:border-black transition-colors rounded-sm space-y-1">
+                                    <h4 className="font-bold text-slate-900 text-base md:text-lg">Campus Address</h4>
+                                    <p className="leading-relaxed">
                                         Cannoga College – Ottawa campus<br />
                                         81 Montreal Rd,<br />
                                         K1L 6E8 Ottawa, Ontario, Canada
                                     </p>
                                 </div>
-                                <div>
-                                    <h4 className="font-bold text-slate-900 text-sm">Mailing Address</h4>
-                                    <p className="leading-relaxed mt-0.5">
+                                <div className="p-5 border border-slate-200 hover:border-black transition-colors rounded-sm space-y-1">
+                                    <h4 className="font-bold text-slate-900 text-base md:text-lg">Mailing Address</h4>
+                                    <p className="leading-relaxed">
                                         Cannoga College – Ottawa campus<br />
                                         81 Montreal Rd,<br />
                                         K1L 6E8 Ottawa, Ontario, Canada
@@ -118,9 +116,9 @@ export default function ContactPage() {
                         </div>
 
                         {/* Application Note */}
-                        <div className="pt-2">
-                            <h3 className="text-slate-900 font-bold text-base leading-snug">Application Note</h3>
-                            <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
+                        <div className="pt-2 space-y-1">
+                            <h3 className="text-slate-900 font-bold text-base md:text-lg leading-snug">Application Note</h3>
+                            <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                                 All formal applications must be submitted through the Cannoga College online portal during the official application periods.
                             </p>
                         </div>
@@ -129,36 +127,36 @@ export default function ContactPage() {
 
                 {/* Key Department Services */}
                 <section className="pt-8 border-t border-slate-200">
-                    <h2 className="text-2xl font-black text-black tracking-tight mb-8">Department Directory</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                            <h3 className="font-bold text-base text-slate-900">Registry Office</h3>
-                            <p className="text-sm text-slate-600 mt-1 mb-2">Responsible for receiving official academic correspondence and documentation.</p>
-                            <a href="mailto:registry@cannogacollege.ca" className="text-[#0f2027] font-bold text-sm underline hover:text-[#c89211] transition-colors">
+                    <h2 className="text-2xl md:text-3xl font-black text-black tracking-tight mb-8">Department Directory</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="p-6 border border-slate-200 hover:border-black transition-colors rounded-sm space-y-2">
+                            <h3 className="font-bold text-base md:text-lg text-slate-900">Registry Office</h3>
+                            <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed">Responsible for receiving official academic correspondence and documentation.</p>
+                            <a href="mailto:registry@cannogacollege.ca" className="text-[#0a151a] font-bold text-base underline hover:text-slate-600 transition-colors block pt-1">
                                 registry@cannogacollege.ca
                             </a>
                         </div>
 
-                        <div>
-                            <h3 className="font-bold text-base text-slate-900">Admissions Services</h3>
-                            <p className="text-sm text-slate-600 mt-1 mb-2">Information on degree programmes, requirements, scholarships, and deadlines.</p>
-                            <a href="mailto:admissions@cannogacollege.ca" className="text-[#0f2027] font-bold text-sm underline hover:text-[#c89211] transition-colors">
+                        <div className="p-6 border border-slate-200 hover:border-black transition-colors rounded-sm space-y-2">
+                            <h3 className="font-bold text-base md:text-lg text-slate-900">Admissions Services</h3>
+                            <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed">Information on degree programmes, requirements, scholarships, and deadlines.</p>
+                            <a href="mailto:admissions@cannogacollege.ca" className="text-[#0a151a] font-bold text-base underline hover:text-slate-600 transition-colors block pt-1">
                                 admissions@cannogacollege.ca
                             </a>
                         </div>
 
-                        <div>
-                            <h3 className="font-bold text-base text-slate-900">Student Services</h3>
-                            <p className="text-sm text-slate-600 mt-1 mb-2">Comprehensive support for enrolled students including study planning and guidance.</p>
-                            <a href="mailto:studentservices@cannogacollege.ca" className="text-[#0f2027] font-bold text-sm underline hover:text-[#c89211] transition-colors">
+                        <div className="p-6 border border-slate-200 hover:border-black transition-colors rounded-sm space-y-2">
+                            <h3 className="font-bold text-base md:text-lg text-slate-900">Student Services</h3>
+                            <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed">Comprehensive support for enrolled students including study planning and guidance.</p>
+                            <a href="mailto:studentservices@cannogacollege.ca" className="text-[#0a151a] font-bold text-base underline hover:text-slate-600 transition-colors block pt-1">
                                 studentservices@cannogacollege.ca
                             </a>
                         </div>
 
-                        <div>
-                            <h3 className="font-bold text-base text-slate-900">Archives & Transcripts</h3>
-                            <p className="text-sm text-slate-600 mt-1 mb-2">Permanent academic records storage, transcript verification, and archival documents.</p>
-                            <a href="mailto:archives@cannogacollege.ca" className="text-[#0f2027] font-bold text-sm underline hover:text-[#c89211] transition-colors">
+                        <div className="p-6 border border-slate-200 hover:border-black transition-colors rounded-sm space-y-2">
+                            <h3 className="font-bold text-base md:text-lg text-slate-900">Archives &amp; Transcripts</h3>
+                            <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed">Permanent academic records storage, transcript verification, and archival documents.</p>
+                            <a href="mailto:archives@cannogacollege.ca" className="text-[#0a151a] font-bold text-base underline hover:text-slate-600 transition-colors block pt-1">
                                 archives@cannogacollege.ca
                             </a>
                         </div>
@@ -167,14 +165,14 @@ export default function ContactPage() {
 
                 {/* Academic Schools */}
                 <section className="pt-8 border-t border-slate-200">
-                    <h2 className="text-2xl font-black text-black tracking-tight mb-8">Academic Schools & Faculties</h2>
+                    <h2 className="text-2xl md:text-3xl font-black text-black tracking-tight mb-8">Academic Schools &amp; Faculties</h2>
                     <AcademicSchoolsCarousel />
                 </section>
 
                 {/* Campus Map & Directions */}
                 <section className="pt-8 border-t border-slate-200">
-                    <h2 className="text-2xl font-black text-black tracking-tight mb-2">Campus Location Map</h2>
-                    <p className="text-slate-700 mb-6 leading-relaxed font-medium">
+                    <h2 className="text-2xl md:text-3xl font-black text-black tracking-tight mb-2">Campus Location Map</h2>
+                    <p className="text-slate-700 text-base md:text-lg mb-6 leading-relaxed font-normal">
                         Explore learning spaces, laboratories, and administrative centers at our Ottawa campus.
                     </p>
                     <InteractiveCampusMap />
