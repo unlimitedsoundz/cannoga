@@ -1,7 +1,7 @@
 import { Hero } from '@/components/layout/Hero';
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { TagGroup } from '@/components/ui/TagGroup';
 import { LiftupCollection } from '@aalto-dx/react-modules';
 
