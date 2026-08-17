@@ -48,6 +48,26 @@ export default function DbFAQ({ pageSlug, fallbackFaqs, refreshKey }: DbFAQProps
                 .replace(/https:\/\/www\.algonquincollege\.com\//gi, 'https://cannogacollege.ca/')
                 .replace(/https:\/\/www\.algonquincollege\.ca\//gi, 'https://cannogacollege.ca/');
         }
+
+        // Remove Motivation letter, Recommendation letter, and CV mentions from FAQ text
+        cleaned = cleaned
+            .replace(/,\s*motivation letter/gi, '')
+            .replace(/motivation letter and\s*/gi, '')
+            .replace(/motivation letter/gi, 'academic documents')
+            .replace(/letters of recommendation and\s*/gi, '')
+            .replace(/,\s*letters of recommendation/gi, '')
+            .replace(/letters of recommendation/gi, 'academic transcripts')
+            .replace(/letter of recommendation/gi, 'academic transcript')
+            .replace(/,\s*CV\/Resume/gi, '')
+            .replace(/CV\/Resume and\s*/gi, '')
+            .replace(/CV\/Resume/gi, 'academic records')
+            .replace(/,\s*curriculum vitae/gi, '')
+            .replace(/curriculum vitae/gi, 'academic records')
+            .replace(/,\s*CV/gi, '')
+            .replace(/CV and\s*/gi, '')
+            .replace(/\bCV\b/g, 'academic records')
+            .replace(/\bResume\b/g, 'academic records');
+
         return cleaned;
     };
 
