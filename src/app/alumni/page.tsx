@@ -78,7 +78,7 @@ export default function AlumniPage() {
                 <div className="flex flex-wrap gap-4">
                     <Link
                         href="/portal/login"
-                        className="inline-flex items-center gap-2 bg-[#c89211] hover:bg-[#b07f0e] text-[#0f2027] font-extrabold text-xs uppercase tracking-wider px-6 py-4 transition-colors no-underline rounded-sm shadow-md"
+                        className="inline-flex items-center gap-2 bg-white hover:bg-slate-200 text-[#0a151a] font-extrabold text-xs uppercase tracking-wider px-6 py-4 transition-colors no-underline rounded-sm shadow-md"
                     >
                         <span>Access Alumni Portal</span>
                         <ArrowRight size={16} weight="bold" />
