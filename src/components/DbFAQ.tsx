@@ -30,23 +30,29 @@ export default function DbFAQ({ pageSlug, fallbackFaqs, refreshKey }: DbFAQProps
             .replace(/EU citizens/gi, 'Domestic students')
             .replace(/non-EU/gi, 'international');
 
+        // Universal Institutional Branding & Canada/Ottawa localization for ALL FAQ pages
+        cleaned = cleaned
+            .replace(/Aalto University/gi, 'Cannoga College')
+            .replace(/Aalto/gi, 'Cannoga College')
+            .replace(/Algonquin College/gi, 'Cannoga College')
+            .replace(/Algonquin/gi, 'Cannoga College')
+            .replace(/SYKLI/gi, 'Cannoga College')
+            .replace(/Otaniemi/gi, 'Ottawa')
+            .replace(/Helsinki/gi, 'Ottawa')
+            .replace(/Espoo/gi, 'Ottawa')
+            .replace(/Finland/gi, 'Canada')
+            .replace(/Finnish/gi, 'Canadian')
+            .replace(/https:\/\/www\.algonquincollege\.com\//gi, 'https://cannogacollege.ca/')
+            .replace(/https:\/\/www\.algonquincollege\.ca\//gi, 'https://cannogacollege.ca/')
+            .replace(/https:\/\/www\.aalto\.fi\//gi, 'https://cannogacollege.ca/')
+            .replace(/https:\/\/www\.aalto\.fi/gi, 'https://cannogacollege.ca')
+            .replace(/Flywire/gi, 'our secure payment gateway')
+            .replace(/https:\/\/www\.flywire\.com\//gi, '#');
+
         if (pageSlug === 'admissions/tuition') {
-            return cleaned
-                .replace(/Flywire/gi, 'our secure payment gateway')
-                .replace(/https:\/\/www\.flywire\.com\//gi, '#')
-                .replace(/Cannoga College/gi, 'Cannoga College')
-                .replace(/Cannoga/gi, 'Cannoga College')
-                .replace(/Ottawa, Canada/gi, 'Ottawa, Ontario, Canada')
-                .replace(/Ottawa Canada/gi, 'Ottawa, Ontario, Canada')
-                .replace(/\bOttawa\b/gi, 'Ottawa')
-                .replace(/\bCanada\b/gi, 'Canada');
-        }
-        if (pageSlug === 'admissions/application-process') {
             cleaned = cleaned
-                .replace(/Algonquin College/gi, 'Cannoga College')
-                .replace(/Algonquin/gi, 'Cannoga College')
-                .replace(/https:\/\/www\.algonquincollege\.com\//gi, 'https://cannogacollege.ca/')
-                .replace(/https:\/\/www\.algonquincollege\.ca\//gi, 'https://cannogacollege.ca/');
+                .replace(/Ottawa, Canada/gi, 'Ottawa, Ontario, Canada')
+                .replace(/Ottawa Canada/gi, 'Ottawa, Ontario, Canada');
         }
 
         // Specifically remove <li> lines for Motivation letter, Letters of recommendation, CV/Resume
