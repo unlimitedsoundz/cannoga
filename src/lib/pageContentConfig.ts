@@ -617,60 +617,60 @@ export const pageContentSections: PageContentSection[] = [
         
         <div class="space-y-6">
             <div class="flex items-start gap-4">
-                <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #f43f5e;">1</div>
+                <div class="shrink-0 w-8 h-8 rounded-full bg-[#0a151a] text-white flex items-center justify-center font-bold text-sm">1</div>
                 <div class="flex-1 space-y-1">
                     <h4 class="text-base font-bold text-slate-900 tracking-tight">Accept Your Offer</h4>
-                    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                    <p class="text-base font-normal text-slate-700 leading-relaxed">
                         Once you accept your offer through the portal, you will be redirected to the secure payment page.
                     </p>
                 </div>
             </div>
 
             <div class="flex items-start gap-4">
-                <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #f97316;">2</div>
+                <div class="shrink-0 w-8 h-8 rounded-full bg-[#0a151a] text-white flex items-center justify-center font-bold text-sm">2</div>
                 <div class="flex-1 space-y-1">
                     <h4 class="text-base font-bold text-slate-900 tracking-tight">Choose Where You’re Paying From</h4>
-                    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                    <p class="text-base font-normal text-slate-700 leading-relaxed">
                         Select the country from which you will make your payment. The portal shows local payment options specific to your location.
                     </p>
                 </div>
             </div>
 
             <div class="flex items-start gap-4">
-                <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #eab308;">3</div>
+                <div class="shrink-0 w-8 h-8 rounded-full bg-[#0a151a] text-white flex items-center justify-center font-bold text-sm">3</div>
                 <div class="flex-1 space-y-1">
                     <h4 class="text-base font-bold text-slate-900 tracking-tight">Review Payment Details</h4>
-                    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                    <p class="text-base font-normal text-slate-700 leading-relaxed">
                         Confirm your full name, student ID, programme, amount payable, and payment reference before submitting.
                     </p>
                 </div>
             </div>
 
             <div class="flex items-start gap-4">
-                <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #22c55e;">4</div>
+                <div class="shrink-0 w-8 h-8 rounded-full bg-[#0a151a] text-white flex items-center justify-center font-bold text-sm">4</div>
                 <div class="flex-1 space-y-1">
                     <h4 class="text-base font-bold text-slate-900 tracking-tight">Select Your Payment Method</h4>
-                    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                    <p class="text-base font-normal text-slate-700 leading-relaxed">
                         Choose one of the available payment methods based on your country and preference.
                     </p>
                 </div>
             </div>
 
             <div class="flex items-start gap-4">
-                <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #06b6d4;">5</div>
+                <div class="shrink-0 w-8 h-8 rounded-full bg-[#0a151a] text-white flex items-center justify-center font-bold text-sm">5</div>
                 <div class="flex-1 space-y-1">
                     <h4 class="text-base font-bold text-slate-900 tracking-tight">Complete the Payment</h4>
-                    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                    <p class="text-base font-normal text-slate-700 leading-relaxed">
                         Follow the on-screen instructions to pay securely.
                     </p>
                 </div>
             </div>
 
             <div class="flex items-start gap-4">
-                <div class="shrink-0 w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-sm" style="background-color: #8b5cf6;">6</div>
+                <div class="shrink-0 w-8 h-8 rounded-full bg-[#0a151a] text-white flex items-center justify-center font-bold text-sm">6</div>
                 <div class="flex-1 space-y-1">
                     <h4 class="text-base font-bold text-slate-900 tracking-tight">Payment Confirmation</h4>
-                    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                    <p class="text-base font-normal text-slate-700 leading-relaxed">
                         Once payment is confirmed, your payment status updates automatically and an official receipt is issued.
                     </p>
                 </div>
@@ -679,7 +679,7 @@ export const pageContentSections: PageContentSection[] = [
     </div>
 
     <div class="pt-4 border-t border-slate-200">
-        <p class="text-xs sm:text-sm font-semibold text-slate-800">
+        <p class="text-base font-semibold text-slate-800">
             Please pay by the deadline indicated in your official offer of admission to confirm your enrollment.
         </p>
     </div>
