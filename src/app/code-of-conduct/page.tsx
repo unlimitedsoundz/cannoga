@@ -1,5 +1,8 @@
-﻿import type { Metadata } from 'next';
-import { Link } from "@aalto-dx/react-components";
+import type { Metadata } from 'next';
+import { Hero } from '@/components/layout/Hero';
+import { Link } from '@/components/ui/Link';
+import AcademicRegulationsAccordion from '@/components/academic/AcademicRegulationsAccordion';
+import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 
 export const metadata: Metadata = {
     title: 'Community Code of Conduct & Ethics',
@@ -9,303 +12,346 @@ export const metadata: Metadata = {
     },
 };
 
-export default function CodeOfConductPage() {
-    return (
-        <div className="bg-white min-h-screen font-sans text-black">
-            {/* HERO SECTION */}
-            <section className="bg-[#0a151a] text-white pt-28 pb-20 md:pt-40 md:pb-28 px-4 border-b border-slate-800">
-                <div className="container mx-auto max-w-5xl">
-                    <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-400 mb-6">
-                        <Link href="/" className="text-sky-400 hover:text-white transition-colors no-underline">HOME</Link>
-                        <span className="text-slate-600">/</span>
-                        <span>INSTITUTIONAL POLICIES</span>
+const conductPolicies = [
+    {
+        id: "conduct-1",
+        question: "1. Purpose, Core Principles & Institutional Scope",
+        order_index: 1,
+        answer: (
+            <div className="space-y-3">
+                <p>The Code of Conduct of Cannoga College establishes behavioral standards expected of all members of the College community to foster a safe, inclusive, ethical, and academically focused environment.</p>
+                <p className="font-semibold text-slate-900">This Code applies to conduct occurring:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>On campus facilities, lecture halls, studios, laboratories, and residence grounds in Ottawa.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Across digital learning management systems (LMS), student portals, and official virtual meeting spaces.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>During official academic internships, field research trips, study exchanges, and conferences.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>In any external context where an individual represents Cannoga College.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "conduct-2",
+        question: "2. Scope of Application & Governance Authority",
+        order_index: 2,
+        answer: (
+            <div className="space-y-3">
+                <p>This Code governs all individuals holding active affiliation with Cannoga College, including:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>All enrolled students across Bachelor&apos;s, Master&apos;s, Diploma, and Certificate programmes.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Students on approved leaves of absence, internships, or exchange programmes.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Applicants who have accepted an official offer of admission.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Participants in College-sponsored athletic events, public seminars, and student club activities.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "conduct-3",
+        question: "3. Institutional Core Values",
+        order_index: 3,
+        answer: (
+            <div className="space-y-3">
+                <p>Community life and governance at Cannoga College are grounded in five foundational pillars:</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                    <div className="p-4 border border-slate-200 rounded-sm">
+                        <h4 className="font-bold text-slate-900 text-base">Respect &amp; Civility</h4>
+                        <p className="text-sm text-slate-600 font-normal mt-1">Treating every individual with dignity, courtesy, and fairness regardless of background or perspective.</p>
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white leading-tight">
-                        Code of Conduct
-                    </h1>
-                    <p className="text-lg md:text-xl text-slate-300 max-w-3xl leading-relaxed">
-                        Establishing standards of behavior expected of all members of the Cannoga College community to ensure a safe, respectful, ethical, and academically focused environment.
-                    </p>
-                </div>
-            </section>
-
-            {/* MAIN CONTENT WITH SIDEBAR NAVIGATION */}
-            <div className="container mx-auto max-w-6xl px-4 py-12 md:py-20 grid grid-cols-1 lg:grid-cols-4 gap-12">
-                {/* STICKY SECTION NAV */}
-                <div className="hidden lg:block lg:col-span-1">
-                    <div className="sticky top-28 space-y-4 p-6 bg-slate-50 border border-slate-200 rounded-none text-xs font-bold uppercase tracking-wider text-slate-700">
-                        <p className="text-slate-400 text-[10px] pb-2 border-b border-slate-200">Code Table of Contents</p>
-                        <nav className="flex flex-col space-y-2">
-                            <a href="#purpose" className="hover:text-black transition-colors">1. Purpose & Principles</a>
-                            <a href="#scope" className="hover:text-black transition-colors">2. Scope of Application</a>
-                            <a href="#values" className="hover:text-black transition-colors">3. Core Values</a>
-                            <a href="#standards" className="hover:text-black transition-colors">4. Expected Standards</a>
-                            <a href="#prohibited" className="hover:text-black transition-colors">5. Prohibited Conduct</a>
-                            <a href="#digital" className="hover:text-black transition-colors">6. Online & Digital Conduct</a>
-                            <a href="#reporting" className="hover:text-black transition-colors">7. Reporting Misconduct</a>
-                            <a href="#process" className="hover:text-black transition-colors">8. Disciplinary Process</a>
-                            <a href="#sanctions" className="hover:text-black transition-colors">9. Disciplinary Sanctions</a>
-                            <a href="#appeals" className="hover:text-black transition-colors">10. Appeals Procedure</a>
-                            <a href="#confidentiality" className="hover:text-black transition-colors">11. Confidentiality</a>
-                            <a href="#non-retaliation" className="hover:text-black transition-colors">12. Non-Retaliation</a>
-                            <a href="#responsibility" className="hover:text-black transition-colors">13. Student Responsibility</a>
-                            <a href="#amendments" className="hover:text-black transition-colors">14. Governance</a>
-                            <a href="#effective-date" className="hover:text-black transition-colors">15. Effective Date</a>
-                        </nav>
+                    <div className="p-4 border border-slate-200 rounded-sm">
+                        <h4 className="font-bold text-slate-900 text-base">Academic Integrity</h4>
+                        <p className="text-sm text-slate-600 font-normal mt-1">Upholding honesty, intellectual transparency, and ethical attribution across all scholarly work.</p>
                     </div>
-                </div>
-
-                {/* POLICY CONTENT BODY */}
-                <div className="lg:col-span-3 space-y-14">
-
-                    {/* 1. PURPOSE AND PRINCIPLES */}
-                    <section id="purpose" className="scroll-mt-28 border-t-2 border-[#0a151a] pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">01</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Purpose &amp; Principles</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
-                            The Code of Conduct of Cannoga College establishes standards of behavior expected of all members of the College community. It aims to ensure a safe, respectful, ethical, and academically focused environment that supports learning and institutional integrity.
-                        </p>
-                        <p className="text-base text-slate-700 leading-relaxed mb-3 font-medium">This Code applies to conduct occurring:</p>
-                        <ul className="list-disc pl-6 space-y-2 text-base text-slate-800 marker:text-black">
-                            <li>On campus or institutional premises in Ottawa.</li>
-                            <li>Online and within digital learning environments or student portals.</li>
-                            <li>During academic, administrative, or College-related activities.</li>
-                            <li>In any context where a student represents Cannoga College.</li>
-                        </ul>
-                    </section>
-
-                    {/* 2. SCOPE OF APPLICATION */}
-                    <section id="scope" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">02</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Scope of Application</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">This Code of Conduct applies to:</p>
-                        <ul className="list-disc pl-6 space-y-2 text-base text-slate-800 marker:text-black mb-4">
-                            <li>All enrolled students across Bachelor&apos;s, Master&apos;s, Diploma, and Certificate programmes.</li>
-                            <li>Students on approved leave of absence or exchange programmes.</li>
-                            <li>Applicants who have accepted an offer of admission.</li>
-                            <li>Participants in College-sponsored events and activities.</li>
-                        </ul>
-                        <p className="text-base text-slate-700 leading-relaxed">
-                            The College reserves the right to take action when conduct adversely affects the institution or its community.
-                        </p>
-                    </section>
-
-                    {/* 3. CORE VALUES */}
-                    <section id="values" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">03</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Core Values</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">Members of the Cannoga College community are expected to uphold the following values:</p>
-                        <ul className="list-disc pl-6 space-y-2 text-base text-slate-800 marker:text-black">
-                            <li><strong>Integrity and Honesty:</strong> Truthfulness in all academic and personal interactions.</li>
-                            <li><strong>Respect for Others:</strong> Dignity, inclusion, and courtesy toward all community members.</li>
-                            <li><strong>Responsibility and Accountability:</strong> Owning one&apos;s actions and their impact.</li>
-                            <li><strong>Academic Professionalism:</strong> Rigorous, ethical pursuit of knowledge and skill.</li>
-                            <li><strong>Regulatory Compliance:</strong> Adherence to College policies and applicable Canadian law.</li>
-                        </ul>
-                    </section>
-
-                    {/* 4. EXPECTED STANDARDS OF BEHAVIOR */}
-                    <section id="standards" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">04</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Expected Standards of Behavior</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">Students are expected to:</p>
-                        <ul className="list-disc pl-6 space-y-2 text-base text-slate-800 marker:text-black">
-                            <li>Act with honesty and integrity in all academic and non-academic activities.</li>
-                            <li>Treat fellow students, staff, faculty, and visitors with respect.</li>
-                            <li>Follow all academic, administrative, and financial regulations.</li>
-                            <li>Use institutional systems and campus resources responsibly.</li>
-                            <li>Comply with federal, provincial, and local laws.</li>
-                        </ul>
-                    </section>
-
-                    {/* 5. PROHIBITED CONDUCT */}
-                    <section id="prohibited" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">05</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Prohibited Conduct</h2>
-                        </div>
-                        <div className="space-y-6 text-base text-slate-700">
-                            <div className="border-l-2 border-[#0a151a] pl-4">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">5.1 Academic Misconduct</h3>
-                                <ul className="list-disc pl-5 space-y-1 text-slate-800">
-                                    <li>Plagiarism and submitting uncredited work.</li>
-                                    <li>Cheating during assessments or exams.</li>
-                                    <li>Fabrication or falsification of academic data.</li>
-                                    <li>Unauthorized collaboration or impersonation.</li>
-                                </ul>
-                            </div>
-
-                            <div className="border-l-2 border-slate-300 pl-4">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">5.2 Disruptive &amp; Abusive Behavior</h3>
-                                <ul className="list-disc pl-5 space-y-1 text-slate-800">
-                                    <li>Harassment, intimidation, or physical threats.</li>
-                                    <li>Discrimination or hate speech.</li>
-                                    <li>Verbal or written abuse toward faculty, staff, or peers.</li>
-                                    <li>Disrupting teaching, research, or administrative operations.</li>
-                                </ul>
-                            </div>
-
-                            <div className="border-l-2 border-slate-300 pl-4">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">5.3 Resource Misuse &amp; Safety Violations</h3>
-                                <ul className="list-disc pl-5 space-y-1 text-slate-800">
-                                    <li>Unauthorized system access or credential sharing.</li>
-                                    <li>Tampering with IT systems or campus facilities.</li>
-                                    <li>Actions endangering the safety of others or property damage.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* 6. ONLINE AND DIGITAL CONDUCT */}
-                    <section id="digital" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">06</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Online &amp; Digital Conduct</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
-                            Students must adhere strictly to this Code when utilizing LMS platforms, student portals, college email, or participating in official social media groups.
-                        </p>
-                        <ul className="list-disc pl-6 space-y-2 text-base text-slate-800 marker:text-black">
-                            <li>Cyber harassment, trolling, or inappropriate communications are prohibited.</li>
-                            <li>Unauthorized recording or distribution of lecture content is forbidden.</li>
-                        </ul>
-                    </section>
-
-                    {/* 7. REPORTING MISCONDUCT */}
-                    <section id="reporting" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">07</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Reporting Misconduct</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
-                            Concerns or policy violations may be reported in good faith to academic staff, department heads, or designated compliance officers.
-                        </p>
-                        <p className="text-base text-slate-700 leading-relaxed">
-                            Knowingly submitting false or malicious reports constitutes a direct violation of this Code.
-                        </p>
-                    </section>
-
-                    {/* 8. DISCIPLINARY PROCESS */}
-                    <section id="process" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">08</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Disciplinary Process</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
-                            Alleged infractions undergo objective investigation by the Disciplinary Board. Students will be provided written notification of allegations and an opportunity to respond.
-                        </p>
-                    </section>
-
-                    {/* 9. DISCIPLINARY SANCTIONS */}
-                    <section id="sanctions" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">09</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Disciplinary Sanctions</h2>
-                        </div>
-                        <div className="border border-slate-200 rounded-none overflow-hidden text-sm mb-6">
-                            <div className="grid grid-cols-1 md:grid-cols-3 bg-slate-100 p-4 font-bold text-slate-900 border-b border-slate-200">
-                                <div>Sanction Level</div>
-                                <div className="md:col-span-2 font-bold">Institutional Action</div>
-                            </div>
-                            {[
-                                { term: "Written Warning", def: "Formal reprimand placed in permanent student record." },
-                                { term: "Academic Penalty", def: "Grade reduction, zero score on assignment, or module failure." },
-                                { term: "Disciplinary Probation", def: "Conditional enrollment period with restricted privileges." },
-                                { term: "Suspension", def: "Temporary removal from campus and academic system access." },
-                                { term: "Expulsion / Dismissal", def: "Permanent termination of student status at Cannoga College." },
-                            ].map((item, i, arr) => (
-                                <div key={i} className={`grid grid-cols-1 md:grid-cols-3 p-4 ${i !== arr.length - 1 ? 'border-b border-slate-200' : ''} hover:bg-slate-50 transition-colors`}>
-                                    <div className="font-bold text-slate-900 mb-1 md:mb-0">{item.term}</div>
-                                    <div className="md:col-span-2 text-slate-700">{item.def}</div>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
-
-                    {/* 10. APPEALS PROCEDURE */}
-                    <section id="appeals" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">10</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Appeals Procedure</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
-                            Students have the right to appeal disciplinary outcomes within 14 calendar days based on procedural error, new evidence, or disproportionality of sanctions. Decisions rendered by the Appeals Panel are final.
-                        </p>
-                    </section>
-
-                    {/* 11. CONFIDENTIALITY AND RECORDS */}
-                    <section id="confidentiality" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">11</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Confidentiality &amp; Records</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
-                            Disciplinary records are maintained confidentially and separately from academic transcripts, accessible only by authorized personnel in compliance with privacy laws.
-                        </p>
-                    </section>
-
-                    {/* 12. NON-RETALIATION */}
-                    <section id="non-retaliation" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">12</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Non-Retaliation</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
-                            Cannoga College strictly prohibits retaliation against any individual who reports misconduct in good faith or participates in a disciplinary proceeding.
-                        </p>
-                    </section>
-
-                    {/* 13. STUDENT RESPONSIBILITY */}
-                    <section id="responsibility" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">13</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Responsibility to Know the Code</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
-                            All students are responsible for reading, understanding, and complying with this Code. Ignorance of institutional regulations does not exempt a student from responsibility.
-                        </p>
-                    </section>
-
-                    {/* 14. GOVERNANCE AND AMENDMENTS */}
-                    <section id="amendments" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">14</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Governance &amp; Amendments</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
-                            This Code is reviewed annually by the Academic Council. Amendments are effective upon official publication on the web portal.
-                        </p>
-                    </section>
-
-                    {/* 15. EFFECTIVE DATE */}
-                    <section id="effective-date" className="scroll-mt-28 border-t border-slate-200 pt-8 border-b pb-12">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">15</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Effective Date</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-6">
-                            This Code of Conduct is effective for the 2026–2027 Academic Year and applies to all active students.
-                        </p>
-                        <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-200">
-                            <Link href="/admissions-policy" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
-                                Admissions Policy →
-                            </Link>
-                            <Link href="/student-handbook" className="border border-[#0a151a] text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-[#0a151a] hover:text-white transition-colors no-underline">
-                                Student Handbook →
-                            </Link>
-                        </div>
-                    </section>
-
+                    <div className="p-4 border border-slate-200 rounded-sm">
+                        <h4 className="font-bold text-slate-900 text-base">Inclusivity &amp; Diversity</h4>
+                        <p className="text-sm text-slate-600 font-normal mt-1">Fostering a welcoming multicultural environment where diverse identities and ideas thrive.</p>
+                    </div>
+                    <div className="p-4 border border-slate-200 rounded-sm">
+                        <h4 className="font-bold text-slate-900 text-base">Safety &amp; Well-being</h4>
+                        <p className="text-sm text-slate-600 font-normal mt-1">Maintaining secure physical and digital spaces free from harassment, violence, and intimidation.</p>
+                    </div>
                 </div>
             </div>
+        )
+    },
+    {
+        id: "conduct-4",
+        question: "4. Expected Standards of Community Behavior",
+        order_index: 4,
+        answer: (
+            <div className="space-y-3">
+                <p>All students and campus community members are expected to:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Contribute positively to a supportive, respectful learning environment.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Comply with institutional policies, health &amp; safety instructions, and Ontario statutes.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Respect College property, library resources, laboratories, and physical facilities.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Cooperate constructively with campus safety officers, faculty, and administrative staff.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "conduct-5",
+        question: "5. Prohibited Conduct & Disciplinary Violations",
+        order_index: 5,
+        answer: (
+            <div className="space-y-3">
+                <p>Cannoga College strictly prohibits the following categories of behavioral misconduct:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Harassment &amp; Bullying:</strong> Verbal abuse, psychological intimidation, sexual harassment, or discrimination based on protected grounds.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Disruptive Behavior:</strong> Actions that impede lectures, laboratory operations, examinations, or official College ceremonies.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Property Damage &amp; Theft:</strong> Vandalism, unauthorized appropriation, or defacement of institutional or peer assets.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Controlled Substances:</strong> Unauthorized possession, consumption, or distribution of illicit substances or open alcohol on campus premises.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "conduct-6",
+        question: "6. Online & Digital Platform Conduct",
+        order_index: 6,
+        answer: (
+            <div className="space-y-3">
+                <p>Rules governing digital behavior across campus networks, online portals, and institutional social channels:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Cyberbullying, cyberstalking, and the creation of defamatory content targeting faculty or students are prohibited.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Sharing or commercial distribution of copyrighted lecture recordings and exam materials without consent is barred.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Misuse of student credentials, identity theft, or unauthorized access to registry databases will be referred for criminal investigation.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "conduct-7",
+        question: "7. Misconduct Reporting & Confidential Disclosure",
+        order_index: 7,
+        answer: (
+            <div className="space-y-3">
+                <p>Procedures for filing complaints regarding student or faculty misconduct:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Reports may be submitted directly to the Office of Student Services, Campus Security, or via the confidential online reporting desk.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Anonymous reports are investigated to the extent possible while upholding natural justice and fair hearing standards.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Urgent physical safety threats should be reported immediately to Campus Security or 911 emergency services.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "conduct-8",
+        question: "8. Disciplinary Investigation Process & Natural Justice",
+        order_index: 8,
+        answer: (
+            <div className="space-y-3">
+                <p>When formal misconduct allegations are lodged, the Disciplinary Hearing Board executes a structured, impartial review:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Written Notification:</strong> The student receives formal written notice outlining allegations, evidence, and scheduled hearing dates.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Right to Defense:</strong> The respondent is entitled to present witness statements, submit documentation, and be accompanied by an advisor.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Standard of Proof:</strong> Decisions are rendered based on the balance of probabilities (more likely than not).</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "conduct-9",
+        question: "9. Range of Disciplinary Sanctions",
+        order_index: 9,
+        answer: (
+            <div className="space-y-3">
+                <p>Depending on severity and recidivism, the Disciplinary Board may impose one or more of the following sanctions:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Formal Written Warning:</strong> Documented reprimand placed on internal student file.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Restitution &amp; Community Service:</strong> Mandatory compensation for property damage or assigned service hours.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Disciplinary Probation:</strong> Restrictions on extracurriculars, club leadership, or campus privileges for a set period.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Suspension or Expulsion:</strong> Temporary exclusion or permanent termination of enrolment with official transcript notation.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "conduct-10",
+        question: "10. Appeals Procedure & Non-Retaliation Policy",
+        order_index: 10,
+        answer: (
+            <div className="space-y-3">
+                <p>Guarantees protecting fairness and protecting individuals reporting violations:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Appeals Timeline:</strong> Sanctioned students may lodge a formal appeal to the President&apos;s Review Board within 10 business days of notice.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Valid Appeal Grounds:</strong> Evidence of procedural unfairness, substantial new evidence, or disproportionate severity of sanctions.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Strict Non-Retaliation:</strong> Any threat or act of retaliation against complainants or witnesses constitutes a severe independent violation resulting in immediate suspension.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    }
+];
+
+export default function CodeOfConductPage() {
+    return (
+        <div className="min-h-screen bg-white text-black antialiased font-sans pb-24">
+            {/* HERO SECTION */}
+            <Hero
+                title="Code of Conduct"
+                body="Establishing behavioral standards, community ethics, and accountability expected of all members of the Cannoga College academic community."
+                backgroundColor="#0a151a"
+                tinted
+                lightText={true}
+                overlay={true}
+                overlayOpacity="opacity-40"
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Code of Conduct' }
+                ]}
+                image={{
+                    src: "/images/alumni-hero.png",
+                    alt: "Cannoga Code of Conduct"
+                }}
+            />
+
+            {/* MAIN CONTENT ACCORDION */}
+            <main className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                <section className="space-y-4">
+                    <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight">Community Standards &amp; Disciplinary Framework</h2>
+                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed max-w-3xl">
+                        Review the official behavioural guidelines, natural justice procedures, and sanctions governing all Cannoga students, faculty, and visitors.
+                    </p>
+                </section>
+
+                <section className="pt-4">
+                    <AcademicRegulationsAccordion items={conductPolicies} />
+                </section>
+
+                {/* RELATED LINKS */}
+                <section className="pt-8 border-t border-slate-200 space-y-6">
+                    <h3 className="text-2xl font-black text-black tracking-tight">Related Governance Documents</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        <Link 
+                            href="/academic-regulations" 
+                            className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
+                        >
+                            <div className="flex items-center justify-between">
+                                <span>Academic Regulations</span>
+                                <ArrowRight size={16} weight="bold" />
+                            </div>
+                            <p className="text-sm text-slate-600 font-normal leading-normal">Coursework, GPA, and progression</p>
+                        </Link>
+                        <Link 
+                            href="/student-handbook" 
+                            className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
+                        >
+                            <div className="flex items-center justify-between">
+                                <span>Student Handbook</span>
+                                <ArrowRight size={16} weight="bold" />
+                            </div>
+                            <p className="text-sm text-slate-600 font-normal leading-normal">Campus services and student handbook</p>
+                        </Link>
+                        <Link 
+                            href="/admissions-policy" 
+                            className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
+                        >
+                            <div className="flex items-center justify-between">
+                                <span>Admissions Policy</span>
+                                <ArrowRight size={16} weight="bold" />
+                            </div>
+                            <p className="text-sm text-slate-600 font-normal leading-normal">Admissions criteria and appeals</p>
+                        </Link>
+                    </div>
+                </section>
+            </main>
         </div>
     );
 }

@@ -1,5 +1,8 @@
-﻿import type { Metadata } from 'next';
-import { Link } from "@aalto-dx/react-components";
+import type { Metadata } from 'next';
+import { Hero } from '@/components/layout/Hero';
+import { Link } from '@/components/ui/Link';
+import AcademicRegulationsAccordion from '@/components/academic/AcademicRegulationsAccordion';
+import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 
 export const metadata: Metadata = {
     title: 'Institutional Admissions Policy',
@@ -9,229 +12,245 @@ export const metadata: Metadata = {
     },
 };
 
-export default function AdmissionsPolicyPage() {
-    return (
-        <div className="bg-white min-h-screen font-sans text-black">
-            {/* HERO SECTION */}
-            <section className="bg-[#0a151a] text-white pt-28 pb-20 md:pt-40 md:pb-28 px-4 border-b border-slate-800">
-                <div className="container mx-auto max-w-5xl">
-                    <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-400 mb-6">
-                        <Link href="/admissions" className="text-sky-400 hover:text-white transition-colors no-underline">ADMISSIONS</Link>
-                        <span className="text-slate-600">/</span>
-                        <span>INSTITUTIONAL POLICIES</span>
+const admissionsPolicies = [
+    {
+        id: "adm-1",
+        question: "1. Purpose, Core Principles & Diversity Commitment",
+        order_index: 1,
+        answer: (
+            <div className="space-y-3">
+                <p>The Admissions Policy of Cannoga College defines the principles, academic criteria, and evaluation procedures governing entry into all Bachelor&apos;s, Master&apos;s, Diploma, and Certificate programmes.</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Equal Opportunity:</strong> Absolute fairness, transparent merit assessment, and non-discrimination on grounds of nationality, gender, ethnicity, or faith.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Ontario Standards:</strong> Complies fully with Ontario Ministry of Colleges and Universities admission directives.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "adm-2",
+        question: "2. Undergraduate Entry Requirements",
+        order_index: 2,
+        answer: (
+            <div className="space-y-3">
+                <p>Standard qualification benchmarks for undergraduate degree and diploma candidates:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Ontario Secondary School Diploma (OSSD):</strong> Or equivalent Canadian/International secondary credential with at least six Grade 12 U/M courses.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Minimum GPA Threshold:</strong> Competitive overall average of 70% or higher (higher thresholds apply to specialized engineering and computing tracks).</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Prerequisite Subjects:</strong> Grade 12 English (ENG4U) and mathematics prerequisites as specified by faculty curriculum.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "adm-3",
+        question: "3. Postgraduate & Master's Entry Requirements",
+        order_index: 3,
+        answer: (
+            <div className="space-y-3">
+                <p>Criteria for entry into postgraduate certificate and Master&apos;s degree programmes:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Recognized Bachelor&apos;s Degree:</strong> Minimum 4-year undergraduate degree from an accredited university or institutional equivalent.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Academic Standing:</strong> Minimum cumulative GPA of 3.0 on a 4.0 scale (or equivalent B grade / second-class upper division) in final two years of study.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Supporting Portfolio:</strong> Statement of intent, curriculum vitae, 2 academic/professional recommendation letters, and writing samples.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "adm-4",
+        question: "4. English Language Proficiency (ELP) Standards",
+        order_index: 4,
+        answer: (
+            <div className="space-y-3">
+                <p>Applicants whose primary language is not English must demonstrate proficiency through recognized standardized examinations:</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                    <div className="p-4 border border-slate-200 rounded-sm">
+                        <h4 className="font-bold text-slate-900 text-base">IELTS Academic</h4>
+                        <p className="text-sm text-slate-600 font-normal mt-1">Undergraduate: 6.5 overall (no band under 6.0). Postgraduate: 7.0 overall (no band under 6.5).</p>
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white leading-tight">
-                        Admissions Policy
-                    </h1>
-                    <p className="text-lg md:text-xl text-slate-300 max-w-3xl leading-relaxed">
-                        Defining the principles, evaluation criteria, equality standards, and procedures governing admission to all academic programs at Cannoga College in Ottawa, Ontario.
-                    </p>
-                </div>
-            </section>
-
-            {/* MAIN CONTENT WITH SIDEBAR NAVIGATION */}
-            <div className="container mx-auto max-w-6xl px-4 py-12 md:py-20 grid grid-cols-1 lg:grid-cols-4 gap-12">
-                {/* STICKY SECTION NAV */}
-                <div className="hidden lg:block lg:col-span-1">
-                    <div className="sticky top-28 space-y-4 p-6 bg-slate-50 border border-slate-200 rounded-none text-xs font-bold uppercase tracking-wider text-slate-700">
-                        <p className="text-slate-400 text-[10px] pb-2 border-b border-slate-200">Policy Table of Contents</p>
-                        <nav className="flex flex-col space-y-2.5">
-                            <a href="#purpose" className="hover:text-black transition-colors">1. Purpose</a>
-                            <a href="#scope" className="hover:text-black transition-colors">2. Policy Scope</a>
-                            <a href="#general-principles" className="hover:text-black transition-colors">3. General Principles</a>
-                            <a href="#admission-requirements" className="hover:text-black transition-colors">4. Requirements</a>
-                            <a href="#application-process" className="hover:text-black transition-colors">5. Application Process</a>
-                            <a href="#admission-decisions" className="hover:text-black transition-colors">6. Decisions</a>
-                            <a href="#offer-acceptance" className="hover:text-black transition-colors">7. Acceptance</a>
-                            <a href="#verification" className="hover:text-black transition-colors">8. Verification</a>
-                            <a href="#appeals" className="hover:text-black transition-colors">9. Appeals</a>
-                            <a href="#policy-review" className="hover:text-black transition-colors">10. Policy Review</a>
-                        </nav>
+                    <div className="p-4 border border-slate-200 rounded-sm">
+                        <h4 className="font-bold text-slate-900 text-base">TOEFL iBT</h4>
+                        <p className="text-sm text-slate-600 font-normal mt-1">Undergraduate: Minimum score 88 (subscores 20+). Postgraduate: Minimum score 100 (subscores 22+).</p>
                     </div>
-                </div>
-
-                {/* POLICY CONTENT BODY */}
-                <div className="lg:col-span-3 space-y-14">
-
-                    {/* 1. PURPOSE */}
-                    <section id="purpose" className="scroll-mt-28 border-t-2 border-[#0a151a] pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">01</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Purpose</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
-                            The Admissions Policy of Cannoga College defines the principles, criteria, and procedures governing admission to Bachelor&apos;s, Master&apos;s, Diploma, and Certificate programmes.
-                        </p>
-                        <p className="text-base text-slate-700 leading-relaxed">
-                            This policy ensures absolute fairness, transparency, and equal opportunity for all domestic and international applicants seeking admission to Cannoga College.
-                        </p>
-                    </section>
-
-                    {/* 2. SCOPE */}
-                    <section id="scope" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">02</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Policy Scope</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">This policy applies to:</p>
-                        <ul className="list-disc pl-6 space-y-2 text-base text-slate-800 marker:text-black">
-                            <li>All undergraduate (Bachelor&apos;s) degree programmes</li>
-                            <li>All postgraduate (Master&apos;s) degree programmes</li>
-                            <li>All diploma and certificate academic streams</li>
-                            <li>Both domestic and international student applicants</li>
-                            <li>Full-time and part-time study modes (where applicable)</li>
-                        </ul>
-                    </section>
-
-                    {/* 3. GENERAL ADMISSION PRINCIPLES */}
-                    <section id="general-principles" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">03</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">General Admission Principles</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">Cannoga College operates under the following core admissions principles:</p>
-                        <ul className="list-disc pl-6 space-y-2 text-base text-slate-800 marker:text-black">
-                            <li>Admits students based on academic merit, suitability, and potential for success.</li>
-                            <li>Applies consistent, objective, and transparent evaluation criteria for all portfolios.</li>
-                            <li>Does not discriminate on the basis of nationality, gender, religion, ethnicity, age, or background.</li>
-                            <li>Reserves the right to verify all submitted academic records and supporting credentials.</li>
-                        </ul>
-                    </section>
-
-                    {/* 4. ADMISSION REQUIREMENTS */}
-                    <section id="admission-requirements" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">04</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Admission Requirements</h2>
-                        </div>
-                        <div className="space-y-6 text-base text-slate-700">
-                            <div className="border-l-2 border-[#0a151a] pl-4">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">4.1 Bachelor&apos;s Programmes</h3>
-                                <p className="mb-2 font-semibold text-slate-900">Applicants must:</p>
-                                <ul className="list-disc pl-5 space-y-1 text-slate-800">
-                                    <li>Hold a recognized secondary school diploma or equivalent secondary qualification.</li>
-                                    <li>Meet minimum academic grade requirements specified for the chosen program.</li>
-                                    <li>Demonstrate sufficient proficiency in English (or French where applicable).</li>
-                                    <li>Submit all required documents by the official application deadline.</li>
-                                </ul>
-                            </div>
-
-                            <div className="border-l-2 border-slate-300 pl-4">
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">4.2 Master&apos;s Programmes</h3>
-                                <p className="mb-2 font-semibold text-slate-900">Applicants must:</p>
-                                <ul className="list-disc pl-5 space-y-1 text-slate-800">
-                                    <li>Hold a recognized Bachelor&apos;s degree or equivalent in a relevant field.</li>
-                                    <li>Meet program-specific academic and professional background requirements.</li>
-                                    <li>Provide official transcripts, degree certificates, and recommendation letters.</li>
-                                    <li>Demonstrate required language proficiency for advanced graduate study.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* 5. APPLICATION PROCESS */}
-                    <section id="application-process" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">05</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Application Process</h2>
-                        </div>
-                        <ul className="list-disc pl-6 space-y-2.5 text-base text-slate-800 marker:text-black">
-                            <li>Applications must be submitted online through the official <Link href="/portal/apply" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Cannoga College Application Portal</Link>.</li>
-                            <li>Submitting an application through the online portal is free of charge.</li>
-                            <li>Applicants must provide complete, truthful, and accurate personal and academic information.</li>
-                            <li>Incomplete applications or missing transcripts will delay processing and may not be reviewed.</li>
-                        </ul>
-                    </section>
-
-                    {/* 6. ADMISSION DECISIONS */}
-                    <section id="admission-decisions" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-6">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">06</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Admission Decisions</h2>
-                        </div>
-                        <div className="border border-slate-200 rounded-none overflow-hidden text-sm mb-6">
-                            <div className="grid grid-cols-1 md:grid-cols-3 bg-slate-100 p-4 font-bold text-slate-900 border-b border-slate-200">
-                                <div>Decision Outcome</div>
-                                <div className="md:col-span-2 font-bold">Institutional Meaning</div>
-                            </div>
-                            {[
-                                { term: "Unconditional Offer", def: "Applicant has met all academic and administrative entry requirements and is granted full admission." },
-                                { term: "Conditional Offer", def: "Applicant is accepted pending fulfillment of specific conditions (e.g. final transcript, language exam)." },
-                                { term: "Rejection", def: "Applicant does not meet current entry criteria or program capacity limits." },
-                            ].map((item, i, arr) => (
-                                <div key={i} className={`grid grid-cols-1 md:grid-cols-3 p-4 ${i !== arr.length - 1 ? 'border-b border-slate-200' : ''} hover:bg-slate-50 transition-colors`}>
-                                    <div className="font-bold text-slate-900 mb-1 md:mb-0">{item.term}</div>
-                                    <div className="md:col-span-2 text-slate-700">{item.def}</div>
-                                </div>
-                            ))}
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed">
-                            Cannoga College reserves the right to request supplementary documentation, conduct personal interviews/assessments, or limit admissions based on program enrollment caps.
-                        </p>
-                    </section>
-
-                    {/* 7. OFFER ACCEPTANCE */}
-                    <section id="offer-acceptance" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">07</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Offer Acceptance</h2>
-                        </div>
-                        <ul className="list-disc pl-6 space-y-2 text-base text-slate-800 marker:text-black">
-                            <li>Offers must be officially accepted within the deadline specified in the Letter of Acceptance (LOA).</li>
-                            <li>Acceptance requires payment of the required tuition deposit or confirmation fee. Review <Link href="/refund-withdrawal-policy" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Tuition Refund & Withdrawal Policy</Link>.</li>
-                            <li>Failure to accept within the specified deadline may result in forfeiture of the offer.</li>
-                        </ul>
-                    </section>
-
-                    {/* 8. VERIFICATION & MISREPRESENTATION */}
-                    <section id="verification" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">08</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Verification &amp; Misrepresentation</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
-                            All academic documents, test scores, and credentials are subject to rigorous verification with issuing authorities.
-                        </p>
-                        <p className="text-base text-slate-700 leading-relaxed">
-                            Submission of false, altered, or misleading information will result in immediate rejection of the application, revocation of any issued offer, or termination of active enrollment.
-                        </p>
-                    </section>
-
-                    {/* 9. APPEALS */}
-                    <section id="appeals" className="scroll-mt-28 border-t border-slate-200 pt-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">09</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Appeals Procedure</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
-                            Applicants may submit a written appeal regarding admission decisions within 14 calendar days of receiving a refusal notice.
-                        </p>
-                        <p className="text-base text-slate-700 leading-relaxed">
-                            Appeals are independently reviewed by the Admissions Appeals Committee. Decisions rendered by the committee are final.
-                        </p>
-                    </section>
-
-                    {/* 10. POLICY REVIEW */}
-                    <section id="policy-review" className="scroll-mt-28 border-t border-slate-200 pt-8 border-b pb-12">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">10</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Policy Review & Updates</h2>
-                        </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-6">
-                            This policy is reviewed annually by the Academic Senate to ensure compliance with provincial higher education standards and IRCC regulations.
-                        </p>
-                        <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-200">
-                            <Link href="/refund-withdrawal-policy" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
-                                Refund & Withdrawal Policy →
-                            </Link>
-                            <Link href="/admissions" className="border border-[#0a151a] text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-[#0a151a] hover:text-white transition-colors no-underline">
-                                Admissions Overview →
-                            </Link>
-                        </div>
-                    </section>
-
+                    <div className="p-4 border border-slate-200 rounded-sm">
+                        <h4 className="font-bold text-slate-900 text-base">Duolingo English Test (DET)</h4>
+                        <p className="text-sm text-slate-600 font-normal mt-1">Undergraduate: Minimum 115. Postgraduate: Minimum 125 overall.</p>
+                    </div>
+                    <div className="p-4 border border-slate-200 rounded-sm">
+                        <h4 className="font-bold text-slate-900 text-base">ELP Exemption</h4>
+                        <p className="text-sm text-slate-600 font-normal mt-1">Granted if applicant has completed 3+ consecutive years of full-time study in an English-medium curriculum.</p>
+                    </div>
                 </div>
             </div>
+        )
+    },
+    {
+        id: "adm-5",
+        question: "5. Application Evaluation, Offers & Acceptance",
+        order_index: 5,
+        answer: (
+            <div className="space-y-3">
+                <p>The Admissions Committee conducts holistic assessments of each applicant profile:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Conditional Offer of Admission:</strong> Issued pending the receipt of final secondary/university transcripts or English language test scores.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Unconditional Offer:</strong> Issued once all academic prerequisites and document authentications are satisfied.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Acceptance Deposit:</strong> Securing an enrolment seat requires submitting an official Acceptance Form and tuition confirmation deposit by the deadline.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "adm-6",
+        question: "6. Credential Authentication & Fraud Prevention",
+        order_index: 6,
+        answer: (
+            <div className="space-y-3">
+                <p>Cannoga College maintains rigorous verification mechanisms against credential forgery:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>All academic transcripts, degree certificates, and test scores are cross-verified with issuing examination bodies and World Education Services (WES).</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span>Discovery of falsified documents or misleading statements will result in immediate revocation of offers, expulsion, and notification to Canadian immigration authorities.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "adm-7",
+        question: "7. Admissions Appeals & Re-Evaluation Rights",
+        order_index: 7,
+        answer: (
+            <div className="space-y-3">
+                <p>Applicants whose applications are declined may request a formal re-evaluation if valid grounds exist:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Appeals Window:</strong> Must be submitted in writing within 14 calendar days of receiving the rejection notice.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Valid Grounds:</strong> Documented administrative error, omission of submitted credentials, or substantial updated academic grades.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Admissions Review Board:</strong> The Dean of Admissions convenes a review panel whose final written determination is conclusive.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    }
+];
+
+export default function AdmissionsPolicyPage() {
+    return (
+        <div className="min-h-screen bg-white text-black antialiased font-sans pb-24">
+            {/* HERO SECTION */}
+            <Hero
+                title="Admissions Policy"
+                body="Defining the principles, evaluation criteria, equality standards, and procedures governing admission to all academic programs at Cannoga College."
+                backgroundColor="#0a151a"
+                tinted
+                lightText={true}
+                overlay={true}
+                overlayOpacity="opacity-40"
+                breadcrumbs={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Admissions Policy' }
+                ]}
+                image={{
+                    src: "/images/alumni-hero.png",
+                    alt: "Cannoga Admissions Policy"
+                }}
+            />
+
+            {/* MAIN CONTENT ACCORDION */}
+            <main className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                <section className="space-y-4">
+                    <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight">Selection Standards &amp; Entry Framework</h2>
+                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed max-w-3xl">
+                        Review academic entry benchmarks, English language requirements, credential authentication, and appeals procedures.
+                    </p>
+                </section>
+
+                <section className="pt-4">
+                    <AcademicRegulationsAccordion items={admissionsPolicies} />
+                </section>
+
+                {/* RELATED LINKS */}
+                <section className="pt-8 border-t border-slate-200 space-y-6">
+                    <h3 className="text-2xl font-black text-black tracking-tight">Related Admissions Resources</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        <Link 
+                            href="/admissions" 
+                            className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
+                        >
+                            <div className="flex items-center justify-between">
+                                <span>Admissions Overview</span>
+                                <ArrowRight size={16} weight="bold" />
+                            </div>
+                            <p className="text-sm text-slate-600 font-normal leading-normal">Application deadlines and fees</p>
+                        </Link>
+                        <Link 
+                            href="/degree-programmes" 
+                            className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
+                        >
+                            <div className="flex items-center justify-between">
+                                <span>Degree Programmes</span>
+                                <ArrowRight size={16} weight="bold" />
+                            </div>
+                            <p className="text-sm text-slate-600 font-normal leading-normal">Explore faculty curriculum and majors</p>
+                        </Link>
+                        <Link 
+                            href="/refund-withdrawal-policy" 
+                            className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
+                        >
+                            <div className="flex items-center justify-between">
+                                <span>Refund Policy</span>
+                                <ArrowRight size={16} weight="bold" />
+                            </div>
+                            <p className="text-sm text-slate-600 font-normal leading-normal">Tuition deposit and withdrawal terms</p>
+                        </Link>
+                    </div>
+                </section>
+            </main>
         </div>
     );
 }
