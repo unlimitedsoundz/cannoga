@@ -1,4 +1,4 @@
-﻿import Link from 'next/link';
+import Link from 'next/link';
 import { Hero } from '@/components/layout/Hero';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { 
@@ -23,43 +23,52 @@ export const metadata = {
 export default function InnovationPage() {
     const INCUBATOR_PILLARS = [
         {
+            id: "pillar-1",
             title: "Student Startup Incubator",
-            icon: Rocket,
-            period: "12-Week Acceleration Program",
-            description: "An intensive cohort-based incubator providing seed funding, dedicated desk space, technical prototyping facilities, and direct executive mentorship for student and alumni founders.",
+            period: "12-Week Acceleration Cohort",
+            description: "An intensive cohort-based incubator providing non-dilutive seed funding, dedicated desk space, technical prototyping facilities, and direct executive mentorship for student and alumni founders.",
             features: [
-                "Up to $15,000 non-dilutive seed grants per team",
-                "1-on-1 mentorship with Ottawa tech executives",
-                "24/7 access to Makerspace & Hardware Prototyping Lab",
+                "Up to $15,000 non-dilutive seed grants per venture",
+                "1-on-1 mentorship with Ottawa technology executives",
+                "24/7 access to Makerspace & Prototyping Labs",
                 "Legal & intellectual property advisory support"
             ],
-            link: "/admissions"
+            link: "/admissions",
+            bgColor: "bg-[#f5f8fa]",
+            borderColor: "border-[#008080]",
+            tag: "ACCELERATION"
         },
         {
-            title: "Technology Transfer & Commercialization",
-            icon: Lightbulb,
-            period: "IP & Licensing Services",
-            description: "Bridging the gap between academic research and commercial markets. We guide faculty, student researchers, and industry partners through patenting, licensing, and venture spin-offs.",
+            id: "pillar-2",
+            title: "Technology Transfer & IP",
+            period: "Commercialization & Licensing",
+            description: "Bridging academic research and commercial markets. We guide faculty and student researchers through patenting, licensing, corporate validation, and venture spin-offs.",
             features: [
-                "Patent landscape analysis & filing assistance",
-                "Industry licensing & technology matching",
+                "Patent landscape analysis & filing support",
+                "Industry licensing & technology matchmaking",
                 "Corporate venture partnership development",
-                "Commercial feasibility & market validation testing"
+                "Commercial feasibility & market validation"
             ],
-            link: "/research"
+            link: "/research",
+            bgColor: "bg-[#fff8f0]",
+            borderColor: "border-[#e06d53]",
+            tag: "IP & PATENTS"
         },
         {
+            id: "pillar-3",
             title: "Applied CleanTech & AI Labs",
-            icon: Lightning,
             period: "Specialized R&D Infrastructure",
-            description: "State-of-the-art testing facilities dedicated to green building materials, renewable microgrid simulation, applied artificial intelligence, and sustainable industrial solutions.",
+            description: "State-of-the-art testing infrastructure dedicated to green construction materials, renewable microgrids, applied artificial intelligence, and sustainable industrial solutions.",
             features: [
                 "Advanced AI compute clusters & dataset access",
                 "Environmental lifecycle assessment tools",
                 "Clean energy microgrid testing bed",
                 "Collaborative industry-sponsored pilot projects"
             ],
-            link: "/degree-programmes"
+            link: "/degree-programmes",
+            bgColor: "bg-[#f0fbfb]",
+            borderColor: "border-[#006699]",
+            tag: "R&D FACILITY"
         }
     ];
 
@@ -107,7 +116,7 @@ export default function InnovationPage() {
                 overlay={true}
                 overlayOpacity="opacity-40"
                 image={{
-                    src: "https://i.pinimg.com/1200x/3a/fc/2e/3afc2ee1c71a241ef26350edd46622c9.jpg",
+                    src: "/images/alumni-hero.png",
                     alt: "Cannoga Center for Innovation & Entrepreneurship"
                 }}
                 breadcrumbs={[
@@ -115,17 +124,17 @@ export default function InnovationPage() {
                     { label: 'Innovation Hub' }
                 ]}
             >
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap gap-4 pt-2">
                     <Link
                         href="#incubator-programs"
-                        className="inline-flex items-center gap-2 bg-white hover:bg-neutral-100 text-black font-bold text-xs uppercase tracking-widest px-8 py-4 no-underline shadow-md transition-colors"
+                        className="inline-flex items-center gap-2 bg-white text-[#0a151a] hover:bg-neutral-100 font-bold text-xs uppercase tracking-wider px-8 py-4 transition-colors no-underline rounded-sm shadow-md"
                     >
                         <span>Explore Incubator Programs</span>
                         <ArrowRight size={16} weight="bold" />
                     </Link>
                     <Link
                         href="/research"
-                        className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-black font-bold text-xs uppercase tracking-widest px-8 py-4 no-underline shadow-md transition-colors"
+                        className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider px-8 py-4 transition-colors no-underline rounded-sm border border-white/30 shadow-md"
                     >
                         <span>Tech Transfer Office</span>
                         <ArrowRight size={16} weight="bold" />
@@ -133,80 +142,98 @@ export default function InnovationPage() {
                 </div>
             </Hero>
 
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 max-w-6xl space-y-12">
+            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
                 {/* Introduction & Overview */}
-                <section className="space-y-2">
-                    <h2 className="text-aalto-5 font-bold text-black tracking-tight">Ottawa Technology Ecosystem</h2>
-                    <p className="text-sm sm:text-base text-neutral-700 leading-relaxed font-medium">
+                <section className="space-y-6">
+                    <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight">Ottawa Technology Ecosystem</h2>
+                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                         The Cannoga Innovation Hub connects ambitious student entrepreneurs, faculty researchers, and industry partners across the National Capital Region. Through non-dilutive seed funding, prototyping labs, and direct connections to Ottawa’s technology investment sector, we accelerate early-stage ventures from initial concept to commercial viability.
                     </p>
                 </section>
 
                 {/* Core Programs & Support Services */}
-                <section id="incubator-programs" className="space-y-6">
-                    <h2 className="text-aalto-5 font-bold text-black tracking-tight">Core Programs &amp; Support Services</h2>
+                <section id="incubator-programs" className="scroll-mt-32 space-y-8 pt-8 border-t border-slate-200">
+                    <div>
+                        <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight mb-2">Core Programs &amp; Support Services</h2>
+                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                            Structured incubation frameworks tailored for students, faculty founders, and regional spin-offs.
+                        </p>
+                    </div>
                     
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {INCUBATOR_PILLARS.map((pillar, idx) => {
-                            const IconComp = pillar.icon;
-                            return (
-                                <div key={idx} className="py-2 flex flex-col justify-between">
-                                    <div className="space-y-2">
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <IconComp size={20} weight="bold" className="text-black" />
-                                            <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">{pillar.period}</span>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                        {INCUBATOR_PILLARS.map((pillar) => (
+                            <div key={pillar.id} className="flex flex-col no-underline">
+                                <Link
+                                    href={pillar.link}
+                                    className={`group block w-full p-6 sm:p-8 rounded-md ${pillar.bgColor} ${pillar.borderColor} border-4 no-underline overflow-hidden relative min-h-[340px] flex flex-col justify-between transition-transform hover:-translate-y-1 duration-200 shadow-sm`}
+                                >
+                                    <div className="relative z-20 space-y-3">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-xs font-black uppercase tracking-wider text-slate-900 bg-white/80 px-2 py-0.5 border border-slate-200 rounded-xs">
+                                                {pillar.tag}
+                                            </span>
+                                            <div className="text-black transform group-hover:translate-x-1.5 group-hover:-translate-y-1.5 transition-transform duration-200">
+                                                <ArrowRight size={20} weight="bold" />
+                                            </div>
                                         </div>
-                                        <h3 className="font-bold text-lg text-black mb-1">{pillar.title}</h3>
-                                        <p className="text-sm text-neutral-700 leading-relaxed font-medium mb-3">{pillar.description}</p>
-                                        
-                                        <ul className="space-y-1.5 text-xs text-neutral-700 font-medium">
+
+                                        <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
+                                            {pillar.title}
+                                        </h3>
+                                        <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                                            {pillar.period}
+                                        </p>
+                                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                                            {pillar.description}
+                                        </p>
+                                        <ul className="space-y-2 pt-2 text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                                             {pillar.features.map((feat, fIdx) => (
-                                                <li key={fIdx} className="flex gap-2 items-start">
-                                                    <ArrowRight size={14} className="mt-0.5 shrink-0 text-[#0a151a]" />
+                                                <li key={fIdx} className="flex gap-2.5 items-start">
+                                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
                                                     <span>{feat}</span>
                                                 </li>
                                             ))}
                                         </ul>
                                     </div>
-                                    <div className="pt-4">
-                                        <Link 
-                                            href={pillar.link} 
-                                            className="inline-flex items-center gap-1.5 text-xs font-bold text-black hover:underline"
-                                        >
-                                            <span>Learn More</span>
-                                            <ArrowRight size={14} weight="bold" />
-                                        </Link>
+
+                                    <div className="relative z-20 pt-6 mt-4 border-t border-slate-900/10 flex items-center justify-between">
+                                        <span className="text-sm font-bold uppercase tracking-wider text-slate-900 group-hover:underline">
+                                            Learn More
+                                        </span>
+                                        <ArrowRight size={16} weight="bold" className="text-slate-900" />
                                     </div>
-                                </div>
-                            );
-                        })}
+                                </Link>
+                            </div>
+                        ))}
                     </div>
                 </section>
 
                 {/* Venture Portfolio & Spin-Offs */}
-                <section className="space-y-6">
+                <section className="space-y-8 pt-8 border-t border-slate-200">
                     <div>
-                        <h2 className="text-aalto-5 font-bold text-black tracking-tight">Venture Portfolio &amp; Spin-Offs</h2>
-                        <p className="text-sm text-neutral-600 font-medium mt-1">Select early-stage ventures launched through Cannoga Innovation Hub acceleration cohorts.</p>
+                        <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight mb-2">Venture Portfolio &amp; Spin-Offs</h2>
+                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                            Select early-stage ventures launched through Cannoga Innovation Hub acceleration cohorts.
+                        </p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {SUCCESS_STORIES.map((story, idx) => (
-                            <div key={idx} className="py-2 space-y-2">
-                                <div>
-                                    <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 block mb-1">
+                            <div key={idx} className="p-6 bg-slate-50 border border-slate-200 rounded-sm space-y-3 flex flex-col justify-between">
+                                <div className="space-y-2">
+                                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block">
                                         {story.sector}
                                     </span>
-                                    <h3 className="font-bold text-lg text-black">{story.name}</h3>
-                                    <p className="text-xs text-neutral-500 font-semibold mb-2">Founders: {story.founders}</p>
-                                    <p className="text-sm text-neutral-700 leading-relaxed font-medium">{story.desc}</p>
+                                    <h3 className="text-xl font-black text-slate-900 tracking-tight">{story.name}</h3>
+                                    <p className="text-sm text-slate-500 font-semibold">Founders: {story.founders}</p>
+                                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">{story.desc}</p>
                                 </div>
-                                <div className="pt-2">
-                                    <div className="text-xs font-bold text-black flex items-center gap-1.5">
-                                        <TrendUp size={14} weight="bold" />
+                                <div className="pt-4 border-t border-slate-200">
+                                    <div className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                                        <TrendUp size={16} weight="bold" className="text-[#0a151a]" />
                                         <span>{story.milestone}</span>
                                     </div>
-                                    <p className="text-xs text-neutral-500 font-medium">{story.status}</p>
+                                    <p className="text-xs text-slate-500 font-medium mt-0.5">{story.status}</p>
                                 </div>
                             </div>
                         ))}
@@ -214,21 +241,21 @@ export default function InnovationPage() {
                 </section>
 
                 {/* Contact & Application Callout */}
-                <section className="pt-6 border-t border-neutral-200">
-                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                        <div className="max-w-2xl space-y-1">
-                            <h2 className="text-lg font-bold text-black">Ready to Launch Your Venture?</h2>
-                            <p className="text-sm text-neutral-700 font-medium leading-relaxed">
+                <section className="pt-8 border-t border-slate-200">
+                    <div className="p-8 bg-[#0a151a] text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 rounded-sm">
+                        <div className="max-w-2xl space-y-2">
+                            <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight">Ready to Launch Your Venture?</h2>
+                            <p className="text-slate-300 text-base md:text-lg font-normal leading-relaxed">
                                 Applications for the upcoming Spring Incubator Cohort are now open to all registered Cannoga students, faculty researchers, and recent graduates.
                             </p>
                         </div>
                         <div className="shrink-0">
                             <Link
                                 href="/admissions"
-                                className="inline-flex items-center gap-2 bg-[#0f2027] hover:bg-black text-white font-bold text-xs uppercase tracking-widest px-6 py-3 no-underline transition-colors"
+                                className="inline-flex items-center gap-2 bg-white text-[#0a151a] hover:bg-neutral-100 font-bold text-xs uppercase tracking-widest px-8 py-4 no-underline rounded-sm transition-colors shadow-md"
                             >
                                 <span>Apply for Incubator</span>
-                                <ArrowRight size={14} weight="bold" />
+                                <ArrowRight size={16} weight="bold" />
                             </Link>
                         </div>
                     </div>
