@@ -2,14 +2,8 @@ import Link from 'next/link';
 import { Hero } from '@/components/layout/Hero';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { 
-    RocketLaunch as Rocket, 
-    Lightbulb, 
-    Lightning, 
-    Handshake, 
-    Bank, 
-    TrendUp, 
-    CheckCircle, 
-    ArrowRight 
+    ArrowRight,
+    ArrowUpRight
 } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata = {
@@ -23,94 +17,61 @@ export const metadata = {
 export default function InnovationPage() {
     const INCUBATOR_PILLARS = [
         {
-            id: "pillar-1",
-            title: "Student Startup Incubator",
-            period: "12-Week Acceleration Cohort",
-            description: "An intensive cohort-based incubator providing non-dilutive seed funding, dedicated desk space, technical prototyping facilities, and direct executive mentorship for student and alumni founders.",
-            features: [
-                "Up to $15,000 non-dilutive seed grants per venture",
-                "1-on-1 mentorship with Ottawa technology executives",
-                "24/7 access to Makerspace & Prototyping Labs",
-                "Legal & intellectual property advisory support"
-            ],
-            link: "/admissions",
-            bgColor: "bg-[#f5f8fa]",
-            borderColor: "border-[#008080]",
-            tag: "ACCELERATION"
+            id: "student-incubator",
+            title: "STUDENT STARTUP INCUBATOR",
+            desc: "12-week acceleration program providing non-dilutive seed funding, prototyping labs, and 1-on-1 executive mentorship.",
+            href: "/admissions",
+            bgColor: "bg-[#6366f1]", // Electric Indigo
+            borderColor: "border-[#6366f1]",
+            waveColor: "#4f46e5",
         },
         {
-            id: "pillar-2",
-            title: "Technology Transfer & IP",
-            period: "Commercialization & Licensing",
-            description: "Bridging academic research and commercial markets. We guide faculty and student researchers through patenting, licensing, corporate validation, and venture spin-offs.",
-            features: [
-                "Patent landscape analysis & filing support",
-                "Industry licensing & technology matchmaking",
-                "Corporate venture partnership development",
-                "Commercial feasibility & market validation"
-            ],
-            link: "/research",
-            bgColor: "bg-[#fff8f0]",
-            borderColor: "border-[#e06d53]",
-            tag: "IP & PATENTS"
+            id: "tech-transfer",
+            title: "TECHNOLOGY TRANSFER & IP",
+            desc: "Bridging academic research and commercial markets through patent licensing, corporate spin-offs, and commercialization.",
+            href: "/research",
+            bgColor: "bg-[#ec4899]", // Vibrant Hot Pink
+            borderColor: "border-[#ec4899]",
+            waveColor: "#db2777",
         },
         {
-            id: "pillar-3",
-            title: "Applied CleanTech & AI Labs",
-            period: "Specialized R&D Infrastructure",
-            description: "State-of-the-art testing infrastructure dedicated to green construction materials, renewable microgrids, applied artificial intelligence, and sustainable industrial solutions.",
-            features: [
-                "Advanced AI compute clusters & dataset access",
-                "Environmental lifecycle assessment tools",
-                "Clean energy microgrid testing bed",
-                "Collaborative industry-sponsored pilot projects"
-            ],
-            link: "/degree-programmes",
-            bgColor: "bg-[#f0fbfb]",
-            borderColor: "border-[#006699]",
-            tag: "R&D FACILITY"
+            id: "cleantech-labs",
+            title: "CLEANTECH & AI R&D LABS",
+            desc: "Advanced infrastructure for green building materials, renewable microgrids, and collaborative artificial intelligence pilots.",
+            href: "/degree-programmes",
+            bgColor: "bg-[#10b981]", // Electric Emerald
+            borderColor: "border-[#10b981]",
+            waveColor: "#059669",
         }
     ];
 
     const SUCCESS_STORIES = [
         {
-            id: "venture-1",
-            name: "EcoFibre Materials",
-            founders: "Dr. Mitchell S. & Sarah K. (Alumna '23)",
-            sector: "CleanTech & Sustainable Materials",
-            desc: "Engineered structural bio-composites from Ontario forestry residue, reducing industrial construction carbon intensity by 38%.",
-            milestone: "$2.5M Seed Funding Raised",
-            status: "Scaling Production in Eastern Ontario",
-            bgColor: "bg-[#e8f4ea]",
-            borderColor: "border-[#1b5e20]",
-            tag: "CLEANTECH",
-            href: "/research"
+            id: "ecofibre",
+            title: "ECOFIBRE MATERIALS",
+            desc: "Structural bio-composites from Ontario forestry residue reducing industrial carbon intensity by 38%. $2.5M Seed Raised.",
+            href: "/research",
+            bgColor: "bg-[#f97316]", // Vibrant Orange
+            borderColor: "border-[#f97316]",
+            waveColor: "#ea580c",
         },
         {
-            id: "venture-2",
-            name: "WattShare Energy",
-            founders: "Alex Chen & Marcus Vance",
-            sector: "Smart Grid Software",
-            desc: "Developed peer-to-peer microgrid energy trading algorithms for municipal housing projects and commercial office complexes.",
-            milestone: "$1.2M Pre-Seed & Pilot Deployment",
-            status: "Active in 14 Ottawa Commercial Properties",
-            bgColor: "bg-[#e3f2fd]",
-            borderColor: "border-[#0d47a1]",
-            tag: "SMART GRID",
-            href: "/research"
+            id: "wattshare",
+            title: "WATTSHARE SMART GRID",
+            desc: "Peer-to-peer microgrid energy trading algorithms for municipal housing & commercial properties. $1.2M Pre-Seed & Pilot.",
+            href: "/research",
+            bgColor: "bg-[#06b6d4]", // Electric Cyan
+            borderColor: "border-[#06b6d4]",
+            waveColor: "#0891b2",
         },
         {
-            id: "venture-3",
-            name: "UrbanHarvest Robotics",
-            founders: "Elena Bouchard (Faculty Founder)",
-            sector: "AgriTech & Automation",
-            desc: "Created automated indoor climate control and hydroponic harvesting robotics for northern urban micro-farming installations.",
-            milestone: "Commercial Acquisition in 2025",
-            status: "Integrated into Regional Supply Chain",
-            bgColor: "bg-[#fbe9e7]",
-            borderColor: "border-[#bf360c]",
-            tag: "AGRITECH",
-            href: "/research"
+            id: "urbanharvest",
+            title: "URBANHARVEST ROBOTICS",
+            desc: "Automated indoor climate control and hydroponic harvesting robotics. Acquired and integrated into regional food supply chain.",
+            href: "/research",
+            bgColor: "bg-[#8b5cf6]", // Deep Purple
+            borderColor: "border-[#8b5cf6]",
+            waveColor: "#7c3aed",
         }
     ];
 
@@ -120,6 +81,32 @@ export default function InnovationPage() {
                 { name: 'Home', item: '/' },
                 { name: 'Innovation Hub', item: '/innovation' }
             ]} />
+
+            {/* Custom Animations for Exact Hub Look */}
+            <style>{`
+                @keyframes waveFloatHub {
+                    0%, 100% {
+                        transform: translateY(8px) scaleY(1);
+                    }
+                    50% {
+                        transform: translateY(-6px) scaleY(1.1);
+                    }
+                }
+                @keyframes arrowFloatHub {
+                    0%, 100% {
+                        transform: translate(0, 0);
+                    }
+                    50% {
+                        transform: translate(5px, -5px);
+                    }
+                }
+                .animate-wave-hub {
+                    animation: waveFloatHub 3.4s ease-in-out infinite;
+                }
+                .animate-arrow-hub {
+                    animation: arrowFloatHub 2.2s ease-in-out infinite;
+                }
+            `}</style>
 
             {/* Hero Component */}
             <Hero
@@ -175,47 +162,45 @@ export default function InnovationPage() {
                         </p>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-                        {INCUBATOR_PILLARS.map((pillar) => (
-                            <div key={pillar.id} className="flex flex-col no-underline">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
+                        {INCUBATOR_PILLARS.map((card, idx) => (
+                            <div key={card.id} className="flex flex-col no-underline">
                                 <Link
-                                    href={pillar.link}
-                                    className={`group block w-full p-6 sm:p-8 rounded-md ${pillar.bgColor} ${pillar.borderColor} border-4 no-underline overflow-hidden relative min-h-[340px] flex flex-col justify-between transition-transform hover:-translate-y-1 duration-200 shadow-sm`}
+                                    href={card.href}
+                                    className={`group block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[260px] sm:min-h-[300px] flex flex-col justify-between transition-transform hover:-translate-y-1 duration-200`}
                                 >
-                                    <div className="relative z-20 space-y-3">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-xs font-black uppercase tracking-wider text-slate-900 bg-white/80 px-2 py-0.5 border border-slate-200 rounded-xs">
-                                                {pillar.tag}
-                                            </span>
-                                            <div className="text-black transform group-hover:translate-x-1.5 group-hover:-translate-y-1.5 transition-transform duration-200">
-                                                <ArrowRight size={20} weight="bold" />
-                                            </div>
-                                        </div>
-
-                                        <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
-                                            {pillar.title}
+                                    {/* Card Content Header */}
+                                    <div className="relative z-20">
+                                        <h3 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight leading-[1.02]">
+                                            {card.title}
                                         </h3>
-                                        <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                                            {pillar.period}
-                                        </p>
-                                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
-                                            {pillar.description}
-                                        </p>
-                                        <ul className="space-y-2 pt-2 text-slate-700 text-base md:text-lg font-normal leading-relaxed">
-                                            {pillar.features.map((feat, fIdx) => (
-                                                <li key={fIdx} className="flex gap-2.5 items-start">
-                                                    <span className="w-1.5 h-1.5 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
-                                                    <span>{feat}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
                                     </div>
 
-                                    <div className="relative z-20 pt-6 mt-4 border-t border-slate-900/10 flex items-center justify-between">
-                                        <span className="text-sm font-bold uppercase tracking-wider text-slate-900 group-hover:underline">
-                                            Learn More
-                                        </span>
-                                        <ArrowRight size={16} weight="bold" className="text-slate-900" />
+                                    {/* Animated Wave SVG */}
+                                    <div
+                                        className="absolute -bottom-10 -right-10 w-48 h-48 pointer-events-none opacity-40 group-hover:opacity-60 transition-opacity animate-wave-hub"
+                                        style={{ animationDelay: `${idx * 0.5}s` }}
+                                    >
+                                        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                                            <path
+                                                d="M39.9,-65.7C51.6,-58.6,61.1,-48.3,67.8,-36.3C74.6,-24.3,78.5,-10.6,77.3,2.8C76.1,16.2,69.8,29.3,61.4,40.6C53,51.8,42.5,61.2,30.3,66.8C18.1,72.4,4.2,74.2,-9.2,72.6C-22.6,71,-35.5,66,-46.8,58.3C-58.1,50.6,-67.8,40.2,-73.4,27.8C-79,15.4,-80.5,1,-77.4,-12.3C-74.3,-25.6,-66.6,-37.8,-56.3,-45.5C-46,-53.2,-33.1,-56.4,-20.7,-63.1C-8.3,-69.8,3.6,-80,15.9,-80.6C28.2,-81.2,40.9,-72.2,39.9,-65.7Z"
+                                                fill={card.waveColor}
+                                            />
+                                        </svg>
+                                    </div>
+
+                                    {/* Card Bottom Description & Arrow Icon */}
+                                    <div className="relative z-20 pt-6 flex items-end justify-between gap-4 text-white">
+                                        <p className="text-sm sm:text-base font-medium text-white/95 leading-relaxed max-w-[85%] font-sans">
+                                            {card.desc}
+                                        </p>
+
+                                        <div
+                                            className="shrink-0 mb-0.5 animate-arrow-hub"
+                                            style={{ animationDelay: `${idx * 0.4}s` }}
+                                        >
+                                            <ArrowUpRight size={44} weight="bold" className="text-white" />
+                                        </div>
                                     </div>
                                 </Link>
                             </div>
@@ -232,40 +217,45 @@ export default function InnovationPage() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-                        {SUCCESS_STORIES.map((story) => (
-                            <div key={story.id} className="flex flex-col no-underline">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
+                        {SUCCESS_STORIES.map((card, idx) => (
+                            <div key={card.id} className="flex flex-col no-underline">
                                 <Link
-                                    href={story.href}
-                                    className={`group block w-full p-6 sm:p-8 rounded-md ${story.bgColor} ${story.borderColor} border-4 no-underline overflow-hidden relative min-h-[340px] flex flex-col justify-between transition-transform hover:-translate-y-1 duration-200 shadow-sm`}
+                                    href={card.href}
+                                    className={`group block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[260px] sm:min-h-[300px] flex flex-col justify-between transition-transform hover:-translate-y-1 duration-200`}
                                 >
-                                    <div className="relative z-20 space-y-3">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-xs font-black uppercase tracking-wider text-slate-900 bg-white/80 px-2 py-0.5 border border-slate-200 rounded-xs">
-                                                {story.tag}
-                                            </span>
-                                            <div className="text-black transform group-hover:translate-x-1.5 group-hover:-translate-y-1.5 transition-transform duration-200">
-                                                <ArrowRight size={20} weight="bold" />
-                                            </div>
-                                        </div>
-
-                                        <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
-                                            {story.name}
+                                    {/* Card Content Header */}
+                                    <div className="relative z-20">
+                                        <h3 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight leading-[1.02]">
+                                            {card.title}
                                         </h3>
-                                        <p className="text-xs font-bold uppercase tracking-wider text-slate-600">
-                                            Founders: {story.founders}
-                                        </p>
-                                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
-                                            {story.desc}
-                                        </p>
                                     </div>
 
-                                    <div className="relative z-20 pt-6 mt-4 border-t border-slate-900/10 space-y-1.5">
-                                        <div className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                                            <TrendUp size={16} weight="bold" className="text-[#0a151a]" />
-                                            <span>{story.milestone}</span>
+                                    {/* Animated Wave SVG */}
+                                    <div
+                                        className="absolute -bottom-10 -right-10 w-48 h-48 pointer-events-none opacity-40 group-hover:opacity-60 transition-opacity animate-wave-hub"
+                                        style={{ animationDelay: `${idx * 0.5}s` }}
+                                    >
+                                        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                                            <path
+                                                d="M39.9,-65.7C51.6,-58.6,61.1,-48.3,67.8,-36.3C74.6,-24.3,78.5,-10.6,77.3,2.8C76.1,16.2,69.8,29.3,61.4,40.6C53,51.8,42.5,61.2,30.3,66.8C18.1,72.4,4.2,74.2,-9.2,72.6C-22.6,71,-35.5,66,-46.8,58.3C-58.1,50.6,-67.8,40.2,-73.4,27.8C-79,15.4,-80.5,1,-77.4,-12.3C-74.3,-25.6,-66.6,-37.8,-56.3,-45.5C-46,-53.2,-33.1,-56.4,-20.7,-63.1C-8.3,-69.8,3.6,-80,15.9,-80.6C28.2,-81.2,40.9,-72.2,39.9,-65.7Z"
+                                                fill={card.waveColor}
+                                            />
+                                        </svg>
+                                    </div>
+
+                                    {/* Card Bottom Description & Arrow Icon */}
+                                    <div className="relative z-20 pt-6 flex items-end justify-between gap-4 text-white">
+                                        <p className="text-sm sm:text-base font-medium text-white/95 leading-relaxed max-w-[85%] font-sans">
+                                            {card.desc}
+                                        </p>
+
+                                        <div
+                                            className="shrink-0 mb-0.5 animate-arrow-hub"
+                                            style={{ animationDelay: `${idx * 0.4}s` }}
+                                        >
+                                            <ArrowUpRight size={44} weight="bold" className="text-white" />
                                         </div>
-                                        <p className="text-xs text-slate-600 font-semibold">{story.status}</p>
                                     </div>
                                 </Link>
                             </div>
