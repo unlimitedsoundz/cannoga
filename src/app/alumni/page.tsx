@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Link } from '@/components/ui/Link';
-import { ArrowRight, Globe, Users, GraduationCap, Briefcase, CalendarCheck, BookOpen, Medal, EnvelopeSimple } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight, Globe, Users, GraduationCap, Briefcase, CalendarCheck, BookOpen, Medal, EnvelopeSimple } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from '@/components/layout/Hero';
 
 export const metadata = {
@@ -21,28 +21,52 @@ export default function AlumniPage() {
 
     const benefits = [
         {
-            title: "Lifelong Library & Research Access",
-            desc: "Continued access to Cannoga's digital library, peer-reviewed journals, and research databases worldwide."
+            id: "library-access",
+            title: "LIFELONG LIBRARY ACCESS",
+            desc: "Continued access to Cannoga's digital library, peer-reviewed journals, and research databases worldwide.",
+            href: "/research",
+            bgColor: "bg-[#6366f1]", // Electric Indigo
+            borderColor: "border-[#6366f1]",
         },
         {
-            title: "Global Chapter Networking",
-            desc: "Invitations to regional alumni gatherings, annual summits, and professional forums in Ottawa, Toronto, London, and beyond."
+            id: "chapter-networking",
+            title: "GLOBAL CHAPTER NETWORKING",
+            desc: "Invitations to regional alumni gatherings, annual summits, and professional forums in Ottawa, Toronto, London, and beyond.",
+            href: "#chapters",
+            bgColor: "bg-[#ec4899]", // Vibrant Hot Pink
+            borderColor: "border-[#ec4899]",
         },
         {
-            title: "Career & Executive Coaching",
-            desc: "One-on-one career advising, resume reviews, and access to Cannoga's exclusive alumni job board."
+            id: "career-coaching",
+            title: "CAREER & EXECUTIVE COACHING",
+            desc: "One-on-one career advising, resume reviews, and access to Cannoga's exclusive alumni job board.",
+            href: "/careers",
+            bgColor: "bg-[#10b981]", // Electric Emerald
+            borderColor: "border-[#10b981]",
         },
         {
-            title: "Student Mentorship Program",
-            desc: "Give back by guiding current undergraduate and graduate students as a verified Cannoga Peer Mentor."
+            id: "mentorship-program",
+            title: "STUDENT MENTORSHIP PROGRAM",
+            desc: "Give back by guiding current undergraduate and graduate students as a verified Cannoga Peer Mentor.",
+            href: "/student-guide",
+            bgColor: "bg-[#f97316]", // Vibrant Orange
+            borderColor: "border-[#f97316]",
         },
         {
-            title: "Continuing Education Discount",
-            desc: "20% tuition discount on executive certificates, professional micro-credentials, and lifelong learning workshops."
+            id: "continuing-education",
+            title: "CONTINUING EDUCATION DISCOUNT",
+            desc: "20% tuition discount on executive certificates, professional micro-credentials, and lifelong learning workshops.",
+            href: "/studies",
+            bgColor: "bg-[#06b6d4]", // Electric Cyan
+            borderColor: "border-[#06b6d4]",
         },
         {
-            title: "Alumni News & Impact Digest",
-            desc: "Quarterly publication highlighting research breakthroughs, graduate achievements, and institutional updates."
+            id: "news-digest",
+            title: "ALUMNI NEWS & IMPACT DIGEST",
+            desc: "Quarterly publication highlighting research breakthroughs, graduate achievements, and institutional updates.",
+            href: "/news",
+            bgColor: "bg-[#8b5cf6]", // Deep Purple
+            borderColor: "border-[#8b5cf6]",
         }
     ];
 
@@ -116,7 +140,7 @@ export default function AlumniPage() {
                     </p>
                 </section>
 
-                {/* BORDERLESS HORIZONTAL ROWS FOR ALUMNI SERVICES & BENEFITS */}
+                {/* RESOURCE HUB CARDS FOR ALUMNI SERVICES & BENEFITS */}
                 <section id="benefits" className="scroll-mt-32 space-y-8 pt-8 border-t border-slate-200">
                     <div>
                         <h2 className="text-3xl font-black text-black tracking-tight mb-2">Alumni Privileges &amp; Services</h2>
@@ -125,25 +149,38 @@ export default function AlumniPage() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                        {benefits.map((benefit, idx) => (
-                            <div key={idx} className="flex items-start gap-4 p-4 border border-slate-200 hover:border-black transition-colors rounded-sm">
-                                <div className="p-2.5 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
-                                    <GraduationCap size={20} weight="bold" />
-                                </div>
-                                <div className="space-y-1">
-                                    <h3 className="text-slate-900 font-bold text-base md:text-lg leading-snug">{benefit.title}</h3>
-                                    <p className="text-slate-700 text-base font-normal leading-relaxed">
-                                        {benefit.desc}
-                                    </p>
-                                </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
+                        {benefits.map((card) => (
+                            <div key={card.id} className="flex flex-col no-underline">
+                                <Link
+                                    href={card.href}
+                                    className={`group block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[250px] sm:min-h-[280px] flex flex-col justify-between transition-transform hover:-translate-y-1 duration-200`}
+                                >
+                                    {/* Card Content Header */}
+                                    <div className="relative z-20">
+                                        <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight leading-[1.05]">
+                                            {card.title}
+                                        </h3>
+                                    </div>
+
+                                    {/* Card Bottom Description & Arrow Icon */}
+                                    <div className="relative z-20 pt-6 flex items-end justify-between gap-4 text-white">
+                                        <p className="text-sm sm:text-base font-medium text-white/95 leading-relaxed max-w-[85%] font-sans">
+                                            {card.desc}
+                                        </p>
+
+                                        <div className="shrink-0 mb-0.5 transform transition-transform group-hover:translate-x-1.5 group-hover:-translate-y-1.5 duration-200">
+                                            <ArrowUpRight size={38} weight="bold" className="text-white" />
+                                        </div>
+                                    </div>
+                                </Link>
                             </div>
                         ))}
                     </div>
                 </section>
 
                 {/* REGIONAL CHAPTERS DIRECTORY */}
-                <section className="pt-8 border-t border-slate-200 space-y-6">
+                <section id="chapters" className="pt-8 border-t border-slate-200 space-y-6">
                     <h2 className="text-2xl md:text-3xl font-black text-black tracking-tight">Regional Alumni Chapters</h2>
                     <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
                         Connect with local chapter leaders, participate in regional networking mixers, and attend Cannoga speaker panels in your area.
