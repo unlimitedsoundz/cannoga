@@ -118,7 +118,7 @@ export default function InnovationPage() {
                 overlay={true}
                 overlayOpacity="opacity-40"
                 image={{
-                    src: "/images/alumni-hero.png",
+                    src: "https://i.pinimg.com/1200x/3a/fc/2e/3afc2ee1c71a241ef26350edd46622c9.jpg",
                     alt: "Cannoga Center for Innovation & Entrepreneurship"
                 }}
                 breadcrumbs={[
