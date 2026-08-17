@@ -188,17 +188,12 @@ export default function AlumniPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                         {chapters.map((chapter, idx) => (
-                            <div key={idx} className="flex items-start gap-4 p-5 border border-slate-200 hover:border-black transition-colors rounded-sm">
-                                <div className="p-2.5 bg-[#0f2027] text-[#c89211] rounded-full shrink-0 mt-0.5">
-                                    <Globe size={20} weight="bold" />
-                                </div>
-                                <div className="space-y-1">
-                                    <h3 className="font-bold text-base md:text-lg text-slate-900">{chapter.city}</h3>
-                                    <span className="inline-block text-xs font-bold text-[#c89211] uppercase tracking-wider">{chapter.members}</span>
-                                    <a href={`mailto:${chapter.contact}`} className="text-[#0f2027] font-bold text-sm underline hover:text-[#c89211] transition-colors block pt-1">
-                                        {chapter.contact}
-                                    </a>
-                                </div>
+                            <div key={idx} className="p-6 border border-slate-200 hover:border-black transition-colors rounded-sm space-y-2">
+                                <h3 className="font-bold text-base md:text-lg text-slate-900">{chapter.city}</h3>
+                                <span className="inline-block text-xs font-bold text-slate-600 uppercase tracking-wider">{chapter.members}</span>
+                                <a href={`mailto:${chapter.contact}`} className="text-[#0a151a] font-bold text-sm underline hover:text-slate-600 transition-colors block pt-1">
+                                    {chapter.contact}
+                                </a>
                             </div>
                         ))}
                     </div>
@@ -206,9 +201,9 @@ export default function AlumniPage() {
 
                 {/* CALL TO ACTION ROW */}
                 <section className="pt-8 border-t border-slate-200">
-                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 bg-[#0f2027] text-white p-8">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 bg-[#0a151a] text-white p-8">
                         <div className="space-y-2">
-                            <span className="text-[#c89211] font-bold uppercase tracking-wider text-xs block">Official Alumni Portal</span>
+                            <span className="text-slate-400 font-bold uppercase tracking-wider text-xs block">Official Alumni Portal</span>
                             <h3 className="text-2xl font-black text-white">Update Your Contact Details &amp; Directory Listing</h3>
                             <p className="text-slate-300 text-base font-normal max-w-xl">
                                 Access your official transcripts, request alumni identity credentials, or update your current professional title in the Cannoga Alumni Directory.
@@ -216,7 +211,7 @@ export default function AlumniPage() {
                         </div>
                         <Link 
                             href="/portal/login" 
-                            className="inline-flex items-center gap-2 bg-[#c89211] hover:bg-[#b07f0e] text-[#0f2027] font-extrabold text-xs uppercase tracking-wider px-6 py-4 whitespace-nowrap transition-colors no-underline shrink-0"
+                            className="inline-flex items-center gap-2 bg-white hover:bg-slate-200 text-[#0a151a] font-extrabold text-xs uppercase tracking-wider px-6 py-4 whitespace-nowrap transition-colors no-underline shrink-0 rounded-sm"
                         >
                             <span>Alumni Portal Access</span>
                             <ArrowRight size={14} weight="bold" />
