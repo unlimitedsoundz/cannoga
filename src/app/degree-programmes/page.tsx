@@ -95,7 +95,7 @@ export default async function DegreeProgrammesPage() {
                     <section id="fees" className="scroll-mt-32">
                         <div className="cc-section-divider">
                             <h2 className="cc-h2">Tuition &amp; Fees</h2>
-                            <p className="cc-label">All amounts in Euros (CAD)</p>
+                            <p className="cc-label">All amounts in Canadian Dollars (CAD)</p>
                         </div>
                         <div className="grid md:grid-cols-2 gap-8">
                             <div className="cc-card cc-card-body">
