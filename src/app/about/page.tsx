@@ -33,6 +33,7 @@ export default async function AboutPage() {
                 { label: 'Our Story', linkComponentProps: { href: '/about' } },
                 { label: 'Welcome from the President', linkComponentProps: { href: '/about/welcome-from-the-president' } },
                 { label: 'Leadership & Governance', linkComponentProps: { href: '/about/leadership-and-governance' } },
+                { label: 'Innovation', linkComponentProps: { href: '/innovation' } },
                 { label: 'News & Events', linkComponentProps: { href: '/news' } },
                 { label: 'Research Hub', linkComponentProps: { href: '/research' } },
                 { label: 'Careers', linkComponentProps: { href: '/careers' } },
