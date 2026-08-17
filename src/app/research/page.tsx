@@ -75,19 +75,6 @@ export default function ResearchPage() {
 
             {/* Research Focus Areas */}
             <div className="cc-section">
-                <style jsx>{`
-                    @keyframes arrowFloatResearch {
-                        0%, 100% {
-                            transform: translate(0, 0);
-                        }
-                        50% {
-                            transform: translate(5px, -5px);
-                        }
-                    }
-                    .animate-arrow-research {
-                        animation: arrowFloatResearch 2.2s ease-in-out infinite;
-                    }
-                `}</style>
                 <div className="cc-container">
                     <div className="cc-section-divider mb-10">
                         <h2 className="cc-h2">Research Focus Areas</h2>
@@ -143,11 +130,11 @@ export default function ResearchPage() {
                                 bgColor: "bg-[#8b5cf6]", // Deep Purple
                                 borderColor: "border-[#8b5cf6]",
                             }
-                        ].map((card, idx) => (
+                        ].map((card) => (
                             <div key={card.id} className="flex flex-col no-underline">
                                 <Link
                                     linkComponentProps={{ href: card.href }}
-                                    className={`block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[260px] sm:min-h-[290px] flex flex-col justify-between transition-transform hover:-translate-y-1 duration-200`}
+                                    className={`group block w-full p-6 sm:p-8 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[260px] sm:min-h-[290px] flex flex-col justify-between transition-transform hover:-translate-y-1 duration-200`}
                                 >
                                     {/* Card Content Header */}
                                     <div className="relative z-20">
@@ -162,10 +149,7 @@ export default function ResearchPage() {
                                             {card.desc}
                                         </p>
 
-                                        <div
-                                            className="shrink-0 mb-0.5 animate-arrow-research"
-                                            style={{ animationDelay: `${idx * 0.3}s` }}
-                                        >
+                                        <div className="shrink-0 mb-0.5 transform transition-transform group-hover:translate-x-1.5 group-hover:-translate-y-1.5 duration-200">
                                             <ArrowUpRight size={40} weight="bold" className="text-white" />
                                         </div>
                                     </div>
