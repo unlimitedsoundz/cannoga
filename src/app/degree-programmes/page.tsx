@@ -4,6 +4,7 @@ import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { ProgramsAZTableView } from '@/components/programs/ProgramsAZTableView';
 import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarousel';
 import { createStaticClient } from '@/lib/supabase/static';
+import { DOMESTIC_TUITION, INTERNATIONAL_TUITION } from '@/utils/tuition';
 
 const sections = [
     { id: 'programs-az', title: 'Programs Directory (A-Z)', content: '' },
@@ -20,12 +21,67 @@ export const metadata = {
     },
 };
 
+function extractAnnualFee(jsonb: any, fallback: number): number {
+    if (!jsonb) return fallback;
+    const val = jsonb.annualTuition || jsonb.domesticTuition || jsonb.tuition || jsonb.amount || jsonb.value;
+    if (!val) return fallback;
+    const cleaned = String(val).replace(/[^0-9.]/g, '');
+    const num = parseFloat(cleaned);
+    return isNaN(num) ? fallback : num;
+}
+
 export default async function DegreeProgrammesPage() {
     const supabase = createStaticClient();
     const { data: schools } = await supabase
         .from('School')
         .select('id, name, slug, description, imageUrl')
         .order('name', { ascending: true });
+
+    let tuitionDataMap: Record<string, { domestic: number; international: number }> = {
+        DIPLOMA: { domestic: DOMESTIC_TUITION.CERTIFICATE_DIPLOMA, international: INTERNATIONAL_TUITION.CERTIFICATE_DIPLOMA },
+        BACHELOR: { domestic: DOMESTIC_TUITION.BACHELOR, international: INTERNATIONAL_TUITION.BACHELOR },
+        MASTER: { domestic: DOMESTIC_TUITION.MASTER, international: INTERNATIONAL_TUITION.MASTER },
+    };
+
+    try {
+        const { data: tuitionRows } = await supabase
+            .from('tuition_info')
+            .select('credential_type, domestic_tuition, international_tuition')
+            .eq('status', 'active');
+
+        if (tuitionRows && tuitionRows.length > 0) {
+            tuitionRows.forEach((row: any) => {
+                const cred = (row.credential_type || '').toUpperCase();
+                const fallbackDom = cred === 'MASTER' ? DOMESTIC_TUITION.MASTER : cred === 'BACHELOR' ? DOMESTIC_TUITION.BACHELOR : DOMESTIC_TUITION.CERTIFICATE_DIPLOMA;
+                const fallbackInt = cred === 'MASTER' ? INTERNATIONAL_TUITION.MASTER : cred === 'BACHELOR' ? INTERNATIONAL_TUITION.BACHELOR : INTERNATIONAL_TUITION.CERTIFICATE_DIPLOMA;
+
+                const domFee = extractAnnualFee(row.domestic_tuition, fallbackDom);
+                const intFee = extractAnnualFee(row.international_tuition, fallbackInt);
+
+                if (cred === 'DIPLOMA' || cred === 'CERTIFICATE') {
+                    tuitionDataMap.DIPLOMA = { domestic: domFee, international: intFee };
+                } else if (cred === 'BACHELOR') {
+                    tuitionDataMap.BACHELOR = { domestic: domFee, international: intFee };
+                } else if (cred === 'MASTER') {
+                    tuitionDataMap.MASTER = { domestic: domFee, international: intFee };
+                }
+            });
+        }
+    } catch (e) {
+        console.error('Error fetching tuition_info for degree programmes:', e);
+    }
+
+    const domesticFees = [
+        ["Certificate & Diploma programs", `$${tuitionDataMap.DIPLOMA.domestic.toLocaleString()}/year`],
+        ["Bachelor's degree programs", `$${tuitionDataMap.BACHELOR.domestic.toLocaleString()}/year`],
+        ["Master's degree programs", `$${tuitionDataMap.MASTER.domestic.toLocaleString()}/year`],
+    ];
+
+    const internationalFees = [
+        ["Certificate & Diploma programs", `$${tuitionDataMap.DIPLOMA.international.toLocaleString()}/year`],
+        ["Bachelor's degree programs", `$${tuitionDataMap.BACHELOR.international.toLocaleString()}/year`],
+        ["Master's degree programs", `$${tuitionDataMap.MASTER.international.toLocaleString()}/year`],
+    ];
 
     return (
         <GuideSidebarLayout sections={sections}>
@@ -101,13 +157,9 @@ export default async function DegreeProgrammesPage() {
                             <div className="cc-card cc-card-body">
                                 <h3 className="cc-h3 mb-6">Domestic Students</h3>
                                 <div className="space-y-4">
-                                    {[
-                                        ["Certificate & Diploma programs", "$1,500/year"],
-                                        ["Bachelor's degree programs", "$2,500/year"],
-                                        ["Master's degree programs", "$3,500/year"],
-                                    ].map(([label, price]) => (
+                                    {domesticFees.map(([label, price]) => (
                                         <div key={label} className="flex justify-between items-center border-b border-neutral-100 pb-3">
-                                            <span className="text-neutral-600 text-sm">{label}</span>
+                                            <span className="text-slate-600 text-sm">{label}</span>
                                             <span className="font-bold text-lg text-[#000000]">{price}</span>
                                         </div>
                                     ))}
@@ -116,13 +168,9 @@ export default async function DegreeProgrammesPage() {
                             <div className="cc-card cc-card-body">
                                 <h3 className="cc-h3 mb-6">International Students</h3>
                                 <div className="space-y-4">
-                                    {[
-                                        ["Certificate & Diploma programs", "$2,500/year"],
-                                        ["Bachelor's degree programs", "$4,000/year"],
-                                        ["Master's degree programs", "$6,000/year"],
-                                    ].map(([label, price]) => (
+                                    {internationalFees.map(([label, price]) => (
                                         <div key={label} className="flex justify-between items-center border-b border-neutral-100 pb-3">
-                                            <span className="text-neutral-600 text-sm">{label}</span>
+                                            <span className="text-slate-600 text-sm">{label}</span>
                                             <span className="font-bold text-lg text-[#000000]">{price}</span>
                                         </div>
                                     ))}
