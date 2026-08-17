@@ -74,28 +74,43 @@ export default function InnovationPage() {
 
     const SUCCESS_STORIES = [
         {
+            id: "venture-1",
             name: "EcoFibre Materials",
             founders: "Dr. Mitchell S. & Sarah K. (Alumna '23)",
             sector: "CleanTech & Sustainable Materials",
             desc: "Engineered structural bio-composites from Ontario forestry residue, reducing industrial construction carbon intensity by 38%.",
             milestone: "$2.5M Seed Funding Raised",
-            status: "Scaling Production in Eastern Ontario"
+            status: "Scaling Production in Eastern Ontario",
+            bgColor: "bg-[#e8f4ea]",
+            borderColor: "border-[#1b5e20]",
+            tag: "CLEANTECH",
+            href: "/research"
         },
         {
+            id: "venture-2",
             name: "WattShare Energy",
             founders: "Alex Chen & Marcus Vance",
             sector: "Smart Grid Software",
             desc: "Developed peer-to-peer microgrid energy trading algorithms for municipal housing projects and commercial office complexes.",
             milestone: "$1.2M Pre-Seed & Pilot Deployment",
-            status: "Active in 14 Ottawa Commercial Properties"
+            status: "Active in 14 Ottawa Commercial Properties",
+            bgColor: "bg-[#e3f2fd]",
+            borderColor: "border-[#0d47a1]",
+            tag: "SMART GRID",
+            href: "/research"
         },
         {
+            id: "venture-3",
             name: "UrbanHarvest Robotics",
             founders: "Elena Bouchard (Faculty Founder)",
             sector: "AgriTech & Automation",
             desc: "Created automated indoor climate control and hydroponic harvesting robotics for northern urban micro-farming installations.",
             milestone: "Commercial Acquisition in 2025",
-            status: "Integrated into Regional Supply Chain"
+            status: "Integrated into Regional Supply Chain",
+            bgColor: "bg-[#fbe9e7]",
+            borderColor: "border-[#bf360c]",
+            tag: "AGRITECH",
+            href: "/research"
         }
     ];
 
@@ -217,24 +232,42 @@ export default function InnovationPage() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {SUCCESS_STORIES.map((story, idx) => (
-                            <div key={idx} className="p-6 bg-slate-50 border border-slate-200 rounded-sm space-y-3 flex flex-col justify-between">
-                                <div className="space-y-2">
-                                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block">
-                                        {story.sector}
-                                    </span>
-                                    <h3 className="text-xl font-black text-slate-900 tracking-tight">{story.name}</h3>
-                                    <p className="text-sm text-slate-500 font-semibold">Founders: {story.founders}</p>
-                                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">{story.desc}</p>
-                                </div>
-                                <div className="pt-4 border-t border-slate-200">
-                                    <div className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                                        <TrendUp size={16} weight="bold" className="text-[#0a151a]" />
-                                        <span>{story.milestone}</span>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                        {SUCCESS_STORIES.map((story) => (
+                            <div key={story.id} className="flex flex-col no-underline">
+                                <Link
+                                    href={story.href}
+                                    className={`group block w-full p-6 sm:p-8 rounded-md ${story.bgColor} ${story.borderColor} border-4 no-underline overflow-hidden relative min-h-[340px] flex flex-col justify-between transition-transform hover:-translate-y-1 duration-200 shadow-sm`}
+                                >
+                                    <div className="relative z-20 space-y-3">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-xs font-black uppercase tracking-wider text-slate-900 bg-white/80 px-2 py-0.5 border border-slate-200 rounded-xs">
+                                                {story.tag}
+                                            </span>
+                                            <div className="text-black transform group-hover:translate-x-1.5 group-hover:-translate-y-1.5 transition-transform duration-200">
+                                                <ArrowRight size={20} weight="bold" />
+                                            </div>
+                                        </div>
+
+                                        <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
+                                            {story.name}
+                                        </h3>
+                                        <p className="text-xs font-bold uppercase tracking-wider text-slate-600">
+                                            Founders: {story.founders}
+                                        </p>
+                                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                                            {story.desc}
+                                        </p>
                                     </div>
-                                    <p className="text-xs text-slate-500 font-medium mt-0.5">{story.status}</p>
-                                </div>
+
+                                    <div className="relative z-20 pt-6 mt-4 border-t border-slate-900/10 space-y-1.5">
+                                        <div className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                                            <TrendUp size={16} weight="bold" className="text-[#0a151a]" />
+                                            <span>{story.milestone}</span>
+                                        </div>
+                                        <p className="text-xs text-slate-600 font-semibold">{story.status}</p>
+                                    </div>
+                                </Link>
                             </div>
                         ))}
                     </div>
