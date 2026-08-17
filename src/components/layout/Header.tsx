@@ -150,6 +150,22 @@ export function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
     const [expandedMobileSections, setExpandedMobileSections] = React.useState<Record<string, boolean>>({})
     const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
+    const [currentLanguage, setCurrentLanguage] = React.useState("en")
+
+    React.useEffect(() => {
+        const match = document.cookie.match(/googtrans=\/en\/([a-zA-Z-]+)/);
+        if (match && match[1]) {
+            setCurrentLanguage(match[1]);
+        }
+    }, [])
+
+    const switchLanguage = (code: string) => {
+        const cookieValue = `/en/${code}`;
+        const domain = window.location.hostname;
+        document.cookie = `googtrans=${cookieValue}; path=/; domain=${domain}`;
+        document.cookie = `googtrans=${cookieValue}; path=/;`;
+        window.location.reload();
+    };
 
     const isAdmissionsPage = false
     const isPortalOrAdmin = pathname.startsWith('/portal') || pathname.startsWith('/admin')
@@ -179,9 +195,21 @@ export function Header() {
                         <Link href="/student-guide/international" className="text-white hover:text-white/80 no-underline transition-colors font-semibold">International Students</Link>
                         <Link href="/portal/support" className="text-white hover:text-white/80 no-underline transition-colors">IT Support</Link>
                         <div className="flex items-center gap-2 pl-4 border-l border-[#1e3a47] text-white font-semibold">
-                            <span className="text-white hover:underline cursor-pointer">EN</span>
+                            <button
+                                type="button"
+                                onClick={() => switchLanguage('en')}
+                                className={`text-white transition-opacity hover:opacity-80 cursor-pointer ${currentLanguage === 'en' ? 'font-black underline decoration-2 underline-offset-4' : 'opacity-70'}`}
+                            >
+                                EN
+                            </button>
                             <span className="text-white/40">/</span>
-                            <span className="text-white hover:underline cursor-pointer">FR</span>
+                            <button
+                                type="button"
+                                onClick={() => switchLanguage('fr')}
+                                className={`text-white transition-opacity hover:opacity-80 cursor-pointer ${currentLanguage === 'fr' ? 'font-black underline decoration-2 underline-offset-4' : 'opacity-70'}`}
+                            >
+                                FR
+                            </button>
                         </div>
                     </div>
                 </div>
