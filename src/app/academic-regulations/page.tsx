@@ -15,29 +15,47 @@ export const metadata: Metadata = {
 const regulations = [
     {
         id: "reg-1",
-        question: "1. Purpose and Scope",
+        question: "1. Purpose and Institutional Scope",
         order_index: 1,
-        answer: "The Academic Regulations establish the framework governing teaching, learning, assessment, and academic progression at Cannoga College. These policies apply to all registered students across undergraduate and postgraduate programmes."
-    },
-    {
-        id: "reg-2",
-        question: "2. Academic Structure & Credit Framework",
-        order_index: 2,
         answer: (
             <div className="space-y-3">
-                <p>Academic programmes at Cannoga College are organized into defined terms and modular credit units:</p>
+                <p>The Academic Regulations establish the mandatory framework governing curriculum design, teaching standards, assessments, student rights, and progression criteria across all academic schools at Cannoga College.</p>
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Programmes are organized into structured academic terms or semesters.</span>
+                        <span>Applies to all registered students enrolled in Degree, Diploma, and Postgraduate certificate programs.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Each programme and individual course carries a defined credit value based on contact and independent study workload.</span>
+                        <span>Operates under the authority of the Academic Board and the Office of the Registrar in Ottawa, Ontario.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Academic progression is contingent upon the successful completion and verification of required credits.</span>
+                        <span>Students are responsible for familiarizing themselves with institutional regulations upon enrollment.</span>
+                    </li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "reg-2",
+        question: "2. Academic Structure & Credit System",
+        order_index: 2,
+        answer: (
+            <div className="space-y-3">
+                <p>Academic programmes at Cannoga College are structured into standard semesters adhering to Canadian post-secondary credit allocation standards:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Semester Format:</strong> The academic year consists of Fall (September – December), Winter (January – April), and optional Summer (May – August) sessions.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Credit Definition:</strong> One credit represents approximately 25 to 30 hours of combined lecture contact, laboratory exercises, and independent research.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Standard Workload:</strong> Full-time undergraduate workload consists of 15 credits (typically 5 courses) per semester. Minimum full-time status requires at least 9 credits.</span>
                     </li>
                 </ul>
             </div>
@@ -45,69 +63,75 @@ const regulations = [
     },
     {
         id: "reg-3",
-        question: "3. Student Enrollment Status",
+        question: "3. Student Enrollment Status & Registry Classifications",
         order_index: 3,
         answer: (
             <div className="space-y-3">
-                <p>Enrolled individuals at Cannoga College hold one of the following official registry statuses:</p>
-                <ul className="space-y-2.5 pl-1">
-                    {[
-                        "Enrolled: Actively registered and attending courses",
-                        "On Leave of Absence: Approved temporary pause in academic studies",
-                        "Withdrawn: Formally discontinued studies through the Registry Office",
-                        "Graduated: Successfully completed all degree requirements",
-                        "Dismissed: Terminated on academic probation or disciplinary grounds"
-                    ].map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                            <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                            <span>{item}</span>
-                        </li>
-                    ))}
-                </ul>
+                <p>Enrolled individuals hold one of the following official registry classifications:</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                    <div className="p-4 border border-slate-200 rounded-sm">
+                        <h4 className="font-bold text-slate-900 text-base">Active Enrolled Status</h4>
+                        <p className="text-sm text-slate-600 font-normal mt-1">Student is registered in approved courses, has fulfilled tuition commitments, and maintains library and campus facility privileges.</p>
+                    </div>
+                    <div className="p-4 border border-slate-200 rounded-sm">
+                        <h4 className="font-bold text-slate-900 text-base">Leave of Absence</h4>
+                        <p className="text-sm text-slate-600 font-normal mt-1">Formal authorized hiatus for medical, personal, or military reasons. Granted for up to 2 consecutive semesters with guaranteed re-entry.</p>
+                    </div>
+                    <div className="p-4 border border-slate-200 rounded-sm">
+                        <h4 className="font-bold text-slate-900 text-base">Academic Probation</h4>
+                        <p className="text-sm text-slate-600 font-normal mt-1">Conditional status where cumulative GPA drops below 2.0. Mandatory advising and course load restrictions apply.</p>
+                    </div>
+                    <div className="p-4 border border-slate-200 rounded-sm">
+                        <h4 className="font-bold text-slate-900 text-base">Official Withdrawal</h4>
+                        <p className="text-sm text-slate-600 font-normal mt-1">Voluntary discontinuation of studies processed via the Registrar. Student must reapply for future admission consideration.</p>
+                    </div>
+                </div>
             </div>
         )
     },
     {
         id: "reg-4",
-        question: "4. Course Registration & Deadlines",
+        question: "4. Course Registration, Add/Drop & Prerequisites",
         order_index: 4,
         answer: (
             <div className="space-y-3">
-                <p>Students must complete course registration through the digital student portal within published enrolment periods.</p>
-                <p className="font-semibold text-slate-900">Registration is strictly subject to:</p>
+                <p>Students must complete course registration through the digital student portal within designated enrolment windows:</p>
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Programme requirements and mandatory curriculum pathways</span>
+                        <span><strong>Add/Drop Period:</strong> Courses may be added or dropped without academic penalty during the first 10 business days of each standard term.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Verification of course prerequisites and language requirements</span>
+                        <span><strong>Course Withdrawal (W):</strong> Withdrawals after the add/drop window up to week 8 result in a recorded &apos;W&apos; mark, which does not impact cumulative GPA.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Maximum semester credit caps and course capacity limits</span>
+                        <span><strong>Prerequisite Waiver:</strong> Students seeking to bypass prerequisites must obtain written approval from the Department Chair prior to term commencement.</span>
                     </li>
                 </ul>
-                <p className="text-sm text-slate-500 italic">Late course registrations are subject to registry approval and administrative late fees.</p>
             </div>
         )
     },
     {
         id: "reg-5",
-        question: "5. Attendance and Participation",
+        question: "5. Attendance, Laboratory & Studio Engagement",
         order_index: 5,
         answer: (
             <div className="space-y-3">
-                <p>Regular attendance and active engagement in lectures, seminars, laboratory practicals, and collaborative studios are expected of all enrolled students.</p>
+                <p>Active participation in lectures, seminars, laboratory practicals, and design studios is fundamental to curriculum mastery:</p>
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Minimum mandatory attendance thresholds apply to accredited practical modules.</span>
+                        <span><strong>Mandatory Practical Sessions:</strong> Laboratory and studio courses require a minimum 80% physical attendance record to be eligible for final grading.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Failure to satisfy attendance requirements may result in disqualification from final assessments or examinations.</span>
+                        <span><strong>Excused Absences:</strong> Medical illnesses, family emergencies, or documented institutional athletic representation must be submitted within 5 days.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Unexcused Absences:</strong> Exceeding unexcused absence limits may result in administrative withdrawal (grade of &apos;FW&apos;) from the course.</span>
                     </li>
                 </ul>
             </div>
@@ -115,72 +139,78 @@ const regulations = [
     },
     {
         id: "reg-6",
-        question: "6. Assessment & Grading Schemes",
+        question: "6. Grading Scale & Evaluation Framework",
         order_index: 6,
         answer: (
-            <div className="space-y-3">
-                <p>Student academic achievement is measured using transparent, criterion-referenced evaluation frameworks:</p>
-                <ul className="space-y-2.5 pl-1">
-                    <li className="flex items-start gap-3">
-                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Assessment methods include written examinations, applied coursework, laboratory reports, design portfolios, and thesis defences.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Grades are awarded in accordance with Cannoga&apos;s institutional grading scale.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>All officially verified grades are recorded in the central transcript database.</span>
-                    </li>
-                </ul>
+            <div className="space-y-4">
+                <p>Academic performance is evaluated using a standard 4.0 grade point scale:</p>
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left text-sm border-collapse border border-slate-200">
+                        <thead>
+                            <tr className="bg-[#0a151a] text-white">
+                                <th className="p-3 font-bold border border-slate-700">Grade</th>
+                                <th className="p-3 font-bold border border-slate-700">Percentage</th>
+                                <th className="p-3 font-bold border border-slate-700">GPA Value</th>
+                                <th className="p-3 font-bold border border-slate-700">Performance Description</th>
+                            </tr>
+                        </thead>
+                        <tbody className="text-slate-700 divide-y divide-slate-200">
+                            <tr><td className="p-2.5 font-bold border">A+ / A</td><td className="p-2.5 border">85% – 100%</td><td className="p-2.5 font-bold border">4.00</td><td className="p-2.5 border">Exceptional / Outstanding mastery</td></tr>
+                            <tr><td className="p-2.5 font-bold border">A-</td><td className="p-2.5 border">80% – 84%</td><td className="p-2.5 font-bold border">3.70</td><td className="p-2.5 border">Excellent command of concepts</td></tr>
+                            <tr><td className="p-2.5 font-bold border">B+ / B</td><td className="p-2.5 border">73% – 79%</td><td className="p-2.5 font-bold border">3.00 – 3.30</td><td className="p-2.5 border">Very Good / Solid comprehension</td></tr>
+                            <tr><td className="p-2.5 font-bold border">B-</td><td className="p-2.5 border">70% – 72%</td><td className="p-2.5 font-bold border">2.70</td><td className="p-2.5 border">Good foundational competence</td></tr>
+                            <tr><td className="p-2.5 font-bold border">C+ / C</td><td className="p-2.5 border">60% – 69%</td><td className="p-2.5 font-bold border">2.00 – 2.30</td><td className="p-2.5 border">Satisfactory passing standard</td></tr>
+                            <tr><td className="p-2.5 font-bold border">D</td><td className="p-2.5 border">50% – 59%</td><td className="p-2.5 font-bold border">1.00</td><td className="p-2.5 border">Marginal pass; prerequisite restrictions apply</td></tr>
+                            <tr><td className="p-2.5 font-bold text-red-600 border">F</td><td className="p-2.5 border">0% – 49%</td><td className="p-2.5 font-bold text-red-600 border">0.00</td><td className="p-2.5 border">Failure; no credits awarded</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     },
     {
         id: "reg-7",
-        question: "7. Academic Integrity & Code of Ethics",
+        question: "7. Academic Integrity, Plagiarism & AI Policies",
         order_index: 7,
         answer: (
             <div className="space-y-3">
-                <p>All members of the Cannoga College academic community are required to maintain the highest standards of intellectual honesty.</p>
-                <p className="font-semibold text-slate-900">Strictly prohibited violations include:</p>
+                <p>Cannoga College adheres to zero tolerance for academic dishonesty and intellectual fraud:</p>
                 <ul className="space-y-2.5 pl-1">
-                    {[
-                        "Plagiarism: Submitting work, code, or ideas of others without explicit citation",
-                        "Cheating: Unauthorized assistance or materials during examinations",
-                        "Data Fabrication: Falsification of research metrics, experiment results, or survey data",
-                        "Unauthorized Collaboration: Joint submission on individual graded assessments"
-                    ].map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                            <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                            <span>{item}</span>
-                        </li>
-                    ))}
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Plagiarism:</strong> Representing another person&apos;s ideas, text, design, or source code without formal citation or credit.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Generative AI Use:</strong> AI tools may only be utilized where course instructors explicitly authorize them in the syllabus. Undisclosed AI generation constitutes plagiarism.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Disciplinary Sanctions:</strong> First infractions result in grade of zero for the assignment and formal notation. Repeat violations result in course failure, suspension, or permanent expulsion.</span>
+                    </li>
                 </ul>
-                <p className="text-sm font-semibold text-slate-800">Integrity violations carry severe penalties ranging from course failure to formal institutional expulsion.</p>
             </div>
         )
     },
     {
         id: "reg-8",
-        question: "8. Academic Progression & Continuation",
+        question: "8. Academic Appeals, Petitions & Grade Reviews",
         order_index: 8,
         answer: (
             <div className="space-y-3">
-                <p>Students must meet minimum GPA and credit completion milestones at the conclusion of each academic cycle:</p>
+                <p>Students hold the right to appeal formal grades or academic standing decisions where procedural error or unfairness is substantiated:</p>
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Students must maintain satisfactory academic standing to progress to subsequent years.</span>
+                        <span><strong>Informal Resolution:</strong> The student must first consult with the course instructor within 10 business days of grade release.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Academic probation is issued when cumulative performance drops below threshold.</span>
+                        <span><strong>Formal Stage 2 Appeal:</strong> If unresolved, a written petition is submitted to the Academic Appeals Committee accompanied by evidence.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Failure to clear probationary standing within the designated period leads to academic discontinuation.</span>
+                        <span><strong>Committee Ruling:</strong> The Appeals Committee convenes an independent review panel whose decision is final and binding.</span>
                     </li>
                 </ul>
             </div>
@@ -188,23 +218,23 @@ const regulations = [
     },
     {
         id: "reg-9",
-        question: "9. Leave of Absence & Withdrawal Policy",
+        question: "9. Examinations, In-Person Invigilation & Deferred Exams",
         order_index: 9,
         answer: (
             <div className="space-y-3">
-                <p>Guidelines for temporary study pauses and permanent institutional withdrawals:</p>
+                <p>Examination protocols maintain academic security and equal assessment conditions:</p>
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Leaves of absence may be granted for medical, personal, or military reasons upon submission of documentary proof.</span>
+                        <span><strong>Official Identification:</strong> Students must present a valid Cannoga Student ID Card at all midterm and final examination sessions.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Official withdrawal forms must be processed through Student Services and the Registry.</span>
+                        <span><strong>Prohibited Items:</strong> Smart devices, unapproved calculators, notes, and unauthorized electronic aids are strictly barred from examination halls.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Fee adjustments and transcript notations are determined based on the official withdrawal date.</span>
+                        <span><strong>Deferred Examinations:</strong> Petitions for deferred exams due to severe medical incapacity must be accompanied by certified physician documentation within 48 hours.</span>
                     </li>
                 </ul>
             </div>
@@ -212,23 +242,23 @@ const regulations = [
     },
     {
         id: "reg-10",
-        question: "10. Degree Conferral & Graduation",
+        question: "10. Accessibility Accommodations & Special Considerations",
         order_index: 10,
         answer: (
             <div className="space-y-3">
-                <p>Degrees, diplomas, and postgraduate credentials are officially conferred by the Academic Council upon satisfying all graduation requirements:</p>
+                <p>Cannoga College is committed to inclusive education and barrier-free learning:</p>
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Successful completion and credit validation of all mandatory and elective modules</span>
+                        <span><strong>Accessibility Services:</strong> Students with diagnosed disabilities, neurodivergent conditions, or temporary injuries can register with the Student Accessibility Centre.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Full clearance of all financial, library, and laboratory obligations</span>
+                        <span><strong>Standard Accommodations:</strong> Extra time on assessments, quiet testing environments, assistive software, and tailored classroom materials.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Attainment of the minimum qualifying cumulative grade point average (GPA)</span>
+                        <span><strong>Confidentiality:</strong> Medical and diagnostic records remain strictly confidential and do not appear on academic transcripts.</span>
                     </li>
                 </ul>
             </div>
@@ -236,19 +266,23 @@ const regulations = [
     },
     {
         id: "reg-11",
-        question: "11. Permanent Records & Transcript Issuance",
+        question: "11. Degree Conferral, Graduation & Honours Distinctions",
         order_index: 11,
         answer: (
             <div className="space-y-3">
-                <p>Cannoga College securely maintains complete academic transcripts in compliance with Canadian privacy and institutional retention statutes.</p>
+                <p>Degrees, diplomas, and postgraduate certificates are conferred upon meeting all governance benchmarks:</p>
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Official sealed transcripts and e-transcripts can be requested via the Student Portal.</span>
+                        <span><strong>Graduation Application:</strong> Prospective graduates must submit an Intent to Graduate form via the student portal by published deadlines.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Academic records are retained permanently in the institutional registry.</span>
+                        <span><strong>Graduation with Distinction:</strong> Awarded to undergraduate graduates achieving a cumulative GPA of 3.80 or higher with zero probationary marks.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Financial Clearance:</strong> All library loans, parking citations, and outstanding tuition balances must be settled before parchment release.</span>
                     </li>
                 </ul>
             </div>
@@ -256,9 +290,27 @@ const regulations = [
     },
     {
         id: "reg-12",
-        question: "12. Regulatory Amendments & Updates",
+        question: "12. Research Ownership & Intellectual Property (IP)",
         order_index: 12,
-        answer: "Cannoga College reserves the right to amend and refine academic regulations to reflect evolving accreditation standards and educational best practices. Any policy revisions will be officially published and communicated to students through institutional channels."
+        answer: (
+            <div className="space-y-3">
+                <p>Policy governing student and faculty research output, creations, and patents:</p>
+                <ul className="space-y-2.5 pl-1">
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Student Coursework IP:</strong> Students retain primary copyright over course assignments, creative portfolios, and independent theses.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Sponsored Industry Research:</strong> Projects funded by commercial grants or institutional research partners operate under joint IP agreements negotiated prior to project commencement.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Institutional Repository:</strong> All final theses and capstone projects are archived in the Cannoga Open Access Research Repository for public scholarly citation.</span>
+                    </li>
+                </ul>
+            </div>
+        )
     }
 ];
 
