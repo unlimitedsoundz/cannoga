@@ -53,8 +53,8 @@ export default function BachelorsGuidePage() {
                 ]}
             >
 
-                <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl">
-                    <div className="space-y-20">
+                <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                    <div className="space-y-16 md:space-y-20">
                         {/* Intro */}
                         <section id="intro" className="scroll-mt-32">
                             <ContentBox
@@ -65,21 +65,21 @@ export default function BachelorsGuidePage() {
                         </section>
 
                         {/* 1. Accept Admission */}
-                        <section id="accept" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">1. Accept Your Admission Offer</h2>
+                        <section id="accept" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">1. Accept Your Admission Offer</h2>
                             <ContentBox
                                 size="large"
                                 icon="calendar"
                                 title="Deadline: 24 July 2026"
                                 body={
-                                    <div className="space-y-8 text-left">
+                                    <div className="space-y-6 text-left">
                                         <p className="text-3xl font-bold text-black">15:00 (UTC +3)</p>
-                                        <p className="text-sm font-bold text-neutral-600 leading-relaxed">
+                                        <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
                                             Accept by this date or lose your study place offer. Use the personal link sent via email or log in to the national admissions portal.
                                         </p>
                                         <div className="bg-neutral-100 p-6 rounded-xl border-l-4 border-[#0a151a]">
-                                            <h4 className="font-bold text-lg mb-2">Waitlist & Multiple Offers</h4>
-                                            <ul className="text-sm font-bold space-y-2">
+                                            <h4 className="font-bold text-lg mb-2">Waitlist &amp; Multiple Offers</h4>
+                                            <ul className="text-base md:text-lg text-slate-700 font-normal space-y-2">
                                                 <li>• You can accept only one degree study place per term.</li>
                                                 <li>• Conditional acceptance for lower-ranked offers is possible.</li>
                                             </ul>
@@ -90,8 +90,8 @@ export default function BachelorsGuidePage() {
                         </section>
 
                         {/* 2. Tuition */}
-                        <section id="tuition" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">2. Tuition Fees & Scholarships</h2>
+                        <section id="tuition" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">2. Tuition Fees &amp; Scholarships</h2>
                             <div className="grid md:grid-cols-2 gap-8">
                                 <Card
                                     title="General Rules"
@@ -106,8 +106,8 @@ export default function BachelorsGuidePage() {
                         </section>
 
                         {/* 3. Residence Permit */}
-                        <section id="residence" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">3. Residence Permit</h2>
+                        <section id="residence" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">3. Residence Permit</h2>
                             <div className="grid md:grid-cols-3 gap-6">
                                 <Card title="International Students" body="Apply for a Canadian study permit for studies immediately after accepting your offer. Processing typically takes 1-3 months." />
                                 <Card title="Canada Citizens" body="No study permit required. Register for your programme and complete enrolment online." />
@@ -116,20 +116,20 @@ export default function BachelorsGuidePage() {
                         </section>
 
                         {/* 4. Enrolment */}
-                        <section id="enrolment" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">4. Enrol for the Academic Year</h2>
+                        <section id="enrolment" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">4. Enrol for the Academic Year</h2>
                             <ContentBox
                                 icon="identificationBadge"
                                 title="Application Windows"
                                 body={
                                     <div className="grid md:grid-cols-2 gap-8 text-left">
                                         <div>
-                                            <h4 className="font-bold text-black mb-2">Attending</h4>
-                                            <p className="text-sm text-neutral-600 font-bold">Start studies, get student number, and register for courses.</p>
+                                            <h4 className="font-bold text-lg text-black mb-2">Attending</h4>
+                                            <p className="text-base md:text-lg text-slate-700 font-normal">Start studies, get student number, and register for courses.</p>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-black mb-2">Non-Attending</h4>
-                                            <p className="text-sm text-neutral-600 font-bold">Only for military service, parental leave, or medical reasons.</p>
+                                            <h4 className="font-bold text-lg text-black mb-2">Non-Attending</h4>
+                                            <p className="text-base md:text-lg text-slate-700 font-normal">Only for military service, parental leave, or medical reasons.</p>
                                         </div>
                                     </div>
                                 }
@@ -146,8 +146,8 @@ export default function BachelorsGuidePage() {
                         </section>
 
                         {/* 6. Healthcare */}
-                        <section id="healthcare" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">6. Healthcare & Fees</h2>
+                        <section id="healthcare" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">6. Healthcare &amp; Fees</h2>
                             <div className="grid md:grid-cols-2 gap-8">
                                 <Card
                                     title="Student Healthcare (FSHS)"
@@ -161,17 +161,17 @@ export default function BachelorsGuidePage() {
                         </section>
 
                         {/* 8. Orientation */}
-                        <section id="orientation" className="scroll-mt-32">
+                        <section id="orientation" className="scroll-mt-32 space-y-4">
                             <ContentBox
                                 size="large"
                                 icon="graduationCap"
                                 title="Orientation & Start"
                                 body={
                                     <div className="space-y-6 text-left">
-                                        <p className="text-sm font-bold text-neutral-700 leading-relaxed">Usually held in August/September. Helps you meet tutors, learn systems, and settle in.</p>
+                                        <p className="text-base md:text-lg font-normal text-slate-700 leading-relaxed">Usually held in August/September. Helps you meet tutors, learn systems, and settle in.</p>
                                         <ul className="space-y-4">
-                                            <li className="flex gap-4 items-center font-bold text-black underline text-sm"><ArrowRight size={14} weight="bold" /> Check platforms for Pre-Orientation Modules.</li>
-                                            <li className="flex gap-4 items-center font-bold text-black underline text-sm"><ArrowRight size={14} weight="bold" /> Connect with your assigned Peer Tutor.</li>
+                                            <li className="flex gap-3 items-center font-bold text-black underline text-base"><span className="w-2 h-2 bg-[#0a151a] rounded-full shrink-0" /> Check platforms for Pre-Orientation Modules.</li>
+                                            <li className="flex gap-3 items-center font-bold text-black underline text-base"><span className="w-2 h-2 bg-[#0a151a] rounded-full shrink-0" /> Connect with your assigned Peer Tutor.</li>
                                         </ul>
                                     </div>
                                 }
@@ -179,8 +179,8 @@ export default function BachelorsGuidePage() {
                         </section>
 
                         {/* 10. Housing */}
-                        <section id="housing" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">7. Housing & Aid</h2>
+                        <section id="housing" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">7. Housing &amp; Aid</h2>
                             <div className="grid md:grid-cols-2 gap-8">
                                 <Card
                                     title="Housing"
@@ -194,10 +194,10 @@ export default function BachelorsGuidePage() {
                         </section>
 
                         {/* Student Resource Hub */}
-                        <section id="resource-hub" className="scroll-mt-32 pt-8 border-t border-neutral-200">
-                            <div className="mb-6">
+                        <section id="resource-hub" className="scroll-mt-32 pt-8 border-t border-neutral-200 space-y-4">
+                            <div className="mb-4">
                                 <h2 className="text-aalto-5 font-bold mb-2 text-black tracking-tight">Student Resource Hub</h2>
-                                <p className="text-sm text-neutral-600 font-medium">Explore campus services, financial aid, health support, and student rights.</p>
+                                <p className="text-base md:text-lg text-slate-700 font-normal">Explore campus services, financial aid, health support, and student rights.</p>
                             </div>
                             <StudentResourceHubCarousel />
                         </section>

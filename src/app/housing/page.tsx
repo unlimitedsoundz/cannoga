@@ -52,20 +52,20 @@ export default function HousingPage() {
                     { label: 'Housing' }
                 ]}
             >
-                <div className="cc-container py-8 md:py-12 space-y-10">
+                <div className="cc-container py-8 md:py-12 space-y-10 md:space-y-14 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
 
                     {/* OVERVIEW & HIGHLIGHT STATS */}
-                    <section id="overview" className="scroll-mt-32">
+                    <section id="overview" className="scroll-mt-32 space-y-4">
                         <div className="max-w-3xl mb-6">
                             <h2 className="text-2xl md:text-4xl font-bold text-black tracking-tight leading-tight">
                                 Safe, Modern &amp; Connected Student Living
                             </h2>
-                            <p className="mt-2 text-base text-neutral-600 leading-relaxed font-medium">
+                            <p className="mt-2 text-base md:text-lg text-slate-700 leading-relaxed font-normal">
                                 Whether you prefer living directly on campus, sharing an apartment in downtown Ottawa, or living with a Canadian homestay family, Cannoga Housing Services supports you every step of the way.
                             </p>
                         </div>
 
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
                             {[
                                 { number: "100%", label: "First-Year Guarantee Option", desc: "Priority residence spots for new international & domestic students." },
                                 { number: "15 min", label: "Transit to Downtown", desc: "Convenient OC Transpo light rail & bus access from all partner housing." },
@@ -74,8 +74,8 @@ export default function HousingPage() {
                             ].map((stat, i) => (
                                 <div key={i} className="space-y-1">
                                     <span className="text-2xl md:text-3xl font-black text-[#0a151a]">{stat.number}</span>
-                                    <h3 className="font-bold text-black text-sm md:text-base">{stat.label}</h3>
-                                    <p className="text-xs text-neutral-600 leading-relaxed font-medium">{stat.desc}</p>
+                                    <h3 className="font-bold text-black text-base md:text-lg">{stat.label}</h3>
+                                    <p className="text-base text-slate-700 leading-relaxed font-normal">{stat.desc}</p>
                                 </div>
                             ))}
                         </div>
@@ -84,8 +84,8 @@ export default function HousingPage() {
                     {/* HOUSING OPTIONS (Carousel Style) */}
                     <section id="options" className="scroll-mt-32 space-y-6">
                         <div>
-                            <h2 className="text-2xl sm:text-3xl font-extrabold text-black tracking-tight mb-2">Explore Housing Options</h2>
-                            <p className="text-sm text-neutral-600 font-medium">Find the living environment that matches your study lifestyle and budget.</p>
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight mb-2">Explore Housing Options</h2>
+                            <p className="text-base md:text-lg text-slate-700 font-normal">Find the living environment that matches your study lifestyle and budget.</p>
                         </div>
 
                         <ExploreHousingCarousel />
@@ -105,7 +105,7 @@ export default function HousingPage() {
                             </blockquote>
                             <div className="flex items-center gap-3 pt-1">
                                 <div className="w-8 h-0.5 bg-[#c89211]"></div>
-                                <p className="text-xs md:text-sm font-bold uppercase tracking-widest text-[#0f2027]">
+                                <p className="text-sm font-bold uppercase tracking-widest text-[#0f2027]">
                                     Anav Mukesh, MSc Student
                                 </p>
                             </div>
@@ -115,8 +115,8 @@ export default function HousingPage() {
                     {/* PRICING & COMPARISON (Student Resource Hub Carousel Style) */}
                     <section id="pricing" className="scroll-mt-32 space-y-6">
                         <div>
-                            <h2 className="text-2xl sm:text-3xl font-extrabold text-black tracking-tight mb-2">Average Monthly Housing Costs in Ottawa</h2>
-                            <p className="text-neutral-600 text-sm font-medium">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight mb-2">Average Monthly Housing Costs in Ottawa</h2>
+                            <p className="text-base md:text-lg text-slate-700 font-normal">
                                 All prices are estimated in Canadian Dollars (CAD) per month and include utility baseline estimates.
                             </p>
                         </div>
@@ -125,9 +125,9 @@ export default function HousingPage() {
                     </section>
 
                     {/* HOW TO APPLY & STEPS */}
-                    <section id="application" className="scroll-mt-32">
+                    <section id="application" className="scroll-mt-32 space-y-4">
                         <h2 className="text-aalto-5 font-bold text-black tracking-tight mb-3">Step-by-Step Housing Application Process</h2>
-                        <div className="space-y-3 text-left">
+                        <div className="space-y-4 text-left">
                             {[
                                 {
                                     step: 1,
@@ -150,11 +150,11 @@ export default function HousingPage() {
                                     desc: "Pay your initial housing deposit to secure your room guarantee for the upcoming Autumn or Winter academic intake."
                                 }
                             ].map(({ step, title, desc }) => (
-                                <div key={step} className="flex gap-3 items-start">
+                                <div key={step} className="flex gap-4 items-start">
                                 <StepBadge step={step} size="w-8 h-8" />
                                     <div>
-                                        <h4 className="font-bold text-black text-base mb-0.5">{title}</h4>
-                                        <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">{desc}</p>
+                                        <h4 className="font-bold text-black text-base md:text-lg mb-1">{title}</h4>
+                                        <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">{desc}</p>
                                     </div>
                                 </div>
                             ))}
@@ -162,34 +162,34 @@ export default function HousingPage() {
                     </section>
 
                     {/* TENANT RIGHTS & LEGAL ADVICE */}
-                    <section id="tenant-rights" className="scroll-mt-32">
-                        <h2 className="text-aalto-5 font-bold text-black tracking-tight mb-2">Ontario Tenant Rights & Legal Protections</h2>
-                        <p className="text-xs text-neutral-500 font-medium mb-3">Residential Tenancies Act (RTA) — Province of Ontario</p>
-                        <p className="text-xs md:text-sm text-neutral-700 leading-relaxed font-medium mb-3">
+                    <section id="tenant-rights" className="scroll-mt-32 space-y-4">
+                        <h2 className="text-aalto-5 font-bold text-black tracking-tight mb-2">Ontario Tenant Rights &amp; Legal Protections</h2>
+                        <p className="text-sm font-bold uppercase tracking-widest text-[#0a151a] mb-2">Residential Tenancies Act (RTA) — Province of Ontario</p>
+                        <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-3">
                             All off-campus student tenants in Ontario are protected under provincial law. Your landlord cannot request illegal key deposits, perform unlawful evictions, or raise rent outside annual government guidelines.
                         </p>
-                        <div className="grid md:grid-cols-3 gap-4 pt-1">
+                        <div className="grid md:grid-cols-3 gap-6 pt-2">
                             <div className="space-y-1">
-                                <h4 className="font-bold text-[#0a151a] text-sm">
+                                <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
                                     Standard Ontario Lease
                                 </h4>
-                                <p className="text-xs text-neutral-600 leading-relaxed font-medium">
+                                <p className="text-base text-slate-700 leading-relaxed font-normal">
                                     Landlords must use the official Ontario Standard Lease template.
                                 </p>
                             </div>
                             <div className="space-y-1">
-                                <h4 className="font-bold text-[#0a151a] text-sm">
+                                <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
                                     First &amp; Last Month Limit
                                 </h4>
-                                <p className="text-xs text-neutral-600 leading-relaxed font-medium">
+                                <p className="text-base text-slate-700 leading-relaxed font-normal">
                                     Security deposits exceeding first and last month rent are illegal in Ontario.
                                 </p>
                             </div>
                             <div className="space-y-1">
-                                <h4 className="font-bold text-[#0a151a] text-sm">
+                                <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
                                     LTB Dispute Resolution
                                 </h4>
-                                <p className="text-xs text-neutral-600 leading-relaxed font-medium">
+                                <p className="text-base text-slate-700 leading-relaxed font-normal">
                                     Disputes are resolved fairly by the Ontario Landlord and Tenant Board.
                                 </p>
                             </div>
@@ -197,10 +197,10 @@ export default function HousingPage() {
                     </section>
 
                     {/* RELATED INTERNAL GUIDES */}
-                    <section id="related" className="scroll-mt-32 pt-8 border-t border-neutral-200">
+                    <section id="related" className="scroll-mt-32 pt-8 border-t border-neutral-200 space-y-4">
                         <div className="mb-4">
-                            <h3 className="text-xl font-black text-black tracking-tight">Related Student Guides</h3>
-                            <p className="text-sm text-neutral-600 font-medium">Explore detailed guidance on arrival, housing checklists, and international student compliance.</p>
+                            <h3 className="text-aalto-5 font-bold text-black tracking-tight">Related Student Guides</h3>
+                            <p className="text-base md:text-lg text-slate-700 font-normal">Explore detailed guidance on arrival, housing checklists, and international student compliance.</p>
                         </div>
                         <RelatedStudentGuidesCarousel />
                     </section>

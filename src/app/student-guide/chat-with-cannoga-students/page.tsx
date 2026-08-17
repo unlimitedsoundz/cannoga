@@ -1,4 +1,4 @@
-﻿import { Link } from "@aalto-dx/react-components";
+import { Link } from "@aalto-dx/react-components";
 import { CTA } from "@aalto-dx/react-modules";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from '@/components/layout/Hero';
@@ -46,8 +46,8 @@ export default function ChatWithStudentsPage() {
                 ]}
             >
 
-                <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl">
-                    <div className="space-y-20">
+                <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                    <div className="space-y-16 md:space-y-20">
                         {/* Intro */}
                         <section id="connect" className="scroll-mt-32">
                             <ContentBox
@@ -55,10 +55,10 @@ export default function ChatWithStudentsPage() {
                                 title="Real Conversations, Real Insights"
                                 body={
                                     <div className="space-y-6 text-left">
-                                        <p className="text-aalto-2 text-black font-medium leading-relaxed">
+                                        <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed">
                                             Choosing the right university is a big decision. While brochures and websites provide important information, nothing beats talking to someone who is already here.
                                         </p>
-                                        <p className="text-sm font-bold text-black">
+                                        <p className="text-base md:text-lg text-slate-700 font-normal">
                                             Our digital platform allows you to connect with current students from various programs and backgrounds.
                                         </p>
                                     </div>
@@ -67,7 +67,7 @@ export default function ChatWithStudentsPage() {
                         </section>
 
                         {/* Chat Platform */}
-                        <section id="chat-platform" className="scroll-mt-32">
+                        <section id="chat-platform" className="scroll-mt-32 space-y-4">
                             <div className="bg-neutral-100 p-1 rounded-2xl border border-neutral-200 shadow-xl overflow-hidden">
                                 <div className="bg-card" style={{ height: '800px' }}>
                                     <iframe 
@@ -80,7 +80,7 @@ export default function ChatWithStudentsPage() {
                                         sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"
                                     />
                                 </div>
-                                <div className="p-4 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-black">
+                                <div className="p-4 flex justify-between items-center text-xs font-bold uppercase tracking-widest text-black">
                                     <span>Interactive Student Platform</span>
                                     <Link href="https://students.cannogacollege.ca/" target="_blank" className="underline hover:text-black">Open in New Tab</Link>
                                 </div>
@@ -98,15 +98,15 @@ export default function ChatWithStudentsPage() {
                                     alt: "Student Ambassadors"
                                 }}
                                 body={
-                                    <div className="space-y-8 text-left">
-                                        <p className="text-sm font-bold text-black leading-relaxed">
+                                    <div className="space-y-6 text-left">
+                                        <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed">
                                             Our ambassadors represent different schools and programs. They are passionate about Cannoga and eager to share their experiences.
                                         </p>
                                         <Link 
                                             href="https://ourblogs.cannogacollege.ca/" 
-                                            className="inline-flex items-center gap-3 text-black font-bold underline hover:opacity-70 transition-all text-sm"
+                                            className="inline-flex items-center gap-3 text-black font-bold underline hover:opacity-70 transition-all text-base"
                                         >
-                                            Read their stories <ArrowRight size={16} weight="bold" />
+                                            Read their stories <ArrowRight size={18} weight="bold" />
                                         </Link>
                                     </div>
                                 }

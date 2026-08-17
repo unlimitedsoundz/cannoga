@@ -52,8 +52,8 @@ export default function MastersGuidePage() {
                 ]}
             >
 
-                <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl">
-                    <div className="space-y-20">
+                <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                    <div className="space-y-16 md:space-y-20">
                         {/* Intro */}
                         <section id="intro" className="scroll-mt-32">
                             <ContentBox
@@ -61,14 +61,14 @@ export default function MastersGuidePage() {
                                 title="Congratulations on Your Admission!"
                                 body={
                                     <div className="space-y-6 text-left">
-                                        <p className="text-aalto-3 text-black font-medium leading-relaxed">
+                                        <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed">
                                             Once your admission is confirmed, your school’s Learning Services team will be your main point of contact.
                                         </p>
                                         <div className="flex flex-wrap gap-6">
-                                            <Link href="/student-guide/international" className="text-xs font-bold underline hover:text-black uppercase tracking-widest">
+                                            <Link href="/student-guide/international" className="text-sm font-bold underline hover:text-black uppercase tracking-widest text-[#0a151a]">
                                                 International Info →
                                             </Link>
-                                            <Link href="/student-guide/arrival" className="text-xs font-bold underline hover:text-black uppercase tracking-widest">
+                                            <Link href="/student-guide/arrival" className="text-sm font-bold underline hover:text-black uppercase tracking-widest text-[#0a151a]">
                                                 Arrival Guide →
                                             </Link>
                                         </div>
@@ -78,21 +78,21 @@ export default function MastersGuidePage() {
                         </section>
 
                         {/* 1. Accept Admission */}
-                        <section id="accept" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">1. Accept Your Admission Offer</h2>
+                        <section id="accept" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">1. Accept Your Admission Offer</h2>
                             <ContentBox
                                 size="large"
                                 icon="calendar"
                                 title="Deadline: 5 June 2026"
                                 body={
-                                    <div className="space-y-8 text-left">
+                                    <div className="space-y-6 text-left">
                                         <p className="text-3xl font-bold text-black">15:00 (UTC +3)</p>
-                                        <p className="text-sm font-bold text-neutral-600 leading-relaxed">
+                                        <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
                                             Log in to the online study application service and follow instructions. Your acceptance is binding.
                                         </p>
                                         <div className="bg-neutral-100 p-6 rounded-xl border-l-4 border-[#0a151a]">
                                             <h4 className="font-bold text-lg mb-2">Important Conditions</h4>
-                                            <ul className="text-sm font-bold space-y-2">
+                                            <ul className="text-base md:text-lg text-slate-700 font-normal space-y-2">
                                                 <li>• You can accept only one study place in Ottawa, Ontario, Canada per term.</li>
                                                 <li>• Binding acceptance: strictly no cancellations after acceptance.</li>
                                             </ul>
@@ -103,8 +103,8 @@ export default function MastersGuidePage() {
                         </section>
 
                         {/* 2. Documents */}
-                        <section id="documents" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">2. Submit Certified Documents</h2>
+                        <section id="documents" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">2. Submit Certified Documents</h2>
                             <div className="grid md:grid-cols-2 gap-8">
                                 <Card
                                     title="Submission Deadline (Early)"
@@ -118,8 +118,8 @@ export default function MastersGuidePage() {
                         </section>
 
                         {/* 3. Tuition */}
-                        <section id="tuition" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">3. Tuition & Scholarships</h2>
+                        <section id="tuition" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">3. Tuition &amp; Scholarships</h2>
                             <div className="grid md:grid-cols-2 gap-8">
                                 <Card
                                     title="Tuition Fees"
@@ -134,8 +134,8 @@ export default function MastersGuidePage() {
                         </section>
 
                         {/* 4. Residence Permit */}
-                        <section id="residence" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">4. Residence Permit</h2>
+                        <section id="residence" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">4. Residence Permit</h2>
                             <div className="grid md:grid-cols-3 gap-6">
                                 <Card title="International Students" body="Apply for a Canadian study permit for studies immediately. Schedule your IRCC appointment early." />
                                 <Card title="Canada Citizens" body="No study permit required. Complete enrolment online and ensure your provincial health coverage (OHIP) is active." />
@@ -143,22 +143,22 @@ export default function MastersGuidePage() {
                         </section>
 
                         {/* 6. Enrolment */}
-                        <section id="enrolment" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">5. Enrol for the Academic Year</h2>
+                        <section id="enrolment" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">5. Enrol for the Academic Year</h2>
                             <ContentBox
                                 icon="identificationBadge"
                                 title="Enrolment Opens 18 May"
                                 body={
                                     <div className="space-y-6 text-left">
-                                        <p className="text-sm font-bold text-neutral-700 leading-relaxed">Apply for your chosen intake. September intake: October–February. January intake: June–September.</p>
+                                        <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">Apply for your chosen intake. September intake: October–February. January intake: June–September.</p>
                                         <div className="grid sm:grid-cols-2 gap-8">
                                             <div>
-                                                <h4 className="font-bold text-black mb-1">Attending</h4>
-                                                <p className="text-xs text-neutral-500 font-bold">Starting studies immediately with full rights.</p>
+                                                <h4 className="font-bold text-lg text-black mb-1">Attending</h4>
+                                                <p className="text-base md:text-lg text-slate-700 font-normal">Starting studies immediately with full rights.</p>
                                             </div>
                                             <div>
-                                                <h4 className="font-bold text-black mb-1">Non-attending</h4>
-                                                <p className="text-xs text-neutral-500 font-bold">Deferring for military or parental reasons.</p>
+                                                <h4 className="font-bold text-lg text-black mb-1">Non-attending</h4>
+                                                <p className="text-base md:text-lg text-slate-700 font-normal">Deferring for military or parental reasons.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -167,8 +167,8 @@ export default function MastersGuidePage() {
                         </section>
 
                         {/* 7. Housing */}
-                        <section id="housing" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-10 text-black tracking-tight">6. Apply for Student Housing</h2>
+                        <section id="housing" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">6. Apply for Student Housing</h2>
                             <Card
                                 title="Start Your Application"
                                  body="Apply as soon as you accept your study place. Queue times are long. Cannoga assists with the application process for student housing."
@@ -177,14 +177,14 @@ export default function MastersGuidePage() {
                         </section>
 
                         {/* 8. Arrival */}
-                        <section id="arrival" className="scroll-mt-32">
+                        <section id="arrival" className="scroll-mt-32 space-y-4">
                             <ContentBox
                                 size="large"
                                 icon="graduationCap"
                                 title="Arrival & Orientation"
                                 body={
-                                    <div className="space-y-8 text-left">
-                                        <p className="text-aalto-2 text-black font-medium leading-relaxed">
+                                    <div className="space-y-6 text-left">
+                                        <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
                                             Courses begin in late August. Plan to arrive before orientation activities start.
                                         </p>
                                         <div className="grid md:grid-cols-2 gap-8">
@@ -203,10 +203,10 @@ export default function MastersGuidePage() {
                         </section>
 
                         {/* Student Resource Hub */}
-                        <section id="resource-hub" className="scroll-mt-32 pt-8 border-t border-neutral-200">
-                            <div className="mb-6">
+                        <section id="resource-hub" className="scroll-mt-32 pt-8 border-t border-neutral-200 space-y-4">
+                            <div className="mb-4">
                                 <h2 className="text-aalto-5 font-bold mb-2 text-black tracking-tight">Student Resource Hub</h2>
-                                <p className="text-sm text-neutral-600 font-medium">Explore campus services, financial aid, health support, and student rights.</p>
+                                <p className="text-base md:text-lg text-slate-700 font-normal">Explore campus services, financial aid, health support, and student rights.</p>
                             </div>
                             <StudentResourceHubCarousel />
                         </section>

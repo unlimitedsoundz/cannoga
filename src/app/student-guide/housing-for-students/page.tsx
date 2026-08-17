@@ -1,4 +1,4 @@
-﻿import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { StepBadge } from '@/components/ui/StepBadge';
 import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
@@ -46,31 +46,31 @@ export default function HousingGuidePage() {
                 ]}
             >
 
-                <div className="cc-container py-8 md:py-12">
-                    <div className="space-y-10">
+                <div className="cc-container py-8 md:py-12 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                    <div className="space-y-10 md:space-y-14">
 
                         {/* Overview */}
-                        <section id="overview" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Your New Home in Ottawa</h2>
-                            <p className="text-neutral-600 leading-relaxed mb-4 max-w-3xl text-sm md:text-base font-medium">
+                        <section id="overview" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">Your New Home in Ottawa</h2>
+                            <p className="text-slate-700 leading-relaxed max-w-3xl text-base md:text-lg font-normal">
                                 Ottawa&apos;s student housing market is competitive — especially for September intake. We strongly recommend starting your search as soon as you receive your <Link href="/admissions/requirements" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">admission offer</Link>. Options range from on-campus residences and student-specific buildings to private rentals. Review our <Link href="/student-guide/arrival" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Arrival Guide</Link>, learn about <Link href="/international" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">international student support</Link>, or check <Link href="/admissions/tuition" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">tuition & fees</Link>.
                             </p>
-                            <div className="grid md:grid-cols-2 gap-4">
+                            <div className="grid md:grid-cols-2 gap-6 pt-2">
                                 <div>
-                                    <h3 className="font-bold text-base text-black mb-1">Shared Apartments</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">A cost-effective option where you have your own private bedroom but share the kitchen and common areas with 2–4 other students. Typical rent: $400–$600/month.</p>
+                                    <h3 className="font-bold text-lg md:text-xl text-black mb-1">Shared Apartments</h3>
+                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">A cost-effective option where you have your own private bedroom but share the kitchen and common areas with 2–4 other students. Typical rent: $400–$600/month.</p>
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-base text-black mb-1">Studio & Bachelor Apartments</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">A self-contained private apartment with your own kitchen and bathroom. Highly popular — expect a competitive rental market. Typical rent: $800–$1,200/month.</p>
+                                    <h3 className="font-bold text-lg md:text-xl text-black mb-1">Studio &amp; Bachelor Apartments</h3>
+                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">A self-contained private apartment with your own kitchen and bathroom. Highly popular — expect a competitive rental market. Typical rent: $800–$1,200/month.</p>
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-base text-black mb-1">On-Campus Residence</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">Limited spots available through Cannoga Housing and Ottawa-area student residence providers. Priority given to first-year and international students. Apply early via the housing portal.</p>
+                                    <h3 className="font-bold text-lg md:text-xl text-black mb-1">On-Campus Residence</h3>
+                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">Limited spots available through Cannoga Housing and Ottawa-area student residence providers. Priority given to first-year and international students. Apply early via the housing portal.</p>
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-base text-black mb-1">Homestay</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">Live with a local Ottawa family for a cultural immersion experience. Includes a private bedroom and often meals. Great for improving English and adjusting to Canadian life. Typical cost: $800–$1,200/month including meals.</p>
+                                    <h3 className="font-bold text-lg md:text-xl text-black mb-1">Homestay</h3>
+                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">Live with a local Ottawa family for a cultural immersion experience. Includes a private bedroom and often meals. Great for improving English and adjusting to Canadian life. Typical cost: $800–$1,200/month including meals.</p>
                                 </div>
                             </div>
                         </section>
@@ -82,36 +82,36 @@ export default function HousingGuidePage() {
                         />
 
                         {/* Providers */}
-                        <section id="providers" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Ottawa Student Housing Providers</h2>
-                            <div className="grid md:grid-cols-2 gap-4">
-                                <div className="space-y-1">
-                                   <h4 className="font-bold text-black text-base">Cannoga Housing</h4>
-                                   <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">Cannoga College&apos;s official student housing partner, offering on-campus and nearby residences with furnished rooms and shared facilities.</p>
-                                   <Link href="/housing" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Housing →</Link>
+                        <section id="providers" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">Ottawa Student Housing Providers</h2>
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                   <h4 className="font-bold text-black text-lg md:text-xl">Cannoga Housing</h4>
+                                   <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">Cannoga College&apos;s official student housing partner, offering on-campus and nearby residences with furnished rooms and shared facilities.</p>
+                                   <Link href="/housing" className="font-bold underline text-sm uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Housing →</Link>
                                 </div>
-                                <div className="space-y-1">
-                                   <h4 className="font-bold text-black text-base">CampusOne</h4>
-                                   <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">A modern student residence provider with properties near Ottawa campuses. Offers private and shared suites, study rooms, and social spaces.</p>
-                                   <Link href="https://www.campusone.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">campusone.ca →</Link>
+                                <div className="space-y-2">
+                                   <h4 className="font-bold text-black text-lg md:text-xl">CampusOne</h4>
+                                   <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">A modern student residence provider with properties near Ottawa campuses. Offers private and shared suites, study rooms, and social spaces.</p>
+                                   <Link href="https://www.campusone.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest hover:text-[#000000] transition-colors block">campusone.ca →</Link>
                                 </div>
-                                <div className="space-y-1">
-                                    <h4 className="font-bold text-black text-base">Minto</h4>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">A major Canadian rental housing provider with apartments across Ottawa. Look for Minto properties in Sandy Hill, Centretown, and other central neighbourhoods.</p>
-                                    <Link href="https://www.minto.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">minto.com →</Link>
+                                <div className="space-y-2">
+                                    <h4 className="font-bold text-black text-lg md:text-xl">Minto</h4>
+                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">A major Canadian rental housing provider with apartments across Ottawa. Look for Minto properties in Sandy Hill, Centretown, and other central neighbourhoods.</p>
+                                    <Link href="https://www.minto.com" target="_blank" className="font-bold underline text-sm uppercase tracking-widest hover:text-[#000000] transition-colors block">minto.com →</Link>
                                 </div>
-                                <div className="space-y-1">
-                                    <h4 className="font-bold text-black text-base">Homestay</h4>
-                                    <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">Live with a local Ottawa family for a cultural immersion experience. Includes a private bedroom and often meals. Great for improving English and adjusting to Canadian life.</p>
-                                    <Link href="/housing#homestay" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Homestay →</Link>
+                                <div className="space-y-2">
+                                    <h4 className="font-bold text-black text-lg md:text-xl">Homestay</h4>
+                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">Live with a local Ottawa family for a cultural immersion experience. Includes a private bedroom and often meals. Great for improving English and adjusting to Canadian life.</p>
+                                    <Link href="/housing#homestay" className="font-bold underline text-sm uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Homestay →</Link>
                                 </div>
                             </div>
                         </section>
 
                         {/* How to Apply */}
-                        <section id="applying" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">How to Secure Housing</h2>
-                            <div className="space-y-3 text-left">
+                        <section id="applying" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">How to Secure Housing</h2>
+                            <div className="space-y-4 text-left">
                                 {[
                                     {
                                         step: 1,
@@ -139,11 +139,11 @@ export default function HousingGuidePage() {
                                         desc: "If you prefer a family environment, apply through an accredited homestay provider. Homestay includes a private bedroom and often meals, making it easier to adjust to Canadian life and improve your English."
                                     },
                                 ].map(({ step, title, desc }) => (
-                                    <div key={step} className="flex gap-3 items-start">
+                                    <div key={step} className="flex gap-4 items-start">
                                     <StepBadge step={step} size="w-8 h-8" />
                                         <div>
-                                            <h4 className="font-bold text-black mb-0.5 text-sm md:text-base">{title}</h4>
-                                            <p className="text-xs md:text-sm text-neutral-600 leading-relaxed font-medium">{desc}</p>
+                                            <h4 className="font-bold text-black mb-1 text-base md:text-lg">{title}</h4>
+                                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">{desc}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -151,107 +151,107 @@ export default function HousingGuidePage() {
                         </section>
 
                         {/* Private Market */}
-                        <section id="private-market" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Private Rental Market</h2>
-                            <p className="text-neutral-600 leading-relaxed mb-4 max-w-3xl text-sm font-medium">
+                        <section id="private-market" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">Private Rental Market</h2>
+                            <p className="text-slate-700 leading-relaxed max-w-3xl text-base md:text-lg font-normal">
                                 The Ottawa private market offers many listings. Use these trusted Canadian platforms to search for rentals. Always visit (or arrange a video tour) before paying any deposit.
                             </p>
-                            <div className="grid md:grid-cols-3 gap-4">
+                            <div className="grid md:grid-cols-3 gap-6 pt-2">
                                 <div>
-                                    <h3 className="font-bold text-base mb-1 text-black">Rentals.ca</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed mb-2">Canada&apos;s most popular rental listing site with extensive Ottawa coverage. Filter by district, price, and size.</p>
-                                    <Link href="https://rentals.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Search on Rentals.ca →</Link>
+                                    <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Rentals.ca</h3>
+                                    <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed mb-2">Canada&apos;s most popular rental listing site with extensive Ottawa coverage. Filter by district, price, and size.</p>
+                                    <Link href="https://rentals.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Search on Rentals.ca →</Link>
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-base mb-1 text-black">Kijiji</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed mb-2">A major Canadian classifieds site for rental apartments and shared housing in Ottawa.</p>
-                                    <Link href="https://www.kijiji.ca" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Browse on Kijiji →</Link>
+                                    <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Kijiji</h3>
+                                    <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed mb-2">A major Canadian classifieds site for rental apartments and shared housing in Ottawa.</p>
+                                    <Link href="https://www.kijiji.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Browse on Kijiji →</Link>
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-base mb-1 text-black">PadMapper</h3>
-                                    <p className="text-xs md:text-sm text-neutral-600 font-medium leading-relaxed mb-2">Popular Canadian map-based rental search for apartments, rooms, and shared housing in Ottawa.</p>
-                                    <Link href="https://www.padmapper.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a]">Search on PadMapper →</Link>
+                                    <h3 className="font-bold text-lg md:text-xl mb-1 text-black">PadMapper</h3>
+                                    <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed mb-2">Popular Canadian map-based rental search for apartments, rooms, and shared housing in Ottawa.</p>
+                                    <Link href="https://www.padmapper.com" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Search on PadMapper →</Link>
                                 </div>
                             </div>
                         </section>
 
                         {/* Tenant Rights */}
-                        <section id="tenant-rights" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Tenant Rights in Ontario & Canada</h2>
+                        <section id="tenant-rights" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">Tenant Rights in Ontario &amp; Canada</h2>
                             <div className="space-y-4">
-                                <h3 className="text-base md:text-lg font-bold text-[#0a151a]">Residential Tenancies Act (RTA) Protections</h3>
-                                <p className="text-xs md:text-sm text-neutral-700 leading-relaxed font-medium">
+                                <h3 className="text-lg md:text-xl font-bold text-[#0a151a]">Residential Tenancies Act (RTA) Protections</h3>
+                                <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
                                     Rental housing in Ontario is strictly governed by the <strong>Residential Tenancies Act (RTA)</strong> and enforced by the <strong>Landlord and Tenant Board (LTB)</strong>. As a student tenant, you have key legal protections:
                                 </p>
-                                <div className="grid md:grid-cols-2 gap-4 pt-1">
+                                <div className="grid md:grid-cols-2 gap-6 pt-2">
                                     <div className="space-y-1">
-                                        <h4 className="font-bold text-[#0a151a] text-sm">
+                                        <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
                                             Standard Ontario Lease Form
                                         </h4>
-                                        <p className="text-xs text-neutral-600 leading-relaxed font-medium">
+                                        <p className="text-base text-slate-700 leading-relaxed font-normal">
                                             Landlords must use the official Ontario Standard Lease agreement. Any clauses contradicting the RTA are void.
                                         </p>
                                     </div>
                                     <div className="space-y-1">
-                                        <h4 className="font-bold text-[#0a151a] text-sm">
-                                            Deposits & Rent Guidelines
+                                        <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
+                                            Deposits &amp; Rent Guidelines
                                         </h4>
-                                        <p className="text-xs text-neutral-600 leading-relaxed font-medium">
+                                        <p className="text-base text-slate-700 leading-relaxed font-normal">
                                             Landlords may only collect first and last month&apos;s rent deposit. Security, damage, or key deposits exceeding key replacement costs are illegal.
                                         </p>
                                     </div>
                                     <div className="space-y-1">
-                                        <h4 className="font-bold text-[#0a151a] text-sm">
-                                            Rent Increase Caps & Notice
+                                        <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
+                                            Rent Increase Caps &amp; Notice
                                         </h4>
-                                        <p className="text-xs text-neutral-600 leading-relaxed font-medium">
+                                        <p className="text-base text-slate-700 leading-relaxed font-normal">
                                             Rent can only be increased once every 12 months, subject to annual provincial guidelines, with at least 90 days written notice.
                                         </p>
                                     </div>
                                     <div className="space-y-1">
-                                        <h4 className="font-bold text-[#0a151a] text-sm">
+                                        <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
                                             Protection Against Arbitrary Eviction
                                         </h4>
-                                        <p className="text-xs text-neutral-600 leading-relaxed font-medium">
+                                        <p className="text-base text-slate-700 leading-relaxed font-normal">
                                             A landlord cannot evict you without an official order from the Landlord and Tenant Board (LTB).
                                         </p>
                                     </div>
                                 </div>
                                 <div className="pt-2 flex flex-wrap items-center justify-between gap-2">
-                                    <span className="text-xs text-neutral-500 font-medium">Need legal housing assistance or advice?</span>
-                                    <Link href="https://tribunalsontario.ca/ltb/" target="_blank" className="font-bold underline text-xs uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">
-                                        Landlord and Tenant Board (LTB) <ArrowRight size={14} />
+                                    <span className="text-base text-slate-700 font-normal">Need legal housing assistance or advice?</span>
+                                    <Link href="https://tribunalsontario.ca/ltb/" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">
+                                        Landlord and Tenant Board (LTB) <ArrowRight size={16} />
                                     </Link>
                                 </div>
                             </div>
                         </section>
 
                         {/* Settling In */}
-                        <section id="settling-in" className="scroll-mt-32">
-                            <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Settling Into Ottawa Life</h2>
-                            <div className="space-y-3">
-                                <p className="text-xs md:text-sm text-neutral-700 leading-relaxed font-medium">
+                        <section id="settling-in" className="scroll-mt-32 space-y-4">
+                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">Settling Into Ottawa Life</h2>
+                            <div className="space-y-4">
+                                <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
                                     Ottawa is a welcoming, walkable city with four distinct seasons. Winters are cold (bring warm layers!) but beautiful, and summers are warm and festival-filled. Most apartment buildings include in-suite or shared laundry, and many are pet-friendly.
                                 </p>
-                                <ul className="space-y-1.5 text-xs md:text-sm text-neutral-700 font-medium">
+                                <ul className="space-y-2 text-base md:text-lg text-slate-700 font-normal">
                                     {[
                                         "Ottawa's Byward Market has fresh food, cafes, and local crafts",
                                         "Loblaws, Metro, and Sobeys are popular for affordable grocery shopping",
                                         "The OC Transpo bus and light rail network connect all major neighbourhoods",
                                         "Most landlords accept online bank transfers — Canadian banks like RBC, TD, and Scotiabank are common",
                                     ].map((tip, i) => (
-                                       <li key={i} className="flex gap-2 items-start">
-                                           <ArrowRight size={14} className="mt-1 shrink-0 text-[#0a151a]" />
+                                       <li key={i} className="flex gap-2.5 items-start">
+                                           <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
                                            <span>{tip}</span>
                                        </li>
-                                   ))}
+                                    ))}
                                 </ul>
                                 <div className="pt-2">
                                     <Link
                                         href="/student-guide/arrival"
-                                        className="inline-flex items-center gap-2 text-[#0a151a] font-bold text-xs uppercase tracking-widest underline hover:text-[#c89211] transition-colors"
+                                        className="inline-flex items-center gap-2 text-[#0a151a] font-bold text-sm uppercase tracking-widest underline hover:text-[#c89211] transition-colors"
                                     >
-                                        Read the Full Arrival Guide <ArrowRight size={14} />
+                                        Read the Full Arrival Guide <ArrowRight size={16} />
                                     </Link>
                                 </div>
                             </div>

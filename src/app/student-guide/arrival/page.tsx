@@ -58,16 +58,16 @@ export default function ArrivalGuidePage() {
                     </section>
 
                     {/* Arriving */}
-                    <section id="arriving" className="scroll-mt-32">
-                        <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Arriving in the Country</h2>
-                        <div className="space-y-3 text-left">
+                    <section id="arriving" className="scroll-mt-32 space-y-4">
+                        <h2 className="text-aalto-5 font-bold text-black tracking-tight">Arriving in the Country</h2>
+                        <div className="space-y-4 text-left">
                             {/* Border Procedures Overview with Large Image */}
                             <div className="grid md:grid-cols-12 gap-6 items-center my-4">
                                 <div className="md:col-span-6 lg:col-span-7 space-y-3">
                                     <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-black tracking-tight leading-tight">
                                         International Students: Border Clearance in Canada
                                     </h3>
-                                    <p className="text-sm md:text-base text-neutral-700 leading-relaxed font-medium">
+                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
                                         International students arriving in Ontario, Canada must carry essential identification documents in their carry-on luggage and complete standard border clearance procedures with Canada Border Services Agency (CBSA) at their initial Canadian port of entry.
                                     </p>
                                 </div>
@@ -83,32 +83,32 @@ export default function ArrivalGuidePage() {
                             </div>
 
                             {/* Essential Documents & Arrival Steps Grid */}
-                            <div className="grid md:grid-cols-2 gap-4 pt-1">
+                            <div className="grid md:grid-cols-2 gap-6 pt-2">
                                 <div className="flex flex-col justify-between">
                                     <div>
-                                        <h4 className="font-bold text-base mb-2 text-black flex items-center gap-2">
-                                            <span className="w-2 h-2 bg-[#0a151a] rounded-full inline-block" />
+                                        <h4 className="font-bold text-lg md:text-xl mb-3 text-black flex items-center gap-2">
+                                            <span className="w-2.5 h-2.5 bg-[#0a151a] rounded-full inline-block" />
                                             Essential Documents to Carry
                                         </h4>
-                                        <ul className="space-y-1.5 text-sm text-neutral-700 font-medium">
-                                            <li className="flex gap-2 items-start">
-                                                <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                        <ul className="space-y-2 text-base md:text-lg text-slate-700 font-normal">
+                                            <li className="flex gap-2.5 items-start">
+                                                <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
                                                 <span><strong>Valid Passport:</strong> Must remain valid for your entire stay.</span>
                                             </li>
-                                            <li className="flex gap-2 items-start">
-                                                <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                            <li className="flex gap-2.5 items-start">
+                                                <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
                                                 <span><strong>Port of Entry Letter of Introduction:</strong> Confirmation of study permit approval from IRCC.</span>
                                             </li>
-                                            <li className="flex gap-2 items-start">
-                                                <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                            <li className="flex gap-2.5 items-start">
+                                                <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
                                                 <span><strong>Letter of Acceptance (LOA):</strong> Official acceptance from Cannoga College.</span>
                                             </li>
-                                            <li className="flex gap-2 items-start">
-                                                <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                            <li className="flex gap-2.5 items-start">
+                                                <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
                                                 <span><strong>Provincial Attestation Letter (PAL):</strong> If applicable.</span>
                                             </li>
-                                            <li className="flex gap-2 items-start">
-                                                <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                            <li className="flex gap-2.5 items-start">
+                                                <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
                                                 <span><strong>Proof of Financial Support:</strong> GIC confirmation, bank statements, or scholarship letters.</span>
                                             </li>
                                         </ul>
@@ -117,20 +117,20 @@ export default function ArrivalGuidePage() {
 
                                 <div className="flex flex-col justify-between">
                                     <div>
-                                        <h4 className="font-bold text-base mb-2 text-black flex items-center gap-2">
-                                            <span className="w-2 h-2 bg-[#0a151a] rounded-full inline-block" />
+                                        <h4 className="font-bold text-lg md:text-xl mb-3 text-black flex items-center gap-2">
+                                            <span className="w-2.5 h-2.5 bg-[#0a151a] rounded-full inline-block" />
                                             Airport Clearance Process
                                         </h4>
-                                        <div className="space-y-2">
-                                            <div className="pl-3 border-l-2 border-neutral-300 space-y-0.5">
+                                        <div className="space-y-3">
+                                            <div className="pl-3 border-l-2 border-neutral-300 space-y-1">
                                                 <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Step 1: Customs</span>
-                                                <p className="text-sm font-bold text-black">CBSA Declaration Kiosk</p>
-                                                <p className="text-xs text-neutral-600">Complete your customs declaration at a airport kiosk or via the ArriveCAN app upon landing.</p>
+                                                <p className="text-base md:text-lg font-bold text-black">CBSA Declaration Kiosk</p>
+                                                <p className="text-base text-slate-700">Complete your customs declaration at a airport kiosk or via the ArriveCAN app upon landing.</p>
                                             </div>
-                                            <div className="pl-3 border-l-2 border-neutral-300 space-y-0.5">
+                                            <div className="pl-3 border-l-2 border-neutral-300 space-y-1">
                                                 <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Step 2: Permit Issuance</span>
-                                                <p className="text-sm font-bold text-black">Immigration Desk Interview</p>
-                                                <p className="text-xs text-neutral-600">Meet a border officer who will review your documents and issue your physical Study Permit paper document.</p>
+                                                <p className="text-base md:text-lg font-bold text-black">Immigration Desk Interview</p>
+                                                <p className="text-base text-slate-700">Meet a border officer who will review your documents and issue your physical Study Permit paper document.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -138,20 +138,20 @@ export default function ArrivalGuidePage() {
                             </div>
 
                             {/* Immediate Next Steps Row */}
-                            <div className="pt-1">
-                                <h4 className="font-bold text-base mb-1.5 text-black">Immediate Settlement Steps</h4>
-                                <div className="grid sm:grid-cols-3 gap-3">
+                            <div className="pt-2">
+                                <h4 className="font-bold text-lg md:text-xl mb-2 text-black">Immediate Settlement Steps</h4>
+                                <div className="grid sm:grid-cols-3 gap-4">
                                     <div>
-                                        <span className="font-bold text-sm block text-black mb-0.5">1. Social Insurance Number</span>
-                                        <p className="text-xs text-neutral-600 leading-relaxed">Apply for a SIN at Service Canada to work on or off campus legally.</p>
+                                        <span className="font-bold text-base md:text-lg block text-black mb-1">1. Social Insurance Number</span>
+                                        <p className="text-base text-slate-700 leading-relaxed font-normal">Apply for a SIN at Service Canada to work on or off campus legally.</p>
                                     </div>
                                     <div>
-                                        <span className="font-bold text-sm block text-black mb-0.5">2. Banking & Mobile</span>
-                                        <p className="text-xs text-neutral-600 leading-relaxed">Open a Canadian student bank account (RBC, TD, Scotiabank) and setup a local SIM.</p>
+                                        <span className="font-bold text-base md:text-lg block text-black mb-1">2. Banking & Mobile</span>
+                                        <p className="text-base text-slate-700 leading-relaxed font-normal">Open a Canadian student bank account (RBC, TD, Scotiabank) and setup a local SIM.</p>
                                     </div>
                                     <div>
-                                        <span className="font-bold text-sm block text-black mb-0.5">3. Transportation & Housing</span>
-                                        <p className="text-xs text-neutral-600 leading-relaxed">Confirm your housing address and familiarize with OC Transpo bus & O-Train routes.</p>
+                                        <span className="font-bold text-base md:text-lg block text-black mb-1">3. Transportation & Housing</span>
+                                        <p className="text-base text-slate-700 leading-relaxed font-normal">Confirm your housing address and familiarize with OC Transpo bus & O-Train routes.</p>
                                     </div>
                                 </div>
                             </div>
@@ -159,41 +159,41 @@ export default function ArrivalGuidePage() {
                     </section>
 
                     {/* Starting at Cannoga */}
-                    <section id="starting" className="scroll-mt-32">
-                        <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Starting at Cannoga</h2>
-                        <div className="space-y-3 text-left">
+                    <section id="starting" className="scroll-mt-32 space-y-4">
+                        <h2 className="text-aalto-5 font-bold text-black tracking-tight">Starting at Cannoga</h2>
+                        <div className="space-y-4 text-left">
                             {/* Intro Banner */}
                             <div>
-                                <h4 className="font-bold text-base mb-1 text-black">Welcome to Your First Week on Campus</h4>
-                                <p className="text-sm text-neutral-700 leading-relaxed font-medium">
+                                <h4 className="font-bold text-lg md:text-xl mb-1 text-black">Welcome to Your First Week on Campus</h4>
+                                <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
                                     Your first week at Cannoga College is designed to connect you with academic leaders, peer mentors, and essential campus resources so you can start your degree with confidence.
                                 </p>
                             </div>
 
                             {/* Detailed Grid: Orientation & Student Services */}
-                            <div className="grid md:grid-cols-2 gap-4 pt-1">
+                            <div className="grid md:grid-cols-2 gap-6 pt-2">
                                 {/* Orientation Week */}
                                 <div className="flex flex-col justify-between">
                                     <div>
-                                        <h4 className="font-bold text-base text-black mb-1">Orientation Week</h4>
-                                        <p className="text-sm text-neutral-600 mb-2 font-medium leading-relaxed">
+                                        <h4 className="font-bold text-lg md:text-xl text-black mb-2">Orientation Week</h4>
+                                        <p className="text-base md:text-lg text-slate-700 mb-3 font-normal leading-relaxed">
                                             Comprehensive orientation sessions help you understand your academic programme, meet faculty members, and master university platforms.
                                         </p>
-                                        <ul className="space-y-1.5 text-sm text-neutral-700 font-medium">
-                                            <li className="flex gap-2 items-start">
-                                                <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                        <ul className="space-y-2 text-base md:text-lg text-slate-700 font-normal">
+                                            <li className="flex gap-2.5 items-start">
+                                                <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
                                                 <span><strong>Faculty & Program Introductions:</strong> Meet your academic dean, program directors, and course instructors.</span>
                                             </li>
-                                            <li className="flex gap-2 items-start">
-                                                <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                            <li className="flex gap-2.5 items-start">
+                                                <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
                                                 <span><strong>Digital System Onboarding:</strong> Hands-on training for the SIS Portal, Moodle LMS, and student email.</span>
                                             </li>
-                                            <li className="flex gap-2 items-start">
-                                                <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                            <li className="flex gap-2.5 items-start">
+                                                <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
                                                 <span><strong>Campus ID & Library Access:</strong> Obtain your official Cannoga student card and digital library credentials.</span>
                                             </li>
-                                            <li className="flex gap-2 items-start">
-                                                <ArrowRight size={16} className="mt-1 shrink-0 text-[#0a151a]" />
+                                            <li className="flex gap-2.5 items-start">
+                                                <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
                                                 <span><strong>Peer Mentorship & Campus Tours:</strong> Connect with senior student ambassadors for guided campus exploration.</span>
                                             </li>
                                         </ul>
@@ -203,26 +203,26 @@ export default function ArrivalGuidePage() {
                                 {/* Student Support Services */}
                                 <div className="flex flex-col justify-between">
                                     <div>
-                                        <h4 className="font-bold text-base text-black mb-1">Student Support Services</h4>
-                                        <p className="text-sm text-neutral-600 mb-2 font-medium leading-relaxed">
+                                        <h4 className="font-bold text-lg md:text-xl text-black mb-2">Student Support Services</h4>
+                                        <p className="text-base md:text-lg text-slate-700 mb-3 font-normal leading-relaxed">
                                             Cannoga College provides a centralized network of specialized support services to guide your personal and academic progress.
                                         </p>
-                                        <div className="space-y-2">
+                                        <div className="space-y-3">
                                             <div className="pl-3 border-l-2 border-neutral-300">
-                                                <span className="font-bold text-sm text-black block">Academic Advising</span>
-                                                <span className="text-xs text-neutral-600">One-on-one course selection, transfer credit review, and degree audit planning.</span>
+                                                <span className="font-bold text-base md:text-lg text-black block">Academic Advising</span>
+                                                <span className="text-base text-slate-700">One-on-one course selection, transfer credit review, and degree audit planning.</span>
                                             </div>
                                             <div className="pl-3 border-l-2 border-neutral-300">
-                                                <span className="font-bold text-sm text-black block">International Student Desk</span>
-                                                <span className="text-xs text-neutral-600">Regulated Canadian Immigration Counselors (RCIC) for permit renewals and work eligibility.</span>
+                                                <span className="font-bold text-base md:text-lg text-black block">International Student Desk</span>
+                                                <span className="text-base text-slate-700">Regulated Canadian Immigration Counselors (RCIC) for permit renewals and work eligibility.</span>
                                             </div>
                                             <div className="pl-3 border-l-2 border-neutral-300">
-                                                <span className="font-bold text-sm text-black block">Wellbeing & Counseling</span>
-                                                <span className="text-xs text-neutral-600">Confidential mental health support, stress management workshops, and accessibility accommodations.</span>
+                                                <span className="font-bold text-base md:text-lg text-black block">Wellbeing & Counseling</span>
+                                                <span className="text-base text-slate-700">Confidential mental health support, stress management workshops, and accessibility accommodations.</span>
                                             </div>
                                             <div className="pl-3 border-l-2 border-neutral-300">
-                                                <span className="font-bold text-sm text-black block">Career & Co-op Center</span>
-                                                <span className="text-xs text-neutral-600">Resume building, mock interviews, co-op placement advising, and employer networking.</span>
+                                                <span className="font-bold text-base md:text-lg text-black block">Career & Co-op Center</span>
+                                                <span className="text-base text-slate-700">Resume building, mock interviews, co-op placement advising, and employer networking.</span>
                                             </div>
                                         </div>
                                     </div>
@@ -232,18 +232,18 @@ export default function ArrivalGuidePage() {
                     </section>
 
                     {/* Success / Living */}
-                    <section id="living" className="scroll-mt-32">
-                        <h2 className="text-aalto-5 font-bold mb-3 text-black tracking-tight">Living & Studying</h2>
-                        <div className="grid md:grid-cols-2 gap-4">
+                    <section id="living" className="scroll-mt-32 space-y-4">
+                        <h2 className="text-aalto-5 font-bold text-black tracking-tight">Living & Studying</h2>
+                        <div className="grid md:grid-cols-2 gap-6">
                             <div className="py-2">
-                                <h3 className="font-bold text-lg text-black mb-1">Academic Life</h3>
-                                <p className="text-sm text-neutral-700 leading-relaxed font-medium">
+                                <h3 className="font-bold text-lg md:text-xl text-black mb-1">Academic Life</h3>
+                                <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
                                     Attend classes regularly, use digital platforms, and manage your time effectively between lectures and independent study.
                                 </p>
                             </div>
                             <div className="py-2">
-                                <h3 className="font-bold text-lg text-black mb-1">Stay Connected</h3>
-                                <p className="text-sm text-neutral-700 leading-relaxed font-medium">
+                                <h3 className="font-bold text-lg md:text-xl text-black mb-1">Stay Connected</h3>
+                                <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
                                     Check your Cannoga email and student portal regularly for updates, schedules, and important announcements.
                                 </p>
                             </div>
