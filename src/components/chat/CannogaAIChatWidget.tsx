@@ -249,7 +249,7 @@ export function CannogaAIChatWidget() {
                     ? 'bottom-20 right-4 sm:bottom-24 sm:right-6 z-[99990]'
                     : 'bottom-4 right-4 sm:bottom-6 sm:right-6 z-[99990]'
         }`}>
-            {/* 1. Closed Floating Widget Button */}
+            {/* 1. Closed Floating Widget Button (Icon Only) */}
             {!isOpen && (
                 <div className="relative group">
                     <button
@@ -257,19 +257,15 @@ export function CannogaAIChatWidget() {
                             setIsOpen(true);
                             setHasUnread(false);
                         }}
-                        aria-label="Open Ask Cannoga"
-                        className="relative flex items-center gap-2 bg-[#0a151a] hover:bg-black text-white px-4 py-3 rounded-full shadow-2xl border border-slate-700/60 hover:border-slate-500 transition-all duration-300 transform hover:scale-105"
+                        aria-label="Open Ask Cannoga AI Chat"
+                        title="Ask Cannoga AI"
+                        className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-[#0a151a] hover:bg-black text-white rounded-full shadow-2xl border border-slate-700/60 hover:border-slate-500 transition-all duration-300 transform hover:scale-105"
                     >
-                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white text-[#0a151a] shadow-sm">
-                            <ChatCircleDots size={16} weight="bold" />
-                        </div>
-                        <div className="text-left">
-                            <div className="text-xs sm:text-sm font-bold text-white tracking-wide">Ask Cannoga</div>
-                        </div>
+                        <ChatCircleDots size={26} weight="bold" className="text-white" />
 
                         {/* Unread indicator */}
                         {hasUnread && (
-                            <span className="w-2.5 h-2.5 bg-blue-500 rounded-full border-2 border-[#0a151a]" />
+                            <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-blue-500 rounded-full border-2 border-[#0a151a]" />
                         )}
                     </button>
                 </div>
