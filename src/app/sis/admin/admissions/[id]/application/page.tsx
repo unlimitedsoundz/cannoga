@@ -881,17 +881,17 @@ export default function AdmissionApplicationPage() {
                   {availablePurposes.length > 0 ? (
                     availablePurposes.map(p => (
                       <option key={p.id || p.code} value={p.code}>
-                        {p.name} {p.default_amount ? `($${Number(p.default_amount).toLocaleString()} CAD)` : '(Custom Amount)'}
+                        {p.name} (Custom Amount)
                       </option>
                     ))
                   ) : (
                     <>
-                      <option value="TUITION_DEPOSIT">Tuition Deposit ($2,000 CAD)</option>
-                      <option value="1ST_YEAR_TUITION">1st Year Tuition (Full)</option>
-                      <option value="TUITION_FULL">Full Tuition Fee</option>
-                      <option value="ANCILLARY">Ancillary Fees ($700 CAD)</option>
-                      <option value="RESIDENCE_RENT">Residence / Housing Rent</option>
-                      <option value="GRADUATION_FEE">Graduation Fee</option>
+                      <option value="TUITION_DEPOSIT">Tuition Deposit (Custom Amount)</option>
+                      <option value="1ST_YEAR_TUITION">1st Year Tuition (Custom Amount)</option>
+                      <option value="TUITION_FULL">Full Tuition Fee (Custom Amount)</option>
+                      <option value="ANCILLARY">Ancillary Fees (Custom Amount)</option>
+                      <option value="RESIDENCE_RENT">Residence / Housing Rent (Custom Amount)</option>
+                      <option value="GRADUATION_FEE">Graduation Fee (Custom Amount)</option>
                     </>
                   )}
                 </select>
