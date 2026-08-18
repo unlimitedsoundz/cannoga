@@ -229,14 +229,20 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                 </div>
             </div>
 
-            {/* Payment History & Receipts */}
-            {payments.length > 0 && (
-                <div className="mb-8 px-2 md:px-0">
-                    <div className="bg-white border border-neutral-200 rounded-xl shadow-sm p-6">
-                        <h3 className="text-sm font-bold text-black uppercase tracking-widest mb-4">Payment History & Receipts</h3>
-                        <div className="space-y-2">
-                            {payments.map((payment: any) => (
-                                <div key={payment.id} className="flex items-center justify-between p-4 border border-neutral-200 rounded-xl">
+            {/* Payment History & Receipts (Completed, Verified, or Submitted Payments only) */}
+            {(() => {
+                const verifiedPayments = payments.filter((p: any) => 
+                    p.status && !['pending_proof', 'PENDING_PROOF', 'CANCELLED', 'FAILED'].includes(p.status)
+                );
+                if (verifiedPayments.length === 0) return null;
+
+                return (
+                    <div className="mb-8 px-2 md:px-0">
+                        <div className="bg-white border border-neutral-200 rounded-xl shadow-sm p-6">
+                            <h3 className="text-sm font-bold text-black uppercase tracking-widest mb-4">Payment History & Receipts</h3>
+                            <div className="space-y-2">
+                                {verifiedPayments.map((payment: any) => (
+                                    <div key={payment.id} className="flex items-center justify-between p-4 border border-neutral-200 rounded-xl">
                                     <div>
                                         <p className="text-sm font-bold text-black">{payment.invoice_type?.replaceAll('_', ' ') || 'Payment'}</p>
                                         <p className="text-[11px] text-neutral-500">{formatToDDMMYYYY(payment.created_at)}</p>
@@ -265,7 +271,8 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                         </div>
                     </div>
                 </div>
-            )}
+            );
+        })()}
 
             <div className="grid lg:grid-cols-12 gap-6 lg:gap-12 items-start">
                 {/* Invoice & Summary */}
