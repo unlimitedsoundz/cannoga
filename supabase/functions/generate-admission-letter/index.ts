@@ -365,8 +365,8 @@ serve(async (req: any) => {
             page.drawRectangle({ x: margin, y: y - 5, width: cw, height: 40, color: rgb(0.97, 0.97, 0.97) });
             
             // Deposit Row
-            page.drawText('Tuition Deposit (50% to Secure Place)', { x: margin + 10, y, size: 10, font: boldFont, color: black });
-            const duet = `\u20AC${computedDeposit.toLocaleString()} CAD`;
+            page.drawText('Tuition Deposit', { x: margin + 10, y, size: 10, font: boldFont, color: black });
+            const duet = `$${computedDeposit.toLocaleString()} CAD`;
             const duew = boldFont.widthOfTextAtSize(duet, 10);
             page.drawText(duet, { x: width - margin - 10 - duew, y, size: 10, font: boldFont, color: black });
             
