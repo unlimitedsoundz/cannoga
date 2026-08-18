@@ -6,7 +6,7 @@ import { createClient } from '@/utils/supabase/client';
 import PayGoWireCheckout from './PayGoWireCheckout';
 import { getProgramYears, ANCILLARY_FEES, ANCILLARY_FEES_TOTAL } from '@/utils/tuition';
 import Image from 'next/image';
-import { FileText, Clock, CheckCircle, CreditCard, ArrowLeft } from "@phosphor-icons/react";
+import { FileText, Clock, CheckCircle, CreditCard, ArrowLeft, CaretDown } from "@phosphor-icons/react";
 import { formatToDDMMYYYY } from '@/utils/date';
 
 export default function TuitionPaymentPage({ admissionOffer, application }: {
@@ -17,6 +17,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
     const router = useRouter();
     const [isProcessing, setIsProcessing] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [isBreakdownOpen, setIsBreakdownOpen] = useState(false);
     
     // Admin-pushed invoice values
     const finalAmount = admissionOffer.tuition_fee || 0;
@@ -156,34 +157,56 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                 </div>
             </div>
 
-            {/* Tuition Breakdown */}
+            {/* Tuition Breakdown Collapsible Accordion */}
             <div className="mb-8 px-2 md:px-0">
-                <div className="bg-white border border-neutral-200 rounded-xl shadow-sm p-6">
-                    <h3 className="text-sm font-bold text-black uppercase tracking-widest mb-4">Tuition Breakdown</h3>
-                    <div className="space-y-3">
-                        <div className="flex justify-between text-sm">
-                            <span className="text-neutral-600">Base Tuition ({invoiceTypeLabel})</span>
-                            <span className="font-bold text-black">${Number(finalAmount).toLocaleString()} CAD</span>
+                <div className="bg-white border border-neutral-200 rounded-xl shadow-sm overflow-hidden">
+                    <button
+                        type="button"
+                        onClick={() => setIsBreakdownOpen(!isBreakdownOpen)}
+                        className="w-full p-6 text-left flex items-center justify-between hover:bg-neutral-50/60 transition-colors cursor-pointer"
+                    >
+                        <div>
+                            <h3 className="text-sm font-bold text-black uppercase tracking-widest">Tuition Breakdown</h3>
+                            <p className="text-xs text-neutral-500 mt-0.5">
+                                Total Due: <strong className="text-black font-bold">${invoiceTotal.toLocaleString()} CAD</strong>
+                            </p>
                         </div>
-                        {includeAncillary && (
-                            <>
-                                {ancillaryFees.map((fee, idx) => (
-                                    <div key={idx} className="flex justify-between text-sm">
-                                        <span className="text-neutral-600">{fee.name}</span>
-                                        <span className="text-black">${fee.amount} CAD</span>
+                        <div className="flex items-center gap-3">
+                            <span className="text-xs font-semibold text-neutral-600 hidden sm:inline">
+                                {isBreakdownOpen ? 'Hide Details' : 'View Itemized Fees'}
+                            </span>
+                            <div className={`w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center transition-transform duration-200 ${isBreakdownOpen ? 'rotate-180 bg-neutral-100' : 'bg-white'}`}>
+                                <CaretDown size={14} weight="bold" className="text-neutral-700" />
+                            </div>
+                        </div>
+                    </button>
+
+                    {isBreakdownOpen && (
+                        <div className="px-6 pb-6 pt-2 border-t border-neutral-100 space-y-3 bg-neutral-50/40">
+                            <div className="flex justify-between text-sm py-1">
+                                <span className="text-neutral-700 font-medium">Base Tuition ({invoiceTypeLabel})</span>
+                                <span className="font-bold text-black">${Number(finalAmount).toLocaleString()} CAD</span>
+                            </div>
+                            {includeAncillary && (
+                                <>
+                                    {ancillaryFees.map((fee, idx) => (
+                                        <div key={idx} className="flex justify-between text-xs py-0.5 text-neutral-600">
+                                            <span>{fee.name}</span>
+                                            <span>${fee.amount} CAD</span>
+                                        </div>
+                                    ))}
+                                    <div className="flex justify-between text-xs pt-2 border-t border-neutral-200 font-medium text-neutral-800">
+                                        <span>Total Ancillary Fees</span>
+                                        <span>${totalAncillary.toLocaleString()} CAD</span>
                                     </div>
-                                ))}
-                                <div className="flex justify-between text-sm pt-2 border-t border-neutral-100">
-                                    <span className="text-neutral-600">Total Ancillary Fees</span>
-                                    <span className="font-bold text-black">${totalAncillary.toLocaleString()} CAD</span>
-                                </div>
-                            </>
-                        )}
-                        <div className="flex justify-between text-base pt-3 border-t-2 border-black">
-                            <span className="font-bold text-black">Total Due</span>
-                            <span className="font-bold text-black">${invoiceTotal.toLocaleString()} CAD</span>
+                                </>
+                            )}
+                            <div className="flex justify-between text-base pt-3 border-t-2 border-black">
+                                <span className="font-bold text-black">Total Due</span>
+                                <span className="font-black text-black">${invoiceTotal.toLocaleString()} CAD</span>
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
 
