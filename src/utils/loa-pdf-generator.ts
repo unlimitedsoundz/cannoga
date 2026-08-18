@@ -85,9 +85,9 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
   const dueDate1 = new Date(issueDateObj);
   dueDate1.setDate(dueDate1.getDate() + 14);
   const dueDate2 = new Date(dueDate1);
-  dueDate2.setDate(dueDate2.getDate() + 14);
+  dueDate2.setMonth(dueDate2.getMonth() + 3);
   const dueDate3 = new Date(dueDate2);
-  dueDate3.setDate(dueDate3.getDate() + 14);
+  dueDate3.setMonth(dueDate3.getMonth() + 3);
   const dueDate1Label = dueDate1.toLocaleDateString('en-CA');
   const dueDate2Label = dueDate2.toLocaleDateString('en-CA');
   const dueDate3Label = dueDate3.toLocaleDateString('en-CA');
@@ -108,7 +108,7 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
       logoUrl: logoUrl || 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/logo-cannoga.png',
       campus: 'Ottawa',
       address: '81 Montreal Road, Ottawa, Ontario, K1L 6E8, Canada',
-      phone: '+1 (613) 555-0181',
+      phone: '+1 782 206-3309',
       email: 'admissions@cannogacollege.ca',
       type: schoolType,
       website: 'cannogacollege.ca',

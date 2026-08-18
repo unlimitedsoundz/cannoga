@@ -182,12 +182,12 @@ serve(async (req: any) => {
         // =====================================================
         // SECTION 1: HEADER — Institution + Address
         // =====================================================
-        page.drawText('HEFFRING UNIVERSITY', { x: margin, y, size: 14, font: boldFont, color: black });
+        page.drawText('CANNOGA COLLEGE', { x: margin, y, size: 14, font: boldFont, color: black });
         y -= 16;
         page.drawText('\u2013 Ottawa campus', { x: margin, y, size: 9, font: regularFont, color: darkGrey });
 
         // Right-aligned address
-        const addr = ['81 Montreal Rd', 'K1L 6E8 Ottawa, Ontario, Canada', 'Phone: +358 09 42721884', 'cannogacollege.ca', 'admissions@cannogacollege.ca'];
+        const addr = ['81 Montreal Rd', 'K1L 6E8 Ottawa, Ontario, Canada', 'Phone: +1 782 206-3309', 'cannogacollege.ca', 'admissions@cannogacollege.ca'];
         let ay = height - margin;
         for (const line of addr) {
             const lw = regularFont.widthOfTextAtSize(line, 8);
