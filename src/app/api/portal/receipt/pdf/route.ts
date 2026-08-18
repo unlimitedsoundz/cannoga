@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/utils/supabase/server';
+import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import { renderToBuffer } from '@react-pdf/renderer';
 import React from 'react';
 import ReceiptPDF from '@/components/portal/pdf/ReceiptPDF';
@@ -14,47 +15,46 @@ export async function GET(request: NextRequest) {
     }
 
     const supabase = await createServerClient();
+    const adminSupabase = createServiceRoleClient();
 
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    let payment = null;
-    let paymentError = null;
+    let payment: any = null;
 
-    const { data: paymentById, error: errorById } = await supabase
-      .from('tuition_payments')
-      .select(`
-        *,
+    const query = `
+      *,
+      offer:admission_offers(
+        id,
+        tuition_fee,
+        status,
         application:applications(
           *,
           course:Course(*, school:School(*)),
           user:profiles(*),
           personal_info:profiles(*)
         )
-      `)
+      )
+    `;
+
+    const { data: paymentById, error: errorById } = await adminSupabase
+      .from('tuition_payments')
+      .select(query)
       .eq('id', paymentId)
       .maybeSingle();
 
     if (paymentById && !errorById) {
       payment = paymentById;
     } else {
-      const { data: paymentByRef, error: errorByRef } = await supabase
+      const { data: paymentByRef } = await adminSupabase
         .from('tuition_payments')
-        .select(`
-          *,
-          application:applications(
-            *,
-            course:Course(*, school:School(*)),
-            user:profiles(*),
-            personal_info:profiles(*)
-          )
-        `)
+        .select(query)
         .eq('transaction_reference', paymentId)
         .maybeSingle();
 
-      if (paymentByRef && !errorByRef) {
+      if (paymentByRef) {
         payment = paymentByRef;
       }
     }
@@ -63,49 +63,60 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Payment not found' }, { status: 404 });
     }
 
-    const pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(ReceiptPDF, { application: payment.application, payment }) as any));
+    const resolvedApplication = payment.offer?.application || payment.application;
+
+    const pdfBuffer = Buffer.from(
+      await renderToBuffer(
+        React.createElement(ReceiptPDF, {
+          application: resolvedApplication,
+          payment: { ...payment, application: resolvedApplication }
+        }) as any
+      )
+    );
 
     try {
-        const fileName = `receipt-${payment.transaction_reference || payment.id}.pdf`;
-        const storagePath = `student-documents/${payment.application.user_id}/${fileName}`;
+        if (resolvedApplication?.user_id) {
+            const fileName = `receipt-${payment.transaction_reference || payment.id}.pdf`;
+            const storagePath = `student-documents/${resolvedApplication.user_id}/${fileName}`;
 
-        const { error: uploadError } = await supabase.storage
-            .from('application-documents')
-            .upload(storagePath, pdfBuffer, {
-                contentType: 'application/pdf',
-                upsert: true,
-            });
-
-        if (!uploadError) {
-            const { data: { publicUrl } } = supabase.storage
+            const { error: uploadError } = await adminSupabase.storage
                 .from('application-documents')
-                .getPublicUrl(storagePath);
+                .upload(storagePath, pdfBuffer, {
+                    contentType: 'application/pdf',
+                    upsert: true,
+                });
 
-            const { data: student } = await supabase
-                .from('students')
-                .select('id')
-                .eq('user_id', payment.application.user_id)
-                .maybeSingle();
+            if (!uploadError) {
+                const { data: { publicUrl } } = adminSupabase.storage
+                    .from('application-documents')
+                    .getPublicUrl(storagePath);
 
-            if (student) {
-                await supabase.from('document_records').upsert({
-                    student_id: student.id,
-                    document_type: 'tuition_receipt',
-                    title: `Tuition Receipt - ${payment.transaction_reference || payment.id}`,
-                    programme: payment.application.course?.title || '',
-                    status: 'issued',
-                    storage_path: publicUrl,
-                    is_official: true,
-                    is_student_visible: true,
-                    issue_date: new Date().toISOString(),
-                    metadata: {
-                        payment_id: payment.id,
-                        transaction_reference: payment.transaction_reference,
-                        amount: payment.amount,
-                        invoice_type: payment.invoice_type,
-                        payment_method: payment.payment_method,
-                    },
-                }, { onConflict: 'student_id,document_type' });
+                const { data: student } = await adminSupabase
+                    .from('students')
+                    .select('id')
+                    .eq('user_id', resolvedApplication.user_id)
+                    .maybeSingle();
+
+                if (student) {
+                    await adminSupabase.from('document_records').upsert({
+                        student_id: student.id,
+                        document_type: 'tuition_receipt',
+                        title: `Tuition Receipt - ${payment.transaction_reference || payment.id}`,
+                        programme: resolvedApplication.course?.title || '',
+                        status: 'issued',
+                        storage_path: publicUrl,
+                        is_official: true,
+                        is_student_visible: true,
+                        issue_date: new Date().toISOString(),
+                        metadata: {
+                            payment_id: payment.id,
+                            transaction_reference: payment.transaction_reference,
+                            amount: payment.amount,
+                            invoice_type: payment.invoice_type,
+                            payment_method: payment.payment_method,
+                        },
+                    }, { onConflict: 'student_id,document_type' });
+                }
             }
         }
     } catch (dbError) {
