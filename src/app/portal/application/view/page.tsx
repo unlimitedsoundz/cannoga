@@ -33,8 +33,6 @@ function ViewApplicationContent() {
     const [actionMessage, setActionMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
     const [palDocument, setPalDocument] = useState<any>(null);
     const [receiptDocument, setReceiptDocument] = useState<any>(null);
-    const [showUploadModal, setShowUploadModal] = useState(false);
-    const [modalDocType, setModalDocType] = useState<string>('TRANSCRIPT');
 
     useEffect(() => {
         async function loadData() {
@@ -396,12 +394,15 @@ function ViewApplicationContent() {
 
     const requestedDocList: string[] = Array.isArray(application.requested_documents) ? application.requested_documents : [];
 
-    const requirements = requestedDocList.length > 0
+    const matchedRequirements = requestedDocList.length > 0
         ? standardRequirements.filter(r => requestedDocList.includes(r.uploadType) || requestedDocList.includes(r.id))
         : standardRequirements;
 
-    const selectedRequirement = requirements.find((req) => req.id === selectedRequirementId || req.uploadType === selectedRequirementId) || requirements[0];
+    const requirements = matchedRequirements.length > 0 ? matchedRequirements : standardRequirements;
+
+    const selectedRequirement = requirements.find((req) => req.id === selectedRequirementId || req.uploadType === selectedRequirementId) || requirements[0] || standardRequirements[0];
     const selectedDocs = application.documents?.filter((doc: any) => {
+        if (!selectedRequirement) return false;
         if (selectedRequirement.uploadType === 'TRANSCRIPT') {
             return ['TRANSCRIPT', 'CERTIFICATE'].includes(doc.type?.toUpperCase());
         }
@@ -482,11 +483,11 @@ function ViewApplicationContent() {
             {/* Notifications */}
             <div className="space-y-2">
                 {application.status === 'DOCS_REQUIRED' && (
-                    <div className="border border-neutral-200 bg-white p-4 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
-                        <div className="space-y-1 flex-1">
+                    <div className="border border-neutral-200 bg-white p-4 rounded-xl shadow-sm">
+                        <div className="space-y-1">
                             <p className="text-[11px] font-black text-black uppercase tracking-[0.18em]">Action Required: Documents Needed</p>
                             <p className="text-xs text-neutral-600">
-                                Additional documents have been requested by the Admissions Office.
+                                Additional documents have been requested by the Admissions Office. Please upload the required documents below to continue processing your application.
                                 {application.document_request_note && ` Note: "${application.document_request_note}"`}
                             </p>
                             {requestedDocList.length > 0 && (
@@ -499,17 +500,6 @@ function ViewApplicationContent() {
                                 </div>
                             )}
                         </div>
-                        <button
-                            onClick={() => {
-                                const defaultType = requestedDocList[0] || 'TRANSCRIPT';
-                                setModalDocType(defaultType);
-                                setShowUploadModal(true);
-                            }}
-                            className="shrink-0 px-4 py-2 bg-black hover:bg-neutral-800 text-white rounded-lg text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer"
-                        >
-                            <UploadSimple size={14} weight="bold" />
-                            Upload Documents
-                        </button>
                     </div>
                 )}
 
@@ -762,7 +752,7 @@ function ViewApplicationContent() {
                     )}
 
                     {/* Document Upload */}
-                    {!allRequiredUploaded && application.status !== 'ENROLLED' && (
+                    {(application.status === 'DOCS_REQUIRED' || (!allRequiredUploaded && application.status !== 'ENROLLED')) && (
                         <section className="bg-white border border-neutral-200 rounded-xl shadow-sm overflow-hidden p-4">
                             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
                                 <div>
@@ -928,90 +918,6 @@ function ViewApplicationContent() {
                     </section>
                 </main>
             </div>
-
-            {/* Re-upload Requested Documents Modal */}
-            {showUploadModal && (
-                <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl border border-neutral-200 shadow-2xl max-w-lg w-full p-6 space-y-4">
-                        <div className="flex items-center justify-between pb-3 border-b border-neutral-100">
-                            <div>
-                                <h3 className="text-base font-bold text-black uppercase tracking-tight">Upload Requested Document</h3>
-                                <p className="text-xs text-neutral-500 mt-0.5">Submit your file directly to fulfill your admission requirements.</p>
-                            </div>
-                            <button
-                                onClick={() => setShowUploadModal(false)}
-                                className="text-neutral-400 hover:text-black text-xs font-bold uppercase tracking-wider p-1 cursor-pointer"
-                            >
-                                ✕
-                            </button>
-                        </div>
-
-                        {application.document_request_note && (
-                            <div className="p-3 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-800">
-                                <span className="font-bold block mb-0.5 text-neutral-900">Note from Admissions:</span>
-                                "{application.document_request_note}"
-                            </div>
-                        )}
-
-                        <div>
-                            <label className="block text-xs font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
-                                Select Document Category <span className="text-red-500">*</span>
-                            </label>
-                            <select
-                                value={modalDocType}
-                                onChange={(e) => setModalDocType(e.target.value)}
-                                className="w-full px-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-200 text-neutral-900 rounded-xl focus:border-black focus:outline-none cursor-pointer"
-                            >
-                                {requirements.map((req) => (
-                                    <option key={req.id} value={req.uploadType}>
-                                        {req.title} {req.submitted ? '(Already Submitted)' : '(Required)'}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div className="rounded-2xl border border-neutral-200 p-4 bg-neutral-50">
-                            <label htmlFor="modal-document-upload" className="group flex min-h-[140px] flex-col items-center justify-center rounded-xl border border-dashed border-neutral-300 bg-white p-6 text-center transition hover:border-black hover:bg-neutral-50 cursor-pointer">
-                                <UploadSimple className="text-neutral-400 group-hover:text-black" size={28} />
-                                <p className="mt-3 text-sm font-semibold text-black">Drag & drop your file here, or click to browse</p>
-                                <p className="mt-1 text-xs text-neutral-500">Accepted: PDF, JPG, PNG (Max 10MB)</p>
-                                <input
-                                    id="modal-document-upload"
-                                    type="file"
-                                    accept=".pdf,.jpg,.jpeg,.png"
-                                    className="sr-only"
-                                    onChange={async (event) => {
-                                        await handleUpload(event, modalDocType);
-                                        setShowUploadModal(false);
-                                    }}
-                                    disabled={!!uploadingType}
-                                />
-                            </label>
-
-                            {uploadingType && (
-                                <div className="mt-3 rounded-lg bg-white px-3 py-2 text-xs font-medium text-neutral-700 border border-neutral-200">
-                                    Uploading document...
-                                </div>
-                            )}
-
-                            {uploadError && (
-                                <div className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-600 border border-red-200">
-                                    {uploadError}
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="flex justify-end gap-2 pt-2 border-t border-neutral-100">
-                            <button
-                                onClick={() => setShowUploadModal(false)}
-                                className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-600 hover:text-black transition-colors rounded-xl cursor-pointer"
-                            >
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
