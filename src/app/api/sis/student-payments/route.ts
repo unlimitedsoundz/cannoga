@@ -93,6 +93,22 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ payments: [], receipts: [], error: 'Failed to fetch payments' }, { status: 500 });
     }
 
+    // Fetch official receipt PDFs from document_records for these payments / students
+    let receiptDocs: any[] = [];
+    try {
+        const studentIds = [student?.id, ...(payments || []).map((p: any) => p.student_id)].filter(Boolean);
+        if (studentIds.length > 0) {
+            const { data: docRecords } = await adminClient
+                .from('document_records')
+                .select('id, student_id, document_type, title, storage_path, metadata')
+                .eq('document_type', 'tuition_receipt')
+                .in('student_id', studentIds);
+            receiptDocs = docRecords || [];
+        }
+    } catch (docErr) {
+        console.warn('Error fetching receipt doc records:', docErr);
+    }
+
     // Transform payments into verified receipts if status is completed/verified
     const verifiedReceipts = (payments || [])
         .filter((p: any) => {
@@ -111,6 +127,19 @@ export async function GET(request: NextRequest) {
             const localAmount = p.local_amount || fx.localAmount || null;
             const localCurrency = p.local_currency || fx.localCurrency || (p.payment_method === 'ng_bank' ? 'NGN' : null);
 
+            // Find matching PDF from document_records table
+            const matchingDoc = receiptDocs.find((doc: any) => 
+                doc.metadata?.payment_id === p.id ||
+                doc.metadata?.transaction_reference === p.transaction_reference ||
+                (p.wire_tracking_ref && doc.metadata?.transaction_reference === p.wire_tracking_ref) ||
+                (doc.storage_path && (
+                    doc.storage_path.includes(p.id) || 
+                    (p.transaction_reference && doc.storage_path.includes(p.transaction_reference))
+                ))
+            );
+
+            const pdfUrl = matchingDoc?.storage_path || `/api/portal/receipt/pdf?paymentId=${p.id}`;
+
             return {
                 receipt_number: receiptNum,
                 payment_reference: rawRef,
@@ -120,6 +149,7 @@ export async function GET(request: NextRequest) {
                 local_currency: localCurrency,
                 issued_at: p.created_at,
                 payment_id: p.id,
+                pdf_url: pdfUrl,
                 application_id: student?.application_id || (appIds.length > 0 ? appIds[0] : undefined)
             };
         });

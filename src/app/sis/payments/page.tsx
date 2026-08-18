@@ -447,18 +447,14 @@ export default function PaymentsPage() {
                                                 </td>
                                                 <td className="p-3 text-slate-600 text-xs">{new Date(r.issued_at).toLocaleDateString('en-CA')}</td>
                                                 <td className="p-3 text-right whitespace-nowrap">
-                                                    <button
-                                                        onClick={() => {
-                                                            if (r.application_id) {
-                                                                router.push(`/portal/application/receipt?id=${r.application_id}&paymentId=${r.payment_id}`);
-                                                            } else {
-                                                                router.push(`/portal/application/receipt?paymentId=${r.payment_id}`);
-                                                            }
-                                                        }}
-                                                        className="inline-block text-[11px] font-bold px-3 py-1 bg-slate-900 text-white hover:bg-slate-800 transition shadow-sm cursor-pointer"
+                                                    <a
+                                                        href={r.pdf_url || `/api/portal/receipt/pdf?paymentId=${r.payment_id}`}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="inline-block text-[11px] font-bold px-3 py-1 bg-slate-900 text-white hover:bg-slate-800 transition shadow-sm cursor-pointer no-underline"
                                                     >
                                                         View Receipt
-                                                    </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         ))
