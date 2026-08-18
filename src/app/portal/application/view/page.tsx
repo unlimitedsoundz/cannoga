@@ -326,10 +326,10 @@ function ViewApplicationContent() {
     );
 
     const dataRow = (label: string, value: any) => (
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-1 py-2" style={{ borderTop: '1px solid #d4d4d4' }}>
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-1 py-1.5 px-5">
             <span className="text-[11px] font-semibold text-black">{label}</span>
             <span className="md:col-span-2 text-[13px] font-semibold text-black">
-                {value || <span className="text-neutral-300 italic">Not provided</span>}
+                {value || <span className="text-neutral-400 italic">Not provided</span>}
             </span>
         </div>
     );

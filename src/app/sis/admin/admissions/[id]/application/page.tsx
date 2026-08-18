@@ -101,9 +101,13 @@ export default function AdmissionApplicationPage() {
   const [messageText, setMessageText] = useState('');
   const [showMessageForm, setShowMessageForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [editForm, setEditForm] = useState<any>(null);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
   const [invoiceType, setInvoiceType] = useState('TUITION_DEPOSIT');
+  const [customAmount, setCustomAmount] = useState<number | string>(2000);
+  const [customDeadline, setCustomDeadline] = useState(
+    new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+  );
+  const [availablePurposes, setAvailablePurposes] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,6 +121,15 @@ export default function AdmissionApplicationPage() {
         setStudent(stu || null);
         setNotes((app as any)?.internal_notes || '');
         setStatus(app?.status || '');
+        // Fetch dynamic payment purposes
+        fetch('/api/payments/purposes')
+          .then(res => res.json())
+          .then(data => {
+            if (data?.purposes && Array.isArray(data.purposes)) {
+              setAvailablePurposes(data.purposes);
+            }
+          })
+          .catch(e => console.warn('Failed to load purposes:', e));
       } catch (err: any) {
         setError(err.message || 'Failed to load application');
       } finally {
@@ -241,8 +254,13 @@ export default function AdmissionApplicationPage() {
   const handleIssueInvoice = async () => {
     setActionLoading('invoice');
     try {
-      const amount = invoiceType === 'TUITION_DEPOSIT' ? 2000 : invoiceType === 'ANCILLARY' ? 700 : 0;
-      const result = await pushInvoice(id, amount, invoiceType);
+      const amount = Number(customAmount) || 0;
+      if (amount <= 0) {
+        toast.error('Please enter a valid amount greater than 0');
+        setActionLoading(null);
+        return;
+      }
+      const result = await pushInvoice(id, amount, invoiceType, customDeadline ? new Date(customDeadline).toISOString() : undefined);
       if ((result as any).success) {
         toast.success('Invoice issued successfully');
         setShowInvoiceModal(false);
@@ -829,41 +847,122 @@ export default function AdmissionApplicationPage() {
       {showInvoiceModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-[#0f2027] border border-white/10 rounded-2xl shadow-2xl max-w-md w-full p-6 text-white">
-            <h3 className="text-lg font-bold text-white mb-4">Issue Invoice</h3>
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+              <h3 className="text-base font-bold text-white uppercase tracking-wider">Issue Student Invoice</h3>
+              <button 
+                onClick={() => setShowInvoiceModal(false)}
+                className="text-slate-400 hover:text-white text-xs font-bold uppercase tracking-wider"
+              >
+                ✕
+              </button>
+            </div>
             <div className="space-y-4">
+              {/* Payment Purpose / Invoice Type */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Invoice Type</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                  Payment Purpose / Invoice Type <span className="text-red-400">*</span>
+                </label>
                 <select
                   value={invoiceType}
-                  onChange={e => setInvoiceType(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white focus:border-sky-500 focus:outline-none rounded-xl [&>option]:bg-[#0a151a] [&>option]:text-white"
+                  onChange={e => {
+                    const nextType = e.target.value;
+                    setInvoiceType(nextType);
+                    const matched = availablePurposes.find(p => p.code === nextType);
+                    if (matched?.default_amount) {
+                      setCustomAmount(matched.default_amount);
+                    } else if (nextType === 'TUITION_DEPOSIT') {
+                      setCustomAmount(2000);
+                    } else if (nextType === 'ANCILLARY') {
+                      setCustomAmount(700);
+                    }
+                  }}
+                  className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white focus:border-sky-500 focus:outline-none rounded-xl [&>option]:bg-[#0a151a] [&>option]:text-white cursor-pointer"
                 >
-                  <option value="TUITION_DEPOSIT">Tuition Deposit</option>
-                  <option value="TUITION_FULL">Full Tuition</option>
-                  <option value="ANCILLARY">Ancillary Fees</option>
+                  {availablePurposes.length > 0 ? (
+                    availablePurposes.map(p => (
+                      <option key={p.id || p.code} value={p.code}>
+                        {p.name} {p.default_amount ? `($${Number(p.default_amount).toLocaleString()} CAD)` : '(Custom Amount)'}
+                      </option>
+                    ))
+                  ) : (
+                    <>
+                      <option value="TUITION_DEPOSIT">Tuition Deposit ($2,000 CAD)</option>
+                      <option value="1ST_YEAR_TUITION">1st Year Tuition (Full)</option>
+                      <option value="TUITION_FULL">Full Tuition Fee</option>
+                      <option value="ANCILLARY">Ancillary Fees ($700 CAD)</option>
+                      <option value="RESIDENCE_RENT">Residence / Housing Rent</option>
+                      <option value="GRADUATION_FEE">Graduation Fee</option>
+                    </>
+                  )}
                 </select>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                <p className="text-xs text-slate-400 mb-1">Amount to Issue</p>
-                <p className="text-2xl font-bold text-white">
-                  {invoiceType === 'TUITION_DEPOSIT' ? '$2,000' : invoiceType === 'ANCILLARY' ? '$700' : 'Custom'} CAD
+
+              {/* Custom Amount */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                  Custom Tuition / Fee Amount (CAD) <span className="text-red-400">*</span>
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">$</span>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="1"
+                    required
+                    value={customAmount}
+                    onChange={e => setCustomAmount(e.target.value)}
+                    placeholder="e.g. 2000.00"
+                    className="w-full pl-8 pr-16 py-2.5 text-sm font-mono font-bold bg-white/5 border border-white/10 text-white focus:border-sky-500 focus:outline-none rounded-xl"
+                  />
+                  <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs uppercase">CAD</span>
+                </div>
+                <p className="text-[11px] text-slate-400 mt-1">
+                  Enter the exact authoritative amount the student will be required to settle.
                 </p>
-                {invoiceType === 'TUITION_DEPOSIT' && (
-                  <p className="text-xs text-slate-400 mt-1">Standard tuition deposit amount</p>
-                )}
               </div>
+
+              {/* Payment Deadline */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                  Payment Deadline Due Date <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="date"
+                  required
+                  value={customDeadline}
+                  onChange={e => setCustomDeadline(e.target.value)}
+                  className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white focus:border-sky-500 focus:outline-none rounded-xl cursor-pointer"
+                />
+              </div>
+
+              {/* Summary Card */}
+              <div className="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] uppercase font-bold text-slate-400">Total Invoiced to Student</p>
+                  <p className="text-xl font-mono font-black text-emerald-400 mt-0.5">
+                    ${Number(customAmount || 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-[10px] uppercase font-bold text-slate-400">Due Date</p>
+                  <p className="text-xs font-semibold text-slate-200 mt-0.5">
+                    {customDeadline ? new Date(customDeadline).toLocaleDateString('en-CA') : '30 days'}
+                  </p>
+                </div>
+              </div>
+
               <div className="flex gap-3 pt-2">
                 <button
                   onClick={handleIssueInvoice}
                   disabled={actionLoading === 'invoice'}
-                  className="flex-1 px-4 py-2.5 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm"
+                  className="flex-1 px-4 py-2.5 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm cursor-pointer"
                 >
                   {actionLoading === 'invoice' ? 'Issuing...' : 'Issue Invoice'}
                 </button>
                 <button
                   onClick={() => setShowInvoiceModal(false)}
                   disabled={actionLoading === 'invoice'}
-                  className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 text-white text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors disabled:opacity-50 rounded-xl"
+                  className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 text-white text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors disabled:opacity-50 rounded-xl cursor-pointer"
                 >
                   Cancel
                 </button>

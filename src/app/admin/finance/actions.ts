@@ -53,9 +53,12 @@ export async function getPendingPayments() {
     return data || [];
 }
 
-export async function pushInvoice(applicationId: string, customFee: number, invoiceType: string) {
+export async function pushInvoice(applicationId: string, customFee: number, invoiceType: string, customDueDate?: string) {
     const supabase = createServiceRoleClient();
     const { ANCILLARY_FEES, ANCILLARY_FEES_TOTAL } = await import('@/utils/tuition');
+
+    // Calculate due date
+    const finalDueDate = customDueDate ? new Date(customDueDate) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
     // Verify application exists and is in a valid state
     const { data: offer, error: offerError } = await supabase
@@ -99,9 +102,9 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
             .from('admission_offers')
             .insert({
                 application_id: applicationId,
-                tuition_fee: annualFee,
-                payment_deadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-                offer_type: 'FULL_TUITION',
+                tuition_fee: customFee || annualFee,
+                payment_deadline: finalDueDate.toISOString(),
+                offer_type: invoiceType || 'FULL_TUITION',
                 status: 'PENDING'
             })
             .select('*')
@@ -121,6 +124,7 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
         .update({
             tuition_fee: customFee,
             invoice_type: invoiceType,
+            payment_deadline: finalDueDate.toISOString(),
             offer_type: invoiceType === 'TUITION_DEPOSIT' ? 'TUITION_DEPOSIT' : invoiceType === 'ANCILLARY' ? 'FULL_TUITION' : invoiceType,
             invoice_pushed: true,
             invoice_sent_at: new Date().toISOString()
@@ -158,11 +162,7 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
 
     if (studentForInvoice?.id) {
         const invoiceNumber = `INV-${applicationId.slice(0, 8).toUpperCase()}-${invoiceType}`;
-        const isFirstInvoice = !offer?.invoice_pushed;
-        const ancillaryTotal = isFirstInvoice ? ANCILLARY_FEES.reduce((acc, item) => acc + item.amount, 0) : 0;
-        const invoiceAmount = customFee + ancillaryTotal;
-        const dueDate = new Date();
-        dueDate.setDate(dueDate.getDate() + 30);
+        const invoiceAmount = Number(customFee);
 
         const { error: invoiceError } = await supabase
             .from('invoices')
@@ -174,7 +174,7 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
                 amount: invoiceAmount,
                 paid: 0,
                 balance: invoiceAmount,
-                due_date: dueDate.toISOString(),
+                due_date: finalDueDate.toISOString(),
                 status: 'OUTSTANDING',
             }, { onConflict: 'invoice_number' });
 
@@ -195,7 +195,7 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
                 metadata: {
                     invoice_number: invoiceNumber,
                     amount: invoiceAmount,
-                    due_date: dueDate.toISOString(),
+                    due_date: finalDueDate.toISOString(),
                     invoice_type: invoiceType,
                 },
             };
