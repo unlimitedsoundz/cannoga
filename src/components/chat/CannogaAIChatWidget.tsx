@@ -11,7 +11,8 @@ import {
     ArrowsInSimple,
     Microphone,
     SpeakerHigh,
-    ArrowCounterClockwise
+    ArrowCounterClockwise,
+    PencilSimpleLine
 } from '@phosphor-icons/react';
 
 interface Message {
@@ -38,6 +39,7 @@ export function CannogaAIChatWidget() {
     const [inputValue, setInputValue] = useState('');
     const [isListening, setIsListening] = useState(false);
     const [hasUnread, setHasUnread] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
     const [messages, setMessages] = useState<Message[]>([
         {
             id: 'msg-welcome',
@@ -49,6 +51,17 @@ export function CannogaAIChatWidget() {
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    // Track scroll position to dynamically move above ScrollToTop when visible
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            setIsScrolled(scrollTop > 100);
+        };
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     // Auto popup when user enters home page ('/')
     useEffect(() => {
@@ -229,10 +242,12 @@ export function CannogaAIChatWidget() {
     };
 
     return (
-        <div className={`fixed font-sans antialiased ${
+        <div className={`fixed font-sans antialiased transition-all duration-300 ease-in-out ${
             isOpen
                 ? 'bottom-4 right-4 sm:bottom-6 sm:right-6 z-[99999]'
-                : 'bottom-20 right-4 sm:bottom-24 sm:right-6 z-[99990]'
+                : isScrolled
+                    ? 'bottom-20 right-4 sm:bottom-24 sm:right-6 z-[99990]'
+                    : 'bottom-4 right-4 sm:bottom-6 sm:right-6 z-[99990]'
         }`}>
             {/* 1. Closed Floating Widget Button */}
             {!isOpen && (
@@ -353,9 +368,12 @@ export function CannogaAIChatWidget() {
 
                         {/* Typing Animation */}
                         {isTyping && (
-                            <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-2xl px-4 py-3 shadow-xs w-fit">
-                                <span className="text-xs text-slate-500 font-medium">Cannoga is typing...</span>
-                                <div className="flex gap-1">
+                            <div className="flex items-center gap-2.5 bg-white border border-slate-200 rounded-2xl px-3.5 py-2.5 shadow-xs w-fit">
+                                <div className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
+                                    <PencilSimpleLine size={12} weight="bold" className="animate-pulse text-slate-800" />
+                                </div>
+                                <span className="text-xs text-slate-600 font-medium">Cannoga is typing...</span>
+                                <div className="flex gap-1 items-center pl-0.5">
                                     <span className="w-1.5 h-1.5 bg-slate-900 rounded-full animate-bounce [animation-delay:-0.3s]" />
                                     <span className="w-1.5 h-1.5 bg-slate-900 rounded-full animate-bounce [animation-delay:-0.15s]" />
                                     <span className="w-1.5 h-1.5 bg-slate-900 rounded-full animate-bounce" />
