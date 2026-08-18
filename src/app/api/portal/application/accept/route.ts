@@ -42,30 +42,19 @@ export async function POST(request: NextRequest) {
       .eq('application_id', applicationId)
       .maybeSingle();
 
-    if (existingOffer?.status === 'ACCEPTED') {
-      await adminSupabase
-        .from('applications')
-        .update({ status: 'OFFER_ACCEPTED', updated_at: new Date().toISOString() })
-        .eq('id', applicationId)
-        .neq('status', 'OFFER_ACCEPTED');
+    if (existingOffer) {
+      const { error: offerUpdateErr } = await adminSupabase
+        .from('admission_offers')
+        .update({
+          status: 'ACCEPTED',
+          accepted_at: new Date().toISOString()
+        })
+        .eq('id', existingOffer.id);
 
-      return NextResponse.json({ success: true });
-    }
-
-    const { error: offerError, count: offerCount } = await adminSupabase
-      .from('admission_offers')
-      .update({
-        status: 'ACCEPTED',
-        accepted_at: new Date().toISOString()
-      })
-      .eq('application_id', applicationId)
-      .select('id');
-
-    if (offerError) {
-      console.error('Failed to update offer status:', offerError);
-    }
-
-    if (!offerCount || offerCount === 0) {
+      if (offerUpdateErr) {
+        console.error('Failed to update offer status:', offerUpdateErr);
+      }
+    } else {
       const { data: appData } = await adminSupabase
         .from('applications')
         .select('course_id, personal_info, Course:course_id(degreeLevel, school:schoolId(slug))')
@@ -93,17 +82,14 @@ export async function POST(request: NextRequest) {
         .insert({
           application_id: applicationId,
           tuition_fee: totalFee,
-          currency: 'CAD',
           payment_deadline: deadline.toISOString().split('T')[0],
           offer_type: 'FULL_TUITION',
           status: 'ACCEPTED',
           accepted_at: new Date().toISOString(),
-          ancillary_charged: false
         });
 
       if (createOfferError) {
-        console.error('Failed to create offer:', createOfferError);
-        return NextResponse.json({ error: 'Failed to create offer' }, { status: 500 });
+        console.error('Failed to create offer fallback:', createOfferError);
       }
     }
 
