@@ -518,9 +518,20 @@ export default function PayGoWireCheckout({
                             <p className="text-xs text-neutral-600">If your bank or financial institution requires authorization letters for wire processing:</p>
                             <div className="space-y-1.5 pt-1">
                                 <div className="flex items-center justify-between text-xs py-1 border-b border-neutral-100 last:border-b-0">
-                                    <span className="text-neutral-800 font-medium">Institutional Authorization Letter</span>
+                                    <span className="text-neutral-800 font-medium">Flywire Authorization Letter</span>
                                     <a
-                                        href="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/supporting-documents/Cannoga%20College%20Flywire-Nigerian-Naira.pdf"
+                                        href="/images/Cannoga%20College%20Flywire-Authorization-Letter.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1 font-bold text-black hover:underline"
+                                    >
+                                        Download PDF <ArrowSquareOut size={12} weight="bold" />
+                                    </a>
+                                </div>
+                                <div className="flex items-center justify-between text-xs py-1 border-b border-neutral-100 last:border-b-0">
+                                    <span className="text-neutral-800 font-medium">Nigerian Naira Authorization Letter</span>
+                                    <a
+                                        href="/images/Cannoga%20College%20Flywire-Nigerian-Naira.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-1 font-bold text-black hover:underline"
@@ -531,7 +542,7 @@ export default function PayGoWireCheckout({
                                 <div className="flex items-center justify-between text-xs py-1 border-b border-neutral-100 last:border-b-0">
                                     <span className="text-neutral-800 font-medium">General Wire Authorization Letter</span>
                                     <a
-                                        href="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/supporting-documents/Flywire-_-Cannoga%20Authorization-Letter.pdf"
+                                        href="/images/Flywire-_-Cannoga%20Authorization-Letter.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-1 font-bold text-black hover:underline"
