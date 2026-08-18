@@ -165,7 +165,7 @@ serve(async (req) => {
 
         // Configuration
         const adminEmail = Deno.env.get("ADMIN_NOTIFICATION_EMAIL") || "unlymitedsoundz@gmail.com";
-        const sender = Deno.env.get("SENDER_EMAIL") || "Cannoga College <onboarding@resend.dev>";
+        const sender = Deno.env.get("SENDER_EMAIL") || "Cannoga College <admissions@cannogacollege.ca>";
 
         // Fetch User Info if missing
         let userEmail = applicationData?.email;
