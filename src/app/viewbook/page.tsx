@@ -98,6 +98,7 @@ export default function ViewbookPage() {
                             <FlipbookViewer 
                                 publication={CANNOGA_VIEWBOOK_2026_2027} 
                                 viewMode="single" 
+                                embedded={true}
                                 className="min-h-[500px]"
                             />
                         </Suspense>

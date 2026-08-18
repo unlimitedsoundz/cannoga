@@ -7,6 +7,7 @@ import {
 } from '@phosphor-icons/react';
 import { Publication, ZoomLevel, FlipOrientation } from '@/types/flipbook';
 import { FlipbookCanvas, FlipbookCanvasHandle } from './FlipbookCanvas';
+import { SinglePageCanvas } from './SinglePageCanvas';
 import { FlipbookToolbar } from './FlipbookToolbar';
 import { FlipbookThumbnails } from './FlipbookThumbnails';
 import { FlipbookSearch } from './FlipbookSearch';
@@ -87,7 +88,7 @@ export function FlipbookViewer({
 
     // Sync current page changes with URL parameter without full reload
     const updateUrlPage = useCallback((pageNum: number) => {
-        if (typeof window !== 'undefined') {
+        if (!embedded && typeof window !== 'undefined') {
             const url = new URL(window.location.href);
             if (pageNum > 1) {
                 url.searchParams.set('page', String(pageNum));
@@ -96,7 +97,7 @@ export function FlipbookViewer({
             }
             window.history.replaceState(null, '', url.pathname + url.search);
         }
-    }, []);
+    }, [embedded]);
 
     const handlePageChange = useCallback((pageNum: number, spread: number[]) => {
         setCurrentPage(pageNum);
@@ -286,15 +287,24 @@ export function FlipbookViewer({
                         transformOrigin: 'center center'
                     }}
                 >
-                    <FlipbookCanvas
-                        ref={canvasHandleRef}
-                        pages={publication.pages}
-                        initialPage={initialStartPage}
-                        viewMode={currentViewMode}
-                        onPageChange={handlePageChange}
-                        onOrientationChange={handleOrientationChange}
-                        onReady={handleCanvasReady}
-                    />
+                    {currentViewMode === 'single' ? (
+                        <SinglePageCanvas
+                            ref={canvasHandleRef}
+                            pages={publication.pages}
+                            currentPage={currentPage}
+                            onPageChange={handlePageChange}
+                            onReady={handleCanvasReady}
+                        />
+                    ) : (
+                        <FlipbookCanvas
+                            ref={canvasHandleRef}
+                            pages={publication.pages}
+                            initialPage={initialStartPage}
+                            onPageChange={handlePageChange}
+                            onOrientationChange={handleOrientationChange}
+                            onReady={handleCanvasReady}
+                        />
+                    )}
                 </div>
 
                 {/* Error State Overlay */}
