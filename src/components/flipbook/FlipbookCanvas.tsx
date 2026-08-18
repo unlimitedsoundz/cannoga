@@ -31,6 +31,8 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
         const bookRef = useRef<HTMLDivElement | null>(null);
         const pageFlipInstance = useRef<PageFlip | null>(null);
         const [isMounted, setIsMounted] = useState(false);
+        const [activePage, setActivePage] = useState(initialPage);
+        const [currentOrientation, setCurrentOrientation] = useState<FlipOrientation>('landscape');
 
         // Keep callback refs stable
         const onPageChangeRef = useRef(onPageChange);
@@ -175,6 +177,9 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
                     const orient = pageFlipInstance.current.getOrientation() === 'portrait' ? 'portrait' : 'landscape';
                     const currentPageNum = currentIdx + 1;
 
+                    setActivePage(currentPageNum);
+                    setCurrentOrientation(orient);
+
                     let spread: number[] = [currentPageNum];
                     if (orient === 'landscape') {
                         if (currentIdx === 0) {
@@ -196,6 +201,9 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
                     const targetPageNum = (e.data as number) + 1;
                     const orient = flip.getOrientation() === 'portrait' ? 'portrait' : 'landscape';
                     
+                    setActivePage(targetPageNum);
+                    setCurrentOrientation(orient);
+
                     let spread: number[] = [targetPageNum];
                     if (orient === 'landscape') {
                         if (targetPageNum === 1) {
@@ -214,6 +222,7 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
 
                 flip.on('changeOrientation', (e: { data: string }) => {
                     const orient = e.data === 'portrait' ? 'portrait' : 'landscape';
+                    setCurrentOrientation(orient);
                     onOrientationChangeRef.current(orient);
                     updateState();
                 });
@@ -248,6 +257,19 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
             };
         }, [isMounted, pages, initialPage]);
 
+        // Calculate centering offset for front and back cover in landscape mode
+        const isFrontCover = activePage === 1;
+        const isBackCover = activePage === pages.length;
+
+        let coverOffset = '0%';
+        if (currentOrientation === 'landscape') {
+            if (isFrontCover) {
+                coverOffset = '-25%';
+            } else if (isBackCover) {
+                coverOffset = '25%';
+            }
+        }
+
         return (
             <div
                 ref={containerRef}
@@ -256,11 +278,14 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
                 {/* 3D Realistic Drop Shadows & Ambient Glow */}
                 <div className="absolute inset-0 bg-gradient-radial from-black/40 via-transparent to-transparent pointer-events-none" />
 
-                {/* Flipbook Container Wrapper - Kept clean for PageFlip vanilla DOM management */}
+                {/* Flipbook Container Wrapper with Centering Animation for Covers */}
                 <div
                     ref={bookRef}
-                    className="flipbook-root-container shadow-2xl relative"
-                    style={{ margin: 'auto' }}
+                    className="flipbook-root-container shadow-2xl relative transition-transform duration-500 ease-out"
+                    style={{
+                        margin: 'auto',
+                        transform: `translateX(${coverOffset})`
+                    }}
                 />
             </div>
         );
