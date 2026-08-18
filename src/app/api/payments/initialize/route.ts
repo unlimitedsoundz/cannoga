@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/utils/supabase/server';
+import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import type { InitializeWirePaymentRequest } from '@/types/payments';
 
 // ---------------------------------------------------------------
@@ -40,19 +41,10 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // 1. Verify the offer belongs to this user and get the authoritative CAD amount
-    const { data: offer, error: offerError } = await supabase
-        .from('admission_offers')
-        .select('id, tuition_fee, status, student_id')
-        .eq('id', offerId)
-        .single();
+    const adminSupabase = createServiceRoleClient();
 
-    if (offerError || !offer) {
-        return NextResponse.json({ error: 'Offer not found' }, { status: 404 });
-    }
-
-    // 2. Verify the application belongs to this user
-    const { data: application, error: appError } = await supabase
+    // 1. Verify the application belongs to this user
+    const { data: application, error: appError } = await adminSupabase
         .from('applications')
         .select('id, user_id')
         .eq('id', applicationId)
@@ -61,6 +53,29 @@ export async function POST(request: NextRequest) {
 
     if (appError || !application) {
         return NextResponse.json({ error: 'Application not found or access denied' }, { status: 403 });
+    }
+
+    // 2. Fetch the admission offer
+    let { data: offer, error: offerError } = await adminSupabase
+        .from('admission_offers')
+        .select('id, tuition_fee, status, student_id')
+        .eq('id', offerId)
+        .maybeSingle();
+
+    if (!offer) {
+        // Fallback: look up by application_id in case offerId was an application id or mismatched
+        const { data: fallbackOffer } = await adminSupabase
+            .from('admission_offers')
+            .select('id, tuition_fee, status, student_id')
+            .eq('application_id', applicationId)
+            .order('created_at', { ascending: false })
+            .limit(1)
+            .maybeSingle();
+        offer = fallbackOffer;
+    }
+
+    if (!offer) {
+        return NextResponse.json({ error: 'Offer not found' }, { status: 404 });
     }
 
     // 3. Look up student record
@@ -103,10 +118,10 @@ export async function POST(request: NextRequest) {
     const trackingRef = generateTrackingRef(countryCode);
 
     // 8. Create tuition_payment record
-    const { data: payment, error: paymentError } = await supabase
+    const { data: payment, error: paymentError } = await adminSupabase
         .from('tuition_payments')
         .insert({
-            offer_id: offerId,
+            offer_id: offer.id,
             application_id: applicationId,
             student_id: student?.id ?? null,
             transaction_reference: trackingRef,
