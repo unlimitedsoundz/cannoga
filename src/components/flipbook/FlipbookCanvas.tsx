@@ -33,6 +33,16 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
         const pageFlipInstance = useRef<PageFlip | null>(null);
         const [isMounted, setIsMounted] = useState(false);
 
+        // Keep callback refs stable to prevent unneeded re-initializations
+        const onPageChangeRef = useRef(onPageChange);
+        onPageChangeRef.current = onPageChange;
+
+        const onOrientationChangeRef = useRef(onOrientationChange);
+        onOrientationChangeRef.current = onOrientationChange;
+
+        const onReadyRef = useRef(onReady);
+        onReadyRef.current = onReady;
+
         // Expose imperative API to parent controller
         useImperativeHandle(ref, () => ({
             nextPage: () => {
@@ -75,14 +85,16 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
             const initFlipbook = () => {
                 if (isDestroyed || !bookRef.current) return;
 
-                // Cleanup any existing instance
+                // If already initialized, just navigate to initialPage if needed
                 if (pageFlipInstance.current) {
-                    try {
-                        pageFlipInstance.current.destroy();
-                    } catch {
-                        // ignore
-                    }
-                    pageFlipInstance.current = null;
+                    return;
+                }
+
+                // Check page elements
+                const pageElements = bookRef.current.querySelectorAll<HTMLElement>('.flipbook-page-item');
+                if (!pageElements || pageElements.length === 0) {
+                    onReadyRef.current();
+                    return;
                 }
 
                 // Base page dimension (576 x 576 from PDF)
@@ -109,9 +121,7 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
                         autoSize: true
                     });
 
-                    flip.loadFromHTML(
-                        bookRef.current.querySelectorAll<HTMLElement>('.flipbook-page-item')
-                    );
+                    flip.loadFromHTML(pageElements);
 
                     pageFlipInstance.current = flip;
 
@@ -137,8 +147,8 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
                             }
                         }
 
-                        onPageChange(currentPageNum, spread);
-                        onOrientationChange(orient);
+                        onPageChangeRef.current(currentPageNum, spread);
+                        onOrientationChangeRef.current(orient);
                     };
 
                     flip.on('flip', (e: { data: number }) => {
@@ -158,29 +168,29 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
                             }
                         }
 
-                        onPageChange(targetPageNum, spread);
+                        onPageChangeRef.current(targetPageNum, spread);
                     });
 
                     flip.on('changeOrientation', (e: { data: string }) => {
                         const orient = e.data === 'portrait' ? 'portrait' : 'landscape';
-                        onOrientationChange(orient);
+                        onOrientationChangeRef.current(orient);
                         updateState();
                     });
 
                     flip.on('init', () => {
                         updateState();
-                        onReady();
+                        onReadyRef.current();
                     });
 
                     // Immediate ready trigger
                     setTimeout(() => {
                         updateState();
-                        onReady();
-                    }, 150);
+                        onReadyRef.current();
+                    }, 100);
 
                 } catch (err) {
                     console.error('Error initializing PageFlip:', err);
-                    onReady();
+                    onReadyRef.current();
                 }
             };
 
@@ -198,7 +208,7 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
                     pageFlipInstance.current = null;
                 }
             };
-        }, [isMounted, pages, initialPage, onPageChange, onOrientationChange, onReady]);
+        }, [isMounted, pages.length, initialPage]);
 
         return (
             <div
