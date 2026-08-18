@@ -182,7 +182,7 @@ async function fetchLiveChannelShorts(): Promise<YouTubeShort[]> {
         }
 
         const html = await res.text();
-        const match = html.match(/ytInitialData\s*=\s*({.+?});<\/script>/s);
+        const match = html.match(/ytInitialData\s*=\s*({[\s\S]+?});<\/script>/);
         if (!match) {
             return CANNOGA_CHANNEL_SHORTS;
         }

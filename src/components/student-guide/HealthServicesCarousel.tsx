@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, ArrowRight, HeartPulse, Brain, FirstAid, ShieldCheck, Wheelchair, PhoneCall } from '@phosphor-icons/react';
+import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 
 interface HealthCardItem {
     id: string;
