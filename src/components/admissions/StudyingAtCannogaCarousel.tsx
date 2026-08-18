@@ -28,7 +28,7 @@ const STUDYING_CARDS: StudyingAtCannogaItem[] = [
         id: 'support',
         title: 'SUPPORT',
         description: 'Dedicated academic advisors, personalized career counseling, tutoring, and student health support.',
-        href: '/student-guide#support',
+        href: '/student-guide/health-and-wellbeing/',
         bgColor: 'bg-[#ec4899]', // Vibrant Hot Pink
         borderColor: 'border-[#ec4899]',
         waveColor: '#db2777',

@@ -221,8 +221,9 @@ export default function InternationalGuidePage() {
                             </div>
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Student Health Care</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">Once registered as a resident with an Ontario health card, you can access public healthcare through OHIP. In the interim, ensure you have private coverage. Cannoga partners with local clinics for walk-in care.</p>
+                                    <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Student Health Care &amp; UHIP</h3>
+                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">All international students in Ontario are covered by the University Health Insurance Plan (UHIP) for 100% medical, clinic, and hospital care, plus on-campus counseling and nursing triage.</p>
+                                    <Link href="/student-guide/health-and-wellbeing/" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Health &amp; Wellbeing Guide →</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Local Culture</h3>

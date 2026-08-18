@@ -66,7 +66,7 @@ export default function StudentGuidePage() {
             items: [
                 { title: "Academic Guidance", href: "#support" },
                 { title: "Learning Support", href: "#support" },
-                { title: "Wellbeing", href: "#support" },
+                { title: "Health & Wellbeing", href: "/student-guide/health-and-wellbeing/" },
             ]
         },
         { id: 'new-students', title: 'For New Students', content: '' },
@@ -77,6 +77,7 @@ export default function StudentGuidePage() {
             items: [
                 { title: "Bachelor's Students", href: "/student-guide/bachelor" },
                 { title: "Master's Students", href: "/student-guide/master" },
+                { title: "Health & Wellbeing Guide", href: "/student-guide/health-and-wellbeing/" },
                 { title: "Chat with Students", href: "/student-guide/chat-with-cannoga-students" },
                 { title: "International Students", href: "/student-guide/international" },
                 { title: "Exchange Students", href: "/student-guide/exchange" },

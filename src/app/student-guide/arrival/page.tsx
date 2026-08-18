@@ -217,7 +217,7 @@ export default function ArrivalGuidePage() {
                                                 <span className="text-base text-slate-700">Regulated Canadian Immigration Counselors (RCIC) for permit renewals and work eligibility.</span>
                                             </div>
                                             <div className="pl-3 border-l-2 border-neutral-300">
-                                                <span className="font-bold text-base md:text-lg text-black block">Wellbeing & Counseling</span>
+                                                <Link href="/student-guide/health-and-wellbeing/" className="font-bold text-base md:text-lg text-black block hover:text-[#c89211] transition-colors">Wellbeing &amp; Counseling →</Link>
                                                 <span className="text-base text-slate-700">Confidential mental health support, stress management workshops, and accessibility accommodations.</span>
                                             </div>
                                             <div className="pl-3 border-l-2 border-neutral-300">
