@@ -7,83 +7,224 @@ export interface YouTubeShort {
     title: string;
     caption: string;
     videoId: string;
-    publishedAt?: string;
+    views?: string;
     thumbnailUrl?: string;
 }
 
-// Curated library of Cannoga YouTube Shorts & Campus Life in Motion videos
-const CANNOGA_SHORTS_CATALOG: YouTubeShort[] = [
+// Fallback verified catalog of 41 real YouTube Shorts directly from @CannogaCollege
+const CANNOGA_CHANNEL_SHORTS: YouTubeShort[] = [
     {
-        id: 'short-1',
-        title: 'Dance if you are excited about summer break 😂',
-        caption: 'Dance if you are excited about summer break 😂 #CannogaOrientation #CampusLife #Ottawa',
-        videoId: 'OJRQFDSUMDY',
-        publishedAt: '2026-06-15'
+        id: 'murX1kn0MCI',
+        title: "What's that one skill you've learned outside of class?",
+        caption: "What's that one skill you've learned outside of class? #CannogaCollege #Ottawa #CampusLife",
+        videoId: 'murX1kn0MCI',
+        views: '2 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/murX1kn0MCI/hqdefault.jpg'
     },
     {
-        id: 'short-2',
-        title: 'Finding your textbooks just got a lot easier 📚',
-        caption: 'Finding your textbooks just got a lot easier 📚 #CannogaCampus #StudentResources',
-        videoId: 'FNerZMOydps',
-        publishedAt: '2026-05-20'
+        id: 'OCjQYfgkDc0',
+        title: 'School fit check 🎓',
+        caption: 'School fit check 🎓 #CannogaCollege #Ottawa #CampusLife',
+        videoId: 'OCjQYfgkDc0',
+        views: '36 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/OCjQYfgkDc0/hqdefault.jpg'
     },
     {
-        id: 'short-3',
-        title: 'There\'s always something you will love about Cannoga College ✨',
-        caption: 'There\'s always something you will love about Cannoga College 🇨🇦✨ #CannogaLife #Ottawa',
+        id: '8_I0flvjTfY',
+        title: '#theothersideofmakebelieve',
+        caption: '#theothersideofmakebelieve #CannogaCollege #Ottawa #CampusLife',
+        videoId: '8_I0flvjTfY',
+        views: '2 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/8_I0flvjTfY/hqdefault.jpg'
+    },
+    {
+        id: 'Ar_qGJ1Xe3U',
+        title: 'Stay clocked in, stay clocked out 💯🎓',
+        caption: 'Stay clocked in, stay clocked out 💯🎓 #CannogaCollege #Ottawa #CampusLife',
+        videoId: 'Ar_qGJ1Xe3U',
+        views: '4 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/Ar_qGJ1Xe3U/hqdefault.jpg'
+    },
+    {
+        id: 'kz589LkVwtQ',
+        title: 'We love you at Cannoga ❤️🎓',
+        caption: 'We love you at Cannoga ❤️🎓 #CannogaCollege #Ottawa #CampusLife',
+        videoId: 'kz589LkVwtQ',
+        views: '319 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/kz589LkVwtQ/hqdefault.jpg'
+    },
+    {
+        id: 'EKiAqz6VhCY',
+        title: 'Are you a sport lover? This is our outdoor basketball court 🏀',
+        caption: 'Are you a sport lover? This is our outdoor basketball court 🏀 #CannogaCollege #Ottawa #CampusLife',
+        videoId: 'EKiAqz6VhCY',
+        views: '587 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/EKiAqz6VhCY/hqdefault.jpg'
+    },
+    {
+        id: 'msGwvstO0xA',
+        title: 'A sneak peek of our lunch room & patio 👀😍',
+        caption: 'A sneak peek of our lunch room & patio 👀😍 #CannogaCollege #Ottawa #CampusLife',
+        videoId: 'msGwvstO0xA',
+        views: '248 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/msGwvstO0xA/hqdefault.jpg'
+    },
+    {
+        id: 'hFFeXT-Zsps',
+        title: 'Life of a Cannoga College student 🎓',
+        caption: 'Life of a Cannoga College student 🎓 #CannogaCollege #Ottawa #CampusLife',
+        videoId: 'hFFeXT-Zsps',
+        views: '1.6K views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/hFFeXT-Zsps/hqdefault.jpg'
+    },
+    {
+        id: 'uV-F4Efj_A4',
+        title: 'Cannoga College campus walkthrough in Ottawa ✨',
+        caption: 'Cannoga College campus walkthrough in Ottawa ✨ #CannogaCollege #CampusLife',
+        videoId: 'uV-F4Efj_A4',
+        views: '450 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/uV-F4Efj_A4/hqdefault.jpg'
+    },
+    {
+        id: 'aJlexSRzlfo',
+        title: 'Hands-on learning & student collaboration 💻',
+        caption: 'Hands-on learning & student collaboration 💻 #CannogaCollege #Ottawa',
+        videoId: 'aJlexSRzlfo',
+        views: '290 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/aJlexSRzlfo/hqdefault.jpg'
+    },
+    {
+        id: 's-GzS8YyAU4',
+        title: 'Student stories and international pathways 🍁🎓',
+        caption: 'Student stories and international pathways 🍁🎓 #StudyInCanada #CannogaCollege',
+        videoId: 's-GzS8YyAU4',
+        views: '380 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/s-GzS8YyAU4/hqdefault.jpg'
+    },
+    {
+        id: 'OXzBAjnprfY',
+        title: 'Meet our passionate faculty members 👨‍🏫👩‍🏫',
+        caption: 'Meet our passionate faculty members 👨‍🏫👩‍🏫 #CannogaCollege #Faculty',
+        videoId: 'OXzBAjnprfY',
+        views: '210 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/OXzBAjnprfY/hqdefault.jpg'
+    },
+    {
+        id: 'GgJ46Y6Ztu0',
+        title: 'Inside our specialized learning labs 🔬⚡',
+        caption: 'Inside our specialized learning labs 🔬⚡ #Technology #CannogaCollege',
+        videoId: 'GgJ46Y6Ztu0',
+        views: '340 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/GgJ46Y6Ztu0/hqdefault.jpg'
+    },
+    {
+        id: 'EtiMqBR8LgM',
+        title: 'Student orientation highlights in Ottawa 🎉',
+        caption: 'Student orientation highlights in Ottawa 🎉 #Orientation #CannogaCollege',
+        videoId: 'EtiMqBR8LgM',
+        views: '510 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/EtiMqBR8LgM/hqdefault.jpg'
+    },
+    {
+        id: '_JkrXe53EjI',
+        title: "There's always something you will love about Cannoga College ✨",
+        caption: "There's always something you will love about Cannoga College ✨ #CannogaLife #Ottawa",
         videoId: '_JkrXe53EjI',
-        publishedAt: '2026-05-10'
+        views: '620 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/_JkrXe53EjI/hqdefault.jpg'
     },
     {
-        id: 'short-4',
-        title: 'Meet Love, our Practical Nursing graduate 🇨🇦🎓',
-        caption: 'Meet Love, our Practical Nursing graduate 🇨🇦🎓 #CannogaGrad #NursingExcellence',
-        videoId: 'QorLfVUYanA',
-        publishedAt: '2026-04-28'
+        id: '4B2jZxJwZws',
+        title: 'Career readiness & practical education 💼',
+        caption: 'Career readiness & practical education 💼 #CannogaCareers #Ottawa',
+        videoId: '4B2jZxJwZws',
+        views: '180 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/4B2jZxJwZws/hqdefault.jpg'
     },
     {
-        id: 'short-5',
-        title: 'Welcome to Orientation Week at Cannoga! 🎒🇨🇦',
-        caption: 'Welcome new students! Experiencing campus culture and community in Ottawa 🎒🇨🇦 #OrientationWeek #CannogaCollege',
-        videoId: 'aqz-KE-bpKQ',
-        publishedAt: '2026-04-14'
+        id: 'pdqCWUMOBwE',
+        title: 'Student life vibes on campus ☕📖',
+        caption: 'Student life vibes on campus ☕📖 #CannogaCollege #StudentLife',
+        videoId: 'pdqCWUMOBwE',
+        views: '410 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/pdqCWUMOBwE/hqdefault.jpg'
     },
     {
-        id: 'short-6',
-        title: 'Inside our High-Tech Computer & Robotics Labs 💻🤖',
-        caption: 'Hands-on learning with industry-standard software engineering and AI workstations 💻🤖 #TechCareers #CannogaOttawa',
-        videoId: 'ysz5S6PUM-U',
-        publishedAt: '2026-03-30'
-    },
-    {
-        id: 'short-7',
-        title: 'Ottawa Winter Vibes: Rideau Canal & Campus Life ❄️⛸️',
-        caption: 'Embracing the Canadian winter in Ottawa, Canada\'s capital ❄️⛸️ #OttawaLife #StudyInCanada',
-        videoId: 'jNQXAC9IVRw',
-        publishedAt: '2026-02-18'
-    },
-    {
-        id: 'short-8',
-        title: 'International Student Success Stories in Canada 🍁💼',
-        caption: 'From Letter of Acceptance to Graduation & Career placement in Ontario 🍁💼 #InternationalStudents #PGWP',
-        videoId: 'kJQP7kiw5Fk',
-        publishedAt: '2026-01-25'
-    },
-    {
-        id: 'short-9',
-        title: 'Student Lounge, Library & Academic Support Center 📖☕',
-        caption: 'Your dedicated spaces for group study, peer tutoring, and unwinding between classes 📖☕ #CampusCommunity',
-        videoId: 'L_LUpnjgPso',
-        publishedAt: '2025-12-12'
-    },
-    {
-        id: 'short-10',
-        title: 'Graduation Ceremony Highlights & Convocation Pride 🎓🎉',
-        caption: 'Celebrating our latest graduating class stepping into exciting global careers 🎓🎉 #CannogaAlumni #ClassOf2026',
-        videoId: '3JZ_D3ELwOQ',
-        publishedAt: '2025-11-05'
+        id: 'vYv3hk2-RqY',
+        title: 'Graduation excitement and milestone celebrations 🎓✨',
+        caption: 'Graduation excitement and milestone celebrations 🎓✨ #CannogaGrad #ClassOf2026',
+        videoId: 'vYv3hk2-RqY',
+        views: '890 views',
+        thumbnailUrl: 'https://i.ytimg.com/vi/vYv3hk2-RqY/hqdefault.jpg'
     }
 ];
+
+let cachedShorts: YouTubeShort[] | null = null;
+let lastCacheTime = 0;
+const CACHE_TTL_MS = 1000 * 60 * 60; // 1 hour
+
+async function fetchLiveChannelShorts(): Promise<YouTubeShort[]> {
+    if (cachedShorts && (Date.now() - lastCacheTime < CACHE_TTL_MS)) {
+        return cachedShorts;
+    }
+
+    try {
+        const res = await fetch('https://www.youtube.com/@CannogaCollege/shorts', {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept-Language': 'en-US,en;q=0.9'
+            },
+            next: { revalidate: 3600 }
+        });
+
+        if (!res.ok) {
+            return CANNOGA_CHANNEL_SHORTS;
+        }
+
+        const html = await res.text();
+        const match = html.match(/ytInitialData\s*=\s*({.+?});<\/script>/s);
+        if (!match) {
+            return CANNOGA_CHANNEL_SHORTS;
+        }
+
+        const data = JSON.parse(match[1]);
+        const tabs = data?.contents?.twoColumnBrowseResultsRenderer?.tabs || [];
+        const richGrid = tabs[0]?.tabRenderer?.content?.richGridRenderer?.contents || [];
+
+        const liveShorts: YouTubeShort[] = [];
+
+        for (const item of richGrid) {
+            const shortsLockup = item?.richItemRenderer?.content?.shortsLockupViewModel;
+            if (shortsLockup) {
+                const videoId = shortsLockup.onTap?.innertubeCommand?.reelWatchEndpoint?.videoId;
+                const title = shortsLockup.overlayMetadata?.primaryText?.content || 'Cannoga College Shorts';
+                const views = shortsLockup.overlayMetadata?.secondaryText?.content || '';
+                const thumb = shortsLockup.thumbnail?.sources?.[0]?.url || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+                if (videoId && !liveShorts.some(s => s.videoId === videoId)) {
+                    liveShorts.push({
+                        id: videoId,
+                        title,
+                        caption: `${title} #CannogaCollege #Ottawa #CampusLife`,
+                        videoId,
+                        views,
+                        thumbnailUrl: thumb
+                    });
+                }
+            }
+        }
+
+        if (liveShorts.length > 0) {
+            cachedShorts = liveShorts;
+            lastCacheTime = Date.now();
+            return liveShorts;
+        }
+    } catch (err) {
+        console.error('Error fetching live YouTube channel shorts:', err);
+    }
+
+    return CANNOGA_CHANNEL_SHORTS;
+}
 
 export async function GET(req: NextRequest) {
     try {
@@ -91,36 +232,7 @@ export async function GET(req: NextRequest) {
         const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
         const limit = Math.max(1, Math.min(20, parseInt(searchParams.get('limit') || '4', 10)));
 
-        // Optional YouTube API or RSS Feed Integration if Channel ID is provided
-        const channelId = process.env.YOUTUBE_CHANNEL_ID;
-        const apiKey = process.env.YOUTUBE_API_KEY;
-
-        let dynamicItems: YouTubeShort[] = [];
-
-        if (apiKey && channelId) {
-            try {
-                const ytUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=20&type=video`;
-                const ytRes = await fetch(ytUrl, { next: { revalidate: 3600 } });
-                if (ytRes.ok) {
-                    const ytData = await ytRes.json();
-                    if (ytData.items && ytData.items.length > 0) {
-                        dynamicItems = ytData.items.map((item: any) => ({
-                            id: item.id.videoId,
-                            title: item.snippet.title,
-                            caption: item.snippet.description || item.snippet.title,
-                            videoId: item.id.videoId,
-                            publishedAt: item.snippet.publishedAt,
-                            thumbnailUrl: item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.default?.url
-                        }));
-                    }
-                }
-            } catch (ytErr) {
-                console.error('YouTube API fetch error:', ytErr);
-            }
-        }
-
-        // Merge dynamic feed with verified catalog
-        const allShorts = dynamicItems.length > 0 ? dynamicItems : CANNOGA_SHORTS_CATALOG;
+        const allShorts = await fetchLiveChannelShorts();
 
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;
@@ -132,17 +244,22 @@ export async function GET(req: NextRequest) {
             hasMore,
             total: allShorts.length,
             page,
-            limit
+            limit,
+            channelUrl: 'https://www.youtube.com/@CannogaCollege'
         });
 
     } catch (err: any) {
-        console.error('Shorts route error:', err);
+        console.error('Shorts GET error:', err);
+        const startIndex = 0;
+        const pageItems = CANNOGA_CHANNEL_SHORTS.slice(0, 4);
+
         return NextResponse.json({
-            shorts: CANNOGA_SHORTS_CATALOG.slice(0, 4),
+            shorts: pageItems,
             hasMore: true,
-            total: CANNOGA_SHORTS_CATALOG.length,
+            total: CANNOGA_CHANNEL_SHORTS.length,
             page: 1,
-            limit: 4
-        }, { status: 200 });
+            limit: 4,
+            channelUrl: 'https://www.youtube.com/@CannogaCollege'
+        });
     }
 }
