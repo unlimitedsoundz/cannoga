@@ -18,6 +18,7 @@ import { useSearchParams } from 'next/navigation';
 interface FlipbookViewerProps {
     publication: Publication;
     initialPage?: number;
+    viewMode?: 'spread' | 'single';
     embedded?: boolean;
     className?: string;
 }
@@ -25,6 +26,7 @@ interface FlipbookViewerProps {
 export function FlipbookViewer({
     publication,
     initialPage = 1,
+    viewMode = 'spread',
     embedded = false,
     className = ''
 }: FlipbookViewerProps) {
@@ -38,9 +40,10 @@ export function FlipbookViewer({
         pageFromUrl ? parseInt(pageFromUrl, 10) || initialPage : initialPage
     ).current;
 
+    const [currentViewMode, setCurrentViewMode] = useState<'spread' | 'single'>(viewMode);
     const [currentPage, setCurrentPage] = useState(initialStartPage);
     const [spreadPages, setSpreadPages] = useState<number[]>([initialStartPage]);
-    const [orientation, setOrientation] = useState<FlipOrientation>('landscape');
+    const [orientation, setOrientation] = useState<FlipOrientation>(viewMode === 'single' ? 'portrait' : 'landscape');
     const [zoom, setZoom] = useState<ZoomLevel>(1.0);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -287,6 +290,7 @@ export function FlipbookViewer({
                         ref={canvasHandleRef}
                         pages={publication.pages}
                         initialPage={initialStartPage}
+                        viewMode={currentViewMode}
                         onPageChange={handlePageChange}
                         onOrientationChange={handleOrientationChange}
                         onReady={handleCanvasReady}
@@ -343,6 +347,7 @@ export function FlipbookViewer({
                     isThumbnailsOpen={isThumbnailsOpen}
                     isSearchOpen={isSearchOpen}
                     pdfUrl={publication.pdfUrl}
+                    viewMode={currentViewMode}
                     onPrevPage={handlePrevPage}
                     onNextPage={handleNextPage}
                     onFirstPage={handleFirstPage}
@@ -355,6 +360,7 @@ export function FlipbookViewer({
                     onToggleThumbnails={() => setIsThumbnailsOpen(!isThumbnailsOpen)}
                     onToggleSearch={() => setIsSearchOpen(!isSearchOpen)}
                     onOpenShare={() => setIsShareOpen(true)}
+                    onToggleViewMode={() => setCurrentViewMode(prev => prev === 'spread' ? 'single' : 'spread')}
                 />
             </footer>
         </div>

@@ -69,16 +69,44 @@ export default function ViewbookPage() {
                     VIEWBOOKS
                 </h1>
 
-                {/* Contained Flipbook Player Box */}
+                {/* 1. Spread / 2-Page View Player Box */}
                 <div className="w-full overflow-hidden shadow-2xl bg-[#333333] border border-neutral-200">
                     <Suspense fallback={<div className="h-[580px] bg-[#333333]" />}>
-                        <FlipbookViewer publication={CANNOGA_VIEWBOOK_2026_2027} />
+                        <FlipbookViewer publication={CANNOGA_VIEWBOOK_2026_2027} viewMode="spread" />
                     </Suspense>
                 </div>
 
-                {/* Subtitle Caption Underneath the Player Box */}
+                {/* Subtitle Caption Underneath the Main Player */}
                 <div className="mt-4 sm:mt-5 text-sm sm:text-base font-medium text-neutral-600">
-                    Cannoga College • 2026/2027 Official Prospectus
+                    Cannoga College • 2026/2027 Official Prospectus (2-Page Spread View)
+                </div>
+
+                {/* 2. Single-Page (1-Page) View Section Below */}
+                <div className="mt-16 pt-12 border-t border-neutral-200">
+                    <div className="mb-6">
+                        <h2 className="text-2xl sm:text-4xl font-black text-[#273a60] uppercase tracking-tight font-sans">
+                            Single-Page Reader View
+                        </h2>
+                        <p className="text-sm sm:text-base text-neutral-600 mt-1">
+                            Browse each page individually in high definition, optimized for single-page reading and vertical screens.
+                        </p>
+                    </div>
+
+                    {/* Contained 1-Page View Player Box */}
+                    <div className="w-full max-w-4xl mx-auto overflow-hidden shadow-2xl bg-[#333333] border border-neutral-200">
+                        <Suspense fallback={<div className="h-[580px] bg-[#333333]" />}>
+                            <FlipbookViewer 
+                                publication={CANNOGA_VIEWBOOK_2026_2027} 
+                                viewMode="single" 
+                                className="min-h-[500px]"
+                            />
+                        </Suspense>
+                    </div>
+
+                    {/* Subtitle Caption for 1-Page Viewer */}
+                    <div className="max-w-4xl mx-auto mt-4 text-sm sm:text-base font-medium text-neutral-600">
+                        Cannoga College • Single-Page Reader Mode
+                    </div>
                 </div>
             </div>
         </main>

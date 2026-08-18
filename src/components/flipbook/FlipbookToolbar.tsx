@@ -9,7 +9,9 @@ import {
     DownloadSimple,
     ShareNetwork,
     Plus,
-    Minus
+    Minus,
+    BookOpen,
+    FileText
 } from '@phosphor-icons/react';
 import { ZoomLevel } from '@/types/flipbook';
 
@@ -23,18 +25,20 @@ interface FlipbookToolbarProps {
     isThumbnailsOpen: boolean;
     isSearchOpen: boolean;
     pdfUrl: string;
-    onPrevPage: () => void;
-    onNextPage: () => void;
-    onFirstPage: () => void;
-    onLastPage: () => void;
+    viewMode?: 'spread' | 'single';
+    onPrevPage?: () => void;
+    onNextPage?: () => void;
+    onFirstPage?: () => void;
+    onLastPage?: () => void;
     onGoToPage: (page: number) => void;
     onZoomIn: () => void;
     onZoomOut: () => void;
-    onZoomReset: () => void;
+    onZoomReset?: () => void;
     onToggleFullscreen: () => void;
     onToggleThumbnails: () => void;
     onToggleSearch: () => void;
     onOpenShare: () => void;
+    onToggleViewMode?: () => void;
 }
 
 export function FlipbookToolbar({
@@ -47,18 +51,20 @@ export function FlipbookToolbar({
     isThumbnailsOpen,
     isSearchOpen,
     pdfUrl,
+    viewMode = 'spread',
     onGoToPage,
     onZoomIn,
     onZoomOut,
     onToggleFullscreen,
     onToggleThumbnails,
     onToggleSearch,
-    onOpenShare
+    onOpenShare,
+    onToggleViewMode
 }: FlipbookToolbarProps) {
-    const [isScrubbing, setIsScrubbing] = useState(false);
+    const isSingle = viewMode === 'single';
 
     // Calculate spread display label like `2-3 / 30` or `1 / 30`
-    const spreadText = isPortrait || spreadPages.length <= 1
+    const spreadText = isPortrait || isSingle || spreadPages.length <= 1
         ? `${currentPage}`
         : `${spreadPages[0]}-${spreadPages[spreadPages.length - 1]}`;
 
@@ -79,8 +85,6 @@ export function FlipbookToolbar({
             <div
                 className="w-full bg-white/20 h-[3px] hover:h-[5px] relative cursor-pointer transition-all duration-150 group"
                 onClick={handleScrubberClick}
-                onMouseDown={() => setIsScrubbing(true)}
-                onMouseUp={() => setIsScrubbing(false)}
                 title="Jump to page"
             >
                 <div
@@ -105,8 +109,24 @@ export function FlipbookToolbar({
                     </span>
                 </div>
 
-                {/* Center: Pages / Grid & Zoom Slider */}
-                <div className="flex items-center gap-4 sm:gap-6">
+                {/* Center: View Mode, Pages / Grid & Zoom Slider */}
+                <div className="flex items-center gap-3 sm:gap-5">
+                    {onToggleViewMode && (
+                        <button
+                            type="button"
+                            onClick={onToggleViewMode}
+                            title={isSingle ? "Switch to 2-Page Spread" : "Switch to 1-Page View"}
+                            aria-label="Toggle Page Layout"
+                            className="p-1 rounded text-neutral-300 hover:text-white transition-colors"
+                        >
+                            {isSingle ? (
+                                <BookOpen size={18} weight="bold" />
+                            ) : (
+                                <FileText size={18} weight="bold" />
+                            )}
+                        </button>
+                    )}
+
                     <button
                         type="button"
                         onClick={onToggleThumbnails}
@@ -142,7 +162,7 @@ export function FlipbookToolbar({
                                 if (val > zoom) onZoomIn();
                                 else if (val < zoom) onZoomOut();
                             }}
-                            className="w-16 sm:w-28 h-1 bg-white/30 rounded-lg appearance-none accent-white cursor-pointer"
+                            className="w-16 sm:w-24 h-1 bg-white/30 rounded-lg appearance-none accent-white cursor-pointer"
                             aria-label="Zoom Level"
                         />
 
