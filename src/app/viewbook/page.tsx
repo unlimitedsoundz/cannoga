@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 
 export default function ViewbookPage() {
     return (
-        <main className="min-h-screen bg-[#050b0e] text-white flex flex-col">
+        <main className="min-h-screen bg-white text-black flex flex-col">
             <BreadcrumbSchema items={[
                 { name: 'Home', item: '/' },
                 { name: 'Viewbook', item: '/viewbook' }
@@ -63,9 +63,28 @@ export default function ViewbookPage() {
                 "fileFormat": "application/pdf"
             }} />
 
-            <Suspense fallback={<div className="min-h-screen bg-[#050b0e] flex items-center justify-center text-white text-sm font-semibold">Loading Viewbook...</div>}>
-                <FlipbookViewer publication={CANNOGA_VIEWBOOK_2026_2027} />
-            </Suspense>
+            <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+                {/* Large Bold Navy Page Heading */}
+                <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#273a60] tracking-tight uppercase mb-6 sm:mb-8 font-sans">
+                    VIEWBOOKS
+                </h1>
+
+                {/* Contained Flipbook Player Box */}
+                <div className="w-full overflow-hidden shadow-2xl bg-[#333333] border border-neutral-200">
+                    <Suspense fallback={
+                        <div className="h-[520px] bg-[#333333] flex items-center justify-center text-white text-sm font-semibold">
+                            Loading Viewbook...
+                        </div>
+                    }>
+                        <FlipbookViewer publication={CANNOGA_VIEWBOOK_2026_2027} />
+                    </Suspense>
+                </div>
+
+                {/* Subtitle Caption Underneath the Player Box */}
+                <div className="mt-4 sm:mt-5 text-sm sm:text-base font-medium text-neutral-600">
+                    University Transfer &amp; Associate Degrees • 2026/2027 Official Prospectus
+                </div>
+            </div>
         </main>
     );
 }

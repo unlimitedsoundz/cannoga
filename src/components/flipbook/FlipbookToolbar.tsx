@@ -1,20 +1,15 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-    CaretLeft,
-    CaretRight,
-    CaretDoubleLeft,
-    CaretDoubleRight,
-    MagnifyingGlassPlus,
-    MagnifyingGlassMinus,
     MagnifyingGlass,
     SquaresFour,
     ArrowsOut,
     ArrowsIn,
     DownloadSimple,
     ShareNetwork,
-    ArrowCounterClockwise
+    Plus,
+    Minus
 } from '@phosphor-icons/react';
 import { ZoomLevel } from '@/types/flipbook';
 
@@ -52,214 +47,157 @@ export function FlipbookToolbar({
     isThumbnailsOpen,
     isSearchOpen,
     pdfUrl,
-    onPrevPage,
-    onNextPage,
-    onFirstPage,
-    onLastPage,
     onGoToPage,
     onZoomIn,
     onZoomOut,
-    onZoomReset,
     onToggleFullscreen,
     onToggleThumbnails,
     onToggleSearch,
     onOpenShare
 }: FlipbookToolbarProps) {
-    const [pageInputValue, setPageInputValue] = useState(String(currentPage));
+    const [isScrubbing, setIsScrubbing] = useState(false);
 
-    useEffect(() => {
-        setPageInputValue(String(currentPage));
-    }, [currentPage]);
+    // Calculate spread display label like `2-3 / 30` or `1 / 30`
+    const spreadText = isPortrait || spreadPages.length <= 1
+        ? `${currentPage}`
+        : `${spreadPages[0]}-${spreadPages[spreadPages.length - 1]}`;
 
-    const handlePageSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        const num = parseInt(pageInputValue, 10);
-        if (!isNaN(num) && num >= 1 && num <= totalPages) {
-            onGoToPage(num);
-        } else {
-            setPageInputValue(String(currentPage));
-        }
+    // Progress percentage
+    const progressPercent = Math.min(100, Math.max(0, ((currentPage - 1) / Math.max(1, totalPages - 1)) * 100));
+
+    const handleScrubberClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+        const targetPage = Math.round(ratio * (totalPages - 1)) + 1;
+        onGoToPage(targetPage);
     };
 
-    // Calculate spread display label
-    const pageLabel = isPortrait || spreadPages.length <= 1
-        ? `Page ${currentPage} of ${totalPages}`
-        : `Pages ${spreadPages[0]}–${spreadPages[spreadPages.length - 1]} of ${totalPages}`;
-
-    const isFirst = currentPage <= 1;
-    const isLast = currentPage >= totalPages;
-
     return (
-        <div className="w-full select-none z-20 flex items-center justify-center p-2 sm:p-4 pointer-events-none">
-            {/* Main Floating HUD Bar */}
-            <div className="pointer-events-auto flex items-center justify-between gap-1 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-[#0a151a]/90 backdrop-blur-md border border-white/10 shadow-2xl text-white max-w-full overflow-x-auto scrollbar-none">
-                
-                {/* LEFT SECTION: Utility Trays (Thumbnails, Search) */}
-                <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+        <div className="w-full flex flex-col bg-[#1e1e1e] text-white border-t border-white/10 select-none">
+            {/* Top Interactive Progress Scrubber */}
+            <div
+                className="w-full bg-white/20 h-[3px] hover:h-[5px] relative cursor-pointer transition-all duration-150 group"
+                onClick={handleScrubberClick}
+                onMouseDown={() => setIsScrubbing(true)}
+                onMouseUp={() => setIsScrubbing(false)}
+                title="Jump to page"
+            >
+                <div
+                    className="bg-white h-full relative"
+                    style={{ width: `${progressPercent}%` }}
+                >
+                    {/* Scrubber Knob */}
+                    <div className="w-3 h-3 bg-white rounded-full shadow-md absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 transition-transform scale-100 group-hover:scale-125 pointer-events-none" />
+                </div>
+            </div>
+
+            {/* Bottom Controls Bar */}
+            <div className="px-4 py-2.5 flex items-center justify-between text-xs">
+                {/* Left: Page Counter & Brand Logo */}
+                <div className="flex items-center gap-3 shrink-0">
+                    <span className="font-semibold text-white tracking-wide text-xs">
+                        {spreadText} / {totalPages}
+                    </span>
+                    <span className="text-neutral-400 font-bold tracking-wider text-xs flex items-center gap-1.5 lowercase">
+                        <span className="w-2 h-2 rounded-full bg-[#c89211]" />
+                        cannoga
+                    </span>
+                </div>
+
+                {/* Center: Pages / Grid & Zoom Slider */}
+                <div className="flex items-center gap-4 sm:gap-6">
                     <button
                         type="button"
                         onClick={onToggleThumbnails}
                         title="Pages & Thumbnails"
-                        aria-label="Toggle Thumbnails"
-                        className={`p-2 rounded-xl transition-all ${
-                            isThumbnailsOpen
-                                ? 'bg-[#c89211] text-black font-black'
-                                : 'text-slate-300 hover:text-white hover:bg-white/10'
+                        aria-label="Toggle Pages"
+                        className={`p-1 rounded transition-colors ${
+                            isThumbnailsOpen ? 'text-[#c89211]' : 'text-neutral-300 hover:text-white'
                         }`}
                     >
-                        <SquaresFour size={18} weight={isThumbnailsOpen ? 'fill' : 'bold'} />
+                        <SquaresFour size={19} weight={isThumbnailsOpen ? 'fill' : 'bold'} />
                     </button>
 
+                    {/* Zoom Slider */}
+                    <div className="flex items-center gap-2">
+                        <button
+                            type="button"
+                            onClick={onZoomOut}
+                            title="Zoom Out"
+                            aria-label="Zoom Out"
+                            className="text-neutral-400 hover:text-white p-0.5"
+                        >
+                            <Minus size={13} weight="bold" />
+                        </button>
+
+                        <input
+                            type="range"
+                            min="0.75"
+                            max="2.0"
+                            step="0.25"
+                            value={zoom}
+                            onChange={(e) => {
+                                const val = parseFloat(e.target.value);
+                                if (val > zoom) onZoomIn();
+                                else if (val < zoom) onZoomOut();
+                            }}
+                            className="w-16 sm:w-28 h-1 bg-white/30 rounded-lg appearance-none accent-white cursor-pointer"
+                            aria-label="Zoom Level"
+                        />
+
+                        <button
+                            type="button"
+                            onClick={onZoomIn}
+                            title="Zoom In"
+                            aria-label="Zoom In"
+                            className="text-neutral-400 hover:text-white p-0.5"
+                        >
+                            <Plus size={13} weight="bold" />
+                        </button>
+                    </div>
+                </div>
+
+                {/* Right: Search, Share, PDF Download, Fullscreen */}
+                <div className="flex items-center gap-3 sm:gap-4 shrink-0">
                     <button
                         type="button"
                         onClick={onToggleSearch}
-                        title="Search in Publication"
-                        aria-label="Search Publication"
-                        className={`p-2 rounded-xl transition-all ${
-                            isSearchOpen
-                                ? 'bg-[#c89211] text-black font-black'
-                                : 'text-slate-300 hover:text-white hover:bg-white/10'
+                        title="Search in Viewbook"
+                        aria-label="Search"
+                        className={`p-1 rounded transition-colors ${
+                            isSearchOpen ? 'text-[#c89211]' : 'text-neutral-300 hover:text-white'
                         }`}
                     >
                         <MagnifyingGlass size={18} weight="bold" />
                     </button>
-                </div>
 
-                <div className="h-4 w-px bg-white/10 shrink-0 hidden sm:block mx-1" />
-
-                {/* CENTER SECTION: Page Navigation & Counter */}
-                <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-                    <button
-                        type="button"
-                        onClick={onFirstPage}
-                        disabled={isFirst}
-                        title="First Page"
-                        aria-label="First Page"
-                        className="hidden md:flex p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-all"
-                    >
-                        <CaretDoubleLeft size={16} weight="bold" />
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={onPrevPage}
-                        disabled={isFirst}
-                        title="Previous Page (Arrow Left)"
-                        aria-label="Previous Page"
-                        className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-all"
-                    >
-                        <CaretLeft size={18} weight="bold" />
-                    </button>
-
-                    {/* Interactive Page Jump Input */}
-                    <form onSubmit={handlePageSubmit} className="flex items-center gap-1 sm:gap-1.5 px-2">
-                        <input
-                            type="text"
-                            inputMode="numeric"
-                            pattern="[0-9]*"
-                            value={pageInputValue}
-                            onChange={(e) => setPageInputValue(e.target.value)}
-                            onBlur={() => setPageInputValue(String(currentPage))}
-                            title="Click to jump to page"
-                            className="w-9 sm:w-11 text-center bg-white/10 hover:bg-white/15 focus:bg-white/20 border border-white/15 rounded-lg py-1 text-xs sm:text-sm font-bold text-white outline-none focus:ring-1 focus:ring-[#c89211] transition-all"
-                        />
-                        <span className="text-[11px] sm:text-xs font-semibold text-slate-400">
-                            / {totalPages}
-                        </span>
-                    </form>
-
-                    <button
-                        type="button"
-                        onClick={onNextPage}
-                        disabled={isLast}
-                        title="Next Page (Arrow Right)"
-                        aria-label="Next Page"
-                        className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-all"
-                    >
-                        <CaretRight size={18} weight="bold" />
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={onLastPage}
-                        disabled={isLast}
-                        title="Last Page"
-                        aria-label="Last Page"
-                        className="hidden md:flex p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-all"
-                    >
-                        <CaretDoubleRight size={16} weight="bold" />
-                    </button>
-                </div>
-
-                <div className="h-4 w-px bg-white/10 shrink-0 hidden sm:block mx-1" />
-
-                {/* RIGHT SECTION: Zoom, Download, Share, Fullscreen */}
-                <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-                    {/* Zoom Out */}
-                    <button
-                        type="button"
-                        onClick={onZoomOut}
-                        disabled={zoom <= 0.75}
-                        title="Zoom Out (-)"
-                        aria-label="Zoom Out"
-                        className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-all"
-                    >
-                        <MagnifyingGlassMinus size={18} weight="bold" />
-                    </button>
-
-                    {/* Current Zoom Percentage */}
-                    <button
-                        type="button"
-                        onClick={onZoomReset}
-                        title="Reset Zoom"
-                        className="hidden sm:block px-2 py-1 rounded-lg text-[11px] font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-all"
-                    >
-                        {Math.round(zoom * 100)}%
-                    </button>
-
-                    {/* Zoom In */}
-                    <button
-                        type="button"
-                        onClick={onZoomIn}
-                        disabled={zoom >= 2.0}
-                        title="Zoom In (+)"
-                        aria-label="Zoom In"
-                        className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-all"
-                    >
-                        <MagnifyingGlassPlus size={18} weight="bold" />
-                    </button>
-
-                    <div className="h-4 w-px bg-white/10 shrink-0 hidden md:block mx-0.5" />
-
-                    {/* Download PDF */}
-                    <a
-                        href={pdfUrl}
-                        download="Cannoga-College-Viewbook-2026-2027.pdf"
-                        title="Download Official Viewbook PDF"
-                        aria-label="Download PDF"
-                        className="p-2 rounded-xl text-slate-300 hover:text-[#c89211] hover:bg-white/10 transition-all no-underline inline-flex items-center justify-center"
-                    >
-                        <DownloadSimple size={18} weight="bold" />
-                    </a>
-
-                    {/* Share Button */}
                     <button
                         type="button"
                         onClick={onOpenShare}
-                        title="Share Publication"
-                        aria-label="Share Publication"
-                        className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all"
+                        title="Share"
+                        aria-label="Share"
+                        className="p-1 rounded text-neutral-300 hover:text-white transition-colors"
                     >
                         <ShareNetwork size={18} weight="bold" />
                     </button>
 
-                    {/* Fullscreen Toggle */}
+                    <a
+                        href={pdfUrl}
+                        download="Cannoga-College-Viewbook-2026-2027.pdf"
+                        title="Download PDF"
+                        aria-label="Download PDF"
+                        className="p-1 rounded text-neutral-300 hover:text-white transition-colors"
+                    >
+                        <DownloadSimple size={18} weight="bold" />
+                    </a>
+
                     <button
                         type="button"
                         onClick={onToggleFullscreen}
-                        title={isFullscreen ? 'Exit Fullscreen (Esc)' : 'Fullscreen Mode (F)'}
-                        aria-label={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
-                        className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all"
+                        title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+                        aria-label="Fullscreen"
+                        className="p-1 rounded text-neutral-300 hover:text-white transition-colors"
                     >
                         {isFullscreen ? (
                             <ArrowsIn size={18} weight="bold" />
@@ -268,7 +206,20 @@ export function FlipbookToolbar({
                         )}
                     </button>
                 </div>
+            </div>
 
+            {/* Black Sub-Ribbon Footer Bar */}
+            <div className="bg-[#141414] px-4 py-2 flex items-center justify-between text-[11px] text-neutral-400 border-t border-white/5 font-sans">
+                <span>Flipbook created for Cannoga College</span>
+                <a
+                    href={pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download="Cannoga-College-Viewbook-2026-2027.pdf"
+                    className="text-neutral-400 hover:text-white underline transition-colors"
+                >
+                    Download PDF version
+                </a>
             </div>
         </div>
     );
