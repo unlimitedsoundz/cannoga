@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 
 interface ServiceCard {
@@ -12,6 +13,7 @@ interface ServiceCard {
     bgColor: string;
     borderColor: string;
     waveColor: string;
+    href?: string;
 }
 
 const SERVICE_CARDS: ServiceCard[] = [
@@ -23,6 +25,7 @@ const SERVICE_CARDS: ServiceCard[] = [
         bgColor: 'bg-[#f57c00]', // Vibrant warm orange
         borderColor: 'border-[#f57c00]',
         waveColor: '#964b00',
+        href: '/student-life/#services',
     },
     {
         id: 'bookstore-supplies',
@@ -32,6 +35,7 @@ const SERVICE_CARDS: ServiceCard[] = [
         bgColor: 'bg-[#0088dd]', // Vibrant electric blue
         borderColor: 'border-[#0088dd]',
         waveColor: '#004c80',
+        href: '/student-guide/#support',
     },
     {
         id: 'health-medical',
@@ -41,6 +45,7 @@ const SERVICE_CARDS: ServiceCard[] = [
         bgColor: 'bg-[#4da674]', // Vibrant green
         borderColor: 'border-[#4da674]',
         waveColor: '#28583c',
+        href: '/student-guide/health-and-wellbeing/',
     },
     {
         id: 'career-hub',
@@ -50,6 +55,7 @@ const SERVICE_CARDS: ServiceCard[] = [
         bgColor: 'bg-[#8e24aa]', // Vibrant purple
         borderColor: 'border-[#8e24aa]',
         waveColor: '#521363',
+        href: '/careers',
     },
 ];
 
@@ -112,10 +118,11 @@ export function CampusServicesAcademicCarousel() {
                 {SERVICE_CARDS.map((card, idx) => (
                     <div
                         key={card.id}
-                        className="snap-start shrink-0 w-[270px] sm:w-[320px] md:w-[360px] flex flex-col select-none"
+                        className="snap-start shrink-0 w-[270px] sm:w-[320px] md:w-[360px] flex flex-col select-none group"
                     >
-                        <div
-                            className={`block w-full p-2.5 sm:p-3 rounded-md ${card.bgColor} ${card.borderColor} border-4 overflow-hidden`}
+                        <Link
+                            href={card.href || '#'}
+                            className={`block w-full p-2.5 sm:p-3 rounded-md ${card.bgColor} ${card.borderColor} border-4 overflow-hidden transition-transform duration-300 group-hover:-translate-y-1`}
                         >
                             {/* Card Top Image with Animated Organic Wavy Cutout */}
                             <div className="relative aspect-[16/11] w-full overflow-hidden rounded-sm bg-black/10">
@@ -123,7 +130,7 @@ export function CampusServicesAcademicCarousel() {
                                     src={card.image}
                                     alt={card.title}
                                     fill
-                                    className="object-cover"
+                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                                     sizes="(max-width: 640px) 270px, 360px"
                                 />
 
@@ -148,14 +155,14 @@ export function CampusServicesAcademicCarousel() {
 
                             {/* Card Bottom Solid Color Content */}
                             <div className="pt-4 pb-3 px-3 sm:px-4 flex flex-col justify-start min-h-[120px] text-white">
-                                <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-[1.08] mb-1.5">
+                                <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-[1.08] mb-1.5 group-hover:text-yellow-200 transition-colors">
                                     {card.title}
                                 </h3>
                                 <p className="text-xs sm:text-sm font-medium text-white/95 leading-relaxed">
                                     {card.description}
                                 </p>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                 ))}
             </div>

@@ -41,7 +41,7 @@ const LIFE_CARDS: StudentLifeItem[] = [
         id: 'health-wellbeing',
         title: 'HEALTH & WELLBEING',
         description: 'Mental health counseling, campus accessibility services, and medical health insurance support.',
-        href: '/student-guide#support',
+        href: '/student-guide/health-and-wellbeing/',
         bgColor: 'bg-[#10b981]', // Electric Emerald
         borderColor: 'border-[#10b981]',
     },

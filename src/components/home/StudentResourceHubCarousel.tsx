@@ -28,7 +28,7 @@ const RESOURCE_CARDS: ResourceCardItem[] = [
         id: 'student-support',
         title: 'STUDENT SUPPORT & HEALTH SERVICES',
         description: 'Comprehensive health, mental wellness, accessibility, and personal advising resources.',
-        href: '/student-guide#support',
+        href: '/student-guide/health-and-wellbeing/',
         bgColor: 'bg-[#ec4899]', // Vibrant Hot Pink
         borderColor: 'border-[#ec4899]',
         waveColor: '#db2777',

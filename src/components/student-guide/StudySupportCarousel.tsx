@@ -34,7 +34,7 @@ const SUPPORT_CARDS: SupportCardItem[] = [
         id: 'wellbeing',
         title: 'STUDENT WELLBEING',
         description: 'Health services, accessibility accommodations, and counseling for all students.',
-        href: '#support',
+        href: '/student-guide/health-and-wellbeing/',
         bgColor: 'bg-[#10b981]', // Electric Emerald
         borderColor: 'border-[#10b981]',
     },

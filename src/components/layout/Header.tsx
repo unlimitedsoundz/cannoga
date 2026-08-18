@@ -104,6 +104,7 @@ const navigation: NavItem[] = [
             { name: "Diploma Students Guide", href: "/student-guide/diploma/" },
             { name: "Certificate Students Guide", href: "/student-guide/certificate/" },
             { name: "Student Life & Campus", href: "/student-life/" },
+            { name: "Health & Wellbeing", href: "/student-guide/health-and-wellbeing/" },
             { name: "Housing", href: "/housing/" },
             { name: "Academic Calendar", href: "/student-guide/#calendar" },
             { name: "Support Services", href: "/student-guide/#support" },
@@ -118,6 +119,7 @@ const navigation: NavItem[] = [
         children: [
             { name: "International Student Guide", href: "/student-guide/international/" },
             { name: "Student Life", href: "/student-life/" },
+            { name: "Health & Wellbeing", href: "/student-guide/health-and-wellbeing/" },
             { name: "Housing", href: "/housing/" },
             { name: "Arrival Guide", href: "/student-guide/arrival/" },
             { name: "Exchange Guide", href: "/student-guide/exchange/" },
