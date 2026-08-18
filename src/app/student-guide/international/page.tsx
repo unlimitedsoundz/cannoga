@@ -7,6 +7,7 @@ import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { SchemaLD } from '@/components/seo/SchemaLD';
 import { Highlight } from '@/components/ui/Highlight';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
+import { LivingInOttawaQuickLinksCarousel } from '@/components/international/LivingInOttawaQuickLinksCarousel';
 
 const tocSections = [
     { id: 'intro', title: 'Purpose of Guide', content: '' },
@@ -219,26 +220,7 @@ export default function InternationalGuidePage() {
                                     sizes="(max-width: 1024px) 100vw, 1200px"
                                 />
                             </div>
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <div>
-                                    <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Student Health Care &amp; UHIP</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">All international students in Ontario are covered by the University Health Insurance Plan (UHIP) for 100% medical, clinic, and hospital care, plus on-campus counseling and nursing triage.</p>
-                                    <Link href="/student-guide/health-and-wellbeing/" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Health &amp; Wellbeing Guide →</Link>
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Local Culture</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">Ottawa is bilingual (English &amp; French), diverse, and welcoming. It&apos;s one of the world's safest cities with a vibrant arts scene, national museums, and four distinct seasons.</p>
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Working While Studying</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">Your Canadian study permit allows you to work up to 30 hours/week during term time (full-time during holidays). Many local employers actively recruit Cannoga students.</p>
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Language &amp; Careers</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">Cannoga&apos;s Career Centre offers job boards, resume workshops, internships, and networking events with Ottawa&apos;s tech, government, and business sectors.</p>
-                                    <Link href="/careers" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Career Centre →</Link>
-                                </div>
-                            </div>
+                            <LivingInOttawaQuickLinksCarousel />
                         </section>
 
                         {/* Support Services */}

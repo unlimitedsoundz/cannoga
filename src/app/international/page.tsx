@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/Card';
 import { ContentBox } from '@/components/ui/ContentBox';
 import { SchemaLD } from '@/components/seo/SchemaLD';
 import { Highlight } from '@/components/ui/Highlight';
+import { LivingInOttawaQuickLinksCarousel } from '@/components/international/LivingInOttawaQuickLinksCarousel';
 
 const tocSections = [
     { id: 'intro', title: 'Purpose of Guide', content: '' },
@@ -207,11 +208,11 @@ export default function InternationalPage() {
                         </section>
 
                         {/* Living in Ottawa */}
-                        <section id="living" className="scroll-mt-32">
-                            <div className="cc-section-divider mb-10">
+                        <section id="living" className="scroll-mt-32 space-y-4">
+                            <div className="cc-section-divider mb-6">
                                 <h2 className="cc-h2">Living in Ottawa</h2>
                             </div>
-                            <div className="relative aspect-video overflow-hidden rounded-lg shadow mb-10">
+                            <div className="relative aspect-video overflow-hidden rounded-lg mb-4">
                                 <Image
                                     src="https://i.pinimg.com/1200x/b9/46/2f/b9462f65ccdfe4c2c4019ab1ea290e1f.jpg"
                                     alt="Students enjoying life in Ottawa, Ontario, Canada"
@@ -220,25 +221,7 @@ export default function InternationalPage() {
                                     sizes="(max-width: 1024px) 100vw, 1200px"
                                 />
                             </div>
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <Card
-                                    title="Student Health Care"
-                                    body="Once registered as a resident with an Ontario health card, you can access public healthcare through OHIP. In the interim, ensure you have private coverage. Cannoga partners with local clinics for walk-in care."
-                                />
-                                <Card
-                                    title="Local Culture"
-                                    body="Ottawa is bilingual (English & French), diverse, and welcoming. It's one of the world's safest cities with a vibrant arts scene, national museums, and four distinct seasons."
-                                />
-                                <Card
-                                    title="Working While Studying"
-                                    body="Your Canadian study permit allows you to work up to 30 hours/week during term time (full-time during holidays). Many local employers actively recruit Cannoga students."
-                                />
-                                <Card
-                                    title="Language & Careers"
-                                    body="Cannoga's Career Centre offers job boards, resume workshops, internships, and networking events with Ottawa's tech, government, and business sectors."
-                                    cta={{ label: "Career Centre", linkComponentProps: { href: "/careers" } }}
-                                />
-                            </div>
+                            <LivingInOttawaQuickLinksCarousel />
                         </section>
 
                         {/* Support Services */}
