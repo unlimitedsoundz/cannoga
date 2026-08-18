@@ -57,21 +57,21 @@ const CopyButton = ({ text, label }: { text: string; label: string }) => {
     return (
         <button
             onClick={handleCopy}
-            className="flex items-center justify-center text-neutral-600 hover:text-black transition-colors bg-neutral-200/80 hover:bg-neutral-300 w-7 h-7 rounded shrink-0"
+            className="p-1 text-neutral-400 hover:text-black transition-colors rounded shrink-0 inline-flex items-center justify-center cursor-pointer"
             title={`Copy ${label}`}
             aria-label={`Copy ${label}`}
         >
-            {copied ? <CheckCircle2 size={15} weight="bold" className="text-emerald-600" /> : <Copy size={15} />}
+            {copied ? <CheckCircle2 size={14} weight="bold" className="text-emerald-600" /> : <Copy size={14} />}
         </button>
     );
 };
 
 // ─── Bank Detail Row ─────────────────────────────────────────────────────────
 const BankRow = ({ label, value, copyable }: { label: string; value: string; copyable?: boolean }) => (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between py-2.5 border-b border-neutral-200/70 last:border-b-0 gap-1 sm:gap-4">
-        <span className="text-[11px] text-neutral-500 font-semibold uppercase tracking-wider">{label}</span>
-        <div className="flex items-center gap-2.5 sm:justify-end">
-            <span className="text-sm text-neutral-900 font-medium tracking-normal text-left sm:text-right break-all">{value}</span>
+    <div className="flex items-center justify-between py-1.5 border-b border-neutral-200/60 last:border-b-0 gap-3">
+        <span className="text-[11px] text-neutral-500 font-medium uppercase tracking-wider">{label}</span>
+        <div className="flex items-center gap-1.5 justify-end">
+            <span className="text-xs md:text-sm text-neutral-900 font-medium text-right break-all">{value}</span>
             {copyable && <CopyButton text={value} label={label} />}
         </div>
     </div>
@@ -490,7 +490,7 @@ export default function PayGoWireCheckout({
                         </div>
 
                         {/* Dynamic Bank Details */}
-                        <div className="bg-neutral-50 p-4 md:p-6 space-y-3 md:space-y-4 rounded-4px">
+                        <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200/70 space-y-1">
                             <BankRow label="Amount" value={`${fxData.currencySymbol} ${Number(initPayload.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${initPayload.localCurrency}`} copyable />
                             <BankRow label="Bank" value={selectedBank.bank_name} />
                             <BankRow label="Account Name" value={selectedBank.account_name} />
