@@ -781,25 +781,51 @@ function formatRelativeTime(dateInput: any): string {
                     .from('students')
                     .select('*')
                     .eq('user_id', user.id)
-                    .single();
+                    .maybeSingle();
+
+                let currentStudentId = studentData?.id || '';
 
                 if (studentData) {
                     setStudent(studentData);
 
-                    if (studentData.program_id) {
+                    let programId = studentData.program_id;
+
+                    if (!programId && studentData.application_id) {
+                        const { data: appData } = await supabase
+                            .from('applications')
+                            .select('course_id')
+                            .eq('id', studentData.application_id)
+                            .maybeSingle();
+                        if (appData?.course_id) {
+                            programId = appData.course_id;
+                        }
+                    }
+
+                    if (programId) {
                         const { data: courseData } = await supabase
                             .from('Course')
                             .select('id, title, degreeLevel, schoolId, departmentId, school:School(name), department:Department(name)')
-                            .eq('id', studentData.program_id)
-                            .single();
+                            .eq('id', programId)
+                            .maybeSingle();
 
                         if (courseData) {
                             setStudentCourse(courseData);
                         }
                     }
-                }
+                } else {
+                    // Fallback for admitted applicant with profile before student record
+                    const { data: appData } = await supabase
+                        .from('applications')
+                        .select('id, course_id, Course:course_id(id, title, degreeLevel, schoolId, departmentId, school:School(name), department:Department(name))')
+                        .eq('user_id', user.id)
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .maybeSingle();
 
-                const currentStudentId = studentData?.id || '';
+                    if (appData?.Course) {
+                        setStudentCourse(appData.Course as any);
+                    }
+                }
 
                 const [
                     enrollmentResult,
@@ -816,12 +842,13 @@ function formatRelativeTime(dateInput: any): string {
                     bankAccountsResult,
                     dbNewsResult,
                     dbEventResult,
+                    appDocResult,
                 ] = await Promise.all([
                     supabase.from('module_enrollments').select('*, module:modules(code, title, credits), semester:semesters(name, start_date, end_date)').eq('student_id', currentStudentId),
                     supabase.from('invoices').select('*').eq('student_id', currentStudentId).order('issued_date', { ascending: false }),
                     supabase.from('student_holds').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
                     supabase.from('student_tasks').select('*').eq('student_id', currentStudentId).order('due_date', { ascending: true }),
-                    supabase.from('document_records').select('*').eq('student_id', currentStudentId).eq('is_student_visible', true).order('issue_date', { ascending: false }),
+                    currentStudentId ? supabase.from('document_records').select('*').eq('student_id', currentStudentId).eq('is_student_visible', true).order('issue_date', { ascending: false }) : Promise.resolve({ data: [] }),
                     supabase.from('Faculty').select('*').limit(20),
                     supabase.from('announcements').select('id, title, excerpt, content, priority, status, publish_start, publish_end, display_order, created_at').neq('status', 'draft').order('created_at', { ascending: false }).limit(20),
                     supabase.from('financial_aid').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
@@ -831,6 +858,7 @@ function formatRelativeTime(dateInput: any): string {
                     supabase.from('bank_accounts').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
                     supabase.from('News').select('id, title, excerpt, content, imageUrl, publishDate, createdAt').order('createdAt', { ascending: false }).limit(20),
                     supabase.from('Event').select('id, title, content, imageUrl, date, createdAt').order('createdAt', { ascending: false }).limit(20),
+                    supabase.from('application_documents').select('*, application:applications!inner(user_id)').eq('application.user_id', user.id),
                 ]);
 
                 const enrollmentData = enrollmentResult.data;
@@ -852,7 +880,44 @@ function formatRelativeTime(dateInput: any): string {
                 if (invoiceResult.data) setInvoices(invoiceResult.data);
                 if (holdResult.data) setHolds(holdResult.data);
                 if (taskResult.data) setTasks(taskResult.data);
-                if (docResult.data) setDocuments(docResult.data);
+                
+                const existingDocs = (docResult.data || []) as any[];
+                const extraDocs: any[] = [];
+
+                // Synthesize LOA if found in application documents
+                const appDocs = (appDocResult?.data || []) as any[];
+                for (const ad of appDocs) {
+                    if (ad.type === 'LOA' || ad.type === 'OFFER_LETTER') {
+                        if (!existingDocs.some(d => d.document_type === 'loa')) {
+                            extraDocs.push({
+                                id: ad.id,
+                                student_id: currentStudentId,
+                                document_type: 'loa',
+                                title: 'Official Letter of Acceptance (LOA)',
+                                storage_path: ad.file_url,
+                                is_student_visible: true,
+                                status: 'issued',
+                                issue_date: ad.created_at,
+                            });
+                        }
+                    }
+                }
+
+                // If still missing LOA, synthesize link to the student's admission letter generator
+                if (!existingDocs.some(d => d.document_type === 'loa') && !extraDocs.some(d => d.document_type === 'loa')) {
+                    extraDocs.push({
+                        id: `loa-gen-${user.id}`,
+                        student_id: currentStudentId,
+                        document_type: 'loa',
+                        title: 'Official Letter of Acceptance (LOA)',
+                        storage_path: `/api/portal/letter/pdf?id=${studentData?.application_id || ''}`,
+                        is_student_visible: true,
+                        status: 'issued',
+                        issue_date: new Date().toISOString(),
+                    });
+                }
+
+                setDocuments([...existingDocs, ...extraDocs]);
                 if (facultyResult.data) setFaculty(facultyResult.data);
                 
                 const fetchedAnnouncements = (newsResult.data || []) as Announcement[];
@@ -1614,7 +1679,7 @@ function formatRelativeTime(dateInput: any): string {
                                         </div>
                                         <div className="flex flex-col items-center justify-center py-2">
                                             {(() => {
-                                                const pct = studentLifeData?.attendancePercentage ?? 94;
+                                                const pct = studentLifeData?.attendancePercentage ?? 0;
                                                 const strokeDashoffset = 238.76 * (1 - Math.min(Math.max(pct, 0), 100) / 100);
                                                 return (
                                                     <div className="relative w-28 h-28 flex items-center justify-center my-1">
@@ -1628,12 +1693,12 @@ function formatRelativeTime(dateInput: any): string {
                                                                 strokeWidth="7"
                                                                 fill="transparent"
                                                             />
-                                                            {/* Orange Progress Ring */}
+                                                            {/* Progress Ring */}
                                                             <circle
                                                                 cx="45"
                                                                 cy="45"
                                                                 r="38"
-                                                                stroke="#F97316"
+                                                                stroke="#147BD1"
                                                                 strokeWidth="7"
                                                                 strokeDasharray="238.76"
                                                                 strokeDashoffset={strokeDashoffset}
@@ -1644,7 +1709,7 @@ function formatRelativeTime(dateInput: any): string {
                                                         </svg>
                                                         <div className="absolute flex flex-col items-center justify-center text-center">
                                                             <span className="text-2xl font-black text-slate-900">{pct}%</span>
-                                                            <span className="text-[9px] font-bold text-orange-600 uppercase tracking-wider">Rate</span>
+                                                            <span className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider">Rate</span>
                                                         </div>
                                                     </div>
                                                 );
