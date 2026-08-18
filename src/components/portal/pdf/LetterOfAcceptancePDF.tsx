@@ -170,7 +170,7 @@ interface LetterOfAcceptancePDFProps {
     visaDeadlines?: {
       fall: string;
       winter: string;
-      summer: string;
+      summer?: string;
     };
   };
 }

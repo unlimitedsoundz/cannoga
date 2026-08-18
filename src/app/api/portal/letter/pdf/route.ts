@@ -5,17 +5,29 @@ import { generateAndStoreLOA } from '@/utils/loa-pdf-generator';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-
-    if (!id) {
-      return NextResponse.json({ error: 'Application ID is required' }, { status: 400 });
-    }
+    let id = searchParams.get('id');
 
     const supabase = await createServerClient();
 
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    if (!id) {
+      const { data: userApp } = await supabase
+        .from('applications')
+        .select('id')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (userApp?.id) {
+        id = userApp.id;
+      } else {
+        return NextResponse.json({ error: 'Application ID is required' }, { status: 400 });
+      }
     }
 
     const { data: application, error } = await supabase
@@ -30,8 +42,8 @@ export async function GET(request: NextRequest) {
       .eq('user_id', user.id)
       .single();
 
-    if (error || !application) {
-      return NextResponse.json({ error: 'Application not found' }, { status: 404 });
+    if (error || !application || !id) {
+      return NextResponse.json({ error: error ? 'Application not found' : 'Application ID is required' }, { status: 404 });
     }
 
     const result = await generateAndStoreLOA(id, application);
@@ -57,7 +69,7 @@ export async function GET(request: NextRequest) {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename="${fileName}"`,
+        'Content-Disposition': `inline; filename="${fileName}"`,
       },
     });
   } catch (error) {

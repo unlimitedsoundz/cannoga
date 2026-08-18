@@ -127,7 +127,7 @@ export async function GET(request: NextRequest) {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename="receipt-${payment.transaction_reference}.pdf"`,
+        'Content-Disposition': `inline; filename="receipt-${payment.transaction_reference}.pdf"`,
       },
     });
   } catch (error) {

@@ -20,15 +20,40 @@ async function getSystemSetting(key: string) {
 }
 
 const INTAKE_START_DATES: Record<string, string> = {
-  'Fall 2026': '2026-09-11',
-  'Winter 2027': '2027-01-18',
-  'Fall 2027': '2027-09-11',
+  'Fall 2026': '2026-09-19',
+  'Fall': '2026-09-19',
+  'Winter 2027': '2027-01-19',
+  'Winter': '2027-01-19',
+  'Fall 2027': '2027-09-19',
 };
 
+function getStartDateForIntake(intake?: string | null, rawStartDate?: string | null): string {
+  if (intake && typeof intake === 'string') {
+    const trimmed = intake.trim();
+    if (INTAKE_START_DATES[trimmed]) {
+      return INTAKE_START_DATES[trimmed];
+    }
+    const lower = trimmed.toLowerCase();
+    if (lower.includes('fall') && lower.includes('2027')) return '2027-09-19';
+    if (lower.includes('fall')) return '2026-09-19';
+    if (lower.includes('winter') && lower.includes('2027')) return '2027-01-19';
+    if (lower.includes('winter')) return '2027-01-19';
+  }
+
+  if (rawStartDate) {
+    try {
+      const parsed = new Date(rawStartDate);
+      if (!isNaN(parsed.getTime())) {
+        return parsed.toLocaleDateString('en-CA');
+      }
+    } catch (e) {}
+  }
+
+  return '2026-09-19';
+}
+
 function getVisaDeadlineForIntake(intake?: string | null): string | null {
-  if (!intake) return null;
-  const startDateStr = INTAKE_START_DATES[intake.trim()];
-  if (!startDateStr) return null;
+  const startDateStr = getStartDateForIntake(intake);
   const startDate = new Date(startDateStr);
   const visaDeadline = new Date(startDate);
   visaDeadline.setDate(visaDeadline.getDate() - 27);
@@ -94,11 +119,11 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
 
   const schoolType = school.slug === 'business' ? 'Private' : 'Private';
   const intake = application.intake || '';
+  const resolvedStartDate = getStartDateForIntake(intake, application.start_date);
 
   const visaDeadline = getVisaDeadlineForIntake(intake);
   const fallVisaDeadline = getVisaDeadlineForIntake('Fall 2026') || 'August 15, 2026';
   const winterVisaDeadline = getVisaDeadlineForIntake('Winter 2027') || 'December 15, 2026';
-  const summerVisaDeadline = getVisaDeadlineForIntake('Summer 2026') || 'April 15, 2026';
 
   return {
     issueDate,
@@ -128,9 +153,9 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
       status: 'Full-Time',
       campus: 'Ottawa',
       length: `${getProgramYears(course.duration || '', course.degreeLevel)} Years`,
-      startDate: new Date(application.start_date || Date.now()).toLocaleDateString('en-CA'),
+      startDate: resolvedStartDate,
       completionDate: (() => {
-        const start = application.start_date ? new Date(application.start_date) : new Date();
+        const start = new Date(resolvedStartDate);
         const years = getProgramYears(course.duration || '', course.degreeLevel);
         const completion = new Date(start);
         completion.setFullYear(completion.getFullYear() + years);
@@ -163,7 +188,6 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
     visaDeadlines: {
       fall: fallVisaDeadline,
       winter: winterVisaDeadline,
-      summer: summerVisaDeadline,
     },
   };
 }

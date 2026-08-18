@@ -44,10 +44,12 @@ function SwipeableNotificationItem({
   n,
   onMarkRead,
   onDelete,
+  onSelect,
 }: {
   n: Notification;
   onMarkRead: (id: string) => void;
   onDelete: (id: string) => void;
+  onSelect?: (n: Notification) => void;
 }) {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [swipeOffset, setSwipeOffset] = useState<number>(0);
@@ -87,15 +89,15 @@ function SwipeableNotificationItem({
   return (
     <div
       className={`relative overflow-hidden border-b border-white/5 transition-all duration-200 ${
-        isDeleting ? 'max-h-0 opacity-0 py-0 overflow-hidden' : 'max-h-32'
+        isDeleting ? 'max-h-0 opacity-0 py-0 overflow-hidden' : 'max-h-36'
       }`}
     >
       <div
-        className="absolute inset-y-0 left-0 bg-red-600 text-white flex items-center justify-start px-3 font-bold text-[10px] cursor-pointer z-0"
+        className="absolute inset-y-0 left-0 bg-red-600 text-white flex items-center justify-start px-3 font-bold text-xs cursor-pointer z-0"
         style={{ width: `${Math.max(swipeOffset, 60)}px` }}
         onClick={handleDeleteClick}
       >
-        <HugeiconsIcon icon={Trash} size={14} strokeWidth={2} />
+        <HugeiconsIcon icon={Trash} size={16} strokeWidth={2} />
       </div>
 
       <div
@@ -103,32 +105,38 @@ function SwipeableNotificationItem({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         style={{ transform: `translateX(${swipeOffset}px)` }}
-        onClick={() => onMarkRead(n.id)}
-        className={`relative z-10 p-2.5 cursor-pointer transition-transform flex items-start gap-2.5 border-b border-slate-100 ${
+        onClick={() => {
+          onMarkRead(n.id);
+          if (onSelect) onSelect(n);
+        }}
+        className={`relative z-10 p-3.5 cursor-pointer transition-transform flex items-start gap-3 border-b border-slate-100 ${
           !n.read ? 'bg-sky-50/70 hover:bg-sky-100/60' : 'bg-white hover:bg-slate-50'
         }`}
       >
         {/* Cannoga Logo Avatar */}
-        <div className="w-7 h-7 rounded-full bg-slate-900 border border-slate-200 p-1 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+        <div className="w-8 h-8 rounded-full bg-slate-900 border border-slate-200 p-1.5 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
           <img src="/images/logo-cannoga.png" alt="Cannoga" className="w-full h-full object-contain brightness-0 invert" />
         </div>
 
         <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-1.5">
-            <div className="text-[10px] font-bold text-slate-900 leading-tight line-clamp-1 flex-1">{n.title}</div>
+          <div className="flex items-start justify-between gap-2">
+            <div className="text-xs sm:text-sm font-bold text-slate-900 leading-snug line-clamp-1 flex-1">{n.title}</div>
             <button
               type="button"
               onClick={handleDeleteClick}
-              className="text-slate-400 hover:text-red-500 p-0.5 transition-colors rounded hover:bg-slate-100 shrink-0"
-              title="Swipe right or click to delete"
+              className="text-slate-400 hover:text-red-500 p-1 transition-colors rounded hover:bg-slate-100 shrink-0"
+              title="Delete notification"
             >
-              <HugeiconsIcon icon={Trash} size={12} strokeWidth={2} />
+              <HugeiconsIcon icon={Trash} size={14} strokeWidth={2} />
             </button>
           </div>
 
-          <div className="mt-0.5">
-            <div className="text-[9px] text-slate-600 mt-0.5 leading-tight line-clamp-2">{n.description}</div>
-            <div className="text-[8px] font-semibold text-slate-400 mt-1">{n.time}</div>
+          <div className="mt-1">
+            <div className="text-xs text-slate-600 leading-relaxed line-clamp-2">{n.description}</div>
+            <div className="flex items-center justify-between mt-2">
+              <span className="text-[11px] font-semibold text-slate-400">{n.time}</span>
+              <span className="text-[11px] font-bold text-sky-600 hover:text-sky-700">View details →</span>
+            </div>
           </div>
         </div>
       </div>
@@ -177,6 +185,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
   const pathname = usePathname();
   const router = useRouter();
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [selectedNotif, setSelectedNotif] = useState<Notification | null>(null);
   const [profileOpen, setProfileOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadMessageCount, setUnreadMessageCount] = useState(0);
@@ -206,6 +215,25 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
   const roleLabel = profile?.role ? getRoleLabel(profile.role) : (role === 'ADMIN' ? 'Admin' : 'Student');
   const userEmail = profile?.email || 'user@example.com';
 
+  const getReadIds = (): string[] => {
+    if (typeof window === 'undefined') return [];
+    try {
+      return JSON.parse(localStorage.getItem('sis_read_notifications') || '[]');
+    } catch {
+      return [];
+    }
+  };
+
+  const addReadId = (id: string) => {
+    if (typeof window === 'undefined') return;
+    try {
+      const current = getReadIds();
+      if (!current.includes(id)) {
+        localStorage.setItem('sis_read_notifications', JSON.stringify([...current, id]));
+      }
+    } catch (e) {}
+  };
+
   const getDismissedIds = (): string[] => {
     if (typeof window === 'undefined') return [];
     try {
@@ -233,6 +261,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
         if (res.ok) {
           const data = await res.json();
           const dismissed = getDismissedIds();
+          const localReadIds = getReadIds();
           const list = (data.notifications || [])
             .filter((n: any) => !dismissed.includes(n.id))
             .map((n: any) => ({
@@ -241,7 +270,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
               description: n.message || n.description || '',
               time: formatRelativeTime(n.created_at || n.time || n.date || Date.now()),
               priority: n.priority || 'normal',
-              read: n.read || false,
+              read: n.read || localReadIds.includes(n.id) || false,
             }));
 
           // Trigger toast for newly fetched unread notification for students
@@ -409,17 +438,18 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
 
           {/* Notifications Panel */}
           {notificationsOpen && (
-            <div className="absolute right-2 sm:right-4 top-14 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-white border border-slate-200 shadow-2xl z-50 rounded-xl text-slate-800 animate-drawer-slide">
+            <div className="absolute right-2 sm:right-4 top-14 w-80 sm:w-96 max-w-[calc(100vw-1rem)] bg-white border border-slate-200 shadow-2xl z-50 rounded-2xl text-slate-800 animate-drawer-slide">
               {/* Connecting caret arrow pointing to Bell icon */}
-              <div className="absolute -top-1.5 right-4 sm:right-6 w-3 h-3 bg-slate-50 border-t border-l border-slate-200 rotate-45 z-20"></div>
-              <div className="relative z-10 overflow-hidden rounded-xl">
-                <div className="px-3 py-2 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-                <span className="text-[8px] font-bold uppercase tracking-widest text-slate-700">Notifications ({unreadCount})</span>
+              <div className="absolute -top-1.5 right-4 sm:right-6 w-3.5 h-3.5 bg-slate-50 border-t border-l border-slate-200 rotate-45 z-20"></div>
+              <div className="relative z-10 overflow-hidden rounded-2xl">
+                <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-800">Notifications ({unreadCount})</span>
                 {unreadCount > 0 && (
                   <button
                     onClick={async () => {
                       try {
                         for (const n of notifications.filter(x => !x.read)) {
+                          addReadId(n.id);
                           fetch('/api/sis/notifications', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -429,13 +459,13 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                         setNotifications(prev => prev.map(n => ({ ...n, read: true })));
                       } catch (e) {}
                     }}
-                    className="text-[8px] font-bold uppercase tracking-wider text-sky-600 hover:text-sky-700 transition-colors"
+                    className="text-xs font-bold text-sky-600 hover:text-sky-700 transition-colors"
                   >
                     Mark all read
                   </button>
                 )}
               </div>
-              <div className="max-h-64 overflow-y-auto">
+              <div className="max-h-80 overflow-y-auto divide-y divide-slate-100">
                 {notifications.length > 0 ? (
                   notifications.map((n) => (
                     <SwipeableNotificationItem
@@ -443,6 +473,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                       n={n}
                       onMarkRead={async (id) => {
                         if (!n.read) {
+                          addReadId(id);
                           setNotifications(prev => prev.map(item => item.id === id ? { ...item, read: true } : item));
                           fetch('/api/sis/notifications', {
                             method: 'POST',
@@ -451,22 +482,64 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                           }).catch(() => {});
                         }
                       }}
+                      onSelect={(item) => setSelectedNotif(item)}
                       onDelete={handleDeleteNotification}
                     />
                   ))
                 ) : (
-                  <div className="px-4 py-6 text-center text-neutral-500 text-xs">No notifications</div>
+                  <div className="px-4 py-8 text-center text-neutral-500 text-sm">No notifications</div>
                 )}
               </div>
             </div>
           </div>
           )}
         </header>
+
+        {/* Notification Detail Modal */}
+        {selectedNotif && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setSelectedNotif(null)}></div>
+            <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-slate-200 animate-drawer-slide text-slate-800">
+              <div className="p-5 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-slate-900 border border-slate-200 p-1.5 flex items-center justify-center shrink-0 shadow-sm">
+                    <img src="/images/logo-cannoga.png" alt="Cannoga" className="w-full h-full object-contain brightness-0 invert" />
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-slate-900 text-sm">{selectedNotif.title}</h3>
+                    <p className="text-[11px] font-semibold text-slate-400">{selectedNotif.time}</p>
+                  </div>
+                </div>
+                <button 
+                  type="button" 
+                  onClick={() => setSelectedNotif(null)} 
+                  className="text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-200/60 transition"
+                >
+                  <HugeiconsIcon icon={HelpCircle} size={20} strokeWidth={2.5} />
+                </button>
+              </div>
+              <div className="p-6 space-y-4">
+                <div className="text-sm sm:text-base text-slate-700 leading-relaxed whitespace-pre-line font-medium">
+                  {selectedNotif.description}
+                </div>
+              </div>
+              <div className="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end">
+                <button 
+                  type="button" 
+                  onClick={() => setSelectedNotif(null)} 
+                  className="px-5 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-slate-800 transition shadow-sm cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </>
     );
   }
 
-  // ── LIGHT STUDENT HEADER (unchanged) ──
+  // ── LIGHT STUDENT HEADER ──
   return (
     <>
       <Toaster position="top-right" />
@@ -478,54 +551,52 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
             </button>
             <Link href="/sis" className="flex items-center gap-3 shrink-0">
               <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-8 w-auto object-contain" />
-              <div className="hidden md:flex flex-col justify-center border-l border-neutral-200 pl-3 py-0.5">
-                <div className="text-xs font-black uppercase tracking-wider text-neutral-900 leading-tight">Cannoga College</div>
-                <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 leading-none mt-0.5">Student Information System</div>
-              </div>
             </Link>
           </div>
-          <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
-            <HeaderSearch isAdmin={false} />
-          </div>
-          <div ref={notifRef} className="flex items-center gap-2 relative">
-            <button className="relative p-2 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors" title={`Notifications (${unreadCount})`} onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false); }}>
-              <HugeiconsIcon icon={Bell} size={18} strokeWidth={2} className="text-neutral-700" />
-              {unreadCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[9px] font-extrabold h-3.5 min-w-[14px] px-1 rounded-full flex items-center justify-center leading-none shadow-sm border border-[#141414]">
-                  {unreadCount}
-                </span>
-              )}
-            </button>
-            <button className="relative p-2 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors" title="Messages" onClick={() => router.push('/sis?page=student-life')}>
-              <HugeiconsIcon icon={Envelope} size={18} strokeWidth={2} className="text-neutral-700" />
-              {unreadMessageCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-sky-500 text-white text-[9px] font-extrabold h-3.5 min-w-[14px] px-1 rounded-full flex items-center justify-center leading-none shadow-sm border border-[#141414]">
-                  {unreadMessageCount}
-                </span>
-              )}
-            </button>
-            <button className="p-2 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors" title="Help">
-              <HugeiconsIcon icon={HelpCircle} size={18} strokeWidth={2} className="text-neutral-700" />
-            </button>
-            <div className="relative">
-              <button className="flex items-center gap-2 p-1.5 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors cursor-pointer" onClick={() => { setProfileOpen(!profileOpen); setNotificationsOpen(false); }}>
-                <HugeiconsIcon icon={User} size={18} strokeWidth={2} className="text-neutral-700" />
-                <div className="hidden lg:block text-left">
-                  <div className="text-xs font-bold text-neutral-900 leading-none">{displayName}</div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{roleLabel}</div>
-                </div>
-                <HugeiconsIcon icon={ChevronDown} size={12} strokeWidth={2.5} className="text-neutral-600" />
+
+          <div className="flex items-center gap-2 sm:gap-3">
+            <HeaderSearch />
+
+            <div className="relative" ref={notifRef}>
+              <button
+                className="relative p-2 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors"
+                title={`Notifications (${unreadCount})`}
+                onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false); }}
+              >
+                <HugeiconsIcon icon={Bell} size={20} strokeWidth={2} />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[9px] font-extrabold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center leading-none shadow-sm">
+                    {unreadCount}
+                  </span>
+                )}
               </button>
+            </div>
+
+            <div className="relative">
+              <button
+                className="flex items-center gap-2 p-1.5 text-neutral-700 hover:text-black hover:bg-neutral-100 rounded-lg transition-colors cursor-pointer"
+                onClick={() => { setProfileOpen(!profileOpen); setNotificationsOpen(false); }}
+              >
+                <div className="w-7 h-7 bg-neutral-900 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                  {displayName.charAt(0).toUpperCase()}
+                </div>
+                <div className="hidden sm:block text-left text-xs">
+                  <div className="font-bold text-neutral-900 leading-tight">{displayName}</div>
+                  <div className="text-[10px] text-neutral-500">{roleLabel}</div>
+                </div>
+                <HugeiconsIcon icon={ChevronDown} size={14} strokeWidth={2} />
+              </button>
+
               {profileOpen && (
-                <div className="absolute right-0 top-full mt-1 w-56 bg-[#1c1c1c] border border-white/10 shadow-lg z-50 py-1 text-white rounded-xl overflow-hidden">
-                  <div className="px-4 py-2 border-b border-white/10">
-                    <div className="text-sm font-bold text-white">{displayName}</div>
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">{userEmail}</div>
+                <div className="absolute right-0 top-full mt-1 w-56 bg-white border border-neutral-200 shadow-xl z-50 py-1 text-neutral-900 rounded-xl overflow-hidden">
+                  <div className="px-4 py-2 border-b border-neutral-100 bg-neutral-50">
+                    <div className="text-sm font-bold text-neutral-900">{displayName}</div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{userEmail}</div>
                   </div>
-                  <Link href="/sis/settings" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white hover:bg-white/5 no-underline">Settings</Link>
-                  <Link href="/" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white hover:bg-white/5 no-underline">View Website</Link>
-                  <div className="border-t border-white/10 mt-1 pt-1">
-                    <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-red-400 hover:bg-white/5">Sign Out</button>
+                  <Link href="/sis/settings" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 no-underline">Settings</Link>
+                  <Link href="/" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 no-underline">View Website</Link>
+                  <div className="border-t border-neutral-100 mt-1 pt-1">
+                    <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-red-600 hover:bg-red-50">Sign Out</button>
                   </div>
                 </div>
               )}
@@ -535,14 +606,15 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
 
         {/* Student Notifications Panel */}
         {notificationsOpen && (
-          <div className="absolute right-2 sm:right-4 top-14 w-72 sm:w-80 max-w-[calc(100vw-1rem)] bg-[#0d1f28] border border-cyan-500/20 shadow-2xl z-50 rounded-xl overflow-hidden text-slate-100">
-            <div className="px-3 py-2.5 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-white">Notifications ({unreadCount})</span>
+          <div className="absolute right-2 sm:right-4 top-14 w-80 sm:w-96 max-w-[calc(100vw-1rem)] bg-[#0d1f28] border border-cyan-500/20 shadow-2xl z-50 rounded-2xl overflow-hidden text-slate-100">
+            <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between bg-[#0a151a]">
+              <span className="text-xs font-bold uppercase tracking-wider text-white">Notifications ({unreadCount})</span>
               {unreadCount > 0 && (
                 <button
                   onClick={async () => {
                     try {
                       for (const n of notifications.filter(x => !x.read)) {
+                        addReadId(n.id);
                         fetch('/api/sis/notifications', {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
@@ -552,13 +624,13 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                       setNotifications(prev => prev.map(n => ({ ...n, read: true })));
                     } catch (e) {}
                   }}
-                  className="text-[9px] font-bold uppercase tracking-wider text-sky-400 hover:text-sky-300 transition-colors"
+                  className="text-xs font-bold text-sky-400 hover:text-sky-300 transition-colors"
                 >
                   Mark all read
                 </button>
               )}
             </div>
-            <div className="max-h-64 overflow-y-auto">
+            <div className="max-h-80 overflow-y-auto divide-y divide-white/5">
               {notifications.length > 0 ? (
                 notifications.map((n) => (
                   <SwipeableNotificationItem
@@ -566,6 +638,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                     n={n}
                     onMarkRead={async (id) => {
                       if (!n.read) {
+                        addReadId(id);
                         setNotifications(prev => prev.map(item => item.id === id ? { ...item, read: true } : item));
                         fetch('/api/sis/notifications', {
                           method: 'POST',
@@ -574,12 +647,54 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                         }).catch(() => {});
                       }
                     }}
+                    onSelect={(item) => setSelectedNotif(item)}
                     onDelete={handleDeleteNotification}
                   />
                 ))
               ) : (
                 <div className="px-4 py-8 text-center text-neutral-500 text-sm">No notifications</div>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* Notification Detail Modal */}
+        {selectedNotif && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setSelectedNotif(null)}></div>
+            <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-slate-200 animate-drawer-slide text-slate-800">
+              <div className="p-5 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-slate-900 border border-slate-200 p-1.5 flex items-center justify-center shrink-0 shadow-sm">
+                    <img src="/images/logo-cannoga.png" alt="Cannoga" className="w-full h-full object-contain brightness-0 invert" />
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-slate-900 text-sm">{selectedNotif.title}</h3>
+                    <p className="text-[11px] font-semibold text-slate-400">{selectedNotif.time}</p>
+                  </div>
+                </div>
+                <button 
+                  type="button" 
+                  onClick={() => setSelectedNotif(null)} 
+                  className="text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-200/60 transition"
+                >
+                  <HugeiconsIcon icon={HelpCircle} size={20} strokeWidth={2.5} />
+                </button>
+              </div>
+              <div className="p-6 space-y-4">
+                <div className="text-sm sm:text-base text-slate-700 leading-relaxed whitespace-pre-line font-medium">
+                  {selectedNotif.description}
+                </div>
+              </div>
+              <div className="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end">
+                <button 
+                  type="button" 
+                  onClick={() => setSelectedNotif(null)} 
+                  className="px-5 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-slate-800 transition shadow-sm cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         )}

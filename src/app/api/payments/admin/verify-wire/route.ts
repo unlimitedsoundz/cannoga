@@ -153,18 +153,30 @@ export async function POST(request: NextRequest) {
             // 5. Notify the student
             if (application.user_id) {
                 try {
-                    await adminClient.from('notifications').insert({
-                        user_id: application.user_id,
-                        type: 'wire_payment_approved',
-                        title: 'Payment Verified ✓',
-                        message: `Your payment of ${payment.currency || 'CAD'} ${Number(payment.amount).toLocaleString()} (${payment.transaction_reference || ''}) has been verified and your payment is confirmed.`,
-                        metadata: {
-                            payment_id: paymentId,
-                            tracking_ref: payment.transaction_reference,
-                            receipt_url: receiptUrl,
+                    await adminClient.from('notifications').insert([
+                        {
+                            user_id: application.user_id,
+                            type: 'wire_payment_approved',
+                            title: 'Payment Verified ✓',
+                            message: `Your payment of ${payment.currency || 'CAD'} ${Number(payment.amount).toLocaleString()} (${payment.transaction_reference || ''}) has been verified and your payment is confirmed.`,
+                            metadata: {
+                                payment_id: paymentId,
+                                tracking_ref: payment.transaction_reference,
+                                receipt_url: receiptUrl,
+                            },
+                            is_read: false,
                         },
-                        is_read: false,
-                    });
+                        {
+                            user_id: application.user_id,
+                            type: 'pal_issuance_notice',
+                            title: 'Provincial Attestation Letter (PAL) Notice',
+                            message: 'Your Provincial Letter of Attestation (PAL) will be issued to you in 6 – 10 business days. Once issued, you can proceed with your Study Permit Application.',
+                            metadata: {
+                                application_id: applicationId,
+                            },
+                            is_read: false,
+                        }
+                    ]);
                 } catch (notifErr) {
                     console.error('[verify-wire] notification error:', notifErr);
                 }

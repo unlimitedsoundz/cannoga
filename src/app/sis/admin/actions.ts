@@ -1,4 +1,4 @@
-﻿'use server';
+'use server';
 
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 
@@ -103,7 +103,7 @@ export async function getSISStudentDetail(studentId: string) {
       .from('students')
       .select(`
         *,
-        user:profiles(first_name, last_name, email, phone_number, date_of_birth, address, city, country_of_residence),
+        user:profiles(first_name, last_name, email, phone_number, date_of_birth, address, city, country_of_residence, student_id),
         program:Course(title, school:School(name)),
         application:applications(*, course:Course(title, slug)),
         enrollments:module_enrollments(*, module:modules(code, title), semester:semesters(name))
@@ -113,7 +113,46 @@ export async function getSISStudentDetail(studentId: string) {
 
     if (error) throw error;
 
-    return { success: true, data: student };
+    if (student) {
+      return { success: true, data: student };
+    }
+
+    // Fallback: If studentId corresponds to an application id or user_id
+    const { data: appData } = await adminClient
+      .from('applications')
+      .select(`
+        id,
+        user_id,
+        course_id,
+        status,
+        submitted_at,
+        created_at,
+        user:profiles(*),
+        course:Course(title, school:School(name)),
+        offer:admission_offers(*)
+      `)
+      .or(`id.eq.${studentId},user_id.eq.${studentId}`)
+      .maybeSingle();
+
+    if (appData) {
+      const user = Array.isArray(appData.user) ? appData.user[0] : appData.user;
+      const course = Array.isArray(appData.course) ? appData.course[0] : appData.course;
+      const syntheticStudent = {
+        id: appData.id,
+        student_id: user?.student_id || `CC${appData.id.slice(0, 6).toUpperCase()}`,
+        enrollment_status: appData.status || 'ACTIVE',
+        user_id: appData.user_id,
+        program_id: appData.course_id,
+        application_id: appData.id,
+        user,
+        program: course,
+        application: appData,
+        enrollments: [],
+      };
+      return { success: true, data: syntheticStudent };
+    }
+
+    return { success: true, data: null };
   } catch (e: any) {
     console.error('getSISStudentDetail Error:', e);
     return { success: false, error: e.message };
@@ -728,37 +767,111 @@ export async function getSISStudents() {
   const adminClient = createServiceRoleClient();
 
   try {
-    const { data: students, error } = await adminClient
-      .from('students')
-      .select(`
-        id,
-        student_id,
-        enrollment_status,
-        start_date,
-        user_id,
-        program_id,
-        profiles(first_name, last_name, email),
-        program:Course(title, school:School(name))
-      `)
-      .order('created_at', { ascending: false });
+    const [studentsResult, enrolledAppsResult, studentProfilesResult] = await Promise.all([
+      adminClient
+        .from('students')
+        .select(`
+          id,
+          student_id,
+          enrollment_status,
+          start_date,
+          user_id,
+          program_id,
+          application_id,
+          user:profiles(first_name, last_name, email, student_id),
+          program:Course(title, school:School(name)),
+          application:applications(course:Course(title, school:School(name)))
+        `)
+        .order('created_at', { ascending: false }),
+      adminClient
+        .from('applications')
+        .select(`
+          id,
+          user_id,
+          course_id,
+          status,
+          submitted_at,
+          created_at,
+          user:profiles(first_name, last_name, email, student_id),
+          course:Course(title, school:School(name))
+        `)
+        .in('status', ['ENROLLED', 'OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ADMITTED', 'ACCEPTED', 'PROVISIONAL_ENROLLED', 'REGISTERED'])
+        .order('created_at', { ascending: false }),
+      adminClient
+        .from('profiles')
+        .select('id, first_name, last_name, email, student_id, role, created_at')
+        .eq('role', 'STUDENT')
+        .order('created_at', { ascending: false }),
+    ]);
 
-    if (error) throw error;
+    const existingStudentUserIds = new Set<string>();
+    const existingAppIds = new Set<string>();
 
-    const formattedStudents = (students || []).map((s: any) => {
-      const course = Array.isArray(s.program) ? s.program[0] : s.program;
+    const formattedStudents = (studentsResult.data || []).map((s: any) => {
+      if (s.user_id) existingStudentUserIds.add(s.user_id);
+      if (s.application_id) existingAppIds.add(s.application_id);
+
+      const course = Array.isArray(s.program) ? s.program[0] : s.program || (Array.isArray(s.application?.course) ? s.application?.course[0] : s.application?.course);
+      const user = Array.isArray(s.user) ? s.user[0] : s.user;
+
       return {
         id: s.id,
-        student_id: s.student_id,
-        first_name: s.profiles?.first_name || '',
-        last_name: s.profiles?.last_name || '',
-        email: s.profiles?.email || '',
+        student_id: s.student_id || user?.student_id || 'N/A',
+        first_name: user?.first_name || '',
+        last_name: user?.last_name || '',
+        email: user?.email || '',
         program: course?.title || s.program_id || '—',
-        school: course?.school?.name || '—',
-        status: s.enrollment_status || 'UNKNOWN',
-        enrollment_status: s.enrollment_status || 'UNKNOWN',
-        advisor: '—',
+        school: course?.school?.name || 'Cannoga College',
+        status: s.enrollment_status || 'ACTIVE',
+        enrollment_status: s.enrollment_status || 'ACTIVE',
+        advisor: 'Admissions Office',
         hold: false,
       };
+    });
+
+    // Add any enrolled / accepted applicants that haven't been mapped to a students row yet
+    (enrolledAppsResult.data || []).forEach((app: any) => {
+      if (!existingStudentUserIds.has(app.user_id) && !existingAppIds.has(app.id)) {
+        if (app.user_id) existingStudentUserIds.add(app.user_id);
+        existingAppIds.add(app.id);
+
+        const user = Array.isArray(app.user) ? app.user[0] : app.user;
+        const course = Array.isArray(app.course) ? app.course[0] : app.course;
+
+        formattedStudents.push({
+          id: app.id,
+          student_id: user?.student_id || `CC${app.id.slice(0, 6).toUpperCase()}`,
+          first_name: user?.first_name || '',
+          last_name: user?.last_name || '',
+          email: user?.email || '',
+          program: course?.title || '—',
+          school: course?.school?.name || 'Cannoga College',
+          status: app.status === 'OFFER_ACCEPTED' || app.status === 'PAYMENT_SUBMITTED' ? 'ACTIVE' : (app.status || 'ACTIVE'),
+          enrollment_status: app.status || 'ACTIVE',
+          advisor: 'Admissions Office',
+          hold: false,
+        });
+      }
+    });
+
+    // Add any profile users with role STUDENT who don't have an entry yet
+    (studentProfilesResult.data || []).forEach((prof: any) => {
+      if (!existingStudentUserIds.has(prof.id)) {
+        existingStudentUserIds.add(prof.id);
+        formattedStudents.push({
+          id: prof.id,
+          student_id: prof.student_id || `CC${prof.id.slice(0, 6).toUpperCase()}`,
+          first_name: prof.first_name || '',
+          last_name: prof.last_name || '',
+          email: prof.email || '',
+          program: 'Cannoga Academic Program',
+          school: 'Cannoga College',
+          status: 'ACTIVE',
+          enrollment_status: 'ACTIVE',
+          advisor: 'Admissions Office',
+          hold: false,
+        });
+      }
     });
 
     return { success: true, data: formattedStudents };

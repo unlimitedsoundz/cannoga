@@ -9,5 +9,14 @@ export function getDocumentUrl(doc: { document_type?: string; storage_path?: str
             return `/api/portal/receipt/pdf?paymentId=${paymentId}`;
         }
     }
+
+    if (doc.document_type === 'loa') {
+        const applicationId = doc.metadata?.application_id;
+        if (applicationId) {
+            return `/api/portal/letter/pdf?id=${applicationId}`;
+        }
+        return `/api/portal/letter/pdf`;
+    }
+
     return '#';
 }
