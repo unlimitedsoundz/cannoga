@@ -692,7 +692,7 @@ export const pageContentSections: PageContentSection[] = [
     <div class="space-y-2">
         <h3 class="text-xl font-bold text-slate-900 tracking-tight">First Academic Year</h3>
         <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
-            After accepting the admission offer, pay the full tuition fee in a single instalment. Payment in multiple instalments is not permitted for first-year enrolment.
+            After accepting the admission offer, pay your tuition deposit of $2,000 CAD.
         </p>
     </div>
 

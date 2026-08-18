@@ -95,8 +95,8 @@ INSERT INTO faq (question, answer, page_id, order_index, is_published)
 SELECT
     'Can I pay in instalments?',
     '<div className="space-y-4">
-        <p>For the <strong>first academic year</strong>, the tuition fee must be paid in <strong>one full instalment</strong> to facilitate the study permit process. Canadian immigration authorities generally require proof of full payment for the first year before granting a permit.</p>
-        <p>For <strong>subsequent years</strong>, you may choose to pay in two instalments (per semester). However, please be aware that paying in instalments may incur a small administrative surcharge of $50 per instalment.</p>
+        <p>After accepting your offer of admission, you are required to pay the <strong>$2,000 CAD confirmation tuition deposit</strong> to secure your seat and initiate the Provincial Attestation Letter (PAL) issuance. The deposit is credited 100% towards your first-term tuition balance.</p>
+        <p>For remaining tuition balances and subsequent semesters, flexible payment options and semester-based installments are available. Contact the Registrar or review your accepted offer details in the student portal for personalized payment schedules.</p>
     </div>',
     (SELECT id FROM faq_pages WHERE slug = 'admissions/tuition'),
     4,
