@@ -225,17 +225,19 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
                                     isCover ? '--hard --cover-front' : ''
                                 } ${isBackCover ? '--hard --cover-back' : ''}`}
                                 data-density={isCover || isBackCover ? 'hard' : 'soft'}
-                                style={{ width: '100%', height: '100%' }}
+                                style={{ width: '576px', height: '576px' }}
                             >
                                 {/* High-Resolution Page Canvas / Image */}
-                                <div className="relative w-full h-full bg-neutral-900">
+                                <div className="relative w-full h-full bg-neutral-900 overflow-hidden">
                                     <Image
                                         src={page.image}
                                         alt={page.title}
-                                        fill
-                                        priority={index <= 2}
+                                        width={576}
+                                        height={576}
+                                        priority={index <= 1}
+                                        loading={index <= 1 ? 'eager' : 'lazy'}
                                         sizes="(max-width: 768px) 100vw, 750px"
-                                        className="object-contain w-full h-full pointer-events-none"
+                                        className="object-contain w-full h-full pointer-events-none select-none"
                                     />
 
                                     {/* Realistic Center Spine Shadow (Left Page Gutter vs Right Page Gutter) */}
