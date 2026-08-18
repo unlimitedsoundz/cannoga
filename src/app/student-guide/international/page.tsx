@@ -263,35 +263,46 @@ export default function InternationalGuidePage() {
                         {/* After Graduation */}
                         <section id="after-graduation" className="scroll-mt-32 space-y-4">
                             <h2 className="text-aalto-5 font-bold text-black tracking-tight">After Graduation</h2>
-                            <p className="text-base md:text-lg text-slate-700 leading-relaxed mb-4 max-w-3xl font-normal">
+                            <p className="text-base md:text-lg text-slate-700 leading-relaxed mb-6 max-w-3xl font-normal">
                                 After graduating as an international student in Cannoga College Ontario, you can apply for a Post-Graduation Work Permit (PGWP) to live, find a job, and gain valuable work experience in Canada.
                             </p>
-                            <div className="space-y-4">
-                                <div>
-                                    <h3 className="text-lg md:text-xl font-bold text-black mb-1">1. Apply for a Post-Graduation Work Permit (PGWP)</h3>
-                                    <div className="space-y-2 text-base md:text-lg text-slate-700 leading-relaxed font-normal">
-                                        <p><strong>What it is:</strong> An open work permit that allows you to work for almost any employer in Canada.</p>
-                                        <p><strong>Duration:</strong> Valid for 8 months up to 3 years, depending on the length of your study program. Programs of 2 years or longer generally qualify for a 3-year work permit.</p>
-                                        <p><strong>Deadline:</strong> You must apply within 180 days of receiving your final transcript and an official letter from your school confirming you completed your program.</p>
-                                        <p><strong>Working while waiting:</strong> If you apply before your study permit expires, you can work full-time while waiting for a decision on your PGWP.</p>
+                            <div className="space-y-8">
+                                <div className="flex items-start gap-4">
+                                    <StepBadge step={1} size="w-9 h-9" />
+                                    <div className="flex-1 space-y-2">
+                                        <h3 className="text-lg md:text-xl font-bold text-black">Apply for a Post-Graduation Work Permit (PGWP)</h3>
+                                        <div className="space-y-2 text-base md:text-lg text-slate-700 leading-relaxed font-normal">
+                                            <p><strong>What it is:</strong> An open work permit that allows you to work for almost any employer in Canada.</p>
+                                            <p><strong>Duration:</strong> Valid for 8 months up to 3 years, depending on the length of your study program. Programs of 2 years or longer generally qualify for a 3-year work permit.</p>
+                                            <p><strong>Deadline:</strong> You must apply within 180 days of receiving your final transcript and an official letter from your school confirming you completed your program.</p>
+                                            <p><strong>Working while waiting:</strong> If you apply before your study permit expires, you can work full-time while waiting for a decision on your PGWP.</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <h3 className="text-lg md:text-xl font-bold text-black mb-1">2. Gain Canadian Work Experience</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
-                                        Working on a PGWP allows you to build a professional network and earn Canadian work experience. This work experience is essential if you want to apply to stay in Canada permanently.
-                                    </p>
+
+                                <div className="flex items-start gap-4">
+                                    <StepBadge step={2} size="w-9 h-9" />
+                                    <div className="flex-1 space-y-2">
+                                        <h3 className="text-lg md:text-xl font-bold text-black">Gain Canadian Work Experience</h3>
+                                        <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
+                                            Working on a PGWP allows you to build a professional network and earn Canadian work experience. This work experience is essential if you want to apply to stay in Canada permanently.
+                                        </p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 className="text-lg md:text-xl font-bold text-black mb-1">3. Transition to Permanent Residency (PR)</h3>
-                                    <div className="space-y-2 text-base md:text-lg text-slate-700 leading-relaxed font-normal">
-                                        <div>
-                                            <p className="font-bold text-black">Express Entry (Canadian Experience Class):</p>
-                                            <p>After completing at least 1 year of skilled work experience in Canada, you can apply through the Express Entry System. Your Canadian education and work history give you higher ranking points.</p>
-                                        </div>
-                                        <div>
-                                            <p className="font-bold text-black">Provincial Nominee Program (OINP):</p>
-                                            <p>Ontario has specific streams under the Ontario Immigrant Nominee Program for international students with a job offer or a master&apos;s/PhD degree.</p>
+
+                                <div className="flex items-start gap-4">
+                                    <StepBadge step={3} size="w-9 h-9" />
+                                    <div className="flex-1 space-y-2">
+                                        <h3 className="text-lg md:text-xl font-bold text-black">Transition to Permanent Residency (PR)</h3>
+                                        <div className="space-y-2 text-base md:text-lg text-slate-700 leading-relaxed font-normal">
+                                            <div>
+                                                <p className="font-bold text-black">Express Entry (Canadian Experience Class):</p>
+                                                <p>After completing at least 1 year of skilled work experience in Canada, you can apply through the Express Entry System. Your Canadian education and work history give you higher ranking points.</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-bold text-black">Provincial Nominee Program (OINP):</p>
+                                                <p>Ontario has specific streams under the Ontario Immigrant Nominee Program for international students with a job offer or a master&apos;s/PhD degree.</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
