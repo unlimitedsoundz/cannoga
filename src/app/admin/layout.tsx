@@ -120,6 +120,7 @@ export default function AdminLayout({
 
     const navItems = [
         { href: '/sis/admin', label: 'Dashboard', icon: LayoutDashboard },
+        { href: '/admin/viewbook', label: 'Viewbook CMS', icon: BookOpen },
         { href: '/sis/admin/admissions', label: 'Admissions', icon: FileText },
         { href: '/sis/admin/page-content', label: 'Page Content', icon: FileText },
         { href: '/sis/admin/courses', label: 'Courses', icon: BookOpen },

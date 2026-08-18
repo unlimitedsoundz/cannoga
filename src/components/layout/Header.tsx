@@ -84,6 +84,7 @@ const navigation: NavItem[] = [
         name: "Admissions",
         href: "/admissions/",
         children: [
+            { name: "Digital Viewbook 2026/2027", href: "/viewbook" },
             { name: "Degree Programs", href: "/degree-programmes/" },
             { name: "Certificate & Diploma Programs", href: "/degree-programmes/#certificates" },
             { name: "How to Apply", href: "/admissions/application-process/" },

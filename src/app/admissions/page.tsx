@@ -379,6 +379,40 @@ export default async function AdmissionsPage() {
                         </section>
 
 
+                        {/* 2026/2027 DIGITAL VIEWBOOK BANNER */}
+                        <section className="scroll-mt-32 p-8 rounded-3xl bg-gradient-to-br from-[#0a151a] via-[#12222a] to-[#0a151a] text-white border border-white/10 shadow-2xl relative overflow-hidden">
+                            <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-15 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-400 via-transparent to-transparent pointer-events-none" />
+                            <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                                <div className="space-y-2 max-w-xl">
+                                    <span className="text-[11px] font-black uppercase tracking-widest text-[#c89211]">
+                                        Official Publication • Edition 2026/2027
+                                    </span>
+                                    <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+                                        Explore the Cannoga College Viewbook
+                                    </h3>
+                                    <p className="text-sm md:text-base text-slate-300 font-normal leading-relaxed">
+                                        Flip through our interactive 13-page digital prospectus to discover programs, faculty schools, tuition breakdowns, scholarships, and the Ottawa student journey.
+                                    </p>
+                                </div>
+
+                                <div className="flex flex-wrap gap-3 shrink-0">
+                                    <Link
+                                        href="/viewbook"
+                                        className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-[#c89211] hover:bg-[#b07f0f] text-black font-black text-sm transition-all shadow-lg active:scale-95 no-underline"
+                                    >
+                                        Open Digital Flipbook →
+                                    </Link>
+                                    <a
+                                        href="/documents/cannoga-college-viewbook-2026-2027.pdf"
+                                        download="Cannoga-College-Viewbook-2026-2027.pdf"
+                                        className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm transition-all no-underline"
+                                    >
+                                        Download PDF
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+
                         <section id="ask-about-applying" className="scroll-mt-32 mb-16 space-y-8">
                             <AdmissionsHelpCard
                                 title="ASK ABOUT APPLYING TO CANNOGA"

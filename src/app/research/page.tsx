@@ -263,7 +263,7 @@ export default function ResearchPage() {
                                 "Global community projects"
                             ].map((item, i) => (
                                 <li key={i} className="flex items-center gap-4 text-black font-bold uppercase tracking-widest text-sm">
-                                    <ArrowRight size={20} weight="bold" className="shrink-0" />
+                                    <span className="w-2.5 h-2.5 rounded-full bg-black shrink-0" />
                                     <span>{item}</span>
                                 </li>
                             ))}
@@ -281,9 +281,9 @@ export default function ResearchPage() {
                         <h3 className="text-2xl font-semibold uppercase tracking-tighter mb-6">Support Infrastructure</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                              {["Interdisciplinary labs", "Industry partnerships", "Global networks", "Research platforms"].map((item, idx) => (
-                                 <div key={item} className={`text-sm font-bold uppercase tracking-widest flex items-center gap-4`}>
-                                     <ArrowRight size={20} weight="bold" className="shrink-0" />
-                                     {item}
+                                 <div key={item} className="text-sm font-bold uppercase tracking-widest flex items-center gap-4">
+                                     <span className="w-2.5 h-2.5 rounded-full bg-black shrink-0" />
+                                     <span>{item}</span>
                                  </div>
                              ))}
                         </div>

@@ -21,6 +21,11 @@
     border-radius: 9999px !important;
 }
 
+.rounded-lg, [class*="rounded-lg"] { border-radius: 0.5rem !important; }
+.rounded-xl, [class*="rounded-xl"] { border-radius: 0.75rem !important; }
+.rounded-2xl, [class*="rounded-2xl"] { border-radius: 1rem !important; }
+.rounded-3xl, [class*="rounded-3xl"] { border-radius: 1.5rem !important; }
+
 /* Ensure global list bullets render as clean circular dots */
 ul.list-disc {
     list-style-type: disc !important;

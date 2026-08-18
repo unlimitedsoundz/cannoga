@@ -31,6 +31,8 @@
     "handlebars": "^4.7.9",
     "lucide-react": "^0.460.0",
     "next": "^16.1.6",
+    "page-flip": "^2.0.7",
+    "pdfjs-dist": "^3.11.174",
     "pg": "^8.19.0",
     "playwright": "^1.62.1",
     "puppeteer": "^25.5.0",

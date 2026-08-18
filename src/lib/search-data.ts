@@ -7,6 +7,7 @@ export interface SearchablePage {
 
 export const searchablePages: SearchablePage[] = [
     // Study & Admissions
+    { title: "Digital Viewbook 2026/2027", href: "/viewbook", category: "Study & Admissions" },
     { title: "Admissions Overview", href: "/admissions", category: "Study & Admissions" },
     { title: "Certificate Programs", href: "/degree-programmes#certificates", category: "Study & Admissions" },
     { title: "Diploma Programs", href: "/degree-programmes#diplomas", category: "Study & Admissions" },

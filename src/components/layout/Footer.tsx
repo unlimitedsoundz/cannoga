@@ -44,6 +44,7 @@ export function Footer() {
                             <h3 className="font-bold text-sm uppercase tracking-widest mb-5 text-white">Study</h3>
                             <ul className="space-y-3">
                                 <li><Link href="/studies/" className="text-white text-sm hover:text-white transition-colors no-underline">All Courses</Link></li>
+                                <li><Link href="/viewbook" className="text-white text-sm hover:text-white transition-colors no-underline">Digital Viewbook</Link></li>
                                 <li><Link href="/admissions/" className="text-white text-sm hover:text-white transition-colors no-underline">Admissions</Link></li>
                                 <li><Link href="/housing/" className="text-white text-sm hover:text-white transition-colors no-underline">Student Housing</Link></li>
                                 <li><Link href="/admissions/tuition/" className="text-white text-sm hover:text-white transition-colors no-underline">Scholarships</Link></li>

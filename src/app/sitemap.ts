@@ -27,6 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // --- Static core / admissions pages ---
     const corePages: SitemapEntry[] = [
         make(`${BASE_URL}/`, 'weekly', 1.0, '2026-07-17'),
+        make(`${BASE_URL}/viewbook`, 'weekly', 0.95),
         make(`${BASE_URL}/admissions`, 'weekly', 0.9),
         make(`${BASE_URL}/admissions/bachelor`, 'monthly', 0.9),
         make(`${BASE_URL}/admissions/master`, 'monthly', 0.9),
