@@ -127,7 +127,7 @@ export function UhipQuickLinksCarousel() {
                 {UHIP_CARDS.map((card, idx) => {
                     const cardContent = (
                         <div
-                            className={`block w-full p-6 sm:p-7 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[250px] sm:min-h-[270px] flex flex-col justify-between group cursor-pointer shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1`}
+                            className={`block w-full p-6 sm:p-7 rounded-md ${card.bgColor} ${card.borderColor} border-4 no-underline overflow-hidden relative min-h-[250px] sm:min-h-[270px] flex flex-col justify-between group cursor-pointer`}
                         >
                             {/* Organic Wavy Background Element */}
                             <div

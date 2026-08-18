@@ -122,7 +122,7 @@ export function CampusServicesAcademicCarousel() {
                     >
                         <Link
                             href={card.href || '#'}
-                            className={`block w-full p-2.5 sm:p-3 rounded-md ${card.bgColor} ${card.borderColor} border-4 overflow-hidden transition-transform duration-300 group-hover:-translate-y-1`}
+                            className={`block w-full p-2.5 sm:p-3 rounded-md ${card.bgColor} ${card.borderColor} border-4 overflow-hidden`}
                         >
                             {/* Card Top Image with Animated Organic Wavy Cutout */}
                             <div className="relative aspect-[16/11] w-full overflow-hidden rounded-sm bg-black/10">
@@ -130,7 +130,7 @@ export function CampusServicesAcademicCarousel() {
                                     src={card.image}
                                     alt={card.title}
                                     fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                    className="object-cover"
                                     sizes="(max-width: 640px) 270px, 360px"
                                 />
 
@@ -155,7 +155,7 @@ export function CampusServicesAcademicCarousel() {
 
                             {/* Card Bottom Solid Color Content */}
                             <div className="pt-4 pb-3 px-3 sm:px-4 flex flex-col justify-start min-h-[120px] text-white">
-                                <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-[1.08] mb-1.5 group-hover:text-yellow-200 transition-colors">
+                                <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-[1.08] mb-1.5">
                                     {card.title}
                                 </h3>
                                 <p className="text-xs sm:text-sm font-medium text-white/95 leading-relaxed">

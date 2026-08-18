@@ -13,7 +13,6 @@ interface HealthCardItem {
     bgColor: string;
     borderColor: string;
     waveColor: string;
-    tag: string;
 }
 
 const HEALTH_CARDS: HealthCardItem[] = [
@@ -26,7 +25,6 @@ const HEALTH_CARDS: HealthCardItem[] = [
         bgColor: 'bg-[#0088dd]', // Vibrant blue
         borderColor: 'border-[#0088dd]',
         waveColor: '#005596',
-        tag: 'PRIMARY CARE',
     },
     {
         id: 'mental-wellness',
@@ -37,7 +35,6 @@ const HEALTH_CARDS: HealthCardItem[] = [
         bgColor: 'bg-[#4da674]', // Emerald green
         borderColor: 'border-[#4da674]',
         waveColor: '#28583c',
-        tag: 'WELLNESS',
     },
     {
         id: 'uhip-insurance',
@@ -48,7 +45,6 @@ const HEALTH_CARDS: HealthCardItem[] = [
         bgColor: 'bg-[#c89211]', // Gold
         borderColor: 'border-[#c89211]',
         waveColor: '#8a650c',
-        tag: 'INSURANCE',
     },
     {
         id: 'accessibility-services',
@@ -59,7 +55,6 @@ const HEALTH_CARDS: HealthCardItem[] = [
         bgColor: 'bg-[#8e24aa]', // Purple
         borderColor: 'border-[#8e24aa]',
         waveColor: '#521363',
-        tag: 'ACCESSIBILITY',
     },
     {
         id: 'crisis-support',
@@ -70,7 +65,6 @@ const HEALTH_CARDS: HealthCardItem[] = [
         bgColor: 'bg-[#e11d48]', // Crimson Rose
         borderColor: 'border-[#e11d48]',
         waveColor: '#881337',
-        tag: '24/7 SUPPORT',
     }
 ];
 
@@ -106,22 +100,18 @@ export function HealthServicesCarousel() {
                 {HEALTH_CARDS.map((card, idx) => (
                     <div
                         key={card.id}
-                        className="shrink-0 w-[270px] sm:w-[310px] md:w-[330px] snap-center flex flex-col group cursor-pointer"
+                        className="shrink-0 w-[270px] sm:w-[310px] md:w-[330px] snap-center flex flex-col"
                     >
-                        <div className={`flex flex-col h-full rounded-sm overflow-hidden border-2 ${card.borderColor} ${card.bgColor} shadow-md transition-all duration-300 transform group-hover:-translate-y-1.5 group-hover:shadow-2xl`}>
+                        <div className={`flex flex-col h-full rounded-sm overflow-hidden border-2 ${card.borderColor} ${card.bgColor}`}>
                             {/* Card Top Image with Animated Wave */}
                             <div className="relative aspect-[16/11] w-full overflow-hidden bg-black/10">
                                 <Image
                                     src={card.image}
                                     alt={card.title}
                                     fill
-                                    className={card.id === 'crisis-support' ? 'object-contain p-5 bg-white group-hover:scale-105 transition-transform duration-500' : 'object-cover group-hover:scale-105 transition-transform duration-500'}
+                                    className={card.id === 'crisis-support' ? 'object-contain p-5 bg-white' : 'object-cover'}
                                     sizes="(max-width: 640px) 270px, 330px"
                                 />
-
-                                <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-sm text-white px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase">
-                                    {card.tag}
-                                </div>
 
                                 {/* Organic Wavy Edge overlay */}
                                 <div
