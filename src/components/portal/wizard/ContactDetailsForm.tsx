@@ -38,13 +38,13 @@ export default function ContactDetailsForm({ applicationId, initialData, default
         resolver: zodResolver(contactDetailsSchema),
         defaultValues: initialData || {
             email: defaultEmail || '',
-            phoneCode: '+358',
+            phoneCode: '+1',
             phone: '',
             addressLine1: '',
             addressLine2: '',
             city: '',
             postalCode: '',
-            country: 'Ottawa, Ontario, Canada',
+            country: 'Canada',
         }
     });
 

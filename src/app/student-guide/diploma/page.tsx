@@ -8,17 +8,17 @@ import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHub
 import { createStaticClient } from '@/lib/supabase/static';
 
 export const metadata: Metadata = {
-    title: 'Bachelor’s Degree Student Guide | Cannoga College Ottawa',
-    description: 'Complete onboarding roadmap for incoming Bachelor’s degree students at Cannoga College Ottawa: offer acceptance, tuition, Canadian study permits, course registration, IT access, healthcare, and campus arrival.',
+    title: 'Diploma & Advanced Diploma Student Guide | Cannoga College Ottawa',
+    description: 'Comprehensive onboarding and reference guide for admitted Diploma and Advanced Diploma students at Cannoga College Ottawa: offer acceptance, tuition, study permits, co-op practicums, and campus arrival.',
     alternates: {
-        canonical: 'https://cannogacollege.ca/student-guide/bachelor/',
+        canonical: 'https://cannogacollege.ca/student-guide/diploma/',
     },
 };
 
-export default async function BachelorsGuidePage() {
+export default async function DiplomaGuidePage() {
     const supabase = createStaticClient();
-    let intlTuition = 6400;
-    let domesticTuition = 4000;
+    let intlTuition = 4000;
+    let domesticTuition = 2400;
     const tuitionDeposit = 2000;
 
     try {
@@ -28,33 +28,33 @@ export default async function BachelorsGuidePage() {
             .eq('status', 'active');
 
         if (tuitionRows) {
-            const bachelorRow = tuitionRows.find((r: any) => 
-                (r.credential_type || '').toLowerCase().includes('bachelor')
+            const diplomaRow = tuitionRows.find((r: any) => 
+                (r.credential_type || '').toLowerCase().includes('diploma')
             );
-            if (bachelorRow) {
-                if (bachelorRow.international_tuition?.annualTuition) {
-                    const parsed = parseInt(String(bachelorRow.international_tuition.annualTuition).replace(/[^0-9]/g, ''), 10);
+            if (diplomaRow) {
+                if (diplomaRow.international_tuition?.annualTuition) {
+                    const parsed = parseInt(String(diplomaRow.international_tuition.annualTuition).replace(/[^0-9]/g, ''), 10);
                     if (parsed) intlTuition = parsed;
-                } else if (bachelorRow.international_tuition) {
-                    const val = typeof bachelorRow.international_tuition === 'number' 
-                        ? bachelorRow.international_tuition 
-                        : parseInt(String(bachelorRow.international_tuition).replace(/[^0-9]/g, ''), 10);
+                } else if (diplomaRow.international_tuition) {
+                    const val = typeof diplomaRow.international_tuition === 'number' 
+                        ? diplomaRow.international_tuition 
+                        : parseInt(String(diplomaRow.international_tuition).replace(/[^0-9]/g, ''), 10);
                     if (val) intlTuition = val;
                 }
 
-                if (bachelorRow.domestic_tuition?.annualTuition) {
-                    const parsed = parseInt(String(bachelorRow.domestic_tuition.annualTuition).replace(/[^0-9]/g, ''), 10);
+                if (diplomaRow.domestic_tuition?.annualTuition) {
+                    const parsed = parseInt(String(diplomaRow.domestic_tuition.annualTuition).replace(/[^0-9]/g, ''), 10);
                     if (parsed) domesticTuition = parsed;
-                } else if (bachelorRow.domestic_tuition) {
-                    const val = typeof bachelorRow.domestic_tuition === 'number' 
-                        ? bachelorRow.domestic_tuition 
-                        : parseInt(String(bachelorRow.domestic_tuition).replace(/[^0-9]/g, ''), 10);
+                } else if (diplomaRow.domestic_tuition) {
+                    const val = typeof diplomaRow.domestic_tuition === 'number' 
+                        ? diplomaRow.domestic_tuition 
+                        : parseInt(String(diplomaRow.domestic_tuition).replace(/[^0-9]/g, ''), 10);
                     if (val) domesticTuition = val;
                 }
             }
         }
     } catch (e) {
-        console.error('Error fetching tuition in bachelor guide:', e);
+        console.error('Error fetching tuition in diploma guide:', e);
     }
 
     const sections = [
@@ -62,25 +62,25 @@ export default async function BachelorsGuidePage() {
         { id: 'accept', title: '1. Accept Admission', content: '' },
         { id: 'tuition', title: '2. Tuition & Scholarships', content: '' },
         { id: 'study-permit', title: '3. Canadian Study Permit', content: '' },
-        { id: 'enrolment', title: '4. Course Enrolment', content: '' },
+        { id: 'enrolment', title: '4. Course Enrolment & Co-op', content: '' },
         { id: 'it-account', title: '5. Student IT & Portal', content: '' },
         { id: 'healthcare', title: '6. Healthcare & Transit', content: '' },
         { id: 'orientation', title: '7. Campus Orientation', content: '' },
-        { id: 'housing', title: '8. Housing & Ottawa Life', content: '' },
+        { id: 'housing', title: '8. Housing & Career Support', content: '' },
     ];
 
     return (
         <div className="min-h-screen bg-white text-black font-sans pb-12">
             {/* HERO SECTION */}
             <Hero
-                title="Bachelor’s Degree Student Guide"
-                body="Official step-by-step onboarding guide for admitted undergraduate students at Cannoga College Ottawa campus. Complete each requirement prior to your first semester."
+                title="Diploma Students Guide"
+                body="Official step-by-step onboarding guide for admitted 2-Year Diploma and 3-Year Advanced Diploma students at Cannoga College Ottawa campus. Follow this roadmap to prepare for your studies."
                 backgroundColor="#0a151a"
                 tinted
                 lightText={true}
                 image={{
-                    src: "/images/student-guide-bachelor.jpg",
-                    alt: "Bachelor Students Guide"
+                    src: "/images/student-guide-diploma.jpg",
+                    alt: "Diploma Students Guide"
                 }}
             />
 
@@ -89,7 +89,7 @@ export default async function BachelorsGuidePage() {
                 breadcrumbs={[
                     { label: 'Home', href: '/' },
                     { label: 'Student Guide', href: '/student-guide' },
-                    { label: "Bachelor's Guide" }
+                    { label: "Diploma's Guide" }
                 ]}
             >
                 <div className="cc-container py-8 md:py-12 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
@@ -98,10 +98,10 @@ export default async function BachelorsGuidePage() {
                         {/* Welcome Overview */}
                         <section id="intro" className="scroll-mt-28 space-y-4">
                             <h2 className="text-aalto-5 font-bold text-black tracking-tight">
-                                Welcome to Cannoga College
+                                Welcome to Cannoga Diploma Programmes
                             </h2>
                             <p className="text-slate-700 leading-relaxed font-normal">
-                                Congratulations on your admission to Cannoga College. Our 4-year Bachelor’s degree programmes combine rigorous academic theory with real-world co-op placements in Ottawa. Follow this 8-step roadmap to complete admissions requirements, secure your immigration status, register for courses, and prepare for campus life.
+                                Congratulations on your admission to Cannoga College. Our career-focused 2-year Diploma (60 credits) and 3-year Advanced Diploma (90 credits) programmes provide hands-on applied learning and co-op work terms aligned with Canadian industry standards. Complete this 8-step guide to finalize your admissions, immigration, and course scheduling.
                             </p>
                         </section>
 
@@ -114,25 +114,25 @@ export default async function BachelorsGuidePage() {
                                 </h2>
                             </div>
                             <p className="text-slate-700 leading-relaxed font-normal">
-                                To confirm your seat in your chosen undergraduate programme, log into the <Link href="/portal/account/login" className="text-black font-bold underline hover:text-[#c89211]">Cannoga Student Application Portal</Link> and submit your formal acceptance before the deadline stated on your Letter of Acceptance (LOA).
+                                To confirm your seat in your diploma stream, log into the <Link href="/portal/account/login" className="text-black font-bold underline hover:text-[#c89211]">Cannoga Student Application Portal</Link> and accept your offer prior to the date listed on your Letter of Acceptance (LOA).
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-1">
                                 <div className="p-6 bg-neutral-50">
                                     <span className="font-bold text-black block mb-1">Fall Intake (September)</span>
                                     <span className="text-slate-600 block text-sm">Acceptance Deadline: <strong>July 24, 2026</strong> (11:59 PM EST)</span>
-                                    <span className="text-slate-500 block text-xs mt-1">Tuition deposit required to issue final Provincial Attestation Letter (PAL).</span>
+                                    <span className="text-slate-500 block text-xs mt-1">Confirmation deposit required to release your Provincial Attestation Letter (PAL).</span>
                                 </div>
                                 <div className="p-6 bg-neutral-50">
                                     <span className="font-bold text-black block mb-1">Winter Intake (January)</span>
                                     <span className="text-slate-600 block text-sm">Acceptance Deadline: <strong>November 15, 2026</strong> (11:59 PM EST)</span>
-                                    <span className="text-slate-500 block text-xs mt-1">Recommended early acceptance for international visa processing times.</span>
+                                    <span className="text-slate-500 block text-xs mt-1">Recommended early submission for timely study permit visa approval.</span>
                                 </div>
                             </div>
 
                             <div className="p-5 bg-neutral-100 text-sm text-slate-700">
                                 <strong className="text-black block mb-0.5">Confirmation Tuition Deposit</strong>
-                                A non-refundable tuition deposit (${tuitionDeposit.toLocaleString()} CAD) is credited directly towards your first-term tuition balance.
+                                A non-refundable tuition deposit (${tuitionDeposit.toLocaleString()} CAD) is credited directly towards your first-term diploma tuition balance.
                             </div>
                         </section>
 
@@ -145,29 +145,29 @@ export default async function BachelorsGuidePage() {
                                 </h2>
                             </div>
                             <p className="text-slate-700 leading-relaxed font-normal">
-                                Bachelor’s degree tuition is assessed per academic term (Fall and Winter semesters). All fee schedules and official receipts are accessible inside your SIS Finance portal.
+                                Diploma tuition is billed per semester across Fall and Winter terms. Access your official student statements and tax receipts through the SIS portal.
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="p-6 bg-neutral-50">
-                                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block">International Bachelor's Tuition</span>
+                                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block">International Diploma Tuition</span>
                                     <span className="text-base font-black text-black block mt-1">${intlTuition.toLocaleString()} CAD / yr</span>
-                                    <span className="text-xs text-slate-600 mt-1 block">Full-time annual tuition rate across Business, Tech, Science &amp; Arts schools.</span>
+                                    <span className="text-xs text-slate-600 mt-1 block">Full-time annual tuition rate across Technology, Business, and Health faculties.</span>
                                 </div>
                                 <div className="p-6 bg-neutral-50">
-                                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block">Domestic Bachelor's Tuition</span>
+                                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block">Domestic Diploma Tuition</span>
                                     <span className="text-base font-black text-black block mt-1">${domesticTuition.toLocaleString()} CAD / yr</span>
-                                    <span className="text-xs text-slate-600 mt-1 block">Full-time annual tuition rate for Canadian citizens and permanent residents.</span>
+                                    <span className="text-xs text-slate-600 mt-1 block">Full-time annual tuition for Canadian citizens and permanent residents.</span>
                                 </div>
                                 <div className="p-6 bg-neutral-50 md:col-span-2">
-                                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block">Entrance Scholarships</span>
-                                    <span className="text-base font-black text-black block mt-1">Up to $3,000 CAD</span>
-                                    <span className="text-xs text-slate-600 mt-1 block">Automatically awarded based on high school academic performance upon admission.</span>
+                                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block">Entrance Bursaries &amp; Merit Awards</span>
+                                    <span className="text-base font-black text-black block mt-1">Up to $2,500 CAD</span>
+                                    <span className="text-xs text-slate-600 mt-1 block">Merit-based entrance bursaries awarded automatically upon admission evaluation.</span>
                                 </div>
                             </div>
 
                             <p className="text-sm text-slate-600">
-                                <strong>Approved Payment Methods:</strong> Flywire, CIBC International Student Pay, Canadian online banking (Bill Pay: Cannoga College), or major credit cards via the portal.
+                                <strong>Approved Payment Options:</strong> Flywire, CIBC International Student Pay, Canadian online banking (Bill Pay: Cannoga College), or major credit cards.
                             </p>
                         </section>
 
@@ -180,56 +180,56 @@ export default async function BachelorsGuidePage() {
                                 </h2>
                             </div>
                             <p className="text-slate-700 leading-relaxed font-normal">
-                                International students must obtain a valid Canadian Study Permit from Immigration, Refugees and Citizenship Canada (IRCC) before traveling to Ottawa.
+                                International students admitted to diploma programmes must obtain a valid Canadian Study Permit from IRCC before traveling to Canada.
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="p-6 bg-neutral-50 space-y-2">
                                     <span className="font-bold text-base text-black block">International Students</span>
                                     <ul className="text-sm text-slate-600 space-y-1.5">
-                                        <li>• Apply immediately upon receiving your official Letter of Acceptance (LOA) and Provincial Attestation Letter (PAL).</li>
-                                        <li>• Ensure passport is valid for the full duration of your Bachelor's degree.</li>
-                                        <li>• Prepare proof of financial support, biometrics, and medical exam if requested.</li>
+                                        <li>• Apply immediately with your official Letter of Acceptance (LOA) and Provincial Attestation Letter (PAL).</li>
+                                        <li>• Full-time diploma programs qualify for Canadian Post-Graduation Work Permit (PGWP) pathways.</li>
+                                        <li>• Ensure your co-op work permit application is submitted concurrently if your diploma has a required co-op placement.</li>
                                     </ul>
                                 </div>
                                 <div className="p-6 bg-neutral-50 space-y-2">
                                     <span className="font-bold text-base text-black block">Canadian Citizens &amp; Permanent Residents</span>
                                     <ul className="text-sm text-slate-600 space-y-1.5">
                                         <li>• No study permit required.</li>
-                                        <li>• Provide proof of Canadian citizenship or PR status during portal registration.</li>
-                                        <li>• Eligible for domestic tuition fee schedules and provincial OSAP funding.</li>
+                                        <li>• Submit proof of Canadian status during registration.</li>
+                                        <li>• Eligible for domestic tuition schedules and Ontario OSAP student loans.</li>
                                     </ul>
                                 </div>
                             </div>
 
                             <div className="p-5 bg-neutral-100 text-sm text-slate-700">
-                                <strong>Off-Campus Work Authorization:</strong> Full-time undergraduate degree students holding a valid study permit are authorized to work off-campus in Canada during academic semesters and full-time during official semester breaks.
+                                <strong>Off-Campus Work Authorization:</strong> Full-time diploma students on a study permit are authorized to work off-campus in Canada during academic semesters and full-time during official scheduled breaks.
                             </div>
                         </section>
 
-                        {/* Step 4: Course Enrolment */}
+                        {/* Step 4: Course Enrolment & Co-op */}
                         <section id="enrolment" className="scroll-mt-28 space-y-4">
                             <div className="flex items-center gap-3.5">
                                 <StepBadge step={4} />
                                 <h2 className="text-2xl md:text-3xl font-black text-black tracking-tight">
-                                    Course Registration &amp; Academic Advising
+                                    Course Enrolment &amp; Co-op Practicum
                                 </h2>
                             </div>
                             <p className="text-slate-700 leading-relaxed font-normal">
-                                Undergraduate degrees at Cannoga College require 120 total academic credits (typically 30 credits / 10 courses per year across Fall and Winter terms). Course registration opens 6 weeks prior to term commencement.
+                                Standard full-time diploma load is 5 courses (15 credits) per semester. Enrolment opens 6 weeks prior to the start of classes through the Cannoga SIS.
                             </p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div className="p-6 bg-neutral-50">
-                                    <span className="font-bold text-base text-black block mb-1">Standard Full-Time Load</span>
+                                    <span className="font-bold text-base text-black block mb-1">Practical Lab Workshops</span>
                                     <p className="text-sm text-slate-600 leading-relaxed">
-                                        5 courses (15 credits) per term. Maintaining full-time enrolment (minimum 9 credits / 3 courses) is required for international study permit compliance.
+                                        Hands-on workshop, laboratory, and studio components are embedded directly into your weekly timetable at the Ottawa campus.
                                     </p>
                                 </div>
                                 <div className="p-6 bg-neutral-50">
-                                    <span className="font-bold text-base text-black block mb-1">Academic Advisor Mapping</span>
+                                    <span className="font-bold text-base text-black block mb-1">Co-op &amp; Career Placement</span>
                                     <p className="text-sm text-slate-600 leading-relaxed">
-                                        Schedule a 1-on-1 virtual or in-person degree planning session with your faculty academic advisor to verify prerequisites and major specializations.
+                                        Career Services coordinates resume reviews, employer interview fairs, and verified industry co-op work terms across Ottawa.
                                     </p>
                                 </div>
                             </div>
@@ -244,7 +244,7 @@ export default async function BachelorsGuidePage() {
                                 </h2>
                             </div>
                             <p className="text-slate-700 leading-relaxed font-normal">
-                                Once your admission confirmation deposit is verified, your official Cannoga College Student ID and digital accounts are provisioned within 24 to 48 hours.
+                                After your confirmation deposit is processed, your official student ID and digital accounts are provisioned within 24 to 48 hours.
                             </p>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                 <div className="p-6 bg-neutral-50">
@@ -253,11 +253,11 @@ export default async function BachelorsGuidePage() {
                                 </div>
                                 <div className="p-6 bg-neutral-50">
                                     <span className="font-bold text-sm text-black block">Student Information System</span>
-                                    <span className="text-xs text-slate-600 block mt-1">Timetables, grades, transcripts</span>
+                                    <span className="text-xs text-slate-600 block mt-1">Class schedules, course materials &amp; grades</span>
                                 </div>
                                 <div className="p-6 bg-neutral-50">
                                     <span className="font-bold text-sm text-black block">Campus Wi-Fi &amp; LMS</span>
-                                    <span className="text-xs text-slate-600 block mt-1">High-speed Ottawa campus access</span>
+                                    <span className="text-xs text-slate-600 block mt-1">High-speed Ottawa campus connectivity</span>
                                 </div>
                             </div>
                         </section>
@@ -274,13 +274,13 @@ export default async function BachelorsGuidePage() {
                                 <div className="p-6 bg-neutral-50 space-y-2">
                                     <span className="font-bold text-base text-black block">Health Insurance Coverage</span>
                                     <p className="text-sm text-slate-600 leading-relaxed">
-                                        International students are automatically enrolled in the Cannoga Comprehensive Student Health Insurance Plan (covering physician visits, hospitalization, prescription medicine, and emergency care). Ontario residents use OHIP.
+                                        International diploma students receive comprehensive student health insurance coverage for clinics, prescriptions, and emergencies. Ontario residents use OHIP.
                                     </p>
                                 </div>
                                 <div className="p-6 bg-neutral-50 space-y-2">
                                     <span className="font-bold text-base text-black block">Student ID &amp; OC Transpo Transit</span>
                                     <p className="text-sm text-slate-600 leading-relaxed">
-                                        Pick up your physical Cannoga Student Photo ID Card at the Ottawa Campus Registrar's Desk (81 Montreal Rd) or activate your digital card on the student portal for discounted Ottawa transit and city-wide student privileges.
+                                        Collect your Cannoga Student Photo ID Card at the Ottawa Campus Registrar Desk (81 Montreal Rd) or use your digital card for discounted city-wide transit.
                                     </p>
                                 </div>
                             </div>
@@ -295,43 +295,43 @@ export default async function BachelorsGuidePage() {
                                 </h2>
                             </div>
                             <p className="text-slate-700 leading-relaxed font-normal">
-                                Orientation Week is held during the week prior to classes starting. Attendance is strongly recommended for all incoming Bachelor’s degree students.
+                                Orientation sessions occur the week prior to classes starting. Learn how to navigate campus, connect with faculty instructors, and access career labs.
                             </p>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                 <div className="p-6 bg-neutral-50 text-sm">
-                                    <span className="font-bold text-black block mb-1">Faculty Welcome</span>
-                                    <span className="text-slate-600 text-xs">Meet your department deans, professors, and academic mentors.</span>
+                                    <span className="font-bold text-black block mb-1">Program Overview</span>
+                                    <span className="text-slate-600 text-xs">Meet your program coordinators, lab instructors, and class peers.</span>
                                 </div>
                                 <div className="p-6 bg-neutral-50 text-sm">
                                     <span className="font-bold text-black block mb-1">Campus &amp; Lab Tours</span>
-                                    <span className="text-slate-600 text-xs">Explore classrooms, computer labs, library, and student lounges.</span>
+                                    <span className="text-slate-600 text-xs">Explore technical labs, library resources, and student study areas.</span>
                                 </div>
                                 <div className="p-6 bg-neutral-50 text-sm">
-                                    <span className="font-bold text-black block mb-1">Airport Welcome</span>
-                                    <span className="text-slate-600 text-xs">Free pickup service from Ottawa International Airport (YOW) for new arrivals.</span>
+                                    <span className="font-bold text-black block mb-1">Airport Pickup</span>
+                                    <span className="text-slate-600 text-xs">Free arrival service from Ottawa International Airport (YOW) for new arrivals.</span>
                                 </div>
                             </div>
                         </section>
 
-                        {/* Step 8: Housing & Ottawa Life */}
+                        {/* Step 8: Housing & Career Support */}
                         <section id="housing" className="scroll-mt-28 space-y-4">
                             <div className="flex items-center gap-3.5">
                                 <StepBadge step={8} />
                                 <h2 className="text-2xl md:text-3xl font-black text-black tracking-tight">
-                                    Student Housing, Financial Aid &amp; Support
+                                    Student Housing, Funding &amp; Career Services
                                 </h2>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="p-6 bg-neutral-50 space-y-2">
                                     <span className="font-bold text-base text-black block">Student Housing in Ottawa</span>
                                     <p className="text-sm text-slate-600 leading-relaxed">
-                                        Cannoga assists with on-campus partner residences and verified student apartments located near our central Ottawa campus (Vanier, ByWard Market, Sandy Hill, and Gloucester).
+                                        Cannoga assists diploma students with verified rentals and partner residences conveniently located across central Ottawa.
                                     </p>
                                 </div>
                                 <div className="p-6 bg-neutral-50 space-y-2">
-                                    <span className="font-bold text-base text-black block">Financial Aid &amp; Work-Study</span>
+                                    <span className="font-bold text-base text-black block">Career Services &amp; PGWP</span>
                                     <p className="text-sm text-slate-600 leading-relaxed">
-                                        Eligible domestic students can apply for Ontario Student Assistance Program (OSAP) funding. In addition, on-campus student work-study roles are available each semester.
+                                        Access ongoing career development, resume clinics, interview workshops, and Post-Graduation Work Permit (PGWP) transition support.
                                     </p>
                                 </div>
                             </div>

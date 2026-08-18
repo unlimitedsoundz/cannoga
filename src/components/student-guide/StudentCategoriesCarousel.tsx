@@ -54,6 +54,22 @@ const CATEGORY_CARDS: StudentCategoryItem[] = [
         bgColor: 'bg-[#f97316]', // Vibrant Orange
         borderColor: 'border-[#f97316]',
     },
+    {
+        id: 'diploma-students',
+        title: "DIPLOMA'S GUIDE",
+        description: 'Applied technical curricula, co-op work terms, practical labs, and career pathways.',
+        href: '/student-guide/diploma',
+        bgColor: 'bg-[#6366f1]', // Indigo
+        borderColor: 'border-[#6366f1]',
+    },
+    {
+        id: 'certificate-students',
+        title: "CERTIFICATE'S GUIDE",
+        description: '1-Year intensive workforce credentials, industry bootcamps, and career readiness.',
+        href: '/student-guide/certificate',
+        bgColor: 'bg-[#a855f7]', // Purple
+        borderColor: 'border-[#a855f7]',
+    },
 ];
 
 export function StudentCategoriesCarousel() {

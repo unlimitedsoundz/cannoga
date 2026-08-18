@@ -99,6 +99,10 @@ const navigation: NavItem[] = [
         href: "/student-guide/",
         children: [
             { name: "Student Guide", href: "/student-guide/" },
+            { name: "Bachelor's Student Guide", href: "/student-guide/bachelor/" },
+            { name: "Master's Student Guide", href: "/student-guide/master/" },
+            { name: "Diploma Students Guide", href: "/student-guide/diploma/" },
+            { name: "Certificate Students Guide", href: "/student-guide/certificate/" },
             { name: "Student Life & Campus", href: "/student-life/" },
             { name: "Housing", href: "/housing/" },
             { name: "Academic Calendar", href: "/student-guide/#calendar" },

@@ -49,6 +49,10 @@ export const searchablePages: SearchablePage[] = [
     { title: "Energy & Mechanical Engineering", href: "/schools/technology/energy-mechanical", category: "Departments" },
 
     // Student Life & Guides
+    { title: "Bachelor's Student Guide", href: "/student-guide/bachelor", category: "Student Life & Guides" },
+    { title: "Master's Student Guide", href: "/student-guide/master", category: "Student Life & Guides" },
+    { title: "Diploma Students Guide", href: "/student-guide/diploma", category: "Student Life & Guides" },
+    { title: "Certificate Students Guide", href: "/student-guide/certificate", category: "Student Life & Guides" },
     { title: "International Student Guide", href: "/student-guide/international", category: "Student Life & Guides" },
     { title: "Exchange Students", href: "/student-guide/exchange", category: "Student Life & Guides" },
     { title: "Arrival Guide", href: "/student-guide/arrival", category: "Student Life & Guides" },

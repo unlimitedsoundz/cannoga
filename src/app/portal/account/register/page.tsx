@@ -7,30 +7,7 @@ import { Hero } from '@/components/layout/Hero';
 import { Eye, EyeSlash, CaretDown, ArrowsCounterClockwise } from "@phosphor-icons/react/dist/ssr";
 import { registerApplicant } from '../actions';
 import DateSelector from '@/components/ui/DateSelector';
-import { countries } from '@/data/country-requirements';
-
-const phoneCodes = [
-    { code: '+1', country: 'USA/Canada' },
-    { code: '+44', country: 'UK' },
-    { code: '+91', country: 'India' },
-    { code: '+86', country: 'China' },
-    { code: '+61', country: 'Australia' },
-    { code: '+49', country: 'Germany' },
-    { code: '+33', country: 'France' },
-    { code: '+81', country: 'Japan' },
-    { code: '+82', country: 'South Korea' },
-    { code: '+55', country: 'Brazil' },
-    { code: '+52', country: 'Mexico' },
-    { code: '+63', country: 'Philippines' },
-    { code: '+234', country: 'Nigeria' },
-    { code: '+92', country: 'Pakistan' },
-    { code: '+66', country: 'Thailand' },
-    { code: '+84', country: 'Vietnam' },
-    { code: '+20', country: 'Egypt' },
-    { code: '+971', country: 'UAE' },
-    { code: '+966', country: 'Saudi Arabia' },
-    { code: '+90', country: 'Turkey' },
-];
+import { countries as allCountries } from '@/utils/countries';
 
 const canadianProvinces = [
     'Alberta',
@@ -379,9 +356,9 @@ export default function RegisterPage() {
                                         className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
                                     >
                                         <option value="">Select citizenship</option>
-                                        {countries.map((country) => (
-                                            <option key={country} value={country}>
-                                                {country.charAt(0).toUpperCase() + country.slice(1)}
+                                        {allCountries.map((c) => (
+                                            <option key={`cit-${c.name}`} value={c.name}>
+                                                {c.name}
                                             </option>
                                         ))}
                                     </select>
@@ -404,9 +381,9 @@ export default function RegisterPage() {
                                         onChange={(e) => setFormData({ ...formData, phoneCode: e.target.value })}
                                         className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
                                     >
-                                        {phoneCodes.map((phone) => (
-                                            <option key={phone.code} value={phone.code}>
-                                                {phone.code} ({phone.country})
+                                        {allCountries.map((c) => (
+                                            <option key={`phone-${c.name}-${c.code}`} value={c.code}>
+                                                {c.code} ({c.name})
                                             </option>
                                         ))}
                                     </select>
@@ -463,9 +440,9 @@ export default function RegisterPage() {
                                         className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer"
                                     >
                                         <option value="">Select country</option>
-                                        {countries.map((country) => (
-                                            <option key={country} value={country}>
-                                                {country.charAt(0).toUpperCase() + country.slice(1)}
+                                        {allCountries.map((c) => (
+                                            <option key={`country-${c.name}`} value={c.name}>
+                                                {c.name}
                                             </option>
                                         ))}
                                     </select>
@@ -552,9 +529,9 @@ export default function RegisterPage() {
                                             className="w-full h-[35px] pl-3 pr-8 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none cursor-pointer disabled:bg-neutral-100 disabled:text-neutral-500"
                                         >
                                             <option value="">-- Select Country --</option>
-                                            {countries.map((country) => (
-                                                <option key={`local-${country}`} value={country}>
-                                                    {country.charAt(0).toUpperCase() + country.slice(1)}
+                                            {allCountries.map((c) => (
+                                                <option key={`local-${c.name}`} value={c.name}>
+                                                    {c.name}
                                                 </option>
                                             ))}
                                         </select>
