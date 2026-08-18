@@ -214,9 +214,10 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
                     className="flipbook-root-container shadow-2xl relative"
                     style={{ margin: 'auto' }}
                 >
-                    {pages.map((page, index) => {
+                    {pages.map((page) => {
                         const isCover = page.pageNumber === 1;
                         const isBackCover = page.pageNumber === pages.length;
+                        const isInitialSpread = page.pageNumber === 1 || Math.abs(page.pageNumber - initialPage) <= 1;
 
                         return (
                             <div
@@ -234,8 +235,8 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
                                         alt={page.title}
                                         width={576}
                                         height={576}
-                                        priority={index <= 1}
-                                        loading={index <= 1 ? 'eager' : 'lazy'}
+                                        priority={isInitialSpread}
+                                        loading={isInitialSpread ? 'eager' : 'lazy'}
                                         sizes="(max-width: 768px) 100vw, 750px"
                                         className="object-contain w-full h-full pointer-events-none select-none"
                                     />
