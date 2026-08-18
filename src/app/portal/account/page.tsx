@@ -200,7 +200,7 @@ export default function ProfilePage() {
                             Your account is protected by Cannoga College biometric-ready authentication.
                         </p>
                         <a
-                            href="mailto:info@cannogacollege.ca?subject=Data Update Request"
+                            href="mailto:admissions@cannogacollege.ca?subject=Data Update Request"
                             className="inline-block text-[9px] font-black bg-neutral-900 text-white hover:bg-neutral-800 px-4 py-2 rounded transition-all"
                         >
                             Request Data Update

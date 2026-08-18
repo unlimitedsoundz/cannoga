@@ -104,7 +104,7 @@ export function Footer() {
                                     </div>
                                 </li>
                                 <li className="text-white text-sm">
-                                    <a href="mailto:info@cannogacollege.ca" className="hover:text-white transition-colors no-underline text-white">info@cannogacollege.ca</a>
+                                    <a href="mailto:admissions@cannogacollege.ca" className="hover:text-white transition-colors no-underline text-white">admissions@cannogacollege.ca</a>
                                 </li>
                                 <li className="text-white text-sm">
                                     <a

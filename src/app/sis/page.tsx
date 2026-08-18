@@ -1836,7 +1836,7 @@ function formatRelativeTime(dateInput: any): string {
 
                                                 {/* College Email */}
                                                 <a 
-                                                    href="mailto:info@cannogacollege.ca" 
+                                                    href="mailto:admissions@cannogacollege.ca" 
                                                     className="p-3 bg-[#0a151a] hover:bg-[#12222a] border border-white/10 hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
                                                 >
                                                     <EnvelopeSimple className="w-5 h-5 text-white group-hover:text-[#c89211] shrink-0 group-hover:scale-110 transition-all transform" weight="fill" />

@@ -1,4 +1,4 @@
-﻿
+// @ts-nocheck
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.4";
 import { Resend } from "npm:resend@2.0.0";
@@ -108,7 +108,7 @@ serve(async (req) => {
     <p>If you have any questions or need assistance, please reach out to our Admissions Office at <a href="mailto:admissions@cannogacollege.ca">admissions@cannogacollege.ca</a> or call us at <strong>+1 (613) 555-0181</strong>.</p>
 
     <div class="footer">
-      <p style="text-align: center; margin: 0;">&copy; ${new Date().getFullYear()} Cannoga College<br>Ottawa, Ontario, Canada | +1 (613) 555-0181 | info@cannogacollege.ca</p>
+      <p style="text-align: center; margin: 0;">&copy; ${new Date().getFullYear()} Cannoga College<br>Ottawa, Ontario, Canada | +1 (613) 555-0181 | admissions@cannogacollege.ca</p>
       <div style="text-align: center; margin-top: 20px;">
         <a href="https://www.instagram.com/cannogacollege" style="color: #888; text-decoration: none; margin: 0 10px; font-weight: bold;">Instagram</a>
         <a href="https://www.tiktok.com/@cannogacollege" style="color: #888; text-decoration: none; margin: 0 10px; font-weight: bold;">TikTok</a>
@@ -140,8 +140,8 @@ serve(async (req) => {
             status: 200,
             headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
-    } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), {
+    } catch (error: any) {
+        return new Response(JSON.stringify({ error: error?.message || String(error) }), {
             status: 500,
             headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
