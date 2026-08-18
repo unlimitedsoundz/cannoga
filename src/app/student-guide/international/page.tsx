@@ -111,9 +111,9 @@ export default function InternationalGuidePage() {
                                         </p>
                                     </div>
                                     <div className="flex flex-wrap gap-4 pt-1">
-                                        <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Study in Canada →</Link>
-                                        <Link href="https://www.ottawatourism.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Visit Ottawa →</Link>
-                                        <Link href="https://www.investottawa.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Invest Ottawa →</Link>
+                                        <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">Study in Canada <ArrowSquareOut size={14} weight="bold" /></Link>
+                                        <Link href="https://www.ottawatourism.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">Visit Ottawa <ArrowSquareOut size={14} weight="bold" /></Link>
+                                        <Link href="https://www.investottawa.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">Invest Ottawa <ArrowSquareOut size={14} weight="bold" /></Link>
                                     </div>
                                 </div>
                                 <div className="relative aspect-video overflow-hidden rounded-lg">
@@ -140,7 +140,7 @@ export default function InternationalGuidePage() {
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Study Permit</h3>
                                     <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">Apply for your Canadian study permit through Immigration, Refugees and Citizenship Canada (IRCC) as soon as you receive your acceptance letter. Processing times vary but typically take 1-3 months.</p>
-                                    <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Apply via IRCC →</Link>
+                                    <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">Apply via IRCC <ArrowSquareOut size={14} weight="bold" /></Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Housing</h3>
@@ -150,7 +150,7 @@ export default function InternationalGuidePage() {
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Health Insurance</h3>
                                     <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">All residents in Canada are entitled to public healthcare through provincial health insurance (OHIP in Ontario). International students may need private insurance for the first 3 months until eligible for provincial coverage. Cannoga partners with local clinics for walk-in care.</p>
-                                    <Link href="https://www.ontario.ca/page/apply-ohip-health-card" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">OHIP Info →</Link>
+                                    <Link href="https://www.ontario.ca/page/apply-ohip-health-card" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">OHIP Info <ArrowSquareOut size={14} weight="bold" /></Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Tuition &amp; Scholarships</h3>
@@ -170,8 +170,8 @@ export default function InternationalGuidePage() {
                                         Ottawa&apos;s public transport is operated by <strong>OC Transpo</strong>, offering bus, light rail, and paratransit services. Students qualify for discounted fares with a valid student card.
                                     </p>
                                     <div className="flex flex-wrap gap-4">
-                                        <Link href="https://www.octranspo.com" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">OC Transpo →</Link>
-                                        <Link href="https://www.octranspo.com/en/fares/student-fares" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Student Tickets →</Link>
+                                        <Link href="https://www.octranspo.com" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">OC Transpo <ArrowSquareOut size={14} weight="bold" /></Link>
+                                        <Link href="https://www.octranspo.com/en/fares/student-fares" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">Student Tickets <ArrowSquareOut size={14} weight="bold" /></Link>
                                     </div>
                                     <h3 className="font-bold text-lg md:text-xl text-black pt-2">Registering with Authorities</h3>
                                     <div className="space-y-2 text-base md:text-lg font-normal text-slate-700">

@@ -90,14 +90,14 @@ export default function HousingGuidePage() {
                                    <Link href="/housing" className="font-bold underline text-sm uppercase tracking-widest hover:text-[#000000] transition-colors block">Cannoga Housing →</Link>
                                 </div>
                                 <div className="space-y-2">
-                                   <h4 className="font-bold text-black text-lg md:text-xl">CampusOne</h4>
-                                   <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">A modern student residence provider with properties near Ottawa campuses. Offers private and shared suites, study rooms, and social spaces.</p>
-                                   <Link href="https://www.campusone.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest hover:text-[#000000] transition-colors block">campusone.ca →</Link>
+                                    <h4 className="font-bold text-black text-lg md:text-xl">CampusOne</h4>
+                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">A modern student residence provider with properties near Ottawa campuses. Offers private and shared suites, study rooms, and social spaces.</p>
+                                    <Link href="https://www.campusone.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest hover:text-[#000000] transition-colors inline-flex items-center gap-1">campusone.ca <ArrowSquareOut size={14} weight="bold" /></Link>
                                 </div>
                                 <div className="space-y-2">
                                     <h4 className="font-bold text-black text-lg md:text-xl">Minto</h4>
                                     <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">A major Canadian rental housing provider with apartments across Ottawa. Look for Minto properties in Sandy Hill, Centretown, and other central neighbourhoods.</p>
-                                    <Link href="https://www.minto.com" target="_blank" className="font-bold underline text-sm uppercase tracking-widest hover:text-[#000000] transition-colors block">minto.com →</Link>
+                                    <Link href="https://www.minto.com" target="_blank" className="font-bold underline text-sm uppercase tracking-widest hover:text-[#000000] transition-colors inline-flex items-center gap-1">minto.com <ArrowSquareOut size={14} weight="bold" /></Link>
                                 </div>
                                 <div className="space-y-2">
                                     <h4 className="font-bold text-black text-lg md:text-xl">Homestay</h4>
@@ -159,17 +159,17 @@ export default function HousingGuidePage() {
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Rentals.ca</h3>
                                     <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed mb-2">Canada&apos;s most popular rental listing site with extensive Ottawa coverage. Filter by district, price, and size.</p>
-                                    <Link href="https://rentals.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Search on Rentals.ca →</Link>
+                                    <Link href="https://rentals.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">Search on Rentals.ca <ArrowSquareOut size={14} weight="bold" /></Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Kijiji</h3>
                                     <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed mb-2">A major Canadian classifieds site for rental apartments and shared housing in Ottawa.</p>
-                                    <Link href="https://www.kijiji.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Browse on Kijiji →</Link>
+                                    <Link href="https://www.kijiji.ca" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">Browse on Kijiji <ArrowSquareOut size={14} weight="bold" /></Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">PadMapper</h3>
                                     <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed mb-2">Popular Canadian map-based rental search for apartments, rooms, and shared housing in Ottawa.</p>
-                                    <Link href="https://www.padmapper.com" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Search on PadMapper →</Link>
+                                    <Link href="https://www.padmapper.com" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">Search on PadMapper <ArrowSquareOut size={14} weight="bold" /></Link>
                                 </div>
                             </div>
                         </section>

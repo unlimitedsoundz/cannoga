@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
 import { StepBadge } from '@/components/ui/StepBadge';
 import AdmissionsHelpCard from '@/components/admissions/AdmissionsHelpCard';
 
@@ -16,22 +16,20 @@ const steps = [
           </p>
         </div>
         <Link href="/studies" className="inline-flex items-center gap-2 text-lg font-bold text-[#0f2027] hover:underline">
-          Confirm your program <ArrowRight size={20} weight="bold" />
+          View Programs <ArrowRight size={20} weight="bold" />
         </Link>
       </div>
     )
   },
   {
     step: 2,
-    title: "Review Admission Requirements",
+    title: "Check Country-Specific Requirements",
     content: (
       <div className="space-y-4">
-        <p>Review the admission requirements for your country and program. Ensure you meet all academic and language requirements.</p>
-        <ul className="list-disc pl-5 space-y-2 text-lg text-black">
-          <li>Admission Requirements per Country</li>
-          <li>English Language Proficiency Tests & Scores</li>
-          <li>Exemptions from English Proficiency Requirements</li>
-        </ul>
+        <p>Check the admission and credential requirements specific to your home country before starting your application.</p>
+        <Link href="/admissions/requirements" className="inline-flex items-center gap-2 text-lg font-bold text-[#0f2027] hover:underline">
+          Check Requirements <ArrowRight size={20} weight="bold" />
+        </Link>
       </div>
     )
   },
@@ -47,7 +45,7 @@ const steps = [
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-lg font-bold text-[#0f2027] hover:underline"
         >
-          Review Visa/Study Permit Requirements <ArrowRight size={20} weight="bold" />
+          Review Visa/Study Permit Requirements <ArrowSquareOut size={20} weight="bold" />
         </a>
       </div>
     )
@@ -98,7 +96,7 @@ const steps = [
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-lg font-bold text-[#0f2027] hover:underline"
         >
-          Apply for Study Permit <ArrowRight size={20} weight="bold" />
+          Apply for Study Permit <ArrowSquareOut size={20} weight="bold" />
         </a>
       </div>
     )

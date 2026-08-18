@@ -108,9 +108,9 @@ export default function InternationalPage() {
                                         </p>
                                     </div>
                                     <div className="flex flex-wrap gap-6 pt-2">
-                                        <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="cc-btn-primary text-sm">Study in Canada →</Link>
-                                        <Link href="https://www.ottawatourism.ca" target="_blank" className="cc-btn-primary text-sm">Visit Ottawa →</Link>
-                                        <Link href="https://www.investottawa.ca" target="_blank" className="cc-btn-primary text-sm">Invest Ottawa →</Link>
+                                        <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="cc-btn-primary text-sm inline-flex items-center gap-1.5">Study in Canada <ArrowSquareOut size={16} weight="bold" /></Link>
+                                        <Link href="https://www.ottawatourism.ca" target="_blank" className="cc-btn-primary text-sm inline-flex items-center gap-1.5">Visit Ottawa <ArrowSquareOut size={16} weight="bold" /></Link>
+                                        <Link href="https://www.investottawa.ca" target="_blank" className="cc-btn-primary text-sm inline-flex items-center gap-1.5">Invest Ottawa <ArrowSquareOut size={16} weight="bold" /></Link>
                                     </div>
                                 </div>
                                 <div className="relative aspect-video overflow-hidden rounded-lg shadow-md">
@@ -171,8 +171,8 @@ export default function InternationalPage() {
                                         Ottawa's public transport is operated by <strong>OC Transpo</strong>, offering bus, light rail, and paratransit services. Students qualify for discounted fares with a valid student card.
                                     </p>
                                     <div className="flex flex-wrap gap-4">
-                                        <Link href="https://www.octranspo.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors">OC Transpo →</Link>
-                                        <Link href="https://www.octranspo.com/en/fares/student-fares" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors">Student Tickets →</Link>
+                                        <Link href="https://www.octranspo.com" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors inline-flex items-center gap-1">OC Transpo <ArrowSquareOut size={13} weight="bold" /></Link>
+                                        <Link href="https://www.octranspo.com/en/fares/student-fares" target="_blank" className="font-bold underline text-xs uppercase tracking-widest hover:text-[#000000] transition-colors inline-flex items-center gap-1">Student Tickets <ArrowSquareOut size={13} weight="bold" /></Link>
                                     </div>
                                     <h3 className="font-bold text-lg text-[#000000] pt-2">Registering with Authorities</h3>
                                     <div className="space-y-3 text-sm font-medium text-neutral-700">

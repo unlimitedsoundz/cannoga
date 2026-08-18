@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useMemo, useEffect } from 'react';
 import {
@@ -13,6 +13,7 @@ import {
     Clock,
     Copy,
     CaretDown,
+    ArrowSquareOut,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from 'next/image';
 import { countries } from '@/utils/countries';
@@ -384,7 +385,7 @@ export default function PayGoWireCheckout({
                                     <p className="text-[16px] text-neutral-500 leading-relaxed font-normal">
                                         Use this option to pay quickly in Naira via Bank Transfer.
                                         <br /><br />
-                                        Note if you want to pay using a Form A application - please scroll down or select to pay in another currency - choose Bank Transfer in the destination currency and complete this journey to obtain Flywire's bank details to be used in the Form A application on the Trade Monitoring System. Full details are available <a href="https://help.flywire.com/hc/en-us/articles/9450081898781-How-can-I-access-Flywire-s-account-details-in-order-to-fill-out-the-Form-A-" target="_blank" rel="noopener noreferrer" className="text-[#147BD1] underline">here</a>.
+                                        Note if you want to pay using a Form A application - please scroll down or select to pay in another currency - choose Bank Transfer in the destination currency and complete this journey to obtain Flywire's bank details to be used in the Form A application on the Trade Monitoring System. Full details are available <a href="https://help.flywire.com/hc/en-us/articles/9450081898781-How-can-I-access-Flywire-s-account-details-in-order-to-fill-out-the-Form-A-" target="_blank" rel="noopener noreferrer" className="text-[#147BD1] underline inline-flex items-center gap-0.5">here <ArrowSquareOut size={13} weight="bold" /></a>.
                                     </p>
                                 </div>
                             )}
@@ -814,9 +815,9 @@ export default function PayGoWireCheckout({
                                         href="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/supporting-documents/Cannoga%20College%20Flywire-Nigerian-Naira.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-[#147BD1] underline"
+                                        className="text-[#147BD1] underline inline-flex items-center gap-1"
                                     >
-                                        Authorization Letter (.pdf)
+                                        Authorization Letter (.pdf) <ArrowSquareOut size={13} weight="bold" />
                                     </a>
                                     <span className="text-black"> Provided by Cannoga College to confirm the payment arrangement with our payment partner.</span>
                                 </p>
@@ -825,9 +826,9 @@ export default function PayGoWireCheckout({
                                         href="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/supporting-documents/Cannoga%20College%20Flywire-Nigerian-Naira.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-[#147BD1] underline"
+                                        className="text-[#147BD1] underline inline-flex items-center gap-1"
                                     >
-                                        Flywire Nigerian Payments (.pdf)
+                                        Flywire Nigerian Payments (.pdf) <ArrowSquareOut size={13} weight="bold" />
                                     </a>
                                     <span className="text-black"> Provided by our payment partner regarding acceptance of Nigerian Naira and payment methods.</span>
                                 </p>
@@ -836,9 +837,9 @@ export default function PayGoWireCheckout({
                                         href="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/supporting-documents/Flywire-_-Cannoga%20Authorization-Letter.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-[#147BD1] underline"
+                                        className="text-[#147BD1] underline inline-flex items-center gap-1"
                                     >
-                                        General Authorization Letter (.pdf)
+                                        General Authorization Letter (.pdf) <ArrowSquareOut size={13} weight="bold" />
                                     </a>
                                     <span className="text-black"> Provided by Flywire to confirm the payment arrangement with Cannoga College.</span>
                                 </p>

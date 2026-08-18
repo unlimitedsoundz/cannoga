@@ -1,6 +1,6 @@
 import { Link } from "@aalto-dx/react-components";
 import { CTA } from "@aalto-dx/react-modules";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from '@/components/layout/Hero';
 import Image from 'next/image';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
@@ -82,7 +82,7 @@ export default function ChatWithStudentsPage() {
                                 </div>
                                 <div className="p-4 flex justify-between items-center text-xs font-bold uppercase tracking-widest text-black">
                                     <span>Interactive Student Platform</span>
-                                    <Link href="https://students.cannogacollege.ca/" target="_blank" className="underline hover:text-black">Open in New Tab</Link>
+                                    <Link href="https://students.cannogacollege.ca/" target="_blank" className="underline hover:text-black inline-flex items-center gap-1">Open in New Tab <ArrowSquareOut size={13} weight="bold" /></Link>
                                 </div>
                             </div>
                         </section>
@@ -104,9 +104,10 @@ export default function ChatWithStudentsPage() {
                                         </p>
                                         <Link 
                                             href="https://ourblogs.cannogacollege.ca/" 
-                                            className="inline-flex items-center gap-3 text-black font-bold underline hover:opacity-70 transition-all text-base"
+                                            target="_blank"
+                                            className="inline-flex items-center gap-2 text-black font-bold underline hover:opacity-70 transition-all text-base"
                                         >
-                                            Read their stories <ArrowRight size={18} weight="bold" />
+                                            Read their stories <ArrowSquareOut size={16} weight="bold" />
                                         </Link>
                                     </div>
                                 }
