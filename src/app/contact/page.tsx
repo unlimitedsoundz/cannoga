@@ -78,9 +78,6 @@ export default function ContactPage() {
                             <a href="mailto:admissions@cannogacollege.ca" className="text-[#0a151a] font-bold underline hover:text-slate-600 transition-colors text-base md:text-lg block">
                                 admissions@cannogacollege.ca
                             </a>
-                            <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
-                                Local residents
-                            </p>
                         </div>
 
                         {/* Talk to Cannoga */}

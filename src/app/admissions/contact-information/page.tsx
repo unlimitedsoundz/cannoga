@@ -60,9 +60,6 @@ export default function AdmissionsContactInfo() {
                                          <a href="mailto:admissions@cannogacollege.ca" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm mt-1 block">
                                              admissions@cannogacollege.ca
                                          </a>
-                                         <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
-                                             Local residents
-                                         </p>
                                      </div>
 
                                      {/* Talk to Cannoga */}
