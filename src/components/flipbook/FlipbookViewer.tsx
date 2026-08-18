@@ -253,7 +253,7 @@ export function FlipbookViewer({
             style={{ cursor: zoom > 1.0 ? (isPanning ? 'grabbing' : 'grab') : 'default' }}
         >
             {/* MAIN INTERACTIVE FLIPBOOK STAGE */}
-            <div className="relative w-full flex-1 flex items-center justify-center min-h-[460px] sm:min-h-[540px] md:min-h-[620px] p-2 sm:p-6 lg:p-10 overflow-hidden bg-[#333333]">
+            <div className="relative w-full flex-1 flex items-center justify-center min-h-[260px] sm:min-h-[460px] md:min-h-[620px] p-1 sm:p-6 lg:p-10 overflow-hidden bg-[#333333]">
                 
                 {/* Minimalist White Left Chevron Button */}
                 <button
