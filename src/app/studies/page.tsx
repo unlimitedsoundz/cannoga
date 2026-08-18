@@ -1,4 +1,4 @@
-﻿import { Metadata } from 'next';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -80,7 +80,7 @@ export default async function StudiesPage() {
             {/* Hero Header */}
             <Hero
                 title="Academic Programs & Study Options"
-                body="Explore over 40 career-focused certificates, diplomas, bachelor degrees, and master graduate programs at Cannoga College Ottawa campus."
+                body="Explore over 180 career-focused certificates, diplomas, bachelor degrees, and master graduate programs across 8 academic faculties at Cannoga College Ottawa campus."
                 backgroundColor="#0a151a"
                 tinted
                 lightText={true}
