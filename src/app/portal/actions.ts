@@ -584,7 +584,10 @@ export async function regenerateLOA(applicationId: string) {
 
     const { generateAndStoreLOA } = await import('@/utils/loa-pdf-generator');
     const result = await generateAndStoreLOA(applicationId, application);
-    return result;
+    if (!result.success) {
+        return { success: false, error: result.error };
+    }
+    return { success: true, url: result.url };
 }
 
 export async function deleteApplication(applicationId: string) {
