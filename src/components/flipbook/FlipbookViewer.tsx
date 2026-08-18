@@ -11,7 +11,6 @@ import { FlipbookToolbar } from './FlipbookToolbar';
 import { FlipbookThumbnails } from './FlipbookThumbnails';
 import { FlipbookSearch } from './FlipbookSearch';
 import { FlipbookShareModal } from './FlipbookShareModal';
-import { FlipbookLoader } from './FlipbookLoader';
 import { FlipbookError } from './FlipbookError';
 import { trackViewbookEvent } from '@/lib/flipbook/analytics';
 import { useSearchParams } from 'next/navigation';
@@ -44,8 +43,6 @@ export function FlipbookViewer({
     const [orientation, setOrientation] = useState<FlipOrientation>('landscape');
     const [zoom, setZoom] = useState<ZoomLevel>(1.0);
     const [isFullscreen, setIsFullscreen] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [loadProgress, setLoadProgress] = useState(25);
     const [error, setError] = useState<string | null>(null);
 
     // Modals & Drawers
@@ -65,14 +62,6 @@ export function FlipbookViewer({
             edition: publication.edition,
             pageNumber: initialStartPage
         });
-
-        const p1 = setTimeout(() => setLoadProgress(60), 100);
-        const p2 = setTimeout(() => setLoadProgress(100), 300);
-
-        return () => {
-            clearTimeout(p1);
-            clearTimeout(p2);
-        };
     }, [publication.edition]);
 
     // Fullscreen change listener
@@ -121,9 +110,7 @@ export function FlipbookViewer({
         setOrientation(orient);
     }, []);
 
-    const handleCanvasReady = useCallback(() => {
-        setIsLoading(false);
-    }, []);
+    const handleCanvasReady = useCallback(() => {}, []);
 
     // Navigation actions
     const handleNextPage = () => {
@@ -306,15 +293,6 @@ export function FlipbookViewer({
                     />
                 </div>
 
-                {/* Loading State Overlay */}
-                {isLoading && (
-                    <FlipbookLoader
-                        title={publication.title}
-                        edition={publication.edition}
-                        progress={loadProgress}
-                    />
-                )}
-
                 {/* Error State Overlay */}
                 {error && (
                     <FlipbookError
@@ -322,7 +300,6 @@ export function FlipbookViewer({
                         pdfUrl={publication.pdfUrl}
                         onRetry={() => {
                             setError(null);
-                            setIsLoading(true);
                         }}
                     />
                 )}

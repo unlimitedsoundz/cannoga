@@ -71,18 +71,14 @@ export default function ViewbookPage() {
 
                 {/* Contained Flipbook Player Box */}
                 <div className="w-full overflow-hidden shadow-2xl bg-[#333333] border border-neutral-200">
-                    <Suspense fallback={
-                        <div className="h-[520px] bg-[#333333] flex items-center justify-center text-white text-sm font-semibold">
-                            Loading Viewbook...
-                        </div>
-                    }>
+                    <Suspense fallback={<div className="h-[580px] bg-[#333333]" />}>
                         <FlipbookViewer publication={CANNOGA_VIEWBOOK_2026_2027} />
                     </Suspense>
                 </div>
 
                 {/* Subtitle Caption Underneath the Player Box */}
                 <div className="mt-4 sm:mt-5 text-sm sm:text-base font-medium text-neutral-600">
-                    University Transfer &amp; Associate Degrees • 2026/2027 Official Prospectus
+                    Cannoga College • 2026/2027 Official Prospectus
                 </div>
             </div>
         </main>
