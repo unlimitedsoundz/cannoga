@@ -7,6 +7,7 @@ import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { HealthServicesCarousel } from '@/components/student-guide/HealthServicesCarousel';
 import { Highlight } from '@/components/ui/Highlight';
+import FAQ, { type FAQItem } from '@/components/FAQ';
 
 export const metadata: Metadata = {
     title: 'Student Health & Wellbeing | Medical, Counseling & Accessibility',
@@ -24,6 +25,27 @@ const sections = [
     { id: 'accessibility', title: 'Accessibility Services', content: '' },
     { id: 'emergency', title: '24/7 Crisis & Emergency', content: '' },
     { id: 'faq', title: 'Health & Wellness FAQs', content: '' },
+];
+
+const HEALTH_FAQS: FAQItem[] = [
+    {
+        id: 'faq-1',
+        question: 'Are mental health counseling sessions really free?',
+        answer: '<p>Yes. All enrolled Cannoga College students can access individual personal counseling sessions at zero extra charge. Sessions are completely confidential and not recorded on academic transcripts.</p>',
+        order_index: 1
+    },
+    {
+        id: 'faq-2',
+        question: 'How do I access my UHIP insurance card?',
+        answer: '<p>International students receive an email from Cowan/UHIP with a registration link upon completing course enrollment. You can also download your e-card anytime directly from your <a href="/portal" class="font-bold underline text-slate-900">Student Portal</a>.</p>',
+        order_index: 2
+    },
+    {
+        id: 'faq-3',
+        question: 'What if I get sick and miss an exam or class?',
+        answer: '<p>Visit the on-campus health clinic or a certified Ottawa walk-in clinic to obtain a Student Medical Certificate, then submit an absence notification via the student portal within 48 hours.</p>',
+        order_index: 3
+    }
 ];
 
 export default function HealthAndWellbeingPage() {
@@ -274,35 +296,14 @@ export default function HealthAndWellbeingPage() {
                     </section>
 
                     {/* FREQUENTLY ASKED QUESTIONS */}
-                    <section id="faq" className="scroll-mt-32 space-y-6 pt-4 border-t border-slate-200">
+                    <section id="faq" className="scroll-mt-32 space-y-4 pt-4 border-t border-slate-200">
                         <div>
-                            <h2 className="text-2xl sm:text-3xl font-serif font-black tracking-tight text-[#0a151a]">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-black tracking-tight text-[#0a151a]">
                                 Health &amp; Wellbeing FAQs
                             </h2>
                         </div>
 
-                        <div className="space-y-4 pt-2">
-                            <div className="space-y-1">
-                                <h4 className="font-bold text-base md:text-lg text-slate-900">Are mental health counseling sessions really free?</h4>
-                                <p className="text-base text-slate-700 leading-relaxed">
-                                    Yes. All enrolled Cannoga College students can access individual personal counseling sessions at zero extra charge. Sessions are completely confidential and not recorded on academic transcripts.
-                                </p>
-                            </div>
-
-                            <div className="space-y-1 pt-2">
-                                <h4 className="font-bold text-base md:text-lg text-slate-900">How do I access my UHIP insurance card?</h4>
-                                <p className="text-base text-slate-700 leading-relaxed">
-                                    International students receive an email from Cowan/UHIP with a registration link upon completing course enrollment. You can also download your e-card anytime directly from your <Link href="/portal" className="font-bold underline text-slate-900">Student Portal</Link>.
-                                </p>
-                            </div>
-
-                            <div className="space-y-1 pt-2">
-                                <h4 className="font-bold text-base md:text-lg text-slate-900">What if I get sick and miss an exam or class?</h4>
-                                <p className="text-base text-slate-700 leading-relaxed">
-                                    Visit the on-campus health clinic or a certified Ottawa walk-in clinic to obtain a Student Medical Certificate, then submit an absence notification via the student portal within 48 hours.
-                                </p>
-                            </div>
-                        </div>
+                        <FAQ faqs={HEALTH_FAQS} />
                     </section>
 
                 </div>
