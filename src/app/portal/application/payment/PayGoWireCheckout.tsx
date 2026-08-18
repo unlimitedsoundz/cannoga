@@ -15,6 +15,7 @@ import {
     ArrowSquareOut,
     Spinner,
     Warning,
+    FileText,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from 'next/image';
 import type { InstitutionalBankAccount, InstitutionalExchangeRate } from '@/types/payments';
@@ -511,27 +512,35 @@ export default function PayGoWireCheckout({
                             </div>
                         )}
 
-                        {/* Supporting Documents (kept for Nigerian payments) */}
-                        {selectedBank.country_code === 'NG' && (
-                            <div className="bg-white border border-neutral-200 rounded-xl p-6 space-y-4">
-                                <h3 className="text-sm font-bold text-black uppercase tracking-widest">Supporting Documents</h3>
-                                <p className="text-sm text-black leading-relaxed">If your bank requires additional documentation for this payment:</p>
-                                <div className="space-y-3">
-                                    <p>
-                                        <a href="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/supporting-documents/Cannoga%20College%20Flywire-Nigerian-Naira.pdf" target="_blank" rel="noopener noreferrer" className="text-[#147BD1] underline inline-flex items-center gap-1">
-                                            Authorization Letter (.pdf) <ArrowSquareOut size={13} weight="bold" />
-                                        </a>
-                                        <span className="text-black"> — Confirms the payment arrangement.</span>
-                                    </p>
-                                    <p>
-                                        <a href="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/supporting-documents/Flywire-_-Cannoga%20Authorization-Letter.pdf" target="_blank" rel="noopener noreferrer" className="text-[#147BD1] underline inline-flex items-center gap-1">
-                                            General Authorization Letter (.pdf) <ArrowSquareOut size={13} weight="bold" />
-                                        </a>
-                                        <span className="text-black"> — Confirms the general payment arrangement.</span>
-                                    </p>
+                        {/* Supporting Documents (Flywire Authorization Letters) */}
+                        <div className="pt-2 space-y-2">
+                            <p className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">Supporting Documents</p>
+                            <p className="text-xs text-neutral-600">If your bank or financial institution requires authorization letters for wire processing:</p>
+                            <div className="space-y-1.5 pt-1">
+                                <div className="flex items-center justify-between text-xs py-1 border-b border-neutral-100 last:border-b-0">
+                                    <span className="text-neutral-800 font-medium">Institutional Authorization Letter</span>
+                                    <a
+                                        href="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/supporting-documents/Cannoga%20College%20Flywire-Nigerian-Naira.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1 font-bold text-black hover:underline"
+                                    >
+                                        Download PDF <ArrowSquareOut size={12} weight="bold" />
+                                    </a>
+                                </div>
+                                <div className="flex items-center justify-between text-xs py-1 border-b border-neutral-100 last:border-b-0">
+                                    <span className="text-neutral-800 font-medium">General Wire Authorization Letter</span>
+                                    <a
+                                        href="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/supporting-documents/Flywire-_-Cannoga%20Authorization-Letter.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1 font-bold text-black hover:underline"
+                                    >
+                                        Download PDF <ArrowSquareOut size={12} weight="bold" />
+                                    </a>
                                 </div>
                             </div>
-                        )}
+                        </div>
 
                         <button
                             onClick={() => handleStepChange('PROOF')}
