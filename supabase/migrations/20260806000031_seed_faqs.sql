@@ -125,8 +125,8 @@ INSERT INTO faq (question, answer, page_id, order_index, is_published)
 SELECT
     'Is there a tuition deposit required?',
     '<div className="space-y-4">
-        <p>Yes. Depending on your program and applicant status, Cannoga College may require a non-refundable tuition <strong>deposit</strong> to secure your place in the program after you receive an offer of admission.</p>
-        <p>This deposit is fully credited toward your first-year tuition fee. The specific deposit amount and the deadline for payment will be clearly outlined in your official Admission Letter and accepted offer details in the applicant portal.</p>
+        <p>Yes. A non-refundable confirmation tuition deposit of <strong>$2,000 CAD</strong> is required across all programs to secure your place in the program after you receive an offer of admission.</p>
+        <p>This deposit is fully credited (100%) toward your first-year tuition fee and is required to initiate the issuance of your official Letter of Acceptance (LOA) and Provincial Attestation Letter (PAL) where applicable. The deposit amount ($2,000 CAD) and the deadline for payment are clearly outlined in your official Admission Letter and accepted offer details in the applicant portal.</p>
     </div>',
     (SELECT id FROM faq_pages WHERE slug = 'admissions/tuition'),
     6,
