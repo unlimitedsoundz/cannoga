@@ -92,92 +92,93 @@ export async function POST(request: NextRequest) {
 
         // 3. Generate PDF receipt using the existing ReceiptPDF component
         let receiptUrl: string | null = null;
-        try {
-            const pdfBuffer = Buffer.from(
-                await renderToBuffer(
-                    React.createElement(ReceiptPDF, {
-                        application: payment.application,
-                        payment: { ...payment, status: 'COMPLETED' },
-                    }) as any
-                )
-            );
+        if (application) {
+            try {
+                const pdfBuffer = Buffer.from(
+                    await renderToBuffer(
+                        React.createElement(ReceiptPDF, {
+                            application,
+                            payment: { ...payment, status: 'COMPLETED' },
+                        }) as any
+                    )
+                );
 
-            const fileName = `receipt-${payment.transaction_reference}.pdf`;
-            const storagePath = `student-documents/${payment.application.user_id}/${fileName}`;
+                const fileName = `receipt-${payment.transaction_reference || paymentId}.pdf`;
+                const storagePath = `student-documents/${application.user_id}/${fileName}`;
 
-            const { error: uploadError } = await supabase.storage
-                .from('application-documents')
-                .upload(storagePath, pdfBuffer, { contentType: 'application/pdf', upsert: true });
-
-            if (!uploadError) {
-                const { data: { publicUrl } } = supabase.storage
+                const { error: uploadError } = await adminClient.storage
                     .from('application-documents')
-                    .getPublicUrl(storagePath);
-                receiptUrl = publicUrl;
+                    .upload(storagePath, pdfBuffer, { contentType: 'application/pdf', upsert: true });
 
-                // 4. Upsert document record
-                const { data: student } = await supabase
-                    .from('students')
-                    .select('id')
-                    .eq('user_id', payment.application.user_id)
-                    .maybeSingle();
+                if (!uploadError) {
+                    const { data: { publicUrl } } = adminClient.storage
+                        .from('application-documents')
+                        .getPublicUrl(storagePath);
+                    receiptUrl = publicUrl;
 
-                if (student) {
-                    await supabase.from('document_records').upsert(
-                        {
-                            student_id: student.id,
-                            document_type: 'tuition_receipt',
-                            title: `Tuition Receipt — ${payment.transaction_reference}`,
-                            programme: payment.application.course?.title ?? '',
-                            status: 'issued',
-                            storage_path: publicUrl,
-                            is_official: true,
-                            is_student_visible: true,
-                            issue_date: now,
-                            metadata: {
-                                payment_id: payment.id,
-                                transaction_reference: payment.transaction_reference,
-                                wire_tracking_ref: payment.wire_tracking_ref,
-                                amount: payment.amount,
-                                local_amount: payment.local_amount,
-                                local_currency: payment.local_currency,
-                                country_code: payment.country_code,
+                    // 4. Upsert document record
+                    const { data: student } = await adminClient
+                        .from('students')
+                        .select('id')
+                        .eq('user_id', application.user_id)
+                        .maybeSingle();
+
+                    if (student) {
+                        await adminClient.from('document_records').upsert(
+                            {
+                                student_id: student.id,
+                                document_type: 'tuition_receipt',
+                                title: `Tuition Receipt — ${payment.transaction_reference || paymentId}`,
+                                programme: application.course?.title ?? '',
+                                status: 'issued',
+                                storage_path: publicUrl,
+                                is_official: true,
+                                is_student_visible: true,
+                                issue_date: now,
+                                metadata: {
+                                    payment_id: payment.id,
+                                    transaction_reference: payment.transaction_reference,
+                                    amount: payment.amount,
+                                    currency: payment.currency,
+                                },
                             },
+                            { onConflict: 'student_id,document_type' }
+                        );
+                    }
+                }
+            } catch (pdfErr) {
+                console.error('[verify-wire] PDF generation error:', pdfErr);
+            }
+
+            // 5. Notify the student
+            if (application.user_id) {
+                try {
+                    await adminClient.from('notifications').insert({
+                        user_id: application.user_id,
+                        type: 'wire_payment_approved',
+                        title: 'Payment Verified ✓',
+                        message: `Your payment of ${payment.currency || 'CAD'} ${Number(payment.amount).toLocaleString()} (${payment.transaction_reference || ''}) has been verified and your payment is confirmed.`,
+                        metadata: {
+                            payment_id: paymentId,
+                            tracking_ref: payment.transaction_reference,
+                            receipt_url: receiptUrl,
                         },
-                        { onConflict: 'student_id,document_type' }
-                    );
+                        is_read: false,
+                    });
+                } catch (notifErr) {
+                    console.error('[verify-wire] notification error:', notifErr);
                 }
             }
-        } catch (pdfErr) {
-            // Non-fatal — payment is approved even if PDF generation fails
-            console.error('[verify-wire] PDF generation error:', pdfErr);
         }
-
-        // 5. Notify the student
-        await supabase.from('notifications').insert({
-            user_id: payment.application.user_id,
-            type: 'wire_payment_approved',
-            title: 'Payment Verified ✓',
-            message: `Your wire transfer of ${payment.local_currency} ${Number(payment.local_amount).toLocaleString()} (${payment.wire_tracking_ref}) has been verified and your payment is confirmed.`,
-            metadata: {
-                payment_id: paymentId,
-                tracking_ref: payment.wire_tracking_ref,
-                receipt_url: receiptUrl,
-            },
-            is_read: false,
-        });
 
         return NextResponse.json({ success: true, action: 'approved', receiptUrl });
 
     } else {
         // REJECT
-        const { error: updateError } = await supabase
+        const { error: updateError } = await adminClient
             .from('tuition_payments')
             .update({
                 status: 'FAILED',
-                admin_verified_by: user.id,
-                admin_verified_at: now,
-                admin_notes: adminNotes,
             })
             .eq('id', paymentId);
 
@@ -186,24 +187,32 @@ export async function POST(request: NextRequest) {
         }
 
         // Reset application status back to OFFER_ACCEPTED so student can retry
-        await supabase
-            .from('applications')
-            .update({ status: 'OFFER_ACCEPTED' })
-            .eq('id', payment.application_id);
+        if (applicationId) {
+            await adminClient
+                .from('applications')
+                .update({ status: 'OFFER_ACCEPTED' })
+                .eq('id', applicationId);
+        }
 
         // Notify student of rejection
-        await supabase.from('notifications').insert({
-            user_id: payment.application.user_id,
-            type: 'wire_payment_rejected',
-            title: 'Payment Verification Failed',
-            message: `Your wire transfer (${payment.wire_tracking_ref}) could not be verified. Reason: ${adminNotes}. Please contact the Finance Office or resubmit.`,
-            metadata: {
-                payment_id: paymentId,
-                tracking_ref: payment.wire_tracking_ref,
-                admin_notes: adminNotes,
-            },
-            is_read: false,
-        });
+        if (application?.user_id) {
+            try {
+                await adminClient.from('notifications').insert({
+                    user_id: application.user_id,
+                    type: 'wire_payment_rejected',
+                    title: 'Payment Verification Failed',
+                    message: `Your wire transfer (${payment.transaction_reference || ''}) could not be verified. Reason: ${adminNotes}. Please contact the Finance Office or resubmit.`,
+                    metadata: {
+                        payment_id: paymentId,
+                        tracking_ref: payment.transaction_reference,
+                        admin_notes: adminNotes,
+                    },
+                    is_read: false,
+                });
+            } catch (notifErr) {
+                console.error('[verify-wire] reject notification error:', notifErr);
+            }
+        }
 
         return NextResponse.json({ success: true, action: 'rejected' });
     }
