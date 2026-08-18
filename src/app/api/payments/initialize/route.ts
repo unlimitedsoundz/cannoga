@@ -162,18 +162,21 @@ export async function POST(request: NextRequest) {
         .from('tuition_payments')
         .insert({
             offer_id: offer.id,
-            application_id: applicationId,
             student_id: student?.id ?? null,
             transaction_reference: trackingRef,
-            wire_tracking_ref: trackingRef,
             payment_method: paymentMethod ?? 'direct_bank_wire',
             amount: authorizedCadAmount,
             status: 'pending_proof',
             invoice_type: invoiceType ?? 'TUITION_DEPOSIT',
-            country_code: countryCode,
-            local_currency: currency,
-            local_amount: authorizedLocalAmount,
-            exchange_rate_applied: liveRate,
+            country: countryCode,
+            currency: currency,
+            fx_metadata: {
+                rate: liveRate,
+                localAmount: authorizedLocalAmount,
+                localCurrency: currency,
+                wire_tracking_ref: trackingRef,
+                country_code: countryCode,
+            }
         })
         .select()
         .single();

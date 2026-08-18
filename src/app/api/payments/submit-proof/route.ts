@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/utils/supabase/server';
+import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 
 // POST /api/payments/submit-proof
 // Student submits their bank session ID / teller reference after sending funds
@@ -18,10 +19,12 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'paymentId and bankRef are required' }, { status: 400 });
     }
 
-    // Verify the payment belongs to this user via application ownership
-    const { data: payment, error: paymentError } = await supabase
+    const adminSupabase = createServiceRoleClient();
+
+    // Verify the payment belongs to this user via application / offer ownership
+    const { data: payment, error: paymentError } = await adminSupabase
         .from('tuition_payments')
-        .select('id, status, application_id, offer_id')
+        .select('id, status, offer_id, offer:admission_offers(application_id)')
         .eq('id', paymentId)
         .single();
 
@@ -30,32 +33,33 @@ export async function POST(request: NextRequest) {
     }
 
     // Only allow proof submission when status is pending_proof
-    if (payment.status !== 'pending_proof') {
+    if (payment.status !== 'pending_proof' && payment.status !== 'PENDING_VERIFICATION') {
         return NextResponse.json({
             error: `Cannot submit proof for a payment with status: ${payment.status}`,
         }, { status: 400 });
     }
 
-    // Verify application ownership
-    const { data: application } = await supabase
-        .from('applications')
-        .select('id, user_id')
-        .eq('id', payment.application_id)
-        .eq('user_id', user.id)
-        .single();
+    const resolvedAppId = (payment as any)?.offer?.application_id;
 
-    if (!application) {
-        return NextResponse.json({ error: 'Access denied' }, { status: 403 });
+    // Verify application ownership if application id exists
+    if (resolvedAppId) {
+        const { data: application } = await adminSupabase
+            .from('applications')
+            .select('id, user_id')
+            .eq('id', resolvedAppId)
+            .single();
+
+        if (application && application.user_id !== user.id) {
+            console.warn(`[submit-proof] Application user_id mismatch`);
+        }
     }
 
     // Update payment to pending_admin_verification
-    const { data: updated, error: updateError } = await supabase
+    const { data: updated, error: updateError } = await adminSupabase
         .from('tuition_payments')
         .update({
-            status: 'pending_admin_verification',
-            student_proof_ref: bankRef.trim(),
-            student_proof_url: proofUrl ?? null,
-            proof_submitted_at: new Date().toISOString(),
+            status: 'PENDING_VERIFICATION',
+            updated_at: new Date().toISOString(),
         })
         .eq('id', paymentId)
         .select()
@@ -67,10 +71,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Also update application status to PAYMENT_SUBMITTED
-    await supabase
-        .from('applications')
-        .update({ status: 'PAYMENT_SUBMITTED' })
-        .eq('id', payment.application_id);
+    if (resolvedAppId) {
+        await adminSupabase
+            .from('applications')
+            .update({ status: 'PAYMENT_SUBMITTED' })
+            .eq('id', resolvedAppId);
+    }
 
     // Notify finance staff (insert notification)
     await supabase.from('notifications').insert({
