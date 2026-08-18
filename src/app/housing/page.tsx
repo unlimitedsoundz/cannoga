@@ -4,7 +4,7 @@ import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { Highlight } from '@/components/ui/Highlight';
-import { CheckCircle, Quotes } from "@phosphor-icons/react/dist/ssr";
+import { CheckCircle, Quotes, ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
 import { HousingOptionsHubCarousel } from '@/components/housing/HousingOptionsHubCarousel';
 import { ExploreHousingCarousel } from '@/components/housing/ExploreHousingCarousel';
 import { RelatedStudentGuidesCarousel } from '@/components/housing/RelatedStudentGuidesCarousel';
@@ -149,34 +149,68 @@ export default function HousingPage() {
                     {/* TENANT RIGHTS & LEGAL ADVICE */}
                     <section id="tenant-rights" className="scroll-mt-32 space-y-4">
                         <h2 className="text-aalto-5 font-bold text-black tracking-tight mb-2">Ontario Tenant Rights &amp; Legal Protections</h2>
-                        <p className="text-sm font-bold uppercase tracking-widest text-[#0a151a] mb-2">Residential Tenancies Act (RTA) — Province of Ontario</p>
+                        <p className="text-sm font-bold uppercase tracking-widest text-[#0a151a] mb-2">
+                            <a
+                                href="https://www.ontario.ca/laws/statute/06r17"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 hover:text-[#c89211] underline transition-colors"
+                            >
+                                Residential Tenancies Act (RTA) — Province of Ontario
+                                <ArrowSquareOut size={14} weight="bold" />
+                            </a>
+                        </p>
                         <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-3">
                             All off-campus student tenants in Ontario are protected under provincial law. Your landlord cannot request illegal key deposits, perform unlawful evictions, or raise rent outside annual government guidelines.
                         </p>
                         <div className="grid md:grid-cols-3 gap-6 pt-2">
-                            <div className="space-y-1">
+                            <div className="space-y-2">
                                 <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
                                     Standard Ontario Lease
                                 </h4>
                                 <p className="text-base text-slate-700 leading-relaxed font-normal">
                                     Landlords must use the official Ontario Standard Lease template.
                                 </p>
+                                <a
+                                    href="https://www.ontario.ca/page/guide-ontarios-standard-lease-new-residential-tenancy-agreements"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-[#c89211] underline transition-colors"
+                                >
+                                    View Standard Lease Form <ArrowSquareOut size={14} weight="bold" />
+                                </a>
                             </div>
-                            <div className="space-y-1">
+                            <div className="space-y-2">
                                 <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
                                     First &amp; Last Month Limit
                                 </h4>
                                 <p className="text-base text-slate-700 leading-relaxed font-normal">
                                     Security deposits exceeding first and last month rent are illegal in Ontario.
                                 </p>
+                                <a
+                                    href="https://www.ontario.ca/page/renting-ontario-your-rights#section-3"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-[#c89211] underline transition-colors"
+                                >
+                                    Ontario Rent & Deposit Rules <ArrowSquareOut size={14} weight="bold" />
+                                </a>
                             </div>
-                            <div className="space-y-1">
+                            <div className="space-y-2">
                                 <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
                                     LTB Dispute Resolution
                                 </h4>
                                 <p className="text-base text-slate-700 leading-relaxed font-normal">
                                     Disputes are resolved fairly by the Ontario Landlord and Tenant Board.
                                 </p>
+                                <a
+                                    href="https://tribunalsontario.ca/ltb/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-[#c89211] underline transition-colors"
+                                >
+                                    Tribunals Ontario (LTB) Portal <ArrowSquareOut size={14} weight="bold" />
+                                </a>
                             </div>
                         </div>
                     </section>

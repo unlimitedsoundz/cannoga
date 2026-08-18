@@ -1,4 +1,4 @@
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
 import { StepBadge } from '@/components/ui/StepBadge';
 import { Link } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
@@ -178,28 +178,54 @@ export default function HousingGuidePage() {
                         <section id="tenant-rights" className="scroll-mt-32 space-y-4">
                             <h2 className="text-aalto-5 font-bold text-black tracking-tight">Tenant Rights in Ontario &amp; Canada</h2>
                             <div className="space-y-4">
-                                <h3 className="text-lg md:text-xl font-bold text-[#0a151a]">Residential Tenancies Act (RTA) Protections</h3>
+                                <h3 className="text-lg md:text-xl font-bold text-[#0a151a]">
+                                    <a
+                                        href="https://www.ontario.ca/laws/statute/06r17"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1.5 hover:text-[#c89211] underline transition-colors"
+                                    >
+                                        Residential Tenancies Act (RTA) Protections
+                                        <ArrowSquareOut size={16} weight="bold" />
+                                    </a>
+                                </h3>
                                 <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
                                     Rental housing in Ontario is strictly governed by the <strong>Residential Tenancies Act (RTA)</strong> and enforced by the <strong>Landlord and Tenant Board (LTB)</strong>. As a student tenant, you have key legal protections:
                                 </p>
                                 <div className="grid md:grid-cols-2 gap-6 pt-2">
-                                    <div className="space-y-1">
+                                    <div className="space-y-2">
                                         <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
                                             Standard Ontario Lease Form
                                         </h4>
                                         <p className="text-base text-slate-700 leading-relaxed font-normal">
                                             Landlords must use the official Ontario Standard Lease agreement. Any clauses contradicting the RTA are void.
                                         </p>
+                                        <a
+                                            href="https://www.ontario.ca/page/guide-ontarios-standard-lease-new-residential-tenancy-agreements"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-[#c89211] underline transition-colors"
+                                        >
+                                            View Standard Lease Form <ArrowSquareOut size={14} weight="bold" />
+                                        </a>
                                     </div>
-                                    <div className="space-y-1">
+                                    <div className="space-y-2">
                                         <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
                                             Deposits &amp; Rent Guidelines
                                         </h4>
                                         <p className="text-base text-slate-700 leading-relaxed font-normal">
                                             Landlords may only collect first and last month&apos;s rent deposit. Security, damage, or key deposits exceeding key replacement costs are illegal.
                                         </p>
+                                        <a
+                                            href="https://www.ontario.ca/page/renting-ontario-your-rights#section-3"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-[#c89211] underline transition-colors"
+                                        >
+                                            Ontario Rent & Deposit Rules <ArrowSquareOut size={14} weight="bold" />
+                                        </a>
                                     </div>
-                                    <div className="space-y-1">
+                                    <div className="space-y-2">
                                         <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
                                             Rent Increase Caps &amp; Notice
                                         </h4>
@@ -207,7 +233,7 @@ export default function HousingGuidePage() {
                                             Rent can only be increased once every 12 months, subject to annual provincial guidelines, with at least 90 days written notice.
                                         </p>
                                     </div>
-                                    <div className="space-y-1">
+                                    <div className="space-y-2">
                                         <h4 className="font-bold text-[#0a151a] text-base md:text-lg">
                                             Protection Against Arbitrary Eviction
                                         </h4>
@@ -217,9 +243,9 @@ export default function HousingGuidePage() {
                                     </div>
                                 </div>
                                 <div className="pt-2 flex flex-wrap items-center justify-between gap-2">
-                                    <span className="text-base text-slate-700 font-normal">Need legal housing assistance or advice?</span>
+                                    <span className="text-base text-slate-700 font-normal">Need legal housing assistance or dispute resolution?</span>
                                     <Link href="https://tribunalsontario.ca/ltb/" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">
-                                        Landlord and Tenant Board (LTB) <ArrowRight size={16} />
+                                        Landlord and Tenant Board (LTB) <ArrowSquareOut size={16} weight="bold" />
                                     </Link>
                                 </div>
                             </div>
