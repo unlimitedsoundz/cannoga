@@ -2,7 +2,7 @@ import React from 'react';
 import { Quotes } from "@phosphor-icons/react/dist/ssr";
 
 interface HighlightProps {
-    source: string;
+    source?: string;
     body: string;
     alignment?: 'left' | 'right';
     className?: string;
@@ -11,23 +11,28 @@ interface HighlightProps {
 export const Highlight: React.FC<HighlightProps> = ({ 
     source, 
     body, 
-    alignment = 'left',
     className = "" 
 }) => {
     return (
-        <div className={`my-12 flex flex-col ${alignment === 'right' ? 'items-end text-right' : 'items-start text-left'} ${className}`}>
-            <div className={`max-w-2xl relative ${alignment === 'right' ? 'pr-8' : 'pl-8'}`}>
-                <Quotes 
-                    size={32} 
-                    weight="fill" 
-                    className={`absolute top-0 text-neutral-200 -z-10 ${alignment === 'right' ? 'right-0' : 'left-0'}`} 
-                />
-                <blockquote className="text-2xl md:text-3xl font-bold text-black leading-tight mb-6">
-                    "{body}"
+        <div className={`relative py-4 my-8 ${className}`}>
+            {/* Blue quote icon */}
+            <Quotes
+                size={52}
+                weight="fill"
+                className="text-blue-500 mb-3"
+            />
+            <div className="space-y-4 pl-4 md:pl-6 border-l-4 border-blue-400">
+                <blockquote className="text-xl md:text-2xl font-bold tracking-tight text-neutral-900 leading-snug">
+                    &ldquo;{body}&rdquo;
                 </blockquote>
-                <cite className="not-italic block">
-                    <span className="text-lg font-bold text-black">{source}</span>
-                </cite>
+                {source && (
+                    <div className="flex items-center gap-3 pt-1">
+                        <div className="w-8 h-0.5 bg-[#c89211]"></div>
+                        <cite className="not-italic text-sm font-bold uppercase tracking-widest text-[#0f2027]">
+                            {source}
+                        </cite>
+                    </div>
+                )}
             </div>
         </div>
     );
