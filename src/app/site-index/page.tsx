@@ -118,7 +118,7 @@ const masterDirectory = [
             { name: 'Ottawa Arrival & Orientation', href: '/student-guide/arrival' },
             { name: 'Bachelor\'s Student Handbook Guide', href: '/student-guide/bachelor' },
             { name: 'Master\'s Student Handbook Guide', href: '/student-guide/master' },
-            { name: 'Campus Housing Guide', href: '/student-guide/housing-for-students' },
+            { name: 'Student Housing & Accommodations Guide', href: '/housing/' },
             { name: 'Chat with Ambassadors & Students', href: '/student-guide/chat-with-cannoga-students' },
         ],
     },

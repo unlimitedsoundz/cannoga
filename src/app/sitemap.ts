@@ -100,7 +100,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         make(`${BASE_URL}/student-guide/master`, 'monthly', 0.6),
         make(`${BASE_URL}/student-guide/diploma`, 'monthly', 0.6),
         make(`${BASE_URL}/student-guide/certificate`, 'monthly', 0.6),
-        make(`${BASE_URL}/student-guide/housing-for-students`, 'monthly', 0.6),
+        make(`${BASE_URL}/housing`, 'monthly', 0.7),
         make(`${BASE_URL}/student-guide/chat-with-cannoga-students`, 'monthly', 0.5),
         make(`${BASE_URL}/student-life`, 'monthly', 0.5),
         make(`${BASE_URL}/student-life/cafe`, 'monthly', 0.3),

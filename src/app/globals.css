@@ -12,19 +12,18 @@
    Use these classes on all public pages.
    ============================================ */
 
-/* Enforce crisp, architectural sharp edges (no rounded corners) across the site, except circular badges/avatars/numbers */
-*, *::before, *::after {
+/* Enforce crisp, architectural sharp edges (no rounded corners) across all pages, images, cards, and SIS dashboards */
+*, *::before, *::after,
+img, video, iframe, canvas, svg,
+.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl,
+[class*="rounded-"], [class*="rounded_"], [class*="rounded"] {
     border-radius: 0 !important;
 }
 
-.rounded-full, [class*="rounded-full"], .step-circle, .avatar-circle {
+/* Allow only true circular elements (e.g. circular profile avatars and status indicator dots) */
+.rounded-full, [class*="rounded-full"], .step-circle, .avatar-circle, .status-dot {
     border-radius: 9999px !important;
 }
-
-.rounded-lg, [class*="rounded-lg"] { border-radius: 0.5rem !important; }
-.rounded-xl, [class*="rounded-xl"] { border-radius: 0.75rem !important; }
-.rounded-2xl, [class*="rounded-2xl"] { border-radius: 1rem !important; }
-.rounded-3xl, [class*="rounded-3xl"] { border-radius: 1.5rem !important; }
 
 /* Ensure global list bullets render as clean circular dots */
 ul.list-disc {
@@ -817,11 +816,11 @@ body {
   }
 }
 
-/* Global Font Size Remediation: Increase all 12px font sizes to 15px, and 11px font sizes to 13px */
+/* Global Font Size Remediation: Standardize table cells and small text to 13px */
 .text-xs,
 .text-\[12px\],
 [class*="text-[12px]"] {
-  font-size: 15px !important;
+  font-size: 13px !important;
   line-height: 1.4 !important;
 }
 
@@ -829,6 +828,22 @@ body {
 [class*="text-[11px]"] {
   font-size: 13px !important;
   line-height: 1.4 !important;
+}
+
+/* SIS Tables Global Font Sizing: Enforce 13px */
+[data-theme="sis"] table,
+[data-theme="sis"] table th,
+[data-theme="sis"] table td,
+[data-theme="sis-dark"] table,
+[data-theme="sis-dark"] table th,
+[data-theme="sis-dark"] table td,
+.sis-table,
+.sis-table th,
+.sis-table td,
+table.sis-table,
+table th,
+table td {
+  font-size: 13px !important;
 }
 
 /* Global Mobile View Padding Reduction */

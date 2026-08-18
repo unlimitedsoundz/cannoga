@@ -77,6 +77,7 @@ export default function StudentGuidePage() {
             items: [
                 { title: "Bachelor's Students", href: "/student-guide/bachelor" },
                 { title: "Master's Students", href: "/student-guide/master" },
+                { title: "Student Housing", href: "/housing/" },
                 { title: "Health & Wellbeing Guide", href: "/student-guide/health-and-wellbeing/" },
                 { title: "Chat with Students", href: "/student-guide/chat-with-cannoga-students" },
                 { title: "International Students", href: "/student-guide/international" },

@@ -225,7 +225,7 @@ interface BankAccount {
     is_active: boolean;
 }
 
-type PageId = 'dashboard' | 'documents' | 'academics' | 'timetable' | 'registration' | 'financials' | 'grades' | 'holds' | 'news' | 'directory' | 'profile' | 'student-life';
+type PageId = 'dashboard' | 'documents' | 'academics' | 'timetable' | 'registration' | 'financials' | 'payments' | 'grades' | 'holds' | 'news' | 'directory' | 'profile' | 'student-life';
 
 interface GradeRecord {
     module_code: string;
@@ -1125,6 +1125,10 @@ function formatRelativeTime(dateInput: any): string {
     }, []);
 
     const navigateTo = (pageId: PageId) => {
+        if (pageId === 'payments') {
+            router.push('/sis/payments');
+            return;
+        }
         setCurrentPage(pageId);
         setSidebarOpen(false);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1174,6 +1178,7 @@ function formatRelativeTime(dateInput: any): string {
         { label: 'ACADEMIC PROFILE', pageId: 'academics' as PageId },
         { label: 'TIMETABLE', pageId: 'timetable' as PageId },
         { label: 'REGISTRATION', pageId: 'registration' as PageId },
+        { label: 'PAYMENTS & INVOICES', pageId: 'payments' as PageId },
         { label: 'FINANCIAL AID & PAY', pageId: 'financials' as PageId },
         { label: 'TRANSCRIPTS & GRADES', pageId: 'grades' as PageId },
         { label: 'HOLDS & TASKS', pageId: 'holds' as PageId },
@@ -2295,6 +2300,92 @@ function formatRelativeTime(dateInput: any): string {
                                 studentId={student?.id}
                                 programId={student?.program_id}
                             />
+                        </div>
+                    )}
+
+                    {/* ================= PAYMENTS & INVOICES ================= */}
+                    {currentPage === 'payments' && (
+                        <div className="space-y-6">
+                            <div className="bg-[#0a151a] border border-white/10 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <h3 className="text-lg font-extrabold tracking-tight text-white">Payments &amp; Invoice Portal</h3>
+                                    <p className="text-xs text-slate-300 mt-1 font-medium">Review your transaction reference ledger, wire confirmations, and pay outstanding invoices.</p>
+                                </div>
+                                <div className="flex gap-3">
+                                    <Link
+                                        href="/sis/payments"
+                                        className="px-4 py-2 bg-white text-slate-900 text-xs font-bold uppercase tracking-wider hover:bg-slate-100 transition no-underline text-center"
+                                    >
+                                        Full Payments Ledger &rarr;
+                                    </Link>
+                                </div>
+                            </div>
+
+                            {/* Summary cards */}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+                                    <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Total Invoiced</p>
+                                    <p className="text-2xl font-black text-slate-900 mt-1">${invoices.reduce((sum, inv) => sum + (inv.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
+                                </div>
+                                <div className="p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+                                    <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Payments Verified</p>
+                                    <p className="text-2xl font-black text-emerald-600 mt-1">${payments.filter(p => p.status === 'COMPLETED' || p.status === 'verified').reduce((sum, p) => sum + (p.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
+                                </div>
+                                <div className="p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+                                    <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Outstanding Balance</p>
+                                    <p className="text-2xl font-black text-red-600 mt-1">${totalBalance.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
+                                </div>
+                            </div>
+
+                            {/* Payments Table */}
+                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                                <div className="p-5 border-b border-slate-100 flex justify-between items-center">
+                                    <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Recent Wire Transactions &amp; Receipts</h3>
+                                    <Link href="/sis/payments" className="text-xs font-semibold text-[#147BD1] hover:underline no-underline">
+                                        Open Detailed Ledger &rarr;
+                                    </Link>
+                                </div>
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left text-xs sm:text-sm text-slate-600">
+                                        <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                                            <tr>
+                                                <th className="p-3.5">Reference #</th>
+                                                <th className="p-3.5">Invoice Type</th>
+                                                <th className="p-3.5 text-right">Amount (CAD)</th>
+                                                <th className="p-3.5">Status</th>
+                                                <th className="p-3.5">Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-100">
+                                            {payments.length > 0 ? (
+                                                payments.map(p => (
+                                                    <tr key={p.id} className="hover:bg-slate-50">
+                                                        <td className="p-3.5 font-mono font-medium text-slate-900">{p.transaction_reference}</td>
+                                                        <td className="p-3.5">{p.invoice_type ? p.invoice_type.replace(/_/g, ' ') : 'Tuition Payment'}</td>
+                                                        <td className="p-3.5 text-right font-medium text-slate-900">${Number(p.amount).toFixed(2)}</td>
+                                                        <td className="p-3.5">
+                                                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest ${
+                                                                p.status === 'COMPLETED' || p.status === 'verified'
+                                                                    ? 'bg-emerald-100 text-emerald-700'
+                                                                    : p.status === 'pending_admin_verification' || p.status === 'PENDING'
+                                                                    ? 'bg-amber-100 text-amber-700'
+                                                                    : 'bg-red-100 text-red-700'
+                                                            }`}>
+                                                                {p.status.replace(/_/g, ' ')}
+                                                            </span>
+                                                        </td>
+                                                        <td className="p-3.5">{new Date(p.payment_date || (p as any).created_at).toLocaleDateString('en-CA')}</td>
+                                                    </tr>
+                                                ))
+                                            ) : (
+                                                <tr>
+                                                    <td colSpan={5} className="p-8 text-center text-slate-500 font-medium">No payment records found</td>
+                                                </tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     )}
 

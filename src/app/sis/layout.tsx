@@ -50,6 +50,10 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                 }
 
                 if (prof.role === 'ADMIN') {
+                    if (pathname.startsWith('/sis/payments')) {
+                        window.location.href = '/sis/admin/finance';
+                        return;
+                    }
                     if (!isAdminPath && !isStudentDashboard) {
                         window.location.href = '/sis/admin';
                         return;
@@ -168,7 +172,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         return null;
     }
 
-    const adminNavItems = [
+    const adminNavItems: { label: string; href?: string; key?: string; children?: { key: string; label: string; href: string }[] }[] = [
         { label: 'DASHBOARD', href: '/sis/admin' },
         { label: 'STUDENTS', href: '/sis/admin/students' },
         { label: 'APPLICATIONS', href: '/sis/admin/applications' },
@@ -181,8 +185,21 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         { label: 'TIMETABLE', href: '/sis/admin/timetable' },
         { label: 'REGISTRATION', href: '/sis/admin/registration' },
         { label: 'DOCUMENTS', href: '/sis/admin/documents' },
-        { label: 'BLOG', href: '/sis/admin/blog' },
-        { label: 'PAGE CONTENTS', href: '/sis/admin/website/page-contents' },
+        { 
+            key: 'website-cms', 
+            label: 'WEBSITE CMS', 
+            href: '/sis/admin/website',
+            children: [
+                { key: 'web-pages', label: 'Pages', href: '/sis/admin/website/pages' },
+                { key: 'web-page-contents', label: 'Page Contents', href: '/sis/admin/website/page-contents' },
+                { key: 'web-blog', label: 'Blog', href: '/sis/admin/blog' },
+                { key: 'web-schools', label: 'Schools', href: '/sis/admin/website/schools' },
+                { key: 'web-news', label: 'News', href: '/sis/admin/website/news' },
+                { key: 'web-faqs', label: 'FAQs', href: '/sis/admin/website/faqs' },
+                { key: 'web-tuition', label: 'Tuition', href: '/sis/admin/website/tuition' },
+                { key: 'web-announcements', label: 'Announcements', href: '/sis/admin/website/announcements' },
+            ]
+        },
         { label: 'REPORTS', href: '/sis/admin/reports' },
         { label: 'AUDIT', href: '/sis/admin/audit' },
         { label: 'NOTIFICATIONS', href: '/sis/admin/notifications' },
@@ -191,47 +208,25 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         { label: 'VOICE AGENT', href: '/sis/admin/voice-agent' },
     ];
 
-    const websiteNavItems = [
-        { key: 'web-overview', label: 'WEBSITE', href: '/sis/admin/website' },
-        { key: 'web-pages', label: 'Pages', href: '/sis/admin/website/pages' },
-        { key: 'web-page-contents', label: 'Page Contents', href: '/sis/admin/website/page-contents' },
-        { key: 'web-blog', label: 'Blog', href: '/sis/admin/blog' },
-        { key: 'web-schools', label: 'Schools', href: '/sis/admin/website/schools' },
-        { key: 'web-news', label: 'News', href: '/sis/admin/website/news' },
-        { key: 'web-faqs', label: 'FAQs', href: '/sis/admin/website/faqs' },
-        { key: 'web-tuition', label: 'Tuition', href: '/sis/admin/website/tuition' },
-        { key: 'web-announcements', label: 'Announcements', href: '/sis/admin/website/announcements' },
-    ];
-
-    const navItems = profile.role === 'ADMIN' ? [...adminNavItems, ...websiteNavItems] : [];
+    const navItems = profile.role === 'ADMIN' ? adminNavItems : [];
 
     if (isAdminPath) {
         return (
             <div className="min-h-screen bg-[#0a151a] font-sans text-white flex flex-col" data-theme="sis-dark">
-                {profile?.role === 'ADMIN' ? (
-                    <>
-                        <SISHeader onMenuToggle={() => setSidebarOpen(!sidebarOpen)} role={profile.role} profile={profile} studentId={profile.student_id || ''} />
-                        <div className="flex flex-1 overflow-hidden">
-                            <SISSidebar
-                                items={navItems}
-                                pathname={pathname}
-                                open={sidebarOpen}
-                                onClose={() => setSidebarOpen(false)}
-                            />
-                            <main className="flex-1 overflow-y-auto no-scrollbar">
-                                <div className="p-4 md:p-6 lg:p-8 max-w-[1400px] mx-auto">
-                                    {children}
-                                </div>
-                            </main>
-                        </div>
-                    </>
-                ) : (
+                <SISHeader onMenuToggle={() => setSidebarOpen(!sidebarOpen)} role={profile.role} profile={profile} studentId={profile.student_id || ''} />
+                <div className="flex flex-1 overflow-hidden">
+                    <SISSidebar
+                        items={navItems}
+                        pathname={pathname}
+                        open={sidebarOpen}
+                        onClose={() => setSidebarOpen(false)}
+                    />
                     <main className="flex-1 overflow-y-auto no-scrollbar">
                         <div className="p-4 md:p-6 lg:p-8 max-w-[1400px] mx-auto">
                             {children}
                         </div>
                     </main>
-                )}
+                </div>
                 <Toaster position="top-right" theme="dark" />
             </div>
         );

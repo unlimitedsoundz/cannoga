@@ -154,7 +154,7 @@ export default function HousingPage() {
                                 href="https://www.ontario.ca/laws/statute/06r17"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 hover:text-[#c89211] underline transition-colors"
+                                className="inline-flex items-center gap-1.5 hover:text-neutral-500 underline transition-colors"
                             >
                                 Residential Tenancies Act (RTA) — Province of Ontario
                                 <ArrowSquareOut size={14} weight="bold" />
@@ -175,7 +175,7 @@ export default function HousingPage() {
                                     href="https://www.ontario.ca/page/guide-ontarios-standard-lease-new-residential-tenancy-agreements"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-[#c89211] underline transition-colors"
+                                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-neutral-500 underline transition-colors"
                                 >
                                     View Standard Lease Form <ArrowSquareOut size={14} weight="bold" />
                                 </a>
@@ -191,7 +191,7 @@ export default function HousingPage() {
                                     href="https://www.ontario.ca/page/renting-ontario-your-rights#section-3"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-[#c89211] underline transition-colors"
+                                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-neutral-500 underline transition-colors"
                                 >
                                     Ontario Rent & Deposit Rules <ArrowSquareOut size={14} weight="bold" />
                                 </a>
@@ -207,7 +207,7 @@ export default function HousingPage() {
                                     href="https://tribunalsontario.ca/ltb/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-[#c89211] underline transition-colors"
+                                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:text-neutral-500 underline transition-colors"
                                 >
                                     Tribunals Ontario (LTB) Portal <ArrowSquareOut size={14} weight="bold" />
                                 </a>

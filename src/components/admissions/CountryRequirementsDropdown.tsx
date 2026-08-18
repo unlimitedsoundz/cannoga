@@ -202,7 +202,7 @@ export default function CountryRequirementsDropdown() {
                 href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-bold text-[#0f2027] underline hover:text-[#c89211] transition-colors inline-flex items-center gap-1.5"
+                className="text-xs font-bold text-[#0f2027] underline hover:text-neutral-500 transition-colors inline-flex items-center gap-1.5"
               >
                 Study in Canada (IRCC Guide) <ExternalLink size={13} className="shrink-0" />
               </a>
@@ -210,7 +210,7 @@ export default function CountryRequirementsDropdown() {
                 href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/apply.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-bold text-[#0f2027] underline hover:text-[#c89211] transition-colors inline-flex items-center gap-1.5"
+                className="text-xs font-bold text-[#0f2027] underline hover:text-neutral-500 transition-colors inline-flex items-center gap-1.5"
               >
                 How to Apply for a Study Permit <ExternalLink size={13} className="shrink-0" />
               </a>
@@ -218,7 +218,7 @@ export default function CountryRequirementsDropdown() {
                 href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/get-documents/provincial-attestation-letter.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-bold text-[#0f2027] underline hover:text-[#c89211] transition-colors inline-flex items-center gap-1.5"
+                className="text-xs font-bold text-[#0f2027] underline hover:text-neutral-500 transition-colors inline-flex items-center gap-1.5"
               >
                 Provincial Attestation Letter (PAL) Info <ExternalLink size={13} className="shrink-0" />
               </a>
@@ -226,7 +226,7 @@ export default function CountryRequirementsDropdown() {
                 href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-bold text-[#0f2027] underline hover:text-[#c89211] transition-colors inline-flex items-center gap-1.5"
+                className="text-xs font-bold text-[#0f2027] underline hover:text-neutral-500 transition-colors inline-flex items-center gap-1.5"
               >
                 IRCC Application Forms &amp; Guides <ExternalLink size={13} className="shrink-0" />
               </a>

@@ -14,13 +14,14 @@ function ReceiptContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
+    const paymentId = searchParams.get('paymentId');
 
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<any>(null);
     const [admission, setAdmission] = useState<any>(null);
 
     useEffect(() => {
-        if (!id) {
+        if (!id && !paymentId) {
             router.push('/portal/dashboard');
             return;
         }
@@ -34,6 +35,36 @@ function ReceiptContent() {
                     return;
                 }
 
+                let targetAppId = id;
+
+                // If only paymentId was supplied, locate its application_id
+                if (!targetAppId && paymentId) {
+                    const { data: payRecord } = await supabase
+                        .from('tuition_payments')
+                        .select('offer_id, offer:admission_offers(application_id)')
+                        .eq('id', paymentId)
+                        .maybeSingle();
+
+                    targetAppId = (payRecord as any)?.offer?.application_id;
+                }
+
+                if (!targetAppId) {
+                    const { data: firstApp } = await supabase
+                        .from('applications')
+                        .select('id')
+                        .eq('user_id', user.id)
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .maybeSingle();
+                    targetAppId = firstApp?.id;
+                }
+
+                if (!targetAppId) {
+                    setData(null);
+                    setLoading(false);
+                    return;
+                }
+
                 const { data: applicationRaw, error } = await supabase
                     .from('applications')
                     .select(`
@@ -41,7 +72,7 @@ function ReceiptContent() {
                         course:Course(*),
                         offer:admission_offers(*, payments:tuition_payments(*))
                     `)
-                    .eq('id', id)
+                    .eq('id', targetAppId)
                     .eq('user_id', user.id)
                     .single();
 

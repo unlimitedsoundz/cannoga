@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
-import { invokeEdgeFunction } from '@/utils/supabase/invoke';
 import PayGoWireCheckout from './PayGoWireCheckout';
 import { getProgramYears, ANCILLARY_FEES, ANCILLARY_FEES_TOTAL } from '@/utils/tuition';
 import Image from 'next/image';
@@ -60,72 +59,14 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
         method: string;
         country: string;
         currency: string;
+        trackingRef: string;
         fxMetadata: any;
     }) => {
-        console.log('PaymentView: handlePaymentComplete called', details);
-        setIsProcessing(true);
-        setError(null);
-        try {
-            const supabase = createClient();
-            const { data, error: functionError } = await invokeEdgeFunction('process-tuition-payment', {
-                body: {
-                    offerId: admissionOffer.id,
-                    applicationId: application.id,
-                    amount: invoiceTotal,
-                    invoiceType: rawInvoiceType,
-                    details: {
-                        method: details.method,
-                        country: details.country,
-                        currency: details.currency,
-                        fxMetadata: details.fxMetadata
-                    }
-                }
-            });
-
-            if (functionError) {
-                console.error('PaymentView: Edge function call failed', functionError);
-                throw new Error(functionError.message || 'Failed to process payment');
-            }
-
-            const result = data;
-            console.log('PaymentView: Result from edge function', result);
-
-            if (!result.success) {
-                console.error('PaymentView: Processing failed', result.error);
-                throw new Error(result.error);
-            }
-
-            // Success!!
-            console.log('PaymentView: Success! Reinforcing application status update...');
-
-            // Extra safety: Update application status directly from client to ensure DB is in sync
-            // before redirecting, just in case edge function update had any replication lag or issue.
-            // Do NOT downgrade an already-enrolled student (e.g. when paying a 2nd invoice).
-            if (application.status !== 'ENROLLED') {
-                await supabase
-                    .from('applications')
-                    .update({
-                        status: 'PAYMENT_SUBMITTED',
-                        updated_at: new Date().toISOString()
-                    })
-                    .eq('id', application.id);
-            }
-
-            console.log('PaymentView: Status reinforced. Redirecting to application view...');
-            // Redirect to application view with a clear message that the finance
-            // office is manually verifying the transfer.
-            window.location.href = `/portal/application/view?id=${application.id}`;
-        } catch (e: any) {
-            console.error('Payment Error (Caught in View):', e);
-            const raw = e?.message || '';
-            // "Failed to fetch" is a browser-level network error (request never
-            // reached the payment server), not a logical error from the function.
-            const message = raw.includes('Failed to fetch')
-                ? 'We could not reach the payment server. Check your internet connection, disable any ad/privacy blockers, and try again.'
-                : (raw || 'Payment failed. Please try again.');
-            setError(message);
-            setIsProcessing(false);
-        }
+        // Payment initialization and proof submission are handled inside PayGoWireCheckout.
+        // By the time this callback fires, the payment record already exists and proof has
+        // been submitted — we just redirect to the application view.
+        console.log('PaymentView: proof submitted, redirecting', details.trackingRef);
+        window.location.href = `/portal/application/view?id=${application.id}`;
     };
 
     // Determine the payment state for the CURRENT invoice (matched by invoice_type).
@@ -360,18 +301,11 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                     <PayGoWireCheckout
                         amount={invoiceTotal}
                         currency="CAD"
+                        offerId={admissionOffer.id}
+                        applicationId={application.id}
+                        invoiceType={rawInvoiceType}
                         onPaymentComplete={handlePaymentComplete}
                         isProcessing={isProcessing}
-                        paymentReference={(() => {
-                            let hash = 0;
-                            const str = admissionOffer.id;
-                            for (let i = 0; i < str.length; i++) {
-                                hash = ((hash << 5) - hash) + str.charCodeAt(i);
-                                hash |= 0;
-                            }
-                            const positiveHash = Math.abs(hash);
-                            return positiveHash.toString().padEnd(13, '0').slice(0, 13);
-                        })()}
                     />
                 </div>
             </div>

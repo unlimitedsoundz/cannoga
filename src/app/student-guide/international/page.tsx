@@ -145,7 +145,7 @@ export default function InternationalGuidePage() {
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Housing</h3>
                                     <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">Arrange accommodation before arrival. Ottawa student housing providers and private rentals should be booked early, especially for August/September intake.</p>
-                                    <Link href="/student-guide/housing-for-students" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Housing Guide →</Link>
+                                    <Link href="/housing/" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Housing Guide →</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Health Insurance</h3>
@@ -262,7 +262,7 @@ export default function InternationalGuidePage() {
                                                     href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/about.html"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="text-black hover:text-[#c89211] underline transition-colors inline-flex items-center gap-1.5"
+                                                    className="text-black hover:text-neutral-500 underline transition-colors inline-flex items-center gap-1.5"
                                                 >
                                                     Post-Graduation Work Permit (PGWP) <ArrowSquareOut size={16} weight="bold" />
                                                 </a>
@@ -275,7 +275,7 @@ export default function InternationalGuidePage() {
                                                     href="/uploads/Cannoga_College_PGWP_Application_Guide_2025.pdf"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-flex items-center gap-1.5 font-bold underline text-sm md:text-base text-slate-900 hover:text-[#c89211] transition-colors"
+                                                    className="inline-flex items-center gap-1.5 font-bold underline text-sm md:text-base text-slate-900 hover:text-neutral-500 transition-colors"
                                                 >
                                                     PGWP Application Guide 2025 (PDF) <ArrowSquareOut size={15} weight="bold" />
                                                 </a>
@@ -288,7 +288,7 @@ export default function InternationalGuidePage() {
                                             <p><strong>Deadline:</strong> You must apply within 180 days of receiving your final transcript and an official completion letter confirming your graduation.</p>
                                             <p><strong>Working while waiting:</strong> If you apply before your study permit expires, you can work full-time in Canada while waiting for a decision on your PGWP.</p>
                                             <p className="pt-1 text-sm text-slate-600">
-                                                Please visit International Student Services or the <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/about.html" target="_blank" rel="noopener noreferrer" className="font-bold underline text-slate-900">IRCC Website</a> for more information.
+                                                Please visit International Student Services or the <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/about.html" target="_blank" rel="noopener noreferrer" className="font-bold underline text-slate-900 hover:text-neutral-500 transition-colors">IRCC Website</a> for more information.
                                             </p>
                                         </div>
                                     </div>
@@ -315,7 +315,7 @@ export default function InternationalGuidePage() {
                                                     href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada.html"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="text-black hover:text-[#c89211] underline transition-colors inline-flex items-center gap-1.5"
+                                                    className="text-black hover:text-neutral-500 underline transition-colors inline-flex items-center gap-1.5"
                                                 >
                                                     Permanent Residency (PR) <ArrowSquareOut size={16} weight="bold" />
                                                 </a>
@@ -331,7 +331,7 @@ export default function InternationalGuidePage() {
                                                     href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada.html"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="font-bold text-slate-900 hover:text-[#c89211] underline inline-flex items-center gap-1"
+                                                    className="font-bold text-slate-900 hover:text-neutral-500 underline inline-flex items-center gap-1 transition-colors"
                                                 >
                                                     How to Immigrate to Canada <ArrowSquareOut size={14} weight="bold" />
                                                 </a>
@@ -343,7 +343,7 @@ export default function InternationalGuidePage() {
                                                     href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry.html"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="font-bold text-slate-900 hover:text-[#c89211] underline inline-flex items-center gap-1"
+                                                    className="font-bold text-slate-900 hover:text-neutral-500 underline inline-flex items-center gap-1 transition-colors"
                                                 >
                                                     Express Entry Program (Canadian Experience Class) <ArrowSquareOut size={14} weight="bold" />
                                                 </a>
@@ -355,7 +355,7 @@ export default function InternationalGuidePage() {
                                                     href="https://www.ontario.ca/page/ontario-immigrant-nominee-program-oinp"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="font-bold text-slate-900 hover:text-[#c89211] underline inline-flex items-center gap-1"
+                                                    className="font-bold text-slate-900 hover:text-neutral-500 underline inline-flex items-center gap-1 transition-colors"
                                                 >
                                                     Ontario Immigrant Nominee Program (OINP) <ArrowSquareOut size={14} weight="bold" />
                                                 </a>

@@ -16,10 +16,10 @@ interface RelatedGuideItem {
 
 const RELATED_GUIDES: RelatedGuideItem[] = [
     {
-        id: 'housing-guide',
-        title: 'HOUSING GUIDE FOR STUDENTS',
-        description: 'Detailed rental market breakdowns, neighbourhood guides, and landlord checklists.',
-        href: '/student-guide/housing-for-students',
+        id: 'health-wellbeing-guide',
+        title: 'HEALTH & WELLBEING GUIDE',
+        description: 'UHIP coverage, campus wellness, counseling services, and local clinic network in Ottawa.',
+        href: '/student-guide/health-and-wellbeing/',
         bgColor: 'bg-[#6366f1]', // Electric Indigo
         borderColor: 'border-[#6366f1]',
         waveColor: '#4f46e5',

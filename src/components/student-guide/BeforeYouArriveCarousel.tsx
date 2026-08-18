@@ -34,7 +34,7 @@ const ARRIVAL_ITEMS: ArrivalChecklistItem[] = [
         id: 'accommodation',
         title: 'ACCOMMODATION',
         description: 'Secure on-campus or off-campus housing early through our complete Student Housing Guide.',
-        href: '/student-guide/housing-for-students',
+        href: '/housing/',
         bgColor: 'bg-[#ec4899]', // Vibrant Hot Pink
         borderColor: 'border-[#ec4899]',
     },

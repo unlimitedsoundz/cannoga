@@ -10,7 +10,7 @@ import { SearchBar } from '@/components/sis/SearchBar';
 import { FilterBar } from '@/components/sis/FilterBar';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { toast } from 'sonner';
-import { CreditCardIcon as CreditCard, ArrowRightIcon as ArrowRight, FilterHorizontalIcon as Filter, Search01Icon as Search } from '@hugeicons/core-free-icons';
+import { CreditCardIcon as CreditCard, ArrowRightIcon as ArrowRight, FilterHorizontalIcon as Filter, Search01Icon as Search, BankIcon, Exchange01Icon, ListViewIcon, Settings01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import Link from 'next/link';
 import { getSISFinanceAccounts, getSISCourseMap, verifySISTuitionPayment } from '../actions';
@@ -215,24 +215,57 @@ export default function FinancePage() {
         subtitle="Manage student accounts, tuition, invoices, and payments"
       />
 
+      {/* Finance Settings & Tools Nav */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {[
+          { href: '/sis/admin/finance/verification-queue', icon: CreditCard, label: 'Wire Verification Queue', desc: 'Review & approve pending wire transfers', badge: 'Pending', badgeColor: 'amber' },
+          { href: '/sis/admin/finance/settings/purposes', icon: ListViewIcon, label: 'Payment Purposes', desc: 'Manage available payment types for students', badge: null, badgeColor: '' },
+          { href: '/sis/admin/finance/settings/banks', icon: BankIcon, label: 'Bank Accounts', desc: 'Institutional accounts per country', badge: null, badgeColor: '' },
+          { href: '/sis/admin/finance/settings/rates', icon: Exchange01Icon, label: 'Exchange Rates', desc: 'Manage CAD → local currency rates', badge: null, badgeColor: '' },
+        ].map(({ href, icon, label, desc, badge, badgeColor }) => (
+          <Link
+            key={href}
+            href={href}
+            className="flex items-start gap-3 bg-neutral-900/80 border border-white/10 rounded-xl p-4 hover:border-white/20 hover:bg-neutral-800/80 transition-all no-underline group shadow-sm"
+          >
+            <div className="w-8 h-8 bg-neutral-800 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-neutral-700 transition-colors border border-white/5">
+              <HugeiconsIcon icon={icon} size={16} className="text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium text-white group-hover:text-amber-400 transition-colors">{label}</span>
+                {badge && (
+                  <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                    {badge}
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">{desc}</p>
+            </div>
+            <HugeiconsIcon icon={ArrowRight} size={12} className="text-slate-500 group-hover:text-white transition-colors shrink-0 mt-1" />
+          </Link>
+        ))}
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white border border-neutral-200 p-4">
+        <div className="bg-neutral-900/80 border border-white/10 rounded-xl p-4 shadow-sm">
           <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Accounts</div>
-          <div className="text-2xl font-black text-neutral-900 mt-1">{data.length}</div>
+          <div className="text-2xl font-black text-white mt-1">{data.length}</div>
         </div>
-        <div className="bg-white border border-neutral-200 p-4">
+        <div className="bg-neutral-900/80 border border-white/10 rounded-xl p-4 shadow-sm">
           <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Deposit Paid</div>
-          <div className="text-2xl font-black text-emerald-600 mt-1">{data.filter(s => s.tuition_deposit_paid).length}</div>
+          <div className="text-2xl font-black text-emerald-400 mt-1">{data.filter(s => s.tuition_deposit_paid).length}</div>
         </div>
-        <div className="bg-white border border-neutral-200 p-4">
+        <div className="bg-neutral-900/80 border border-white/10 rounded-xl p-4 shadow-sm">
           <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Full Tuition Paid</div>
-          <div className="text-2xl font-black text-emerald-600 mt-1">{data.filter(s => s.full_tuition_paid).length}</div>
+          <div className="text-2xl font-black text-emerald-400 mt-1">{data.filter(s => s.full_tuition_paid).length}</div>
         </div>
-        <div className="bg-white border border-neutral-200 p-4">
+        <div className="bg-neutral-900/80 border border-white/10 rounded-xl p-4 shadow-sm">
           <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Outstanding</div>
-          <div className="text-2xl font-black text-red-600 mt-1">{data.filter(s => !s.full_tuition_paid || s.account_type === 'application').length}</div>
+          <div className="text-2xl font-black text-red-400 mt-1">{data.filter(s => !s.full_tuition_paid || s.account_type === 'application').length}</div>
         </div>
       </div>
+
 
       <ActionToolbar
         search={<SearchBar value={search} onChange={setSearch} placeholder="Search by student ID, name, email, program..." />}

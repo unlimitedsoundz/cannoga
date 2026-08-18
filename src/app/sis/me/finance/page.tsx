@@ -252,54 +252,105 @@ const tabs = [
         }}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div>
+      <div className="space-y-6">
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 flex items-center gap-2">
+            <h3 className="text-base font-extrabold text-neutral-900 flex items-center gap-2">
               <HugeiconsIcon icon={FileText} size={18} strokeWidth={2} className="text-blue-600" />
-              Invoices
+              Institutional Invoices
             </h3>
-            <button className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View All</button>
+            <button onClick={() => router.push('/sis/payments')} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View All &rarr;</button>
           </div>
           <DataTable
             columns={[
-              { key: 'number', header: 'Invoice #', render: (i: Invoice) => <span className="font-mono font-medium text-neutral-900">{i.invoice_number}</span> },
-              { key: 'type', header: 'Type' },
-              { key: 'term', header: 'Term' },
-              { key: 'amount', header: 'Amount', className: 'text-right', render: (i: Invoice) => <span className="font-mono text-neutral-900">${i.amount.toLocaleString()}</span> },
-              { key: 'paid', header: 'Paid', className: 'text-right', render: (i: Invoice) => <span className="font-mono text-emerald-600">${i.paid.toLocaleString()}</span> },
-              { key: 'balance', header: 'Balance', className: 'text-right', render: (i: Invoice) => <span className="font-mono text-red-600">${i.balance.toLocaleString()}</span> },
-              { key: 'due_date', header: 'Due Date', render: (i: Invoice) => <span className="font-mono text-neutral-900">{i.due_date ? new Date(i.due_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A'}</span> },
-              { key: 'status', header: 'Status', render: (i: Invoice) => <StatusBadge status={i.status} /> },
+              { key: 'invoice_number', header: 'Invoice #', render: (i: any) => <span className="font-mono text-sm font-semibold text-neutral-900">{i.invoice_number}</span> },
+              { key: 'description', header: 'Description / Purpose', render: (i: any) => (
+                <div>
+                  <span className="font-medium text-neutral-900 text-sm">{i.description || i.type || 'Program Tuition'}</span>
+                  {i.due_date && <p className="text-[11px] text-neutral-400">Due: {new Date(i.due_date).toLocaleDateString('en-CA')}</p>}
+                </div>
+              )},
+              { key: 'amount', header: 'Total', className: 'text-right', render: (i: any) => <span className="font-mono text-sm text-neutral-900">${(i.total || i.amount || 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD</span> },
+              { key: 'paid', header: 'Paid', className: 'text-right', render: (i: any) => <span className="font-mono text-sm text-emerald-600 font-medium">${(i.paid || 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD</span> },
+              { key: 'balance', header: 'Balance', className: 'text-right', render: (i: any) => <span className="font-mono text-sm text-red-600">${(i.balance || 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD</span> },
+              { key: 'status', header: 'Status', render: (i: any) => (
+                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest ${
+                  i.status === 'PAID' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                }`}>
+                  {i.status || (i.balance <= 0 ? 'PAID' : 'ISSUED')}
+                </span>
+              )},
+              { key: 'action', header: 'Action', render: (i: any) => {
+                if ((i.balance || 0) <= 0) {
+                  return <span className="text-xs font-bold text-emerald-700">✓ Settled</span>;
+                }
+                return (
+                  <button
+                    onClick={() => {
+                      if (student?.application_id) {
+                        router.push(`/portal/application/payment?id=${student.application_id}`);
+                      } else {
+                        router.push('/portal/dashboard');
+                      }
+                    }}
+                    className="px-3 py-1.5 bg-[#147BD1] text-white rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-[#1a3399] transition cursor-pointer"
+                  >
+                    Pay Now
+                  </button>
+                );
+              }},
             ]}
             data={invoices}
             keyField="id"
             pagination={undefined}
-            emptyMessage="No invoices found"
+            emptyMessage="No institutional invoices found"
           />
         </div>
 
-        <div>
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 flex items-center gap-2">
+            <h3 className="text-base font-extrabold text-neutral-900 flex items-center gap-2">
               <HugeiconsIcon icon={CreditCard} size={18} strokeWidth={2} className="text-emerald-600" />
-              Recent Payments
+              Official Payment Receipts (Verified Documents)
             </h3>
-            <button className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View All</button>
+            <button onClick={() => router.push('/sis/payments')} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View All &rarr;</button>
           </div>
           <DataTable
             columns={[
-              { key: 'date', header: 'Date' },
-              { key: 'reference', header: 'Reference', render: (p: Payment) => <span className="font-mono text-xs text-neutral-600">{p.reference}</span> },
-              { key: 'method', header: 'Method' },
-              { key: 'amount', header: 'Amount', className: 'text-right', render: (p: Payment) => <span className="font-mono text-emerald-600">${p.amount.toLocaleString()}</span> },
-              { key: 'status', header: 'Status', render: (p: Payment) => <StatusBadge status={p.status} /> },
-              { key: 'invoice', header: 'Applied To', render: (p: Payment) => <span className="font-mono text-xs text-neutral-600">{p.invoice}</span> },
+              { key: 'receipt_number', header: 'Receipt #', render: (p: any) => <span className="font-mono text-sm font-semibold text-neutral-900">{`REC-2026-${(p.reference || p.transaction_reference || p.id).replace(/[^0-9]/g, '').slice(0, 6) || p.id.slice(0, 6)}`}</span> },
+              { key: 'reference', header: 'Payment Reference', render: (p: any) => <span className="font-mono text-xs text-neutral-700">{p.reference || p.transaction_reference || 'N/A'}</span> },
+              { key: 'channel', header: 'Country & Channel', render: (p: any) => <span className="text-sm font-medium text-neutral-800">{p.country_code ? `Bank Wire (${p.country_code})` : (p.method || 'Direct Bank Wire')}</span> },
+              { key: 'amount', header: 'Amount', className: 'text-right', render: (p: any) => (
+                <div>
+                  <span className="font-mono text-sm font-semibold text-neutral-900">${(Number(p.amount) || 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD</span>
+                  {p.local_amount && p.local_currency && (
+                    <p className="text-[11px] font-mono text-neutral-500">
+                      ({p.local_currency} {Number(p.local_amount).toLocaleString(undefined, { minimumFractionDigits: 2 })})
+                    </p>
+                  )}
+                </div>
+              )},
+              { key: 'date', header: 'Issued At', render: (p: any) => p.date ? new Date(p.date).toLocaleDateString('en-CA') : 'N/A' },
+              { key: 'document', header: 'Document', render: (p: any) => (
+                <button
+                  onClick={() => {
+                    if (student?.application_id) {
+                      router.push(`/portal/application/receipt?id=${student.application_id}&paymentId=${p.id}`);
+                    } else {
+                      router.push(`/api/portal/receipt/pdf?paymentId=${p.id}`);
+                    }
+                  }}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#147BD1] hover:underline"
+                >
+                  <HugeiconsIcon icon={FileText} size={14} />
+                  View Receipt
+                </button>
+              )},
             ]}
             data={payments}
             keyField="id"
             pagination={undefined}
-            emptyMessage="No payments found"
+            emptyMessage="No verified payment receipts found"
           />
         </div>
       </div>
