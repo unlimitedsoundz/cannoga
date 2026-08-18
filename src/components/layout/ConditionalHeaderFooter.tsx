@@ -8,6 +8,7 @@ import { Footer } from '@/components/layout/Footer';
 import { CookieConsent } from '@/components/layout/CookieConsent';
 import { AuthProvider } from '@/components/auth/AuthProvider';
 import { MainLayoutWrapper } from '@/components/layout/MainLayoutWrapper';
+import { CannogaAIChatWidget } from '@/components/chat/CannogaAIChatWidget';
 
 export function ConditionalHeaderFooter({ children }: { children: ReactNode }) {
     const pathname = usePathname();
@@ -22,6 +23,7 @@ export function ConditionalHeaderFooter({ children }: { children: ReactNode }) {
                 </MainLayoutWrapper>
                 {!isSISPage && <Footer />}
                 <CookieConsent />
+                {!isSISPage && <CannogaAIChatWidget />}
             </AuthProvider>
         </IconContext.Provider>
     );

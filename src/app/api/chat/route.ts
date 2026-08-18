@@ -1,0 +1,204 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { createStaticClient } from '@/lib/supabase/static';
+
+export const dynamic = 'force-dynamic';
+
+interface ChatMessage {
+    role: 'user' | 'assistant' | 'system';
+    content: string;
+}
+
+// Comprehensive Institutional & Canadian Knowledge Base
+const KNOWLEDGE_TOPICS = [
+    {
+        keywords: ['deposit', 'tuition deposit', '2000', '2,000', 'seat', 'reserve', 'confirmation deposit', 'pal deposit'],
+        title: 'Tuition Deposit Policy ($2,000 CAD)',
+        content: `### 🎓 Confirmation Tuition Deposit
+* **Deposit Amount:** **$2,000 CAD** across all academic programs (Certificates, Diplomas, Bachelor's, and Master's).
+* **Purpose:** Confirms your admission offer, reserves your seat in your chosen intake cohort, and initiates the immediate issuance of your **Provincial Attestation Letter (PAL)** and official Letter of Acceptance (LOA) for international students.
+* **Credited 100%:** The full $2,000 CAD is credited directly against your first-term tuition fees balance.
+* **Refund Exception:** The deposit is non-refundable; however, if an international applicant receives an official **Study Permit / Visa Refusal** from IRCC, **100% of the tuition deposit and prepaid fees will be refunded** (minus a standard $100 CAD administrative processing fee) upon submitting the refusal letter within 14 calendar days.
+* **Payment Methods:** Payable securely via Flywire, Convera, Credit Card, or Bank Wire through the [Student Portal](https://cannogacollege.ca/portal).`
+    },
+    {
+        keywords: ['tuition', 'fee', 'fees', 'cost', 'how much', 'price', 'afford', 'payment plan', 'osap'],
+        title: 'Tuition & Academic Fees Breakdown',
+        content: `### 💰 Cannoga College Tuition Schedule (Annual)
+| Credential Level | Domestic Students | International Students | Tuition Deposit |
+| :--- | :--- | :--- | :--- |
+| **Postgraduate Certificate (6m–1y)** | CAD $2,400 / yr | CAD $4,000 / yr | CAD $2,000 |
+| **Diploma & Adv. Diploma (2–3y)** | CAD $2,400 / yr | CAD $4,000 / yr | CAD $2,000 |
+| **Bachelor's Degree (4y)** | CAD $4,000 / yr | CAD $6,400 / yr | CAD $2,000 |
+| **Master's Degree (2y)** | CAD $4,000 / yr | CAD $6,400 / yr | CAD $2,000 |
+
+* **Financial Aid & OSAP:** Domestic Ontario students are eligible for the Ontario Student Assistance Program (OSAP) and flexible repayment plans (RAP).
+* **Payment Options:** Flexible installment plans per semester are available upon request through the Registrar.`
+    },
+    {
+        keywords: ['pal', 'provincial attestation letter', 'attestation', 'cap', 'ircc cap', 'visa letter'],
+        title: 'Provincial Attestation Letter (PAL) Guide',
+        content: `### 🇨🇦 Provincial Attestation Letter (PAL) Process
+* **What is a PAL:** A mandatory Canadian provincial certification required by Immigration, Refugees and Citizenship Canada (IRCC) to accompany study permit applications.
+* **How to receive a PAL at Cannoga College:**
+  1. Receive your official Offer of Admission.
+  2. Accept your offer in the [Applicant Portal](https://cannogacollege.ca/portal).
+  3. Pay the **$2,000 CAD confirmation tuition deposit**.
+  4. Once payment is verified, Cannoga's International Admissions Office allocates and issues your official **PAL document & final LOA** within 3–5 business days.
+* **No extra PAL fee:** The PAL allocation is included with your admission confirmation.`
+    },
+    {
+        keywords: ['pgwp', 'work permit', 'after graduation', 'post graduation', 'work in canada', 'stay in canada', 'working after'],
+        title: 'Post-Graduation Work Permit (PGWP) & Career Pathways',
+        content: `### 🍁 Post-Graduation Work Permit (PGWP) & Canadian Careers
+* **PGWP Eligibility:** Graduates of eligible full-time Cannoga College academic programs qualify to apply for an open Post-Graduation Work Permit (PGWP) without requiring a job offer beforehand.
+* **Duration:**
+  * **2+ Year Programs (Diplomas, Bachelor's, Master's):** Up to a **3-Year Open Work Permit**.
+  * **Programs 8 months to 2 years:** Work permit length matches your study duration.
+* **Permanent Residency (PR) Transitions:**
+  * **Canadian Experience Class (Express Entry):** Eligible after 1 year of skilled work in Canada.
+  * **Ontario Immigrant Nominee Program (OINP):** Direct provincial nomination streams for Ontario college and university graduates.`
+    },
+    {
+        keywords: ['work', 'working', 'job', 'part time', 'hours', '24 hours', 'off campus', 'on campus', 'earn'],
+        title: 'Working While Studying in Canada',
+        content: `### 💼 Working While Studying at Cannoga
+* **Off-Campus Work:** International students enrolled full-time can work up to **24 hours per week** off-campus during regular academic semesters.
+* **Full-Time During Breaks:** You are eligible to work full-time (up to 40+ hrs/week) during scheduled academic breaks, holidays, and summer vacations.
+* **On-Campus Jobs:** Access opportunities directly on campus in research, peer tutoring, student services, and campus administration.
+* **Average Wages in Ottawa:** Ontario minimum wage is $17.20/hr, with tech and student positions averaging $18–$25/hr.`
+    },
+    {
+        keywords: ['ottawa', 'canada', 'living', 'weather', 'city', 'location', 'where', 'address', 'campus'],
+        title: 'Campus Location & Life in Ottawa, Ontario',
+        content: `### 🏛️ Ottawa Campus & Canadian Capital Life
+* **Campus Address:** **81 Montreal Rd, Ottawa, ON K1L 6E8, Canada**.
+* **Why Ottawa:** Canada's capital city ranks among the safest, cleanest, and most livable cities in the world. It is a major technology hub (*"Silicon Valley North"* in Kanata) with government institutions, embassies, museums, and multinational corporations.
+* **Bilingual Culture:** English and French are widely spoken, offering an enriching cultural immersion.
+* **Transit:** High-frequency OC Transpo bus routes and O-Train light rail system connect the campus to downtown Ottawa in under 15 minutes.`
+    },
+    {
+        keywords: ['housing', 'residence', 'accommodation', 'rent', 'living cost', 'apartment', 'dorm', 'homestay'],
+        title: 'Student Housing & Cost of Living in Ottawa',
+        content: `### 🏠 Housing & Living Costs in Ottawa
+* **On-Campus & Partner Residences:** Furnished student residences from **$600 to $1,100 CAD/month** including high-speed internet and utilities.
+* **Off-Campus Apartments:** Shared student apartments in Ottawa range from **$700 to $1,300 CAD/month**.
+* **Homestay Options:** Canadian homestay families offer private rooms with meal plans ($900 – $1,200/mo).
+* **Monthly Living Budget:** Estimated living expenses (groceries, transport, phone, recreation) average **$800 – $1,200 CAD/month** outside tuition.`
+    },
+    {
+        keywords: ['program', 'programs', 'course', 'courses', 'bachelor', 'master', 'diploma', 'certificate', 'degrees', 'what do you offer'],
+        title: 'Academic Programs & Faculties',
+        content: `### 📚 Cannoga College Academic Faculties
+Cannoga College offers career-focused degrees across 6 specialized schools:
+1. **School of Business & Management:** International Business, Finance, Project Management, Digital Marketing, Entrepreneurship.
+2. **School of Computer Science & Technology:** Software Engineering, AI & Machine Learning, Cybersecurity, Cloud Computing, Data Analytics.
+3. **School of Health & Community Studies:** Healthcare Administration, Community Services, Health Informatics.
+4. **School of Engineering & Applied Technology:** Robotics, Civil Tech, Renewable Energy Systems.
+5. **School of Creative Arts & Media:** Digital Media Design, UI/UX Architecture, Interactive Animation.
+6. **School of Hospitality & Tourism Management:** Global Hospitality Leadership, Event Management.
+
+*Explore the complete interactive [Viewbook](https://cannogacollege.ca/viewbook) or view all programs on our [Programs Hub](https://cannogacollege.ca/schools).*`
+    },
+    {
+        keywords: ['apply', 'admission', 'requirements', 'deadline', 'how to apply', 'ielts', 'toefl', 'english', 'intake', 'september', 'january', 'may'],
+        title: 'Admissions Requirements & Application Deadlines',
+        content: `### 📝 How to Apply & Entry Requirements
+* **Intakes:** Fall (September), Winter (January), and Spring/Summer (May).
+* **General Requirements:**
+  * **Secondary / High School Diploma** (for Diplomas & Bachelor's) or Undergraduate Degree (for Master's/Postgrad Certificates).
+  * **English Language Proficiency:** IELTS Academic 6.0–6.5 (minimum 5.5 in each band), TOEFL iBT 80+, PTE Academic 58+, or Duolingo 105–115. *(English waivers available for applicants from recognized English-speaking curricula)*.
+* **Application Steps:**
+  1. Submit your online application via the [Admissions Portal](https://cannogacollege.ca/portal/apply).
+  2. Upload your academic transcripts, passport copy, and proof of English proficiency.
+  3. Receive your Offer of Admission within 3–7 business days.
+  4. Confirm your offer with the **$2,000 CAD tuition deposit** to unlock your PAL & LOA.`
+    },
+    {
+        keywords: ['contact', 'email', 'phone', 'advisor', 'help', 'office', 'reach', 'talk to human', 'support'],
+        title: 'Contact Admissions & Support Team',
+        content: `### 📞 Contact Cannoga College Admissions
+* **Admissions Email:** [admissions@cannogacollege.ca](mailto:admissions@cannogacollege.ca)
+* **General Inquiries:** [info@cannogacollege.ca](mailto:info@cannogacollege.ca)
+* **Phone / WhatsApp:** **+1 (613) 727-4723**
+* **Campus Address:** 81 Montreal Rd, Ottawa, ON K1L 6E8, Canada
+* **Admissions Office Hours:** Monday – Friday, 9:00 AM – 5:00 PM (Eastern Time)`
+    }
+];
+
+export async function POST(req: NextRequest) {
+    try {
+        const { messages, userQuery } = await req.json();
+
+        const latestQuery = userQuery || (messages && messages.length > 0 ? messages[messages.length - 1].content : '');
+
+        if (!latestQuery || typeof latestQuery !== 'string') {
+            return NextResponse.json({ error: 'Query is required' }, { status: 400 });
+        }
+
+        const normalized = latestQuery.toLowerCase().trim();
+
+        // 1. Score match against comprehensive Knowledge Topics
+        let bestTopic: typeof KNOWLEDGE_TOPICS[0] | null = null;
+        let highestTopicScore = 0;
+
+        for (const topic of KNOWLEDGE_TOPICS) {
+            let score = 0;
+            for (const kw of topic.keywords) {
+                if (normalized.includes(kw)) {
+                    score += kw.length > 5 ? 3 : 2;
+                }
+            }
+            if (score > highestTopicScore) {
+                highestTopicScore = score;
+                bestTopic = topic;
+            }
+        }
+
+        // 3. Compose structured, intelligent response
+        let answerText = '';
+
+        if (normalized.includes('hello') || normalized.includes('hi') || normalized.includes('hey') || normalized.match(/^(good morning|good afternoon|good evening)/)) {
+            answerText = `👋 **Hello and welcome to Cannoga College in Ottawa, Ontario, Canada!**
+
+I am your **Cannoga AI Admissions & Student Guide**. I can assist you with:
+* 🎓 **Programs & Degrees** (Certificates, Diplomas, Bachelor's & Master's)
+* 💰 **Tuition Fees & the $2,000 CAD Deposit**
+* 🇨🇦 **Provincial Attestation Letter (PAL) & Study Permits**
+* 🏠 **Living in Ottawa, Residences & Living Costs**
+* 💼 **Working in Canada & Post-Graduation Work Permits (PGWP)**
+* 📝 **Application Deadlines & Entry Requirements**
+
+What would you like to explore today?`;
+        } else if (bestTopic && highestTopicScore >= 2) {
+            answerText = `${bestTopic.content}\n\n*Would you like more details on admission requirements, tuition payment options, or booking an advisor consultation?*`;
+        } else if (dbFaqMatch) {
+            answerText = `### 📋 ${dbFaqMatch.question}\n\n${dbFaqMatch.answer}\n\n*Need further clarification? Feel free to ask or reach our admissions team directly at [admissions@cannogacollege.ca](mailto:admissions@cannogacollege.ca).*`;
+        } else {
+            // General overview answer covering Cannoga & Canada
+            answerText = `### 🏛️ Cannoga College & Study in Canada Overview
+Cannoga College is a premier career-focused institution located at **81 Montreal Rd in Ottawa, Ontario, Canada**.
+
+Here are the key essentials for students:
+* **Academic Streams:** Diplomas, Bachelor's, and Master's across Technology, Business, Health, and Creative Arts.
+* **Confirmation Deposit:** A **$2,000 CAD non-refundable deposit** is required upon receiving your offer. It secures your seat, starts your **Provincial Attestation Letter (PAL)** process, and is credited 100% directly towards your first-term tuition.
+* **Work Opportunities:** International students can work up to **24 hours/week** off-campus during studies and qualify for up to a **3-Year Post-Graduation Work Permit (PGWP)**.
+* **Location Benefits:** Ottawa is Canada's safest, vibrant capital city with a booming tech sector and affordable living compared to other major Canadian metropolises.
+
+👉 *You can check our [Admissions Hub](https://cannogacollege.ca/admissions), read our interactive [Viewbook](https://cannogacollege.ca/viewbook), or apply directly through our [Applicant Portal](https://cannogacollege.ca/portal).*`;
+        }
+
+        // Return fast response
+        return NextResponse.json({
+            reply: answerText,
+            timestamp: new Date().toISOString(),
+            topic: bestTopic?.title || 'General Inquiries'
+        });
+
+    } catch (err: any) {
+        console.error('Chat API Error:', err);
+        return NextResponse.json({
+            error: 'Failed to process chat query',
+            reply: 'I am temporarily experiencing a connection delay. Please feel free to explore our [Admissions Page](https://cannogacollege.ca/admissions) or email [admissions@cannogacollege.ca](mailto:admissions@cannogacollege.ca) for immediate assistance!'
+        }, { status: 500 });
+    }
+}
