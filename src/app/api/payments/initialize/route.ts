@@ -79,33 +79,33 @@ export async function POST(request: NextRequest) {
     }
 
     // 3. Look up student record
-    const { data: student } = await supabase
+    const { data: student } = await adminSupabase
         .from('students')
         .select('id')
         .eq('user_id', user.id)
         .maybeSingle();
 
     // 4. Verify the bank account exists for this country/currency
-    const { data: bankAccount, error: bankError } = await supabase
+    const { data: bankAccount, error: bankError } = await adminSupabase
         .from('institutional_bank_accounts')
         .select('*')
         .eq('country_code', countryCode)
         .eq('currency', currency)
         .eq('is_active', true)
-        .single();
+        .maybeSingle();
 
     if (bankError || !bankAccount) {
         return NextResponse.json({ error: `No active bank account configured for ${countryCode} / ${currency}` }, { status: 400 });
     }
 
     // 5. Fetch the live institutional exchange rate (server-side, not client-trusting)
-    const { data: rateRecord } = await supabase
+    const { data: rateRecord } = await adminSupabase
         .from('institutional_exchange_rates')
         .select('rate_multiplier')
         .eq('from_currency', 'CAD')
         .eq('to_currency', currency)
         .eq('is_active', true)
-        .single();
+        .maybeSingle();
 
     // Use client-provided rate only as fallback if DB has no entry (should not happen)
     const liveRate = rateRecord ? Number(rateRecord.rate_multiplier) : (exchangeRate ?? 1);
