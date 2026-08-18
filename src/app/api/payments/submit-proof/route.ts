@@ -59,7 +59,6 @@ export async function POST(request: NextRequest) {
         .from('tuition_payments')
         .update({
             status: 'PENDING_VERIFICATION',
-            updated_at: new Date().toISOString(),
         })
         .eq('id', paymentId)
         .select()
@@ -79,24 +78,30 @@ export async function POST(request: NextRequest) {
     }
 
     // Notify finance staff (insert notification)
-    await supabase.from('notifications').insert({
-        user_id: null, // broadcast — finance staff pick up via role filter
-        type: 'wire_proof_submitted',
-        title: 'Wire Proof Submitted',
-        message: `A student has submitted wire transfer proof for payment ${updated.transaction_reference}. Please verify in the Finance Queue.`,
-        metadata: {
-            payment_id: paymentId,
-            tracking_ref: updated.wire_tracking_ref,
-            country_code: updated.country_code,
-            local_currency: updated.local_currency,
-            local_amount: updated.local_amount,
-        },
-        is_read: false,
-    }).maybeSingle();
+    try {
+        await adminSupabase.from('notifications').insert({
+            user_id: null,
+            type: 'wire_proof_submitted',
+            title: 'Wire Proof Submitted',
+            message: `A student has submitted wire transfer proof for payment reference ${updated.transaction_reference || bankRef}. Please verify in the Finance Queue.`,
+            metadata: {
+                payment_id: paymentId,
+                tracking_ref: updated.transaction_reference,
+                student_bank_ref: bankRef,
+                proof_url: proofUrl ?? null,
+                country: updated.country,
+                currency: updated.currency,
+                amount: updated.amount,
+            },
+            is_read: false,
+        });
+    } catch (notifErr) {
+        console.error('[submit-proof] notification insert error:', notifErr);
+    }
 
     return NextResponse.json({
         success: true,
         status: updated.status,
-        trackingRef: updated.wire_tracking_ref,
+        trackingRef: updated.transaction_reference,
     });
 }
