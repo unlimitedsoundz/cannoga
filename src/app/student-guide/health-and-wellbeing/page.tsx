@@ -62,7 +62,7 @@ export default function HealthAndWellbeingPage() {
                 overlay={true}
                 overlayOpacity="opacity-40"
                 image={{
-                    src: "/images/health-community.jpg",
+                    src: "/images/health-and-wellbeing-hero.jpg",
                     alt: "Student Health and Wellbeing at Cannoga College Ottawa"
                 }}
             />
