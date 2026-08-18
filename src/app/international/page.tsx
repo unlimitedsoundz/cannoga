@@ -126,8 +126,7 @@ export default function InternationalPage() {
 
                         <Highlight
                             body="The mix of innovation, nature, and culture in Ottawa is something special. I felt welcome from day one — the city and college community really made this an amazing experience."
-                            source="Marco Rossi, International Student"
-                            alignment="right"
+                            source="Grace Kapuadi from DR Congo, Practical Nursing Diploma"
                         />
 
                         {/* After Admission */}
