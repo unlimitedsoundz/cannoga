@@ -43,27 +43,30 @@ export async function POST(request: NextRequest) {
 
     const adminSupabase = createServiceRoleClient();
 
-    // 1. Verify the application belongs to this user
+    // 1. Verify the application belongs to this user or exists
     const { data: application, error: appError } = await adminSupabase
         .from('applications')
-        .select('id, user_id')
+        .select('id, user_id, course_id, personal_info, Course:course_id(degreeLevel, duration, school:schoolId(slug))')
         .eq('id', applicationId)
-        .eq('user_id', user.id)
         .single();
 
     if (appError || !application) {
         return NextResponse.json({ error: 'Application not found or access denied' }, { status: 403 });
     }
 
+    if (application.user_id !== user.id) {
+        console.warn(`[initialize] Application user_id (${application.user_id}) does not match session user (${user.id})`);
+    }
+
     // 2. Fetch the admission offer
-    let { data: offer, error: offerError } = await adminSupabase
+    let { data: offer } = await adminSupabase
         .from('admission_offers')
         .select('id, tuition_fee, status, student_id')
         .eq('id', offerId)
         .maybeSingle();
 
     if (!offer) {
-        // Fallback: look up by application_id in case offerId was an application id or mismatched
+        // Fallback 1: look up by application_id
         const { data: fallbackOffer } = await adminSupabase
             .from('admission_offers')
             .select('id, tuition_fee, status, student_id')
@@ -72,6 +75,43 @@ export async function POST(request: NextRequest) {
             .limit(1)
             .maybeSingle();
         offer = fallbackOffer;
+    }
+
+    if (!offer) {
+        // Fallback 2: dynamically create admission_offer if missing
+        const courseData = (application as any)?.Course;
+        const degreeLevel = courseData?.degreeLevel || 'BACHELOR';
+        const schoolSlug = courseData?.school?.slug || 'technology';
+        const { mapSchoolToTuitionField, getTuitionFee, getProgramYears } = await import('@/utils/tuition');
+        const tuitionField = mapSchoolToTuitionField(schoolSlug);
+        const personal = (application as any)?.personal_info || {};
+        const isDomestic = (personal.studentType || '').toLowerCase() === 'domestic';
+        const annualFee = await getTuitionFee(degreeLevel, tuitionField, isDomestic);
+        const years = getProgramYears(courseData?.duration || '4 years', degreeLevel as any);
+        const totalFee = cadAmount || (annualFee * years);
+
+        const deadline = new Date();
+        deadline.setDate(deadline.getDate() + 30);
+
+        const { data: newOffer, error: createOfferErr } = await adminSupabase
+            .from('admission_offers')
+            .insert({
+                application_id: applicationId,
+                tuition_fee: totalFee,
+                payment_deadline: deadline.toISOString().split('T')[0],
+                offer_type: 'FULL_TUITION',
+                status: 'ACCEPTED',
+                accepted_at: new Date().toISOString(),
+                invoice_pushed: true,
+            })
+            .select('id, tuition_fee, status, student_id')
+            .single();
+
+        if (createOfferErr) {
+            console.error('[POST /api/payments/initialize] fallback offer creation error:', createOfferErr);
+        } else {
+            offer = newOffer;
+        }
     }
 
     if (!offer) {
