@@ -6,6 +6,7 @@ import {
 import { Hero } from '@/components/layout/Hero';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { HealthServicesCarousel } from '@/components/student-guide/HealthServicesCarousel';
+import { UhipQuickLinksCarousel } from '@/components/student-guide/UhipQuickLinksCarousel';
 import { Highlight } from '@/components/ui/Highlight';
 import FAQ, { type FAQItem } from '@/components/FAQ';
 
@@ -172,55 +173,15 @@ export default function HealthAndWellbeingPage() {
                     <section id="health-insurance" className="scroll-mt-32 space-y-6 pt-4 border-t border-slate-200">
                         <div>
                             <h2 className="text-2xl sm:text-3xl font-serif font-black tracking-tight text-[#0a151a]">
-                                Health Insurance: UHIP &amp; Student Coverage
+                                University Health Insurance Plan (UHIP)
                             </h2>
                             <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-2">
-                                Every international and domestic student at Cannoga College is backed by comprehensive medical insurance to ensure full access to healthcare services across Ottawa and Ontario without out-of-pocket stress.
+                                Mandatory medical protection for all international students in Ontario. Every international and domestic student at Cannoga College is backed by comprehensive medical insurance to ensure full access to healthcare services across Ottawa and Ontario without out-of-pocket stress.
                             </p>
                         </div>
 
-                        <div className="p-6 sm:p-8 bg-[#0a151a] text-white rounded-2xl space-y-6">
-                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-700 pb-4">
-                                <div>
-                                    <h3 className="text-xl sm:text-2xl font-bold text-white">University Health Insurance Plan (UHIP)</h3>
-                                    <p className="text-sm sm:text-base text-slate-300">Mandatory medical protection for all international students in Ontario</p>
-                                </div>
-                                <span className="px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-wider w-fit">
-                                    100% Comprehensive Coverage
-                                </span>
-                            </div>
-
-                            <div className="grid md:grid-cols-3 gap-6 text-sm sm:text-base text-slate-300">
-                                <div className="space-y-1">
-                                    <h4 className="font-bold text-white">Hospital &amp; Emergency Care</h4>
-                                    <p className="text-xs sm:text-sm leading-relaxed">Covers 100% of standard emergency hospital stays, surgical procedures, and emergency room visits across Canadian hospitals.</p>
-                                </div>
-                                <div className="space-y-1">
-                                    <h4 className="font-bold text-white">Doctor &amp; Clinic Visits</h4>
-                                    <p className="text-xs sm:text-sm leading-relaxed">Full coverage for physician visits, specialist consultations, diagnostic lab tests, X-rays, and medical imaging.</p>
-                                </div>
-                                <div className="space-y-1">
-                                    <h4 className="font-bold text-white">Prescriptions &amp; Dental</h4>
-                                    <p className="text-xs sm:text-sm leading-relaxed">Cannoga Student Association (CSA) supplemental plan covers prescription drugs, basic dental care, and vision checks.</p>
-                                </div>
-                            </div>
-
-                            <div className="pt-2 flex flex-wrap items-center gap-3">
-                                <a
-                                    href="https://uhip.ca"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1.5 bg-[#c89211] hover:bg-[#b07f0e] text-[#0a151a] font-bold px-4 py-2 rounded-lg text-xs uppercase tracking-wider transition-colors"
-                                >
-                                    Official UHIP Portal <ArrowSquareOut size={14} weight="bold" />
-                                </a>
-                                <Link
-                                    href="/portal"
-                                    className="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-lg text-xs uppercase tracking-wider transition-colors"
-                                >
-                                    Download Insurance Card
-                                </Link>
-                            </div>
+                        <div className="pt-2">
+                            <UhipQuickLinksCarousel />
                         </div>
                     </section>
 
