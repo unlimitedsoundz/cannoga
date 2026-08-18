@@ -1,4 +1,4 @@
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
 import { StepBadge } from '@/components/ui/StepBadge';
 import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
@@ -261,25 +261,48 @@ export default function InternationalGuidePage() {
                         </section>
 
                         {/* After Graduation */}
-                        <section id="after-graduation" className="scroll-mt-32 space-y-4">
-                            <h2 className="text-aalto-5 font-bold text-black tracking-tight">After Graduation</h2>
-                            <p className="text-base md:text-lg text-slate-700 leading-relaxed mb-6 max-w-3xl font-normal">
-                                After graduating as an international student in Cannoga College Ontario, you can apply for a Post-Graduation Work Permit (PGWP) to live, find a job, and gain valuable work experience in Canada.
-                            </p>
+                        <section id="after-graduation" className="scroll-mt-32 space-y-6">
+                            <div>
+                                <h2 className="text-aalto-5 font-bold text-black tracking-tight">After Graduation</h2>
+                                <p className="text-base md:text-lg text-slate-700 leading-relaxed max-w-3xl font-normal mt-2">
+                                    After graduating as an international student at Cannoga College in Ontario, you can apply for a Post-Graduation Work Permit (PGWP) to live, find a job, and gain valuable work experience in Canada.
+                                </p>
+                            </div>
+
                             <div className="space-y-8">
+                                {/* Step 1: PGWP */}
                                 <div className="flex items-start gap-4">
                                     <StepBadge step={1} size="w-9 h-9" />
-                                    <div className="flex-1 space-y-2">
-                                        <h3 className="text-lg md:text-xl font-bold text-black">Apply for a Post-Graduation Work Permit (PGWP)</h3>
-                                        <div className="space-y-2 text-base md:text-lg text-slate-700 leading-relaxed font-normal">
-                                            <p><strong>What it is:</strong> An open work permit that allows you to work for almost any employer in Canada.</p>
-                                            <p><strong>Duration:</strong> Valid for 8 months up to 3 years, depending on the length of your study program. Programs of 2 years or longer generally qualify for a 3-year work permit.</p>
-                                            <p><strong>Deadline:</strong> You must apply within 180 days of receiving your final transcript and an official letter from your school confirming you completed your program.</p>
-                                            <p><strong>Working while waiting:</strong> If you apply before your study permit expires, you can work full-time while waiting for a decision on your PGWP.</p>
+                                    <div className="flex-1 space-y-3">
+                                        <div>
+                                            <h3 className="text-lg md:text-xl font-bold text-black">
+                                                <a 
+                                                    href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/about.html"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-black hover:text-[#c89211] underline transition-colors inline-flex items-center gap-1.5"
+                                                >
+                                                    Post-Graduation Work Permit (PGWP) <ArrowSquareOut size={16} weight="bold" />
+                                                </a>
+                                            </h3>
+                                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-1">
+                                                Cannoga College students can obtain a post-graduation work permit if they have continuously studied full-time in Canada and have completed an eligible program (such as a Bachelor’s Degree, Master’s Degree, or qualifying credential).
+                                            </p>
+                                        </div>
+
+                                        <div className="space-y-2 text-base md:text-lg text-slate-700 leading-relaxed font-normal bg-slate-50 p-5 rounded-xl border border-slate-200">
+                                            <p><strong>What it is:</strong> An open work permit that allows you to work for almost any employer in Canada without needing a job offer beforehand.</p>
+                                            <p><strong>Duration:</strong> Valid for 8 months up to 3 years, depending on the length of your study program. Programs of 2 years or longer generally qualify for a full 3-year work permit.</p>
+                                            <p><strong>Deadline:</strong> You must apply within 180 days of receiving your final transcript and an official completion letter confirming your graduation.</p>
+                                            <p><strong>Working while waiting:</strong> If you apply before your study permit expires, you can work full-time in Canada while waiting for a decision on your PGWP.</p>
+                                            <p className="pt-2 text-sm text-slate-600">
+                                                Please visit International Student Services or the <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/about.html" target="_blank" rel="noopener noreferrer" className="font-bold underline text-slate-900">IRCC Website</a> for more information.
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
 
+                                {/* Step 2: Canadian Work Experience */}
                                 <div className="flex items-start gap-4">
                                     <StepBadge step={2} size="w-9 h-9" />
                                     <div className="flex-1 space-y-2">
@@ -290,19 +313,66 @@ export default function InternationalGuidePage() {
                                     </div>
                                 </div>
 
+                                {/* Step 3: Permanent Residency (PR) */}
                                 <div className="flex items-start gap-4">
                                     <StepBadge step={3} size="w-9 h-9" />
-                                    <div className="flex-1 space-y-2">
-                                        <h3 className="text-lg md:text-xl font-bold text-black">Transition to Permanent Residency (PR)</h3>
-                                        <div className="space-y-2 text-base md:text-lg text-slate-700 leading-relaxed font-normal">
-                                            <div>
-                                                <p className="font-bold text-black">Express Entry (Canadian Experience Class):</p>
-                                                <p>After completing at least 1 year of skilled work experience in Canada, you can apply through the Express Entry System. Your Canadian education and work history give you higher ranking points.</p>
+                                    <div className="flex-1 space-y-3">
+                                        <div>
+                                            <h3 className="text-lg md:text-xl font-bold text-black">
+                                                <a 
+                                                    href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada.html"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-black hover:text-[#c89211] underline transition-colors inline-flex items-center gap-1.5"
+                                                >
+                                                    Permanent Residency (PR) <ArrowSquareOut size={16} weight="bold" />
+                                                </a>
+                                            </h3>
+                                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-1">
+                                                Some students choose to apply for permanent residency (PR) so they can remain in Canada permanently as immigrants. Refer to the following resources as a starting point:
+                                            </p>
+                                        </div>
+
+                                        <div className="space-y-3 text-base md:text-lg text-slate-700 leading-relaxed font-normal">
+                                            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                                                <a 
+                                                    href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada.html"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="font-bold text-slate-900 hover:text-[#c89211] underline inline-flex items-center gap-1"
+                                                >
+                                                    How to Immigrate to Canada <ArrowSquareOut size={14} weight="bold" />
+                                                </a>
+                                                <p className="text-sm text-slate-600">Official Government of Canada guide for economic immigration, qualification tools, and requirements.</p>
                                             </div>
-                                            <div>
-                                                <p className="font-bold text-black">Provincial Nominee Program (OINP):</p>
-                                                <p>Ontario has specific streams under the Ontario Immigrant Nominee Program for international students with a job offer or a master&apos;s/PhD degree.</p>
+
+                                            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                                                <a 
+                                                    href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry.html"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="font-bold text-slate-900 hover:text-[#c89211] underline inline-flex items-center gap-1"
+                                                >
+                                                    Express Entry Program (Canadian Experience Class) <ArrowSquareOut size={14} weight="bold" />
+                                                </a>
+                                                <p className="text-sm text-slate-600">After completing at least 1 year of skilled work experience in Canada, you can apply through Express Entry where Canadian education gives higher ranking points.</p>
                                             </div>
+
+                                            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                                                <a 
+                                                    href="https://www.ontario.ca/page/ontario-immigrant-nominee-program-oinp"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="font-bold text-slate-900 hover:text-[#c89211] underline inline-flex items-center gap-1"
+                                                >
+                                                    Ontario Immigrant Nominee Program (OINP) <ArrowSquareOut size={14} weight="bold" />
+                                                </a>
+                                                <p className="text-sm text-slate-600">Ontario has specific streams under the Ontario Immigrant Nominee Program for international students with job offers, Master’s degrees, or in-demand skills.</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl text-slate-800 text-sm md:text-base font-medium">
+                                            💡 <strong>Immigration Advising:</strong> We regularly offer immigration workshops each semester to guide students on work permits and pathways to permanent residency.
                                         </div>
                                     </div>
                                 </div>
