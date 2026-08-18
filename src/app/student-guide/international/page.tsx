@@ -270,6 +270,16 @@ export default function InternationalGuidePage() {
                                             <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-1">
                                                 Cannoga College students can obtain a post-graduation work permit if they have continuously studied full-time in Canada and have completed an eligible program (such as a Bachelor’s Degree, Master’s Degree, or qualifying credential).
                                             </p>
+                                            <div className="pt-2">
+                                                <a
+                                                    href="/uploads/Cannoga_College_PGWP_Application_Guide_2025.pdf"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-1.5 font-bold underline text-sm md:text-base text-slate-900 hover:text-[#c89211] transition-colors"
+                                                >
+                                                    PGWP Application Guide 2025 (PDF) <ArrowSquareOut size={15} weight="bold" />
+                                                </a>
+                                            </div>
                                         </div>
 
                                         <div className="space-y-2 text-base md:text-lg text-slate-700 leading-relaxed font-normal pt-1">
