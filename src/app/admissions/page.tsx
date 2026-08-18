@@ -17,6 +17,8 @@ import CountryRequirementsDropdown from '@/components/admissions/CountryRequirem
 import ApplicationProcess from '@/components/admissions/ApplicationProcess';
 import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarousel';
 import { AdmissionsQuickLinksCarousel } from '@/components/admissions/AdmissionsQuickLinksCarousel';
+import { AdmissionsCareerOpportunitiesCarousel } from '@/components/admissions/AdmissionsCareerOpportunitiesCarousel';
+import { InternationalInfoCard } from '@/components/admissions/InternationalInfoCard';
 import { StepBadge } from '@/components/ui/StepBadge';
 import AdmissionsHelpCard from '@/components/admissions/AdmissionsHelpCard';
 
