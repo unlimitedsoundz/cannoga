@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     // 2. Fetch the admission offer
     let { data: offer } = await adminSupabase
         .from('admission_offers')
-        .select('id, tuition_fee, status, student_id')
+        .select('id, tuition_fee, status')
         .eq('id', offerId)
         .maybeSingle();
 
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
         // Fallback 1: look up by application_id
         const { data: fallbackOffer } = await adminSupabase
             .from('admission_offers')
-            .select('id, tuition_fee, status, student_id')
+            .select('id, tuition_fee, status')
             .eq('application_id', applicationId)
             .order('created_at', { ascending: false })
             .limit(1)
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
                 accepted_at: new Date().toISOString(),
                 invoice_pushed: true,
             })
-            .select('id, tuition_fee, status, student_id')
+            .select('id, tuition_fee, status')
             .single();
 
         if (createOfferErr) {
