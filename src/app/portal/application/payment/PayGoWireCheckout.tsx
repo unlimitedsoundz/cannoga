@@ -359,7 +359,7 @@ export default function PayGoWireCheckout({
 
                             {/* Real-time FX preview */}
                             {selectedBank && fxData && (
-                                <div className="bg-[#147BD1]/5 border border-[#147BD1]/10 rounded-4px p-4 animate-in fade-in duration-300">
+                                <div className="bg-neutral-100 rounded-xl p-4 animate-in fade-in duration-300">
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">You will pay</p>
@@ -371,11 +371,11 @@ export default function PayGoWireCheckout({
                                         <div className="text-right">
                                             <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">Cannoga receives</p>
                                             <p className="text-lg font-normal text-black">CA$ {amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
-                                            <p className="text-[11px] text-[#147BD1] mt-0.5">Rate locked {fxData.lockHours}h</p>
+                                            <p className="text-[11px] text-neutral-500 mt-0.5">Rate locked {fxData.lockHours}h</p>
                                         </div>
                                     </div>
-                                    <div className="mt-3 pt-3 border-t border-[#147BD1]/10">
-                                        <p className="text-[11px] text-neutral-500">
+                                    <div className="mt-3 pt-3 border-t border-neutral-200">
+                                        <p className="text-[11px] text-neutral-600">
                                             <span className="font-medium text-black">{selectedBank.bank_name}</span> · {selectedBank.processing_time}
                                         </p>
                                     </div>
