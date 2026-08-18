@@ -166,7 +166,7 @@ export async function POST(request: NextRequest) {
             transaction_reference: trackingRef,
             payment_method: paymentMethod ?? 'direct_bank_wire',
             amount: authorizedCadAmount,
-            status: 'pending_proof',
+            status: 'PENDING',
             invoice_type: invoiceType ?? 'TUITION_DEPOSIT',
             country: countryCode,
             currency: currency,
@@ -176,6 +176,7 @@ export async function POST(request: NextRequest) {
                 localCurrency: currency,
                 wire_tracking_ref: trackingRef,
                 country_code: countryCode,
+                step: 'pending_proof',
             }
         })
         .select()

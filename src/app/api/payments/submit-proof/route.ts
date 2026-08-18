@@ -32,8 +32,9 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Payment not found' }, { status: 404 });
     }
 
-    // Only allow proof submission when status is pending_proof
-    if (payment.status !== 'pending_proof' && payment.status !== 'PENDING_VERIFICATION') {
+    // Only allow proof submission when status is pending / pending_proof
+    const allowedStatuses = ['PENDING', 'pending', 'pending_proof', 'PENDING_VERIFICATION', 'INITIATED', 'PROCESSING'];
+    if (!allowedStatuses.includes(payment.status)) {
         return NextResponse.json({
             error: `Cannot submit proof for a payment with status: ${payment.status}`,
         }, { status: 400 });
@@ -54,19 +55,33 @@ export async function POST(request: NextRequest) {
         }
     }
 
-    // Update payment to pending_admin_verification
-    const { data: updated, error: updateError } = await adminSupabase
+    // Update payment status (try PENDING_VERIFICATION first, fallback to PENDING if check constraint is strict)
+    let updated = null;
+    const { data: updatedRecord, error: updateError } = await adminSupabase
         .from('tuition_payments')
         .update({
             status: 'PENDING_VERIFICATION',
         })
         .eq('id', paymentId)
         .select()
-        .single();
+        .maybeSingle();
 
     if (updateError) {
-        console.error('[POST /api/payments/submit-proof]', updateError);
-        return NextResponse.json({ error: updateError.message }, { status: 500 });
+        console.warn('[submit-proof] PENDING_VERIFICATION update failed, falling back to PENDING:', updateError);
+        const { data: fallbackRecord, error: fallbackError } = await adminSupabase
+            .from('tuition_payments')
+            .update({
+                status: 'PENDING',
+            })
+            .eq('id', paymentId)
+            .select()
+            .single();
+        if (fallbackError) {
+            return NextResponse.json({ error: fallbackError.message }, { status: 500 });
+        }
+        updated = fallbackRecord;
+    } else {
+        updated = updatedRecord;
     }
 
     // Also update application status to PAYMENT_SUBMITTED
