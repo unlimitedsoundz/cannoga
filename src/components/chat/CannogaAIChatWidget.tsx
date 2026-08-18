@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import {
-    Sparkle,
+    ChatCircleDots,
     PaperPlaneRight,
     X,
     Minus,
@@ -11,13 +11,6 @@ import {
     ArrowsInSimple,
     Microphone,
     SpeakerHigh,
-    Trash,
-    GraduationCap,
-    GlobeHemisphereWest,
-    CurrencyDollar,
-    Buildings,
-    Briefcase,
-    FileText,
     ArrowCounterClockwise
 } from '@phosphor-icons/react';
 
@@ -29,12 +22,12 @@ interface Message {
 }
 
 const INITIAL_SUGGESTIONS = [
-    { label: '💰 Tuition & $2,000 Deposit', query: 'What is the tuition deposit amount and fee schedule?' },
-    { label: '🎓 Programs & Faculties', query: 'What programs and degrees do you offer?' },
-    { label: '🇨🇦 Study Permit & PAL', query: 'How does the Provincial Attestation Letter (PAL) work?' },
-    { label: '🍁 Working & PGWP in Canada', query: 'Can I work while studying and get a Post-Graduation Work Permit (PGWP)?' },
-    { label: '🏠 Ottawa Living & Housing', query: 'What is student housing and living in Ottawa like?' },
-    { label: '📝 How to Apply & Deadlines', query: 'What are the admission requirements and deadlines?' }
+    { label: 'Tuition & $2,000 Deposit', query: 'What is the tuition deposit amount and fee schedule?' },
+    { label: 'Programs & Faculties', query: 'What programs and degrees do you offer?' },
+    { label: 'Study Permit & PAL', query: 'How does the Provincial Attestation Letter (PAL) work?' },
+    { label: 'Working & PGWP in Canada', query: 'Can I work while studying and get a Post-Graduation Work Permit (PGWP)?' },
+    { label: 'Ottawa Living & Housing', query: 'What is student housing and living in Ottawa like?' },
+    { label: 'How to Apply & Deadlines', query: 'What are the admission requirements and deadlines?' }
 ];
 
 export function CannogaAIChatWidget() {
@@ -49,7 +42,7 @@ export function CannogaAIChatWidget() {
         {
             id: 'msg-welcome',
             role: 'assistant',
-            text: `👋 **Welcome to Cannoga College in Ottawa, Ontario, Canada!**\n\nI am your **AI Admissions & Student Advisor**. Ask me anything about our academic programs, tuition & the **$2,000 CAD deposit**, Provincial Attestation Letters (PAL), living in Ottawa, or working in Canada!`,
+            text: `Welcome to Cannoga College in Ottawa, Ontario, Canada.\n\nAsk me anything about our academic programs, admissions, tuition fees, the **$2,000 CAD confirmation deposit**, Provincial Attestation Letters (PAL), living in Ottawa, or working in Canada.`,
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
     ]);
@@ -206,7 +199,7 @@ export function CannogaAIChatWidget() {
                 const itemText = line.replace(/^[\*\-]\s+/, '');
                 return (
                     <div key={idx} className="flex items-start gap-2 my-1 text-slate-700">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#c89211] mt-2 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-slate-900 mt-2 shrink-0" />
                         <span dangerouslySetInnerHTML={{ __html: parseInline(itemText) }} />
                     </div>
                 );
@@ -232,7 +225,7 @@ export function CannogaAIChatWidget() {
         return text
             .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-slate-900">$1</strong>')
             .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
-            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#c89211] underline font-semibold hover:text-[#0a151a] transition-colors">$1</a>');
+            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-slate-900 underline font-bold hover:text-black transition-colors">$1</a>');
     };
 
     return (
@@ -240,35 +233,24 @@ export function CannogaAIChatWidget() {
             {/* 1. Closed Floating Widget Button */}
             {!isOpen && (
                 <div className="relative group">
-                    {/* Pulsing halo ring */}
-                    <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#c89211] via-amber-400 to-[#0a151a] opacity-75 blur-sm animate-pulse group-hover:opacity-100 transition duration-1000" />
-
                     <button
                         onClick={() => {
                             setIsOpen(true);
                             setHasUnread(false);
                         }}
-                        aria-label="Open Cannoga AI Chat Assistant"
-                        className="relative flex items-center gap-3 bg-[#0a151a] hover:bg-black text-white px-5 py-3.5 rounded-full shadow-2xl border border-amber-500/40 hover:border-amber-400 transition-all duration-300 transform hover:scale-105"
+                        aria-label="Open Ask Cannoga"
+                        className="relative flex items-center gap-2.5 bg-[#0a151a] hover:bg-black text-white px-5 py-3.5 rounded-full shadow-2xl border border-slate-700/60 hover:border-slate-500 transition-all duration-300 transform hover:scale-105"
                     >
-                        <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-tr from-[#c89211] to-amber-300 text-slate-900 shadow-md">
-                            <Sparkle size={18} weight="fill" />
-                            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-[#0a151a] rounded-full" />
+                        <div className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-[#0a151a] shadow-sm">
+                            <ChatCircleDots size={18} weight="bold" />
                         </div>
                         <div className="text-left">
-                            <div className="text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
-                                Cannoga AI
-                                <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-400 animate-ping" />
-                            </div>
-                            <div className="text-sm font-semibold text-white">Ask Anything</div>
+                            <div className="text-sm font-bold text-white tracking-wide">Ask Cannoga</div>
                         </div>
 
-                        {/* Unread dot */}
+                        {/* Unread indicator */}
                         {hasUnread && (
-                            <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-                                <span className="relative inline-flex rounded-full h-4 w-4 bg-amber-500 text-[9px] font-black text-slate-950 items-center justify-center">1</span>
-                            </span>
+                            <span className="w-2.5 h-2.5 bg-blue-500 rounded-full border-2 border-[#0a151a]" />
                         )}
                     </button>
                 </div>
@@ -277,25 +259,20 @@ export function CannogaAIChatWidget() {
             {/* 2. Open Chat Window */}
             {isOpen && (
                 <div
-                    className={`flex flex-col bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-2xl rounded-2xl overflow-hidden transition-all duration-300 ${
+                    className={`flex flex-col bg-white border border-slate-200 shadow-2xl rounded-2xl overflow-hidden transition-all duration-300 ${
                         isExpanded
                             ? 'fixed inset-4 md:inset-10 w-auto h-auto z-[99999]'
                             : 'w-[94vw] sm:w-[420px] h-[580px] max-h-[85vh]'
                     }`}
                 >
                     {/* Header */}
-                    <div className="bg-[#0a151a] text-white px-4 py-3.5 flex items-center justify-between shadow-md border-b border-amber-500/30 shrink-0">
-                        <div className="flex items-center gap-3">
-                            <div className="relative flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-tr from-[#c89211] to-amber-300 text-slate-900 shadow-inner">
-                                <Sparkle size={20} weight="fill" />
-                                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border-2 border-[#0a151a] rounded-full" />
+                    <div className="bg-[#0a151a] text-white px-4 py-3.5 flex items-center justify-between shadow-md border-b border-slate-800 shrink-0">
+                        <div className="flex items-center gap-2.5">
+                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white text-[#0a151a]">
+                                <ChatCircleDots size={18} weight="bold" />
                             </div>
                             <div>
-                                <div className="flex items-center gap-2">
-                                    <h3 className="font-bold text-sm text-white tracking-tight">Cannoga AI Advisor</h3>
-                                    <span className="text-[10px] font-bold bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded border border-amber-400/30">24/7 LIVE</span>
-                                </div>
-                                <p className="text-xs text-slate-300">Admissions • Tuition • PAL • Canada Guide</p>
+                                <h3 className="font-bold text-base text-white tracking-tight">Ask Cannoga</h3>
                             </div>
                         </div>
 
@@ -304,7 +281,7 @@ export function CannogaAIChatWidget() {
                             <button
                                 onClick={handleClearChat}
                                 title="Reset conversation"
-                                className="p-1.5 hover:text-amber-300 hover:bg-white/10 rounded-lg transition-colors"
+                                className="p-1.5 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
                             >
                                 <ArrowCounterClockwise size={16} />
                             </button>
@@ -333,31 +310,31 @@ export function CannogaAIChatWidget() {
                     </div>
 
                     {/* Messages Body */}
-                    <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-gradient-to-b from-slate-50/50 via-white to-neutral-50/40 text-sm">
+                    <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50/50 text-sm">
                         {messages.map((msg) => (
                             <div
                                 key={msg.id}
                                 className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
                             >
                                 <div
-                                    className={`relative max-w-[88%] rounded-2xl px-4 py-3 shadow-sm ${
+                                    className={`relative max-w-[88%] rounded-2xl px-4 py-3 shadow-xs ${
                                         msg.role === 'user'
                                             ? 'bg-[#0a151a] text-white rounded-br-none'
-                                            : 'bg-white border border-slate-200/90 text-slate-800 rounded-bl-none'
+                                            : 'bg-white border border-slate-200 text-slate-800 rounded-bl-none'
                                     }`}
                                 >
                                     {msg.role === 'assistant' ? (
                                         <div>
                                             <div className="flex items-center justify-between pb-1 mb-1 border-b border-slate-100 text-[10px] text-slate-400 font-semibold">
-                                                <span className="flex items-center gap-1 text-[#c89211]">
-                                                    <Sparkle size={12} weight="fill" /> Cannoga Assistant
+                                                <span className="text-slate-700 font-bold">
+                                                    Cannoga Advisor
                                                 </span>
                                                 <button
                                                     onClick={() => handleSpeak(msg.text)}
-                                                    className="hover:text-slate-700 flex items-center gap-1"
+                                                    className="hover:text-slate-700 flex items-center gap-1 text-slate-400"
                                                     title="Read out loud"
                                                 >
-                                                    <SpeakerHigh size={12} />
+                                                    <SpeakerHigh size={13} />
                                                 </button>
                                             </div>
                                             {formatMessageText(msg.text)}
@@ -372,13 +349,12 @@ export function CannogaAIChatWidget() {
 
                         {/* Typing Animation */}
                         {isTyping && (
-                            <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-2xl px-4 py-3 shadow-sm w-fit">
-                                <Sparkle size={14} weight="fill" className="text-[#c89211] animate-spin" />
-                                <span className="text-xs text-slate-500 font-medium">Cannoga AI is thinking...</span>
+                            <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-2xl px-4 py-3 shadow-xs w-fit">
+                                <span className="text-xs text-slate-500 font-medium">Cannoga is typing...</span>
                                 <div className="flex gap-1">
-                                    <span className="w-1.5 h-1.5 bg-[#c89211] rounded-full animate-bounce [animation-delay:-0.3s]" />
-                                    <span className="w-1.5 h-1.5 bg-[#c89211] rounded-full animate-bounce [animation-delay:-0.15s]" />
-                                    <span className="w-1.5 h-1.5 bg-[#c89211] rounded-full animate-bounce" />
+                                    <span className="w-1.5 h-1.5 bg-slate-900 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                                    <span className="w-1.5 h-1.5 bg-slate-900 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                                    <span className="w-1.5 h-1.5 bg-slate-900 rounded-full animate-bounce" />
                                 </div>
                             </div>
                         )}
@@ -387,13 +363,13 @@ export function CannogaAIChatWidget() {
                     </div>
 
                     {/* Quick Suggestion Chips */}
-                    <div className="px-3 py-2 bg-slate-50 border-t border-slate-100 flex gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+                    <div className="px-3 py-2 bg-white border-t border-slate-100 flex gap-1.5 overflow-x-auto no-scrollbar shrink-0">
                         {INITIAL_SUGGESTIONS.map((item, i) => (
                             <button
                                 key={i}
                                 onClick={() => handleSendMessage(item.query)}
                                 disabled={isTyping}
-                                className="whitespace-nowrap px-2.5 py-1 rounded-full bg-white hover:bg-amber-50 text-[11px] font-semibold text-slate-700 hover:text-[#0a151a] border border-slate-200 hover:border-amber-400 transition-all shadow-2xs shrink-0"
+                                className="whitespace-nowrap px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-xs font-semibold text-slate-800 hover:text-black border border-slate-200 transition-all shrink-0"
                             >
                                 {item.label}
                             </button>
@@ -426,14 +402,14 @@ export function CannogaAIChatWidget() {
                             type="text"
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
-                            placeholder="Ask about programs, $2,000 deposit, PAL, Ottawa..."
-                            className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#c89211]/40 focus:border-[#c89211] transition-all"
+                            placeholder="Ask a question..."
+                            className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-400/40 focus:border-slate-900 transition-all"
                         />
 
                         <button
                             type="submit"
                             disabled={!inputValue.trim() || isTyping}
-                            className="p-2.5 bg-[#0a151a] hover:bg-black disabled:opacity-40 text-white rounded-xl shadow-md transition-all flex items-center justify-center shrink-0"
+                            className="p-2.5 bg-[#0a151a] hover:bg-black disabled:opacity-40 text-white rounded-xl shadow-xs transition-all flex items-center justify-center shrink-0"
                             title="Send message"
                         >
                             <PaperPlaneRight size={16} weight="bold" />

@@ -753,7 +753,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'contact_content',
         label: 'Contact Section',
-        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-6">If you have questions about payment processes, deadlines, or refunds, contact the Tuition Fee Office.</p><a href="mailto:tuition@cannogacollege.ca" class="inline-flex items-center gap-2 bg-black text-white px-6 py-3 font-bold hover:bg-slate-800 transition-colors shadow-sm">Contact Tuition Office &rarr;</a>`,
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-6">If you have questions about payment processes, deadlines, or refunds, contact the Tuition Fee Office.</p><a href="mailto:admissions@cannogacollege.ca" class="inline-flex items-center gap-2 bg-[#0a151a] !text-white text-white px-6 py-3 font-bold hover:bg-slate-800 hover:!text-white transition-colors shadow-sm">Contact Tuition Office &rarr;</a>`,
     },
     {
         pageSlug: 'admissions',

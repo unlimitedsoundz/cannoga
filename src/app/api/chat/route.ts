@@ -171,8 +171,6 @@ I am your **Cannoga AI Admissions & Student Guide**. I can assist you with:
 What would you like to explore today?`;
         } else if (bestTopic && highestTopicScore >= 2) {
             answerText = `${bestTopic.content}\n\n*Would you like more details on admission requirements, tuition payment options, or booking an advisor consultation?*`;
-        } else if (dbFaqMatch) {
-            answerText = `### 📋 ${dbFaqMatch.question}\n\n${dbFaqMatch.answer}\n\n*Need further clarification? Feel free to ask or reach our admissions team directly at [admissions@cannogacollege.ca](mailto:admissions@cannogacollege.ca).*`;
         } else {
             // General overview answer covering Cannoga & Canada
             answerText = `### 🏛️ Cannoga College & Study in Canada Overview
