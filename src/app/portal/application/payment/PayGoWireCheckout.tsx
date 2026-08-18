@@ -57,21 +57,21 @@ const CopyButton = ({ text, label }: { text: string; label: string }) => {
     return (
         <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 text-[#147BD1] hover:text-[#1a3399] transition-colors text-[10px] uppercase font-normal tracking-widest bg-[#147BD1]/5 hover:bg-[#147BD1]/10 px-2 py-1 rounded-4px"
+            className="flex items-center gap-1.5 text-neutral-700 hover:text-black transition-colors text-[10px] uppercase font-bold tracking-widest bg-neutral-200/80 hover:bg-neutral-300 px-2 py-1 rounded"
             title={`Copy ${label}`}
         >
-            {copied ? <><CheckCircle2 size={12} /><span>Copied</span></> : <><Copy size={12} /><span>Copy</span></>}
+            {copied ? <><CheckCircle2 size={12} className="text-emerald-600" /><span>Copied</span></> : <><Copy size={12} /><span>Copy</span></>}
         </button>
     );
 };
 
 // ─── Bank Detail Row ─────────────────────────────────────────────────────────
 const BankRow = ({ label, value, copyable }: { label: string; value: string; copyable?: boolean }) => (
-    <div className="flex justify-between items-center pb-2 last:pb-0">
-        <span className="text-[10px] md:text-sm text-neutral-500 uppercase tracking-widest">{label}</span>
-        <div className="flex items-center gap-3">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between py-2.5 border-b border-neutral-200/70 last:border-b-0 gap-1 sm:gap-4">
+        <span className="text-[11px] text-neutral-500 font-semibold uppercase tracking-wider">{label}</span>
+        <div className="flex items-center gap-2.5 sm:justify-end">
+            <span className="text-sm text-neutral-900 font-medium tracking-normal text-left sm:text-right break-all">{value}</span>
             {copyable && <CopyButton text={value} label={label} />}
-            <span className="text-sm text-black font-normal tracking-wider text-right max-w-[55%]">{value}</span>
         </div>
     </div>
 );
@@ -466,15 +466,15 @@ export default function PayGoWireCheckout({
                 {step === 'BANK_INSTRUCTIONS' && fxData && selectedBank && initPayload && (
                     <div className="space-y-4 md:space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500 font-rubik">
 
-                        <div className="text-center space-y-3">
-                            <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 text-xs font-normal px-3 py-1.5 rounded-full border border-green-200">
-                                <ShieldCheck size={13} weight="bold" />
+                        <div className="text-center space-y-2">
+                            <div className="inline-flex items-center gap-2 bg-neutral-100 text-neutral-700 text-xs font-medium px-3.5 py-1 rounded-full border border-neutral-200">
+                                <Clock size={13} weight="bold" className="text-neutral-500" />
                                 Reference Generated — Transfer within 48 hours
                             </div>
-                            <h2 className="text-[18px] font-normal text-black leading-relaxed">
-                                Transfer exactly <span className="font-medium text-[#147BD1]">{fxData.currencySymbol} {Number(initPayload.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {initPayload.localCurrency}</span>
+                            <h2 className="text-[20px] font-bold text-black pt-1">
+                                Transfer exactly <span className="text-black">{fxData.currencySymbol} {Number(initPayload.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {initPayload.localCurrency}</span>
                             </h2>
-                            <p className="text-sm text-black max-w-lg mx-auto">
+                            <p className="text-xs text-neutral-600 max-w-lg mx-auto">
                                 Use the bank details below. Include your tracking reference in the narration/remarks field.
                             </p>
                         </div>
