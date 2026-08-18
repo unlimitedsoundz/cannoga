@@ -154,11 +154,16 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
     }
 
     // Ensure the student has an invoice record for the SIS dashboard balance
-    const { data: studentForInvoice } = await supabase
+    let { data: studentForInvoice } = await supabase
         .from('students')
-        .select('id')
-        .eq('application_id', applicationId)
+        .select('id, user_id, application_id')
+        .or(`application_id.eq.${applicationId},user_id.eq.${application.user_id}`)
         .maybeSingle();
+
+    // If student record doesn't have application_id linked, update it
+    if (studentForInvoice && !studentForInvoice.application_id) {
+        await supabase.from('students').update({ application_id: applicationId }).eq('id', studentForInvoice.id);
+    }
 
     if (studentForInvoice?.id) {
         const invoiceNumber = `INV-${applicationId.slice(0, 8).toUpperCase()}-${invoiceType}`;
@@ -214,6 +219,29 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
                 await supabase.from('document_records').insert(docPayload);
             }
         }
+    }
+
+    // Trigger in-app notification in notifications table
+    try {
+        const studentId = studentForInvoice?.id;
+        const userId = application.user?.id || (application as any).user_id;
+        const recipientIds = [studentId, userId].filter(Boolean) as string[];
+
+        if (recipientIds.length > 0) {
+            await supabase.from('notifications').insert({
+                title: `New Invoice Issued: ${invoiceType.replace(/_/g, ' ')}`,
+                message: `An authoritative invoice of $${Number(customFee).toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD has been issued for your application (${application.course?.title || 'Program'}). Due date: ${finalDueDate.toLocaleDateString('en-CA')}.`,
+                category: 'Finance',
+                priority: 'high',
+                recipient_type: 'individual',
+                recipient_ids: recipientIds,
+                related_id: applicationId,
+                related_type: 'invoice',
+                link: '/portal/application/view'
+            });
+        }
+    } catch (notifErr: any) {
+        console.error('[pushInvoice] Error inserting in-app notification:', notifErr.message || notifErr);
     }
 
     // Trigger Invoice Ready via Edge Function instead of local sendEmail

@@ -666,22 +666,23 @@ serve(async (req) => {
                 break;
 
             case 'DOCS_REQUIRED':
-                studentSubject = "Action Required: Documents Requested - Cannoga College";
+                studentSubject = "Action Required: Update on Your Cannoga College Application";
                 const docsList = (additionalData?.requestedDocuments as string[]) ||
                     (applicationData?.requested_documents as string[]) || [];
                 const note = additionalData?.note || applicationData?.document_request_note || "";
 
                 studentHtml = `
                     <p>Dear ${firstName},</p>
-                    <p>The admissions team has reviewed your application for <strong>${applicationData?.course_title || 'your program'}</strong> and requires additional information to proceed.</p>
-                    ${note ? `<p>Message from Admissions: "${note}"</p>` : ''}
+                    <p>There's an update on your application for <strong>${applicationData?.course_title || 'your program'}</strong>.</p>
+                    <p>Please log in to your application portal to review and upload the requested documents.</p>
+                    ${note ? `<div style="background-color: #fef3c7; border: 1px solid #fde68a; padding: 12px; border-radius: 8px; margin: 12px 0;"><strong>Message from Admissions:</strong> "${note}"</div>` : ''}
                     ${docsList.length > 0 ? `
-                    <p>Required Documents:</p>
+                    <p><strong>Required Documents:</strong></p>
                     <ul>
                         ${docsList.map((doc: string) => `<li>${doc.replaceAll('_', ' ')}</li>`).join('')}
                     </ul>
                     ` : ''}
-                    <p><a href="${portalUrl}/dashboard">Upload Documents</a></p>
+                    <p style="margin-top: 16px;"><a href="${portalUrl}/application/view?id=${applicationId}" style="background-color: #0a151a; color: #ffffff; padding: 10px 18px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Log in to Application Portal</a></p>
                 `;
                 break;
 
@@ -690,19 +691,15 @@ serve(async (req) => {
                 const invType = rawInvType.split('_').map((word: string) =>
                     word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
                 ).join(' ');
-                const invAmt = additionalData?.amount ? new Intl.NumberFormat('en-IE', { style: 'currency', currency: additionalData?.currency || 'CAD', maximumFractionDigits: 0 }).format(additionalData.amount) : 'TBD';
-                const ancillaryFees = Array.isArray(additionalData?.ancillaryFees) ? additionalData.ancillaryFees : [];
-                const totalAncillary = ancillaryFees.reduce((acc: number, item: any) => acc + (item.amount || 0), 0);
-                const invoiceTotal = (additionalData?.amount || 0) + totalAncillary;
-                const formattedTotal = new Intl.NumberFormat('en-IE', { style: 'currency', currency: additionalData?.currency || 'CAD', maximumFractionDigits: 0 }).format(invoiceTotal);
+                const invoiceAmountVal = Number(additionalData?.amount) || 0;
+                const formattedTotal = new Intl.NumberFormat('en-CA', { style: 'currency', currency: additionalData?.currency || 'CAD' }).format(invoiceAmountVal);
 
                 studentSubject = `${invType} Invoice Ready for Payment - Cannoga College`;
                 studentHtml = `
                     <p>Dear ${firstName},</p>
                     <p>Your ${invType.toLowerCase()} invoice for <strong>${applicationData?.course_title || 'degree programme'}</strong> has been generated and is now ready for payment.</p>
-                    <p>Invoice Type: ${invType}</p>
-                    <p>Base Tuition: ${invAmt}</p>
-                    <p>Total Due: ${formattedTotal}</p>
+                    <p>Invoice Type: <strong>${invType}</strong></p>
+                    <p>Amount Due: <strong>${formattedTotal} CAD</strong></p>
                     <p><a href="https://cannogacollege.ca/portal/application/payment">Pay Invoice Securely</a></p>
                 `;
 
@@ -711,7 +708,7 @@ serve(async (req) => {
                     <h2>Invoice Notification Sent</h2>
                     <p><strong>Student:</strong> ${fullName}</p>
                     <p><strong>Type:</strong> ${invType}</p>
-                    <p><strong>Total:</strong> ${formattedTotal}</p>
+                    <p><strong>Amount:</strong> ${formattedTotal} CAD</p>
                 `;
                 break;
         }

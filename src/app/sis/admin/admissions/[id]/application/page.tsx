@@ -102,6 +102,9 @@ export default function AdmissionApplicationPage() {
   const [showMessageForm, setShowMessageForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+  const [showDocsModal, setShowDocsModal] = useState(false);
+  const [selectedDocs, setSelectedDocs] = useState<string[]>([]);
+  const [customDocNote, setCustomDocNote] = useState('');
   const [invoiceType, setInvoiceType] = useState('TUITION_DEPOSIT');
   const [customAmount, setCustomAmount] = useState<number | string>(2000);
   const [customDeadline, setCustomDeadline] = useState(
@@ -138,6 +141,36 @@ export default function AdmissionApplicationPage() {
     };
     fetchData();
   }, [id]);
+
+  const handleRequestDocuments = async () => {
+    if (selectedDocs.length === 0 && !customDocNote.trim()) {
+      toast.error('Please select at least one document or provide a note.');
+      return;
+    }
+    setActionLoading('request-docs');
+    try {
+      const result = await updateApplicationStatus(
+        id,
+        'DOCS_REQUIRED',
+        selectedDocs,
+        customDocNote.trim() || null
+      );
+      if ((result as any).success) {
+        setStatus('DOCS_REQUIRED');
+        setApplication(prev => prev ? { ...prev, status: 'DOCS_REQUIRED' } : prev);
+        setShowDocsModal(false);
+        setSelectedDocs([]);
+        setCustomDocNote('');
+        toast.success('Document request sent to student!');
+      } else {
+        toast.error((result as any).error || 'Failed to request documents');
+      }
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to request documents');
+    } finally {
+      setActionLoading(null);
+    }
+  };
 
   const handleStatusUpdate = async (newStatus: string) => {
     setActionLoading('status');
@@ -593,7 +626,16 @@ export default function AdmissionApplicationPage() {
 
           {/* Documents */}
           <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl" id="documents">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Uploaded Documents</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">Uploaded Documents</h3>
+              <button
+                onClick={() => setShowDocsModal(true)}
+                className="px-3 py-1.5 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 hover:text-amber-300 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-1.5 cursor-pointer"
+              >
+                <HugeiconsIcon icon={FileText} size={13} strokeWidth={2.5} />
+                Request Documents
+              </button>
+            </div>
             {documents.length > 0 ? (
               <div className="space-y-2">
                 {documents.map(doc => (
@@ -712,16 +754,29 @@ export default function AdmissionApplicationPage() {
               </button>
 
               <button 
-                onClick={() => setShowInvoiceModal(true)} 
+                onClick={() => setShowDocsModal(true)} 
                 className="w-full text-left px-3.5 py-2.5 bg-[#14232c] hover:bg-[#1a2f3b] border border-amber-500/30 hover:border-amber-400/60 rounded-xl flex items-center justify-between text-xs font-bold tracking-wide transition-all group"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
                   <div className="w-7 h-7 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0 group-hover:bg-amber-500/20 transition-colors">
                     <HugeiconsIcon icon={FileText} size={15} strokeWidth={2.5} className="text-amber-400" />
                   </div>
-                  <span className="text-white font-medium truncate">Issue Invoice</span>
+                  <span className="text-white font-medium truncate">Request Documents</span>
                 </div>
                 <HugeiconsIcon icon={ArrowRight} size={13} strokeWidth={2.5} className="text-slate-500 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+              </button>
+
+              <button 
+                onClick={() => setShowInvoiceModal(true)} 
+                className="w-full text-left px-3.5 py-2.5 bg-[#14232c] hover:bg-[#1a2f3b] border border-sky-500/30 hover:border-sky-400/60 rounded-xl flex items-center justify-between text-xs font-bold tracking-wide transition-all group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-7 h-7 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center shrink-0 group-hover:bg-sky-500/20 transition-colors">
+                    <HugeiconsIcon icon={FileText} size={15} strokeWidth={2.5} className="text-sky-400" />
+                  </div>
+                  <span className="text-white font-medium truncate">Issue Invoice</span>
+                </div>
+                <HugeiconsIcon icon={ArrowRight} size={13} strokeWidth={2.5} className="text-slate-500 group-hover:text-sky-400 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
               </button>
 
               <button 
@@ -844,6 +899,110 @@ export default function AdmissionApplicationPage() {
         </div>
       </div>
 
+      {/* Request Documents Modal */}
+      {showDocsModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-[#0f2027] border border-white/10 rounded-2xl shadow-2xl max-w-lg w-full p-6 text-white">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+              <div>
+                <h3 className="text-base font-bold text-white uppercase tracking-wider">Request Required Documents</h3>
+                <p className="text-xs text-slate-400 mt-0.5">Select the documents or information needed from the applicant.</p>
+              </div>
+              <button 
+                onClick={() => setShowDocsModal(false)}
+                className="text-slate-400 hover:text-white text-xs font-bold uppercase tracking-wider p-1"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {/* Document Checkboxes */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  Select Required Document Types
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {[
+                    { id: 'PASSPORT', label: 'International Passport' },
+                    { id: 'TRANSCRIPT', label: 'Official Academic Transcript' },
+                    { id: 'CERTIFICATE', label: 'Degree / Diploma Certificate' },
+                    { id: 'LANGUAGE_CERT', label: 'Language Proficiency Test (IELTS/TOEFL)' },
+                    { id: 'STATEMENT_OF_PURPOSE', label: 'Statement of Purpose / Essay' },
+                    { id: 'FINANCIAL_PROOF', label: 'Financial Proof / Bank Statement' },
+                  ].map(doc => {
+                    const isChecked = selectedDocs.includes(doc.id);
+                    return (
+                      <label
+                        key={doc.id}
+                        onClick={() => {
+                          setSelectedDocs(prev =>
+                            isChecked ? prev.filter(d => d !== doc.id) : [...prev, doc.id]
+                          );
+                        }}
+                        className={`flex items-start gap-2.5 p-3 rounded-xl border text-xs cursor-pointer transition-all ${
+                          isChecked
+                            ? 'bg-amber-500/10 border-amber-500/40 text-white'
+                            : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => {}}
+                          className="mt-0.5 accent-amber-500 rounded cursor-pointer"
+                        />
+                        <span className="font-medium leading-snug">{doc.label}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Instructions / Note */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                  Instructions / Notes to Applicant
+                </label>
+                <textarea
+                  rows={3}
+                  value={customDocNote}
+                  onChange={e => setCustomDocNote(e.target.value)}
+                  placeholder="e.g. Please provide a certified, notarized English translation of your secondary school transcript..."
+                  className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none rounded-xl resize-none"
+                />
+              </div>
+
+              {/* Action notice */}
+              <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-start gap-2.5">
+                <span className="text-amber-400 font-bold text-sm">ℹ</span>
+                <p className="text-[11px] text-amber-200/90 leading-relaxed">
+                  Submitting this will change the application status to <span className="font-bold text-white">DOCS REQUIRED</span> and notify the applicant to upload the requested items on their portal.
+                </p>
+              </div>
+
+              {/* Buttons */}
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={handleRequestDocuments}
+                  disabled={actionLoading === 'request-docs'}
+                  className="flex-1 px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm cursor-pointer"
+                >
+                  {actionLoading === 'request-docs' ? 'Sending Request...' : 'Send Document Request'}
+                </button>
+                <button
+                  onClick={() => setShowDocsModal(false)}
+                  disabled={actionLoading === 'request-docs'}
+                  className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 text-white text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors disabled:opacity-50 rounded-xl cursor-pointer"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showInvoiceModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-[#0f2027] border border-white/10 rounded-2xl shadow-2xl max-w-md w-full p-6 text-white">
@@ -863,44 +1022,77 @@ export default function AdmissionApplicationPage() {
                   Payment Purpose / Invoice Type <span className="text-red-400">*</span>
                 </label>
                 <select
-                  value={invoiceType}
+                  value={
+                    availablePurposes.some(p => p.title === invoiceType || p.code === invoiceType) ||
+                    ['tuition_deposit', 'fall_semester_tuition', 'winter_semester_tuition', 'housing_deposit', 'residence_rent', 'graduation_fee', 'transcript_request', 'TUITION_DEPOSIT', '1ST_YEAR_TUITION', 'TUITION_FULL', 'ANCILLARY', 'RESIDENCE_RENT', 'GRADUATION_FEE'].includes(invoiceType)
+                      ? invoiceType
+                      : '__CUSTOM__'
+                  }
                   onChange={e => {
-                    const nextType = e.target.value;
-                    setInvoiceType(nextType);
-                    const matched = availablePurposes.find(p => p.code === nextType);
-                    if (matched?.default_amount) {
-                      setCustomAmount(matched.default_amount);
-                    } else if (nextType === 'TUITION_DEPOSIT') {
+                    const val = e.target.value;
+                    if (val === '__CUSTOM__') {
+                      setInvoiceType('');
+                      return;
+                    }
+                    setInvoiceType(val);
+                    const matched = availablePurposes.find(
+                      p => (p.code && p.code.toLowerCase() === val.toLowerCase()) || 
+                           (p.title && p.title.toLowerCase() === val.toLowerCase())
+                    );
+                    if (matched?.default_amount_cad !== null && matched?.default_amount_cad !== undefined) {
+                      setCustomAmount(matched.default_amount_cad);
+                    } else if (val === 'tuition_deposit' || val === 'TUITION_DEPOSIT') {
                       setCustomAmount(2000);
-                    } else if (nextType === 'ANCILLARY') {
-                      setCustomAmount(700);
+                    } else if (val === 'housing_deposit') {
+                      setCustomAmount(500);
+                    } else if (val === 'graduation_fee') {
+                      setCustomAmount(350);
+                    } else if (val === 'transcript_request') {
+                      setCustomAmount(25);
                     }
                   }}
-                  className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white focus:border-sky-500 focus:outline-none rounded-xl [&>option]:bg-[#0a151a] [&>option]:text-white cursor-pointer"
+                  className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white focus:border-sky-500 focus:outline-none rounded-xl [&>option]:bg-[#0a151a] [&>option]:text-white cursor-pointer mb-2"
                 >
                   {availablePurposes.length > 0 ? (
                     availablePurposes.map(p => (
-                      <option key={p.id || p.code} value={p.code}>
-                        {p.name} (Custom Amount)
+                      <option key={p.id || p.code} value={p.title || p.code}>
+                        {p.title || p.name || p.code} {p.default_amount_cad ? `($${p.default_amount_cad} CAD)` : ''}
                       </option>
                     ))
                   ) : (
                     <>
-                      <option value="TUITION_DEPOSIT">Tuition Deposit (Custom Amount)</option>
-                      <option value="1ST_YEAR_TUITION">1st Year Tuition (Custom Amount)</option>
-                      <option value="TUITION_FULL">Full Tuition Fee (Custom Amount)</option>
-                      <option value="ANCILLARY">Ancillary Fees (Custom Amount)</option>
-                      <option value="RESIDENCE_RENT">Residence / Housing Rent (Custom Amount)</option>
-                      <option value="GRADUATION_FEE">Graduation Fee (Custom Amount)</option>
+                      <option value="Tuition Deposit">Tuition Deposit ($2,000 CAD)</option>
+                      <option value="Fall Semester Tuition">Fall Semester Tuition</option>
+                      <option value="Winter Semester Tuition">Winter Semester Tuition</option>
+                      <option value="Housing Deposit">Housing Deposit ($500 CAD)</option>
+                      <option value="Residence Rent">Residence / Housing Rent</option>
+                      <option value="Graduation Fee">Graduation Fee ($350 CAD)</option>
+                      <option value="Official Transcript Request">Official Transcript Request ($25 CAD)</option>
                     </>
                   )}
+                  <option value="__CUSTOM__">✍️ Other / Custom Invoice Type...</option>
                 </select>
+
+                {/* Custom invoice title input if not in standard list or custom chosen */}
+                {(!availablePurposes.some(p => p.title === invoiceType || p.code === invoiceType) &&
+                  !['tuition_deposit', 'fall_semester_tuition', 'winter_semester_tuition', 'housing_deposit', 'residence_rent', 'graduation_fee', 'transcript_request', 'TUITION_DEPOSIT', '1ST_YEAR_TUITION', 'TUITION_FULL', 'ANCILLARY', 'RESIDENCE_RENT', 'GRADUATION_FEE'].includes(invoiceType)) && (
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      required
+                      value={invoiceType}
+                      onChange={e => setInvoiceType(e.target.value)}
+                      placeholder="Enter custom invoice type name..."
+                      className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-sky-500/50 text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none rounded-xl"
+                    />
+                  </div>
+                )}
               </div>
 
-              {/* Custom Amount */}
+              {/* Amount */}
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
-                  Custom Tuition / Fee Amount (CAD) <span className="text-red-400">*</span>
+                  Invoice Amount (CAD) <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
                   <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">$</span>

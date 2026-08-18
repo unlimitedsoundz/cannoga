@@ -100,6 +100,53 @@ export async function updateApplicationStatus(applicationId: string, status: App
         }
     }
 
+    if (status === 'DOCS_REQUIRED') {
+        try {
+            // Trigger in-app notification
+            const { data: appDetails } = await supabase
+                .from('applications')
+                .select('user_id, Course:course_id(title)')
+                .eq('id', applicationId)
+                .single();
+
+            if (appDetails?.user_id) {
+                const { data: studentRecord } = await supabase
+                    .from('students')
+                    .select('id')
+                    .eq('user_id', appDetails.user_id)
+                    .maybeSingle();
+
+                const recipientIds = [studentRecord?.id, appDetails.user_id].filter(Boolean) as string[];
+
+                await supabase.from('notifications').insert({
+                    title: 'Action Required: Additional Documents Requested',
+                    message: `There's an update on your application. Please log in to your application portal to review and upload the requested documents.`,
+                    category: 'Admissions',
+                    priority: 'high',
+                    recipient_type: 'individual',
+                    recipient_ids: recipientIds,
+                    related_id: applicationId,
+                    related_type: 'application',
+                    link: `/portal/application/view?id=${applicationId}`
+                });
+            }
+
+            // Trigger email notification edge function
+            await supabase.functions.invoke('send-notification', {
+                body: {
+                    applicationId: applicationId,
+                    type: 'DOCS_REQUIRED',
+                    additionalData: {
+                        requestedDocuments,
+                        note: documentRequestNote
+                    }
+                }
+            });
+        } catch (notifyError) {
+            console.error('Failed to trigger document request notification:', notifyError);
+        }
+    }
+
     if (status === 'UNDER_REVIEW' || status === 'SUBMITTED') {
         try {
             await supabase.functions.invoke('send-notification', {

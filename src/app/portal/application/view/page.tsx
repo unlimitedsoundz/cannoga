@@ -33,6 +33,8 @@ function ViewApplicationContent() {
     const [actionMessage, setActionMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
     const [palDocument, setPalDocument] = useState<any>(null);
     const [receiptDocument, setReceiptDocument] = useState<any>(null);
+    const [showUploadModal, setShowUploadModal] = useState(false);
+    const [modalDocType, setModalDocType] = useState<string>('TRANSCRIPT');
 
     useEffect(() => {
         async function loadData() {
@@ -231,10 +233,13 @@ function ViewApplicationContent() {
             const passportUploaded = uploadedTypes.has('PASSPORT');
             const allRequiredUploaded = academicDocsUploaded && passportUploaded;
 
-            // Step 5: Update status if all required docs uploaded
-            if (allRequiredUploaded && application.status === 'DRAFT') {
+            // Step 5: Update status if all required docs uploaded or if fulfilling DOCS_REQUIRED
+            if (application.status === 'DOCS_REQUIRED' || (allRequiredUploaded && application.status === 'DRAFT')) {
                 const { updateApplicationStatus } = await import('@/app/portal/actions');
                 await updateApplicationStatus(id!, 'UNDER_REVIEW');
+                toast.success('Document uploaded and submitted for review!');
+            } else {
+                toast.success('Document uploaded successfully!');
             }
 
             setRefreshFlag((count) => count + 1);
@@ -334,45 +339,73 @@ function ViewApplicationContent() {
         </div>
     );
 
-    const requirements = [
+    const standardRequirements = [
         {
             id: 'ACADEMIC_DOCUMENTS',
             title: 'Academic Documents',
             description: [
                 'Academic Documents:',
-                'Important Note 1: Electronic copies must be officially translated and certified documents. You may be asked, at any point during the admissions process or during your studies, to provide us with original documents and/or certified translations.',
-                'Important Note 2: Please ensure academic documents are consolidated in one PDF file, and arranged from oldest to most recent.',
-                '1. Transcripts (Subjects & Grades) and',
-                '2. Proof of Graduation (Diploma, Degree or Certificate of Enrolment) OR Proof of final year registration of High School for admission to a Diploma, Certificate or Bachelor Degree program or University Degree or College Diploma for admission to a Graduate Certificate program.',
-                'SOUTH ASIA OFF-SHORE applicants:',
-                '- Admission to a Diploma, Certificate or Bachelor Degree program: Class X & Class XII marksheets.',
-                '- Admission to a Graduate Certificate program: Bachelors/Undergraduate all semester/year marksheets & Degree or provisional certificate.',
-                '- Masters all semester/year marksheets and Degree/ Provisional certificate (if applicable).',
-                '- Bachelor Backlog Letter or No Backlog Letter from College/ University (if applicable).',
-                '3. Copy of Passport first page.',
+                'Important Note 1: Electronic copies must be officially translated and certified documents.',
+                '1. Official Transcripts (Subjects & Grades) and',
+                '2. Proof of Graduation (Diploma, Degree, or Certificate).',
             ],
             uploadType: 'TRANSCRIPT',
-            submitted: !!application.documents?.some((doc: any) => ['TRANSCRIPT', 'CERTIFICATE'].includes(doc.type)),
+            submitted: !!application.documents?.some((doc: any) => ['TRANSCRIPT', 'CERTIFICATE'].includes(doc.type?.toUpperCase())),
         },
         {
             id: 'PASSPORT_COPY',
             title: 'Valid Passport Copy',
             description: [
                 'Valid Passport Copy:',
-                'Please upload a clear scan or photo of the first page of your passport.',
-                'Your passport must be valid for the full duration of your intended program.',
+                'Please upload a clear scan or photo of the first page of your international passport.',
             ],
             uploadType: 'PASSPORT',
-            submitted: !!application.documents?.some((doc: any) => doc.type === 'PASSPORT'),
+            submitted: !!application.documents?.some((doc: any) => doc.type?.toUpperCase() === 'PASSPORT'),
         },
+        {
+            id: 'LANGUAGE_CERT',
+            title: 'Language Proficiency Test',
+            description: [
+                'Language Proficiency Certificate:',
+                'Upload your official IELTS, TOEFL, Duolingo, or equivalent English language proficiency test report.',
+            ],
+            uploadType: 'LANGUAGE_CERT',
+            submitted: !!application.documents?.some((doc: any) => doc.type?.toUpperCase() === 'LANGUAGE_CERT'),
+        },
+        {
+            id: 'STATEMENT_OF_PURPOSE',
+            title: 'Statement of Purpose / Essay',
+            description: [
+                'Statement of Purpose:',
+                'Upload your updated Statement of Purpose, study plan, or admissions essay.',
+            ],
+            uploadType: 'STATEMENT_OF_PURPOSE',
+            submitted: !!application.documents?.some((doc: any) => doc.type?.toUpperCase() === 'STATEMENT_OF_PURPOSE'),
+        },
+        {
+            id: 'FINANCIAL_PROOF',
+            title: 'Financial Proof / Bank Statement',
+            description: [
+                'Financial Support Document:',
+                'Upload proof of financial capability, official bank statement, or sponsorship letter.',
+            ],
+            uploadType: 'FINANCIAL_PROOF',
+            submitted: !!application.documents?.some((doc: any) => doc.type?.toUpperCase() === 'FINANCIAL_PROOF'),
+        }
     ];
 
-    const selectedRequirement = requirements.find((req) => req.id === selectedRequirementId) || requirements[0];
+    const requestedDocList: string[] = Array.isArray(application.requested_documents) ? application.requested_documents : [];
+
+    const requirements = requestedDocList.length > 0
+        ? standardRequirements.filter(r => requestedDocList.includes(r.uploadType) || requestedDocList.includes(r.id))
+        : standardRequirements;
+
+    const selectedRequirement = requirements.find((req) => req.id === selectedRequirementId || req.uploadType === selectedRequirementId) || requirements[0];
     const selectedDocs = application.documents?.filter((doc: any) => {
         if (selectedRequirement.uploadType === 'TRANSCRIPT') {
-            return ['TRANSCRIPT', 'CERTIFICATE'].includes(doc.type);
+            return ['TRANSCRIPT', 'CERTIFICATE'].includes(doc.type?.toUpperCase());
         }
-        return doc.type === selectedRequirement.uploadType;
+        return (doc.type || '').toUpperCase() === selectedRequirement.uploadType;
     }) || [];
 
     const handleDelete = async (doc: any) => {
@@ -398,7 +431,7 @@ function ViewApplicationContent() {
     const uploadedDocTypes = new Set((application.documents || []).map((d: any) => (d.type || '').toUpperCase()));
     const academicDocsUploaded = requiredAcademicTypes.some(type => uploadedDocTypes.has(type));
     const passportUploaded = uploadedDocTypes.has('PASSPORT');
-    const allRequiredUploaded = academicDocsUploaded && passportUploaded;
+    const allRequiredUploaded = requirements.length > 0 ? requirements.every(r => r.submitted) : (academicDocsUploaded && passportUploaded);
 
     const steps = [
         { title: 'Submit Requirements' },
@@ -449,14 +482,43 @@ function ViewApplicationContent() {
             {/* Notifications */}
             <div className="space-y-2">
                 {application.status === 'DOCS_REQUIRED' && (
-                    <div className="border border-red-200 bg-red-50 p-3 rounded-xl flex items-start gap-3">
-                        <div className="text-red-600 mt-0.5">
-                            <AlertCircle size={16} weight="bold" />
+                    <div className="border border-amber-300 bg-amber-50/90 p-4 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+                        <div className="flex items-start gap-3.5">
+                            <div className="text-amber-600 mt-0.5 shrink-0">
+                                <AlertCircle size={20} weight="bold" />
+                            </div>
+                            <div className="space-y-1.5 flex-1">
+                                <p className="text-xs font-black text-amber-950 uppercase tracking-wider">Action Required: Documents Needed</p>
+                                <p className="text-xs text-amber-900 font-medium">
+                                    Additional documents have been requested by the Admissions Office to continue processing your application.
+                                </p>
+                                {application.document_request_note && (
+                                    <div className="p-3 bg-white/80 border border-amber-200 rounded-lg text-xs text-neutral-800 font-medium italic mt-2">
+                                        "{application.document_request_note}"
+                                    </div>
+                                )}
+                                {requestedDocList.length > 0 && (
+                                    <div className="mt-2 flex flex-wrap gap-1.5">
+                                        {requestedDocList.map((docType: string) => (
+                                            <span key={docType} className="px-2 py-0.5 bg-amber-200/80 text-amber-900 text-[10px] font-bold uppercase tracking-wider rounded-md border border-amber-300">
+                                                {docType.replace(/_/g, ' ')}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                        <div>
-                            <p className="text-[11px] font-black text-red-900 uppercase tracking-wider">Action Required</p>
-                            <p className="text-[11px] text-red-800 font-medium mt-0.5">Additional documents have been requested. Please upload the required documents to continue processing your application.</p>
-                        </div>
+                        <button
+                            onClick={() => {
+                                const defaultType = requestedDocList[0] || 'TRANSCRIPT';
+                                setModalDocType(defaultType);
+                                setShowUploadModal(true);
+                            }}
+                            className="shrink-0 px-4 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+                        >
+                            <UploadSimple size={15} weight="bold" />
+                            Upload Requested Documents
+                        </button>
                     </div>
                 )}
 
@@ -875,6 +937,90 @@ function ViewApplicationContent() {
                     </section>
                 </main>
             </div>
+
+            {/* Re-upload Requested Documents Modal */}
+            {showUploadModal && (
+                <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-2xl border border-neutral-200 shadow-2xl max-w-lg w-full p-6 space-y-4">
+                        <div className="flex items-center justify-between pb-3 border-b border-neutral-100">
+                            <div>
+                                <h3 className="text-base font-bold text-black uppercase tracking-tight">Upload Requested Document</h3>
+                                <p className="text-xs text-neutral-500 mt-0.5">Submit your file directly to fulfill your admission requirements.</p>
+                            </div>
+                            <button
+                                onClick={() => setShowUploadModal(false)}
+                                className="text-neutral-400 hover:text-black text-xs font-bold uppercase tracking-wider p-1 cursor-pointer"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        {application.document_request_note && (
+                            <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 font-medium">
+                                <span className="font-bold block mb-0.5">Note from Admissions:</span>
+                                "{application.document_request_note}"
+                            </div>
+                        )}
+
+                        <div>
+                            <label className="block text-xs font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                                Select Document Category <span className="text-red-500">*</span>
+                            </label>
+                            <select
+                                value={modalDocType}
+                                onChange={(e) => setModalDocType(e.target.value)}
+                                className="w-full px-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-200 text-neutral-900 rounded-xl focus:border-black focus:outline-none cursor-pointer"
+                            >
+                                {requirements.map((req) => (
+                                    <option key={req.id} value={req.uploadType}>
+                                        {req.title} {req.submitted ? '(Already Submitted)' : '(Required)'}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="rounded-2xl border border-neutral-200 p-4 bg-neutral-50">
+                            <label htmlFor="modal-document-upload" className="group flex min-h-[140px] flex-col items-center justify-center rounded-xl border border-dashed border-neutral-300 bg-white p-6 text-center transition hover:border-black hover:bg-neutral-50 cursor-pointer">
+                                <UploadSimple className="text-neutral-400 group-hover:text-black" size={28} />
+                                <p className="mt-3 text-sm font-semibold text-black">Drag & drop your file here, or click to browse</p>
+                                <p className="mt-1 text-xs text-neutral-500">Accepted: PDF, JPG, PNG (Max 10MB)</p>
+                                <input
+                                    id="modal-document-upload"
+                                    type="file"
+                                    accept=".pdf,.jpg,.jpeg,.png"
+                                    className="sr-only"
+                                    onChange={async (event) => {
+                                        await handleUpload(event, modalDocType);
+                                        setShowUploadModal(false);
+                                    }}
+                                    disabled={!!uploadingType}
+                                />
+                            </label>
+
+                            {uploadingType && (
+                                <div className="mt-3 rounded-lg bg-white px-3 py-2 text-xs font-medium text-neutral-700 border border-neutral-200">
+                                    Uploading document...
+                                </div>
+                            )}
+
+                            {uploadError && (
+                                <div className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-600 border border-red-200">
+                                    {uploadError}
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="flex justify-end gap-2 pt-2 border-t border-neutral-100">
+                            <button
+                                onClick={() => setShowUploadModal(false)}
+                                className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-600 hover:text-black transition-colors rounded-xl cursor-pointer"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
