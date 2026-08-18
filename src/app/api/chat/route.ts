@@ -1,15 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createStaticClient } from '@/lib/supabase/static';
+import { createClient } from '@supabase/supabase-js';
 
 export const dynamic = 'force-dynamic';
 
-interface ChatMessage {
-    role: 'user' | 'assistant' | 'system';
-    content: string;
+function getSupabaseClient() {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!url || !key) return null;
+    return createClient(url, key);
 }
 
-// Comprehensive Institutional & Canadian Knowledge Base
-const KNOWLEDGE_TOPICS = [
+// Comprehensive Verified Cannoga College & Canada Knowledge Engine
+const CANNOGA_VERIFIED_KNOWLEDGE = [
     {
         keywords: ['deposit', 'tuition deposit', '2000', '2,000', 'seat', 'reserve', 'confirmation deposit', 'pal deposit'],
         title: 'Tuition Deposit Policy ($2,000 CAD)',
@@ -86,7 +88,7 @@ const KNOWLEDGE_TOPICS = [
 * **Monthly Living Budget:** Estimated living expenses (groceries, transport, phone, recreation) average **$800 – $1,200 CAD/month** outside tuition.`
     },
     {
-        keywords: ['program', 'programs', 'course', 'courses', 'bachelor', 'master', 'diploma', 'certificate', 'degrees', 'what do you offer'],
+        keywords: ['program', 'programs', 'course', 'courses', 'bachelor', 'master', 'diploma', 'certificate', 'degrees', 'what do you offer', 'school', 'schools', 'faculty'],
         title: 'Academic Programs & Faculties',
         content: `### 📚 Cannoga College Academic Faculties
 Cannoga College offers career-focused degrees across 6 specialized schools:
@@ -137,11 +139,51 @@ export async function POST(req: NextRequest) {
 
         const normalized = latestQuery.toLowerCase().trim();
 
-        // 1. Score match against comprehensive Knowledge Topics
-        let bestTopic: typeof KNOWLEDGE_TOPICS[0] | null = null;
+        // 1. Live Database Queries (Supabase `faqs`, `School`, `Course`)
+        let dbFaqMatch: { question: string; answer: string } | null = null;
+        let dbSchools: any[] = [];
+        let dbCourses: any[] = [];
+
+        try {
+            const supabase = getSupabaseClient();
+            if (supabase) {
+                const [faqsRes, schoolsRes, coursesRes] = await Promise.all([
+                    supabase.from('faqs').select('question, answer').eq('status', 'published').limit(60),
+                    supabase.from('School').select('name, slug, description').limit(15),
+                    supabase.from('Course').select('title, code, credits').limit(30)
+                ]);
+
+                if (faqsRes.data && faqsRes.data.length > 0) {
+                    let highestFaqScore = 0;
+                    const words = normalized.split(/\s+/).filter(w => w.length > 3);
+
+                    for (const faq of faqsRes.data) {
+                        const qNorm = faq.question.toLowerCase();
+                        let score = 0;
+                        if (qNorm === normalized) score += 12;
+                        if (qNorm.includes(normalized) || normalized.includes(qNorm)) score += 8;
+                        for (const w of words) {
+                            if (qNorm.includes(w)) score += 3;
+                        }
+                        if (score > highestFaqScore && score >= 6) {
+                            highestFaqScore = score;
+                            dbFaqMatch = faq;
+                        }
+                    }
+                }
+
+                if (schoolsRes.data) dbSchools = schoolsRes.data;
+                if (coursesRes.data) dbCourses = coursesRes.data;
+            }
+        } catch (dbErr) {
+            console.error('DB query error:', dbErr);
+        }
+
+        // 2. Score match against verified Cannoga website knowledge topics
+        let bestTopic: typeof CANNOGA_VERIFIED_KNOWLEDGE[0] | null = null;
         let highestTopicScore = 0;
 
-        for (const topic of KNOWLEDGE_TOPICS) {
+        for (const topic of CANNOGA_VERIFIED_KNOWLEDGE) {
             let score = 0;
             for (const kw of topic.keywords) {
                 if (normalized.includes(kw)) {
@@ -154,49 +196,66 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        // 3. Compose structured, intelligent response
+        // 3. Compose Answer strictly from Database & Cannoga Website
         let answerText = '';
 
         if (normalized.includes('hello') || normalized.includes('hi') || normalized.includes('hey') || normalized.match(/^(good morning|good afternoon|good evening)/)) {
-            answerText = `👋 **Hello and welcome to Cannoga College in Ottawa, Ontario, Canada!**
+            answerText = `👋 **Welcome to Cannoga College in Ottawa, Ontario, Canada.**
 
-I am your **Cannoga AI Admissions & Student Guide**. I can assist you with:
+I can provide verified information directly from our database and admissions portal:
 * 🎓 **Programs & Degrees** (Certificates, Diplomas, Bachelor's & Master's)
-* 💰 **Tuition Fees & the $2,000 CAD Deposit**
+* 💰 **Tuition Fees & the $2,000 CAD Confirmation Deposit**
 * 🇨🇦 **Provincial Attestation Letter (PAL) & Study Permits**
 * 🏠 **Living in Ottawa, Residences & Living Costs**
 * 💼 **Working in Canada & Post-Graduation Work Permits (PGWP)**
-* 📝 **Application Deadlines & Entry Requirements**
+* 📝 **Application Deadlines & Admission Requirements**
 
-What would you like to explore today?`;
+How can I help you today?`;
+        } else if (normalized.includes('school') || normalized.includes('facult') || (normalized.includes('program') && dbSchools.length > 0)) {
+            let schoolsList = dbSchools.map(s => `* **${s.name}**: ${s.description || 'Comprehensive programs designed for industry careers.'}`).join('\n');
+            answerText = `### 📚 Academic Schools & Faculties at Cannoga College\n\n${schoolsList}\n\n*Explore detailed course outlines and admission requirements on our [Programs Hub](https://cannogacollege.ca/schools) or download our [Viewbook](https://cannogacollege.ca/viewbook).*`;
+        } else if (dbFaqMatch) {
+            // Clean up html tags from DB answer if present
+            const cleanAnswer = dbFaqMatch.answer
+                .replace(/<div[^>]*>/gi, '')
+                .replace(/<\/div>/gi, '')
+                .replace(/<p[^>]*>/gi, '')
+                .replace(/<\/p>/gi, '\n\n')
+                .replace(/<strong[^>]*>/gi, '**')
+                .replace(/<\/strong>/gi, '**')
+                .replace(/<ul[^>]*>/gi, '')
+                .replace(/<\/ul>/gi, '')
+                .replace(/<li[^>]*>/gi, '* ')
+                .replace(/<\/li>/gi, '\n')
+                .trim();
+
+            answerText = `### 📋 ${dbFaqMatch.question}\n\n${cleanAnswer}\n\n*For further details, contact our admissions office at [admissions@cannogacollege.ca](mailto:admissions@cannogacollege.ca).*`;
         } else if (bestTopic && highestTopicScore >= 2) {
             answerText = `${bestTopic.content}\n\n*Would you like more details on admission requirements, tuition payment options, or booking an advisor consultation?*`;
         } else {
-            // General overview answer covering Cannoga & Canada
-            answerText = `### 🏛️ Cannoga College & Study in Canada Overview
-Cannoga College is a premier career-focused institution located at **81 Montreal Rd in Ottawa, Ontario, Canada**.
+            // Fallback comprehensive overview from official Cannoga website
+            answerText = `### 🏛️ Cannoga College & Study in Canada
+Cannoga College is located at **81 Montreal Rd in Ottawa, Ontario, Canada**.
 
-Here are the key essentials for students:
-* **Academic Streams:** Diplomas, Bachelor's, and Master's across Technology, Business, Health, and Creative Arts.
-* **Confirmation Deposit:** A **$2,000 CAD non-refundable deposit** is required upon receiving your offer. It secures your seat, starts your **Provincial Attestation Letter (PAL)** process, and is credited 100% directly towards your first-term tuition.
-* **Work Opportunities:** International students can work up to **24 hours/week** off-campus during studies and qualify for up to a **3-Year Post-Graduation Work Permit (PGWP)**.
-* **Location Benefits:** Ottawa is Canada's safest, vibrant capital city with a booming tech sector and affordable living compared to other major Canadian metropolises.
+* **Programs:** Industry-aligned Diplomas, Bachelor's, and Master's programs.
+* **Tuition Deposit:** A **$2,000 CAD non-refundable deposit** is required to secure your seat and issue your **Provincial Attestation Letter (PAL)**. It is credited 100% towards your first-term tuition.
+* **Work Opportunities:** Work up to **24 hours/week** off-campus during studies and qualify for up to a **3-Year Post-Graduation Work Permit (PGWP)** upon graduation.
+* **Admissions Contact:** [admissions@cannogacollege.ca](mailto:admissions@cannogacollege.ca) | Phone: +1 (613) 727-4723.
 
-👉 *You can check our [Admissions Hub](https://cannogacollege.ca/admissions), read our interactive [Viewbook](https://cannogacollege.ca/viewbook), or apply directly through our [Applicant Portal](https://cannogacollege.ca/portal).*`;
+👉 *Visit our [Admissions Hub](https://cannogacollege.ca/admissions) or access the [Student Portal](https://cannogacollege.ca/portal).*`;
         }
 
-        // Return fast response
         return NextResponse.json({
             reply: answerText,
             timestamp: new Date().toISOString(),
-            topic: bestTopic?.title || 'General Inquiries'
+            topic: bestTopic?.title || dbFaqMatch?.question || 'Cannoga Information'
         });
 
     } catch (err: any) {
         console.error('Chat API Error:', err);
         return NextResponse.json({
             error: 'Failed to process chat query',
-            reply: 'I am temporarily experiencing a connection delay. Please feel free to explore our [Admissions Page](https://cannogacollege.ca/admissions) or email [admissions@cannogacollege.ca](mailto:admissions@cannogacollege.ca) for immediate assistance!'
+            reply: 'I am temporarily experiencing a connection delay. Please explore our [Admissions Page](https://cannogacollege.ca/admissions) or email [admissions@cannogacollege.ca](mailto:admissions@cannogacollege.ca) for immediate assistance!'
         }, { status: 500 });
     }
 }

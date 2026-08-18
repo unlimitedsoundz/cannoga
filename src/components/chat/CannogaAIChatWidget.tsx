@@ -266,7 +266,7 @@ export function CannogaAIChatWidget() {
                     className={`flex flex-col bg-white border border-slate-200 shadow-2xl rounded-2xl overflow-hidden transition-all duration-300 ${
                         isExpanded
                             ? 'fixed inset-4 md:inset-10 w-auto h-auto z-[99999]'
-                            : 'w-[90vw] sm:w-[350px] h-[520px] max-h-[80vh]'
+                            : 'w-[90vw] sm:w-[360px] h-[580px] sm:h-[600px] max-h-[85vh]'
                     }`}
                 >
                     {/* Header */}
