@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect, type FormEvent } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -151,205 +151,261 @@ export default function ApplyPage() {
           breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Portal', href: '/portal' }, { label: 'Apply' }]}
         />
 
-        <div className="cc-container max-w-3xl mx-auto py-10">
-          <div className="bg-white border border-neutral-100 shadow-sm p-8 rounded-sm">
-            <h2 className="text-base font-bold uppercase tracking-[0.25em] text-[#2d2d2d] mb-6">Online Application for International Student</h2>
+        <div className="cc-container max-w-2xl mx-auto py-6">
+          {submissionMessage && (
+            <div className={`p-3 rounded-sm mb-4 text-[13px] font-bold border ${submissionMessage.type === 'success' ? 'bg-neutral-50 text-black border-neutral-100' : 'bg-red-50 text-red-700 border-red-100'}`}>
+              {submissionMessage.text}
+            </div>
+          )}
 
-            {submissionMessage && (
-              <div className={`p-4 mb-6 rounded-sm text-sm font-bold border ${submissionMessage.type === 'success' ? 'bg-green-50 text-black border-green-100' : 'bg-red-50 text-red-700 border-red-100'}`}>
-                {submissionMessage.text}
-              </div>
-            )}
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-neutral-100">
+            <h1 className="text-xl font-bold mb-1.5 text-black">Online Application for International Students</h1>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-semibold text-black mb-2">Is English your First Language? *</label>
-                <div className="relative">
-                  <select
-                    required
-                    value={englishFirstLanguage}
-                    onChange={(e) => setEnglishFirstLanguage(e.target.value)}
-                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
-                  >
-                    <option value="YES">YES</option>
-                    <option value="NO">NO</option>
-                  </select>
-                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+            <div className="mb-4 text-[13px] text-black leading-snug space-y-0.5 font-medium">
+              <p>
+                Complete your international application by selecting your desired intake term, programme choices, and study permit details below.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Section 1: Academic Choices */}
+              <div className="space-y-3">
+                <h2 className="-mx-6 px-6 py-1.5 bg-neutral-100 text-black text-[13px] font-bold mb-3 border-y border-neutral-200/60">
+                  Academic Programme &amp; Intake
+                </h2>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                  <label className="w-full sm:w-44 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                    Program Type <span className="text-red-600">*</span>
+                  </label>
+                  <div className="relative w-full max-w-[400px]">
+                    <select
+                      required
+                      value={programType}
+                      onChange={(e) => setProgramType(e.target.value)}
+                      className="w-full h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none pr-8 cursor-pointer"
+                    >
+                      <option value="Academic Program">Academic Program</option>
+                      <option value="English Language Program">English Language Program</option>
+                      <option value="Pathway Program">Pathway Program</option>
+                    </select>
+                    <CaretDown size={14} weight="bold" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                  <label className="w-full sm:w-44 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                    Desired Intake Term <span className="text-red-600">*</span>
+                  </label>
+                  <div className="relative w-full max-w-[400px]">
+                    <select
+                      required
+                      value={desiredIntake}
+                      onChange={(e) => setDesiredIntake(e.target.value)}
+                      className="w-full h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none pr-8 cursor-pointer"
+                    >
+                      <option value="">Select term</option>
+                      {CANONICAL_INTAKES.map((it: any) => (
+                        <option key={it.id} value={it.label}>{it.label}</option>
+                      ))}
+                    </select>
+                    <CaretDown size={14} weight="bold" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                  <label className="w-full sm:w-44 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                    Primary Program Choice <span className="text-red-600">*</span>
+                  </label>
+                  <div className="relative w-full max-w-[400px]">
+                    <select
+                      required
+                      value={selectedCourseId}
+                      onChange={(e) => setSelectedCourseId(e.target.value)}
+                      className="w-full h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none pr-8 cursor-pointer"
+                    >
+                      <option value="">Select your programme</option>
+                      {courses.map((course) => (
+                        <option key={course.id} value={course.id}>{course.title} {course.degreeLevel}</option>
+                      ))}
+                    </select>
+                    <CaretDown size={14} weight="bold" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                  <label className="w-full sm:w-44 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                    Alternate Program Choice <span className="text-red-600">*</span>
+                  </label>
+                  <div className="relative w-full max-w-[400px]">
+                    <select
+                      required
+                      value={alternateCourseId}
+                      onChange={(e) => setAlternateCourseId(e.target.value)}
+                      className="w-full h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none pr-8 cursor-pointer"
+                    >
+                      <option value="">Select an alternate programme</option>
+                      {courses.map((course) => (
+                        <option key={course.id} value={course.id}>{course.title} {course.degreeLevel}</option>
+                      ))}
+                    </select>
+                    <CaretDown size={14} weight="bold" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-black mb-2">Program Type *</label>
-                <div className="relative">
-                  <select
-                    required
-                    value={programType}
-                    onChange={(e) => setProgramType(e.target.value)}
-                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
-                  >
-                    <option value="Academic Program">Academic Program</option>
-                    <option value="English Language Program">English Language Program</option>
-                    <option value="Pathway Program">Pathway Program</option>
-                  </select>
-                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+              {/* Section 2: Language Proficiency */}
+              <div className="pt-2 space-y-3">
+                <h2 className="-mx-6 px-6 py-1.5 bg-neutral-100 text-black text-[13px] font-bold mb-3 border-y border-neutral-200/60">
+                  Language Background
+                </h2>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                  <label className="w-full sm:w-44 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                    English First Language? <span className="text-red-600">*</span>
+                  </label>
+                  <div className="relative w-full max-w-[400px]">
+                    <select
+                      required
+                      value={englishFirstLanguage}
+                      onChange={(e) => setEnglishFirstLanguage(e.target.value)}
+                      className="w-full h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none pr-8 cursor-pointer"
+                    >
+                      <option value="YES">YES</option>
+                      <option value="NO">NO</option>
+                    </select>
+                    <CaretDown size={14} weight="bold" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                  <label className="w-full sm:w-44 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                    Completed English Pathway? <span className="text-red-600">*</span>
+                  </label>
+                  <div className="relative w-full max-w-[400px]">
+                    <select
+                      required
+                      value={englishPathway}
+                      onChange={(e) => setEnglishPathway(e.target.value)}
+                      className="w-full h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none pr-8 cursor-pointer"
+                    >
+                      <option value="NO">NO</option>
+                      <option value="YES">YES</option>
+                    </select>
+                    <CaretDown size={14} weight="bold" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-black mb-2">Did you complete an English pathway program at a partner language school? *</label>
-                <div className="relative">
-                  <select
-                    required
-                    value={englishPathway}
-                    onChange={(e) => setEnglishPathway(e.target.value)}
-                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
-                  >
-                    <option value="NO">NO</option>
-                    <option value="YES">YES</option>
-                  </select>
-                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+              {/* Section 3: Immigration & Canada Status */}
+              <div className="pt-2 space-y-3">
+                <h2 className="-mx-6 px-6 py-1.5 bg-neutral-100 text-black text-[13px] font-bold mb-3 border-y border-neutral-200/60">
+                  Immigration &amp; Canadian Status
+                </h2>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                  <label className="w-full sm:w-44 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                    Currently in Canada? <span className="text-red-600">*</span>
+                  </label>
+                  <div className="relative w-full max-w-[400px]">
+                    <select
+                      required
+                      value={isInCanada}
+                      onChange={(e) => setIsInCanada(e.target.value)}
+                      className="w-full h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none pr-8 cursor-pointer"
+                    >
+                      <option value="NO">NO</option>
+                      <option value="YES">YES</option>
+                    </select>
+                    <CaretDown size={14} weight="bold" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                  <label className="w-full sm:w-44 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                    Valid Study Permit / LOA? <span className="text-red-600">*</span>
+                  </label>
+                  <div className="relative w-full max-w-[400px]">
+                    <select
+                      required
+                      value={hasValidPermit}
+                      onChange={(e) => setHasValidPermit(e.target.value)}
+                      className="w-full h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none pr-8 cursor-pointer"
+                    >
+                      <option value="NO">NO</option>
+                      <option value="YES">YES</option>
+                    </select>
+                    <CaretDown size={14} weight="bold" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                  <label className="w-full sm:w-44 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                    Prior Permit Rejection? <span className="text-red-600">*</span>
+                  </label>
+                  <div className="relative w-full max-w-[400px]">
+                    <select
+                      required
+                      value={hasRejection}
+                      onChange={(e) => setHasRejection(e.target.value)}
+                      className="w-full h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none pr-8 cursor-pointer"
+                    >
+                      <option value="NO">NO</option>
+                      <option value="YES">YES</option>
+                    </select>
+                    <CaretDown size={14} weight="bold" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                  <label className="w-full sm:w-44 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">
+                    Prior PAL Received? <span className="text-red-600">*</span>
+                  </label>
+                  <div className="relative w-full max-w-[400px]">
+                    <select
+                      required
+                      value={hasPAL}
+                      onChange={(e) => setHasPAL(e.target.value)}
+                      className="w-full h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none pr-8 cursor-pointer"
+                    >
+                      <option value="NO">NO</option>
+                      <option value="YES">YES</option>
+                    </select>
+                    <CaretDown size={14} weight="bold" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-black mb-2">Desired Academic Term *</label>
-                <div className="relative">
-                  <select
+              {/* Section 4: Declaration & Consent */}
+              <div className="pt-2 space-y-3">
+                <h2 className="-mx-6 px-6 py-1.5 bg-neutral-100 text-black text-[13px] font-bold mb-3 border-y border-neutral-200/60">
+                  Consent &amp; Declaration
+                </h2>
+
+                <div className="flex items-start gap-3 sm:ml-44">
+                  <input
+                    id="releaseConsent"
+                    type="checkbox"
+                    checked={releaseConsent}
+                    onChange={(e) => setReleaseConsent(e.target.checked)}
                     required
-                    value={desiredIntake}
-                    onChange={(e) => setDesiredIntake(e.target.value)}
-                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
-                  >
-                    <option value="">Select term</option>
-                    {CANONICAL_INTAKES.map((it: any) => (
-                      <option key={it.id} value={it.label}>{it.label}</option>
-                    ))}
-                  </select>
-                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+                    className="mt-0.5 h-4 w-4 text-black border border-neutral-200 rounded-lg cursor-pointer"
+                  />
+                  <label htmlFor="releaseConsent" className="text-[13px] text-black font-medium leading-snug cursor-pointer">
+                    I give my consent to Cannoga University to release application information as requested. <span className="text-red-600">*</span>
+                  </label>
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-black mb-2">Academic Program Choice *</label>
-                <div className="relative">
-                  <select
-                    required
-                    value={selectedCourseId}
-                    onChange={(e) => setSelectedCourseId(e.target.value)}
-                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
-                  >
-                    <option value="">Select your programme</option>
-                    {courses.map((course) => (
-                      <option key={course.id} value={course.id}>{course.title} {course.degreeLevel}</option>
-                    ))}
-                  </select>
-                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
-                </div>
+              <div className="pt-4 flex justify-center sm:justify-start sm:pl-44">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full max-w-[400px] h-[40px] bg-neutral-900 hover:bg-black text-white text-[13px] font-bold rounded-lg transition-all shadow-sm cursor-pointer disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Submitting Application...' : 'Submit Application'}
+                </button>
               </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-black mb-2">Alternate Program Choice *</label>
-                <div className="relative">
-                  <select
-                    required
-                    value={alternateCourseId}
-                    onChange={(e) => setAlternateCourseId(e.target.value)}
-                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
-                  >
-                    <option value="">Select an alternate programme</option>
-                    {courses.map((course) => (
-                      <option key={course.id} value={course.id}>{course.title} {course.degreeLevel}</option>
-                    ))}
-                  </select>
-                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-black mb-2">Are you currently in Canada? *</label>
-                <div className="relative">
-                  <select
-                    required
-                    value={isInCanada}
-                    onChange={(e) => setIsInCanada(e.target.value)}
-                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
-                  >
-                    <option value="NO">NO</option>
-                    <option value="YES">YES</option>
-                  </select>
-                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-black mb-2">Do you have a valid Study Permit or Approval Letter from IRCC? *</label>
-                <div className="relative">
-                  <select
-                    required
-                    value={hasValidPermit}
-                    onChange={(e) => setHasValidPermit(e.target.value)}
-                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
-                  >
-                    <option value="NO">NO</option>
-                    <option value="YES">YES</option>
-                  </select>
-                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-black mb-2">Have you ever received a Study Permit rejection from IRCC? *</label>
-                <div className="relative">
-                  <select
-                    required
-                    value={hasRejection}
-                    onChange={(e) => setHasRejection(e.target.value)}
-                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
-                  >
-                    <option value="NO">NO</option>
-                    <option value="YES">YES</option>
-                  </select>
-                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-black mb-2">Have you ever received a Provincial Attestation Letter (PAL)? *</label>
-                <div className="relative">
-                  <select
-                    required
-                    value={hasPAL}
-                    onChange={(e) => setHasPAL(e.target.value)}
-                    className="w-full border border-neutral-200 rounded-sm px-4 py-3 text-black appearance-none pr-10"
-                  >
-                    <option value="NO">NO</option>
-                    <option value="YES">YES</option>
-                  </select>
-                  <CaretDown size={16} weight="bold" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <input
-                  id="releaseConsent"
-                  type="checkbox"
-                  checked={releaseConsent}
-                  onChange={(e) => setReleaseConsent(e.target.checked)}
-                  required
-                  className="mt-1 h-4 w-4 text-black border border-neutral-200 rounded-sm"
-                />
-                <label htmlFor="releaseConsent" className="text-sm text-black font-medium">
-                  I give my consent to Cannoga University to release application information as requested. *
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-primary text-white font-bold py-3 rounded-sm hover:opacity-95 transition-all"
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit Application'}
-              </button>
             </form>
           </div>
         </div>
