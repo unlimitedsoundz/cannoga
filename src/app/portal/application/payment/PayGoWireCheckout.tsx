@@ -57,10 +57,11 @@ const CopyButton = ({ text, label }: { text: string; label: string }) => {
     return (
         <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 text-neutral-700 hover:text-black transition-colors text-[10px] uppercase font-bold tracking-widest bg-neutral-200/80 hover:bg-neutral-300 px-2 py-1 rounded"
+            className="flex items-center justify-center text-neutral-600 hover:text-black transition-colors bg-neutral-200/80 hover:bg-neutral-300 w-7 h-7 rounded shrink-0"
             title={`Copy ${label}`}
+            aria-label={`Copy ${label}`}
         >
-            {copied ? <><CheckCircle2 size={12} className="text-emerald-600" /><span>Copied</span></> : <><Copy size={12} /><span>Copy</span></>}
+            {copied ? <CheckCircle2 size={15} weight="bold" className="text-emerald-600" /> : <Copy size={15} />}
         </button>
     );
 };
