@@ -77,8 +77,7 @@ export default function HousingGuidePage() {
 
                         <Highlight
                             body="Moving to Ottawa was a big step, but the college's housing guide made it so much easier. I found a great shared apartment in Centretown within two weeks of my acceptance."
-                            source="Anav Mukesh, MSc Student"
-                            alignment="left"
+                            source="Anav Mukesh from India, MSc Cybersecurity"
                         />
 
                         {/* Providers */}

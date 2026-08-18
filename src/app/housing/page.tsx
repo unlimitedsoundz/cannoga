@@ -94,7 +94,7 @@ export default function HousingPage() {
                     {/* FEATURED STUDENT QUOTE (President Quote Style - No Background Container) */}
                     <Highlight
                         body="Finding housing through Cannoga's residence portal was smooth and worry-free. Having a fully furnished apartment right next to my classes allowed me to focus 100% on my studies and meet friends from day one."
-                        source="Anav Mukesh, MSc Student"
+                        source="Anav Mukesh from India, MSc Cybersecurity"
                     />
 
                     {/* PRICING & COMPARISON (Student Resource Hub Carousel Style) */}
