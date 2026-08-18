@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/utils/supabase/server';
-import { createAdminClient } from '@/utils/supabase/admin';
+import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import { renderToBuffer } from '@react-pdf/renderer';
 import React from 'react';
 import ReceiptPDF from '@/components/portal/pdf/ReceiptPDF';
@@ -38,38 +38,42 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'action must be approve or reject' }, { status: 400 });
     }
 
-    const adminClient = createAdminClient();
+    const adminClient = createServiceRoleClient();
 
     // Fetch the full payment record with application context
     const { data: payment, error: fetchError } = await adminClient
         .from('tuition_payments')
         .select(`
             *,
-            application:applications(
-                *,
-                course:Course(*, school:School(*)),
-                user:profiles(*)
+            offer:admission_offers(
+                id,
+                tuition_fee,
+                status,
+                application:applications(
+                    *,
+                    course:Course(*, school:School(*)),
+                    user:profiles(*)
+                )
             )
         `)
         .eq('id', paymentId)
-        .eq('status', 'pending_admin_verification')
         .single();
 
     if (fetchError || !payment) {
-        return NextResponse.json({ error: 'Payment not found or not pending verification' }, { status: 404 });
+        return NextResponse.json({ error: 'Payment not found' }, { status: 404 });
     }
+
+    const application = (payment as any)?.offer?.application;
+    const applicationId = application?.id;
 
     const now = new Date().toISOString();
 
     if (action === 'approve') {
         // 1. Mark payment as COMPLETED
-        const { error: updateError } = await supabase
+        const { error: updateError } = await adminClient
             .from('tuition_payments')
             .update({
                 status: 'COMPLETED',
-                admin_verified_by: user.id,
-                admin_verified_at: now,
-                admin_notes: adminNotes,
             })
             .eq('id', paymentId);
 
@@ -79,10 +83,12 @@ export async function POST(request: NextRequest) {
         }
 
         // 2. Update application status to ENROLLED
-        await supabase
-            .from('applications')
-            .update({ status: 'ENROLLED' })
-            .eq('id', payment.application_id);
+        if (applicationId) {
+            await adminClient
+                .from('applications')
+                .update({ status: 'ENROLLED' })
+                .eq('id', applicationId);
+        }
 
         // 3. Generate PDF receipt using the existing ReceiptPDF component
         let receiptUrl: string | null = null;

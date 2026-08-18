@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/utils/supabase/server';
-import { createAdminClient } from '@/utils/supabase/admin';
+import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 
 // GET /api/payments/admin/verification-queue
 // Returns all payments pending admin wire verification
@@ -23,29 +23,46 @@ export async function GET() {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    const adminClient = createAdminClient();
+    const adminClient = createServiceRoleClient();
 
     const { data, error } = await adminClient
         .from('tuition_payments')
         .select(`
             *,
-            application:applications(
+            offer:admission_offers(
                 id,
-                application_number,
+                tuition_fee,
                 status,
-                personal_info,
-                course:Course(title, school:School(name)),
-                user:profiles(first_name, last_name, email)
-            ),
-            offer:admission_offers(id, tuition_fee, offer_type, status)
+                application:applications(
+                    id,
+                    application_number,
+                    status,
+                    personal_info,
+                    course:Course(title, school:School(name)),
+                    user:profiles(first_name, last_name, email)
+                )
+            )
         `)
-        .eq('status', 'pending_admin_verification')
-        .order('proof_submitted_at', { ascending: true });
+        .in('status', ['pending_admin_verification', 'PENDING_VERIFICATION', 'PENDING', 'pending'])
+        .order('created_at', { ascending: false });
 
     if (error) {
         console.error('[GET /api/payments/admin/verification-queue]', error);
         return NextResponse.json({ error: 'Failed to fetch queue', details: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ queue: data ?? [], count: data?.length ?? 0 });
+    // Flatten application from offer relation for consumers
+    const formattedQueue = (data || []).map((item: any) => ({
+        ...item,
+        application: item.offer?.application || null,
+        wire_tracking_ref: item.fx_metadata?.wire_tracking_ref || item.transaction_reference,
+        local_currency: item.currency || item.fx_metadata?.localCurrency,
+        local_amount: item.fx_metadata?.localAmount || item.amount,
+        exchange_rate_applied: item.fx_metadata?.rate || 1,
+        country_code: item.country || item.fx_metadata?.country_code,
+        student_proof_ref: item.fx_metadata?.student_bank_ref || item.transaction_reference,
+        proof_submitted_at: item.created_at,
+    }));
+
+    return NextResponse.json({ queue: formattedQueue, count: formattedQueue.length });
 }
