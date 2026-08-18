@@ -120,6 +120,18 @@ export default function ApplyPage() {
         throw new Error('Unable to create application.');
       }
 
+      // Trigger Application Submitted & Under Review Notification
+      try {
+        await supabase.functions.invoke('send-notification', {
+          body: {
+            applicationId: data.id,
+            type: 'APPLICATION_SUBMITTED'
+          }
+        });
+      } catch (notifyErr) {
+        console.warn('Notification invocation note:', notifyErr);
+      }
+
       router.push(`/portal/application/view?id=${data.id}`);
     } catch (err: any) {
       console.error('Apply submit error:', err);

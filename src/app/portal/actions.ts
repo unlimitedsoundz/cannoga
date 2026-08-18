@@ -243,6 +243,19 @@ export async function updateApplicationStatus(applicationId: string, status: 'SU
         throw new Error('Failed to update application status');
     }
 
+    if (status === 'SUBMITTED' || status === 'UNDER_REVIEW') {
+        try {
+            await supabase.functions.invoke('send-notification', {
+                body: {
+                    applicationId: applicationId,
+                    type: 'APPLICATION_SUBMITTED'
+                }
+            });
+        } catch (notifyError) {
+            console.error('Failed to trigger submission notification in portal updateApplicationStatus:', notifyError);
+        }
+    }
+
     return { success: true };
 }
 

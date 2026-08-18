@@ -100,6 +100,19 @@ export async function updateApplicationStatus(applicationId: string, status: App
         }
     }
 
+    if (status === 'UNDER_REVIEW' || status === 'SUBMITTED') {
+        try {
+            await supabase.functions.invoke('send-notification', {
+                body: {
+                    applicationId: applicationId,
+                    type: 'APPLICATION_SUBMITTED'
+                }
+            });
+        } catch (notifyError) {
+            console.error('Failed to trigger submission notification:', notifyError);
+        }
+    }
+
     if (status === 'REJECTED') {
         try {
             await supabase.functions.invoke('send-notification', {
