@@ -482,31 +482,22 @@ function ViewApplicationContent() {
             {/* Notifications */}
             <div className="space-y-2">
                 {application.status === 'DOCS_REQUIRED' && (
-                    <div className="border border-amber-300 bg-amber-50/90 p-4 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
-                        <div className="flex items-start gap-3.5">
-                            <div className="text-amber-600 mt-0.5 shrink-0">
-                                <AlertCircle size={20} weight="bold" />
-                            </div>
-                            <div className="space-y-1.5 flex-1">
-                                <p className="text-xs font-black text-amber-950 uppercase tracking-wider">Action Required: Documents Needed</p>
-                                <p className="text-xs text-amber-900 font-medium">
-                                    Additional documents have been requested by the Admissions Office to continue processing your application.
-                                </p>
-                                {application.document_request_note && (
-                                    <div className="p-3 bg-white/80 border border-amber-200 rounded-lg text-xs text-neutral-800 font-medium italic mt-2">
-                                        "{application.document_request_note}"
-                                    </div>
-                                )}
-                                {requestedDocList.length > 0 && (
-                                    <div className="mt-2 flex flex-wrap gap-1.5">
-                                        {requestedDocList.map((docType: string) => (
-                                            <span key={docType} className="px-2 py-0.5 bg-amber-200/80 text-amber-900 text-[10px] font-bold uppercase tracking-wider rounded-md border border-amber-300">
-                                                {docType.replace(/_/g, ' ')}
-                                            </span>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
+                    <div className="border border-neutral-200 bg-white p-4 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+                        <div className="space-y-1 flex-1">
+                            <p className="text-[11px] font-black text-black uppercase tracking-[0.18em]">Action Required: Documents Needed</p>
+                            <p className="text-xs text-neutral-600">
+                                Additional documents have been requested by the Admissions Office.
+                                {application.document_request_note && ` Note: "${application.document_request_note}"`}
+                            </p>
+                            {requestedDocList.length > 0 && (
+                                <div className="mt-2 flex flex-wrap gap-1.5">
+                                    {requestedDocList.map((docType: string) => (
+                                        <span key={docType} className="px-2 py-0.5 bg-neutral-100 text-neutral-800 text-[10px] font-bold uppercase tracking-wider rounded border border-neutral-200">
+                                            {docType.replace(/_/g, ' ')}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                         <button
                             onClick={() => {
@@ -514,10 +505,10 @@ function ViewApplicationContent() {
                                 setModalDocType(defaultType);
                                 setShowUploadModal(true);
                             }}
-                            className="shrink-0 px-4 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+                            className="shrink-0 px-4 py-2 bg-black hover:bg-neutral-800 text-white rounded-lg text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer"
                         >
-                            <UploadSimple size={15} weight="bold" />
-                            Upload Requested Documents
+                            <UploadSimple size={14} weight="bold" />
+                            Upload Documents
                         </button>
                     </div>
                 )}
@@ -956,8 +947,8 @@ function ViewApplicationContent() {
                         </div>
 
                         {application.document_request_note && (
-                            <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 font-medium">
-                                <span className="font-bold block mb-0.5">Note from Admissions:</span>
+                            <div className="p-3 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-800">
+                                <span className="font-bold block mb-0.5 text-neutral-900">Note from Admissions:</span>
                                 "{application.document_request_note}"
                             </div>
                         )}
