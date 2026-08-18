@@ -186,6 +186,16 @@ export async function seedVoiceKnowledgeFromDatabase(): Promise<{ success: boole
         category: 'tuition',
       },
       {
+        question: 'What is the tuition deposit amount?',
+        answer: 'The confirmation tuition deposit is $2,000 CAD across all programs (Bachelor’s, Master’s, Diplomas, and Certificates). This deposit confirms your acceptance, reserves your seat in your chosen cohort, initiates the issuance of your official Letter of Acceptance (LOA) and Provincial Attestation Letter (PAL) for international candidates, and is credited 100% directly towards your first-term tuition balance.',
+        category: 'tuition',
+      },
+      {
+        question: 'How much is the deposit required to receive a Provincial Attestation Letter (PAL)?',
+        answer: 'A tuition deposit of $2,000 CAD is required to secure your offer of admission and initiate the Provincial Attestation Letter (PAL) process for international students. Once paid and verified, the PAL processing begins immediately.',
+        category: 'tuition',
+      },
+      {
         question: 'When are the application deadlines?',
         answer: 'Application deadlines vary by intake. Cannoga College typically has intakes in Fall (September), Winter (January), and Spring/Summer (May). Please ask about a specific intake for the latest deadlines.',
         category: 'deadlines',

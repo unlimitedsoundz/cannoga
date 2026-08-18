@@ -47,6 +47,10 @@ const refundPolicies = [
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
+                        <span><strong>Tuition Confirmation Deposit:</strong> A standard $2,000 CAD deposit required to confirm admission and issue Provincial Attestation Letters (PAL). Credited 100% directly towards first-term tuition balance.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
                         <span><strong>Administrative Registration Fees:</strong> Fixed non-refundable institutional enrollment processing fees.</span>
                     </li>
                     <li className="flex items-start gap-3">

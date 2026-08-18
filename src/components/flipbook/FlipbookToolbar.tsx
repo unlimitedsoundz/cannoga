@@ -97,27 +97,28 @@ export function FlipbookToolbar({
             </div>
 
             {/* Bottom Controls Bar */}
-            <div className="px-4 py-2.5 flex items-center justify-between text-xs">
+            <div className="px-2.5 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between text-xs gap-2">
                 {/* Left: Page Counter & Brand Logo */}
-                <div className="flex items-center gap-3 shrink-0">
-                    <span className="font-semibold text-white tracking-wide text-xs">
+                <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                    <span className="font-semibold text-white tracking-wide text-xs whitespace-nowrap">
                         {spreadText} / {totalPages}
                     </span>
-                    <span className="text-neutral-400 font-bold tracking-wider text-xs flex items-center gap-1.5 lowercase">
+                    <span className="hidden md:flex text-neutral-400 font-bold tracking-wider text-xs items-center gap-1.5 lowercase">
                         <span className="w-2 h-2 rounded-full bg-[#c89211]" />
                         cannoga
                     </span>
                 </div>
 
-                {/* Center: View Mode, Pages / Grid & Zoom Slider */}
-                <div className="flex items-center gap-3 sm:gap-5">
+                {/* Center / Right: Interactive Controls (Touch & Mobile Friendly) */}
+                <div className="flex items-center gap-1.5 sm:gap-4 shrink-0 overflow-x-auto no-scrollbar">
+                    {/* View Mode Toggle */}
                     {onToggleViewMode && (
                         <button
                             type="button"
                             onClick={onToggleViewMode}
                             title={isSingle ? "Switch to 2-Page Spread" : "Switch to 1-Page View"}
                             aria-label="Toggle Page Layout"
-                            className="p-1 rounded text-neutral-300 hover:text-white transition-colors"
+                            className="p-1.5 rounded text-neutral-300 hover:text-white transition-colors"
                         >
                             {isSingle ? (
                                 <BookOpen size={18} weight="bold" />
@@ -127,20 +128,21 @@ export function FlipbookToolbar({
                         </button>
                     )}
 
+                    {/* Thumbnails Grid Toggle */}
                     <button
                         type="button"
                         onClick={onToggleThumbnails}
                         title="Pages & Thumbnails"
                         aria-label="Toggle Pages"
-                        className={`p-1 rounded transition-colors ${
+                        className={`p-1.5 rounded transition-colors ${
                             isThumbnailsOpen ? 'text-[#c89211]' : 'text-neutral-300 hover:text-white'
                         }`}
                     >
-                        <SquaresFour size={19} weight={isThumbnailsOpen ? 'fill' : 'bold'} />
+                        <SquaresFour size={18} weight={isThumbnailsOpen ? 'fill' : 'bold'} />
                     </button>
 
-                    {/* Zoom Slider */}
-                    <div className="flex items-center gap-2">
+                    {/* Desktop Zoom Slider (hidden on mobile, pinch-to-zoom is active) */}
+                    <div className="hidden lg:flex items-center gap-2 px-1">
                         <button
                             type="button"
                             onClick={onZoomOut}
@@ -162,7 +164,7 @@ export function FlipbookToolbar({
                                 if (val > zoom) onZoomIn();
                                 else if (val < zoom) onZoomOut();
                             }}
-                            className="w-16 sm:w-24 h-1 bg-white/30 rounded-lg appearance-none accent-white cursor-pointer"
+                            className="w-16 sm:w-20 h-1 bg-white/30 rounded-lg appearance-none accent-white cursor-pointer"
                             aria-label="Zoom Level"
                         />
 
@@ -176,48 +178,49 @@ export function FlipbookToolbar({
                             <Plus size={13} weight="bold" />
                         </button>
                     </div>
-                </div>
 
-                {/* Right: Search, Share, PDF Download, Fullscreen */}
-                <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+                    {/* Search */}
                     <button
                         type="button"
                         onClick={onToggleSearch}
                         title="Search in Viewbook"
                         aria-label="Search"
-                        className={`p-1 rounded transition-colors ${
+                        className={`p-1.5 rounded transition-colors ${
                             isSearchOpen ? 'text-[#c89211]' : 'text-neutral-300 hover:text-white'
                         }`}
                     >
                         <MagnifyingGlass size={18} weight="bold" />
                     </button>
 
+                    {/* Share */}
                     <button
                         type="button"
                         onClick={onOpenShare}
                         title="Share"
                         aria-label="Share"
-                        className="p-1 rounded text-neutral-300 hover:text-white transition-colors"
+                        className="p-1.5 rounded text-neutral-300 hover:text-white transition-colors"
                     >
                         <ShareNetwork size={18} weight="bold" />
                     </button>
 
+                    {/* PDF Download */}
                     <a
                         href={pdfUrl}
                         download="Cannoga-College-Viewbook-2026-2027.pdf"
                         title="Download PDF"
                         aria-label="Download PDF"
-                        className="p-1 rounded text-neutral-300 hover:text-white transition-colors"
+                        className="p-1.5 rounded text-neutral-300 hover:text-white transition-colors"
                     >
                         <DownloadSimple size={18} weight="bold" />
                     </a>
 
+                    {/* Fullscreen */}
                     <button
                         type="button"
                         onClick={onToggleFullscreen}
                         title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
                         aria-label="Fullscreen"
-                        className="p-1 rounded text-neutral-300 hover:text-white transition-colors"
+                        className="p-1.5 rounded text-neutral-300 hover:text-white transition-colors"
                     >
                         {isFullscreen ? (
                             <ArrowsIn size={18} weight="bold" />
@@ -229,7 +232,7 @@ export function FlipbookToolbar({
             </div>
 
             {/* Black Sub-Ribbon Footer Bar */}
-            <div className="bg-[#141414] px-4 py-2 flex items-center justify-between text-[11px] text-neutral-400 border-t border-white/5 font-sans">
+            <div className="bg-[#141414] px-3 sm:px-4 py-1.5 sm:py-2 flex flex-col sm:flex-row items-center justify-between text-[10px] sm:text-[11px] text-neutral-400 border-t border-white/5 font-sans gap-0.5 sm:gap-0">
                 <span>Flipbook created for Cannoga College</span>
                 <a
                     href={pdfUrl}

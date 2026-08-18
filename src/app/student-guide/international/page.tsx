@@ -33,6 +33,14 @@ export default function InternationalGuidePage() {
         "mainEntity": [
             {
                 "@type": "Question",
+                "name": "What is the tuition deposit amount?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The confirmation tuition deposit is $2,000 CAD across all programs. This non-refundable deposit secures your seat, enables issuance of your Provincial Attestation Letter (PAL) where required, and is credited 100% directly towards your first-term tuition balance."
+                }
+            },
+            {
+                "@type": "Question",
                 "name": "Is orientation mandatory?",
                 "acceptedAnswer": {
                     "@type": "Answer",
