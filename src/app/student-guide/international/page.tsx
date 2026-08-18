@@ -290,12 +290,12 @@ export default function InternationalGuidePage() {
                                             </p>
                                         </div>
 
-                                        <div className="space-y-2 text-base md:text-lg text-slate-700 leading-relaxed font-normal bg-slate-50 p-5 rounded-xl border border-slate-200">
+                                        <div className="space-y-2 text-base md:text-lg text-slate-700 leading-relaxed font-normal pt-1">
                                             <p><strong>What it is:</strong> An open work permit that allows you to work for almost any employer in Canada without needing a job offer beforehand.</p>
                                             <p><strong>Duration:</strong> Valid for 8 months up to 3 years, depending on the length of your study program. Programs of 2 years or longer generally qualify for a full 3-year work permit.</p>
                                             <p><strong>Deadline:</strong> You must apply within 180 days of receiving your final transcript and an official completion letter confirming your graduation.</p>
                                             <p><strong>Working while waiting:</strong> If you apply before your study permit expires, you can work full-time in Canada while waiting for a decision on your PGWP.</p>
-                                            <p className="pt-2 text-sm text-slate-600">
+                                            <p className="pt-1 text-sm text-slate-600">
                                                 Please visit International Student Services or the <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/about.html" target="_blank" rel="noopener noreferrer" className="font-bold underline text-slate-900">IRCC Website</a> for more information.
                                             </p>
                                         </div>
@@ -333,8 +333,8 @@ export default function InternationalGuidePage() {
                                             </p>
                                         </div>
 
-                                        <div className="space-y-3 text-base md:text-lg text-slate-700 leading-relaxed font-normal">
-                                            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                                        <div className="space-y-4 text-base md:text-lg text-slate-700 leading-relaxed font-normal pt-1">
+                                            <div className="space-y-1">
                                                 <a 
                                                     href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada.html"
                                                     target="_blank"
@@ -346,7 +346,7 @@ export default function InternationalGuidePage() {
                                                 <p className="text-sm text-slate-600">Official Government of Canada guide for economic immigration, qualification tools, and requirements.</p>
                                             </div>
 
-                                            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                                            <div className="space-y-1 pt-1">
                                                 <a 
                                                     href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry.html"
                                                     target="_blank"
@@ -358,7 +358,7 @@ export default function InternationalGuidePage() {
                                                 <p className="text-sm text-slate-600">After completing at least 1 year of skilled work experience in Canada, you can apply through Express Entry where Canadian education gives higher ranking points.</p>
                                             </div>
 
-                                            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                                            <div className="space-y-1 pt-1">
                                                 <a 
                                                     href="https://www.ontario.ca/page/ontario-immigrant-nominee-program-oinp"
                                                     target="_blank"
@@ -371,9 +371,9 @@ export default function InternationalGuidePage() {
                                             </div>
                                         </div>
 
-                                        <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl text-slate-800 text-sm md:text-base font-medium">
+                                        <p className="pt-2 text-base text-slate-700 font-medium">
                                             💡 <strong>Immigration Advising:</strong> We regularly offer immigration workshops each semester to guide students on work permits and pathways to permanent residency.
-                                        </div>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
