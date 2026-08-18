@@ -371,8 +371,8 @@ export default function InternationalGuidePage() {
                                             </div>
                                         </div>
 
-                                        <p className="pt-2 text-base text-slate-700 font-medium">
-                                            💡 <strong>Immigration Advising:</strong> We regularly offer immigration workshops each semester to guide students on work permits and pathways to permanent residency.
+                                        <p className="pt-2 text-base text-slate-700 font-normal">
+                                            <strong>Immigration Advising:</strong> We regularly offer immigration workshops each semester to guide students on work permits and pathways to permanent residency.
                                         </p>
                                     </div>
                                 </div>
