@@ -79,7 +79,7 @@ export default function ContactPage() {
                                 admissions@cannogacollege.ca
                             </a>
                             <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
-                                Ottawa, Ontario, Canada resident and international inquiries
+                                Local residents
                             </p>
                         </div>
 
@@ -89,6 +89,20 @@ export default function ContactPage() {
                             <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
                             <a href="tel:+12272500427" className="text-[#0a151a] font-bold underline hover:text-slate-600 transition-colors text-base md:text-lg block">
                                 Talk to Admissions: +1 (227) 250-0427
+                            </a>
+                        </div>
+
+                        {/* WhatsApp */}
+                        <div className="space-y-1">
+                            <h3 className="text-slate-900 font-bold text-base md:text-lg leading-snug">WhatsApp</h3>
+                            <p className="text-xs font-bold uppercase tracking-wider text-slate-500">WhatsApp only</p>
+                            <a
+                                href="https://wa.me/17822063309"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#0a151a] font-bold underline hover:text-slate-600 transition-colors text-base md:text-lg block"
+                            >
+                                WhatsApp: +1 (782) 206-3309
                             </a>
                         </div>
 

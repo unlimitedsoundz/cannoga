@@ -106,6 +106,16 @@ export function Footer() {
                                 <li className="text-white text-sm">
                                     <a href="mailto:info@cannogacollege.ca" className="hover:text-white transition-colors no-underline text-white">info@cannogacollege.ca</a>
                                 </li>
+                                <li className="text-white text-sm">
+                                    <a
+                                        href="https://wa.me/17822063309"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:text-white transition-colors no-underline text-white"
+                                    >
+                                        WhatsApp: +1 (782) 206-3309 (WhatsApp only)
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>

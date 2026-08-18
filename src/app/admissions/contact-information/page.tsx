@@ -61,7 +61,7 @@ export default function AdmissionsContactInfo() {
                                              admissions@cannogacollege.ca
                                          </a>
                                          <p className="text-slate-600 text-sm font-normal mt-1 leading-normal">
-                                             Ottawa, Ontario, Canada resident enquiries
+                                             Local residents
                                          </p>
                                      </div>
 
@@ -73,6 +73,24 @@ export default function AdmissionsContactInfo() {
                                                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
                                                  <a href="tel:+12272500427" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block">
                                                      Talk to Admissions: +1 (227) 250-0427
+                                                 </a>
+                                             </div>
+                                         </div>
+                                     </div>
+
+                                     {/* WhatsApp */}
+                                     <div className="space-y-2">
+                                         <div>
+                                             <h3 className="text-slate-900 font-bold text-base leading-snug">WhatsApp</h3>
+                                             <div className="mt-1 space-y-1">
+                                                 <p className="text-xs font-bold uppercase tracking-wider text-slate-500">WhatsApp only</p>
+                                                 <a
+                                                     href="https://wa.me/17822063309"
+                                                     target="_blank"
+                                                     rel="noopener noreferrer"
+                                                     className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block"
+                                                 >
+                                                     WhatsApp: +1 (782) 206-3309
                                                  </a>
                                              </div>
                                          </div>

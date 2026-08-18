@@ -8,6 +8,7 @@ interface AdmissionsHelpCardProps {
     description?: string;
     email?: string;
     phone?: string;
+    whatsapp?: string;
     variant?: 'indigo' | 'pink' | 'emerald' | 'orange' | 'cyan' | 'purple';
     className?: string;
 }
@@ -17,6 +18,7 @@ export default function AdmissionsHelpCard({
     description = "If you have any questions, please don't hesitate to contact the International Recruitment Team at admissions@cannogacollege.ca. We're always happy to help!",
     email = "admissions@cannogacollege.ca",
     phone = "+1 (227) 250-0427",
+    whatsapp = "+1 (782) 206-3309",
     variant = 'indigo',
     className = "",
 }: AdmissionsHelpCardProps) {
@@ -89,9 +91,13 @@ export default function AdmissionsHelpCard({
                         <p className="text-sm sm:text-base font-medium text-white/95 leading-relaxed font-sans">
                             {description}
                         </p>
-                        {phone && (
-                            <p className="text-xs sm:text-sm font-bold text-white/80">
-                                Talk to Admissions: <span className="underline">{phone}</span> • <span className="underline">{email}</span>
+                        {(phone || whatsapp) && (
+                            <p className="text-xs sm:text-sm font-bold text-white/80 flex flex-wrap gap-x-2 gap-y-1 items-center">
+                                {phone && <span>Talk to Admissions: <span className="underline">{phone}</span></span>}
+                                {phone && (whatsapp || email) && <span>•</span>}
+                                {whatsapp && <span>WhatsApp: <span className="underline">{whatsapp}</span> (WhatsApp only)</span>}
+                                {whatsapp && email && <span>•</span>}
+                                <span><span className="underline">{email}</span></span>
                             </p>
                         )}
                     </div>
