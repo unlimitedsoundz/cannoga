@@ -229,7 +229,11 @@ export function CannogaAIChatWidget() {
     };
 
     return (
-        <div className="fixed bottom-5 right-5 z-[9999] font-sans antialiased">
+        <div className={`fixed font-sans antialiased ${
+            isOpen
+                ? 'bottom-4 right-4 sm:bottom-6 sm:right-6 z-[99999]'
+                : 'bottom-20 right-4 sm:bottom-24 sm:right-6 z-[99990]'
+        }`}>
             {/* 1. Closed Floating Widget Button */}
             {!isOpen && (
                 <div className="relative group">
@@ -239,13 +243,13 @@ export function CannogaAIChatWidget() {
                             setHasUnread(false);
                         }}
                         aria-label="Open Ask Cannoga"
-                        className="relative flex items-center gap-2.5 bg-[#0a151a] hover:bg-black text-white px-5 py-3.5 rounded-full shadow-2xl border border-slate-700/60 hover:border-slate-500 transition-all duration-300 transform hover:scale-105"
+                        className="relative flex items-center gap-2 bg-[#0a151a] hover:bg-black text-white px-4 py-3 rounded-full shadow-2xl border border-slate-700/60 hover:border-slate-500 transition-all duration-300 transform hover:scale-105"
                     >
-                        <div className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-[#0a151a] shadow-sm">
-                            <ChatCircleDots size={18} weight="bold" />
+                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white text-[#0a151a] shadow-sm">
+                            <ChatCircleDots size={16} weight="bold" />
                         </div>
                         <div className="text-left">
-                            <div className="text-sm font-bold text-white tracking-wide">Ask Cannoga</div>
+                            <div className="text-xs sm:text-sm font-bold text-white tracking-wide">Ask Cannoga</div>
                         </div>
 
                         {/* Unread indicator */}
@@ -262,7 +266,7 @@ export function CannogaAIChatWidget() {
                     className={`flex flex-col bg-white border border-slate-200 shadow-2xl rounded-2xl overflow-hidden transition-all duration-300 ${
                         isExpanded
                             ? 'fixed inset-4 md:inset-10 w-auto h-auto z-[99999]'
-                            : 'w-[94vw] sm:w-[420px] h-[580px] max-h-[85vh]'
+                            : 'w-[90vw] sm:w-[350px] h-[520px] max-h-[80vh]'
                     }`}
                 >
                     {/* Header */}
