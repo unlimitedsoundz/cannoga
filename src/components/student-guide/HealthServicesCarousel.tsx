@@ -44,7 +44,7 @@ const HEALTH_CARDS: HealthCardItem[] = [
         title: 'HEALTH INSURANCE DESK (UHIP)',
         subtitle: 'Coverage & Claims Advising',
         description: 'Full medical, hospital, and emergency coverage support for international students in Ontario, plus domestic benefits guidance.',
-        image: 'https://i.pinimg.com/736x/c8/72/86/c8728659d34059076a2ed84d690fd379.jpg',
+        image: 'https://i.pinimg.com/736x/b5/ea/0e/b5ea0ebd677efd7be05dab54abafbc3b.jpg',
         bgColor: 'bg-[#c89211]', // Gold
         borderColor: 'border-[#c89211]',
         waveColor: '#8a650c',
@@ -55,7 +55,7 @@ const HEALTH_CARDS: HealthCardItem[] = [
         title: 'ACCESSIBILITY & ACCOMMODATIONS',
         subtitle: 'Inclusive Learning Support',
         description: 'Personalized academic accommodation plans, assistive technology loans, exam room adjustments, and peer note-taking.',
-        image: 'https://i.pinimg.com/736x/12/5c/15/125c15265f92b5d4dd27c1bf051fc3ec.jpg',
+        image: 'https://i.pinimg.com/1200x/3f/35/44/3f3544eadd901587f197029e880694a7.jpg',
         bgColor: 'bg-[#8e24aa]', // Purple
         borderColor: 'border-[#8e24aa]',
         waveColor: '#521363',
@@ -66,7 +66,7 @@ const HEALTH_CARDS: HealthCardItem[] = [
         title: '24/7 CRISIS & URGENT CARE',
         subtitle: 'Immediate Help Anytime',
         description: 'Round-the-clock telephone and text crisis response via Good2Talk, Ottawa Distress Centre, and campus security dispatch.',
-        image: 'https://i.pinimg.com/736x/89/d0/55/89d05541ea50e0543e498feea506bc91.jpg',
+        image: '/images/good2talk-ontario.png',
         bgColor: 'bg-[#e11d48]', // Crimson Rose
         borderColor: 'border-[#e11d48]',
         waveColor: '#881337',
@@ -115,7 +115,7 @@ export function HealthServicesCarousel() {
                                     src={card.image}
                                     alt={card.title}
                                     fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                    className={card.id === 'crisis-support' ? 'object-contain p-5 bg-white group-hover:scale-105 transition-transform duration-500' : 'object-cover group-hover:scale-105 transition-transform duration-500'}
                                     sizes="(max-width: 640px) 270px, 330px"
                                 />
 
