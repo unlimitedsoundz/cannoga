@@ -35,17 +35,18 @@ export function FlipbookViewer({
     embedded = false,
     className = ''
 }: FlipbookViewerProps) {
-    const router = useRouter();
     const searchParams = useSearchParams();
     const viewerRootRef = useRef<HTMLDivElement | null>(null);
     const canvasHandleRef = useRef<FlipbookCanvasHandle | null>(null);
 
-    // Initial page resolution from query params
-    const pageFromUrl = searchParams.get('page');
-    const startPage = pageFromUrl ? parseInt(pageFromUrl, 10) || initialPage : initialPage;
+    // Resolve initial starting page once on mount
+    const pageFromUrl = searchParams?.get('page');
+    const initialStartPage = useRef(
+        pageFromUrl ? parseInt(pageFromUrl, 10) || initialPage : initialPage
+    ).current;
 
-    const [currentPage, setCurrentPage] = useState(startPage);
-    const [spreadPages, setSpreadPages] = useState<number[]>([startPage]);
+    const [currentPage, setCurrentPage] = useState(initialStartPage);
+    const [spreadPages, setSpreadPages] = useState<number[]>([initialStartPage]);
     const [orientation, setOrientation] = useState<FlipOrientation>('landscape');
     const [zoom, setZoom] = useState<ZoomLevel>(1.0);
     const [isFullscreen, setIsFullscreen] = useState(false);
@@ -63,15 +64,14 @@ export function FlipbookViewer({
     const [isPanning, setIsPanning] = useState(false);
     const panStartRef = useRef({ x: 0, y: 0 });
 
-    // Track Viewbook Open
+    // Track Viewbook Open once on mount
     useEffect(() => {
         trackViewbookEvent({
             event: 'viewbook_opened',
             edition: publication.edition,
-            pageNumber: startPage
+            pageNumber: initialStartPage
         });
 
-        // Simulate progress increment while mounting
         const p1 = setTimeout(() => setLoadProgress(45), 100);
         const p2 = setTimeout(() => setLoadProgress(80), 250);
         const p3 = setTimeout(() => setLoadProgress(100), 450);
@@ -81,7 +81,7 @@ export function FlipbookViewer({
             clearTimeout(p2);
             clearTimeout(p3);
         };
-    }, [publication.edition, startPage]);
+    }, [publication.edition]);
 
     // Fullscreen change listener
     useEffect(() => {
@@ -110,7 +110,7 @@ export function FlipbookViewer({
             } else {
                 url.searchParams.delete('page');
             }
-            window.history.replaceState({}, '', url.toString());
+            window.history.replaceState(null, '', url.pathname + url.search);
         }
     }, []);
 
@@ -373,7 +373,7 @@ export function FlipbookViewer({
                     <FlipbookCanvas
                         ref={canvasHandleRef}
                         pages={publication.pages}
-                        initialPage={startPage}
+                        initialPage={initialStartPage}
                         onPageChange={handlePageChange}
                         onOrientationChange={handleOrientationChange}
                         onReady={handleCanvasReady}

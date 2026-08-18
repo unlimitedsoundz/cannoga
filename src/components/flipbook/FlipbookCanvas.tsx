@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
-import Image from 'next/image';
 import { PageFlip } from 'page-flip';
 import { FlipbookPageMeta, FlipOrientation } from '@/types/flipbook';
 
@@ -33,7 +32,7 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
         const pageFlipInstance = useRef<PageFlip | null>(null);
         const [isMounted, setIsMounted] = useState(false);
 
-        // Keep callback refs stable to prevent unneeded re-initializations
+        // Keep callback refs stable
         const onPageChangeRef = useRef(onPageChange);
         onPageChangeRef.current = onPageChange;
 
@@ -82,123 +81,162 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
 
             let isDestroyed = false;
 
-            const initFlipbook = () => {
-                if (isDestroyed || !bookRef.current) return;
-
-                // If already initialized, just navigate to initialPage if needed
-                if (pageFlipInstance.current) {
-                    return;
-                }
-
-                // Check page elements
-                const pageElements = bookRef.current.querySelectorAll<HTMLElement>('.flipbook-page-item');
-                if (!pageElements || pageElements.length === 0) {
-                    onReadyRef.current();
-                    return;
-                }
-
-                // Base page dimension (576 x 576 from PDF)
-                const baseWidth = 576;
-                const baseHeight = 576;
-
+            // Destroy existing instance cleanly
+            if (pageFlipInstance.current) {
                 try {
-                    const flip = new PageFlip(bookRef.current, {
-                        width: baseWidth,
-                        height: baseHeight,
-                        size: 'stretch',
-                        minWidth: 260,
-                        maxWidth: 750,
-                        minHeight: 260,
-                        maxHeight: 750,
-                        maxShadowOpacity: 0.45,
-                        showCover: true,
-                        mobileScrollSupport: true,
-                        usePortrait: true,
-                        startPage: Math.max(0, initialPage - 1),
-                        flippingTime: 700,
-                        useMouseEvents: true,
-                        swipeDistance: 30,
-                        autoSize: true
-                    });
-
-                    flip.loadFromHTML(pageElements);
-
-                    pageFlipInstance.current = flip;
-
-                    const updateState = () => {
-                        if (!pageFlipInstance.current) return;
-                        const currentIdx = pageFlipInstance.current.getCurrentPageIndex();
-                        const orient = pageFlipInstance.current.getOrientation() === 'portrait' ? 'portrait' : 'landscape';
-                        const currentPageNum = currentIdx + 1;
-
-                        let spread: number[] = [currentPageNum];
-                        if (orient === 'landscape') {
-                            if (currentIdx === 0) {
-                                // Cover spread (single front page)
-                                spread = [1];
-                            } else if (currentIdx === pages.length - 1 && pages.length % 2 === 1) {
-                                // Back cover
-                                spread = [pages.length];
-                            } else {
-                                // Double page spread
-                                const leftPage = currentIdx; // 1-based is currentIdx
-                                const rightPage = currentIdx + 1;
-                                spread = [leftPage, rightPage].filter(p => p >= 1 && p <= pages.length);
-                            }
-                        }
-
-                        onPageChangeRef.current(currentPageNum, spread);
-                        onOrientationChangeRef.current(orient);
-                    };
-
-                    flip.on('flip', (e: { data: number }) => {
-                        const targetPageNum = (e.data as number) + 1;
-                        const orient = flip.getOrientation() === 'portrait' ? 'portrait' : 'landscape';
-                        
-                        let spread: number[] = [targetPageNum];
-                        if (orient === 'landscape') {
-                            if (targetPageNum === 1) {
-                                spread = [1];
-                            } else if (targetPageNum === pages.length && pages.length % 2 === 1) {
-                                spread = [pages.length];
-                            } else {
-                                const left = (e.data as number);
-                                const right = (e.data as number) + 1;
-                                spread = [left, right].filter(p => p >= 1 && p <= pages.length);
-                            }
-                        }
-
-                        onPageChangeRef.current(targetPageNum, spread);
-                    });
-
-                    flip.on('changeOrientation', (e: { data: string }) => {
-                        const orient = e.data === 'portrait' ? 'portrait' : 'landscape';
-                        onOrientationChangeRef.current(orient);
-                        updateState();
-                    });
-
-                    flip.on('init', () => {
-                        updateState();
-                        onReadyRef.current();
-                    });
-
-                    // Immediate ready trigger
-                    setTimeout(() => {
-                        updateState();
-                        onReadyRef.current();
-                    }, 100);
-
-                } catch (err) {
-                    console.error('Error initializing PageFlip:', err);
-                    onReadyRef.current();
+                    pageFlipInstance.current.destroy();
+                } catch {
+                    // ignore
                 }
-            };
+                pageFlipInstance.current = null;
+            }
 
-            const timer = setTimeout(initFlipbook, 50);
+            // Populate DOM directly into bookRef to avoid React VDOM re-render conflicts
+            const bookEl = bookRef.current;
+            bookEl.innerHTML = '';
+
+            pages.forEach((page) => {
+                const isCover = page.pageNumber === 1;
+                const isBackCover = page.pageNumber === pages.length;
+
+                const pageItem = document.createElement('div');
+                pageItem.className = `flipbook-page-item overflow-hidden bg-[#0a151a] relative ${
+                    isCover ? '--hard --cover-front' : ''
+                } ${isBackCover ? '--hard --cover-back' : ''}`;
+                pageItem.setAttribute('data-density', isCover || isBackCover ? 'hard' : 'soft');
+                pageItem.style.width = '576px';
+                pageItem.style.height = '576px';
+
+                const innerWrapper = document.createElement('div');
+                innerWrapper.className = 'relative w-full h-full bg-neutral-900 overflow-hidden';
+
+                const img = document.createElement('img');
+                img.src = page.image;
+                img.alt = page.title;
+                img.width = 576;
+                img.height = 576;
+                img.loading = 'eager';
+                img.decoding = 'async';
+                img.className = 'object-contain w-full h-full pointer-events-none select-none';
+                innerWrapper.appendChild(img);
+
+                // Spine shadow
+                if (!isCover && !isBackCover) {
+                    const spineShadow = document.createElement('div');
+                    spineShadow.className = `absolute inset-y-0 w-8 pointer-events-none opacity-40 mix-blend-multiply ${
+                        page.pageNumber % 2 === 0
+                            ? 'right-0 bg-gradient-to-l from-black/60 to-transparent'
+                            : 'left-0 bg-gradient-to-r from-black/60 to-transparent'
+                    }`;
+                    innerWrapper.appendChild(spineShadow);
+                }
+
+                // Page border
+                const borderDiv = document.createElement('div');
+                borderDiv.className = 'absolute inset-0 border border-black/10 pointer-events-none';
+                innerWrapper.appendChild(borderDiv);
+
+                pageItem.appendChild(innerWrapper);
+                bookEl.appendChild(pageItem);
+            });
+
+            const pageElements = bookEl.querySelectorAll<HTMLElement>('.flipbook-page-item');
+            if (pageElements.length === 0) {
+                onReadyRef.current();
+                return;
+            }
+
+            try {
+                const flip = new PageFlip(bookEl, {
+                    width: 576,
+                    height: 576,
+                    size: 'stretch',
+                    minWidth: 260,
+                    maxWidth: 750,
+                    minHeight: 260,
+                    maxHeight: 750,
+                    maxShadowOpacity: 0.45,
+                    showCover: true,
+                    mobileScrollSupport: true,
+                    usePortrait: true,
+                    startPage: Math.max(0, initialPage - 1),
+                    flippingTime: 700,
+                    useMouseEvents: true,
+                    swipeDistance: 30,
+                    autoSize: true
+                });
+
+                flip.loadFromHTML(pageElements);
+                pageFlipInstance.current = flip;
+
+                const updateState = () => {
+                    if (!pageFlipInstance.current) return;
+                    const currentIdx = pageFlipInstance.current.getCurrentPageIndex();
+                    const orient = pageFlipInstance.current.getOrientation() === 'portrait' ? 'portrait' : 'landscape';
+                    const currentPageNum = currentIdx + 1;
+
+                    let spread: number[] = [currentPageNum];
+                    if (orient === 'landscape') {
+                        if (currentIdx === 0) {
+                            spread = [1];
+                        } else if (currentIdx === pages.length - 1 && pages.length % 2 === 1) {
+                            spread = [pages.length];
+                        } else {
+                            const leftPage = currentIdx;
+                            const rightPage = currentIdx + 1;
+                            spread = [leftPage, rightPage].filter(p => p >= 1 && p <= pages.length);
+                        }
+                    }
+
+                    onPageChangeRef.current(currentPageNum, spread);
+                    onOrientationChangeRef.current(orient);
+                };
+
+                flip.on('flip', (e: { data: number }) => {
+                    const targetPageNum = (e.data as number) + 1;
+                    const orient = flip.getOrientation() === 'portrait' ? 'portrait' : 'landscape';
+                    
+                    let spread: number[] = [targetPageNum];
+                    if (orient === 'landscape') {
+                        if (targetPageNum === 1) {
+                            spread = [1];
+                        } else if (targetPageNum === pages.length && pages.length % 2 === 1) {
+                            spread = [pages.length];
+                        } else {
+                            const left = (e.data as number);
+                            const right = (e.data as number) + 1;
+                            spread = [left, right].filter(p => p >= 1 && p <= pages.length);
+                        }
+                    }
+
+                    onPageChangeRef.current(targetPageNum, spread);
+                });
+
+                flip.on('changeOrientation', (e: { data: string }) => {
+                    const orient = e.data === 'portrait' ? 'portrait' : 'landscape';
+                    onOrientationChangeRef.current(orient);
+                    updateState();
+                });
+
+                flip.on('init', () => {
+                    updateState();
+                    onReadyRef.current();
+                });
+
+                setTimeout(() => {
+                    if (!isDestroyed) {
+                        updateState();
+                        onReadyRef.current();
+                    }
+                }, 100);
+
+            } catch (err) {
+                console.error('Error initializing PageFlip:', err);
+                onReadyRef.current();
+            }
 
             return () => {
                 isDestroyed = true;
-                clearTimeout(timer);
                 if (pageFlipInstance.current) {
                     try {
                         pageFlipInstance.current.destroy();
@@ -208,7 +246,7 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
                     pageFlipInstance.current = null;
                 }
             };
-        }, [isMounted, pages.length, initialPage]);
+        }, [isMounted, pages, initialPage]);
 
         return (
             <div
@@ -218,57 +256,12 @@ export const FlipbookCanvas = forwardRef<FlipbookCanvasHandle, FlipbookCanvasPro
                 {/* 3D Realistic Drop Shadows & Ambient Glow */}
                 <div className="absolute inset-0 bg-gradient-radial from-black/40 via-transparent to-transparent pointer-events-none" />
 
-                {/* Flipbook Container Wrapper */}
+                {/* Flipbook Container Wrapper - Kept clean for PageFlip vanilla DOM management */}
                 <div
                     ref={bookRef}
                     className="flipbook-root-container shadow-2xl relative"
                     style={{ margin: 'auto' }}
-                >
-                    {pages.map((page) => {
-                        const isCover = page.pageNumber === 1;
-                        const isBackCover = page.pageNumber === pages.length;
-                        const isInitialSpread = page.pageNumber === 1 || Math.abs(page.pageNumber - initialPage) <= 1;
-
-                        return (
-                            <div
-                                key={page.pageNumber}
-                                className={`flipbook-page-item overflow-hidden bg-[#0a151a] relative ${
-                                    isCover ? '--hard --cover-front' : ''
-                                } ${isBackCover ? '--hard --cover-back' : ''}`}
-                                data-density={isCover || isBackCover ? 'hard' : 'soft'}
-                                style={{ width: '576px', height: '576px' }}
-                            >
-                                {/* High-Resolution Page Canvas / Image */}
-                                <div className="relative w-full h-full bg-neutral-900 overflow-hidden">
-                                    <Image
-                                        src={page.image}
-                                        alt={page.title}
-                                        width={576}
-                                        height={576}
-                                        priority={isInitialSpread}
-                                        loading={isInitialSpread ? 'eager' : 'lazy'}
-                                        sizes="(max-width: 768px) 100vw, 750px"
-                                        className="object-contain w-full h-full pointer-events-none select-none"
-                                    />
-
-                                    {/* Realistic Center Spine Shadow (Left Page Gutter vs Right Page Gutter) */}
-                                    {!isCover && !isBackCover && (
-                                        <div
-                                            className={`absolute inset-y-0 w-8 pointer-events-none opacity-40 mix-blend-multiply ${
-                                                page.pageNumber % 2 === 0
-                                                    ? 'right-0 bg-gradient-to-l from-black/60 to-transparent' // Even = Left page
-                                                    : 'left-0 bg-gradient-to-r from-black/60 to-transparent'   // Odd = Right page
-                                            }`}
-                                        />
-                                    )}
-
-                                    {/* Subtle Page Edge Border */}
-                                    <div className="absolute inset-0 border border-black/10 pointer-events-none" />
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
+                />
             </div>
         );
     }
