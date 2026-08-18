@@ -101,6 +101,12 @@ export default function AdmissionApplicationPage() {
   const [messageText, setMessageText] = useState('');
   const [showMessageForm, setShowMessageForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState<any>({
+    personal_info: {},
+    contact_details: {},
+    education_history: {},
+    motivation: {}
+  });
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
   const [showDocsModal, setShowDocsModal] = useState(false);
   const [selectedDocs, setSelectedDocs] = useState<string[]>([]);
