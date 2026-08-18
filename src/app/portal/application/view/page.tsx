@@ -594,7 +594,7 @@ function ViewApplicationContent() {
                 </div>
             </section>
 
-            <div className="grid grid-cols-1 xl:grid-cols-[2.5fr_1fr] gap-4">
+            <div className="space-y-4">
                 <main className="space-y-4">
                     {/* Offer Details */}
                     {hasOffer && (
@@ -874,42 +874,6 @@ function ViewApplicationContent() {
                         </div>
                     </section>
                 </main>
-
-                <aside className="space-y-4">
-                    {/* Quick Links */}
-                    <div className="bg-white border border-neutral-200 rounded-xl shadow-sm p-5">
-                        {sectionHeader('Quick Links')}
-                    <div className="space-y-1">
-                        {application.status !== 'PAYMENT_SUBMITTED' && application.status !== 'ENROLLED' && (
-                            <Link href={`/portal/application/payment?id=${application.id}`} className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
-                                <div>
-                                    <p className="text-sm font-bold text-blue-600 underline">Tuition Payment</p>
-                                    <p className="text-xs text-neutral-500">View and pay fees</p>
-                                </div>
-                            </Link>
-                        )}
-                        <Link href="/portal/student/housing" className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
-                            <div>
-                                <p className="text-sm font-bold text-blue-600 underline">Housing</p>
-                                <p className="text-xs text-neutral-500">Find accommodation</p>
-                            </div>
-                        </Link>
-                        <Link href="/portal/student/courses" className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
-                            <div>
-                                <p className="text-sm font-bold text-blue-600 underline">Student Portal</p>
-                                <p className="text-xs text-neutral-500">Courses & resources</p>
-                            </div>
-                        </Link>
-                        <Link href="/portal/student" className="flex items-center gap-3 p-3 border border-neutral-200 rounded-xl hover:border-black transition-colors block">
-                            <div>
-                                <p className="text-sm font-bold text-blue-600 underline">Academic Dashboard</p>
-                                <p className="text-xs text-neutral-500">Your enrollment portal</p>
-                            </div>
-                        </Link>
-                    </div>
-                    </div>
-
-                    </aside>
             </div>
         </div>
     );
