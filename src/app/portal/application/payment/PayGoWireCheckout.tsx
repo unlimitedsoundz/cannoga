@@ -482,12 +482,14 @@ export default function PayGoWireCheckout({
                         </div>
 
                         {/* Tracking Reference Badge */}
-                        <div className="bg-[#0a151a] text-white rounded-4px p-4 flex items-center justify-between">
+                        <div className="bg-[#147BD1] text-white rounded-xl p-4 flex items-center justify-between shadow-sm">
                             <div>
-                                <p className="text-[10px] uppercase tracking-widest text-white/60 mb-1">Your Tracking Reference</p>
-                                <p className="font-mono text-lg tracking-widest">{initPayload.trackingRef}</p>
+                                <p className="text-[10px] uppercase tracking-widest text-white/80 font-bold mb-0.5">Your Tracking Reference</p>
+                                <p className="font-mono text-xl font-bold tracking-widest">{initPayload.trackingRef}</p>
                             </div>
-                            <CopyButton text={initPayload.trackingRef} label="Tracking Reference" />
+                            <div className="bg-white/15 hover:bg-white/25 rounded-lg transition-colors">
+                                <CopyButton text={initPayload.trackingRef} label="Tracking Reference" />
+                            </div>
                         </div>
 
                         {/* Dynamic Bank Details */}
