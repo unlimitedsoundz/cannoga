@@ -364,26 +364,31 @@ export default function PayGoWireCheckout({
                                 <label className="text-xl md:text-lg font-normal text-gray-950 block">
                                     The payment will come from
                                 </label>
-                                <div className="relative">
-                                    <select
-                                        id="country-select"
-                                        className="country-select w-full pl-4 pr-10 h-[48px] bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0066cc]/20 focus:border-[#0066cc] transition-all font-medium text-[14px] text-slate-900 appearance-none cursor-pointer shadow-2xs"
-                                        value={selectedCountryCode}
-                                        onChange={(e) => {
-                                            const code = e.target.value;
-                                            setSelectedCountryCode(code);
-                                            const bank = countries.find(c => c.country_code === code) ?? null;
-                                            setSelectedBank(bank);
-                                        }}
-                                    >
-                                        <option value="" disabled>Select your payment country or region...</option>
-                                        {countries.map(c => (
-                                            <option key={c.country_code} value={c.country_code}>
-                                                {c.country_name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                                <div className="relative border border-slate-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#0066cc]/20 focus-within:border-[#0066cc] transition-all bg-white shadow-2xs">
+                                    <div className="px-3 py-1.5 flex flex-col justify-center">
+                                        <label htmlFor="country-select" className="text-[10px] font-medium text-slate-400 leading-none mb-0.5 block">
+                                            Country or region *
+                                        </label>
+                                        <select
+                                            id="country-select"
+                                            className="country-select w-full bg-transparent border-none focus:outline-none font-medium text-sm md:text-base text-slate-900 appearance-none cursor-pointer pr-8 leading-none"
+                                            value={selectedCountryCode}
+                                            onChange={(e) => {
+                                                const code = e.target.value;
+                                                setSelectedCountryCode(code);
+                                                const bank = countries.find(c => c.country_code === code) ?? null;
+                                                setSelectedBank(bank);
+                                            }}
+                                        >
+                                            <option value="" disabled>Select your payment country or region...</option>
+                                            {countries.map(c => (
+                                                <option key={c.country_code} value={c.country_code}>
+                                                    {c.country_name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
                                         <CaretDown size={14} weight="bold" />
                                     </div>
                                 </div>
