@@ -49,6 +49,7 @@ function ViewApplicationContent() {
                 return;
             }
 
+            try {
                 if (id.startsWith('hdep') || id.includes('-housing')) {
                     router.push('/portal/housing');
                     return;
