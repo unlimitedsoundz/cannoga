@@ -64,21 +64,58 @@ export async function GET(request: NextRequest) {
         }));
     }
 
-    // 1b. Fetch Housing Invoices (e.g. Housing Security Deposit $500 CAD)
+    // 1b. Fetch Housing Invoices & Auto-Generate if signed contract exists
+    const studentUserIds = [user.id, studentId].filter(Boolean);
+
     let housingInvQuery = supabase
         .from('housing_invoices')
         .select('*')
         .order('created_at', { ascending: false });
 
     if (!isAdmin) {
-        const studentUserIds = [user.id, studentId].filter(Boolean);
         housingInvQuery = housingInvQuery.in('student_id', studentUserIds);
     }
 
     const { data: housingInvData } = await housingInvQuery;
-    if (housingInvData && housingInvData.length > 0) {
-        for (const hInv of housingInvData) {
-            const total = Number(hInv.total_amount || 0);
+    const existingHousingInvoices = housingInvData || [];
+
+    // Also check if student has signed a housing application that needs an invoice auto-generated
+    const { data: signedHousingApps } = await supabase
+        .from('housing_applications')
+        .select('id, student_id, status, assigned_room:assigned_room_id(full_room_code), building:building_id(name), homestay_host:homestay_host_id(host_name), created_at')
+        .in('student_id', studentUserIds)
+        .in('status', ['contract_signed', 'deposit_paid', 'confirmed']);
+
+    if (signedHousingApps && signedHousingApps.length > 0) {
+        for (const app of signedHousingApps) {
+            const hasExisting = existingHousingInvoices.some((hi: any) => hi.application_id === app.id);
+            if (!hasExisting) {
+                // Synthesize or record the $500 housing deposit invoice
+                const autoRef = `HDEP-${app.id.replace(/[^0-9]/g, '').slice(-6) || '50001'}`;
+                const bName = (app.building as any)?.name ?? (app.homestay_host as any)?.host_name ?? 'Residence';
+                const rCode = (app.assigned_room as any)?.full_room_code ?? '';
+                const isPaid = app.status === 'deposit_paid' || app.status === 'confirmed';
+
+                dbInvoices.push({
+                    id: `hdep-${app.id}`,
+                    invoice_number: autoRef,
+                    description: `Housing Security Deposit (${bName}${rCode ? ` · Room ${rCode}` : ''})`,
+                    total: 500,
+                    paid: isPaid ? 500 : 0,
+                    balance: isPaid ? 0 : 500,
+                    status: isPaid ? 'PAID' : 'ISSUED',
+                    due_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    action: isPaid ? 'SETTLED' : 'PAY_NOW',
+                    application_id: app.id,
+                    invoice_type: 'HOUSING_DEPOSIT'
+                });
+            }
+        }
+    }
+
+    if (existingHousingInvoices.length > 0) {
+        for (const hInv of existingHousingInvoices) {
+            const total = Number(hInv.total_amount || 500);
             const paid = Number(hInv.paid_amount || 0);
             const balance = Math.max(0, total - paid);
             const st = String(hInv.status || '').toUpperCase();
@@ -88,20 +125,22 @@ export async function GET(request: NextRequest) {
                 ? `Housing Security Deposit (${hInv.metadata.building_name}${hInv.metadata.room_code ? ` · Room ${hInv.metadata.room_code}` : ''})`
                 : 'Housing Security Deposit (Residence Placement)';
 
-            dbInvoices.push({
-                id: hInv.id,
-                invoice_number: hInv.reference_number || `HDEP-${hInv.id.slice(0, 8).toUpperCase()}`,
-                description: purposeMeta,
-                total: total,
-                paid: paid,
-                balance: balance,
-                status: isPaid ? 'PAID' : 'ISSUED',
-                due_date: hInv.due_date,
-                action: isPaid ? 'SETTLED' : 'PAY_NOW',
-                application_id: hInv.application_id || student?.application_id,
-                invoice_type: 'HOUSING_DEPOSIT',
-                metadata: hInv.metadata
-            });
+            if (!dbInvoices.some(i => i.id === hInv.id || i.invoice_number === hInv.reference_number)) {
+                dbInvoices.push({
+                    id: hInv.id,
+                    invoice_number: hInv.reference_number || `HDEP-${hInv.id.slice(0, 8).toUpperCase()}`,
+                    description: purposeMeta,
+                    total: total,
+                    paid: paid,
+                    balance: balance,
+                    status: isPaid ? 'PAID' : 'ISSUED',
+                    due_date: hInv.due_date,
+                    action: isPaid ? 'SETTLED' : 'PAY_NOW',
+                    application_id: hInv.application_id || student?.application_id,
+                    invoice_type: 'HOUSING_DEPOSIT',
+                    metadata: hInv.metadata
+                });
+            }
         }
     }
 
