@@ -301,41 +301,13 @@ export default function HousingPortalPage() {
                 </div>
             )}
 
-            {/* Top Global Navigation Bar */}
-            <header className="bg-white border-b border-slate-200 px-4 lg:px-8 py-3 sticky top-0 z-40">
-                <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <a href="/portal/dashboard" className="flex items-center">
-                            <img
-                                src="/images/logo-cannoga.png"
-                                alt="Cannoga College"
-                                className="h-8 w-auto object-contain"
-                            />
-                        </a>
-                        <span className="text-slate-300">|</span>
-                        <a href="/sis" className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900 transition group">
-                            <span className="text-slate-400 group-hover:-translate-x-0.5 transition-transform">←</span> Return to SIS
-                        </a>
-                        <span className="text-slate-300">/</span>
-                        <span className="text-xs font-bold text-slate-900">Housing & Residence</span>
-                    </div>
-                </div>
-            </header>
-
             {/* Main Header Banner */}
             <div className="bg-white border-b border-slate-200 px-4 lg:px-8 py-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="flex items-center gap-4">
-                            <img
-                                src="/images/logo-cannoga.png"
-                                alt="Cannoga College"
-                                className="h-10 w-auto object-contain"
-                            />
-                            <div>
-                                <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-slate-900">Student Housing & Residence Life</h1>
-                                <p className="text-slate-500 text-xs lg:text-sm mt-0.5">2026/2027 Academic Year · Cannoga College Residences & Homestay</p>
-                            </div>
+                        <div>
+                            <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-slate-900">Student Housing & Residence Life</h1>
+                            <p className="text-slate-500 text-xs lg:text-sm mt-0.5">2026/2027 Academic Year · Cannoga College Residences & Homestay</p>
                         </div>
 
                         {application ? (
