@@ -140,6 +140,8 @@ export default function AdminHousingPage() {
                 showToast(`Work order updated to "${status}"`);
             }
         } finally { setUpdatingWO(null); }
+    };
+
     const handleSaveHost = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!editingHost.host_name || !editingHost.address_city) {
