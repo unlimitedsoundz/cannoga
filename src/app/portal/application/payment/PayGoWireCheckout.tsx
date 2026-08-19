@@ -408,7 +408,7 @@ export default function PayGoWireCheckout({
                                 <div className="relative">
                                     <div
                                         onClick={() => setIsCountryOpen(prev => !prev)}
-                                        className={`w-full bg-white rounded-md cursor-pointer transition-all flex items-center justify-between px-4 py-3 border ${
+                                        className={`w-full h-[45.5px] bg-white rounded-md cursor-pointer transition-all flex items-center justify-between px-4 border ${
                                             isCountryOpen ? 'border-[#C8102E] ring-1 ring-[#C8102E]' : 'border-slate-300 hover:border-slate-400'
                                         }`}
                                     >
@@ -426,9 +426,9 @@ export default function PayGoWireCheckout({
                                         </div>
                                     </div>
 
-                                    {/* Dropdown Options List */}
+                                    {/* Dropdown Options List (Clean, No Line Separators) */}
                                     {isCountryOpen && (
-                                        <div className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-300 rounded-md shadow-lg z-50 max-h-72 overflow-y-auto py-1">
+                                        <div className="absolute left-0 right-0 top-full mt-1 bg-white border border-slate-300 rounded-md shadow-lg z-50 max-h-72 overflow-y-auto py-1">
                                             {fullCountryList.map((c) => (
                                                 <div
                                                     key={c.country_code}
@@ -449,7 +449,7 @@ export default function PayGoWireCheckout({
                                                             }
                                                         }
                                                     }}
-                                                    className="px-4 py-3 text-[14px] text-slate-800 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-100 last:border-b-0"
+                                                    className="px-4 py-2.5 text-[14px] text-slate-800 hover:bg-slate-50 cursor-pointer transition-colors"
                                                 >
                                                     {c.country_name}
                                                 </div>
