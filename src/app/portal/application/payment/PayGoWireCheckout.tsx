@@ -403,43 +403,58 @@ export default function PayGoWireCheckout({
                                     The payment will come from
                                 </label>
                                 
-                                <div className="relative flex border border-slate-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#0066cc]/20 focus-within:border-[#0066cc] transition-all bg-white shadow-2xs">
-                                    <div className="flex-1 px-3 py-1.5 flex flex-col justify-center">
-                                        <span className="text-[10px] font-medium text-slate-400 leading-none mb-0.5">Country or region *</span>
-                                        <select
-                                            id="country-select"
-                                            className="country-select w-full bg-transparent font-normal text-sm md:text-base text-slate-900 cursor-pointer pr-8 leading-none focus:outline-none border-none outline-none shadow-none"
-                                            value={selectedCountryCode}
-                                            onChange={(e) => {
-                                                const code = e.target.value;
-                                                setSelectedCountryCode(code);
-                                                const directBank = countries.find(b => b.country_code === code || b.country_name.toLowerCase() === code.toLowerCase());
-                                                if (directBank) {
-                                                    setSelectedBank(directBank);
-                                                } else {
-                                                    const fallbackBank = countries.find(b => b.country_code === 'US' || b.country_code === 'CA') || countries[0];
-                                                    if (fallbackBank) {
-                                                        const countryObj = fullCountryList.find(c => c.country_code === code || c.country_name === code);
-                                                        setSelectedBank({
-                                                            ...fallbackBank,
-                                                            country_name: countryObj?.country_name ?? code,
-                                                            country_flag: countryObj?.country_flag ?? '🌐',
-                                                        });
-                                                    }
-                                                }
-                                            }}
-                                        >
-                                            <option value="" disabled>Select your payment country or region...</option>
-                                            {fullCountryList.map(c => (
-                                                <option key={c.country_code} value={c.country_code}>
+                                {/* Exact Flywire Country Selector Dropdown */}
+                                <div className="relative">
+                                    <div
+                                        onClick={() => setIsCountryOpen(prev => !prev)}
+                                        className={`w-full bg-white rounded-md cursor-pointer transition-all flex items-center justify-between px-4 py-3 border ${
+                                            isCountryOpen ? 'border-[#C8102E] ring-1 ring-[#C8102E]' : 'border-slate-300 hover:border-slate-400'
+                                        }`}
+                                    >
+                                        <div className="flex flex-col justify-center">
+                                            <span className="text-[13px] md:text-[14px] font-normal text-slate-600 leading-none">
+                                                {selectedBank ? selectedBank.country_name : 'Country or region *'}
+                                            </span>
+                                        </div>
+                                        <div className="text-slate-700 shrink-0">
+                                            {isCountryOpen ? (
+                                                <CaretUp size={14} weight="bold" />
+                                            ) : (
+                                                <CaretDown size={14} weight="bold" />
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Dropdown Options List */}
+                                    {isCountryOpen && (
+                                        <div className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-300 rounded-md shadow-lg z-50 max-h-72 overflow-y-auto py-1">
+                                            {fullCountryList.map((c) => (
+                                                <div
+                                                    key={c.country_code}
+                                                    onClick={() => {
+                                                        setSelectedCountryCode(c.country_code);
+                                                        setIsCountryOpen(false);
+                                                        const directBank = countries.find(b => b.country_code === c.country_code || b.country_name.toLowerCase() === c.country_name.toLowerCase());
+                                                        if (directBank) {
+                                                            setSelectedBank(directBank);
+                                                        } else {
+                                                            const fallbackBank = countries.find(b => b.country_code === 'US' || b.country_code === 'CA') || countries[0];
+                                                            if (fallbackBank) {
+                                                                setSelectedBank({
+                                                                    ...fallbackBank,
+                                                                    country_name: c.country_name,
+                                                                    country_flag: c.country_flag ?? '🌐',
+                                                                });
+                                                            }
+                                                        }
+                                                    }}
+                                                    className="px-4 py-3 text-[14px] text-slate-800 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-100 last:border-b-0"
+                                                >
                                                     {c.country_name}
-                                                </option>
+                                                </div>
                                             ))}
-                                        </select>
-                                    </div>
-                                    <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-600">
-                                        <CaretDown size={14} weight="bold" />
-                                    </div>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <p className="text-[12px] font-medium text-gray-700 mt-0.5 block leading-relaxed" style={{ fontSize: '12px' }}>
