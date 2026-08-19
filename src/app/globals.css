@@ -37,48 +37,27 @@
 }
 
 *, *::before, *::after,
-img, video, iframe, canvas, svg,
-.rounded:not(.font-rubik *):not([data-font="rubik"] *),
-.rounded-sm:not(.font-rubik *):not([data-font="rubik"] *),
-.rounded-md:not(.font-rubik *):not([data-font="rubik"] *),
-.rounded-lg:not(.font-rubik *):not([data-font="rubik"] *),
-.rounded-xl:not(.font-rubik *):not([data-font="rubik"] *),
-.rounded-2xl:not(.font-rubik *):not([data-font="rubik"] *),
-.rounded-3xl:not(.font-rubik *):not([data-font="rubik"] *),
-[class*="rounded-"]:not(.font-rubik *):not([data-font="rubik"] *),
-[class*="rounded_"]:not(.font-rubik *):not([data-font="rubik"] *),
-[class*="rounded"]:not(.font-rubik *):not([data-font="rubik"] *) {
-    border-radius: 0 !important;
-}
-
-/* Permit rounded-lg and custom border radii inside checkout specifically (slightly reduced) */
-.font-rubik .rounded-sm,
-[data-font="rubik"] .rounded-sm {
-    border-radius: 2px !important;
-}
-
-.font-rubik .rounded-md,
-[data-font="rubik"] .rounded-md {
-    border-radius: 4px !important;
-}
-
-.font-rubik .rounded-lg,
-[data-font="rubik"] .rounded-lg {
-    border-radius: 6px !important;
-}
-
-.font-rubik .rounded-xl,
-[data-font="rubik"] .rounded-xl {
-    border-radius: 8px !important;
-}
-
-.font-rubik .rounded-2xl,
-[data-font="rubik"] .rounded-2xl {
-    border-radius: 10px !important;
+.rounded:not(.font-rubik *):not([data-font="rubik"] *):not(.rounded-full):not([class*="rounded-full"]):not([class*="avatar"]):not([class*="force-circle"]),
+.rounded-sm:not(.font-rubik *):not([data-font="rubik"] *):not(.rounded-full):not([class*="rounded-full"]):not([class*="avatar"]):not([class*="force-circle"]),
+.rounded-md:not(.font-rubik *):not([data-font="rubik"] *):not(.rounded-full):not([class*="rounded-full"]):not([class*="avatar"]):not([class*="force-circle"]),
+.rounded-lg:not(.font-rubik *):not([data-font="rubik"] *):not(.rounded-full):not([class*="rounded-full"]):not([class*="avatar"]):not([class*="force-circle"]),
+.rounded-xl:not(.font-rubik *):not([data-font="rubik"] *):not(.rounded-full):not([class*="rounded-full"]):not([class*="avatar"]):not([class*="force-circle"]),
+.rounded-2xl:not(.font-rubik *):not([data-font="rubik"] *):not(.rounded-full):not([class*="rounded-full"]):not([class*="avatar"]):not([class*="force-circle"]),
+.rounded-3xl:not(.font-rubik *):not([data-font="rubik"] *):not(.rounded-full):not([class*="rounded-full"]):not([class*="avatar"]):not([class*="force-circle"]) {
+    border-radius: 0;
 }
 
 /* Allow only true circular elements (e.g. circular profile avatars and status indicator dots) */
-.rounded-full, [class*="rounded-full"], .step-circle, .avatar-circle, .status-dot {
+.rounded-full,
+[class*="rounded-full"],
+.rounded-full *,
+.step-circle,
+.avatar-circle,
+.status-dot,
+.force-circle,
+[class*="avatar"],
+img[class*="rounded-full"],
+div[class*="rounded-full"] {
     border-radius: 9999px !important;
 }
 
