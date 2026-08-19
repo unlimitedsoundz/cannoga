@@ -399,37 +399,55 @@ export default function PayGoWireCheckout({
                             </div>
                         </div>
 
-                        {/* Real-time FX preview if selected */}
+                        {/* Real-time FX / Payment Method Card */}
                         {selectedBank && fxData && (
-                            <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 animate-in fade-in duration-300">
-                                <div className="flex items-center justify-between">
-                                    <div>
-                                        <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-1">Estimated Conversion</p>
-                                        <p className="text-xl font-bold text-slate-900">
-                                            {fxData.currencySymbol} {Number(fxData.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })} {fxData.localCurrency}
-                                        </p>
-                                        <p className="text-[11px] text-slate-500 mt-0.5">1 CAD = {fxData.rate} {fxData.localCurrency}</p>
+                            <div className="border border-slate-200 rounded-md p-5 bg-white shadow-2xs space-y-4 animate-in fade-in duration-300">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                    <div className="flex items-center gap-3.5">
+                                        <div className="w-10 h-10 relative shrink-0 flex items-center justify-center">
+                                            <Image
+                                                src="/images/bank-icon.png"
+                                                alt="Bank Transfer Icon"
+                                                width={40}
+                                                height={40}
+                                                className="w-10 h-10 object-contain"
+                                            />
+                                        </div>
+                                        <div>
+                                            <p className="text-[13px] font-normal text-slate-700 leading-tight mb-1">
+                                                Online Bank Transfer in {selectedBank.country_name === 'Nigeria' ? 'Nigerian Naira (NGN)' : `${selectedBank.currency} (${selectedBank.currency})`}
+                                            </p>
+                                            <div className="flex items-baseline gap-1.5">
+                                                <span className="text-[22px] md:text-[24px] font-bold text-slate-950 tracking-tight">
+                                                    {Number(fxData.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                </span>
+                                                <span className="text-[18px] md:text-[20px] font-bold text-slate-950">
+                                                    {fxData.currencySymbol}
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="text-right">
-                                        <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-1">Settlement (CAD)</p>
-                                        <p className="text-base font-bold text-slate-900">CA$ {amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
-                                        <p className="text-[11px] text-slate-500 mt-0.5">Guaranteed rate</p>
-                                    </div>
+
+                                    <button
+                                        disabled={loadingStep === 'COUNTRY'}
+                                        onClick={() => handleStepChange('FX')}
+                                        className="h-[42px] px-8 bg-[#0066cc] hover:bg-[#0052a3] text-white rounded-md font-medium text-sm transition-all flex items-center justify-center shrink-0 cursor-pointer shadow-xs"
+                                    >
+                                        {loadingStep === 'COUNTRY' ? (
+                                            <><div className="w-4 h-4 border-2 border-white/30 border-t-white force-circle animate-spin mr-2" />Processing...</>
+                                        ) : (
+                                            'Select'
+                                        )}
+                                    </button>
+                                </div>
+
+                                <div className="pt-2 border-t border-slate-100 flex items-center gap-1.5 text-[12px] text-[#0066cc] font-medium cursor-pointer hover:underline">
+                                    <Info size={14} weight="bold" />
+                                    <span>Important info</span>
+                                    <CaretDown size={12} weight="bold" />
                                 </div>
                             </div>
                         )}
-
-                        <button
-                            disabled={!selectedBank || loadingStep === 'COUNTRY'}
-                            onClick={() => handleStepChange('FX')}
-                            className="w-full sm:w-auto min-w-[200px] h-[46px] px-8 bg-[#0066cc] hover:bg-[#0052a3] text-white rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed shadow-sm cursor-pointer"
-                        >
-                            {loadingStep === 'COUNTRY' ? (
-                                <><div className="w-4 h-4 border-2 border-white/30 border-t-white force-circle animate-spin" />Processing...</>
-                            ) : (
-                                <>Next <ArrowRight size={14} className="group-hover:translate-x-1 transition-all" /></>
-                            )}
-                        </button>
                     </div>
                 )}
 
