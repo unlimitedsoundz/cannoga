@@ -2,6 +2,8 @@
 
 export const dynamic = 'force-dynamic';
 
+import React, { useState, useEffect, useCallback } from 'react';
+import { createClient } from '@/utils/supabase/client';
 import type { OccupancySummary, WorkOrder, HomestayHost, ResidenceBuilding, ResidenceRoom } from '@/types/housing';
 
 // ─── Mini icon helpers ──────────────────────────────────────────────
