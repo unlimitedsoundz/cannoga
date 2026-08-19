@@ -245,7 +245,7 @@ export async function deleteHousingApplication(applicationId: string) {
         .eq('application_id', applicationId);
 
     if (invoices && invoices.length > 0) {
-        const invoiceIds = invoices.map(inv => inv.id);
+        const invoiceIds = invoices.map((inv: { id: string }) => inv.id);
 
         // 2. Delete payments and items
         await supabase.from('housing_payments').delete().in('invoice_id', invoiceIds);
@@ -265,7 +265,7 @@ export async function deleteHousingApplication(applicationId: string) {
         .eq('application_id', applicationId);
 
     if (assignments && assignments.length > 0) {
-        const roomIds = assignments.map(a => a.room_id);
+        const roomIds = assignments.map((a: { room_id: string }) => a.room_id);
         await supabase.from('housing_assignments').delete().eq('application_id', applicationId);
         await supabase.from('housing_rooms').update({ status: 'AVAILABLE' }).in('id', roomIds);
     }

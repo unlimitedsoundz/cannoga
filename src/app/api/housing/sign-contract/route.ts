@@ -1,0 +1,118 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { createServerClient } from '@/utils/supabase/server';
+import { createServiceRoleClient } from '@/utils/supabase/server-admin';
+import type { SignContractPayload } from '@/types/housing';
+
+export const dynamic = 'force-dynamic';
+
+export async function POST(req: NextRequest) {
+    const supabase    = await createServerClient();
+    const adminClient = createServiceRoleClient();
+
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const body: SignContractPayload = await req.json();
+    const { applicationId, signatureName, mealPlanId, moveInDate, moveOutDate, specialAccommodations } = body;
+
+    if (!applicationId || !signatureName) {
+        return NextResponse.json({ error: 'applicationId and signatureName are required' }, { status: 400 });
+    }
+
+    // Verify the application belongs to this student
+    const { data: application, error: appErr } = await adminClient
+        .from('housing_applications')
+        .select('*, assigned_room:assigned_room_id(*), homestay_host:homestay_host_id(*)')
+        .eq('id', applicationId)
+        .eq('student_id', user.id)
+        .maybeSingle();
+
+    if (appErr || !application) {
+        return NextResponse.json({ error: 'Application not found or access denied' }, { status: 403 });
+    }
+
+    if (application.status === 'contract_signed' || application.status === 'deposit_paid' || application.status === 'confirmed') {
+        return NextResponse.json({ error: 'Contract already signed for this application' }, { status: 409 });
+    }
+
+    const now = new Date().toISOString();
+
+    // Compute deposit amount: $500 CAD = 50000 minor units
+    const DEPOSIT_CAD = 500.00;
+
+    // Create a housing deposit invoice record in housing_invoices
+    // Generate a human-readable reference
+    const invRef = `HDEP-${Date.now().toString().slice(-8)}`;
+
+    const { data: invoice, error: invErr } = await adminClient
+        .from('housing_invoices')
+        .insert({
+            reference_number: invRef,
+            student_id:       user.id,
+            application_id:   applicationId,
+            total_amount:     DEPOSIT_CAD,
+            paid_amount:      0,
+            currency:         'CAD',
+            status:           'PENDING',
+            due_date:         new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            metadata: {
+                purpose:          'housing_deposit',
+                application_id:   applicationId,
+                student_id:       user.id,
+                building_name:    (application.assigned_room as any)?.building?.name ?? 'Homestay',
+                room_code:        (application.assigned_room as any)?.full_room_code ?? null,
+                meal_plan_id:     mealPlanId,
+            },
+        })
+        .select()
+        .single();
+
+    if (invErr) {
+        console.error('[POST /api/housing/sign-contract] invoice creation:', invErr);
+        // Continue anyway — contract is still recorded
+    }
+
+    // Update the housing application
+    const { data: updated, error: updateErr } = await adminClient
+        .from('housing_applications')
+        .update({
+            status:                  'contract_signed',
+            signature_name:          signatureName,
+            signed_at:               now,
+            selected_meal_plan_id:   mealPlanId ?? null,
+            move_in_date:            moveInDate,
+            move_out_date:           moveOutDate,
+            special_accommodations:  specialAccommodations ?? null,
+            deposit_invoice_id:      invoice?.id ?? null,
+            updated_at:              now,
+        })
+        .eq('id', applicationId)
+        .select()
+        .single();
+
+    if (updateErr) {
+        console.error('[POST /api/housing/sign-contract] application update:', updateErr);
+        return NextResponse.json({ error: updateErr.message }, { status: 500 });
+    }
+
+    // Fetch bank accounts for payment instructions
+    const { data: bankAccounts } = await adminClient
+        .from('institutional_bank_accounts')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order');
+
+    return NextResponse.json({
+        success: true,
+        application: updated,
+        invoice: invoice ?? null,
+        deposit: {
+            amount_cad:      DEPOSIT_CAD,
+            reference:       invRef,
+            due_date:        invoice?.due_date,
+        },
+        bankAccounts: bankAccounts ?? [],
+    });
+}
