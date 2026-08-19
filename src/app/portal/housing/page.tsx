@@ -346,7 +346,8 @@ export default function HousingPortalPage() {
                         alt="Cannoga College campus residence"
                         className="absolute inset-0 w-full h-full object-cover object-center"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a151a] via-[#0a151a]/60 to-transparent" />
+                    {/* Uniform dark opacity overlay */}
+                    <div className="absolute inset-0 bg-[#0a151a]/70" />
                     
                     <div className="relative z-10 w-full flex flex-col md:flex-row md:items-end justify-between gap-6">
                         <div className="max-w-2xl">
