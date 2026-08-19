@@ -1336,48 +1336,50 @@ export default function HousingPortalPage() {
                                                 <p className="text-slate-500">By signing below, the Resident confirms they have read, understood, and agreed to all terms of this Residence Occupancy License & Community Standards Agreement.</p>
                                             </div>
 
-                                            {/* Application summary - Compact Grid */}
-                                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
-                                                <div className="p-3 bg-slate-50 rounded-xl">
-                                                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Housing Type</div>
-                                                    <div className="font-extrabold text-slate-900">{application.housing_type === 'homestay' ? 'Homestay' : 'On-Campus'}</div>
-                                                </div>
-                                                <div className="p-3 bg-slate-50 rounded-xl">
-                                                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Placement</div>
-                                                    <div className="font-extrabold text-slate-900 truncate">{(application.assigned_room as any)?.full_room_code ?? selectedRoom?.full_room_code ?? (application.homestay_host as any)?.host_name ?? selectedHost?.host_name ?? '—'}</div>
-                                                </div>
-                                                <div className="p-3 bg-slate-50 rounded-xl">
-                                                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Meal Plan</div>
-                                                    <div className="font-extrabold text-slate-900 truncate">{(application.meal_plan as any)?.title ?? selectedMealPlan?.title ?? 'None selected'}</div>
-                                                </div>
-                                                <div className="p-3 bg-slate-50 rounded-xl">
-                                                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Security Deposit</div>
-                                                    <div className="font-black text-slate-900">$500.00 CAD</div>
-                                                </div>
-                                            </div>
-
-                                            {/* Signature */}
+                                            {/* Signature or Confirmation */}
                                             {application.status !== 'contract_signed' && application.status !== 'deposit_paid' && application.status !== 'confirmed' ? (
-                                                <div className="space-y-4 pt-2">
-                                                    <div>
-                                                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Full Legal Name (as it appears on government ID)</label>
-                                                        <input
-                                                            type="text"
-                                                            placeholder="Enter your full legal name..."
-                                                            value={signatureName}
-                                                            onChange={e => setSignatureName(e.target.value)}
-                                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm placeholder:text-slate-400 text-slate-900 focus:outline-none focus:border-slate-800 transition font-medium"
-                                                        />
+                                                <>
+                                                    {/* Application summary - Compact Grid */}
+                                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+                                                        <div className="p-3 bg-slate-50 rounded-xl">
+                                                            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Housing Type</div>
+                                                            <div className="font-extrabold text-slate-900">{application.housing_type === 'homestay' ? 'Homestay' : 'On-Campus'}</div>
+                                                        </div>
+                                                        <div className="p-3 bg-slate-50 rounded-xl">
+                                                            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Placement</div>
+                                                            <div className="font-extrabold text-slate-900 truncate">{(application.assigned_room as any)?.full_room_code ?? selectedRoom?.full_room_code ?? (application.homestay_host as any)?.host_name ?? selectedHost?.host_name ?? '—'}</div>
+                                                        </div>
+                                                        <div className="p-3 bg-slate-50 rounded-xl">
+                                                            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Meal Plan</div>
+                                                            <div className="font-extrabold text-slate-900 truncate">{(application.meal_plan as any)?.title ?? selectedMealPlan?.title ?? 'None selected'}</div>
+                                                        </div>
+                                                        <div className="p-3 bg-slate-50 rounded-xl">
+                                                            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Security Deposit</div>
+                                                            <div className="font-black text-slate-900">$500.00 CAD</div>
+                                                        </div>
                                                     </div>
-                                                    <label className="flex items-start gap-3 cursor-pointer">
-                                                        <input type="checkbox" checked={agreedToTerms} onChange={e => setAgreedToTerms(e.target.checked)} className="mt-0.5 accent-slate-900" />
-                                                        <span className="text-sm text-slate-600">I have read and agree to the Residence Occupancy License & Community Standards Agreement. I understand that a $500 CAD deposit is required to confirm my housing placement.</span>
-                                                    </label>
-                                                    <button onClick={handleSignContract} disabled={signing || !signatureName || !agreedToTerms}
-                                                        className="w-full py-3.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-40 rounded-xl font-black text-sm text-white transition-all">
-                                                        {signing ? 'Signing contract...' : 'Sign Contract & Generate $500 Deposit Invoice'}
-                                                    </button>
-                                                </div>
+
+                                                    <div className="space-y-4 pt-2">
+                                                        <div>
+                                                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Full Legal Name (as it appears on government ID)</label>
+                                                            <input
+                                                                type="text"
+                                                                placeholder="Enter your full legal name..."
+                                                                value={signatureName}
+                                                                onChange={e => setSignatureName(e.target.value)}
+                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm placeholder:text-slate-400 text-slate-900 focus:outline-none focus:border-slate-800 transition font-medium"
+                                                            />
+                                                        </div>
+                                                        <label className="flex items-start gap-3 cursor-pointer">
+                                                            <input type="checkbox" checked={agreedToTerms} onChange={e => setAgreedToTerms(e.target.checked)} className="mt-0.5 accent-slate-900" />
+                                                            <span className="text-sm text-slate-600">I have read and agree to the Residence Occupancy License & Community Standards Agreement. I understand that a $500 CAD deposit is required to confirm my housing placement.</span>
+                                                        </label>
+                                                        <button onClick={handleSignContract} disabled={signing || !signatureName || !agreedToTerms}
+                                                            className="w-full py-3.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-40 rounded-xl font-black text-sm text-white transition-all">
+                                                            {signing ? 'Signing contract...' : 'Sign Contract & Generate $500 Deposit Invoice'}
+                                                        </button>
+                                                    </div>
+                                                </>
                                             ) : (
                                                 <div className="p-5 bg-slate-100 rounded-2xl">
                                                     <div className="flex items-center gap-2 text-slate-900 font-bold mb-2">
