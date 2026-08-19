@@ -531,10 +531,10 @@ export default function HousingPortalPage() {
                                                 })}
                                             </div>
 
-                                            {/* Floor plan / bed picker - Compact Cannoga FAQ Component Style */}
+                                            {/* Floor plan / bed picker - Borderless Cannoga FAQ Component Style */}
                                             {selectedBuilding && (
-                                                <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-neutral-200">
-                                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-neutral-200">
+                                                <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-xs border-0">
+                                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4">
                                                         <div>
                                                             <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-neutral-100 text-neutral-800 mb-1">
                                                                 Interactive Floor Plan
@@ -548,7 +548,7 @@ export default function HousingPortalPage() {
                                                         </div>
 
                                                         {/* Legend */}
-                                                        <div className="flex flex-wrap items-center gap-3 self-start sm:self-auto bg-neutral-50 px-3 py-1.5 rounded-lg border border-neutral-200 text-xs">
+                                                        <div className="flex flex-wrap items-center gap-3 self-start sm:self-auto bg-neutral-50 px-3 py-1.5 rounded-lg text-xs">
                                                             {[['AVAILABLE','bg-emerald-600','Available'],['OCCUPIED','bg-neutral-300','Occupied'],['MAINTENANCE','bg-amber-500','Maintenance']].map(([s,c,label]) => (
                                                                 <div key={s} className="flex items-center gap-1.5">
                                                                     <div className={`w-2.5 h-2.5 rounded-full ${c}`} />
@@ -558,8 +558,8 @@ export default function HousingPortalPage() {
                                                         </div>
                                                     </div>
 
-                                                    {/* Floor-by-Floor Compact Cannoga FAQ-Style Accordions */}
-                                                    <div className="w-full divide-y divide-neutral-200">
+                                                    {/* Floor-by-Floor Compact Borderless FAQ-Style Accordions */}
+                                                    <div className="w-full">
                                                         {floors.map(floorNum => {
                                                             const isExpanded = expandedFloors.includes(floorNum);
                                                             const floorRooms = rooms.filter(r => (r.floor_number ?? 1) === floorNum);
@@ -567,7 +567,7 @@ export default function HousingPortalPage() {
 
                                                             return (
                                                                 <div key={floorNum} className="bg-white">
-                                                                    {/* Accordion Question Header - Compact */}
+                                                                    {/* Accordion Question Header - Compact Borderless */}
                                                                     <button
                                                                         type="button"
                                                                         onClick={() => {
@@ -620,14 +620,14 @@ export default function HousingPortalPage() {
                                                                                         key={room.id}
                                                                                         disabled={!isAvail}
                                                                                         onClick={() => isAvail && setSelectedRoom(isSelected ? null : room)}
-                                                                                        className={`p-3 rounded-lg text-left transition-all border ${
+                                                                                        className={`p-3 rounded-lg text-left transition-all ${
                                                                                             isSelected
-                                                                                                ? 'bg-[#0a151a] text-white border-[#0a151a] shadow-md ring-2 ring-[#0a151a] ring-offset-1'
+                                                                                                ? 'bg-[#0a151a] text-white shadow-md'
                                                                                                 : room.status === 'AVAILABLE'
-                                                                                                ? 'bg-neutral-50/80 hover:bg-neutral-100 border-neutral-200 cursor-pointer text-black hover:border-neutral-300'
+                                                                                                ? 'bg-neutral-50 hover:bg-neutral-100 cursor-pointer text-black'
                                                                                                 : room.status === 'MAINTENANCE'
-                                                                                                ? 'bg-neutral-50 opacity-40 cursor-not-allowed border-neutral-200 text-neutral-400'
-                                                                                                : 'bg-neutral-50 opacity-30 cursor-not-allowed border-neutral-200 text-neutral-400'
+                                                                                                ? 'bg-neutral-50 opacity-40 cursor-not-allowed text-neutral-400'
+                                                                                                : 'bg-neutral-50 opacity-30 cursor-not-allowed text-neutral-400'
                                                                                         }`}
                                                                                     >
                                                                                         <div className="flex items-center justify-between gap-1">
