@@ -1605,14 +1605,22 @@ export default function AdminHousingPage() {
                                 </select>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
                                 <div>
                                     <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Room Number *</label>
                                     <input
                                         type="text"
                                         required
                                         value={editingRoom.room_number || ''}
-                                        onChange={e => setEditingRoom({ ...editingRoom, room_number: e.target.value })}
+                                        onChange={e => {
+                                            const val = e.target.value;
+                                            const bed = editingRoom.bed_identifier;
+                                            setEditingRoom({ 
+                                                ...editingRoom, 
+                                                room_number: val,
+                                                full_room_code: bed ? `${val}-${bed}` : val
+                                            });
+                                        }}
                                         placeholder="e.g. 101 or 402"
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white font-mono focus:outline-none focus:border-sky-500"
                                     />
@@ -1622,9 +1630,27 @@ export default function AdminHousingPage() {
                                     <input
                                         type="text"
                                         value={editingRoom.bed_identifier || ''}
-                                        onChange={e => setEditingRoom({ ...editingRoom, bed_identifier: e.target.value.toUpperCase() })}
+                                        onChange={e => {
+                                            const bed = e.target.value.toUpperCase();
+                                            const rNum = editingRoom.room_number || '';
+                                            setEditingRoom({ 
+                                                ...editingRoom, 
+                                                bed_identifier: bed,
+                                                full_room_code: bed ? `${rNum}-${bed}` : rNum
+                                            });
+                                        }}
                                         placeholder="e.g. A, B, or Single"
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white font-mono focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Room Code</label>
+                                    <input
+                                        type="text"
+                                        value={editingRoom.full_room_code || ''}
+                                        onChange={e => setEditingRoom({ ...editingRoom, full_room_code: e.target.value.toUpperCase() })}
+                                        placeholder="e.g. 402-A or LAUR-402-A"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-amber-300 font-mono font-bold focus:outline-none focus:border-amber-400"
                                     />
                                 </div>
                                 <div>

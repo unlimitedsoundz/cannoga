@@ -66,6 +66,7 @@ export async function POST(req: NextRequest) {
         room_type_label,
         window_orientation,
         is_accessible,
+        full_room_code,
     } = body;
 
     if (!id && (!building_id || !room_number)) {
@@ -88,8 +89,10 @@ export async function POST(req: NextRequest) {
     if (window_orientation !== undefined) payload.window_orientation = window_orientation;
     if (is_accessible !== undefined) payload.is_accessible = !!is_accessible;
 
-    // Auto-generate full room code if possible
-    if (room_number) {
+    // Room code: use explicit code if provided, otherwise auto-generate
+    if (full_room_code) {
+        payload.full_room_code = full_room_code.trim().toUpperCase();
+    } else if (room_number) {
         payload.full_room_code = bed_identifier ? `${room_number}-${bed_identifier}` : room_number;
     }
 
