@@ -133,26 +133,31 @@ export default function PayGoWireCheckout({
         fetchData();
     }, []);
 
-    // ── Full Unified Countries List (DB Accounts + All World Countries) ──
+    // ── Full Unified Countries List (Strictly Deduplicated) ──
     const fullCountryList = useMemo(() => {
         const list: { country_code: string; country_name: string; country_flag: string }[] = [];
-        const seen = new Set<string>();
+        const seenNames = new Set<string>();
 
-        // Prioritize dedicated DB accounts first
+        const normalize = (str: string) => str.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+
+        // 1. Prioritize dedicated DB accounts first (e.g. Nigeria, Ghana, Canada, UK, US)
         countries.forEach(c => {
-            seen.add(c.country_code.toUpperCase());
-            list.push({
-                country_code: c.country_code,
-                country_name: c.country_name,
-                country_flag: c.country_flag ?? '🌐',
-            });
+            const normName = normalize(c.country_name);
+            if (!seenNames.has(normName)) {
+                seenNames.add(normName);
+                list.push({
+                    country_code: c.country_code,
+                    country_name: c.country_name,
+                    country_flag: c.country_flag ?? '🌐',
+                });
+            }
         });
 
-        // Add remaining world countries
+        // 2. Add remaining world countries only if not already present
         allWorldCountries.forEach(w => {
-            const code = w.name.toUpperCase();
-            if (!seen.has(code) && !seen.has(w.name)) {
-                seen.add(code);
+            const normName = normalize(w.name);
+            if (!seenNames.has(normName)) {
+                seenNames.add(normName);
                 list.push({
                     country_code: w.name,
                     country_name: w.name,
