@@ -59,8 +59,50 @@ export async function GET(request: NextRequest) {
             status: inv.status || (inv.balance <= 0 ? 'PAID' : 'ISSUED'),
             due_date: inv.due_date,
             action: inv.balance <= 0 ? 'SETTLED' : 'PAY_NOW',
-            application_id: inv.application_id || student?.application_id
+            application_id: inv.application_id || student?.application_id,
+            invoice_type: 'TUITION'
         }));
+    }
+
+    // 1b. Fetch Housing Invoices (e.g. Housing Security Deposit $500 CAD)
+    let housingInvQuery = supabase
+        .from('housing_invoices')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (!isAdmin) {
+        const studentUserIds = [user.id, studentId].filter(Boolean);
+        housingInvQuery = housingInvQuery.in('student_id', studentUserIds);
+    }
+
+    const { data: housingInvData } = await housingInvQuery;
+    if (housingInvData && housingInvData.length > 0) {
+        for (const hInv of housingInvData) {
+            const total = Number(hInv.total_amount || 0);
+            const paid = Number(hInv.paid_amount || 0);
+            const balance = Math.max(0, total - paid);
+            const st = String(hInv.status || '').toUpperCase();
+            const isPaid = st === 'PAID' || st === 'COMPLETED' || balance <= 0;
+
+            const purposeMeta = hInv.metadata?.building_name 
+                ? `Housing Security Deposit (${hInv.metadata.building_name}${hInv.metadata.room_code ? ` · Room ${hInv.metadata.room_code}` : ''})`
+                : 'Housing Security Deposit (Residence Placement)';
+
+            dbInvoices.push({
+                id: hInv.id,
+                invoice_number: hInv.reference_number || `HDEP-${hInv.id.slice(0, 8).toUpperCase()}`,
+                description: purposeMeta,
+                total: total,
+                paid: paid,
+                balance: balance,
+                status: isPaid ? 'PAID' : 'ISSUED',
+                due_date: hInv.due_date,
+                action: isPaid ? 'SETTLED' : 'PAY_NOW',
+                application_id: hInv.application_id || student?.application_id,
+                invoice_type: 'HOUSING_DEPOSIT',
+                metadata: hInv.metadata
+            });
+        }
     }
 
     // 2. Fetch admission offers & tuition payments to dynamically assemble institutional invoices

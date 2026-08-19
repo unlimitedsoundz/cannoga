@@ -1355,7 +1355,15 @@ export default function HousingPortalPage() {
                                                         <Icons.CheckCircle /> Contract Signed
                                                     </div>
                                                     <p className="text-slate-600 text-sm">Signed by <strong className="text-slate-900">{application.signature_name}</strong> on {application.signed_at ? new Date(application.signed_at).toLocaleString('en-CA') : '—'}.</p>
-                                                    <p className="text-slate-600 text-sm mt-2">Your $500 CAD deposit invoice has been generated. Please proceed to your <a href="/portal/payments" className="text-slate-900 underline font-semibold">Payments Portal</a> to complete payment via Wire Transfer, Interac, or other available methods.</p>
+                                                    <p className="text-slate-600 text-sm mt-2">Your $500 CAD housing security deposit invoice has been automatically generated and is ready for payment in your Student Information System ledger.</p>
+                                                    <div className="mt-4 flex flex-wrap gap-3">
+                                                        <a 
+                                                            href="/sis/payments" 
+                                                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition shadow-sm no-underline"
+                                                        >
+                                                            Pay $500 Deposit in SIS Payments Portal →
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             )}
                                         </>
