@@ -502,7 +502,7 @@ export default function PayGoWireCheckout({
                         <button
                             disabled={!selectedBank || loadingStep === 'COUNTRY'}
                             onClick={() => handleStepChange('FX')}
-                            className="w-full sm:w-auto min-w-[200px] h-[46px] px-8 bg-[#0066cc] hover:bg-[#0052a3] text-white rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed shadow-sm cursor-pointer"
+                            className="w-full h-[48px] px-8 bg-[#0066cc] hover:bg-[#0052a3] text-white rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed shadow-sm cursor-pointer"
                         >
                             {loadingStep === 'COUNTRY' ? (
                                 <><div className="w-4 h-4 border-2 border-white/30 border-t-white force-circle animate-spin" />Processing...</>
