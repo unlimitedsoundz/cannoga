@@ -44,26 +44,73 @@ export async function POST(request: NextRequest) {
     const adminSupabase = createServiceRoleClient();
 
     // 1. Verify the application belongs to this user or exists
-    const { data: application, error: appError } = await adminSupabase
+    let application: any = null;
+
+    const { data: academicApp } = await adminSupabase
         .from('applications')
         .select('id, user_id, course_id, personal_info, Course:course_id(degreeLevel, duration, school:schoolId(slug))')
         .eq('id', applicationId)
-        .single();
+        .maybeSingle();
 
-    if (appError || !application) {
+    if (academicApp) {
+        application = academicApp;
+    } else {
+        // Check if this is a housing application
+        const { data: housingApp } = await adminSupabase
+            .from('housing_applications')
+            .select('*')
+            .eq('id', applicationId)
+            .maybeSingle();
+        if (housingApp) {
+            application = {
+                id: housingApp.id,
+                user_id: housingApp.student_id,
+                is_housing: true,
+            };
+        }
+    }
+
+    if (!application) {
         return NextResponse.json({ error: 'Application not found or access denied' }, { status: 403 });
     }
 
-    if (application.user_id !== user.id) {
-        console.warn(`[initialize] Application user_id (${application.user_id}) does not match session user (${user.id})`);
-    }
+    // 2. Fetch the admission offer or create synthetic offer for housing deposit
+    let offer: any = null;
 
-    // 2. Fetch the admission offer
-    let { data: offer } = await adminSupabase
-        .from('admission_offers')
-        .select('id, tuition_fee, status')
-        .eq('id', offerId)
-        .maybeSingle();
+    if (application.is_housing || invoiceType === 'HOUSING_DEPOSIT') {
+        // Query or create housing payment / synthetic offer
+        const { data: existingOffer } = await adminSupabase
+            .from('admission_offers')
+            .select('id, tuition_fee, status')
+            .eq('application_id', applicationId)
+            .maybeSingle();
+
+        if (existingOffer) {
+            offer = existingOffer;
+        } else {
+            // Create a dedicated record in admission_offers to fulfill foreign key constraint
+            const { data: newHdepOffer } = await adminSupabase
+                .from('admission_offers')
+                .insert({
+                    application_id: applicationId,
+                    tuition_fee: cadAmount || 500.00,
+                    payment_deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    offer_type: 'HOUSING_DEPOSIT',
+                    status: 'ACCEPTED',
+                    invoice_pushed: true,
+                })
+                .select('id, tuition_fee, status')
+                .single();
+            offer = newHdepOffer;
+        }
+    } else {
+        let { data: academicOffer } = await adminSupabase
+            .from('admission_offers')
+            .select('id, tuition_fee, status')
+            .eq('id', offerId)
+            .maybeSingle();
+        offer = academicOffer;
+    }
 
     if (!offer) {
         // Fallback 1: look up by application_id
