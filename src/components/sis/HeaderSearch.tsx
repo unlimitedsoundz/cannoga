@@ -63,6 +63,7 @@ const STUDENT_PAGES: SearchResultItem[] = [
   { id: 'student-timetable', title: 'My Timetable', subtitle: 'Weekly class schedule & locations', category: 'Pages', pageId: 'timetable', icon: Clock },
   { id: 'student-registration', title: 'Course Registration', subtitle: 'Browse catalog & register for courses', category: 'Pages', pageId: 'registration', icon: CheckCircle },
   { id: 'student-financials', title: 'Financial Aid & Payments', subtitle: 'Account summary, ledger & payments', category: 'Pages', pageId: 'financials', icon: CreditCard },
+  { id: 'student-housing', title: 'Housing & Residence Life', subtitle: 'Room picker, meal plans & host family', category: 'Pages', pageId: 'housing', icon: MapPin },
   { id: 'student-grades', title: 'Transcripts & Grades', subtitle: 'Academic history & GPA report', category: 'Pages', pageId: 'grades', icon: FileText },
   { id: 'student-holds', title: 'Holds & Tasks', subtitle: 'Active holds & pending requirements', category: 'Pages', pageId: 'holds', icon: Shield },
   { id: 'student-news', title: 'Campus News Feed', subtitle: 'Latest college announcements', category: 'Pages', pageId: 'news', icon: Bell },

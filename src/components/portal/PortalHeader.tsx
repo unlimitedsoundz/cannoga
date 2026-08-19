@@ -110,7 +110,7 @@ export default function PortalHeader() {
         ...(studentId ? [
             { name: 'Courses', href: '/portal/student/courses', icon: BookOpen },
             { name: 'Timetable', href: '/portal/student/timetable', icon: Calendar },
-            { name: 'Housing', href: '/portal/student/housing', icon: Building2 },
+            { name: 'Housing', href: '/portal/housing', icon: Building2 },
         ] : []),
         { name: 'My Profile', href: '/portal/account', icon: User },
     ];

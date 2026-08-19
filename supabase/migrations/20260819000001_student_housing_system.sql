@@ -16,46 +16,79 @@ DO $$ BEGIN
 EXCEPTION WHEN duplicate_object THEN null; END $$;
 
 -- =============================================
--- EXTEND housing_buildings (additive only)
+-- BASE HOUSING TABLES (IF NOT EXIST)
 -- =============================================
+CREATE TABLE IF NOT EXISTS housing_buildings (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name            TEXT NOT NULL,
+    code            VARCHAR(32),
+    campus_location TEXT NOT NULL,
+    style           residence_style_enum,
+    total_floors    INT NOT NULL DEFAULT 4,
+    total_beds      INT NOT NULL DEFAULT 0,
+    total_rooms     INTEGER NOT NULL DEFAULT 0,
+    amenities       JSONB NOT NULL DEFAULT '["High-Speed Wi-Fi","Hydro Included","Heating","24/7 Keycard Access","Laundry","Study Lounge"]'::jsonb,
+    condition       TEXT,
+    services        TEXT[] DEFAULT '{}',
+    main_images     TEXT[] DEFAULT '{}',
+    description     TEXT,
+    image_url       TEXT,
+    is_active       BOOLEAN NOT NULL DEFAULT true,
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- EXTEND housing_buildings (additive if table pre-existed)
 ALTER TABLE housing_buildings
     ADD COLUMN IF NOT EXISTS code            VARCHAR(32),
     ADD COLUMN IF NOT EXISTS style           residence_style_enum,
     ADD COLUMN IF NOT EXISTS total_floors    INT NOT NULL DEFAULT 4,
     ADD COLUMN IF NOT EXISTS total_beds      INT NOT NULL DEFAULT 0,
     ADD COLUMN IF NOT EXISTS amenities       JSONB NOT NULL DEFAULT '["High-Speed Wi-Fi","Hydro Included","Heating","24/7 Keycard Access","Laundry","Study Lounge"]'::jsonb,
+    ADD COLUMN IF NOT EXISTS condition       TEXT,
+    ADD COLUMN IF NOT EXISTS services        TEXT[] DEFAULT '{}',
+    ADD COLUMN IF NOT EXISTS main_images     TEXT[] DEFAULT '{}',
+    ADD COLUMN IF NOT EXISTS description     TEXT,
     ADD COLUMN IF NOT EXISTS image_url       TEXT,
     ADD COLUMN IF NOT EXISTS is_active       BOOLEAN NOT NULL DEFAULT true;
 
--- =============================================
--- EXTEND housing_rooms (additive only)
--- =============================================
-ALTER TABLE housing_rooms
-    ADD COLUMN IF NOT EXISTS floor_number       INT NOT NULL DEFAULT 1,
-    ADD COLUMN IF NOT EXISTS suite_number       VARCHAR(32),
-    ADD COLUMN IF NOT EXISTS bed_identifier     VARCHAR(16),
-    ADD COLUMN IF NOT EXISTS full_room_code     VARCHAR(64),
-    ADD COLUMN IF NOT EXISTS room_type_label    VARCHAR(128),
-    ADD COLUMN IF NOT EXISTS price_per_term_minor BIGINT,
-    ADD COLUMN IF NOT EXISTS window_orientation VARCHAR(64) DEFAULT 'Courtyard View',
-    ADD COLUMN IF NOT EXISTS is_accessible      BOOLEAN NOT NULL DEFAULT false;
+CREATE TABLE IF NOT EXISTS housing_rooms (
+    id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    building_id         UUID NOT NULL REFERENCES housing_buildings(id) ON DELETE CASCADE,
+    room_number         TEXT NOT NULL,
+    floor_number        INT NOT NULL DEFAULT 1,
+    suite_number        VARCHAR(32),
+    bed_identifier      VARCHAR(16),
+    full_room_code      VARCHAR(64),
+    room_type_label     VARCHAR(128),
+    room_type           TEXT,
+    size                TEXT,
+    capacity            INTEGER NOT NULL DEFAULT 1,
+    monthly_rate        NUMERIC(10, 2) NOT NULL DEFAULT 500,
+    price_per_term_minor BIGINT,
+    status              TEXT NOT NULL DEFAULT 'AVAILABLE',
+    window_orientation  VARCHAR(64) DEFAULT 'Courtyard View',
+    is_accessible       BOOLEAN NOT NULL DEFAULT false,
+    images              TEXT[] DEFAULT '{}',
+    amenities           JSONB DEFAULT '[]'::jsonb,
+    created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE(building_id, room_number)
+);
 
--- =============================================
--- EXTEND housing_applications (additive only)
--- =============================================
-ALTER TABLE housing_applications
-    ADD COLUMN IF NOT EXISTS academic_year         VARCHAR(32)  NOT NULL DEFAULT '2026/2027',
-    ADD COLUMN IF NOT EXISTS term                  VARCHAR(32),
-    ADD COLUMN IF NOT EXISTS building_id           UUID REFERENCES housing_buildings(id),
-    ADD COLUMN IF NOT EXISTS assigned_room_id      UUID REFERENCES housing_rooms(id),
-    ADD COLUMN IF NOT EXISTS signature_name        VARCHAR(255),
-    ADD COLUMN IF NOT EXISTS signed_at             TIMESTAMPTZ,
-    ADD COLUMN IF NOT EXISTS special_accommodations TEXT,
-    ADD COLUMN IF NOT EXISTS housing_type          VARCHAR(32) NOT NULL DEFAULT 'on_campus',
-    ADD COLUMN IF NOT EXISTS homestay_host_id      UUID,
-    ADD COLUMN IF NOT EXISTS selected_meal_plan_id UUID,
-    ADD COLUMN IF NOT EXISTS deposit_invoice_id    UUID,
-    ADD COLUMN IF NOT EXISTS rent_invoice_id       UUID;
+-- EXTEND housing_rooms (additive if table pre-existed)
+ALTER TABLE housing_rooms
+    ADD COLUMN IF NOT EXISTS floor_number        INT NOT NULL DEFAULT 1,
+    ADD COLUMN IF NOT EXISTS suite_number        VARCHAR(32),
+    ADD COLUMN IF NOT EXISTS bed_identifier      VARCHAR(16),
+    ADD COLUMN IF NOT EXISTS full_room_code      VARCHAR(64),
+    ADD COLUMN IF NOT EXISTS room_type_label     VARCHAR(128),
+    ADD COLUMN IF NOT EXISTS room_type           TEXT,
+    ADD COLUMN IF NOT EXISTS size                TEXT,
+    ADD COLUMN IF NOT EXISTS price_per_term_minor BIGINT,
+    ADD COLUMN IF NOT EXISTS window_orientation  VARCHAR(64) DEFAULT 'Courtyard View',
+    ADD COLUMN IF NOT EXISTS is_accessible       BOOLEAN NOT NULL DEFAULT false,
+    ADD COLUMN IF NOT EXISTS images              TEXT[] DEFAULT '{}';
 
 -- =============================================
 -- HOMESTAY HOSTS TABLE
@@ -79,13 +112,6 @@ CREATE TABLE IF NOT EXISTS homestay_hosts (
     created_at              TIMESTAMPTZ  NOT NULL DEFAULT timezone('utc'::text, now())
 );
 
--- Add FK now that table exists
-ALTER TABLE housing_applications
-    DROP CONSTRAINT IF EXISTS housing_applications_homestay_host_id_fkey;
-ALTER TABLE housing_applications
-    ADD CONSTRAINT housing_applications_homestay_host_id_fkey
-    FOREIGN KEY (homestay_host_id) REFERENCES homestay_hosts(id) ON DELETE SET NULL;
-
 -- =============================================
 -- MEAL PLANS TABLE
 -- =============================================
@@ -99,6 +125,71 @@ CREATE TABLE IF NOT EXISTS residence_meal_plans (
     meals_per_week      INT,
     is_active           BOOLEAN      NOT NULL DEFAULT true,
     created_at          TIMESTAMPTZ  NOT NULL DEFAULT timezone('utc'::text, now())
+);
+
+-- =============================================
+-- HOUSING APPLICATIONS TABLE
+-- =============================================
+CREATE TABLE IF NOT EXISTS housing_applications (
+    id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id              TEXT NOT NULL,
+    semester_id             UUID,
+    preferred_building_id   UUID REFERENCES housing_buildings(id) ON DELETE SET NULL,
+    academic_year           VARCHAR(32)  NOT NULL DEFAULT '2026/2027',
+    term                    VARCHAR(32),
+    building_id             UUID REFERENCES housing_buildings(id) ON DELETE SET NULL,
+    assigned_room_id        UUID REFERENCES housing_rooms(id) ON DELETE SET NULL,
+    selected_meal_plan_id   UUID REFERENCES residence_meal_plans(id) ON DELETE SET NULL,
+    deposit_invoice_id      UUID,
+    rent_invoice_id         UUID,
+    signature_name          VARCHAR(255),
+    signed_at               TIMESTAMPTZ,
+    move_in_date            DATE,
+    move_out_date           DATE,
+    special_accommodations  TEXT,
+    housing_type            VARCHAR(32) NOT NULL DEFAULT 'on_campus',
+    homestay_host_id        UUID REFERENCES homestay_hosts(id) ON DELETE SET NULL,
+    status                  TEXT NOT NULL DEFAULT 'draft',
+    priority_score          INTEGER DEFAULT 0,
+    lease_duration          INTEGER DEFAULT 1,
+    total_contract_value    NUMERIC(10, 2),
+    room_type               TEXT,
+    notes                   TEXT,
+    created_at              TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at              TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- EXTEND housing_applications (additive if table pre-existed)
+ALTER TABLE housing_applications
+    ADD COLUMN IF NOT EXISTS academic_year         VARCHAR(32)  NOT NULL DEFAULT '2026/2027',
+    ADD COLUMN IF NOT EXISTS term                  VARCHAR(32),
+    ADD COLUMN IF NOT EXISTS building_id           UUID REFERENCES housing_buildings(id) ON DELETE SET NULL,
+    ADD COLUMN IF NOT EXISTS assigned_room_id      UUID REFERENCES housing_rooms(id) ON DELETE SET NULL,
+    ADD COLUMN IF NOT EXISTS signature_name        VARCHAR(255),
+    ADD COLUMN IF NOT EXISTS signed_at             TIMESTAMPTZ,
+    ADD COLUMN IF NOT EXISTS special_accommodations TEXT,
+    ADD COLUMN IF NOT EXISTS housing_type          VARCHAR(32) NOT NULL DEFAULT 'on_campus',
+    ADD COLUMN IF NOT EXISTS homestay_host_id      UUID REFERENCES homestay_hosts(id) ON DELETE SET NULL,
+    ADD COLUMN IF NOT EXISTS selected_meal_plan_id UUID REFERENCES residence_meal_plans(id) ON DELETE SET NULL,
+    ADD COLUMN IF NOT EXISTS deposit_invoice_id    UUID,
+    ADD COLUMN IF NOT EXISTS rent_invoice_id       UUID;
+
+-- =============================================
+-- HOUSING INVOICES & PAYMENTS (IF NOT EXIST)
+-- =============================================
+CREATE TABLE IF NOT EXISTS housing_invoices (
+    id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    reference_number    TEXT UNIQUE NOT NULL,
+    student_id          TEXT NOT NULL,
+    application_id      UUID REFERENCES housing_applications(id) ON DELETE CASCADE,
+    total_amount        NUMERIC(10, 2) NOT NULL DEFAULT 0,
+    paid_amount         NUMERIC(10, 2) NOT NULL DEFAULT 0,
+    currency            TEXT NOT NULL DEFAULT 'CAD',
+    status              TEXT NOT NULL DEFAULT 'PENDING',
+    due_date            DATE NOT NULL,
+    metadata            JSONB DEFAULT '{}'::jsonb,
+    created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- =============================================
@@ -127,7 +218,7 @@ CREATE TABLE IF NOT EXISTS housing_work_orders (
     id                  UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
     ticket_number       VARCHAR(64) NOT NULL UNIQUE,
     student_id          UUID        NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-    room_id             UUID        REFERENCES housing_rooms(id) ON DELETE RESTRICT,
+    room_id             UUID        REFERENCES housing_rooms(id) ON DELETE SET NULL,
     category            VARCHAR(64) NOT NULL DEFAULT 'other',
     urgency             work_order_urgency_enum NOT NULL DEFAULT 'standard',
     description         TEXT        NOT NULL,
@@ -147,7 +238,7 @@ CREATE TABLE IF NOT EXISTS housing_move_in_inspections (
     id                  UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
     application_id      UUID        NOT NULL REFERENCES housing_applications(id) ON DELETE CASCADE,
     student_id          UUID        NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-    room_id             UUID        REFERENCES housing_rooms(id),
+    room_id             UUID        REFERENCES housing_rooms(id) ON DELETE SET NULL,
     checklist_items     JSONB       NOT NULL DEFAULT '{"desk":"good","mattress":"good","closet":"good","window":"good","smoke_detector":"good","heating":"good"}'::jsonb,
     student_comments    TEXT,
     student_signed_at   TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
@@ -181,6 +272,9 @@ CREATE INDEX IF NOT EXISTS idx_homestay_active       ON homestay_hosts(is_active
 -- =============================================
 -- RLS
 -- =============================================
+ALTER TABLE housing_buildings            ENABLE ROW LEVEL SECURITY;
+ALTER TABLE housing_rooms                ENABLE ROW LEVEL SECURITY;
+ALTER TABLE housing_applications         ENABLE ROW LEVEL SECURITY;
 ALTER TABLE homestay_hosts               ENABLE ROW LEVEL SECURITY;
 ALTER TABLE residence_meal_plans         ENABLE ROW LEVEL SECURITY;
 ALTER TABLE housing_roommate_profiles    ENABLE ROW LEVEL SECURITY;
@@ -188,49 +282,57 @@ ALTER TABLE housing_work_orders          ENABLE ROW LEVEL SECURITY;
 ALTER TABLE housing_move_in_inspections  ENABLE ROW LEVEL SECURITY;
 ALTER TABLE housing_guest_passes         ENABLE ROW LEVEL SECURITY;
 
--- Homestay hosts: public read for active
-CREATE POLICY "Public read active homestay hosts" ON homestay_hosts
-    FOR SELECT TO authenticated USING (is_active = true);
-CREATE POLICY "Admin manage homestay hosts" ON homestay_hosts
-    FOR ALL TO authenticated
-    USING (EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role IN ('ADMIN','REGISTRAR','FINANCE_OFFICER')))
-    WITH CHECK (EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role IN ('ADMIN','REGISTRAR','FINANCE_OFFICER')));
+DO $$ BEGIN
+    CREATE POLICY "Public read active housing buildings" ON housing_buildings FOR SELECT TO authenticated USING (true);
+EXCEPTION WHEN duplicate_object THEN null; END $$;
 
--- Meal plans: public read for active
-CREATE POLICY "Public read active meal plans" ON residence_meal_plans
-    FOR SELECT TO authenticated USING (is_active = true);
-CREATE POLICY "Admin manage meal plans" ON residence_meal_plans
-    FOR ALL TO authenticated
-    USING (EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role IN ('ADMIN','REGISTRAR','FINANCE_OFFICER')))
-    WITH CHECK (EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role IN ('ADMIN','REGISTRAR','FINANCE_OFFICER')));
+DO $$ BEGIN
+    CREATE POLICY "Public read housing rooms" ON housing_rooms FOR SELECT TO authenticated USING (true);
+EXCEPTION WHEN duplicate_object THEN null; END $$;
 
--- Roommate profiles: own only
-CREATE POLICY "Students manage own roommate profile" ON housing_roommate_profiles
-    FOR ALL TO authenticated
-    USING (auth.uid() = student_id OR EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role IN ('ADMIN','REGISTRAR')))
-    WITH CHECK (auth.uid() = student_id);
+DO $$ BEGIN
+    CREATE POLICY "Authenticated manage housing apps" ON housing_applications FOR ALL TO authenticated USING (true) WITH CHECK (true);
+EXCEPTION WHEN duplicate_object THEN null; END $$;
 
--- Read other profiles for matching
-CREATE POLICY "Students read profiles for matching" ON housing_roommate_profiles
-    FOR SELECT TO authenticated USING (true);
+DO $$ BEGIN
+    CREATE POLICY "Public read active homestay hosts" ON homestay_hosts FOR SELECT TO authenticated USING (is_active = true);
+EXCEPTION WHEN duplicate_object THEN null; END $$;
 
--- Work orders
-CREATE POLICY "Students manage own work orders" ON housing_work_orders
-    FOR ALL TO authenticated
-    USING (auth.uid() = student_id OR EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role IN ('ADMIN','REGISTRAR','FINANCE_OFFICER')))
-    WITH CHECK (auth.uid() = student_id);
+DO $$ BEGIN
+    CREATE POLICY "Public read active meal plans" ON residence_meal_plans FOR SELECT TO authenticated USING (is_active = true);
+EXCEPTION WHEN duplicate_object THEN null; END $$;
 
--- Move-in inspections
-CREATE POLICY "Students manage own inspections" ON housing_move_in_inspections
-    FOR ALL TO authenticated
-    USING (auth.uid() = student_id OR EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role IN ('ADMIN','REGISTRAR','FINANCE_OFFICER')))
-    WITH CHECK (auth.uid() = student_id);
+DO $$ BEGIN
+    CREATE POLICY "Students manage own roommate profile" ON housing_roommate_profiles
+        FOR ALL TO authenticated
+        USING (auth.uid() = student_id OR EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role IN ('ADMIN','REGISTRAR')))
+        WITH CHECK (auth.uid() = student_id);
+EXCEPTION WHEN duplicate_object THEN null; END $$;
 
--- Guest passes
-CREATE POLICY "Students manage own guest passes" ON housing_guest_passes
-    FOR ALL TO authenticated
-    USING (auth.uid() = student_id OR EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role IN ('ADMIN','REGISTRAR','FINANCE_OFFICER')))
-    WITH CHECK (auth.uid() = student_id);
+DO $$ BEGIN
+    CREATE POLICY "Students read profiles for matching" ON housing_roommate_profiles FOR SELECT TO authenticated USING (true);
+EXCEPTION WHEN duplicate_object THEN null; END $$;
+
+DO $$ BEGIN
+    CREATE POLICY "Students manage own work orders" ON housing_work_orders
+        FOR ALL TO authenticated
+        USING (auth.uid() = student_id OR EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role IN ('ADMIN','REGISTRAR','FINANCE_OFFICER')))
+        WITH CHECK (auth.uid() = student_id);
+EXCEPTION WHEN duplicate_object THEN null; END $$;
+
+DO $$ BEGIN
+    CREATE POLICY "Students manage own inspections" ON housing_move_in_inspections
+        FOR ALL TO authenticated
+        USING (auth.uid() = student_id OR EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role IN ('ADMIN','REGISTRAR','FINANCE_OFFICER')))
+        WITH CHECK (auth.uid() = student_id);
+EXCEPTION WHEN duplicate_object THEN null; END $$;
+
+DO $$ BEGIN
+    CREATE POLICY "Students manage own guest passes" ON housing_guest_passes
+        FOR ALL TO authenticated
+        USING (auth.uid() = student_id OR EXISTS (SELECT 1 FROM profiles WHERE profiles.id = auth.uid() AND profiles.role IN ('ADMIN','REGISTRAR','FINANCE_OFFICER')))
+        WITH CHECK (auth.uid() = student_id);
+EXCEPTION WHEN duplicate_object THEN null; END $$;
 
 -- =============================================
 -- SEED: RESIDENCE BUILDINGS
@@ -268,7 +370,7 @@ ON CONFLICT (id) DO UPDATE SET
     is_active       = EXCLUDED.is_active;
 
 -- =============================================
--- SEED: ROOMS & BEDS — Maple Hall (Floor 3, suites 301-305)
+-- SEED: ROOMS & BEDS — Maple Hall
 -- =============================================
 INSERT INTO housing_rooms (building_id, room_number, floor_number, suite_number, bed_identifier, full_room_code, room_type_label, room_type, price_per_term_minor, monthly_rate, status, window_orientation, capacity)
 VALUES
@@ -352,28 +454,28 @@ ON CONFLICT (code) DO UPDATE SET
 -- =============================================
 INSERT INTO homestay_hosts (id, host_name, host_family_description, address_city, distance_to_campus_km, languages_spoken, dietary_accommodations, max_students, price_per_week_minor, gender_policy, has_quiet_study_room, is_active)
 VALUES
-    ('h0000000-0000-0000-0000-000000000001',
+    ('a0000000-0000-0000-0000-000000000001',
      'The Morrison Family',
      'Warm and welcoming family of four. We love hosting international students and share home-cooked meals on weekday evenings. Our home has a quiet study room and fast Wi-Fi.',
      'Ottawa', 3.2,
      ARRAY['English','French'],
      ARRAY['vegetarian','halal'],
      2, 34500, 'any', true, true),
-    ('h0000000-0000-0000-0000-000000000002',
+    ('a0000000-0000-0000-0000-000000000002',
      'The Nguyen Family',
      'Professional couple, no children. Clean and quiet environment. Students have a private entrance, ensuite bathroom, and access to a spacious shared kitchen.',
      'Ottawa', 5.8,
      ARRAY['English','Vietnamese'],
      ARRAY['vegan','gluten_free'],
      1, 38000, 'female_only', true, true),
-    ('h0000000-0000-0000-0000-000000000003',
+    ('a0000000-0000-0000-0000-000000000003',
      'Dr. & Mrs. Obi',
      'Retired educators with a love for culture and cooking. We host up to 3 students, share communal meals and weekend outings. Afrobeats always welcome!',
      'Ottawa', 7.1,
      ARRAY['English','Igbo'],
      ARRAY['halal','kosher'],
      3, 32000, 'any', false, true),
-    ('h0000000-0000-0000-0000-000000000004',
+    ('a0000000-0000-0000-0000-000000000004',
      'The Kowalski Family',
      'Active family with two teenagers. We treat our students like family members. Dog-friendly home with a backyard. Great transit links to campus.',
      'Kanata', 12.5,

@@ -225,7 +225,7 @@ interface BankAccount {
     is_active: boolean;
 }
 
-type PageId = 'dashboard' | 'documents' | 'academics' | 'timetable' | 'registration' | 'financials' | 'payments' | 'grades' | 'holds' | 'news' | 'directory' | 'profile' | 'student-life';
+type PageId = 'dashboard' | 'documents' | 'academics' | 'timetable' | 'registration' | 'financials' | 'payments' | 'housing' | 'grades' | 'holds' | 'news' | 'directory' | 'profile' | 'student-life';
 
 interface GradeRecord {
     module_code: string;
@@ -1286,6 +1286,10 @@ function formatRelativeTime(dateInput: any): string {
             router.push('/sis/payments');
             return;
         }
+        if (pageId === 'housing') {
+            router.push('/portal/housing');
+            return;
+        }
         setCurrentPage(pageId);
         setSidebarOpen(false);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1336,6 +1340,7 @@ function formatRelativeTime(dateInput: any): string {
         { label: 'TIMETABLE', pageId: 'timetable' as PageId },
         { label: 'REGISTRATION', pageId: 'registration' as PageId },
         { label: 'PAYMENTS & INVOICES', pageId: 'payments' as PageId },
+        { label: 'HOUSING & RESIDENCE', pageId: 'housing' as PageId },
         { label: 'FINANCIAL AID & PAY', pageId: 'financials' as PageId },
         { label: 'TRANSCRIPTS & GRADES', pageId: 'grades' as PageId },
         { label: 'HOLDS & TASKS', pageId: 'holds' as PageId },
