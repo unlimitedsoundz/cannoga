@@ -542,7 +542,7 @@ export default function HousingPortalPage() {
                                                                                 Interactive Floor Plan
                                                                             </div>
                                                                             <h3 className="text-lg font-bold text-black tracking-tight font-sans">
-                                                                                {b.name} — Bed Directory
+                                                                                {b.name} - Bed Picker
                                                                             </h3>
                                                                             <p className="text-xs text-neutral-500 mt-0.5">
                                                                                 Select a floor to view and reserve open suite beds.
@@ -705,7 +705,7 @@ export default function HousingPortalPage() {
                                                                 Interactive Floor Plan
                                                             </div>
                                                             <h3 className="text-xl sm:text-2xl font-bold text-black tracking-tight font-sans">
-                                                                {selectedBuilding.name} — Bed Directory
+                                                                {selectedBuilding.name} - Bed Picker
                                                             </h3>
                                                             <p className="text-xs text-neutral-500 mt-0.5">
                                                                 Select a floor to view and reserve open suite beds.
