@@ -302,12 +302,22 @@ export default function HousingPortalPage() {
             )}
 
             {/* Main Header Banner */}
-            <div className="bg-white border-b border-slate-200 px-4 lg:px-8 py-8">
+            <div className="bg-white border-b border-slate-200 px-4 lg:px-8 py-6">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div>
-                            <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-slate-900">Student Housing & Residence Life</h1>
-                            <p className="text-slate-500 text-xs lg:text-sm mt-0.5">2026/2027 Academic Year · Cannoga College Residences & Homestay</p>
+                        <div className="flex items-center gap-4">
+                            <a href="/sis" title="Return to Student Information System" className="hover:opacity-80 transition-opacity">
+                                <img
+                                    src="/images/logo-cannoga.png"
+                                    alt="Cannoga College"
+                                    className="h-10 w-auto object-contain"
+                                />
+                            </a>
+                            <div className="h-8 w-px bg-slate-200 hidden sm:block" />
+                            <div>
+                                <h1 className="text-2xl font-black tracking-tight text-slate-900">Student Housing & Residence Life</h1>
+                                <p className="text-slate-500 text-xs mt-0.5">2026/2027 Academic Year · Cannoga College Residences & Homestay</p>
+                            </div>
                         </div>
 
                         {application ? (
