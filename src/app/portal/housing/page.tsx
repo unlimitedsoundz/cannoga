@@ -1448,10 +1448,10 @@ export default function HousingPortalPage() {
                                                                 CONFIRMED RESIDENT
                                                             </div>
                                                             <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
-                                                                {buildingName} • Room {roomCode}
+                                                                {buildingName} <span className="text-slate-300 font-normal">|</span> Room {roomCode}
                                                             </h3>
                                                             <p className="text-xs text-slate-500 font-medium mt-0.5">
-                                                                Keycard ID: <span className="font-mono text-slate-700 font-bold">{keycardId}</span> • Don on Duty: <span className="text-slate-800 font-semibold">{donName}</span>
+                                                                Keycard ID: <span className="font-mono text-slate-700 font-bold">{keycardId}</span> <span className="text-slate-300">|</span> Don on Duty: <span className="text-slate-800 font-semibold">{donName}</span>
                                                             </p>
                                                         </div>
                                                     </div>
