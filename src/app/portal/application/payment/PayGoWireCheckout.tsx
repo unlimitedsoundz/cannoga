@@ -469,10 +469,6 @@ export default function PayGoWireCheckout({
                     <div className="space-y-4 md:space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500 font-rubik">
 
                         <div className="text-center space-y-2">
-                            <div className="inline-flex items-center gap-2 bg-neutral-100 text-neutral-700 text-xs font-medium px-3.5 py-1 rounded-full border border-neutral-200">
-                                <Clock size={13} weight="bold" className="text-neutral-500" />
-                                Reference Generated — Transfer within 48 hours
-                            </div>
                             <h2 className="text-[20px] font-bold text-black pt-1">
                                 Transfer exactly <span className="text-black">{fxData.currencySymbol} {Number(initPayload.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {initPayload.localCurrency}</span>
                             </h2>
@@ -488,7 +484,7 @@ export default function PayGoWireCheckout({
                         </div>
 
                         {/* Dynamic Bank Details */}
-                        <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200/70 space-y-1">
+                        <div className="bg-neutral-50 p-4 rounded-xl space-y-1 shadow-xs">
                             <BankRow label="Amount" value={`${fxData.currencySymbol} ${Number(initPayload.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${initPayload.localCurrency}`} copyable />
                             <BankRow label="Bank" value={selectedBank.bank_name} />
                             <BankRow label="Account Name" value={selectedBank.account_name} />
@@ -504,7 +500,7 @@ export default function PayGoWireCheckout({
 
                         {/* Transfer Instructions */}
                         {selectedBank.transfer_instructions && (
-                            <div className="text-sm text-neutral-500 leading-relaxed bg-white p-5 rounded-4px border border-neutral-100">
+                            <div className="text-sm text-neutral-600 leading-relaxed bg-neutral-50 p-4 rounded-xl shadow-xs">
                                 {selectedBank.transfer_instructions}
                             </div>
                         )}
