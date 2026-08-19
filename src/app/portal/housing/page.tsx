@@ -585,8 +585,12 @@ export default function HousingPortalPage() {
                                                                                             <span className="text-sm font-bold text-black tracking-tight">
                                                                                                 Floor {floorNum} Suites
                                                                                             </span>
-                                                                                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 shrink-0">
-                                                                                                {availableCount} open
+                                                                                            <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-xs shrink-0 tracking-wide ${
+                                                                                                availableCount > 0 
+                                                                                                    ? 'bg-[#059669] text-white ring-1 ring-emerald-500/30' 
+                                                                                                    : 'bg-neutral-200 text-neutral-600'
+                                                                                            }`}>
+                                                                                                {availableCount} {availableCount === 1 ? 'bed' : 'beds'} open
                                                                                             </span>
                                                                                         </div>
 
@@ -759,7 +763,11 @@ export default function HousingPortalPage() {
                                                                             <span className="text-base sm:text-lg font-bold text-black tracking-tight">
                                                                                 Floor {floorNum} Suites &amp; Residences
                                                                             </span>
-                                                                            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 shrink-0">
+                                                                            <span className={`text-xs font-black px-3 py-1 rounded-full shadow-xs shrink-0 tracking-wide ${
+                                                                                availableCount > 0 
+                                                                                    ? 'bg-[#059669] text-white ring-1 ring-emerald-500/30' 
+                                                                                    : 'bg-neutral-200 text-neutral-600'
+                                                                            }`}>
                                                                                 {availableCount} {availableCount === 1 ? 'bed' : 'beds'} open
                                                                             </span>
                                                                         </div>
