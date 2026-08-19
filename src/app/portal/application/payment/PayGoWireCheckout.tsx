@@ -329,11 +329,17 @@ export default function PayGoWireCheckout({
                 {step === 'COUNTRY' && (
                     <div className="space-y-6 md:space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
                         <div>
-                            <h2 className="text-[22px] md:text-[24px] font-medium text-slate-900 mb-6">Your payment</h2>
+                            <h2 className="text-[22px] md:text-[24px] font-medium text-slate-900 mb-6">
+                                {invoiceType === 'HOUSING_DEPOSIT' || invoiceType?.toLowerCase().includes('housing')
+                                    ? 'Housing Deposit'
+                                    : (invoiceType === 'TUITION_DEPOSIT' || invoiceType?.toLowerCase().includes('tuition'))
+                                    ? 'Tuition Deposit'
+                                    : (invoiceType?.replaceAll('_', ' ') || 'Your payment')}
+                            </h2>
                             
                             {/* Section 1: Institution receives */}
                             <div className="space-y-2 mb-6">
-                                <label className="text-sm font-semibold text-slate-800 block">
+                                <label className="text-[14px] font-semibold text-slate-800 block">
                                     Cannoga College - Ontario, CA receives
                                 </label>
                                 
@@ -348,20 +354,20 @@ export default function PayGoWireCheckout({
                                         </span>
                                     </div>
                                 </div>
-                                <p className="text-[11px] text-slate-500 leading-relaxed pt-1">
+                                <p className="text-[13px] text-slate-500 leading-relaxed pt-1">
                                     Amount will be formatted in the destination currency, in this case Canadian Dollars, i.e. 10,000.00 for ten thousand CAD.
                                 </p>
                             </div>
 
                             {/* Section 2: Country origin */}
                             <div className="space-y-2">
-                                <label className="text-sm font-semibold text-slate-800 block">
+                                <label className="text-[14px] font-semibold text-slate-800 block">
                                     The payment will come from
                                 </label>
                                 <div className="relative">
                                     <select
                                         id="country-select"
-                                        className="country-select w-full pl-4 pr-10 h-[48px] bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0066cc]/20 focus:border-[#0066cc] transition-all font-medium text-sm text-slate-900 appearance-none cursor-pointer shadow-2xs"
+                                        className="country-select w-full pl-4 pr-10 h-[48px] bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0066cc]/20 focus:border-[#0066cc] transition-all font-medium text-[14px] text-slate-900 appearance-none cursor-pointer shadow-2xs"
                                         value={selectedCountryCode}
                                         onChange={(e) => {
                                             const code = e.target.value;
@@ -382,7 +388,7 @@ export default function PayGoWireCheckout({
                                     </div>
                                 </div>
 
-                                <p className="text-[11px] text-slate-500 leading-relaxed pt-1">
+                                <p className="text-[13px] text-slate-500 leading-relaxed pt-1">
                                     Choose where your bank account, card, or payment wallet is based. This helps us show available payment methods.
                                 </p>
                             </div>
