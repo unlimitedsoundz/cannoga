@@ -317,8 +317,29 @@ export default function HousingPortalPage() {
                 </div>
             )}
 
+            {/* Top Announcement / Housing Utility Bar */}
+            <div className="bg-[#0a151a] text-white text-[11px] sm:text-xs py-2 px-4 border-b border-white/10">
+                <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-4 text-center sm:text-left">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                        <span className="bg-[#5c061d] text-white px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider">
+                            Academic Year 2026/2027
+                        </span>
+                        <span className="font-medium text-slate-200">
+                            Fall Residence Applications are now open for Domestic &amp; International Students
+                        </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-300 font-semibold shrink-0">
+                        <span className="text-amber-400">🍁 Ontario Campus Housing</span>
+                        <span className="text-slate-600 hidden sm:inline">|</span>
+                        <span className="text-emerald-400 font-bold">
+                            Housing Guarantee Deadline: August 26, 2026
+                        </span>
+                    </div>
+                </div>
+            </div>
+
             {/* Top Navigation Bar with Logo */}
-            <div className="bg-white border-b border-slate-200 px-4 lg:px-8 py-4">
+            <div className="bg-white border-b border-slate-200 px-4 lg:px-8 py-3.5">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <a href="/sis" title="Return to Student Information System" className="hover:opacity-80 transition-opacity">
@@ -329,10 +350,10 @@ export default function HousingPortalPage() {
                             />
                         </a>
                         <div className="h-6 w-px bg-slate-200 hidden sm:block" />
-                        <span className="text-xs font-bold text-slate-800 hidden sm:inline">Student Housing & Residence Portal</span>
+                        <span className="text-xs font-bold text-slate-800 hidden sm:inline">Student Housing &amp; Residence Portal</span>
                     </div>
 
-                    <a href="/sis" className="text-xs font-bold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-lg">
+                    <a href="/sis" className="text-xs font-bold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-lg no-underline">
                         <span>←</span> Back to SIS
                     </a>
                 </div>
