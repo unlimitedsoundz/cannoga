@@ -342,15 +342,15 @@ export default function AdminInvoicesPage() {
                                     <tr key={payment.id} className="hover:bg-neutral-50 transition-colors block md:table-row p-4 md:p-0">
                                         <td className="block md:table-cell py-2 md:p-4">
                                             <div className="font-bold text-neutral-900 text-sm">
-                                                {payment.app.personal_info?.firstName} {payment.app.personal_info?.lastName}
+                                                {payment.app?.user?.first_name || payment.app?.personal_info?.firstName || 'Student'} {payment.app?.user?.last_name || payment.app?.personal_info?.lastName || ''}
                                             </div>
-                                            <div className="text-xs text-neutral-500">{payment.app.personal_info?.email}</div>
+                                            <div className="text-xs text-neutral-500">{payment.app?.user?.email || payment.app?.personal_info?.email || 'N/A'}</div>
                                         </td>
                                         <td className="block md:table-cell py-1 md:p-4 text-xs font-medium text-neutral-600">
-                                            {payment.app.program?.title}
+                                            {payment.app?.program?.title || (payment.category === 'HOUSING' ? 'Housing Reservation' : 'Tuition')}
                                         </td>
                                         <td className="block md:table-cell py-2 md:p-4">
-                                            <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-none text-[9px] font-bold uppercase flex items-center gap-1 w-fit">
+                                            <span className={`px-2 py-1 ${payment.category === 'HOUSING' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'} rounded-none text-[9px] font-bold uppercase flex items-center gap-1 w-fit`}>
                                                 {payment.invoice_type?.replace(/_/g, ' ')}
                                             </span>
                                         </td>
