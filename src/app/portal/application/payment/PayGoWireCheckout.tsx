@@ -393,11 +393,10 @@ export default function PayGoWireCheckout({
                                 <label className="text-xl md:text-lg font-normal text-gray-950 block">
                                     The payment will come from
                                 </label>
+                                
                                 <div className="relative flex border border-slate-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#0066cc]/20 focus-within:border-[#0066cc] transition-all bg-white shadow-2xs">
                                     <div className="flex-1 px-3 py-1.5 flex flex-col justify-center">
-                                        <label htmlFor="country-select" className="text-[10px] font-medium text-slate-400 leading-none mb-0.5 block">
-                                            Country or region *
-                                        </label>
+                                        <span className="text-[10px] font-medium text-slate-400 leading-none mb-0.5">Country or region *</span>
                                         <select
                                             id="country-select"
                                             className="country-select w-full bg-transparent font-normal text-sm md:text-base text-slate-900 cursor-pointer pr-8 leading-none"

@@ -25,6 +25,20 @@
     font-size: 12px !important;
 }
 
+.font-rubik select.country-select,
+[data-font="rubik"] select.country-select,
+select.country-select {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
 /* ============================================
    CANNOGA COLLEGE — SHARED DESIGN TOKENS
    Matches the home page design language.
