@@ -1548,7 +1548,7 @@ export default function HousingPortalPage() {
                                                             <div className="flex items-center justify-between mb-3">
                                                                 <h4 className="font-black text-sm text-slate-900">Overnight Guest Pass</h4>
                                                                 <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-indigo-600 text-white">
-                                                                    Remaining: {(application as any).guest_passes_remaining ?? 3}/5
+                                                                    Remaining: {(application as any)?.guest_passes_remaining ?? 5}/5
                                                                 </span>
                                                             </div>
                                                             <p className="text-xs text-slate-600 leading-relaxed">
@@ -1739,7 +1739,11 @@ export default function HousingPortalPage() {
                         <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                             <div>
                                 <h3 className="font-black text-base text-slate-900">Register Overnight Guest</h3>
-                                <p className="text-xs text-slate-500">Remaining semester quota: <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-600 text-white ml-1">3 of 5 nights</span></p>
+                                <p className="text-xs text-slate-500">
+                                    Remaining semester quota: <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-600 text-white ml-1">
+                                        {(application as any)?.guest_passes_remaining ?? 5} of 5 nights
+                                    </span>
+                                </p>
                             </div>
                             <button onClick={() => setShowGuestModal(false)} className="p-1 text-slate-400 hover:text-slate-600 transition cursor-pointer">✕</button>
                         </div>
@@ -1783,12 +1787,25 @@ export default function HousingPortalPage() {
                             </div>
 
                             <button 
-                                onClick={() => {
+                                onClick={async () => {
                                     if (!guestForm.fullName || !guestForm.checkIn || !guestForm.checkOut) {
                                         showToast('Please fill out all guest pass fields', 'error');
                                         return;
                                     }
-                                    showToast(`Guest pass registered for ${guestForm.fullName}! Pass QR code issued.`, 'success');
+                                    const currentRemaining = (application as any)?.guest_passes_remaining ?? 5;
+                                    if (currentRemaining <= 0) {
+                                        showToast('Semester guest pass quota exhausted (5/5 nights used)', 'error');
+                                        return;
+                                    }
+                                    const updatedRemaining = Math.max(0, currentRemaining - 1);
+                                    if (application?.id) {
+                                        await supabase
+                                            .from('housing_applications')
+                                            .update({ guest_passes_remaining: updatedRemaining })
+                                            .eq('id', application.id);
+                                        setApplication((prev: any) => prev ? ({ ...prev, guest_passes_remaining: updatedRemaining }) : null);
+                                    }
+                                    showToast(`Guest pass registered for ${guestForm.fullName}! Pass QR code issued. (${updatedRemaining} remaining)`, 'success');
                                     setShowGuestModal(false);
                                     setGuestForm({ fullName: '', checkIn: '', checkOut: '' });
                                 }}
