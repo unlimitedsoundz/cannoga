@@ -227,7 +227,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                     </div>
 
                     {/* Why use Flywire? Feature Card */}
-                    <div className="bg-white border border-slate-200 p-5 md:p-6 space-y-5 shadow-xs" style={{ borderRadius: '2px' }}>
+                    <div className="bg-white border border-slate-200 rounded-lg p-5 md:p-6 space-y-5 shadow-xs">
                         <h4 className="text-[16px] font-bold text-slate-900">
                             Why use Flywire?
                         </h4>
