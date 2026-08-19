@@ -325,13 +325,11 @@ export default function HousingPortalPage() {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div className="flex items-center gap-4">
-                            <div className="p-2.5 rounded-2xl bg-white/5 border border-white/10 shadow-lg flex items-center justify-center">
-                                <img
-                                    src="/images/logo-cannoga.png"
-                                    alt="Cannoga College"
-                                    className="h-10 w-auto object-contain brightness-0 invert"
-                                />
-                            </div>
+                            <img
+                                src="/images/logo-cannoga.png"
+                                alt="Cannoga College"
+                                className="h-10 w-auto object-contain brightness-0 invert"
+                            />
                             <div>
                                 <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-white">Student Housing & Residence Life</h1>
                                 <p className="text-slate-400 text-xs lg:text-sm mt-0.5">2026/2027 Academic Year · Cannoga College Residences & Homestay</p>
@@ -407,24 +405,43 @@ export default function HousingPortalPage() {
                                     {housingType === 'on_campus' ? (
                                         <>
                                             {/* Building cards */}
-                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                                                 {buildings.filter(b => b.code !== null).map(b => (
                                                     <button key={b.id} onClick={() => loadRooms(b)}
-                                                        className={`text-left p-5 rounded-2xl border transition-all ${selectedBuilding?.id === b.id ? 'bg-sky-900/30 border-sky-500' : 'bg-white/5 border-white/10 hover:bg-white/8 hover:border-white/20'}`}>
-                                                        <div className="flex items-start justify-between mb-3">
-                                                            <div>
-                                                                <h3 className="font-bold text-base">{b.name}</h3>
-                                                                <p className="text-slate-400 text-xs mt-0.5">{b.campus_location}</p>
+                                                        className={`text-left rounded-2xl border overflow-hidden transition-all group flex flex-col ${selectedBuilding?.id === b.id ? 'bg-sky-900/30 border-sky-500 shadow-lg shadow-sky-500/20' : 'bg-white/5 border-white/10 hover:bg-white/8 hover:border-white/20'}`}>
+                                                        {b.image_url ? (
+                                                            <div className="w-full h-44 overflow-hidden relative bg-black/40 border-b border-white/10">
+                                                                <img
+                                                                    src={b.image_url}
+                                                                    alt={b.name}
+                                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                                />
+                                                                <div className="absolute top-3 right-3">
+                                                                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold backdrop-blur-md shadow-md ${(b.available_beds ?? 0) > 0 ? 'bg-emerald-900/80 text-emerald-300 border border-emerald-500/40' : 'bg-rose-900/80 text-rose-300 border border-rose-500/40'}`}>
+                                                                        {b.available_beds ?? '?'} beds open
+                                                                    </span>
+                                                                </div>
                                                             </div>
-                                                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${(b.available_beds ?? 0) > 0 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}`}>
-                                                                {b.available_beds ?? '?'} beds open
-                                                            </span>
-                                                        </div>
-                                                        {b.description && <p className="text-slate-500 text-xs leading-relaxed mb-3 line-clamp-2">{b.description}</p>}
-                                                        <div className="flex flex-wrap gap-1">
-                                                            {(b.services ?? []).slice(0, 4).map(s => (
-                                                                <span key={s} className="px-2 py-0.5 bg-white/5 rounded text-[10px] text-slate-400">{s}</span>
-                                                            ))}
+                                                        ) : null}
+
+                                                        <div className="p-5 flex-1 flex flex-col">
+                                                            <div className="flex items-start justify-between mb-3">
+                                                                <div>
+                                                                    <h3 className="font-bold text-base text-white group-hover:text-sky-300 transition-colors">{b.name}</h3>
+                                                                    <p className="text-slate-400 text-xs mt-0.5">{b.campus_location}</p>
+                                                                </div>
+                                                                {!b.image_url && (
+                                                                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${(b.available_beds ?? 0) > 0 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}`}>
+                                                                        {b.available_beds ?? '?'} beds open
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                            {b.description && <p className="text-slate-400 text-xs leading-relaxed mb-3 line-clamp-2">{b.description}</p>}
+                                                            <div className="flex flex-wrap gap-1 mt-auto pt-2">
+                                                                {(b.services ?? []).slice(0, 4).map(s => (
+                                                                    <span key={s} className="px-2 py-0.5 bg-white/5 rounded text-[10px] text-slate-400">{s}</span>
+                                                                ))}
+                                                            </div>
                                                         </div>
                                                     </button>
                                                 ))}
@@ -505,43 +522,57 @@ export default function HousingPortalPage() {
                                         /* HOMESTAY LISTINGS */
                                         <div className="space-y-4">
                                             <p className="text-slate-400 text-sm">Host families vetted and approved by Cannoga College International Student Services.</p>
-                                            {homestayHosts.map(host => (
-                                                <div key={host.id} onClick={() => setSelectedHost(selectedHost?.id === host.id ? null : host)}
-                                                    className={`p-5 rounded-2xl border cursor-pointer transition-all ${selectedHost?.id === host.id ? 'bg-sky-900/30 border-sky-500' : 'bg-white/5 border-white/10 hover:border-white/20'}`}>
-                                                    <div className="flex items-start justify-between flex-wrap gap-3">
-                                                        <div className="flex-1">
-                                                            <div className="flex items-center gap-3 mb-2 flex-wrap">
-                                                                <h3 className="font-bold text-base">{host.host_name}</h3>
-                                                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${host.gender_policy === 'any' ? 'bg-purple-500/20 text-purple-300' : host.gender_policy === 'female_only' ? 'bg-pink-500/20 text-pink-300' : 'bg-blue-500/20 text-blue-300'}`}>
-                                                                    {host.gender_policy === 'any' ? 'Co-Ed Welcome' : host.gender_policy === 'female_only' ? 'Female Students Only' : 'Male Students Only'}
-                                                                </span>
-                                                                {host.has_quiet_study_room && (
-                                                                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300">Quiet Study Room</span>
-                                                                )}
-                                                                {(host.spots_available ?? 0) > 0 ? (
-                                                                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400">{host.spots_available} spot{host.spots_available !== 1 ? 's' : ''} available</span>
-                                                                ) : (
-                                                                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-400">Full</span>
-                                                                )}
+                                            {homestayHosts.map(host => {
+                                                const hostPhoto = host.photo_url || host.host_photo_url;
+                                                return (
+                                                    <div key={host.id} onClick={() => setSelectedHost(selectedHost?.id === host.id ? null : host)}
+                                                        className={`p-5 rounded-2xl border cursor-pointer transition-all flex flex-col md:flex-row gap-5 ${selectedHost?.id === host.id ? 'bg-sky-900/30 border-sky-500 shadow-lg shadow-sky-500/20' : 'bg-white/5 border-white/10 hover:border-white/20'}`}>
+                                                        {hostPhoto ? (
+                                                            <div className="w-full md:w-48 h-40 shrink-0 rounded-xl overflow-hidden bg-black/40 border border-white/10 relative">
+                                                                <img
+                                                                    src={hostPhoto}
+                                                                    alt={host.host_name}
+                                                                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                                                />
                                                             </div>
-                                                            <p className="text-slate-400 text-xs leading-relaxed mb-3">{host.host_family_description}</p>
-                                                            <div className="flex flex-wrap gap-2 text-[11px]">
-                                                                <span className="flex items-center gap-1 text-slate-500"><Icons.MapPin />{host.address_city} · {host.distance_to_campus_km} km to campus</span>
-                                                                {host.languages_spoken.map(l => (
-                                                                    <span key={l} className="px-2 py-0.5 bg-white/5 rounded text-slate-400">{l}</span>
-                                                                ))}
-                                                                {host.dietary_accommodations.map(d => (
-                                                                    <span key={d} className="px-2 py-0.5 bg-green-500/10 text-green-400 rounded">{d.charAt(0).toUpperCase() + d.slice(1)} ✓</span>
-                                                                ))}
+                                                        ) : null}
+
+                                                        <div className="flex-1 flex flex-col justify-between">
+                                                            <div>
+                                                                <div className="flex items-center gap-2.5 mb-2 flex-wrap">
+                                                                    <h3 className="font-bold text-base text-white">{host.host_name}</h3>
+                                                                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${host.gender_policy === 'any' ? 'bg-purple-500/20 text-purple-300' : host.gender_policy === 'female_only' ? 'bg-pink-500/20 text-pink-300' : 'bg-blue-500/20 text-blue-300'}`}>
+                                                                        {host.gender_policy === 'any' ? 'Co-Ed Welcome' : host.gender_policy === 'female_only' ? 'Female Students Only' : 'Male Students Only'}
+                                                                    </span>
+                                                                    {host.has_quiet_study_room && (
+                                                                         <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300">Quiet Study Room</span>
+                                                                    )}
+                                                                    {(host.spots_available ?? 0) > 0 ? (
+                                                                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400">{host.spots_available} spot{host.spots_available !== 1 ? 's' : ''} available</span>
+                                                                    ) : (
+                                                                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-400">Full</span>
+                                                                    )}
+                                                                </div>
+                                                                <p className="text-slate-400 text-xs leading-relaxed mb-3">{host.host_family_description}</p>
+                                                                <div className="flex flex-wrap gap-2 text-[11px] mb-3">
+                                                                    <span className="flex items-center gap-1 text-slate-400"><Icons.MapPin />{host.address_city} · {host.distance_to_campus_km} km to campus</span>
+                                                                    {host.languages_spoken.map(l => (
+                                                                        <span key={l} className="px-2 py-0.5 bg-white/5 rounded text-slate-400">{l}</span>
+                                                                    ))}
+                                                                    {host.dietary_accommodations.map(d => (
+                                                                        <span key={d} className="px-2 py-0.5 bg-green-500/10 text-green-400 rounded">{d.charAt(0).toUpperCase() + d.slice(1)} ✓</span>
+                                                                    ))}
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="text-right shrink-0">
-                                                            <div className="text-xl font-black text-sky-300">{fmtWeekly(host.price_per_week_minor)}</div>
-                                                            <div className="text-xs text-slate-500">All-inclusive</div>
+
+                                                            <div className="flex items-center justify-between pt-2 border-t border-white/5 mt-auto">
+                                                                <div className="text-xs text-slate-500">All-inclusive meal & utilities</div>
+                                                                <div className="text-lg font-black text-sky-300">{fmtWeekly(host.price_per_week_minor)}</div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                );
+                                            })}
 
                                             {selectedHost && (
                                                 <div className="p-4 bg-sky-900/30 border border-sky-500/30 rounded-xl flex items-center justify-between">

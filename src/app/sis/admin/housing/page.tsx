@@ -1235,6 +1235,56 @@ export default function AdminHousingPage() {
                                 </div>
                             </div>
 
+                            {/* Photo Upload & Preview */}
+                            <div>
+                                <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Host Family & Home Photo</label>
+                                <div className="flex items-center gap-3">
+                                    {editingHost.photo_url ? (
+                                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-black/40 border border-white/15 shrink-0 relative">
+                                            <img src={editingHost.photo_url} alt="Host Preview" className="w-full h-full object-cover" />
+                                        </div>
+                                    ) : null}
+                                    <div className="flex-1 space-y-2">
+                                        <input
+                                            type="text"
+                                            value={editingHost.photo_url || ''}
+                                            onChange={e => setEditingHost({ ...editingHost, photo_url: e.target.value })}
+                                            placeholder="Paste image URL (or upload below)"
+                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500"
+                                        />
+                                        <div className="flex items-center gap-2">
+                                            <label className="px-3 py-1.5 bg-sky-600/20 hover:bg-sky-600/30 border border-sky-500/30 rounded-lg font-bold text-sky-300 text-xs transition cursor-pointer inline-flex items-center gap-1.5">
+                                                <span>Choose Photo</span>
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    className="hidden"
+                                                    onChange={async (e) => {
+                                                        const file = e.target.files?.[0];
+                                                        if (!file) return;
+                                                        const formData = new FormData();
+                                                        formData.append('file', file);
+                                                        try {
+                                                            const res = await fetch('/api/upload', { method: 'POST', body: formData });
+                                                            const data = await res.json();
+                                                            if (data.success && data.url) {
+                                                                setEditingHost({ ...editingHost, photo_url: data.url });
+                                                                showToast('Host photo uploaded!');
+                                                            } else {
+                                                                showToast(data.message || 'Upload failed');
+                                                            }
+                                                        } catch (err) {
+                                                            showToast('Error uploading photo');
+                                                        }
+                                                    }}
+                                                />
+                                            </label>
+                                            <span className="text-[11px] text-slate-500">JPG, PNG, WebP up to 5MB</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="flex items-center gap-6 pt-2 pb-2">
                                 <label className="flex items-center gap-2.5 cursor-pointer">
                                     <input
@@ -1295,6 +1345,56 @@ export default function AdminHousingPage() {
                         </div>
 
                         <form onSubmit={handleSaveBuilding} className="space-y-4 text-xs">
+                            {/* Photo Upload & Preview */}
+                            <div>
+                                <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Building Exterior / Interior Photo</label>
+                                <div className="flex items-center gap-3">
+                                    {editingBuilding.image_url ? (
+                                        <div className="w-20 h-16 rounded-xl overflow-hidden bg-black/40 border border-white/15 shrink-0 relative">
+                                            <img src={editingBuilding.image_url} alt="Building Preview" className="w-full h-full object-cover" />
+                                        </div>
+                                    ) : null}
+                                    <div className="flex-1 space-y-2">
+                                        <input
+                                            type="text"
+                                            value={editingBuilding.image_url || ''}
+                                            onChange={e => setEditingBuilding({ ...editingBuilding, image_url: e.target.value })}
+                                            placeholder="Paste image URL (or upload below)"
+                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500"
+                                        />
+                                        <div className="flex items-center gap-2">
+                                            <label className="px-3 py-1.5 bg-sky-600/20 hover:bg-sky-600/30 border border-sky-500/30 rounded-lg font-bold text-sky-300 text-xs transition cursor-pointer inline-flex items-center gap-1.5">
+                                                <span>Upload Building Photo</span>
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    className="hidden"
+                                                    onChange={async (e) => {
+                                                        const file = e.target.files?.[0];
+                                                        if (!file) return;
+                                                        const formData = new FormData();
+                                                        formData.append('file', file);
+                                                        try {
+                                                            const res = await fetch('/api/upload', { method: 'POST', body: formData });
+                                                            const data = await res.json();
+                                                            if (data.success && data.url) {
+                                                                setEditingBuilding({ ...editingBuilding, image_url: data.url });
+                                                                showToast('Building photo uploaded!');
+                                                            } else {
+                                                                showToast(data.message || 'Upload failed');
+                                                            }
+                                                        } catch (err) {
+                                                            showToast('Error uploading photo');
+                                                        }
+                                                    }}
+                                                />
+                                            </label>
+                                            <span className="text-[11px] text-slate-500">Recommended 1200x800 px</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Building Name *</label>

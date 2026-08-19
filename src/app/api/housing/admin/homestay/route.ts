@@ -61,6 +61,7 @@ export async function POST(req: NextRequest) {
         price_per_week_minor,
         gender_policy,
         has_quiet_study_room,
+        photo_url,
         is_active,
     } = body;
 
@@ -80,6 +81,8 @@ export async function POST(req: NextRequest) {
         price_per_week_minor: typeof price_per_week_minor === 'number' ? price_per_week_minor : parseInt(String(price_per_week_minor), 10) || 35000,
         gender_policy: gender_policy || 'any',
         has_quiet_study_room: !!has_quiet_study_room,
+        photo_url: photo_url ?? null,
+        host_photo_url: photo_url ?? null,
         is_active: is_active !== undefined ? !!is_active : true,
     };
 

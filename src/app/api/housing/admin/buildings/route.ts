@@ -75,6 +75,7 @@ export async function POST(req: NextRequest) {
         amenities,
         services,
         description,
+        image_url,
         is_active,
     } = body;
 
@@ -92,6 +93,7 @@ export async function POST(req: NextRequest) {
         amenities: Array.isArray(amenities) ? amenities : (typeof amenities === 'string' ? amenities.split(',').map(s => s.trim()).filter(Boolean) : []),
         services: Array.isArray(services) ? services : (typeof services === 'string' ? services.split(',').map(s => s.trim()).filter(Boolean) : []),
         description: description ?? null,
+        image_url: image_url ?? null,
         is_active: is_active !== undefined ? !!is_active : true,
         updated_at: new Date().toISOString(),
     };
