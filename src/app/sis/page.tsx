@@ -1415,34 +1415,48 @@ function formatRelativeTime(dateInput: any): string {
                                 )}
                             </button>
                             {notificationsOpen && (
-                                <div className="absolute right-0 top-full mt-2.5 w-80 sm:w-96 max-w-[calc(100vw-1rem)] bg-white border border-slate-200 shadow-2xl z-50 rounded-2xl text-slate-800 animate-drawer-slide">
-                                    {/* Connecting caret arrow pointing to Bell icon */}
-                                    <div className="absolute -top-1.5 right-3.5 w-3.5 h-3.5 bg-slate-50 border-t border-l border-slate-200 rotate-45 z-20"></div>
-                                    <div className="relative z-10 overflow-hidden rounded-2xl">
-                                        <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-                                            <span className="text-xs font-bold uppercase tracking-wider text-slate-800">Notifications ({notificationsList.filter(n => !n.read).length})</span>
+                                <div className="absolute right-0 top-full mt-3 w-80 sm:w-[410px] max-w-[calc(100vw-1.5rem)] bg-white border border-slate-200/80 shadow-[0_12px_40px_rgba(0,0,0,0.14)] z-50 rounded-2xl text-slate-800 animate-drawer-slide overflow-hidden font-sans">
+                                    {/* Header */}
+                                    <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-white">
+                                        <div className="flex items-center gap-2">
+                                            <h3 className="text-base font-bold text-slate-900 tracking-tight">Notifications</h3>
                                             {notificationsList.filter(n => !n.read).length > 0 && (
-                                                <button
-                                                    onClick={async () => {
-                                                        for (const n of notificationsList.filter(x => !x.read)) {
-                                                            addReadNotifId(n.id);
-                                                            fetch('/api/sis/notifications', {
-                                                                method: 'POST',
-                                                                headers: { 'Content-Type': 'application/json' },
-                                                                body: JSON.stringify({ id: n.id, read: true }),
-                                                            }).catch(() => {});
-                                                        }
-                                                        setNotificationsList(prev => prev.map(n => ({ ...n, read: true })));
-                                                    }}
-                                                    className="text-xs font-bold text-sky-600 hover:text-sky-700 transition-colors"
-                                                >
-                                                    Mark all read
-                                                </button>
+                                                <span className="px-2 py-0.5 text-[11px] font-bold bg-blue-50 text-blue-600 rounded-full">
+                                                    {notificationsList.filter(n => !n.read).length} new
+                                                </span>
                                             )}
                                         </div>
-                                        <div className="max-h-80 overflow-y-auto divide-y divide-slate-100">
-                                            {notificationsList.length > 0 ? (
-                                                notificationsList.map((n) => (
+                                        {notificationsList.filter(n => !n.read).length > 0 && (
+                                            <button
+                                                type="button"
+                                                onClick={async () => {
+                                                    for (const n of notificationsList.filter(x => !x.read)) {
+                                                        addReadNotifId(n.id);
+                                                        fetch('/api/sis/notifications', {
+                                                            method: 'POST',
+                                                            headers: { 'Content-Type': 'application/json' },
+                                                            body: JSON.stringify({ id: n.id, read: true }),
+                                                        }).catch(() => {});
+                                                    }
+                                                    setNotificationsList(prev => prev.map(n => ({ ...n, read: true })));
+                                                }}
+                                                className="text-xs font-bold text-[#4f46e5] hover:text-[#4338ca] transition-colors cursor-pointer"
+                                            >
+                                                Mark all as read
+                                            </button>
+                                        )}
+                                    </div>
+
+                                    {/* Notifications List */}
+                                    <div className="max-h-[380px] overflow-y-auto divide-y divide-slate-100">
+                                        {notificationsList.length > 0 ? (
+                                            notificationsList.map((n, idx) => {
+                                                // Dynamic Avatar style (cycling aesthetic colors or initials)
+                                                const bgColors = ['bg-[#0f172a]', 'bg-[#5eead4] text-teal-900', 'bg-[#64748b] text-white', 'bg-[#3b82f6] text-white', 'bg-[#a855f7] text-white'];
+                                                const avatarBg = bgColors[idx % bgColors.length];
+                                                const initials = (n.title || 'Notification').replace(/[^a-zA-Z]/g, '').slice(0, 2).toUpperCase() || 'CC';
+
+                                                return (
                                                     <div
                                                         key={n.id}
                                                         onClick={async () => {
@@ -1457,47 +1471,42 @@ function formatRelativeTime(dateInput: any): string {
                                                                 }).catch(() => {});
                                                             }
                                                         }}
-                                                        className={`p-3.5 hover:bg-slate-50 cursor-pointer transition-colors flex items-start gap-3 ${!n.read ? 'bg-sky-50/70 hover:bg-sky-100/60' : 'bg-white'}`}
+                                                        className={`p-4 hover:bg-slate-50/80 cursor-pointer transition-colors flex items-start gap-3.5 ${
+                                                            !n.read ? 'bg-[#f8fafc]' : 'bg-white'
+                                                        }`}
                                                     >
-                                                        {/* Cannoga Logo Avatar */}
-                                                        <div className="w-8 h-8 rounded-full bg-slate-900 border border-slate-200 p-1.5 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                                                            <img src="/images/logo-cannoga.png" alt="Cannoga" className="w-full h-full object-contain brightness-0 invert" />
+                                                        {/* Circular Avatar */}
+                                                        <div className={`w-9 h-9 rounded-full ${avatarBg} flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs shadow-xs select-none overflow-hidden`}>
+                                                            {idx === 0 ? (
+                                                                <div className="w-full h-full bg-[#0a151a] flex items-center justify-center p-2">
+                                                                    <img src="/images/logo-cannoga.png" alt="Cannoga" className="w-full h-full object-contain brightness-0 invert" />
+                                                                </div>
+                                                            ) : (
+                                                                <span>{initials}</span>
+                                                            )}
                                                         </div>
 
+                                                        {/* Content Body */}
                                                         <div className="flex-1 min-w-0">
-                                                            <div className="flex items-start justify-between gap-2">
-                                                                <div className="text-xs sm:text-sm font-bold text-slate-900 leading-snug line-clamp-1 flex-1">{n.title}</div>
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={async (e) => {
-                                                                        e.stopPropagation();
-                                                                        addDismissedNotifId(n.id);
-                                                                        setNotificationsList(prev => prev.filter(item => item.id !== n.id));
-                                                                        try {
-                                                                            await fetch(`/api/sis/notifications?id=${n.id}`, { method: 'DELETE' });
-                                                                            toast.success('Notification dismissed');
-                                                                        } catch (err) {}
-                                                                    }}
-                                                                    className="text-slate-400 hover:text-red-500 p-1 transition-colors rounded hover:bg-slate-100 shrink-0"
-                                                                    title="Delete notification"
-                                                                >
-                                                                    <HugeiconsIcon icon={Trash} size={14} strokeWidth={2} />
-                                                                </button>
-                                                            </div>
-                                                            <div className="mt-1">
-                                                                <div className="text-xs text-slate-600 leading-relaxed line-clamp-2">{n.description}</div>
-                                                                <div className="flex items-center justify-between mt-2">
-                                                                    <span className="text-[11px] font-semibold text-slate-400">{n.time}</span>
-                                                                    <span className="text-[11px] font-bold text-sky-600 hover:text-sky-700">View details →</span>
-                                                                </div>
+                                                            <p className="text-xs sm:text-[13px] text-slate-700 leading-snug">
+                                                                <strong className="font-bold text-slate-900">{n.title}</strong>{' '}
+                                                                <span className="text-slate-600 font-normal">{n.description}</span>
+                                                            </p>
+                                                            <div className="flex items-center gap-2 mt-1.5">
+                                                                <span className="text-[11px] font-medium text-slate-400">{n.time}</span>
+                                                                {!n.read && (
+                                                                    <span className="w-1.5 h-1.5 rounded-full bg-[#4f46e5]" />
+                                                                )}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                ))
-                                            ) : (
-                                                <div className="px-4 py-8 text-center text-slate-400 text-sm">No notifications</div>
-                                            )}
-                                        </div>
+                                                );
+                                            })
+                                        ) : (
+                                            <div className="px-4 py-12 text-center text-slate-400 text-sm font-medium">
+                                                No notifications right now
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             )}
