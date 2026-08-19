@@ -2,9 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { createClient } from '@/utils/supabase/client';
-import type { OccupancySummary, WorkOrder, HomestayHost, ResidenceBuilding } from '@/types/housing';
+import type { OccupancySummary, WorkOrder, HomestayHost, ResidenceBuilding, ResidenceRoom } from '@/types/housing';
 
 // ─── Mini icon helpers ──────────────────────────────────────────────
 const I = {
@@ -18,7 +16,7 @@ const I = {
     RefreshCw:   () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>,
 };
 
-type AdminTab = 'overview' | 'buildings' | 'roster' | 'homestay' | 'maintenance' | 'suite_requests';
+type AdminTab = 'overview' | 'buildings' | 'rooms_editor' | 'roster' | 'homestay' | 'maintenance' | 'suite_requests';
 
 interface ApplicationRow {
     id: string;
@@ -36,6 +34,7 @@ interface ApplicationRow {
 
 const TABS_ADMIN: { id: AdminTab; label: string }[] = [
     { id: 'overview',       label: 'Overview' },
+    { id: 'rooms_editor',   label: 'Bed Availability & Occupancy' },
     { id: 'buildings',      label: 'Residence Halls' },
     { id: 'roster',         label: 'Bed Roster' },
     { id: 'homestay',       label: 'Homestay Hosts' },
@@ -61,6 +60,9 @@ export default function AdminHousingPage() {
     const [activeTab, setActiveTab]   = useState<AdminTab>('overview');
     const [summary, setSummary]       = useState<OccupancySummary | null>(null);
     const [buildingsList, setBuildingsList] = useState<ResidenceBuilding[]>([]);
+    const [roomsList, setRoomsList]   = useState<any[]>([]);
+    const [selectedRoomBuilding, setSelectedRoomBuilding] = useState<string>('all');
+    const [selectedRoomStatus, setSelectedRoomStatus] = useState<string>('all');
     const [applications, setApplications] = useState<ApplicationRow[]>([]);
     const [workOrders, setWorkOrders] = useState<WorkOrder[]>([]);
     const [homestayHosts, setHomestayHosts] = useState<HomestayHost[]>([]);
@@ -108,6 +110,24 @@ export default function AdminHousingPage() {
         is_active: true,
     });
 
+    // Room modal state
+    const [showRoomModal, setShowRoomModal] = useState(false);
+    const [savingRoom, setSavingRoom] = useState(false);
+    const [editingRoom, setEditingRoom] = useState<any>({
+        id: '',
+        building_id: '',
+        room_number: '',
+        floor_number: 1,
+        bed_identifier: 'A',
+        suite_number: '',
+        status: 'AVAILABLE',
+        price_per_term_minor: 420000,
+        room_type_label: 'Single Room with Shared Bath',
+        room_type: 'single',
+        window_orientation: 'Courtyard View',
+        is_accessible: false,
+    });
+
     const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(null), 3500); };
 
     const load = useCallback(async () => {
@@ -120,6 +140,10 @@ export default function AdminHousingPage() {
             // Buildings
             const bldRes = await fetch('/api/housing/admin/buildings');
             if (bldRes.ok) { const d = await bldRes.json(); setBuildingsList(d.buildings ?? []); }
+
+            // Rooms & Beds inventory
+            const roomRes = await fetch('/api/housing/admin/rooms');
+            if (roomRes.ok) { const d = await roomRes.json(); setRoomsList(d.rooms ?? []); }
 
             // Applications
             const { data: apps } = await supabase
@@ -231,6 +255,64 @@ export default function AdminHousingPage() {
         }
     };
 
+    const handleToggleRoomStatus = async (roomId: string, newStatus: string) => {
+        try {
+            const res = await fetch('/api/housing/admin/rooms', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: roomId, status: newStatus }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Failed to update status');
+
+            setRoomsList(prev => prev.map(r => r.id === roomId ? { ...r, status: newStatus } : r));
+            showToast(`Room status updated to ${newStatus}`);
+
+            // Refresh occupancy summary
+            const occRes = await fetch('/api/housing/admin/occupancy');
+            if (occRes.ok) { const d = await occRes.json(); setSummary(d.summary); }
+        } catch (err: any) {
+            showToast(err.message || 'Error updating room status');
+        }
+    };
+
+    const handleSaveRoom = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editingRoom.building_id || !editingRoom.room_number) {
+            showToast('Building and room number are required.');
+            return;
+        }
+        setSavingRoom(true);
+        try {
+            const res = await fetch('/api/housing/admin/rooms', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(editingRoom),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Failed to save room');
+
+            showToast(data.message || 'Room saved successfully!');
+            setShowRoomModal(false);
+            // Refresh list
+            const refreshRes = await fetch('/api/housing/admin/rooms');
+            if (refreshRes.ok) {
+                const refreshed = await refreshRes.json();
+                setRoomsList(refreshed.rooms || []);
+            }
+            // Refresh summary & buildings
+            const occRes = await fetch('/api/housing/admin/occupancy');
+            if (occRes.ok) { const d = await occRes.json(); setSummary(d.summary); }
+            const bldRes = await fetch('/api/housing/admin/buildings');
+            if (bldRes.ok) { const d = await bldRes.json(); setBuildingsList(d.buildings ?? []); }
+        } catch (err: any) {
+            console.error('Save room error:', err);
+            showToast(err.message || 'Failed to save room.');
+        } finally {
+            setSavingRoom(false);
+        }
+    };
+
     const filteredApps = applications.filter(a => {
         if (filter.housing !== 'all' && a.housing_type !== filter.housing) return false;
         if (filter.status  !== 'all' && a.status  !== filter.status)  return false;
@@ -325,6 +407,234 @@ export default function AdminHousingPage() {
                                         );
                                     })}
                                 </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* ── BED AVAILABILITY & OCCUPANCY EDITOR ── */}
+                    {activeTab === 'rooms_editor' && (
+                        <div className="space-y-5">
+                            <div className="flex items-center justify-between flex-wrap gap-3">
+                                <div>
+                                    <h2 className="text-sm font-bold uppercase tracking-wider text-slate-400">Bed Availability & Room Inventory Editor</h2>
+                                    <p className="text-slate-500 text-xs mt-0.5">Directly toggle room availability, mark beds as Occupied, Available, or Maintenance, and edit pricing.</p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setEditingRoom({
+                                            id: '',
+                                            building_id: buildingsList[0]?.id || '',
+                                            room_number: '',
+                                            floor_number: 1,
+                                            bed_identifier: 'A',
+                                            suite_number: '',
+                                            status: 'AVAILABLE',
+                                            price_per_term_minor: 420000,
+                                            room_type_label: 'Single Room with Shared Bath',
+                                            room_type: 'single',
+                                            window_orientation: 'Courtyard View',
+                                            is_accessible: false,
+                                        });
+                                        setShowRoomModal(true);
+                                    }}
+                                    className="px-3.5 py-1.5 bg-sky-600 hover:bg-sky-500 rounded-lg text-xs font-bold text-white transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+                                >
+                                    <span>+ Add New Room / Bed</span>
+                                </button>
+                            </div>
+
+                            {/* Summary strip */}
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <div className="p-3 bg-white/3 border border-white/5 rounded-xl">
+                                    <div className="text-[11px] text-slate-400">Total Rooms / Beds</div>
+                                    <div className="text-xl font-black text-white">{roomsList.length}</div>
+                                </div>
+                                <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
+                                    <div className="text-[11px] text-emerald-400">Available For Students</div>
+                                    <div className="text-xl font-black text-emerald-300">{roomsList.filter(r => r.status === 'AVAILABLE').length}</div>
+                                </div>
+                                <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl">
+                                    <div className="text-[11px] text-rose-400">Occupied Beds</div>
+                                    <div className="text-xl font-black text-rose-300">{roomsList.filter(r => r.status === 'OCCUPIED').length}</div>
+                                </div>
+                                <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+                                    <div className="text-[11px] text-amber-400">Maintenance / Offline</div>
+                                    <div className="text-xl font-black text-amber-300">{roomsList.filter(r => r.status === 'MAINTENANCE').length}</div>
+                                </div>
+                            </div>
+
+                            {/* Filters */}
+                            <div className="flex flex-wrap items-center gap-3 p-3 bg-white/3 border border-white/5 rounded-xl">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs text-slate-400 font-medium">Filter Building:</span>
+                                    <select
+                                        value={selectedRoomBuilding}
+                                        onChange={e => setSelectedRoomBuilding(e.target.value)}
+                                        className="bg-[#0a151a] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-sky-500"
+                                    >
+                                        <option value="all">All Buildings ({buildingsList.length})</option>
+                                        {buildingsList.map(b => (
+                                            <option key={b.id} value={b.id}>{b.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs text-slate-400 font-medium">Filter Status:</span>
+                                    <select
+                                        value={selectedRoomStatus}
+                                        onChange={e => setSelectedRoomStatus(e.target.value)}
+                                        className="bg-[#0a151a] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-sky-500"
+                                    >
+                                        <option value="all">All Statuses</option>
+                                        <option value="AVAILABLE">AVAILABLE (Open)</option>
+                                        <option value="OCCUPIED">OCCUPIED (Filled)</option>
+                                        <option value="MAINTENANCE">MAINTENANCE (Offline)</option>
+                                        <option value="reserved">RESERVED</option>
+                                    </select>
+                                </div>
+
+                                <div className="ml-auto text-xs text-slate-400">
+                                    Showing {roomsList.filter(r => {
+                                        if (selectedRoomBuilding !== 'all' && r.building_id !== selectedRoomBuilding) return false;
+                                        if (selectedRoomStatus !== 'all' && r.status !== selectedRoomStatus) return false;
+                                        return true;
+                                    }).length} of {roomsList.length} beds
+                                </div>
+                            </div>
+
+                            {/* Rooms inventory table / cards */}
+                            <div className="overflow-x-auto rounded-xl border border-white/5">
+                                <table className="w-full text-xs">
+                                    <thead className="bg-white/5 border-b border-white/5">
+                                        <tr>
+                                            {['Room / Bed Code', 'Building', 'Floor', 'Type', 'Price/Term', 'Current Status', 'Quick Availability Toggle', 'Actions'].map(h => (
+                                                <th key={h} className="px-3 py-2.5 text-left text-[10px] font-bold uppercase tracking-wider text-slate-400">{h}</th>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-white/5">
+                                        {roomsList.filter(r => {
+                                            if (selectedRoomBuilding !== 'all' && r.building_id !== selectedRoomBuilding) return false;
+                                            if (selectedRoomStatus !== 'all' && r.status !== selectedRoomStatus) return false;
+                                            return true;
+                                        }).length === 0 ? (
+                                            <tr><td colSpan={8} className="px-4 py-8 text-center text-slate-500">No rooms match the selected filters.</td></tr>
+                                        ) : (
+                                            roomsList
+                                                .filter(r => {
+                                                    if (selectedRoomBuilding !== 'all' && r.building_id !== selectedRoomBuilding) return false;
+                                                    if (selectedRoomStatus !== 'all' && r.status !== selectedRoomStatus) return false;
+                                                    return true;
+                                                })
+                                                .map(room => {
+                                                    const bldName = room.building?.name || buildingsList.find(b => b.id === room.building_id)?.name || 'Building';
+                                                    const isAvail = room.status === 'AVAILABLE';
+                                                    const isOcc = room.status === 'OCCUPIED';
+                                                    const isMaint = room.status === 'MAINTENANCE';
+
+                                                    return (
+                                                        <tr key={room.id} className="hover:bg-white/3 transition">
+                                                            <td className="px-3 py-3 font-mono font-bold text-white text-sm">
+                                                                {room.full_room_code || `${room.room_number}${room.bed_identifier ? `-${room.bed_identifier}` : ''}`}
+                                                            </td>
+                                                            <td className="px-3 py-3 text-slate-300 font-medium">
+                                                                {bldName}
+                                                            </td>
+                                                            <td className="px-3 py-3 text-slate-400">
+                                                                Floor {room.floor_number}
+                                                            </td>
+                                                            <td className="px-3 py-3 text-slate-400">
+                                                                {room.room_type_label || room.room_type || 'Single'}
+                                                            </td>
+                                                            <td className="px-3 py-3 text-sky-400 font-bold">
+                                                                {room.price_per_term_minor ? `$${(room.price_per_term_minor / 100).toLocaleString('en-CA', { minimumFractionDigits: 2 })}` : '—'}
+                                                            </td>
+                                                            <td className="px-3 py-3">
+                                                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold ${
+                                                                    isAvail ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                                                                    : isOcc ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+                                                                    : isMaint ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                                                                    : 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
+                                                                }`}>
+                                                                    {room.status}
+                                                                </span>
+                                                            </td>
+                                                            <td className="px-3 py-3">
+                                                                {/* Quick Action Toggle Buttons */}
+                                                                <div className="flex items-center gap-1.5">
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => handleToggleRoomStatus(room.id, 'AVAILABLE')}
+                                                                        disabled={isAvail}
+                                                                        className={`px-2 py-1 rounded text-[10px] font-bold transition cursor-pointer ${isAvail ? 'bg-emerald-600 text-white opacity-40 cursor-default' : 'bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/30 border border-emerald-500/30'}`}
+                                                                    >
+                                                                        Set Avail
+                                                                    </button>
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => handleToggleRoomStatus(room.id, 'OCCUPIED')}
+                                                                        disabled={isOcc}
+                                                                        className={`px-2 py-1 rounded text-[10px] font-bold transition cursor-pointer ${isOcc ? 'bg-rose-600 text-white opacity-40 cursor-default' : 'bg-rose-500/15 text-rose-400 hover:bg-rose-500/30 border border-rose-500/30'}`}
+                                                                    >
+                                                                        Set Occupied
+                                                                    </button>
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => handleToggleRoomStatus(room.id, 'MAINTENANCE')}
+                                                                        disabled={isMaint}
+                                                                        className={`px-2 py-1 rounded text-[10px] font-bold transition cursor-pointer ${isMaint ? 'bg-amber-600 text-white opacity-40 cursor-default' : 'bg-amber-500/15 text-amber-400 hover:bg-amber-500/30 border border-amber-500/30'}`}
+                                                                    >
+                                                                        Maint
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-3 py-3">
+                                                                <div className="flex items-center gap-1.5">
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => {
+                                                                            setEditingRoom({
+                                                                                ...room,
+                                                                                building_id: room.building_id || buildingsList[0]?.id,
+                                                                            });
+                                                                            setShowRoomModal(true);
+                                                                        }}
+                                                                        className="px-2.5 py-1 bg-sky-600/20 border border-sky-500/30 rounded text-[11px] font-bold text-sky-300 hover:bg-sky-600/30 transition cursor-pointer"
+                                                                    >
+                                                                        Edit
+                                                                    </button>
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={async () => {
+                                                                            if (!confirm(`Delete room/bed "${room.full_room_code || room.room_number}"?`)) return;
+                                                                            try {
+                                                                                const res = await fetch(`/api/housing/admin/rooms?id=${room.id}`, { method: 'DELETE' });
+                                                                                if (res.ok) {
+                                                                                    setRoomsList(prev => prev.filter(x => x.id !== room.id));
+                                                                                    showToast(`Room deleted.`);
+                                                                                    const occRes = await fetch('/api/housing/admin/occupancy');
+                                                                                    if (occRes.ok) { const d = await occRes.json(); setSummary(d.summary); }
+                                                                                } else {
+                                                                                    showToast('Failed to delete room.');
+                                                                                }
+                                                                            } catch (err) {
+                                                                                showToast('Error deleting room.');
+                                                                            }
+                                                                        }}
+                                                                        className="px-2 py-1 bg-red-600/20 border border-red-500/30 rounded text-[11px] font-bold text-red-300 hover:bg-red-600/30 transition cursor-pointer"
+                                                                    >
+                                                                        Delete
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                })
+                                        )}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     )}
@@ -1153,6 +1463,160 @@ export default function AdminHousingPage() {
                                     className="px-6 py-2 bg-sky-600 hover:bg-sky-500 disabled:opacity-50 rounded-xl font-bold text-white text-xs transition cursor-pointer shadow-md"
                                 >
                                     {savingBuilding ? 'Saving...' : (editingBuilding.id ? 'Update Building' : 'Create Building')}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* ── ADD / EDIT ROOM / BED MODAL ── */}
+            {showRoomModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setShowRoomModal(false)} />
+                    <div className="relative bg-[#0d1f2e] border border-white/15 rounded-2xl p-6 w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-2xl z-10 text-slate-200">
+                        <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+                            <div>
+                                <h3 className="font-extrabold text-lg text-white">
+                                    {editingRoom.id ? `Edit Room / Bed: ${editingRoom.full_room_code || editingRoom.room_number}` : 'Add New Room / Bed'}
+                                </h3>
+                                <p className="text-xs text-slate-400 mt-0.5">Manage room assignment, status (Available/Occupied/Maint), floor, and rate per term.</p>
+                            </div>
+                            <button onClick={() => setShowRoomModal(false)} className="text-slate-400 hover:text-white p-1 cursor-pointer">
+                                ✕
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleSaveRoom} className="space-y-4 text-xs">
+                            <div>
+                                <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Residence Building *</label>
+                                <select
+                                    required
+                                    value={editingRoom.building_id || ''}
+                                    onChange={e => setEditingRoom({ ...editingRoom, building_id: e.target.value })}
+                                    className="w-full bg-[#0a151a] border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                >
+                                    <option value="" disabled>Select Residence Hall</option>
+                                    {buildingsList.map(b => (
+                                        <option key={b.id} value={b.id}>{b.name} ({b.campus_location})</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Room Number *</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={editingRoom.room_number || ''}
+                                        onChange={e => setEditingRoom({ ...editingRoom, room_number: e.target.value })}
+                                        placeholder="e.g. 101 or 402"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white font-mono focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Bed Identifier</label>
+                                    <input
+                                        type="text"
+                                        value={editingRoom.bed_identifier || ''}
+                                        onChange={e => setEditingRoom({ ...editingRoom, bed_identifier: e.target.value.toUpperCase() })}
+                                        placeholder="e.g. A, B, or Single"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white font-mono focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Floor Level</label>
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        max="20"
+                                        value={editingRoom.floor_number ?? 1}
+                                        onChange={e => setEditingRoom({ ...editingRoom, floor_number: parseInt(e.target.value, 10) || 1 })}
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Availability / Occupancy Status *</label>
+                                    <select
+                                        value={editingRoom.status || 'AVAILABLE'}
+                                        onChange={e => setEditingRoom({ ...editingRoom, status: e.target.value })}
+                                        className="w-full bg-[#0a151a] border border-white/10 rounded-xl px-3 py-2.5 text-sm font-bold text-white focus:outline-none focus:border-sky-500"
+                                    >
+                                        <option value="AVAILABLE">AVAILABLE (Open for student reservations)</option>
+                                        <option value="OCCUPIED">OCCUPIED (Currently filled)</option>
+                                        <option value="MAINTENANCE">MAINTENANCE (Taken offline for repairs)</option>
+                                        <option value="reserved">RESERVED (Pending contract)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Price Per Term (CAD)</label>
+                                    <div className="relative">
+                                        <span className="absolute left-3 top-2.5 text-slate-400 font-bold">$</span>
+                                        <input
+                                            type="number"
+                                            step="50"
+                                            value={(editingRoom.price_per_term_minor || 0) / 100}
+                                            onChange={e => setEditingRoom({ ...editingRoom, price_per_term_minor: Math.round(parseFloat(e.target.value || '0') * 100) })}
+                                            placeholder="4200.00"
+                                            className="w-full bg-white/5 border border-white/10 rounded-xl pl-8 pr-3 py-2.5 text-sm font-bold text-white focus:outline-none focus:border-sky-500"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Room Type Label</label>
+                                    <input
+                                        type="text"
+                                        value={editingRoom.room_type_label || ''}
+                                        onChange={e => setEditingRoom({ ...editingRoom, room_type_label: e.target.value })}
+                                        placeholder="e.g. Single Room with Shared Bath"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Window Orientation / View</label>
+                                    <input
+                                        type="text"
+                                        value={editingRoom.window_orientation || ''}
+                                        onChange={e => setEditingRoom({ ...editingRoom, window_orientation: e.target.value })}
+                                        placeholder="e.g. Courtyard View, Campus Park, South-Facing"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="pt-2 pb-2">
+                                <label className="flex items-center gap-2.5 cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        checked={!!editingRoom.is_accessible}
+                                        onChange={e => setEditingRoom({ ...editingRoom, is_accessible: e.target.checked })}
+                                        className="w-4 h-4 accent-sky-500 rounded"
+                                    />
+                                    <span className="font-semibold text-slate-300">Wheelchair / Barrier-Free Accessible Unit</span>
+                                </label>
+                            </div>
+
+                            <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowRoomModal(false)}
+                                    className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl font-bold text-slate-300 text-xs transition cursor-pointer"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={savingRoom}
+                                    className="px-6 py-2 bg-sky-600 hover:bg-sky-500 disabled:opacity-50 rounded-xl font-bold text-white text-xs transition cursor-pointer shadow-md"
+                                >
+                                    {savingRoom ? 'Saving...' : (editingRoom.id ? 'Update Room' : 'Create Room')}
                                 </button>
                             </div>
                         </form>
