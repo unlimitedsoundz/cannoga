@@ -148,7 +148,7 @@ export async function POST(request: NextRequest) {
             .eq('id', resolvedAppId);
     }
 
-    // Notify finance staff (insert notification)
+    // Notify finance staff (insert notification + send email alert)
     try {
         await adminSupabase.from('notifications').insert({
             user_id: null,
@@ -168,6 +168,27 @@ export async function POST(request: NextRequest) {
         });
     } catch (notifErr) {
         console.error('[submit-proof] notification insert error:', notifErr);
+    }
+
+    // Dispatch Admin Email Alert
+    try {
+        const { triggerNotification } = await import('@/lib/email');
+        await triggerNotification({
+            type: 'ADMIN_PAYMENT_SUBMITTED',
+            additionalData: {
+                paymentId: updated.id,
+                trackingRef: updated.transaction_reference,
+                studentBankRef: bankRef,
+                amount: updated.amount,
+                currency: updated.currency || 'CAD',
+                country: updated.country,
+                invoiceType: isHousingTable ? 'HOUSING_DEPOSIT' : (payment.invoice_type || 'TUITION_DEPOSIT'),
+                studentEmail: user.email,
+                link: `${process.env.NEXT_PUBLIC_APP_URL || 'https://cannoga.vercel.app'}/sis/admin/finance/verification-queue`
+            }
+        });
+    } catch (emailErr) {
+        console.warn('[submit-proof] admin email alert dispatch warning:', emailErr);
     }
 
     return NextResponse.json({

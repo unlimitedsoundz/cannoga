@@ -317,30 +317,41 @@ export async function POST(request: NextRequest) {
             // 5. Notify the student (In-app + Email)
             if (application.user_id) {
                 try {
-                    await adminClient.from('notifications').insert([
+                    const isHousingNotification = payment.invoice_type === 'HOUSING_DEPOSIT';
+                    const notifTitle = isHousingNotification ? 'Housing Deposit Verified ✓' : 'Payment Verified ✓';
+                    const notifMsg = isHousingNotification
+                        ? `Your housing reservation deposit of ${payment.currency || 'CAD'} ${Number(payment.amount).toLocaleString()} (${payment.transaction_reference || ''}) has been verified and settled.`
+                        : `Your tuition payment of ${payment.currency || 'CAD'} ${Number(payment.amount).toLocaleString()} (${payment.transaction_reference || ''}) has been verified and your payment is confirmed.`;
+
+                    const notifList: any[] = [
                         {
-                            user_id: application.user_id,
-                            type: 'wire_payment_approved',
-                            title: 'Payment Verified ✓',
-                            message: `Your payment of ${payment.currency || 'CAD'} ${Number(payment.amount).toLocaleString()} (${payment.transaction_reference || ''}) has been verified and your payment is confirmed.`,
-                            metadata: {
-                                payment_id: paymentId,
-                                tracking_ref: payment.transaction_reference,
-                                receipt_url: receiptUrl,
-                            },
-                            is_read: false,
-                        },
-                        {
-                            user_id: application.user_id,
-                            type: 'pal_issuance_notice',
+                            title: notifTitle,
+                            message: notifMsg,
+                            category: isHousingNotification ? 'Housing' : 'Finance',
+                            priority: 'high',
+                            recipient_type: 'individual',
+                            recipient_ids: [application.user_id],
+                            related_id: paymentId,
+                            related_type: isHousingNotification ? 'housing_payment' : 'tuition_payment',
+                            read: false,
+                        }
+                    ];
+
+                    if (!isHousingNotification) {
+                        notifList.push({
                             title: 'Provincial Attestation Letter (PAL) Notice',
                             message: 'Your Provincial Letter of Attestation (PAL) will be issued to you in 6 – 10 business days. Once issued, you can proceed with your Study Permit Application.',
-                            metadata: {
-                                application_id: applicationId,
-                            },
-                            is_read: false,
-                        }
-                    ]);
+                            category: 'Admissions',
+                            priority: 'high',
+                            recipient_type: 'individual',
+                            recipient_ids: [application.user_id],
+                            related_id: applicationId,
+                            related_type: 'application',
+                            read: false,
+                        });
+                    }
+
+                    await adminClient.from('notifications').insert(notifList);
                 } catch (notifErr) {
                     console.error('[verify-wire] notification error:', notifErr);
                 }
@@ -358,7 +369,7 @@ export async function POST(request: NextRequest) {
                             invoiceType: payment.invoice_type || 'TUITION_DEPOSIT',
                             paymentReference: payment.transaction_reference,
                             receiptUrl: receiptUrl,
-                            title: 'Payment Verified ✓',
+                            title: payment.invoice_type === 'HOUSING_DEPOSIT' ? 'Housing Deposit Verified ✓' : 'Payment Verified ✓',
                             description: `Your payment of ${payment.currency || 'CAD'} ${Number(payment.amount).toLocaleString()} has been verified.`,
                             link: receiptUrl || `${process.env.NEXT_PUBLIC_APP_URL || 'https://cannoga.vercel.app'}/sis/payments`
                         }
