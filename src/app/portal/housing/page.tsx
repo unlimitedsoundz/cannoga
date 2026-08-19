@@ -289,70 +289,72 @@ export default function HousingPortalPage() {
     // ─────────────────────────────────────────────────────────────
     // RENDER
     // ─────────────────────────────────────────────────────────────
+    // RENDER
+    // ─────────────────────────────────────────────────────────────
     return (
-        <div className="min-h-screen bg-[#0a0f1a] text-slate-100 font-sans">
+        <div className="min-h-screen bg-[#f8fafc] text-slate-800 font-sans">
             {/* Toast */}
             {toast && (
-                <div className={`fixed top-5 right-5 z-[9999] px-5 py-3 rounded-xl shadow-2xl text-sm font-semibold animate-bounce-in flex items-center gap-2.5 ${toast.type === 'success' ? 'bg-emerald-600' : 'bg-rose-600'}`}>
+                <div className={`fixed top-5 right-5 z-[9999] px-5 py-3 rounded-xl shadow-xl text-sm font-semibold animate-bounce-in flex items-center gap-2.5 ${toast.type === 'success' ? 'bg-slate-900 text-white' : 'bg-rose-600 text-white'}`}>
                     {toast.type === 'success' ? <Icons.CheckCircle /> : <Icons.AlertTriangle />}
                     {toast.msg}
                 </div>
             )}
 
             {/* Top Global Navigation Bar */}
-            <header className="bg-[#070b13] border-b border-white/10 px-4 lg:px-8 py-3 sticky top-0 z-40 backdrop-blur-md bg-opacity-95">
+            <header className="bg-white border-b border-slate-200 px-4 lg:px-8 py-3 sticky top-0 z-40">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <a href="/portal/dashboard" className="flex items-center">
                             <img
                                 src="/images/logo-cannoga.png"
                                 alt="Cannoga College"
-                                className="h-8 w-auto object-contain brightness-0 invert"
+                                className="h-8 w-auto object-contain"
                             />
                         </a>
-                        <span className="text-slate-700">|</span>
-                        <a href="/sis" className="flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-white transition group">
-                            <span className="text-slate-500 group-hover:-translate-x-0.5 transition-transform">←</span> Return to SIS
+                        <span className="text-slate-300">|</span>
+                        <a href="/sis" className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900 transition group">
+                            <span className="text-slate-400 group-hover:-translate-x-0.5 transition-transform">←</span> Return to SIS
                         </a>
-                        <span className="text-slate-700">/</span>
-                        <span className="text-xs font-bold text-sky-400">Housing & Residence</span>
+                        <span className="text-slate-300">/</span>
+                        <span className="text-xs font-bold text-slate-900">Housing & Residence</span>
                     </div>
                 </div>
             </header>
 
             {/* Main Header Banner */}
-            <div className="bg-gradient-to-r from-[#0a1628] via-[#0d2240] to-[#0a1628] border-b border-white/10 px-4 lg:px-8 py-8">
+            <div className="bg-white border-b border-slate-200 px-4 lg:px-8 py-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div className="flex items-center gap-4">
                             <img
                                 src="/images/logo-cannoga.png"
                                 alt="Cannoga College"
-                                className="h-10 w-auto object-contain brightness-0 invert"
+                                className="h-10 w-auto object-contain"
                             />
                             <div>
-                                <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-white">Student Housing & Residence Life</h1>
-                                <p className="text-slate-400 text-xs lg:text-sm mt-0.5">2026/2027 Academic Year · Cannoga College Residences & Homestay</p>
+                                <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-slate-900">Student Housing & Residence Life</h1>
+                                <p className="text-slate-500 text-xs lg:text-sm mt-0.5">2026/2027 Academic Year · Cannoga College Residences & Homestay</p>
                             </div>
                         </div>
 
                         {application ? (
-                            <div className="px-4 py-2.5 bg-sky-500/10 border border-sky-500/25 rounded-2xl text-xs text-sky-300 flex items-center gap-2.5 shadow-inner">
+                            <div className="px-4 py-2.5 bg-slate-100 rounded-2xl text-xs text-slate-700 flex items-center gap-2.5">
                                 <Icons.CheckCircle />
                                 <div>
-                                    <div className="font-bold text-white">
+                                    <div className="font-bold text-slate-900">
                                         {application.housing_type === 'homestay'
                                             ? `Homestay: ${(application.homestay_host as any)?.host_name ?? 'Host Assigned'}`
                                             : `${(application.assigned_room as any)?.full_room_code ?? 'Room Selected'}`}
                                     </div>
-                                    <div className="text-[11px] text-sky-400 capitalize">
+                                    <div className="text-[11px] text-slate-500 capitalize">
                                         Status: {application.status.replace('_', ' ')}
                                     </div>
                                 </div>
                             </div>
                         ) : (
-                            <div className="px-3.5 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs text-slate-400 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                            <div className="px-3.5 py-1.5 bg-slate-100 rounded-xl text-xs text-slate-600 flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-slate-500" />
                                 <span>Fall 2026 Housing Applications Open</span>
                             </div>
                         )}
@@ -362,7 +364,7 @@ export default function HousingPortalPage() {
 
             {/* Tabs */}
             <div className="max-w-7xl mx-auto px-4 lg:px-8">
-                <div className="flex gap-1 border-b border-white/5 overflow-x-auto scrollbar-hide pt-2">
+                <div className="flex gap-1 border-b border-slate-200 overflow-x-auto scrollbar-hide pt-2">
                     {TABS.map(tab => {
                         const Icon = tab.icon;
                         return (
@@ -371,8 +373,8 @@ export default function HousingPortalPage() {
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`flex items-center gap-2 px-4 py-3 text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all border-b-2 ${
                                     activeTab === tab.id
-                                        ? 'border-sky-500 text-sky-400'
-                                        : 'border-transparent text-slate-500 hover:text-slate-300'
+                                        ? 'border-slate-900 text-slate-900'
+                                        : 'border-transparent text-slate-400 hover:text-slate-700'
                                 }`}
                             >
                                 <Icon />
@@ -385,7 +387,7 @@ export default function HousingPortalPage() {
                 <div className="py-8">
                     {loading ? (
                         <div className="flex items-center justify-center py-24">
-                            <div className="animate-spin w-10 h-10 border-2 border-sky-500/20 border-t-sky-500 rounded-full" />
+                            <div className="animate-spin w-10 h-10 border-2 border-slate-200 border-t-slate-800 rounded-full" />
                         </div>
                     ) : (
                         <>
@@ -396,7 +398,7 @@ export default function HousingPortalPage() {
                                     <div className="flex gap-3">
                                         {(['on_campus', 'homestay'] as HousingType[]).map(t => (
                                             <button key={t} onClick={() => { setHousingType(t); setSelectedBuilding(null); setSelectedRoom(null); setSelectedHost(null); }}
-                                                className={`flex-1 py-3 px-4 rounded-xl text-sm font-bold border transition-all ${housingType === t ? 'bg-sky-600 border-sky-500 text-white' : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'}`}>
+                                                className={`flex-1 py-3 px-4 rounded-xl text-sm font-bold transition-all ${housingType === t ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                                                 {t === 'on_campus' ? 'On-Campus Residence' : 'Homestay (Host Family)'}
                                             </button>
                                         ))}
@@ -405,19 +407,19 @@ export default function HousingPortalPage() {
                                     {housingType === 'on_campus' ? (
                                         <>
                                             {/* Building cards */}
-                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                                 {buildings.filter(b => b.code !== null).map(b => (
                                                     <button key={b.id} onClick={() => loadRooms(b)}
-                                                        className={`text-left rounded-2xl border overflow-hidden transition-all group flex flex-col ${selectedBuilding?.id === b.id ? 'bg-sky-900/30 border-sky-500 shadow-lg shadow-sky-500/20' : 'bg-white/5 border-white/10 hover:bg-white/8 hover:border-white/20'}`}>
+                                                        className={`text-left rounded-2xl overflow-hidden transition-all group flex flex-col bg-white shadow-sm hover:shadow-md ${selectedBuilding?.id === b.id ? 'ring-2 ring-slate-900' : ''}`}>
                                                         {b.image_url ? (
-                                                            <div className="w-full h-44 overflow-hidden relative bg-black/40 border-b border-white/10">
+                                                            <div className="w-full h-48 overflow-hidden relative bg-slate-100">
                                                                 <img
                                                                     src={b.image_url}
                                                                     alt={b.name}
                                                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                                 />
                                                                 <div className="absolute top-3 right-3">
-                                                                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold backdrop-blur-md shadow-md ${(b.available_beds ?? 0) > 0 ? 'bg-emerald-900/80 text-emerald-300 border border-emerald-500/40' : 'bg-rose-900/80 text-rose-300 border border-rose-500/40'}`}>
+                                                                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white text-slate-800 shadow-sm">
                                                                         {b.available_beds ?? '?'} beds open
                                                                     </span>
                                                                 </div>
@@ -427,19 +429,19 @@ export default function HousingPortalPage() {
                                                         <div className="p-5 flex-1 flex flex-col">
                                                             <div className="flex items-start justify-between mb-3">
                                                                 <div>
-                                                                    <h3 className="font-bold text-base text-white group-hover:text-sky-300 transition-colors">{b.name}</h3>
-                                                                    <p className="text-slate-400 text-xs mt-0.5">{b.campus_location}</p>
+                                                                    <h3 className="font-bold text-base text-slate-900 group-hover:text-slate-700 transition-colors">{b.name}</h3>
+                                                                    <p className="text-slate-500 text-xs mt-0.5">{b.campus_location}</p>
                                                                 </div>
                                                                 {!b.image_url && (
-                                                                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${(b.available_beds ?? 0) > 0 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}`}>
+                                                                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700">
                                                                         {b.available_beds ?? '?'} beds open
                                                                     </span>
                                                                 )}
                                                             </div>
-                                                            {b.description && <p className="text-slate-400 text-xs leading-relaxed mb-3 line-clamp-2">{b.description}</p>}
-                                                            <div className="flex flex-wrap gap-1 mt-auto pt-2">
+                                                            {b.description && <p className="text-slate-600 text-xs leading-relaxed mb-3 line-clamp-2">{b.description}</p>}
+                                                            <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
                                                                 {(b.services ?? []).slice(0, 4).map(s => (
-                                                                    <span key={s} className="px-2 py-0.5 bg-white/5 rounded text-[10px] text-slate-400">{s}</span>
+                                                                    <span key={s} className="px-2.5 py-1 bg-slate-100 rounded-md text-[11px] font-medium text-slate-600">{s}</span>
                                                                 ))}
                                                             </div>
                                                         </div>
@@ -449,13 +451,13 @@ export default function HousingPortalPage() {
 
                                             {/* Floor plan / bed picker */}
                                             {selectedBuilding && (
-                                                <div className="bg-white/5 rounded-2xl border border-white/10 p-5">
+                                                <div className="bg-white rounded-2xl p-6 shadow-sm">
                                                     <div className="flex items-center justify-between mb-4">
-                                                        <h3 className="font-bold text-base">{selectedBuilding.name} — Bed Picker</h3>
+                                                        <h3 className="font-bold text-base text-slate-900">{selectedBuilding.name} — Bed Picker</h3>
                                                         <div className="flex gap-2">
                                                             {floors.map(f => (
                                                                 <button key={f} onClick={() => { setSelectedFloor(f); }}
-                                                                    className={`px-3 py-1 rounded-lg text-xs font-bold transition ${selectedFloor === f ? 'bg-sky-600 text-white' : 'bg-white/10 text-slate-400 hover:bg-white/15'}`}>
+                                                                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition ${selectedFloor === f ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                                                                     Floor {f}
                                                                 </button>
                                                             ))}
@@ -464,16 +466,16 @@ export default function HousingPortalPage() {
 
                                                     {/* Legend */}
                                                     <div className="flex gap-4 mb-4">
-                                                        {[['AVAILABLE','bg-emerald-500/20 border-emerald-500/50 text-emerald-400'],['OCCUPIED','bg-rose-500/20 border-rose-500/30 text-rose-400'],['MAINTENANCE','bg-amber-500/20 border-amber-500/30 text-amber-400']].map(([s,c]) => (
+                                                        {[['AVAILABLE','bg-slate-900 text-white','Available'],['OCCUPIED','bg-slate-200 text-slate-400','Occupied'],['MAINTENANCE','bg-slate-300 text-slate-600','Maintenance']].map(([s,c,label]) => (
                                                             <div key={s} className="flex items-center gap-1.5">
-                                                                <div className={`w-3 h-3 rounded border ${c}`} />
-                                                                <span className="text-xs text-slate-500">{s.charAt(0) + s.slice(1).toLowerCase()}</span>
+                                                                <div className={`w-3 h-3 rounded-full ${c}`} />
+                                                                <span className="text-xs text-slate-500">{label}</span>
                                                             </div>
                                                         ))}
                                                     </div>
 
                                                     {/* Room grid */}
-                                                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+                                                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
                                                         {displayedRooms.map(room => {
                                                             const isSelected = selectedRoom?.id === room.id;
                                                             const isAvail = room.status === 'AVAILABLE';
@@ -482,17 +484,17 @@ export default function HousingPortalPage() {
                                                                     key={room.id}
                                                                     disabled={!isAvail}
                                                                     onClick={() => isAvail && setSelectedRoom(isSelected ? null : room)}
-                                                                    className={`p-3 rounded-xl border text-left transition-all ${
-                                                                        isSelected ? 'bg-sky-600/30 border-sky-500 shadow-lg shadow-sky-500/20'
-                                                                        : room.status === 'AVAILABLE' ? 'bg-emerald-500/10 border-emerald-500/30 hover:bg-emerald-500/20 cursor-pointer'
-                                                                        : room.status === 'MAINTENANCE' ? 'bg-amber-500/10 border-amber-500/20 opacity-60 cursor-not-allowed'
-                                                                        : 'bg-rose-500/10 border-rose-500/20 opacity-50 cursor-not-allowed'
+                                                                    className={`p-3.5 rounded-xl text-left transition-all ${
+                                                                        isSelected ? 'bg-slate-900 text-white shadow-md'
+                                                                        : room.status === 'AVAILABLE' ? 'bg-slate-50 hover:bg-slate-100 cursor-pointer text-slate-800'
+                                                                        : room.status === 'MAINTENANCE' ? 'bg-slate-100 opacity-60 cursor-not-allowed text-slate-400'
+                                                                        : 'bg-slate-100 opacity-40 cursor-not-allowed text-slate-400'
                                                                     }`}
                                                                 >
                                                                     <div className="text-xs font-black">{room.bed_identifier ? `${room.suite_number}-${room.bed_identifier}` : room.room_number}</div>
-                                                                    <div className="text-[10px] text-slate-400 mt-0.5 leading-tight">{room.window_orientation}</div>
+                                                                    <div className={`text-[10px] mt-0.5 leading-tight ${isSelected ? 'text-slate-300' : 'text-slate-500'}`}>{room.window_orientation}</div>
                                                                     {room.price_per_term_minor && (
-                                                                        <div className="text-[10px] font-bold text-sky-400 mt-1">{fmtCAD(room.price_per_term_minor)}/term</div>
+                                                                        <div className={`text-[11px] font-bold mt-1.5 ${isSelected ? 'text-white' : 'text-slate-900'}`}>{fmtCAD(room.price_per_term_minor)}/term</div>
                                                                     )}
                                                                 </button>
                                                             );
@@ -501,16 +503,16 @@ export default function HousingPortalPage() {
 
                                                     {/* Selection summary */}
                                                     {selectedRoom && (
-                                                        <div className="mt-5 p-4 bg-sky-900/30 border border-sky-500/30 rounded-xl flex items-center justify-between">
+                                                        <div className="mt-5 p-4 bg-slate-50 rounded-xl flex items-center justify-between">
                                                             <div>
-                                                                <div className="font-bold text-sm">{selectedRoom.full_room_code ?? selectedRoom.room_number}</div>
-                                                                <div className="text-xs text-slate-400 mt-0.5">{selectedRoom.room_type_label ?? selectedRoom.room_type} · {selectedRoom.window_orientation}</div>
+                                                                <div className="font-bold text-sm text-slate-900">{selectedRoom.full_room_code ?? selectedRoom.room_number}</div>
+                                                                <div className="text-xs text-slate-500 mt-0.5">{selectedRoom.room_type_label ?? selectedRoom.room_type} · {selectedRoom.window_orientation}</div>
                                                                 {selectedRoom.price_per_term_minor && (
-                                                                    <div className="text-sm font-black text-sky-300 mt-1">{fmtCAD(selectedRoom.price_per_term_minor)}/term</div>
+                                                                    <div className="text-sm font-black text-slate-900 mt-1">{fmtCAD(selectedRoom.price_per_term_minor)}/term</div>
                                                                 )}
                                                             </div>
                                                             <button onClick={handleReserve} disabled={reserving}
-                                                                className="px-5 py-2.5 bg-sky-600 hover:bg-sky-500 disabled:opacity-50 rounded-xl text-sm font-bold transition-all">
+                                                                className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-50 rounded-xl text-sm font-bold text-white transition-all">
                                                                 {reserving ? 'Reserving...' : 'Reserve This Bed →'}
                                                             </button>
                                                         </div>
@@ -521,14 +523,14 @@ export default function HousingPortalPage() {
                                     ) : (
                                         /* HOMESTAY LISTINGS */
                                         <div className="space-y-4">
-                                            <p className="text-slate-400 text-sm">Host families vetted and approved by Cannoga College International Student Services.</p>
+                                            <p className="text-slate-500 text-sm">Host families vetted and approved by Cannoga College International Student Services.</p>
                                             {homestayHosts.map(host => {
                                                 const hostPhoto = host.photo_url || host.host_photo_url;
                                                 return (
                                                     <div key={host.id} onClick={() => setSelectedHost(selectedHost?.id === host.id ? null : host)}
-                                                        className={`p-5 rounded-2xl border cursor-pointer transition-all flex flex-col md:flex-row gap-5 ${selectedHost?.id === host.id ? 'bg-sky-900/30 border-sky-500 shadow-lg shadow-sky-500/20' : 'bg-white/5 border-white/10 hover:border-white/20'}`}>
+                                                        className={`p-5 rounded-2xl cursor-pointer transition-all flex flex-col md:flex-row gap-5 bg-white shadow-sm hover:shadow-md ${selectedHost?.id === host.id ? 'ring-2 ring-slate-900' : ''}`}>
                                                         {hostPhoto ? (
-                                                            <div className="w-full md:w-48 h-40 shrink-0 rounded-xl overflow-hidden bg-black/40 border border-white/10 relative">
+                                                            <div className="w-full md:w-48 h-40 shrink-0 rounded-xl overflow-hidden bg-slate-100 relative">
                                                                 <img
                                                                     src={hostPhoto}
                                                                     alt={host.host_name}
@@ -540,34 +542,34 @@ export default function HousingPortalPage() {
                                                         <div className="flex-1 flex flex-col justify-between">
                                                             <div>
                                                                 <div className="flex items-center gap-2.5 mb-2 flex-wrap">
-                                                                    <h3 className="font-bold text-base text-white">{host.host_name}</h3>
-                                                                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${host.gender_policy === 'any' ? 'bg-purple-500/20 text-purple-300' : host.gender_policy === 'female_only' ? 'bg-pink-500/20 text-pink-300' : 'bg-blue-500/20 text-blue-300'}`}>
+                                                                    <h3 className="font-bold text-base text-slate-900">{host.host_name}</h3>
+                                                                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700">
                                                                         {host.gender_policy === 'any' ? 'Co-Ed Welcome' : host.gender_policy === 'female_only' ? 'Female Students Only' : 'Male Students Only'}
                                                                     </span>
                                                                     {host.has_quiet_study_room && (
-                                                                         <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300">Quiet Study Room</span>
+                                                                         <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700">Quiet Study Room</span>
                                                                     )}
                                                                     {(host.spots_available ?? 0) > 0 ? (
-                                                                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400">{host.spots_available} spot{host.spots_available !== 1 ? 's' : ''} available</span>
+                                                                        <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-800">{host.spots_available} spot{host.spots_available !== 1 ? 's' : ''} available</span>
                                                                     ) : (
-                                                                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-400">Full</span>
+                                                                        <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-400">Full</span>
                                                                     )}
                                                                 </div>
-                                                                <p className="text-slate-400 text-xs leading-relaxed mb-3">{host.host_family_description}</p>
-                                                                <div className="flex flex-wrap gap-2 text-[11px] mb-3">
-                                                                    <span className="flex items-center gap-1 text-slate-400"><Icons.MapPin />{host.address_city} · {host.distance_to_campus_km} km to campus</span>
+                                                                <p className="text-slate-600 text-xs leading-relaxed mb-3">{host.host_family_description}</p>
+                                                                <div className="flex flex-wrap gap-1.5 text-[11px] mb-3">
+                                                                    <span className="flex items-center gap-1 text-slate-500 font-medium bg-slate-100 px-2 py-0.5 rounded-md"><Icons.MapPin />{host.address_city} · {host.distance_to_campus_km} km to campus</span>
                                                                     {host.languages_spoken.map(l => (
-                                                                        <span key={l} className="px-2 py-0.5 bg-white/5 rounded text-slate-400">{l}</span>
+                                                                        <span key={l} className="px-2 py-0.5 bg-slate-100 rounded-md text-slate-600">{l}</span>
                                                                     ))}
                                                                     {host.dietary_accommodations.map(d => (
-                                                                        <span key={d} className="px-2 py-0.5 bg-green-500/10 text-green-400 rounded">{d.charAt(0).toUpperCase() + d.slice(1)} ✓</span>
+                                                                        <span key={d} className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded-md">{d.charAt(0).toUpperCase() + d.slice(1)}</span>
                                                                     ))}
                                                                 </div>
                                                             </div>
 
-                                                            <div className="flex items-center justify-between pt-2 border-t border-white/5 mt-auto">
+                                                            <div className="flex items-center justify-between pt-3 border-t border-slate-100 mt-auto">
                                                                 <div className="text-xs text-slate-500">All-inclusive meal & utilities</div>
-                                                                <div className="text-lg font-black text-sky-300">{fmtWeekly(host.price_per_week_minor)}</div>
+                                                                <div className="text-lg font-black text-slate-900">{fmtWeekly(host.price_per_week_minor)}</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -575,13 +577,13 @@ export default function HousingPortalPage() {
                                             })}
 
                                             {selectedHost && (
-                                                <div className="p-4 bg-sky-900/30 border border-sky-500/30 rounded-xl flex items-center justify-between">
+                                                <div className="p-4 bg-slate-100 rounded-xl flex items-center justify-between">
                                                     <div>
-                                                        <div className="font-bold text-sm">{selectedHost.host_name} selected</div>
-                                                        <div className="text-xs text-slate-400 mt-0.5">{selectedHost.address_city} · {fmtWeekly(selectedHost.price_per_week_minor)}</div>
+                                                        <div className="font-bold text-sm text-slate-900">{selectedHost.host_name} selected</div>
+                                                        <div className="text-xs text-slate-500 mt-0.5">{selectedHost.address_city} · {fmtWeekly(selectedHost.price_per_week_minor)}</div>
                                                     </div>
                                                     <button onClick={handleReserve} disabled={reserving || (selectedHost.spots_available ?? 0) === 0}
-                                                        className="px-5 py-2.5 bg-sky-600 hover:bg-sky-500 disabled:opacity-50 rounded-xl text-sm font-bold transition-all">
+                                                        className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-50 rounded-xl text-sm font-bold text-white transition-all">
                                                         {reserving ? 'Applying...' : 'Apply for Homestay →'}
                                                     </button>
                                                 </div>
@@ -593,199 +595,199 @@ export default function HousingPortalPage() {
 
                             {/* ── TAB 2: PREFERENCES & ROOMMATE MATCHING ── */}
                             {activeTab === 'preferences' && (
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                    {/* Questionnaire */}
-                                    <div className="space-y-6">
-                                        <div>
-                                            <h2 className="text-lg font-black mb-1">Lifestyle & Preferences</h2>
-                                            <p className="text-slate-400 text-sm">This helps us find you the best roommate and room matches.</p>
-                                        </div>
+                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                     {/* Questionnaire */}
+                                     <div className="space-y-6 bg-white p-6 rounded-2xl shadow-sm">
+                                         <div>
+                                             <h2 className="text-lg font-black mb-1 text-slate-900">Lifestyle & Preferences</h2>
+                                             <p className="text-slate-500 text-sm">This helps us find you the best roommate and room matches.</p>
+                                         </div>
 
-                                        {/* Sleep schedule */}
-                                        <div>
-                                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Sleep Schedule</label>
-                                            <div className="grid grid-cols-3 gap-2">
-                                                {[['early', 'Early Bird'],['moderate', 'Moderate'],['night', 'Night Owl']].map(([v, l]) => (
-                                                    <button key={v} onClick={() => setMyProfile(p => ({ ...p, sleep_schedule: v as any }))}
-                                                        className={`py-2.5 rounded-xl text-xs font-bold border transition-all ${myProfile.sleep_schedule === v ? 'bg-sky-600 border-sky-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
-                                                        {l}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
+                                         {/* Sleep schedule */}
+                                         <div>
+                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Sleep Schedule</label>
+                                             <div className="grid grid-cols-3 gap-2">
+                                                 {[['early', 'Early Bird'],['moderate', 'Moderate'],['night', 'Night Owl']].map(([v, l]) => (
+                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, sleep_schedule: v as any }))}
+                                                         className={`py-2.5 rounded-xl text-xs font-bold transition-all ${myProfile.sleep_schedule === v ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                                         {l}
+                                                     </button>
+                                                 ))}
+                                             </div>
+                                         </div>
 
-                                        {/* Study habits */}
-                                        <div>
-                                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Study Habits</label>
-                                            <div className="grid grid-cols-3 gap-2">
-                                                {[['silent','Silent'],['music','Background Music'],['social','Social / Group']].map(([v, l]) => (
-                                                    <button key={v} onClick={() => setMyProfile(p => ({ ...p, study_habits: v as any }))}
-                                                        className={`py-2.5 rounded-xl text-xs font-bold border transition-all ${myProfile.study_habits === v ? 'bg-sky-600 border-sky-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
-                                                        {l}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
+                                         {/* Study habits */}
+                                         <div>
+                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Study Habits</label>
+                                             <div className="grid grid-cols-3 gap-2">
+                                                 {[['silent','Silent'],['music','Background Music'],['social','Social / Group']].map(([v, l]) => (
+                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, study_habits: v as any }))}
+                                                         className={`py-2.5 rounded-xl text-xs font-bold transition-all ${myProfile.study_habits === v ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                                         {l}
+                                                     </button>
+                                                 ))}
+                                             </div>
+                                         </div>
 
-                                        {/* Cleanliness */}
-                                        <div>
-                                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                                                Cleanliness — {myProfile.cleanliness_rating ?? 3}/5
-                                            </label>
-                                            <input type="range" min={1} max={5} step={1}
-                                                value={myProfile.cleanliness_rating ?? 3}
-                                                onChange={e => setMyProfile(p => ({ ...p, cleanliness_rating: parseInt(e.target.value) as any }))}
-                                                className="w-full accent-sky-500" />
-                                            <div className="flex justify-between text-[10px] text-slate-600 mt-1">
-                                                <span>Relaxed</span><span>Very Tidy</span>
-                                            </div>
-                                        </div>
+                                         {/* Cleanliness */}
+                                         <div>
+                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                                                 Cleanliness — {myProfile.cleanliness_rating ?? 3}/5
+                                             </label>
+                                             <input type="range" min={1} max={5} step={1}
+                                                 value={myProfile.cleanliness_rating ?? 3}
+                                                 onChange={e => setMyProfile(p => ({ ...p, cleanliness_rating: parseInt(e.target.value) as any }))}
+                                                 className="w-full accent-slate-900" />
+                                             <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+                                                 <span>Relaxed</span><span>Very Tidy</span>
+                                             </div>
+                                         </div>
 
-                                        {/* Guest preference */}
-                                        <div>
-                                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Guest Policy</label>
-                                            <div className="grid grid-cols-3 gap-2">
-                                                {[['rarely','Rarely'],['advance_notice','Advance Notice'],['frequent','Frequently']].map(([v, l]) => (
-                                                    <button key={v} onClick={() => setMyProfile(p => ({ ...p, guest_preference: v as any }))}
-                                                        className={`py-2.5 rounded-xl text-xs font-bold border transition-all ${myProfile.guest_preference === v ? 'bg-sky-600 border-sky-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
-                                                        {l}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
+                                         {/* Guest preference */}
+                                         <div>
+                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Guest Policy</label>
+                                             <div className="grid grid-cols-3 gap-2">
+                                                 {[['rarely','Rarely'],['advance_notice','Advance Notice'],['frequent','Frequently']].map(([v, l]) => (
+                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, guest_preference: v as any }))}
+                                                         className={`py-2.5 rounded-xl text-xs font-bold transition-all ${myProfile.guest_preference === v ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                                         {l}
+                                                     </button>
+                                                 ))}
+                                             </div>
+                                         </div>
 
-                                        {/* Gender / Floor preference */}
-                                        <div>
-                                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Gender / Floor Preference</label>
-                                            <div className="grid grid-cols-3 gap-2">
-                                                {[['any','Any'],['same_gender','Same-Gender Floor'],['co_ed','Co-Ed Floor']].map(([v, l]) => (
-                                                    <button key={v} onClick={() => setMyProfile(p => ({ ...p, gender_preference: v as GenderPreference }))}
-                                                        className={`py-2.5 rounded-xl text-xs font-bold border transition-all ${myProfile.gender_preference === v ? 'bg-sky-600 border-sky-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
-                                                        {l}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
+                                         {/* Gender / Floor preference */}
+                                         <div>
+                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gender / Floor Preference</label>
+                                             <div className="grid grid-cols-3 gap-2">
+                                                 {[['any','Any'],['same_gender','Same-Gender Floor'],['co_ed','Co-Ed Floor']].map(([v, l]) => (
+                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, gender_preference: v as GenderPreference }))}
+                                                         className={`py-2.5 rounded-xl text-xs font-bold transition-all ${myProfile.gender_preference === v ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                                         {l}
+                                                     </button>
+                                                 ))}
+                                             </div>
+                                         </div>
 
-                                        {/* Floor type */}
-                                        <div>
-                                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Floor Environment</label>
-                                            <div className="grid grid-cols-3 gap-2">
-                                                {[['quiet_study','Quiet Study'],['social','Social'],['any','No Preference']].map(([v, l]) => (
-                                                    <button key={v} onClick={() => setMyProfile(p => ({ ...p, floor_type_preference: v as FloorTypePreference }))}
-                                                        className={`py-2.5 rounded-xl text-xs font-bold border transition-all ${myProfile.floor_type_preference === v ? 'bg-sky-600 border-sky-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
-                                                        {l}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
+                                         {/* Floor type */}
+                                         <div>
+                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Floor Environment</label>
+                                             <div className="grid grid-cols-3 gap-2">
+                                                 {[['quiet_study','Quiet Study'],['social','Social'],['any','No Preference']].map(([v, l]) => (
+                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, floor_type_preference: v as FloorTypePreference }))}
+                                                         className={`py-2.5 rounded-xl text-xs font-bold transition-all ${myProfile.floor_type_preference === v ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                                         {l}
+                                                     </button>
+                                                 ))}
+                                             </div>
+                                         </div>
 
-                                        {/* Dietary needs */}
-                                        <div>
-                                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Dietary Needs (select all that apply)</label>
-                                            <div className="flex flex-wrap gap-2">
-                                                {DIETARY_OPTIONS.map(opt => {
-                                                    const key = opt.toLowerCase().replace(' ', '_');
-                                                    const isSelected = (myProfile.dietary_needs ?? []).includes(key);
-                                                    return (
-                                                        <button key={key}
-                                                            onClick={() => setMyProfile(p => ({
-                                                                ...p,
-                                                                dietary_needs: isSelected
-                                                                    ? (p.dietary_needs ?? []).filter(d => d !== key)
-                                                                    : [...(p.dietary_needs ?? []), key],
-                                                            }))}
-                                                            className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all ${isSelected ? 'bg-green-600 border-green-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
-                                                            {opt}
-                                                        </button>
-                                                    );
-                                                })}
-                                            </div>
-                                        </div>
+                                         {/* Dietary needs */}
+                                         <div>
+                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Dietary Needs (select all that apply)</label>
+                                             <div className="flex flex-wrap gap-2">
+                                                 {DIETARY_OPTIONS.map(opt => {
+                                                     const key = opt.toLowerCase().replace(' ', '_');
+                                                     const isSelected = (myProfile.dietary_needs ?? []).includes(key);
+                                                     return (
+                                                         <button key={key}
+                                                             onClick={() => setMyProfile(p => ({
+                                                                 ...p,
+                                                                 dietary_needs: isSelected
+                                                                     ? (p.dietary_needs ?? []).filter(d => d !== key)
+                                                                     : [...(p.dietary_needs ?? []), key],
+                                                             }))}
+                                                             className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${isSelected ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                                             {opt}
+                                                         </button>
+                                                     );
+                                                 })}
+                                             </div>
+                                         </div>
 
-                                        {/* Friend / suite-mate requests */}
-                                        <div>
-                                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Request Specific Suite-Mates</label>
-                                            <p className="text-slate-500 text-xs mb-2">Enter up to 3 Student IDs. Both students must list each other for confirmation.</p>
-                                            <div className="space-y-2">
-                                                {friendIds.map((fid, idx) => (
-                                                    <input key={idx} type="text" placeholder={`Student ID #${idx + 1} (e.g. CC-2026-0001)`}
-                                                        value={fid}
-                                                        onChange={e => setFriendIds(prev => prev.map((p, i) => i === idx ? e.target.value : p))}
-                                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm placeholder:text-slate-600 focus:outline-none focus:border-sky-500 transition" />
-                                                ))}
-                                            </div>
-                                        </div>
+                                         {/* Friend / suite-mate requests */}
+                                         <div>
+                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Request Specific Suite-Mates</label>
+                                             <p className="text-slate-400 text-xs mb-2">Enter up to 3 Student IDs. Both students must list each other for confirmation.</p>
+                                             <div className="space-y-2">
+                                                 {friendIds.map((fid, idx) => (
+                                                     <input key={idx} type="text" placeholder={`Student ID #${idx + 1} (e.g. CC-2026-0001)`}
+                                                         value={fid}
+                                                         onChange={e => setFriendIds(prev => prev.map((p, i) => i === idx ? e.target.value : p))}
+                                                         className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm placeholder:text-slate-400 text-slate-800 focus:outline-none focus:border-slate-800 transition" />
+                                                 ))}
+                                             </div>
+                                         </div>
 
-                                        <button onClick={handleSaveProfile} disabled={savingProfile}
-                                            className="w-full py-3 bg-sky-600 hover:bg-sky-500 disabled:opacity-50 rounded-xl font-bold text-sm transition-all">
-                                            {savingProfile ? 'Saving...' : 'Save Preferences & Find Matches'}
-                                        </button>
-                                    </div>
+                                         <button onClick={handleSaveProfile} disabled={savingProfile}
+                                             className="w-full py-3 bg-slate-900 hover:bg-slate-800 disabled:opacity-50 rounded-xl font-bold text-sm text-white transition-all">
+                                             {savingProfile ? 'Saving...' : 'Save Preferences & Find Matches'}
+                                         </button>
+                                     </div>
 
-                                    {/* Matches */}
-                                    <div>
-                                        <h2 className="text-lg font-black mb-1">Roommate Matches</h2>
-                                        <p className="text-slate-400 text-sm mb-4">Based on your lifestyle profile compatibility.</p>
-                                        {matches.length === 0 ? (
-                                            <div className="text-center py-12 text-slate-500 text-sm bg-white/3 rounded-2xl border border-white/5">
-                                                <Icons.Users />
-                                                <p className="mt-2">Save your preferences to see matches</p>
-                                            </div>
-                                        ) : (
-                                            <div className="space-y-3">
-                                                {matches.map(m => (
-                                                    <div key={m.student_id} className="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/10">
-                                                        <CompatibilityRing score={m.compatibility_score ?? 0} />
-                                                        <div className="flex-1 min-w-0">
-                                                            <div className="font-bold text-sm">{m.display_name ?? `Student ···${m.student_id.slice(-4)}`}</div>
-                                                            <div className="text-xs text-slate-500 mt-0.5">
-                                                                {m.sleep_schedule} · {m.study_habits} · Cleanliness {m.cleanliness_rating}/5
-                                                            </div>
-                                                            <div className="text-xs text-slate-500">
-                                                                {m.gender_preference !== 'any' && `${m.gender_preference.replace('_', ' ')} floor`}
-                                                                {m.floor_type_preference !== 'any' && ` · ${m.floor_type_preference.replace('_', ' ')} environment`}
-                                                            </div>
-                                                        </div>
-                                                        <button
-                                                            onClick={() => setFriendIds(prev => { const copy = [...prev]; const empty = copy.findIndex(f => !f); if (empty !== -1) copy[empty] = m.student_id; return copy; })}
-                                                            className="px-3 py-1.5 bg-sky-600/20 border border-sky-500/30 rounded-lg text-xs font-bold text-sky-400 hover:bg-sky-600/30 transition">
-                                                            Request
-                                                        </button>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
+                                     {/* Matches */}
+                                     <div className="bg-white p-6 rounded-2xl shadow-sm">
+                                         <h2 className="text-lg font-black mb-1 text-slate-900">Roommate Matches</h2>
+                                         <p className="text-slate-500 text-sm mb-4">Based on your lifestyle profile compatibility.</p>
+                                         {matches.length === 0 ? (
+                                             <div className="text-center py-12 text-slate-400 text-sm bg-slate-50 rounded-2xl">
+                                                 <Icons.Users />
+                                                 <p className="mt-2">Save your preferences to see matches</p>
+                                             </div>
+                                         ) : (
+                                             <div className="space-y-3">
+                                                 {matches.map(m => (
+                                                     <div key={m.student_id} className="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
+                                                         <CompatibilityRing score={m.compatibility_score ?? 0} />
+                                                         <div className="flex-1 min-w-0">
+                                                             <div className="font-bold text-sm text-slate-900">{m.display_name ?? `Student ···${m.student_id.slice(-4)}`}</div>
+                                                             <div className="text-xs text-slate-500 mt-0.5">
+                                                                 {m.sleep_schedule} · {m.study_habits} · Cleanliness {m.cleanliness_rating}/5
+                                                             </div>
+                                                             <div className="text-xs text-slate-400">
+                                                                 {m.gender_preference !== 'any' && `${m.gender_preference.replace('_', ' ')} floor`}
+                                                                 {m.floor_type_preference !== 'any' && ` · ${m.floor_type_preference.replace('_', ' ')} environment`}
+                                                             </div>
+                                                         </div>
+                                                         <button
+                                                             onClick={() => setFriendIds(prev => { const copy = [...prev]; const empty = copy.findIndex(f => !f); if (empty !== -1) copy[empty] = m.student_id; return copy; })}
+                                                             className="px-3.5 py-1.5 bg-slate-200 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-300 transition">
+                                                             Request
+                                                         </button>
+                                                     </div>
+                                                 ))}
+                                             </div>
+                                         )}
+                                     </div>
+                                 </div>
                             )}
 
                             {/* ── TAB 3: MEAL PLANS ── */}
                             {activeTab === 'meals' && (
                                 <div className="space-y-6">
                                     <div>
-                                        <h2 className="text-lg font-black mb-1">Campus Meal Plans</h2>
-                                        <p className="text-slate-400 text-sm">Meal plans are added to your housing contract. Select the best option for you.</p>
+                                        <h2 className="text-lg font-black mb-1 text-slate-900">Campus Meal Plans</h2>
+                                        <p className="text-slate-500 text-sm">Meal plans are added to your housing contract. Select the best option for you.</p>
                                     </div>
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                         {mealPlans.map((plan, idx) => {
-                                            const colors = ['from-sky-600 to-blue-700', 'from-violet-600 to-purple-700', 'from-emerald-600 to-teal-700'];
                                             const isSelected = selectedMealPlan?.id === plan.id;
                                             return (
-                                                <div key={plan.id} className={`relative rounded-2xl border overflow-hidden transition-all ${isSelected ? 'border-sky-500 shadow-lg shadow-sky-500/20' : 'border-white/10'}`}>
-                                                    <div className={`bg-gradient-to-br ${colors[idx % 3]} p-5`}>
-                                                        {idx === 0 && <div className="absolute top-3 right-3 px-2 py-0.5 bg-white/20 rounded-full text-[10px] font-bold">Best Value</div>}
-                                                        <h3 className="font-black text-base leading-tight">{plan.title}</h3>
-                                                        <div className="text-2xl font-black mt-2">{fmtCAD(plan.price_per_term_minor)}<span className="text-sm font-normal opacity-70">/term</span></div>
+                                                <div key={plan.id} className={`relative rounded-2xl overflow-hidden transition-all bg-white shadow-sm flex flex-col ${isSelected ? 'ring-2 ring-slate-900' : ''}`}>
+                                                    <div className="p-6 bg-slate-900 text-white">
+                                                        <h3 className="font-bold text-base leading-tight">{plan.title}</h3>
+                                                        <div className="text-2xl font-black mt-2">{fmtCAD(plan.price_per_term_minor)}<span className="text-xs font-normal opacity-70">/term</span></div>
                                                         {plan.flex_dollars_minor > 0 && (
                                                             <div className="text-xs opacity-80 mt-1">+ {fmtCAD(plan.flex_dollars_minor)} Flex Dollars</div>
                                                         )}
                                                     </div>
-                                                    <div className="p-4 bg-white/5">
-                                                        <p className="text-slate-400 text-xs leading-relaxed mb-4">{plan.description}</p>
-                                                        {plan.meals_per_week && <div className="text-xs text-slate-500 mb-3">{plan.meals_per_week} meals/week</div>}
+                                                    <div className="p-6 flex-1 flex flex-col justify-between bg-white">
+                                                        <div>
+                                                            <p className="text-slate-600 text-xs leading-relaxed mb-4">{plan.description}</p>
+                                                            {plan.meals_per_week && <div className="text-xs font-medium text-slate-500 mb-4">{plan.meals_per_week} meals/week</div>}
+                                                        </div>
                                                         <button onClick={() => setSelectedMealPlan(isSelected ? null : plan)}
-                                                            className={`w-full py-2.5 rounded-xl text-sm font-bold transition-all ${isSelected ? 'bg-sky-600' : 'bg-white/10 hover:bg-white/15'}`}>
+                                                            className={`w-full py-2.5 rounded-xl text-sm font-bold transition-all ${isSelected ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}>
                                                             {isSelected ? '✓ Selected' : 'Add to Contract'}
                                                         </button>
                                                     </div>
@@ -793,7 +795,7 @@ export default function HousingPortalPage() {
                                             );
                                         })}
                                     </div>
-                                    <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-300 text-xs">
+                                    <div className="p-4 bg-slate-100 rounded-xl text-slate-700 text-xs leading-relaxed">
                                         <strong>Note:</strong> The Unlimited 7-Day plan is recommended for Maple Hall and Laurentian Suites residents. The Declining Balance Plan is ideal for Pacific Townhouse and Homestay students who have kitchen access.
                                     </div>
                                 </div>
@@ -801,82 +803,81 @@ export default function HousingPortalPage() {
 
                             {/* ── TAB 4: OCCUPANCY AGREEMENT & DEPOSIT ── */}
                             {activeTab === 'contract' && (
-                                <div className="max-w-3xl space-y-8">
+                                <div className="max-w-3xl space-y-6 bg-white p-6 rounded-2xl shadow-sm">
                                     <div>
-                                        <h2 className="text-lg font-black mb-1">Residence Occupancy Agreement</h2>
-                                        <p className="text-slate-400 text-sm">Read the full agreement below, then sign electronically to proceed with your $500 CAD security deposit.</p>
+                                        <h2 className="text-lg font-black mb-1 text-slate-900">Residence Occupancy Agreement</h2>
+                                        <p className="text-slate-500 text-sm">Read the full agreement below, then sign electronically to proceed with your $500 CAD security deposit.</p>
                                     </div>
 
                                     {!application ? (
-                                        <div className="p-6 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-amber-300 text-sm">
-                                            <Icons.AlertTriangle />
-                                            <p className="mt-2">No housing selection found. Please complete <strong>Tab 1</strong> to select a room or homestay first.</p>
+                                        <div className="p-6 bg-slate-100 rounded-2xl text-slate-700 text-sm">
+                                            <p>No housing selection found. Please complete <strong>Tab 1</strong> to select a room or homestay first.</p>
                                         </div>
                                     ) : (
                                         <>
                                             {/* Contract text */}
-                                            <div className="bg-white/3 border border-white/10 rounded-2xl p-6 max-h-64 overflow-y-auto text-xs text-slate-400 leading-relaxed space-y-3">
-                                                <p className="font-bold text-slate-200 text-sm">CANNOGA COLLEGE — RESIDENCE OCCUPANCY LICENSE & COMMUNITY STANDARDS AGREEMENT</p>
+                                            <div className="bg-slate-50 rounded-2xl p-6 max-h-64 overflow-y-auto text-xs text-slate-600 leading-relaxed space-y-3">
+                                                <p className="font-bold text-slate-900 text-sm">CANNOGA COLLEGE — RESIDENCE OCCUPANCY LICENSE & COMMUNITY STANDARDS AGREEMENT</p>
                                                 <p>This agreement is entered into between Cannoga College ("the College") and the undersigned student ("the Resident") for the academic year 2026/2027. This license grants the Resident the right to occupy the assigned residence space on a non-exclusive basis, subject to the terms and conditions outlined herein.</p>
-                                                <p><strong className="text-slate-300">1. TERM OF OCCUPANCY:</strong> The occupancy period commences September 2, 2026 and concludes April 30, 2027. Early move-out does not entitle the Resident to a refund of housing fees.</p>
-                                                <p><strong className="text-slate-300">2. HOUSING FEES & DEPOSIT:</strong> A non-refundable $500.00 CAD Housing Security Deposit is required within 7 days of signing this agreement to confirm the reservation. Full housing fees are due no later than August 1, 2026. Failure to pay by the due date may result in cancellation of the housing assignment.</p>
-                                                <p><strong className="text-slate-300">3. COMMUNITY STANDARDS:</strong> Residents agree to respect quiet hours (11:00 PM – 7:00 AM), maintain cleanliness in shared spaces, and adhere to the Cannoga College Code of Conduct. Noise complaints, substance violations, or damage to property may result in immediate removal from residence.</p>
-                                                <p><strong className="text-slate-300">4. GUEST POLICY:</strong> Overnight guests are permitted for a maximum of 3 consecutive nights and 10 nights per semester. All guests must be registered through the Resident Hub. The Resident is fully responsible for the conduct of their guests.</p>
-                                                <p><strong className="text-slate-300">5. PROPERTY CARE:</strong> The Resident accepts the room in its current condition as documented in the Move-In Inspection Checklist. Any damage beyond normal wear and tear will be charged to the Resident's account.</p>
-                                                <p><strong className="text-slate-300">6. TERMINATION:</strong> The College reserves the right to terminate this license agreement in the event of a violation of community standards, non-payment of fees, or other conduct detrimental to the residence community.</p>
-                                                <p><strong className="text-slate-300">7. LIABILITY:</strong> Cannoga College is not responsible for loss or damage to Resident's personal property. Students are encouraged to obtain tenant's insurance.</p>
+                                                <p><strong className="text-slate-800">1. TERM OF OCCUPANCY:</strong> The occupancy period commences September 2, 2026 and concludes April 30, 2027. Early move-out does not entitle the Resident to a refund of housing fees.</p>
+                                                <p><strong className="text-slate-800">2. HOUSING FEES & DEPOSIT:</strong> A non-refundable $500.00 CAD Housing Security Deposit is required within 7 days of signing this agreement to confirm the reservation. Full housing fees are due no later than August 1, 2026. Failure to pay by the due date may result in cancellation of the housing assignment.</p>
+                                                <p><strong className="text-slate-800">3. COMMUNITY STANDARDS:</strong> Residents agree to respect quiet hours (11:00 PM – 7:00 AM), maintain cleanliness in shared spaces, and adhere to the Cannoga College Code of Conduct. Noise complaints, substance violations, or damage to property may result in immediate removal from residence.</p>
+                                                <p><strong className="text-slate-800">4. GUEST POLICY:</strong> Overnight guests are permitted for a maximum of 3 consecutive nights and 10 nights per semester. All guests must be registered through the Resident Hub. The Resident is fully responsible for the conduct of their guests.</p>
+                                                <p><strong className="text-slate-800">5. PROPERTY CARE:</strong> The Resident accepts the room in its current condition as documented in the Move-In Inspection Checklist. Any damage beyond normal wear and tear will be charged to the Resident's account.</p>
+                                                <p><strong className="text-slate-800">6. TERMINATION:</strong> The College reserves the right to terminate this license agreement in the event of a violation of community standards, non-payment of fees, or other conduct detrimental to the residence community.</p>
+                                                <p><strong className="text-slate-800">7. LIABILITY:</strong> Cannoga College is not responsible for loss or damage to Resident's personal property. Students are encouraged to obtain tenant's insurance.</p>
                                                 <p className="text-slate-500">By signing below, the Resident confirms they have read, understood, and agreed to all terms of this Residence Occupancy License & Community Standards Agreement.</p>
                                             </div>
 
                                             {/* Application summary */}
                                             <div className="grid grid-cols-2 gap-3 text-sm">
-                                                <div className="p-3 bg-white/5 rounded-xl">
+                                                <div className="p-4 bg-slate-50 rounded-xl">
                                                     <div className="text-xs text-slate-500 mb-1">Housing Type</div>
-                                                    <div className="font-bold">{application.housing_type === 'homestay' ? 'Homestay' : 'On-Campus'}</div>
+                                                    <div className="font-bold text-slate-900">{application.housing_type === 'homestay' ? 'Homestay' : 'On-Campus'}</div>
                                                 </div>
-                                                <div className="p-3 bg-white/5 rounded-xl">
+                                                <div className="p-4 bg-slate-50 rounded-xl">
                                                     <div className="text-xs text-slate-500 mb-1">Placement</div>
-                                                    <div className="font-bold">{(application.assigned_room as any)?.full_room_code ?? (application.homestay_host as any)?.host_name ?? '—'}</div>
+                                                    <div className="font-bold text-slate-900">{(application.assigned_room as any)?.full_room_code ?? (application.homestay_host as any)?.host_name ?? '—'}</div>
                                                 </div>
-                                                <div className="p-3 bg-white/5 rounded-xl">
+                                                <div className="p-4 bg-slate-50 rounded-xl">
                                                     <div className="text-xs text-slate-500 mb-1">Meal Plan</div>
-                                                    <div className="font-bold">{selectedMealPlan?.title ?? 'None selected'}</div>
+                                                    <div className="font-bold text-slate-900">{selectedMealPlan?.title ?? 'None selected'}</div>
                                                 </div>
-                                                <div className="p-3 bg-white/5 rounded-xl">
+                                                <div className="p-4 bg-slate-50 rounded-xl">
                                                     <div className="text-xs text-slate-500 mb-1">Security Deposit</div>
-                                                    <div className="font-black text-sky-400">$500.00 CAD</div>
+                                                    <div className="font-black text-slate-900">$500.00 CAD</div>
                                                 </div>
                                             </div>
 
                                             {/* Signature */}
                                             {application.status !== 'contract_signed' && application.status !== 'deposit_paid' && application.status !== 'confirmed' ? (
-                                                <div className="space-y-4">
+                                                <div className="space-y-4 pt-2">
                                                     <div>
-                                                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Full Legal Name (as it appears on government ID)</label>
+                                                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Full Legal Name (as it appears on government ID)</label>
                                                         <input
                                                             type="text"
                                                             placeholder="Enter your full legal name..."
                                                             value={signatureName}
                                                             onChange={e => setSignatureName(e.target.value)}
-                                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm placeholder:text-slate-600 focus:outline-none focus:border-sky-500 transition font-medium"
+                                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm placeholder:text-slate-400 text-slate-900 focus:outline-none focus:border-slate-800 transition font-medium"
                                                         />
                                                     </div>
                                                     <label className="flex items-start gap-3 cursor-pointer">
-                                                        <input type="checkbox" checked={agreedToTerms} onChange={e => setAgreedToTerms(e.target.checked)} className="mt-0.5 accent-sky-500" />
-                                                        <span className="text-sm text-slate-400">I have read and agree to the Residence Occupancy License & Community Standards Agreement. I understand that a $500 CAD deposit is required to confirm my housing placement.</span>
+                                                        <input type="checkbox" checked={agreedToTerms} onChange={e => setAgreedToTerms(e.target.checked)} className="mt-0.5 accent-slate-900" />
+                                                        <span className="text-sm text-slate-600">I have read and agree to the Residence Occupancy License & Community Standards Agreement. I understand that a $500 CAD deposit is required to confirm my housing placement.</span>
                                                     </label>
                                                     <button onClick={handleSignContract} disabled={signing || !signatureName || !agreedToTerms}
-                                                        className="w-full py-3.5 bg-sky-600 hover:bg-sky-500 disabled:opacity-40 rounded-xl font-black text-sm transition-all">
+                                                        className="w-full py-3.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-40 rounded-xl font-black text-sm text-white transition-all">
                                                         {signing ? 'Signing contract...' : 'Sign Contract & Generate $500 Deposit Invoice'}
                                                     </button>
                                                 </div>
                                             ) : (
-                                                <div className="p-5 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl">
-                                                    <div className="flex items-center gap-2 text-emerald-400 font-bold mb-2">
+                                                <div className="p-5 bg-slate-100 rounded-2xl">
+                                                    <div className="flex items-center gap-2 text-slate-900 font-bold mb-2">
                                                         <Icons.CheckCircle /> Contract Signed
                                                     </div>
-                                                    <p className="text-slate-400 text-sm">Signed by <strong className="text-slate-200">{application.signature_name}</strong> on {application.signed_at ? new Date(application.signed_at).toLocaleString('en-CA') : '—'}.</p>
-                                                    <p className="text-slate-400 text-sm mt-2">Your $500 CAD deposit invoice has been generated. Please proceed to your <a href="/portal/payments" className="text-sky-400 underline">Payments Portal</a> to complete payment via Wire Transfer, Interac, or other available methods.</p>
+                                                    <p className="text-slate-600 text-sm">Signed by <strong className="text-slate-900">{application.signature_name}</strong> on {application.signed_at ? new Date(application.signed_at).toLocaleString('en-CA') : '—'}.</p>
+                                                    <p className="text-slate-600 text-sm mt-2">Your $500 CAD deposit invoice has been generated. Please proceed to your <a href="/portal/payments" className="text-slate-900 underline font-semibold">Payments Portal</a> to complete payment via Wire Transfer, Interac, or other available methods.</p>
                                                 </div>
                                             )}
                                         </>
@@ -888,35 +889,35 @@ export default function HousingPortalPage() {
                             {activeTab === 'hub' && (
                                 <div className="space-y-8">
                                     <div>
-                                        <h2 className="text-lg font-black mb-1">Resident Hub</h2>
-                                        <p className="text-slate-400 text-sm">Your residence services, maintenance, and guest management.</p>
+                                        <h2 className="text-lg font-black mb-1 text-slate-900">Resident Hub</h2>
+                                        <p className="text-slate-500 text-sm">Your residence services, maintenance, and guest management.</p>
                                     </div>
 
                                     {!application || !['contract_signed','deposit_paid','confirmed'].includes(application.status) ? (
-                                        <div className="p-6 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-amber-300 text-sm">
+                                        <div className="p-6 bg-slate-100 rounded-2xl text-slate-700 text-sm">
                                             Complete your housing application and sign the occupancy agreement to access Resident Hub features.
                                         </div>
                                     ) : (
                                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                             {/* Room assignment card */}
-                                            <div className="p-5 bg-gradient-to-br from-sky-900/40 to-blue-900/30 border border-sky-500/20 rounded-2xl">
+                                            <div className="p-6 bg-white rounded-2xl shadow-sm">
                                                 <div className="flex items-center gap-2 mb-4">
                                                     <Icons.Key />
-                                                    <h3 className="font-bold">Your Placement</h3>
+                                                    <h3 className="font-bold text-slate-900">Your Placement</h3>
                                                 </div>
                                                 {application.housing_type === 'homestay' ? (
                                                     <div className="space-y-2">
-                                                        <div><span className="text-xs text-slate-400">Host Family</span><div className="font-bold">{(application.homestay_host as any)?.host_name ?? '—'}</div></div>
-                                                        <div><span className="text-xs text-slate-400">Address</span><div className="font-bold">{(application.homestay_host as any)?.address_city ?? '—'}</div></div>
-                                                        <div><span className="text-xs text-slate-400">Move-In Date</span><div className="font-bold">{application.move_in_date ?? '—'}</div></div>
+                                                        <div><span className="text-xs text-slate-500">Host Family</span><div className="font-bold text-slate-900">{(application.homestay_host as any)?.host_name ?? '—'}</div></div>
+                                                        <div><span className="text-xs text-slate-500">Address</span><div className="font-bold text-slate-900">{(application.homestay_host as any)?.address_city ?? '—'}</div></div>
+                                                        <div><span className="text-xs text-slate-500">Move-In Date</span><div className="font-bold text-slate-900">{application.move_in_date ?? '—'}</div></div>
                                                         <div className="pt-2"><span className="text-xs text-slate-400">Contact Residence Life for host family contact details.</span></div>
                                                     </div>
                                                 ) : (
                                                     <div className="space-y-2">
-                                                        <div><span className="text-xs text-slate-400">Room Code</span><div className="font-bold text-lg">{(application.assigned_room as any)?.full_room_code ?? '—'}</div></div>
-                                                        <div><span className="text-xs text-slate-400">Building</span><div className="font-bold">{(application.building as any)?.name ?? '—'}</div></div>
-                                                        <div><span className="text-xs text-slate-400">Move-In Date</span><div className="font-bold">{application.move_in_date ?? '—'}</div></div>
-                                                        <div className="mt-3 px-3 py-2 bg-black/30 rounded-lg font-mono text-xs text-sky-400">
+                                                        <div><span className="text-xs text-slate-500">Room Code</span><div className="font-bold text-lg text-slate-900">{(application.assigned_room as any)?.full_room_code ?? '—'}</div></div>
+                                                        <div><span className="text-xs text-slate-500">Building</span><div className="font-bold text-slate-900">{(application.building as any)?.name ?? '—'}</div></div>
+                                                        <div><span className="text-xs text-slate-500">Move-In Date</span><div className="font-bold text-slate-900">{application.move_in_date ?? '—'}</div></div>
+                                                        <div className="mt-3 px-3 py-2 bg-slate-100 rounded-lg font-mono text-xs text-slate-800">
                                                             Digital Keycard: CANNOGA-{application.id.slice(0,8).toUpperCase()}
                                                         </div>
                                                     </div>
@@ -925,28 +926,28 @@ export default function HousingPortalPage() {
 
                                             {/* Work Orders — on-campus only */}
                                             {application.housing_type === 'on_campus' && (
-                                                <div className="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                                                <div className="p-6 bg-white rounded-2xl shadow-sm">
                                                     <div className="flex items-center justify-between mb-4">
                                                         <div className="flex items-center gap-2">
                                                             <Icons.Tool />
-                                                            <h3 className="font-bold">Maintenance Requests</h3>
+                                                            <h3 className="font-bold text-slate-900">Maintenance Requests</h3>
                                                         </div>
                                                         <button onClick={() => setShowWOModal(true)}
-                                                            className="flex items-center gap-1 px-3 py-1.5 bg-sky-600 rounded-lg text-xs font-bold transition hover:bg-sky-500">
+                                                            className="flex items-center gap-1 px-3 py-1.5 bg-slate-900 rounded-lg text-xs font-bold text-white transition hover:bg-slate-800">
                                                             <Icons.Plus /> New Request
                                                         </button>
                                                     </div>
                                                     {workOrders.length === 0 ? (
-                                                        <div className="text-center py-8 text-slate-500 text-xs">No maintenance requests yet</div>
+                                                        <div className="text-center py-8 text-slate-400 text-xs">No maintenance requests yet</div>
                                                     ) : (
                                                         <div className="space-y-2 max-h-48 overflow-y-auto">
                                                             {workOrders.map(wo => (
-                                                                <div key={wo.id} className="flex items-center justify-between p-3 bg-white/5 rounded-lg text-xs">
+                                                                <div key={wo.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg text-xs">
                                                                     <div>
-                                                                        <div className="font-bold font-mono">{wo.ticket_number}</div>
+                                                                        <div className="font-bold font-mono text-slate-900">{wo.ticket_number}</div>
                                                                         <div className="text-slate-500 mt-0.5 capitalize">{wo.category.replace('_', ' ')} · {wo.urgency}</div>
                                                                     </div>
-                                                                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${wo.status === 'resolved' ? 'bg-emerald-500/20 text-emerald-400' : wo.status === 'open' ? 'bg-amber-500/20 text-amber-400' : 'bg-sky-500/20 text-sky-400'}`}>
+                                                                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-200 text-slate-700">
                                                                         {wo.status.replace('_', ' ')}
                                                                     </span>
                                                                 </div>
@@ -957,31 +958,31 @@ export default function HousingPortalPage() {
                                             )}
 
                                             {/* Move-in checklist */}
-                                            <div className="p-5 bg-white/5 border border-white/10 rounded-2xl">
-                                                <h3 className="font-bold mb-3">Move-In Inspection Checklist</h3>
+                                            <div className="p-6 bg-white rounded-2xl shadow-sm">
+                                                <h3 className="font-bold mb-3 text-slate-900">Move-In Inspection Checklist</h3>
                                                 <div className="grid grid-cols-2 gap-2">
                                                     {['Desk','Mattress','Closet','Window','Smoke Detector','Heating'].map(item => (
                                                         <div key={item} className="flex items-center gap-2 text-xs">
-                                                            <span className="text-emerald-400">✓</span>
-                                                            <span className="text-slate-400">{item}</span>
-                                                            <span className="ml-auto text-slate-600">Good</span>
+                                                            <span className="text-slate-900">✓</span>
+                                                            <span className="text-slate-600">{item}</span>
+                                                            <span className="ml-auto text-slate-400">Good</span>
                                                         </div>
                                                     ))}
                                                 </div>
-                                                <div className="mt-3 text-xs text-slate-500">Report any discrepancies within 24 hours of move-in via Maintenance Request.</div>
+                                                <div className="mt-3 text-xs text-slate-400">Report any discrepancies within 24 hours of move-in via Maintenance Request.</div>
                                             </div>
 
                                             {/* Guest pass registration */}
-                                            <div className="p-5 bg-white/5 border border-white/10 rounded-2xl">
-                                                <h3 className="font-bold mb-3">Guest Pass Registration</h3>
-                                                <p className="text-xs text-slate-400 mb-4">Register overnight guests (max 3 consecutive nights, 10/semester).</p>
+                                            <div className="p-6 bg-white rounded-2xl shadow-sm">
+                                                <h3 className="font-bold mb-3 text-slate-900">Guest Pass Registration</h3>
+                                                <p className="text-xs text-slate-500 mb-4">Register overnight guests (max 3 consecutive nights, 10/semester).</p>
                                                 <div className="space-y-2">
-                                                    <input type="text" placeholder="Guest Full Name" className="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-xs placeholder:text-slate-600 focus:outline-none focus:border-sky-500" />
+                                                    <input type="text" placeholder="Guest Full Name" className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs placeholder:text-slate-400 text-slate-800 focus:outline-none focus:border-slate-800" />
                                                     <div className="grid grid-cols-2 gap-2">
-                                                        <input type="date" className="bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-sky-500" />
-                                                        <input type="date" className="bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-sky-500" />
+                                                        <input type="date" className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-slate-800" />
+                                                        <input type="date" className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-slate-800" />
                                                     </div>
-                                                    <button className="w-full py-2 bg-sky-600/20 border border-sky-500/30 rounded-lg text-xs font-bold text-sky-400 hover:bg-sky-600/30 transition">Register Guest</button>
+                                                    <button className="w-full py-2 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-800 transition">Register Guest</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -996,17 +997,17 @@ export default function HousingPortalPage() {
             {/* Work Order Modal */}
             {showWOModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setShowWOModal(false)} />
-                    <div className="relative bg-[#0d1f2e] border border-white/10 rounded-2xl p-6 w-full max-w-md shadow-2xl">
+                    <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowWOModal(false)} />
+                    <div className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
                         <div className="flex items-center justify-between mb-5">
-                            <h3 className="font-black text-base">New Maintenance Request</h3>
-                            <button onClick={() => setShowWOModal(false)} className="p-1 hover:text-red-400 transition"><Icons.X /></button>
+                            <h3 className="font-black text-base text-slate-900">New Maintenance Request</h3>
+                            <button onClick={() => setShowWOModal(false)} className="p-1 hover:text-slate-600 transition"><Icons.X /></button>
                         </div>
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Category</label>
+                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Category</label>
                                 <select value={woForm.category} onChange={e => setWoForm(p => ({ ...p, category: e.target.value }))}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-sky-500">
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-slate-800">
                                     <option value="heating_ac">Heating / AC</option>
                                     <option value="plumbing">Plumbing</option>
                                     <option value="electrical">Electrical</option>
@@ -1016,29 +1017,27 @@ export default function HousingPortalPage() {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Urgency</label>
+                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Urgency</label>
                                 <div className="grid grid-cols-4 gap-2">
                                     {[['low','Low'],['standard','Standard'],['urgent','Urgent'],['emergency','Emergency']].map(([v,l]) => (
                                         <button key={v} onClick={() => setWoForm(p => ({ ...p, urgency: v }))}
-                                            className={`py-2 rounded-lg text-xs font-bold border transition ${woForm.urgency === v
-                                                ? v === 'emergency' ? 'bg-red-600 border-red-500'
-                                                : v === 'urgent' ? 'bg-amber-600 border-amber-500'
-                                                : 'bg-sky-600 border-sky-500'
-                                                : 'bg-white/5 border-white/10'}`}>
+                                            className={`py-2 rounded-lg text-xs font-bold transition ${woForm.urgency === v
+                                                ? 'bg-slate-900 text-white'
+                                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                                             {l}
                                         </button>
                                     ))}
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Description</label>
+                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Description</label>
                                 <textarea value={woForm.description} onChange={e => setWoForm(p => ({ ...p, description: e.target.value }))}
                                     placeholder="Please describe the issue in detail..."
                                     rows={4}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm placeholder:text-slate-600 focus:outline-none focus:border-sky-500 resize-none" />
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm placeholder:text-slate-400 text-slate-800 focus:outline-none focus:border-slate-800 resize-none" />
                             </div>
                             <button onClick={handleSubmitWO}
-                                className="w-full py-3 bg-sky-600 hover:bg-sky-500 rounded-xl font-bold text-sm transition-all">
+                                className="w-full py-3 bg-slate-900 hover:bg-slate-800 rounded-xl font-bold text-sm text-white transition-all">
                                 Submit Work Order
                             </button>
                         </div>
