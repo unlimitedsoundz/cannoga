@@ -1059,9 +1059,9 @@ export default function HousingPortalPage() {
                                          <div>
                                              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Sleep Schedule</label>
                                              <div className="grid grid-cols-3 gap-2">
-                                                 {[['early', 'Early Bird'],['moderate', 'Moderate'],['night', 'Night Owl']].map(([v, l]) => (
+                                                 {[['early', 'Early Bird', 'bg-amber-500'],['moderate', 'Moderate', 'bg-sky-500'],['night', 'Night Owl', 'bg-indigo-600']].map(([v, l, color]) => (
                                                      <button key={v} onClick={() => setMyProfile(p => ({ ...p, sleep_schedule: v as any }))}
-                                                         className={`py-2.5 rounded-xl text-xs font-bold transition-all ${myProfile.sleep_schedule === v ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                                         className={`py-2 rounded-full text-xs font-black transition-all cursor-pointer ${myProfile.sleep_schedule === v ? `${color} text-white shadow-xs` : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                                                          {l}
                                                      </button>
                                                  ))}
@@ -1072,9 +1072,9 @@ export default function HousingPortalPage() {
                                          <div>
                                              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Study Habits</label>
                                              <div className="grid grid-cols-3 gap-2">
-                                                 {[['silent','Silent'],['music','Background Music'],['social','Social / Group']].map(([v, l]) => (
+                                                 {[['silent','Silent','bg-indigo-600'],['music','Background Music','bg-purple-600'],['social','Social / Group','bg-rose-500']].map(([v, l, color]) => (
                                                      <button key={v} onClick={() => setMyProfile(p => ({ ...p, study_habits: v as any }))}
-                                                         className={`py-2.5 rounded-xl text-xs font-bold transition-all ${myProfile.study_habits === v ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                                         className={`py-2 rounded-full text-xs font-black transition-all cursor-pointer ${myProfile.study_habits === v ? `${color} text-white shadow-xs` : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                                                          {l}
                                                      </button>
                                                  ))}
@@ -1099,9 +1099,9 @@ export default function HousingPortalPage() {
                                          <div>
                                              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Guest Policy</label>
                                              <div className="grid grid-cols-3 gap-2">
-                                                 {[['rarely','Rarely'],['advance_notice','Advance Notice'],['frequent','Frequently']].map(([v, l]) => (
+                                                 {[['rarely','Rarely','bg-emerald-600'],['advance_notice','Advance Notice','bg-sky-500'],['frequent','Frequently','bg-orange-500']].map(([v, l, color]) => (
                                                      <button key={v} onClick={() => setMyProfile(p => ({ ...p, guest_preference: v as any }))}
-                                                         className={`py-2.5 rounded-xl text-xs font-bold transition-all ${myProfile.guest_preference === v ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                                         className={`py-2 rounded-full text-xs font-black transition-all cursor-pointer ${myProfile.guest_preference === v ? `${color} text-white shadow-xs` : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                                                          {l}
                                                      </button>
                                                  ))}
@@ -1112,9 +1112,9 @@ export default function HousingPortalPage() {
                                          <div>
                                              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gender / Floor Preference</label>
                                              <div className="grid grid-cols-3 gap-2">
-                                                 {[['any','Any'],['same_gender','Same-Gender Floor'],['co_ed','Co-Ed Floor']].map(([v, l]) => (
+                                                 {[['any','Any','bg-slate-800'],['same_gender','Same-Gender Floor','bg-indigo-600'],['co_ed','Co-Ed Floor','bg-teal-600']].map(([v, l, color]) => (
                                                      <button key={v} onClick={() => setMyProfile(p => ({ ...p, gender_preference: v as GenderPreference }))}
-                                                         className={`py-2.5 rounded-xl text-xs font-bold transition-all ${myProfile.gender_preference === v ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                                         className={`py-2 rounded-full text-xs font-black transition-all cursor-pointer ${myProfile.gender_preference === v ? `${color} text-white shadow-xs` : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                                                          {l}
                                                      </button>
                                                  ))}
@@ -1125,9 +1125,9 @@ export default function HousingPortalPage() {
                                          <div>
                                              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Floor Environment</label>
                                              <div className="grid grid-cols-3 gap-2">
-                                                 {[['quiet_study','Quiet Study'],['social','Social'],['any','No Preference']].map(([v, l]) => (
+                                                 {[['quiet_study','Quiet Study','bg-indigo-600'],['social','Social','bg-rose-500'],['any','No Preference','bg-slate-800']].map(([v, l, color]) => (
                                                      <button key={v} onClick={() => setMyProfile(p => ({ ...p, floor_type_preference: v as FloorTypePreference }))}
-                                                         className={`py-2.5 rounded-xl text-xs font-bold transition-all ${myProfile.floor_type_preference === v ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                                         className={`py-2 rounded-full text-xs font-black transition-all cursor-pointer ${myProfile.floor_type_preference === v ? `${color} text-white shadow-xs` : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                                                          {l}
                                                      </button>
                                                  ))}
@@ -1141,6 +1141,23 @@ export default function HousingPortalPage() {
                                                  {DIETARY_OPTIONS.map(opt => {
                                                      const key = opt.toLowerCase().replace(' ', '_');
                                                      const isSelected = (myProfile.dietary_needs ?? []).includes(key);
+                                                     
+                                                     // Vibrant color matching: Vegan & Vegetarian are bright green
+                                                     const activeColor = 
+                                                         opt === 'Vegan' || opt === 'Vegetarian'
+                                                             ? 'bg-emerald-500 text-white'
+                                                             : opt === 'Halal'
+                                                             ? 'bg-teal-600 text-white'
+                                                             : opt === 'Kosher'
+                                                             ? 'bg-sky-600 text-white'
+                                                             : opt === 'Gluten-Free'
+                                                             ? 'bg-amber-500 text-white'
+                                                             : opt === 'Nut Allergy'
+                                                             ? 'bg-rose-500 text-white'
+                                                             : opt === 'Dairy-Free'
+                                                             ? 'bg-indigo-600 text-white'
+                                                             : 'bg-slate-800 text-white';
+
                                                      return (
                                                          <button key={key}
                                                              onClick={() => setMyProfile(p => ({
@@ -1149,7 +1166,7 @@ export default function HousingPortalPage() {
                                                                      ? (p.dietary_needs ?? []).filter(d => d !== key)
                                                                      : [...(p.dietary_needs ?? []), key],
                                                              }))}
-                                                             className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${isSelected ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                                             className={`px-3.5 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer shadow-xs ${isSelected ? activeColor : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                                                              {opt}
                                                          </button>
                                                      );
@@ -1172,7 +1189,7 @@ export default function HousingPortalPage() {
                                          </div>
 
                                          <button onClick={handleSaveProfile} disabled={savingProfile}
-                                             className="w-full py-3 bg-slate-900 hover:bg-slate-800 disabled:opacity-50 rounded-xl font-bold text-sm text-white transition-all">
+                                             className="w-full py-3 bg-[#0a151a] hover:bg-slate-800 disabled:opacity-50 rounded-xl font-bold text-sm text-white transition-all cursor-pointer shadow-xs">
                                              {savingProfile ? 'Saving...' : 'Save Preferences & Find Matches'}
                                          </button>
                                      </div>
