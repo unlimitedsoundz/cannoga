@@ -107,6 +107,7 @@ export default function HousingPortalPage() {
     const [toast, setToast]                 = useState<{ msg: string; type: 'success' | 'error' } | null>(null);
     const [friendIds, setFriendIds]         = useState<string[]>(['', '', '']);
     const [woForm, setWoForm]               = useState({ category: 'other', urgency: 'standard', description: '' });
+    const [studentInfo, setStudentInfo]     = useState<{ name: string; id: string } | null>(null);
 
     const showToast = (msg: string, type: 'success' | 'error' = 'success') => {
         setToast({ msg, type });
@@ -144,9 +145,13 @@ export default function HousingPortalPage() {
                 const woData = await woRes.json();
                 if (woData.orders) setWorkOrders(woData.orders);
 
-                // Fetch current housing application
+                // Fetch current housing application & user details
                 const { data: { user } } = await supabase.auth.getUser();
                 if (user) {
+                    const studentNum = user.user_metadata?.student_id || user.id.slice(0, 8).toUpperCase();
+                    const studentName = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'Student';
+                    setStudentInfo({ name: studentName, id: `CC-2026-${studentNum}` });
+
                     const { data: app } = await supabase
                         .from('housing_applications')
                         .select('*, building:building_id(*), assigned_room:assigned_room_id(*), meal_plan:selected_meal_plan_id(*), homestay_host:homestay_host_id(*)')
@@ -301,45 +306,77 @@ export default function HousingPortalPage() {
                 </div>
             )}
 
-            {/* Main Header Banner */}
-            <div className="bg-white border-b border-slate-200 px-4 lg:px-8 py-6">
-                <div className="max-w-7xl mx-auto">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="flex items-center gap-4">
-                            <a href="/sis" title="Return to Student Information System" className="hover:opacity-80 transition-opacity">
-                                <img
-                                    src="/images/logo-cannoga.png"
-                                    alt="Cannoga College"
-                                    className="h-10 w-auto object-contain"
-                                />
-                            </a>
-                            <div className="h-8 w-px bg-slate-200 hidden sm:block" />
-                            <div>
-                                <h1 className="text-2xl font-black tracking-tight text-slate-900">Student Housing & Residence Life</h1>
-                                <p className="text-slate-500 text-xs mt-0.5">2026/2027 Academic Year · Cannoga College Residences & Homestay</p>
+            {/* Top Navigation Bar with Logo */}
+            <div className="bg-white border-b border-slate-200 px-4 lg:px-8 py-4">
+                <div className="max-w-7xl mx-auto flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <a href="/sis" title="Return to Student Information System" className="hover:opacity-80 transition-opacity">
+                            <img
+                                src="/images/logo-cannoga.png"
+                                alt="Cannoga College"
+                                className="h-9 w-auto object-contain"
+                            />
+                        </a>
+                        <div className="h-6 w-px bg-slate-200 hidden sm:block" />
+                        <span className="text-xs font-bold text-slate-800 hidden sm:inline">Student Housing & Residence Portal</span>
+                    </div>
+
+                    <a href="/sis" className="text-xs font-bold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-lg">
+                        <span>←</span> Back to SIS
+                    </a>
+                </div>
+            </div>
+
+            {/* SIS Dashboard-Style Hero Banner */}
+            <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-2">
+                <div className="relative rounded-2xl overflow-hidden bg-[#0a151a] text-white min-h-[220px] sm:min-h-[260px] flex items-end p-6 sm:p-8 shadow-sm">
+                    <img
+                        src="/images/home-carousel-3.png"
+                        alt="Cannoga College campus residence"
+                        className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a151a] via-[#0a151a]/60 to-transparent" />
+                    
+                    <div className="relative z-10 w-full flex flex-col md:flex-row md:items-end justify-between gap-6">
+                        <div className="max-w-2xl">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-white/20 text-white backdrop-blur-md mb-2">
+                                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                                Fall 2026 Housing Portal
+                            </div>
+                            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+                                Your Home in Ontario
+                            </h1>
+                            <p className="text-slate-200 text-xs sm:text-sm mt-2 leading-relaxed">
+                                All residences include all-inclusive utilities (hydro, heating, high-speed Wi-Fi), 24/7 keycard security, on-duty Residence Life Dons (RAs), study spaces, and laundry facilities.
+                            </p>
+                            
+                            {/* Key Housing Highlights */}
+                            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-3 text-xs sm:text-sm font-bold text-white">
+                                <span className="flex items-center gap-1.5 text-emerald-300">
+                                    <span>✓</span> 5-Min Walk to Lecture Halls
+                                </span>
+                                <span className="flex items-center gap-1.5 text-emerald-300">
+                                    <span>✓</span> Snow-Free Tunnel Access
+                                </span>
+                                <span className="flex items-center gap-1.5 text-emerald-300">
+                                    <span>✓</span> All Utilities Included
+                                </span>
                             </div>
                         </div>
 
-                        {application ? (
-                            <div className="px-4 py-2.5 bg-slate-100 rounded-2xl text-xs text-slate-700 flex items-center gap-2.5">
-                                <Icons.CheckCircle />
-                                <div>
-                                    <div className="font-bold text-slate-900">
-                                        {application.housing_type === 'homestay'
-                                            ? `Homestay: ${(application.homestay_host as any)?.host_name ?? 'Host Assigned'}`
-                                            : `${(application.assigned_room as any)?.full_room_code ?? 'Room Selected'}`}
-                                    </div>
-                                    <div className="text-[11px] text-slate-500 capitalize">
-                                        Status: {application.status.replace('_', ' ')}
-                                    </div>
-                                </div>
+                        <div className="flex items-center space-x-3 bg-[#0a151a]/90 backdrop-blur-md p-3.5 rounded-xl border border-white/10 self-start md:self-auto shadow-lg shrink-0">
+                            <div>
+                                <p className="text-[10px] text-slate-300 uppercase font-bold tracking-wider">Student ID</p>
+                                <p className="text-xs font-bold text-white">{studentInfo?.id ?? 'CC-2026-STUDENT'}</p>
                             </div>
-                        ) : (
-                            <div className="px-3.5 py-1.5 bg-slate-100 rounded-xl text-xs text-slate-600 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-slate-500" />
-                                <span>Fall 2026 Housing Applications Open</span>
+                            <div className="h-7 w-px bg-white/20" />
+                            <div>
+                                <p className="text-[10px] text-slate-300 uppercase font-bold tracking-wider">Housing Status</p>
+                                <p className="text-xs font-bold text-white capitalize">
+                                    {application ? application.status.replace('_', ' ') : 'Not Applied'}
+                                </p>
                             </div>
-                        )}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -388,23 +425,6 @@ export default function HousingPortalPage() {
 
                                     {housingType === 'on_campus' ? (
                                         <>
-                                            <style jsx>{`
-                                                @keyframes waveFloatHousing {
-                                                    0%, 100% { transform: translateY(8px) scaleY(1); }
-                                                    50% { transform: translateY(-6px) scaleY(1.12); }
-                                                }
-                                                @keyframes arrowFloatHousing {
-                                                    0%, 100% { transform: translate(0, 0); }
-                                                    50% { transform: translate(4px, -4px); }
-                                                }
-                                                .animate-wave-housing {
-                                                    animation: waveFloatHousing 3.4s ease-in-out infinite;
-                                                }
-                                                .animate-arrow-housing {
-                                                    animation: arrowFloatHousing 2.2s ease-in-out infinite;
-                                                }
-                                            `}</style>
-
                                             {/* Vibrant Academic-Style Building Cards */}
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                                 {buildings.filter(b => b.code !== null).map((b, idx) => {
@@ -430,14 +450,14 @@ export default function HousingPortalPage() {
                                                         <div key={b.id} className="flex flex-col">
                                                             <button
                                                                 onClick={() => loadRooms(b)}
-                                                                className={`w-full text-left p-3.5 sm:p-4 rounded-2xl ${palette.bg} ${palette.border} border-4 transition-all duration-300 group overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between ${isSelected ? 'ring-4 ring-slate-900 ring-offset-2 scale-[1.02]' : ''}`}
+                                                                className={`w-full text-left p-3.5 sm:p-4 rounded-2xl ${palette.bg} ${palette.border} border-4 transition-all duration-200 group overflow-hidden shadow-md flex flex-col justify-between ${isSelected ? 'ring-4 ring-slate-900 ring-offset-2' : ''}`}
                                                             >
                                                                 {/* Top Image with Organic Wavy Cutout */}
                                                                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-black/20">
                                                                     <img
                                                                         src={buildingImage}
                                                                         alt={b.name}
-                                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                                                        className="w-full h-full object-cover"
                                                                     />
 
                                                                     {/* Bed status pill badge top right */}
@@ -454,11 +474,8 @@ export default function HousingPortalPage() {
                                                                         </span>
                                                                     </div>
 
-                                                                    {/* Organic Wavy Bottom Edge with Smooth Float Animation */}
-                                                                    <div
-                                                                        className="absolute bottom-[-20px] left-0 right-0 h-16 overflow-hidden leading-none z-10 pointer-events-none animate-wave-housing"
-                                                                        style={{ animationDelay: `${idx * 0.4}s` }}
-                                                                    >
+                                                                    {/* Organic Wavy Bottom Edge */}
+                                                                    <div className="absolute bottom-[-10px] left-0 right-0 h-14 overflow-hidden leading-none z-10 pointer-events-none">
                                                                         <svg
                                                                             viewBox="0 0 1440 200"
                                                                             preserveAspectRatio="none"
@@ -480,11 +497,8 @@ export default function HousingPortalPage() {
                                                                             <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight leading-tight flex-1 text-white">
                                                                                 {b.name}
                                                                             </h3>
-                                                                            {/* Floating Action Arrow */}
-                                                                            <div
-                                                                                className="shrink-0 animate-arrow-housing p-2 rounded-full bg-white/20 text-white group-hover:bg-white group-hover:text-slate-900 transition-colors"
-                                                                                style={{ animationDelay: `${idx * 0.4}s` }}
-                                                                            >
+                                                                            {/* Action Arrow */}
+                                                                            <div className="shrink-0 p-2 rounded-full bg-white/20 text-white">
                                                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-5 h-5">
                                                                                     <path d="M7 17L17 7M17 7H7M17 7V17" />
                                                                                 </svg>
@@ -603,14 +617,14 @@ export default function HousingPortalPage() {
                                                     <div
                                                         key={host.id}
                                                         onClick={() => setSelectedHost(selectedHost?.id === host.id ? null : host)}
-                                                        className={`p-4 sm:p-5 rounded-2xl cursor-pointer transition-all duration-300 flex flex-col md:flex-row gap-5 ${palette.bg} ${palette.border} border-4 text-white shadow-lg hover:shadow-2xl hover:-translate-y-1 overflow-hidden ${isSelected ? 'ring-4 ring-slate-900 ring-offset-2 scale-[1.01]' : ''}`}
+                                                        className={`p-4 sm:p-5 rounded-2xl cursor-pointer transition-all duration-200 flex flex-col md:flex-row gap-5 ${palette.bg} ${palette.border} border-4 text-white shadow-md overflow-hidden ${isSelected ? 'ring-4 ring-slate-900 ring-offset-2' : ''}`}
                                                     >
                                                         {/* Host Photo with Wavy Cutout */}
                                                         <div className="w-full md:w-56 h-48 shrink-0 rounded-xl overflow-hidden bg-black/20 relative">
                                                             <img
                                                                 src={hostPhoto}
                                                                 alt={host.host_name}
-                                                                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                                                className="w-full h-full object-cover"
                                                             />
                                                             <div className="absolute top-2.5 right-2.5 z-20">
                                                                 <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase text-white shadow-md backdrop-blur-md ${palette.badge}`}>
@@ -619,10 +633,7 @@ export default function HousingPortalPage() {
                                                             </div>
 
                                                             {/* Organic Wavy Bottom Edge */}
-                                                            <div
-                                                                className="absolute bottom-[-16px] left-0 right-0 h-12 overflow-hidden leading-none z-10 pointer-events-none animate-wave-housing"
-                                                                style={{ animationDelay: `${idx * 0.4}s` }}
-                                                            >
+                                                            <div className="absolute bottom-[-10px] left-0 right-0 h-12 overflow-hidden leading-none z-10 pointer-events-none">
                                                                 <svg
                                                                     viewBox="0 0 1440 200"
                                                                     preserveAspectRatio="none"
@@ -652,10 +663,7 @@ export default function HousingPortalPage() {
                                                                         </div>
                                                                     </div>
 
-                                                                    <div
-                                                                        className="shrink-0 animate-arrow-housing p-2 rounded-full bg-white/20 text-white"
-                                                                        style={{ animationDelay: `${idx * 0.4}s` }}
-                                                                    >
+                                                                    <div className="shrink-0 p-2 rounded-full bg-white/20 text-white">
                                                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-5 h-5">
                                                                             <path d="M7 17L17 7M17 7H7M17 7V17" />
                                                                         </svg>
@@ -891,13 +899,10 @@ export default function HousingPortalPage() {
                                                 <div
                                                     key={plan.id}
                                                     onClick={() => setSelectedMealPlan(isSelected ? null : plan)}
-                                                    className={`p-6 sm:p-7 rounded-2xl ${palette.bg} ${palette.border} border-4 text-white shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden cursor-pointer flex flex-col justify-between min-h-[300px] ${isSelected ? 'ring-4 ring-slate-900 ring-offset-2 scale-[1.02]' : ''}`}
+                                                    className={`p-6 sm:p-7 rounded-2xl ${palette.bg} ${palette.border} border-4 text-white shadow-md transition-all duration-200 relative overflow-hidden cursor-pointer flex flex-col justify-between min-h-[300px] ${isSelected ? 'ring-4 ring-slate-900 ring-offset-2' : ''}`}
                                                 >
-                                                    {/* Organic Wavy Cutout Bottom Edge with Float Animation */}
-                                                    <div
-                                                        className="absolute bottom-[-16px] left-0 right-0 h-16 overflow-hidden leading-none pointer-events-none z-10 animate-wave-housing"
-                                                        style={{ animationDelay: `${idx * 0.4}s` }}
-                                                    >
+                                                    {/* Organic Wavy Cutout Bottom Edge */}
+                                                    <div className="absolute bottom-[-10px] left-0 right-0 h-14 overflow-hidden leading-none pointer-events-none z-10">
                                                         <svg
                                                             viewBox="0 0 1440 200"
                                                             preserveAspectRatio="none"
@@ -925,8 +930,7 @@ export default function HousingPortalPage() {
                                                                 </h3>
                                                             </div>
                                                             <div
-                                                                className={`shrink-0 p-2.5 rounded-full transition-colors animate-arrow-housing ${isSelected ? 'bg-white text-slate-900 shadow-md' : 'bg-white/20 text-white'}`}
-                                                                style={{ animationDelay: `${idx * 0.4}s` }}
+                                                                className={`shrink-0 p-2.5 rounded-full transition-colors ${isSelected ? 'bg-white text-slate-900 shadow-md' : 'bg-white/20 text-white'}`}
                                                             >
                                                                 {isSelected ? (
                                                                     <Icons.CheckCircle />
