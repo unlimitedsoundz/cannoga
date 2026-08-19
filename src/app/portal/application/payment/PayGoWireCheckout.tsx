@@ -96,6 +96,7 @@ export default function PayGoWireCheckout({
     const [selectedBank, setSelectedBank] = useState<InstitutionalBankAccount | null>(null);
     const [isCountryOpen, setIsCountryOpen] = useState<boolean>(false);
     const [countrySearch, setCountrySearch] = useState<string>('');
+    const [isImportantInfoOpen, setIsImportantInfoOpen] = useState<boolean>(false);
 
     // Initialized payment state
     const [initPayload, setInitPayload] = useState<{
@@ -506,10 +507,27 @@ export default function PayGoWireCheckout({
                                     </button>
                                 </div>
 
-                                <div className="pt-2 border-t border-slate-100 flex items-center gap-1.5 text-[12px] text-[#0066cc] font-medium cursor-pointer hover:underline">
-                                    <Info size={14} weight="bold" />
-                                    <span>Important info</span>
-                                    <CaretDown size={12} weight="bold" />
+                                <div className="pt-2 border-t border-slate-100">
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsImportantInfoOpen(prev => !prev)}
+                                        className="flex items-center gap-1.5 text-[12px] text-[#0066cc] font-medium cursor-pointer hover:underline bg-transparent border-none p-0 focus:outline-none"
+                                    >
+                                        <Info size={14} weight="bold" />
+                                        <span>Important info</span>
+                                        <CaretDown size={12} weight="bold" className={`transition-transform duration-200 ${isImportantInfoOpen ? 'rotate-180' : ''}`} />
+                                    </button>
+
+                                    {isImportantInfoOpen && (
+                                        <div className="mt-2.5 text-[12px] text-slate-600 space-y-2 leading-relaxed bg-slate-50 p-3 rounded-md border border-slate-100 animate-in fade-in duration-200">
+                                            <p className="font-normal text-slate-600">
+                                                Use this option to pay quickly in Naira via Bank Transfer.
+                                            </p>
+                                            <p className="font-normal text-slate-600">
+                                                Note if you want to pay using a Form A application - please scroll down or select to pay in another currency - choose Bank Transfer in the destination currency and complete this journey to obtain Flywire&apos;s bank details to be used in the Form A application on the Trade Monitoring System.
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         )}
