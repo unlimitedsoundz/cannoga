@@ -590,7 +590,7 @@ export default function HousingPortalPage() {
                                                                                             <span className="text-sm font-bold text-black tracking-tight">
                                                                                                 Floor {floorNum} Suites
                                                                                             </span>
-                                                                                            <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-xs shrink-0 tracking-wide ${
+                                                                                            <span className={`text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs shrink-0 tracking-wide ${
                                                                                                 availableCount > 0 
                                                                                                     ? `${palette.pill} text-white ring-1 ring-black/10` 
                                                                                                     : 'bg-neutral-200 text-neutral-600'
@@ -615,7 +615,7 @@ export default function HousingPortalPage() {
 
                                                                                     {isFloorExpanded && (
                                                                                         <div className="pb-4 pt-1">
-                                                                                            <div className="grid grid-cols-2 gap-2 pt-1 px-1">
+                                                                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 px-1">
                                                                                                 {floorRooms.map(room => {
                                                                                                     const isRoomSelected = selectedRoom?.id === room.id;
                                                                                                     const isAvail = room.status === 'AVAILABLE';
@@ -625,7 +625,7 @@ export default function HousingPortalPage() {
                                                                                                             key={`m-room-${room.id}`}
                                                                                                             disabled={!isAvail}
                                                                                                             onClick={() => isAvail && setSelectedRoom(isRoomSelected ? null : room)}
-                                                                                                            className={`w-full p-2.5 sm:p-3 rounded-xl text-left transition-all flex items-center justify-between gap-3 ${
+                                                                                                            className={`w-full p-2.5 rounded-xl text-left transition-all flex items-center justify-between gap-3 ${
                                                                                                                 isRoomSelected
                                                                                                                     ? 'bg-[#0a151a] text-white shadow-md'
                                                                                                                     : room.status === 'AVAILABLE'
@@ -636,11 +636,11 @@ export default function HousingPortalPage() {
                                                                                                             }`}
                                                                                                         >
                                                                                                             <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                                                                                                                <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${
+                                                                                                                <span className={`w-2 h-2 rounded-full shrink-0 ${
                                                                                                                     room.status === 'AVAILABLE' ? 'bg-emerald-500' : room.status === 'MAINTENANCE' ? 'bg-amber-400' : 'bg-neutral-400'
                                                                                                                 }`} />
                                                                                                                 <div className="min-w-0">
-                                                                                                                    <div className={`text-sm font-black tracking-tight leading-none ${isRoomSelected ? 'text-white' : 'text-black'}`}>
+                                                                                                                    <div className={`text-xs sm:text-sm font-black tracking-tight leading-none ${isRoomSelected ? 'text-white' : 'text-black'}`}>
                                                                                                                         {room.bed_identifier ? `${room.suite_number}-${room.bed_identifier}` : room.room_number}
                                                                                                                     </div>
                                                                                                                     <div className={`text-[10px] sm:text-[11px] font-medium mt-1 truncate ${
@@ -658,7 +658,7 @@ export default function HousingPortalPage() {
                                                                                                                     }`}>
                                                                                                                         {fmtCAD(room.price_per_term_minor)}
                                                                                                                     </div>
-                                                                                                                    <div className={`text-[10px] font-semibold mt-0.5 ${
+                                                                                                                    <div className={`text-[9px] sm:text-[10px] font-semibold mt-0.5 ${
                                                                                                                         isRoomSelected ? 'text-neutral-300' : 'text-black'
                                                                                                                     }`}>
                                                                                                                         /term
@@ -678,13 +678,13 @@ export default function HousingPortalPage() {
 
                                                                     {/* Mobile Inline Selection summary - Compact Vibrant */}
                                                                     {selectedRoom && (
-                                                                        <div className="mt-3.5 p-3 bg-[#0a151a] text-white rounded-xl flex items-center justify-between gap-3 shadow-md animate-drawer-slide">
+                                                                        <div className="mt-3.5 p-2.5 sm:p-3 bg-[#0a151a] text-white rounded-xl flex items-center justify-between gap-3 shadow-md animate-drawer-slide">
                                                                             <div className="min-w-0">
                                                                                 <div className="flex items-center gap-2">
-                                                                                    <span className="font-black text-sm text-white truncate">
+                                                                                    <span className="font-black text-xs sm:text-sm text-white truncate">
                                                                                         {selectedRoom.full_room_code ?? selectedRoom.room_number}
                                                                                     </span>
-                                                                                    <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${palette.pill} text-white shrink-0`}>
+                                                                                    <span className={`text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full ${palette.pill} text-white shrink-0`}>
                                                                                         Selected Bed
                                                                                     </span>
                                                                                 </div>
@@ -766,7 +766,7 @@ export default function HousingPortalPage() {
                                                                             <span className="text-base sm:text-lg font-bold text-black tracking-tight">
                                                                                 Floor {floorNum} Suites &amp; Residences
                                                                             </span>
-                                                                            <span className={`text-xs font-black px-3 py-1 rounded-full shadow-xs shrink-0 tracking-wide ${
+                                                                            <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-xs shrink-0 tracking-wide ${
                                                                                 availableCount > 0 
                                                                                     ? `${activePalette.pill} text-white ring-1 ring-black/10` 
                                                                                     : 'bg-neutral-200 text-neutral-600'
