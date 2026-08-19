@@ -130,6 +130,9 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
         );
     }
 
+    const isHousingPayment = rawInvoiceType === 'HOUSING_DEPOSIT' || rawInvoiceType?.toLowerCase().includes('housing') || admissionOffer?.id?.startsWith('hdep');
+    const paymentCategoryLabel = isHousingPayment ? 'Housing' : 'Tuition';
+
     return (
         <div className="max-w-6xl mx-auto py-6 md:py-12 px-4 font-rubik text-black">
             <div className="mb-6 md:mb-12 text-center md:text-left bg-neutral-50 md:bg-transparent rounded-4px p-6 md:p-0 border-none">
@@ -142,7 +145,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                         className="h-8 w-auto object-contain"
                     />
                 </div>
-                <h1 className="text-[20px] md:text-[24px] font-normal text-black leading-tight md:leading-none">Tuition Payment via Flywire</h1>
+                <h1 className="text-[20px] md:text-[24px] font-normal text-black leading-tight md:leading-none">{paymentCategoryLabel} Payment via Flywire</h1>
             </div>
 
             {/* Payment Summary Header */}
@@ -152,7 +155,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                     <div className="font-normal text-2xl md:text-3xl mb-1 uppercase tracking-tighter text-black">{invoiceTypeLabel}</div>
                     <p className="text-sm text-neutral-600 leading-relaxed mt-2 max-w-2xl">
                         This invoice has been prepared for your {invoiceTypeLabel.toLowerCase()} by the finance department. 
-                        Payment of this amount is required to proceed with your enrollment.
+                        Payment of this amount is required to proceed with your {isHousingPayment ? 'room placement and occupancy' : 'enrollment'}.
                     </p>
                 </div>
             </div>
