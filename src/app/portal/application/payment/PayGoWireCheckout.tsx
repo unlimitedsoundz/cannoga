@@ -403,78 +403,43 @@ export default function PayGoWireCheckout({
                                     The payment will come from
                                 </label>
                                 
-                                {/* Custom Flywire-Style Country Selector (No native OS select outline/borders) */}
-                                <div className="relative border border-slate-300 rounded-lg focus-within:ring-2 focus-within:ring-[#0066cc]/20 focus-within:border-[#0066cc] transition-all bg-white shadow-2xs">
-                                    <button
-                                        type="button"
-                                        onClick={() => setIsCountryOpen(prev => !prev)}
-                                        className="w-full text-left px-3 py-1.5 flex items-center justify-between cursor-pointer bg-transparent border-none focus:outline-none"
-                                    >
-                                        <div className="flex-1 flex flex-col justify-center overflow-hidden">
-                                            <span className="text-[10px] font-medium text-slate-400 leading-none mb-0.5">
-                                                Country or region *
-                                            </span>
-                                            <span className={`text-sm md:text-base font-normal leading-none truncate ${selectedBank ? 'text-slate-900' : 'text-slate-400'}`}>
-                                                {selectedBank ? `${selectedBank.country_flag ?? '🌐'} ${selectedBank.country_name}` : 'Select your payment country or region...'}
-                                            </span>
-                                        </div>
-                                        <div className="text-slate-500 pl-2 shrink-0">
-                                            <CaretDown size={14} weight="bold" className={`transition-transform duration-200 ${isCountryOpen ? 'rotate-180' : ''}`} />
-                                        </div>
-                                    </button>
-
-                                    {/* Dropdown Menu */}
-                                    {isCountryOpen && (
-                                        <div className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-lg shadow-xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-                                            <div className="p-2 border-b border-slate-100 bg-slate-50">
-                                                <input
-                                                    type="text"
-                                                    value={countrySearch}
-                                                    onChange={(e) => setCountrySearch(e.target.value)}
-                                                    placeholder="Type to search country..."
-                                                    className="w-full px-3 py-1.5 text-xs bg-white border border-slate-200 rounded focus:outline-none focus:border-[#0066cc]"
-                                                    autoFocus
-                                                    onClick={(e) => e.stopPropagation()}
-                                                />
-                                            </div>
-                                            <div className="max-h-60 overflow-y-auto divide-y divide-slate-50">
-                                                {filteredCountryList.length === 0 ? (
-                                                    <div className="p-3 text-xs text-slate-400 text-center">No country found</div>
-                                                ) : (
-                                                    filteredCountryList.map(c => (
-                                                        <button
-                                                            key={c.country_code}
-                                                            type="button"
-                                                            onClick={() => {
-                                                                setSelectedCountryCode(c.country_code);
-                                                                setIsCountryOpen(false);
-                                                                setCountrySearch('');
-                                                                const directBank = countries.find(b => b.country_code === c.country_code || b.country_name.toLowerCase() === c.country_name.toLowerCase());
-                                                                if (directBank) {
-                                                                    setSelectedBank(directBank);
-                                                                } else {
-                                                                    const fallbackBank = countries.find(b => b.country_code === 'US' || b.country_code === 'CA') || countries[0];
-                                                                    if (fallbackBank) {
-                                                                        setSelectedBank({
-                                                                            ...fallbackBank,
-                                                                            country_name: c.country_name,
-                                                                            country_flag: c.country_flag ?? '🌐',
-                                                                        });
-                                                                    }
-                                                                }
-                                                            }}
-                                                            className="w-full text-left px-3.5 py-2.5 text-xs md:text-sm hover:bg-blue-50 text-slate-800 flex items-center justify-between transition-colors cursor-pointer"
-                                                        >
-                                                            <span>{c.country_flag} {c.country_name}</span>
-                                                            {selectedCountryCode === c.country_code && (
-                                                                <span className="text-[#0066cc] font-bold text-xs">✓</span>
-                                                            )}
-                                                        </button>
-                                                    ))
-                                                )}
-                                            </div>
-                                        </div>
-                                    )}
+                                <div className="relative flex border border-slate-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#0066cc]/20 focus-within:border-[#0066cc] transition-all bg-white shadow-2xs">
+                                    <div className="flex-1 px-3 py-1.5 flex flex-col justify-center">
+                                        <span className="text-[10px] font-medium text-slate-400 leading-none mb-0.5">Country or region *</span>
+                                        <select
+                                            id="country-select"
+                                            className="country-select w-full bg-transparent font-normal text-sm md:text-base text-slate-900 cursor-pointer pr-8 leading-none focus:outline-none border-none outline-none shadow-none"
+                                            value={selectedCountryCode}
+                                            onChange={(e) => {
+                                                const code = e.target.value;
+                                                setSelectedCountryCode(code);
+                                                const directBank = countries.find(b => b.country_code === code || b.country_name.toLowerCase() === code.toLowerCase());
+                                                if (directBank) {
+                                                    setSelectedBank(directBank);
+                                                } else {
+                                                    const fallbackBank = countries.find(b => b.country_code === 'US' || b.country_code === 'CA') || countries[0];
+                                                    if (fallbackBank) {
+                                                        const countryObj = fullCountryList.find(c => c.country_code === code || c.country_name === code);
+                                                        setSelectedBank({
+                                                            ...fallbackBank,
+                                                            country_name: countryObj?.country_name ?? code,
+                                                            country_flag: countryObj?.country_flag ?? '🌐',
+                                                        });
+                                                    }
+                                                }
+                                            }}
+                                        >
+                                            <option value="" disabled>Select your payment country or region...</option>
+                                            {fullCountryList.map(c => (
+                                                <option key={c.country_code} value={c.country_code}>
+                                                    {c.country_flag} {c.country_name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-600">
+                                        <CaretDown size={14} weight="bold" />
+                                    </div>
                                 </div>
 
                                 <p className="text-[12px] font-medium text-gray-700 mt-0.5 block leading-relaxed" style={{ fontSize: '12px' }}>
@@ -532,6 +497,19 @@ export default function PayGoWireCheckout({
                                 </div>
                             </div>
                         )}
+
+                        {/* Direct Proceed Button */}
+                        <button
+                            disabled={!selectedBank || loadingStep === 'COUNTRY'}
+                            onClick={() => handleStepChange('FX')}
+                            className="w-full sm:w-auto min-w-[200px] h-[46px] px-8 bg-[#0066cc] hover:bg-[#0052a3] text-white rounded-md font-medium text-sm transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed shadow-sm cursor-pointer"
+                        >
+                            {loadingStep === 'COUNTRY' ? (
+                                <><div className="w-4 h-4 border-2 border-white/30 border-t-white force-circle animate-spin" />Processing...</>
+                            ) : (
+                                <>Proceed to Review <ArrowRight size={14} className="group-hover:translate-x-1 transition-all" /></>
+                            )}
+                        </button>
                     </div>
                 )}
 
