@@ -449,7 +449,7 @@ export default function PayGoWireCheckout({
                                                             }
                                                         }
                                                     }}
-                                                    className="px-4 py-2.5 text-[14px] text-slate-800 hover:bg-slate-50 cursor-pointer transition-colors"
+                                                    className="px-4 py-2.5 text-[14px] text-slate-800 hover:bg-[#0066cc] hover:text-white cursor-pointer transition-colors"
                                                 >
                                                     {c.country_name}
                                                 </div>
