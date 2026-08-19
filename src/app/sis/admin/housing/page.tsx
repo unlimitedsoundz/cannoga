@@ -1649,7 +1649,7 @@ export default function AdminHousingPage() {
                                         type="text"
                                         value={editingRoom.full_room_code || ''}
                                         onChange={e => setEditingRoom({ ...editingRoom, full_room_code: e.target.value.toUpperCase() })}
-                                        placeholder="e.g. 402-A or LAUR-402-A"
+                                        placeholder="e.g. 402-A or CAN-402-A"
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-amber-300 font-mono font-bold focus:outline-none focus:border-amber-400"
                                     />
                                 </div>

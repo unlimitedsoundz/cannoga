@@ -1274,7 +1274,7 @@ export default function HousingPortalPage() {
                                         })}
                                     </div>
                                     <div className="p-4 bg-slate-100 rounded-xl text-slate-700 text-xs leading-relaxed">
-                                        <strong>Note:</strong> The Unlimited 7-Day plan is recommended for Maple Hall and Laurentian Suites residents. The Declining Balance Plan is ideal for Pacific Townhouse and Homestay students who have kitchen access.
+                                        <strong>Note:</strong> The Unlimited 7-Day plan is recommended for Maple Hall and Cannoga Suites residents. The Declining Balance Plan is ideal for Pacific Townhouse and Homestay students who have kitchen access.
                                     </div>
                                 </div>
                             )}

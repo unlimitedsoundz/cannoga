@@ -347,7 +347,7 @@ VALUES
      ARRAY['Elevator','Internet','Laundry','Study Lounge'],
      true),
     ('b0000000-0000-0000-0000-000000000012',
-     'Laurentian Suites', 'LAURENTIAN', 'Ontario Main Campus',
+     'Cannoga Suites', 'CANNOGA', 'Ontario Main Campus',
      'suite_style', 6, 96,
      '["High-Speed Wi-Fi","Hydro & Heat Included","In-Suite Kitchen","Private Bathroom (per suite)","24/7 Keycard Access","Shared Laundry","Rooftop Study Terrace"]'::jsonb,
      'Modern suite-style living with 4-bed shared suites, in-suite kitchen, and private bathrooms. Ideal for upper-year students.',
@@ -392,19 +392,19 @@ ON CONFLICT (building_id, room_number) DO UPDATE SET
     room_type_label    = EXCLUDED.room_type_label,
     price_per_term_minor = EXCLUDED.price_per_term_minor;
 
--- SEED: ROOMS & BEDS — Laurentian Suites
+-- SEED: ROOMS & BEDS — Cannoga Suites
 INSERT INTO housing_rooms (building_id, room_number, floor_number, suite_number, bed_identifier, full_room_code, room_type_label, room_type, price_per_term_minor, monthly_rate, status, window_orientation, capacity)
 VALUES
-    ('b0000000-0000-0000-0000-000000000012', '401A', 4, '401', 'A', 'LAUR-401-A', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'AVAILABLE', 'Campus View', 1),
-    ('b0000000-0000-0000-0000-000000000012', '401B', 4, '401', 'B', 'LAUR-401-B', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'OCCUPIED', 'Campus View', 1),
-    ('b0000000-0000-0000-0000-000000000012', '401C', 4, '401', 'C', 'LAUR-401-C', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'AVAILABLE', 'Courtyard View', 1),
-    ('b0000000-0000-0000-0000-000000000012', '401D', 4, '401', 'D', 'LAUR-401-D', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'AVAILABLE', 'Park View', 1),
-    ('b0000000-0000-0000-0000-000000000012', '402A', 4, '402', 'A', 'LAUR-402-A', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'OCCUPIED', 'Campus View', 1),
-    ('b0000000-0000-0000-0000-000000000012', '402B', 4, '402', 'B', 'LAUR-402-B', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'OCCUPIED', 'Campus View', 1),
-    ('b0000000-0000-0000-0000-000000000012', '402C', 4, '402', 'C', 'LAUR-402-C', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'AVAILABLE', 'Courtyard View', 1),
-    ('b0000000-0000-0000-0000-000000000012', '402D', 4, '402', 'D', 'LAUR-402-D', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'AVAILABLE', 'Park View', 1),
-    ('b0000000-0000-0000-0000-000000000012', '501A', 5, '501', 'A', 'LAUR-501-A', 'Private Bedroom in 4-Bed Suite (Upper)', 'Studio', 625000, 625, 'AVAILABLE', 'Skyline View', 1),
-    ('b0000000-0000-0000-0000-000000000012', '501B', 5, '501', 'B', 'LAUR-501-B', 'Private Bedroom in 4-Bed Suite (Upper)', 'Studio', 625000, 625, 'AVAILABLE', 'Skyline View', 1)
+    ('b0000000-0000-0000-0000-000000000012', '401A', 4, '401', 'A', 'CAN-401-A', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'AVAILABLE', 'Campus View', 1),
+    ('b0000000-0000-0000-0000-000000000012', '401B', 4, '401', 'B', 'CAN-401-B', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'OCCUPIED', 'Campus View', 1),
+    ('b0000000-0000-0000-0000-000000000012', '401C', 4, '401', 'C', 'CAN-401-C', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'AVAILABLE', 'Courtyard View', 1),
+    ('b0000000-0000-0000-0000-000000000012', '401D', 4, '401', 'D', 'CAN-401-D', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'AVAILABLE', 'Park View', 1),
+    ('b0000000-0000-0000-0000-000000000012', '402A', 4, '402', 'A', 'CAN-402-A', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'OCCUPIED', 'Campus View', 1),
+    ('b0000000-0000-0000-0000-000000000012', '402B', 4, '402', 'B', 'CAN-402-B', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'OCCUPIED', 'Campus View', 1),
+    ('b0000000-0000-0000-0000-000000000012', '402C', 4, '402', 'C', 'CAN-402-C', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'AVAILABLE', 'Courtyard View', 1),
+    ('b0000000-0000-0000-0000-000000000012', '402D', 4, '402', 'D', 'CAN-402-D', 'Private Bedroom in 4-Bed Suite', 'Studio', 595000, 595, 'AVAILABLE', 'Park View', 1),
+    ('b0000000-0000-0000-0000-000000000012', '501A', 5, '501', 'A', 'CAN-501-A', 'Private Bedroom in 4-Bed Suite (Upper)', 'Studio', 625000, 625, 'AVAILABLE', 'Skyline View', 1),
+    ('b0000000-0000-0000-0000-000000000012', '501B', 5, '501', 'B', 'CAN-501-B', 'Private Bedroom in 4-Bed Suite (Upper)', 'Studio', 625000, 625, 'AVAILABLE', 'Skyline View', 1)
 ON CONFLICT (building_id, room_number) DO UPDATE SET
     floor_number       = EXCLUDED.floor_number,
     suite_number       = EXCLUDED.suite_number,
