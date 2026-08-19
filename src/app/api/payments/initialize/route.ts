@@ -235,8 +235,11 @@ export async function POST(request: NextRequest) {
     // Use client-provided rate only as fallback if DB has no entry (should not happen)
     const liveRate = rateRecord ? Number(rateRecord.rate_multiplier) : (exchangeRate ?? 1);
 
-    // 6. Use the authoritative tuition_fee from DB, not the client-sent cadAmount
-    const authorizedCadAmount = Number(offer.tuition_fee);
+    // 6. Use authoritative amount: if housing deposit, enforce housing deposit amount (500 CAD)
+    const isHousingFlow = isHousingDeposit || invoiceType === 'HOUSING_DEPOSIT' || offerId?.startsWith('hdep');
+    const authorizedCadAmount = isHousingFlow
+        ? Number(cadAmount || 500.00)
+        : Number(offer.tuition_fee);
     const authorizedLocalAmount = parseFloat((authorizedCadAmount * liveRate).toFixed(2));
 
     // 7. Generate tracking reference
@@ -246,6 +249,7 @@ export async function POST(request: NextRequest) {
     let paymentId = `pay_${Date.now()}`;
 
     try {
+        const finalInvoiceType = isHousingFlow ? 'HOUSING_DEPOSIT' : (invoiceType ?? 'TUITION_DEPOSIT');
         const { data: payment, error: paymentError } = await adminSupabase
             .from('tuition_payments')
             .insert({
@@ -255,7 +259,7 @@ export async function POST(request: NextRequest) {
                 payment_method: paymentMethod ?? 'direct_bank_wire',
                 amount: authorizedCadAmount,
                 status: 'PENDING',
-                invoice_type: invoiceType ?? 'TUITION_DEPOSIT',
+                invoice_type: finalInvoiceType,
                 country: countryCode,
                 currency: currency,
                 fx_metadata: {
