@@ -519,11 +519,11 @@ export default function PayGoWireCheckout({
                                     </button>
 
                                     {isImportantInfoOpen && (
-                                        <div className="-mx-5 -mb-5 mt-3 text-[14px] md:text-[16px] text-slate-600 space-y-3 leading-relaxed bg-slate-50 p-5 rounded-b-md border-t border-slate-100 animate-in fade-in duration-200">
-                                            <p className="font-normal text-slate-600">
+                                        <div className="-mx-5 -mb-5 mt-3 text-[14px] md:text-[16px] text-slate-600 space-y-4 leading-[1.6] bg-slate-50 p-5 rounded-b-md border-t border-slate-100 animate-in fade-in duration-200">
+                                            <p className="font-normal text-slate-600 leading-[1.6] m-0">
                                                 Use this option to pay quickly in Naira via Bank Transfer.
                                             </p>
-                                            <p className="font-normal text-slate-600">
+                                            <p className="font-normal text-slate-600 leading-[1.6] m-0">
                                                 Note if you want to pay using a Form A application - please scroll down or select to pay in another currency - choose Bank Transfer in the destination currency and complete this journey to obtain Flywire&apos;s bank details to be used in the Form A application on the Trade Monitoring System.
                                             </p>
                                         </div>
