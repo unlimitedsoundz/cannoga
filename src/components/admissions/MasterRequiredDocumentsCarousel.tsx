@@ -17,7 +17,7 @@ const DOCUMENT_CARDS: DocumentCardItem[] = [
     {
         id: 'certified-educational-documents',
         title: 'CERTIFIED EDUCATIONAL DOCUMENTS',
-        description: 'Must be submitted after admission decision within 14 days of your admission decision.',
+        description: 'Must be submitted during application in the upload section.',
         href: '/portal/apply',
         bgColor: 'bg-[#6366f1]', // Electric Indigo
         borderColor: 'border-[#6366f1]',

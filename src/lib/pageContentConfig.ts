@@ -380,7 +380,7 @@ export const pageContentSections: PageContentSection[] = [
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Ensure all submitted documentation conforms to official verification standards:</p>
     <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
-        <li><strong class="text-slate-900 font-bold">Certified Educational Documents:</strong> Must be submitted after admission decision within 14 days of your admission decision.</li>
+        <li><strong class="text-slate-900 font-bold">Certified Educational Documents:</strong> Must be submitted during application in the upload section.</li>
         <li><strong class="text-slate-900 font-bold">Translations:</strong> Non-English/Non-English documents require official translations.</li>
         <li><strong class="text-slate-900 font-bold">Passport/ID:</strong> Color PDF of the personal information page.</li>
     </ul>
@@ -427,7 +427,6 @@ export const pageContentSections: PageContentSection[] = [
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Once you receive your Letter of Acceptance, complete the following onboarding steps to secure your study place:</p>
     <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
         <li>Accept your offer in the student portal before the stated deadline.</li>
-        <li>Submit certified degree documents and final transcripts.</li>
         <li>Pay tuition fees and obtain your Provincial Attestation Letter (PAL).</li>
         <li>Apply for your Canadian Study Permit and arrange accommodation in Ottawa.</li>
         <li>Complete online orientation and semester course registration.</li>
