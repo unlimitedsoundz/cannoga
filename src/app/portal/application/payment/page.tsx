@@ -10,6 +10,8 @@ function PaymentContent() {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
 
+    const paymentType = searchParams.get('type');
+
     const supabase = createClient();
 
     const [loading, setLoading] = useState(true);
@@ -47,7 +49,56 @@ function PaymentContent() {
                     return;
                 }
 
-                // 3. Check if this is an academic application or housing application
+                // If explicitly paying housing deposit or id starts with hdep
+                const isHousing = paymentType === 'housing' || id.toLowerCase().startsWith('hdep');
+
+                if (isHousing) {
+                    const cleanHousingAppId = id.replace(/^hdep-/, '');
+
+                    // Fetch student ID from students table if currentUserId is profile user
+                    const { data: studentRec } = await supabase
+                        .from('students')
+                        .select('id')
+                        .eq('user_id', currentUserId || '')
+                        .maybeSingle();
+
+                    const queryIds = [currentUserId, studentRec?.id].filter(Boolean);
+
+                    const { data: housingApp } = await supabase
+                        .from('housing_applications')
+                        .select(`
+                            *,
+                            assigned_room:assigned_room_id(*),
+                            building:building_id(name),
+                            homestay_host:homestay_host_id(host_name)
+                        `)
+                        .or(`id.eq.${cleanHousingAppId},student_id.in.(${queryIds.join(',')})`)
+                        .maybeSingle();
+
+                    const bName = (housingApp?.building as any)?.name ?? (housingApp?.homestay_host as any)?.host_name ?? 'Cannoga Residence';
+                    const rCode = (housingApp?.assigned_room as any)?.full_room_code ?? '';
+
+                    const syntheticOffer = {
+                        id: `hdep-${housingApp?.id || id}`,
+                        tuition_fee: 500.00,
+                        invoice_type: 'HOUSING_DEPOSIT',
+                        invoice_pushed: true,
+                        payment_deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+                        ancillary_charged: true,
+                    };
+
+                    const syntheticApp = {
+                        id: housingApp?.id || id,
+                        user_id: currentUserId,
+                        course: { title: `Housing Security Deposit (${bName}${rCode ? ` · Room ${rCode}` : ''})`, duration: 'Academic Year' },
+                        status: housingApp?.status || 'contract_signed'
+                    };
+
+                    setData({ application: syntheticApp, offer: syntheticOffer });
+                    return;
+                }
+
+                // Academic tuition application query
                 const { data: applicationRaw, error: appError } = await supabase
                     .from('applications')
                     .select(`
@@ -70,42 +121,6 @@ function PaymentContent() {
                     }
 
                     setData({ application, offer });
-                    return;
-                }
-
-                // If not an academic application, check if it's a housing application or deposit invoice
-                const { data: housingApp } = await supabase
-                    .from('housing_applications')
-                    .select(`
-                        *,
-                        assigned_room:assigned_room_id(*),
-                        building:building_id(name),
-                        homestay_host:homestay_host_id(host_name)
-                    `)
-                    .or(`id.eq.${id},student_id.eq.${currentUserId}`)
-                    .maybeSingle();
-
-                if (housingApp) {
-                    const bName = (housingApp.building as any)?.name ?? (housingApp.homestay_host as any)?.host_name ?? 'Cannoga Residence';
-                    const rCode = (housingApp.assigned_room as any)?.full_room_code ?? '';
-                    
-                    const syntheticOffer = {
-                        id: `hdep-offer-${housingApp.id}`,
-                        tuition_fee: 500.00,
-                        invoice_type: 'HOUSING_DEPOSIT',
-                        invoice_pushed: true,
-                        payment_deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-                        ancillary_charged: true,
-                    };
-
-                    const syntheticApp = {
-                        id: housingApp.id,
-                        user_id: currentUserId,
-                        course: { title: `Housing Security Deposit (${bName}${rCode ? ` · Room ${rCode}` : ''})`, duration: 'Academic Year' },
-                        status: housingApp.status
-                    };
-
-                    setData({ application: syntheticApp, offer: syntheticOffer });
                     return;
                 }
 

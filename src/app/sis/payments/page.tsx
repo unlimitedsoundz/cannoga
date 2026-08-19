@@ -393,7 +393,10 @@ export default function PaymentsPage() {
                                                     ) : (
                                                         <button
                                                             onClick={() => {
-                                                                if (inv.application_id) {
+                                                                const isHousing = inv.invoice_type === 'HOUSING_DEPOSIT' || inv.invoice_number?.startsWith('HDEP');
+                                                                if (isHousing) {
+                                                                    router.push(`/portal/application/payment?type=housing&id=${inv.application_id || inv.id}`);
+                                                                } else if (inv.application_id) {
                                                                     router.push(`/portal/application/payment?id=${inv.application_id}`);
                                                                 } else {
                                                                     router.push('/portal/dashboard');
