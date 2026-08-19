@@ -148,18 +148,6 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                 <h1 className="text-[20px] md:text-[24px] font-normal text-black leading-tight md:leading-none">{paymentCategoryLabel} Payment via Flywire</h1>
             </div>
 
-            {/* Payment Summary Header */}
-            <div className="mb-12 px-2 md:px-0">
-                <div className="p-6 md:p-8 bg-neutral-50 rounded-4px">
-                    <h2 className="text-sm font-normal mb-2 uppercase tracking-widest text-neutral-500">Invoice Type</h2>
-                    <div className="font-normal text-2xl md:text-3xl mb-1 uppercase tracking-tighter text-black">{invoiceTypeLabel}</div>
-                    <p className="text-sm text-neutral-600 leading-relaxed mt-2 max-w-2xl">
-                        This invoice has been prepared for your {invoiceTypeLabel.toLowerCase()} by the finance department. 
-                        Payment of this amount is required to proceed with your {isHousingPayment ? 'room placement and occupancy' : 'enrollment'}.
-                    </p>
-                </div>
-            </div>
-
             {/* Payment History & Receipts (Completed, Verified, or Submitted Payments only) */}
             {(() => {
                 const verifiedPayments = payments.filter((p: any) => 
