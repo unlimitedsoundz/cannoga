@@ -288,10 +288,10 @@ export default function PayGoWireCheckout({
                     const isActive = step === s.id || (s.id === 'BANK_INSTRUCTIONS' && step === 'SUBMITTED');
                     const isDone = progress > (idx + 1) * 25;
                     return (
-                        <div key={s.id} className={`flex items-center gap-1.5 whitespace-nowrap text-[10px] md:text-sm font-normal uppercase tracking-widest transition-colors duration-300 ${isActive ? 'text-[#147BD1]' : 'text-neutral-400'}`}>
+                        <div key={s.id} className={`flex items-center gap-1.5 whitespace-nowrap text-xs md:text-sm font-normal transition-colors duration-300 ${isActive ? 'text-[#147BD1]' : 'text-neutral-400'}`}>
                             <span className={`w-4 h-4 force-circle flex items-center justify-center text-[8px] border ${isActive ? 'border-[#147BD1] bg-[#147BD1] text-white' : isDone ? 'border-green-500 bg-green-500 text-white' : 'border-neutral-100'}`}>{isDone ? '✓' : idx + 1}</span>
                             <span className="hidden sm:inline">{s.label}</span>
-                            {idx < 3 && <ArrowRight size={10} className="text-neutral-100 ml-1" />}
+                            {idx < 3 && <ArrowRight size={10} className="text-neutral-300 ml-1" />}
                         </div>
                     );
                 })}
@@ -299,9 +299,9 @@ export default function PayGoWireCheckout({
 
             {/* ── FX Summary Bar (visible after country selected) ── */}
             {fxData && step !== 'COUNTRY' && (
-                <div className="bg-white px-4 py-3 flex items-center justify-between text-[10px] md:text-xs font-rubik animate-in fade-in slide-in-from-top-1 duration-500">
+                <div className="bg-white px-4 py-3 flex items-center justify-between text-xs font-rubik animate-in fade-in slide-in-from-top-1 duration-500">
                     <div className="flex flex-col">
-                        <span className="text-black uppercase tracking-widest mb-0.5">You send</span>
+                        <span className="text-slate-500 font-normal mb-0.5">You send</span>
                         <span className="font-normal text-black text-sm md:text-base">
                             {fxData.currencySymbol} {Number(fxData.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {fxData.localCurrency}
                         </span>
@@ -312,7 +312,7 @@ export default function PayGoWireCheckout({
                         </div>
                     </div>
                     <div className="flex flex-col text-right">
-                        <span className="text-black uppercase tracking-widest mb-0.5">Cannoga College receives</span>
+                        <span className="text-slate-500 font-normal mb-0.5">Cannoga College receives</span>
                         <span className="font-normal text-black text-sm md:text-base">CA$ {amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                 </div>
