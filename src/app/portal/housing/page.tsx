@@ -122,9 +122,8 @@ export default function HousingPortalPage() {
         const init = async () => {
             setLoading(true);
             try {
-                const [buildingsRes, mealRes, homestayRes] = await Promise.all([
+                const [buildingsRes, homestayRes] = await Promise.all([
                     fetch('/api/housing/buildings'),
-                    fetch('/api/housing/rooms?buildingId=PLACEHOLDER').catch(() => null),
                     fetch('/api/housing/homestay'),
                 ]);
 

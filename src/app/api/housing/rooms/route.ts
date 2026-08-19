@@ -16,8 +16,8 @@ export async function GET(req: NextRequest) {
     const buildingId = searchParams.get('buildingId');
     const floor      = searchParams.get('floor');
 
-    if (!buildingId) {
-        return NextResponse.json({ error: 'buildingId is required' }, { status: 400 });
+    if (!buildingId || buildingId === 'PLACEHOLDER' || buildingId === 'null' || buildingId === 'undefined') {
+        return NextResponse.json({ rooms: [], byFloor: {} }, { status: 200 });
     }
 
     let query = supabase
