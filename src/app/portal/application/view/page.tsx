@@ -49,8 +49,12 @@ function ViewApplicationContent() {
                 return;
             }
 
-            try {
-                const { data: applicationRaw, error: appError } = await supabase
+                if (id.startsWith('hdep') || id.includes('-housing')) {
+                    router.push('/portal/housing');
+                    return;
+                }
+
+                let { data: applicationRaw, error: appError } = await supabase
                     .from('applications')
                     .select(`
                         *,
@@ -60,12 +64,41 @@ function ViewApplicationContent() {
                         documents:application_documents(*)
                     `)
                     .eq('id', id)
-                    .eq('user_id', user.id)
-                    .single();
+                    .maybeSingle();
 
-                if (appError || !applicationRaw) {
-                    setError("Application not found.");
-                    return;
+                if (!applicationRaw) {
+                    // Check if student has a housing application under this ID
+                    const { data: hApp } = await supabase
+                        .from('housing_applications')
+                        .select('id')
+                        .or(`id.eq.${id},student_id.eq.${user.id}`)
+                        .maybeSingle();
+                    if (hApp) {
+                        router.push('/portal/housing');
+                        return;
+                    }
+
+                    // Fallback to user's most recent application
+                    const { data: userApp } = await supabase
+                        .from('applications')
+                        .select(`
+                            *,
+                            course:Course(*, school:School(*)),
+                            alternate_course:Course(*) ,
+                            user:profiles(*),
+                            documents:application_documents(*)
+                        `)
+                        .eq('user_id', user.id)
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .maybeSingle();
+
+                    if (userApp) {
+                        applicationRaw = userApp;
+                    } else {
+                        setError("Application not found.");
+                        return;
+                    }
                 }
 
                 setApplication(applicationRaw);

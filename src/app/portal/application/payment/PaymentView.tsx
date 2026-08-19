@@ -65,9 +65,13 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
     }) => {
         // Payment initialization and proof submission are handled inside PayGoWireCheckout.
         // By the time this callback fires, the payment record already exists and proof has
-        // been submitted — we just redirect to the application view.
+        // been submitted — we redirect to housing portal or academic application view.
         console.log('PaymentView: proof submitted, redirecting', details.trackingRef);
-        window.location.href = `/portal/application/view?id=${application.id}`;
+        if (isHousingPayment || application?.is_housing || application?.id?.toString().startsWith('hdep') || rawInvoiceType === 'HOUSING_DEPOSIT') {
+            window.location.href = '/portal/housing';
+        } else {
+            window.location.href = `/portal/application/view?id=${application.id}`;
+        }
     };
 
     // Determine the payment state for the CURRENT invoice (matched by invoice_type).
