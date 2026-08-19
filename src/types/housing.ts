@@ -34,6 +34,7 @@ export interface ResidenceBuilding {
     // Computed
     available_beds?: number;
     occupied_beds?: number;
+    total_rooms?: number;
 }
 
 // -------------------------------------------------------

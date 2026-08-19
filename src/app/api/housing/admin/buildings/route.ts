@@ -48,7 +48,7 @@ export async function GET(_req: NextRequest) {
                 available_beds: available,
                 occupied_beds:  occupied,
                 total_rooms:    total,
-            } as ResidenceBuilding;
+            } as unknown as ResidenceBuilding;
         })
     );
 
