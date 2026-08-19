@@ -14,10 +14,15 @@
     font-family: 'Rubik', sans-serif !important;
 }
 
-/* Global rule for checkout: force 14px on all 13px text */
+/* Global rules for checkout */
 .font-rubik .text-\[13px\],
 [data-font="rubik"] .text-\[13px\] {
     font-size: 14px !important;
+}
+
+.font-rubik .text-\[12px\],
+[data-font="rubik"] .text-\[12px\] {
+    font-size: 12px !important;
 }
 
 /* ============================================
