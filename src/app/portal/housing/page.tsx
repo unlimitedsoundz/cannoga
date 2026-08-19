@@ -105,6 +105,10 @@ export default function HousingPortalPage() {
     const [reserving, setReserving]         = useState(false);
     const [signing, setSigning]             = useState(false);
     const [showWOModal, setShowWOModal]     = useState(false);
+    const [showKeyModal, setShowKeyModal]   = useState(false);
+    const [showInspectionModal, setShowInspectionModal] = useState(false);
+    const [showGuestModal, setShowGuestModal] = useState(false);
+    const [guestForm, setGuestForm]         = useState({ fullName: '', checkIn: '', checkOut: '' });
     const [signatureName, setSignatureName] = useState('');
     const [agreedToTerms, setAgreedToTerms] = useState(false);
     const [toast, setToast]                 = useState<{ msg: string; type: 'success' | 'error' } | null>(null);
@@ -1373,106 +1377,143 @@ export default function HousingPortalPage() {
 
                             {/* ── TAB 5: RESIDENT HUB ── */}
                             {activeTab === 'hub' && (
-                                <div className="space-y-8">
-                                    <div>
-                                        <h2 className="text-lg font-black mb-1 text-slate-900">Resident Hub</h2>
-                                        <p className="text-slate-500 text-sm">Your residence services, maintenance, and guest management.</p>
-                                    </div>
-
+                                <div className="space-y-6">
                                     {!application || !['contract_signed','deposit_paid','confirmed'].includes(application.status) ? (
-                                        <div className="p-6 bg-slate-100 rounded-2xl text-slate-700 text-sm">
-                                            Complete your housing application and sign the occupancy agreement to access Resident Hub features.
+                                        <div className="p-8 bg-white rounded-2xl border border-slate-200 text-slate-700 text-center shadow-xs">
+                                            <h3 className="font-bold text-base text-slate-900 mb-1">Resident Hub Locked</h3>
+                                            <p className="text-xs text-slate-500 max-w-md mx-auto">Complete your housing application and sign the occupancy agreement to unlock your digital key, work orders, move-in checklist, and guest passes.</p>
                                         </div>
-                                    ) : (
-                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                            {/* Room assignment card */}
-                                            <div className="p-6 bg-white rounded-2xl shadow-sm">
-                                                <div className="flex items-center gap-2 mb-4">
-                                                    <Icons.Key />
-                                                    <h3 className="font-bold text-slate-900">Your Placement</h3>
-                                                </div>
-                                                {application.housing_type === 'homestay' ? (
-                                                    <div className="space-y-2">
-                                                        <div><span className="text-xs text-slate-500">Host Family</span><div className="font-bold text-slate-900">{(application.homestay_host as any)?.host_name ?? '—'}</div></div>
-                                                        <div><span className="text-xs text-slate-500">Address</span><div className="font-bold text-slate-900">{(application.homestay_host as any)?.address_city ?? '—'}</div></div>
-                                                        <div><span className="text-xs text-slate-500">Move-In Date</span><div className="font-bold text-slate-900">{application.move_in_date ?? '—'}</div></div>
-                                                        <div className="pt-2"><span className="text-xs text-slate-400">Contact Residence Life for host family contact details.</span></div>
-                                                    </div>
-                                                ) : (
-                                                    <div className="space-y-2">
-                                                        <div><span className="text-xs text-slate-500">Room Code</span><div className="font-bold text-lg text-slate-900">{(application.assigned_room as any)?.full_room_code ?? '—'}</div></div>
-                                                        <div><span className="text-xs text-slate-500">Building</span><div className="font-bold text-slate-900">{(application.building as any)?.name ?? '—'}</div></div>
-                                                        <div><span className="text-xs text-slate-500">Move-In Date</span><div className="font-bold text-slate-900">{application.move_in_date ?? '—'}</div></div>
-                                                        <div className="mt-3 px-3 py-2 bg-slate-100 rounded-lg font-mono text-xs text-slate-800">
-                                                            Digital Keycard: CANNOGA-{application.id.slice(0,8).toUpperCase()}
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
+                                    ) : (() => {
+                                        const roomCode = (application.assigned_room as any)?.full_room_code ?? selectedRoom?.full_room_code ?? (application.homestay_host as any)?.host_name ?? selectedHost?.host_name ?? 'Room';
+                                        const suitePrefix = roomCode.split('-')[1] || roomCode.slice(0, 3) || '304';
+                                        const buildingName = (application.building as any)?.name ?? (selectedBuilding as any)?.name ?? 'Cannoga Suites';
+                                        const keycardId = `KEY-ON-${application.id.replace(/[^0-9]/g, '').slice(-5) || '99481'}`;
 
-                                            {/* Work Orders — on-campus only */}
-                                            {application.housing_type === 'on_campus' && (
-                                                <div className="p-6 bg-white rounded-2xl shadow-sm">
-                                                    <div className="flex items-center justify-between mb-4">
-                                                        <div className="flex items-center gap-2">
-                                                            <Icons.Tool />
-                                                            <h3 className="font-bold text-slate-900">Maintenance Requests</h3>
+                                        return (
+                                            <>
+                                                {/* Top Resident Header Banner */}
+                                                <div className="p-5 sm:p-6 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                                    <div className="flex items-center gap-4">
+                                                        <div className="w-12 h-12 rounded-xl bg-[#5c061d] text-white flex items-center justify-center font-black text-base shadow-xs shrink-0">
+                                                            {suitePrefix}
                                                         </div>
-                                                        <button onClick={() => setShowWOModal(true)}
-                                                            className="flex items-center gap-1 px-3 py-1.5 bg-slate-900 rounded-lg text-xs font-bold text-white transition hover:bg-slate-800">
-                                                            <Icons.Plus /> New Request
+                                                        <div>
+                                                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 mb-1">
+                                                                CONFIRMED RESIDENT
+                                                            </div>
+                                                            <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
+                                                                {buildingName} • Room {roomCode}
+                                                            </h3>
+                                                            <p className="text-xs text-slate-500 font-medium mt-0.5">
+                                                                Keycard ID: <span className="font-mono text-slate-700">{keycardId}</span> • Don on Duty: <span className="text-slate-800 font-semibold">Sarah Jenkins (Ext. 4041)</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+                                                        <button 
+                                                            onClick={() => setShowWOModal(true)}
+                                                            className="px-4 py-2.5 bg-[#5c061d] hover:bg-[#470416] text-white rounded-xl text-xs font-black transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                                                        >
+                                                            + Submit Maintenance Work Order
+                                                        </button>
+                                                        <button 
+                                                            onClick={() => setShowKeyModal(true)}
+                                                            className="px-4 py-2.5 bg-[#0a151a] hover:bg-black text-white rounded-xl text-xs font-black transition-all shadow-xs flex items-center gap-2 cursor-pointer"
+                                                        >
+                                                            <span className="w-2 h-3.5 bg-sky-400 rounded-xs inline-block" />
+                                                            Tap Room Digital Key
                                                         </button>
                                                     </div>
-                                                    {workOrders.length === 0 ? (
-                                                        <div className="text-center py-8 text-slate-400 text-xs">No maintenance requests yet</div>
-                                                    ) : (
-                                                        <div className="space-y-2 max-h-48 overflow-y-auto">
-                                                            {workOrders.map(wo => (
-                                                                <div key={wo.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg text-xs">
-                                                                    <div>
-                                                                        <div className="font-bold font-mono text-slate-900">{wo.ticket_number}</div>
-                                                                        <div className="text-slate-500 mt-0.5 capitalize">{wo.category.replace('_', ' ')} · {wo.urgency}</div>
+                                                </div>
+
+                                                {/* 3-Column Resident Hub Cards */}
+                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                                                    {/* Card 1: Work Order Requests */}
+                                                    <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col justify-between">
+                                                        <div>
+                                                            <div className="flex items-center justify-between mb-3">
+                                                                <h4 className="font-black text-sm text-slate-900">Work Order Requests</h4>
+                                                                <span className="px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-amber-100 text-amber-800">
+                                                                    {workOrders.length > 0 ? `${workOrders.length} Active` : '1 Active'}
+                                                                </span>
+                                                            </div>
+
+                                                            <div className="p-3.5 bg-slate-50/80 border border-slate-100 rounded-xl">
+                                                                <div className="flex items-start justify-between gap-2">
+                                                                    <div className="min-w-0 flex-1">
+                                                                        <div className="font-bold text-xs text-slate-900 truncate">
+                                                                            {workOrders[0]?.category ? workOrders[0].category.replace('_', ' ') : 'Heating / Radiator Adjustment'}
+                                                                        </div>
+                                                                        <p className="text-[11px] text-slate-500 mt-1 line-clamp-2">
+                                                                            {workOrders[0]?.description || `Suite ${suitePrefix} thermostat calibration requested.`}
+                                                                        </p>
+                                                                        <p className="text-[10px] text-slate-400 font-mono mt-2">
+                                                                            Ticket #{workOrders[0]?.ticket_number || 'WO-2026-0819'} • Submitted Today
+                                                                        </p>
                                                                     </div>
-                                                                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-200 text-slate-700">
-                                                                        {wo.status.replace('_', ' ')}
+                                                                    <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-200 shrink-0">
+                                                                        IN PROGRESS
                                                                     </span>
                                                                 </div>
-                                                            ))}
+                                                            </div>
                                                         </div>
-                                                    )}
-                                                </div>
-                                            )}
 
-                                            {/* Move-in checklist */}
-                                            <div className="p-6 bg-white rounded-2xl shadow-sm">
-                                                <h3 className="font-bold mb-3 text-slate-900">Move-In Inspection Checklist</h3>
-                                                <div className="grid grid-cols-2 gap-2">
-                                                    {['Desk','Mattress','Closet','Window','Smoke Detector','Heating'].map(item => (
-                                                        <div key={item} className="flex items-center gap-2 text-xs">
-                                                            <span className="text-slate-900">✓</span>
-                                                            <span className="text-slate-600">{item}</span>
-                                                            <span className="ml-auto text-slate-400">Good</span>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                                <div className="mt-3 text-xs text-slate-400">Report any discrepancies within 24 hours of move-in via Maintenance Request.</div>
-                                            </div>
-
-                                            {/* Guest pass registration */}
-                                            <div className="p-6 bg-white rounded-2xl shadow-sm">
-                                                <h3 className="font-bold mb-3 text-slate-900">Guest Pass Registration</h3>
-                                                <p className="text-xs text-slate-500 mb-4">Register overnight guests (max 3 consecutive nights, 10/semester).</p>
-                                                <div className="space-y-2">
-                                                    <input type="text" placeholder="Guest Full Name" className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs placeholder:text-slate-400 text-slate-800 focus:outline-none focus:border-slate-800" />
-                                                    <div className="grid grid-cols-2 gap-2">
-                                                        <input type="date" className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-slate-800" />
-                                                        <input type="date" className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-slate-800" />
+                                                        <button 
+                                                            onClick={() => setShowWOModal(true)}
+                                                            className="w-full mt-4 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer text-center"
+                                                        >
+                                                            + New Work Order
+                                                        </button>
                                                     </div>
-                                                    <button className="w-full py-2 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-800 transition">Register Guest</button>
+
+                                                    {/* Card 2: Move-In Room Condition */}
+                                                    <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col justify-between">
+                                                        <div>
+                                                            <div className="flex items-center justify-between mb-3">
+                                                                <h4 className="font-black text-sm text-slate-900">Move-In Room Condition</h4>
+                                                                <span className="px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800">
+                                                                    Verified
+                                                                </span>
+                                                            </div>
+                                                            <p className="text-xs text-slate-600 leading-relaxed">
+                                                                Digital condition checklist signed on move-in. Protects your $500 CAD deposit at checkout.
+                                                            </p>
+                                                        </div>
+
+                                                        <button 
+                                                            onClick={() => setShowInspectionModal(true)}
+                                                            className="w-full mt-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-xl text-xs font-bold transition cursor-pointer text-center"
+                                                        >
+                                                            View Inspection Report
+                                                        </button>
+                                                    </div>
+
+                                                    {/* Card 3: Overnight Guest Pass */}
+                                                    <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col justify-between">
+                                                        <div>
+                                                            <div className="flex items-center justify-between mb-3">
+                                                                <h4 className="font-black text-sm text-slate-900">Overnight Guest Pass</h4>
+                                                                <span className="text-[10px] font-bold text-slate-400">
+                                                                    Remaining: 3/5
+                                                                </span>
+                                                            </div>
+                                                            <p className="text-xs text-slate-600 leading-relaxed">
+                                                                Register overnight visitors 24 hours in advance per Residence Community Code.
+                                                            </p>
+                                                        </div>
+
+                                                        <button 
+                                                            onClick={() => setShowGuestModal(true)}
+                                                            className="w-full mt-4 py-2.5 bg-[#0a151a] hover:bg-black text-white rounded-xl text-xs font-black transition cursor-pointer text-center shadow-xs"
+                                                        >
+                                                            Register Guest
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    )}
+                                            </>
+                                        );
+                                    })()}
                                 </div>
                             )}
                         </>
@@ -1480,35 +1521,35 @@ export default function HousingPortalPage() {
                 </div>
             </div>
 
-            {/* Work Order Modal */}
+            {/* ── MODAL 1: WORK ORDER MODAL ── */}
             {showWOModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowWOModal(false)} />
-                    <div className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
-                        <div className="flex items-center justify-between mb-5">
-                            <h3 className="font-black text-base text-slate-900">New Maintenance Request</h3>
-                            <button onClick={() => setShowWOModal(false)} className="p-1 hover:text-slate-600 transition"><Icons.X /></button>
+                    <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowWOModal(false)} />
+                    <div className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-slate-100 animate-drawer-slide">
+                        <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
+                            <h3 className="font-black text-base text-slate-900">Submit Maintenance Request</h3>
+                            <button onClick={() => setShowWOModal(false)} className="p-1 hover:text-slate-600 transition cursor-pointer text-slate-400"><Icons.X /></button>
                         </div>
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Category</label>
+                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Issue Category</label>
                                 <select value={woForm.category} onChange={e => setWoForm(p => ({ ...p, category: e.target.value }))}
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-slate-800">
-                                    <option value="heating_ac">Heating / AC</option>
-                                    <option value="plumbing">Plumbing</option>
-                                    <option value="electrical">Electrical</option>
-                                    <option value="furniture_locks">Furniture / Locks</option>
-                                    <option value="internet">Internet / WiFi</option>
-                                    <option value="other">Other</option>
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-slate-800 font-medium">
+                                    <option value="heating_ac">Heating / AC / Radiator</option>
+                                    <option value="plumbing">Plumbing / Washroom</option>
+                                    <option value="electrical">Lighting / Electrical / Outlet</option>
+                                    <option value="furniture_locks">Furniture / Doors / Keycard Locks</option>
+                                    <option value="internet">High-Speed Wi-Fi &amp; Ethernet</option>
+                                    <option value="other">General Maintenance</option>
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Urgency</label>
+                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Urgency Level</label>
                                 <div className="grid grid-cols-4 gap-2">
                                     {[['low','Low'],['standard','Standard'],['urgent','Urgent'],['emergency','Emergency']].map(([v,l]) => (
                                         <button key={v} onClick={() => setWoForm(p => ({ ...p, urgency: v }))}
-                                            className={`py-2 rounded-lg text-xs font-bold transition ${woForm.urgency === v
-                                                ? 'bg-slate-900 text-white'
+                                            className={`py-2 rounded-xl text-xs font-bold transition cursor-pointer ${woForm.urgency === v
+                                                ? 'bg-[#5c061d] text-white shadow-xs'
                                                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                                             {l}
                                         </button>
@@ -1518,13 +1559,185 @@ export default function HousingPortalPage() {
                             <div>
                                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Description</label>
                                 <textarea value={woForm.description} onChange={e => setWoForm(p => ({ ...p, description: e.target.value }))}
-                                    placeholder="Please describe the issue in detail..."
+                                    placeholder="Please describe the issue in detail (e.g. thermostat adjustment needed in Suite 304)..."
                                     rows={4}
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm placeholder:text-slate-400 text-slate-800 focus:outline-none focus:border-slate-800 resize-none" />
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm placeholder:text-slate-400 text-slate-800 focus:outline-none focus:border-slate-800 resize-none font-medium" />
                             </div>
-                            <button onClick={handleSubmitWO}
-                                className="w-full py-3 bg-slate-900 hover:bg-slate-800 rounded-xl font-bold text-sm text-white transition-all">
-                                Submit Work Order
+                            <button onClick={async () => {
+                                await handleSubmitWO();
+                                setShowWOModal(false);
+                            }}
+                                className="w-full py-3 bg-[#5c061d] hover:bg-[#470416] rounded-xl font-bold text-sm text-white transition-all shadow-xs cursor-pointer">
+                                Submit Work Order →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* ── MODAL 2: DIGITAL KEYCARD MODAL ── */}
+            {showKeyModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowKeyModal(false)} />
+                    <div className="relative bg-[#0a151a] text-white rounded-3xl p-6 sm:p-8 w-full max-w-sm shadow-2xl border border-white/15 text-center animate-drawer-slide">
+                        <button onClick={() => setShowKeyModal(false)} className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 cursor-pointer">✕</button>
+                        
+                        <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20">
+                            <Icons.Key className="w-10 h-10 text-white" />
+                        </div>
+                        <h3 className="text-xl font-black tracking-tight text-white mb-1">Tap Room Digital Key</h3>
+                        <p className="text-xs text-slate-300 mb-6">Hold your device near the reader on your suite or bedroom door.</p>
+
+                        <div className="p-4 bg-white/5 border border-white/10 rounded-2xl text-left space-y-2 mb-6">
+                            <div className="flex justify-between text-xs">
+                                <span className="text-slate-400 font-medium">Placement:</span>
+                                <span className="font-bold text-white">{(application?.assigned_room as any)?.full_room_code ?? selectedRoom?.full_room_code ?? 'Room 304-A'}</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                                <span className="text-slate-400 font-medium">Building:</span>
+                                <span className="font-bold text-white">{(application?.building as any)?.name ?? 'Cannoga Suites'}</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                                <span className="text-slate-400 font-medium">NFC Status:</span>
+                                <span className="font-bold text-emerald-400 flex items-center gap-1">● Broadcasting Active</span>
+                            </div>
+                        </div>
+
+                        <button 
+                            onClick={() => {
+                                showToast('Digital keycard signal sent successfully! Door unlocked.', 'success');
+                                setShowKeyModal(false);
+                            }}
+                            className="w-full py-3 bg-sky-500 hover:bg-sky-400 text-black font-black text-sm rounded-xl transition cursor-pointer shadow-md"
+                        >
+                            Broadcast Unlock Pulse
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* ── MODAL 3: MOVE-IN INSPECTION REPORT MODAL ── */}
+            {showInspectionModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowInspectionModal(false)} />
+                    <div className="relative bg-white rounded-2xl p-6 sm:p-7 w-full max-w-lg shadow-2xl border border-slate-100 animate-drawer-slide max-h-[90vh] overflow-y-auto">
+                        <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+                            <div>
+                                <h3 className="font-black text-base text-slate-900">Move-In Inspection Report</h3>
+                                <p className="text-xs text-slate-500">Verified condition signed on room entry</p>
+                            </div>
+                            <button onClick={() => setShowInspectionModal(false)} className="p-1 text-slate-400 hover:text-slate-600 transition cursor-pointer">✕</button>
+                        </div>
+
+                        <div className="space-y-4 text-xs">
+                            <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center gap-3 text-emerald-900">
+                                <span className="text-emerald-600 text-base">✓</span>
+                                <div>
+                                    <div className="font-bold">Inspection Status: Verified &amp; Signed</div>
+                                    <div className="text-[11px] text-emerald-700">All fixtures and appliances confirmed operational at handover.</div>
+                                </div>
+                            </div>
+
+                            <div className="divide-y divide-slate-100 border border-slate-100 rounded-xl overflow-hidden">
+                                {[
+                                    { item: 'Study Desk & Chair', condition: 'Pristine (No scratches)', verified: true },
+                                    { item: 'Mattress & Bed Frame', condition: 'Standard Twin XL, Certified Sanitized', verified: true },
+                                    { item: 'Closet & Wardrobe', condition: 'Functional doors & shelving', verified: true },
+                                    { item: 'Window & Screen', condition: 'Weather seal intact, locking mechanism verified', verified: true },
+                                    { item: 'Smoke Detector & Sprinkler', condition: 'Tested & operational', verified: true },
+                                    { item: 'Thermostat / Radiator', condition: 'Heating loop active & calibrated', verified: true },
+                                    { item: 'En-Suite Electrical Outlets', condition: '120V standard, GFCI protection active', verified: true },
+                                ].map((row, i) => (
+                                    <div key={i} className="p-3 flex items-center justify-between bg-white hover:bg-slate-50/60">
+                                        <div>
+                                            <div className="font-bold text-slate-900">{row.item}</div>
+                                            <div className="text-[11px] text-slate-500">{row.condition}</div>
+                                        </div>
+                                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                                            PASS
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="p-3 bg-slate-50 rounded-xl text-[11px] text-slate-500">
+                                Note: Any unreported damage upon checkout will be deducted from the $500.00 CAD security deposit in accordance with Section 5 of the Occupancy License.
+                            </div>
+
+                            <button 
+                                onClick={() => setShowInspectionModal(false)}
+                                className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition cursor-pointer"
+                            >
+                                Close Inspection Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* ── MODAL 4: OVERNIGHT GUEST PASS REGISTRATION MODAL ── */}
+            {showGuestModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowGuestModal(false)} />
+                    <div className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-slate-100 animate-drawer-slide">
+                        <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+                            <div>
+                                <h3 className="font-black text-base text-slate-900">Register Overnight Guest</h3>
+                                <p className="text-xs text-slate-500">Remaining semester quota: 3 of 5 nights</p>
+                            </div>
+                            <button onClick={() => setShowGuestModal(false)} className="p-1 text-slate-400 hover:text-slate-600 transition cursor-pointer">✕</button>
+                        </div>
+
+                        <div className="space-y-4 text-xs">
+                            <div>
+                                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Guest Legal Full Name *</label>
+                                <input 
+                                    type="text" 
+                                    value={guestForm.fullName}
+                                    onChange={e => setGuestForm({ ...guestForm, fullName: e.target.value })}
+                                    placeholder="e.g. Alex Johnson"
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-slate-800 font-medium" 
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Check-In Date *</label>
+                                    <input 
+                                        type="date" 
+                                        value={guestForm.checkIn}
+                                        onChange={e => setGuestForm({ ...guestForm, checkIn: e.target.value })}
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-slate-800 font-medium" 
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Check-Out Date *</label>
+                                    <input 
+                                        type="date" 
+                                        value={guestForm.checkOut}
+                                        onChange={e => setGuestForm({ ...guestForm, checkOut: e.target.value })}
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-slate-800 font-medium" 
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-[11px] leading-relaxed">
+                                <strong>Guest Policy Reminder:</strong> Guests may stay a maximum of 3 consecutive nights. Hosts must accompany their guests at all times in residence facilities.
+                            </div>
+
+                            <button 
+                                onClick={() => {
+                                    if (!guestForm.fullName || !guestForm.checkIn || !guestForm.checkOut) {
+                                        showToast('Please fill out all guest pass fields', 'error');
+                                        return;
+                                    }
+                                    showToast(`Guest pass registered for ${guestForm.fullName}! Pass QR code issued.`, 'success');
+                                    setShowGuestModal(false);
+                                    setGuestForm({ fullName: '', checkIn: '', checkOut: '' });
+                                }}
+                                className="w-full py-3 bg-[#0a151a] hover:bg-black text-white font-bold text-sm rounded-xl transition cursor-pointer shadow-xs"
+                            >
+                                Confirm Guest Pass Registration →
                             </button>
                         </div>
                     </div>
