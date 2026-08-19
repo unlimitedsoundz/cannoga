@@ -1307,22 +1307,22 @@ export default function HousingPortalPage() {
                                                 <p className="text-slate-500">By signing below, the Resident confirms they have read, understood, and agreed to all terms of this Residence Occupancy License & Community Standards Agreement.</p>
                                             </div>
 
-                                            {/* Application summary */}
-                                            <div className="grid grid-cols-2 gap-3 text-sm">
-                                                <div className="p-4 bg-slate-50 rounded-xl">
-                                                    <div className="text-xs text-slate-500 mb-1">Housing Type</div>
-                                                    <div className="font-bold text-slate-900">{application.housing_type === 'homestay' ? 'Homestay' : 'On-Campus'}</div>
+                                            {/* Application summary - Compact Grid */}
+                                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+                                                <div className="p-3 bg-slate-50 rounded-xl">
+                                                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Housing Type</div>
+                                                    <div className="font-extrabold text-slate-900">{application.housing_type === 'homestay' ? 'Homestay' : 'On-Campus'}</div>
                                                 </div>
-                                                <div className="p-4 bg-slate-50 rounded-xl">
-                                                    <div className="text-xs text-slate-500 mb-1">Placement</div>
-                                                    <div className="font-bold text-slate-900">{(application.assigned_room as any)?.full_room_code ?? (application.homestay_host as any)?.host_name ?? '—'}</div>
+                                                <div className="p-3 bg-slate-50 rounded-xl">
+                                                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Placement</div>
+                                                    <div className="font-extrabold text-slate-900 truncate">{(application.assigned_room as any)?.full_room_code ?? selectedRoom?.full_room_code ?? (application.homestay_host as any)?.host_name ?? selectedHost?.host_name ?? '—'}</div>
                                                 </div>
-                                                <div className="p-4 bg-slate-50 rounded-xl">
-                                                    <div className="text-xs text-slate-500 mb-1">Meal Plan</div>
-                                                    <div className="font-bold text-slate-900">{selectedMealPlan?.title ?? 'None selected'}</div>
+                                                <div className="p-3 bg-slate-50 rounded-xl">
+                                                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Meal Plan</div>
+                                                    <div className="font-extrabold text-slate-900 truncate">{(application.meal_plan as any)?.title ?? selectedMealPlan?.title ?? 'None selected'}</div>
                                                 </div>
-                                                <div className="p-4 bg-slate-50 rounded-xl">
-                                                    <div className="text-xs text-slate-500 mb-1">Security Deposit</div>
+                                                <div className="p-3 bg-slate-50 rounded-xl">
+                                                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Security Deposit</div>
                                                     <div className="font-black text-slate-900">$500.00 CAD</div>
                                                 </div>
                                             </div>

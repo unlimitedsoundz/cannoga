@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
             .from('housing_applications')
             .update(appPayload)
             .eq('id', existingApp.id)
-            .select()
+            .select('*, building:building_id(*), assigned_room:assigned_room_id(*), meal_plan:selected_meal_plan_id(*), homestay_host:homestay_host_id(*)')
             .single();
         if (error) {
             console.error('[POST /api/housing/reserve-room] update:', error);
@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
                 move_in_date:   '2026-09-02',
                 move_out_date:  '2027-04-30',
             })
-            .select()
+            .select('*, building:building_id(*), assigned_room:assigned_room_id(*), meal_plan:selected_meal_plan_id(*), homestay_host:homestay_host_id(*)')
             .single();
         if (error) {
             console.error('[POST /api/housing/reserve-room] insert:', error);
