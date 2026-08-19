@@ -344,7 +344,7 @@ export default function PayGoWireCheckout({
                                 </label>
                                 
                                 <div className="flex border border-slate-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#0066cc]/20 focus-within:border-[#0066cc] transition-all bg-white shadow-2xs">
-                                    <div className="bg-slate-50 text-slate-700 px-4 py-2.5 font-bold text-sm border-r border-slate-200 flex items-center justify-center min-w-[54px]">
+                                    <div className="bg-slate-50 text-slate-700 px-4 py-2.5 font-bold text-sm flex items-center justify-center min-w-[54px]">
                                         C$
                                     </div>
                                     <div className="flex-1 px-3 py-1.5 flex flex-col justify-center">
