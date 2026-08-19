@@ -1427,9 +1427,13 @@ export default function HousingPortalPage() {
                                         </div>
                                     ) : (() => {
                                         const roomCode = (application.assigned_room as any)?.full_room_code ?? selectedRoom?.full_room_code ?? (application.homestay_host as any)?.host_name ?? selectedHost?.host_name ?? 'Room';
-                                        const suitePrefix = roomCode.split('-')[1] || roomCode.slice(0, 3) || '304';
-                                        const buildingName = (application.building as any)?.name ?? (selectedBuilding as any)?.name ?? 'Cannoga Suites';
-                                        const keycardId = `KEY-ON-${application.id.replace(/[^0-9]/g, '').slice(-5) || '99481'}`;
+                                        const suitePrefix = roomCode.split('-')[1] || roomCode.slice(0, 3) || '—';
+                                        const buildingName = (application.building as any)?.name ?? (selectedBuilding as any)?.name ?? 'Cannoga Residence';
+                                        const donName = (application.building as any)?.don_name || 'Sarah Jenkins (Ext. 4041)';
+                                        const keycardId = (application as any).keycard_id || `KEY-ON-${application.id.replace(/[^0-9]/g, '').slice(-5) || studentInfo?.id?.slice(-5) || '10001'}`;
+
+                                        const activeWorkOrders = workOrders.filter(w => (w.status as string) !== 'closed' && (w.status as string) !== 'resolved');
+                                        const latestWO = workOrders[0];
 
                                         return (
                                             <>
@@ -1447,7 +1451,7 @@ export default function HousingPortalPage() {
                                                                 {buildingName} • Room {roomCode}
                                                             </h3>
                                                             <p className="text-xs text-slate-500 font-medium mt-0.5">
-                                                                Keycard ID: <span className="font-mono text-slate-700 font-bold">{keycardId}</span> • Don on Duty: <span className="text-slate-800 font-semibold">Sarah Jenkins (Ext. 4041)</span>
+                                                                Keycard ID: <span className="font-mono text-slate-700 font-bold">{keycardId}</span> • Don on Duty: <span className="text-slate-800 font-semibold">{donName}</span>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -1469,36 +1473,43 @@ export default function HousingPortalPage() {
                                                     </div>
                                                 </div>
 
-                                                {/* 3-Column Resident Hub Cards - Borderless with Vibrant Pill Tags */}
+                                                {/* 3-Column Resident Hub Cards - Dynamic From DB */}
                                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                                                     {/* Card 1: Work Order Requests */}
                                                     <div className="p-5 bg-white rounded-2xl shadow-xs flex flex-col justify-between">
                                                         <div>
                                                             <div className="flex items-center justify-between mb-3">
                                                                 <h4 className="font-black text-sm text-slate-900">Work Order Requests</h4>
-                                                                <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-500 text-white">
-                                                                    {workOrders.length > 0 ? `${workOrders.length} Active` : '1 Active'}
+                                                                <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider text-white ${activeWorkOrders.length > 0 ? 'bg-amber-500' : 'bg-slate-400'}`}>
+                                                                    {activeWorkOrders.length} Active
                                                                 </span>
                                                             </div>
 
-                                                            <div className="p-3.5 bg-slate-50 rounded-xl">
-                                                                <div className="flex items-start justify-between gap-2">
-                                                                    <div className="min-w-0 flex-1">
-                                                                        <div className="font-bold text-xs text-slate-900 truncate">
-                                                                            {workOrders[0]?.category ? workOrders[0].category.replace('_', ' ') : 'Heating / Radiator Adjustment'}
+                                                            {latestWO ? (
+                                                                <div className="p-3.5 bg-slate-50 rounded-xl">
+                                                                    <div className="flex items-start justify-between gap-2">
+                                                                        <div className="min-w-0 flex-1">
+                                                                            <div className="font-bold text-xs text-slate-900 truncate uppercase">
+                                                                                {latestWO.category?.replace(/_/g, ' ')}
+                                                                            </div>
+                                                                            <p className="text-[11px] text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                                                                                {latestWO.description}
+                                                                            </p>
+                                                                            <p className="text-[10px] text-slate-400 font-mono mt-2">
+                                                                                Ticket #{latestWO.ticket_number} • {latestWO.created_at ? new Date(latestWO.created_at).toLocaleDateString('en-CA') : 'Recent'}
+                                                                            </p>
                                                                         </div>
-                                                                        <p className="text-[11px] text-slate-500 mt-1 line-clamp-2 leading-relaxed">
-                                                                            {workOrders[0]?.description || `Suite ${suitePrefix} thermostat calibration requested.`}
-                                                                        </p>
-                                                                        <p className="text-[10px] text-slate-400 font-mono mt-2">
-                                                                            Ticket #{workOrders[0]?.ticket_number || 'WO-2026-0819'} • Submitted Today
-                                                                        </p>
+                                                                        <span className="text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 shrink-0 font-mono">
+                                                                            {latestWO.status?.replace(/_/g, ' ')}
+                                                                        </span>
                                                                     </div>
-                                                                    <span className="text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 shrink-0 font-mono">
-                                                                        IN PROGRESS
-                                                                    </span>
                                                                 </div>
-                                                            </div>
+                                                            ) : (
+                                                                <div className="p-3.5 bg-slate-50 rounded-xl text-center py-5">
+                                                                    <p className="text-xs text-slate-500">No active maintenance requests</p>
+                                                                    <p className="text-[10px] text-slate-400 mt-1">Submit a request below if your suite needs attention.</p>
+                                                                </div>
+                                                            )}
                                                         </div>
 
                                                         <button 
@@ -1514,8 +1525,8 @@ export default function HousingPortalPage() {
                                                         <div>
                                                             <div className="flex items-center justify-between mb-3">
                                                                 <h4 className="font-black text-sm text-slate-900">Move-In Room Condition</h4>
-                                                                <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500 text-white">
-                                                                    Verified
+                                                                <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider text-white ${(application as any).move_in_inspection_completed ? 'bg-emerald-500' : 'bg-amber-500'}`}>
+                                                                    {(application as any).move_in_inspection_completed ? 'Verified' : 'Pending Check'}
                                                                 </span>
                                                             </div>
                                                             <p className="text-xs text-slate-600 leading-relaxed">
@@ -1537,7 +1548,7 @@ export default function HousingPortalPage() {
                                                             <div className="flex items-center justify-between mb-3">
                                                                 <h4 className="font-black text-sm text-slate-900">Overnight Guest Pass</h4>
                                                                 <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-indigo-600 text-white">
-                                                                    Remaining: 3/5
+                                                                    Remaining: {(application as any).guest_passes_remaining ?? 3}/5
                                                                 </span>
                                                             </div>
                                                             <p className="text-xs text-slate-600 leading-relaxed">
