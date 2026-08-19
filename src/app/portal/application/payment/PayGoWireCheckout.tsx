@@ -511,7 +511,7 @@ export default function PayGoWireCheckout({
                                     <button
                                         type="button"
                                         onClick={() => setIsImportantInfoOpen(prev => !prev)}
-                                        className="flex items-center gap-1.5 text-[12px] text-[#0066cc] font-medium cursor-pointer hover:underline bg-transparent border-none p-0 focus:outline-none"
+                                        className="flex items-center gap-1.5 text-[12px] md:text-[13px] text-[#0066cc] font-medium cursor-pointer hover:underline bg-transparent border-none p-0 focus:outline-none"
                                     >
                                         <Info size={14} weight="bold" />
                                         <span>Important info</span>
@@ -519,7 +519,7 @@ export default function PayGoWireCheckout({
                                     </button>
 
                                     {isImportantInfoOpen && (
-                                        <div className="mt-2.5 text-[12px] text-slate-600 space-y-2 leading-relaxed bg-slate-50 p-3 rounded-md border border-slate-100 animate-in fade-in duration-200">
+                                        <div className="w-full mt-3 text-[14px] md:text-[16px] text-slate-600 space-y-3 leading-relaxed bg-slate-50 p-4 md:p-5 rounded-md border border-slate-200 animate-in fade-in duration-200">
                                             <p className="font-normal text-slate-600">
                                                 Use this option to pay quickly in Naira via Bank Transfer.
                                             </p>
