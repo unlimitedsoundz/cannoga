@@ -1420,7 +1420,7 @@ function formatRelativeTime(dateInput: any): string {
                                 )}
                             </button>
                             {notificationsOpen && (
-                                <div className="absolute right-0 top-full mt-3 w-80 sm:w-[410px] max-w-[calc(100vw-1.5rem)] bg-white border border-slate-200/80 shadow-[0_12px_40px_rgba(0,0,0,0.14)] z-50 rounded-2xl text-slate-800 animate-drawer-slide overflow-hidden font-sans">
+                                <div className="absolute right-0 top-full mt-3 w-80 sm:w-[410px] max-w-[calc(100vw-1.5rem)] bg-white/80 shadow-[0_12px_40px_rgba(0,0,0,0.14)] z-50 rounded-2xl text-slate-800 animate-drawer-slide overflow-hidden font-sans">
                                     {/* Header */}
                                     <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-white">
                                         <div className="flex items-center gap-2">
@@ -1700,7 +1700,7 @@ function formatRelativeTime(dateInput: any): string {
                                 {/* ================= COLUMN 1 ================= */}
                                 <div className="space-y-6">
                                     {/* STUDENT PROFILE QUICK VIEW */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                    <div className="bg-white rounded-lg shadow-xs rounded-2xl overflow-hidden flex flex-col justify-between">
                                         <div>
                                             <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Student Profile</h3>
@@ -1729,7 +1729,7 @@ function formatRelativeTime(dateInput: any): string {
                                     </div>
 
                                     {/* STUDENT MAIL */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                    <div className="bg-white rounded-lg shadow-xs rounded-2xl overflow-hidden flex flex-col justify-between">
                                         <div>
                                             <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Student Mail</h3>
@@ -1760,7 +1760,7 @@ function formatRelativeTime(dateInput: any): string {
                                     </div>
 
                                     {/* ANNOUNCEMENTS */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
+                                    <div className="bg-white rounded-lg shadow-xs rounded-2xl flex flex-col justify-between overflow-hidden">
                                         <div>
                                             <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Announcements</h3>
@@ -1785,7 +1785,7 @@ function formatRelativeTime(dateInput: any): string {
                                     </div>
 
                                     {/* ATTENDANCE RATE */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                    <div className="bg-white rounded-lg shadow-xs rounded-2xl overflow-hidden">
                                         <div className="bg-[#0a151a] px-4 py-2.5 mb-2">
                                             <h3 className="font-semibold text-white text-sm">Attendance Rate</h3>
                                         </div>
@@ -1832,7 +1832,7 @@ function formatRelativeTime(dateInput: any): string {
                                     </div>
 
                                     {/* ENROLLED COURSES (FETCHED FROM DB) */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                    <div className="bg-white rounded-lg shadow-xs rounded-2xl overflow-hidden flex flex-col justify-between">
                                         <div>
                                             <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Enrolled Courses</h3>
@@ -1865,7 +1865,7 @@ function formatRelativeTime(dateInput: any): string {
                                 {/* ================= COLUMN 2 ================= */}
                                 <div className="space-y-6">
                                     {/* TIMETABLE / TODAY'S SCHEDULE */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
+                                    <div className="bg-white rounded-lg shadow-xs rounded-2xl flex flex-col justify-between overflow-hidden">
                                         <div>
                                             <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Timetable & Schedule</h3>
@@ -1895,7 +1895,7 @@ function formatRelativeTime(dateInput: any): string {
                                     </div>
 
                                     {/* REAL-TIME ONTARIO LIVE NEWS WIDGET */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                    <div className="bg-white rounded-lg shadow-xs rounded-2xl overflow-hidden flex flex-col justify-between">
                                         <div>
                                             <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">World News</h3>
@@ -1915,7 +1915,7 @@ function formatRelativeTime(dateInput: any): string {
                                     </div>
 
                                     {/* STAFF DIRECTORY / ADVISOR CONTACT (FETCHED FROM DB) */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                    <div className="bg-white rounded-lg shadow-xs rounded-2xl overflow-hidden flex flex-col justify-between">
                                         <div>
                                             <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Staff Directory</h3>
@@ -1952,7 +1952,7 @@ function formatRelativeTime(dateInput: any): string {
                                     </div>
 
                                     {/* LIVE ONTARIO WEATHER - MATCHING EXACT DESIGN SPEC */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                    <div className="bg-white rounded-lg shadow-xs rounded-2xl overflow-hidden">
                                         {/* Dark Header Bar */}
                                         <div className="bg-[#0a151a] px-4 py-2.5">
                                             <h3 className="font-semibold text-white text-sm">Weather</h3>
@@ -1988,7 +1988,7 @@ function formatRelativeTime(dateInput: any): string {
                                     </div>
 
                                     {/* SOCIAL MEDIA / CAMPUS CONNECT */}
-                                    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                    <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden flex flex-col justify-between">
                                         <div>
                                             <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-extrabold text-white text-xs uppercase tracking-wider">Campus Connect & Channels</h3>
@@ -1999,7 +1999,7 @@ function formatRelativeTime(dateInput: any): string {
                                                     href="https://www.youtube.com/@CannogaCollege" 
                                                     target="_blank" 
                                                     rel="noopener noreferrer" 
-                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a] border border-white/10 hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
+                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a]  hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
                                                 >
                                                     <YoutubeLogo className="w-5 h-5 text-white group-hover:text-[#c89211] shrink-0 group-hover:scale-110 transition-all transform" weight="fill" />
                                                     <span className="truncate">YouTube</span>
@@ -2010,7 +2010,7 @@ function formatRelativeTime(dateInput: any): string {
                                                     href="https://www.tiktok.com/@cannoga_college" 
                                                     target="_blank" 
                                                     rel="noopener noreferrer" 
-                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a] border border-white/10 hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
+                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a]  hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
                                                 >
                                                     <TiktokLogo className="w-5 h-5 text-white group-hover:text-[#c89211] shrink-0 group-hover:scale-110 transition-all transform" weight="fill" />
                                                     <span className="truncate">TikTok</span>
@@ -2019,7 +2019,7 @@ function formatRelativeTime(dateInput: any): string {
                                                 {/* College Email */}
                                                 <a 
                                                     href="mailto:admissions@cannogacollege.ca" 
-                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a] border border-white/10 hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
+                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a]  hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
                                                 >
                                                     <EnvelopeSimple className="w-5 h-5 text-white group-hover:text-[#c89211] shrink-0 group-hover:scale-110 transition-all transform" weight="fill" />
                                                     <span className="truncate">College Email</span>
@@ -2028,7 +2028,7 @@ function formatRelativeTime(dateInput: any): string {
                                                 {/* Ottawa Campus / Contact */}
                                                 <Link 
                                                     href="/contact" 
-                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a] border border-white/10 hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
+                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a]  hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
                                                 >
                                                     <MapPin className="w-5 h-5 text-white group-hover:text-[#c89211] shrink-0 group-hover:scale-110 transition-all transform" weight="fill" />
                                                     <span className="truncate">Ottawa Campus</span>
@@ -2041,7 +2041,7 @@ function formatRelativeTime(dateInput: any): string {
                                 {/* ================= COLUMN 3 ================= */}
                                 <div className="space-y-6">
                                     {/* UPCOMING EVENTS (FETCHED DYNAMICALLY FROM DB) */}
-                                    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                                    <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden flex flex-col justify-between">
                                         <div>
                                             <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-extrabold text-white text-xs uppercase tracking-wider">Upcoming Events</h3>
@@ -2081,7 +2081,7 @@ function formatRelativeTime(dateInput: any): string {
                                     </div>
 
                                     {/* COLLEGE SERVICES & PORTALS (REAL CANADIAN ONTARIO SERVICE LOGOS) */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                    <div className="bg-white rounded-lg shadow-xs rounded-2xl overflow-hidden">
                                         <div className="bg-[#0a151a] px-4 py-2.5 mb-2">
                                             <h3 className="font-semibold text-white text-sm">Ontario College Services & Portals</h3>
                                         </div>
@@ -2141,7 +2141,7 @@ function formatRelativeTime(dateInput: any): string {
                                     </div>
 
                                     {/* FILE MANAGER / DOCUMENT REPOSITORY (FETCHED FROM DB) */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                                    <div className="bg-white rounded-lg shadow-xs rounded-2xl overflow-hidden">
                                         <div className="bg-[#0a151a] px-4 py-2.5">
                                             <h3 className="font-semibold text-white text-sm">File Manager & Repository</h3>
                                         </div>
@@ -2181,7 +2181,7 @@ function formatRelativeTime(dateInput: any): string {
                                     </div>
 
                                     {/* ACCOUNT SUMMARY */}
-                                    <div className="bg-white rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden">
+                                    <div className="bg-white rounded-lg shadow-xs rounded-2xl flex flex-col justify-between overflow-hidden">
                                         <div>
                                             <div className="bg-[#0a151a] px-4 py-2.5">
                                                 <h3 className="font-semibold text-white text-sm">Account Summary</h3>
@@ -2225,13 +2225,13 @@ function formatRelativeTime(dateInput: any): string {
                     )}
                     {currentPage === 'documents' && (
                         <div className="space-y-6">
-                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white">
+                            <div className="bg-[#0a151a] rounded-xl  p-6 shadow-md text-white">
                                 <h3 className="text-lg font-extrabold tracking-tight text-white">Official Student Records, PAL &amp; Tax Certificates</h3>
                                 <p className="text-xs text-slate-300 mt-1 font-medium">Verified digital documents issued by Cannoga College Registrar, Admissions, and Bursar.</p>
                             </div>
 
                             {/* Admissions & Visa/IRCC Documents Table */}
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden">
                                 <div className="p-5 border-b border-slate-100 flex justify-between items-center">
                                     <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Admissions &amp; Visa/IRCC Documents</h3>
                                 </div>
@@ -2268,7 +2268,7 @@ function formatRelativeTime(dateInput: any): string {
                             </div>
 
                             {/* Tuition Receipts & Tax Certificates Table */}
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden">
                                 <div className="p-5 border-b border-slate-100 flex justify-between items-center">
                                     <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Tuition Receipts &amp; Tax Certificates</h3>
                                 </div>
@@ -2382,7 +2382,7 @@ function formatRelativeTime(dateInput: any): string {
                     {/* ================= ACADEMICS ================= */}
                     {currentPage === 'academics' && (
                         <div className="space-y-6">
-                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div className="bg-[#0a151a] rounded-xl  p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
                                     <h3 className="text-lg font-extrabold tracking-tight text-white">Degree Progress: {programName}</h3>
                                     <p className="text-xs text-slate-300 mt-1 font-medium">Cannoga College {schoolName}</p>
@@ -2392,7 +2392,7 @@ function formatRelativeTime(dateInput: any): string {
                                 </span>
                             </div>
 
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+                            <div className="bg-white rounded-xl shadow-xs rounded-2xl p-6">
                                 <div className="flex justify-between text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-2">
                                     <span>{totalCredits} Credits Earned</span>
                                     <span>{totalRequiredCredits} Total Required</span>
@@ -2402,7 +2402,7 @@ function formatRelativeTime(dateInput: any): string {
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden">
                                 <div className="p-5 border-b border-slate-100 font-extrabold text-slate-900 text-xs uppercase tracking-wider flex justify-between items-center">
                                     <span>Enrolled Courses</span>
                                     <span className="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1 rounded-full">{activeEnrollments.length} Courses</span>
@@ -2441,7 +2441,7 @@ function formatRelativeTime(dateInput: any): string {
                     {/* ================= TIMETABLE ================= */}
                     {currentPage === 'timetable' && (
                         <div className="space-y-6">
-                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div className="bg-[#0a151a] rounded-xl  p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
                                     <h3 className="text-lg font-extrabold tracking-tight text-white">My Timetable</h3>
                                     <p className="text-xs text-slate-300 mt-1 font-medium">Class schedule, lecture locations, and session details</p>
@@ -2449,13 +2449,13 @@ function formatRelativeTime(dateInput: any): string {
                             </div>
 
                             {timetableSessions.length === 0 ? (
-                                <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-12 text-center">
+                                <div className="bg-white rounded-xl shadow-xs rounded-2xl p-12 text-center">
                                     <HugeiconsIcon icon={Calendar} size={48} strokeWidth={1.5} className="mx-auto text-slate-400 mb-4" />
                                     <p className="text-sm font-extrabold text-slate-700 uppercase tracking-wider">No timetable entries yet</p>
                                     <p className="text-xs text-slate-500 mt-2 font-medium">Your class schedule will appear here once course registration is confirmed.</p>
                                 </div>
                             ) : (
-                                <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                                <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden">
                                     <div className="overflow-x-auto">
                                         <table className="w-full text-left text-xs sm:text-sm text-slate-600">
                                             <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
@@ -2529,7 +2529,7 @@ function formatRelativeTime(dateInput: any): string {
                     {/* ================= PAYMENTS & INVOICES ================= */}
                     {currentPage === 'payments' && (
                         <div className="space-y-6">
-                            <div className="bg-[#0a151a] border border-white/10 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div className="bg-[#0a151a]  p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
                                     <h3 className="text-lg font-extrabold tracking-tight text-white">Payments &amp; Invoice Portal</h3>
                                     <p className="text-xs text-slate-300 mt-1 font-medium">Review your transaction reference ledger, wire confirmations, and pay outstanding invoices.</p>
@@ -2546,22 +2546,22 @@ function formatRelativeTime(dateInput: any): string {
 
                             {/* Summary cards */}
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div className="p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+                                <div className="p-5 bg-white rounded-xl shadow-xs rounded-2xl">
                                     <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Total Invoiced</p>
                                     <p className="text-2xl font-black text-slate-900 mt-1">${invoices.reduce((sum, inv) => sum + (inv.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
                                 </div>
-                                <div className="p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+                                <div className="p-5 bg-white rounded-xl shadow-xs rounded-2xl">
                                     <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Payments Verified</p>
                                     <p className="text-2xl font-black text-emerald-600 mt-1">${payments.filter(p => p.status === 'COMPLETED' || p.status === 'verified').reduce((sum, p) => sum + (p.amount || 0), 0).toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
                                 </div>
-                                <div className="p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+                                <div className="p-5 bg-white rounded-xl shadow-xs rounded-2xl">
                                     <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Outstanding Balance</p>
                                     <p className="text-2xl font-black text-red-600 mt-1">${totalBalance.toLocaleString('en-CA', { minimumFractionDigits: 2 })}</p>
                                 </div>
                             </div>
 
                             {/* Payments Table */}
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden">
                                 <div className="p-5 border-b border-slate-100 flex justify-between items-center">
                                     <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Recent Wire Transactions &amp; Receipts</h3>
                                     <Link href="/sis/payments" className="text-xs font-semibold text-[#147BD1] hover:underline no-underline">
@@ -2615,12 +2615,12 @@ function formatRelativeTime(dateInput: any): string {
                     {/* ================= FINANCIAL AID & PAY ================= */}
                     {currentPage === 'financials' && (
                         <div className="space-y-6">
-                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white">
+                            <div className="bg-[#0a151a] rounded-xl  p-6 shadow-md text-white">
                                 <h3 className="text-lg font-extrabold tracking-tight text-white">Financial Account & Payments</h3>
                                 <p className="text-xs text-slate-300 mt-1 font-medium">View itemized balance, tuition statements, receipts, and financial aid awards.</p>
                             </div>
 
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+                            <div className="bg-white rounded-xl shadow-xs rounded-2xl p-6">
                                 <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
                                     <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Account Overview</h3>
                                     <span className="text-[11px] font-semibold text-slate-500">All Terms Summary</span>
@@ -2641,7 +2641,7 @@ function formatRelativeTime(dateInput: any): string {
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden">
                                 <div className="p-5 border-b border-slate-100 flex justify-between items-center">
                                     <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Itemized Account Breakdown</h3>
                                 </div>
@@ -2701,7 +2701,7 @@ function formatRelativeTime(dateInput: any): string {
                     {/* ================= TRANSCRIPTS & GRADES ================= */}
                     {currentPage === 'grades' && (
                         <div className="space-y-6">
-                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div className="bg-[#0a151a] rounded-xl  p-6 shadow-md text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                                 <div>
                                     <h3 className="text-lg font-extrabold tracking-tight text-white">Academic Grade History & Transcript</h3>
                                     <p className="text-xs text-slate-300 mt-1 font-medium">Cumulative GPA: <strong className="text-white font-bold">{gpa}</strong> | {grades.length} Courses Recorded</p>
@@ -2715,7 +2715,7 @@ function formatRelativeTime(dateInput: any): string {
                                     <span className="!text-white text-white font-bold">Download Official PDF Transcript</span>
                                 </button>
                             </div>
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden">
                                 <div className="p-5 border-b border-slate-100 font-extrabold text-slate-900 text-xs uppercase tracking-wider flex justify-between items-center">
                                     <span>Grade History</span>
                                 </div>
@@ -2755,13 +2755,13 @@ function formatRelativeTime(dateInput: any): string {
                     {/* ================= HOLDS & TASKS ================= */}
                     {currentPage === 'holds' && (
                         <div className="space-y-6">
-                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white">
+                            <div className="bg-[#0a151a] rounded-xl  p-6 shadow-md text-white">
                                 <h3 className="text-lg font-extrabold tracking-tight text-white">Academic Holds &amp; Required Action Tasks</h3>
                                 <p className="text-xs text-slate-300 mt-1 font-medium">Clear administrative holds and review pending institutional tasks.</p>
                             </div>
 
                             {/* Active Holds Table */}
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden">
                                 <div className="p-5 border-b border-slate-100 flex justify-between items-center">
                                     <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Active Administrative Holds</h3>
                                     <span className="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1 rounded-full">{activeHolds.length} Active Holds</span>
@@ -2799,7 +2799,7 @@ function formatRelativeTime(dateInput: any): string {
                             </div>
 
                             {/* Pending Tasks Table */}
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden">
                                 <div className="p-5 border-b border-slate-100 flex justify-between items-center">
                                     <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Required Action Tasks</h3>
                                     <span className="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1 rounded-full">{activeTasks.length} Pending Tasks</span>
@@ -2842,13 +2842,13 @@ function formatRelativeTime(dateInput: any): string {
                     {/* ================= NEWS ================= */}
                     {currentPage === 'news' && (
                         <div className="space-y-6">
-                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white">
+                            <div className="bg-[#0a151a] rounded-xl  p-6 shadow-md text-white">
                                 <h3 className="text-lg font-extrabold tracking-tight text-white">Campus &amp; World News Feed</h3>
                                 <p className="text-xs text-slate-300 mt-1 font-medium">Latest announcements, campus press releases, and Canadian higher-education headlines.</p>
                             </div>
 
                             {/* Campus News Section */}
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                            <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden flex flex-col justify-between">
                                 <div>
                                     <div className="bg-slate-900 px-4 py-2.5 flex items-center justify-between">
                                         <h3 className="font-semibold text-white text-sm">Campus News Feed</h3>
@@ -2877,7 +2877,7 @@ function formatRelativeTime(dateInput: any): string {
                             </div>
 
                             {/* World News Section */}
-                            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                            <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden flex flex-col justify-between">
                                 <div>
                                     <div className="bg-slate-900 px-4 py-2.5 flex items-center justify-between">
                                         <h3 className="font-semibold text-white text-sm">World &amp; Ontario News</h3>
@@ -2902,7 +2902,7 @@ function formatRelativeTime(dateInput: any): string {
                     {/* ================= DIRECTORY ================= */}
                     {currentPage === 'directory' && (
                         <div className="space-y-6">
-                            <div className="bg-[#0a151a] rounded-xl border border-white/10 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div className="bg-[#0a151a] rounded-xl  p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
                                     <h3 className="text-lg font-extrabold tracking-tight text-white">Faculty & Campus Directory</h3>
                                     <p className="text-xs text-slate-300 mt-1 font-medium">Search academic staff, department contacts, and office locations across campus.</p>
@@ -2924,7 +2924,7 @@ function formatRelativeTime(dateInput: any): string {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {faculty.length > 0 ? faculty.map(member => (
-                                    <div key={member.id} className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-slate-400 hover:shadow-md transition-all flex items-start space-x-4 group">
+                                    <div key={member.id} className="bg-white p-5 rounded-xl shadow-xs rounded-2xl hover:border-slate-400 hover:shadow-md transition-all flex items-start space-x-4 group">
                                         <div className="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center shrink-0 shadow-sm font-bold text-sm">
                                             {member.name ? member.name.charAt(0) : <HugeiconsIcon icon={User} size={20} strokeWidth={2} className="text-white" />}
                                         </div>
@@ -3151,7 +3151,7 @@ function formatRelativeTime(dateInput: any): string {
                         <div className="p-6 space-y-5 flex-1">
                             {/* Article Image */}
                             {selectedNewsModalItem.imageUrl && (
-                                <div className="relative w-full h-64 rounded-xl overflow-hidden shadow-sm border border-slate-100 bg-slate-100">
+                                <div className="relative w-full h-64 rounded-xl overflow-hidden shadow-sm  bg-slate-100">
                                     <img
                                         src={selectedNewsModalItem.imageUrl}
                                         alt={selectedNewsModalItem.title}
@@ -3162,7 +3162,7 @@ function formatRelativeTime(dateInput: any): string {
 
                             {/* Excerpt / Summary */}
                             {(selectedNewsModalItem.excerpt || selectedNewsModalItem.summary) && (
-                                <div className="p-4 bg-slate-50 rounded-xl border border-slate-100 italic text-slate-700 text-sm leading-relaxed font-medium">
+                                <div className="p-4 bg-slate-50 rounded-xl  italic text-slate-700 text-sm leading-relaxed font-medium">
                                     {selectedNewsModalItem.excerpt || selectedNewsModalItem.summary}
                                 </div>
                             )}
@@ -3310,7 +3310,7 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
                 </div>
             </div>
 
-            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-6">
+            <div className="bg-white rounded-lg shadow-xs rounded-2xl p-6">
                 <div className="flex items-center justify-between mb-4">
                     <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider border-b border-slate-100 pb-2">
                         Available Courses ({courses.length})
@@ -3393,7 +3393,7 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
             {/* No Invoice Modal Popup */}
             {showNoInvoiceModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-                    <div className="bg-white border border-slate-200 p-6 sm:p-8 max-w-md w-full rounded-2xl shadow-xl text-center">
+                    <div className="bg-white p-6 sm:p-8 max-w-md w-full rounded-2xl shadow-xl text-center">
                         <div className="w-12 h-12 bg-amber-50 text-amber-600 border border-amber-200 rounded-full flex items-center justify-center mx-auto mb-4">
                             <HugeiconsIcon icon={FileText} size={24} strokeWidth={2} />
                         </div>
@@ -3414,3 +3414,4 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
         </div>
     );
 }
+
