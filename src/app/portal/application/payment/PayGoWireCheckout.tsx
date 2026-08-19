@@ -12,6 +12,7 @@ import {
     Clock,
     Copy,
     CaretDown,
+    CaretUp,
     ArrowSquareOut,
     Spinner,
     Warning,
