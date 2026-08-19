@@ -13,16 +13,16 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { paymentId, bankRef, proofUrl } = body;
+    const { paymentId, trackingRef, bankRef, proofUrl } = body;
 
-    if (!paymentId || !bankRef?.trim()) {
-        return NextResponse.json({ error: 'paymentId and bankRef are required' }, { status: 400 });
+    if ((!paymentId && !trackingRef) || !bankRef?.trim()) {
+        return NextResponse.json({ error: 'paymentId or trackingRef and bankRef are required' }, { status: 400 });
     }
 
     const adminSupabase = createServiceRoleClient();
 
     // UUID regex check
-    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(paymentId);
+    const isUUID = paymentId ? /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(paymentId) : false;
 
     // 1. Check tuition_payments first by id (if UUID) or tracking ref
     let payment: any = null;
@@ -37,11 +37,13 @@ export async function POST(request: NextRequest) {
         if (tuitionPayment) payment = tuitionPayment;
     }
 
-    if (!payment) {
+    const lookupRef = trackingRef || paymentId;
+
+    if (!payment && lookupRef) {
         const { data: tuitionByRef } = await adminSupabase
             .from('tuition_payments')
             .select('id, status, offer_id, transaction_reference, amount, country, currency, offer:admission_offers(application_id)')
-            .eq('transaction_reference', paymentId)
+            .eq('transaction_reference', lookupRef)
             .maybeSingle();
         if (tuitionByRef) payment = tuitionByRef;
     }
@@ -60,12 +62,12 @@ export async function POST(request: NextRequest) {
         }
     }
 
-    if (!payment) {
+    if (!payment && lookupRef) {
         // Check housing_payments table by transaction_reference
         const { data: housingByRef } = await adminSupabase
             .from('housing_payments')
             .select('id, status, transaction_reference, amount, currency, metadata')
-            .eq('transaction_reference', paymentId)
+            .eq('transaction_reference', lookupRef)
             .maybeSingle();
 
         if (housingByRef) {
@@ -116,13 +118,13 @@ export async function POST(request: NextRequest) {
     if (updateError) {
         console.warn('[submit-proof] PENDING_VERIFICATION update failed, falling back to PENDING:', updateError);
         const { data: fallbackRecord, error: fallbackError } = await adminSupabase
-            .from('tuition_payments')
+            .from(targetTable)
             .update({
-                status: 'PENDING',
+                status: isHousingTable ? 'pending' : 'PENDING',
             })
-            .eq('id', paymentId)
+            .eq('id', payment.id)
             .select()
-            .single();
+            .maybeSingle();
         if (fallbackError) {
             return NextResponse.json({ error: fallbackError.message }, { status: 500 });
         }

@@ -269,7 +269,11 @@ export default function PayGoWireCheckout({
             const res = await fetch('/api/payments/submit-proof', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ paymentId: initPayload.paymentId, bankRef: bankRef.trim() }),
+                body: JSON.stringify({
+                    paymentId: initPayload.paymentId,
+                    trackingRef: initPayload.trackingRef,
+                    bankRef: bankRef.trim(),
+                }),
             });
             const data = await res.json();
             if (!res.ok || !data.success) throw new Error(data.error ?? 'Failed to submit proof');
