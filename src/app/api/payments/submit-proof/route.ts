@@ -92,24 +92,18 @@ export async function POST(request: NextRequest) {
         }
     }
 
-    // Only allow proof submission when status is pending / pending_proof
+    // Allow proof submission to progress the payment record into the pending verification queue
     const allowedStatuses = ['PENDING', 'pending', 'pending_proof', 'PENDING_VERIFICATION', 'INITIATED', 'PROCESSING'];
     if (!allowedStatuses.includes(payment.status)) {
-        // Special case: housing payment is 'completed' from old auto-verify but invoice not yet
-        // admin-settled. Reset to pending so admin can see and confirm it in the finance queue.
-        if (isHousingTable && (payment.status === 'completed' || payment.status === 'COMPLETED')) {
-            const { error: resetErr } = await adminSupabase
-                .from('housing_payments')
-                .update({ status: 'pending' })
-                .eq('id', payment.id);
-            if (!resetErr) {
-                payment.status = 'pending';
-                // fall through to normal proof-submission flow below
-            }
-        } else {
-            return NextResponse.json({
-                error: `Cannot submit proof for a payment with status: ${payment.status}`,
-            }, { status: 400 });
+        // If payment was previously COMPLETED, FAILED, or in another state, reset to pending
+        // so the new proof is captured and queued for finance team verification.
+        const targetTable = isHousingTable ? 'housing_payments' : 'tuition_payments';
+        const { error: resetErr } = await adminSupabase
+            .from(targetTable)
+            .update({ status: isHousingTable ? 'pending' : 'PENDING' })
+            .eq('id', payment.id);
+        if (!resetErr) {
+            payment.status = isHousingTable ? 'pending' : 'PENDING';
         }
     }
 
