@@ -215,7 +215,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                             <svg className="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
                             </svg>
-                            <h3 className="text-[14px] font-bold text-slate-900">
+                            <h3 className="text-[16px] font-bold text-slate-900">
                                 Cannoga College - Ontario, CA partners with Flywire
                             </h3>
                         </div>
@@ -226,7 +226,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
 
                     {/* Why use Flywire? Feature Card */}
                     <div className="bg-white border border-slate-200 rounded-xl p-5 md:p-6 space-y-5 shadow-xs">
-                        <h4 className="text-[15px] font-bold text-slate-900">
+                        <h4 className="text-[16px] font-bold text-slate-900">
                             Why use Flywire?
                         </h4>
 
