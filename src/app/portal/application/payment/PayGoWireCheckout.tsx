@@ -359,6 +359,10 @@ export default function PayGoWireCheckout({
                                 </div>
                             </div>
 
+                            <p className="text-[12px] text-neutral-600 leading-relaxed font-rubik mt-1.5">
+                                Choose where your bank account, card, or payment wallet is based. This helps us show available payment methods.
+                            </p>
+
                             {/* Real-time FX preview */}
                             {selectedBank && fxData && (
                                 <div className="bg-neutral-100 rounded-xl p-4 animate-in fade-in duration-300">

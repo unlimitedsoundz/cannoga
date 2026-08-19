@@ -240,15 +240,17 @@ function PaymentContent() {
 
 export default function PaymentPage() {
     return (
-        <Suspense fallback={
-            <div className="flex items-center justify-center min-h-[60vh]">
-                <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-neutral-100 border-t-primary rounded-full animate-spin"></div>
-                    <p className="text-sm font-medium uppercase tracking-widest text-neutral-400">Securing Payment Gateway... (Suspense)</p>
+        <div className="font-rubik">
+            <Suspense fallback={
+                <div className="flex items-center justify-center min-h-[60vh]">
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="w-12 h-12 border-4 border-neutral-100 border-t-primary rounded-full animate-spin"></div>
+                        <p className="text-sm font-medium uppercase tracking-widest text-neutral-400 font-rubik">Securing Payment Gateway... (Suspense)</p>
+                    </div>
                 </div>
-            </div>
-        }>
-            <PaymentContent />
-        </Suspense>
+            }>
+                <PaymentContent />
+            </Suspense>
+        </div>
     );
 }
