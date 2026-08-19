@@ -334,7 +334,7 @@ export default function PayGoWireCheckout({
                             {/* Section 1: Institution receives */}
                             <div className="space-y-2 mb-6">
                                 <label className="text-sm font-semibold text-slate-800 block">
-                                    Cannoga College receives
+                                    Cannoga College - Ontario, CA receives
                                 </label>
                                 
                                 <div className="flex border border-slate-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#0066cc]/20 focus-within:border-[#0066cc] transition-all bg-white shadow-2xs">
