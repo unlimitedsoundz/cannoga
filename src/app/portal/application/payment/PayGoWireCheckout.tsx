@@ -393,14 +393,14 @@ export default function PayGoWireCheckout({
                                 <label className="text-xl md:text-lg font-normal text-gray-950 block">
                                     The payment will come from
                                 </label>
-                                <div className="relative border border-slate-300 rounded-md overflow-hidden focus-within:ring-1 focus-within:ring-[#0066cc] focus-within:border-[#0066cc] transition-all bg-white">
-                                    <div className="px-3.5 pt-2 pb-1.5 flex flex-col justify-center">
-                                        <label htmlFor="country-select" className="text-[11px] font-medium text-slate-500 leading-none mb-1 block">
+                                <div className="relative flex border border-slate-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#0066cc]/20 focus-within:border-[#0066cc] transition-all bg-white shadow-2xs">
+                                    <div className="flex-1 px-3 py-1.5 flex flex-col justify-center">
+                                        <label htmlFor="country-select" className="text-[10px] font-medium text-slate-400 leading-none mb-0.5 block">
                                             Country or region *
                                         </label>
                                         <select
                                             id="country-select"
-                                            className="country-select w-full bg-transparent border-none focus:outline-none font-normal text-[15px] text-slate-900 appearance-none cursor-pointer pr-8 leading-tight"
+                                            className="country-select w-full bg-transparent border-none focus:outline-none font-normal text-sm md:text-base text-slate-900 appearance-none cursor-pointer pr-8 leading-none"
                                             value={selectedCountryCode}
                                             onChange={(e) => {
                                                 const code = e.target.value;
