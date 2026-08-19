@@ -637,11 +637,17 @@ export default function PayGoWireCheckout({
                         </div>
 
                         <button
-                            onClick={() => handleStepChange('PROOF')}
-                            className="w-full h-[48px] bg-[#147BD1] text-white rounded-4px font-normal uppercase tracking-widest text-sm hover:bg-[#1a3399] transition-all flex items-center justify-center gap-3"
+                            disabled={loadingStep === 'BANK_INSTRUCTIONS'}
+                            onClick={async () => {
+                                if (!initPayload) {
+                                    await handleInitialize();
+                                }
+                                setStep('PROOF');
+                            }}
+                            className="w-full h-[48px] bg-[#147BD1] text-white rounded-4px font-normal uppercase tracking-widest text-sm hover:bg-[#1a3399] transition-all flex items-center justify-center gap-3 cursor-pointer shadow-xs disabled:opacity-60"
                         >
                             {loadingStep === 'BANK_INSTRUCTIONS' ? (
-                                <><div className="w-5 h-5 border-2 border-white/30 border-t-white force-circle animate-spin" />Loading...</>
+                                <><div className="w-5 h-5 border-2 border-white/30 border-t-white force-circle animate-spin" />Initializing Payment...</>
                             ) : (
                                 <>I Have Sent the Transfer <ArrowRight size={14} /></>
                             )}

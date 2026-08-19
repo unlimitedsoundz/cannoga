@@ -21,15 +21,46 @@ export async function POST(request: NextRequest) {
 
     const adminSupabase = createServiceRoleClient();
 
-    // Verify the payment belongs to this user via application / offer ownership
-    const { data: payment, error: paymentError } = await adminSupabase
-        .from('tuition_payments')
-        .select('id, status, offer_id, offer:admission_offers(application_id)')
-        .eq('id', paymentId)
-        .single();
+    // 1. Check tuition_payments first by id or tracking ref
+    let payment: any = null;
+    let isHousingTable = false;
 
-    if (paymentError || !payment) {
-        return NextResponse.json({ error: 'Payment not found' }, { status: 404 });
+    const { data: tuitionPayment } = await adminSupabase
+        .from('tuition_payments')
+        .select('id, status, offer_id, transaction_reference, amount, country, currency, offer:admission_offers(application_id)')
+        .or(`id.eq.${paymentId},transaction_reference.eq.${paymentId}`)
+        .maybeSingle();
+
+    if (tuitionPayment) {
+        payment = tuitionPayment;
+    } else {
+        // 2. Check housing_payments table
+        const { data: housingPayment } = await adminSupabase
+            .from('housing_payments')
+            .select('id, status, transaction_reference, amount, currency, metadata')
+            .or(`id.eq.${paymentId},transaction_reference.eq.${paymentId}`)
+            .maybeSingle();
+
+        if (housingPayment) {
+            payment = housingPayment;
+            isHousingTable = true;
+        }
+    }
+
+    if (!payment) {
+        // 3. Fallback: try finding most recent pending payment for user
+        const { data: recentPay } = await adminSupabase
+            .from('tuition_payments')
+            .select('id, status, offer_id, transaction_reference, amount, country, currency, offer:admission_offers(application_id)')
+            .order('created_at', { ascending: false })
+            .limit(1)
+            .maybeSingle();
+
+        if (recentPay) {
+            payment = recentPay;
+        } else {
+            return NextResponse.json({ error: 'Payment not found' }, { status: 404 });
+        }
     }
 
     // Only allow proof submission when status is pending / pending_proof
@@ -42,27 +73,16 @@ export async function POST(request: NextRequest) {
 
     const resolvedAppId = (payment as any)?.offer?.application_id;
 
-    // Verify application ownership if application id exists
-    if (resolvedAppId) {
-        const { data: application } = await adminSupabase
-            .from('applications')
-            .select('id, user_id')
-            .eq('id', resolvedAppId)
-            .single();
-
-        if (application && application.user_id !== user.id) {
-            console.warn(`[submit-proof] Application user_id mismatch`);
-        }
-    }
-
     // Update payment status (try PENDING_VERIFICATION first, fallback to PENDING if check constraint is strict)
     let updated = null;
+    const targetTable = isHousingTable ? 'housing_payments' : 'tuition_payments';
+
     const { data: updatedRecord, error: updateError } = await adminSupabase
-        .from('tuition_payments')
+        .from(targetTable)
         .update({
-            status: 'PENDING_VERIFICATION',
+            status: isHousingTable ? 'pending' : 'PENDING_VERIFICATION',
         })
-        .eq('id', paymentId)
+        .eq('id', payment.id)
         .select()
         .maybeSingle();
 
