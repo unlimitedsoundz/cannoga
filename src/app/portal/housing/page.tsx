@@ -1417,20 +1417,20 @@ export default function HousingPortalPage() {
                                         return (
                                             <>
                                                 {/* Top Resident Header Banner */}
-                                                <div className="p-5 sm:p-6 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                                <div className="p-5 sm:p-6 bg-white border border-slate-200/80 rounded-2xl shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
                                                     <div className="flex items-center gap-4">
-                                                        <div className="w-12 h-12 rounded-xl bg-[#5c061d] text-white flex items-center justify-center font-black text-base shadow-xs shrink-0">
+                                                        <div className="w-12 h-12 rounded-xl bg-[#5c061d] text-white flex items-center justify-center font-black text-base shadow-xs shrink-0 ring-4 ring-[#5c061d]/10">
                                                             {suitePrefix}
                                                         </div>
                                                         <div>
-                                                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 mb-1">
+                                                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200 mb-1">
                                                                 CONFIRMED RESIDENT
                                                             </div>
                                                             <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
                                                                 {buildingName} • Room {roomCode}
                                                             </h3>
                                                             <p className="text-xs text-slate-500 font-medium mt-0.5">
-                                                                Keycard ID: <span className="font-mono text-slate-700">{keycardId}</span> • Don on Duty: <span className="text-slate-800 font-semibold">Sarah Jenkins (Ext. 4041)</span>
+                                                                Keycard ID: <span className="font-mono text-slate-700 font-bold">{keycardId}</span> • Don on Duty: <span className="text-slate-800 font-semibold">Sarah Jenkins (Ext. 4041)</span>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -1446,38 +1446,38 @@ export default function HousingPortalPage() {
                                                             onClick={() => setShowKeyModal(true)}
                                                             className="px-4 py-2.5 bg-[#0a151a] hover:bg-black text-white rounded-xl text-xs font-black transition-all shadow-xs flex items-center gap-2 cursor-pointer"
                                                         >
-                                                            <span className="w-2 h-3.5 bg-sky-400 rounded-xs inline-block" />
+                                                            <span className="w-2 h-3.5 bg-amber-400 rounded-xs inline-block" />
                                                             Tap Room Digital Key
                                                         </button>
                                                     </div>
                                                 </div>
 
-                                                {/* 3-Column Resident Hub Cards */}
+                                                {/* 3-Column Resident Hub Cards with Refined Neutral & Theme Styling */}
                                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                                                     {/* Card 1: Work Order Requests */}
-                                                    <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col justify-between">
+                                                    <div className="p-5 bg-white border border-slate-200/80 rounded-2xl shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
                                                         <div>
                                                             <div className="flex items-center justify-between mb-3">
                                                                 <h4 className="font-black text-sm text-slate-900">Work Order Requests</h4>
-                                                                <span className="px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-amber-100 text-amber-800">
+                                                                <span className="px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-amber-50 text-amber-800 border border-amber-200">
                                                                     {workOrders.length > 0 ? `${workOrders.length} Active` : '1 Active'}
                                                                 </span>
                                                             </div>
 
-                                                            <div className="p-3.5 bg-slate-50/80 border border-slate-100 rounded-xl">
+                                                            <div className="p-3.5 bg-slate-50 border border-slate-100 rounded-xl">
                                                                 <div className="flex items-start justify-between gap-2">
                                                                     <div className="min-w-0 flex-1">
                                                                         <div className="font-bold text-xs text-slate-900 truncate">
                                                                             {workOrders[0]?.category ? workOrders[0].category.replace('_', ' ') : 'Heating / Radiator Adjustment'}
                                                                         </div>
-                                                                        <p className="text-[11px] text-slate-500 mt-1 line-clamp-2">
+                                                                        <p className="text-[11px] text-slate-500 mt-1 line-clamp-2 leading-relaxed">
                                                                             {workOrders[0]?.description || `Suite ${suitePrefix} thermostat calibration requested.`}
                                                                         </p>
                                                                         <p className="text-[10px] text-slate-400 font-mono mt-2">
                                                                             Ticket #{workOrders[0]?.ticket_number || 'WO-2026-0819'} • Submitted Today
                                                                         </p>
                                                                     </div>
-                                                                    <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-200 shrink-0">
+                                                                    <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 shrink-0">
                                                                         IN PROGRESS
                                                                     </span>
                                                                 </div>
@@ -1486,18 +1486,18 @@ export default function HousingPortalPage() {
 
                                                         <button 
                                                             onClick={() => setShowWOModal(true)}
-                                                            className="w-full mt-4 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer text-center"
+                                                            className="w-full mt-4 py-2.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 hover:text-slate-900 rounded-xl transition cursor-pointer text-center"
                                                         >
                                                             + New Work Order
                                                         </button>
                                                     </div>
 
                                                     {/* Card 2: Move-In Room Condition */}
-                                                    <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col justify-between">
+                                                    <div className="p-5 bg-white border border-slate-200/80 rounded-2xl shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
                                                         <div>
                                                             <div className="flex items-center justify-between mb-3">
                                                                 <h4 className="font-black text-sm text-slate-900">Move-In Room Condition</h4>
-                                                                <span className="px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800">
+                                                                <span className="px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200">
                                                                     Verified
                                                                 </span>
                                                             </div>
@@ -1508,18 +1508,18 @@ export default function HousingPortalPage() {
 
                                                         <button 
                                                             onClick={() => setShowInspectionModal(true)}
-                                                            className="w-full mt-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-xl text-xs font-bold transition cursor-pointer text-center"
+                                                            className="w-full mt-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 hover:text-slate-900 rounded-xl text-xs font-bold transition cursor-pointer text-center"
                                                         >
                                                             View Inspection Report
                                                         </button>
                                                     </div>
 
                                                     {/* Card 3: Overnight Guest Pass */}
-                                                    <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col justify-between">
+                                                    <div className="p-5 bg-white border border-slate-200/80 rounded-2xl shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
                                                         <div>
                                                             <div className="flex items-center justify-between mb-3">
                                                                 <h4 className="font-black text-sm text-slate-900">Overnight Guest Pass</h4>
-                                                                <span className="text-[10px] font-bold text-slate-400">
+                                                                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600">
                                                                     Remaining: 3/5
                                                                 </span>
                                                             </div>
@@ -1530,7 +1530,7 @@ export default function HousingPortalPage() {
 
                                                         <button 
                                                             onClick={() => setShowGuestModal(true)}
-                                                            className="w-full mt-4 py-2.5 bg-[#0a151a] hover:bg-black text-white rounded-xl text-xs font-black transition cursor-pointer text-center shadow-xs"
+                                                            className="w-full mt-4 py-2.5 bg-[#5c061d] hover:bg-[#470416] text-white rounded-xl text-xs font-black transition cursor-pointer text-center shadow-xs"
                                                         >
                                                             Register Guest
                                                         </button>
