@@ -12,7 +12,7 @@ import { CannogaAIChatWidget } from '@/components/chat/CannogaAIChatWidget';
 
 export function ConditionalHeaderFooter({ children }: { children: ReactNode }) {
     const pathname = usePathname();
-    const isSISPage = pathname?.startsWith('/sis');
+    const isSISPage = pathname?.startsWith('/sis') || pathname?.startsWith('/portal');
     
     return (
         <IconContext.Provider value={{ weight: "fill" }}>

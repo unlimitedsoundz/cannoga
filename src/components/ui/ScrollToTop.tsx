@@ -1,12 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { CaretUp } from '@phosphor-icons/react';
 
 export function ScrollToTop() {
+    const pathname = usePathname();
     const [isVisible, setIsVisible] = useState(false);
+    const isSISPage = pathname?.startsWith('/sis') || pathname?.startsWith('/portal');
 
     useEffect(() => {
+        if (isSISPage) return;
         const toggleVisibility = () => {
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
             if (scrollTop > 100) {
@@ -20,7 +24,7 @@ export function ScrollToTop() {
 
         window.addEventListener('scroll', toggleVisibility, { passive: true });
         return () => window.removeEventListener('scroll', toggleVisibility);
-    }, []);
+    }, [isSISPage]);
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -29,7 +33,7 @@ export function ScrollToTop() {
         });
     };
 
-    if (!isVisible) return null;
+    if (isSISPage || !isVisible) return null;
 
     return (
         <button
