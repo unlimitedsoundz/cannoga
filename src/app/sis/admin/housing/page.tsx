@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/utils/supabase/client';
-import type { OccupancySummary, WorkOrder, HomestayHost } from '@/types/housing';
+import type { OccupancySummary, WorkOrder, HomestayHost, ResidenceBuilding } from '@/types/housing';
 
 // ─── Mini icon helpers ──────────────────────────────────────────────
 const I = {
@@ -18,7 +18,7 @@ const I = {
     RefreshCw:   () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>,
 };
 
-type AdminTab = 'overview' | 'roster' | 'homestay' | 'maintenance' | 'suite_requests';
+type AdminTab = 'overview' | 'buildings' | 'roster' | 'homestay' | 'maintenance' | 'suite_requests';
 
 interface ApplicationRow {
     id: string;
@@ -36,6 +36,7 @@ interface ApplicationRow {
 
 const TABS_ADMIN: { id: AdminTab; label: string }[] = [
     { id: 'overview',       label: 'Overview' },
+    { id: 'buildings',      label: 'Residence Halls' },
     { id: 'roster',         label: 'Bed Roster' },
     { id: 'homestay',       label: 'Homestay Hosts' },
     { id: 'maintenance',    label: 'Maintenance Queue' },
@@ -59,6 +60,7 @@ export default function AdminHousingPage() {
     const supabase = createClient();
     const [activeTab, setActiveTab]   = useState<AdminTab>('overview');
     const [summary, setSummary]       = useState<OccupancySummary | null>(null);
+    const [buildingsList, setBuildingsList] = useState<ResidenceBuilding[]>([]);
     const [applications, setApplications] = useState<ApplicationRow[]>([]);
     const [workOrders, setWorkOrders] = useState<WorkOrder[]>([]);
     const [homestayHosts, setHomestayHosts] = useState<HomestayHost[]>([]);
@@ -69,6 +71,8 @@ export default function AdminHousingPage() {
     const [woEditForm, setWoEditForm] = useState<{ tech: string; notes: string }>({ tech: '', notes: '' });
     const [selectedWO, setSelectedWO] = useState<WorkOrder | null>(null);
     const [toast, setToast]           = useState<string | null>(null);
+    
+    // Homestay modal state
     const [showHostModal, setShowHostModal] = useState(false);
     const [savingHost, setSavingHost] = useState(false);
     const [editingHost, setEditingHost] = useState<any>({
@@ -87,6 +91,23 @@ export default function AdminHousingPage() {
         is_active: true,
     });
 
+    // Building modal state
+    const [showBuildingModal, setShowBuildingModal] = useState(false);
+    const [savingBuilding, setSavingBuilding] = useState(false);
+    const [editingBuilding, setEditingBuilding] = useState<any>({
+        id: '',
+        name: '',
+        code: '',
+        campus_location: 'Ontario Main Campus',
+        style: 'traditional_dorm',
+        total_floors: 4,
+        total_beds: 100,
+        amenities: ['High-Speed Wi-Fi', 'Hydro Included', 'Heating', '24/7 Keycard Access', 'Laundry', 'Study Lounge'],
+        services: ['Internet', 'Laundry', 'Study Lounge'],
+        description: '',
+        is_active: true,
+    });
+
     const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(null), 3500); };
 
     const load = useCallback(async () => {
@@ -95,6 +116,10 @@ export default function AdminHousingPage() {
             // Occupancy
             const occRes = await fetch('/api/housing/admin/occupancy');
             if (occRes.ok) { const d = await occRes.json(); setSummary(d.summary); }
+
+            // Buildings
+            const bldRes = await fetch('/api/housing/admin/buildings');
+            if (bldRes.ok) { const d = await bldRes.json(); setBuildingsList(d.buildings ?? []); }
 
             // Applications
             const { data: apps } = await supabase
@@ -171,6 +196,38 @@ export default function AdminHousingPage() {
             showToast(err.message || 'Failed to save homestay host.');
         } finally {
             setSavingHost(false);
+        }
+    };
+
+    const handleSaveBuilding = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editingBuilding.name || !editingBuilding.campus_location) {
+            showToast('Building name and campus location are required.');
+            return;
+        }
+        setSavingBuilding(true);
+        try {
+            const res = await fetch('/api/housing/admin/buildings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(editingBuilding),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Failed to save building');
+
+            showToast(data.message || 'Building saved successfully!');
+            setShowBuildingModal(false);
+            // Refresh list
+            const refreshRes = await fetch('/api/housing/admin/buildings');
+            if (refreshRes.ok) {
+                const refreshed = await refreshRes.json();
+                setBuildingsList(refreshed.buildings || []);
+            }
+        } catch (err: any) {
+            console.error('Save building error:', err);
+            showToast(err.message || 'Failed to save building.');
+        } finally {
+            setSavingBuilding(false);
         }
     };
 
@@ -268,6 +325,134 @@ export default function AdminHousingPage() {
                                         );
                                     })}
                                 </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* ── BUILDINGS & RESIDENCE HALLS ── */}
+                    {activeTab === 'buildings' && (
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <h2 className="text-sm font-bold uppercase tracking-wider text-slate-400">Campus Residence Halls ({buildingsList.length})</h2>
+                                    <p className="text-slate-500 text-xs mt-0.5">Manage dormitories, suite buildings, floor plans, and amenities.</p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setEditingBuilding({
+                                            id: '',
+                                            name: '',
+                                            code: '',
+                                            campus_location: 'Ontario Main Campus',
+                                            style: 'traditional_dorm',
+                                            total_floors: 4,
+                                            total_beds: 80,
+                                            amenities: ['High-Speed Wi-Fi', 'Hydro Included', 'Heating', '24/7 Keycard Access', 'Laundry', 'Study Lounge'],
+                                            services: ['Internet', 'Laundry', 'Study Lounge'],
+                                            description: '',
+                                            is_active: true,
+                                        });
+                                        setShowBuildingModal(true);
+                                    }}
+                                    className="px-3.5 py-1.5 bg-sky-600 hover:bg-sky-500 rounded-lg text-xs font-bold text-white transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+                                >
+                                    <span>+ Add New Residence Hall</span>
+                                </button>
+                            </div>
+
+                            <div className="grid gap-4">
+                                {buildingsList.map(b => {
+                                    const total = b.total_beds || b.total_rooms || 0;
+                                    const occ = b.occupied_beds || 0;
+                                    const avail = b.available_beds || Math.max(0, total - occ);
+                                    const pct = total > 0 ? Math.round((occ / total) * 100) : 0;
+
+                                    return (
+                                        <div key={b.id} className="p-5 bg-white/3 border border-white/5 rounded-2xl hover:border-white/15 transition-all">
+                                            <div className="flex items-start justify-between flex-wrap gap-4">
+                                                <div className="flex-1">
+                                                    <div className="flex items-center gap-3 flex-wrap mb-1">
+                                                        <span className="font-bold text-white text-base">{b.name}</span>
+                                                        {b.code && (
+                                                            <span className="px-2 py-0.5 bg-white/10 rounded font-mono text-[11px] text-slate-300 font-bold">
+                                                                {b.code}
+                                                            </span>
+                                                        )}
+                                                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/20 text-sky-300 capitalize">
+                                                            {b.style ? b.style.replace('_', ' ') : 'Dormitory'}
+                                                        </span>
+                                                        {!b.is_active && (
+                                                            <span className="px-2 py-0.5 bg-red-500/20 text-red-300 rounded-full text-[10px] font-bold">
+                                                                Offline / Inactive
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <p className="text-slate-400 text-xs mb-3 leading-relaxed">{b.description || 'No description provided.'}</p>
+                                                    <div className="flex flex-wrap gap-2 text-[11px] mb-3">
+                                                        <span className="text-slate-500">Location: {b.campus_location}</span>
+                                                        <span className="text-slate-600">·</span>
+                                                        <span className="text-slate-400">{b.total_floors} Floors</span>
+                                                        <span className="text-slate-600">·</span>
+                                                        <span className="text-emerald-400 font-bold">{avail} beds available</span>
+                                                        <span className="text-slate-600">·</span>
+                                                        <span className="text-slate-400">{occ} occupied ({pct}%)</span>
+                                                    </div>
+                                                    <div className="flex flex-wrap gap-1.5">
+                                                        {(Array.isArray(b.amenities) ? b.amenities : []).map(am => (
+                                                            <span key={am} className="px-2 py-0.5 bg-white/5 rounded text-[10px] text-slate-400">
+                                                                {am}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex flex-col items-end justify-between gap-3 shrink-0">
+                                                    <div className="text-right">
+                                                        <div className="text-sm font-bold text-white">{total} Total Beds</div>
+                                                        <div className="text-[11px] text-slate-500 mt-0.5">{b.total_rooms || total} rooms mapped</div>
+                                                    </div>
+                                                    <div className="flex items-center gap-2">
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                setEditingBuilding({
+                                                                    ...b,
+                                                                    amenities: Array.isArray(b.amenities) ? b.amenities : [],
+                                                                    services: Array.isArray(b.services) ? b.services : [],
+                                                                });
+                                                                setShowBuildingModal(true);
+                                                            }}
+                                                            className="px-3 py-1.5 bg-sky-600/20 border border-sky-500/30 rounded-lg text-xs font-bold text-sky-300 hover:bg-sky-600/30 transition cursor-pointer"
+                                                        >
+                                                            Edit Building
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            onClick={async () => {
+                                                                if (!confirm(`Are you sure you want to delete "${b.name}"? This may affect associated rooms.`)) return;
+                                                                try {
+                                                                    const res = await fetch(`/api/housing/admin/buildings?id=${b.id}`, { method: 'DELETE' });
+                                                                    if (res.ok) {
+                                                                        setBuildingsList(prev => prev.filter(x => x.id !== b.id));
+                                                                        showToast(`Building "${b.name}" deleted.`);
+                                                                    } else {
+                                                                        showToast('Failed to delete building.');
+                                                                    }
+                                                                } catch (err) {
+                                                                    showToast('Error deleting building.');
+                                                                }
+                                                            }}
+                                                            className="px-2.5 py-1.5 bg-red-600/20 border border-red-500/30 rounded-lg text-xs font-bold text-red-300 hover:bg-red-600/30 transition cursor-pointer"
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     )}
@@ -773,6 +958,201 @@ export default function AdminHousingPage() {
                                     className="px-6 py-2 bg-sky-600 hover:bg-sky-500 disabled:opacity-50 rounded-xl font-bold text-white text-xs transition cursor-pointer shadow-md"
                                 >
                                     {savingHost ? 'Saving...' : (editingHost.id ? 'Update Host' : 'Create Host')}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* ── ADD / EDIT RESIDENCE BUILDING MODAL ── */}
+            {showBuildingModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setShowBuildingModal(false)} />
+                    <div className="relative bg-[#0d1f2e] border border-white/15 rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl z-10 text-slate-200">
+                        <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+                            <div>
+                                <h3 className="font-extrabold text-lg text-white">
+                                    {editingBuilding.id ? `Edit Building: ${editingBuilding.name}` : 'Add New Residence Hall'}
+                                </h3>
+                                <p className="text-xs text-slate-400 mt-0.5">Configure residence hall details, styles, floors, capacity, and amenities.</p>
+                            </div>
+                            <button onClick={() => setShowBuildingModal(false)} className="text-slate-400 hover:text-white p-1 cursor-pointer">
+                                ✕
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleSaveBuilding} className="space-y-4 text-xs">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Building Name *</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={editingBuilding.name || ''}
+                                        onChange={e => setEditingBuilding({ ...editingBuilding, name: e.target.value })}
+                                        placeholder="e.g. Maple Residence Hall"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Building Code (uppercase)</label>
+                                    <input
+                                        type="text"
+                                        value={editingBuilding.code || ''}
+                                        onChange={e => setEditingBuilding({ ...editingBuilding, code: e.target.value.toUpperCase() })}
+                                        placeholder="e.g. MAPLE"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white font-mono focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Campus Location *</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={editingBuilding.campus_location || ''}
+                                        onChange={e => setEditingBuilding({ ...editingBuilding, campus_location: e.target.value })}
+                                        placeholder="e.g. Ontario Main Campus"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Residence Style</label>
+                                    <select
+                                        value={editingBuilding.style || 'traditional_dorm'}
+                                        onChange={e => setEditingBuilding({ ...editingBuilding, style: e.target.value })}
+                                        className="w-full bg-[#0a151a] border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    >
+                                        <option value="traditional_dorm">Traditional Dormitory</option>
+                                        <option value="suite_style">Suite-Style Living</option>
+                                        <option value="townhouse">Townhouse Community</option>
+                                        <option value="deluxe_studio">Deluxe Studio</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Description & Student Profile</label>
+                                <textarea
+                                    rows={3}
+                                    value={editingBuilding.description || ''}
+                                    onChange={e => setEditingBuilding({ ...editingBuilding, description: e.target.value })}
+                                    placeholder="Describe the building features, environment, community vibes..."
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500 resize-none"
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Total Floors</label>
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        max="30"
+                                        value={editingBuilding.total_floors ?? 4}
+                                        onChange={e => setEditingBuilding({ ...editingBuilding, total_floors: parseInt(e.target.value, 10) || 1 })}
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Total Bed Capacity</label>
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        max="1000"
+                                        value={editingBuilding.total_beds ?? 80}
+                                        onChange={e => setEditingBuilding({ ...editingBuilding, total_beds: parseInt(e.target.value, 10) || 0 })}
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Services / Tags (comma separated)</label>
+                                <input
+                                    type="text"
+                                    value={Array.isArray(editingBuilding.services) ? editingBuilding.services.join(', ') : (editingBuilding.services || '')}
+                                    onChange={e => setEditingBuilding({ ...editingBuilding, services: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })}
+                                    placeholder="e.g. Elevator, High-Speed Internet, Laundry, Study Lounge, Fitness Room"
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Key Amenities (toggle)</label>
+                                <div className="flex flex-wrap gap-2 pt-1">
+                                    {[
+                                        'High-Speed Wi-Fi',
+                                        'Hydro Included',
+                                        'Heating Included',
+                                        '24/7 Keycard Access',
+                                        'Shared Laundry',
+                                        'In-Unit Laundry',
+                                        'Communal Kitchen',
+                                        'In-Suite Kitchen',
+                                        'Private Bathroom',
+                                        'Study Lounge',
+                                        'Fitness Room',
+                                        'Rooftop Terrace',
+                                        'Parking Available',
+                                    ].map(amenity => {
+                                        const isSelected = (editingBuilding.amenities || []).includes(amenity);
+                                        return (
+                                            <button
+                                                key={amenity}
+                                                type="button"
+                                                onClick={() => {
+                                                    const cur: string[] = editingBuilding.amenities || [];
+                                                    if (isSelected) {
+                                                        setEditingBuilding({
+                                                            ...editingBuilding,
+                                                            amenities: cur.filter(x => x !== amenity),
+                                                        });
+                                                    } else {
+                                                        setEditingBuilding({
+                                                            ...editingBuilding,
+                                                            amenities: [...cur, amenity],
+                                                        });
+                                                    }
+                                                }}
+                                                className={`px-3 py-1.5 rounded-lg font-bold transition text-xs cursor-pointer ${isSelected ? 'bg-sky-600 text-white' : 'bg-white/5 text-slate-400 hover:bg-white/10'}`}
+                                            >
+                                                {amenity} {isSelected ? '✓' : '+'}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+                            <div className="pt-2 pb-2">
+                                <label className="flex items-center gap-2.5 cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        checked={editingBuilding.is_active !== false}
+                                        onChange={e => setEditingBuilding({ ...editingBuilding, is_active: e.target.checked })}
+                                        className="w-4 h-4 accent-sky-500 rounded"
+                                    />
+                                    <span className="font-semibold text-slate-300">Building is Active & Open for Student Applications</span>
+                                </label>
+                            </div>
+
+                            <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowBuildingModal(false)}
+                                    className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl font-bold text-slate-300 text-xs transition cursor-pointer"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={savingBuilding}
+                                    className="px-6 py-2 bg-sky-600 hover:bg-sky-500 disabled:opacity-50 rounded-xl font-bold text-white text-xs transition cursor-pointer shadow-md"
+                                >
+                                    {savingBuilding ? 'Saving...' : (editingBuilding.id ? 'Update Building' : 'Create Building')}
                                 </button>
                             </div>
                         </form>
