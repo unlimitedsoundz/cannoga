@@ -1060,15 +1060,19 @@ export default function HousingPortalPage() {
                                              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Sleep Schedule</label>
                                              <div className="grid grid-cols-3 gap-2">
                                                  {[
-                                                     ['early', 'Early Bird', 'bg-amber-500 text-white shadow-xs', 'bg-amber-50 text-amber-900 hover:bg-amber-100'],
-                                                     ['moderate', 'Moderate', 'bg-sky-500 text-white shadow-xs', 'bg-sky-50 text-sky-900 hover:bg-sky-100'],
-                                                     ['night', 'Night Owl', 'bg-indigo-600 text-white shadow-xs', 'bg-indigo-50 text-indigo-900 hover:bg-indigo-100'],
-                                                 ].map(([v, l, activeCls, inactiveCls]) => (
-                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, sleep_schedule: v as any }))}
-                                                         className={`py-2 rounded-full text-xs font-black transition-all cursor-pointer ${myProfile.sleep_schedule === v ? activeCls : inactiveCls}`}>
-                                                         {l}
-                                                     </button>
-                                                 ))}
+                                                     ['early', 'Early Bird', 'bg-amber-500'],
+                                                     ['moderate', 'Moderate', 'bg-sky-500'],
+                                                     ['night', 'Night Owl', 'bg-indigo-600'],
+                                                 ].map(([v, l, bg]) => {
+                                                     const isSelected = myProfile.sleep_schedule === v;
+                                                     return (
+                                                         <button key={v} onClick={() => setMyProfile(p => ({ ...p, sleep_schedule: v as any }))}
+                                                             className={`py-2 rounded-full text-xs font-black text-white ${bg} transition-all cursor-pointer shadow-xs ${isSelected ? 'ring-3 ring-slate-900 ring-offset-2 scale-[1.02]' : 'opacity-85 hover:opacity-100'}`}>
+                                                             {isSelected && <span className="mr-1">✓</span>}
+                                                             {l}
+                                                         </button>
+                                                     );
+                                                 })}
                                              </div>
                                          </div>
 
@@ -1077,15 +1081,19 @@ export default function HousingPortalPage() {
                                              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Study Habits</label>
                                              <div className="grid grid-cols-3 gap-2">
                                                  {[
-                                                     ['silent','Silent', 'bg-indigo-600 text-white shadow-xs', 'bg-indigo-50 text-indigo-900 hover:bg-indigo-100'],
-                                                     ['music','Background Music', 'bg-purple-600 text-white shadow-xs', 'bg-purple-50 text-purple-900 hover:bg-purple-100'],
-                                                     ['social','Social / Group', 'bg-rose-500 text-white shadow-xs', 'bg-rose-50 text-rose-900 hover:bg-rose-100'],
-                                                 ].map(([v, l, activeCls, inactiveCls]) => (
-                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, study_habits: v as any }))}
-                                                         className={`py-2 rounded-full text-xs font-black transition-all cursor-pointer ${myProfile.study_habits === v ? activeCls : inactiveCls}`}>
-                                                         {l}
-                                                     </button>
-                                                 ))}
+                                                     ['silent','Silent', 'bg-indigo-600'],
+                                                     ['music','Background Music', 'bg-purple-600'],
+                                                     ['social','Social / Group', 'bg-rose-500'],
+                                                 ].map(([v, l, bg]) => {
+                                                     const isSelected = myProfile.study_habits === v;
+                                                     return (
+                                                         <button key={v} onClick={() => setMyProfile(p => ({ ...p, study_habits: v as any }))}
+                                                             className={`py-2 rounded-full text-xs font-black text-white ${bg} transition-all cursor-pointer shadow-xs ${isSelected ? 'ring-3 ring-slate-900 ring-offset-2 scale-[1.02]' : 'opacity-85 hover:opacity-100'}`}>
+                                                             {isSelected && <span className="mr-1">✓</span>}
+                                                             {l}
+                                                         </button>
+                                                     );
+                                                 })}
                                              </div>
                                          </div>
 
@@ -1108,15 +1116,19 @@ export default function HousingPortalPage() {
                                              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Guest Policy</label>
                                              <div className="grid grid-cols-3 gap-2">
                                                  {[
-                                                     ['rarely','Rarely', 'bg-emerald-600 text-white shadow-xs', 'bg-emerald-50 text-emerald-900 hover:bg-emerald-100'],
-                                                     ['advance_notice','Advance Notice', 'bg-sky-500 text-white shadow-xs', 'bg-sky-50 text-sky-900 hover:bg-sky-100'],
-                                                     ['frequent','Frequently', 'bg-orange-500 text-white shadow-xs', 'bg-orange-50 text-orange-900 hover:bg-orange-100'],
-                                                 ].map(([v, l, activeCls, inactiveCls]) => (
-                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, guest_preference: v as any }))}
-                                                         className={`py-2 rounded-full text-xs font-black transition-all cursor-pointer ${myProfile.guest_preference === v ? activeCls : inactiveCls}`}>
-                                                         {l}
-                                                     </button>
-                                                 ))}
+                                                     ['rarely','Rarely', 'bg-emerald-600'],
+                                                     ['advance_notice','Advance Notice', 'bg-sky-500'],
+                                                     ['frequent','Frequently', 'bg-orange-500'],
+                                                 ].map(([v, l, bg]) => {
+                                                     const isSelected = myProfile.guest_preference === v;
+                                                     return (
+                                                         <button key={v} onClick={() => setMyProfile(p => ({ ...p, guest_preference: v as any }))}
+                                                             className={`py-2 rounded-full text-xs font-black text-white ${bg} transition-all cursor-pointer shadow-xs ${isSelected ? 'ring-3 ring-slate-900 ring-offset-2 scale-[1.02]' : 'opacity-85 hover:opacity-100'}`}>
+                                                             {isSelected && <span className="mr-1">✓</span>}
+                                                             {l}
+                                                         </button>
+                                                     );
+                                                 })}
                                              </div>
                                          </div>
 
@@ -1125,15 +1137,19 @@ export default function HousingPortalPage() {
                                              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Gender / Floor Preference</label>
                                              <div className="grid grid-cols-3 gap-2">
                                                  {[
-                                                     ['any','Any', 'bg-slate-900 text-white shadow-xs', 'bg-slate-100 text-slate-700 hover:bg-slate-200'],
-                                                     ['same_gender','Same-Gender Floor', 'bg-indigo-600 text-white shadow-xs', 'bg-indigo-50 text-indigo-900 hover:bg-indigo-100'],
-                                                     ['co_ed','Co-Ed Floor', 'bg-teal-600 text-white shadow-xs', 'bg-teal-50 text-teal-900 hover:bg-teal-100'],
-                                                 ].map(([v, l, activeCls, inactiveCls]) => (
-                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, gender_preference: v as GenderPreference }))}
-                                                         className={`py-2 rounded-full text-xs font-black transition-all cursor-pointer ${myProfile.gender_preference === v ? activeCls : inactiveCls}`}>
-                                                         {l}
-                                                     </button>
-                                                 ))}
+                                                     ['any','Any', 'bg-slate-800'],
+                                                     ['same_gender','Same-Gender Floor', 'bg-indigo-600'],
+                                                     ['co_ed','Co-Ed Floor', 'bg-teal-600'],
+                                                 ].map(([v, l, bg]) => {
+                                                     const isSelected = myProfile.gender_preference === v;
+                                                     return (
+                                                         <button key={v} onClick={() => setMyProfile(p => ({ ...p, gender_preference: v as GenderPreference }))}
+                                                             className={`py-2 rounded-full text-xs font-black text-white ${bg} transition-all cursor-pointer shadow-xs ${isSelected ? 'ring-3 ring-slate-900 ring-offset-2 scale-[1.02]' : 'opacity-85 hover:opacity-100'}`}>
+                                                             {isSelected && <span className="mr-1">✓</span>}
+                                                             {l}
+                                                         </button>
+                                                     );
+                                                 })}
                                              </div>
                                          </div>
 
@@ -1142,15 +1158,19 @@ export default function HousingPortalPage() {
                                              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Floor Environment</label>
                                              <div className="grid grid-cols-3 gap-2">
                                                  {[
-                                                     ['quiet_study','Quiet Study', 'bg-indigo-600 text-white shadow-xs', 'bg-indigo-50 text-indigo-900 hover:bg-indigo-100'],
-                                                     ['social','Social', 'bg-rose-500 text-white shadow-xs', 'bg-rose-50 text-rose-900 hover:bg-rose-100'],
-                                                     ['any','No Preference', 'bg-slate-900 text-white shadow-xs', 'bg-slate-100 text-slate-700 hover:bg-slate-200'],
-                                                 ].map(([v, l, activeCls, inactiveCls]) => (
-                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, floor_type_preference: v as FloorTypePreference }))}
-                                                         className={`py-2 rounded-full text-xs font-black transition-all cursor-pointer ${myProfile.floor_type_preference === v ? activeCls : inactiveCls}`}>
-                                                         {l}
-                                                     </button>
-                                                 ))}
+                                                     ['quiet_study','Quiet Study', 'bg-indigo-600'],
+                                                     ['social','Social', 'bg-rose-500'],
+                                                     ['any','No Preference', 'bg-slate-800'],
+                                                 ].map(([v, l, bg]) => {
+                                                     const isSelected = myProfile.floor_type_preference === v;
+                                                     return (
+                                                         <button key={v} onClick={() => setMyProfile(p => ({ ...p, floor_type_preference: v as FloorTypePreference }))}
+                                                             className={`py-2 rounded-full text-xs font-black text-white ${bg} transition-all cursor-pointer shadow-xs ${isSelected ? 'ring-3 ring-slate-900 ring-offset-2 scale-[1.02]' : 'opacity-85 hover:opacity-100'}`}>
+                                                             {isSelected && <span className="mr-1">✓</span>}
+                                                             {l}
+                                                         </button>
+                                                     );
+                                                 })}
                                              </div>
                                          </div>
 
@@ -1162,19 +1182,19 @@ export default function HousingPortalPage() {
                                                      const key = opt.toLowerCase().replace(' ', '_');
                                                      const isSelected = (myProfile.dietary_needs ?? []).includes(key);
                                                      
-                                                     // Vibrant colors: bright emerald green for Vegan and Vegetarian
-                                                     const DIETARY_STYLES: Record<string, { active: string; inactive: string }> = {
-                                                         'Vegan':        { active: 'bg-emerald-500 text-white ring-2 ring-emerald-500', inactive: 'bg-emerald-50 text-emerald-900 hover:bg-emerald-100' },
-                                                         'Vegetarian':   { active: 'bg-emerald-500 text-white ring-2 ring-emerald-500', inactive: 'bg-emerald-50 text-emerald-900 hover:bg-emerald-100' },
-                                                         'Halal':        { active: 'bg-teal-600 text-white ring-2 ring-teal-600',       inactive: 'bg-teal-50 text-teal-900 hover:bg-teal-100' },
-                                                         'Kosher':       { active: 'bg-sky-600 text-white ring-2 ring-sky-600',         inactive: 'bg-sky-50 text-sky-900 hover:bg-sky-100' },
-                                                         'Gluten-Free':  { active: 'bg-amber-500 text-white ring-2 ring-amber-500',     inactive: 'bg-amber-50 text-amber-900 hover:bg-amber-100' },
-                                                         'Nut Allergy':  { active: 'bg-rose-500 text-white ring-2 ring-rose-500',       inactive: 'bg-rose-50 text-rose-900 hover:bg-rose-100' },
-                                                         'Dairy-Free':   { active: 'bg-indigo-600 text-white ring-2 ring-indigo-600',   inactive: 'bg-indigo-50 text-indigo-900 hover:bg-indigo-100' },
-                                                         'Other':        { active: 'bg-purple-600 text-white ring-2 ring-purple-600',   inactive: 'bg-purple-50 text-purple-900 hover:bg-purple-100' },
+                                                     // Solid vibrant colors with white text
+                                                     const DIETARY_COLORS: Record<string, string> = {
+                                                         'Vegan':        'bg-emerald-500',
+                                                         'Vegetarian':   'bg-emerald-500',
+                                                         'Halal':        'bg-teal-600',
+                                                         'Kosher':       'bg-sky-600',
+                                                         'Gluten-Free':  'bg-amber-500',
+                                                         'Nut Allergy':  'bg-rose-500',
+                                                         'Dairy-Free':   'bg-indigo-600',
+                                                         'Other':        'bg-purple-600',
                                                      };
 
-                                                     const style = DIETARY_STYLES[opt] ?? { active: 'bg-slate-900 text-white', inactive: 'bg-slate-100 text-slate-700' };
+                                                     const bgClass = DIETARY_COLORS[opt] ?? 'bg-slate-800';
 
                                                      return (
                                                          <button key={key}
@@ -1184,7 +1204,7 @@ export default function HousingPortalPage() {
                                                                      ? (p.dietary_needs ?? []).filter(d => d !== key)
                                                                      : [...(p.dietary_needs ?? []), key],
                                                              }))}
-                                                             className={`px-3.5 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer shadow-xs ${isSelected ? style.active : style.inactive}`}>
+                                                             className={`px-3.5 py-1.5 rounded-full text-xs font-black text-white ${bgClass} transition-all cursor-pointer shadow-xs ${isSelected ? 'ring-3 ring-slate-900 ring-offset-2 scale-105' : 'opacity-85 hover:opacity-100'}`}>
                                                              {isSelected && <span className="mr-1">✓</span>}
                                                              {opt}
                                                          </button>
