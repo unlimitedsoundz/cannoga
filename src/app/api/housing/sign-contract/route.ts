@@ -72,6 +72,28 @@ export async function POST(req: NextRequest) {
     if (invErr) {
         console.error('[POST /api/housing/sign-contract] invoice creation:', invErr);
         // Continue anyway — contract is still recorded
+    } else {
+        // Trigger in-app notification in notifications table
+        try {
+            const bName = (application.assigned_room as any)?.building?.name ?? 'Residence';
+            const rCode = (application.assigned_room as any)?.full_room_code ? ` · Room ${(application.assigned_room as any)?.full_room_code}` : '';
+            await adminClient.from('notifications').insert({
+                user_id: user.id,
+                title: 'New Invoice Issued: Housing Security Deposit',
+                message: `An official Housing Security Deposit invoice of $500.00 CAD has been issued for your room reservation (${bName}${rCode}). Due date: ${invoice?.due_date || '7 days'}.`,
+                category: 'Finance',
+                priority: 'high',
+                recipient_type: 'individual',
+                recipient_ids: [user.id],
+                related_id: applicationId,
+                related_type: 'housing_invoice',
+                link: '/sis/payments',
+                read: false,
+                created_at: now
+            });
+        } catch (notifErr) {
+            console.warn('[housing sign-contract] Could not insert notification:', notifErr);
+        }
     }
 
     // Update the housing application

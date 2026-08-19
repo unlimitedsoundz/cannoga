@@ -227,8 +227,9 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
         const userId = application.user?.id || (application as any).user_id;
         const recipientIds = [studentId, userId].filter(Boolean) as string[];
 
-        if (recipientIds.length > 0) {
+        if (userId || recipientIds.length > 0) {
             await supabase.from('notifications').insert({
+                user_id: userId || null,
                 title: `New Invoice Issued: ${invoiceType.replace(/_/g, ' ')}`,
                 message: `An authoritative invoice of $${Number(customFee).toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD has been issued for your application (${application.course?.title || 'Program'}). Due date: ${finalDueDate.toLocaleDateString('en-CA')}.`,
                 category: 'Finance',
@@ -237,7 +238,9 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
                 recipient_ids: recipientIds,
                 related_id: applicationId,
                 related_type: 'invoice',
-                link: '/portal/application/view'
+                link: '/sis/payments',
+                read: false,
+                created_at: new Date().toISOString()
             });
         }
     } catch (notifErr: any) {
