@@ -300,27 +300,22 @@ export default function HousingPortalPage() {
             )}
 
             {/* Top Global Navigation Bar */}
-            <header className="bg-[#070b13] border-b border-white/10 px-4 lg:px-8 py-3.5 sticky top-0 z-40 backdrop-blur-md bg-opacity-95">
+            <header className="bg-[#070b13] border-b border-white/10 px-4 lg:px-8 py-3 sticky top-0 z-40 backdrop-blur-md bg-opacity-95">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <a href="/sis" className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition group">
+                    <div className="flex items-center gap-4">
+                        <a href="/portal/dashboard" className="flex items-center">
+                            <img
+                                src="/images/logo-cannoga.png"
+                                alt="Cannoga College"
+                                className="h-8 w-auto object-contain brightness-0 invert"
+                            />
+                        </a>
+                        <span className="text-slate-700">|</span>
+                        <a href="/sis" className="flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-white transition group">
                             <span className="text-slate-500 group-hover:-translate-x-0.5 transition-transform">←</span> Return to SIS
                         </a>
                         <span className="text-slate-700">/</span>
-                        <a href="/portal/dashboard" className="text-xs font-semibold text-slate-400 hover:text-white transition">
-                            Portal Dashboard
-                        </a>
-                        <span className="text-slate-700">/</span>
                         <span className="text-xs font-bold text-sky-400">Housing & Residence</span>
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                        <a href="/portal/payments" className="text-xs font-bold text-slate-300 hover:text-white transition px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10">
-                            Payments & Invoices
-                        </a>
-                        <a href="/sis/admin/housing" className="text-xs font-bold text-purple-300 hover:text-purple-200 transition px-3 py-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 hover:bg-purple-500/25">
-                            Admin Operations
-                        </a>
                     </div>
                 </div>
             </header>
@@ -329,9 +324,13 @@ export default function HousingPortalPage() {
             <div className="bg-gradient-to-r from-[#0a1628] via-[#0d2240] to-[#0a1628] border-b border-white/10 px-4 lg:px-8 py-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="flex items-center gap-3.5">
-                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center shadow-lg shadow-sky-500/20 text-white">
-                                <Icons.Building />
+                        <div className="flex items-center gap-4">
+                            <div className="p-2.5 rounded-2xl bg-white/5 border border-white/10 shadow-lg flex items-center justify-center">
+                                <img
+                                    src="/images/logo-cannoga.png"
+                                    alt="Cannoga College"
+                                    className="h-10 w-auto object-contain brightness-0 invert"
+                                />
                             </div>
                             <div>
                                 <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-white">Student Housing & Residence Life</h1>
