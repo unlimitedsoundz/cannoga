@@ -47,7 +47,7 @@ function PaymentContent() {
                     return;
                 }
 
-                // 3. Fetch Application and Offer
+                // 3. Check if this is an academic application or housing application
                 const { data: applicationRaw, error: appError } = await supabase
                     .from('applications')
                     .select(`
@@ -57,26 +57,61 @@ function PaymentContent() {
                     `)
                     .eq('id', id)
                     .eq('user_id', currentUserId || '')
-                    .single();
+                    .maybeSingle();
 
-                if (appError || !applicationRaw || (!applicationRaw.offer && (!Array.isArray(applicationRaw.offer) || applicationRaw.offer.length === 0))) {
-                    console.error('Application or offer not found', appError);
-                    router.push('/portal/dashboard');
+                if (applicationRaw) {
+                    const application = applicationRaw;
+                    const offer = Array.isArray(application.offer) ? application.offer[0] : application.offer;
+
+                    if (!offer || !offer.invoice_pushed) {
+                        setError('No payment invoice available yet. Your tuition invoice is being prepared by the finance office.');
+                        setLoading(false);
+                        return;
+                    }
+
+                    setData({ application, offer });
                     return;
                 }
 
-                const application = applicationRaw;
-                // Handle both 1:1 (object) and 1:N (array) returns from Supabase
-                const offer = Array.isArray(application.offer) ? application.offer[0] : application.offer;
+                // If not an academic application, check if it's a housing application or deposit invoice
+                const { data: housingApp } = await supabase
+                    .from('housing_applications')
+                    .select(`
+                        *,
+                        assigned_room:assigned_room_id(*),
+                        building:building_id(name),
+                        homestay_host:homestay_host_id(host_name)
+                    `)
+                    .or(`id.eq.${id},student_id.eq.${currentUserId}`)
+                    .maybeSingle();
 
-                // Allow access if there is an offer; missing/invoice-prep states are handled below
-                if (!offer || !offer.invoice_pushed) {
-                    setError('No payment invoice available yet. Your tuition invoice is being prepared by the finance office.');
-                    setLoading(false);
+                if (housingApp) {
+                    const bName = (housingApp.building as any)?.name ?? (housingApp.homestay_host as any)?.host_name ?? 'Cannoga Residence';
+                    const rCode = (housingApp.assigned_room as any)?.full_room_code ?? '';
+                    
+                    const syntheticOffer = {
+                        id: `hdep-offer-${housingApp.id}`,
+                        tuition_fee: 500.00,
+                        invoice_type: 'HOUSING_DEPOSIT',
+                        invoice_pushed: true,
+                        payment_deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+                        ancillary_charged: true,
+                    };
+
+                    const syntheticApp = {
+                        id: housingApp.id,
+                        user_id: currentUserId,
+                        course: { title: `Housing Security Deposit (${bName}${rCode ? ` · Room ${rCode}` : ''})`, duration: 'Academic Year' },
+                        status: housingApp.status
+                    };
+
+                    setData({ application: syntheticApp, offer: syntheticOffer });
                     return;
                 }
 
-                setData({ application, offer });
+                console.error('Application or offer not found', appError);
+                router.push('/sis/payments');
+                return;
             } catch (err) {
                 console.error('CRITICAL: Fetching payment data failed', err);
                 setError(err instanceof Error ? err.message : 'Failed to load payment data. Please try again later.');
