@@ -56,6 +56,64 @@ export async function GET(request: NextRequest) {
 
       if (paymentByRef) {
         payment = paymentByRef;
+      } else {
+        // Fallback: check housing_payments table
+        const { data: housingPay } = await adminSupabase
+          .from('housing_payments')
+          .select('*, invoice:housing_invoices(*)')
+          .or(`id.eq.${paymentId},transaction_reference.eq.${paymentId}`)
+          .maybeSingle();
+
+        if (housingPay) {
+          const { data: studentProf } = await adminSupabase
+            .from('students')
+            .select('*, user:profiles(*)')
+            .or(`id.eq.${housingPay.student_id},user_id.eq.${housingPay.student_id}`)
+            .maybeSingle();
+
+          payment = {
+            ...housingPay,
+            invoice_type: 'HOUSING_DEPOSIT',
+            amount: housingPay.amount || housingPay.invoice?.total_amount || 500,
+            transaction_reference: housingPay.transaction_reference || `HDEP-${housingPay.id.slice(0, 8).toUpperCase()}`,
+            metadata: housingPay.invoice?.metadata || housingPay.metadata,
+            application: {
+              id: housingPay.application_id || studentProf?.application_id,
+              user: studentProf?.user || { id: housingPay.student_id },
+              course: { title: 'Residence Housing' }
+            }
+          };
+        } else {
+          // Fallback: check housing_invoices table directly
+          const { data: hInv } = await adminSupabase
+            .from('housing_invoices')
+            .select('*')
+            .or(`id.eq.${paymentId},reference_number.eq.${paymentId}`)
+            .maybeSingle();
+
+          if (hInv) {
+            const { data: studentProf } = await adminSupabase
+              .from('students')
+              .select('*, user:profiles(*)')
+              .or(`id.eq.${hInv.student_id},user_id.eq.${hInv.student_id}`)
+              .maybeSingle();
+
+            payment = {
+              id: hInv.id,
+              invoice_type: 'HOUSING_DEPOSIT',
+              amount: hInv.total_amount || 500,
+              status: hInv.status,
+              transaction_reference: hInv.reference_number || `HDEP-${hInv.id.slice(0, 8).toUpperCase()}`,
+              metadata: hInv.metadata,
+              created_at: hInv.created_at,
+              application: {
+                id: hInv.application_id || studentProf?.application_id,
+                user: studentProf?.user || { id: hInv.student_id },
+                course: { title: 'Residence Housing' }
+              }
+            };
+          }
+        }
       }
     }
 

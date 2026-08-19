@@ -201,13 +201,32 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
   const paymentId = payment?.transaction_reference || '—';
   const transactionRef = payment?.transaction_reference || '—';
   const paidAt = payment?.paid_at || payment?.created_at || new Date().toISOString();
-  const amount = Number(payment?.amount || 0);
+  const amount = Number(payment?.amount || payment?.total_amount || 0);
   const method = payment?.payment_method || '—';
   const status = payment?.status || '—';
 
-  const rawType = payment?.invoice_type?.replace(/_/g, ' ') || 'Tuition Payment';
-  const formattedType = rawType.charAt(0) + rawType.slice(1).toLowerCase();
-  const description = `Payment to Cannoga College ${formattedType}`;
+  const isHousing = 
+    payment?.invoice_type === 'HOUSING_DEPOSIT' ||
+    payment?.invoice_type === 'housing' ||
+    payment?.payment_type === 'housing' ||
+    payment?.metadata?.purpose === 'housing_deposit' ||
+    payment?.transaction_reference?.startsWith('HDEP') ||
+    payment?.reference_number?.startsWith('HDEP');
+
+  let formattedSubtitle = 'Tuition Fees';
+  let description = `Payment to Cannoga College Tuition Fees`;
+
+  if (isHousing) {
+    formattedSubtitle = 'Housing & Residence Deposit';
+    const building = payment?.metadata?.building_name || 'Cannoga Suites';
+    const room = payment?.metadata?.room_code ? ` (Room ${payment.metadata.room_code})` : '';
+    description = `Payment to Cannoga College Residence Housing Security Deposit · ${building}${room}`;
+  } else {
+    const rawType = payment?.invoice_type?.replace(/_/g, ' ') || 'Tuition Payment';
+    const formattedType = rawType.charAt(0) + rawType.slice(1).toLowerCase();
+    description = `Payment to Cannoga College ${formattedType}`;
+  }
+
   const deliveryDate = new Date(paidAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
   const localCurrency = payment?.fx_metadata?.localCurrency || payment?.currency || 'CAD';
@@ -233,7 +252,7 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
               <Image style={styles.collegeLogo} src={logoUrl} />
               <View>
                 <Text style={styles.collegeName}>Cannoga College</Text>
-                <Text style={styles.subtitle}>Tuition Fees</Text>
+                <Text style={styles.subtitle}>{formattedSubtitle}</Text>
               </View>
             </View>
             <Image style={styles.stamp} src={stampUrl} />

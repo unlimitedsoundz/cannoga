@@ -153,6 +153,58 @@ export async function GET(request: NextRequest) {
                 application_id: student?.application_id || (appIds.length > 0 ? appIds[0] : undefined)
             };
         });
+    let housingPayQuery = adminClient
+        .from('housing_payments')
+        .select(`
+            id,
+            invoice_id,
+            amount,
+            currency,
+            status,
+            transaction_reference,
+            created_at,
+            student_id,
+            payment_method,
+            metadata,
+            invoice:housing_invoices(reference_number, metadata, total_amount)
+        `)
+        .order('created_at', { ascending: false });
 
-    return NextResponse.json({ payments: payments || [], receipts: verifiedReceipts });
+    if (!isAdmin) {
+        const studentUserIds = [user.id, student?.id].filter(Boolean);
+        housingPayQuery = housingPayQuery.in('student_id', studentUserIds);
+    }
+
+    const { data: housingPayments } = await housingPayQuery;
+
+    const verifiedHousingReceipts = (housingPayments || [])
+        .filter((hp: any) => {
+            const st = String(hp.status || '').toLowerCase();
+            return st === 'completed' || st === 'verified' || st === 'paid';
+        })
+        .map((hp: any) => {
+            const rawRef = hp.transaction_reference || hp.invoice?.reference_number || `HDEP-${hp.id.slice(0, 6)}`;
+            const digits = rawRef.replace(/[^0-9]/g, '');
+            const receiptNum = digits.length >= 4 ? `REC-HDEP-${digits.slice(-6)}` : `REC-HDEP-${hp.id.slice(0, 6).toUpperCase()}`;
+            const channel = hp.payment_method?.replace(/_/g, ' ') || 'Residence Deposit Wire';
+            const pdfUrl = `/api/portal/receipt/pdf?paymentId=${hp.id}`;
+
+            return {
+                receipt_number: receiptNum,
+                payment_reference: rawRef,
+                channel: channel,
+                amount_cad: Number(hp.amount || hp.invoice?.total_amount || 500),
+                local_amount: null,
+                local_currency: hp.currency || 'CAD',
+                issued_at: hp.created_at,
+                payment_id: hp.id,
+                pdf_url: pdfUrl,
+                application_id: student?.application_id || (appIds.length > 0 ? appIds[0] : undefined)
+            };
+        });
+
+    return NextResponse.json({ 
+        payments: [...(payments || []), ...(housingPayments || [])], 
+        receipts: [...verifiedReceipts, ...verifiedHousingReceipts] 
+    });
 }
