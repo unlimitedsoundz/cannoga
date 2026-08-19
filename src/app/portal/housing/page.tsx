@@ -676,35 +676,33 @@ export default function HousingPortalPage() {
                                                                         })}
                                                                     </div>
 
-                                                                    {/* Mobile Inline Selection summary */}
+                                                                    {/* Mobile Inline Selection summary - Compact Vibrant */}
                                                                     {selectedRoom && (
-                                                                        <div className="mt-4 p-3.5 bg-[#0a151a] text-white rounded-xl flex flex-col gap-2.5 shadow-lg">
-                                                                            <div className="flex items-center gap-2.5">
-                                                                                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white shrink-0">
-                                                                                    <Icons.Bed />
+                                                                        <div className="mt-3.5 p-3 bg-[#0a151a] text-white rounded-xl flex items-center justify-between gap-3 shadow-md animate-drawer-slide">
+                                                                            <div className="min-w-0">
+                                                                                <div className="flex items-center gap-2">
+                                                                                    <span className="font-black text-sm text-white truncate">
+                                                                                        {selectedRoom.full_room_code ?? selectedRoom.room_number}
+                                                                                    </span>
+                                                                                    <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${palette.pill} text-white shrink-0`}>
+                                                                                        Selected Bed
+                                                                                    </span>
                                                                                 </div>
-                                                                                <div>
-                                                                                    <div className="flex items-center gap-1.5">
-                                                                                        <span className="font-bold text-xs text-white">
-                                                                                            {selectedRoom.full_room_code ?? selectedRoom.room_number}
-                                                                                        </span>
-                                                                                        <span className="text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">
-                                                                                            Selected
-                                                                                        </span>
+                                                                                <div className="text-[10px] text-neutral-300 truncate mt-0.5">
+                                                                                    Floor {selectedRoom.floor_number ?? 1} · {selectedRoom.room_type_label ?? selectedRoom.room_type} · {selectedRoom.window_orientation}
+                                                                                </div>
+                                                                                {selectedRoom.price_per_term_minor && (
+                                                                                    <div className="text-xs font-black text-white mt-0.5">
+                                                                                        {fmtCAD(selectedRoom.price_per_term_minor)} <span className="text-[10px] font-normal text-neutral-400">/ term</span>
                                                                                     </div>
-                                                                                    {selectedRoom.price_per_term_minor && (
-                                                                                        <div className="text-[11px] font-black text-white mt-0.5">
-                                                                                            {fmtCAD(selectedRoom.price_per_term_minor)} / term
-                                                                                        </div>
-                                                                                    )}
-                                                                                </div>
+                                                                                )}
                                                                             </div>
                                                                             <button
                                                                                 onClick={handleReserve}
                                                                                 disabled={reserving}
-                                                                                className="w-full py-2 bg-white hover:bg-neutral-100 disabled:opacity-50 rounded-lg text-xs font-bold text-black transition-all shadow-sm text-center"
+                                                                                className="px-3.5 py-2 bg-white hover:bg-neutral-100 disabled:opacity-50 rounded-lg text-xs font-black text-black transition-all shadow-xs shrink-0 text-center"
                                                                             >
-                                                                                {reserving ? 'Reserving...' : 'Reserve This Bed →'}
+                                                                                {reserving ? 'Reserving...' : 'Reserve Bed →'}
                                                                             </button>
                                                                         </div>
                                                                     )}
@@ -858,37 +856,32 @@ export default function HousingPortalPage() {
                                                         })}
                                                     </div>
 
-                                                    {/* Sticky / Active Selection summary - Compact */}
+                                                    {/* Sticky / Active Selection summary - Compact Vibrant */}
                                                     {selectedRoom && (
-                                                        <div className="mt-6 p-4 sm:p-4.5 bg-[#0a151a] text-white rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg border border-white/10 animate-drawer-slide">
-                                                            <div className="flex items-center gap-3">
-                                                                <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white shrink-0">
-                                                                    <Icons.Bed />
+                                                        <div className="mt-5 p-3.5 sm:p-4 bg-[#0a151a] text-white rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md border border-white/10 animate-drawer-slide">
+                                                            <div className="min-w-0">
+                                                                <div className="flex items-center gap-2.5">
+                                                                    <span className="font-black text-base text-white">
+                                                                        {selectedRoom.full_room_code ?? selectedRoom.room_number}
+                                                                    </span>
+                                                                    <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full ${activePalette.pill} text-white shadow-xs`}>
+                                                                        Selected Bed
+                                                                    </span>
                                                                 </div>
-                                                                <div>
-                                                                    <div className="flex items-center gap-2">
-                                                                        <span className="font-bold text-sm sm:text-base text-white">
-                                                                            {selectedRoom.full_room_code ?? selectedRoom.room_number}
-                                                                        </span>
-                                                                        <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                                                                            Selected Bed
-                                                                        </span>
-                                                                    </div>
-                                                                    <div className="text-[11px] text-neutral-300 mt-0.5">
-                                                                        Floor {selectedRoom.floor_number ?? 1} · {selectedRoom.room_type_label ?? selectedRoom.room_type} · {selectedRoom.window_orientation}
-                                                                    </div>
-                                                                    {selectedRoom.price_per_term_minor && (
-                                                                        <div className="text-xs font-black text-white mt-0.5">
-                                                                            {fmtCAD(selectedRoom.price_per_term_minor)} / term
-                                                                        </div>
-                                                                    )}
+                                                                <div className="text-xs text-neutral-300 mt-0.5">
+                                                                    Floor {selectedRoom.floor_number ?? 1} · {selectedRoom.room_type_label ?? selectedRoom.room_type} · {selectedRoom.window_orientation}
                                                                 </div>
+                                                                {selectedRoom.price_per_term_minor && (
+                                                                    <div className="text-sm font-black text-white mt-0.5">
+                                                                        {fmtCAD(selectedRoom.price_per_term_minor)} <span className="text-xs font-normal text-neutral-300">/ term</span>
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                             
                                                             <button
                                                                 onClick={handleReserve}
                                                                 disabled={reserving}
-                                                                className="px-5 py-2.5 bg-white hover:bg-neutral-100 disabled:opacity-50 rounded-lg text-xs sm:text-sm font-bold text-black transition-all shadow-md shrink-0 cursor-pointer text-center"
+                                                                className="px-5 py-2.5 bg-white hover:bg-neutral-100 disabled:opacity-50 rounded-lg text-xs sm:text-sm font-black text-black transition-all shadow-sm shrink-0 cursor-pointer text-center"
                                                             >
                                                                 {reserving ? 'Reserving...' : 'Reserve This Bed →'}
                                                             </button>
