@@ -388,47 +388,129 @@ export default function HousingPortalPage() {
 
                                     {housingType === 'on_campus' ? (
                                         <>
-                                            {/* Building cards */}
-                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                                {buildings.filter(b => b.code !== null).map(b => (
-                                                    <button key={b.id} onClick={() => loadRooms(b)}
-                                                        className={`text-left rounded-2xl overflow-hidden transition-all group flex flex-col bg-white shadow-sm hover:shadow-md ${selectedBuilding?.id === b.id ? 'ring-2 ring-slate-900' : ''}`}>
-                                                        {b.image_url ? (
-                                                            <div className="w-full h-48 overflow-hidden relative bg-slate-100">
-                                                                <img
-                                                                    src={b.image_url}
-                                                                    alt={b.name}
-                                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                                                />
-                                                                <div className="absolute top-3 right-3">
-                                                                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white text-slate-800 shadow-sm">
-                                                                        {b.available_beds ?? '?'} beds open
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        ) : null}
+                                            <style jsx>{`
+                                                @keyframes waveFloatHousing {
+                                                    0%, 100% { transform: translateY(8px) scaleY(1); }
+                                                    50% { transform: translateY(-6px) scaleY(1.12); }
+                                                }
+                                                @keyframes arrowFloatHousing {
+                                                    0%, 100% { transform: translate(0, 0); }
+                                                    50% { transform: translate(4px, -4px); }
+                                                }
+                                                .animate-wave-housing {
+                                                    animation: waveFloatHousing 3.4s ease-in-out infinite;
+                                                }
+                                                .animate-arrow-housing {
+                                                    animation: arrowFloatHousing 2.2s ease-in-out infinite;
+                                                }
+                                            `}</style>
 
-                                                        <div className="p-5 flex-1 flex flex-col">
-                                                            <div className="flex items-start justify-between mb-3">
-                                                                <div>
-                                                                    <h3 className="font-bold text-base text-slate-900 group-hover:text-slate-700 transition-colors">{b.name}</h3>
-                                                                    <p className="text-slate-500 text-xs mt-0.5">{b.campus_location}</p>
+                                            {/* Vibrant Academic-Style Building Cards */}
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                                {buildings.filter(b => b.code !== null).map((b, idx) => {
+                                                    const PALETTES = [
+                                                        { bg: 'bg-[#4f46e5]', border: 'border-[#4f46e5]', wave: '#3730a3', text: 'text-indigo-100', badge: 'bg-[#3730a3]' },
+                                                        { bg: 'bg-[#059669]', border: 'border-[#059669]', wave: '#064e3b', text: 'text-emerald-100', badge: 'bg-[#064e3b]' },
+                                                        { bg: 'bg-[#ea580c]', border: 'border-[#ea580c]', wave: '#7c2d12', text: 'text-orange-100', badge: 'bg-[#7c2d12]' },
+                                                        { bg: 'bg-[#0284c7]', border: 'border-[#0284c7]', wave: '#075985', text: 'text-sky-100', badge: 'bg-[#075985]' },
+                                                        { bg: 'bg-[#7c3aed]', border: 'border-[#7c3aed]', wave: '#4c1d95', text: 'text-purple-100', badge: 'bg-[#4c1d95]' },
+                                                    ];
+                                                    const palette = PALETTES[idx % PALETTES.length];
+                                                    const isSelected = selectedBuilding?.id === b.id;
+
+                                                    // Default vibrant photo fallback if none uploaded
+                                                    const defaultImage = idx === 0 
+                                                        ? '/images/studies-hero.jpg' 
+                                                        : idx === 1 
+                                                        ? '/images/technology.jpg' 
+                                                        : '/images/school-of-science-hero.jpg';
+                                                    const buildingImage = b.image_url || defaultImage;
+
+                                                    return (
+                                                        <div key={b.id} className="flex flex-col">
+                                                            <button
+                                                                onClick={() => loadRooms(b)}
+                                                                className={`w-full text-left p-3.5 sm:p-4 rounded-2xl ${palette.bg} ${palette.border} border-4 transition-all duration-300 group overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between ${isSelected ? 'ring-4 ring-slate-900 ring-offset-2 scale-[1.02]' : ''}`}
+                                                            >
+                                                                {/* Top Image with Organic Wavy Cutout */}
+                                                                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-black/20">
+                                                                    <img
+                                                                        src={buildingImage}
+                                                                        alt={b.name}
+                                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                                                    />
+
+                                                                    {/* Bed status pill badge top right */}
+                                                                    <div className="absolute top-3 right-3 z-20">
+                                                                        <span className={`px-3 py-1 rounded-full text-xs font-black tracking-wide text-white shadow-md backdrop-blur-md ${palette.badge}`}>
+                                                                            {b.available_beds ?? 0} BEDS OPEN
+                                                                        </span>
+                                                                    </div>
+
+                                                                    {/* Location tag top left */}
+                                                                    <div className="absolute top-3 left-3 z-20">
+                                                                        <span className="px-2.5 py-1 rounded-lg text-[10px] font-bold text-white bg-black/50 backdrop-blur-md">
+                                                                            {b.campus_location}
+                                                                        </span>
+                                                                    </div>
+
+                                                                    {/* Organic Wavy Bottom Edge with Smooth Float Animation */}
+                                                                    <div
+                                                                        className="absolute bottom-[-20px] left-0 right-0 h-16 overflow-hidden leading-none z-10 pointer-events-none animate-wave-housing"
+                                                                        style={{ animationDelay: `${idx * 0.4}s` }}
+                                                                    >
+                                                                        <svg
+                                                                            viewBox="0 0 1440 200"
+                                                                            preserveAspectRatio="none"
+                                                                            className="w-full h-full fill-current block"
+                                                                            style={{ color: palette.wave }}
+                                                                        >
+                                                                            <path
+                                                                                fill="currentColor"
+                                                                                d="M0,45 C320,105 640,-15 960,75 C1200,115 1380,45 1440,65 V200 H0 Z"
+                                                                            />
+                                                                        </svg>
+                                                                    </div>
                                                                 </div>
-                                                                {!b.image_url && (
-                                                                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700">
-                                                                        {b.available_beds ?? '?'} beds open
-                                                                    </span>
-                                                                )}
-                                                            </div>
-                                                            {b.description && <p className="text-slate-600 text-xs leading-relaxed mb-3 line-clamp-2">{b.description}</p>}
-                                                            <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
-                                                                {(b.services ?? []).slice(0, 4).map(s => (
-                                                                    <span key={s} className="px-2.5 py-1 bg-slate-100 rounded-md text-[11px] font-medium text-slate-600">{s}</span>
-                                                                ))}
-                                                            </div>
+
+                                                                {/* Bottom Solid Vibrant Content */}
+                                                                <div className="pt-5 pb-2 px-2 sm:px-3 text-white flex-1 flex flex-col justify-between">
+                                                                    <div>
+                                                                        <div className="flex items-start justify-between gap-3">
+                                                                            <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight leading-tight flex-1 text-white">
+                                                                                {b.name}
+                                                                            </h3>
+                                                                            {/* Floating Action Arrow */}
+                                                                            <div
+                                                                                className="shrink-0 animate-arrow-housing p-2 rounded-full bg-white/20 text-white group-hover:bg-white group-hover:text-slate-900 transition-colors"
+                                                                                style={{ animationDelay: `${idx * 0.4}s` }}
+                                                                            >
+                                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-5 h-5">
+                                                                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                                                                </svg>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        {b.description && (
+                                                                            <p className={`text-xs leading-relaxed mt-2 line-clamp-2 ${palette.text} opacity-90`}>
+                                                                                {b.description}
+                                                                            </p>
+                                                                        )}
+                                                                    </div>
+
+                                                                    {/* Amenities Pill Tags */}
+                                                                    <div className="flex flex-wrap gap-1.5 pt-4 mt-auto">
+                                                                        {(b.services ?? []).slice(0, 4).map(s => (
+                                                                            <span key={s} className="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-black/20 text-white backdrop-blur-sm">
+                                                                                {s}
+                                                                            </span>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            </button>
                                                         </div>
-                                                    </button>
-                                                ))}
+                                                    );
+                                                })}
                                             </div>
 
                                             {/* Floor plan / bed picker */}
@@ -506,52 +588,95 @@ export default function HousingPortalPage() {
                                         /* HOMESTAY LISTINGS */
                                         <div className="space-y-4">
                                             <p className="text-slate-500 text-sm">Host families vetted and approved by Cannoga College International Student Services.</p>
-                                            {homestayHosts.map(host => {
-                                                const hostPhoto = host.photo_url || host.host_photo_url;
+                                            {homestayHosts.map((host, idx) => {
+                                                const hostPhoto = host.photo_url || host.host_photo_url || '/images/health-community.jpg';
+                                                const PALETTES = [
+                                                    { bg: 'bg-[#ec4899]', border: 'border-[#ec4899]', wave: '#831843', badge: 'bg-[#831843]' },
+                                                    { bg: 'bg-[#06b6d4]', border: 'border-[#06b6d4]', wave: '#164e63', badge: 'bg-[#164e63]' },
+                                                    { bg: 'bg-[#f97316]', border: 'border-[#f97316]', wave: '#7c2d12', badge: 'bg-[#7c2d12]' },
+                                                    { bg: 'bg-[#8b5cf6]', border: 'border-[#8b5cf6]', wave: '#4c1d95', badge: 'bg-[#4c1d95]' },
+                                                ];
+                                                const palette = PALETTES[idx % PALETTES.length];
+                                                const isSelected = selectedHost?.id === host.id;
+
                                                 return (
-                                                    <div key={host.id} onClick={() => setSelectedHost(selectedHost?.id === host.id ? null : host)}
-                                                        className={`p-5 rounded-2xl cursor-pointer transition-all flex flex-col md:flex-row gap-5 bg-white shadow-sm hover:shadow-md ${selectedHost?.id === host.id ? 'ring-2 ring-slate-900' : ''}`}>
-                                                        {hostPhoto ? (
-                                                            <div className="w-full md:w-48 h-40 shrink-0 rounded-xl overflow-hidden bg-slate-100 relative">
-                                                                <img
-                                                                    src={hostPhoto}
-                                                                    alt={host.host_name}
-                                                                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                                                                />
+                                                    <div
+                                                        key={host.id}
+                                                        onClick={() => setSelectedHost(selectedHost?.id === host.id ? null : host)}
+                                                        className={`p-4 sm:p-5 rounded-2xl cursor-pointer transition-all duration-300 flex flex-col md:flex-row gap-5 ${palette.bg} ${palette.border} border-4 text-white shadow-lg hover:shadow-2xl hover:-translate-y-1 overflow-hidden ${isSelected ? 'ring-4 ring-slate-900 ring-offset-2 scale-[1.01]' : ''}`}
+                                                    >
+                                                        {/* Host Photo with Wavy Cutout */}
+                                                        <div className="w-full md:w-56 h-48 shrink-0 rounded-xl overflow-hidden bg-black/20 relative">
+                                                            <img
+                                                                src={hostPhoto}
+                                                                alt={host.host_name}
+                                                                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                                            />
+                                                            <div className="absolute top-2.5 right-2.5 z-20">
+                                                                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase text-white shadow-md backdrop-blur-md ${palette.badge}`}>
+                                                                    {(host.spots_available ?? 0) > 0 ? `${host.spots_available} OPEN` : 'FULL'}
+                                                                </span>
                                                             </div>
-                                                        ) : null}
+
+                                                            {/* Organic Wavy Bottom Edge */}
+                                                            <div
+                                                                className="absolute bottom-[-16px] left-0 right-0 h-12 overflow-hidden leading-none z-10 pointer-events-none animate-wave-housing"
+                                                                style={{ animationDelay: `${idx * 0.4}s` }}
+                                                            >
+                                                                <svg
+                                                                    viewBox="0 0 1440 200"
+                                                                    preserveAspectRatio="none"
+                                                                    className="w-full h-full fill-current block"
+                                                                    style={{ color: palette.wave }}
+                                                                >
+                                                                    <path
+                                                                        fill="currentColor"
+                                                                        d="M0,45 C320,105 640,-15 960,75 C1200,115 1380,45 1440,65 V200 H0 Z"
+                                                                    />
+                                                                </svg>
+                                                            </div>
+                                                        </div>
 
                                                         <div className="flex-1 flex flex-col justify-between">
                                                             <div>
-                                                                <div className="flex items-center gap-2.5 mb-2 flex-wrap">
-                                                                    <h3 className="font-bold text-base text-slate-900">{host.host_name}</h3>
-                                                                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700">
-                                                                        {host.gender_policy === 'any' ? 'Co-Ed Welcome' : host.gender_policy === 'female_only' ? 'Female Students Only' : 'Male Students Only'}
-                                                                    </span>
-                                                                    {host.has_quiet_study_room && (
-                                                                         <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700">Quiet Study Room</span>
-                                                                    )}
-                                                                    {(host.spots_available ?? 0) > 0 ? (
-                                                                        <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-800">{host.spots_available} spot{host.spots_available !== 1 ? 's' : ''} available</span>
-                                                                    ) : (
-                                                                        <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-400">Full</span>
-                                                                    )}
+                                                                <div className="flex items-start justify-between gap-3 mb-2">
+                                                                    <div>
+                                                                        <h3 className="font-black text-xl sm:text-2xl uppercase tracking-tight text-white">{host.host_name}</h3>
+                                                                        <div className="flex items-center gap-2 mt-1 flex-wrap">
+                                                                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-black/20 text-white backdrop-blur-sm">
+                                                                                {host.gender_policy === 'any' ? 'Co-Ed Welcome' : host.gender_policy === 'female_only' ? 'Female Only' : 'Male Only'}
+                                                                            </span>
+                                                                            {host.has_quiet_study_room && (
+                                                                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-black/20 text-white backdrop-blur-sm">Quiet Study Room</span>
+                                                                            )}
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div
+                                                                        className="shrink-0 animate-arrow-housing p-2 rounded-full bg-white/20 text-white"
+                                                                        style={{ animationDelay: `${idx * 0.4}s` }}
+                                                                    >
+                                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-5 h-5">
+                                                                            <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                                                        </svg>
+                                                                    </div>
                                                                 </div>
-                                                                <p className="text-slate-600 text-xs leading-relaxed mb-3">{host.host_family_description}</p>
+
+                                                                <p className="text-white/90 text-xs leading-relaxed mb-3 line-clamp-2">{host.host_family_description}</p>
                                                                 <div className="flex flex-wrap gap-1.5 text-[11px] mb-3">
-                                                                    <span className="flex items-center gap-1 text-slate-500 font-medium bg-slate-100 px-2 py-0.5 rounded-md"><Icons.MapPin />{host.address_city} · {host.distance_to_campus_km} km to campus</span>
+                                                                    <span className="flex items-center gap-1 text-white bg-black/20 px-2 py-0.5 rounded-md font-bold text-[10px]"><Icons.MapPin />{host.address_city} · {host.distance_to_campus_km} km to campus</span>
                                                                     {host.languages_spoken.map(l => (
-                                                                        <span key={l} className="px-2 py-0.5 bg-slate-100 rounded-md text-slate-600">{l}</span>
+                                                                        <span key={l} className="px-2 py-0.5 bg-black/20 rounded-md text-[10px] font-bold text-white">{l}</span>
                                                                     ))}
                                                                     {host.dietary_accommodations.map(d => (
-                                                                        <span key={d} className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded-md">{d.charAt(0).toUpperCase() + d.slice(1)}</span>
+                                                                        <span key={d} className="px-2 py-0.5 bg-black/20 text-white rounded-md text-[10px] font-bold">{d.charAt(0).toUpperCase() + d.slice(1)}</span>
                                                                     ))}
                                                                 </div>
                                                             </div>
 
-                                                            <div className="flex items-center justify-between pt-3 border-t border-slate-100 mt-auto">
-                                                                <div className="text-xs text-slate-500">All-inclusive meal & utilities</div>
-                                                                <div className="text-lg font-black text-slate-900">{fmtWeekly(host.price_per_week_minor)}</div>
+                                                            <div className="flex items-center justify-between pt-3 border-t border-white/20 mt-auto">
+                                                                <div className="text-xs text-white/80">All-inclusive meal & utilities</div>
+                                                                <div className="text-xl font-black text-white">{fmtWeekly(host.price_per_week_minor)}</div>
                                                             </div>
                                                         </div>
                                                     </div>
