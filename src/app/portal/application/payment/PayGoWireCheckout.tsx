@@ -69,10 +69,10 @@ const CopyButton = ({ text, label }: { text: string; label: string }) => {
 
 // ─── Bank Detail Row ─────────────────────────────────────────────────────────
 const BankRow = ({ label, value, copyable }: { label: string; value: string; copyable?: boolean }) => (
-    <div className="flex items-center justify-between py-1.5 border-b border-neutral-200/60 last:border-b-0 gap-3">
-        <span className="text-[11px] text-neutral-500 font-medium uppercase tracking-wider">{label}</span>
+    <div className="flex items-center justify-between py-2 border-b border-neutral-200/60 last:border-b-0 gap-3">
+        <span className="text-[12px] text-neutral-500 font-normal uppercase tracking-wider">{label}</span>
         <div className="flex items-center gap-1.5 justify-end">
-            <span className="text-xs md:text-sm text-neutral-900 font-medium text-right break-all">{value}</span>
+            <span className="text-xs md:text-sm text-neutral-900 font-normal text-right break-all">{value}</span>
             {copyable && <CopyButton text={value} label={label} />}
         </div>
     </div>
