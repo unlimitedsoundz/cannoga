@@ -616,7 +616,7 @@ export default function HousingPortalPage() {
                                                                                                             key={`m-room-${room.id}`}
                                                                                                             disabled={!isAvail}
                                                                                                             onClick={() => isAvail && setSelectedRoom(isRoomSelected ? null : room)}
-                                                                                                            className={`p-3 rounded-xl text-left transition-all ${
+                                                                                                            className={`w-full p-2.5 sm:p-3 rounded-xl text-left transition-all flex items-center justify-between gap-3 ${
                                                                                                                 isRoomSelected
                                                                                                                     ? 'bg-[#0a151a] text-white shadow-md'
                                                                                                                     : room.status === 'AVAILABLE'
@@ -626,24 +626,34 @@ export default function HousingPortalPage() {
                                                                                                                     : 'bg-neutral-100 opacity-30 cursor-not-allowed text-neutral-500'
                                                                                                             }`}
                                                                                                         >
-                                                                                                            <div className="flex items-center justify-between gap-1">
-                                                                                                                <div className={`text-sm font-black tracking-tight ${isRoomSelected ? 'text-white' : 'text-black'}`}>
-                                                                                                                    {room.bed_identifier ? `${room.suite_number}-${room.bed_identifier}` : room.room_number}
-                                                                                                                </div>
-                                                                                                                <span className={`w-2.5 h-2.5 rounded-full ${
+                                                                                                            <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                                                                                                                <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${
                                                                                                                     room.status === 'AVAILABLE' ? 'bg-emerald-500' : room.status === 'MAINTENANCE' ? 'bg-amber-400' : 'bg-neutral-400'
                                                                                                                 }`} />
+                                                                                                                <div className="min-w-0">
+                                                                                                                    <div className={`text-sm font-black tracking-tight leading-none ${isRoomSelected ? 'text-white' : 'text-black'}`}>
+                                                                                                                        {room.bed_identifier ? `${room.suite_number}-${room.bed_identifier}` : room.room_number}
+                                                                                                                    </div>
+                                                                                                                    <div className={`text-[10px] sm:text-[11px] font-medium mt-1 truncate ${
+                                                                                                                        isRoomSelected ? 'text-neutral-200' : 'text-black'
+                                                                                                                    }`}>
+                                                                                                                        {room.room_type_label ?? room.room_type ?? 'Single'}{room.window_orientation ? ` · ${room.window_orientation}` : ''}
+                                                                                                                    </div>
+                                                                                                                </div>
                                                                                                             </div>
-                                                                                                            <div className={`text-[11px] font-medium mt-1 leading-snug line-clamp-2 ${
-                                                                                                                isRoomSelected ? 'text-neutral-200' : 'text-black'
-                                                                                                            }`}>
-                                                                                                                {room.room_type_label ?? room.room_type ?? 'Single'}{room.window_orientation ? ` · ${room.window_orientation}` : ''}
-                                                                                                            </div>
+
                                                                                                             {room.price_per_term_minor && (
-                                                                                                                <div className={`text-xs sm:text-sm font-black mt-2 ${
-                                                                                                                    isRoomSelected ? 'text-white' : 'text-black'
-                                                                                                                }`}>
-                                                                                                                    {fmtCAD(room.price_per_term_minor)} <span className={`text-xs font-semibold ${isRoomSelected ? 'text-neutral-300' : 'text-black'}`}>/term</span>
+                                                                                                                <div className="text-right shrink-0">
+                                                                                                                    <div className={`text-xs sm:text-sm font-black whitespace-nowrap leading-none ${
+                                                                                                                        isRoomSelected ? 'text-white' : 'text-black'
+                                                                                                                    }`}>
+                                                                                                                        {fmtCAD(room.price_per_term_minor)}
+                                                                                                                    </div>
+                                                                                                                    <div className={`text-[10px] font-semibold mt-0.5 ${
+                                                                                                                        isRoomSelected ? 'text-neutral-300' : 'text-black'
+                                                                                                                    }`}>
+                                                                                                                        /term
+                                                                                                                    </div>
                                                                                                                 </div>
                                                                                                             )}
                                                                                                         </button>
@@ -769,13 +779,13 @@ export default function HousingPortalPage() {
                                                                         </div>
                                                                     </button>
 
-                                                                    {/* Accordion Answer Content / Beds Grid - Compact */}
+                                                                    {/* Accordion Answer Content / Beds Grid - Horizontal Small Cards */}
                                                                     <div
                                                                         className={`transition-all duration-400 ease-in-out overflow-hidden ${
                                                                             isExpanded ? 'max-h-[2000px] opacity-100 pb-5 pt-1' : 'max-h-0 opacity-0'
                                                                         }`}
                                                                     >
-                                                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 pt-1 px-1">
+                                                                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-1 px-1">
                                                                             {floorRooms.map(room => {
                                                                                 const isSelected = selectedRoom?.id === room.id;
                                                                                 const isAvail = room.status === 'AVAILABLE';
@@ -785,7 +795,7 @@ export default function HousingPortalPage() {
                                                                                         key={room.id}
                                                                                         disabled={!isAvail}
                                                                                         onClick={() => isAvail && setSelectedRoom(isSelected ? null : room)}
-                                                                                        className={`p-3 rounded-xl text-left transition-all ${
+                                                                                        className={`p-3 rounded-xl text-left transition-all flex items-center justify-between gap-3 ${
                                                                                             isSelected
                                                                                                 ? 'bg-[#0a151a] text-white shadow-md'
                                                                                                 : room.status === 'AVAILABLE'
@@ -795,26 +805,34 @@ export default function HousingPortalPage() {
                                                                                                 : 'bg-neutral-100 opacity-30 cursor-not-allowed text-neutral-500'
                                                                                         }`}
                                                                                     >
-                                                                                        <div className="flex items-center justify-between gap-1">
-                                                                                            <div className={`text-sm font-black tracking-tight ${isSelected ? 'text-white' : 'text-black'}`}>
-                                                                                                {room.bed_identifier ? `${room.suite_number}-${room.bed_identifier}` : room.room_number}
-                                                                                            </div>
-                                                                                            <span className={`w-2.5 h-2.5 rounded-full ${
+                                                                                        <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                                                                                            <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${
                                                                                                 room.status === 'AVAILABLE' ? 'bg-emerald-500' : room.status === 'MAINTENANCE' ? 'bg-amber-400' : 'bg-neutral-400'
                                                                                             }`} />
-                                                                                        </div>
-
-                                                                                        <div className={`text-xs font-medium mt-1 leading-snug line-clamp-2 ${
-                                                                                            isSelected ? 'text-neutral-200' : 'text-black'
-                                                                                        }`}>
-                                                                                            {room.room_type_label ?? room.room_type ?? 'Single'}{room.window_orientation ? ` · ${room.window_orientation}` : ''}
+                                                                                            <div className="min-w-0">
+                                                                                                <div className={`text-sm font-black tracking-tight leading-none ${isSelected ? 'text-white' : 'text-black'}`}>
+                                                                                                    {room.bed_identifier ? `${room.suite_number}-${room.bed_identifier}` : room.room_number}
+                                                                                                </div>
+                                                                                                <div className={`text-xs font-medium mt-1 truncate ${
+                                                                                                    isSelected ? 'text-neutral-200' : 'text-black'
+                                                                                                }`}>
+                                                                                                    {room.room_type_label ?? room.room_type ?? 'Single'}{room.window_orientation ? ` · ${room.window_orientation}` : ''}
+                                                                                                </div>
+                                                                                            </div>
                                                                                         </div>
 
                                                                                         {room.price_per_term_minor && (
-                                                                                            <div className={`text-sm sm:text-base font-black mt-2 ${
-                                                                                                isSelected ? 'text-white' : 'text-black'
-                                                                                            }`}>
-                                                                                                {fmtCAD(room.price_per_term_minor)} <span className={`text-xs sm:text-sm font-semibold ${isSelected ? 'text-neutral-300' : 'text-black'}`}>/term</span>
+                                                                                            <div className="text-right shrink-0">
+                                                                                                <div className={`text-sm sm:text-base font-black whitespace-nowrap leading-none ${
+                                                                                                    isSelected ? 'text-white' : 'text-black'
+                                                                                                }`}>
+                                                                                                    {fmtCAD(room.price_per_term_minor)}
+                                                                                                </div>
+                                                                                                <div className={`text-xs font-semibold mt-0.5 ${
+                                                                                                    isSelected ? 'text-neutral-300' : 'text-black'
+                                                                                                }`}>
+                                                                                                    /term
+                                                                                                </div>
                                                                                             </div>
                                                                                         )}
                                                                                     </button>
