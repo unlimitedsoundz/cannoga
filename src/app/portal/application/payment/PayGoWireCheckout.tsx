@@ -519,7 +519,7 @@ export default function PayGoWireCheckout({
                                     </button>
 
                                     {isImportantInfoOpen && (
-                                        <div className="w-full mt-3 text-[14px] md:text-[16px] text-slate-600 space-y-3 leading-relaxed animate-in fade-in duration-200">
+                                        <div className="w-full mt-3 text-[14px] md:text-[16px] text-slate-600 space-y-3 leading-relaxed bg-slate-50 animate-in fade-in duration-200">
                                             <p className="font-normal text-slate-600">
                                                 Use this option to pay quickly in Naira via Bank Transfer.
                                             </p>
