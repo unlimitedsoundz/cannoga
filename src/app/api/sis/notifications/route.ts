@@ -35,20 +35,34 @@ export async function GET(request: NextRequest) {
         return false;
     });
 
-    // If student is enrolled/active, ensure PAL timeline notification is present
+    // If student is enrolled/active, ensure PAL timeline notification is present in DB
     if (user?.id) {
-        const hasPalNotif = filtered.some((n: any) => n.type === 'pal_issuance_notice' || (n.title && n.title.includes('Provincial Attestation Letter')));
+        const hasPalNotif = (allNotifs || []).some((n: any) => 
+            n.user_id === user.id && (n.type === 'pal_issuance_notice' || (n.title && n.title.includes('Provincial Attestation Letter')))
+        );
+
         if (!hasPalNotif) {
-            filtered.unshift({
-                id: `pal-notice-${user.id}`,
-                user_id: user.id,
-                type: 'pal_issuance_notice',
-                title: 'Provincial Attestation Letter (PAL) Processing',
-                message: 'Your Provincial Letter of Attestation (PAL) will be issued to you in 6 – 10 business days. Once issued, you can proceed directly with your IRCC Study Permit application.',
-                priority: 'high',
-                read: false,
-                created_at: new Date().toISOString(),
-            });
+            try {
+                const { data: insertedPal } = await supabase
+                    .from('notifications')
+                    .insert({
+                        user_id: user.id,
+                        type: 'pal_issuance_notice',
+                        title: 'Provincial Attestation Letter (PAL) Processing',
+                        message: 'Your Provincial Letter of Attestation (PAL) will be issued to you in 6 – 10 business days. Once issued, you can proceed directly with your IRCC Study Permit application.',
+                        priority: 'high',
+                        read: false,
+                        created_at: new Date().toISOString(),
+                    })
+                    .select()
+                    .maybeSingle();
+
+                if (insertedPal) {
+                    filtered.unshift(insertedPal);
+                }
+            } catch (err) {
+                console.warn('[notifications] could not insert default PAL notice:', err);
+            }
         }
     }
 
@@ -65,18 +79,36 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Notification ID is required' }, { status: 400 });
     }
 
-    const { data: notification, error } = await supabase
+    const isReadVal = read !== false;
+
+    // Support both `read` and `is_read` column schemas in Supabase
+    let updatePayload: Record<string, any> = {
+        read: isReadVal,
+        is_read: isReadVal,
+        read_at: isReadVal ? new Date().toISOString() : null,
+    };
+
+    let { data: notification, error } = await supabase
         .from('notifications')
-        .update({
-            read: read !== false,
-            read_at: read !== false ? new Date().toISOString() : null,
-        })
+        .update(updatePayload)
         .eq('id', id)
         .select()
         .maybeSingle();
 
     if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        // Fallback: try update with only `read` column if `is_read` does not exist
+        const { data: fallbackNotif, error: fallbackError } = await supabase
+            .from('notifications')
+            .update({ read: isReadVal, read_at: isReadVal ? new Date().toISOString() : null })
+            .eq('id', id)
+            .select()
+            .maybeSingle();
+
+        if (fallbackError) {
+            console.error('[notifications POST update]:', fallbackError);
+            return NextResponse.json({ error: fallbackError.message }, { status: 500 });
+        }
+        notification = fallbackNotif;
     }
 
     return NextResponse.json({ notification });
