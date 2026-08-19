@@ -1632,26 +1632,26 @@ export default function HousingPortalPage() {
             {showKeyModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                     <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowKeyModal(false)} />
-                    <div className="relative bg-[#0a151a] text-white rounded-3xl p-6 sm:p-8 w-full max-w-sm shadow-2xl border border-white/10 text-center animate-drawer-slide">
-                        <button onClick={() => setShowKeyModal(false)} className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 cursor-pointer">✕</button>
+                    <div className="relative bg-white text-slate-900 rounded-3xl p-6 sm:p-8 w-full max-w-sm shadow-2xl animate-drawer-slide text-center">
+                        <button onClick={() => setShowKeyModal(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 p-1 cursor-pointer">✕</button>
                         
-                        <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20">
-                            <Icons.Key className="w-10 h-10 text-white" />
+                        <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[#0a151a] text-white flex items-center justify-center shadow-lg ring-8 ring-slate-100">
+                            <Icons.Key className="w-9 h-9 text-white" />
                         </div>
-                        <h3 className="text-xl font-black tracking-tight text-white mb-1">Tap Room Digital Key</h3>
-                        <p className="text-xs text-slate-300 mb-6">Hold your device near the reader on your suite or bedroom door.</p>
+                        <h3 className="text-xl font-black tracking-tight text-slate-900 mb-1">Tap Room Digital Key</h3>
+                        <p className="text-xs text-slate-500 mb-6">Hold your device near the reader on your suite or bedroom door.</p>
 
-                        <div className="p-4 bg-white/5 border border-white/10 rounded-2xl text-left space-y-2 mb-6">
+                        <div className="p-4 bg-slate-50 rounded-2xl text-left space-y-2 mb-6">
                             <div className="flex justify-between text-xs">
-                                <span className="text-slate-400 font-medium">Placement:</span>
-                                <span className="font-bold text-white">{(application?.assigned_room as any)?.full_room_code ?? selectedRoom?.full_room_code ?? 'Room 402-A'}</span>
+                                <span className="text-slate-500 font-medium">Placement:</span>
+                                <span className="font-bold text-slate-900">{(application?.assigned_room as any)?.full_room_code ?? selectedRoom?.full_room_code ?? 'Room 402-A'}</span>
                             </div>
                             <div className="flex justify-between text-xs">
-                                <span className="text-slate-400 font-medium">Building:</span>
-                                <span className="font-bold text-white">{(application?.building as any)?.name ?? 'Cannoga Suites'}</span>
+                                <span className="text-slate-500 font-medium">Building:</span>
+                                <span className="font-bold text-slate-900">{(application?.building as any)?.name ?? 'Cannoga Suites'}</span>
                             </div>
-                            <div className="flex justify-between text-xs">
-                                <span className="text-slate-400 font-medium">NFC Status:</span>
+                            <div className="flex justify-between text-xs items-center">
+                                <span className="text-slate-500 font-medium">NFC Status:</span>
                                 <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500 text-white">● Broadcasting Active</span>
                             </div>
                         </div>
@@ -1661,8 +1661,9 @@ export default function HousingPortalPage() {
                                 showToast('Digital keycard signal sent successfully! Door unlocked.', 'success');
                                 setShowKeyModal(false);
                             }}
-                            className="w-full py-3 bg-white hover:bg-slate-100 text-slate-900 font-black text-sm rounded-xl transition cursor-pointer shadow-md"
+                            className="w-full py-3 bg-[#0a151a] hover:bg-slate-800 text-white font-black text-sm rounded-xl transition cursor-pointer shadow-md flex items-center justify-center gap-2"
                         >
+                            <Icons.Key className="w-4 h-4 text-white" />
                             Broadcast Unlock Pulse
                         </button>
                     </div>
