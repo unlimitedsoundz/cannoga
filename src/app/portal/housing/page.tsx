@@ -299,33 +299,72 @@ export default function HousingPortalPage() {
                 </div>
             )}
 
-            {/* Header */}
-            <div className="bg-gradient-to-r from-[#0f1f35] via-[#0d2240] to-[#0f1f35] border-b border-white/5 px-4 py-8">
-                <div className="max-w-6xl mx-auto">
-                    <div className="flex items-center gap-3 mb-1">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center shadow-lg">
-                            <Icons.Building />
-                        </div>
-                        <div>
-                            <h1 className="text-2xl font-black tracking-tight">Student Housing & Residence Life</h1>
-                            <p className="text-slate-400 text-sm">2026/2027 Academic Year · Cannoga College</p>
-                        </div>
+            {/* Top Global Navigation Bar */}
+            <header className="bg-[#070b13] border-b border-white/10 px-4 lg:px-8 py-3.5 sticky top-0 z-40 backdrop-blur-md bg-opacity-95">
+                <div className="max-w-7xl mx-auto flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <a href="/sis" className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition group">
+                            <span className="text-slate-500 group-hover:-translate-x-0.5 transition-transform">←</span> Return to SIS
+                        </a>
+                        <span className="text-slate-700">/</span>
+                        <a href="/portal/dashboard" className="text-xs font-semibold text-slate-400 hover:text-white transition">
+                            Portal Dashboard
+                        </a>
+                        <span className="text-slate-700">/</span>
+                        <span className="text-xs font-bold text-sky-400">Housing & Residence</span>
                     </div>
-                    {application && (
-                        <div className="mt-4 px-4 py-2.5 bg-sky-600/10 border border-sky-500/20 rounded-xl text-xs text-sky-300 flex items-center gap-2">
-                            <Icons.CheckCircle />
-                            <span>
-                                {application.housing_type === 'homestay'
-                                    ? `Homestay application active · Status: ${application.status.replace('_', ' ')}`
-                                    : `${(application.assigned_room as any)?.full_room_code ?? 'Room selected'} · Status: ${application.status.replace('_', ' ')}`}
-                            </span>
+
+                    <div className="flex items-center gap-4">
+                        <a href="/portal/payments" className="text-xs font-bold text-slate-300 hover:text-white transition px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10">
+                            Payments & Invoices
+                        </a>
+                        <a href="/sis/admin/housing" className="text-xs font-bold text-purple-300 hover:text-purple-200 transition px-3 py-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 hover:bg-purple-500/25">
+                            Admin Operations
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            {/* Main Header Banner */}
+            <div className="bg-gradient-to-r from-[#0a1628] via-[#0d2240] to-[#0a1628] border-b border-white/10 px-4 lg:px-8 py-8">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div className="flex items-center gap-3.5">
+                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center shadow-lg shadow-sky-500/20 text-white">
+                                <Icons.Building />
+                            </div>
+                            <div>
+                                <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-white">Student Housing & Residence Life</h1>
+                                <p className="text-slate-400 text-xs lg:text-sm mt-0.5">2026/2027 Academic Year · Cannoga College Residences & Homestay</p>
+                            </div>
                         </div>
-                    )}
+
+                        {application ? (
+                            <div className="px-4 py-2.5 bg-sky-500/10 border border-sky-500/25 rounded-2xl text-xs text-sky-300 flex items-center gap-2.5 shadow-inner">
+                                <Icons.CheckCircle />
+                                <div>
+                                    <div className="font-bold text-white">
+                                        {application.housing_type === 'homestay'
+                                            ? `Homestay: ${(application.homestay_host as any)?.host_name ?? 'Host Assigned'}`
+                                            : `${(application.assigned_room as any)?.full_room_code ?? 'Room Selected'}`}
+                                    </div>
+                                    <div className="text-[11px] text-sky-400 capitalize">
+                                        Status: {application.status.replace('_', ' ')}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="px-3.5 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs text-slate-400 flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                                <span>Fall 2026 Housing Applications Open</span>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
             {/* Tabs */}
-            <div className="max-w-6xl mx-auto px-4">
+            <div className="max-w-7xl mx-auto px-4 lg:px-8">
                 <div className="flex gap-1 border-b border-white/5 overflow-x-auto scrollbar-hide pt-2">
                     {TABS.map(tab => {
                         const Icon = tab.icon;

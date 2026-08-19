@@ -129,6 +129,18 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
         );
     }
 
+    const isHousingPage = pathname.startsWith('/portal/housing');
+
+    if (isHousingPage) {
+        return (
+            <div className="min-h-screen bg-[#0a0f1a] flex flex-col font-sans text-base" data-theme="portal">
+                <main className="flex-1 w-full">
+                    {children}
+                </main>
+            </div>
+        );
+    }
+
     return (
         <div className={`min-h-screen bg-white flex flex-col font-sans text-base`} data-theme="portal">
             <PortalHeader />
