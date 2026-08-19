@@ -77,7 +77,7 @@ export async function GET(_req: NextRequest) {
     const matches = (otherProfiles ?? [])
         .map((profile: Record<string, unknown>) => ({
             ...profile,
-            compatibility_score: computeCompatibility(myProfile as RoommateProfile, profile as RoommateProfile),
+            compatibility_score: computeCompatibility(myProfile as RoommateProfile, profile as unknown as RoommateProfile),
         }))
         .filter((m: Record<string, unknown>) => (m.compatibility_score as number) >= 40)
         .sort((a: Record<string, unknown>, b: Record<string, unknown>) => (b.compatibility_score as number) - (a.compatibility_score as number))
