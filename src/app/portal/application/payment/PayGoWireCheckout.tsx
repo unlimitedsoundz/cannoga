@@ -400,7 +400,18 @@ export default function PayGoWireCheckout({
                                         </label>
                                         <select
                                             id="country-select"
-                                            className="country-select w-full bg-transparent border-none focus:outline-none font-normal text-sm md:text-base text-slate-900 appearance-none cursor-pointer pr-8 leading-none"
+                                            className="country-select w-full bg-transparent font-normal text-sm md:text-base text-slate-900 cursor-pointer pr-8 leading-none"
+                                            style={{
+                                                border: 'none',
+                                                outline: 'none',
+                                                boxShadow: 'none',
+                                                backgroundColor: 'transparent',
+                                                padding: 0,
+                                                margin: 0,
+                                                WebkitAppearance: 'none',
+                                                MozAppearance: 'none',
+                                                appearance: 'none',
+                                            }}
                                             value={selectedCountryCode}
                                             onChange={(e) => {
                                                 const code = e.target.value;
