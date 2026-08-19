@@ -339,10 +339,6 @@ export default function HousingPortalPage() {
                     
                     <div className="relative z-10 w-full flex flex-col md:flex-row md:items-end justify-between gap-6">
                         <div className="max-w-2xl">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-white/20 text-white backdrop-blur-md mb-2">
-                                <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                                Fall 2026 Housing Portal
-                            </div>
                             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                                 Your Home in Ontario
                             </h1>
