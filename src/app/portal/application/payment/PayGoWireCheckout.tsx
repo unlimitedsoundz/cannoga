@@ -354,7 +354,7 @@ export default function PayGoWireCheckout({
                                         </span>
                                     </div>
                                 </div>
-                                <p className="fw-ds-text-xs fw-ds-font-medium fw-ds-text-gray-700 text-xs font-medium text-gray-700 mt-0.5 block leading-relaxed">
+                                <p className="text-[12px] font-medium text-gray-700 mt-0.5 block leading-relaxed" style={{ fontSize: '12px' }}>
                                     Amount will be formatted in the destination currency, in this case Canadian Dollars, i.e. 10,000.00 for ten thousand CAD.
                                 </p>
                             </div>
@@ -388,7 +388,7 @@ export default function PayGoWireCheckout({
                                     </div>
                                 </div>
 
-                                <p className="fw-ds-text-xs fw-ds-font-medium fw-ds-text-gray-700 text-xs font-medium text-gray-700 mt-0.5 block leading-relaxed">
+                                <p className="text-[12px] font-medium text-gray-700 mt-0.5 block leading-relaxed" style={{ fontSize: '12px' }}>
                                     Choose where your bank account, card, or payment wallet is based. This helps us show available payment methods.
                                 </p>
                             </div>
