@@ -199,8 +199,31 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: updateError.message }, { status: 500 });
         }
 
-        // 2. Update application status to ENROLLED
-        if (applicationId) {
+        // 2. If this is a housing deposit payment, update the linked housing_invoices and housing_applications
+        const isHousingType = payment.invoice_type === 'HOUSING_DEPOSIT' || String(payment.offer_id || '').startsWith('hdep');
+        if (isHousingType) {
+            const targetStudentId = application?.user_id || payment.student_id;
+            
+            // Settle housing invoice
+            if (targetStudentId) {
+                await adminClient
+                    .from('housing_invoices')
+                    .update({
+                        status: 'PAID',
+                        paid_amount: Number(payment.amount || 500),
+                    })
+                    .or(`student_id.eq.${targetStudentId},application_id.eq.${applicationId || ''}`);
+            }
+
+            // Settle housing application
+            if (targetStudentId) {
+                await adminClient
+                    .from('housing_applications')
+                    .update({ status: 'confirmed' })
+                    .or(`student_id.eq.${targetStudentId},id.eq.${applicationId || ''}`);
+            }
+        } else if (applicationId) {
+            // Update academic application status to ENROLLED
             await adminClient
                 .from('applications')
                 .update({ status: 'ENROLLED' })
