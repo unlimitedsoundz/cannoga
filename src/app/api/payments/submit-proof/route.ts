@@ -185,7 +185,7 @@ export async function POST(request: NextRequest) {
                 country: updated.country,
                 invoiceType: isHousingTable ? 'HOUSING_DEPOSIT' : (payment.invoice_type || 'TUITION_DEPOSIT'),
                 studentEmail: user.email,
-                link: `${process.env.NEXT_PUBLIC_APP_URL || 'https://cannoga.vercel.app'}/sis/admin/finance/verification-queue`
+                link: `${process.env.NEXT_PUBLIC_APP_URL || 'https://cannogacollege.ca'}/sis/admin/finance/verification-queue`
             }
         });
     } catch (emailErr) {

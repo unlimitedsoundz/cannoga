@@ -174,7 +174,7 @@ export async function POST(request: NextRequest) {
                         paymentReference: payment.transaction_reference,
                         title: 'Housing Deposit Verified ✓',
                         description: `Your housing reservation deposit of ${payment.currency || 'CAD'} ${Number(payment.amount).toLocaleString()} has been verified.`,
-                        link: `${process.env.NEXT_PUBLIC_APP_URL || 'https://cannoga.vercel.app'}/sis/payments`
+                        link: `${process.env.NEXT_PUBLIC_APP_URL || 'https://cannogacollege.ca'}/sis/payments`
                     }
                 });
             } catch (emailErr) {
@@ -371,7 +371,7 @@ export async function POST(request: NextRequest) {
                             receiptUrl: receiptUrl,
                             title: payment.invoice_type === 'HOUSING_DEPOSIT' ? 'Housing Deposit Verified ✓' : 'Payment Verified ✓',
                             description: `Your payment of ${payment.currency || 'CAD'} ${Number(payment.amount).toLocaleString()} has been verified.`,
-                            link: receiptUrl || `${process.env.NEXT_PUBLIC_APP_URL || 'https://cannoga.vercel.app'}/sis/payments`
+                            link: receiptUrl || `${process.env.NEXT_PUBLIC_APP_URL || 'https://cannogacollege.ca'}/sis/payments`
                         }
                     });
                 } catch (emailErr) {
