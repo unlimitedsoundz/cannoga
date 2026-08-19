@@ -52,6 +52,11 @@ img, video, iframe, canvas, svg,
 }
 
 /* Permit rounded-lg and custom border radii inside checkout specifically */
+.font-rubik .rounded-md,
+[data-font="rubik"] .rounded-md {
+    border-radius: 0.375rem !important;
+}
+
 .font-rubik .rounded-lg,
 [data-font="rubik"] .rounded-lg {
     border-radius: 0.5rem !important;
