@@ -39,7 +39,7 @@ select.country-select {
     margin: 0 !important;
 }
 
-/* Enforce precise 45.55px height on Country / Region input triggers */
+/* Enforce height on Country / Region input triggers: 45.55px mobile, 55.55px desktop */
 .font-rubik .country-trigger,
 [data-font="rubik"] .country-trigger,
 .country-trigger {
@@ -47,6 +47,16 @@ select.country-select {
     min-height: 45.55px !important;
     max-height: 45.55px !important;
     box-sizing: border-box !important;
+}
+
+@media (min-width: 768px) {
+    .font-rubik .country-trigger,
+    [data-font="rubik"] .country-trigger,
+    .country-trigger {
+        height: 55.55px !important;
+        min-height: 55.55px !important;
+        max-height: 55.55px !important;
+    }
 }
 
 /* ============================================
