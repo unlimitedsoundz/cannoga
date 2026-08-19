@@ -61,10 +61,10 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: `Room ${room.full_room_code || 'selected'} is no longer available (status: ${room.status})` }, { status: 409 });
         }
 
-        // Atomically update the room status to reserved
+        // Atomically update the room status to OCCUPIED
         const { error: updateErr } = await adminClient
             .from('housing_rooms')
-            .update({ status: 'reserved', updated_at: new Date().toISOString() })
+            .update({ status: 'OCCUPIED', updated_at: new Date().toISOString() })
             .eq('id', roomId);
 
         if (updateErr) {
@@ -77,8 +77,7 @@ export async function POST(req: NextRequest) {
             await adminClient
                 .from('housing_rooms')
                 .update({ status: 'AVAILABLE', updated_at: new Date().toISOString() })
-                .eq('id', existingApp.assigned_room_id)
-                .eq('status', 'reserved');
+                .eq('id', existingApp.assigned_room_id);
         }
     }
 
