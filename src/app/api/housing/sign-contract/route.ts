@@ -72,11 +72,12 @@ export async function POST(req: NextRequest) {
     if (invErr) {
         console.error('[POST /api/housing/sign-contract] invoice creation:', invErr);
         // Continue anyway — contract is still recorded
-    } else {
-        // Trigger in-app notification in notifications table
+        // Trigger in-app notification and email dispatch
         try {
             const bName = (application.assigned_room as any)?.building?.name ?? 'Residence';
             const rCode = (application.assigned_room as any)?.full_room_code ? ` · Room ${(application.assigned_room as any)?.full_room_code}` : '';
+            
+            // 1. In-app notification
             await adminClient.from('notifications').insert({
                 user_id: user.id,
                 title: 'New Invoice Issued: Housing Security Deposit',
@@ -91,8 +92,25 @@ export async function POST(req: NextRequest) {
                 read: false,
                 created_at: now
             });
+
+            // 2. Email notification via Edge Function / triggerNotification
+            const { triggerNotification } = await import('@/lib/email');
+            await triggerNotification({
+                type: 'INVOICE_READY',
+                applicationId: applicationId,
+                additionalData: {
+                    userEmail: user.email,
+                    amount: DEPOSIT_CAD,
+                    currency: 'CAD',
+                    invoiceType: 'HOUSING_DEPOSIT',
+                    invoiceNumber: invRef,
+                    description: `Housing Security Deposit (${bName}${rCode})`,
+                    dueDate: invoice?.due_date,
+                    link: `${process.env.NEXT_PUBLIC_APP_URL || 'https://cannoga.vercel.app'}/sis/payments`
+                }
+            });
         } catch (notifErr) {
-            console.warn('[housing sign-contract] Could not insert notification:', notifErr);
+            console.warn('[housing sign-contract] Could not dispatch notification/email:', notifErr);
         }
     }
 
