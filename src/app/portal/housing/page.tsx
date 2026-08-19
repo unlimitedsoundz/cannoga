@@ -746,7 +746,7 @@ export default function HousingPortalPage() {
                                                                                 disabled={reserving}
                                                                                 className="px-3.5 py-2 bg-white hover:bg-neutral-100 disabled:opacity-50 rounded-lg text-xs font-black text-black transition-all shadow-xs shrink-0 text-center"
                                                                             >
-                                                                                {reserving ? 'Reserving...' : 'Reserve Bed →'}
+                                                                                {reserving ? 'Reserving...' : 'Reserve Bed'}
                                                                             </button>
                                                                         </div>
                                                                     )}
@@ -927,7 +927,7 @@ export default function HousingPortalPage() {
                                                                 disabled={reserving}
                                                                 className="px-5 py-2.5 bg-white hover:bg-neutral-100 disabled:opacity-50 rounded-lg text-xs sm:text-sm font-black text-black transition-all shadow-sm shrink-0 cursor-pointer text-center"
                                                             >
-                                                                {reserving ? 'Reserving...' : 'Reserve This Bed →'}
+                                                                {reserving ? 'Reserving...' : 'Reserve This Bed'}
                                                             </button>
                                                         </div>
                                                     )}
@@ -1036,7 +1036,7 @@ export default function HousingPortalPage() {
                                                     </div>
                                                     <button onClick={handleReserve} disabled={reserving || (selectedHost.spots_available ?? 0) === 0}
                                                         className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-50 rounded-xl text-sm font-bold text-white transition-all">
-                                                        {reserving ? 'Applying...' : 'Apply for Homestay →'}
+                                                        {reserving ? 'Applying...' : 'Apply for Homestay'}
                                                     </button>
                                                 </div>
                                             )}
@@ -1621,7 +1621,7 @@ export default function HousingPortalPage() {
                                 setShowWOModal(false);
                             }}
                                 className="w-full py-3 bg-[#0a151a] hover:bg-slate-800 rounded-xl font-bold text-sm text-white transition-all shadow-xs cursor-pointer">
-                                Submit Work Order →
+                                Submit Work Order
                             </button>
                         </div>
                     </div>
@@ -1812,7 +1812,7 @@ export default function HousingPortalPage() {
                                 }}
                                 className="w-full py-3 bg-[#0a151a] hover:bg-black text-white font-bold text-sm rounded-xl transition cursor-pointer shadow-xs"
                             >
-                                Confirm Guest Pass Registration →
+                                Confirm Guest Pass Registration
                             </button>
                         </div>
                     </div>
