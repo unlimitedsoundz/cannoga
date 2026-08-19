@@ -136,7 +136,7 @@ export default function AdminLayout({
         { href: '/sis/admin/departments', label: 'Departments', icon: SchoolIcon },
         { href: '/sis/admin/faculty', label: 'Faculty Editor', icon: Users },
         { href: '/sis/admin/registrar', label: 'Registrar', icon: FileText },
-        { href: '/sis/admin/finance/invoices', label: 'Finance & Invoices', icon: InvoiceIcon },
+        { href: '/sis/admin/finance/verification-queue', label: 'Wire Verification', icon: InvoiceIcon },
         { href: '/sis/admin/finance/settings', label: 'Finance Settings', icon: Gear },
     ];
 

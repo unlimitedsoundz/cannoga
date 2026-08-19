@@ -18,7 +18,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
     const [isProcessing, setIsProcessing] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [isBreakdownOpen, setIsBreakdownOpen] = useState(false);
-    
+
     // Admin-pushed invoice values
     const finalAmount = admissionOffer.tuition_fee || 0;
     const rawInvoiceType = admissionOffer.invoice_type || 'TUITION_DEPOSIT';
@@ -138,7 +138,8 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
 
     return (
         <div className="max-w-6xl mx-auto py-8 md:py-12 px-4 font-rubik text-slate-900" style={{ fontFamily: "'Rubik', sans-serif" }}>
-            <style dangerouslySetInnerHTML={{ __html: `
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
                 .font-rubik,
                 .font-rubik * {
@@ -153,7 +154,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
 
             {/* Payment History & Receipts (if any) */}
             {(() => {
-                const verifiedPayments = payments.filter((p: any) => 
+                const verifiedPayments = payments.filter((p: any) =>
                     p.status && !['pending_proof', 'PENDING_PROOF', 'CANCELLED', 'FAILED'].includes(p.status)
                 );
                 if (verifiedPayments.length === 0) return null;
@@ -204,7 +205,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                     <div className="lg:hidden flex flex-row p-4 gap-3 bg-blue-50 border border-blue-600 rounded-lg">
                         <div className="text-blue-600 mt-0.5 shrink-0">
                             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
                             </svg>
                         </div>
                         <div className="space-y-1">
@@ -234,7 +235,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                     <div className="hidden lg:flex flex-row p-4 gap-3 bg-blue-50 border border-blue-600 rounded-lg">
                         <div className="text-blue-600 mt-0.5 shrink-0">
                             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
                             </svg>
                         </div>
                         <div className="space-y-1">
@@ -298,7 +299,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                     {/* Bottom Security Footer */}
                     <div className="flex items-center gap-2 text-[11px] text-slate-500 px-1 pt-1">
                         <svg className="w-3.5 h-3.5 fill-current text-slate-400" viewBox="0 0 24 24">
-                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
                         </svg>
                         <span>Encrypted, verified, and secure payments, trusted by millions.</span>
                     </div>

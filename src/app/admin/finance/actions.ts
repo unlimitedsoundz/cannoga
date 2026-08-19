@@ -75,6 +75,8 @@ export async function getPendingPayments() {
         .from('housing_payments')
         .select(`
             id,
+            invoice_id,
+            student_id,
             amount,
             currency,
             payment_method,
@@ -82,13 +84,14 @@ export async function getPendingPayments() {
             created_at,
             status,
             metadata,
+            invoice:housing_invoices(id, status, paid_amount, total_amount),
             student:students(
                 id,
                 user:profiles(first_name, last_name, email),
                 application:applications(id, personal_info, course:Course(title))
             )
         `)
-        .in('status', ['pending', 'PENDING_VERIFICATION', 'PENDING'])
+        .in('status', ['pending', 'PENDING_VERIFICATION', 'PENDING', 'completed', 'COMPLETED'])
         .order('created_at', { ascending: false });
 
     if (housingError) {
@@ -109,6 +112,13 @@ export async function getPendingPayments() {
     (housingData || []).forEach(h => {
         const studentUser = (h as any).student?.user;
         const studentApp = (h as any).student?.application;
+        const invoice = (h as any).invoice;
+
+        // Skip if the invoice is already fully settled (paid_amount >= total_amount)
+        // so we don't surface duplicate entries after admin has already confirmed.
+        const invoicePaid = invoice && Number(invoice.paid_amount || 0) >= Number(invoice.total_amount || 0);
+        if (invoicePaid && invoice?.status === 'PAID') return;
+
         list.push({
             id: h.id,
             amount: h.amount,
@@ -372,16 +382,52 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
             // 1. Mark housing payment as completed
             await supabase
                 .from('housing_payments')
-                .update({ status: 'completed' })
+                .update({ status: 'completed', paid_at: new Date().toISOString() })
                 .eq('id', paymentId);
 
-            // 2. Mark corresponding housing application as RESERVED / PAID
+            // 2. Update the linked housing_invoice paid_amount and status
+            if (housingRecord.invoice_id) {
+                const { data: invoice } = await supabase
+                    .from('housing_invoices')
+                    .select('total_amount, paid_amount')
+                    .eq('id', housingRecord.invoice_id)
+                    .maybeSingle();
+
+                if (invoice) {
+                    const newPaid = (Number(invoice.paid_amount) || 0) + Number(housingRecord.amount || 0);
+                    const isPaid = newPaid >= Number(invoice.total_amount);
+                    await supabase
+                        .from('housing_invoices')
+                        .update({
+                            paid_amount: newPaid,
+                            status: isPaid ? 'PAID' : 'PARTIALLY_PAID',
+                        })
+                        .eq('id', housingRecord.invoice_id);
+                }
+            }
+
+            // 3. Mark corresponding housing application as RESERVED / PAID
             const studentId = housingRecord.student_id;
             if (studentId) {
                 await supabase
                     .from('housing_applications')
                     .update({ status: 'RESERVED', deposit_paid: true })
                     .or(`student_id.eq.${studentId},id.eq.${housingRecord.invoice_id}`);
+            }
+
+            // 4. Send confirmation notification to student
+            try {
+                await supabase.functions.invoke('send-notification', {
+                    body: {
+                        type: 'HOUSING_PAYMENT_VERIFIED',
+                        paymentId,
+                        studentId,
+                        amount: housingRecord.amount,
+                        currency: housingRecord.currency || 'CAD',
+                    },
+                });
+            } catch (notifyErr) {
+                console.error('[verifyTuitionPayment] Failed to send housing payment notification:', notifyErr);
             }
 
             return { success: true };

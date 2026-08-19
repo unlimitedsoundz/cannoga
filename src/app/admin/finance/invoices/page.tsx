@@ -315,7 +315,7 @@ export default function AdminInvoicesPage() {
                     )}
                 </h2>
                 <p className="text-neutral-500 text-sm mb-4">
-                    These are payments students submitted through the secure checkout for additional invoices (e.g. 2nd instalments). Verify and accept each one to issue the official receipt.
+                    Wire payments submitted by students — including tuition deposits, tuition instalments, and housing reservation deposits. Verify and accept each one to settle the invoice and issue an official receipt.
                 </p>
 
                 <div className="bg-white border border-neutral-200 overflow-hidden">
@@ -338,8 +338,11 @@ export default function AdminInvoicesPage() {
                                     </td>
                                 </tr>
                             ) : (
-                                pendingPayments.map((payment: any) => (
-                                    <tr key={payment.id} className="hover:bg-neutral-50 transition-colors block md:table-row p-4 md:p-0">
+                                pendingPayments.map((payment: any) => {
+                                    const isAutoCompleted = payment.category === 'HOUSING' &&
+                                        (payment.status === 'completed' || payment.status === 'COMPLETED');
+                                    return (
+                                    <tr key={payment.id} className={`hover:bg-neutral-50 transition-colors block md:table-row p-4 md:p-0 ${isAutoCompleted ? 'bg-amber-50/40' : ''}`}>
                                         <td className="block md:table-cell py-2 md:p-4">
                                             <div className="font-bold text-neutral-900 text-sm">
                                                 {payment.app?.user?.first_name || payment.app?.personal_info?.firstName || 'Student'} {payment.app?.user?.last_name || payment.app?.personal_info?.lastName || ''}
@@ -353,6 +356,11 @@ export default function AdminInvoicesPage() {
                                             <span className={`px-2 py-1 ${payment.category === 'HOUSING' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'} rounded-none text-[9px] font-bold uppercase flex items-center gap-1 w-fit`}>
                                                 {payment.invoice_type?.replace(/_/g, ' ')}
                                             </span>
+                                            {isAutoCompleted && (
+                                                <span className="mt-1 px-2 py-0.5 bg-amber-100 text-amber-700 rounded-none text-[9px] font-bold uppercase flex items-center gap-1 w-fit">
+                                                    ⚠ Needs Settlement
+                                                </span>
+                                            )}
                                         </td>
                                         <td className="block md:table-cell py-1 md:p-4 text-sm font-bold text-neutral-900">
                                             $ {payment.amount?.toLocaleString()}
@@ -371,11 +379,12 @@ export default function AdminInvoicesPage() {
                                                 ) : (
                                                     <ShieldCheck size={14} weight="bold" />
                                                 )}
-                                                {verifyLoading === payment.id ? 'Verifying...' : 'Verify & Accept'}
+                                                {verifyLoading === payment.id ? 'Verifying...' : (isAutoCompleted ? 'Settle Payment' : 'Verify & Accept')}
                                             </button>
                                         </td>
                                     </tr>
-                                ))
+                                    );
+                                })
                             )}
                         </tbody>
                     </table>

@@ -40,8 +40,11 @@ export async function POST(request: NextRequest) {
 
     const adminClient = createServiceRoleClient();
 
-    // Fetch the full payment record with application context
-    const { data: payment, error: fetchError } = await adminClient
+    // 1. Check tuition_payments first, then housing_payments
+    let isHousing = false;
+    let payment: any = null;
+
+    const { data: tuitionPayment } = await adminClient
         .from('tuition_payments')
         .select(`
             *,
@@ -57,16 +60,130 @@ export async function POST(request: NextRequest) {
             )
         `)
         .eq('id', paymentId)
-        .single();
+        .maybeSingle();
 
-    if (fetchError || !payment) {
+    if (tuitionPayment) {
+        payment = tuitionPayment;
+    } else {
+        const { data: housingPayment } = await adminClient
+            .from('housing_payments')
+            .select(`
+                *,
+                invoice:housing_invoices(*),
+                student:students(
+                    id,
+                    user:profiles(*),
+                    application:applications(
+                        *,
+                        course:Course(*, school:School(*))
+                    )
+                )
+            `)
+            .eq('id', paymentId)
+            .maybeSingle();
+
+        if (housingPayment) {
+            payment = housingPayment;
+            isHousing = true;
+        }
+    }
+
+    if (!payment) {
         return NextResponse.json({ error: 'Payment not found' }, { status: 404 });
     }
 
-    const application = (payment as any)?.offer?.application;
+    const application = isHousing
+        ? (payment.student?.application || null)
+        : (payment as any)?.offer?.application;
     const applicationId = application?.id;
 
     const now = new Date().toISOString();
+
+    if (isHousing) {
+        if (action === 'approve') {
+            // 1. Mark housing payment as completed
+            await adminClient
+                .from('housing_payments')
+                .update({ status: 'completed', paid_at: now })
+                .eq('id', paymentId);
+
+            // 2. Update the linked housing invoice
+            if (payment.invoice_id) {
+                const { data: inv } = await adminClient
+                    .from('housing_invoices')
+                    .select('total_amount, paid_amount')
+                    .eq('id', payment.invoice_id)
+                    .maybeSingle();
+
+                if (inv) {
+                    const newPaid = (Number(inv.paid_amount) || 0) + Number(payment.amount || 0);
+                    const isPaid = newPaid >= Number(inv.total_amount);
+                    await adminClient
+                        .from('housing_invoices')
+                        .update({
+                            paid_amount: newPaid,
+                            status: isPaid ? 'PAID' : 'PARTIALLY_PAID',
+                        })
+                        .eq('id', payment.invoice_id);
+                }
+            }
+
+            // 3. Mark corresponding housing application as RESERVED / APPROVED
+            const studentId = payment.student_id;
+            if (studentId) {
+                await adminClient
+                    .from('housing_applications')
+                    .update({ status: 'RESERVED', deposit_paid: true })
+                    .or(`student_id.eq.${studentId},id.eq.${payment.invoice_id}`);
+            }
+
+            // 4. Notify student
+            const targetUserId = payment.student?.user?.id || application?.user_id;
+            if (targetUserId) {
+                try {
+                    await adminClient.from('notifications').insert({
+                        user_id: targetUserId,
+                        type: 'wire_payment_approved',
+                        title: 'Housing Deposit Verified ✓',
+                        message: `Your housing deposit of ${payment.currency || 'CAD'} ${Number(payment.amount).toLocaleString()} has been verified and confirmed.`,
+                        metadata: {
+                            payment_id: paymentId,
+                            tracking_ref: payment.transaction_reference,
+                        },
+                        is_read: false,
+                    });
+                } catch (notifErr) {
+                    console.error('[verify-wire] housing notification error:', notifErr);
+                }
+            }
+
+            return NextResponse.json({ success: true, action: 'approved' });
+        } else {
+            // Reject housing payment
+            await adminClient
+                .from('housing_payments')
+                .update({ status: 'failed' })
+                .eq('id', paymentId);
+
+            const targetUserId = payment.student?.user?.id || application?.user_id;
+            if (targetUserId) {
+                try {
+                    await adminClient.from('notifications').insert({
+                        user_id: targetUserId,
+                        type: 'wire_payment_rejected',
+                        title: 'Housing Payment Verification Failed',
+                        message: `Your housing wire payment could not be verified. Reason: ${adminNotes}.`,
+                        metadata: { payment_id: paymentId, admin_notes: adminNotes },
+                        is_read: false,
+                    });
+                } catch (notifErr) {
+                    console.error('[verify-wire] housing reject error:', notifErr);
+                }
+            }
+
+            return NextResponse.json({ success: true, action: 'rejected' });
+        }
+    }
 
     if (action === 'approve') {
         // 1. Mark payment as COMPLETED

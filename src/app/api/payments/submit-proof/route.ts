@@ -95,9 +95,22 @@ export async function POST(request: NextRequest) {
     // Only allow proof submission when status is pending / pending_proof
     const allowedStatuses = ['PENDING', 'pending', 'pending_proof', 'PENDING_VERIFICATION', 'INITIATED', 'PROCESSING'];
     if (!allowedStatuses.includes(payment.status)) {
-        return NextResponse.json({
-            error: `Cannot submit proof for a payment with status: ${payment.status}`,
-        }, { status: 400 });
+        // Special case: housing payment is 'completed' from old auto-verify but invoice not yet
+        // admin-settled. Reset to pending so admin can see and confirm it in the finance queue.
+        if (isHousingTable && (payment.status === 'completed' || payment.status === 'COMPLETED')) {
+            const { error: resetErr } = await adminSupabase
+                .from('housing_payments')
+                .update({ status: 'pending' })
+                .eq('id', payment.id);
+            if (!resetErr) {
+                payment.status = 'pending';
+                // fall through to normal proof-submission flow below
+            }
+        } else {
+            return NextResponse.json({
+                error: `Cannot submit proof for a payment with status: ${payment.status}`,
+            }, { status: 400 });
+        }
     }
 
     const resolvedAppId = (payment as any)?.offer?.application_id;

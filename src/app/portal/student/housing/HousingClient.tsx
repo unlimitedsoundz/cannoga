@@ -6,7 +6,7 @@ import { House as Home, Bed, CurrencyEur as DollarSign, CheckCircle, Clock, Warn
 import { formatToDDMMYYYY } from '@/utils/date';
 import { HousingApplication, HousingAssignment, HousingDeposit, HousingBuilding, Semester, HousingInvoice, PaymentMethod } from '@/types/database';
 import { submitHousingApplication } from '@/services/housing';
-import { initiatePayment, verifyPayment } from '@/services/payment';
+import { initiatePayment } from '@/services/payment';
 import PayGoWireCheckout from '../../application/payment/PayGoWireCheckout';
 import HousingCatalogView, { BUILDINGS_CATALOG } from './HousingCatalogView';
 
@@ -53,7 +53,7 @@ export default function HousingDashboardClient({ student, application, assignmen
             // Also include if it's a housing invoice for this student (even if not linked)
             // This handles manually created invoices by admin that might have missed the linkage
             const isStudentHousingInvoice = inv.student_id === student.id;
-            
+
             return isLinked || isStudentHousingInvoice;
         })
         .reduce((sum, inv) => sum + (inv.paid_amount || 0), 0);
@@ -76,9 +76,9 @@ export default function HousingDashboardClient({ student, application, assignmen
         setError('');
 
         const rentingMode = formData.get('rentingMode') as string;
-        
+
         let formattedNotes = `Housing Preference: ${rentingMode}`;
-        
+
         let totalContractValue = 0;
         const b = BUILDINGS_CATALOG.find(x => x.id === catalogBuildingId);
         const a = b?.apartments.find(x => x.id === catalogApartmentId);
@@ -136,11 +136,10 @@ export default function HousingDashboardClient({ student, application, assignmen
         setPaying(true);
         try {
             const result = await initiatePayment(selectedInvoice.id, paymentMethod, billingCountry);
-            if (result.success && result.paymentUrl) {
-                // For other methods, we might redirect or show different UI
-                alert(`Redirecting to ${paymentMethod} Gateway...`);
-                await verifyPayment(result.transactionId!);
-                window.location.reload();
+            if (result.success && result.transactionId) {
+                // Redirect to the finance page so the student can track pending
+                // verification — admin will settle it from the wire queue.
+                window.location.href = '/sis/payments';
             } else {
                 alert('Payment failed: ' + result.error);
             }
@@ -158,12 +157,9 @@ export default function HousingDashboardClient({ student, application, assignmen
         try {
             const result = await initiatePayment(selectedInvoice.id, 'BANK_TRANSFER', details.country || 'Ottawa, Ontario, Canada');
             if (result.success && result.transactionId) {
-                // Here we verify the transaction
-                await verifyPayment(result.transactionId);
-                setSuccess(true);
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1500);
+                // Redirect to the finance page — admin will settle the payment
+                // from the wire verification queue in /admin/finance/invoices.
+                window.location.href = '/sis/payments';
             } else {
                 alert('Payment failed: ' + result.error);
                 setPaying(false);
@@ -180,7 +176,8 @@ export default function HousingDashboardClient({ student, application, assignmen
     return (
         <div className={`space-y-8 ${showReceipt ? 'print:hidden' : ''}`}>
             {showReceipt && (
-                <style dangerouslySetInnerHTML={{ __html: `
+                <style dangerouslySetInnerHTML={{
+                    __html: `
                     @media print {
                         body > *:not(#receipt-root) {
                             display: none !important;
@@ -254,22 +251,22 @@ export default function HousingDashboardClient({ student, application, assignmen
                 <div id="receipt-root" className="fixed inset-0 bg-white z-[10000] flex flex-col overflow-y-auto font-sans print:overflow-visible">
                     {/* Top Bar for Mobile/Desktop Navigation */}
                     <div className="sticky top-0 bg-white/80 backdrop-blur-sm border-b border-neutral-100 p-4 flex justify-end no-print">
-                        <button 
+                        <button
                             onClick={() => setShowReceipt(false)}
                             className="text-[10px] font-black uppercase tracking-widest underline text-black px-4 py-2"
                         >
                             Back to Dashboard
                         </button>
                     </div>
-                    
+
                     <div className="p-6 md:p-16 print:p-0 print:m-0">
                         <div className="max-w-xl mx-auto w-full space-y-8 print:space-y-4 break-inside-avoid">
                             {/* Header */}
                             <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-[#0a151a] pb-6 gap-6 print:pb-4">
                                 <div className="space-y-4 print:space-y-2">
-                                    <img 
-                                        src="/images/logo-cannoga.png" 
-                                        alt="Cannoga College" 
+                                    <img
+                                        src="/images/logo-cannoga.png"
+                                        alt="Cannoga College"
                                         className="h-10 w-auto"
                                     />
                                     <div className="space-y-1">
@@ -278,7 +275,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                     </div>
                                 </div>
                                 <div className="text-left md:text-right space-y-1">
-                                    <p className="text-[10px] font-black uppercase text-black">Receipt No: KU-HS-{application.id.slice(0,8).toUpperCase()}</p>
+                                    <p className="text-[10px] font-black uppercase text-black">Receipt No: KU-HS-{application.id.slice(0, 8).toUpperCase()}</p>
                                     <p className="text-[10px] font-black uppercase text-black">Date: {new Date().toLocaleDateString('en-GB')}</p>
                                 </div>
                             </div>
@@ -335,7 +332,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                             {/* Footer */}
                             <div className="pt-16 space-y-6 print:pt-8 print:space-y-2">
                                 <div className="pt-8 flex justify-between items-center no-print">
-                                    <button 
+                                    <button
                                         onClick={() => window.print()}
                                         className="px-8 py-3 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest hover:opacity-80 transition-all"
                                     >
@@ -364,9 +361,9 @@ export default function HousingDashboardClient({ student, application, assignmen
                     <div className="grid md:grid-cols-2 gap-8 mb-8">
                         <div>
                             {assignment.room?.images?.[0] ? (
-                                <img 
-                                    src={assignment.room.images[0]} 
-                                    alt="Room" 
+                                <img
+                                    src={assignment.room.images[0]}
+                                    alt="Room"
                                     className="w-full aspect-video object-cover mb-4"
                                 />
                             ) : (
@@ -374,7 +371,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                     <Bed size={48} className="text-black" />
                                 </div>
                             )}
-                            
+
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="py-4">
                                     <p className="text-[10px] font-black uppercase text-black mb-1">Building</p>
@@ -422,7 +419,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                             )}
 
                             <div className="flex justify-end pb-4">
-                                <button 
+                                <button
                                     onClick={() => setShowReceipt(true)}
                                     className="px-6 py-2.5 bg-[#0a151a] text-white text-[9px] font-black uppercase tracking-widest hover:bg-[#0a151a]/90 transition-all shadow-none"
                                 >
@@ -433,7 +430,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                             <div className="py-4 rounded-none">
                                 <p className="text-[10px] font-black uppercase mb-1 text-black">Arrival Instructions</p>
                                 <p className="text-[11px] leading-relaxed text-black font-medium">
-                                    Pick up your keys from the Housing Office (Mon-Fri 09:00-16:00). 
+                                    Pick up your keys from the Housing Office (Mon-Fri 09:00-16:00).
                                     Please bring your ID and Admission Letter.
                                 </p>
                             </div>
@@ -452,7 +449,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                             </h2>
                             <p className="text-[10px] font-black uppercase text-black">
                                 {application.status === 'APPROVED' || application.status === 'ASSIGNED' || totalPaid > 0
-                                    ? 'Awaiting Confirmation from Housing Office' 
+                                    ? 'Awaiting Confirmation from Housing Office'
                                     : 'Currently Under Review'}
                             </p>
                         </div>
@@ -488,7 +485,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                         </div>
 
                         <div className="flex justify-end mt-4">
-                            <button 
+                            <button
                                 onClick={() => setShowReceipt(true)}
                                 className="px-6 py-2.5 border-2 border-[#0a151a] text-black text-[9px] font-black uppercase tracking-widest hover:bg-[#0a151a] hover:text-white transition-all shadow-none"
                             >
@@ -569,8 +566,8 @@ export default function HousingDashboardClient({ student, application, assignmen
                                                 <p className="font-bold text-sm text-black">{BUILDINGS_CATALOG.find(b => b.id === catalogBuildingId)?.name}</p>
                                                 <p className="text-xs text-neutral-600">{BUILDINGS_CATALOG.find(b => b.id === catalogBuildingId)?.apartments.find(a => a.id === catalogApartmentId)?.type}</p>
                                             </div>
-                                            <button 
-                                                type="button" 
+                                            <button
+                                                type="button"
                                                 onClick={() => setShowCatalog(true)}
                                                 className="text-[10px] font-black uppercase tracking-widest underline text-black hover:text-neutral-600"
                                             >
@@ -580,8 +577,8 @@ export default function HousingDashboardClient({ student, application, assignmen
                                     ) : (
                                         <div className="flex justify-between items-center">
                                             <p className="text-sm text-neutral-500">No property selected</p>
-                                            <button 
-                                                type="button" 
+                                            <button
+                                                type="button"
                                                 onClick={() => setShowCatalog(true)}
                                                 className="px-4 py-2 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest hover:bg-neutral-800 transition-colors"
                                             >
@@ -622,7 +619,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                         <p className="text-xs text-black">You can apply for an apartment as soon as you are admitted to Cannoga College.</p>
                                         <p className="text-[10px] text-black mt-1">*Mandatory field</p>
                                     </div>
-                                    
+
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-black mb-2">
                                             I want to rent a student apartment*
