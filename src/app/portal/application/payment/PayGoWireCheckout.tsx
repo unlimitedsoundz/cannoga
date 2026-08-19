@@ -432,7 +432,7 @@ export default function PayGoWireCheckout({
                                             <option value="" disabled>Select your payment country or region...</option>
                                             {fullCountryList.map(c => (
                                                 <option key={c.country_code} value={c.country_code}>
-                                                    {c.country_flag} {c.country_name}
+                                                    {c.country_name}
                                                 </option>
                                             ))}
                                         </select>
