@@ -63,19 +63,9 @@ export function CannogaAIChatWidget() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Auto popup when user enters home page ('/')
+    // Chatbot stays closed by default until clicked
     useEffect(() => {
-        if (pathname === '/') {
-            const hasPopped = sessionStorage.getItem('cannoga_ai_chat_popped');
-            if (!hasPopped) {
-                const timer = setTimeout(() => {
-                    setIsOpen(true);
-                    setHasUnread(true);
-                    sessionStorage.setItem('cannoga_ai_chat_popped', 'true');
-                }, 2500);
-                return () => clearTimeout(timer);
-            }
-        }
+        // Keeps user interaction explicit
     }, [pathname]);
 
     // Scroll to bottom when messages update
