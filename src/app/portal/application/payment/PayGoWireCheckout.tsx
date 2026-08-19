@@ -339,7 +339,7 @@ export default function PayGoWireCheckout({
                             
                             {/* Section 1: Institution receives */}
                             <div className="space-y-2 mb-6">
-                                <label className="text-[14px] font-semibold text-slate-800 block">
+                                <label className="text-xl md:text-lg font-normal text-gray-950 block">
                                     Cannoga College - Ontario, CA receives
                                 </label>
                                 
@@ -361,7 +361,7 @@ export default function PayGoWireCheckout({
 
                             {/* Section 2: Country origin */}
                             <div className="space-y-2">
-                                <label className="text-[14px] font-semibold text-slate-800 block">
+                                <label className="text-xl md:text-lg font-normal text-gray-950 block">
                                     The payment will come from
                                 </label>
                                 <div className="relative">
