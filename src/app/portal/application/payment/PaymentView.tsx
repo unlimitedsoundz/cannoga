@@ -215,30 +215,30 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                             <svg className="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
                             </svg>
-                            <h3 className="text-sm md:text-[15px] font-bold text-slate-900">
+                            <h3 className="text-[14px] font-bold text-slate-900">
                                 Cannoga College - Ontario, CA partners with Flywire
                             </h3>
                         </div>
-                        <p className="text-xs md:text-[14px] text-slate-600 leading-relaxed pl-7">
+                        <p className="text-[13px] text-slate-600 leading-relaxed pl-7">
                             Pay securely. Cannoga College - Ontario, CA receives your payment in CAD with no hidden fees.
                         </p>
                     </div>
 
                     {/* Why use Flywire? Feature Card */}
                     <div className="bg-white border border-slate-200 rounded-xl p-5 md:p-6 space-y-5 shadow-xs">
-                        <h4 className="text-sm md:text-base font-bold text-slate-900">
+                        <h4 className="text-[15px] font-bold text-slate-900">
                             Why use Flywire?
                         </h4>
 
-                        <div className="space-y-4 text-xs md:text-[14px]">
+                        <div className="space-y-4">
                             {/* Feature 1 */}
                             <div className="flex items-start gap-3">
                                 <div className="text-[#0066cc] mt-0.5 shrink-0">
                                     <Clock size={18} weight="bold" />
                                 </div>
                                 <div className="space-y-0.5">
-                                    <p className="font-bold text-slate-900">Real-time payment tracking</p>
-                                    <p className="text-slate-500 leading-relaxed">
+                                    <p className="text-[14px] font-bold text-slate-900">Real-time payment tracking</p>
+                                    <p className="text-[13px] text-slate-500 leading-relaxed">
                                         See your payment status every step of the way, we keep you informed.
                                     </p>
                                 </div>
@@ -250,8 +250,8 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                                     <CheckCircle size={18} weight="bold" />
                                 </div>
                                 <div className="space-y-0.5">
-                                    <p className="font-bold text-slate-900">No hidden fees</p>
-                                    <p className="text-slate-500 leading-relaxed">
+                                    <p className="text-[14px] font-bold text-slate-900">No hidden fees</p>
+                                    <p className="text-[13px] text-slate-500 leading-relaxed">
                                         See your total before you commit. The amount you confirm is what you pay.
                                     </p>
                                 </div>
@@ -260,11 +260,11 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                             {/* Feature 3 */}
                             <div className="flex items-start gap-3">
                                 <div className="text-[#0066cc] mt-0.5 shrink-0">
-                                    <span className="font-bold text-base leading-none">文A</span>
+                                    <span className="font-bold text-[15px] leading-none">文A</span>
                                 </div>
                                 <div className="space-y-0.5">
-                                    <p className="font-bold text-slate-900">Get help anytime, in your preferred language</p>
-                                    <p className="text-slate-500 leading-relaxed">
+                                    <p className="text-[14px] font-bold text-slate-900">Get help anytime, in your preferred language</p>
+                                    <p className="text-[13px] text-slate-500 leading-relaxed">
                                         Our global team supports payers in English, Hindi, Mandarin, and many more.
                                     </p>
                                 </div>
