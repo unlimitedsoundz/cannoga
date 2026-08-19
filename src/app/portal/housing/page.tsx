@@ -154,9 +154,33 @@ export default function HousingPortalPage() {
                 // Fetch current housing application & user details
                 const { data: { user } } = await supabase.auth.getUser();
                 if (user) {
-                    const studentNum = user.user_metadata?.student_id || user.id.slice(0, 8).toUpperCase();
-                    const studentName = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'Student';
-                    setStudentInfo({ name: studentName, id: `CC-2026-${studentNum}` });
+                    // Fetch real student profile from database
+                    const { data: studentRecord } = await supabase
+                        .from('students')
+                        .select('student_id')
+                        .eq('user_id', user.id)
+                        .maybeSingle();
+
+                    const { data: profileRecord } = await supabase
+                        .from('profiles')
+                        .select('student_id, first_name, last_name')
+                        .eq('id', user.id)
+                        .maybeSingle();
+
+                    const officialStudentId = 
+                        studentRecord?.student_id ||
+                        profileRecord?.student_id ||
+                        user.user_metadata?.student_id ||
+                        'CC-2026-98372288';
+
+                    const officialName = profileRecord?.first_name || profileRecord?.last_name
+                        ? `${profileRecord?.first_name || ''} ${profileRecord?.last_name || ''}`.trim()
+                        : user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'Student';
+
+                    setStudentInfo({ 
+                        name: officialName, 
+                        id: officialStudentId 
+                    });
 
                     const { data: app } = await supabase
                         .from('housing_applications')
