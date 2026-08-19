@@ -63,16 +63,14 @@ export default function AdminInvoicesPage() {
 
             setApplications(formattedApps);
 
-            // Fetch tuition payments awaiting verification (subsequent invoices).
-            // Uses server action to bypass RLS so admin can see all pending payments.
+            // Fetch wire payments awaiting verification (tuition and housing deposits).
             try {
                 const pending = await getPendingPayments();
-                const enriched = pending
-                    .map((p: any) => {
-                        const app = formattedApps.find((a: any) => a.offer?.id === p.offer_id);
-                        return { ...p, app };
-                    })
-                    .filter((p: any) => p.app);
+                const enriched = pending.map((p: any) => {
+                    if (p.app?.user?.email) return p;
+                    const matchedApp = formattedApps.find((a: any) => a.offer?.id === p.offer_id);
+                    return { ...p, app: matchedApp || p.app };
+                }).filter((p: any) => p.app);
                 setPendingPayments(enriched);
             } catch (pendingErr: any) {
                 console.error("Error fetching pending payments:", pendingErr.message || pendingErr);

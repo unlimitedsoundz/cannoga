@@ -39,18 +39,96 @@ export async function getAdminInvoiceData() {
 export async function getPendingPayments() {
     const supabase = createServiceRoleClient();
 
-    const { data, error } = await supabase
+    // 1. Fetch pending tuition payments
+    const { data: tuitionData, error: tuitionError } = await supabase
         .from('tuition_payments')
-        .select('id, amount, currency, invoice_type, transaction_reference, created_at, offer_id, status')
-        .eq('status', 'PENDING_VERIFICATION')
+        .select(`
+            id,
+            amount,
+            currency,
+            invoice_type,
+            transaction_reference,
+            created_at,
+            offer_id,
+            status,
+            fx_metadata,
+            offer:admission_offers(
+                id,
+                application_id,
+                application:applications(
+                    id,
+                    personal_info,
+                    user:profiles(first_name, last_name, email),
+                    program:Course(title)
+                )
+            )
+        `)
+        .in('status', ['PENDING_VERIFICATION', 'pending_proof', 'PENDING'])
         .order('created_at', { ascending: false });
 
-    if (error) {
-        console.error("Error fetching pending payments:", error.message || error);
-        return [];
+    if (tuitionError) {
+        console.error("Error fetching pending tuition payments:", tuitionError.message || tuitionError);
     }
 
-    return data || [];
+    // 2. Fetch pending housing payments
+    const { data: housingData, error: housingError } = await supabase
+        .from('housing_payments')
+        .select(`
+            id,
+            amount,
+            currency,
+            payment_method,
+            transaction_reference,
+            created_at,
+            status,
+            metadata,
+            student:students(
+                id,
+                user:profiles(first_name, last_name, email),
+                application:applications(id, personal_info, course:Course(title))
+            )
+        `)
+        .in('status', ['pending', 'PENDING_VERIFICATION', 'PENDING'])
+        .order('created_at', { ascending: false });
+
+    if (housingError) {
+        console.error("Error fetching pending housing payments:", housingError.message || housingError);
+    }
+
+    const list: any[] = [];
+
+    (tuitionData || []).forEach(t => {
+        const app = (t as any).offer?.application;
+        list.push({
+            ...t,
+            category: 'TUITION',
+            app: app || null,
+        });
+    });
+
+    (housingData || []).forEach(h => {
+        const studentUser = (h as any).student?.user;
+        const studentApp = (h as any).student?.application;
+        list.push({
+            id: h.id,
+            amount: h.amount,
+            currency: h.currency || 'CAD',
+            invoice_type: 'HOUSING_DEPOSIT',
+            transaction_reference: h.transaction_reference,
+            created_at: h.created_at,
+            status: h.status,
+            category: 'HOUSING',
+            fx_metadata: h.metadata,
+            app: {
+                id: (h as any).student?.id || h.id,
+                personal_info: studentApp?.personal_info || {},
+                user: studentUser || { first_name: 'Student', last_name: '', email: '' },
+                program: { title: 'Housing Reservation Deposit' },
+            }
+        });
+    });
+
+    return list.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 }
 
 export async function pushInvoice(applicationId: string, customFee: number, invoiceType: string, customDueDate?: string) {
@@ -283,6 +361,32 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
     const supabase = createServiceRoleClient();
 
     try {
+        // Check if this is a housing payment first
+        const { data: housingRecord } = await supabase
+            .from('housing_payments')
+            .select('*')
+            .eq('id', paymentId)
+            .maybeSingle();
+
+        if (housingRecord) {
+            // 1. Mark housing payment as completed
+            await supabase
+                .from('housing_payments')
+                .update({ status: 'completed' })
+                .eq('id', paymentId);
+
+            // 2. Mark corresponding housing application as RESERVED / PAID
+            const studentId = housingRecord.student_id;
+            if (studentId) {
+                await supabase
+                    .from('housing_applications')
+                    .update({ status: 'RESERVED', deposit_paid: true })
+                    .or(`student_id.eq.${studentId},id.eq.${housingRecord.invoice_id}`);
+            }
+
+            return { success: true };
+        }
+
         // 0. Fetch payment record first so we know amount / type / reference
         const { data: paymentRecord, error: paymentFetchError } = await supabase
             .from('tuition_payments')
@@ -303,8 +407,7 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
         const { error: updateError } = await supabase
             .from('tuition_payments')
             .update({ status: 'COMPLETED' })
-            .eq('id', paymentId)
-            .in('status', ['PENDING_VERIFICATION', 'verified']);
+            .eq('id', paymentId);
 
         if (updateError) throw updateError;
 
