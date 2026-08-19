@@ -131,24 +131,16 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
     }
 
     const isHousingPayment = rawInvoiceType === 'HOUSING_DEPOSIT' || rawInvoiceType?.toLowerCase().includes('housing') || admissionOffer?.id?.startsWith('hdep');
-    const paymentCategoryLabel = isHousingPayment ? 'Housing' : 'Tuition';
 
     return (
-        <div className="max-w-6xl mx-auto py-6 md:py-12 px-4 font-rubik text-black">
-            <div className="mb-6 md:mb-12 text-center md:text-left bg-neutral-50 md:bg-transparent rounded-4px p-6 md:p-0 border-none">
-                <div className="mb-4 flex justify-center md:justify-start">
-                    <Image
-                        src="https://cdn.brandfetch.io/id1L6oKjVX/theme/dark/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1667924686641"
-                        alt="Flywire Logo"
-                        width={120}
-                        height={40}
-                        className="h-8 w-auto object-contain"
-                    />
+        <div className="max-w-6xl mx-auto py-8 md:py-12 px-4 font-rubik text-slate-900" data-font="rubik">
+            {error && (
+                <div className="mb-6 p-4 bg-red-50 text-red-600 text-sm font-normal rounded-lg border border-red-100 flex items-center gap-3">
+                    {error}
                 </div>
-                <h1 className="text-[20px] md:text-[24px] font-normal text-black leading-tight md:leading-none">{paymentCategoryLabel} Payment via Flywire</h1>
-            </div>
+            )}
 
-            {/* Payment History & Receipts (Completed, Verified, or Submitted Payments only) */}
+            {/* Payment History & Receipts (if any) */}
             {(() => {
                 const verifiedPayments = payments.filter((p: any) => 
                     p.status && !['pending_proof', 'PENDING_PROOF', 'CANCELLED', 'FAILED'].includes(p.status)
@@ -156,52 +148,47 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                 if (verifiedPayments.length === 0) return null;
 
                 return (
-                    <div className="mb-8 px-2 md:px-0">
-                        <div className="bg-white border border-neutral-200 rounded-xl shadow-sm p-6">
-                            <h3 className="text-sm font-bold text-black uppercase tracking-widest mb-4">Payment History & Receipts</h3>
+                    <div className="mb-8">
+                        <div className="bg-white border border-slate-200 rounded-xl shadow-xs p-5">
+                            <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest mb-3">Payment History & Receipts</h3>
                             <div className="space-y-2">
                                 {verifiedPayments.map((payment: any) => (
-                                    <div key={payment.id} className="flex items-center justify-between p-4 border border-neutral-200 rounded-xl">
-                                    <div>
-                                        <p className="text-sm font-bold text-black">{payment.invoice_type?.replaceAll('_', ' ') || 'Payment'}</p>
-                                        <p className="text-[11px] text-neutral-500">{formatToDDMMYYYY(payment.created_at)}</p>
-                                    </div>
-                                    <div className="text-right flex items-center justify-end gap-3">
+                                    <div key={payment.id} className="flex items-center justify-between p-3.5 bg-slate-50 rounded-lg">
                                         <div>
-                                            <p className="text-sm font-bold text-black">
-                                                {payment.fx_metadata?.localAmount
-                                                    ? `${payment.currency || 'CAD'} ${Number(payment.fx_metadata.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-                                                    : `${Number(payment.amount).toLocaleString()} ${payment.currency || 'CAD'}`}
-                                            </p>
-                                            <p className="text-[11px] text-neutral-500 capitalize">{(payment.status?.replaceAll('_', ' ') || 'Pending').replace('VERICACATION', 'VERIFICATION')}</p>
+                                            <p className="text-sm font-bold text-slate-900">{payment.invoice_type?.replaceAll('_', ' ') || 'Payment'}</p>
+                                            <p className="text-xs text-slate-500">{formatToDDMMYYYY(payment.created_at)}</p>
                                         </div>
-                                        {(payment.status === 'COMPLETED' || payment.status === 'verified') && (
-                                            <button
-                                                onClick={() => router.push(`/portal/application/receipt?id=${application.id}&paymentId=${payment.id}`)}
-                                                className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
-                                                title="View Receipt"
-                                            >
-                                                <FileText size={18} weight="bold" className="text-neutral-600" />
-                                            </button>
-                                        )}
+                                        <div className="text-right flex items-center justify-end gap-3">
+                                            <div>
+                                                <p className="text-sm font-bold text-slate-900">
+                                                    {payment.fx_metadata?.localAmount
+                                                        ? `${payment.currency || 'CAD'} ${Number(payment.fx_metadata.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                                                        : `${Number(payment.amount).toLocaleString()} ${payment.currency || 'CAD'}`}
+                                                </p>
+                                                <p className="text-xs text-slate-500 capitalize">{(payment.status?.replaceAll('_', ' ') || 'Pending').replace('VERICACATION', 'VERIFICATION')}</p>
+                                            </div>
+                                            {(payment.status === 'COMPLETED' || payment.status === 'verified') && (
+                                                <button
+                                                    onClick={() => router.push(`/portal/application/receipt?id=${application.id}&paymentId=${payment.id}`)}
+                                                    className="p-2 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
+                                                    title="View Receipt"
+                                                >
+                                                    <FileText size={18} weight="bold" className="text-slate-700" />
+                                                </button>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     </div>
-                </div>
-            );
-        })()}
+                );
+            })()}
 
-            <div className="space-y-6">
-                {/* Checkout Logic & Flywire Info */}
-                <div className="space-y-6">
-                    {error && (
-                        <div className="p-4 bg-red-50 text-red-600 text-sm font-normal uppercase tracking-widest border border-red-100 flex items-center gap-3">
-                            {error}
-                        </div>
-                    )}
-
+            {/* 2-Column Exact Layout */}
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                {/* Left Column: Payment Form */}
+                <div className="lg:col-span-7 space-y-6">
                     <PayGoWireCheckout
                         amount={invoiceTotal}
                         currency="CAD"
@@ -211,62 +198,87 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                         onPaymentComplete={handlePaymentComplete}
                         isProcessing={isProcessing}
                     />
+                </div>
 
-                    {/* Flywire Partnership Info Section */}
-                    <div className="bg-neutral-50 rounded-2xl p-6 md:p-8 space-y-6">
-                        <div className="space-y-1.5">
-                            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#147BD1]">
-                                <span>Official Payment Partner</span>
-                            </div>
-                            <h3 className="text-base md:text-lg font-bold text-slate-900">
+                {/* Right Column: Flywire Info Cards */}
+                <div className="lg:col-span-5 space-y-4">
+                    {/* Blue Top Partnership Card */}
+                    <div className="bg-[#f0f7fd] border border-[#d2e7fc] rounded-xl p-5 md:p-6 space-y-2">
+                        <div className="flex items-center gap-2 text-[#0066cc]">
+                            <svg className="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                            </svg>
+                            <h3 className="text-sm md:text-[15px] font-bold text-slate-900">
                                 Cannoga College partners with Flywire
                             </h3>
-                            <p className="text-xs md:text-sm text-slate-600 leading-relaxed">
-                                Pay securely. Cannoga College receives your payment in CAD with no hidden fees.
-                            </p>
                         </div>
+                        <p className="text-xs md:text-[13px] text-slate-600 leading-relaxed pl-7">
+                            Pay securely. Cannoga College receives your payment in CAD with no hidden fees.
+                        </p>
+                    </div>
 
-                        <div className="pt-2 border-t border-neutral-200/60">
-                            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-4">
-                                Why use Flywire?
-                            </h4>
+                    {/* Why use Flywire? Feature Card */}
+                    <div className="bg-white border border-slate-200 rounded-xl p-5 md:p-6 space-y-5 shadow-xs">
+                        <h4 className="text-sm md:text-base font-bold text-slate-900">
+                            Why use Flywire?
+                        </h4>
 
-                            <div className="grid sm:grid-cols-3 gap-5">
-                                <div className="space-y-1.5">
-                                    <h5 className="text-xs font-bold text-slate-900">
-                                        Real-time payment tracking
-                                    </h5>
-                                    <p className="text-xs text-slate-500 leading-relaxed">
+                        <div className="space-y-4 text-xs md:text-[13px]">
+                            {/* Feature 1 */}
+                            <div className="flex items-start gap-3">
+                                <div className="text-[#0066cc] mt-0.5 shrink-0">
+                                    <Clock size={18} weight="bold" />
+                                </div>
+                                <div className="space-y-0.5">
+                                    <p className="font-bold text-slate-900">Real-time payment tracking</p>
+                                    <p className="text-slate-500 leading-relaxed">
                                         See your payment status every step of the way, we keep you informed.
                                     </p>
                                 </div>
+                            </div>
 
-                                <div className="space-y-1.5">
-                                    <h5 className="text-xs font-bold text-slate-900">
-                                        No hidden fees
-                                    </h5>
-                                    <p className="text-xs text-slate-500 leading-relaxed">
+                            {/* Feature 2 */}
+                            <div className="flex items-start gap-3">
+                                <div className="text-[#0066cc] mt-0.5 shrink-0">
+                                    <CheckCircle size={18} weight="bold" />
+                                </div>
+                                <div className="space-y-0.5">
+                                    <p className="font-bold text-slate-900">No hidden fees</p>
+                                    <p className="text-slate-500 leading-relaxed">
                                         See your total before you commit. The amount you confirm is what you pay.
                                     </p>
                                 </div>
+                            </div>
 
-                                <div className="space-y-1.5">
-                                    <h5 className="text-xs font-bold text-slate-900">
-                                        Get help anytime, in your preferred language
-                                    </h5>
-                                    <p className="text-xs text-slate-500 leading-relaxed">
+                            {/* Feature 3 */}
+                            <div className="flex items-start gap-3">
+                                <div className="text-[#0066cc] mt-0.5 shrink-0">
+                                    <span className="font-bold text-base leading-none">文A</span>
+                                </div>
+                                <div className="space-y-0.5">
+                                    <p className="font-bold text-slate-900">Get help anytime, in your preferred language</p>
+                                    <p className="text-slate-500 leading-relaxed">
                                         Our global team supports payers in English, Hindi, Mandarin, and many more.
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    {/* Bottom Security Footer */}
+                    <div className="flex items-center gap-2 text-[11px] text-slate-500 px-1 pt-1">
+                        <svg className="w-3.5 h-3.5 fill-current text-slate-400" viewBox="0 0 24 24">
+                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                        </svg>
+                        <span>Encrypted, verified, and secure payments, trusted by millions.</span>
+                    </div>
                 </div>
             </div>
-            <div className="mt-8">
+
+            <div className="mt-10">
                 <button
                     onClick={() => router.push('/portal/dashboard')}
-                    className="flex items-center gap-2 text-[11px] font-normal text-black hover:text-black transition-colors"
+                    className="flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
                 >
                     <ArrowLeft size={14} weight="bold" />
                     Back to Dashboard

@@ -329,75 +329,94 @@ export default function PayGoWireCheckout({
                 {step === 'COUNTRY' && (
                     <div className="space-y-6 md:space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
                         <div>
-                            <h2 className="text-[18px] font-normal text-black mb-2">Where are you paying from?</h2>
-                            <p className="text-sm text-black font-normal">Select your country to see the official bank transfer details and locked exchange rate.</p>
-                        </div>
-
-                        <div className="space-y-4">
-                            <label className="text-sm font-normal text-black uppercase tracking-widest block" htmlFor="country-select">Choose Country</label>
-                            <div className="relative">
-                                <select
-                                    id="country-select"
-                                    className="country-select w-full pl-4 pr-10 h-[48px] bg-white border border-neutral-400 rounded-4px focus:outline-none focus:ring-2 focus:ring-[#147BD1]/10 focus:border-[#147BD1] transition-all font-normal text-sm text-black appearance-none cursor-pointer"
-                                    value={selectedCountryCode}
-                                    onChange={(e) => {
-                                        const code = e.target.value;
-                                        setSelectedCountryCode(code);
-                                        const bank = countries.find(c => c.country_code === code) ?? null;
-                                        setSelectedBank(bank);
-                                    }}
-                                >
-                                    <option value="" disabled>Select your payment country...</option>
-                                    {countries.map(c => (
-                                        <option key={c.country_code} value={c.country_code}>
-                                            {c.country_flag} {c.country_name} ({c.currency})
-                                        </option>
-                                    ))}
-                                </select>
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
-                                    <ArrowRight size={14} className="rotate-90" />
+                            <h2 className="text-[22px] md:text-[24px] font-medium text-slate-900 mb-6">Your payment</h2>
+                            
+                            {/* Section 1: Institution receives */}
+                            <div className="space-y-2 mb-6">
+                                <label className="text-sm font-semibold text-slate-800 block">
+                                    Cannoga College receives
+                                </label>
+                                
+                                <div className="flex border border-slate-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#0066cc]/20 focus-within:border-[#0066cc] transition-all bg-white shadow-2xs">
+                                    <div className="bg-slate-50 text-slate-700 px-4 py-2.5 font-bold text-sm border-r border-slate-200 flex items-center justify-center min-w-[54px]">
+                                        C$
+                                    </div>
+                                    <div className="flex-1 px-3 py-1.5 flex flex-col justify-center">
+                                        <span className="text-[10px] font-medium text-slate-400 leading-none mb-0.5">Amount *</span>
+                                        <span className="text-sm md:text-base font-bold text-slate-900 leading-none">
+                                            {Number(amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                        </span>
+                                    </div>
                                 </div>
+                                <p className="text-[11px] text-slate-500 leading-relaxed pt-1">
+                                    Amount will be formatted in the destination currency, in this case Canadian Dollars, i.e. 10,000.00 for ten thousand CAD.
+                                </p>
                             </div>
 
-                            <p className="text-[12px] text-neutral-600 leading-relaxed font-rubik mt-1.5">
-                                Choose where your bank account, card, or payment wallet is based. This helps us show available payment methods.
-                            </p>
-
-                            {/* Real-time FX preview */}
-                            {selectedBank && fxData && (
-                                <div className="bg-neutral-100 rounded-xl p-4 animate-in fade-in duration-300">
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">You will pay</p>
-                                            <p className="text-2xl font-normal text-black">
-                                                {fxData.currencySymbol} {Number(fxData.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
-                                            </p>
-                                            <p className="text-[11px] text-neutral-500 mt-0.5">1 CAD = {fxData.rate} {fxData.localCurrency}</p>
-                                        </div>
-                                        <div className="text-right">
-                                            <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">Cannoga receives</p>
-                                            <p className="text-lg font-normal text-black">CA$ {amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
-                                            <p className="text-[11px] text-neutral-500 mt-0.5">Rate locked {fxData.lockHours}h</p>
-                                        </div>
-                                    </div>
-                                    <div className="mt-3 pt-3 border-t border-neutral-200">
-                                        <p className="text-[11px] text-neutral-600">
-                                            <span className="font-medium text-black">{selectedBank.bank_name}</span> · {selectedBank.processing_time}
-                                        </p>
+                            {/* Section 2: Country origin */}
+                            <div className="space-y-2">
+                                <label className="text-sm font-semibold text-slate-800 block">
+                                    The payment will come from
+                                </label>
+                                <div className="relative">
+                                    <select
+                                        id="country-select"
+                                        className="country-select w-full pl-4 pr-10 h-[48px] bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0066cc]/20 focus:border-[#0066cc] transition-all font-medium text-sm text-slate-900 appearance-none cursor-pointer shadow-2xs"
+                                        value={selectedCountryCode}
+                                        onChange={(e) => {
+                                            const code = e.target.value;
+                                            setSelectedCountryCode(code);
+                                            const bank = countries.find(c => c.country_code === code) ?? null;
+                                            setSelectedBank(bank);
+                                        }}
+                                    >
+                                        <option value="" disabled>Select your payment country or region...</option>
+                                        {countries.map(c => (
+                                            <option key={c.country_code} value={c.country_code}>
+                                                {c.country_name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                                        <CaretDown size={14} weight="bold" />
                                     </div>
                                 </div>
-                            )}
+
+                                <p className="text-[11px] text-slate-500 leading-relaxed pt-1">
+                                    Choose where your bank account, card, or payment wallet is based. This helps us show available payment methods.
+                                </p>
+                            </div>
                         </div>
+
+                        {/* Real-time FX preview if selected */}
+                        {selectedBank && fxData && (
+                            <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 animate-in fade-in duration-300">
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-1">Estimated Conversion</p>
+                                        <p className="text-xl font-bold text-slate-900">
+                                            {fxData.currencySymbol} {Number(fxData.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })} {fxData.localCurrency}
+                                        </p>
+                                        <p className="text-[11px] text-slate-500 mt-0.5">1 CAD = {fxData.rate} {fxData.localCurrency}</p>
+                                    </div>
+                                    <div className="text-right">
+                                        <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-1">Settlement (CAD)</p>
+                                        <p className="text-base font-bold text-slate-900">CA$ {amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
+                                        <p className="text-[11px] text-slate-500 mt-0.5">Guaranteed rate</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
 
                         <button
                             disabled={!selectedBank || loadingStep === 'COUNTRY'}
                             onClick={() => handleStepChange('FX')}
-                            className="w-full h-[48px] bg-[#147BD1] text-white rounded-4px font-normal uppercase tracking-widest text-sm hover:bg-[#1a3399] transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full sm:w-auto min-w-[200px] h-[46px] px-8 bg-[#0066cc] hover:bg-[#0052a3] text-white rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed shadow-sm cursor-pointer"
                         >
                             {loadingStep === 'COUNTRY' ? (
-                                <><div className="w-5 h-5 border-2 border-white/30 border-t-white force-circle animate-spin" />Processing...</>
+                                <><div className="w-4 h-4 border-2 border-white/30 border-t-white force-circle animate-spin" />Processing...</>
                             ) : (
-                                <>Review Exchange Rate<ArrowRight size={14} className="group-hover:translate-x-1 transition-all" /></>
+                                <>Next <ArrowRight size={14} className="group-hover:translate-x-1 transition-all" /></>
                             )}
                         </button>
                     </div>
