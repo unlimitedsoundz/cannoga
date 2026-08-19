@@ -307,7 +307,8 @@ export default function PaymentsPage() {
                 {/* Main Content */}
                 <main className="flex-1 max-w-7xl mx-auto w-full p-4 sm:p-6 lg:p-8 space-y-6">
                     {/* Header Banner */}
-                    <div className="bg-[#0a151a] border border-white/10 p-6 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    {/* Header Banner */}
+                    <div className="bg-[#0a151a] p-6 shadow-xs text-white flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-2xl">
                         <div>
                             <h3 className="text-lg font-extrabold tracking-tight text-white">Payments &amp; Invoice Portal</h3>
                             <p className="text-xs text-slate-300 mt-1 font-medium">Review authoritative institutional invoices, download verified PDF receipts, and make tuition settlements.</p>
@@ -316,22 +317,22 @@ export default function PaymentsPage() {
 
                     {/* Summary Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="p-5 bg-white border border-slate-200 shadow-sm">
+                        <div className="p-5 bg-white shadow-xs rounded-2xl">
                             <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Total Invoiced</p>
                             <p className="text-2xl font-black text-slate-900 mt-1">${totalInvoiced.toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD</p>
                         </div>
-                        <div className="p-5 bg-white border border-slate-200 shadow-sm">
+                        <div className="p-5 bg-white shadow-xs rounded-2xl">
                             <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Payments Settled</p>
                             <p className="text-2xl font-black text-slate-900 mt-1">${totalPaid.toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD</p>
                         </div>
-                        <div className="p-5 bg-white border border-slate-200 shadow-sm">
+                        <div className="p-5 bg-white shadow-xs rounded-2xl">
                             <p className="text-[10px] text-slate-500 uppercase font-extrabold tracking-wider">Outstanding Balance</p>
                             <p className="text-2xl font-black text-slate-900 mt-1">${totalBalance.toLocaleString('en-CA', { minimumFractionDigits: 2 })} CAD</p>
                         </div>
                     </div>
 
                     {/* Search & Filter Bar */}
-                    <div className="bg-white border border-slate-200 p-4 shadow-sm flex items-center gap-3">
+                    <div className="bg-white p-4 shadow-xs rounded-2xl flex items-center gap-3">
                         <HugeiconsIcon icon={Search} size={18} className="text-slate-400" />
                         <input
                             type="text"
@@ -343,49 +344,49 @@ export default function PaymentsPage() {
                     </div>
 
                     {/* SECTION 1: Institutional Invoices Table */}
-                    <div className="bg-white border border-slate-200 shadow-sm overflow-hidden">
-                        <div className="p-4 border-b border-slate-100 bg-slate-50">
+                    <div className="bg-white shadow-xs rounded-2xl overflow-hidden">
+                        <div className="p-4 bg-slate-50">
                             <h3 className="font-extrabold text-slate-900 text-[11px] uppercase tracking-wider">Institutional Invoices</h3>
                         </div>
                         <div className="overflow-x-auto">
                             <table className="w-full text-left text-xs text-slate-600">
-                                <thead className="bg-slate-50 text-slate-700 text-[10px] uppercase font-bold tracking-wider border-b border-slate-200">
+                                <thead className="bg-slate-50 text-slate-700 text-[10px] uppercase font-bold tracking-wider">
                                     <tr>
-                                        <th className="p-3">Invoice #</th>
-                                        <th className="p-3">Description / Purpose</th>
-                                        <th className="p-3 text-right">Total</th>
-                                        <th className="p-3 text-right">Paid</th>
-                                        <th className="p-3 text-right">Balance</th>
-                                        <th className="p-3">Status</th>
-                                        <th className="p-3 text-right">Action</th>
+                                        <th className="p-3.5">Invoice #</th>
+                                        <th className="p-3.5">Description / Purpose</th>
+                                        <th className="p-3.5 text-right">Total</th>
+                                        <th className="p-3.5 text-right">Paid</th>
+                                        <th className="p-3.5 text-right">Balance</th>
+                                        <th className="p-3.5">Status</th>
+                                        <th className="p-3.5 text-right">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100 text-xs">
                                     {filteredInvoices.length > 0 ? (
                                         filteredInvoices.map((inv) => (
                                              <tr key={inv.id} className="hover:bg-slate-50/80 transition-colors">
-                                                <td className="p-3 font-mono font-bold text-slate-900 text-xs">{inv.invoice_number}</td>
-                                                <td className="p-3">
+                                                <td className="p-3.5 font-mono font-bold text-slate-900 text-xs">{inv.invoice_number}</td>
+                                                <td className="p-3.5">
                                                     <span className="font-medium text-slate-900 text-xs">{inv.description}</span>
                                                     {inv.due_date && (
                                                         <p className="text-[10px] text-slate-400 mt-0.5">Due: {new Date(inv.due_date).toLocaleDateString('en-CA')}</p>
                                                     )}
                                                 </td>
-                                                <td className="p-3 text-right font-mono font-bold text-slate-900 text-xs">${Number(inv.total).toFixed(2)} CAD</td>
-                                                <td className="p-3 text-right font-mono font-semibold text-slate-900 text-xs">${Number(inv.paid).toFixed(2)} CAD</td>
-                                                <td className="p-3 text-right font-mono font-bold text-slate-900 text-xs">
+                                                <td className="p-3.5 text-right font-mono font-bold text-slate-900 text-xs">${Number(inv.total).toFixed(2)} CAD</td>
+                                                <td className="p-3.5 text-right font-mono font-semibold text-slate-900 text-xs">${Number(inv.paid).toFixed(2)} CAD</td>
+                                                <td className="p-3.5 text-right font-mono font-bold text-slate-900 text-xs">
                                                     <span>
                                                         ${Number(inv.balance).toFixed(2)} CAD
                                                     </span>
                                                 </td>
-                                                <td className="p-3">
-                                                    <span className="px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider bg-slate-100 text-slate-800 border border-slate-200">
+                                                <td className="p-3.5">
+                                                    <span className={`px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider rounded-full ${inv.status === 'PAID' ? 'bg-emerald-500 text-white' : 'bg-amber-500 text-white'}`}>
                                                         {inv.status}
                                                     </span>
                                                 </td>
-                                                <td className="p-3 text-right whitespace-nowrap">
+                                                <td className="p-3.5 text-right whitespace-nowrap">
                                                     {inv.balance <= 0 ? (
-                                                        <span className="text-xs font-bold text-slate-900">
+                                                        <span className="text-xs font-bold text-emerald-600">
                                                             ✓ Settled
                                                         </span>
                                                     ) : (
@@ -397,7 +398,7 @@ export default function PaymentsPage() {
                                                                     router.push('/portal/dashboard');
                                                                 }
                                                             }}
-                                                            className="inline-block text-[11px] font-bold px-3 py-1 bg-slate-900 text-white hover:bg-slate-800 transition shadow-sm cursor-pointer"
+                                                            className="inline-block text-[11px] font-bold px-3.5 py-1.5 bg-[#0a151a] hover:bg-slate-800 text-white transition shadow-xs rounded-lg cursor-pointer"
                                                         >
                                                             Pay Now
                                                         </button>
@@ -414,30 +415,30 @@ export default function PaymentsPage() {
                     </div>
 
                     {/* SECTION 2: Official Payment Receipts Table */}
-                    <div className="bg-white border border-slate-200 shadow-sm overflow-hidden">
-                        <div className="p-4 border-b border-slate-100 bg-slate-50">
+                    <div className="bg-white shadow-xs rounded-2xl overflow-hidden">
+                        <div className="p-4 bg-slate-50">
                             <h3 className="font-extrabold text-slate-900 text-[11px] uppercase tracking-wider">Official Payment Receipts</h3>
                         </div>
                         <div className="overflow-x-auto">
                             <table className="w-full text-left text-xs text-slate-600">
-                                <thead className="bg-slate-50 text-slate-700 text-[10px] uppercase font-bold tracking-wider border-b border-slate-200">
+                                <thead className="bg-slate-50 text-slate-700 text-[10px] uppercase font-bold tracking-wider">
                                     <tr>
-                                        <th className="p-3">Receipt #</th>
-                                        <th className="p-3">Payment Reference</th>
-                                        <th className="p-3">Country &amp; Channel</th>
-                                        <th className="p-3 text-right">Amount</th>
-                                        <th className="p-3">Issued At</th>
-                                        <th className="p-3 text-right">Document</th>
+                                        <th className="p-3.5">Receipt #</th>
+                                        <th className="p-3.5">Payment Reference</th>
+                                        <th className="p-3.5">Country &amp; Channel</th>
+                                        <th className="p-3.5 text-right">Amount</th>
+                                        <th className="p-3.5">Issued At</th>
+                                        <th className="p-3.5 text-right">Document</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100 text-xs">
                                     {filteredReceipts.length > 0 ? (
                                         filteredReceipts.map((r) => (
                                             <tr key={r.receipt_number} className="hover:bg-slate-50/80 transition-colors">
-                                                <td className="p-3 font-mono font-bold text-slate-900 text-xs">{r.receipt_number}</td>
-                                                <td className="p-3 font-mono text-[11px] text-slate-700">{r.payment_reference}</td>
-                                                <td className="p-3 font-medium text-slate-800 text-xs">{r.channel}</td>
-                                                <td className="p-3 text-right">
+                                                <td className="p-3.5 font-mono font-bold text-slate-900 text-xs">{r.receipt_number}</td>
+                                                <td className="p-3.5 font-mono text-[11px] text-slate-700">{r.payment_reference}</td>
+                                                <td className="p-3.5 font-medium text-slate-800 text-xs">{r.channel}</td>
+                                                <td className="p-3.5 text-right">
                                                     <p className="font-mono font-bold text-slate-900 text-xs">${Number(r.amount_cad).toFixed(2)} CAD</p>
                                                     {r.local_amount && r.local_currency && (
                                                         <p className="text-[10px] font-mono text-slate-500">
@@ -445,13 +446,13 @@ export default function PaymentsPage() {
                                                         </p>
                                                     )}
                                                 </td>
-                                                <td className="p-3 text-slate-600 text-xs">{new Date(r.issued_at).toLocaleDateString('en-CA')}</td>
-                                                <td className="p-3 text-right whitespace-nowrap">
+                                                <td className="p-3.5 text-slate-600 text-xs">{new Date(r.issued_at).toLocaleDateString('en-CA')}</td>
+                                                <td className="p-3.5 text-right whitespace-nowrap">
                                                     <a
                                                         href={r.pdf_url || `/api/portal/receipt/pdf?paymentId=${r.payment_id}`}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="inline-block text-[11px] font-bold px-3 py-1 bg-slate-900 text-white hover:bg-slate-800 transition shadow-sm cursor-pointer no-underline"
+                                                        className="inline-block text-[11px] font-bold px-3.5 py-1.5 bg-[#0a151a] hover:bg-slate-800 text-white transition shadow-xs rounded-lg cursor-pointer no-underline"
                                                     >
                                                         View Receipt
                                                     </a>
