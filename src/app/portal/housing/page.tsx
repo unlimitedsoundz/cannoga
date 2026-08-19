@@ -874,29 +874,103 @@ export default function HousingPortalPage() {
                                 <div className="space-y-6">
                                     <div>
                                         <h2 className="text-lg font-black mb-1 text-slate-900">Campus Meal Plans</h2>
-                                        <p className="text-slate-500 text-sm">Meal plans are added to your housing contract. Select the best option for you.</p>
+                                        <p className="text-slate-500 text-sm">Meal plans are added directly to your housing contract. Select the best dining option for your semester.</p>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                         {mealPlans.map((plan, idx) => {
+                                            const PALETTES = [
+                                                { bg: 'bg-[#6366f1]', border: 'border-[#6366f1]', wave: '#4f46e5', badge: 'bg-[#4f46e5]' }, // Electric Indigo
+                                                { bg: 'bg-[#ec4899]', border: 'border-[#ec4899]', wave: '#db2777', badge: 'bg-[#db2777]' }, // Vibrant Hot Pink
+                                                { bg: 'bg-[#10b981]', border: 'border-[#10b981]', wave: '#059669', badge: 'bg-[#059669]' }, // Electric Emerald
+                                                { bg: 'bg-[#f97316]', border: 'border-[#f97316]', wave: '#ea580c', badge: 'bg-[#ea580c]' }, // Vibrant Orange
+                                            ];
+                                            const palette = PALETTES[idx % PALETTES.length];
                                             const isSelected = selectedMealPlan?.id === plan.id;
+
                                             return (
-                                                <div key={plan.id} className={`relative rounded-2xl overflow-hidden transition-all bg-white shadow-sm flex flex-col ${isSelected ? 'ring-2 ring-slate-900' : ''}`}>
-                                                    <div className="p-6 bg-slate-900 text-white">
-                                                        <h3 className="font-bold text-base leading-tight">{plan.title}</h3>
-                                                        <div className="text-2xl font-black mt-2">{fmtCAD(plan.price_per_term_minor)}<span className="text-xs font-normal opacity-70">/term</span></div>
+                                                <div
+                                                    key={plan.id}
+                                                    onClick={() => setSelectedMealPlan(isSelected ? null : plan)}
+                                                    className={`p-6 sm:p-7 rounded-2xl ${palette.bg} ${palette.border} border-4 text-white shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden cursor-pointer flex flex-col justify-between min-h-[300px] ${isSelected ? 'ring-4 ring-slate-900 ring-offset-2 scale-[1.02]' : ''}`}
+                                                >
+                                                    {/* Organic Wavy Cutout Bottom Edge with Float Animation */}
+                                                    <div
+                                                        className="absolute bottom-[-16px] left-0 right-0 h-16 overflow-hidden leading-none pointer-events-none z-10 animate-wave-housing"
+                                                        style={{ animationDelay: `${idx * 0.4}s` }}
+                                                    >
+                                                        <svg
+                                                            viewBox="0 0 1440 200"
+                                                            preserveAspectRatio="none"
+                                                            className="w-full h-full fill-current block"
+                                                            style={{ color: palette.wave }}
+                                                        >
+                                                            <path
+                                                                fill="currentColor"
+                                                                d="M0,45 C320,105 640,-15 960,75 C1200,115 1380,45 1440,65 V200 H0 Z"
+                                                            />
+                                                        </svg>
+                                                    </div>
+
+                                                    {/* Card Content Header */}
+                                                    <div className="relative z-20">
+                                                        <div className="flex items-start justify-between gap-3">
+                                                            <div>
+                                                                {idx === 0 && (
+                                                                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-white/20 text-white mb-2 backdrop-blur-sm">
+                                                                        MOST POPULAR
+                                                                    </span>
+                                                                )}
+                                                                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight leading-[1.05] text-white">
+                                                                    {plan.title}
+                                                                </h3>
+                                                            </div>
+                                                            <div
+                                                                className={`shrink-0 p-2.5 rounded-full transition-colors animate-arrow-housing ${isSelected ? 'bg-white text-slate-900 shadow-md' : 'bg-white/20 text-white'}`}
+                                                                style={{ animationDelay: `${idx * 0.4}s` }}
+                                                            >
+                                                                {isSelected ? (
+                                                                    <Icons.CheckCircle />
+                                                                ) : (
+                                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-5 h-5">
+                                                                        <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                                                    </svg>
+                                                                )}
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="text-2xl sm:text-3xl font-black mt-3 text-white">
+                                                            {fmtCAD(plan.price_per_term_minor)}
+                                                            <span className="text-xs font-normal opacity-80"> /term</span>
+                                                        </div>
+
                                                         {plan.flex_dollars_minor > 0 && (
-                                                            <div className="text-xs opacity-80 mt-1">+ {fmtCAD(plan.flex_dollars_minor)} Flex Dollars</div>
+                                                            <div className="text-xs font-bold text-white/90 mt-0.5">
+                                                                + {fmtCAD(plan.flex_dollars_minor)} Flex Dining Dollars
+                                                            </div>
                                                         )}
                                                     </div>
-                                                    <div className="p-6 flex-1 flex flex-col justify-between bg-white">
-                                                        <div>
-                                                            <p className="text-slate-600 text-xs leading-relaxed mb-4">{plan.description}</p>
-                                                            {plan.meals_per_week && <div className="text-xs font-medium text-slate-500 mb-4">{plan.meals_per_week} meals/week</div>}
+
+                                                    {/* Card Bottom Description & Action */}
+                                                    <div className="relative z-20 pt-6 mt-auto">
+                                                        <p className="text-xs sm:text-sm font-medium text-white/95 leading-relaxed mb-4">
+                                                            {plan.description}
+                                                        </p>
+
+                                                        <div className="flex items-center justify-between pt-2 border-t border-white/20">
+                                                            <div className="text-xs font-bold text-white/80">
+                                                                {plan.meals_per_week ? `${plan.meals_per_week} meals/week` : 'Declining balance'}
+                                                            </div>
+                                                            <button
+                                                                type="button"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    setSelectedMealPlan(isSelected ? null : plan);
+                                                                }}
+                                                                className={`px-4 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all ${isSelected ? 'bg-white text-slate-900 shadow-md' : 'bg-black/25 text-white hover:bg-black/40'}`}
+                                                            >
+                                                                {isSelected ? '✓ In Contract' : '+ Add Plan'}
+                                                            </button>
                                                         </div>
-                                                        <button onClick={() => setSelectedMealPlan(isSelected ? null : plan)}
-                                                            className={`w-full py-2.5 rounded-xl text-sm font-bold transition-all ${isSelected ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}>
-                                                            {isSelected ? '✓ Selected' : 'Add to Contract'}
-                                                        </button>
                                                     </div>
                                                 </div>
                                             );
