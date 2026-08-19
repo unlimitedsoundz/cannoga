@@ -137,8 +137,10 @@ export async function POST(request: NextRequest) {
                     .or(`student_id.eq.${studentId},id.eq.${payment.invoice_id}`);
             }
 
-            // 4. Notify student
+            // 4. Notify student via in-app notification and email
             const targetUserId = payment.student?.user?.id || application?.user_id;
+            const targetUserEmail = payment.student?.user?.email || application?.user?.email;
+
             if (targetUserId) {
                 try {
                     await adminClient.from('notifications').insert({
@@ -149,12 +151,34 @@ export async function POST(request: NextRequest) {
                         metadata: {
                             payment_id: paymentId,
                             tracking_ref: payment.transaction_reference,
+                            invoice_type: 'HOUSING_DEPOSIT'
                         },
                         is_read: false,
                     });
                 } catch (notifErr) {
                     console.error('[verify-wire] housing notification error:', notifErr);
                 }
+            }
+
+            // Dispatch Email notification
+            try {
+                const { triggerNotification } = await import('@/lib/email');
+                await triggerNotification({
+                    type: 'PAYMENT_VERIFIED',
+                    applicationId: applicationId,
+                    additionalData: {
+                        userEmail: targetUserEmail,
+                        amount: Number(payment.amount || 500),
+                        currency: payment.currency || 'CAD',
+                        invoiceType: 'HOUSING_DEPOSIT',
+                        paymentReference: payment.transaction_reference,
+                        title: 'Housing Deposit Verified ✓',
+                        description: `Your housing reservation deposit of ${payment.currency || 'CAD'} ${Number(payment.amount).toLocaleString()} has been verified.`,
+                        link: `${process.env.NEXT_PUBLIC_APP_URL || 'https://cannoga.vercel.app'}/sis/payments`
+                    }
+                });
+            } catch (emailErr) {
+                console.warn('[verify-wire] housing verification email dispatch warning:', emailErr);
             }
 
             return NextResponse.json({ success: true, action: 'approved' });
@@ -290,7 +314,7 @@ export async function POST(request: NextRequest) {
                 console.error('[verify-wire] PDF generation error:', pdfErr);
             }
 
-            // 5. Notify the student
+            // 5. Notify the student (In-app + Email)
             if (application.user_id) {
                 try {
                     await adminClient.from('notifications').insert([
@@ -319,6 +343,28 @@ export async function POST(request: NextRequest) {
                     ]);
                 } catch (notifErr) {
                     console.error('[verify-wire] notification error:', notifErr);
+                }
+
+                // Dispatch confirmation email
+                try {
+                    const { triggerNotification } = await import('@/lib/email');
+                    await triggerNotification({
+                        type: 'PAYMENT_VERIFIED',
+                        applicationId: applicationId,
+                        additionalData: {
+                            userEmail: application.user?.email,
+                            amount: Number(payment.amount),
+                            currency: payment.currency || 'CAD',
+                            invoiceType: payment.invoice_type || 'TUITION_DEPOSIT',
+                            paymentReference: payment.transaction_reference,
+                            receiptUrl: receiptUrl,
+                            title: 'Payment Verified ✓',
+                            description: `Your payment of ${payment.currency || 'CAD'} ${Number(payment.amount).toLocaleString()} has been verified.`,
+                            link: receiptUrl || `${process.env.NEXT_PUBLIC_APP_URL || 'https://cannoga.vercel.app'}/sis/payments`
+                        }
+                    });
+                } catch (emailErr) {
+                    console.warn('[verify-wire] email dispatch error:', emailErr);
                 }
             }
         }
