@@ -531,35 +531,35 @@ export default function HousingPortalPage() {
                                                 })}
                                             </div>
 
-                                            {/* Floor plan / bed picker - Official Cannoga FAQ Component Style */}
+                                            {/* Floor plan / bed picker - Compact Cannoga FAQ Component Style */}
                                             {selectedBuilding && (
-                                                <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-neutral-200">
-                                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200">
+                                                <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-neutral-200">
+                                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-neutral-200">
                                                         <div>
-                                                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-neutral-100 text-neutral-800 mb-2">
+                                                            <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-neutral-100 text-neutral-800 mb-1">
                                                                 Interactive Floor Plan
                                                             </div>
-                                                            <h3 className="text-2xl sm:text-3xl font-bold text-black tracking-tight font-sans">
+                                                            <h3 className="text-xl sm:text-2xl font-bold text-black tracking-tight font-sans">
                                                                 {selectedBuilding.name} — Bed Directory
                                                             </h3>
-                                                            <p className="text-sm text-neutral-600 mt-1">
-                                                                Select any floor to expand suite layouts and reserve your preferred bed.
+                                                            <p className="text-xs text-neutral-500 mt-0.5">
+                                                                Select a floor to view and reserve open suite beds.
                                                             </p>
                                                         </div>
 
                                                         {/* Legend */}
-                                                        <div className="flex flex-wrap items-center gap-4 self-start sm:self-auto bg-neutral-50 px-4 py-2.5 rounded-xl border border-neutral-200">
+                                                        <div className="flex flex-wrap items-center gap-3 self-start sm:self-auto bg-neutral-50 px-3 py-1.5 rounded-lg border border-neutral-200 text-xs">
                                                             {[['AVAILABLE','bg-emerald-600','Available'],['OCCUPIED','bg-neutral-300','Occupied'],['MAINTENANCE','bg-amber-500','Maintenance']].map(([s,c,label]) => (
-                                                                <div key={s} className="flex items-center gap-2">
-                                                                    <div className={`w-3 h-3 rounded-full ${c}`} />
-                                                                    <span className="text-xs font-bold text-neutral-700">{label}</span>
+                                                                <div key={s} className="flex items-center gap-1.5">
+                                                                    <div className={`w-2.5 h-2.5 rounded-full ${c}`} />
+                                                                    <span className="text-[11px] font-semibold text-neutral-700">{label}</span>
                                                                 </div>
                                                             ))}
                                                         </div>
                                                     </div>
 
-                                                    {/* Floor-by-Floor Cannoga FAQ-Style Accordions */}
-                                                    <div className="w-full divide-y divide-neutral-200 mt-2">
+                                                    {/* Floor-by-Floor Compact Cannoga FAQ-Style Accordions */}
+                                                    <div className="w-full divide-y divide-neutral-200">
                                                         {floors.map(floorNum => {
                                                             const isExpanded = expandedFloors.includes(floorNum);
                                                             const floorRooms = rooms.filter(r => (r.floor_number ?? 1) === floorNum);
@@ -567,7 +567,7 @@ export default function HousingPortalPage() {
 
                                                             return (
                                                                 <div key={floorNum} className="bg-white">
-                                                                    {/* Accordion Question Header */}
+                                                                    {/* Accordion Question Header - Compact */}
                                                                     <button
                                                                         type="button"
                                                                         onClick={() => {
@@ -577,26 +577,26 @@ export default function HousingPortalPage() {
                                                                                     : [...prev, floorNum]
                                                                             );
                                                                         }}
-                                                                        className="w-full flex items-center justify-between py-6 sm:py-7 px-0 text-left hover:bg-[#0a151a]/5 transition-colors focus:outline-none group cursor-pointer"
+                                                                        className="w-full flex items-center justify-between py-3.5 sm:py-4 px-1 text-left hover:bg-[#0a151a]/5 transition-colors focus:outline-none group cursor-pointer"
                                                                         aria-expanded={isExpanded}
                                                                     >
-                                                                        <div className="flex items-center gap-4 pr-6">
-                                                                            <span className="text-lg sm:text-xl md:text-2xl font-bold text-black tracking-tight">
+                                                                        <div className="flex items-center gap-3 pr-4">
+                                                                            <span className="text-base sm:text-lg font-bold text-black tracking-tight">
                                                                                 Floor {floorNum} Suites &amp; Residences
                                                                             </span>
-                                                                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 shrink-0">
+                                                                            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 shrink-0">
                                                                                 {availableCount} {availableCount === 1 ? 'bed' : 'beds'} open
                                                                             </span>
                                                                         </div>
 
-                                                                        {/* Square Plus / Minus Trigger matching FAQ.tsx */}
-                                                                        <div className="flex-shrink-0 bg-[#0a151a] text-white p-2.5 rounded-none shadow-sm transition-transform">
+                                                                        {/* Compact Square Plus / Minus Trigger matching FAQ.tsx */}
+                                                                        <div className="flex-shrink-0 bg-[#0a151a] text-white p-1.5 rounded-none shadow-xs transition-transform">
                                                                             {isExpanded ? (
-                                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-5 h-5">
+                                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-4 h-4">
                                                                                     <line x1="5" y1="12" x2="19" y2="12" />
                                                                                 </svg>
                                                                             ) : (
-                                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-5 h-5">
+                                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-4 h-4">
                                                                                     <line x1="12" y1="5" x2="12" y2="19" />
                                                                                     <line x1="5" y1="12" x2="19" y2="12" />
                                                                                 </svg>
@@ -604,13 +604,13 @@ export default function HousingPortalPage() {
                                                                         </div>
                                                                     </button>
 
-                                                                    {/* Accordion Answer Content / Beds Grid */}
+                                                                    {/* Accordion Answer Content / Beds Grid - Compact */}
                                                                     <div
-                                                                        className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                                                                            isExpanded ? 'max-h-[2000px] opacity-100 pb-8 pt-2' : 'max-h-0 opacity-0'
+                                                                        className={`transition-all duration-400 ease-in-out overflow-hidden ${
+                                                                            isExpanded ? 'max-h-[2000px] opacity-100 pb-5 pt-1' : 'max-h-0 opacity-0'
                                                                         }`}
                                                                     >
-                                                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 pt-2">
+                                                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 pt-1 px-1">
                                                                             {floorRooms.map(room => {
                                                                                 const isSelected = selectedRoom?.id === room.id;
                                                                                 const isAvail = room.status === 'AVAILABLE';
@@ -620,11 +620,11 @@ export default function HousingPortalPage() {
                                                                                         key={room.id}
                                                                                         disabled={!isAvail}
                                                                                         onClick={() => isAvail && setSelectedRoom(isSelected ? null : room)}
-                                                                                        className={`p-4 rounded-xl text-left transition-all border ${
+                                                                                        className={`p-3 rounded-lg text-left transition-all border ${
                                                                                             isSelected
-                                                                                                ? 'bg-[#0a151a] text-white border-[#0a151a] shadow-lg ring-2 ring-[#0a151a] ring-offset-2'
+                                                                                                ? 'bg-[#0a151a] text-white border-[#0a151a] shadow-md ring-2 ring-[#0a151a] ring-offset-1'
                                                                                                 : room.status === 'AVAILABLE'
-                                                                                                ? 'bg-neutral-50 hover:bg-neutral-100 border-neutral-200 cursor-pointer text-black hover:border-neutral-400'
+                                                                                                ? 'bg-neutral-50/80 hover:bg-neutral-100 border-neutral-200 cursor-pointer text-black hover:border-neutral-300'
                                                                                                 : room.status === 'MAINTENANCE'
                                                                                                 ? 'bg-neutral-50 opacity-40 cursor-not-allowed border-neutral-200 text-neutral-400'
                                                                                                 : 'bg-neutral-50 opacity-30 cursor-not-allowed border-neutral-200 text-neutral-400'
@@ -634,22 +634,22 @@ export default function HousingPortalPage() {
                                                                                             <div className="text-xs font-black tracking-wide">
                                                                                                 {room.bed_identifier ? `${room.suite_number}-${room.bed_identifier}` : room.room_number}
                                                                                             </div>
-                                                                                            <span className={`w-2.5 h-2.5 rounded-full ${
+                                                                                            <span className={`w-2 h-2 rounded-full ${
                                                                                                 room.status === 'AVAILABLE' ? 'bg-emerald-500' : room.status === 'MAINTENANCE' ? 'bg-amber-400' : 'bg-neutral-300'
                                                                                             }`} />
                                                                                         </div>
 
-                                                                                        <div className={`text-[11px] mt-1.5 leading-tight line-clamp-1 ${
+                                                                                        <div className={`text-[10px] mt-1 leading-tight line-clamp-1 ${
                                                                                             isSelected ? 'text-neutral-300' : 'text-neutral-500'
                                                                                         }`}>
                                                                                             {room.room_type_label ?? room.room_type ?? 'Single'} · {room.window_orientation}
                                                                                         </div>
 
                                                                                         {room.price_per_term_minor && (
-                                                                                            <div className={`text-xs font-black mt-2.5 ${
+                                                                                            <div className={`text-[11px] font-black mt-1.5 ${
                                                                                                 isSelected ? 'text-white' : 'text-black'
                                                                                             }`}>
-                                                                                                {fmtCAD(room.price_per_term_minor)}<span className="text-[10px] font-normal text-neutral-400">/term</span>
+                                                                                                {fmtCAD(room.price_per_term_minor)}<span className="text-[9px] font-normal text-neutral-400">/term</span>
                                                                                             </div>
                                                                                         )}
                                                                                     </button>
@@ -662,27 +662,27 @@ export default function HousingPortalPage() {
                                                         })}
                                                     </div>
 
-                                                    {/* Sticky / Active Selection summary */}
+                                                    {/* Sticky / Active Selection summary - Compact */}
                                                     {selectedRoom && (
-                                                        <div className="mt-8 p-5 sm:p-6 bg-[#0a151a] text-white rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl border border-white/10 animate-drawer-slide">
-                                                            <div className="flex items-center gap-4">
-                                                                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0">
+                                                        <div className="mt-6 p-4 sm:p-4.5 bg-[#0a151a] text-white rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg border border-white/10 animate-drawer-slide">
+                                                            <div className="flex items-center gap-3">
+                                                                <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white shrink-0">
                                                                     <Icons.Bed />
                                                                 </div>
                                                                 <div>
-                                                                    <div className="flex items-center gap-2.5">
-                                                                        <span className="font-bold text-base sm:text-lg text-white">
+                                                                    <div className="flex items-center gap-2">
+                                                                        <span className="font-bold text-sm sm:text-base text-white">
                                                                             {selectedRoom.full_room_code ?? selectedRoom.room_number}
                                                                         </span>
-                                                                        <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                                                        <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                                                                             Selected Bed
                                                                         </span>
                                                                     </div>
-                                                                    <div className="text-xs text-neutral-300 mt-1">
+                                                                    <div className="text-[11px] text-neutral-300 mt-0.5">
                                                                         Floor {selectedRoom.floor_number ?? 1} · {selectedRoom.room_type_label ?? selectedRoom.room_type} · {selectedRoom.window_orientation}
                                                                     </div>
                                                                     {selectedRoom.price_per_term_minor && (
-                                                                        <div className="text-sm font-black text-white mt-1">
+                                                                        <div className="text-xs font-black text-white mt-0.5">
                                                                             {fmtCAD(selectedRoom.price_per_term_minor)} / term
                                                                         </div>
                                                                     )}
@@ -692,7 +692,7 @@ export default function HousingPortalPage() {
                                                             <button
                                                                 onClick={handleReserve}
                                                                 disabled={reserving}
-                                                                className="px-6 py-3.5 bg-white hover:bg-neutral-100 disabled:opacity-50 rounded-xl text-sm font-bold text-black transition-all shadow-md shrink-0 cursor-pointer text-center"
+                                                                className="px-5 py-2.5 bg-white hover:bg-neutral-100 disabled:opacity-50 rounded-lg text-xs sm:text-sm font-bold text-black transition-all shadow-md shrink-0 cursor-pointer text-center"
                                                             >
                                                                 {reserving ? 'Reserving...' : 'Reserve This Bed →'}
                                                             </button>
