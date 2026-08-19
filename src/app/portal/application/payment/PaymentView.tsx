@@ -219,7 +219,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                                 Cannoga College - Ontario, CA partners with Flywire
                             </h3>
                         </div>
-                        <p className="text-xs md:text-[13px] text-slate-600 leading-relaxed pl-7">
+                        <p className="text-xs md:text-[14px] text-slate-600 leading-relaxed pl-7">
                             Pay securely. Cannoga College - Ontario, CA receives your payment in CAD with no hidden fees.
                         </p>
                     </div>
@@ -230,7 +230,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                             Why use Flywire?
                         </h4>
 
-                        <div className="space-y-4 text-xs md:text-[13px]">
+                        <div className="space-y-4 text-xs md:text-[14px]">
                             {/* Feature 1 */}
                             <div className="flex items-start gap-3">
                                 <div className="text-[#0066cc] mt-0.5 shrink-0">
