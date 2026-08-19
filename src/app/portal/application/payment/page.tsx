@@ -50,16 +50,16 @@ function PaymentContent() {
                 }
 
                 // Check if this is a housing deposit payment
-                const isHousing = paymentType === 'housing' || id.toLowerCase().startsWith('hdep');
+                const isHousing = paymentType === 'housing' || id.toLowerCase().startsWith('hdep') || searchParams.get('invoice_type') === 'HOUSING_DEPOSIT';
 
                 if (isHousing) {
                     const cleanHousingAppId = id.replace(/^hdep-/, '');
 
-                    // Fetch housing application either by exact ID or student ID
+                    // Query housing application
                     let housingApp: any = null;
 
-                    // First try by ID
-                    if (cleanHousingAppId && cleanHousingAppId.length > 10) {
+                    // 1. Try by ID if valid UUID
+                    if (cleanHousingAppId.length > 20) {
                         const { data: byId } = await supabase
                             .from('housing_applications')
                             .select(`
@@ -73,7 +73,7 @@ function PaymentContent() {
                         if (byId) housingApp = byId;
                     }
 
-                    // If not found by ID, query by student_id or user_id
+                    // 2. Query by user/student ID
                     if (!housingApp) {
                         const { data: studentRec } = await supabase
                             .from('students')
@@ -122,7 +122,7 @@ function PaymentContent() {
                 }
 
                 // Academic tuition application query
-                const { data: applicationRaw, error: appError } = await supabase
+                const { data: applicationRaw } = await supabase
                     .from('applications')
                     .select(`
                         *,
@@ -130,10 +130,9 @@ function PaymentContent() {
                         course:Course(duration)
                     `)
                     .eq('id', id)
-                    .eq('user_id', currentUserId || '')
                     .maybeSingle();
 
-                if (applicationRaw) {
+                if (applicationRaw && applicationRaw.offer) {
                     const application = applicationRaw;
                     const offer = Array.isArray(application.offer) ? application.offer[0] : application.offer;
 
@@ -156,7 +155,9 @@ function PaymentContent() {
                         building:building_id(name),
                         homestay_host:homestay_host_id(host_name)
                     `)
-                    .eq('student_id', currentUserId || '')
+                    .or(`id.eq.${id},student_id.eq.${currentUserId}`)
+                    .order('created_at', { ascending: false })
+                    .limit(1)
                     .maybeSingle();
 
                 if (fallbackHousing) {
@@ -183,8 +184,8 @@ function PaymentContent() {
                     return;
                 }
 
-                console.error('Application or offer not found', appError);
-                router.push('/sis/payments');
+                // If no application matches, do not throw or redirect abruptly; show clean invoice error
+                setError('Payment invoice details could not be found. Please return to the payments portal.');
                 return;
             } catch (err) {
                 console.error('CRITICAL: Fetching payment data failed', err);
