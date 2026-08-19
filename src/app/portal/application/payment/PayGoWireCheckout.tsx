@@ -19,50 +19,42 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import Image from 'next/image';
 import type { InstitutionalBankAccount, InstitutionalExchangeRate } from '@/types/payments';
+import { countries as allWorldCountries } from '@/utils/countries';
 
+// ─── Props & Types ───────────────────────────────────────────────────────────
 interface PayGoWireCheckoutProps {
-    amount: number;          // CAD invoice amount (authoritative from server)
+    amount: number;
     currency: string;
     offerId?: string;
     applicationId?: string;
     invoiceType?: string;
-    onPaymentComplete: (details: {
-        method: string;
-        country: string;
-        currency: string;
-        trackingRef: string;
-        fxMetadata: any;
-    }) => Promise<void>;
-    isProcessing: boolean;
+    onPaymentComplete: (paymentData: any) => Promise<void>;
+    isProcessing?: boolean;
     paymentReference?: string;
 }
 
 type Step = 'COUNTRY' | 'METHOD' | 'FX' | 'BANK_INSTRUCTIONS' | 'PROOF' | 'SUBMITTED';
 
-// ─── Copy Button ────────────────────────────────────────────────────────────
+// ─── Copy Button ─────────────────────────────────────────────────────────────
 const CopyButton = ({ text, label }: { text: string; label: string }) => {
     const [copied, setCopied] = useState(false);
     const handleCopy = () => {
-        const write = () => { setCopied(true); setTimeout(() => setCopied(false), 2000); };
-        if (navigator.clipboard?.writeText) {
-            navigator.clipboard.writeText(text).then(write);
-        } else {
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            document.body.appendChild(ta);
-            ta.select();
-            try { document.execCommand('copy'); write(); } catch {}
-            document.body.removeChild(ta);
-        }
+        navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
     };
     return (
         <button
+            type="button"
             onClick={handleCopy}
-            className="p-1 text-neutral-400 hover:text-black transition-colors rounded shrink-0 inline-flex items-center justify-center cursor-pointer"
             title={`Copy ${label}`}
-            aria-label={`Copy ${label}`}
+            className="inline-flex items-center gap-1 text-[11px] font-normal text-[#147BD1] hover:text-[#1a3399] transition-colors ml-1 px-1.5 py-0.5 rounded-sm hover:bg-blue-50"
         >
-            {copied ? <CheckCircle2 size={14} weight="bold" className="text-emerald-600" /> : <Copy size={14} />}
+            {copied ? (
+                <><CheckCircle2 size={11} className="text-green-600" /><span className="text-green-600">Copied</span></>
+            ) : (
+                <><Copy size={11} /><span>Copy</span></>
+            )}
         </button>
     );
 };
@@ -141,10 +133,42 @@ export default function PayGoWireCheckout({
         fetchData();
     }, []);
 
+    // ── Full Unified Countries List (DB Accounts + All World Countries) ──
+    const fullCountryList = useMemo(() => {
+        const list: { country_code: string; country_name: string; country_flag: string }[] = [];
+        const seen = new Set<string>();
+
+        // Prioritize dedicated DB accounts first
+        countries.forEach(c => {
+            seen.add(c.country_code.toUpperCase());
+            list.push({
+                country_code: c.country_code,
+                country_name: c.country_name,
+                country_flag: c.country_flag ?? '🌐',
+            });
+        });
+
+        // Add remaining world countries
+        allWorldCountries.forEach(w => {
+            const code = w.name.toUpperCase();
+            if (!seen.has(code) && !seen.has(w.name)) {
+                seen.add(code);
+                list.push({
+                    country_code: w.name,
+                    country_name: w.name,
+                    country_flag: w.flag,
+                });
+            }
+        });
+
+        // Sort alphabetically
+        return list.sort((a, b) => a.country_name.localeCompare(b.country_name));
+    }, [countries]);
+
     // ── Derived FX data from DB rates ──
     const fxData = useMemo(() => {
         if (!selectedBank) return null;
-        const currency = selectedBank.currency;
+        const currency = selectedBank.currency || 'USD';
         const rate = rateMap[currency] ? Number(rateMap[currency].rate_multiplier) : 1;
         let localAmount = parseFloat((amount * rate).toFixed(2));
         // CAD wire has a $25 processing fee
@@ -154,7 +178,7 @@ export default function PayGoWireCheckout({
         return {
             localAmount: localAmount.toFixed(2),
             localCurrency: currency,
-            currencySymbol: selectedBank.currency_symbol,
+            currencySymbol: selectedBank.currency_symbol || '$',
             rate,
             lockHours: rateMap[currency]?.lock_duration_hours ?? 48,
         };
@@ -376,12 +400,26 @@ export default function PayGoWireCheckout({
                                             onChange={(e) => {
                                                 const code = e.target.value;
                                                 setSelectedCountryCode(code);
-                                                const bank = countries.find(c => c.country_code === code) ?? null;
-                                                setSelectedBank(bank);
+                                                // Find matching direct bank account, or fallback to international wire (US/CAD)
+                                                const directBank = countries.find(c => c.country_code === code || c.country_name.toLowerCase() === code.toLowerCase());
+                                                if (directBank) {
+                                                    setSelectedBank(directBank);
+                                                } else {
+                                                    // Fallback to International Wire account (or first available bank)
+                                                    const fallbackBank = countries.find(c => c.country_code === 'US' || c.country_code === 'CA') || countries[0];
+                                                    if (fallbackBank) {
+                                                        const countryObj = fullCountryList.find(c => c.country_code === code || c.country_name === code);
+                                                        setSelectedBank({
+                                                            ...fallbackBank,
+                                                            country_name: countryObj?.country_name ?? code,
+                                                            country_flag: countryObj?.country_flag ?? '🌐',
+                                                        });
+                                                    }
+                                                }
                                             }}
                                         >
                                             <option value="" disabled>Select your payment country or region...</option>
-                                            {countries.map(c => (
+                                            {fullCountryList.map(c => (
                                                 <option key={c.country_code} value={c.country_code}>
                                                     {c.country_name}
                                                 </option>
