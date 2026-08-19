@@ -288,12 +288,18 @@ export async function POST(request: NextRequest) {
                         .maybeSingle();
 
                     if (student) {
+                        const isHousingDoc = payment.invoice_type === 'HOUSING_DEPOSIT';
+                        const docType = isHousingDoc ? 'housing_receipt' : 'tuition_receipt';
+                        const docTitle = isHousingDoc
+                            ? `Housing Deposit Receipt — ${payment.transaction_reference || paymentId}`
+                            : `Tuition Receipt — ${payment.transaction_reference || paymentId}`;
+
                         await adminClient.from('document_records').upsert(
                             {
                                 student_id: student.id,
-                                document_type: 'tuition_receipt',
-                                title: `Tuition Receipt — ${payment.transaction_reference || paymentId}`,
-                                programme: application.course?.title ?? '',
+                                document_type: docType,
+                                title: docTitle,
+                                programme: isHousingDoc ? 'Housing & Residence' : (application.course?.title ?? ''),
                                 status: 'issued',
                                 storage_path: publicUrl,
                                 is_official: true,
@@ -304,6 +310,7 @@ export async function POST(request: NextRequest) {
                                     transaction_reference: payment.transaction_reference,
                                     amount: payment.amount,
                                     currency: payment.currency,
+                                    invoice_type: payment.invoice_type,
                                 },
                             },
                             { onConflict: 'student_id,document_type' }

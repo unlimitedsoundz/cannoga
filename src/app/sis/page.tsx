@@ -241,6 +241,8 @@ const documentTypeLabels: Record<string, string> = {
     loa: 'Letter of Acceptance (LOA)',
     tuition_invoice: 'Tuition Invoice',
     tuition_receipt: 'Tuition Receipt',
+    housing_receipt: 'Housing Deposit Receipt',
+    housing_deposit_receipt: 'Housing Deposit Receipt',
     enrollment_confirmation: 'Letter of Acceptance (LOA)',
     transcript: 'Transcript',
     application_document: 'Application Document',
@@ -1018,21 +1020,29 @@ function formatRelativeTime(dateInput: any): string {
                     console.error('Error fetching tuition payments:', paymentErr);
                 }
 
-                // Synthesize Tuition Receipts into documents for any completed/verified tuition payments
+                // Synthesize Receipts into documents for any completed/verified payments
                 for (const p of tuitionPayments) {
                     if (p.status === 'COMPLETED' || p.status === 'verified' || p.status === 'SUCCESS' || p.status === 'PENDING_VERIFICATION') {
+                        const isHousing = p.invoice_type === 'HOUSING_DEPOSIT' || String(p.offer_id || '').startsWith('hdep');
+                        const docType = isHousing ? 'housing_receipt' : 'tuition_receipt';
+                        const docTitle = isHousing 
+                            ? `Official Housing Deposit Receipt — ${p.transaction_reference || p.id.slice(0, 8).toUpperCase()}`
+                            : `Official Tuition Receipt — ${p.transaction_reference || p.id.slice(0, 8).toUpperCase()}`;
+
                         const receiptExists = existingDocs.some(d => 
-                            d.document_type === 'tuition_receipt' && (d.metadata?.payment_id === p.id || d.metadata?.transaction_reference === p.transaction_reference)
+                            (d.document_type === 'tuition_receipt' || d.document_type === 'housing_receipt') && 
+                            (d.metadata?.payment_id === p.id || d.metadata?.transaction_reference === p.transaction_reference)
                         ) || extraDocs.some(d => 
-                            d.document_type === 'tuition_receipt' && (d.metadata?.payment_id === p.id || d.metadata?.transaction_reference === p.transaction_reference)
+                            (d.document_type === 'tuition_receipt' || d.document_type === 'housing_receipt') && 
+                            (d.metadata?.payment_id === p.id || d.metadata?.transaction_reference === p.transaction_reference)
                         );
 
                         if (!receiptExists) {
                             extraDocs.push({
                                 id: `receipt-${p.id}`,
                                 student_id: currentStudentId,
-                                document_type: 'tuition_receipt',
-                                title: `Official Tuition Receipt — ${p.transaction_reference || p.id.slice(0, 8).toUpperCase()}`,
+                                document_type: docType,
+                                title: docTitle,
                                 storage_path: `/api/portal/receipt/pdf?paymentId=${p.id}`,
                                 is_student_visible: true,
                                 status: p.status === 'PENDING_VERIFICATION' ? 'pending' : 'issued',
@@ -1042,6 +1052,7 @@ function formatRelativeTime(dateInput: any): string {
                                     transaction_reference: p.transaction_reference,
                                     amount: p.amount,
                                     currency: p.currency,
+                                    invoice_type: p.invoice_type,
                                 }
                             });
                         }
@@ -2284,8 +2295,8 @@ function formatRelativeTime(dateInput: any): string {
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-slate-100">
-                                            {documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).length > 0 ? (
-                                                documents.filter(d => ['tuition_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).map(doc => (
+                                            {documents.filter(d => ['tuition_receipt', 'housing_receipt', 'housing_deposit_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).length > 0 ? (
+                                                documents.filter(d => ['tuition_receipt', 'housing_receipt', 'housing_deposit_receipt', 'tuition_invoice', 'transcript'].includes(d.document_type)).map(doc => (
                                                     <tr key={doc.id} className="hover:bg-slate-50 transition-colors">
                                                         <td className="p-3.5 font-bold text-slate-900">{documentTypeLabels[doc.document_type] || doc.title}</td>
                                                         <td className="p-3.5 font-mono text-xs font-semibold text-slate-600">{doc.id.slice(0, 8).toUpperCase()}</td>
