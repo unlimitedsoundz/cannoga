@@ -1,10 +1,18 @@
 @import 'ckeditor5/ckeditor5.css';
 /* Load Lato for portal/applications only */
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+/* Rubik typography override for checkout pages */
+.font-rubik,
+.font-rubik *,
+[data-font="rubik"],
+[data-font="rubik"] * {
+    font-family: 'Rubik', sans-serif !important;
+}
 
 /* ============================================
    CANNOGA COLLEGE — SHARED DESIGN TOKENS

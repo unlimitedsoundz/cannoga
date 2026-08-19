@@ -74,10 +74,11 @@ export default function RootLayout({
             <head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Source+Sans+3:ital,wght@0,300..900;1,300..900&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet" />
+                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Rubik:ital,wght@0,300..900;1,300..900&family=Source+Sans+3:ital,wght@0,300..900;1,300..900&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet" />
                 <style dangerouslySetInnerHTML={{ __html: `
                     :root {
                         --font-inter: 'Inter', sans-serif;
+                        --font-rubik: 'Rubik', sans-serif;
                         --font-playfair: 'Source Sans 3', 'Source Sans Pro', sans-serif;
                         --font-source: 'Source Sans 3', 'Source Sans Pro', sans-serif;
                         --font-lato: 'Lato', sans-serif;
