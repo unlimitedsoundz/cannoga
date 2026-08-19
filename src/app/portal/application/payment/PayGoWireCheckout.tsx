@@ -343,7 +343,7 @@ export default function PayGoWireCheckout({
                                     </div>
                                     <div className="flex-1 px-3 py-1.5 flex flex-col justify-center">
                                         <span className="text-[10px] font-medium text-slate-400 leading-none mb-0.5">Amount *</span>
-                                        <span className="text-sm md:text-base font-bold text-slate-900 leading-none">
+                                        <span className="text-sm md:text-base font-normal text-slate-900 leading-none">
                                             {Number(amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                         </span>
                                     </div>
