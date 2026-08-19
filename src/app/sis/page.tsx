@@ -2521,7 +2521,6 @@ function formatRelativeTime(dateInput: any): string {
                         <div>
                             <RegistrationSection 
                                 studentId={student?.id}
-                                programId={student?.program_id}
                             />
                         </div>
                     )}
@@ -3260,8 +3259,8 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
     };
 
     return (
-        <div>
-            <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm mb-6">
+        <div className="space-y-6">
+            <div className="bg-white rounded-2xl p-6 shadow-xs">
                 <h3 className="text-base font-bold text-slate-900 mb-4">Course Registration</h3>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div>
@@ -3269,7 +3268,7 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
                         <select
                             value={subjectFilter}
                             onChange={e => setSubjectFilter(e.target.value)}
-                            className="w-full border border-slate-300 rounded p-2 text-xs sm:text-sm"
+                            className="w-full bg-slate-50 border-0 rounded-xl p-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none"
                         >
                             <option value="">All Subjects</option>
                             {subjects.map(s => (
@@ -3282,7 +3281,7 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
                         <select
                             value={termFilter}
                             onChange={e => setTermFilter(e.target.value)}
-                            className="w-full border border-slate-300 rounded p-2 text-xs sm:text-sm"
+                            className="w-full bg-slate-50 border-0 rounded-xl p-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none"
                         >
                             <option value="Fall 2026">Fall 2026</option>
                             <option value="Winter 2027">Winter 2027</option>
@@ -3295,14 +3294,14 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
                             value={search}
                             onChange={e => setSearch(e.target.value)}
                             placeholder="Search by code, title, subject..."
-                            className="w-full border border-slate-300 rounded p-2 text-xs sm:text-sm"
+                            className="w-full bg-slate-50 border-0 rounded-xl p-2.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none"
                         />
                     </div>
                     <div className="flex items-end">
                         <button
                             type="button"
                             onClick={() => setSearch('')}
-                            className="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-2 rounded text-xs sm:text-sm transition"
+                            className="w-full bg-[#0a151a] hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl text-xs sm:text-sm transition cursor-pointer shadow-xs"
                         >
                             Search Catalog
                         </button>
@@ -3310,17 +3309,17 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
                 </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-xs rounded-2xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                    <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider border-b border-slate-100 pb-2">
+            <div className="bg-white rounded-2xl shadow-xs p-6 overflow-hidden">
+                <div className="flex items-center justify-between mb-4 pb-2">
+                    <h4 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">
                         Available Courses ({courses.length})
                     </h4>
                     <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Filter by status:</span>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Filter by status:</span>
                         <select
                             value={statusFilter}
                             onChange={e => setStatusFilter(e.target.value)}
-                            className="border border-slate-300 rounded p-1 text-xs"
+                            className="bg-slate-50 border-0 rounded-lg p-1.5 text-xs text-slate-800 focus:outline-none"
                         >
                             <option value="">All</option>
                             <option value="Open">Open</option>
@@ -3331,56 +3330,48 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
                 </div>
 
                 {loading ? (
-                    <div className="flex items-center justify-center py-8">
-                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-slate-900"></div>
+                    <div className="flex items-center justify-center py-12">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-900"></div>
                     </div>
                 ) : courses.length === 0 ? (
-                    <div className="text-center py-8 text-slate-500 text-sm">No courses found matching your criteria.</div>
+                    <div className="text-center py-12 text-slate-400 text-sm">No courses found matching your criteria.</div>
                 ) : (
                     <div className="overflow-x-auto">
                         <table className="w-full text-left text-xs sm:text-sm">
-                            <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                            <thead className="bg-slate-50 text-slate-700 text-[10px] uppercase font-bold tracking-wider">
                                 <tr>
-                                    <th className="p-3">Code</th>
-                                    <th className="p-3">Title</th>
-                                    <th className="p-3">Subject</th>
-                                    <th className="p-3">Credits</th>
-                                    <th className="p-3">Term</th>
-                                    <th className="p-3">Status</th>
-                                    <th className="p-3">Action</th>
+                                    <th className="p-3.5">Code</th>
+                                    <th className="p-3.5">Title</th>
+                                    <th className="p-3.5">Subject</th>
+                                    <th className="p-3.5">Credits</th>
+                                    <th className="p-3.5">Term</th>
+                                    <th className="p-3.5">Status</th>
+                                    <th className="p-3.5 text-right">Action</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-200">
+                            <tbody className="divide-y divide-slate-100">
                                 {courses.map((course) => (
-                                    <tr key={course.id} className="hover:bg-slate-50">
-                                        <td className="p-3 font-mono font-medium text-slate-900">{course.code}</td>
-                                        <td className="p-3 text-slate-700">{course.title}</td>
-                                        <td className="p-3 text-slate-700 font-medium">
-                                            {course.subject}
+                                    <tr key={course.id} className="hover:bg-slate-50/80 transition-colors">
+                                        <td className="p-3.5 font-mono font-bold text-slate-900">{course.code}</td>
+                                        <td className="p-3.5 text-slate-900 font-medium">{course.title}</td>
+                                        <td className="p-3.5 text-slate-600 font-medium">{course.subject}</td>
+                                        <td className="p-3.5 text-slate-600 font-bold">{course.credits}</td>
+                                        <td className="p-3.5 text-slate-600">{course.term}</td>
+                                        <td className="p-3.5">
+                                            <span className={`px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider ${
+                                                course.status === 'Open' ? 'bg-emerald-500 text-white' : course.status === 'Full' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'
+                                            }`}>
+                                                {course.status}
+                                            </span>
                                         </td>
-                                        <td className="p-3 text-slate-600">{course.credits}</td>
-                                        <td className="p-3 text-slate-600">{course.term}</td>
-                                        <td className="p-3">
-                                            <StatusBadge status={course.status} />
-                                        </td>
-                                        <td className="p-3">
-                                            {course.status === 'Open' ? (
-                                                <button
-                                                    onClick={() => handleRegister(course)}
-                                                    disabled={registering === course.id}
-                                                    className="px-3 py-1.5 bg-slate-900 text-white text-xs font-bold uppercase tracking-wider rounded hover:bg-slate-800 transition disabled:opacity-50"
-                                                >
-                                                    {registering === course.id ? 'Registering...' : 'Register'}
-                                                </button>
-                                            ) : course.status === 'Full' ? (
-                                                <button className="px-3 py-1.5 border border-slate-300 text-slate-500 text-xs font-bold uppercase tracking-wider rounded cursor-not-allowed">
-                                                    Full
-                                                </button>
-                                            ) : (
-                                                <button className="px-3 py-1.5 border border-slate-300 text-slate-500 text-xs font-bold uppercase tracking-wider rounded hover:bg-slate-50 transition">
-                                                    Waitlist
-                                                </button>
-                                            )}
+                                        <td className="p-3.5 text-right whitespace-nowrap">
+                                            <button
+                                                onClick={() => handleRegister(course)}
+                                                disabled={registering === course.id || course.status === 'Full'}
+                                                className="px-3.5 py-1.5 bg-[#0a151a] hover:bg-slate-800 disabled:opacity-50 text-white text-xs font-bold rounded-lg transition shadow-xs cursor-pointer"
+                                            >
+                                                {registering === course.id ? 'Registering...' : 'Register'}
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
