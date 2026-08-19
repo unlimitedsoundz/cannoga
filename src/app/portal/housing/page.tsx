@@ -426,20 +426,25 @@ export default function HousingPortalPage() {
                                         ))}
                                     </div>
 
-                                    {housingType === 'on_campus' ? (
-                                        <>
-                                            {/* Vibrant Academic-Style Building Cards with Mobile Inline & Desktop Bottom Bed Picker */}
-                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                                {buildings.filter(b => b.code !== null).map((b, idx) => {
-                                                    const PALETTES = [
-                                                        { bg: 'bg-[#4f46e5]', border: 'border-[#4f46e5]', wave: '#3730a3', text: 'text-indigo-100', badge: 'bg-[#3730a3]' },
-                                                        { bg: 'bg-[#059669]', border: 'border-[#059669]', wave: '#064e3b', text: 'text-emerald-100', badge: 'bg-[#064e3b]' },
-                                                        { bg: 'bg-[#ea580c]', border: 'border-[#ea580c]', wave: '#7c2d12', text: 'text-orange-100', badge: 'bg-[#7c2d12]' },
-                                                        { bg: 'bg-[#0284c7]', border: 'border-[#0284c7]', wave: '#075985', text: 'text-sky-100', badge: 'bg-[#075985]' },
-                                                        { bg: 'bg-[#7c3aed]', border: 'border-[#7c3aed]', wave: '#4c1d95', text: 'text-purple-100', badge: 'bg-[#4c1d95]' },
-                                                    ];
-                                                    const palette = PALETTES[idx % PALETTES.length];
-                                                    const isSelected = selectedBuilding?.id === b.id;
+                                    {housingType === 'on_campus' ? (() => {
+                                        const PALETTES = [
+                                            { bg: 'bg-[#4f46e5]', border: 'border-[#4f46e5]', wave: '#3730a3', text: 'text-indigo-100', badge: 'bg-[#3730a3]', pill: 'bg-[#4f46e5]' },
+                                            { bg: 'bg-[#059669]', border: 'border-[#059669]', wave: '#064e3b', text: 'text-emerald-100', badge: 'bg-[#064e3b]', pill: 'bg-[#059669]' },
+                                            { bg: 'bg-[#ea580c]', border: 'border-[#ea580c]', wave: '#7c2d12', text: 'text-orange-100', badge: 'bg-[#7c2d12]', pill: 'bg-[#ea580c]' },
+                                            { bg: 'bg-[#0284c7]', border: 'border-[#0284c7]', wave: '#075985', text: 'text-sky-100', badge: 'bg-[#075985]', pill: 'bg-[#0284c7]' },
+                                            { bg: 'bg-[#7c3aed]', border: 'border-[#7c3aed]', wave: '#4c1d95', text: 'text-purple-100', badge: 'bg-[#4c1d95]', pill: 'bg-[#7c3aed]' },
+                                        ];
+
+                                        const activeBuildingIdx = buildings.findIndex(b => b.id === selectedBuilding?.id);
+                                        const activePalette = activeBuildingIdx >= 0 ? PALETTES[activeBuildingIdx % PALETTES.length] : PALETTES[0];
+
+                                        return (
+                                            <>
+                                                {/* Vibrant Academic-Style Building Cards with Mobile Inline & Desktop Bottom Bed Picker */}
+                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                                    {buildings.filter(b => b.code !== null).map((b, idx) => {
+                                                        const palette = PALETTES[idx % PALETTES.length];
+                                                        const isSelected = selectedBuilding?.id === b.id;
 
                                                     // Default vibrant photo fallback if none uploaded
                                                     const defaultImage = idx === 0 
@@ -587,7 +592,7 @@ export default function HousingPortalPage() {
                                                                                             </span>
                                                                                             <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-xs shrink-0 tracking-wide ${
                                                                                                 availableCount > 0 
-                                                                                                    ? 'bg-[#059669] text-white ring-1 ring-emerald-500/30' 
+                                                                                                    ? `${palette.pill} text-white ring-1 ring-black/10` 
                                                                                                     : 'bg-neutral-200 text-neutral-600'
                                                                                             }`}>
                                                                                                 {availableCount} {availableCount === 1 ? 'bed' : 'beds'} open
@@ -765,7 +770,7 @@ export default function HousingPortalPage() {
                                                                             </span>
                                                                             <span className={`text-xs font-black px-3 py-1 rounded-full shadow-xs shrink-0 tracking-wide ${
                                                                                 availableCount > 0 
-                                                                                    ? 'bg-[#059669] text-white ring-1 ring-emerald-500/30' 
+                                                                                    ? `${activePalette.pill} text-white ring-1 ring-black/10` 
                                                                                     : 'bg-neutral-200 text-neutral-600'
                                                                             }`}>
                                                                                 {availableCount} {availableCount === 1 ? 'bed' : 'beds'} open
@@ -892,7 +897,8 @@ export default function HousingPortalPage() {
                                                 </div>
                                             )}
                                         </>
-                                    ) : (
+                                    );
+                                })() : (
                                         /* HOMESTAY LISTINGS */
                                         <div className="space-y-4">
                                             <p className="text-slate-500 text-sm">Host families vetted and approved by Cannoga College International Student Services.</p>
