@@ -274,56 +274,11 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
             );
         })()}
 
-            <div className="grid lg:grid-cols-12 gap-6 lg:gap-12 items-start">
-                {/* Invoice & Summary */}
-                <div className="lg:col-span-4 space-y-6">
-                    <div className="bg-white p-4 md:p-8 rounded-4px">
-                        <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
-                            <div>
-                                <div className="text-[11px] font-normal text-black uppercase tracking-widest mb-1">Student Details</div>
-                                <div className="font-normal text-black uppercase tracking-tight">{application.personal_info?.firstName} {application.personal_info?.lastName}</div>
-                                <div className="text-sm text-black mt-1">{application.contact_details?.email}</div>
-                            </div>
-                            <div className="sm:text-right w-full sm:w-auto">
-                                <div className="text-[11px] font-normal text-black uppercase tracking-widest mb-1">Payment Reference</div>
-                                <div className="font-mono text-[13px] text-black bg-neutral-50 px-3 py-1.5 rounded-4px inline-block break-all leading-none">
-                                    {(() => {
-                                        let hash = 0;
-                                        const str = admissionOffer.id;
-                                        for (let i = 0; i < str.length; i++) {
-                                            hash = ((hash << 5) - hash) + str.charCodeAt(i);
-                                            hash |= 0;
-                                        }
-                                        const positiveHash = Math.abs(hash);
-                                        return positiveHash.toString().padEnd(13, '0').slice(0, 13);
-                                    })()}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="space-y-4 mb-8">
-                            <div className="flex justify-between text-sm">
-                                <span className="text-black font-normal uppercase tracking-wider">{invoiceTypeLabel}</span>
-                                <span className="font-normal text-black text-right">$ {invoiceTotal.toLocaleString()}</span>
-                            </div>
-                            {includeAncillary && (
-                                <div className="flex justify-between text-sm text-neutral-500">
-                                    <span className="uppercase tracking-wider">Ancillary Fees</span>
-                                    <span className="text-right">$ {totalAncillary.toLocaleString()}</span>
-                                </div>
-                            )}
-                            <div className="flex justify-between pt-2 font-normal text-lg text-black">
-                                <span>TOTAL</span>
-                                <span className="font-normal">$ {invoiceTotal.toLocaleString()}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Checkout Logic */}
-                <div className="lg:col-span-8">
+            <div className="space-y-6">
+                {/* Checkout Logic & Flywire Info */}
+                <div className="space-y-6">
                     {error && (
-                        <div className="mb-6 p-4 bg-red-50 text-red-600 text-sm font-normal uppercase tracking-widest border border-red-100 flex items-center gap-3">
+                        <div className="p-4 bg-red-50 text-red-600 text-sm font-normal uppercase tracking-widest border border-red-100 flex items-center gap-3">
                             {error}
                         </div>
                     )}
@@ -337,6 +292,56 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                         onPaymentComplete={handlePaymentComplete}
                         isProcessing={isProcessing}
                     />
+
+                    {/* Flywire Partnership Info Section */}
+                    <div className="bg-neutral-50 rounded-2xl p-6 md:p-8 space-y-6">
+                        <div className="space-y-1.5">
+                            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#147BD1]">
+                                <span>Official Payment Partner</span>
+                            </div>
+                            <h3 className="text-base md:text-lg font-bold text-slate-900">
+                                Cannoga College partners with Flywire
+                            </h3>
+                            <p className="text-xs md:text-sm text-slate-600 leading-relaxed">
+                                Pay securely. Cannoga College receives your payment in CAD with no hidden fees.
+                            </p>
+                        </div>
+
+                        <div className="pt-2 border-t border-neutral-200/60">
+                            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-4">
+                                Why use Flywire?
+                            </h4>
+
+                            <div className="grid sm:grid-cols-3 gap-5">
+                                <div className="space-y-1.5">
+                                    <h5 className="text-xs font-bold text-slate-900">
+                                        Real-time payment tracking
+                                    </h5>
+                                    <p className="text-xs text-slate-500 leading-relaxed">
+                                        See your payment status every step of the way, we keep you informed.
+                                    </p>
+                                </div>
+
+                                <div className="space-y-1.5">
+                                    <h5 className="text-xs font-bold text-slate-900">
+                                        No hidden fees
+                                    </h5>
+                                    <p className="text-xs text-slate-500 leading-relaxed">
+                                        See your total before you commit. The amount you confirm is what you pay.
+                                    </p>
+                                </div>
+
+                                <div className="space-y-1.5">
+                                    <h5 className="text-xs font-bold text-slate-900">
+                                        Get help anytime, in your preferred language
+                                    </h5>
+                                    <p className="text-xs text-slate-500 leading-relaxed">
+                                        Our global team supports payers in English, Hindi, Mandarin, and many more.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="mt-8">

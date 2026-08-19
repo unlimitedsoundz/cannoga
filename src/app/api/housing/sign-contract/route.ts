@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
     // Create a housing deposit invoice record in housing_invoices
     // Generate a human-readable reference
     const invRef = `HDEP-${Date.now().toString().slice(-8)}`;
+    const depositDueDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
     const { data: invoice, error: invErr } = await adminClient
         .from('housing_invoices')
@@ -56,7 +57,7 @@ export async function POST(req: NextRequest) {
             paid_amount:      0,
             currency:         'CAD',
             status:           'PENDING',
-            due_date:         new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            due_date:         depositDueDate,
             metadata: {
                 purpose:          'housing_deposit',
                 application_id:   applicationId,
@@ -71,7 +72,7 @@ export async function POST(req: NextRequest) {
 
     if (invErr) {
         console.error('[POST /api/housing/sign-contract] invoice creation:', invErr);
-        // Continue anyway — contract is still recorded
+    } else {
         // Trigger in-app notification and email dispatch
         try {
             const bName = (application.assigned_room as any)?.building?.name ?? 'Residence';
@@ -81,7 +82,7 @@ export async function POST(req: NextRequest) {
             await adminClient.from('notifications').insert({
                 user_id: user.id,
                 title: 'New Invoice Issued: Housing Security Deposit',
-                message: `An official Housing Security Deposit invoice of $500.00 CAD has been issued for your room reservation (${bName}${rCode}). Due date: ${invoice?.due_date || '7 days'}.`,
+                message: `An official Housing Security Deposit invoice of $500.00 CAD has been issued for your room reservation (${bName}${rCode}). Due date: ${depositDueDate}.`,
                 category: 'Finance',
                 priority: 'high',
                 recipient_type: 'individual',
@@ -105,7 +106,7 @@ export async function POST(req: NextRequest) {
                     invoiceType: 'HOUSING_DEPOSIT',
                     invoiceNumber: invRef,
                     description: `Housing Security Deposit (${bName}${rCode})`,
-                    dueDate: invoice?.due_date,
+                    dueDate: depositDueDate,
                     link: `${process.env.NEXT_PUBLIC_APP_URL || 'https://cannoga.vercel.app'}/sis/payments`
                 }
             });
@@ -151,7 +152,7 @@ export async function POST(req: NextRequest) {
         deposit: {
             amount_cad:      DEPOSIT_CAD,
             reference:       invRef,
-            due_date:        invoice?.due_date,
+            due_date:        depositDueDate,
         },
         bankAccounts: bankAccounts ?? [],
     });
