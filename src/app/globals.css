@@ -39,6 +39,16 @@ select.country-select {
     margin: 0 !important;
 }
 
+/* Enforce precise 45.55px height on Country / Region input triggers */
+.font-rubik .country-trigger,
+[data-font="rubik"] .country-trigger,
+.country-trigger {
+    height: 45.55px !important;
+    min-height: 45.55px !important;
+    max-height: 45.55px !important;
+    box-sizing: border-box !important;
+}
+
 /* ============================================
    CANNOGA COLLEGE — SHARED DESIGN TOKENS
    Matches the home page design language.
