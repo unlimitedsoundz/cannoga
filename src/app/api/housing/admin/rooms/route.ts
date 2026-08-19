@@ -35,13 +35,25 @@ export async function GET(req: NextRequest) {
     if (buildingId) query = query.eq('building_id', buildingId);
     if (status && status !== 'all') query = query.eq('status', status);
 
-    const { data: rooms, error } = await query;
+    const { data: rawRooms, error } = await query;
     if (error) {
         console.error('[GET /api/housing/admin/rooms]', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ rooms: rooms ?? [] });
+    // Auto-migrate any legacy LAUR- codes in DB
+    const rooms = (rawRooms ?? []).map(r => {
+        let code = r.full_room_code;
+        if (code && code.startsWith('LAUR-')) {
+            const newCode = code.replace(/^LAUR-/, 'CAN-');
+            // Background update in DB
+            adminClient.from('housing_rooms').update({ full_room_code: newCode }).eq('id', r.id).then();
+            return { ...r, full_room_code: newCode };
+        }
+        return r;
+    });
+
+    return NextResponse.json({ rooms });
 }
 
 // POST /api/housing/admin/rooms — Create or Update room status/details

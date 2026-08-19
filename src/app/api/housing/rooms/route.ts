@@ -31,20 +31,31 @@ export async function GET(req: NextRequest) {
         query = query.eq('floor_number', parseInt(floor, 10));
     }
 
-    const { data: rooms, error } = await query;
+    const { data: rawRooms, error } = await query;
 
     if (error) {
         console.error('[GET /api/housing/rooms]', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
+    // Auto-migrate any legacy LAUR- codes in DB
+    const rooms = (rawRooms ?? []).map(r => {
+        let code = r.full_room_code;
+        if (code && code.startsWith('LAUR-')) {
+            const newCode = code.replace(/^LAUR-/, 'CAN-');
+            supabase.from('housing_rooms').update({ full_room_code: newCode }).eq('id', r.id).then();
+            return { ...r, full_room_code: newCode };
+        }
+        return r;
+    });
+
     // Group by floor for convenient client rendering
     const byFloor: Record<number, ResidenceRoom[]> = {};
-    for (const room of rooms ?? []) {
+    for (const room of rooms) {
         const fl = room.floor_number ?? 1;
         if (!byFloor[fl]) byFloor[fl] = [];
         byFloor[fl].push(room as ResidenceRoom);
     }
 
-    return NextResponse.json({ rooms: rooms ?? [], byFloor });
+    return NextResponse.json({ rooms, byFloor });
 }
