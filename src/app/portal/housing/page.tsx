@@ -1238,9 +1238,12 @@ export default function HousingPortalPage() {
                                          <h2 className="text-lg font-black mb-1 text-slate-900">Roommate Matches</h2>
                                          <p className="text-slate-500 text-sm mb-4">Based on your lifestyle profile compatibility.</p>
                                          {matches.length === 0 ? (
-                                             <div className="text-center py-12 text-slate-400 text-sm bg-slate-50 rounded-2xl">
-                                                 <Icons.Users />
-                                                 <p className="mt-2">Save your preferences to see matches</p>
+                                             <div className="flex flex-col items-center justify-center text-center py-16 px-4 text-slate-400 text-sm bg-slate-50 rounded-2xl">
+                                                 <div className="w-12 h-12 rounded-full bg-slate-200/70 flex items-center justify-center text-slate-500 mb-3">
+                                                     <Icons.Users className="w-6 h-6" />
+                                                 </div>
+                                                 <p className="font-bold text-slate-700 text-sm">Save your preferences to see matches</p>
+                                                 <p className="text-xs text-slate-400 mt-1 max-w-xs">We will calculate your compatibility score across sleep, study, guest, and floor habits.</p>
                                              </div>
                                          ) : (
                                              <div className="space-y-3">
