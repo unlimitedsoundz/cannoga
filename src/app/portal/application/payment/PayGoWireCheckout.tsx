@@ -521,7 +521,7 @@ export default function PayGoWireCheckout({
                     <div className="space-y-4 md:space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500 font-rubik">
 
                         <div className="text-center space-y-2">
-                            <h2 className="text-[20px] font-bold text-black pt-1">
+                            <h2 className="text-[20px] font-normal text-black pt-1">
                                 Transfer exactly <span className="text-black">{fxData.currencySymbol} {Number(initPayload.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {initPayload.localCurrency}</span>
                             </h2>
                             <p className="text-xs text-neutral-600 max-w-lg mx-auto">
@@ -531,8 +531,8 @@ export default function PayGoWireCheckout({
 
                         {/* Tracking Reference Badge */}
                         <div className="bg-[#147BD1] text-white rounded-xl p-4 shadow-sm">
-                            <p className="text-[10px] uppercase tracking-widest text-white/80 font-bold mb-0.5">Your Tracking Reference</p>
-                            <p className="font-mono text-xl font-bold tracking-widest">{initPayload.trackingRef}</p>
+                            <p className="text-[10px] uppercase tracking-widest text-white/80 font-normal mb-0.5">Your Tracking Reference</p>
+                            <p className="font-mono text-xl font-normal tracking-widest">{initPayload.trackingRef}</p>
                         </div>
 
                         {/* Dynamic Bank Details */}
@@ -559,40 +559,40 @@ export default function PayGoWireCheckout({
 
                         {/* Supporting Documents (Flywire Authorization Letters) */}
                         <div className="pt-2 space-y-2">
-                            <p className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">Supporting Documents</p>
+                            <p className="text-[11px] font-normal text-neutral-500 uppercase tracking-wider">Supporting Documents</p>
                             <p className="text-xs text-neutral-600">If your bank or financial institution requires authorization letters for wire processing:</p>
                             <div className="space-y-1.5 pt-1">
                                 <div className="flex items-center justify-between text-xs py-1 border-b border-neutral-100 last:border-b-0">
-                                    <span className="text-neutral-800 font-medium">Flywire Authorization Letter</span>
+                                    <span className="text-neutral-800 font-normal">Flywire Authorization Letter</span>
                                     <a
                                         href="/images/Cannoga%20College%20Flywire-Authorization-Letter.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1 font-bold text-black hover:underline"
+                                        className="inline-flex items-center gap-1 font-normal text-black hover:underline"
                                     >
-                                        Download PDF <ArrowSquareOut size={12} weight="bold" />
+                                        Download PDF <ArrowSquareOut size={12} />
                                     </a>
                                 </div>
                                 <div className="flex items-center justify-between text-xs py-1 border-b border-neutral-100 last:border-b-0">
-                                    <span className="text-neutral-800 font-medium">Nigerian Naira Authorization Letter</span>
+                                    <span className="text-neutral-800 font-normal">Nigerian Naira Authorization Letter</span>
                                     <a
                                         href="/images/Cannoga%20College%20Flywire-Nigerian-Naira.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1 font-bold text-black hover:underline"
+                                        className="inline-flex items-center gap-1 font-normal text-black hover:underline"
                                     >
-                                        Download PDF <ArrowSquareOut size={12} weight="bold" />
+                                        Download PDF <ArrowSquareOut size={12} />
                                     </a>
                                 </div>
                                 <div className="flex items-center justify-between text-xs py-1 border-b border-neutral-100 last:border-b-0">
-                                    <span className="text-neutral-800 font-medium">General Wire Authorization Letter</span>
+                                    <span className="text-neutral-800 font-normal">General Wire Authorization Letter</span>
                                     <a
                                         href="/images/Flywire-_-Cannoga%20Authorization-Letter.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1 font-bold text-black hover:underline"
+                                        className="inline-flex items-center gap-1 font-normal text-black hover:underline"
                                     >
-                                        Download PDF <ArrowSquareOut size={12} weight="bold" />
+                                        Download PDF <ArrowSquareOut size={12} />
                                     </a>
                                 </div>
                             </div>
