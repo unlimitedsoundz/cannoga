@@ -475,13 +475,20 @@ export default function HousingPortalPage() {
                                                         const palette = PALETTES[idx % PALETTES.length];
                                                         const isSelected = selectedBuilding?.id === b.id;
 
-                                                    // Default vibrant photo fallback if none uploaded
-                                                    const defaultImage = (b.code === 'CANNOGA' || b.name?.toLowerCase()?.includes('cannoga') || idx === 0)
-                                                        ? '/images/housing/cannoga-suites.jpg' 
-                                                        : idx === 1 
-                                                        ? '/images/technology.jpg' 
-                                                        : '/images/school-of-science-hero.jpg';
-                                                    const buildingImage = b.image_url || defaultImage;
+                                                    // Reliable image resolving for Cannoga Suites and campus buildings
+                                                    const getBuildingImage = () => {
+                                                        if (b.image_url && b.image_url.trim() !== '' && !b.image_url.includes('studies-hero')) {
+                                                            return b.image_url;
+                                                        }
+                                                        if (b.code === 'CANNOGA' || b.name?.toLowerCase()?.includes('cannoga') || idx === 0) {
+                                                            return '/images/housing/cannoga-suites.jpg';
+                                                        }
+                                                        if (b.code === 'RIDEAU' || b.name?.toLowerCase()?.includes('rideau') || idx === 1) {
+                                                            return '/images/technology.jpg';
+                                                        }
+                                                        return '/images/school-of-science-hero.jpg';
+                                                    };
+                                                    const buildingImage = getBuildingImage();
 
                                                     return (
                                                         <div key={b.id} className="flex flex-col">
