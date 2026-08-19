@@ -408,7 +408,8 @@ export default function PayGoWireCheckout({
                                 <div className="relative">
                                     <div
                                         onClick={() => setIsCountryOpen(prev => !prev)}
-                                        className={`w-full h-[45.5px] bg-white rounded-md cursor-pointer transition-all flex items-center justify-between px-4 border ${
+                                        style={{ height: '45.55px' }}
+                                        className={`w-full bg-white rounded-md cursor-pointer transition-all flex items-center justify-between px-4 border ${
                                             isCountryOpen ? 'border-[#C8102E] ring-1 ring-[#C8102E]' : 'border-slate-300 hover:border-slate-400'
                                         }`}
                                     >
