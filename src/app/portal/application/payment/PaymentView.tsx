@@ -197,7 +197,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                 {/* Left Column: Payment Form */}
                 <div className="lg:col-span-7 space-y-6">
                     {/* Blue Top Partnership Card (Mobile Only - Top of Steps Bar) */}
-                    <div className="lg:hidden flex flex-row p-4 gap-3 bg-blue-50 border border-blue-600 rounded-lg" style={{ borderRadius: '8px' }}>
+                    <div className="lg:hidden flex flex-row p-4 gap-3 bg-blue-50 border border-blue-600 rounded-lg">
                         <div className="text-blue-600 mt-0.5 shrink-0">
                             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
@@ -227,7 +227,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                 {/* Right Column: Flywire Info Cards */}
                 <div className="lg:col-span-5 space-y-4">
                     {/* Blue Top Partnership Card (Desktop Only) */}
-                    <div className="hidden lg:flex flex-row p-4 gap-3 bg-blue-50 border border-blue-600 rounded-lg" style={{ borderRadius: '8px' }}>
+                    <div className="hidden lg:flex flex-row p-4 gap-3 bg-blue-50 border border-blue-600 rounded-lg">
                         <div className="text-blue-600 mt-0.5 shrink-0">
                             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>

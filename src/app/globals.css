@@ -51,25 +51,30 @@ img, video, iframe, canvas, svg,
     border-radius: 0 !important;
 }
 
-/* Permit rounded-lg and custom border radii inside checkout specifically */
+/* Permit rounded-lg and custom border radii inside checkout specifically (slightly reduced) */
+.font-rubik .rounded-sm,
+[data-font="rubik"] .rounded-sm {
+    border-radius: 2px !important;
+}
+
 .font-rubik .rounded-md,
 [data-font="rubik"] .rounded-md {
-    border-radius: 0.375rem !important;
+    border-radius: 4px !important;
 }
 
 .font-rubik .rounded-lg,
 [data-font="rubik"] .rounded-lg {
-    border-radius: 0.5rem !important;
+    border-radius: 6px !important;
 }
 
 .font-rubik .rounded-xl,
 [data-font="rubik"] .rounded-xl {
-    border-radius: 0.75rem !important;
+    border-radius: 8px !important;
 }
 
 .font-rubik .rounded-2xl,
 [data-font="rubik"] .rounded-2xl {
-    border-radius: 1rem !important;
+    border-radius: 10px !important;
 }
 
 /* Allow only true circular elements (e.g. circular profile avatars and status indicator dots) */
