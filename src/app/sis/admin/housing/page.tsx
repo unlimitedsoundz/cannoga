@@ -69,6 +69,23 @@ export default function AdminHousingPage() {
     const [woEditForm, setWoEditForm] = useState<{ tech: string; notes: string }>({ tech: '', notes: '' });
     const [selectedWO, setSelectedWO] = useState<WorkOrder | null>(null);
     const [toast, setToast]           = useState<string | null>(null);
+    const [showHostModal, setShowHostModal] = useState(false);
+    const [savingHost, setSavingHost] = useState(false);
+    const [editingHost, setEditingHost] = useState<any>({
+        id: '',
+        host_name: '',
+        host_family_description: '',
+        address_city: 'Ottawa',
+        distance_to_campus_km: 5.0,
+        languages_spoken: ['English'],
+        dietary_accommodations: [],
+        max_students: 2,
+        current_students: 0,
+        price_per_week_minor: 35000,
+        gender_policy: 'any',
+        has_quiet_study_room: true,
+        is_active: true,
+    });
 
     const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(null), 3500); };
 
@@ -123,6 +140,36 @@ export default function AdminHousingPage() {
                 showToast(`Work order updated to "${status}"`);
             }
         } finally { setUpdatingWO(null); }
+    const handleSaveHost = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editingHost.host_name || !editingHost.address_city) {
+            showToast('Host name and address city are required.');
+            return;
+        }
+        setSavingHost(true);
+        try {
+            const res = await fetch('/api/housing/admin/homestay', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(editingHost),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Failed to save host');
+
+            showToast(data.message || 'Homestay host saved successfully!');
+            setShowHostModal(false);
+            // Refresh list
+            const refreshRes = await fetch('/api/housing/admin/homestay');
+            if (refreshRes.ok) {
+                const refreshed = await refreshRes.json();
+                setHomestayHosts(refreshed.hosts || []);
+            }
+        } catch (err: any) {
+            console.error('Save host error:', err);
+            showToast(err.message || 'Failed to save homestay host.');
+        } finally {
+            setSavingHost(false);
+        }
     };
 
     const filteredApps = applications.filter(a => {
@@ -292,18 +339,46 @@ export default function AdminHousingPage() {
                     {/* ── HOMESTAY HOSTS ── */}
                     {activeTab === 'homestay' && (
                         <div className="space-y-4">
-                            <h2 className="text-sm font-bold uppercase tracking-wider text-slate-400">Active Homestay Hosts ({homestayHosts.length})</h2>
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-sm font-bold uppercase tracking-wider text-slate-400">Active Homestay Hosts ({homestayHosts.length})</h2>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setEditingHost({
+                                            id: '',
+                                            host_name: '',
+                                            host_family_description: '',
+                                            address_city: 'Ottawa',
+                                            distance_to_campus_km: 4.5,
+                                            languages_spoken: ['English'],
+                                            dietary_accommodations: ['Halal', 'Vegetarian'],
+                                            max_students: 2,
+                                            current_students: 0,
+                                            price_per_week_minor: 35000,
+                                            gender_policy: 'any',
+                                            has_quiet_study_room: true,
+                                            is_active: true,
+                                        });
+                                        setShowHostModal(true);
+                                    }}
+                                    className="px-3.5 py-1.5 bg-sky-600 hover:bg-sky-500 rounded-lg text-xs font-bold text-white transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+                                >
+                                    <span>+ Add New Host</span>
+                                </button>
+                            </div>
+
                             <div className="grid gap-4">
                                 {homestayHosts.map(h => (
-                                    <div key={h.id} className="p-5 bg-white/3 border border-white/5 rounded-2xl">
+                                    <div key={h.id} className="p-5 bg-white/3 border border-white/5 rounded-2xl hover:border-white/15 transition-all">
                                         <div className="flex items-start justify-between flex-wrap gap-4">
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-3 flex-wrap mb-1">
-                                                    <span className="font-bold text-white">{h.host_name}</span>
+                                                    <span className="font-bold text-white text-base">{h.host_name}</span>
                                                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${h.gender_policy === 'any' ? 'bg-purple-500/20 text-purple-300' : h.gender_policy === 'female_only' ? 'bg-pink-500/20 text-pink-300' : 'bg-blue-500/20 text-blue-300'}`}>
                                                         {h.gender_policy === 'any' ? 'Co-Ed' : h.gender_policy === 'female_only' ? 'Female Only' : 'Male Only'}
                                                     </span>
                                                     {h.has_quiet_study_room && <span className="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 rounded-full text-[10px] font-bold">📚 Quiet Study</span>}
+                                                    {!h.is_active && <span className="px-2 py-0.5 bg-red-500/20 text-red-300 rounded-full text-[10px] font-bold">Inactive</span>}
                                                 </div>
                                                 <p className="text-slate-400 text-xs mb-2 leading-relaxed line-clamp-2">{h.host_family_description}</p>
                                                 <div className="flex flex-wrap gap-2 text-[11px]">
@@ -316,13 +391,49 @@ export default function AdminHousingPage() {
                                                     ))}
                                                 </div>
                                             </div>
-                                            <div className="text-right shrink-0 space-y-1">
+                                            <div className="text-right shrink-0 space-y-1.5">
                                                 <div className="text-lg font-black text-sky-300">${(h.price_per_week_minor / 100).toLocaleString()}/wk</div>
                                                 <div className="text-xs text-slate-400">Capacity: {h.current_students ?? 0} / {h.max_students}</div>
                                                 <div className={`text-xs font-bold ${(h.max_students - (h.current_students ?? 0)) > 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                                                     {(h.max_students - (h.current_students ?? 0)) > 0
                                                         ? `${h.max_students - (h.current_students ?? 0)} spot${h.max_students - (h.current_students ?? 0) !== 1 ? 's' : ''} open`
                                                         : 'Full'}
+                                                </div>
+                                                <div className="flex items-center justify-end gap-2 pt-1">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setEditingHost({
+                                                                ...h,
+                                                                languages_spoken: h.languages_spoken || ['English'],
+                                                                dietary_accommodations: h.dietary_accommodations || [],
+                                                            });
+                                                            setShowHostModal(true);
+                                                        }}
+                                                        className="px-2.5 py-1 bg-sky-600/20 border border-sky-500/30 rounded-lg text-[11px] font-bold text-sky-300 hover:bg-sky-600/30 transition cursor-pointer"
+                                                    >
+                                                        Edit Details
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={async () => {
+                                                            if (!confirm(`Are you sure you want to remove host "${h.host_name}"?`)) return;
+                                                            try {
+                                                                const res = await fetch(`/api/housing/admin/homestay?id=${h.id}`, { method: 'DELETE' });
+                                                                if (res.ok) {
+                                                                    setHomestayHosts(prev => prev.filter(x => x.id !== h.id));
+                                                                    showToast(`Host "${h.host_name}" deleted.`);
+                                                                } else {
+                                                                    showToast('Failed to delete host.');
+                                                                }
+                                                            } catch (err) {
+                                                                showToast('Error deleting host.');
+                                                            }
+                                                        }}
+                                                        className="px-2.5 py-1 bg-red-600/20 border border-red-500/30 rounded-lg text-[11px] font-bold text-red-300 hover:bg-red-600/30 transition cursor-pointer"
+                                                    >
+                                                        Delete
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -463,6 +574,208 @@ export default function AdminHousingPage() {
                         </div>
                     )}
                 </>
+            )}
+
+            {/* ── ADD / EDIT HOMESTAY HOST MODAL ── */}
+            {showHostModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setShowHostModal(false)} />
+                    <div className="relative bg-[#0d1f2e] border border-white/15 rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl z-10 text-slate-200">
+                        <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+                            <div>
+                                <h3 className="font-extrabold text-lg text-white">
+                                    {editingHost.id ? `Edit Host: ${editingHost.host_name}` : 'Add New Homestay Host'}
+                                </h3>
+                                <p className="text-xs text-slate-400 mt-0.5">Configure host family profile, policies, pricing, and dietary support.</p>
+                            </div>
+                            <button onClick={() => setShowHostModal(false)} className="text-slate-400 hover:text-white p-1 cursor-pointer">
+                                ✕
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleSaveHost} className="space-y-4 text-xs">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Host Name *</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={editingHost.host_name || ''}
+                                        onChange={e => setEditingHost({ ...editingHost, host_name: e.target.value })}
+                                        placeholder="e.g. The Morrison Family"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Address / City *</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={editingHost.address_city || ''}
+                                        onChange={e => setEditingHost({ ...editingHost, address_city: e.target.value })}
+                                        placeholder="e.g. Ottawa"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Host Family Description & Amenities</label>
+                                <textarea
+                                    rows={3}
+                                    value={editingHost.host_family_description || ''}
+                                    onChange={e => setEditingHost({ ...editingHost, host_family_description: e.target.value })}
+                                    placeholder="Describe the family, home environment, room setup, meals provided..."
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500 resize-none"
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Distance to Campus (km)</label>
+                                    <input
+                                        type="number"
+                                        step="0.1"
+                                        min="0"
+                                        value={editingHost.distance_to_campus_km ?? 3.5}
+                                        onChange={e => setEditingHost({ ...editingHost, distance_to_campus_km: parseFloat(e.target.value) || 0 })}
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Price Per Week (CAD $)</label>
+                                    <input
+                                        type="number"
+                                        step="5"
+                                        min="50"
+                                        value={Math.round((editingHost.price_per_week_minor || 35000) / 100)}
+                                        onChange={e => setEditingHost({ ...editingHost, price_per_week_minor: (parseInt(e.target.value, 10) || 350) * 100 })}
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Gender Policy</label>
+                                    <select
+                                        value={editingHost.gender_policy || 'any'}
+                                        onChange={e => setEditingHost({ ...editingHost, gender_policy: e.target.value })}
+                                        className="w-full bg-[#0a151a] border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    >
+                                        <option value="any">Co-Ed (Any Gender)</option>
+                                        <option value="female_only">Female Students Only</option>
+                                        <option value="male_only">Male Students Only</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Max Student Capacity</label>
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        max="10"
+                                        value={editingHost.max_students ?? 2}
+                                        onChange={e => setEditingHost({ ...editingHost, max_students: parseInt(e.target.value, 10) || 1 })}
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Currently Placed Students</label>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        max={editingHost.max_students ?? 10}
+                                        value={editingHost.current_students ?? 0}
+                                        onChange={e => setEditingHost({ ...editingHost, current_students: parseInt(e.target.value, 10) || 0 })}
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Languages Spoken (comma separated)</label>
+                                <input
+                                    type="text"
+                                    value={Array.isArray(editingHost.languages_spoken) ? editingHost.languages_spoken.join(', ') : (editingHost.languages_spoken || '')}
+                                    onChange={e => setEditingHost({ ...editingHost, languages_spoken: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })}
+                                    placeholder="e.g. English, French, Spanish"
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-sky-500"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block font-bold uppercase tracking-wider text-slate-400 mb-1.5">Dietary Accommodations (select / toggle)</label>
+                                <div className="flex flex-wrap gap-2 pt-1">
+                                    {['Halal', 'Vegetarian', 'Vegan', 'Kosher', 'Gluten-Free', 'Nut Allergy Safe', 'Dairy-Free'].map(diet => {
+                                        const key = diet.toLowerCase().replace('-', '_').replace(' ', '_');
+                                        const isSelected = (editingHost.dietary_accommodations || []).map((x: string) => x.toLowerCase().replace('-', '_').replace(' ', '_')).includes(key);
+                                        return (
+                                            <button
+                                                key={diet}
+                                                type="button"
+                                                onClick={() => {
+                                                    const cur: string[] = editingHost.dietary_accommodations || [];
+                                                    if (isSelected) {
+                                                        setEditingHost({
+                                                            ...editingHost,
+                                                            dietary_accommodations: cur.filter(x => x.toLowerCase().replace('-', '_').replace(' ', '_') !== key),
+                                                        });
+                                                    } else {
+                                                        setEditingHost({
+                                                            ...editingHost,
+                                                            dietary_accommodations: [...cur, key],
+                                                        });
+                                                    }
+                                                }}
+                                                className={`px-3 py-1.5 rounded-lg font-bold transition text-xs cursor-pointer ${isSelected ? 'bg-green-600 text-white' : 'bg-white/5 text-slate-400 hover:bg-white/10'}`}
+                                            >
+                                                {diet} {isSelected ? '✓' : '+'}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-6 pt-2 pb-2">
+                                <label className="flex items-center gap-2.5 cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        checked={!!editingHost.has_quiet_study_room}
+                                        onChange={e => setEditingHost({ ...editingHost, has_quiet_study_room: e.target.checked })}
+                                        className="w-4 h-4 accent-sky-500 rounded"
+                                    />
+                                    <span className="font-semibold text-slate-300">Dedicated Quiet Study Room</span>
+                                </label>
+                                <label className="flex items-center gap-2.5 cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        checked={editingHost.is_active !== false}
+                                        onChange={e => setEditingHost({ ...editingHost, is_active: e.target.checked })}
+                                        className="w-4 h-4 accent-sky-500 rounded"
+                                    />
+                                    <span className="font-semibold text-slate-300">Host Listing is Active</span>
+                                </label>
+                            </div>
+
+                            <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowHostModal(false)}
+                                    className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl font-bold text-slate-300 text-xs transition cursor-pointer"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={savingHost}
+                                    className="px-6 py-2 bg-sky-600 hover:bg-sky-500 disabled:opacity-50 rounded-xl font-bold text-white text-xs transition cursor-pointer shadow-md"
+                                >
+                                    {savingHost ? 'Saving...' : (editingHost.id ? 'Update Host' : 'Create Host')}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             )}
         </div>
     );
