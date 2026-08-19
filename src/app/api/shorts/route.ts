@@ -161,7 +161,7 @@ const CANNOGA_CHANNEL_SHORTS: YouTubeShort[] = [
 
 let cachedShorts: YouTubeShort[] | null = null;
 let lastCacheTime = 0;
-const CACHE_TTL_MS = 1000 * 60 * 60; // 1 hour
+const CACHE_TTL_MS = 1000 * 60 * 2; // 2 minutes auto-refresh for newly uploaded videos
 
 async function fetchLiveChannelShorts(): Promise<YouTubeShort[]> {
     if (cachedShorts && (Date.now() - lastCacheTime < CACHE_TTL_MS)) {
@@ -171,10 +171,11 @@ async function fetchLiveChannelShorts(): Promise<YouTubeShort[]> {
     try {
         const res = await fetch('https://www.youtube.com/@CannogaCollege/shorts', {
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept-Language': 'en-US,en;q=0.9'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Cache-Control': 'no-cache'
             },
-            next: { revalidate: 3600 }
+            next: { revalidate: 120 }
         });
 
         if (!res.ok) {

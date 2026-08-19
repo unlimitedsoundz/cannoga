@@ -13,11 +13,11 @@ export function PreFooterBanner() {
                 {/* Background Container */}
                 <div className="absolute inset-0 w-full h-full pointer-events-none">
                     <Image
-                        src="/images/start-your-journey.jpg"
-                        alt="Cannoga College student reading in library"
+                        src="/images/prefooter-banner.png"
+                        alt="Cannoga College student"
                         fill
                         priority
-                        className="object-cover object-[30%_center] sm:object-center"
+                        className="object-cover object-[70%_25%] sm:object-[65%_30%] md:object-[60%_30%]"
                         sizes="100vw"
                     />
                 </div>

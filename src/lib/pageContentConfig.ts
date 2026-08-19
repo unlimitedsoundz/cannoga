@@ -87,10 +87,6 @@ export const pageContentSections: PageContentSection[] = [
         defaultContent: `<h2 class="text-3xl font-bold mb-8 text-black">Evaluation & Decisions</h2>
 <div class="space-y-6">
     <p class="text-lg leading-relaxed">Only complete applications are evaluated based on programme-specific criteria. Decision results are published within less than a week of submitting your application.</p>
-    <div class="bg-[#0f2027] text-white p-8 rounded-2xl shadow-lg">
-        <h3 class="font-bold text-lg mb-1">Waiting List Procedure</h3>
-        <p class="text-sm text-white/80">Places on the waiting list may be offered until 26 June 2026. Keep an eye on your email.</p>
-    </div>
 </div>`,
     },
     {
@@ -420,11 +416,7 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'decisions_content',
         label: 'Decisions Section',
         defaultContent: `<div class="space-y-4">
-    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Only complete applications are evaluated based on programme-specific academic criteria. Decision results are published within less than a week of submitting your application:</p>
-    <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
-        <li><strong class="text-slate-900 font-bold">Direct Offers:</strong> Sent electronically to your registered email and student portal account.</li>
-        <li><strong class="text-slate-900 font-bold">Waiting List Procedure:</strong> Places on the waiting list may be offered until 26 June 2026. Keep an eye on your email for updates.</li>
-    </ul>
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Only complete applications are evaluated based on programme-specific academic criteria. Decision results are published within less than a week of submitting your application.</p>
 </div>`,
     },
     {
