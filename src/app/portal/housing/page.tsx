@@ -428,7 +428,7 @@ export default function HousingPortalPage() {
 
                                     {housingType === 'on_campus' ? (
                                         <>
-                                            {/* Vibrant Academic-Style Building Cards */}
+                                            {/* Vibrant Academic-Style Building Cards with Mobile Inline & Desktop Bottom Bed Picker */}
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                                 {buildings.filter(b => b.code !== null).map((b, idx) => {
                                                     const PALETTES = [
@@ -452,8 +452,15 @@ export default function HousingPortalPage() {
                                                     return (
                                                         <div key={b.id} className="flex flex-col">
                                                             <button
-                                                                onClick={() => loadRooms(b)}
-                                                                className={`w-full text-left p-3.5 sm:p-4 rounded-2xl ${palette.bg} ${palette.border} border-4 transition-all duration-200 group overflow-hidden shadow-md flex flex-col justify-between ${isSelected ? 'ring-4 ring-slate-900 ring-offset-2' : ''}`}
+                                                                onClick={() => {
+                                                                    if (isSelected) {
+                                                                        setSelectedBuilding(null);
+                                                                        setSelectedRoom(null);
+                                                                    } else {
+                                                                        loadRooms(b);
+                                                                    }
+                                                                }}
+                                                                className={`w-full text-left p-3.5 sm:p-4 rounded-2xl ${palette.bg} ${palette.border} border-4 transition-all duration-200 group overflow-hidden shadow-md flex flex-col justify-between cursor-pointer ${isSelected ? 'ring-4 ring-slate-900 ring-offset-2' : ''}`}
                                                             >
                                                                 {/* Top Image with Organic Wavy Cutout */}
                                                                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-black/20">
@@ -502,7 +509,7 @@ export default function HousingPortalPage() {
                                                                             </h3>
                                                                             {/* Action Arrow */}
                                                                             <div className="shrink-0 p-2 rounded-full bg-white/20 text-white">
-                                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-5 h-5">
+                                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className={`w-5 h-5 transition-transform ${isSelected ? 'rotate-90' : ''}`}>
                                                                                     <path d="M7 17L17 7M17 7H7M17 7V17" />
                                                                                 </svg>
                                                                             </div>
@@ -525,14 +532,173 @@ export default function HousingPortalPage() {
                                                                     </div>
                                                                 </div>
                                                             </button>
+
+                                                            {/* Mobile-Only: Inline Bed Picker Accordion Directly Under This Card */}
+                                                            {isSelected && (
+                                                                <div className="block md:hidden mt-4 bg-white rounded-2xl p-4 sm:p-5 shadow-xs border-0 animate-drawer-slide">
+                                                                    <div className="flex flex-col gap-2 pb-3">
+                                                                        <div>
+                                                                            <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-neutral-100 text-neutral-800 mb-1">
+                                                                                Interactive Floor Plan
+                                                                            </div>
+                                                                            <h3 className="text-lg font-bold text-black tracking-tight font-sans">
+                                                                                {b.name} — Bed Directory
+                                                                            </h3>
+                                                                            <p className="text-xs text-neutral-500 mt-0.5">
+                                                                                Select a floor to view and reserve open suite beds.
+                                                                            </p>
+                                                                        </div>
+
+                                                                        {/* Legend */}
+                                                                        <div className="flex flex-wrap items-center gap-2.5 bg-neutral-50 px-2.5 py-1.5 rounded-lg text-xs">
+                                                                            {[['AVAILABLE','bg-emerald-600','Available'],['OCCUPIED','bg-neutral-300','Occupied'],['MAINTENANCE','bg-amber-500','Maintenance']].map(([s,c,label]) => (
+                                                                                <div key={s} className="flex items-center gap-1.5">
+                                                                                    <div className={`w-2 h-2 rounded-full ${c}`} />
+                                                                                    <span className="text-[10px] font-semibold text-neutral-700">{label}</span>
+                                                                                </div>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+
+                                                                    {/* Floor-by-Floor Mobile Accordions */}
+                                                                    <div className="w-full">
+                                                                        {floors.map(floorNum => {
+                                                                            const isFloorExpanded = expandedFloors.includes(floorNum);
+                                                                            const floorRooms = rooms.filter(r => (r.floor_number ?? 1) === floorNum);
+                                                                            const availableCount = floorRooms.filter(r => r.status === 'AVAILABLE').length;
+
+                                                                            return (
+                                                                                <div key={`m-floor-${floorNum}`} className="bg-white">
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        onClick={() => {
+                                                                                            setExpandedFloors(prev => 
+                                                                                                prev.includes(floorNum) 
+                                                                                                    ? prev.filter(f => f !== floorNum)
+                                                                                                    : [...prev, floorNum]
+                                                                                            );
+                                                                                        }}
+                                                                                        className="w-full flex items-center justify-between py-3 px-1 text-left hover:bg-[#0a151a]/5 transition-colors focus:outline-none cursor-pointer"
+                                                                                        aria-expanded={isFloorExpanded}
+                                                                                    >
+                                                                                        <div className="flex items-center gap-2 pr-2">
+                                                                                            <span className="text-sm font-bold text-black tracking-tight">
+                                                                                                Floor {floorNum} Suites
+                                                                                            </span>
+                                                                                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 shrink-0">
+                                                                                                {availableCount} open
+                                                                                            </span>
+                                                                                        </div>
+
+                                                                                        <div className="flex-shrink-0 bg-[#0a151a] text-white p-1 rounded-none shadow-xs">
+                                                                                            {isFloorExpanded ? (
+                                                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-3.5 h-3.5">
+                                                                                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                                                                                </svg>
+                                                                                            ) : (
+                                                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-3.5 h-3.5">
+                                                                                                    <line x1="12" y1="5" x2="12" y2="19" />
+                                                                                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                                                                                </svg>
+                                                                                            )}
+                                                                                        </div>
+                                                                                    </button>
+
+                                                                                    {isFloorExpanded && (
+                                                                                        <div className="pb-4 pt-1">
+                                                                                            <div className="grid grid-cols-2 gap-2 pt-1 px-1">
+                                                                                                {floorRooms.map(room => {
+                                                                                                    const isRoomSelected = selectedRoom?.id === room.id;
+                                                                                                    const isAvail = room.status === 'AVAILABLE';
+
+                                                                                                    return (
+                                                                                                        <button
+                                                                                                            key={`m-room-${room.id}`}
+                                                                                                            disabled={!isAvail}
+                                                                                                            onClick={() => isAvail && setSelectedRoom(isRoomSelected ? null : room)}
+                                                                                                            className={`p-2.5 rounded-lg text-left transition-all ${
+                                                                                                                isRoomSelected
+                                                                                                                    ? 'bg-[#0a151a] text-white shadow-md'
+                                                                                                                    : room.status === 'AVAILABLE'
+                                                                                                                    ? 'bg-neutral-50 hover:bg-neutral-100 cursor-pointer text-black'
+                                                                                                                    : room.status === 'MAINTENANCE'
+                                                                                                                    ? 'bg-neutral-50 opacity-40 cursor-not-allowed text-neutral-400'
+                                                                                                                    : 'bg-neutral-50 opacity-30 cursor-not-allowed text-neutral-400'
+                                                                                                            }`}
+                                                                                                        >
+                                                                                                            <div className="flex items-center justify-between gap-1">
+                                                                                                                <div className="text-xs font-black tracking-wide">
+                                                                                                                    {room.bed_identifier ? `${room.suite_number}-${room.bed_identifier}` : room.room_number}
+                                                                                                                </div>
+                                                                                                                <span className={`w-2 h-2 rounded-full ${
+                                                                                                                    room.status === 'AVAILABLE' ? 'bg-emerald-500' : room.status === 'MAINTENANCE' ? 'bg-amber-400' : 'bg-neutral-300'
+                                                                                                                }`} />
+                                                                                                            </div>
+                                                                                                            <div className={`text-[9px] mt-0.5 leading-tight line-clamp-1 ${
+                                                                                                                isRoomSelected ? 'text-neutral-300' : 'text-neutral-500'
+                                                                                                            }`}>
+                                                                                                                {room.room_type_label ?? room.room_type ?? 'Single'}
+                                                                                                            </div>
+                                                                                                            {room.price_per_term_minor && (
+                                                                                                                <div className={`text-[10px] font-black mt-1 ${
+                                                                                                                    isRoomSelected ? 'text-white' : 'text-black'
+                                                                                                                }`}>
+                                                                                                                    {fmtCAD(room.price_per_term_minor)}<span className="text-[8px] font-normal text-neutral-400">/term</span>
+                                                                                                                </div>
+                                                                                                            )}
+                                                                                                        </button>
+                                                                                                    );
+                                                                                                })}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    )}
+                                                                                </div>
+                                                                            );
+                                                                        })}
+                                                                    </div>
+
+                                                                    {/* Mobile Inline Selection summary */}
+                                                                    {selectedRoom && (
+                                                                        <div className="mt-4 p-3.5 bg-[#0a151a] text-white rounded-xl flex flex-col gap-2.5 shadow-lg">
+                                                                            <div className="flex items-center gap-2.5">
+                                                                                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white shrink-0">
+                                                                                    <Icons.Bed />
+                                                                                </div>
+                                                                                <div>
+                                                                                    <div className="flex items-center gap-1.5">
+                                                                                        <span className="font-bold text-xs text-white">
+                                                                                            {selectedRoom.full_room_code ?? selectedRoom.room_number}
+                                                                                        </span>
+                                                                                        <span className="text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">
+                                                                                            Selected
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    {selectedRoom.price_per_term_minor && (
+                                                                                        <div className="text-[11px] font-black text-white mt-0.5">
+                                                                                            {fmtCAD(selectedRoom.price_per_term_minor)} / term
+                                                                                        </div>
+                                                                                    )}
+                                                                                </div>
+                                                                            </div>
+                                                                            <button
+                                                                                onClick={handleReserve}
+                                                                                disabled={reserving}
+                                                                                className="w-full py-2 bg-white hover:bg-neutral-100 disabled:opacity-50 rounded-lg text-xs font-bold text-black transition-all shadow-sm text-center"
+                                                                            >
+                                                                                {reserving ? 'Reserving...' : 'Reserve This Bed →'}
+                                                                            </button>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            )}
                                                         </div>
                                                     );
                                                 })}
                                             </div>
 
-                                            {/* Floor plan / bed picker - Borderless Cannoga FAQ Component Style */}
+                                            {/* Desktop-Only: Full Width Floor plan / Bed Picker Below Grid */}
                                             {selectedBuilding && (
-                                                <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-xs border-0">
+                                                <div className="hidden md:block bg-white rounded-2xl p-5 sm:p-6 shadow-xs border-0 mt-6 animate-drawer-slide">
                                                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4">
                                                         <div>
                                                             <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-neutral-100 text-neutral-800 mb-1">
