@@ -133,7 +133,14 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
     const isHousingPayment = rawInvoiceType === 'HOUSING_DEPOSIT' || rawInvoiceType?.toLowerCase().includes('housing') || admissionOffer?.id?.startsWith('hdep');
 
     return (
-        <div className="max-w-6xl mx-auto py-8 md:py-12 px-4 font-rubik text-slate-900" data-font="rubik">
+        <div className="max-w-6xl mx-auto py-8 md:py-12 px-4 font-rubik text-slate-900" style={{ fontFamily: "'Rubik', sans-serif" }}>
+            <style dangerouslySetInnerHTML={{ __html: `
+                @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+                .font-rubik,
+                .font-rubik * {
+                    font-family: 'Rubik', sans-serif !important;
+                }
+            ` }} />
             {error && (
                 <div className="mb-6 p-4 bg-red-50 text-red-600 text-sm font-normal rounded-lg border border-red-100 flex items-center gap-3">
                     {error}
