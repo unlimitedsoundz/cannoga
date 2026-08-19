@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Auto-migrate any legacy LAUR- codes in DB
-    const rooms = (rawRooms ?? []).map(r => {
+    const rooms = ((rawRooms ?? []) as any[]).map((r: any) => {
         let code = r.full_room_code;
         if (code && code.startsWith('LAUR-')) {
             const newCode = code.replace(/^LAUR-/, 'CAN-');
