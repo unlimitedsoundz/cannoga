@@ -35,11 +35,11 @@ interface ApplicationRow {
 }
 
 const TABS_ADMIN: { id: AdminTab; label: string }[] = [
-    { id: 'overview',       label: '📊 Overview' },
-    { id: 'roster',         label: '🛏️ Bed Roster' },
-    { id: 'homestay',       label: '🏡 Homestay Hosts' },
-    { id: 'maintenance',    label: '🔧 Maintenance Queue' },
-    { id: 'suite_requests', label: '👫 Suite-Mate Requests' },
+    { id: 'overview',       label: 'Overview' },
+    { id: 'roster',         label: 'Bed Roster' },
+    { id: 'homestay',       label: 'Homestay Hosts' },
+    { id: 'maintenance',    label: 'Maintenance Queue' },
+    { id: 'suite_requests', label: 'Suite-Mate Requests' },
 ];
 
 const urgencyColor = (u: string) => {
@@ -312,7 +312,7 @@ export default function AdminHousingPage() {
                                                 <td className="px-3 py-2.5 font-mono text-slate-400">{a.student_id.slice(0, 12)}…</td>
                                                 <td className="px-3 py-2.5">
                                                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${a.housing_type === 'homestay' ? 'bg-violet-500/20 text-violet-300' : 'bg-sky-500/20 text-sky-300'}`}>
-                                                        {a.housing_type === 'homestay' ? '🏡 Homestay' : '🏫 On-Campus'}
+                                                        {a.housing_type === 'homestay' ? 'Homestay' : 'On-Campus'}
                                                     </span>
                                                 </td>
                                                 <td className="px-3 py-2.5 font-bold text-white">
@@ -379,12 +379,12 @@ export default function AdminHousingPage() {
                                                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${h.gender_policy === 'any' ? 'bg-purple-500/20 text-purple-300' : h.gender_policy === 'female_only' ? 'bg-pink-500/20 text-pink-300' : 'bg-blue-500/20 text-blue-300'}`}>
                                                         {h.gender_policy === 'any' ? 'Co-Ed' : h.gender_policy === 'female_only' ? 'Female Only' : 'Male Only'}
                                                     </span>
-                                                    {h.has_quiet_study_room && <span className="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 rounded-full text-[10px] font-bold">📚 Quiet Study</span>}
+                                                    {h.has_quiet_study_room && <span className="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 rounded-full text-[10px] font-bold">Quiet Study</span>}
                                                     {!h.is_active && <span className="px-2 py-0.5 bg-red-500/20 text-red-300 rounded-full text-[10px] font-bold">Inactive</span>}
                                                 </div>
                                                 <p className="text-slate-400 text-xs mb-2 leading-relaxed line-clamp-2">{h.host_family_description}</p>
                                                 <div className="flex flex-wrap gap-2 text-[11px]">
-                                                    <span className="text-slate-500">📍 {h.address_city} · {h.distance_to_campus_km} km</span>
+                                                    <span className="text-slate-500">{h.address_city} · {h.distance_to_campus_km} km</span>
                                                     {h.dietary_accommodations.map(d => (
                                                         <span key={d} className="px-2 py-0.5 bg-green-500/10 text-green-400 rounded">{d.charAt(0).toUpperCase() + d.slice(1)} ✓</span>
                                                     ))}

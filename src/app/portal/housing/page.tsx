@@ -361,7 +361,7 @@ export default function HousingPortalPage() {
                                         {(['on_campus', 'homestay'] as HousingType[]).map(t => (
                                             <button key={t} onClick={() => { setHousingType(t); setSelectedBuilding(null); setSelectedRoom(null); setSelectedHost(null); }}
                                                 className={`flex-1 py-3 px-4 rounded-xl text-sm font-bold border transition-all ${housingType === t ? 'bg-sky-600 border-sky-500 text-white' : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'}`}>
-                                                {t === 'on_campus' ? '🏫 On-Campus Residence' : '🏡 Homestay (Host Family)'}
+                                                {t === 'on_campus' ? 'On-Campus Residence' : 'Homestay (Host Family)'}
                                             </button>
                                         ))}
                                     </div>
@@ -478,7 +478,7 @@ export default function HousingPortalPage() {
                                                                     {host.gender_policy === 'any' ? 'Co-Ed Welcome' : host.gender_policy === 'female_only' ? 'Female Students Only' : 'Male Students Only'}
                                                                 </span>
                                                                 {host.has_quiet_study_room && (
-                                                                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300">📚 Quiet Study Room</span>
+                                                                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300">Quiet Study Room</span>
                                                                 )}
                                                                 {(host.spots_available ?? 0) > 0 ? (
                                                                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400">{host.spots_available} spot{host.spots_available !== 1 ? 's' : ''} available</span>
@@ -536,7 +536,7 @@ export default function HousingPortalPage() {
                                         <div>
                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Sleep Schedule</label>
                                             <div className="grid grid-cols-3 gap-2">
-                                                {[['early', '🌅 Early Bird'],['moderate', '☀️ Moderate'],['night', '🌙 Night Owl']].map(([v, l]) => (
+                                                {[['early', 'Early Bird'],['moderate', 'Moderate'],['night', 'Night Owl']].map(([v, l]) => (
                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, sleep_schedule: v as any }))}
                                                         className={`py-2.5 rounded-xl text-xs font-bold border transition-all ${myProfile.sleep_schedule === v ? 'bg-sky-600 border-sky-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
                                                         {l}
@@ -549,7 +549,7 @@ export default function HousingPortalPage() {
                                         <div>
                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Study Habits</label>
                                             <div className="grid grid-cols-3 gap-2">
-                                                {[['silent','🤫 Silent'],['music','🎵 Background'],['social','👥 Social']].map(([v, l]) => (
+                                                {[['silent','Silent'],['music','Background Music'],['social','Social / Group']].map(([v, l]) => (
                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, study_habits: v as any }))}
                                                         className={`py-2.5 rounded-xl text-xs font-bold border transition-all ${myProfile.study_habits === v ? 'bg-sky-600 border-sky-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
                                                         {l}
@@ -576,7 +576,7 @@ export default function HousingPortalPage() {
                                         <div>
                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Guest Policy</label>
                                             <div className="grid grid-cols-3 gap-2">
-                                                {[['rarely','🚫 Rarely'],['advance_notice','📅 Advance Notice'],['frequent','🎉 Frequently']].map(([v, l]) => (
+                                                {[['rarely','Rarely'],['advance_notice','Advance Notice'],['frequent','Frequently']].map(([v, l]) => (
                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, guest_preference: v as any }))}
                                                         className={`py-2.5 rounded-xl text-xs font-bold border transition-all ${myProfile.guest_preference === v ? 'bg-sky-600 border-sky-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
                                                         {l}
@@ -589,7 +589,7 @@ export default function HousingPortalPage() {
                                         <div>
                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Gender / Floor Preference</label>
                                             <div className="grid grid-cols-3 gap-2">
-                                                {[['any','♾️ Any'],['same_gender','👤 Same-Gender Floor'],['co_ed','👫 Co-Ed Floor']].map(([v, l]) => (
+                                                {[['any','Any'],['same_gender','Same-Gender Floor'],['co_ed','Co-Ed Floor']].map(([v, l]) => (
                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, gender_preference: v as GenderPreference }))}
                                                         className={`py-2.5 rounded-xl text-xs font-bold border transition-all ${myProfile.gender_preference === v ? 'bg-sky-600 border-sky-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
                                                         {l}
@@ -602,7 +602,7 @@ export default function HousingPortalPage() {
                                         <div>
                                             <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Floor Environment</label>
                                             <div className="grid grid-cols-3 gap-2">
-                                                {[['quiet_study','📚 Quiet Study'],['social','🎮 Social'],['any','🤷 No Preference']].map(([v, l]) => (
+                                                {[['quiet_study','Quiet Study'],['social','Social'],['any','No Preference']].map(([v, l]) => (
                                                     <button key={v} onClick={() => setMyProfile(p => ({ ...p, floor_type_preference: v as FloorTypePreference }))}
                                                         className={`py-2.5 rounded-xl text-xs font-bold border transition-all ${myProfile.floor_type_preference === v ? 'bg-sky-600 border-sky-500' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}>
                                                         {l}
@@ -798,7 +798,7 @@ export default function HousingPortalPage() {
                                                     </label>
                                                     <button onClick={handleSignContract} disabled={signing || !signatureName || !agreedToTerms}
                                                         className="w-full py-3.5 bg-sky-600 hover:bg-sky-500 disabled:opacity-40 rounded-xl font-black text-sm transition-all">
-                                                        {signing ? 'Signing contract...' : '✍️ Sign Contract & Generate $500 Deposit Invoice'}
+                                                        {signing ? 'Signing contract...' : 'Sign Contract & Generate $500 Deposit Invoice'}
                                                     </button>
                                                 </div>
                                             ) : (
@@ -848,7 +848,7 @@ export default function HousingPortalPage() {
                                                         <div><span className="text-xs text-slate-400">Building</span><div className="font-bold">{(application.building as any)?.name ?? '—'}</div></div>
                                                         <div><span className="text-xs text-slate-400">Move-In Date</span><div className="font-bold">{application.move_in_date ?? '—'}</div></div>
                                                         <div className="mt-3 px-3 py-2 bg-black/30 rounded-lg font-mono text-xs text-sky-400">
-                                                            🔑 Digital Keycard: CANNOGA-{application.id.slice(0,8).toUpperCase()}
+                                                            Digital Keycard: CANNOGA-{application.id.slice(0,8).toUpperCase()}
                                                         </div>
                                                     </div>
                                                 )}
