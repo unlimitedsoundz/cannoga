@@ -49,15 +49,40 @@ export default function StudentLifePage({ studentId }: StudentLifePageProps) {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (!studentId) return;
+            if (!studentId) {
+                setData({
+                    messages: [],
+                    compliance: [],
+                    library: [],
+                    health: [],
+                    unreadCount: 0,
+                });
+                setLoading(false);
+                return;
+            }
             setLoading(true);
             try {
                 const result = await getStudentLifeData(studentId);
                 if (result.success && result.data) {
                     setData(result.data);
+                } else {
+                    setData({
+                        messages: [],
+                        compliance: [],
+                        library: [],
+                        health: [],
+                        unreadCount: 0,
+                    });
                 }
             } catch (e) {
                 console.error('Error fetching student life data:', e);
+                setData({
+                    messages: [],
+                    compliance: [],
+                    library: [],
+                    health: [],
+                    unreadCount: 0,
+                });
             } finally {
                 setLoading(false);
             }
