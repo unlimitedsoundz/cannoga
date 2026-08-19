@@ -363,9 +363,9 @@ export default function HousingPortalPage() {
             <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-2">
                 <div className="relative rounded-2xl overflow-hidden bg-[#0a151a] text-white min-h-[220px] sm:min-h-[260px] flex items-end p-6 sm:p-8 shadow-sm">
                     <img
-                        src="/images/home-carousel-3.png"
+                        src="/images/housing/housing-portal-hero.jpg"
                         alt="Cannoga College campus residence"
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="absolute inset-0 w-full h-full object-cover object-center"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a151a] via-[#0a151a]/60 to-transparent" />
                     
@@ -472,8 +472,8 @@ export default function HousingPortalPage() {
                                                         const isSelected = selectedBuilding?.id === b.id;
 
                                                     // Default vibrant photo fallback if none uploaded
-                                                    const defaultImage = idx === 0 
-                                                        ? '/images/studies-hero.jpg' 
+                                                    const defaultImage = (b.code === 'CANNOGA' || b.name?.toLowerCase()?.includes('cannoga') || idx === 0)
+                                                        ? '/images/housing/cannoga-suites.jpg' 
                                                         : idx === 1 
                                                         ? '/images/technology.jpg' 
                                                         : '/images/school-of-science-hero.jpg';

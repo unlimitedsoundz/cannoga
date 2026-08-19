@@ -22,6 +22,20 @@ export async function GET(_req: NextRequest) {
         console.error('[GET /api/housing/buildings]', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
+    // Ensure Cannoga Suites image_url is populated in DB if missing or default
+    for (const b of (buildings ?? [])) {
+        if ((b.code === 'CANNOGA' || b.name?.toLowerCase()?.includes('cannoga')) && (!b.image_url || b.image_url.includes('studies-hero'))) {
+            try {
+                await supabase
+                    .from('housing_buildings')
+                    .update({ image_url: '/images/housing/cannoga-suites.jpg' })
+                    .eq('id', b.id);
+                b.image_url = '/images/housing/cannoga-suites.jpg';
+            } catch (err) {
+                console.warn('Could not auto-update Cannoga Suites image_url:', err);
+            }
+        }
+    }
 
     // For each building, compute bed stats
     const buildingsWithStats = await Promise.all(
