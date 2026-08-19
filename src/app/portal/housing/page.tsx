@@ -396,7 +396,7 @@ export default function HousingPortalPage() {
                             </div>
                         </div>
 
-                        <div className="flex items-center space-x-3 bg-[#0a151a]/90 backdrop-blur-md p-3.5 rounded-xl border border-white/10 self-start md:self-auto shadow-lg shrink-0">
+                        <div className="flex items-center space-x-3 bg-[#0a151a]/90 backdrop-blur-md p-3.5 rounded-xl self-start md:self-auto shadow-lg shrink-0">
                             <div>
                                 <p className="text-[10px] text-slate-300 uppercase font-bold tracking-wider">Student ID</p>
                                 <p className="text-xs font-bold text-white">{studentInfo?.id ?? 'CC-2026-STUDENT'}</p>
