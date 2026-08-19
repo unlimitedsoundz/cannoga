@@ -509,6 +509,14 @@ export default function HousingPortalPage() {
                                                                         src={buildingImage}
                                                                         alt={b.name}
                                                                         className="w-full h-full object-cover"
+                                                                        onError={(e) => {
+                                                                            const target = e.currentTarget;
+                                                                            if (b.code === 'CANNOGA' || b.name?.toLowerCase()?.includes('cannoga')) {
+                                                                                target.src = '/images/housing/cannoga-suites.jpg';
+                                                                            } else {
+                                                                                target.src = '/images/technology.jpg';
+                                                                            }
+                                                                        }}
                                                                     />
 
                                                                     {/* Bed status pill badge top right */}
@@ -1426,13 +1434,13 @@ export default function HousingPortalPage() {
                                         return (
                                             <>
                                                 {/* Top Resident Header Banner */}
-                                                <div className="p-5 sm:p-6 bg-white border border-slate-200/80 rounded-2xl shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                                <div className="p-5 sm:p-6 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
                                                     <div className="flex items-center gap-4">
-                                                        <div className="w-12 h-12 rounded-xl bg-[#5c061d] text-white flex items-center justify-center font-black text-base shadow-xs shrink-0 ring-4 ring-[#5c061d]/10">
+                                                        <div className="w-12 h-12 rounded-xl bg-[#0a151a] text-white flex items-center justify-center font-black text-base shadow-xs shrink-0 ring-4 ring-slate-100">
                                                             {suitePrefix}
                                                         </div>
                                                         <div>
-                                                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200 mb-1">
+                                                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-slate-100 text-slate-800 border border-slate-200 mb-1">
                                                                 CONFIRMED RESIDENT
                                                             </div>
                                                             <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
@@ -1447,28 +1455,28 @@ export default function HousingPortalPage() {
                                                     <div className="flex flex-wrap items-center gap-2.5 shrink-0">
                                                         <button 
                                                             onClick={() => setShowWOModal(true)}
-                                                            className="px-4 py-2.5 bg-[#5c061d] hover:bg-[#470416] text-white rounded-xl text-xs font-black transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                                                            className="px-4 py-2.5 bg-[#0a151a] hover:bg-slate-800 text-white rounded-xl text-xs font-black transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
                                                         >
                                                             + Submit Maintenance Work Order
                                                         </button>
                                                         <button 
                                                             onClick={() => setShowKeyModal(true)}
-                                                            className="px-4 py-2.5 bg-[#0a151a] hover:bg-black text-white rounded-xl text-xs font-black transition-all shadow-xs flex items-center gap-2 cursor-pointer"
+                                                            className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-xl text-xs font-black transition-all shadow-xs flex items-center gap-2 cursor-pointer border border-slate-200"
                                                         >
-                                                            <span className="w-2 h-3.5 bg-amber-400 rounded-xs inline-block" />
+                                                            <span className="w-2 h-3.5 bg-slate-700 rounded-xs inline-block" />
                                                             Tap Room Digital Key
                                                         </button>
                                                     </div>
                                                 </div>
 
-                                                {/* 3-Column Resident Hub Cards with Refined Neutral & Theme Styling */}
+                                                {/* 3-Column Resident Hub Cards - Clean Neutral Styling */}
                                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                                                     {/* Card 1: Work Order Requests */}
-                                                    <div className="p-5 bg-white border border-slate-200/80 rounded-2xl shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+                                                    <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
                                                         <div>
                                                             <div className="flex items-center justify-between mb-3">
                                                                 <h4 className="font-black text-sm text-slate-900">Work Order Requests</h4>
-                                                                <span className="px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-amber-50 text-amber-800 border border-amber-200">
+                                                                <span className="px-2.5 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-slate-100 text-slate-800 border border-slate-200">
                                                                     {workOrders.length > 0 ? `${workOrders.length} Active` : '1 Active'}
                                                                 </span>
                                                             </div>
@@ -1486,7 +1494,7 @@ export default function HousingPortalPage() {
                                                                             Ticket #{workOrders[0]?.ticket_number || 'WO-2026-0819'} • Submitted Today
                                                                         </p>
                                                                     </div>
-                                                                    <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 shrink-0">
+                                                                    <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-200 text-slate-800 shrink-0 font-mono">
                                                                         IN PROGRESS
                                                                     </span>
                                                                 </div>
@@ -1502,11 +1510,11 @@ export default function HousingPortalPage() {
                                                     </div>
 
                                                     {/* Card 2: Move-In Room Condition */}
-                                                    <div className="p-5 bg-white border border-slate-200/80 rounded-2xl shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+                                                    <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
                                                         <div>
                                                             <div className="flex items-center justify-between mb-3">
                                                                 <h4 className="font-black text-sm text-slate-900">Move-In Room Condition</h4>
-                                                                <span className="px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                                                <span className="px-2.5 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-slate-100 text-slate-800 border border-slate-200">
                                                                     Verified
                                                                 </span>
                                                             </div>
@@ -1524,11 +1532,11 @@ export default function HousingPortalPage() {
                                                     </div>
 
                                                     {/* Card 3: Overnight Guest Pass */}
-                                                    <div className="p-5 bg-white border border-slate-200/80 rounded-2xl shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+                                                    <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
                                                         <div>
                                                             <div className="flex items-center justify-between mb-3">
                                                                 <h4 className="font-black text-sm text-slate-900">Overnight Guest Pass</h4>
-                                                                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600">
+                                                                <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
                                                                     Remaining: 3/5
                                                                 </span>
                                                             </div>
@@ -1539,7 +1547,7 @@ export default function HousingPortalPage() {
 
                                                         <button 
                                                             onClick={() => setShowGuestModal(true)}
-                                                            className="w-full mt-4 py-2.5 bg-[#5c061d] hover:bg-[#470416] text-white rounded-xl text-xs font-black transition cursor-pointer text-center shadow-xs"
+                                                            className="w-full mt-4 py-2.5 bg-[#0a151a] hover:bg-slate-800 text-white rounded-xl text-xs font-black transition cursor-pointer text-center shadow-xs"
                                                         >
                                                             Register Guest
                                                         </button>
