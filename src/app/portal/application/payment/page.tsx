@@ -49,31 +49,54 @@ function PaymentContent() {
                     return;
                 }
 
-                // If explicitly paying housing deposit or id starts with hdep
+                // Check if this is a housing deposit payment
                 const isHousing = paymentType === 'housing' || id.toLowerCase().startsWith('hdep');
 
                 if (isHousing) {
                     const cleanHousingAppId = id.replace(/^hdep-/, '');
 
-                    // Fetch student ID from students table if currentUserId is profile user
-                    const { data: studentRec } = await supabase
-                        .from('students')
-                        .select('id')
-                        .eq('user_id', currentUserId || '')
-                        .maybeSingle();
+                    // Fetch housing application either by exact ID or student ID
+                    let housingApp: any = null;
 
-                    const queryIds = [currentUserId, studentRec?.id].filter(Boolean);
+                    // First try by ID
+                    if (cleanHousingAppId && cleanHousingAppId.length > 10) {
+                        const { data: byId } = await supabase
+                            .from('housing_applications')
+                            .select(`
+                                *,
+                                assigned_room:assigned_room_id(*),
+                                building:building_id(name),
+                                homestay_host:homestay_host_id(host_name)
+                            `)
+                            .eq('id', cleanHousingAppId)
+                            .maybeSingle();
+                        if (byId) housingApp = byId;
+                    }
 
-                    const { data: housingApp } = await supabase
-                        .from('housing_applications')
-                        .select(`
-                            *,
-                            assigned_room:assigned_room_id(*),
-                            building:building_id(name),
-                            homestay_host:homestay_host_id(host_name)
-                        `)
-                        .or(`id.eq.${cleanHousingAppId},student_id.in.(${queryIds.join(',')})`)
-                        .maybeSingle();
+                    // If not found by ID, query by student_id or user_id
+                    if (!housingApp) {
+                        const { data: studentRec } = await supabase
+                            .from('students')
+                            .select('id')
+                            .eq('user_id', currentUserId || '')
+                            .maybeSingle();
+
+                        const queryIds = [currentUserId, studentRec?.id].filter(Boolean);
+
+                        const { data: byUser } = await supabase
+                            .from('housing_applications')
+                            .select(`
+                                *,
+                                assigned_room:assigned_room_id(*),
+                                building:building_id(name),
+                                homestay_host:homestay_host_id(host_name)
+                            `)
+                            .in('student_id', queryIds)
+                            .order('created_at', { ascending: false })
+                            .limit(1)
+                            .maybeSingle();
+                        if (byUser) housingApp = byUser;
+                    }
 
                     const bName = (housingApp?.building as any)?.name ?? (housingApp?.homestay_host as any)?.host_name ?? 'Cannoga Residence';
                     const rCode = (housingApp?.assigned_room as any)?.full_room_code ?? '';
@@ -121,6 +144,42 @@ function PaymentContent() {
                     }
 
                     setData({ application, offer });
+                    return;
+                }
+
+                // Fallback: check if id belongs to any housing application before failing
+                const { data: fallbackHousing } = await supabase
+                    .from('housing_applications')
+                    .select(`
+                        *,
+                        assigned_room:assigned_room_id(*),
+                        building:building_id(name),
+                        homestay_host:homestay_host_id(host_name)
+                    `)
+                    .eq('student_id', currentUserId || '')
+                    .maybeSingle();
+
+                if (fallbackHousing) {
+                    const bName = (fallbackHousing?.building as any)?.name ?? (fallbackHousing?.homestay_host as any)?.host_name ?? 'Cannoga Residence';
+                    const rCode = (fallbackHousing?.assigned_room as any)?.full_room_code ?? '';
+
+                    const syntheticOffer = {
+                        id: `hdep-${fallbackHousing.id}`,
+                        tuition_fee: 500.00,
+                        invoice_type: 'HOUSING_DEPOSIT',
+                        invoice_pushed: true,
+                        payment_deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+                        ancillary_charged: true,
+                    };
+
+                    const syntheticApp = {
+                        id: fallbackHousing.id,
+                        user_id: currentUserId,
+                        course: { title: `Housing Security Deposit (${bName}${rCode ? ` · Room ${rCode}` : ''})`, duration: 'Academic Year' },
+                        status: fallbackHousing.status || 'contract_signed'
+                    };
+
+                    setData({ application: syntheticApp, offer: syntheticOffer });
                     return;
                 }
 
