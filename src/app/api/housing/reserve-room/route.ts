@@ -50,22 +50,26 @@ export async function POST(req: NextRequest) {
             .single();
 
         if (roomErr || !room) {
-            return NextResponse.json({ error: 'Room not found' }, { status: 404 });
+            console.error('[reserve-room] Room query error:', roomErr, 'for roomId:', roomId);
+            return NextResponse.json({ error: 'Room not found in inventory' }, { status: 404 });
         }
 
-        if (room.status !== 'AVAILABLE') {
-            return NextResponse.json({ error: `Room ${room.full_room_code} is no longer available (status: ${room.status})` }, { status: 409 });
+        const roomStatusUpper = (room.status || '').toUpperCase();
+        const isCurrentAppRoom = existingApp?.assigned_room_id === roomId;
+
+        if (roomStatusUpper !== 'AVAILABLE' && !(isCurrentAppRoom && roomStatusUpper === 'RESERVED')) {
+            return NextResponse.json({ error: `Room ${room.full_room_code || 'selected'} is no longer available (status: ${room.status})` }, { status: 409 });
         }
 
-        // Atomically reserve the room
+        // Atomically update the room status to reserved
         const { error: updateErr } = await adminClient
             .from('housing_rooms')
             .update({ status: 'reserved', updated_at: new Date().toISOString() })
-            .eq('id', roomId)
-            .eq('status', 'AVAILABLE'); // Guard against race condition
+            .eq('id', roomId);
 
         if (updateErr) {
-            return NextResponse.json({ error: 'Failed to reserve room — it may have just been taken.' }, { status: 409 });
+            console.error('[reserve-room] Room update error:', updateErr);
+            return NextResponse.json({ error: updateErr.message || 'Failed to reserve room.' }, { status: 500 });
         }
 
         // If there was a prior reserved room from a draft application, free it
