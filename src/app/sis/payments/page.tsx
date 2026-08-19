@@ -50,6 +50,7 @@ interface PaymentReceipt {
     issued_at: string;
     payment_id: string;
     application_id?: string;
+    pdf_url?: string;
 }
 
 const navItems = [
