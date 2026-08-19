@@ -21,28 +21,55 @@ export async function POST(request: NextRequest) {
 
     const adminSupabase = createServiceRoleClient();
 
-    // 1. Check tuition_payments first by id or tracking ref
+    // UUID regex check
+    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(paymentId);
+
+    // 1. Check tuition_payments first by id (if UUID) or tracking ref
     let payment: any = null;
     let isHousingTable = false;
 
-    const { data: tuitionPayment } = await adminSupabase
-        .from('tuition_payments')
-        .select('id, status, offer_id, transaction_reference, amount, country, currency, offer:admission_offers(application_id)')
-        .or(`id.eq.${paymentId},transaction_reference.eq.${paymentId}`)
-        .maybeSingle();
+    if (isUUID) {
+        const { data: tuitionPayment } = await adminSupabase
+            .from('tuition_payments')
+            .select('id, status, offer_id, transaction_reference, amount, country, currency, offer:admission_offers(application_id)')
+            .eq('id', paymentId)
+            .maybeSingle();
+        if (tuitionPayment) payment = tuitionPayment;
+    }
 
-    if (tuitionPayment) {
-        payment = tuitionPayment;
-    } else {
-        // 2. Check housing_payments table
+    if (!payment) {
+        const { data: tuitionByRef } = await adminSupabase
+            .from('tuition_payments')
+            .select('id, status, offer_id, transaction_reference, amount, country, currency, offer:admission_offers(application_id)')
+            .eq('transaction_reference', paymentId)
+            .maybeSingle();
+        if (tuitionByRef) payment = tuitionByRef;
+    }
+
+    if (!payment && isUUID) {
+        // 2. Check housing_payments table by id
         const { data: housingPayment } = await adminSupabase
             .from('housing_payments')
             .select('id, status, transaction_reference, amount, currency, metadata')
-            .or(`id.eq.${paymentId},transaction_reference.eq.${paymentId}`)
+            .eq('id', paymentId)
             .maybeSingle();
 
         if (housingPayment) {
             payment = housingPayment;
+            isHousingTable = true;
+        }
+    }
+
+    if (!payment) {
+        // Check housing_payments table by transaction_reference
+        const { data: housingByRef } = await adminSupabase
+            .from('housing_payments')
+            .select('id, status, transaction_reference, amount, currency, metadata')
+            .eq('transaction_reference', paymentId)
+            .maybeSingle();
+
+        if (housingByRef) {
+            payment = housingByRef;
             isHousingTable = true;
         }
     }
