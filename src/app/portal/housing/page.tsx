@@ -1578,7 +1578,7 @@ export default function HousingPortalPage() {
             {showWOModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                     <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowWOModal(false)} />
-                    <div className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-slate-100 animate-drawer-slide">
+                    <div className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl animate-drawer-slide">
                         <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
                             <h3 className="font-black text-base text-slate-900">Submit Maintenance Request</h3>
                             <button onClick={() => setShowWOModal(false)} className="p-1 hover:text-slate-600 transition cursor-pointer text-slate-400"><Icons.X /></button>
@@ -1599,10 +1599,10 @@ export default function HousingPortalPage() {
                             <div>
                                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Urgency Level</label>
                                 <div className="grid grid-cols-4 gap-2">
-                                    {[['low','Low'],['standard','Standard'],['urgent','Urgent'],['emergency','Emergency']].map(([v,l]) => (
+                                    {[['low','Low','bg-emerald-500'],['standard','Standard','bg-indigo-600'],['urgent','Urgent','bg-amber-500'],['emergency','Emergency','bg-rose-600']].map(([v,l,color]) => (
                                         <button key={v} onClick={() => setWoForm(p => ({ ...p, urgency: v }))}
-                                            className={`py-2 rounded-xl text-xs font-bold transition cursor-pointer ${woForm.urgency === v
-                                                ? 'bg-[#5c061d] text-white shadow-xs'
+                                            className={`py-2 rounded-full text-xs font-black transition cursor-pointer ${woForm.urgency === v
+                                                ? `${color} text-white shadow-xs`
                                                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                                             {l}
                                         </button>
@@ -1612,7 +1612,7 @@ export default function HousingPortalPage() {
                             <div>
                                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Description</label>
                                 <textarea value={woForm.description} onChange={e => setWoForm(p => ({ ...p, description: e.target.value }))}
-                                    placeholder="Please describe the issue in detail (e.g. thermostat adjustment needed in Suite 304)..."
+                                    placeholder="Please describe the issue in detail (e.g. thermostat adjustment needed in Suite 402)..."
                                     rows={4}
                                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm placeholder:text-slate-400 text-slate-800 focus:outline-none focus:border-slate-800 resize-none font-medium" />
                             </div>
@@ -1620,7 +1620,7 @@ export default function HousingPortalPage() {
                                 await handleSubmitWO();
                                 setShowWOModal(false);
                             }}
-                                className="w-full py-3 bg-[#5c061d] hover:bg-[#470416] rounded-xl font-bold text-sm text-white transition-all shadow-xs cursor-pointer">
+                                className="w-full py-3 bg-[#0a151a] hover:bg-slate-800 rounded-xl font-bold text-sm text-white transition-all shadow-xs cursor-pointer">
                                 Submit Work Order →
                             </button>
                         </div>
@@ -1632,10 +1632,10 @@ export default function HousingPortalPage() {
             {showKeyModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                     <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowKeyModal(false)} />
-                    <div className="relative bg-[#0a151a] text-white rounded-3xl p-6 sm:p-8 w-full max-w-sm shadow-2xl border border-white/15 text-center animate-drawer-slide">
+                    <div className="relative bg-[#0a151a] text-white rounded-3xl p-6 sm:p-8 w-full max-w-sm shadow-2xl border border-white/10 text-center animate-drawer-slide">
                         <button onClick={() => setShowKeyModal(false)} className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 cursor-pointer">✕</button>
                         
-                        <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20">
+                        <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20">
                             <Icons.Key className="w-10 h-10 text-white" />
                         </div>
                         <h3 className="text-xl font-black tracking-tight text-white mb-1">Tap Room Digital Key</h3>
@@ -1644,7 +1644,7 @@ export default function HousingPortalPage() {
                         <div className="p-4 bg-white/5 border border-white/10 rounded-2xl text-left space-y-2 mb-6">
                             <div className="flex justify-between text-xs">
                                 <span className="text-slate-400 font-medium">Placement:</span>
-                                <span className="font-bold text-white">{(application?.assigned_room as any)?.full_room_code ?? selectedRoom?.full_room_code ?? 'Room 304-A'}</span>
+                                <span className="font-bold text-white">{(application?.assigned_room as any)?.full_room_code ?? selectedRoom?.full_room_code ?? 'Room 402-A'}</span>
                             </div>
                             <div className="flex justify-between text-xs">
                                 <span className="text-slate-400 font-medium">Building:</span>
@@ -1652,7 +1652,7 @@ export default function HousingPortalPage() {
                             </div>
                             <div className="flex justify-between text-xs">
                                 <span className="text-slate-400 font-medium">NFC Status:</span>
-                                <span className="font-bold text-emerald-400 flex items-center gap-1">● Broadcasting Active</span>
+                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500 text-white">● Broadcasting Active</span>
                             </div>
                         </div>
 
@@ -1661,7 +1661,7 @@ export default function HousingPortalPage() {
                                 showToast('Digital keycard signal sent successfully! Door unlocked.', 'success');
                                 setShowKeyModal(false);
                             }}
-                            className="w-full py-3 bg-sky-500 hover:bg-sky-400 text-black font-black text-sm rounded-xl transition cursor-pointer shadow-md"
+                            className="w-full py-3 bg-white hover:bg-slate-100 text-slate-900 font-black text-sm rounded-xl transition cursor-pointer shadow-md"
                         >
                             Broadcast Unlock Pulse
                         </button>
@@ -1673,7 +1673,7 @@ export default function HousingPortalPage() {
             {showInspectionModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                     <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowInspectionModal(false)} />
-                    <div className="relative bg-white rounded-2xl p-6 sm:p-7 w-full max-w-lg shadow-2xl border border-slate-100 animate-drawer-slide max-h-[90vh] overflow-y-auto">
+                    <div className="relative bg-white rounded-2xl p-6 sm:p-7 w-full max-w-lg shadow-2xl animate-drawer-slide max-h-[90vh] overflow-y-auto">
                         <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                             <div>
                                 <h3 className="font-black text-base text-slate-900">Move-In Inspection Report</h3>
@@ -1683,15 +1683,18 @@ export default function HousingPortalPage() {
                         </div>
 
                         <div className="space-y-4 text-xs">
-                            <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center gap-3 text-emerald-900">
-                                <span className="text-emerald-600 text-base">✓</span>
+                            <div className="p-3.5 bg-emerald-50 rounded-2xl flex items-center gap-3 text-emerald-950">
+                                <span className="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm shrink-0">✓</span>
                                 <div>
-                                    <div className="font-bold">Inspection Status: Verified &amp; Signed</div>
-                                    <div className="text-[11px] text-emerald-700">All fixtures and appliances confirmed operational at handover.</div>
+                                    <div className="font-bold flex items-center gap-2">
+                                        Inspection Status:
+                                        <span className="px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-emerald-500 text-white">Verified</span>
+                                    </div>
+                                    <div className="text-[11px] text-emerald-800 mt-0.5">All fixtures and appliances confirmed operational at handover.</div>
                                 </div>
                             </div>
 
-                            <div className="divide-y divide-slate-100 border border-slate-100 rounded-xl overflow-hidden">
+                            <div className="divide-y divide-slate-100 border border-slate-100 rounded-2xl overflow-hidden">
                                 {[
                                     { item: 'Study Desk & Chair', condition: 'Pristine (No scratches)', verified: true },
                                     { item: 'Mattress & Bed Frame', condition: 'Standard Twin XL, Certified Sanitized', verified: true },
@@ -1706,7 +1709,7 @@ export default function HousingPortalPage() {
                                             <div className="font-bold text-slate-900">{row.item}</div>
                                             <div className="text-[11px] text-slate-500">{row.condition}</div>
                                         </div>
-                                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider bg-emerald-500 text-white">
                                             PASS
                                         </span>
                                     </div>
@@ -1719,7 +1722,7 @@ export default function HousingPortalPage() {
 
                             <button 
                                 onClick={() => setShowInspectionModal(false)}
-                                className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition cursor-pointer"
+                                className="w-full py-3 bg-[#0a151a] hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition cursor-pointer shadow-xs"
                             >
                                 Close Inspection Report
                             </button>
@@ -1732,11 +1735,11 @@ export default function HousingPortalPage() {
             {showGuestModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                     <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setShowGuestModal(false)} />
-                    <div className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-slate-100 animate-drawer-slide">
+                    <div className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl animate-drawer-slide">
                         <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                             <div>
                                 <h3 className="font-black text-base text-slate-900">Register Overnight Guest</h3>
-                                <p className="text-xs text-slate-500">Remaining semester quota: 3 of 5 nights</p>
+                                <p className="text-xs text-slate-500">Remaining semester quota: <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-600 text-white ml-1">3 of 5 nights</span></p>
                             </div>
                             <button onClick={() => setShowGuestModal(false)} className="p-1 text-slate-400 hover:text-slate-600 transition cursor-pointer">✕</button>
                         </div>
@@ -1774,8 +1777,9 @@ export default function HousingPortalPage() {
                                 </div>
                             </div>
 
-                            <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-[11px] leading-relaxed">
-                                <strong>Guest Policy Reminder:</strong> Guests may stay a maximum of 3 consecutive nights. Hosts must accompany their guests at all times in residence facilities.
+                            <div className="p-3 bg-amber-50 rounded-xl text-amber-950 text-[11px] leading-relaxed">
+                                <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-amber-500 text-white mr-1.5">Rule</span>
+                                <strong>Guest Policy:</strong> Guests may stay a maximum of 3 consecutive nights. Hosts must accompany their guests at all times in residence facilities.
                             </div>
 
                             <button 
