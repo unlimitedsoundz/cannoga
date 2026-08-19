@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'You already have an active housing placement for this academic year.' }, { status: 409 });
     }
 
-    // For on-campus: verify room is still available
+    // For on-campus: verify room exists
     if (housingType === 'on_campus' && roomId) {
         const { data: room, error: roomErr } = await adminClient
             .from('housing_rooms')
@@ -57,27 +57,8 @@ export async function POST(req: NextRequest) {
         const roomStatusUpper = (room.status || '').toUpperCase();
         const isCurrentAppRoom = existingApp?.assigned_room_id === roomId;
 
-        if (roomStatusUpper !== 'AVAILABLE' && !(isCurrentAppRoom && roomStatusUpper === 'RESERVED')) {
+        if (roomStatusUpper === 'OCCUPIED' && !isCurrentAppRoom) {
             return NextResponse.json({ error: `Room ${room.full_room_code || 'selected'} is no longer available (status: ${room.status})` }, { status: 409 });
-        }
-
-        // Atomically update the room status to OCCUPIED
-        const { error: updateErr } = await adminClient
-            .from('housing_rooms')
-            .update({ status: 'OCCUPIED', updated_at: new Date().toISOString() })
-            .eq('id', roomId);
-
-        if (updateErr) {
-            console.error('[reserve-room] Room update error:', updateErr);
-            return NextResponse.json({ error: updateErr.message || 'Failed to reserve room.' }, { status: 500 });
-        }
-
-        // If there was a prior reserved room from a draft application, free it
-        if (existingApp?.assigned_room_id && existingApp.assigned_room_id !== roomId) {
-            await adminClient
-                .from('housing_rooms')
-                .update({ status: 'AVAILABLE', updated_at: new Date().toISOString() })
-                .eq('id', existingApp.assigned_room_id);
         }
     }
 
