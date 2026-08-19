@@ -176,6 +176,7 @@ export async function POST(request: NextRequest) {
         await triggerNotification({
             type: 'ADMIN_PAYMENT_SUBMITTED',
             additionalData: {
+                adminEmail: 'unlymitedsoundz@gmail.com',
                 paymentId: updated.id,
                 trackingRef: updated.transaction_reference,
                 studentBankRef: bankRef,
