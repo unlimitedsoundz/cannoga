@@ -57,7 +57,7 @@ export default function AdmissionsContactInfo() {
                                      {/* Email */}
                                      <div>
                                          <h3 className="text-slate-900 font-bold text-base leading-snug">Email</h3>
-                                         <a href="mailto:admissions@cannogacollege.ca" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm mt-1 block">
+                                         <a href="mailto:admissions@cannogacollege.ca" className="text-slate-500 font-bold underline hover:text-slate-700 transition-colors text-sm mt-1 block">
                                              admissions@cannogacollege.ca
                                          </a>
                                      </div>
@@ -68,7 +68,7 @@ export default function AdmissionsContactInfo() {
                                              <h3 className="text-slate-900 font-bold text-base leading-snug">Talk to Cannoga</h3>
                                              <div className="mt-1 space-y-1">
                                                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
-                                                 <a href="tel:+12272500427" className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block">
+                                                 <a href="tel:+12272500427" className="text-slate-500 font-bold underline hover:text-slate-700 transition-colors text-sm block">
                                                      Talk to Admissions: +1 (227) 250-0427
                                                  </a>
                                              </div>
@@ -85,7 +85,7 @@ export default function AdmissionsContactInfo() {
                                                      href="https://wa.me/17822063309"
                                                      target="_blank"
                                                      rel="noopener noreferrer"
-                                                     className="text-[#0f2027] font-bold underline hover:text-[#c89211] transition-colors text-sm block"
+                                                     className="text-slate-500 font-bold underline hover:text-slate-700 transition-colors text-sm block"
                                                  >
                                                      WhatsApp: +1 (782) 206-3309
                                                  </a>
