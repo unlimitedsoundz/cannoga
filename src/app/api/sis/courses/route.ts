@@ -44,16 +44,28 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
+    const cleanName = (raw: string | null | undefined): string => {
+      if (!raw) return '';
+      let str = String(raw);
+      str = str.replace(/^(?:Advanced\s+)?\(\s*['"]([^'"]+)['"]\s*,\s*['"][^'"]*['"]\s*\)$/i, (m, p1) => raw.startsWith('Advanced') ? `Advanced ${p1}` : p1);
+      str = str.replace(/\[object\s+[^\]]+\]/gi, '');
+      str = str.replace(/\(\s*['"]([^'"]+)['"]\s*,\s*['"][^'"]*['"]\s*\)/gi, '$1');
+      str = str.replace(/['"]\s*,\s*['"]previous['"]\s*\)/gi, '');
+      str = str.replace(/\s+/g, ' ').trim();
+      return str || 'General';
+    };
+
     let courses = (subjects || []).map((subject: any) => {
       const course = subject.Course || {};
       const school = course.School || {};
       const department = course.Department || {};
+      const cleanSubjectTitle = cleanName(subject.name);
       
       return {
         id: subject.id,
         code: subject.code || subject.id,
-        title: subject.name || 'Untitled',
-        subject: subject.name || 'General',
+        title: cleanSubjectTitle || 'Untitled',
+        subject: cleanSubjectTitle || 'General',
         credits: subject.creditUnits,
         term: term || 'Fall 2026',
         semester: subject.semester,
