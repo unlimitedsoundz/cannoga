@@ -76,68 +76,65 @@ export function AdmissionsProgramLevelsCarousel() {
     };
 
     return (
-        <div className="relative w-full overflow-hidden">
-            {/* Header / Title + Navigation Controls */}
-            <div className="flex items-end justify-between mb-6">
-                <div>
-                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-tight font-serif">
-                        Explore Admissions By Credential
-                    </h3>
-                    <p className="text-slate-600 text-xs sm:text-sm mt-1 font-normal">
-                        Detailed requirements, tuition details, and onboarding guides for each program level.
-                    </p>
-                </div>
-                
-                {/* Arrow Buttons */}
-                <div className="hidden sm:flex items-center gap-2">
-                    <button
-                        onClick={() => scrollTo('left')}
-                        aria-label="Previous items"
-                        className="w-10 h-10 rounded-full border border-slate-300 bg-white hover:bg-slate-100 flex items-center justify-center text-slate-700 transition cursor-pointer shadow-2xs"
-                    >
-                        <ArrowLeft size={18} weight="bold" />
-                    </button>
-                    <button
-                        onClick={() => scrollTo('right')}
-                        aria-label="Next items"
-                        className="w-10 h-10 rounded-full border border-slate-300 bg-white hover:bg-slate-100 flex items-center justify-center text-slate-700 transition cursor-pointer shadow-2xs"
-                    >
-                        <ArrowRight size={18} weight="bold" />
-                    </button>
-                </div>
+        <div className="relative w-full">
+            <style jsx>{`
+                @keyframes arrowFloatCred {
+                    0%, 100% {
+                        transform: translate(0, 0);
+                    }
+                    50% {
+                        transform: translate(5px, -5px);
+                    }
+                }
+                .animate-arrow-cred {
+                    animation: arrowFloatCred 2.2s ease-in-out infinite;
+                }
+            `}</style>
+
+            {/* Header / Title */}
+            <div className="mb-6">
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-tight font-serif">
+                    Explore Admissions By Credential
+                </h3>
+                <p className="text-slate-600 text-xs sm:text-sm mt-1 font-normal">
+                    Detailed requirements, tuition details, and onboarding guides for each program level.
+                </p>
             </div>
 
             {/* Scrollable Container */}
             <div
                 ref={scrollContainerRef}
                 onScroll={handleScroll}
-                className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 -mx-4 px-4 sm:mx-0 sm:px-0"
+                className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none py-2 px-1 scroll-smooth"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-                {ACADEMIC_ADMISSIONS_LINKS.map((item) => {
+                {ACADEMIC_ADMISSIONS_LINKS.map((item, idx) => {
                     return (
                         <div
                             key={item.id}
-                            className="w-[280px] sm:w-[320px] md:w-[360px] flex-shrink-0 snap-start"
+                            className="snap-start shrink-0 w-[300px] sm:w-[380px] md:w-[440px] flex flex-col no-underline"
                         >
                             <Link
                                 href={item.href}
-                                className={`block w-full p-6 sm:p-7 rounded-md ${item.bgColor} ${item.borderColor} border-4 no-underline overflow-hidden relative min-h-[220px] sm:min-h-[240px] flex flex-col justify-between group cursor-pointer transition-all duration-300 hover:brightness-105 shadow-md`}
+                                className={`block w-full p-6 sm:p-8 rounded-md ${item.bgColor} ${item.borderColor} border-4 no-underline overflow-hidden relative min-h-[240px] sm:min-h-[270px] flex flex-col justify-between group cursor-pointer transition-all duration-300 hover:brightness-105 shadow-md`}
                             >
                                 {/* Top Label / Title */}
                                 <div className="relative z-20">
-                                    <h4 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-[1.05]">
+                                    <h4 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase tracking-tight leading-[1.05]">
                                         {item.title}
                                     </h4>
                                 </div>
 
                                 {/* Bottom Description & Arrow Icon */}
-                                <div className="relative z-20 pt-4 flex items-end justify-between gap-4 text-white">
-                                    <p className="text-xs sm:text-sm font-medium text-white/95 leading-relaxed font-sans max-w-[82%]">
+                                <div className="relative z-20 pt-6 flex items-end justify-between gap-4 text-white">
+                                    <p className="text-xs sm:text-sm font-medium text-white/95 leading-relaxed font-sans max-w-[85%]">
                                         {item.description}
                                     </p>
-                                    <div className="shrink-0 mb-0.5 group-hover:scale-110 transition-transform">
-                                        <ArrowUpRight size={32} weight="bold" className="text-white" />
+                                    <div
+                                        className="shrink-0 mb-0.5 animate-arrow-cred"
+                                        style={{ animationDelay: `${idx * 0.4}s` }}
+                                    >
+                                        <ArrowUpRight size={40} weight="bold" className="text-white" />
                                     </div>
                                 </div>
                             </Link>
@@ -146,16 +143,36 @@ export function AdmissionsProgramLevelsCarousel() {
                 })}
             </div>
 
-            {/* Mobile Pagination Dots */}
-            <div className="flex sm:hidden justify-center items-center gap-2 mt-4">
-                {ACADEMIC_ADMISSIONS_LINKS.map((_, idx) => (
-                    <span
-                        key={idx}
-                        className={`h-2 rounded-full transition-all duration-300 ${
-                            activeIndex === idx ? 'w-6 bg-slate-900' : 'w-2 bg-slate-300'
-                        }`}
-                    />
-                ))}
+            {/* Navigation Controls below the carousel (Matching Home) */}
+            <div className="flex items-center justify-between mt-8 pt-2">
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={() => scrollTo('left')}
+                        className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-slate-700 cursor-pointer"
+                        aria-label="Previous slide"
+                    >
+                        <ArrowLeft size={20} weight="bold" />
+                    </button>
+                    <button
+                        onClick={() => scrollTo('right')}
+                        className="p-3 rounded-full bg-slate-900 text-white hover:bg-[#c89211] transition-colors flex items-center justify-center border border-slate-700 cursor-pointer"
+                        aria-label="Next slide"
+                    >
+                        <ArrowRight size={20} weight="bold" />
+                    </button>
+                </div>
+
+                {/* Dot Indicators */}
+                <div className="flex gap-2">
+                    {ACADEMIC_ADMISSIONS_LINKS.map((_, idx) => (
+                        <div
+                            key={idx}
+                            className={`h-2.5 transition-all rounded-full ${
+                                idx === activeIndex ? 'w-8 bg-[#0a151a]' : 'w-2.5 bg-slate-300'
+                            }`}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
