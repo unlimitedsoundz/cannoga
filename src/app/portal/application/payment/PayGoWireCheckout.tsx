@@ -496,85 +496,155 @@ export default function PayGoWireCheckout({
                             </div>
                         </div>
 
-                        {/* Real-time FX / Payment Method Card */}
-                        {selectedBank && fxData && (
-                            <div className="border border-slate-200 rounded-md p-5 bg-white shadow-2xs space-y-4 animate-in fade-in duration-300">
-                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                    <div className="flex items-center gap-3.5">
-                                        <div className="w-10 h-10 relative shrink-0 flex items-center justify-center">
-                                            <Image
-                                                src="/images/bank-icon.png"
-                                                alt="Bank Transfer Icon"
-                                                width={40}
-                                                height={40}
-                                                className="w-10 h-10 object-contain"
-                                            />
-                                        </div>
-                                        <div>
-                                            <p className="text-[13px] font-normal text-slate-700 leading-tight mb-1">
-                                                Online Bank Transfer in {selectedBank.country_name === 'Nigeria' ? 'Nigerian Naira (NGN)' : `${selectedBank.currency} (${selectedBank.currency})`}
-                                            </p>
-                                            <div className="flex items-baseline gap-1.5">
-                                                <span className="text-[22px] md:text-[24px] font-bold text-slate-950 tracking-tight">
-                                                    {Number(fxData.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                                </span>
-                                                <span className="text-[18px] md:text-[20px] font-bold text-slate-950">
-                                                    {fxData.currencySymbol}
-                                                </span>
+                        {/* Payment Method Cards */}
+                        {selectedCountryCode && (
+                            <div className="space-y-4">
+                                <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                                    Available Payment Methods for {selectedBank?.country_name || 'Selected Region'}
+                                </p>
+
+                                {(() => {
+                                    const code = selectedCountryCode.toUpperCase();
+                                    const name = (selectedBank?.country_name || '').toLowerCase();
+
+                                    const isNigeria = code === 'NG' || name === 'nigeria';
+                                    const isGhana = code === 'GH' || name === 'ghana';
+                                    const isIndia = code === 'IN' || name === 'india';
+
+                                    // Build list of valid bank accounts for this country
+                                    const list: any[] = [];
+
+                                    // 1. Add dedicated local account first if available
+                                    if (isNigeria) {
+                                        const ng = countries.find(b => b.country_code === 'NG' || b.currency === 'NGN');
+                                        if (ng) list.push(ng);
+                                    } else if (isGhana) {
+                                        const gh = countries.find(b => b.country_code === 'GH' || b.currency === 'GHS');
+                                        if (gh) list.push(gh);
+                                    } else if (isIndia) {
+                                        const ind = countries.find(b => b.country_code === 'IN' || b.currency === 'INR');
+                                        if (ind) list.push(ind);
+                                    }
+
+                                    // 2. Add General International Accounts (CA, US, GB)
+                                    const ca = countries.find(b => b.country_code === 'CA' || b.currency === 'CAD');
+                                    const us = countries.find(b => b.country_code === 'US' || b.currency === 'USD');
+                                    const gb = countries.find(b => b.country_code === 'GB' || b.currency === 'GBP');
+
+                                    if (ca && !list.some(b => b.id === ca.id)) list.push(ca);
+                                    if (us && !list.some(b => b.id === us.id)) list.push(us);
+                                    if (gb && !list.some(b => b.id === gb.id)) list.push(gb);
+
+                                    return list.map((bankOption) => {
+                                        const curr = bankOption.currency || 'USD';
+                                        const rate = rateMap[curr] ? Number(rateMap[curr].rate_multiplier) : 1;
+                                        let localAmt = parseFloat((amount * rate).toFixed(2));
+                                        if (curr === 'CAD' && bankOption.country_code === 'CA') {
+                                            localAmt = parseFloat((amount + 25).toFixed(2));
+                                        }
+                                        const isSelected = selectedBank?.id === bankOption.id || (selectedBank?.currency === bankOption.currency && selectedBank?.country_code === bankOption.country_code);
+
+                                        return (
+                                            <div
+                                                key={bankOption.id || `${bankOption.country_code}-${bankOption.currency}`}
+                                                className={`border rounded-lg p-5 transition-all bg-white shadow-2xs ${
+                                                    isSelected ? 'border-[#0066cc] ring-2 ring-[#0066cc]/20' : 'border-slate-200 hover:border-slate-300'
+                                                }`}
+                                            >
+                                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                                    <div className="flex items-center gap-3.5">
+                                                        <div className="w-10 h-10 relative shrink-0 flex items-center justify-center">
+                                                            <Image
+                                                                src="/images/bank-icon.png"
+                                                                alt="Bank Transfer Icon"
+                                                                width={40}
+                                                                height={40}
+                                                                className="w-10 h-10 object-contain"
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <p className="text-[13px] font-medium text-slate-700 leading-tight mb-1">
+                                                                {bankOption.currency === 'NGN'
+                                                                    ? 'Online Bank Transfer in Nigerian Naira (NGN)'
+                                                                    : bankOption.currency === 'GHS'
+                                                                    ? 'Bank Transfer in Ghanaian Cedi (GHS)'
+                                                                    : bankOption.currency === 'INR'
+                                                                    ? 'Bank Transfer in Indian Rupee (INR)'
+                                                                    : bankOption.currency === 'CAD'
+                                                                    ? 'Domestic / Wire Transfer in Canadian Dollars (CAD)'
+                                                                    : bankOption.currency === 'GBP'
+                                                                    ? 'International Bank Transfer in British Pounds (GBP)'
+                                                                    : 'International Wire Transfer in US Dollars (USD)'}
+                                                            </p>
+                                                            <div className="flex items-baseline gap-1.5">
+                                                                <span className="text-[20px] md:text-[22px] font-bold text-slate-950 tracking-tight">
+                                                                    {Number(localAmt).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                                </span>
+                                                                <span className="text-[16px] md:text-[18px] font-bold text-slate-950">
+                                                                    {bankOption.currency_symbol || curr}
+                                                                </span>
+                                                                <span className="text-xs text-slate-500 font-normal ml-1">
+                                                                    ({bankOption.bank_name})
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <button
+                                                        type="button"
+                                                        disabled={loadingStep === 'COUNTRY'}
+                                                        onClick={() => {
+                                                            setSelectedBank({
+                                                                ...bankOption,
+                                                                country_name: selectedBank?.country_name || bankOption.country_name,
+                                                                country_flag: selectedBank?.country_flag || bankOption.country_flag || '🌐',
+                                                            });
+                                                            handleStepChange('FX');
+                                                        }}
+                                                        className={`h-[40px] px-6 rounded-md font-medium text-sm transition-all flex items-center justify-center shrink-0 cursor-pointer shadow-xs ${
+                                                            isSelected
+                                                                ? 'bg-[#0066cc] text-white hover:bg-[#0052a3]'
+                                                                : 'bg-slate-900 text-white hover:bg-slate-800'
+                                                        }`}
+                                                    >
+                                                        {loadingStep === 'COUNTRY' && isSelected ? (
+                                                            <><div className="w-4 h-4 border-2 border-white/30 border-t-white force-circle animate-spin mr-2" />Processing...</>
+                                                        ) : (
+                                                            'Select'
+                                                        )}
+                                                    </button>
+                                                </div>
+
+                                                {bankOption.currency === 'NGN' && (
+                                                    <div className="pt-2 mt-2 border-t border-slate-100">
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setIsImportantInfoOpen(prev => !prev)}
+                                                            className="flex items-center gap-1.5 text-[12px] text-[#0066cc] font-medium cursor-pointer hover:underline bg-transparent border-none p-0 focus:outline-none"
+                                                        >
+                                                            <Info size={14} weight="bold" />
+                                                            <span>Important info for Naira & Form A transfers</span>
+                                                            <CaretDown size={12} weight="bold" className={`transition-transform duration-200 ${isImportantInfoOpen ? 'rotate-180' : ''}`} />
+                                                        </button>
+
+                                                        {isImportantInfoOpen && (
+                                                            <div className="text-[13px] text-slate-600 space-y-2 bg-slate-50 p-3 rounded mt-2 border border-slate-100 animate-in fade-in duration-200">
+                                                                <p className="m-0">
+                                                                    Use this option to pay quickly in Naira via local Bank Transfer.
+                                                                </p>
+                                                                <p className="m-0">
+                                                                    To pay using a <strong>Form A application</strong> on the Trade Monitoring System, select the <strong>USD / CAD destination currency option</strong> above to generate the formal wire invoice.
+                                                                </p>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )}
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <button
-                                        disabled={loadingStep === 'COUNTRY'}
-                                        onClick={() => handleStepChange('FX')}
-                                        className="h-[42px] px-8 bg-[#0066cc] hover:bg-[#0052a3] text-white rounded-md font-medium text-sm transition-all flex items-center justify-center shrink-0 cursor-pointer shadow-xs"
-                                    >
-                                        {loadingStep === 'COUNTRY' ? (
-                                            <><div className="w-4 h-4 border-2 border-white/30 border-t-white force-circle animate-spin mr-2" />Processing...</>
-                                        ) : (
-                                            'Select'
-                                        )}
-                                    </button>
-                                </div>
-
-                                <div className="pt-2 border-t border-slate-100">
-                                    <button
-                                        type="button"
-                                        onClick={() => setIsImportantInfoOpen(prev => !prev)}
-                                        className="flex items-center gap-1.5 text-[12px] md:text-[13px] text-[#0066cc] font-medium cursor-pointer hover:underline bg-transparent border-none p-0 focus:outline-none"
-                                    >
-                                        <Info size={14} weight="bold" />
-                                        <span>Important info</span>
-                                        <CaretDown size={12} weight="bold" className={`transition-transform duration-200 ${isImportantInfoOpen ? 'rotate-180' : ''}`} />
-                                    </button>
-
-                                    {isImportantInfoOpen && (
-                                        <div className="-mx-5 -mb-5 mt-3 text-[14px] md:text-[16px] text-slate-600 space-y-4 leading-[1.6] bg-slate-50 p-5 rounded-b-md border-t border-slate-100 animate-in fade-in duration-200">
-                                            <p className="font-normal text-slate-600 leading-[1.6] m-0">
-                                                Use this option to pay quickly in Naira via Bank Transfer.
-                                            </p>
-                                            <p className="font-normal text-slate-600 leading-[1.6] m-0">
-                                                Note if you want to pay using a Form A application - please scroll down or select to pay in another currency - choose Bank Transfer in the destination currency and complete this journey to obtain Flywire&apos;s bank details to be used in the Form A application on the Trade Monitoring System.
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
+                                        );
+                                    });
+                                })()}
                             </div>
                         )}
-
-                        {/* Next Action Button */}
-                        <button
-                            disabled={!selectedBank || loadingStep === 'COUNTRY'}
-                            onClick={() => handleStepChange('FX')}
-                            className="w-full h-[48px] px-8 bg-[#0066cc] hover:bg-[#0052a3] text-white rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed shadow-sm cursor-pointer"
-                        >
-                            {loadingStep === 'COUNTRY' ? (
-                                <><div className="w-4 h-4 border-2 border-white/30 border-t-white force-circle animate-spin" />Processing...</>
-                            ) : (
-                                <>Next <ArrowRight size={14} className="group-hover:translate-x-1 transition-all" /></>
-                            )}
-                        </button>
                     </div>
                 )}
 
