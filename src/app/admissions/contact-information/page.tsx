@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { EnvelopeSimple, Phone, MapPin, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { InteractiveCampusMap } from '@/components/campus/InteractiveCampusMap';
+import { AdmissionsProgramLevelsCarousel } from '@/components/admissions/AdmissionsProgramLevelsCarousel';
 
 export const metadata = {
     title: 'Admissions Contact Directory & Inquiry Desk',
@@ -126,18 +127,9 @@ export default function AdmissionsContactInfo() {
                                  </div>
                             </section>
 
-                            {/* Secondary Liftups */}
-                            <div className="grid sm:grid-cols-2 gap-6 mb-16 pt-8 border-t border-slate-200">
-                                <Link href="/admissions" className="group block p-6 border border-slate-200 hover:border-black transition-all text-black no-underline">
-                                    <h3 className="font-bold text-lg mb-2">Bachelor&apos;s Admissions</h3>
-                                    <p className="text-sm text-slate-600 mb-4 font-normal">Explore undergraduate programmes and admission requirements.</p>
-                                    <span className="flex items-center gap-1 text-[#0f2027] font-bold uppercase tracking-widest text-xs group-hover:translate-x-1 transition-transform">Read more <ArrowRight size={14} weight="bold" /></span>
-                                </Link>
-                                <Link href="/admissions" className="group block p-6 border border-slate-200 hover:border-black transition-all text-black no-underline">
-                                    <h3 className="font-bold text-lg mb-2">Master&apos;s Admissions</h3>
-                                    <p className="text-sm text-slate-600 mb-4 font-normal">Find information on graduate programs and how to apply.</p>
-                                    <span className="flex items-center gap-1 text-[#0f2027] font-bold uppercase tracking-widest text-xs group-hover:translate-x-1 transition-transform">Read more <ArrowRight size={14} weight="bold" /></span>
-                                </Link>
+                            {/* Admissions Program Levels Carousel */}
+                            <div className="mb-16 pt-10 border-t border-slate-200">
+                                <AdmissionsProgramLevelsCarousel />
                             </div>
 
                     </div>
