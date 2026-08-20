@@ -440,18 +440,45 @@ export default function PayGoWireCheckout({
                                                     onClick={() => {
                                                         setSelectedCountryCode(c.country_code);
                                                         setIsCountryOpen(false);
-                                                        const directBank = countries.find(b => b.country_code === c.country_code || b.country_name.toLowerCase() === c.country_name.toLowerCase());
-                                                        if (directBank) {
-                                                            setSelectedBank(directBank);
+
+                                                        const code = c.country_code.toUpperCase();
+                                                        const name = c.country_name.toLowerCase();
+
+                                                        const isNigeria = code === 'NG' || name === 'nigeria';
+                                                        const isGhana = code === 'GH' || name === 'ghana';
+                                                        const isIndia = code === 'IN' || name === 'india';
+                                                        const isCanada = code === 'CA' || name === 'canada';
+                                                        const isUK = code === 'GB' || code === 'UK' || name === 'united kingdom';
+                                                        const isUSA = code === 'US' || code === 'USA' || name === 'united states' || name === 'united states of america';
+
+                                                        let matchedBank: any = null;
+
+                                                        if (isNigeria) {
+                                                            matchedBank = countries.find(b => b.country_code === 'NG' || b.currency === 'NGN');
+                                                        } else if (isGhana) {
+                                                            matchedBank = countries.find(b => b.country_code === 'GH' || b.currency === 'GHS');
+                                                        } else if (isIndia) {
+                                                            matchedBank = countries.find(b => b.country_code === 'IN' || b.currency === 'INR');
+                                                        } else if (isCanada) {
+                                                            matchedBank = countries.find(b => b.country_code === 'CA' || b.currency === 'CAD');
+                                                        } else if (isUK) {
+                                                            matchedBank = countries.find(b => b.country_code === 'GB' || b.currency === 'GBP');
+                                                        } else if (isUSA) {
+                                                            matchedBank = countries.find(b => b.country_code === 'US' || b.currency === 'USD');
                                                         } else {
-                                                            const fallbackBank = countries.find(b => b.country_code === 'US' || b.country_code === 'CA') || countries[0];
-                                                            if (fallbackBank) {
-                                                                setSelectedBank({
-                                                                    ...fallbackBank,
-                                                                    country_name: c.country_name,
-                                                                    country_flag: c.country_flag ?? '🌐',
-                                                                });
-                                                            }
+                                                            // General International fallback for all other countries: USD / CAD / GBP general accounts
+                                                            matchedBank = countries.find(b => b.country_code === 'US') ||
+                                                                          countries.find(b => b.country_code === 'CA') ||
+                                                                          countries.find(b => b.country_code === 'GB') ||
+                                                                          countries.find(b => !['NG', 'GH', 'IN'].includes(b.country_code));
+                                                        }
+
+                                                        if (matchedBank) {
+                                                            setSelectedBank({
+                                                                ...matchedBank,
+                                                                country_name: c.country_name,
+                                                                country_flag: c.country_flag ?? '🌐',
+                                                            });
                                                         }
                                                     }}
                                                     className="px-4 py-2.5 text-[14px] text-slate-800 hover:bg-[#0066cc] hover:text-white cursor-pointer transition-colors"
