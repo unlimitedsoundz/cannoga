@@ -17,7 +17,7 @@ export function PreFooterBanner() {
                         alt="Cannoga College student"
                         fill
                         priority
-                        className="object-cover object-[70%_25%] sm:object-[65%_30%] md:object-[60%_30%]"
+                        className="object-cover object-[65%_20%] sm:object-[65%_25%] md:object-[65%_25%]"
                         sizes="100vw"
                     />
                 </div>
