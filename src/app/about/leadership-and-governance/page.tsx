@@ -131,11 +131,7 @@ const SENIOR_ADMIN_DATA: SeniorAdminGroup[] = [
 ];
 
 export default function LeadershipGovernancePage() {
-    const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({
-        leadership: true,
-        library: true,
-        'admissions-marketing': true,
-    });
+    const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
 
     const toggleAccordion = (id: string) => {
         setOpenAccordions(prev => ({
