@@ -74,9 +74,8 @@ export default function AdmissionsHelpCard({
                 }
             `}</style>
 
-            <a
-                href={mailtoHref}
-                className={`block w-full p-6 sm:p-8 md:p-10 rounded-md ${style.bgColor} ${style.borderColor} border-4 no-underline overflow-hidden relative min-h-[220px] sm:min-h-[260px] flex flex-col justify-between group cursor-pointer transition-all duration-300 hover:brightness-105`}
+            <div
+                className={`block w-full p-6 sm:p-8 md:p-10 rounded-md ${style.bgColor} ${style.borderColor} border-4 no-underline overflow-hidden relative min-h-[220px] sm:min-h-[260px] flex flex-col justify-between group transition-all duration-300`}
             >
                 {/* Card Content Header */}
                 <div className="relative z-20">
@@ -85,28 +84,51 @@ export default function AdmissionsHelpCard({
                     </h3>
                 </div>
 
-                {/* Card Bottom Description & Arrow Icon */}
-                <div className="relative z-20 pt-6 flex items-end justify-between gap-4 text-white">
-                    <div className="max-w-[85%] space-y-2">
+                {/* Card Bottom Description & Contact Links */}
+                <div className="relative z-20 pt-6 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 text-white">
+                    <div className="max-w-[90%] space-y-3">
                         <p className="text-sm sm:text-base font-medium text-white/95 leading-relaxed font-sans">
                             {description}
                         </p>
-                        {(phone || whatsapp) && (
-                            <p className="text-xs sm:text-sm font-bold text-white/80 flex flex-wrap gap-x-2 gap-y-1 items-center">
-                                {phone && <span>Talk to Admissions: <span className="underline">{phone}</span></span>}
-                                {phone && (whatsapp || email) && <span>•</span>}
-                                {whatsapp && <span>WhatsApp: <span className="underline">{whatsapp}</span> (WhatsApp only)</span>}
-                                {whatsapp && email && <span>•</span>}
-                                <span><span className="underline">{email}</span></span>
-                            </p>
-                        )}
+                        <div className="text-xs sm:text-sm font-bold text-white flex flex-wrap gap-x-2 gap-y-1.5 items-center">
+                            {phone && (
+                                <a
+                                    href={`tel:${phone.replace(/[^0-9+]/g, '')}`}
+                                    className="text-white hover:text-white/80 transition-colors inline-flex items-center gap-1"
+                                >
+                                    Talk to Admissions: <span className="underline">{phone}</span>
+                                </a>
+                            )}
+                            {phone && (whatsapp || email) && <span className="text-white/60">•</span>}
+                            {whatsapp && (
+                                <a
+                                    href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-white hover:text-white/80 transition-colors inline-flex items-center gap-1"
+                                >
+                                    WhatsApp: <span className="underline">{whatsapp}</span> (WhatsApp only)
+                                </a>
+                            )}
+                            {whatsapp && email && <span className="text-white/60">•</span>}
+                            <a
+                                href={mailtoHref}
+                                className="text-white hover:text-white/80 transition-colors underline inline-flex items-center"
+                            >
+                                {email}
+                            </a>
+                        </div>
                     </div>
 
-                    <div className="shrink-0 mb-0.5 animate-arrow-help group-hover:scale-110 transition-transform">
+                    <a
+                        href={mailtoHref}
+                        title={`Email ${email}`}
+                        className="shrink-0 mb-0.5 animate-arrow-help group-hover:scale-110 transition-transform p-2 text-white hover:text-white/80 focus:outline-none"
+                    >
                         <ArrowUpRight size={44} weight="bold" className="text-white" />
-                    </div>
+                    </a>
                 </div>
-            </a>
+            </div>
         </div>
     );
 }
