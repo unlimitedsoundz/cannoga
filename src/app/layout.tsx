@@ -13,9 +13,6 @@ const playfair = { variable: "font-playfair-var" };
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://cannogacollege.ca'),
-    alternates: {
-        canonical: '/',
-    },
     title: {
         default: "Cannoga College Ottawa, Ontario",
         template: "%s | Cannoga College"
