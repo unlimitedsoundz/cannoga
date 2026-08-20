@@ -456,9 +456,9 @@ export function InteractiveCampusMap() {
                 </div>
 
                 {/* Right Column: Student Resource Hub Styled Location Card Inspector */}
-                <div className="lg:col-span-4 p-3 sm:p-5 bg-white border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col justify-center">
+                <div className="lg:col-span-4 p-0 bg-white border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col justify-center">
                     <div
-                        className={`w-full p-6 sm:p-7 rounded-md ${activeLocation.bgColor} ${activeLocation.borderColor} border-4 text-white overflow-hidden relative flex flex-col justify-between min-h-[440px] shadow-sm`}
+                        className={`w-full h-full p-6 sm:p-7 rounded-none ${activeLocation.bgColor} ${activeLocation.borderColor} border-0 text-white overflow-hidden relative flex flex-col justify-between min-h-[440px] shadow-none`}
                     >
                         <div>
                             <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight leading-[1.08] mb-3">
