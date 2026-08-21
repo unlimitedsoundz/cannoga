@@ -18,6 +18,8 @@ export default function NewNewsPage() {
     const [title, setTitle] = useState('');
     const [slug, setSlug] = useState('');
     const [excerpt, setExcerpt] = useState('');
+    const [content, setContent] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
     const [status, setStatus] = useState('draft');
     const [publishDate, setPublishDate] = useState('');
     const [loading, setLoading] = useState(false);
@@ -36,6 +38,9 @@ export default function NewNewsPage() {
                     title,
                     slug,
                     excerpt,
+                    content,
+                    imageUrl,
+                    published: status === 'published',
                     status,
                     publishDate: publishDate || new Date().toISOString().split('T')[0],
                 }),
@@ -92,6 +97,16 @@ export default function NewNewsPage() {
                 <div className="space-y-2">
                     <Label htmlFor="excerpt">Excerpt</Label>
                     <textarea id="excerpt" value={excerpt} onChange={e => setExcerpt(e.target.value)} placeholder="Brief article summary" rows={3} className="w-full px-3 py-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none font-sans" />
+                </div>
+
+                <div className="space-y-2">
+                    <Label htmlFor="content">Content</Label>
+                    <textarea id="content" value={content} onChange={e => setContent(e.target.value)} placeholder="Full article content (Markdown supported)" rows={8} className="w-full px-3 py-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none font-sans font-mono" />
+                </div>
+
+                <div className="space-y-2">
+                    <Label htmlFor="imageUrl">Image URL</Label>
+                    <Input id="imageUrl" value={imageUrl} onChange={e => setImageUrl(e.target.value)} placeholder="https://example.com/image.jpg" />
                 </div>
 
                 <div className="space-y-2">
