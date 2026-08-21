@@ -54,11 +54,25 @@ export default function NewsForm({ id, isNew, newsItem }: NewsFormProps) {
             }
 
             if (isNew) {
-                const { error } = await supabase.from('News').insert(newsData);
-                if (error) throw error;
+                const response = await fetch('/api/sis/admin/news', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newsData),
+                });
+                if (!response.ok) {
+                    const data = await response.json();
+                    throw new Error(data.error || 'Failed to save news article');
+                }
             } else {
-                const { error } = await supabase.from('News').update(newsData).eq('id', id);
-                if (error) throw error;
+                const response = await fetch('/api/sis/admin/news', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id, ...newsData }),
+                });
+                if (!response.ok) {
+                    const data = await response.json();
+                    throw new Error(data.error || 'Failed to update news article');
+                }
             }
 
             // Success! Redirect

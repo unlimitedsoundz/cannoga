@@ -34,8 +34,11 @@ export default function AdminNewsPage() {
         if (!confirm('Are you sure you want to delete this article?')) return;
 
         try {
-            const { error } = await supabase.from('News').delete().eq('id', id);
-            if (error) throw error;
+            const response = await fetch(`/api/sis/admin/news?id=${id}`, { method: 'DELETE' });
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error || 'Failed to delete article');
+            }
             setNews(news.filter(n => n.id !== id));
         } catch (error: any) {
             alert("Error deleting news: " + error.message);
