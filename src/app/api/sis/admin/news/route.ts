@@ -1,4 +1,4 @@
-import { createServerClient } from '@/utils/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/utils/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -10,7 +10,8 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { data: profile } = await supabase
+    const adminDb = createServiceRoleClient();
+    const { data: profile } = await adminDb
         .from('profiles')
         .select('role')
         .eq('id', user.id)
@@ -24,7 +25,7 @@ export async function GET(request: NextRequest) {
     const id = searchParams.get('id');
 
     if (id) {
-        const { data: article, error } = await supabase
+        const { data: article, error } = await adminDb
             .from('News')
             .select('*')
             .eq('id', id)
@@ -37,7 +38,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ news: article });
     }
 
-    const { data: news, error } = await supabase
+    const { data: news, error } = await adminDb
         .from('News')
         .select('id, title, slug, excerpt, content, imageUrl, published, publishDate, createdAt, updatedAt')
         .order('publishDate', { ascending: false });
@@ -58,7 +59,8 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { data: profile } = await supabase
+    const adminDb = createServiceRoleClient();
+    const { data: profile } = await adminDb
         .from('profiles')
         .select('role')
         .eq('id', user.id)
@@ -75,13 +77,13 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Title and slug are required' }, { status: 400 });
     }
 
-    const { data: article, error } = await supabase
+    const { data: article, error } = await adminDb
         .from('News')
         .insert({
             title,
             slug,
             excerpt: excerpt || '',
-            content: content || {},
+            content: content || '',
             imageUrl: imageUrl || null,
             published: published || false,
             publishDate: publishDate || new Date().toISOString(),
@@ -105,7 +107,8 @@ export async function PUT(request: NextRequest) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { data: profile } = await supabase
+    const adminDb = createServiceRoleClient();
+    const { data: profile } = await adminDb
         .from('profiles')
         .select('role')
         .eq('id', user.id)
@@ -131,7 +134,7 @@ export async function PUT(request: NextRequest) {
     if (published !== undefined) updateData.published = published;
     if (publishDate !== undefined) updateData.publishDate = publishDate;
 
-    const { data: article, error } = await supabase
+    const { data: article, error } = await adminDb
         .from('News')
         .update(updateData)
         .eq('id', id)
@@ -154,7 +157,8 @@ export async function DELETE(request: NextRequest) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { data: profile } = await supabase
+    const adminDb = createServiceRoleClient();
+    const { data: profile } = await adminDb
         .from('profiles')
         .select('role')
         .eq('id', user.id)
@@ -171,7 +175,7 @@ export async function DELETE(request: NextRequest) {
         return NextResponse.json({ error: 'ID is required' }, { status: 400 });
     }
 
-    const { error } = await supabase
+    const { error } = await adminDb
         .from('News')
         .delete()
         .eq('id', id);
