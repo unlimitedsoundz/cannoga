@@ -1,7 +1,7 @@
 import { Link } from '@/components/ui/Link';
 import { CTA } from '@/components/ui/CTA';
 import Image from 'next/image';
-import { ArrowRight, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowUpRight, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react/dist/ssr";
 import TableOfContents from '@/components/course/TableOfContents';
 import StudentStoriesCarousel from '@/components/admissions/StudentStoriesCarousel';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
@@ -391,36 +391,84 @@ export default async function AdmissionsPage() {
                         </section>
 
 
-                        {/* 2026/2027 DIGITAL VIEWBOOK BANNER */}
-                        <section className="scroll-mt-32 p-8 rounded-3xl bg-gradient-to-br from-[#0a151a] via-[#12222a] to-[#0a151a] text-white border border-white/10 shadow-2xl relative overflow-hidden">
-                            <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-15 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-400 via-transparent to-transparent pointer-events-none" />
-                            <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
-                                <div className="space-y-2 max-w-xl">
-                                    <span className="text-[11px] font-black uppercase tracking-widest text-[#c89211]">
+                        {/* 2026/2027 DIGITAL VIEWBOOK & CONTACT QUICK LINK CARDS */}
+                        <section className="scroll-mt-32 space-y-6">
+                            {/* Viewbook Hero Card - Vibrant Electric Indigo / Purple */}
+                            <div className="block w-full p-6 sm:p-8 rounded-md bg-[#4f46e5] border-4 border-[#6366f1] text-white overflow-hidden relative min-h-[260px] flex flex-col justify-between shadow-xl">
+                                <div className="relative z-10 space-y-2 max-w-2xl">
+                                    <span className="text-xs font-black uppercase tracking-widest text-indigo-200">
                                         Official Publication • Edition 2026/2027
                                     </span>
-                                    <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight">
-                                        Explore the Cannoga College Viewbook
+                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase tracking-tight leading-[1.05]">
+                                        EXPLORE THE CANNOGA COLLEGE VIEWBOOK
                                     </h3>
-                                    <p className="text-sm md:text-base text-slate-300 font-normal leading-relaxed">
+                                    <p className="text-sm sm:text-base font-medium text-white/95 leading-relaxed pt-2">
                                         Flip through our interactive 13-page digital prospectus to discover programs, faculty schools, tuition breakdowns, scholarships, and the Ottawa student journey.
                                     </p>
                                 </div>
 
-                                <div className="flex flex-wrap gap-3 shrink-0">
-                                    <Link
-                                        href="/viewbook"
-                                        className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-[#c89211] hover:bg-[#b07f0f] text-black font-black text-sm transition-all shadow-lg active:scale-95 no-underline"
-                                    >
-                                        Open Digital Flipbook →
-                                    </Link>
-                                    <a
-                                        href="/documents/cannoga-college-viewbook-2026-2027.pdf"
-                                        download="Cannoga-College-Viewbook-2026-2027.pdf"
-                                        className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm transition-all no-underline"
-                                    >
-                                        Download PDF
-                                    </a>
+                                <div className="relative z-10 pt-6 flex flex-wrap items-center justify-between gap-4">
+                                    <div className="flex flex-wrap gap-3">
+                                        <Link
+                                            href="/viewbook"
+                                            className="inline-flex items-center gap-2 px-6 py-3 rounded-sm bg-white hover:bg-slate-100 text-slate-900 font-black text-xs uppercase tracking-wider transition-all shadow-md active:scale-95 no-underline"
+                                        >
+                                            Open Digital Flipbook <ArrowUpRight size={16} weight="bold" />
+                                        </Link>
+                                        <a
+                                            href="/documents/cannoga-college-viewbook-2026-2027.pdf"
+                                            download="Cannoga-College-Viewbook-2026-2027.pdf"
+                                            className="inline-flex items-center gap-2 px-5 py-3 rounded-sm bg-indigo-900/60 hover:bg-indigo-900/80 text-white font-black text-xs uppercase tracking-wider border border-white/20 transition-all no-underline"
+                                        >
+                                            Download PDF
+                                        </a>
+                                    </div>
+                                    <div className="hidden sm:block">
+                                        <ArrowUpRight size={38} weight="bold" className="text-white/80" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Address & Registry Vibrant Quick Link Cards */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {/* Campus Address - Vibrant Emerald */}
+                                <div className="block w-full p-6 sm:p-7 rounded-md bg-[#10b981] border-4 border-[#059669] text-white relative min-h-[220px] flex flex-col justify-between shadow-lg">
+                                    <div>
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-emerald-100 block mb-1">
+                                            OTTAWA CAMPUS
+                                        </span>
+                                        <h4 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-snug">
+                                            Campus Address
+                                        </h4>
+                                    </div>
+                                    <div className="pt-4 flex items-end justify-between gap-4">
+                                        <p className="text-sm font-semibold text-white/95 leading-relaxed">
+                                            Cannoga College Ottawa campus<br />
+                                            81 Montreal Rd,<br />
+                                            K1L 6E8 Ottawa, Ontario, Canada
+                                        </p>
+                                        <ArrowUpRight size={32} weight="bold" className="text-white shrink-0" />
+                                    </div>
+                                </div>
+
+                                {/* Mailing & Registry - Vibrant Hot Pink */}
+                                <div className="block w-full p-6 sm:p-7 rounded-md bg-[#ec4899] border-4 border-[#db2777] text-white relative min-h-[220px] flex flex-col justify-between shadow-lg">
+                                    <div>
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-pink-100 block mb-1">
+                                            ADMISSIONS &amp; REGISTRY
+                                        </span>
+                                        <h4 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-snug">
+                                            Mailing &amp; Registry Address
+                                        </h4>
+                                    </div>
+                                    <div className="pt-4 flex items-end justify-between gap-4">
+                                        <p className="text-sm font-semibold text-white/95 leading-relaxed">
+                                            Cannoga College Admissions &amp; Registrar<br />
+                                            81 Montreal Rd,<br />
+                                            K1L 6E8 Ottawa, Ontario, Canada
+                                        </p>
+                                        <ArrowUpRight size={32} weight="bold" className="text-white shrink-0" />
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -433,25 +481,6 @@ export default async function AdmissionsPage() {
                                 phone="+1 (227) 250-0427"
                                 variant="indigo"
                             />
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 text-sm text-slate-700 bg-slate-50 border border-slate-200 rounded-2xl p-6">
-                                <div>
-                                    <h4 className="font-bold text-slate-900 text-base mb-1">Campus Address</h4>
-                                    <p className="leading-relaxed text-slate-600">
-                                        Cannoga College Ottawa campus<br />
-                                        81 Montreal Rd,<br />
-                                        K1L 6E8 Ottawa, Ontario, Canada
-                                    </p>
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-slate-900 text-base mb-1">Mailing &amp; Registry Address</h4>
-                                    <p className="leading-relaxed text-slate-600">
-                                        Cannoga College Admissions &amp; Registrar<br />
-                                        81 Montreal Rd,<br />
-                                        K1L 6E8 Ottawa, Ontario, Canada
-                                    </p>
-                                </div>
-                            </div>
 
                             {/* Application Note */}
                             <div className="pt-2">
