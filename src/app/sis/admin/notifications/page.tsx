@@ -56,7 +56,7 @@ export default function AdminNotificationsPage() {
         const fetchData = async () => {
             try {
                 const [notifRes, programsRes, studentsRes] = await Promise.all([
-                    fetch('/api/sis/admin/notifications'),
+                    fetch('/api/sis/admin/notifications?scope=all'),
                     fetch('/api/sis/admin/programs'),
                     fetch('/api/sis/students'),
                 ]);
@@ -127,7 +127,7 @@ export default function AdminNotificationsPage() {
             setSelectedPrograms([]);
             setSelectedStudents([]);
 
-            const notifRes = await fetch('/api/sis/admin/notifications');
+            const notifRes = await fetch('/api/sis/admin/notifications?scope=all');
             if (notifRes.ok) {
                 const data = await notifRes.json();
                 setNotifications(data.notifications || []);

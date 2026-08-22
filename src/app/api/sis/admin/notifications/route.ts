@@ -22,6 +22,7 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
+    const scope = searchParams.get('scope'); // 'all' returns everything (for sent history), default filters out student-only notifs
 
     if (id) {
         const { data: notification, error } = await supabase
@@ -46,7 +47,43 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ notifications: [], error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ notifications: notifications || [] });
+    let result = notifications || [];
+
+    // If fetching for admin bell / dashboard (default), exclude notifications targeted exclusively to students
+    if (scope !== 'all') {
+        result = result.filter((n: any) => {
+            // Notifications specifically meant for individual students
+            if (n.user_id && n.user_id !== user.id) return false;
+            if (n.recipient_type === 'individual' || n.recipient_type === 'program') return false;
+            
+            // Student-specific system automated notifications
+            const studentTypes = [
+                'pal_issuance_notice',
+                'wire_payment_approved',
+                'student_welcome',
+                'course_enrolled',
+                'timetable_published',
+                'housing_contract_signed',
+                'DOCS_REQUIRED',
+            ];
+            if (n.type && studentTypes.includes(n.type)) return false;
+
+            // Student-specific titles
+            const titleLower = (n.title || '').toLowerCase();
+            if (
+                titleLower.includes('provincial attestation letter') ||
+                titleLower.includes('pal processing') ||
+                titleLower.includes('housing deposit verified') ||
+                titleLower.includes('action required: additional documents')
+            ) {
+                return false;
+            }
+
+            return true;
+        });
+    }
+
+    return NextResponse.json({ notifications: result });
 }
 
 export async function POST(request: NextRequest) {
