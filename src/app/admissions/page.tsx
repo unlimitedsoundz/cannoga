@@ -394,7 +394,7 @@ export default async function AdmissionsPage() {
                         {/* 2026/2027 DIGITAL VIEWBOOK & CONTACT QUICK LINK CARDS */}
                         <section className="scroll-mt-32 space-y-6">
                             {/* Viewbook Hero Card - Vibrant Electric Indigo / Purple */}
-                            <div className="block w-full p-6 sm:p-8 rounded-md bg-[#4f46e5] border-4 border-[#6366f1] text-white overflow-hidden relative min-h-[260px] flex flex-col justify-between shadow-xl">
+                            <div className="block w-full p-6 sm:p-8 rounded-md bg-[#4f46e5] text-white overflow-hidden relative min-h-[260px] flex flex-col justify-between">
                                 <div className="relative z-10 space-y-2 max-w-2xl">
                                     <span className="text-xs font-black uppercase tracking-widest text-indigo-200">
                                         Official Publication • Edition 2026/2027
@@ -411,14 +411,14 @@ export default async function AdmissionsPage() {
                                     <div className="flex flex-wrap gap-3">
                                         <Link
                                             href="/viewbook"
-                                            className="inline-flex items-center gap-2 px-6 py-3 rounded-sm bg-white hover:bg-slate-100 text-slate-900 font-black text-xs uppercase tracking-wider transition-all shadow-md active:scale-95 no-underline"
+                                            className="inline-flex items-center gap-2 px-6 py-3 rounded-sm bg-white hover:bg-slate-100 text-slate-900 font-black text-xs uppercase tracking-wider transition-all active:scale-95 no-underline"
                                         >
                                             Open Digital Flipbook <ArrowUpRight size={16} weight="bold" />
                                         </Link>
                                         <a
                                             href="/documents/cannoga-college-viewbook-2026-2027.pdf"
                                             download="Cannoga-College-Viewbook-2026-2027.pdf"
-                                            className="inline-flex items-center gap-2 px-5 py-3 rounded-sm bg-indigo-900/60 hover:bg-indigo-900/80 text-white font-black text-xs uppercase tracking-wider border border-white/20 transition-all no-underline"
+                                            className="inline-flex items-center gap-2 px-5 py-3 rounded-sm bg-indigo-900/60 hover:bg-indigo-900/80 text-white font-black text-xs uppercase tracking-wider transition-all no-underline"
                                         >
                                             Download PDF
                                         </a>
@@ -432,7 +432,7 @@ export default async function AdmissionsPage() {
                             {/* Address & Registry Vibrant Quick Link Cards */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {/* Campus Address - Vibrant Emerald */}
-                                <div className="block w-full p-6 sm:p-7 rounded-md bg-[#10b981] border-4 border-[#059669] text-white relative min-h-[220px] flex flex-col justify-between shadow-lg">
+                                <div className="block w-full p-6 sm:p-7 rounded-md bg-[#10b981] text-white relative min-h-[220px] flex flex-col justify-between">
                                     <div>
                                         <span className="text-[10px] font-black uppercase tracking-widest text-emerald-100 block mb-1">
                                             OTTAWA CAMPUS
@@ -452,7 +452,7 @@ export default async function AdmissionsPage() {
                                 </div>
 
                                 {/* Mailing & Registry - Vibrant Hot Pink */}
-                                <div className="block w-full p-6 sm:p-7 rounded-md bg-[#ec4899] border-4 border-[#db2777] text-white relative min-h-[220px] flex flex-col justify-between shadow-lg">
+                                <div className="block w-full p-6 sm:p-7 rounded-md bg-[#ec4899] text-white relative min-h-[220px] flex flex-col justify-between">
                                     <div>
                                         <span className="text-[10px] font-black uppercase tracking-widest text-pink-100 block mb-1">
                                             ADMISSIONS &amp; REGISTRY
