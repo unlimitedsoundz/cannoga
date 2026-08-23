@@ -37,7 +37,7 @@ export default function CoursesClient({ courses }: CoursesClientProps) {
                     <h1 className="text-3xl font-bold text-neutral-900 leading-tight">Manage Courses</h1>
                     <p className="text-neutral-500 mt-1 text-sm uppercase font-bold tracking-widest">Academic Curricula & Programs</p>
                 </div>
-                <Link href="/admin/courses/editor?id=new" className="bg-neutral-900 text-white px-4 py-2 rounded-lg font-bold hover:bg-neutral-800 transition-colors shrink-0">
+                <Link href="/admin/courses/editor/?id=new" className="bg-neutral-900 text-white px-4 py-2 rounded-lg font-bold hover:bg-neutral-800 transition-colors shrink-0">
                     + New Course
                 </Link>
             </div>
@@ -85,7 +85,7 @@ export default function CoursesClient({ courses }: CoursesClientProps) {
                                 <td className="p-4 text-neutral-600">{course.school?.name}</td>
                                 <td className="p-4 text-right">
                                     <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <Link href={`/admin/courses/edit?id=${course.id}`} className="p-2 border border-neutral-200 rounded-lg hover:bg-neutral-50" title="Edit">
+                                        <Link href={`/admin/courses/edit/?id=${course.id}`} className="p-2 border border-neutral-200 rounded-lg hover:bg-neutral-50" title="Edit">
                                             <Edit size={16} weight="bold" />
                                         </Link>
                                         <form action={async () => {

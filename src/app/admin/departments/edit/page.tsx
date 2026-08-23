@@ -58,7 +58,7 @@ function DepartmentEditorContent() {
         return (
             <div className="p-12 text-center">
                 <h1 className="text-2xl font-bold mb-4">Department Not Found</h1>
-                <Link href="/admin/departments" className="text-blue-600 font-bold hover:underline">
+                <Link href="/admin/departments/" className="text-blue-600 font-bold hover:underline">
                     Back to Departments
                 </Link>
             </div>
@@ -68,7 +68,7 @@ function DepartmentEditorContent() {
     return (
         <div className="max-w-4xl mx-auto pb-24 animate-in fade-in duration-500">
             <div className="mb-8 flex items-center justify-between">
-                <Link href="/admin/departments" className="flex items-center gap-2 text-neutral-500 hover:text-black transition-colors font-bold">
+                <Link href="/admin/departments/" className="flex items-center gap-2 text-neutral-500 hover:text-black transition-colors font-bold">
                     <ArrowLeft size={18} weight="bold" /> Back to Departments
                 </Link>
                 <h1 className="text-3xl font-bold uppercase tracking-tight text-neutral-900">Edit Department</h1>

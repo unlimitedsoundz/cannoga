@@ -93,7 +93,7 @@ export default function SISAdminCreateBlogPostPage() {
                 console.error('Error inserting post in DB:', error);
                 alert(`Error saving blog post: ${error.message}`);
             } else {
-                router.push('/sis/admin/blog');
+                router.push('/sis/admin/blog/');
             }
         } catch (err) {
             console.error('Unexpected error:', err);
@@ -161,7 +161,7 @@ export default function SISAdminCreateBlogPostPage() {
                 subtitle="Add a new student story or article to the database"
                 actions={
                     <Link
-                        href="/sis/admin/blog"
+                        href="/sis/admin/blog/"
                         className="inline-flex items-center gap-2 px-4 py-2 border border-white/20 text-neutral-300 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-white/10 transition-colors no-underline"
                     >
                         <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2.5} /> Back to Blog
@@ -333,7 +333,7 @@ export default function SISAdminCreateBlogPostPage() {
                         {saving ? 'Creating post...' : 'Publish Blog Post'}
                     </button>
                     <Link
-                        href="/sis/admin/blog"
+                        href="/sis/admin/blog/"
                         className="text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white no-underline transition-colors"
                     >
                         Cancel

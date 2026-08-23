@@ -62,7 +62,7 @@ export function OfferClient({ admission }: OfferClientProps) {
     };
 
     const handlePayment = () => {
-        router.push(`/portal/application/payment?id=${admission.application_id}`);
+        router.push(`/portal/application/payment/?id=${admission.application_id}`);
     };
 
     // Calculate dynamic fee details based on annual fee

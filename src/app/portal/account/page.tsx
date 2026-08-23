@@ -31,7 +31,7 @@ export default function ProfilePage() {
                 const { data: { user: authUser } } = await supabase.auth.getUser();
 
                 if (!authUser) {
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                     return;
                 }
 
@@ -44,7 +44,7 @@ export default function ProfilePage() {
                     .maybeSingle();
 
                 if (profileError || !profileData) {
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                     return;
                 }
 
@@ -68,7 +68,7 @@ export default function ProfilePage() {
                 }
             } catch (error) {
                 console.error('Error fetching profile:', error);
-                router.push('/portal/account/login');
+                router.push('/portal/account/login/');
             } finally {
                 setLoading(false);
             }
@@ -228,7 +228,7 @@ export default function ProfilePage() {
                     </div>
 
                     <Link
-                        href="/portal/dashboard"
+                        href="/portal/dashboard/"
                         className="flex items-center justify-center w-full py-3 bg-neutral-100 rounded text-[10px] font-black hover:bg-neutral-200 transition-all"
                     >
                         Dashboard

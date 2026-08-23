@@ -150,7 +150,7 @@ export default function ResetPasswordPage() {
                             </p>
                             <div className="pt-4">
                                 <Link
-                                    href="/portal/account/login"
+                                    href="/portal/account/login/"
                                     className="w-full inline-block text-center bg-neutral-600 hover:bg-neutral-700 text-white font-bold py-3 rounded-lg transition-colors"
                                 >
                                     Proceed to Portal Login

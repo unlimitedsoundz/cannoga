@@ -320,7 +320,7 @@ export default function CodeOfConductPage() {
                     <h3 className="text-2xl font-black text-black tracking-tight">Related Governance Documents</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         <Link 
-                            href="/academic-regulations" 
+                            href="/academic-regulations/" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">
@@ -330,7 +330,7 @@ export default function CodeOfConductPage() {
                             <p className="text-sm text-slate-600 font-normal leading-normal">Coursework, GPA, and progression</p>
                         </Link>
                         <Link 
-                            href="/student-handbook" 
+                            href="/student-handbook/" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">
@@ -340,7 +340,7 @@ export default function CodeOfConductPage() {
                             <p className="text-sm text-slate-600 font-normal leading-normal">Campus services and student handbook</p>
                         </Link>
                         <Link 
-                            href="/admissions-policy" 
+                            href="/admissions-policy/" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">

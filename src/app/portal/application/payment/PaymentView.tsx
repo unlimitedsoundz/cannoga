@@ -117,14 +117,14 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                 <div className="flex flex-col items-center gap-3">
                     {isPaid && (
                         <button
-                            onClick={() => router.push(`/portal/application/receipt?id=${application.id}`)}
+                            onClick={() => router.push(`/portal/application/receipt/?id=${application.id}`)}
                             className="w-fit min-w-[240px] h-[48px] bg-[#0a151a] text-white px-8 rounded-4px text-[11px] font-normal uppercase tracking-widest transition-all hover:bg-neutral-800 shadow-lg shadow-black/5"
                         >
                             View Receipt
                         </button>
                     )}
                     <button
-                        onClick={() => router.push('/portal/dashboard')}
+                        onClick={() => router.push('/portal/dashboard/')}
                         className={`w-fit min-w-[240px] h-[48px] px-8 rounded-4px text-[11px] font-normal uppercase tracking-widest transition-all ${isPaid ? 'bg-white text-black border border-neutral-200 hover:bg-neutral-50' : 'bg-[#0a151a] text-white hover:bg-neutral-800 shadow-lg shadow-black/5'}`}
                     >
                         Return to Dashboard
@@ -181,7 +181,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                                             </div>
                                             {(payment.status === 'COMPLETED' || payment.status === 'verified') && (
                                                 <button
-                                                    onClick={() => router.push(`/portal/application/receipt?id=${application.id}&paymentId=${payment.id}`)}
+                                                    onClick={() => router.push(`/portal/application/receipt/?id=${application.id}&paymentId=${payment.id}`)}
                                                     className="p-2 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
                                                     title="View Receipt"
                                                 >
@@ -308,7 +308,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
 
             <div className="mt-10">
                 <button
-                    onClick={() => router.push('/portal/dashboard')}
+                    onClick={() => router.push('/portal/dashboard/')}
                     className="flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
                 >
                     <ArrowLeft size={14} weight="bold" />

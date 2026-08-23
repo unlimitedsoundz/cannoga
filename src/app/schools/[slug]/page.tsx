@@ -202,10 +202,10 @@ export default async function SchoolDetails({ params }: Props) {
                 ]}
             >
                 <div className="flex flex-wrap gap-4">
-                    <Link href="/admissions" className="text-aalto-3 font-bold underline underline-offset-8 decoration-white hover:opacity-70 transition-colors text-white inline-flex items-center gap-2">
+                    <Link href="/admissions/" className="text-aalto-3 font-bold underline underline-offset-8 decoration-white hover:opacity-70 transition-colors text-white inline-flex items-center gap-2">
                         Apply now <ArrowRight size={20} weight="bold" />
                     </Link>
-                    <Link href="/studies" className="text-aalto-3 font-bold underline underline-offset-8 decoration-white hover:opacity-70 transition-colors text-white inline-flex items-center gap-2">
+                    <Link href="/studies/" className="text-aalto-3 font-bold underline underline-offset-8 decoration-white hover:opacity-70 transition-colors text-white inline-flex items-center gap-2">
                         Explore programs <ArrowRight size={20} weight="bold" />
                     </Link>
                 </div>
@@ -257,7 +257,7 @@ export default async function SchoolDetails({ params }: Props) {
                                     Featured Programs
                                 </h2>
                             </div>
-                            <Link href={`/studies?school=${school.id}`} className="text-sm font-bold text-black hover:text-[#c89211] transition-colors hidden md:inline-flex items-center gap-1 group no-underline">
+                            <Link href={`/studies/?school=${school.id}`} className="text-sm font-bold text-black hover:text-[#c89211] transition-colors hidden md:inline-flex items-center gap-1 group no-underline">
                                 View All Programs <ArrowRight size={16} weight="bold" className="group-hover:translate-x-1 transition-transform" />
                             </Link>
                         </div>
@@ -276,7 +276,7 @@ export default async function SchoolDetails({ params }: Props) {
                                     '/images/school-of-arts.jpg';
 
                                 return (
-                                    <Link href={`/studies/${course.slug}`} key={course.id} className="block group no-underline">
+                                    <Link href={`/studies/${course.slug}/`} key={course.id} className="block group no-underline">
                                         <div className="bg-white border border-neutral-200 rounded-2xl overflow-hidden hover:border-neutral-900 transition-all duration-300 flex flex-col h-full">
                                             <div className="h-44 w-full relative overflow-hidden bg-neutral-900 shrink-0">
                                                 <FallbackImage
@@ -320,7 +320,7 @@ export default async function SchoolDetails({ params }: Props) {
                             <p className="text-neutral-300 text-lg mb-8 leading-relaxed">
                                 Research at the {school.name} is driven by a commitment to solving real-world challenges. We collaborate with industry partners and global networks to create sustainable impact.
                             </p>
-                            <Link href="/research" className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold hover:bg-neutral-200 transition-colors">
+                            <Link href="/research/" className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold hover:bg-neutral-200 transition-colors">
                                 Explore Research <ArrowRight size={18} weight="bold" />
                             </Link>
                         </div>
@@ -459,7 +459,7 @@ export default async function SchoolDetails({ params }: Props) {
                                         <span className="font-medium">Partnerships: {school.slug}.partners@cannogacollege.ca</span>
                                     </div>
                                 </div>
-                                <Link href="/contact" className="inline-flex items-center gap-2 font-bold group">
+                                <Link href="/contact/" className="inline-flex items-center gap-2 font-bold group">
                                     Global Contact Directory <ArrowRight size={18} weight="bold" />
                                 </Link>
                             </div>
@@ -472,7 +472,7 @@ export default async function SchoolDetails({ params }: Props) {
             <section className="bg-[#0a151a] text-white py-12">
                 <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
                     <p className="text-2xl font-bold underline decoration-white/30">Discover what&apos;s possible at {school.name}.</p>
-                    <Link href="/admissions" className="bg-[#f3e600] text-black px-10 py-4 font-bold hover:bg-white transition-colors">
+                    <Link href="/admissions/" className="bg-[#f3e600] text-black px-10 py-4 font-bold hover:bg-white transition-colors">
                         View Application Guide
                     </Link>
                 </div>

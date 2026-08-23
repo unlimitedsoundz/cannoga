@@ -38,7 +38,7 @@ export default function FacultyClient({ faculty }: FacultyClientProps) {
                     <p className="text-neutral-500 mt-1">Manage academic staff and administration</p>
                 </div>
                 <Link
-                    href="/admin/faculty/edit"
+                    href="/admin/faculty/edit/"
                     className="bg-neutral-900 text-white px-6 py-3 rounded-xl font-bold hover:bg-neutral-800 transition-all shadow-lg flex items-center gap-2"
                 >
                     New Faculty member
@@ -97,7 +97,7 @@ export default function FacultyClient({ faculty }: FacultyClientProps) {
                                     <td className="p-5 text-right">
                                         <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <Link
-                                                href={`/admin/faculty/edit?id=${person.id}`}
+                                                href={`/admin/faculty/edit/?id=${person.id}`}
                                                 className="p-2 border border-neutral-200 rounded-lg hover:bg-white hover:shadow-md transition-all text-neutral-600"
                                                 title="Edit"
                                             >

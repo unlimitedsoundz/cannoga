@@ -188,7 +188,7 @@ export default function PersonalInfoForm({ applicationId, initialData, onUpdate 
                         setIsSaving(true);
                         try {
                             await updateApplicationStep(applicationId, 'personal', data);
-                            router.push('/portal/dashboard');
+                            router.push('/portal/dashboard/');
                         } catch (error) {
                             console.error('Failed to save:', error);
                         } finally {

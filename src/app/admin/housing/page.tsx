@@ -94,7 +94,7 @@ export default function AdminHousingPage() {
             <div className="max-w-7xl mx-auto">
                 <div className="mb-6">
                     <Link
-                        href="/admin"
+                        href="/admin/"
                         className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-neutral-500 hover:text-black transition-colors"
                     >
                         <ArrowLeft size={14} /> Back to Admin Dashboard

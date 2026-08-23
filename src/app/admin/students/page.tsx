@@ -378,7 +378,7 @@ export default function AdminStudentsPage() {
                                 <td className="block md:table-cell pt-4 pb-2 md:p-4">
                                     <div className="flex items-center justify-end gap-3">
                                         <Link
-                                            href={`/admin/admissions/review?id=${student.application_id}`}
+                                            href={`/admin/admissions/review/?id=${student.application_id}`}
                                             className="text-neutral-400 px-2 py-1 text-xs font-bold uppercase tracking-widest hover:text-black"
                                         >
                                             View Profile

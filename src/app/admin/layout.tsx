@@ -38,7 +38,7 @@ export default function AdminLayout({
 
                     if (prof?.role !== 'ADMIN') {
                         setRedirecting(true);
-                        router.replace('/portal/account/admin-login');
+                        router.replace('/portal/account/admin-login/');
                         return;
                     }
                     setProfile(prof);
@@ -67,13 +67,13 @@ export default function AdminLayout({
                         throw new Error('Invalid database session');
                     }
                 } else {
-                    router.replace('/portal/account/admin-login');
+                    router.replace('/portal/account/admin-login/');
                 }
             } catch (error) {
                 console.error("Admin auth check error:", error);
                 localStorage.removeItem('Cannoga_user');
                 setRedirecting(true);
-                router.replace('/portal/account/admin-login');
+                router.replace('/portal/account/admin-login/');
             } finally {
                 setLoading(false);
             }
@@ -96,7 +96,7 @@ export default function AdminLayout({
         setProfile(null);
 
         window.dispatchEvent(new Event('storage'));
-        router.replace('/portal/account/admin-login');
+        router.replace('/portal/account/admin-login/');
         router.refresh();
     };
 

@@ -51,7 +51,7 @@ export default function NewNewsPage() {
                 throw new Error(data.error || 'Failed to create news article');
             }
 
-            router.push('/sis/admin/website/news');
+            router.push('/sis/admin/website/news/');
         } catch (e: any) {
             setError(e.message);
         } finally {
@@ -65,7 +65,7 @@ export default function NewNewsPage() {
                 title="New Article"
                 subtitle="Create a new news article"
                 actions={
-                    <Link href="/sis/admin/website/news" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
+                    <Link href="/sis/admin/website/news/" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
                         <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2.5} /> Back to News
                     </Link>
                 }

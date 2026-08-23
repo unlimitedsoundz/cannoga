@@ -113,7 +113,7 @@ export default function CareersPage() {
                         <ArrowRight size={16} weight="bold" />
                     </a>
                     <Link 
-                        href="/about" 
+                        href="/about/" 
                         className="inline-flex items-center gap-2 bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider px-6 py-4 transition-colors no-underline rounded-sm"
                     >
                         <span>Explore Our Mission</span>
@@ -244,16 +244,16 @@ export default function CareersPage() {
                         Interested in joining our faculty? Learn more about our academic programs, admissions criteria, and institutional regulations:
                     </p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs sm:text-sm font-bold uppercase tracking-wider">
-                        <Link href="/schools" className="p-4 border border-slate-200 hover:border-black text-[#0f2027] no-underline transition-colors block">
+                        <Link href="/schools/" className="p-4 border border-slate-200 hover:border-black text-[#0f2027] no-underline transition-colors block">
                             Academic Schools →
                         </Link>
-                        <Link href="/degree-programmes" className="p-4 border border-slate-200 hover:border-black text-[#0f2027] no-underline transition-colors block">
+                        <Link href="/degree-programmes/" className="p-4 border border-slate-200 hover:border-black text-[#0f2027] no-underline transition-colors block">
                             Degree Programmes →
                         </Link>
-                        <Link href="/research" className="p-4 border border-slate-200 hover:border-black text-[#0f2027] no-underline transition-colors block">
+                        <Link href="/research/" className="p-4 border border-slate-200 hover:border-black text-[#0f2027] no-underline transition-colors block">
                             Research Hub →
                         </Link>
-                        <Link href="/admissions-policy" className="p-4 border border-slate-200 hover:border-black text-[#0f2027] no-underline transition-colors block">
+                        <Link href="/admissions-policy/" className="p-4 border border-slate-200 hover:border-black text-[#0f2027] no-underline transition-colors block">
                             Admissions Policy →
                         </Link>
                     </div>

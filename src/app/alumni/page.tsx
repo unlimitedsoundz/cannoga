@@ -101,7 +101,7 @@ export default function AlumniPage() {
             >
                 <div className="flex flex-wrap gap-4">
                     <Link
-                        href="/portal/login"
+                        href="/portal/login/"
                         className="inline-flex items-center gap-2 bg-white hover:bg-slate-200 text-[#0a151a] font-extrabold text-xs uppercase tracking-wider px-6 py-4 transition-colors no-underline rounded-sm shadow-md"
                     >
                         <span>Access Alumni Portal</span>
@@ -210,7 +210,7 @@ export default function AlumniPage() {
                             </p>
                         </div>
                         <Link 
-                            href="/portal/login" 
+                            href="/portal/login/" 
                             className="inline-flex items-center gap-2 bg-white hover:bg-slate-200 text-[#0a151a] font-extrabold text-xs uppercase tracking-wider px-6 py-4 whitespace-nowrap transition-colors no-underline shrink-0 rounded-sm shadow-md"
                         >
                             <span>Alumni Portal Access</span>

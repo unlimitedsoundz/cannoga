@@ -19,7 +19,7 @@ export default function NewCoursePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    router.push('/sis/courses');
+    router.push('/sis/courses/');
   };
 
   return (
@@ -28,7 +28,7 @@ export default function NewCoursePage() {
         title="New Course"
         subtitle="Create a new course"
         actions={
-          <Link href="/sis/courses" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
+          <Link href="/sis/courses/" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
             <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2.5} /> Back to Courses
           </Link>
         }

@@ -40,7 +40,7 @@ export default function AdminSISLayout({
 
           if (!prof?.role || !['ADMIN', 'REGISTRAR', 'ADMISSIONS_OFFICER', 'FINANCE_OFFICER', 'ACADEMIC_ADVISOR', 'STUDENT_SERVICES', 'INTERNATIONAL_OFFICER', 'DOCUMENT_VERIFIER'].includes(prof.role)) {
             setRedirecting(true);
-            router.replace('/portal/account/admin-login');
+            router.replace('/portal/account/admin-login/');
             return;
           }
           setProfile(prof);
@@ -65,13 +65,13 @@ export default function AdminSISLayout({
             throw new Error('Invalid database session');
           }
         } else {
-          router.replace('/portal/account/admin-login');
+          router.replace('/portal/account/admin-login/');
         }
       } catch (error) {
         console.error("Admin SIS auth check error:", error);
         localStorage.removeItem('Cannoga_user');
         setRedirecting(true);
-        router.replace('/portal/account/admin-login');
+        router.replace('/portal/account/admin-login/');
       } finally {
         setLoading(false);
       }
@@ -90,7 +90,7 @@ export default function AdminSISLayout({
     setUser(null);
     setProfile(null);
     window.dispatchEvent(new Event('storage'));
-    router.replace('/portal/account/admin-login');
+    router.replace('/portal/account/admin-login/');
     router.refresh();
   };
 
@@ -281,7 +281,7 @@ export default function AdminSISLayout({
           >
             <HugeiconsIcon icon={LayoutDashboard} size={22} />
           </button>
-          <Link href="/admin/sis" className="flex items-center gap-3 shrink-0">
+          <Link href="/admin/sis/" className="flex items-center gap-3 shrink-0">
             <Logo className="h-8 w-auto" />
             <div className="hidden md:block">
               <div className="text-xs font-black uppercase tracking-widest text-neutral-900">Cannoga College</div>
@@ -333,8 +333,8 @@ export default function AdminSISLayout({
                 <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{profile?.email}</div>
                 <div className="text-[10px] font-bold uppercase tracking-wider text-[#0a151a] mt-1">{getRoleLabel(profile?.role)}</div>
               </div>
-              <Link href="/admin/sis/admin/settings" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 no-underline">Profile Settings</Link>
-              <Link href="/admin/sis/admin/settings" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 no-underline">Security</Link>
+              <Link href="/admin/sis/admin/settings/" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 no-underline">Profile Settings</Link>
+              <Link href="/admin/sis/admin/settings/" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:bg-neutral-50 no-underline">Security</Link>
               <div className="border-t border-neutral-100 mt-1 pt-1">
                 <button onClick={handleSignOut} className="block w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-red-600 hover:bg-neutral-50 no-underline">Sign Out</button>
               </div>

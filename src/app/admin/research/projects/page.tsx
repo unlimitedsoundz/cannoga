@@ -58,7 +58,7 @@ export default function ResearchProjectsAdmin() {
                     </h1>
                     <p className="text-neutral-500 font-medium text-sm">Manage research projects and publications</p>
                 </div>
-                <Link href="/admin/research/projects/editor?id=new" className="bg-neutral-900 text-white px-4 py-2 rounded-none font-bold flex items-center justify-center gap-2 hover:bg-neutral-800 transition-all uppercase tracking-widest text-xs">
+                <Link href="/admin/research/projects/editor/?id=new" className="bg-neutral-900 text-white px-4 py-2 rounded-none font-bold flex items-center justify-center gap-2 hover:bg-neutral-800 transition-all uppercase tracking-widest text-xs">
                     <Plus size={18} weight="bold" /> New Project
                 </Link>
             </div>
@@ -89,7 +89,7 @@ export default function ResearchProjectsAdmin() {
                                     </td>
                                     <td className="block md:table-cell pt-4 md:p-4 text-right">
                                         <div className="flex items-center justify-end gap-2 md:opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <Link href={`/admin/research/projects/editor?id=${project.id}`} className="p-2 border border-neutral-200 rounded-none hover:bg-neutral-50" title="Edit">
+                                            <Link href={`/admin/research/projects/editor/?id=${project.id}`} className="p-2 border border-neutral-200 rounded-none hover:bg-neutral-50" title="Edit">
                                                 <Pencil size={18} weight="bold" />
                                             </Link>
                                             <button
@@ -108,7 +108,7 @@ export default function ResearchProjectsAdmin() {
                                     <td colSpan={4} className="p-20 text-center text-neutral-400">
                                         <Microscope size={48} weight="regular" className="mx-auto mb-4 opacity-10" />
                                         <p className="font-bold uppercase tracking-widest text-[10px]">No research projects found.</p>
-                                        <Link href="/admin/research/projects/editor?id=new" className="text-amber-600 hover:underline mt-2 inline-block text-xs font-bold">
+                                        <Link href="/admin/research/projects/editor/?id=new" className="text-amber-600 hover:underline mt-2 inline-block text-xs font-bold">
                                             Create one now →
                                         </Link>
                                     </td>

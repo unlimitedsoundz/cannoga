@@ -14,7 +14,7 @@ export default function PortalViewPage() {
         const redirect = async () => {
             try {
                 if (id) {
-                    router.replace(`/portal/application/view?id=${id}`);
+                    router.replace(`/portal/application/view/?id=${id}`);
                     return;
                 }
 
@@ -22,7 +22,7 @@ export default function PortalViewPage() {
                 const { data: { user } } = await supabase.auth.getUser();
 
                 if (!user) {
-                    router.replace('/portal/account/login');
+                    router.replace('/portal/account/login/');
                     return;
                 }
 
@@ -33,13 +33,13 @@ export default function PortalViewPage() {
                     .single();
 
                 if (application) {
-                    router.replace(`/portal/application/view?id=${application.id}`);
+                    router.replace(`/portal/application/view/?id=${application.id}`);
                 } else {
-                    router.replace('/portal/apply');
+                    router.replace('/portal/apply/');
                 }
             } catch (err) {
                 console.error('Redirect error:', err);
-                router.replace('/portal/dashboard');
+                router.replace('/portal/dashboard/');
             } finally {
                 setLoading(false);
             }

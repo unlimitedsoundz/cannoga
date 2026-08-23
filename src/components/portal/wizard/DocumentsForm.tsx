@@ -195,7 +195,7 @@ export default function DocumentsForm({ applicationId, existingDocuments, reques
                     </Link>
                     <button
                         type="button"
-                        onClick={() => router.push('/portal/dashboard')}
+                        onClick={() => router.push('/portal/dashboard/')}
                         className="text-black hover:text-primary font-bold text-[11px] transition-colors flex items-center gap-2"
                     >
                         Save & Exit

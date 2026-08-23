@@ -68,7 +68,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                     <h3 className="text-xl md:text-2xl font-serif font-bold text-[#0f2027] tracking-tight">
                         News
                     </h3>
-                    <a href="/news" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors no-underline">
+                    <a href="/news/" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors no-underline">
                         VIEW MORE NEWS →
                     </a>
                 </div>
@@ -97,7 +97,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                                     {formatDate(activeNews.publishDate || activeNews.date || new Date().toISOString()).full}
                                 </p>
                                 <a
-                                    href={`/news/${activeNews.slug}`}
+                                    href={`/news/${activeNews.slug}/`}
                                     className="block font-black text-[#0f2027] text-lg md:text-xl leading-snug mb-3 hover:underline transition-colors no-underline tracking-tight"
                                 >
                                     {activeNews.title}
@@ -107,7 +107,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                                 </p>
                             </div>
                             <a
-                                href={`/news/${activeNews.slug}`}
+                                href={`/news/${activeNews.slug}/`}
                                 className="mt-4 self-start inline-block border border-slate-900 text-slate-900 text-xs font-bold uppercase tracking-widest px-5 py-2 hover:bg-slate-900 hover:text-white transition-colors no-underline"
                             >
                                 Read More
@@ -198,7 +198,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
                 {/* Footer CTA */}
                 <div className="px-8 sm:px-10 py-5">
                     <a
-                        href="/news"
+                        href="/news/"
                         className="inline-block border border-white text-white text-xs font-bold uppercase tracking-widest px-6 py-2.5 hover:bg-white transition-colors no-underline"
                         style={{ color: 'white' }}
                         onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = ACCENT; }}

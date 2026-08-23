@@ -64,7 +64,7 @@ export default function AdminRegisterPage() {
 
                 <div className="space-y-4">
                     <Link
-                        href="/portal/account/login"
+                        href="/portal/account/login/"
                         className="w-full bg-neutral-900 text-white font-bold py-3.5 rounded-xl hover:bg-[#0a151a] transition-all flex items-center justify-center gap-2"
                     >
                         Go to Login <ArrowRight size={16} weight="bold" />
@@ -179,7 +179,7 @@ export default function AdminRegisterPage() {
             <div className="mt-8 pt-6 border-t border-neutral-100 text-center">
                 <p className="text-neutral-500 text-sm">
                     Already have an account?{' '}
-                    <Link href="/portal/account/login" className="text-black font-bold hover:underline">
+                    <Link href="/portal/account/login/" className="text-black font-bold hover:underline">
                         Sign in
                     </Link>
                 </p>

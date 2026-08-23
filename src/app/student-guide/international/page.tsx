@@ -155,7 +155,7 @@ export default function InternationalGuidePage() {
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Tuition &amp; Scholarships</h3>
                                     <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">International tuition fees apply. Check our merit scholarship opportunities — awards of up to 50% tuition waiver are available.</p>
-                                    <Link href="/admissions/tuition" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Tuition Info →</Link>
+                                    <Link href="/admissions/tuition/" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Tuition Info →</Link>
                                 </div>
                             </div>
                         </section>
@@ -180,7 +180,7 @@ export default function InternationalGuidePage() {
                                         <p className="flex gap-2.5 items-start"><span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" /> Open a Canadian bank account early — RBC, TD, Scotiabank, and others offer student accounts with low fees.</p>
                                     </div>
                                     <div className="pt-1">
-                                        <Link href="/student-guide/arrival" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">
+                                        <Link href="/student-guide/arrival/" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">
                                             Full Arrival Guide <ArrowRight size={16} />
                                         </Link>
                                     </div>

@@ -198,10 +198,10 @@ export default function AccessibilityPage() {
                             This Accessibility Statement is effective for the 2026–2027 Academic Year.
                         </p>
                         <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-200">
-                            <Link href="/terms" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
+                            <Link href="/terms/" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
                                 Terms of Use →
                             </Link>
-                            <Link href="/cookies" className="border border-[#0a151a] text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-[#0a151a] hover:text-white transition-colors no-underline">
+                            <Link href="/cookies/" className="border border-[#0a151a] text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-[#0a151a] hover:text-white transition-colors no-underline">
                                 Cookie Policy →
                             </Link>
                         </div>

@@ -135,7 +135,7 @@ export default function InnovationPage() {
                         <ArrowRight size={16} weight="bold" />
                     </Link>
                     <Link
-                        href="/research"
+                        href="/research/"
                         className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider px-8 py-4 transition-colors no-underline rounded-sm border border-white/30 shadow-md"
                     >
                         <span>Tech Transfer Office</span>
@@ -274,7 +274,7 @@ export default function InnovationPage() {
                         </div>
                         <div className="shrink-0">
                             <Link
-                                href="/admissions"
+                                href="/admissions/"
                                 className="inline-flex items-center gap-2 bg-white text-[#0a151a] hover:bg-neutral-100 font-bold text-xs uppercase tracking-widest px-8 py-4 no-underline rounded-sm transition-colors shadow-md"
                             >
                                 <span>Apply for Incubator</span>

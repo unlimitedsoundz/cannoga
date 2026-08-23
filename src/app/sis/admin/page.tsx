@@ -286,7 +286,7 @@ export default function AdminDashboardPage() {
             <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
               <HugeiconsIcon icon={Users} size={14} className="text-neutral-600" /> Recent Enrollments
             </h2>
-            <Link href="/sis/admin/students" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
+            <Link href="/sis/admin/students/" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
           </div>
           <DataTable columns={enrollmentColumns} data={recentEnrollments} keyField="id" emptyMessage="No recent enrollments" />
         </div>
@@ -296,7 +296,7 @@ export default function AdminDashboardPage() {
             <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
               <HugeiconsIcon icon={FileText} size={14} className="text-neutral-600" /> Pending Applications
             </h2>
-            <Link href="/sis/admin/applications" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
+            <Link href="/sis/admin/applications/" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
           </div>
           <DataTable columns={applicationColumns} data={pendingApplications} keyField="id" emptyMessage="No pending applications" />
         </div>
@@ -309,7 +309,7 @@ export default function AdminDashboardPage() {
             <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
               <HugeiconsIcon icon={Users} size={14} className="text-neutral-600" /> Recent Students
             </h2>
-            <Link href="/sis/admin/students" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
+            <Link href="/sis/admin/students/" className="text-xs font-bold text-neutral-600 hover:text-neutral-300 uppercase tracking-wider transition-colors no-underline">View All →</Link>
           </div>
           <DataTable columns={studentColumns} data={recentStudents} keyField="id" emptyMessage="No recent students" />
         </div>

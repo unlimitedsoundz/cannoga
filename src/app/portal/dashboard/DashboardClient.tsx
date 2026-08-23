@@ -20,7 +20,7 @@ export default function DashboardClient() {
                 const { data: { user } } = await supabase.auth.getUser();
 
                 if (!user) {
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                     return;
                 }
 
@@ -31,9 +31,9 @@ export default function DashboardClient() {
                     .single();
 
                 if (application) {
-                    router.push(`/portal/application/view?id=${application.id}`);
+                    router.push(`/portal/application/view/?id=${application.id}`);
                 } else {
-                    router.push('/portal/apply');
+                    router.push('/portal/apply/');
                 }
             } catch (err) {
                 console.error('Failed to load application:', err);
@@ -70,7 +70,7 @@ export default function DashboardClient() {
                     <p className="text-neutral-600 mb-8">Your account is ready! Check your application status below.</p>
 
                     <div className="space-y-4">
-                        <Link href="/portal/apply" className="block">
+                        <Link href="/portal/apply/" className="block">
                             <Button
                                 type="primary"
                                 htmlType="button"
@@ -84,7 +84,7 @@ export default function DashboardClient() {
                     <div className="mt-8 pt-4 border-t border-neutral-100 text-center">
                         <p className="text-sm text-neutral-500">
                             Having trouble accessing your application?{' '}
-                            <a href="/portal/account/login" className="text-black font-bold hover:underline">
+                            <a href="/portal/account/login/" className="text-black font-bold hover:underline">
                                 Sign in again
                             </a>
                         </p>

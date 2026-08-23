@@ -51,7 +51,7 @@ function ViewApplicationContent() {
 
             try {
                 if (id.startsWith('hdep') || id.includes('-housing')) {
-                    router.push('/portal/housing');
+                    router.push('/portal/housing/');
                     return;
                 }
 
@@ -75,7 +75,7 @@ function ViewApplicationContent() {
                         .or(`id.eq.${id},student_id.eq.${user.id}`)
                         .maybeSingle();
                     if (hApp) {
-                        router.push('/portal/housing');
+                        router.push('/portal/housing/');
                         return;
                     }
 
@@ -175,7 +175,7 @@ function ViewApplicationContent() {
 
     useEffect(() => {
         if (application?.status === 'ENROLLED') {
-            router.push('/sis');
+            router.push('/sis/');
         }
     }, [application?.status, router]);
 
@@ -349,7 +349,7 @@ function ViewApplicationContent() {
         return (
             <div className="max-w-4xl mx-auto py-20 text-center">
                 <h2 className="text-xl font-bold text-black mb-4">{error || "Application not found"}</h2>
-                <Link href="/portal/dashboard" className="text-[13px] font-bold text-black hover:underline">
+                <Link href="/portal/dashboard/" className="text-[13px] font-bold text-black hover:underline">
                     Back to Dashboard
                 </Link>
             </div>
@@ -491,7 +491,7 @@ function ViewApplicationContent() {
             <div className="mb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
                     <div className="flex items-center gap-2 text-[11px] font-bold text-black mb-3">
-                        <Link href="/portal/dashboard" className="hover:text-black transition-colors">Dashboard</Link>
+                        <Link href="/portal/dashboard/" className="hover:text-black transition-colors">Dashboard</Link>
                         <ChevronRight size={10} weight="bold" />
                         <span>Student Portal</span>
                     </div>
@@ -505,7 +505,7 @@ function ViewApplicationContent() {
                 <div className="flex items-center gap-3">
                     {hasInvoice && !hasPayments && application.status !== 'PAYMENT_SUBMITTED' && (
                         <Link
-                            href={`/portal/application/payment?id=${application.id}`}
+                            href={`/portal/application/payment/?id=${application.id}`}
                             className="px-4 py-2 bg-neutral-900 text-white border border-neutral-900 rounded-sm text-[11px] font-bold hover:bg-neutral-800 transition-all"
                         >
                             Pay Invoice
@@ -543,7 +543,7 @@ function ViewApplicationContent() {
                         <p className="text-[11px] text-black font-medium mt-0.5">You have been admitted! Please accept your offer letter to proceed with enrollment.</p>
                         <div className="flex gap-2 mt-3">
                             <Link
-                                href={`/portal/application/letter?id=${application.id}`}
+                                href={`/portal/application/letter/?id=${application.id}`}
                                 className="px-4 py-2 border border-neutral-300 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors inline-flex items-center"
                             >
                                 View Offer
@@ -743,7 +743,7 @@ function ViewApplicationContent() {
                                                     )}
                                                 </div>
                                                 <Link
-                                                    href={`/portal/application/payment?id=${application.id}`}
+                                                    href={`/portal/application/payment/?id=${application.id}`}
                                                     className="px-4 py-2 bg-neutral-900 text-white border border-neutral-900 rounded-sm text-[11px] font-bold hover:bg-neutral-800 transition-all"
                                                 >
                                                     Pay Now

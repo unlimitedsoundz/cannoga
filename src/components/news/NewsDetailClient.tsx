@@ -56,7 +56,7 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
 
             {/* Back nav */}
             <div className="container mx-auto px-4 py-6 max-w-4xl">
-                <Link href="/news" className="text-neutral-500 hover:text-black font-bold uppercase tracking-wider text-sm inline-flex items-center gap-2 transition-colors">
+                <Link href="/news/" className="text-neutral-500 hover:text-black font-bold uppercase tracking-wider text-sm inline-flex items-center gap-2 transition-colors">
                     <CaretLeft size={16} weight="bold" /> Back to News
                 </Link>
             </div>
@@ -189,7 +189,7 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
                             <h2 className="text-aalto-6 font-bold mb-4 tracking-tight">Read more news</h2>
                             <p className="text-aalto-3 text-neutral-600 font-medium">Discover more stories and updates from Cannoga College.</p>
                         </div>
-                        <Link href="/news" className="hidden md:flex items-center gap-3 font-bold uppercase tracking-widest text-xs hover:underline">
+                        <Link href="/news/" className="hidden md:flex items-center gap-3 font-bold uppercase tracking-widest text-xs hover:underline">
                             All news <ArrowRight size={20} weight="bold" />
                         </Link>
                     </div>
@@ -199,7 +199,7 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
                     </div>
 
                     <div className="flex md:hidden mt-12">
-                        <Link href="/news" className="flex items-center justify-center gap-3 w-full py-5 bg-[#0a151a] text-white font-bold uppercase tracking-widest text-xs">
+                        <Link href="/news/" className="flex items-center justify-center gap-3 w-full py-5 bg-[#0a151a] text-white font-bold uppercase tracking-widest text-xs">
                             All news <ArrowRight size={20} weight="bold" />
                         </Link>
                     </div>

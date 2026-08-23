@@ -111,7 +111,7 @@ export default function DocumentsPage() {
       key: 'actions',
       header: 'Actions',
       render: (d: DocumentRow) => (
-        <Link href={`/sis/admin/documents/${d.id}`} className="text-xs font-bold uppercase tracking-wider text-purple-400 hover:text-purple-300 transition-colors no-underline">Review</Link>
+        <Link href={`/sis/admin/documents/${d.id}/`} className="text-xs font-bold uppercase tracking-wider text-purple-400 hover:text-purple-300 transition-colors no-underline">Review</Link>
       ),
     },
   ];

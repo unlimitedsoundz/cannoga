@@ -44,7 +44,7 @@ export default function AdminBlogPage() {
                     <h1 className="text-2xl font-bold text-[#0a151a]">Blog Management</h1>
                     <p className="text-sm text-neutral-500 mt-1">Manage posts in the Cannoga College blog database</p>
                 </div>
-                <Link href="/admin/blog/create" className="bg-[#0a151a] hover:bg-slate-800 text-white px-4 py-2 rounded.xl flex items-center gap-2 text-sm font-bold no-underline transition-colors shadow-xs">
+                <Link href="/admin/blog/create/" className="bg-[#0a151a] hover:bg-slate-800 text-white px-4 py-2 rounded.xl flex items-center gap-2 text-sm font-bold no-underline transition-colors shadow-xs">
                     <Plus size={18} /> New Post
                 </Link>
             </div>
@@ -74,7 +74,7 @@ export default function AdminBlogPage() {
                                 </div>
                             </div>
                             <div className="flex gap-4 items-center">
-                                <Link href={`/admin/blog/edit?id=${post.id}`} className="text-neutral-700 hover:text-black font-semibold text-sm flex items-center gap-1.5 no-underline">
+                                <Link href={`/admin/blog/edit/?id=${post.id}`} className="text-neutral-700 hover:text-black font-semibold text-sm flex items-center gap-1.5 no-underline">
                                     <Pencil size={16} /> Edit
                                 </Link>
                                 <button onClick={() => deletePost(post.id)} className="text-red-600 hover:text-red-800 font-semibold text-sm flex items-center gap-1.5">

@@ -91,7 +91,7 @@ export default function RegistrationPage() {
       key: 'actions',
       header: 'Actions',
       render: (r: RegistrationRow) => (
-        <Link href={`/sis/admin/registration/${r.id}`} className="text-xs font-bold uppercase tracking-wider text-white hover:text-purple-300 hover:underline no-underline">View</Link>
+        <Link href={`/sis/admin/registration/${r.id}/`} className="text-xs font-bold uppercase tracking-wider text-white hover:text-purple-300 hover:underline no-underline">View</Link>
       ),
     },
   ];

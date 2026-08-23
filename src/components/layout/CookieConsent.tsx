@@ -60,7 +60,7 @@ export function CookieConsent() {
                             </h3>
                             <p className="text-sm text-neutral-600 leading-relaxed max-w-2xl">
                                 We use cookies to enhance your experience and analyze site traffic. You can choose to accept all cookies or customize your preferences below. Learn more in our {' '}
-                                <Link href="/cookies" className="text-black font-bold underline hover:text-neutral-700 transition-colors cursor-pointer">
+                                <Link href="/cookies/" className="text-black font-bold underline hover:text-neutral-700 transition-colors cursor-pointer">
                                     Cookie Policy
                                 </Link>.
                             </p>

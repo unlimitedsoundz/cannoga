@@ -247,7 +247,7 @@ export default function StudentHandbookPage() {
                     <h3 className="text-2xl font-black text-black tracking-tight">Related Student Resources</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         <Link 
-                            href="/code-of-conduct" 
+                            href="/code-of-conduct/" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">
@@ -257,7 +257,7 @@ export default function StudentHandbookPage() {
                             <p className="text-sm text-slate-600 font-normal leading-normal">Community standards and ethics</p>
                         </Link>
                         <Link 
-                            href="/academic-regulations" 
+                            href="/academic-regulations/" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">
@@ -267,7 +267,7 @@ export default function StudentHandbookPage() {
                             <p className="text-sm text-slate-600 font-normal leading-normal">Grading, credits, and progression</p>
                         </Link>
                         <Link 
-                            href="/student-guide" 
+                            href="/student-guide/" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">

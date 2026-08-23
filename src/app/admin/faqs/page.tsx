@@ -134,7 +134,7 @@ export default function AdminFAQsPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <Link href="/admin" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-4">
+                        <Link href="/admin/" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-4">
                             <ArrowLeft size={16} />
                             Back to Admin
                         </Link>

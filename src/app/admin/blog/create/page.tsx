@@ -67,7 +67,7 @@ export default function CreateBlogPost() {
                 console.error('Error creating post:', error);
                 alert('Error creating post: ' + error.message);
             } else {
-                router.push('/admin/blog');
+                router.push('/admin/blog/');
             }
         } catch (err) {
             console.error('Unexpected error:', err);
@@ -120,7 +120,7 @@ export default function CreateBlogPost() {
     return (
         <div className="container mx-auto px-4 py-8 max-w-4xl font-sans">
             <div className="mb-8">
-                <Link href="/admin/blog" className="text-neutral-600 hover:text-black flex items-center gap-2 font-semibold">
+                <Link href="/admin/blog/" className="text-neutral-600 hover:text-black flex items-center gap-2 font-semibold">
                     <ArrowLeft size={20} /> Back to Blog Management
                 </Link>
             </div>

@@ -41,7 +41,7 @@ export default function ProgramSearch() {
   const handleSelect = (slug: string) => {
     setQuery('');
     setIsOpen(false);
-    router.push(`/studies/${slug}`);
+    router.push(`/studies/${slug}/`);
   };
 
   const handleClear = () => {

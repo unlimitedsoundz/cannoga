@@ -308,7 +308,7 @@ export default function HousingManagementClient({
 
             <div className="flex gap-3">
                 <Link
-                    href="/admin/housing/finance"
+                    href="/admin/housing/finance/"
                     className="px-6 py-3 bg-neutral-100 border-2 border-[#0a151a] rounded-sm text-[10px] font-black uppercase tracking-widest hover:bg-[#0a151a] hover:text-white transition-all flex items-center gap-2"
                 >
                     <DollarSign size={14} weight="bold" /> Finance Console

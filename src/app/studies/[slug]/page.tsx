@@ -282,15 +282,15 @@ export default async function CourseDetailPage({ params }: Props) {
             <div className="bg-[#0a151a] text-white pt-28 pb-16 md:pt-40 md:pb-24 relative overflow-hidden border-b border-slate-800">
                 <div className="container mx-auto px-4 max-w-6xl relative z-10">
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-wider text-sky-400 mb-6 leading-tight">
-                        <Link href="/studies" className="hover:text-white transition-colors">CANNOGA COLLEGE</Link>
+                        <Link href="/studies/" className="hover:text-white transition-colors">CANNOGA COLLEGE</Link>
                         <span className="text-slate-500 font-normal">/</span>
-                        <Link href={`/schools/${deptSchoolSlug}`} className="hover:text-white transition-colors">
+                        <Link href={`/schools/${deptSchoolSlug}/`} className="hover:text-white transition-colors">
                             {c.school?.name || 'School of Academic Studies'}
                         </Link>
                         {c.department?.name && (
                             <>
                                 <span className="text-slate-500 font-normal">/</span>
-                                <Link href={`/schools/${deptSchoolSlug}/${c.department.slug}`} className="hover:text-white transition-colors">
+                                <Link href={`/schools/${deptSchoolSlug}/${c.department.slug}/`} className="hover:text-white transition-colors">
                                     {c.department.name}
                                 </Link>
                             </>
@@ -364,17 +364,17 @@ export default async function CourseDetailPage({ params }: Props) {
                             {c.description?.replace(/Cannoga College|Cannoga|Cannoga C\x6Fllege|SYKLI|College/gi, 'Cannoga College')}
                         </p>
                         <p className="text-slate-700 text-base leading-relaxed mb-8">
-                            Offered through the <Link href={c.department ? `/schools/${deptSchoolSlug}/${c.department.slug}` : '/schools'} className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">{c.department?.name || 'Department'}</Link> within the <Link href={`/schools/${deptSchoolSlug}`} className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">{c.school?.name || 'School'}</Link>, this program provides students with direct access to Cannoga’s state-of-the-art academic resources, experiential learning laboratories, and comprehensive <Link href="/admissions" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Admissions Services</Link>.
+                            Offered through the <Link href={c.department ? `/schools/${deptSchoolSlug}/${c.department.slug}` : '/schools'} className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">{c.department?.name || 'Department'}</Link> within the <Link href={`/schools/${deptSchoolSlug}/`} className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">{c.school?.name || 'School'}</Link>, this program provides students with direct access to Cannoga’s state-of-the-art academic resources, experiential learning laboratories, and comprehensive <Link href="/admissions/" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Admissions Services</Link>.
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-slate-100">
                             <div className="p-4 bg-slate-50 rounded-none">
                                 <h4 className="font-bold text-slate-900 text-sm mb-1">Industry-Aligned Curriculum</h4>
-                                <p className="text-xs text-slate-600 leading-normal">Designed in collaboration with Canadian industry partners. View <Link href="/degree-programmes" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">all Degree Programmes</Link>.</p>
+                                <p className="text-xs text-slate-600 leading-normal">Designed in collaboration with Canadian industry partners. View <Link href="/degree-programmes/" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">all Degree Programmes</Link>.</p>
                             </div>
                             <div className="p-4 bg-slate-50 rounded-none">
                                 <h4 className="font-bold text-slate-900 text-sm mb-1">Hands-On Practicum & Co-op</h4>
-                                <p className="text-xs text-slate-600 leading-normal">Embedded terms providing direct workplace experience in Ottawa. See <Link href="/student-guide/international" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">International Student Support</Link>.</p>
+                                <p className="text-xs text-slate-600 leading-normal">Embedded terms providing direct workplace experience in Ottawa. See <Link href="/student-guide/international/" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">International Student Support</Link>.</p>
                             </div>
                         </div>
                     </section>
@@ -386,7 +386,7 @@ export default async function CourseDetailPage({ params }: Props) {
                                 <h2 className="text-2xl font-black text-slate-900 tracking-tight">Curriculum & Course Structure</h2>
                                 <p className="text-slate-600 text-sm mt-1">Required core subjects, specialized courses, and capstone modules:</p>
                             </div>
-                            <Link href="/degree-programmes#programs-az" className="text-xs font-bold uppercase tracking-wider text-[#0a151a] underline hover:text-sky-700 transition-colors shrink-0">
+                            <Link href="/degree-programmes/#programs-az" className="text-xs font-bold uppercase tracking-wider text-[#0a151a] underline hover:text-sky-700 transition-colors shrink-0">
                                 View Full Programs A-Z &rarr;
                             </Link>
                         </div>

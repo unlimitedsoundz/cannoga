@@ -38,7 +38,7 @@ const HEALTH_FAQS: FAQItem[] = [
     {
         id: 'faq-2',
         question: 'How do I access my UHIP insurance card?',
-        answer: '<p>International students receive an email from Cowan/UHIP with a registration link upon completing course enrollment. You can also download your e-card anytime directly from your <a href="/portal" class="font-bold underline text-slate-900">Student Portal</a>.</p>',
+        answer: '<p>International students receive an email from Cowan/UHIP with a registration link upon completing course enrollment. You can also download your e-card anytime directly from your <a href="/portal/" class="font-bold underline text-slate-900">Student Portal</a>.</p>',
         order_index: 2
     },
     {
@@ -123,7 +123,7 @@ export default function HealthAndWellbeingPage() {
                                 <div className="space-y-2 text-base text-slate-700">
                                     <p><strong>Location:</strong> 81 Montreal Rd, Student Wellness Center (Room W-102), Ottawa, ON</p>
                                     <p><strong>Hours:</strong> Monday – Friday: 8:30 AM – 4:30 PM (Closed on statutory holidays)</p>
-                                    <p><strong>Appointment:</strong> Walk-ins welcome for urgent triage; booked appointments recommended via the <Link href="/portal" className="font-bold underline text-slate-900">Student Portal</Link>.</p>
+                                    <p><strong>Appointment:</strong> Walk-ins welcome for urgent triage; booked appointments recommended via the <Link href="/portal/" className="font-bold underline text-slate-900">Student Portal</Link>.</p>
                                     <p><strong>Contact:</strong> <a href="mailto:healthservices@cannogacollege.ca" className="underline font-bold text-slate-900">healthservices@cannogacollege.ca</a></p>
                                 </div>
                             </div>
@@ -210,7 +210,7 @@ export default function HealthAndWellbeingPage() {
                             <div className="space-y-3">
                                 <h3 className="font-bold text-lg md:text-xl text-slate-900">How to Register for Accommodations</h3>
                                 <div className="space-y-2 text-base text-slate-700">
-                                    <p>1. Complete the confidential Accessibility Intake Form in the <Link href="/portal" className="font-bold underline text-slate-900">Student Portal</Link>.</p>
+                                    <p>1. Complete the confidential Accessibility Intake Form in the <Link href="/portal/" className="font-bold underline text-slate-900">Student Portal</Link>.</p>
                                     <p>2. Provide supporting medical or psycho-educational documentation from a qualified healthcare practitioner.</p>
                                     <p>3. Attend a collaborative intake appointment with an Accessibility Advisor to build your individualized accommodation plan.</p>
                                 </div>

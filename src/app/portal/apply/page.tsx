@@ -90,7 +90,7 @@ export default function ApplyPage() {
       console.log('Auth check:', { user: !!currentUser, authError });
       if (authError || !currentUser) {
         setSubmissionMessage({ type: 'error', text: 'Authentication required. Please log in again.' });
-        router.push('/portal/account/login?redirect=/portal/apply');
+        router.push('/portal/account/login/?redirect=/portal/apply');
         return;
       }
 
@@ -132,7 +132,7 @@ export default function ApplyPage() {
         console.warn('Notification invocation note:', notifyErr);
       }
 
-      router.push(`/portal/application/view?id=${data.id}`);
+      router.push(`/portal/application/view/?id=${data.id}`);
     } catch (err: any) {
       console.error('Apply submit error:', err);
       console.error('Error details:', JSON.stringify(err, Object.getOwnPropertyNames(err)));
@@ -439,10 +439,10 @@ export default function ApplyPage() {
 
       <div className="max-w-6xl mx-auto">
         <p className="text-sm text-black mb-4">New users, to create a new account select the option below that best fits your needs.</p>
-        <p className="text-base text-black font-medium mb-6">Already have a Cannoga portal account? Please <Link href="/portal/account/login" className="text-primary underline">log in</Link> instead.</p>
+        <p className="text-base text-black font-medium mb-6">Already have a Cannoga portal account? Please <Link href="/portal/account/login/" className="text-primary underline">log in</Link> instead.</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Link href="/portal/account/register?type=international" className="block bg-white border border-slate-200 hover:shadow-md rounded-md overflow-hidden">
+          <Link href="/portal/account/register/?type=international" className="block bg-white border border-slate-200 hover:shadow-md rounded-md overflow-hidden">
             <div className="px-4 py-3 bg-primary text-white font-semibold">International Applicant</div>
             <div className="p-4">
               <img src="/images/international-students-hero.jpg" alt="International" className="w-full h-28 object-cover rounded-md mb-3" />
@@ -450,7 +450,7 @@ export default function ApplyPage() {
             </div>
           </Link>
 
-          <Link href="/portal/account/register?type=new" className="block bg-white border border-slate-200 hover:shadow-md rounded-md overflow-hidden">
+          <Link href="/portal/account/register/?type=new" className="block bg-white border border-slate-200 hover:shadow-md rounded-md overflow-hidden">
             <div className="px-4 py-3 bg-primary text-white font-semibold">New Student</div>
             <div className="p-4">
               <img src="/images/school-of-business.jpg" alt="New Student" className="w-full h-28 object-cover rounded-md mb-3" />
@@ -458,7 +458,7 @@ export default function ApplyPage() {
             </div>
           </Link>
 
-          <Link href="/portal/account/register?type=alumni" className="block bg-white border border-slate-200 hover:shadow-md rounded-md overflow-hidden">
+          <Link href="/portal/account/register/?type=alumni" className="block bg-white border border-slate-200 hover:shadow-md rounded-md overflow-hidden">
             <div className="px-4 py-3 bg-primary text-white font-semibold">Alumni</div>
             <div className="p-4">
               <img src="/images/alumni-hero.png" alt="Alumni" className="w-full h-28 object-cover rounded-md mb-3" />
@@ -466,7 +466,7 @@ export default function ApplyPage() {
             </div>
           </Link>
 
-          <Link href="/portal/account/register?type=other" className="block bg-white border border-slate-200 hover:shadow-md rounded-md overflow-hidden">
+          <Link href="/portal/account/register/?type=other" className="block bg-white border border-slate-200 hover:shadow-md rounded-md overflow-hidden">
             <div className="px-4 py-3 bg-primary text-white font-semibold">Other</div>
             <div className="p-4">
               <img src="/images/student-story-2.jpg" alt="Other" className="w-full h-28 object-cover rounded-md mb-3" />

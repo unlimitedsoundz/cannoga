@@ -162,7 +162,7 @@ export default function ExchangeStudentsPage() {
                             <div>
                                 <h4 className="font-bold text-black mb-2 text-lg md:text-xl">Housing Application &amp; Options</h4>
                                 <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed">
-                                    Apply for on-campus residence or affiliated student housing in Ottawa immediately after accepting your exchange offer. Read our detailed <Link href="/housing/" className="text-[#0a151a] underline hover:text-neutral-500 transition-colors">Housing Guide</Link>, consult our <Link href="/student-guide/arrival" className="text-[#0a151a] underline hover:text-neutral-500 transition-colors">Arrival Guide</Link>, or check <Link href="/international" className="text-[#0a151a] underline hover:text-neutral-500 transition-colors">International Student Services</Link>.
+                                    Apply for on-campus residence or affiliated student housing in Ottawa immediately after accepting your exchange offer. Read our detailed <Link href="/housing/" className="text-[#0a151a] underline hover:text-neutral-500 transition-colors">Housing Guide</Link>, consult our <Link href="/student-guide/arrival/" className="text-[#0a151a] underline hover:text-neutral-500 transition-colors">Arrival Guide</Link>, or check <Link href="/international/" className="text-[#0a151a] underline hover:text-neutral-500 transition-colors">International Student Services</Link>.
                                 </p>
                             </div>
                             <div className="grid sm:grid-cols-2 gap-6 pt-2">

@@ -51,7 +51,7 @@ export default function CookiesContent() {
                             Cannoga College uses cookies and similar digital technologies on its official portal and student systems to ensure proper functionality, enhance user experience, and support institutional operations.
                         </p>
                         <p className="text-base text-slate-700 leading-relaxed">
-                            This policy should be read alongside the <Link href="/terms" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Terms of Use</Link> and <Link href="/accessibility" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Accessibility Statement</Link>.
+                            This policy should be read alongside the <Link href="/terms/" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Terms of Use</Link> and <Link href="/accessibility/" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Accessibility Statement</Link>.
                         </p>
                     </section>
 
@@ -142,10 +142,10 @@ export default function CookiesContent() {
                             Questions regarding cookie practices may be submitted to the Cannoga College Information Officer via the official portal contact channels.
                         </p>
                         <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-200">
-                            <Link href="/terms" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
+                            <Link href="/terms/" className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
                                 Terms of Use →
                             </Link>
-                            <Link href="/accessibility" className="border border-[#0a151a] text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-[#0a151a] hover:text-white transition-colors no-underline">
+                            <Link href="/accessibility/" className="border border-[#0a151a] text-[#0a151a] px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-[#0a151a] hover:text-white transition-colors no-underline">
                                 Accessibility Statement →
                             </Link>
                         </div>

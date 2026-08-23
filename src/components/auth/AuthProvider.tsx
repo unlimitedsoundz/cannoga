@@ -56,7 +56,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (_event === 'SIGNED_OUT') {
                 const pathname = window.location.pathname;
                 if (!pathname.startsWith('/admin') && !pathname.startsWith('/portal') && !pathname.startsWith('/sis')) {
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                 }
             }
         });

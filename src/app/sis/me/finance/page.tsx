@@ -56,7 +56,7 @@ export default function MyFinancePage() {
         const { data: { user }, error: authError } = await supabase.auth.getUser();
         
         if (authError || !user) {
-          router.replace('/portal/account/login');
+          router.replace('/portal/account/login/');
           return;
         }
 
@@ -71,7 +71,7 @@ export default function MyFinancePage() {
 
         if (studentError || !studentData) {
           console.log('No student record found');
-          router.replace('/portal/dashboard');
+          router.replace('/portal/dashboard/');
           return;
         }
 
@@ -152,7 +152,7 @@ export default function MyFinancePage() {
         setPaymentDeadline(fetchedPaymentDeadline);
       } catch (e) {
         console.error('Error fetching student record:', e);
-        router.replace('/portal/dashboard');
+        router.replace('/portal/dashboard/');
       } finally {
         setLoading(false);
       }
@@ -259,7 +259,7 @@ const tabs = [
               <HugeiconsIcon icon={FileText} size={18} strokeWidth={2} className="text-blue-600" />
               Institutional Invoices
             </h3>
-            <button onClick={() => router.push('/sis/payments')} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View All &rarr;</button>
+            <button onClick={() => router.push('/sis/payments/')} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View All &rarr;</button>
           </div>
           <DataTable
             columns={[
@@ -288,9 +288,9 @@ const tabs = [
                   <button
                     onClick={() => {
                       if (student?.application_id) {
-                        router.push(`/portal/application/payment?id=${student.application_id}`);
+                        router.push(`/portal/application/payment/?id=${student.application_id}`);
                       } else {
-                        router.push('/portal/dashboard');
+                        router.push('/portal/dashboard/');
                       }
                     }}
                     className="px-3 py-1.5 bg-[#147BD1] text-white rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-[#1a3399] transition cursor-pointer"
@@ -313,7 +313,7 @@ const tabs = [
               <HugeiconsIcon icon={CreditCard} size={18} strokeWidth={2} className="text-emerald-600" />
               Official Payment Receipts (Verified Documents)
             </h3>
-            <button onClick={() => router.push('/sis/payments')} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View All &rarr;</button>
+            <button onClick={() => router.push('/sis/payments/')} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View All &rarr;</button>
           </div>
           <DataTable
             columns={[
@@ -335,7 +335,7 @@ const tabs = [
                 <button
                   onClick={() => {
                     if (student?.application_id) {
-                      router.push(`/portal/application/receipt?id=${student.application_id}&paymentId=${p.id}`);
+                      router.push(`/portal/application/receipt/?id=${student.application_id}&paymentId=${p.id}`);
                     } else {
                       router.push(`/api/portal/receipt/pdf?paymentId=${p.id}`);
                     }

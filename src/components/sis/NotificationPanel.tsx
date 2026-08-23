@@ -47,7 +47,7 @@ export function NotificationPanel({ notifications, onClose, onMarkRead, onMarkAl
         ))}
       </div>
       <div className="px-4 py-2 border-t border-neutral-200">
-        <Link href="/sis/notifications" className="block text-center text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">View All Notifications</Link>
+        <Link href="/sis/notifications/" className="block text-center text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">View All Notifications</Link>
       </div>
     </div>
   );

@@ -54,7 +54,7 @@ export default function AdminViewbookPage() {
 
                 <div className="flex items-center gap-3">
                     <Link
-                        href="/viewbook"
+                        href="/viewbook/"
                         target="_blank"
                         className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-bold transition-all shadow-sm no-underline active:scale-95"
                     >

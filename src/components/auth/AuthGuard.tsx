@@ -10,7 +10,7 @@ export default function AuthGuard({ children, requiredRole }: { children: React.
 
     useEffect(() => {
         if (!isLoading && !user) {
-            router.push("/portal/account/login");
+            router.push("/portal/account/login/");
         }
     }, [user, isLoading, router]);
 

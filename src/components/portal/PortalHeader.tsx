@@ -95,7 +95,7 @@ export default function PortalHeader() {
         setAvatarUrl(undefined);
         setStudentId(undefined);
 
-        router.push('/portal/account/login');
+        router.push('/portal/account/login/');
         router.refresh();
         window.dispatchEvent(new Event('storage'));
     };

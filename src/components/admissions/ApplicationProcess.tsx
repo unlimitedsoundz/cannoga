@@ -15,7 +15,7 @@ const steps = [
             <strong>Note:</strong> When choosing a program, ensure it is not an online-only program. Cannoga College is located in Ottawa, Ontario, Canada.
           </p>
         </div>
-        <Link href="/studies" className="inline-flex items-center gap-2 text-lg font-bold text-[#0f2027] hover:underline">
+        <Link href="/studies/" className="inline-flex items-center gap-2 text-lg font-bold text-[#0f2027] hover:underline">
           View Programs <ArrowRight size={20} weight="bold" />
         </Link>
       </div>
@@ -27,7 +27,7 @@ const steps = [
     content: (
       <div className="space-y-4">
         <p>Check the admission and credential requirements specific to your home country before starting your application.</p>
-        <Link href="/admissions/requirements" className="inline-flex items-center gap-2 text-lg font-bold text-[#0f2027] hover:underline">
+        <Link href="/admissions/requirements/" className="inline-flex items-center gap-2 text-lg font-bold text-[#0f2027] hover:underline">
           Check Requirements <ArrowRight size={20} weight="bold" />
         </Link>
       </div>
@@ -56,7 +56,7 @@ const steps = [
     content: (
       <div className="space-y-4">
         <p>Start your 2026 online application through our admissions portal. Create an account to upload documents and track your application.</p>
-        <Link href="/portal/account/register" className="inline-flex items-center gap-2 bg-[#0f2027] text-white px-6 py-3 text-lg font-bold hover:bg-[#0f2027] transition-colors">
+        <Link href="/portal/account/register/" className="inline-flex items-center gap-2 bg-[#0f2027] text-white px-6 py-3 text-lg font-bold hover:bg-[#0f2027] transition-colors">
           Fill in the Online Application 2026 <ArrowRight size={20} weight="bold" />
         </Link>
       </div>
@@ -78,7 +78,7 @@ const steps = [
     content: (
       <div className="space-y-4">
         <p>Pay your tuition and fees through the student portal to secure your enrollment and receive your Provincial Attestation Letter (PAL) within 6–10 working days.</p>
-        <Link href="/portal/dashboard" className="inline-flex items-center gap-2 text-lg font-bold text-[#0f2027] hover:underline">
+        <Link href="/portal/dashboard/" className="inline-flex items-center gap-2 text-lg font-bold text-[#0f2027] hover:underline">
           Pay Your Fees <ArrowRight size={20} weight="bold" />
         </Link>
       </div>

@@ -63,7 +63,7 @@ function CourseEditorContent() {
                 if (error) throw error;
                 alert("Course updated successfully");
             }
-            router.push('/admin/courses');
+            router.push('/admin/courses/');
             router.refresh();
         } catch (error: any) {
             alert("Error saving course: " + error.message);
@@ -83,7 +83,7 @@ function CourseEditorContent() {
     return (
         <div className="max-w-4xl mx-auto animate-in fade-in duration-500 px-4 md:px-0">
             <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <Link href="/admin/courses" className="flex items-center gap-2 text-neutral-500 hover:text-black transition-colors font-bold">
+                <Link href="/admin/courses/" className="flex items-center gap-2 text-neutral-500 hover:text-black transition-colors font-bold">
                     <ArrowLeft size={18} weight="bold" /> Back to Courses
                 </Link>
                 <h1 className="text-2xl md:text-3xl font-bold leading-tight">{isNew ? 'Create New Course' : 'Edit Course'}</h1>

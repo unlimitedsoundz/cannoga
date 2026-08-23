@@ -60,7 +60,7 @@ export default function RegistrationDetailPage() {
     return (
       <div className="p-8 bg-red-50 border border-red-100 rounded-none text-center">
         <p className="text-red-600 font-medium text-sm">{error || 'Registration not found'}</p>
-        <Link href="/sis/admin/registration" className="mt-4 inline-block text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">Back to Registrations</Link>
+        <Link href="/sis/admin/registration/" className="mt-4 inline-block text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">Back to Registrations</Link>
       </div>
     );
   }
@@ -80,7 +80,7 @@ export default function RegistrationDetailPage() {
         <button onClick={() => router.back()} className="p-2 hover:bg-neutral-800 rounded-lg transition-colors text-neutral-300">
           <HugeiconsIcon icon={ArrowLeft} size={18} strokeWidth={2} />
         </button>
-        <Link href="/sis/admin/registration" className="text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white no-underline">
+        <Link href="/sis/admin/registration/" className="text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white no-underline">
           Back to Registrations
         </Link>
       </div>

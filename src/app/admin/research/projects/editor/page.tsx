@@ -62,7 +62,7 @@ function ResearchProjectEditorContent() {
                 const { error } = await supabase.from('ResearchProject').update(data).eq('id', id);
                 if (error) throw error;
             }
-            router.push('/admin/research/projects');
+            router.push('/admin/research/projects/');
             router.refresh();
         } catch (error) {
             console.error("Error saving project:", error);
@@ -84,7 +84,7 @@ function ResearchProjectEditorContent() {
         return (
             <div className="p-8 text-center">
                 <h2 className="text-xl font-bold mb-4 text-neutral-900">Project Not Found</h2>
-                <Link href="/admin/research/projects" className="text-neutral-500 hover:text-black font-bold uppercase tracking-widest text-xs">
+                <Link href="/admin/research/projects/" className="text-neutral-500 hover:text-black font-bold uppercase tracking-widest text-xs">
                     Back to Projects
                 </Link>
             </div>
@@ -93,7 +93,7 @@ function ResearchProjectEditorContent() {
 
     return (
         <div className="max-w-4xl mx-auto animate-in fade-in duration-500 px-4 md:px-0">
-            <Link href="/admin/research/projects" className="inline-flex items-center gap-2 text-neutral-500 hover:text-neutral-900 mb-6 transition-colors font-bold">
+            <Link href="/admin/research/projects/" className="inline-flex items-center gap-2 text-neutral-500 hover:text-neutral-900 mb-6 transition-colors font-bold">
                 <ArrowLeft size={18} weight="bold" /> Back to Projects
             </Link>
 

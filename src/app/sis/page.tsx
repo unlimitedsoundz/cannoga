@@ -1294,11 +1294,11 @@ function formatRelativeTime(dateInput: any): string {
 
     const navigateTo = (pageId: PageId) => {
         if (pageId === 'payments') {
-            router.push('/sis/payments');
+            router.push('/sis/payments/');
             return;
         }
         if (pageId === 'housing') {
-            router.push('/portal/housing');
+            router.push('/portal/housing/');
             return;
         }
         setCurrentPage(pageId);
@@ -1400,7 +1400,7 @@ function formatRelativeTime(dateInput: any): string {
                         <button type="button" onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-slate-800 rounded-lg transition text-slate-300 hover:text-white focus:outline-none md:hidden">
                             <HugeiconsIcon icon={Menu} size={20} strokeWidth={2} />
                         </button>
-                        <Link href="/sis" className="flex items-center space-x-2.5 py-1 shrink-0">
+                        <Link href="/sis/" className="flex items-center space-x-2.5 py-1 shrink-0">
                             <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-9 w-auto object-contain brightness-0 invert" />
                             <div className="hidden sm:flex flex-col justify-center border-l border-slate-700 pl-3 py-0.5">
                                 <span className="font-extrabold text-xs sm:text-sm tracking-wider uppercase leading-tight text-white">CANNOGA COLLEGE</span>
@@ -2038,7 +2038,7 @@ function formatRelativeTime(dateInput: any): string {
 
                                                 {/* Ottawa Campus / Contact */}
                                                 <Link 
-                                                    href="/contact" 
+                                                    href="/contact/" 
                                                     className="p-3 bg-[#0a151a] hover:bg-[#12222a]  hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
                                                 >
                                                     <MapPin className="w-5 h-5 text-white group-hover:text-[#c89211] shrink-0 group-hover:scale-110 transition-all transform" weight="fill" />
@@ -2546,7 +2546,7 @@ function formatRelativeTime(dateInput: any): string {
                                 </div>
                                 <div className="flex gap-3">
                                     <Link
-                                        href="/sis/payments"
+                                        href="/sis/payments/"
                                         className="px-4 py-2 bg-white text-slate-900 text-xs font-bold uppercase tracking-wider hover:bg-slate-100 transition no-underline text-center"
                                     >
                                         Full Payments Ledger &rarr;
@@ -2574,7 +2574,7 @@ function formatRelativeTime(dateInput: any): string {
                             <div className="bg-white rounded-xl shadow-xs rounded-2xl overflow-hidden">
                                 <div className="p-5 border-b border-slate-100 flex justify-between items-center">
                                     <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Recent Wire Transactions &amp; Receipts</h3>
-                                    <Link href="/sis/payments" className="text-xs font-semibold text-[#147BD1] hover:underline no-underline">
+                                    <Link href="/sis/payments/" className="text-xs font-semibold text-[#147BD1] hover:underline no-underline">
                                         Open Detailed Ledger &rarr;
                                     </Link>
                                 </div>

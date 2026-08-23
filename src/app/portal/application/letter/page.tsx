@@ -34,7 +34,7 @@ export default function AdmissionLetterPage() {
 
     useEffect(() => {
         if (!id) {
-            router.push('/portal/dashboard');
+            router.push('/portal/dashboard/');
             return;
         }
 
@@ -42,7 +42,7 @@ export default function AdmissionLetterPage() {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
                 if (!user) {
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                     return;
                 }
 
@@ -94,7 +94,7 @@ export default function AdmissionLetterPage() {
             <div className="flex items-center justify-center min-h-[60vh]">
                 <div className="text-center">
                     <p className="text-red-600 font-medium mb-4">{error || 'Application not found'}</p>
-                    <button onClick={() => router.push('/portal/dashboard')} className="px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded hover:bg-neutral-800">
+                    <button onClick={() => router.push('/portal/dashboard/')} className="px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded hover:bg-neutral-800">
                         Back to Dashboard
                     </button>
                 </div>

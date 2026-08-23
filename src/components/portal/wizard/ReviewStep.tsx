@@ -62,7 +62,7 @@ export default function ReviewStep({ application }: Props) {
 
             if (error) throw error;
 
-            router.push('/portal/dashboard');
+            router.push('/portal/dashboard/');
         } catch (error: any) {
             console.error('Submission failed:', error);
             alert(error.message || 'Failed to submit application. Please try again.');

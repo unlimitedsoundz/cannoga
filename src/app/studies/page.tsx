@@ -104,7 +104,7 @@ export default async function StudiesPage() {
                         <ArrowRight size={16} weight="bold" className="text-black" />
                     </Link>
                     <Link
-                        href="/admissions"
+                        href="/admissions/"
                         className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-black font-bold text-xs uppercase tracking-widest px-8 py-4 no-underline shadow-md transition-colors"
                     >
                         <span>Apply for Admission</span>

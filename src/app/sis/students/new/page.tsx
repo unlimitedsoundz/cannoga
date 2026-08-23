@@ -19,7 +19,7 @@ export default function NewStudentPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    router.push('/sis/admin/students');
+    router.push('/sis/admin/students/');
   };
 
   return (
@@ -28,7 +28,7 @@ export default function NewStudentPage() {
         title="New Student"
         subtitle="Create a new student record"
         actions={
-          <Link href="/sis/admin/students" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
+          <Link href="/sis/admin/students/" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
             <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2.5} /> Back to Students
           </Link>
         }

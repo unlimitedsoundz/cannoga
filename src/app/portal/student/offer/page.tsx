@@ -33,7 +33,7 @@ export default function StudentOfferPage() {
                 }
 
                 if (!currentUserEmail) {
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                     return;
                 }
 

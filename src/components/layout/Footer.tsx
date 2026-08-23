@@ -44,7 +44,7 @@ export function Footer() {
                             <h3 className="font-bold text-sm uppercase tracking-widest mb-5 text-white">Study</h3>
                             <ul className="space-y-3">
                                 <li><Link href="/studies/" className="text-white text-sm hover:text-white transition-colors no-underline">All Courses</Link></li>
-                                <li><Link href="/viewbook" className="text-white text-sm hover:text-white transition-colors no-underline">Digital Viewbook</Link></li>
+                                <li><Link href="/viewbook/" className="text-white text-sm hover:text-white transition-colors no-underline">Digital Viewbook</Link></li>
                                 <li><Link href="/admissions/" className="text-white text-sm hover:text-white transition-colors no-underline">Admissions</Link></li>
                                 <li><Link href="/housing/" className="text-white text-sm hover:text-white transition-colors no-underline">Student Housing</Link></li>
                                 <li><Link href="/admissions/tuition/" className="text-white text-sm hover:text-white transition-colors no-underline">Scholarships</Link></li>
@@ -76,7 +76,7 @@ export function Footer() {
                                 <li><Link href="/refund-withdrawal-policy/" className="text-white text-sm hover:text-white transition-colors no-underline">Refund Policy</Link></li>
                                 <li><Link href="/code-of-conduct/" className="text-white text-sm hover:text-white transition-colors no-underline">Code of Conduct</Link></li>
                                 <li><Link href="/alumni/" className="text-white text-sm hover:text-white transition-colors no-underline">Alumni</Link></li>
-                                <li><Link href="/portal/support" className="text-white text-sm hover:text-white transition-colors no-underline">IT Support</Link></li>
+                                <li><Link href="/portal/support/" className="text-white text-sm hover:text-white transition-colors no-underline">IT Support</Link></li>
                                 <li><Link href="/contact/" className="text-white text-sm hover:text-white transition-colors no-underline">Contact Us</Link></li>
                             </ul>
                         </div>
@@ -154,11 +154,11 @@ export function Footer() {
                                 <p className="text-[11px] text-slate-500">Approved by Ontario Ministry of Colleges and Universities (MCU).</p>
                             </div>
                             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 order-1 md:order-2">
-                                <Link href="/site-index" className="text-white text-xs hover:text-white transition-colors no-underline">Site Index</Link>
-                                <Link href="/privacy" className="text-white text-xs hover:text-white transition-colors no-underline">Privacy Policy</Link>
-                                <Link href="/terms" className="text-white text-xs hover:text-white transition-colors no-underline">Terms of Use</Link>
-                                <Link href="/cookies" className="text-white text-xs hover:text-white transition-colors no-underline">Cookie Policy</Link>
-                                <Link href="/accessibility" className="text-white text-xs hover:text-white transition-colors no-underline">Accessibility</Link>
+                                <Link href="/site-index/" className="text-white text-xs hover:text-white transition-colors no-underline">Site Index</Link>
+                                <Link href="/privacy/" className="text-white text-xs hover:text-white transition-colors no-underline">Privacy Policy</Link>
+                                <Link href="/terms/" className="text-white text-xs hover:text-white transition-colors no-underline">Terms of Use</Link>
+                                <Link href="/cookies/" className="text-white text-xs hover:text-white transition-colors no-underline">Cookie Policy</Link>
+                                <Link href="/accessibility/" className="text-white text-xs hover:text-white transition-colors no-underline">Accessibility</Link>
                             </div>
                         </div>
                     </div>

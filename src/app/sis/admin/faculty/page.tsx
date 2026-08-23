@@ -64,7 +64,7 @@ export default function FacultyPage() {
         title="Faculty"
         subtitle="Manage faculty members"
         actions={
-          <Link href="/sis/admin/faculty/new" className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors no-underline">
+          <Link href="/sis/admin/faculty/new/" className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors no-underline">
             <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Faculty
           </Link>
         }

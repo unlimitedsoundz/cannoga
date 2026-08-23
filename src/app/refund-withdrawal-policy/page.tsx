@@ -207,7 +207,7 @@ export default function RefundWithdrawalPolicyPage() {
                     <h3 className="text-2xl font-black text-black tracking-tight">Related Financial &amp; Admission Resources</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         <Link 
-                            href="/admissions" 
+                            href="/admissions/" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">
@@ -217,7 +217,7 @@ export default function RefundWithdrawalPolicyPage() {
                             <p className="text-sm text-slate-600 font-normal leading-normal">Entry requirements and deadlines</p>
                         </Link>
                         <Link 
-                            href="/admissions-policy" 
+                            href="/admissions-policy/" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">
@@ -227,7 +227,7 @@ export default function RefundWithdrawalPolicyPage() {
                             <p className="text-sm text-slate-600 font-normal leading-normal">Selection criteria and guidelines</p>
                         </Link>
                         <Link 
-                            href="/contact" 
+                            href="/contact/" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">

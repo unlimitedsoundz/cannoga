@@ -36,7 +36,7 @@ export default function TimetablePage() {
                 }
 
                 if (!currentUserId) {
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                     return;
                 }
 
@@ -47,7 +47,7 @@ export default function TimetablePage() {
                     .maybeSingle();
 
                 if (!student) {
-                    router.push('/portal/dashboard');
+                    router.push('/portal/dashboard/');
                     return;
                 }
 
@@ -129,7 +129,7 @@ export default function TimetablePage() {
             <div className="max-w-6xl mx-auto">
                 <div className="mb-4">
                     <Link
-                        href="/portal/student"
+                        href="/portal/student/"
                         className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-neutral-500 hover:text-black transition-colors"
                     >
                         <ArrowLeft size={14} /> Back to Dashboard

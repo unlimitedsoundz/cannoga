@@ -115,7 +115,7 @@ export default function AdminPage() {
                         <h2 className="text-xl font-bold flex items-center gap-2">
                             <Clock size={20} weight="bold" className="text-amber-500" /> Recent Applications
                         </h2>
-<Link href="/sis/admin/admissions" className="text-xs font-bold 
+<Link href="/sis/admin/admissions/" className="text-xs font-bold 
 text-neutral-400 hover:text-black transition-colors uppercase tracking-widest">
                             View All →
                         </Link>
@@ -203,7 +203,7 @@ text-neutral-400 hover:text-black transition-colors uppercase tracking-widest">
                         </div>
                     </div>
 
-<Link href="/sis/admin/admissions" className="block p-4 bg-card border 
+<Link href="/sis/admin/admissions/" className="block p-4 bg-card border 
 border-neutral-200 rounded-2xl text-center font-bold text-sm hover:bg-neutral-50 transition-colors">
                         Manage All Admissions
                     </Link>

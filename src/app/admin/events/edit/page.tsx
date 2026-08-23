@@ -45,7 +45,7 @@ function EventEditorContent() {
     return (
         <div className="max-w-4xl mx-auto animate-in fade-in duration-500">
             <div className="mb-8 flex items-center justify-between">
-                <Link href="/admin/events" className="flex items-center gap-2 text-neutral-500 hover:text-black transition-colors font-bold">
+                <Link href="/admin/events/" className="flex items-center gap-2 text-neutral-500 hover:text-black transition-colors font-bold">
                     <ArrowLeft size={18} weight="bold" /> Back to Events
                 </Link>
                 <h1 className="text-3xl font-bold uppercase tracking-tight text-neutral-900">{isNew ? 'Create New Event' : 'Edit Event'}</h1>

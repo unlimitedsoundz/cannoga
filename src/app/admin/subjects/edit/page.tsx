@@ -59,7 +59,7 @@ function SubjectEditorContent() {
                 const { error } = await supabase.from('Subject').update(data).eq('id', id);
                 if (error) throw error;
             }
-            router.push('/admin/subjects');
+            router.push('/admin/subjects/');
             router.refresh();
         } catch (error) {
             console.error("Error saving subject:", error);
@@ -80,7 +80,7 @@ function SubjectEditorContent() {
     return (
         <div className="max-w-4xl mx-auto animate-in fade-in duration-500 px-4 md:px-0">
             <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <Link href="/admin/subjects" className="flex items-center gap-2 text-neutral-500 hover:text-black transition-colors font-bold">
+                <Link href="/admin/subjects/" className="flex items-center gap-2 text-neutral-500 hover:text-black transition-colors font-bold">
                     <ArrowLeft size={18} weight="bold" /> Back to Subjects
                 </Link>
                 <h1 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-neutral-900 leading-tight">{isNew ? 'New Subject' : 'Edit Subject'}</h1>

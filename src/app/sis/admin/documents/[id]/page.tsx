@@ -155,7 +155,7 @@ export default function AdminDocumentDetailPage() {
                 <div className="p-8 bg-red-950/60 rounded-2xl text-center">
                     <p className="text-red-300 font-medium mb-4 text-sm">{error}</p>
                     <button
-                        onClick={() => router.push('/sis/admin/documents')}
+                        onClick={() => router.push('/sis/admin/documents/')}
                         className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-neutral-700 transition-colors cursor-pointer"
                     >
                         <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2} />

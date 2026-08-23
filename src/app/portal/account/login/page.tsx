@@ -202,7 +202,7 @@ export default function PortalLoginPage() {
                         <div className="mt-6 pt-2 text-center">
                             <p className="text-[13px] text-black">
                                 Don&apos;t have an account yet?{' '}
-                                <a href="/portal/account/register" className="text-black font-bold hover:underline">
+                                <a href="/portal/account/register/" className="text-black font-bold hover:underline">
                                     Register here
                                 </a>
                             </p>

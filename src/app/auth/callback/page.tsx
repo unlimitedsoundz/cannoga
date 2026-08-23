@@ -34,7 +34,7 @@ export default function AuthCallbackPage() {
                 <div className="text-center">
                     <h1 className="text-xl font-bold mb-2">Authentication Error</h1>
                     <p className="text-neutral-500 mb-4">{error}</p>
-                    <a href="/portal/account/login" className="text-blue-600 hover:underline">
+                    <a href="/portal/account/login/" className="text-blue-600 hover:underline">
                         Return to Login
                     </a>
                 </div>

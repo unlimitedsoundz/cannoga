@@ -65,7 +65,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
             if (authError || !currentUser) {
                 console.error('[CourseSelector] Auth failed:', authError);
                 alert(`Session validation failed: ${authError?.message || 'No active session'}`);
-                // router.push('/portal/account/login?redirect=/portal/apply'); // Temporarily disable auto-redirect to see the alert
+                // router.push('/portal/account/login/?redirect=/portal/apply'); // Temporarily disable auto-redirect to see the alert
                 return;
             }
 
@@ -129,7 +129,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                 console.error('Failed to set intake on application:', intakeError);
             }
 
-            router.push(`/portal/application?id=${data.id}`);
+            router.push(`/portal/application/?id=${data.id}`);
         } catch (error: any) {
             console.error('Detailed Application Creation Error:', {
                 message: error.message,

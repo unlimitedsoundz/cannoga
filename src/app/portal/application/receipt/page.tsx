@@ -22,7 +22,7 @@ function ReceiptContent() {
 
     useEffect(() => {
         if (!id && !paymentId) {
-            router.push('/portal/dashboard');
+            router.push('/portal/dashboard/');
             return;
         }
 
@@ -31,7 +31,7 @@ function ReceiptContent() {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
                 if (!user) {
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                     return;
                 }
 
@@ -154,7 +154,7 @@ function ReceiptContent() {
                 <p className="text-sm text-neutral-500 max-w-md text-center">Your payment receipt is not available yet. This may be because the payment is still being processed.</p>
                 <div className="flex gap-4">
                     <button onClick={() => window.location.reload()} className="px-6 py-2 bg-[#0a151a] text-white border border-white text-[11px] font-normal rounded-sm hover:bg-neutral-800 transition-all">Retry</button>
-                    <Link href="/portal/dashboard" className="px-6 py-2 bg-[#0a151a] text-white border border-white text-[11px] font-normal rounded-sm hover:bg-neutral-800 transition-all">Dashboard</Link>
+                    <Link href="/portal/dashboard/" className="px-6 py-2 bg-[#0a151a] text-white border border-white text-[11px] font-normal rounded-sm hover:bg-neutral-800 transition-all">Dashboard</Link>
                 </div>
             </div>
         );
@@ -187,7 +187,7 @@ function ReceiptContent() {
                         The official receipt will be available here once our finance team confirms the funds.
                     </p>
                     <Link
-                        href="/portal/dashboard"
+                        href="/portal/dashboard/"
                         className="block w-full bg-[#0a151a] text-white px-6 py-3 rounded-sm text-[11px] font-normal hover:bg-neutral-800 transition-all border border-[#0a151a]"
                     >
                         Return to Dashboard
@@ -228,7 +228,7 @@ function ReceiptContent() {
             {/* Control Bar (Hidden on Print) */}
             <div className="max-w-[210mm] mx-auto mb-8 flex items-center justify-between print:hidden">
                 <Link
-                    href="/portal/dashboard"
+                    href="/portal/dashboard/"
                     className="flex items-center gap-2 text-[11px] font-normal text-black hover:text-black transition-colors"
                 >
                     <ChevronLeft size={14} weight="bold" />

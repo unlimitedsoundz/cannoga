@@ -182,7 +182,7 @@ export default function CafePage() {
                                 From intimate academic seminars to large-scale conferences and faculty events. We provide elegant, professional catering tailored to your specific requirements.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <Link href="/contact" className="py-4 px-10 bg-white text-black text-xs font-black uppercase tracking-widest hover:bg-neutral-200 transition-all rounded-none text-center">
+                                <Link href="/contact/" className="py-4 px-10 bg-white text-black text-xs font-black uppercase tracking-widest hover:bg-neutral-200 transition-all rounded-none text-center">
                                     Request Proposal
                                 </Link>
                                 <Link href="#" className="py-4 px-10 border border-white/20 text-white text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all rounded-none text-center">

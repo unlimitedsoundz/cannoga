@@ -35,7 +35,7 @@ export default function InvoicesPage() {
                 const supabase = createClient();
                 const { data: { user }, error: authError } = await supabase.auth.getUser();
                 if (authError || !user) {
-                    router.replace('/portal/account/login');
+                    router.replace('/portal/account/login/');
                     return;
                 }
 

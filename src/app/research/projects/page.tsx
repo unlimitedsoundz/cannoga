@@ -36,7 +36,7 @@ export default async function ProjectsPage() {
                                         </span>
                                     </div>
                                     <h2 className="text-2xl font-bold text-black mb-2">
-                                        <Link href={`/research/projects/${project.slug}`} className="hover:underline transition-colors text-black">
+                                        <Link href={`/research/projects/${project.slug}/`} className="hover:underline transition-colors text-black">
                                             {project.title}
                                         </Link>
                                     </h2>
@@ -63,7 +63,7 @@ export default async function ProjectsPage() {
                                     <span className="font-bold text-neutral-800">Lead:</span>
                                     <span>{project.leadResearcher}</span>
                                 </div>
-                                <Link href={`/research/projects/${project.slug}`} className="text-black font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                                <Link href={`/research/projects/${project.slug}/`} className="text-black font-bold flex items-center gap-2 hover:gap-3 transition-all">
                                     Read Project Details <ArrowRight size={18} weight="bold" />
                                 </Link>
                             </div>

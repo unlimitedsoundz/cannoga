@@ -48,7 +48,7 @@ export default function NewTuitionPage() {
                 throw new Error(data.error || 'Failed to create tuition entry');
             }
 
-            router.push('/sis/admin/website/tuition');
+            router.push('/sis/admin/website/tuition/');
         } catch (e: any) {
             setError(e.message);
         } finally {
@@ -62,7 +62,7 @@ export default function NewTuitionPage() {
                 title="New Tuition Entry"
                 subtitle="Add tuition and fee information"
                 actions={
-                    <Link href="/sis/admin/website/tuition" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
+                    <Link href="/sis/admin/website/tuition/" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
                         <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2.5} /> Back to Tuition
                     </Link>
                 }

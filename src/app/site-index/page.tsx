@@ -331,7 +331,7 @@ export default function SiteIndexPage() {
                             <p className="text-sm text-slate-600">Contact our Information Services Desk for guidance navigating institutional portals.</p>
                         </div>
                         <Link
-                            href="/contact"
+                            href="/contact/"
                             className="bg-[#0a151a] text-white px-6 py-3 font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition-colors no-underline shrink-0"
                         >
                             Contact Support Desk →

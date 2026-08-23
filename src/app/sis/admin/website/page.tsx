@@ -25,7 +25,7 @@ export default function WebsiteDashboardPage() {
         title="Website CMS"
         subtitle="Manage public website content"
         actions={
-          <Link href="/sis/admin/website/pages/new" className="inline-flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors no-underline">
+          <Link href="/sis/admin/website/pages/new/" className="inline-flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors no-underline">
             <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> New Page
           </Link>
         }

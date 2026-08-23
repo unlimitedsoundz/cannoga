@@ -345,7 +345,7 @@ export default function HousingPortalPage() {
             <div className="bg-white border-b border-slate-200 px-4 lg:px-8 py-3.5">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <a href="/sis" title="Return to Student Information System" className="hover:opacity-80 transition-opacity">
+                        <a href="/sis/" title="Return to Student Information System" className="hover:opacity-80 transition-opacity">
                             <img
                                 src="/images/logo-cannoga.png"
                                 alt="Cannoga College"
@@ -356,7 +356,7 @@ export default function HousingPortalPage() {
                         <span className="text-xs font-bold text-slate-800 hidden sm:inline">Student Housing &amp; Residence Portal</span>
                     </div>
 
-                    <a href="/sis" className="text-xs font-bold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-lg no-underline">
+                    <a href="/sis/" className="text-xs font-bold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-lg no-underline">
                         <span>←</span> Back to SIS
                     </a>
                 </div>
@@ -1463,7 +1463,7 @@ export default function HousingPortalPage() {
                                                     <p className="text-slate-600 text-sm mt-2">Your $500 CAD housing security deposit invoice has been automatically generated and is ready for payment in your Student Information System ledger.</p>
                                                     <div className="mt-4 flex flex-wrap gap-3">
                                                         <a 
-                                                            href="/sis/payments" 
+                                                            href="/sis/payments/" 
                                                             className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition shadow-sm no-underline"
                                                         >
                                                             Pay $500 Deposit in SIS Payments Portal →

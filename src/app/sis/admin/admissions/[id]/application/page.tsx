@@ -384,7 +384,7 @@ export default function AdmissionApplicationPage() {
         <PageHeader title="Application Not Found" subtitle="The requested application could not be loaded." />
         <div className="mt-6 p-8 bg-red-50 border border-red-100 text-center">
           <p className="text-red-600 font-medium mb-4">{error}</p>
-          <button onClick={() => router.push('/sis/admin/admissions')} className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-medium rounded hover:bg-neutral-800 transition-colors">
+          <button onClick={() => router.push('/sis/admin/admissions/')} className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-medium rounded hover:bg-neutral-800 transition-colors">
             <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2} />
             Back to Admissions
           </button>

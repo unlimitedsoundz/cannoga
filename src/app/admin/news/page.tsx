@@ -57,7 +57,7 @@ export default function AdminNewsPage() {
         <div>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                 <h1 className="text-3xl font-bold text-neutral-900 uppercase tracking-tight">Manage News</h1>
-                <Link href="/admin/news/edit" className="bg-neutral-900 text-white px-4 py-2 rounded-none font-bold hover:bg-neutral-800 transition-colors uppercase tracking-widest text-xs">
+                <Link href="/admin/news/edit/" className="bg-neutral-900 text-white px-4 py-2 rounded-none font-bold hover:bg-neutral-800 transition-colors uppercase tracking-widest text-xs">
                     + New Article
                 </Link>
             </div>
@@ -81,7 +81,7 @@ export default function AdminNewsPage() {
                                 </td>
                                 <td className="block md:table-cell pt-4 md:p-4 text-right">
                                     <div className="flex items-center justify-end gap-2 md:opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <Link href={`/admin/news/edit?id=${item.id}`} className="p-2 border border-neutral-200 rounded-none hover:bg-neutral-50" title="Edit">
+                                        <Link href={`/admin/news/edit/?id=${item.id}`} className="p-2 border border-neutral-200 rounded-none hover:bg-neutral-50" title="Edit">
                                             <Edit size={16} weight="bold" />
                                         </Link>
                                         <button

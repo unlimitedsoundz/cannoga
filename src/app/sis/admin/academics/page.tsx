@@ -93,7 +93,7 @@ export default function AcademicsPage() {
       key: 'actions',
       header: 'Actions',
       render: (p: ProgramRow) => (
-        <Link href={`/sis/admin/academics/programs/${p.id}`} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">Manage</Link>
+        <Link href={`/sis/admin/academics/programs/${p.id}/`} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">Manage</Link>
       ),
     },
   ];
@@ -108,7 +108,7 @@ export default function AcademicsPage() {
       key: 'actions',
       header: 'Actions',
       render: (m: ModuleRow) => (
-        <Link href={`/sis/admin/academics/modules/${m.id}`} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">Manage</Link>
+        <Link href={`/sis/admin/academics/modules/${m.id}/`} className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline no-underline">Manage</Link>
       ),
     },
   ];

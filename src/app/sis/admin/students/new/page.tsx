@@ -95,7 +95,7 @@ export default function NewStudentPage() {
 
         <div className="flex items-center gap-3 pt-4 border-t border-neutral-100">
           <button type="submit" className="px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors">Create Student</button>
-          <Link href="/sis/admin/students" className="px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors no-underline">Cancel</Link>
+          <Link href="/sis/admin/students/" className="px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors no-underline">Cancel</Link>
         </div>
       </form>
     </div>

@@ -34,7 +34,7 @@ function ApplicationWizardContent() {
 
     useEffect(() => {
         if (!id) {
-            router.push('/portal/dashboard');
+            router.push('/portal/dashboard/');
             return;
         }
 
@@ -45,7 +45,7 @@ function ApplicationWizardContent() {
 
                 if (!currentUser) {
                     console.log('[ApplicationWizard] No active session, redirecting to login');
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                     return;
                 }
 
@@ -69,7 +69,7 @@ function ApplicationWizardContent() {
                     } else {
                         console.error('[ApplicationWizard] Error fetching application:', appError);
                     }
-                    router.push('/portal/dashboard');
+                    router.push('/portal/dashboard/');
                     return;
                 }
 
@@ -82,7 +82,7 @@ function ApplicationWizardContent() {
 
             } catch (err) {
                 console.error('CRITICAL: Fetching application failed', err);
-                router.push('/portal/dashboard');
+                router.push('/portal/dashboard/');
             } finally {
                 setLoading(false);
             }
@@ -194,7 +194,7 @@ function ApplicationWizardContent() {
             {/* Header */}
             <div className="mb-8 border-b border-neutral-200 pb-6 text-black">
                 <div className="flex items-center gap-2 text-[11px] text-black mb-2 font-bold">
-                    <Link href="/portal/dashboard" className="hover:text-black transition-colors">Dashboard</Link>
+                    <Link href="/portal/dashboard/" className="hover:text-black transition-colors">Dashboard</Link>
                     <ChevronRight size={10} weight="bold" />
                     <span className="text-black">Application #{application.application_number || application.user?.student_id || 'Generating...'}</span>
                     {application.user?.student_id && (
@@ -235,7 +235,7 @@ function ApplicationWizardContent() {
                         <p className="text-neutral-700 text-xs font-medium">Please review your Letter of Acceptance (LOA) and accept it to proceed with your enrollment.</p>
                     </div>
                     <Link
-                        href={`/portal/application/letter?id=${application.id}`}
+                        href={`/portal/application/letter/?id=${application.id}`}
                         className="bg-neutral-600 text-white px-6 py-2 rounded-sm text-[11px] font-bold hover:bg-neutral-700 transition-all shadow-sm flex items-center gap-2"
                     >
                         <CheckCircle2 size={16} weight="bold" />
@@ -251,7 +251,7 @@ function ApplicationWizardContent() {
                         <p className="text-blue-700 text-xs font-medium">You have accepted the offer. Please finalize your tuition payment to complete enrollment.</p>
                     </div>
                     <Link
-                        href={`/portal/application/payment?id=${application.id}`}
+                        href={`/portal/application/payment/?id=${application.id}`}
                         className="bg-blue-600 text-white px-6 py-2 rounded-sm text-[11px] font-bold hover:bg-blue-700 transition-all shadow-sm flex items-center gap-2"
                     >
                         Proceed to Payment

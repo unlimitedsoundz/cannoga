@@ -142,13 +142,13 @@ export default function VoiceAgentDashboardPage() {
         actions={
           <div className="flex items-center gap-3">
             <Link
-              href="/sis/admin/voice-agent/test"
+              href="/sis/admin/voice-agent/test/"
               className="inline-flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-purple-700 transition-all no-underline shadow-sm"
             >
               <HugeiconsIcon icon={Shield} size={14} strokeWidth={2.5} /> Test Voice
             </Link>
             <Link
-              href="/sis/admin/voice-agent/knowledge"
+              href="/sis/admin/voice-agent/knowledge/"
               className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-800 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-neutral-700 transition-all no-underline shadow-sm"
             >
               Manage Knowledge
@@ -182,7 +182,7 @@ export default function VoiceAgentDashboardPage() {
             <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
               <HugeiconsIcon icon={Phone} size={14} className="text-neutral-500" /> Recent Calls
             </h2>
-            <Link href="/sis/admin/voice-agent/calls" className="text-xs font-bold text-neutral-500 hover:text-white transition-colors uppercase tracking-wider no-underline">
+            <Link href="/sis/admin/voice-agent/calls/" className="text-xs font-bold text-neutral-500 hover:text-white transition-colors uppercase tracking-wider no-underline">
               View All →
             </Link>
           </div>
@@ -219,7 +219,7 @@ export default function VoiceAgentDashboardPage() {
             <HugeiconsIcon icon={CheckCircle} size={14} className="text-neutral-500" /> Quick Actions
           </h2>
           <div className="bg-neutral-900 rounded-2xl p-5 space-y-3 shadow-sm">
-            <Link href="/sis/admin/voice-agent/test" className="flex items-center gap-4 p-4 bg-neutral-800/60 hover:bg-neutral-800 rounded-xl transition-colors no-underline group">
+            <Link href="/sis/admin/voice-agent/test/" className="flex items-center gap-4 p-4 bg-neutral-800/60 hover:bg-neutral-800 rounded-xl transition-colors no-underline group">
               <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
                 <HugeiconsIcon icon={Phone} size={18} strokeWidth={2} />
               </div>
@@ -229,7 +229,7 @@ export default function VoiceAgentDashboardPage() {
               </div>
               <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-600 group-hover:text-white ml-auto group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/sis/admin/voice-agent/calls" className="flex items-center gap-4 p-4 bg-neutral-800/60 hover:bg-neutral-800 rounded-xl transition-colors no-underline group">
+            <Link href="/sis/admin/voice-agent/calls/" className="flex items-center gap-4 p-4 bg-neutral-800/60 hover:bg-neutral-800 rounded-xl transition-colors no-underline group">
               <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
                 <HugeiconsIcon icon={Activity} size={18} strokeWidth={2} />
               </div>
@@ -239,7 +239,7 @@ export default function VoiceAgentDashboardPage() {
               </div>
               <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2.5} className="text-neutral-600 group-hover:text-white ml-auto group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/sis/admin/voice-agent/knowledge" className="flex items-center gap-4 p-4 bg-neutral-800/60 hover:bg-neutral-800 rounded-xl transition-colors no-underline group">
+            <Link href="/sis/admin/voice-agent/knowledge/" className="flex items-center gap-4 p-4 bg-neutral-800/60 hover:bg-neutral-800 rounded-xl transition-colors no-underline group">
               <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
                 <HugeiconsIcon icon={Message} size={18} strokeWidth={2} />
               </div>

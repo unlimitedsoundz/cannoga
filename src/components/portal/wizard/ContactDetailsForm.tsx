@@ -169,7 +169,7 @@ export default function ContactDetailsForm({ applicationId, initialData, default
                             setIsSubmitting(true);
                             try {
                                 await updateApplicationStep(applicationId, 'contact', data);
-                                router.push('/portal/dashboard');
+                                router.push('/portal/dashboard/');
                             } catch (error) {
                                 console.error('Failed to save:', error);
                             } finally {

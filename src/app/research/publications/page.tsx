@@ -87,7 +87,7 @@ export default function PublicationsPage() {
                         </p>
                     </div>
                     <Link 
-                        href="/research" 
+                        href="/research/" 
                         className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-black hover:underline transition-colors shrink-0"
                     >
                         <span>← Return to Research Hub</span>

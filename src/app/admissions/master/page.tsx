@@ -72,7 +72,7 @@ export default function MasterAdmissionsPage() {
                 }}
             >
                 <Link
-                    href="/portal/apply"
+                    href="/portal/apply/"
                     className="inline-flex items-center gap-2.5 bg-white hover:bg-slate-200 text-[#0a151a] font-bold text-xs uppercase tracking-wider px-6 py-3.5 no-underline transition-colors shadow-md shrink-0"
                 >
                     <span>Start application</span>

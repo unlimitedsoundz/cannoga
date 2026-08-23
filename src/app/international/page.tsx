@@ -180,7 +180,7 @@ export default function InternationalPage() {
                                         <p className="flex gap-3 items-start"><ArrowRight size={14} weight="bold" className="mt-0.5 shrink-0 text-[#000000]" /> Canadian citizens and permanent residents must carry valid identification; international students apply for a study permit through IRCC.</p>
                                         <p className="flex gap-3 items-start"><ArrowRight size={14} weight="bold" className="mt-0.5 shrink-0 text-[#000000]" /> Open a Canadian bank account early — RBC, TD, Scotiabank, and others offer student accounts with low fees.</p>
                                     </div>
-                                    <Link href="/student-guide/arrival" className="cc-btn-primary inline-flex items-center gap-2 text-sm">
+                                    <Link href="/student-guide/arrival/" className="cc-btn-primary inline-flex items-center gap-2 text-sm">
                                         Full Arrival Guide <ArrowRight size={16} weight="bold" />
                                     </Link>
                                 </div>

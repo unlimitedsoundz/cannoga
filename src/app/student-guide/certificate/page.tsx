@@ -114,7 +114,7 @@ export default async function CertificateGuidePage() {
                                 </h2>
                             </div>
                             <p className="text-slate-700 leading-relaxed font-normal">
-                                To confirm your seat in your certificate stream, log into the <Link href="/portal/account/login" className="text-black font-bold underline hover:text-[#c89211]">Cannoga Student Application Portal</Link> and submit your formal acceptance prior to the deadline on your Letter of Acceptance (LOA).
+                                To confirm your seat in your certificate stream, log into the <Link href="/portal/account/login/" className="text-black font-bold underline hover:text-[#c89211]">Cannoga Student Application Portal</Link> and submit your formal acceptance prior to the deadline on your Letter of Acceptance (LOA).
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-1">
@@ -338,13 +338,13 @@ export default async function CertificateGuidePage() {
 
                             <div className="pt-2 flex flex-col sm:flex-row gap-4">
                                 <Link
-                                    href="/housing"
+                                    href="/housing/"
                                     className="cc-btn-primary no-underline"
                                 >
                                     Explore Housing <ArrowRight size={14} weight="bold" />
                                 </Link>
                                 <Link
-                                    href="/admissions/contact-information"
+                                    href="/admissions/contact-information/"
                                     className="cc-btn-outline no-underline"
                                 >
                                     Contact Admissions Advisors

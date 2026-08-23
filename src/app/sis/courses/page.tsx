@@ -50,7 +50,7 @@ export default function CoursesPage() {
         title="Course Catalog"
         subtitle="Search and manage course offerings"
         actions={
-          <Link href="/sis/courses/new" className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
+          <Link href="/sis/courses/new/" className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
             <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Course
           </Link>
         }

@@ -107,7 +107,7 @@ export default function AdmissionsPage() {
       key: 'actions',
       header: 'Actions',
       render: (a: ApplicationRow) => (
-        <Link href={`/sis/admin/admissions/${a.id}`} className="text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white transition-colors no-underline">Review</Link>
+        <Link href={`/sis/admin/admissions/${a.id}/`} className="text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white transition-colors no-underline">Review</Link>
       ),
     },
   ];
@@ -118,7 +118,7 @@ export default function AdmissionsPage() {
         title="Admissions"
         subtitle="Review and process admissions applications"
         actions={
-          <Link href="/sis/admin/admissions/new" className="inline-flex items-center gap-2 px-4 py-2 bg-white text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-neutral-200 transition-colors no-underline">
+          <Link href="/sis/admin/admissions/new/" className="inline-flex items-center gap-2 px-4 py-2 bg-white text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-neutral-200 transition-colors no-underline">
             <HugeiconsIcon icon={FileText} size={14} strokeWidth={2.5} /> New Application
           </Link>
         }

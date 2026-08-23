@@ -100,7 +100,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
             } catch (error) {
                 console.error("Portal auth check error:", error);
                 if (!isPublicPath) {
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                 } else {
                     setLoading(false);
                 }
@@ -151,9 +151,9 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                 <div className="container mx-auto px-4 text-center text-[9px] font-normal tracking-wider text-neutral-400">
                     &copy; {new Date().getFullYear()} Cannoga College Portal. Secure Admissions Environment.
                     <span className="mx-2 text-neutral-600">|</span>
-                    <a href="/student-handbook" className="text-neutral-400 hover:text-white transition-colors">Student Handbook</a>
+                    <a href="/student-handbook/" className="text-neutral-400 hover:text-white transition-colors">Student Handbook</a>
                     <span className="mx-2 text-neutral-600">|</span>
-                    <a href="/code-of-conduct" className="text-neutral-400 hover:text-white transition-colors">Code of Conduct</a>
+                    <a href="/code-of-conduct/" className="text-neutral-400 hover:text-white transition-colors">Code of Conduct</a>
                     <span className="mx-2 text-neutral-600">|</span>
                     <a href="/refund-withdrawal-policy/" className="text-neutral-400 hover:text-white transition-colors">Refund Policy</a>
                 </div>

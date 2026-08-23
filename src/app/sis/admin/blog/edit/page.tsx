@@ -35,7 +35,7 @@ function EditBlogPostForm() {
     if (!id) {
         return (
             <div className="p-8 text-neutral-400 font-sans">
-                Invalid blog post ID. <Link href="/sis/admin/blog" className="text-white underline">Back to blog</Link>
+                Invalid blog post ID. <Link href="/sis/admin/blog/" className="text-white underline">Back to blog</Link>
             </div>
         );
     }
@@ -128,7 +128,7 @@ function EditBlogPostForm() {
                 console.error('Error updating post in DB:', error);
                 alert(`Error updating post: ${error.message}`);
             } else {
-                router.push('/sis/admin/blog');
+                router.push('/sis/admin/blog/');
             }
         } catch (err) {
             console.error('Unexpected error:', err);
@@ -204,7 +204,7 @@ function EditBlogPostForm() {
                 subtitle="Modify post contents in the database"
                 actions={
                     <Link
-                        href="/sis/admin/blog"
+                        href="/sis/admin/blog/"
                         className="inline-flex items-center gap-2 px-4 py-2 border border-white/20 text-neutral-300 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-white/10 transition-colors no-underline"
                     >
                         <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2.5} /> Back to Blog
@@ -376,7 +376,7 @@ function EditBlogPostForm() {
                         {saving ? 'Saving changes...' : 'Save & Update Post'}
                     </button>
                     <Link
-                        href="/sis/admin/blog"
+                        href="/sis/admin/blog/"
                         className="text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white no-underline transition-colors"
                     >
                         Cancel

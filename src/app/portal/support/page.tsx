@@ -27,7 +27,7 @@ export default function SupportPage() {
             const supabase = createClient();
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) {
-                router.replace('/portal/account/login');
+                router.replace('/portal/account/login/');
                 return;
             }
             setLoading(false);
@@ -90,7 +90,7 @@ export default function SupportPage() {
             <div className="max-w-6xl mx-auto">
                 <div className="mb-6">
                     <Link
-                        href="/portal/dashboard"
+                        href="/portal/dashboard/"
                         className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-neutral-500 hover:text-black transition-colors"
                     >
                         <ArrowLeft size={14} weight="bold" /> Back to Dashboard

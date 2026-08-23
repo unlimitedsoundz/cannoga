@@ -165,7 +165,7 @@ export default function PaymentsPage() {
                         <button type="button" onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-slate-800 rounded-lg transition text-slate-300 hover:text-white focus:outline-none md:hidden cursor-pointer">
                             <HugeiconsIcon icon={Menu} size={20} strokeWidth={2} />
                         </button>
-                        <Link href="/sis" className="flex items-center space-x-2.5 py-1 shrink-0 no-underline">
+                        <Link href="/sis/" className="flex items-center space-x-2.5 py-1 shrink-0 no-underline">
                             <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-9 w-auto object-contain brightness-0 invert" />
                             <div className="hidden sm:flex flex-col justify-center border-l border-slate-700 pl-3 py-0.5">
                                 <span className="font-extrabold text-xs sm:text-sm tracking-wider uppercase leading-tight text-white">CANNOGA COLLEGE</span>
@@ -174,10 +174,10 @@ export default function PaymentsPage() {
                         </Link>
                     </div>
                     <div className="flex-1 max-w-md relative hidden sm:block">
-                        <HeaderSearch isAdmin={false} onNavigatePage={(pageId) => router.push(`/sis?page=${pageId}`)} />
+                        <HeaderSearch isAdmin={false} onNavigatePage={(pageId) => router.push(`/sis/?page=${pageId}`)} />
                     </div>
                     <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
-                        <button type="button" onClick={() => router.push('/sis?page=student-life')} className="relative p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition flex items-center justify-center cursor-pointer" title="Messages">
+                        <button type="button" onClick={() => router.push('/sis/?page=student-life')} className="relative p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition flex items-center justify-center cursor-pointer" title="Messages">
                             <HugeiconsIcon icon={Mail} size={18} strokeWidth={2} />
                         </button>
                         <div ref={pageNotifRef} className="relative">
@@ -191,7 +191,7 @@ export default function PaymentsPage() {
                             </button>
                         </div>
                         <div className="h-5 w-px bg-slate-800 mx-1"></div>
-                        <div className="flex items-center space-x-2 cursor-pointer hover:bg-slate-800 p-1.5 rounded-lg transition" onClick={() => router.push('/sis?page=profile')}>
+                        <div className="flex items-center space-x-2 cursor-pointer hover:bg-slate-800 p-1.5 rounded-lg transition" onClick={() => router.push('/sis/?page=profile')}>
                             <div className="w-7 h-7 bg-slate-700 rounded-full flex items-center justify-center overflow-hidden shrink-0">
                                 {profile?.avatar_url ? (
                                     <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
@@ -395,11 +395,11 @@ export default function PaymentsPage() {
                                                             onClick={() => {
                                                                 const isHousing = inv.invoice_type === 'HOUSING_DEPOSIT' || inv.invoice_number?.startsWith('HDEP');
                                                                 if (isHousing) {
-                                                                    router.push(`/portal/application/payment?type=housing&id=${inv.application_id || inv.id}`);
+                                                                    router.push(`/portal/application/payment/?type=housing&id=${inv.application_id || inv.id}`);
                                                                 } else if (inv.application_id) {
-                                                                    router.push(`/portal/application/payment?id=${inv.application_id}`);
+                                                                    router.push(`/portal/application/payment/?id=${inv.application_id}`);
                                                                 } else {
-                                                                    router.push('/portal/dashboard');
+                                                                    router.push('/portal/dashboard/');
                                                                 }
                                                             }}
                                                             className="inline-block text-[11px] font-bold px-3.5 py-1.5 bg-[#0a151a] hover:bg-slate-800 text-white transition shadow-xs rounded-lg cursor-pointer"

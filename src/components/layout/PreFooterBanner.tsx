@@ -47,7 +47,7 @@ export function PreFooterBanner() {
                     {/* Vertical Links on Mobile (Extra Bold & Larger Text) */}
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-10 md:gap-14 font-black text-xl sm:text-xl md:text-2xl text-white uppercase tracking-wider">
                         <Link 
-                            href="/about" 
+                            href="/about/" 
                             className="group relative inline-flex items-center gap-3 text-white no-underline py-1"
                         >
                             <span className="relative z-10 font-black">WHY CANNOGA COLLEGE?</span>
@@ -55,7 +55,7 @@ export function PreFooterBanner() {
                             <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-white transition-all duration-300 group-hover:w-full" />
                         </Link>
                         <Link 
-                            href="/admissions/application-process" 
+                            href="/admissions/application-process/" 
                             className="group relative inline-flex items-center gap-3 text-white no-underline py-1"
                         >
                             <span className="relative z-10 font-black">APPLY NOW</span>
@@ -63,7 +63,7 @@ export function PreFooterBanner() {
                             <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-white transition-all duration-300 group-hover:w-full" />
                         </Link>
                         <Link 
-                            href="/contact" 
+                            href="/contact/" 
                             className="group relative inline-flex items-center gap-3 text-white no-underline py-1"
                         >
                             <span className="relative z-10 font-black">CONTACT US</span>

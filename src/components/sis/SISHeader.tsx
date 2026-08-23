@@ -362,7 +362,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
               >
                 <HugeiconsIcon icon={Menu} size={20} strokeWidth={2} />
               </button>
-              <Link href="/sis/admin" className="flex items-center gap-3 shrink-0 no-underline">
+              <Link href="/sis/admin/" className="flex items-center gap-3 shrink-0 no-underline">
                 <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-8 w-auto object-contain brightness-0 invert" />
                 <div className="hidden md:block">
                   <div className="text-xs font-black uppercase tracking-widest text-white">Cannoga College</div>
@@ -393,7 +393,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
               <button
                 className="relative p-2 text-white hover:opacity-80 transition-opacity"
                 title="Messages"
-                onClick={() => router.push('/sis?page=student-life')}
+                onClick={() => router.push('/sis/?page=student-life')}
               >
                 <HugeiconsIcon icon={Envelope} size={18} strokeWidth={2} className="text-white" />
                 {unreadMessageCount > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-white rounded-full" />}
@@ -422,7 +422,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                       <div className="text-sm font-bold text-white">{displayName}</div>
                       <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 mt-0.5">{userEmail}</div>
                     </div>
-                    <Link href="/sis/admin/settings" className="block px-4 py-2 text-xs font-bold text-neutral-300 hover:text-white hover:bg-white/5 no-underline transition-colors">Settings</Link>
+                    <Link href="/sis/admin/settings/" className="block px-4 py-2 text-xs font-bold text-neutral-300 hover:text-white hover:bg-white/5 no-underline transition-colors">Settings</Link>
                     <Link href="/" className="block px-4 py-2 text-xs font-bold text-neutral-300 hover:text-white hover:bg-white/5 no-underline transition-colors">View Website</Link>
                     <div className="border-t border-white/10 mt-1 pt-1">
                       <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-red-400 hover:bg-white/5">Sign Out</button>
@@ -549,7 +549,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
             <button onClick={onMenuToggle} className="lg:hidden p-1 text-neutral-600 hover:text-black">
               <HugeiconsIcon icon={Menu} size={22} strokeWidth={2} />
             </button>
-            <Link href="/sis" className="flex items-center gap-3 shrink-0">
+            <Link href="/sis/" className="flex items-center gap-3 shrink-0">
               <img src="/images/logo-cannoga.png" alt="Cannoga College" className="h-8 w-auto object-contain" />
             </Link>
           </div>
@@ -593,7 +593,7 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
                     <div className="text-sm font-bold text-neutral-900">{displayName}</div>
                     <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">{userEmail}</div>
                   </div>
-                  <Link href="/sis/settings" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 no-underline">Settings</Link>
+                  <Link href="/sis/settings/" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 no-underline">Settings</Link>
                   <Link href="/" className="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 no-underline">View Website</Link>
                   <div className="border-t border-neutral-100 mt-1 pt-1">
                     <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-red-600 hover:bg-red-50">Sign Out</button>

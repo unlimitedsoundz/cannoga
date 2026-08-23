@@ -164,7 +164,7 @@ export default function AdmissionsPage() {
                                         </td>
                                         <td className="block md:table-cell pt-4 pb-2 md:p-6 text-right">
                                             <Link
-                                                href={`/admin/admissions/review?id=${app.id}`}
+                                                href={`/admin/admissions/review/?id=${app.id}`}
                                                 className="inline-flex items-center gap-2 bg-neutral-100 px-4 py-2 rounded-none text-xs text-black font-black uppercase tracking-widest hover:bg-[#0a151a] hover:text-white transition-all active:scale-95"
                                             >
                                                 Review Application <ChevronRight size={14} weight="bold" />

@@ -215,7 +215,7 @@ export default function AdmissionsPolicyPage() {
                     <h3 className="text-2xl font-black text-black tracking-tight">Related Admissions Links</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         <Link 
-                            href="/admissions/master" 
+                            href="/admissions/master/" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">
@@ -225,7 +225,7 @@ export default function AdmissionsPolicyPage() {
                             <p className="text-sm text-slate-600 font-normal leading-normal">Entry criteria and deadlines</p>
                         </Link>
                         <Link 
-                            href="/admissions/bachelor" 
+                            href="/admissions/bachelor/" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">
@@ -235,7 +235,7 @@ export default function AdmissionsPolicyPage() {
                             <p className="text-sm text-slate-600 font-normal leading-normal">High school entry standards</p>
                         </Link>
                         <Link 
-                            href="/refund-withdrawal-policy" 
+                            href="/refund-withdrawal-policy/" 
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">

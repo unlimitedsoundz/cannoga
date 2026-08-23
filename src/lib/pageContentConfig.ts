@@ -139,7 +139,7 @@ export const pageContentSections: PageContentSection[] = [
         <li><strong class="text-slate-900 font-bold">Need-Based:</strong> Financial assistance and bursaries for eligible domestic and international students.</li>
         <li><strong class="text-slate-900 font-bold">Continuing Merit:</strong> 50% tuition reduction after first year based on academic performance.</li>
     </ul>
-    <p class="pt-2"><a href="/admissions/tuition" class="underline font-bold text-slate-900 hover:text-[#002f6c]">See detailed tuition and scholarship information &rarr;</a></p>
+    <p class="pt-2"><a href="/admissions/tuition/" class="underline font-bold text-slate-900 hover:text-[#002f6c]">See detailed tuition and scholarship information &rarr;</a></p>
 </div>`,
     },
     {
@@ -179,7 +179,7 @@ export const pageContentSections: PageContentSection[] = [
         <li><strong class="text-slate-900 font-bold">Education Fairs:</strong> In-person representative meetings in select cities across Canada and abroad.</li>
     </ul>
     <div class="pt-2">
-        <a href="/news" class="underline font-bold text-slate-900 hover:text-[#002f6c]">View upcoming campus and online events &rarr;</a>
+        <a href="/news/" class="underline font-bold text-slate-900 hover:text-[#002f6c]">View upcoming campus and online events &rarr;</a>
     </div>
 </div>`,
     },
@@ -262,7 +262,7 @@ export const pageContentSections: PageContentSection[] = [
         <li><strong class="text-slate-900 font-bold">Performance Waivers:</strong> Maintain a 3.5 GPA and 55 credits/year for a 50% waiver from the 2nd year onwards.</li>
     </ul>
     <div class="pt-2">
-        <a href="/admissions/tuition" class="inline-flex items-center gap-2 text-sm font-bold text-slate-900 underline hover:text-[#002f6c] transition-colors">See detailed tuition &amp; OSAP info &rarr;</a>
+        <a href="/admissions/tuition/" class="inline-flex items-center gap-2 text-sm font-bold text-slate-900 underline hover:text-[#002f6c] transition-colors">See detailed tuition &amp; OSAP info &rarr;</a>
     </div>
 </div>`,
     },
@@ -432,7 +432,7 @@ export const pageContentSections: PageContentSection[] = [
         <li>Complete online orientation and semester course registration.</li>
     </ul>
     <div class="pt-2">
-        <a href="/student-guide/international" class="inline-flex items-center gap-2 text-sm font-bold text-slate-900 underline hover:text-[#002f6c] transition-colors">Open International Student Guide &rarr;</a>
+        <a href="/student-guide/international/" class="inline-flex items-center gap-2 text-sm font-bold text-slate-900 underline hover:text-[#002f6c] transition-colors">Open International Student Guide &rarr;</a>
     </div>
 </div>`,
     },

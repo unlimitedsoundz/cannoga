@@ -23,7 +23,7 @@ function PaymentContent() {
 
     useEffect(() => {
         if (!id) {
-            router.push('/portal/dashboard');
+            router.push('/portal/dashboard/');
             return;
         }
 
@@ -45,7 +45,7 @@ function PaymentContent() {
                 }
 
                 if (!currentUserEmail) {
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                     return;
                 }
 
@@ -218,7 +218,7 @@ function PaymentContent() {
                     <h2 className="text-2xl font-normal text-black mb-4 tracking-tighter">Payment Unavailable</h2>
                     <p className="text-sm text-black mb-8 max-w-[280px] mx-auto leading-relaxed">{error}</p>
                     <button
-                        onClick={() => router.push('/portal/dashboard')}
+                        onClick={() => router.push('/portal/dashboard/')}
                         className="w-fit min-w-[240px] h-[48px] bg-[#0a151a] text-white px-8 rounded-4px text-[11px] font-normal uppercase tracking-widest transition-all hover:bg-neutral-800 shadow-lg shadow-black/5"
                     >
                         Return to Dashboard

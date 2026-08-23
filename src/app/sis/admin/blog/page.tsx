@@ -121,7 +121,7 @@ export default function SISAdminBlogPage() {
     const rowActions = (row: BlogRow) => (
         <div className="flex items-center gap-3">
             <Link
-                href={`/sis/admin/blog/edit?id=${row.id}`}
+                href={`/sis/admin/blog/edit/?id=${row.id}`}
                 className="text-xs font-bold text-[#0a151a] hover:underline no-underline"
             >
                 Edit
@@ -146,7 +146,7 @@ export default function SISAdminBlogPage() {
                 subtitle="Manage and publish student stories and news articles in the database"
                 actions={
                     <Link
-                        href="/sis/admin/blog/create"
+                        href="/sis/admin/blog/create/"
                         className="inline-flex items-center gap-2 px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors no-underline"
                     >
                         <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> New Blog Post

@@ -268,7 +268,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
 
             {/* Back Navigation (Below Hero) */}
             <div className="container mx-auto px-4 py-6">
-                <Link href={`/schools/${slug}`} className="inline-flex items-center gap-2 text-neutral-500 hover:text-black font-bold uppercase tracking-widest text-xs transition-colors">
+                <Link href={`/schools/${slug}/`} className="inline-flex items-center gap-2 text-neutral-500 hover:text-black font-bold uppercase tracking-widest text-xs transition-colors">
                     <CaretLeft size={16} weight="bold" /> Back to {dept.school.name}
                 </Link>
             </div>
@@ -283,7 +283,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
                         <div className="space-y-4">
                             {courses?.map((course, idx) => (
                                 <Link
-                                    href={`/studies/${course.slug}`}
+                                    href={`/studies/${course.slug}/`}
                                     key={course.id || `course-${idx}`}
                                     style={{ backgroundColor: heroColor, borderColor: 'rgba(255,255,255,0.1)' }}
                                     className="block p-8 rounded-lg border hover:opacity-90 transition-opacity"

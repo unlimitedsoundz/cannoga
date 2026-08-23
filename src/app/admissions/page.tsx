@@ -126,10 +126,10 @@ export default async function AdmissionsPage() {
                 }}
             >
                 <div className="flex flex-wrap gap-4">
-                    <Link href="/admissions/bachelor" className="bg-white text-[#0a151a] hover:bg-slate-200 font-bold text-xs uppercase tracking-wider px-6 py-3.5 transition-colors inline-flex items-center gap-2.5 no-underline shrink-0 shadow-md">
+                    <Link href="/admissions/bachelor/" className="bg-white text-[#0a151a] hover:bg-slate-200 font-bold text-xs uppercase tracking-wider px-6 py-3.5 transition-colors inline-flex items-center gap-2.5 no-underline shrink-0 shadow-md">
                         Bachelor's Admissions <ArrowRight size={16} weight="bold" />
                     </Link>
-                    <Link href="/admissions/master" className="bg-white text-[#0a151a] hover:bg-slate-200 font-bold text-xs uppercase tracking-wider px-6 py-3.5 transition-colors inline-flex items-center gap-2.5 no-underline shrink-0 shadow-md">
+                    <Link href="/admissions/master/" className="bg-white text-[#0a151a] hover:bg-slate-200 font-bold text-xs uppercase tracking-wider px-6 py-3.5 transition-colors inline-flex items-center gap-2.5 no-underline shrink-0 shadow-md">
                         Master's Admissions <ArrowRight size={16} weight="bold" />
                     </Link>
                 </div>
@@ -410,7 +410,7 @@ export default async function AdmissionsPage() {
                                 <div className="relative z-10 pt-6 flex flex-wrap items-center justify-between gap-4">
                                     <div className="flex flex-wrap gap-3">
                                         <Link
-                                            href="/viewbook"
+                                            href="/viewbook/"
                                             className="inline-flex items-center gap-2 px-6 py-3 rounded-sm bg-white hover:bg-slate-100 text-slate-900 font-black text-xs uppercase tracking-wider transition-all active:scale-95 no-underline"
                                         >
                                             Open Digital Flipbook <ArrowUpRight size={16} weight="bold" />

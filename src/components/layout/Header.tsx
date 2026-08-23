@@ -192,15 +192,15 @@ export function Header() {
                             Ottawa Campus
                         </span>
                         <span className="text-white/40">|</span>
-                        <Link href="/admissions" className="text-white hover:text-white/80 no-underline transition-colors">Future Students</Link>
-                        <Link href="/student-guide" className="text-white hover:text-white/80 no-underline transition-colors">Current Students</Link>
-                        <Link href="/student-life" className="text-white hover:text-white/80 no-underline transition-colors font-semibold">Student Life</Link>
-                        <Link href="/about" className="text-white hover:text-white/80 no-underline transition-colors">Faculty &amp; Staff</Link>
-                        <Link href="/alumni" className="text-white hover:text-white/80 no-underline transition-colors">Alumni</Link>
+                        <Link href="/admissions/" className="text-white hover:text-white/80 no-underline transition-colors">Future Students</Link>
+                        <Link href="/student-guide/" className="text-white hover:text-white/80 no-underline transition-colors">Current Students</Link>
+                        <Link href="/student-life/" className="text-white hover:text-white/80 no-underline transition-colors font-semibold">Student Life</Link>
+                        <Link href="/about/" className="text-white hover:text-white/80 no-underline transition-colors">Faculty &amp; Staff</Link>
+                        <Link href="/alumni/" className="text-white hover:text-white/80 no-underline transition-colors">Alumni</Link>
                     </div>
                     <div className="flex items-center gap-6 text-white">
-                        <Link href="/student-guide/international" className="text-white hover:text-white/80 no-underline transition-colors font-semibold">International Students</Link>
-                        <Link href="/portal/support" className="text-white hover:text-white/80 no-underline transition-colors">IT Support</Link>
+                        <Link href="/student-guide/international/" className="text-white hover:text-white/80 no-underline transition-colors font-semibold">International Students</Link>
+                        <Link href="/portal/support/" className="text-white hover:text-white/80 no-underline transition-colors">IT Support</Link>
                         <div className="flex items-center gap-2 pl-4 border-l border-[#1e3a47] text-white font-semibold">
                             <button
                                 type="button"
@@ -395,7 +395,7 @@ export function Header() {
                         </div>
 
                         <div className="p-4">
-                            <Link href="/admissions/application-process" className="flex w-full h-[50px] items-center justify-center bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold no-underline transition-colors rounded-sm" onClick={() => setIsMobileMenuOpen(false)}>
+                            <Link href="/admissions/application-process/" className="flex w-full h-[50px] items-center justify-center bg-[#0f2027] hover:bg-[#1a3644] text-white font-bold no-underline transition-colors rounded-sm" onClick={() => setIsMobileMenuOpen(false)}>
                                 Apply to Cannoga College
                             </Link>
                         </div>

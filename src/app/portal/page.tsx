@@ -14,7 +14,7 @@ export default function PortalIndexPage() {
             const { data: { user } } = await supabase.auth.getUser();
 
             if (!user) {
-                router.replace('/portal/account/login');
+                router.replace('/portal/account/login/');
                 return;
             }
 
@@ -25,16 +25,16 @@ export default function PortalIndexPage() {
                 .single();
 
             if (profile?.role === 'STUDENT') {
-                router.replace('/sis');
+                router.replace('/sis/');
                 return;
             }
 
             if (profile?.role === 'ADMIN') {
-                router.replace('/sis');
+                router.replace('/sis/');
                 return;
             }
 
-            router.replace('/sis');
+            router.replace('/sis/');
         };
 
         checkAuth();

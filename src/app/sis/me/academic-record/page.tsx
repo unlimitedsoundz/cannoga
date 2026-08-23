@@ -28,7 +28,7 @@ export default function MyAcademicRecordPage() {
         const { data: { user }, error: authError } = await supabase.auth.getUser();
         
         if (authError || !user) {
-          router.replace('/portal/account/login');
+          router.replace('/portal/account/login/');
           return;
         }
 
@@ -44,14 +44,14 @@ export default function MyAcademicRecordPage() {
 
         if (studentError || !studentData) {
           console.log('No student record found');
-          router.replace('/portal/dashboard');
+          router.replace('/portal/dashboard/');
           return;
         }
 
         setStudent(studentData);
       } catch (e) {
         console.error('Error fetching student record:', e);
-        router.replace('/portal/dashboard');
+        router.replace('/portal/dashboard/');
       } finally {
         setLoading(false);
       }

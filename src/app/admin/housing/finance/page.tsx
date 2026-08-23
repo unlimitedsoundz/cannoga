@@ -29,7 +29,7 @@ export default function AdminHousingFinancePage() {
             // Check authentication
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) {
-                router.push('/portal/account/login');
+                router.push('/portal/account/login/');
                 return;
             }
 
@@ -40,7 +40,7 @@ export default function AdminHousingFinancePage() {
                 .single();
 
             if (profile?.role !== 'ADMIN') {
-                router.push('/portal/dashboard');
+                router.push('/portal/dashboard/');
                 return;
             }
 
@@ -84,7 +84,7 @@ export default function AdminHousingFinancePage() {
             <div className="max-w-7xl mx-auto">
                 <div className="mb-6">
                     <Link
-                        href="/admin/housing"
+                        href="/admin/housing/"
                         className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-neutral-500 hover:text-black transition-colors"
                     >
                         <ArrowLeft size={14} /> Back to Housing Management

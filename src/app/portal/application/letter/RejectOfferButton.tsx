@@ -40,7 +40,7 @@ export default function RejectOfferButton({ applicationId }: { applicationId: st
             if (appError) throw appError;
 
             alert('Offer rejected. Your application has been closed.');
-            router.push('/portal/dashboard');
+            router.push('/portal/dashboard/');
         } catch (err: any) {
             console.error('Error rejecting offer:', err);
             alert('Failed to reject offer. Please try again.');

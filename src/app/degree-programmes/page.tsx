@@ -97,7 +97,7 @@ export default async function DegreeProgrammesPage() {
                             Graduates of eligible diploma, undergraduate, and graduate programs can qualify for the Post-Graduation Work Permit (PGWP).
                         </p>
                         <div className="flex flex-wrap gap-4 mt-8">
-                            <Link href="/admissions" className="cc-btn-primary no-underline">Apply Now <ArrowRight size={14} weight="bold" /></Link>
+                            <Link href="/admissions/" className="cc-btn-primary no-underline">Apply Now <ArrowRight size={14} weight="bold" /></Link>
                             <Link href="#programs-az" className="cc-btn-outline no-underline">View Programs A-Z Table <ArrowRight size={14} weight="bold" /></Link>
                         </div>
                     </section>
@@ -178,7 +178,7 @@ export default async function DegreeProgrammesPage() {
                             </div>
                         </div>
                         <div className="mt-8">
-                            <Link href="/admissions/tuition" className="cc-btn-primary no-underline">
+                            <Link href="/admissions/tuition/" className="cc-btn-primary no-underline">
                                 View Detailed Fee Information <ArrowRight size={14} weight="bold" />
                             </Link>
                         </div>

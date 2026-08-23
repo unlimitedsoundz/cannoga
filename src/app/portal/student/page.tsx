@@ -30,7 +30,7 @@ export default function StudentPortalPage() {
                 }
 
                 if (!currentUserEmail) {
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                     return;
                 }
 
@@ -50,18 +50,18 @@ export default function StudentPortalPage() {
 
                 if (error) {
                     console.error('Error fetching student record:', error.message, error.details);
-                    router.push('/portal/dashboard');
+                    router.push('/portal/dashboard/');
                     return;
                 }
 
                 if (!studentData) {
                     // If no student record, redirect back to application dashboard
                     // This is a normal state for applicants who haven't been enrolled yet
-                    router.push('/portal/dashboard');
+                    router.push('/portal/dashboard/');
                 } else if (studentData.application?.status === 'PAYMENT_SUBMITTED') {
                     // Security Check: If payment is pending verification, they are not yet fully enrolled students
                     console.log('Redirecting pending student to dashboard');
-                    router.push('/portal/dashboard');
+                    router.push('/portal/dashboard/');
                 } else {
                     setStudent(studentData);
                 }

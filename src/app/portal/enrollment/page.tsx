@@ -22,14 +22,14 @@ function EnrollmentContent() {
     useEffect(() => {
         const fetchData = async () => {
             if (!id) {
-                router.replace('/portal/dashboard');
+                router.replace('/portal/dashboard/');
                 return;
             }
 
             const supabase = createClient();
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) {
-                router.replace('/portal/account/login');
+                router.replace('/portal/account/login/');
                 return;
             }
 
@@ -46,7 +46,7 @@ function EnrollmentContent() {
                 .single();
 
             if (!applicationRaw || applicationRaw.status !== 'ENROLLED') {
-                router.replace('/portal/dashboard');
+                router.replace('/portal/dashboard/');
                 return;
             }
 
@@ -83,7 +83,7 @@ function EnrollmentContent() {
             {/* Control Bar (Hidden on Print) */}
             <div className="max-w-[210mm] mx-auto mb-8 flex items-center justify-between print:hidden">
                 <Link
-                    href="/portal/dashboard"
+                    href="/portal/dashboard/"
                     className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-neutral-400 hover:text-primary transition-colors"
                 >
                     <ChevronLeft size={14} weight="bold" />

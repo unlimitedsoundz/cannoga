@@ -236,7 +236,7 @@ export default function SchedulingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link href="/sis/admin/scheduling/rooms" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
+            <Link href="/sis/admin/scheduling/rooms/" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
               <div className="flex items-center gap-3 mb-3">
                 <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
                   <HugeiconsIcon icon={Door} size={20} strokeWidth={2} />
@@ -246,7 +246,7 @@ export default function SchedulingPage() {
               <p className="text-xs text-slate-400">Manage rooms, features, and availability blocks</p>
             </Link>
 
-            <Link href="/sis/admin/scheduling/sections" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
+            <Link href="/sis/admin/scheduling/sections/" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
               <div className="flex items-center gap-3 mb-3">
                 <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
                   <HugeiconsIcon icon={Bookmark} size={20} strokeWidth={2} />
@@ -256,7 +256,7 @@ export default function SchedulingPage() {
               <p className="text-xs text-slate-400">Create and configure course sections and requirements</p>
             </Link>
 
-            <Link href="/sis/admin/scheduling/availability" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
+            <Link href="/sis/admin/scheduling/availability/" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
               <div className="flex items-center gap-3 mb-3">
                 <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
                   <HugeiconsIcon icon={Calendar} size={20} strokeWidth={2} />
@@ -266,7 +266,7 @@ export default function SchedulingPage() {
               <p className="text-xs text-slate-400">Manage instructor availability and time preferences</p>
             </Link>
 
-            <Link href="/sis/admin/scheduling/settings" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
+            <Link href="/sis/admin/scheduling/settings/" className="bg-neutral-900 rounded-2xl p-6 transition-all hover:bg-neutral-800/80 group">
               <div className="flex items-center gap-3 mb-3">
                 <div className="p-2.5 bg-neutral-800 text-white rounded-xl">
                   <HugeiconsIcon icon={Settings} size={20} strokeWidth={2} />
@@ -292,7 +292,7 @@ export default function SchedulingPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Link
-                    href="/sis/admin/timetable"
+                    href="/sis/admin/timetable/"
                     className="px-4 py-2 text-white bg-neutral-800 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-neutral-700 transition-all"
                   >
                     View Timetable

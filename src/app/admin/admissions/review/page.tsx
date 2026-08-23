@@ -72,7 +72,7 @@ function ApplicationReviewContent() {
 
     useEffect(() => {
         if (!id) {
-            router.push('/admin/admissions');
+            router.push('/admin/admissions/');
             return;
         }
         fetchData();
@@ -125,7 +125,7 @@ function ApplicationReviewContent() {
                 <h2 className="text-xl font-black uppercase tracking-tight text-neutral-900">Application Not Found</h2>
                 <p className="text-neutral-500 text-sm mt-2 mb-6">{error}</p>
                 <Link
-                    href="/admin/admissions"
+                    href="/admin/admissions/"
                     className="inline-flex items-center gap-2 bg-neutral-900 text-white px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-neutral-800 transition-all"
                 >
                     <ChevronLeft size={14} weight="bold" /> Back to Admissions
@@ -143,7 +143,7 @@ function ApplicationReviewContent() {
     return (
         <div className="space-y-8 pb-20 animate-in fade-in duration-500">
             <div className="flex items-center gap-4">
-                <Link href="/admin/admissions" className="p-2 hover:bg-neutral-100 rounded-xl transition-colors">
+                <Link href="/admin/admissions/" className="p-2 hover:bg-neutral-100 rounded-xl transition-colors">
                     <ChevronLeft size={24} weight="bold" />
                 </Link>
                 <div>

@@ -126,7 +126,7 @@ export default function AdminLoginPage() {
                 </form>
 
                 <div className="mt-8 pt-6 border-t border-neutral-100">
-                    <a href="/portal/account/login" className="text-neutral-400 text-[10px] font-black uppercase tracking-widest hover:text-black text-center transition-colors block">
+                    <a href="/portal/account/login/" className="text-neutral-400 text-[10px] font-black uppercase tracking-widest hover:text-black text-center transition-colors block">
                         Student Portal Login
                     </a>
                 </div>

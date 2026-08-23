@@ -17,7 +17,7 @@ export function NotificationBanner() {
                 </div>
                 
                 <Link 
-                    href="/admissions" 
+                    href="/admissions/" 
                     className="hidden md:flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-all px-4 py-1.5 rounded-full border border-white/20 text-[13px] font-bold uppercase tracking-wider"
                 >
                     Apply Now

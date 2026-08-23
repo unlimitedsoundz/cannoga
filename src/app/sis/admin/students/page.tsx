@@ -119,7 +119,7 @@ export default function AdminStudentsPage() {
       key: 'actions',
       header: 'Actions',
       render: (s: StudentRow) => (
-        <Link href={`/sis/admin/students/${s.id}`} className="text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white transition-colors no-underline">
+        <Link href={`/sis/admin/students/${s.id}/`} className="text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white transition-colors no-underline">
           View
         </Link>
       ),
@@ -132,7 +132,7 @@ export default function AdminStudentsPage() {
         title="Student Administration"
         subtitle="Manage all student records, enrollment, and academic standing"
         actions={
-          <Link href="/sis/admin/students/new" className="inline-flex items-center gap-2 px-4 py-2 bg-white text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-neutral-200 transition-colors no-underline">
+          <Link href="/sis/admin/students/new/" className="inline-flex items-center gap-2 px-4 py-2 bg-white text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-neutral-200 transition-colors no-underline">
             <HugeiconsIcon icon={UserPlus} size={14} strokeWidth={2.5} /> New Student
           </Link>
         }

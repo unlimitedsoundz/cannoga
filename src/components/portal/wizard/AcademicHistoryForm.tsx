@@ -165,7 +165,7 @@ export default function AcademicHistoryForm({ applicationId, initialData, onUpda
                             setIsSaving(true);
                             try {
                                 await updateApplicationStep(applicationId, 'education', data);
-                                router.push('/portal/dashboard');
+                                router.push('/portal/dashboard/');
                             } catch (error) {
                                 console.error('Failed to save:', error);
                             } finally {

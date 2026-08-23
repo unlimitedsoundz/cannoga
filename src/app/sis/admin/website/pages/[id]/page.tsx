@@ -79,7 +79,7 @@ export default function EditPagePage() {
                 throw new Error(data.error || 'Failed to update page');
             }
 
-            router.push('/sis/admin/website/pages');
+            router.push('/sis/admin/website/pages/');
         } catch (e: any) {
             setError(e.message);
         } finally {
@@ -97,7 +97,7 @@ export default function EditPagePage() {
                 title="Edit Page"
                 subtitle="Update CMS page"
                 actions={
-                    <Link href="/sis/admin/website/pages" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
+                    <Link href="/sis/admin/website/pages/" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
                         <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2.5} /> Back to Pages
                     </Link>
                 }

@@ -67,7 +67,7 @@ export default function EditSchoolPage() {
                 throw new Error(data.error || 'Failed to update school');
             }
 
-            router.push('/sis/admin/website/schools');
+            router.push('/sis/admin/website/schools/');
         } catch (e: any) {
             setError(e.message);
         } finally {
@@ -85,7 +85,7 @@ export default function EditSchoolPage() {
                 title="Edit School"
                 subtitle="Update school information"
                 actions={
-                    <Link href="/sis/admin/website/schools" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
+                    <Link href="/sis/admin/website/schools/" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
                         <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2.5} /> Back to Schools
                     </Link>
                 }

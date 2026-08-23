@@ -298,10 +298,10 @@ export default function ResearchPage() {
                         Students and staff are invited to actively engage in exploration. At Cannoga College, research is not just something you study <strong>it's something you do</strong>.
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <Link href="/research/projects" className="cc-btn-primary no-underline">
+                        <Link href="/research/projects/" className="cc-btn-primary no-underline">
                             Explore Projects <ArrowRight size={14} weight="bold" />
                         </Link>
-                        <Link href="/contact" className="cc-btn-outline no-underline">
+                        <Link href="/contact/" className="cc-btn-outline no-underline">
                             Connect With Team
                         </Link>
                     </div>

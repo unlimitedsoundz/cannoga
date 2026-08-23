@@ -97,7 +97,7 @@ function EditBlogPostForm() {
                 console.error('Error updating post:', error);
                 alert(`Error updating post: ${error.message}`);
             } else {
-                router.push('/admin/blog');
+                router.push('/admin/blog/');
             }
         } catch (err) {
             console.error('Unexpected error:', err);
@@ -151,7 +151,7 @@ function EditBlogPostForm() {
     return (
         <div className="container mx-auto px-4 py-8 max-w-4xl font-sans">
             <div className="mb-8">
-                <Link href="/admin/blog" className="text-neutral-600 hover:text-black flex items-center gap-2 font-semibold">
+                <Link href="/admin/blog/" className="text-neutral-600 hover:text-black flex items-center gap-2 font-semibold">
                     <ArrowLeft size={20} /> Back to Blog Management
                 </Link>
             </div>

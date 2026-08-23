@@ -647,7 +647,7 @@ export default function HousingDashboardClient({ student, application, assignmen
                                 <div className="flex items-start gap-2 p-3 bg-neutral-50 border border-neutral-200 rounded-none">
                                     <input type="checkbox" required id="refundPolicyAgree" className="mt-0.5 border-2 border-neutral-300 rounded-sm checked:bg-[#0a151a] checked:border-[#0a151a] w-4 h-4" />
                                     <label htmlFor="refundPolicyAgree" className="text-[10px] text-black leading-tight">
-                                        I adhere to the <a href="/refund-withdrawal-policy" target="_blank" className="underline font-bold text-black">Refund & Withdrawal Policy</a> and understand the terms regarding deposit forfeiture and lease cancellation.
+                                        I adhere to the <a href="/refund-withdrawal-policy/" target="_blank" className="underline font-bold text-black">Refund & Withdrawal Policy</a> and understand the terms regarding deposit forfeiture and lease cancellation.
                                     </label>
                                 </div>
 

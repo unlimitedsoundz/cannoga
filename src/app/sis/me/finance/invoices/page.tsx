@@ -36,7 +36,7 @@ export default function InvoicesPage() {
         const { data: { user }, error: authError } = await supabase.auth.getUser();
 
         if (authError || !user) {
-          router.replace('/portal/account/login');
+          router.replace('/portal/account/login/');
           return;
         }
 
@@ -48,7 +48,7 @@ export default function InvoicesPage() {
 
         if (studentError || !studentData) {
           console.log('No student record found');
-          router.replace('/portal/dashboard');
+          router.replace('/portal/dashboard/');
           return;
         }
 
@@ -74,7 +74,7 @@ export default function InvoicesPage() {
         }
       } catch (e) {
         console.error('Error fetching invoices:', e);
-        router.replace('/portal/dashboard');
+        router.replace('/portal/dashboard/');
       } finally {
         setLoading(false);
       }

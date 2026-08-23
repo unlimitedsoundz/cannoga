@@ -47,7 +47,7 @@ export default function WebsiteAnnouncementsPage() {
 
     const rowActions = (row: AnnouncementRow) => (
         <div className="flex items-center gap-2">
-            <Link href={`/sis/admin/website/announcements/${row.id}`} className="text-xs font-bold text-[#0a151a] hover:underline no-underline">
+            <Link href={`/sis/admin/website/announcements/${row.id}/`} className="text-xs font-bold text-[#0a151a] hover:underline no-underline">
                 Edit
             </Link>
             <button
@@ -133,7 +133,7 @@ export default function WebsiteAnnouncementsPage() {
                 title="Announcements"
                 subtitle="Manage site announcements"
                 actions={
-                    <Link href="/sis/admin/website/announcements/new" className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors no-underline">
+                    <Link href="/sis/admin/website/announcements/new/" className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-800 transition-colors no-underline">
                         <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> New Announcement
                     </Link>
                 }

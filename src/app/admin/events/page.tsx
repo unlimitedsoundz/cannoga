@@ -52,7 +52,7 @@ export default function AdminEventsPage() {
         <div className="animate-in fade-in duration-500">
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-3xl font-bold text-neutral-900">Manage Events</h1>
-                <Link href="/admin/events/edit" className="bg-neutral-900 text-white px-4 py-2 rounded-lg font-bold hover:bg-neutral-800 transition-colors">
+                <Link href="/admin/events/edit/" className="bg-neutral-900 text-white px-4 py-2 rounded-lg font-bold hover:bg-neutral-800 transition-colors">
                     + New Event
                 </Link>
             </div>
@@ -76,7 +76,7 @@ export default function AdminEventsPage() {
                         </div>
 
                         <div className="flex items-center gap-2 md:opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Link href={`/admin/events/edit?id=${event.id}`} className="p-2 border border-neutral-200 rounded-lg hover:bg-neutral-50 shadow-sm" title="Edit">
+                            <Link href={`/admin/events/edit/?id=${event.id}`} className="p-2 border border-neutral-200 rounded-lg hover:bg-neutral-50 shadow-sm" title="Edit">
                                 <Edit size={18} weight="bold" />
                             </Link>
                             <button

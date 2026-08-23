@@ -10,9 +10,9 @@ function RedirectContent() {
 
     useEffect(() => {
         if (id) {
-            router.replace(`/portal/application/letter?id=${id}`);
+            router.replace(`/portal/application/letter/?id=${id}`);
         } else {
-            router.replace('/portal/dashboard');
+            router.replace('/portal/dashboard/');
         }
     }, [id, router]);
 

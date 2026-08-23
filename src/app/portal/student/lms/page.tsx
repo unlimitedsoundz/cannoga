@@ -35,7 +35,7 @@ export default function LmsPage() {
                 }
 
                 if (!currentUserEmail) {
-                    router.push('/portal/account/login');
+                    router.push('/portal/account/login/');
                     return;
                 }
 
@@ -86,7 +86,7 @@ export default function LmsPage() {
             <div className="max-w-6xl mx-auto">
                 <div className="mb-6">
                     <Link
-                        href="/portal/dashboard"
+                        href="/portal/dashboard/"
                         className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-neutral-500 hover:text-black transition-colors"
                     >
                         <ArrowLeft size={14} weight="bold" /> Back to Dashboard
@@ -167,7 +167,7 @@ export default function LmsPage() {
                             <BookOpen size={48} weight="bold" className="mx-auto text-neutral-900 mb-6" />
                             <h2 className="text-xl font-black uppercase mb-2">LMS Not Provisioned</h2>
                             <p className="text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">
-                                Your LMS account is being set up by the IT department. Please check back later or contact <Link href="/portal/support" className="text-black underline font-bold">IT Support</Link> if this persists.
+                                Your LMS account is being set up by the IT department. Please check back later or contact <Link href="/portal/support/" className="text-black underline font-bold">IT Support</Link> if this persists.
                             </p>
                         </div>
                     )}

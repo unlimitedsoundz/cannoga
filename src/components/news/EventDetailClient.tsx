@@ -55,7 +55,7 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
 
             {/* Back nav */}
             <div className="container mx-auto px-4 py-6 max-w-4xl">
-                <Link href="/news" className="text-neutral-500 hover:text-black font-bold uppercase tracking-wider text-sm inline-flex items-center gap-2 transition-colors">
+                <Link href="/news/" className="text-neutral-500 hover:text-black font-bold uppercase tracking-wider text-sm inline-flex items-center gap-2 transition-colors">
                     <CaretLeft size={16} weight="bold" /> Back to News & Events
                 </Link>
             </div>

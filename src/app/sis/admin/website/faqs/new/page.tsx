@@ -46,7 +46,7 @@ export default function NewFaqPage() {
                 throw new Error(data.error || 'Failed to create FAQ');
             }
 
-            router.push('/sis/admin/website/faqs');
+            router.push('/sis/admin/website/faqs/');
         } catch (e: any) {
             setError(e.message);
         } finally {
@@ -60,7 +60,7 @@ export default function NewFaqPage() {
                 title="New FAQ"
                 subtitle="Create a new frequently asked question"
                 actions={
-                    <Link href="/sis/admin/website/faqs" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
+                    <Link href="/sis/admin/website/faqs/" className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline">
                         <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2.5} /> Back to FAQs
                     </Link>
                 }

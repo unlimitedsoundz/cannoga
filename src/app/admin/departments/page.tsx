@@ -84,7 +84,7 @@ export default function AdminDepartmentsPage() {
                                         />
                                         <div className="absolute top-4 right-4 flex gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <Link
-                                                href={`/admin/departments/edit?id=${dept.id}`}
+                                                href={`/admin/departments/edit/?id=${dept.id}`}
                                                 className="bg-white/90 backdrop-blur-sm p-3 hover:bg-[#0a151a] hover:text-white transition-all duration-300 shadow-sm border border-neutral-200"
                                             >
                                                 <Edit size={18} weight="bold" />

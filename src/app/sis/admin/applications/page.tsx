@@ -51,7 +51,7 @@ export default function ApplicationsPage() {
     { key: 'course', header: 'Program', render: (a: ApplicationRow) => <span className="text-xs text-slate-400">{`${a.course?.title || '—'}${a.course?.degreeLevel ? ` ${formatDegreeLevel(a.course.degreeLevel)}` : ''}`}</span> },
     { key: 'status', header: 'Status', render: (a: ApplicationRow) => <StatusBadge status={a.status} /> },
     { key: 'submitted_at', header: 'Submitted', render: (a: ApplicationRow) => <span className="text-xs text-neutral-500">{a.submitted_at ? new Date(a.submitted_at).toLocaleDateString('en-CA') : '—'}</span> },
-    { key: 'id', header: 'Actions', render: (a: ApplicationRow) => <Link href={`/sis/admin/admissions/${a.id}`} className="text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white transition-colors no-underline">View</Link> },
+    { key: 'id', header: 'Actions', render: (a: ApplicationRow) => <Link href={`/sis/admin/admissions/${a.id}/`} className="text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white transition-colors no-underline">View</Link> },
   ];
 
   if (loading) {
@@ -76,7 +76,7 @@ export default function ApplicationsPage() {
         title="Applications"
         subtitle="Manage student applications"
         actions={
-          <Link href="/sis/admin/admissions/new" className="inline-flex items-center gap-2 px-4 py-2 bg-white text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-neutral-200 transition-colors no-underline">
+          <Link href="/sis/admin/admissions/new/" className="inline-flex items-center gap-2 px-4 py-2 bg-white text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-neutral-200 transition-colors no-underline">
             <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> New Application
           </Link>
         }

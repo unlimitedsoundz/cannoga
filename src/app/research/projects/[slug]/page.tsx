@@ -63,7 +63,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                         </div>
 
                         <div className="pt-8">
-                             <Link href="/research/projects" className="inline-flex items-center gap-2 text-black font-bold uppercase tracking-widest text-xs hover:opacity-50 transition-all group">
+                             <Link href="/research/projects/" className="inline-flex items-center gap-2 text-black font-bold uppercase tracking-widest text-xs hover:opacity-50 transition-all group">
                                 <CaretLeft size={16} weight="bold" className="group-hover:-translate-x-1 transition-transform" /> Back to Projects
                             </Link>
                         </div>
