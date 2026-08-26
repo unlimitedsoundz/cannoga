@@ -90,13 +90,13 @@ export default function AdmissionsHelpCard({
                         <p className="text-sm sm:text-base font-medium text-white/95 leading-relaxed font-sans">
                             {description}
                         </p>
-                        <div className="text-xs sm:text-sm font-bold text-white flex flex-wrap gap-x-2 gap-y-1.5 items-center">
+                        <div className="text-xs sm:text-sm font-bold text-white flex flex-wrap gap-x-3 gap-y-1.5 items-center">
                             {phone && (
                                 <a
                                     href={`tel:${phone.replace(/[^0-9+]/g, '')}`}
-                                    className="text-white hover:text-white/80 transition-colors inline-flex items-center gap-1"
+                                    className="text-white hover:text-white/80 transition-colors underline inline-flex items-center gap-1"
                                 >
-                                    Talk to Admissions: <span className="underline">{phone}</span>
+                                    Talk to Admissions
                                 </a>
                             )}
                             {phone && (whatsapp || email) && <span className="text-white/60">•</span>}
@@ -105,9 +105,9 @@ export default function AdmissionsHelpCard({
                                     href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-white hover:text-white/80 transition-colors inline-flex items-center gap-1"
+                                    className="text-white hover:text-white/80 transition-colors underline inline-flex items-center gap-1"
                                 >
-                                    WhatsApp: <span className="underline">{whatsapp}</span> (WhatsApp only)
+                                    Chat on WhatsApp (WhatsApp only)
                                 </a>
                             )}
                             {whatsapp && email && <span className="text-white/60">•</span>}

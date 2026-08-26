@@ -54,9 +54,9 @@ export default function SupportPage() {
         {
             icon: <Phone className="text-black" size={24} weight="bold" />,
             title: "IT Helpdesk",
-            value: "+358 09 42721884",
+            value: "Call Support Desk",
             desc: "Available for urgent access issues.",
-            link: "tel:+3580942721884"
+            link: "tel:+12272500427"
         },
         {
             icon: <MessageSquare className="text-black" size={24} weight="bold" />,

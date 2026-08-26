@@ -2,7 +2,7 @@
 
 import { Link } from "@aalto-dx/react-components";
 import { usePathname } from 'next/navigation';
-import { SignOut as LogOut, Layout, User, List as Menu, X, House as Home, BookOpen, Buildings as Building2, CreditCard, Calendar } from "@phosphor-icons/react";
+import { SignOut as LogOut, Layout, User, List as Menu, X, House as Home } from "@phosphor-icons/react";
 import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useMemo } from 'react';
@@ -107,11 +107,6 @@ export default function PortalHeader() {
 
     const mobileNavItems = [
         { name: 'Dashboard', href: '/portal/dashboard', icon: Home },
-        ...(studentId ? [
-            { name: 'Courses', href: '/portal/student/courses', icon: BookOpen },
-            { name: 'Timetable', href: '/portal/student/timetable', icon: Calendar },
-            { name: 'Housing', href: '/portal/housing', icon: Building2 },
-        ] : []),
         { name: 'My Profile', href: '/portal/account', icon: User },
     ];
 

@@ -404,7 +404,7 @@ export default function ApplyPage() {
                     className="mt-0.5 h-4 w-4 text-black border border-neutral-200 rounded-lg cursor-pointer"
                   />
                   <label htmlFor="releaseConsent" className="text-[13px] text-black font-medium leading-snug cursor-pointer">
-                    I give my consent to Cannoga University to release application information as requested. <span className="text-red-600">*</span>
+                    I give my consent to Cannoga College to release application information as requested. <span className="text-red-600">*</span>
                   </label>
                 </div>
               </div>
@@ -428,12 +428,12 @@ export default function ApplyPage() {
   return (
     <div className="w-full">
       <Hero
-        title="Welcome to Cannaga Student Portal"
-        body="This platform will help you complete important tasks and access services throughout your academic journey with Cannoga University."
+        title="Welcome to Cannoga Student Portal"
+        body="This platform will help you complete important tasks and access services throughout your academic journey with Cannoga College."
         backgroundColor="#000000"
         tinted
         lightText={true}
-        image={{ src: '/images/international-students-hero.png', alt: 'Cannaga students' }}
+        image={{ src: '/images/international-students-hero.png', alt: 'Cannoga students' }}
         breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Portal' }]}
       />
 

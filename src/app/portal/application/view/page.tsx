@@ -413,16 +413,6 @@ function ViewApplicationContent() {
             ],
             uploadType: 'STATEMENT_OF_PURPOSE',
             submitted: !!application.documents?.some((doc: any) => doc.type?.toUpperCase() === 'STATEMENT_OF_PURPOSE'),
-        },
-        {
-            id: 'FINANCIAL_PROOF',
-            title: 'Financial Proof / Bank Statement',
-            description: [
-                'Financial Support Document:',
-                'Upload proof of financial capability, official bank statement, or sponsorship letter.',
-            ],
-            uploadType: 'FINANCIAL_PROOF',
-            submitted: !!application.documents?.some((doc: any) => doc.type?.toUpperCase() === 'FINANCIAL_PROOF'),
         }
     ];
 

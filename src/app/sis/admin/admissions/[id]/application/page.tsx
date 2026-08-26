@@ -935,7 +935,6 @@ export default function AdmissionApplicationPage() {
                     { id: 'CERTIFICATE', label: 'Degree / Diploma Certificate' },
                     { id: 'LANGUAGE_CERT', label: 'Language Proficiency Test (IELTS/TOEFL)' },
                     { id: 'STATEMENT_OF_PURPOSE', label: 'Statement of Purpose / Essay' },
-                    { id: 'FINANCIAL_PROOF', label: 'Financial Proof / Bank Statement' },
                   ].map(doc => {
                     const isChecked = selectedDocs.includes(doc.id);
                     return (

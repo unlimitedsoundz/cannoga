@@ -70,7 +70,7 @@ export default function AdmissionsContactInfo() {
                                              <div className="mt-1 space-y-1">
                                                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
                                                  <a href="tel:+12272500427" className="text-slate-500 font-bold underline hover:text-slate-700 transition-colors text-sm block">
-                                                     Talk to Admissions: +1 (227) 250-0427
+                                                     Talk to Admissions
                                                  </a>
                                              </div>
                                          </div>
@@ -88,7 +88,7 @@ export default function AdmissionsContactInfo() {
                                                      rel="noopener noreferrer"
                                                      className="text-slate-500 font-bold underline hover:text-slate-700 transition-colors text-sm block"
                                                  >
-                                                     WhatsApp: +1 (782) 206-3309
+                                                     Chat on WhatsApp (Admissions)
                                                  </a>
                                              </div>
                                          </div>

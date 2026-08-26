@@ -115,7 +115,7 @@ export function Footer() {
                                         rel="noopener noreferrer"
                                         className="hover:text-white transition-colors no-underline text-white"
                                     >
-                                        WhatsApp: +1 (782) 206-3309 (WhatsApp only)
+                                        Chat on WhatsApp (WhatsApp only)
                                     </a>
                                 </li>
                             </ul>
