@@ -253,7 +253,12 @@ export default async function CourseDetailPage({ params }: Props) {
         provider: {
             '@type': 'EducationalOrganization',
             name: 'Cannoga College',
-            sameAs: 'https://cannogacollege.ca'
+            url: 'https://cannogacollege.ca',
+            sameAs: [
+                'https://www.linkedin.com/company/cannoga-college/',
+                'https://www.youtube.com/@CannogaCollege',
+                'https://www.tiktok.com/@cannoga_college'
+            ]
         },
         educationalCredentialAwarded: c.degreeLevel,
         hasCourseInstance: {

@@ -59,8 +59,14 @@ export default async function AboutPage() {
                 "url": "https://cannogacollege.ca/about/",
                 "mainEntity": {
                     "@type": "EducationalOrganization",
+                    "name": "Cannoga College",
                     "description": "Cannoga College is a career-focused college located in Ottawa, Ontario, Canada.",
-                    "url": "https://cannogacollege.ca"
+                    "url": "https://cannogacollege.ca",
+                    "sameAs": [
+                        "https://www.linkedin.com/company/cannoga-college/",
+                        "https://www.youtube.com/@CannogaCollege",
+                        "https://www.tiktok.com/@cannoga_college"
+                    ]
                 }
             }} />
 

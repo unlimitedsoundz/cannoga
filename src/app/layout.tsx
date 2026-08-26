@@ -105,7 +105,9 @@ export default function RootLayout({
                                 "name": "Ottawa, Ontario"
                             },
                             "sameAs": [
-                                "https://www.instagram.com/cannogacollege"
+                                "https://www.linkedin.com/company/cannoga-college/",
+                                "https://www.youtube.com/@CannogaCollege",
+                                "https://www.tiktok.com/@cannoga_college"
                             ],
                             "contactPoint": {
                                 "@type": "ContactPoint",

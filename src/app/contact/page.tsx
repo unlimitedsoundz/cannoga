@@ -30,7 +30,13 @@ export default function ContactPage() {
                 "mainEntity": {
                     "@type": "EducationalOrganization",
                     "name": "Cannoga College",
+                    "url": "https://cannogacollege.ca",
                     "email": "Cannoga@cannogacollege.ca",
+                    "sameAs": [
+                        "https://www.linkedin.com/company/cannoga-college/",
+                        "https://www.youtube.com/@CannogaCollege",
+                        "https://www.tiktok.com/@cannoga_college"
+                    ],
                     "address": {
                         "@type": "PostalAddress",
                         "streetAddress": "81 Montreal Rd",
