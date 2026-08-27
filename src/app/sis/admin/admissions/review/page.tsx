@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -160,17 +160,19 @@ export default function AdmissionsReviewPage() {
             </dl>
           </div>
 
-          <div className="bg-white border border-neutral-200 p-6">
+          <div className="bg-white border border-neutral-200 p-4 sm:p-6">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-4">Uploaded Documents</h3>
             <div className="space-y-2">
               {application.documents?.map(doc => (
-                <div key={doc.id} className="flex items-center justify-between p-3 bg-neutral-50 border border-neutral-100">
-                  <div className="flex items-center gap-2">
-                    <HugeiconsIcon icon={FileText} size={14} strokeWidth={2} className="text-slate-400" />
-                    <span className="text-xs font-medium text-neutral-900">{doc.name}</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{doc.type}</span>
+                <div key={doc.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-neutral-50 border border-neutral-100 rounded-lg">
+                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                    <HugeiconsIcon icon={FileText} size={16} strokeWidth={2} className="text-slate-400 shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs font-medium text-neutral-900 truncate" title={doc.name}>{doc.name}</p>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">{doc.type}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3 shrink-0 self-end sm:self-auto pl-6 sm:pl-0">
                     <button className="text-xs font-bold uppercase tracking-wider text-[#0a151a] hover:underline">View</button>
                     <button className="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-neutral-600">Download</button>
                   </div>

@@ -40,11 +40,11 @@ export function DocumentTable({ documents, onView, onDownload, pagination }: Doc
       key: 'name',
       header: 'Document',
       render: (doc: Document) => (
-        <div className="flex items-center gap-3">
-          <HugeiconsIcon icon={FileText} size={18} strokeWidth={2} className="text-neutral-400" />
-          <div>
-            <div className="font-medium text-neutral-900">{doc.name}</div>
-            <div className="text-xs text-neutral-500">{doc.type.toUpperCase()} • {doc.size}</div>
+        <div className="flex items-center gap-3 min-w-0 max-w-full">
+          <HugeiconsIcon icon={FileText} size={18} strokeWidth={2} className="text-neutral-400 shrink-0" />
+          <div className="min-w-0 flex-1">
+            <div className="font-medium text-neutral-900 truncate" title={doc.name}>{doc.name}</div>
+            <div className="text-xs text-neutral-500 truncate">{doc.type.toUpperCase()} • {doc.size}</div>
           </div>
         </div>
       ),

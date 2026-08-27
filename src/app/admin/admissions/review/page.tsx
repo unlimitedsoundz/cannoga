@@ -221,17 +221,17 @@ function ApplicationReviewContent() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {app.documents?.length > 0 ? (
                                 app.documents.map((doc: any) => (
-                                    <div key={doc.id} className="flex items-center justify-between p-4 bg-neutral-50 rounded-2xl border border-neutral-100 group hover:border-[#0a151a] transition-all">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm border border-neutral-100 group-hover:bg-neutral-900 group-hover:text-white transition-colors">
+                                    <div key={doc.id} className="flex items-center justify-between p-4 bg-neutral-50 rounded-2xl border border-neutral-100 group hover:border-[#0a151a] transition-all gap-3 min-w-0">
+                                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                                            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm border border-neutral-100 group-hover:bg-neutral-900 group-hover:text-white transition-colors shrink-0">
                                                 <FileText size={18} weight="regular" />
                                             </div>
-                                            <div>
+                                            <div className="min-w-0 flex-1">
                                                 <div className="text-[10px] font-black uppercase tracking-tight">{doc.type.replace('_', ' ')}</div>
-                                                <div className="text-[10px] font-bold text-neutral-400 truncate max-w-[150px]">{doc.name}</div>
+                                                <div className="text-[10px] font-bold text-neutral-400 truncate" title={doc.name}>{doc.name}</div>
                                             </div>
                                         </div>
-                                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-[#0a151a] hover:text-white rounded-lg transition-all">
+                                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-[#0a151a] hover:text-white rounded-lg transition-all shrink-0">
                                             <Download size={16} weight="bold" />
                                         </a>
                                     </div>

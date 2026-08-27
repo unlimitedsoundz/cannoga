@@ -879,8 +879,8 @@ function ViewApplicationContent() {
                                                 {selectedDocs.map((doc: any) => (
                                                     <div key={doc.id} className="rounded-xl border border-neutral-200 p-3">
                                                         <div className="flex items-start justify-between gap-3">
-                                                            <div>
-                                                                <p className="text-sm font-bold text-black">{doc.name || doc.filename || 'Uploaded document'}</p>
+                                                            <div className="min-w-0 flex-1">
+                                                                <p className="text-sm font-bold text-black truncate" title={doc.name || doc.filename || 'Uploaded document'}>{doc.name || doc.filename || 'Uploaded document'}</p>
                                                                 <a href={doc.url} target="_blank" rel="noreferrer" className="mt-1 inline-flex items-center gap-2 text-xs text-[#1d4ed8] hover:underline">
                                                                     View document
                                                                 </a>
@@ -889,7 +889,7 @@ function ViewApplicationContent() {
                                                                 type="button"
                                                                 onClick={() => handleDelete(doc)}
                                                                 disabled={deletingDocId === doc.id}
-                                                                className="inline-flex items-center gap-1 rounded-full border border-neutral-200 px-2 py-1 text-[10px] font-bold text-neutral-600 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-60"
+                                                                className="inline-flex items-center gap-1 rounded-full border border-neutral-200 px-2 py-1 text-[10px] font-bold text-neutral-600 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-60 shrink-0"
                                                             >
                                                                 <Trash size={12} />
                                                                 {deletingDocId === doc.id ? 'Deleting...' : 'Delete'}

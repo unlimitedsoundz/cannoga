@@ -138,17 +138,19 @@ export default function StudentDocumentsPage() {
         ) : (
           <div className="divide-y divide-neutral-200">
             {documents.map((doc) => (
-              <div key={doc.id} className="flex items-center justify-between p-4 hover:bg-neutral-50 transition-colors">
-                <div className="flex items-center gap-3">
-                  <HugeiconsIcon icon={FileText} size={18} strokeWidth={2} className="text-slate-400" />
-                  <div>
-                    <p className="text-sm font-medium text-neutral-900">{documentTypeLabels[doc.document_type] || doc.title}</p>
+              <div key={doc.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 hover:bg-neutral-50 transition-colors">
+                <div className="flex items-center gap-3 min-w-0 flex-1">
+                  <HugeiconsIcon icon={FileText} size={18} strokeWidth={2} className="text-slate-400 shrink-0" />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium text-neutral-900 truncate" title={documentTypeLabels[doc.document_type] || doc.title}>
+                      {documentTypeLabels[doc.document_type] || doc.title}
+                    </p>
                     <p className="text-xs text-neutral-500">
                       {doc.issue_date ? `Issued: ${new Date(doc.issue_date).toLocaleDateString('en-CA')}` : `Uploaded: ${new Date(doc.created_at).toLocaleDateString('en-CA')}`}
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
                   <StatusBadge status={doc.status} />
                   {getDocumentUrl(doc) !== '#' && (
                     <>

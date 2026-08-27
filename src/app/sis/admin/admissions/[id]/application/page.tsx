@@ -631,8 +631,8 @@ export default function AdmissionApplicationPage() {
           </div>
 
           {/* Documents */}
-          <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl" id="documents">
-            <div className="flex items-center justify-between mb-4">
+          <div className="bg-[#0f2027] border border-white/10 p-4 sm:p-6 rounded-2xl" id="documents">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">Uploaded Documents</h3>
               <button
                 onClick={() => setShowDocsModal(true)}
@@ -645,13 +645,21 @@ export default function AdmissionApplicationPage() {
             {documents.length > 0 ? (
               <div className="space-y-2">
                 {documents.map(doc => (
-                  <div key={doc.id} className="flex items-center justify-between p-3 bg-white/5 border border-white/10 rounded-xl">
-                    <div className="flex items-center gap-2">
-                      <HugeiconsIcon icon={FileText} size={14} strokeWidth={2} className="text-slate-400" />
-                      <span className="text-xs font-medium text-white">{doc?.name}</span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{doc?.type}</span>
+                  <div key={doc.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-white/5 border border-white/10 rounded-xl">
+                    <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                      <div className="p-2 rounded-lg bg-white/5 border border-white/10 text-slate-400 shrink-0">
+                        <HugeiconsIcon icon={FileText} size={16} strokeWidth={2} />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs font-medium text-white truncate" title={doc?.name}>
+                          {doc?.name}
+                        </p>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mt-0.5">
+                          {doc?.type}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 shrink-0 self-end sm:self-auto pl-10 sm:pl-0">
                       <a href={doc?.url} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-wider text-sky-400 hover:text-sky-300 hover:underline">View</a>
                       <a href={doc?.url} download className="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white">Download</a>
                     </div>

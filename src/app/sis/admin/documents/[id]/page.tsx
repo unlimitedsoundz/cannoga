@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -224,7 +224,7 @@ export default function AdminDocumentDetailPage() {
             </div>
 
             <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-sm">
-                <div className="p-4 border-b border-white/5 flex items-center justify-between">
+                <div className="p-4 border-b border-white/5 flex flex-wrap items-center justify-between gap-2">
                     <div>
                         <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Uploaded Documents</h3>
                         <p className="text-xs text-neutral-500 mt-0.5">{allDocuments.length} document(s) for this application</p>
@@ -233,13 +233,13 @@ export default function AdminDocumentDetailPage() {
                 <div className="p-4 space-y-2 bg-black/20">
                     {allDocuments.length > 0 ? (
                         allDocuments.map((doc) => (
-                            <div key={doc.id} className="p-4 bg-neutral-800 rounded-xl flex items-center justify-between hover:bg-neutral-800/80 transition-colors">
-                                <div className="flex items-center gap-3">
-                                    <div className="p-2.5 bg-neutral-900 text-purple-400 rounded-xl">
+                            <div key={doc.id} className="p-4 bg-neutral-800 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-neutral-800/80 transition-colors">
+                                <div className="flex items-center gap-3 min-w-0 flex-1">
+                                    <div className="p-2.5 bg-neutral-900 text-purple-400 rounded-xl shrink-0">
                                         <HugeiconsIcon icon={FileText} size={18} strokeWidth={2} />
                                     </div>
-                                    <div>
-                                        <p className="text-xs font-bold text-white">{doc.name}</p>
+                                    <div className="min-w-0 flex-1">
+                                        <p className="text-xs font-bold text-white truncate" title={doc.name}>{doc.name}</p>
                                         <p className="text-[10px] text-slate-400 font-mono mt-0.5">{getDocumentTypeLabel(doc.type)}</p>
                                     </div>
                                 </div>
@@ -247,7 +247,7 @@ export default function AdminDocumentDetailPage() {
                                     href={doc.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors no-underline"
+                                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-[#0a151a] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-purple-700 transition-colors no-underline shrink-0 self-end sm:self-auto"
                                 >
                                     <HugeiconsIcon icon={Download} size={12} strokeWidth={2.5} />
                                     View
