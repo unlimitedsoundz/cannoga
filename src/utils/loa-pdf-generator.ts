@@ -82,7 +82,7 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
   const address = addressParts.join(', ') || 'Address Pending';
 
   const degreeLevelRaw = (course.degreeLevel || '').toUpperCase();
-  const credential = degreeLevelRaw === 'MASTER' ? "Master's Degree"
+  const credential = (degreeLevelRaw === 'MASTER' || degreeLevelRaw === 'ADVANCED_DIPLOMA') ? "Ontario College Advanced Diploma"
     : degreeLevelRaw === 'BACHELOR' ? "Bachelor's Degree"
     : degreeLevelRaw === 'DIPLOMA' ? 'Ontario College Diploma'
     : degreeLevelRaw === 'CERTIFICATE' ? 'Ontario College Certificate'
@@ -162,8 +162,8 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
         return completion.toLocaleDateString('en-CA');
       })(),
       credential: credential,
-      level: degreeLevelRaw === 'MASTER' ? 'Level 7' : degreeLevelRaw === 'BACHELOR' ? 'Level 6' : 'Level 5',
-      hoursPerWeek: degreeLevelRaw === 'MASTER' ? '1,800' : degreeLevelRaw === 'BACHELOR' ? '2,400' : '1,200',
+      level: (degreeLevelRaw === 'MASTER' || degreeLevelRaw === 'ADVANCED_DIPLOMA') ? 'Level 6' : degreeLevelRaw === 'BACHELOR' ? 'Level 6' : 'Level 5',
+      hoursPerWeek: (degreeLevelRaw === 'MASTER' || degreeLevelRaw === 'ADVANCED_DIPLOMA') ? '2,400' : degreeLevelRaw === 'BACHELOR' ? '2,400' : '1,200',
       exchangeProgram: 'No',
       internship: 'Available',
       financialAid: '-',

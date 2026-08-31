@@ -257,7 +257,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                             <option value="">Select a Program...</option>
                             {courses.map(course => (
                                 <option key={course.id} value={course.id}>
-                                    {course.title} ({course.degreeLevel === 'MASTER' ? "Master's Degree" : course.degreeLevel === 'BACHELOR' ? "Bachelor's Degree" : course.degreeLevel === 'DIPLOMA' ? 'Ontario College Diploma' : 'Canadian Certificate'})
+                                    {course.title} ({course.degreeLevel === 'MASTER' || course.degreeLevel === 'ADVANCED_DIPLOMA' ? 'Ontario College Advanced Diploma' : course.degreeLevel === 'BACHELOR' ? "Bachelor's Degree" : course.degreeLevel === 'DIPLOMA' ? 'Ontario College Diploma' : 'Canadian Certificate'})
                                 </option>
                             ))}
                         </select>
@@ -303,7 +303,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                                 <span>• On Campus</span>
                                 <span>• {submittedData.years} {submittedData.years === 1 ? 'Year' : 'Years'}</span>
                                 <span className="text-[#000000]">
-                                    {submittedData.course.degreeLevel === 'MASTER' ? "Master's Degree" : submittedData.course.degreeLevel === 'BACHELOR' ? "Bachelor's Degree" : submittedData.course.degreeLevel === 'DIPLOMA' ? 'Ontario College Diploma' : 'Canadian Certificate'}
+                                    {submittedData.course.degreeLevel === 'MASTER' || submittedData.course.degreeLevel === 'ADVANCED_DIPLOMA' ? 'Ontario College Advanced Diploma' : submittedData.course.degreeLevel === 'BACHELOR' ? "Bachelor's Degree" : submittedData.course.degreeLevel === 'DIPLOMA' ? 'Ontario College Diploma' : 'Canadian Certificate'}
                                 </span>
                             </div>
                             <div className="mt-3 text-xs font-bold text-[#000000]">

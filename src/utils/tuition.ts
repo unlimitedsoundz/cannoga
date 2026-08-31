@@ -6,24 +6,28 @@ export type TuitionField = 'BUSINESS' | 'ARTS' | 'TECHNOLOGY' | 'SCIENCE';
 export const DOMESTIC_TUITION = {
     CERTIFICATE_DIPLOMA: 2400,
     BACHELOR: 4000,
+    ADVANCED_DIPLOMA: 5600,
     MASTER: 5600
 };
 
 export const INTERNATIONAL_TUITION = {
     CERTIFICATE_DIPLOMA: 4000,
     BACHELOR: 6400,
+    ADVANCED_DIPLOMA: 9600,
     MASTER: 9600
 };
 
 export const DOMESTIC_DEPOSIT = {
     CERTIFICATE_DIPLOMA: 2000,
     BACHELOR: 2000,
+    ADVANCED_DIPLOMA: 2000,
     MASTER: 2000
 };
 
 export const INTERNATIONAL_DEPOSIT = {
     CERTIFICATE_DIPLOMA: 2000,
     BACHELOR: 2000,
+    ADVANCED_DIPLOMA: 2000,
     MASTER: 2000
 };
 
@@ -55,7 +59,7 @@ export function isWithinEarlyPaymentWindow(offerCreatedAt: string): boolean {
 
 function getCredentialType(level: string): string {
     const lvl = (level || '').toUpperCase();
-    if (lvl.includes('MASTER') || lvl.includes('MSC')) return 'MASTER';
+    if (lvl.includes('ADVANCED') || lvl.includes('MASTER') || lvl.includes('MSC')) return 'MASTER';
     if (lvl.includes('BACHELOR') || lvl.includes('BSC')) return 'BACHELOR';
     if (lvl.includes('DIPLOMA')) return 'DIPLOMA';
     if (lvl.includes('CERTIFICATE')) return 'CERTIFICATE';
@@ -73,13 +77,13 @@ function extractAnnualFee(jsonb: any, fallback: number): number {
 
 export function getTuitionFeeSync(level: string, field?: string, isDomestic: boolean = false): number {
     const lvl = (level || '').toUpperCase();
-    if (lvl.includes('CERTIFICATE') || lvl.includes('DIPLOMA')) {
+    if (lvl.includes('CERTIFICATE') || (lvl.includes('DIPLOMA') && !lvl.includes('ADVANCED'))) {
         return isDomestic ? DOMESTIC_TUITION.CERTIFICATE_DIPLOMA : INTERNATIONAL_TUITION.CERTIFICATE_DIPLOMA;
     }
     if (lvl.includes('BACHELOR') || lvl.includes('BSC')) {
         return isDomestic ? DOMESTIC_TUITION.BACHELOR : INTERNATIONAL_TUITION.BACHELOR;
     }
-    if (lvl.includes('MASTER') || lvl.includes('MSC')) {
+    if (lvl.includes('ADVANCED') || lvl.includes('MASTER') || lvl.includes('MSC')) {
         return isDomestic ? DOMESTIC_TUITION.MASTER : INTERNATIONAL_TUITION.MASTER;
     }
     return isDomestic ? DOMESTIC_TUITION.BACHELOR : INTERNATIONAL_TUITION.BACHELOR;
@@ -113,13 +117,13 @@ export async function getTuitionFee(level: string, field?: string, isDomestic: b
     }
 
     const lvl = (level || '').toUpperCase();
-    if (lvl.includes('CERTIFICATE') || lvl.includes('DIPLOMA')) {
+    if (lvl.includes('CERTIFICATE') || (lvl.includes('DIPLOMA') && !lvl.includes('ADVANCED'))) {
         return isDomestic ? DOMESTIC_TUITION.CERTIFICATE_DIPLOMA : INTERNATIONAL_TUITION.CERTIFICATE_DIPLOMA;
     }
     if (lvl.includes('BACHELOR') || lvl.includes('BSC')) {
         return isDomestic ? DOMESTIC_TUITION.BACHELOR : INTERNATIONAL_TUITION.BACHELOR;
     }
-    if (lvl.includes('MASTER') || lvl.includes('MSC')) {
+    if (lvl.includes('ADVANCED') || lvl.includes('MASTER') || lvl.includes('MSC')) {
         return isDomestic ? DOMESTIC_TUITION.MASTER : INTERNATIONAL_TUITION.MASTER;
     }
     return isDomestic ? DOMESTIC_TUITION.BACHELOR : INTERNATIONAL_TUITION.BACHELOR;
@@ -145,7 +149,7 @@ export function calculateFullProgramDiscountedFee(annualFee: number, years: numb
  */
 export function getProgramYears(duration: string, level?: string): number {
     const lvl = (level || '').toUpperCase();
-    if (lvl.includes('MASTER') || lvl.includes('MSC')) return 2;
+    if (lvl.includes('ADVANCED') || lvl.includes('MASTER') || lvl.includes('MSC')) return 3;
     if (lvl.includes('BACHELOR') || lvl.includes('BSC')) return 4;
     if (lvl.includes('DIPLOMA')) return 2;
     if (lvl.includes('CERTIFICATE')) return 1;
@@ -156,7 +160,7 @@ export function getProgramYears(duration: string, level?: string): number {
     if (dur.includes('3 year') || dur.includes('3-year')) return 3;
     if (dur.includes('4 year') || dur.includes('4-year')) return 4;
 
-    return 1; // Default fallback for certificates
+    return 3; // Default fallback for advanced diploma
 }
 
 /**

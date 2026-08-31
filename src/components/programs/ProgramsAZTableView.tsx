@@ -23,7 +23,7 @@ export interface ProgramItem {
     id: string;
     code?: string;
     name: string;
-    level: 'Certificate' | 'Diploma' | 'Advanced Diploma' | 'Bachelor' | 'Master';
+    level: 'Certificate' | 'Diploma' | 'Advanced Diploma' | 'Bachelor';
     school: string;
     duration: string;
     credits: number;
@@ -125,7 +125,9 @@ const programsData: ProgramItem[] = [
     {
         id: 'mba',
         name: 'Business Administration & Executive Leadership (MBA)',
-        level: 'Master',
+        level: 'Advanced Diploma',
+        duration: '3 Years',
+        credits: 90,
         school: 'School of Business',
         duration: '2 Years',
         credits: 60,
@@ -133,7 +135,7 @@ const programsData: ProgramItem[] = [
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
         tuitionInternational: '$6,000/yr',
-        href: '/admissions/master',
+        href: '/admissions',
         description: 'Strategic management, corporate finance, global supply chain leadership, and capstone consulting projects.'
     },
     {
@@ -153,7 +155,9 @@ const programsData: ProgramItem[] = [
     {
         id: 'cs-se',
         name: 'Computer Science & Software Engineering',
-        level: 'Master',
+        level: 'Advanced Diploma',
+        duration: '3 Years',
+        credits: 90,
         school: 'School of Technology',
         duration: '2 Years',
         credits: 60,
@@ -161,7 +165,7 @@ const programsData: ProgramItem[] = [
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
         tuitionInternational: '$6,000/yr',
-        href: '/admissions/master',
+        href: '/admissions',
         description: 'Distributed systems, cloud computing infrastructure, algorithm optimization, and software architecture thesis.'
     },
     {
@@ -237,7 +241,9 @@ const programsData: ProgramItem[] = [
     {
         id: 'health-admin',
         name: 'Health Care Administration & Clinical Management',
-        level: 'Master',
+        level: 'Advanced Diploma',
+        duration: '3 Years',
+        credits: 90,
         school: 'School of Health & Life Sciences',
         duration: '2 Years',
         credits: 60,
@@ -245,7 +251,7 @@ const programsData: ProgramItem[] = [
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
         tuitionInternational: '$6,000/yr',
-        href: '/admissions/master',
+        href: '/admissions',
         description: 'Healthcare economics, hospital operations, public health policy, biostatistics, and medical informatics leadership.'
     },
     {
@@ -293,7 +299,9 @@ const programsData: ProgramItem[] = [
     {
         id: 'public-policy',
         name: 'Public Policy, Governance & International Affairs',
-        level: 'Master',
+        level: 'Advanced Diploma',
+        duration: '3 Years',
+        credits: 90,
         school: 'School of Education & Social Sciences',
         duration: '2 Years',
         credits: 60,
@@ -301,7 +309,7 @@ const programsData: ProgramItem[] = [
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
         tuitionInternational: '$6,000/yr',
-        href: '/admissions/master',
+        href: '/admissions',
         description: 'Canadian governance structures, international diplomacy, policy analysis, economic evaluation, and legislative studies.'
     },
     {
@@ -363,7 +371,9 @@ const programsData: ProgramItem[] = [
     {
         id: 'data-sci',
         name: 'Data Science & Big Analytics',
-        level: 'Master',
+        level: 'Advanced Diploma',
+        duration: '3 Years',
+        credits: 90,
         school: 'School of Technology',
         duration: '2 Years',
         credits: 60,
@@ -371,7 +381,7 @@ const programsData: ProgramItem[] = [
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
         tuitionInternational: '$6,000/yr',
-        href: '/admissions/master',
+        href: '/admissions',
         description: 'Python data science stack, Hadoop Spark distributed clusters, deep learning models, and quantitative research methods.'
     },
     {
@@ -447,7 +457,9 @@ const programsData: ProgramItem[] = [
     {
         id: 'optics-phot',
         name: 'Optoelectronics & Photonics Engineering',
-        level: 'Master',
+        level: 'Advanced Diploma',
+        duration: '3 Years',
+        credits: 90,
         school: 'School of Technology',
         duration: '2 Years',
         credits: 60,
@@ -455,7 +467,7 @@ const programsData: ProgramItem[] = [
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
         tuitionInternational: '$6,000/yr',
-        href: '/admissions/master',
+        href: '/admissions',
         description: 'Laser physics, fiber optic telecom networks, optical sensor systems, and semiconductor fabrication research.'
     },
     {
@@ -475,7 +487,9 @@ const programsData: ProgramItem[] = [
     {
         id: 'urban-plan',
         name: 'Urban Planning & Smart City Development',
-        level: 'Master',
+        level: 'Advanced Diploma',
+        duration: '3 Years',
+        credits: 90,
         school: 'School of Science',
         duration: '2 Years',
         credits: 60,
@@ -483,7 +497,7 @@ const programsData: ProgramItem[] = [
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
         tuitionInternational: '$6,000/yr',
-        href: '/admissions/master',
+        href: '/admissions',
         description: 'Geographic Information Systems (GIS), municipal zoning policy, transit-oriented development, and sustainable urban design.'
     },
     {
@@ -507,8 +521,8 @@ export function ProgramsAZTableView() {
         programsData.map((p, idx) => {
             const schSlug = getSchoolSlug(p.school);
             const deptSlug = getDeptSlug(p.name, p.school);
-            const domesticTuition = p.level === 'Master' ? '$5,600/yr' : p.level === 'Bachelor' ? '$4,000/yr' : '$2,400/yr';
-            const intlTuition = p.level === 'Master' ? '$9,600/yr' : p.level === 'Bachelor' ? '$6,400/yr' : '$4,000/yr';
+            const domesticTuition = p.level === 'Advanced Diploma' ? '$5,600/yr' : p.level === 'Bachelor' ? '$4,000/yr' : '$2,400/yr';
+            const intlTuition = p.level === 'Advanced Diploma' ? '$9,600/yr' : p.level === 'Bachelor' ? '$6,400/yr' : '$4,000/yr';
             return {
                 ...p,
                 code: `CAN-${100 + idx * 5}`,
@@ -526,7 +540,7 @@ export function ProgramsAZTableView() {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
-    const levels = ['All', 'Certificate', 'Diploma', 'Advanced Diploma', 'Bachelor', 'Master'];
+    const levels = ['All', 'Certificate', 'Diploma', 'Advanced Diploma', 'Bachelor'];
 
     // Fetch dynamic programs from Supabase Course table
     useEffect(() => {
@@ -543,14 +557,14 @@ export function ProgramsAZTableView() {
                         const schoolName = item.School?.name || 'School of Academic Studies';
                         const levelFormatted = item.degreeLevel ? (
                             item.degreeLevel === 'BACHELOR' ? 'Bachelor' :
-                            item.degreeLevel === 'MASTER' ? 'Master' :
+                            (item.degreeLevel === 'MASTER' || item.degreeLevel === 'ADVANCED_DIPLOMA') ? 'Advanced Diploma' :
                             item.degreeLevel === 'CERTIFICATE' ? 'Certificate' : 'Diploma'
                         ) : 'Diploma';
 
-                        const domesticTuition = levelFormatted === 'Master' ? '$5,600/yr' : levelFormatted === 'Bachelor' ? '$4,000/yr' : '$2,400/yr';
-                        const intlTuition = levelFormatted === 'Master' ? '$9,600/yr' : levelFormatted === 'Bachelor' ? '$6,400/yr' : '$4,000/yr';
+                        const domesticTuition = levelFormatted === 'Advanced Diploma' ? '$5,600/yr' : levelFormatted === 'Bachelor' ? '$4,000/yr' : '$2,400/yr';
+                        const intlTuition = levelFormatted === 'Advanced Diploma' ? '$9,600/yr' : levelFormatted === 'Bachelor' ? '$6,400/yr' : '$4,000/yr';
 
-                        const isPgwpEligible = levelFormatted === 'Master' || levelFormatted === 'Bachelor' || levelFormatted === 'Diploma';
+                        const isPgwpEligible = levelFormatted === 'Advanced Diploma' || levelFormatted === 'Bachelor' || levelFormatted === 'Diploma';
 
                         return {
                             id: item.id,
@@ -559,7 +573,7 @@ export function ProgramsAZTableView() {
                             level: levelFormatted as any,
                             school: schoolName,
                             duration: item.duration || '2 Years',
-                            credits: Number(item.credits) || (levelFormatted === 'Bachelor' ? 120 : levelFormatted === 'Master' ? 60 : 60),
+                            credits: Number(item.credits) || (levelFormatted === 'Bachelor' ? 120 : levelFormatted === 'Advanced Diploma' ? 90 : 60),
                             coop: true,
                             pgwp: isPgwpEligible,
                             tuitionDomestic: domesticTuition,

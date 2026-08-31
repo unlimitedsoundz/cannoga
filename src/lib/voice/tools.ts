@@ -79,7 +79,7 @@ export const voiceTools: ToolDefinition[] = [
       properties: {
         program_id: { type: 'string', description: 'Optional program/course ID.' },
         school_id: { type: 'string', description: 'Optional school ID to filter programs.' },
-        credential_type: { type: 'string', description: 'Optional credential type (e.g., Bachelor, Master, Diploma, Certificate).' },
+        credential_type: { type: 'string', description: 'Optional credential type (e.g., Bachelor, Advanced Diploma, Diploma, Certificate).' },
         query: { type: 'string', description: 'Optional keyword search across program titles and descriptions.' },
       },
       required: [],
@@ -738,7 +738,7 @@ export const voiceTools: ToolDefinition[] = [
             {
               id: 'general-info',
               question: 'General Admissions Assistance',
-              answer: "Thank you for asking! Cannoga College offers bachelor's degrees, master's degrees, and diplomas in computer science, business, health sciences, and engineering. You can submit your application online or ask me about specific program requirements, tuition fees, or intake deadlines.",
+              answer: "Thank you for asking! Cannoga College offers bachelor's degrees, 3-year advanced diplomas, diplomas, and certificates in computer science, business, health sciences, and engineering. You can submit your application online or ask me about specific program requirements, tuition fees, or intake deadlines.",
               priority: 10,
             },
           ],

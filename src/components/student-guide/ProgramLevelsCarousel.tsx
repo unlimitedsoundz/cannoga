@@ -25,7 +25,7 @@ const PROGRAM_LEVELS: ProgramLevelItem[] = [
     {
         id: 'diplomas',
         title: 'DIPLOMA PROGRAMS',
-        description: 'Comprehensive 2-year and 3-year programs combining theory with practical skills.',
+        description: 'Comprehensive 2-year programs combining theory with practical skills.',
         href: '/degree-programmes#diplomas',
         bgColor: 'bg-[#ec4899]', // Vibrant Hot Pink
         borderColor: 'border-[#ec4899]',
@@ -40,8 +40,8 @@ const PROGRAM_LEVELS: ProgramLevelItem[] = [
     },
     {
         id: 'master',
-        title: "MASTER'S DEGREE",
-        description: 'Advanced studies focusing on specialized expertise and research-oriented development.',
+        title: "ADVANCED DIPLOMA",
+        description: 'Comprehensive 3-year advanced studies focusing on specialized technical expertise and applied practicums.',
         href: '/admissions/master',
         bgColor: 'bg-[#f97316]', // Vibrant Orange
         borderColor: 'border-[#f97316]',

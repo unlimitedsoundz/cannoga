@@ -27,7 +27,7 @@ const refundPolicies = [
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>Applies across all Bachelor&apos;s, Master&apos;s, Diploma, and Postgraduate Certificate streams.</span>
+                        <span>Applies across all Bachelor&apos;s, Advanced Diploma, Diploma, and Postgraduate Certificate streams.</span>
                     </li>
                 </ul>
             </div>

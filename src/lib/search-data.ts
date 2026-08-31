@@ -13,7 +13,7 @@ export const searchablePages: SearchablePage[] = [
     { title: "Diploma Programs", href: "/degree-programmes#diplomas", category: "Study & Admissions" },
     { title: "Advanced Diploma Programs", href: "/degree-programmes#advanced-diplomas", category: "Study & Admissions" },
     { title: "Bachelor's Programmes", href: "/admissions/bachelor", category: "Study & Admissions" },
-    { title: "Master's Programmes", href: "/admissions/master", category: "Study & Admissions" },
+    { title: "Advanced Diploma Programmes", href: "/admissions/master", category: "Study & Admissions" },
     { title: "Tuition Fees & Scholarships", href: "/admissions/tuition", category: "Study & Admissions" },
     { title: "Application Process", href: "/admissions/application-process", category: "Study & Admissions" },
     { title: "Requirements", href: "/admissions/requirements", category: "Study & Admissions" },
@@ -50,7 +50,7 @@ export const searchablePages: SearchablePage[] = [
 
     // Student Life & Guides
     { title: "Bachelor's Student Guide", href: "/student-guide/bachelor", category: "Student Life & Guides" },
-    { title: "Master's Student Guide", href: "/student-guide/master", category: "Student Life & Guides" },
+    { title: "Advanced Diploma Student Guide", href: "/student-guide/master", category: "Student Life & Guides" },
     { title: "Diploma Students Guide", href: "/student-guide/diploma", category: "Student Life & Guides" },
     { title: "Certificate Students Guide", href: "/student-guide/certificate", category: "Student Life & Guides" },
     { title: "International Student Guide", href: "/student-guide/international", category: "Student Life & Guides" },

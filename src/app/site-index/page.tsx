@@ -98,7 +98,7 @@ const masterDirectory = [
         links: [
             { name: 'Admissions Landing Hub', href: '/admissions' },
             { name: 'Bachelor\'s Degree Admissions', href: '/admissions/bachelor' },
-            { name: 'Master\'s Degree Admissions', href: '/admissions/master' },
+            { name: 'Advanced Diploma Admissions', href: '/admissions/master' },
             { name: 'Application Process & Timelines', href: '/admissions/application-process' },
             { name: 'Country Entry Requirements', href: '/admissions/requirements' },
             { name: 'Tuition Fees & Scholarships', href: '/admissions/tuition' },
@@ -117,7 +117,7 @@ const masterDirectory = [
             { name: 'Exchange & Visiting Students', href: '/student-guide/exchange' },
             { name: 'Ottawa Arrival & Orientation', href: '/student-guide/arrival' },
             { name: 'Bachelor\'s Student Handbook Guide', href: '/student-guide/bachelor' },
-            { name: 'Master\'s Student Handbook Guide', href: '/student-guide/master' },
+            { name: 'Advanced Diploma Student Handbook Guide', href: '/student-guide/master' },
             { name: 'Student Housing & Accommodations Guide', href: '/housing/' },
             { name: 'Chat with Ambassadors & Students', href: '/student-guide/chat-with-cannoga-students' },
         ],

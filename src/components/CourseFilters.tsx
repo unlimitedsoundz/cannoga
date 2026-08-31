@@ -31,7 +31,7 @@ export default function CourseFilters() {
                     {[
                         { label: 'All', value: 'all' },
                         { label: 'Bachelor', value: 'BACHELOR' },
-                        { label: 'Master', value: 'MASTER' },
+                        { label: 'Advanced Diploma', value: 'MASTER' },
                     ].map((opt) => (
                         <button
                             key={opt.value}

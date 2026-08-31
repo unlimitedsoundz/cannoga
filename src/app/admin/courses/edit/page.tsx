@@ -121,8 +121,10 @@ function CourseEditorContent() {
                                 defaultValue={course?.degreeLevel || 'BACHELOR'}
                                 className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl outline-none font-bold text-sm"
                             >
-                                <option value="BACHELOR">Bachelor's Degree</option>
-                                <option value="MASTER">Master's Degree</option>
+                                <option value="CERTIFICATE">Certificate (1 Year)</option>
+                                <option value="DIPLOMA">Diploma (2 Years)</option>
+                                <option value="MASTER">Advanced Diploma (3 Years)</option>
+                                <option value="BACHELOR">Bachelor's Degree (4 Years)</option>
                             </select>
                         </div>
 

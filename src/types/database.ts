@@ -2307,7 +2307,7 @@ export type Course = {
   id: string;
   title: string;
   slug: string;
-  degreeLevel: 'CERTIFICATE' | 'DIPLOMA' | 'BACHELOR' | 'MASTER';
+  degreeLevel: 'CERTIFICATE' | 'DIPLOMA' | 'ADVANCED_DIPLOMA' | 'BACHELOR' | 'MASTER';
   degreeType?: string;
   duration: string;
   credits?: number;
@@ -2351,7 +2351,7 @@ export type Faculty = {
   updatedAt: string;
 }
 
-export type DegreeLevel = 'BACHELOR' | 'MASTER';
+export type DegreeLevel = 'BACHELOR' | 'MASTER' | 'ADVANCED_DIPLOMA' | 'DIPLOMA' | 'CERTIFICATE';
 
 export type ApplicationStatus = 'DRAFT' | 'SUBMITTED' | 'UNDER_REVIEW' | 'REJECTED' | 'DOCS_REQUIRED' | 'ADMITTED' | 'OFFER_ACCEPTED' | 'PAYMENT_SUBMITTED' | 'ENROLLED';
 

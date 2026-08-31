@@ -26,8 +26,8 @@ const ACADEMIC_ADMISSIONS_LINKS: AcademicAdmissionsLinkItem[] = [
     },
     {
         id: 'master',
-        title: "MASTER'S ADMISSIONS",
-        description: 'Find information on graduate programs, research specializations, and professional degree applications.',
+        title: "ADVANCED DIPLOMA ADMISSIONS",
+        description: 'Explore 3-year Advanced Diploma programmes, technical specializations, and professional practicums.',
         href: '/student-guide/master',
         bgColor: 'bg-[#ec4899]', // Vibrant Hot Pink
         borderColor: 'border-[#ec4899]',
@@ -36,7 +36,7 @@ const ACADEMIC_ADMISSIONS_LINKS: AcademicAdmissionsLinkItem[] = [
     {
         id: 'diploma',
         title: 'DIPLOMA ADMISSIONS',
-        description: 'Explore 2-year Diploma and 3-year Advanced Diploma career pathways, practicums, and requirements.',
+        description: 'Explore 2-year Diploma career pathways, practicums, and requirements.',
         href: '/student-guide/diploma',
         bgColor: 'bg-[#10b981]', // Electric Emerald
         borderColor: 'border-[#10b981]',

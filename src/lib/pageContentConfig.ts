@@ -17,7 +17,7 @@ export const pageContentPages: PageContentPage[] = [
     },
     {
         slug: 'admissions/master',
-        name: 'Master Admissions',
+        name: 'Advanced Diploma Admissions',
     },
     {
         slug: 'admissions/tuition',
@@ -118,9 +118,9 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions-bachelor',
         sectionKey: 'progression_content',
         label: 'Progression Section',
-        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-4">Completing a Bachelor’s degree at Cannoga opens seamless progression paths into Master’s programmes, specialised tracks, and international partner universities.</p>
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-4">Completing a Bachelor’s degree at Cannoga opens seamless progression paths into Advanced Diploma programmes, specialised tracks, and international partner universities.</p>
 <ul class="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
-    <li><strong class="text-slate-900 font-bold">Internal Continuation:</strong> Direct progression to Cannoga Master’s programmes.</li>
+    <li><strong class="text-slate-900 font-bold">Internal Continuation:</strong> Direct progression to Cannoga Advanced Diploma programmes.</li>
     <li><strong class="text-slate-900 font-bold">Specialised Tracks:</strong> Accounting, Economics, or Management.</li>
     <li><strong class="text-slate-900 font-bold">International Opportunities:</strong> Partner universities worldwide.</li>
     <li><strong class="text-slate-900 font-bold">Research Integration:</strong> Bachelor theses as a bridge to advanced research.</li>
@@ -195,13 +195,13 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/master',
         sectionKey: 'hero_title',
         label: 'Hero Title',
-        defaultContent: 'Apply to Master’s Programmes',
+        defaultContent: 'Apply to Advanced Diploma Programmes',
     },
     {
         pageSlug: 'admissions/master',
         sectionKey: 'hero_subtitle',
         label: 'Hero Subtitle',
-        defaultContent: 'Applicants guide to two-year Master’s programmes. Two intakes per year: September (apply Oct–Feb) and January (apply Jun–Sep).',
+        defaultContent: 'Applicants guide to two-year Advanced Diploma programmes. Two intakes per year: September (apply Oct–Feb) and January (apply Jun–Sep).',
     },
     {
         pageSlug: 'admissions/master',
@@ -248,7 +248,7 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'study_options_content',
         label: 'Study Options Section',
         defaultContent: `<div class="space-y-4">
-    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Cannoga College provides master's education across diverse fields of study, including Art & Design, Business & Economics, Technology & Engineering, Education, Science, Health & Life Sciences, and Transportation & Aviation.</p>
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Cannoga College provides advanced diploma education across diverse fields of study, including Art & Design, Business & Economics, Technology & Engineering, Education, Science, Health & Life Sciences, and Transportation & Aviation.</p>
 </div>`,
     },
     {
@@ -272,7 +272,7 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Eligibility Section',
         defaultContent: `<div class="space-y-3">
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Applications must fulfil general eligibility criteria to be evaluated by the study options.</p>
-    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">To meet the general eligibility criteria, applicants must have a bachelor's degree that grants eligibility to master's level education. In addition, the application must include an accepted proof of language proficiency and all required documents submitted by the deadline.</p>
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">To meet the general eligibility criteria, applicants must have a bachelor's degree that grants eligibility to advanced diploma level education. In addition, the application must include an accepted proof of language proficiency and all required documents submitted by the deadline.</p>
     <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">Complete applications that meet the general eligibility requirements will be evaluated by the study options according to their specific evaluation criteria.</p>
 </div>`,
     },
@@ -391,7 +391,7 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'language_content',
         label: 'Language Requirements Section',
         defaultContent: `<div class="space-y-4">
-    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">English language proficiency is mandatory for all Master’s programmes taught in English. Demonstrate your skills via an accepted language test or previous qualifying degree:</p>
+    <p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed">English language proficiency is mandatory for all Advanced Diploma programmes taught in English. Demonstrate your skills via an accepted language test or previous qualifying degree:</p>
     <ul class="space-y-1.5 pt-1 text-sm sm:text-base font-normal text-slate-700 leading-relaxed list-disc list-outside pl-5">
         <li><strong class="text-slate-900 font-bold">Accepted Standardized Tests:</strong> IELTS Academic (min 6.5 overall, 6.0 in writing), TOEFL iBT (min 92), PTE Academic (min 62), or Cambridge C1 Advanced / C2 Proficiency.</li>
         <li><strong class="text-slate-900 font-bold">Exemption Criteria:</strong> Applicants who completed a secondary or higher education degree taught entirely in English in Canada, the United States, the UK, Australia, or New Zealand.</li>
@@ -556,8 +556,8 @@ export const pageContentSections: PageContentSection[] = [
     {
         pageSlug: 'admissions/tuition',
         sectionKey: 'master_fees_content',
-        label: 'Master Fees Section',
-        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">Annual tuition fee and deposit for Master's degree programs (2-year programs)</p>
+        label: 'Advanced Diploma Fees Section',
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-slate-700 leading-relaxed mb-3">Annual tuition fee and deposit for Advanced Diploma programs (3-year programs)</p>
 <div class="w-full overflow-x-auto my-2 bg-white">
     <table class="w-full table-auto sm:table-fixed border-collapse">
         <thead>
@@ -756,7 +756,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions',
         sectionKey: 'hero_subtitle',
         label: 'Hero Subtitle',
-        defaultContent: 'Apply to Cannoga College Ottawa and begin your Bachelor’s or Master’s studies in an internationally focused learning environment. Our admissions process is transparent, supportive, and open to students from around the world.',
+        defaultContent: 'Apply to Cannoga College Ottawa and begin your Bachelor’s or Advanced Diploma studies in an internationally focused learning environment. Our admissions process is transparent, supportive, and open to students from around the world.',
     },
 ];
 

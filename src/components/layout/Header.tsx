@@ -89,7 +89,7 @@ const navigation: NavItem[] = [
             { name: "Certificate & Diploma Programs", href: "/degree-programmes/#certificates" },
             { name: "How to Apply", href: "/admissions/application-process/" },
             { name: "Bachelor's Admission", href: "/admissions/bachelor/" },
-            { name: "Master's Admissions", href: "/admissions/master/" },
+            { name: "Advanced Diploma Admissions", href: "/admissions/master/" },
             { name: "Admissions Policy", href: "/admissions-policy/" },
             { name: "Admission Services Contact", href: "/admissions/contact-information/" },
         ]
@@ -100,7 +100,7 @@ const navigation: NavItem[] = [
         children: [
             { name: "Student Guide", href: "/student-guide/" },
             { name: "Bachelor's Student Guide", href: "/student-guide/bachelor/" },
-            { name: "Master's Student Guide", href: "/student-guide/master/" },
+            { name: "Advanced Diploma Student Guide", href: "/student-guide/master/" },
             { name: "Diploma Students Guide", href: "/student-guide/diploma/" },
             { name: "Certificate Students Guide", href: "/student-guide/certificate/" },
             { name: "Student Life & Campus", href: "/student-life/" },

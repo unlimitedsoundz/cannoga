@@ -52,7 +52,7 @@ const conductPolicies = [
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
-                        <span>All enrolled students across Bachelor&apos;s, Master&apos;s, Diploma, and Certificate programmes.</span>
+                        <span>All enrolled students across Bachelor&apos;s, Advanced Diploma, Diploma, and Certificate programmes.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />

@@ -136,7 +136,7 @@ export default function AlumniPage() {
                 <section className="space-y-6">
                     <h2 className="text-3xl font-black text-black tracking-tight">Lifelong Connection &amp; Impact</h2>
                     <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
-                        Cannoga College Master&apos;s and Undergraduate Alumni represent an active global community leading projects across sustainability, public policy, technology, business, and health sciences. Our alumni office provides continuous services, event invitations, and career advancement tools to support your lifelong journey.
+                        Cannoga College Advanced Diploma, Diploma, and Undergraduate Alumni represent an active global community leading projects across sustainability, public policy, technology, business, and health sciences. Our alumni office provides continuous services, event invitations, and career advancement tools to support your lifelong journey.
                     </p>
                 </section>
 

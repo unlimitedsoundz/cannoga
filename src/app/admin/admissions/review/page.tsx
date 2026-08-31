@@ -172,7 +172,7 @@ function ApplicationReviewContent() {
                                 <span className="text-sm font-black uppercase tracking-tight text-amber-500">{app.course?.title}</span>
                                 {app.course?.degreeLevel && (
                                     <span className="text-[10px] font-black uppercase tracking-widest text-neutral-500 block mt-1">
-                                        {app.course.degreeLevel === 'BACHELOR' ? 'Bachelor' : app.course.degreeLevel === 'MASTER' ? 'Master' : app.course.degreeLevel}
+                                        {app.course.degreeLevel === 'BACHELOR' ? 'Bachelor' : (app.course.degreeLevel === 'MASTER' || app.course.degreeLevel === 'ADVANCED_DIPLOMA') ? 'Advanced Diploma' : app.course.degreeLevel === 'DIPLOMA' ? 'Diploma' : 'Certificate'}
                                     </span>
                                 )}
                             </div>

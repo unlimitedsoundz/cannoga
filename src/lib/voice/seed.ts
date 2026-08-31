@@ -167,7 +167,7 @@ export async function seedVoiceKnowledgeFromDatabase(): Promise<{ success: boole
     const faqEntries: { question: string; answer: string; category: string }[] = [
       {
         question: 'What programs does Cannoga College offer?',
-        answer: `Cannoga College offers a wide range of programs including Bachelor's degrees, Master's degrees, Diplomas, and Certificates across multiple schools. You can ask about specific programs like "Computer Science", "Business Administration", or "Nursing" for more details.`,
+        answer: `Cannoga College offers a wide range of programs including Bachelor's degrees, Advanced Diplomas, Diplomas, and Certificates across multiple schools. You can ask about specific programs like "Computer Science", "Business Administration", or "Nursing" for more details.`,
         category: 'programs',
       },
       {
@@ -187,7 +187,7 @@ export async function seedVoiceKnowledgeFromDatabase(): Promise<{ success: boole
       },
       {
         question: 'What is the tuition deposit amount?',
-        answer: 'The confirmation tuition deposit is $2,000 CAD across all programs (Bachelor’s, Master’s, Diplomas, and Certificates). This deposit confirms your acceptance, reserves your seat in your chosen cohort, initiates the issuance of your official Letter of Acceptance (LOA) and Provincial Attestation Letter (PAL) for international candidates, and is credited 100% directly towards your first-term tuition balance.',
+        answer: 'The confirmation tuition deposit is $2,000 CAD across all programs (Bachelor’s, Advanced Diplomas, Diplomas, and Certificates). This deposit confirms your acceptance, reserves your seat in your chosen cohort, initiates the issuance of your official Letter of Acceptance (LOA) and Provincial Attestation Letter (PAL) for international candidates, and is credited 100% directly towards your first-term tuition balance.',
         category: 'tuition',
       },
       {

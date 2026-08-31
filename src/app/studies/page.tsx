@@ -22,7 +22,7 @@ import { createStaticClient } from '@/lib/supabase/static';
 
 export const metadata: Metadata = {
     title: 'Academic Programs & Studies Directory',
-    description: 'Explore all career-focused certificates, diplomas, bachelor degrees, and master graduate programs at Cannoga College Ottawa campus.',
+    description: 'Explore all career-focused certificates, diplomas, advanced diplomas, and bachelor degree programs at Cannoga College Ottawa campus.',
     alternates: {
         canonical: 'https://cannogacollege.ca/studies/',
     },
@@ -80,7 +80,7 @@ export default async function StudiesPage() {
             {/* Hero Header */}
             <Hero
                 title="Academic Programs & Study Options"
-                body="Explore over 180 career-focused certificates, diplomas, bachelor degrees, and master graduate programs across 8 academic faculties at Cannoga College Ottawa campus."
+                body="Explore over 180 career-focused certificates, diplomas, advanced diplomas, and bachelor degrees across 8 academic faculties at Cannoga College Ottawa campus."
                 backgroundColor="#0a151a"
                 tinted
                 lightText={true}
@@ -118,7 +118,7 @@ export default async function StudiesPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="mb-10">
                         <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Academic Credentials &amp; Programs</h2>
-                        <p className="text-sm text-slate-600 mt-1">Explore career-focused certificates, diplomas, bachelor's degrees, and graduate master studies.</p>
+                        <p className="text-sm text-slate-600 mt-1">Explore career-focused certificates, diplomas, 3-year advanced diplomas, and bachelor's degrees.</p>
                     </div>
                     <AcademicCredentialsCarousel />
                 </div>

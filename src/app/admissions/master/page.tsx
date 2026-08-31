@@ -13,8 +13,8 @@ import { getPageContentSection } from '@/lib/pageContentConfig';
 
 
 export const metadata = {
-    title: "Postgraduate Admissions & Master's Entry",
-    description: 'Discover admissions criteria, application requirements, and selection procedures for our advanced Master\'s degree programs.',
+    title: "Advanced Diploma Admissions | Cannoga College",
+    description: 'Discover admissions criteria, application requirements, and selection procedures for our 3-year Advanced Diploma programs.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/master/',
     },
@@ -26,11 +26,11 @@ const sections = [
     { id: 'scholarships', title: 'Scholarships & Tuition Fees', content: '' },
     { id: 'eligibility', title: 'General Eligibility', content: '' },
     { id: 'field-reqs', title: 'Field-Specific Reqs', content: '' },
-    { id: 'incomplete', title: 'Incomplete Degree', content: '' },
+    { id: 'incomplete', title: 'Incomplete Credential', content: '' },
     { id: 'steps', title: 'Application Steps', content: '' },
     { id: 'documents', title: 'Required Documents', content: '' },
     { id: 'language', title: 'Language Requirements', content: '' },
-    { id: 'gmat', title: 'GMAT/GRE', content: '' },
+    { id: 'gmat', title: 'Academic Test Score', content: '' },
     { id: 'decisions', title: 'Decisions', content: '' },
     { id: 'after', title: 'After Admission', content: '' },
     { id: 'faq', title: 'FAQ', content: '' },
@@ -68,7 +68,7 @@ export default function MasterAdmissionsPage() {
                 tinted
                 image={{
                     src: "/images/admissions/master-hero.png",
-                    alt: "Master's Application"
+                    alt: "Advanced Diploma Application"
                 }}
             >
                 <Link
@@ -85,7 +85,7 @@ export default function MasterAdmissionsPage() {
                 breadcrumbs={[
                     { label: 'Home', href: '/' },
                     { label: 'Admissions', href: '/admissions' },
-                    { label: "Master's Admissions" }
+                    { label: "Advanced Diploma Admissions" }
                 ]}
             >
 

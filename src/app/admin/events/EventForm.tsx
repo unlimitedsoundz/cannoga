@@ -112,7 +112,7 @@ export default function EventForm({ id, isNew, eventItem }: EventFormProps) {
                             defaultValue={eventItem?.title || ''}
                             required
                             className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-black outline-none text-xl font-bold"
-                            placeholder="e.g. Master's Programme Virtual Open Day"
+                            placeholder="e.g. Advanced Diploma Programme Virtual Open Day"
                         />
                     </div>
 

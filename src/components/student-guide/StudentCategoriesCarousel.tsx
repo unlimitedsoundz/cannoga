@@ -48,8 +48,8 @@ const CATEGORY_CARDS: StudentCategoryItem[] = [
     },
     {
         id: 'master-students',
-        title: "MASTER'S GUIDE",
-        description: 'Postgraduate orientation, thesis advisement, research tools, and graduation pathways.',
+        title: "ADVANCED DIPLOMA'S GUIDE",
+        description: '3-Year advanced technical curricula, applied research projects, labs, and career pathways.',
         href: '/student-guide/master',
         bgColor: 'bg-[#f97316]', // Vibrant Orange
         borderColor: 'border-[#f97316]',

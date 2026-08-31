@@ -16,7 +16,7 @@ const CANNOGA_VERIFIED_KNOWLEDGE = [
         keywords: ['deposit', 'tuition deposit', '2000', '2,000', 'seat', 'reserve', 'confirmation deposit', 'pal deposit'],
         title: 'Tuition Deposit Policy ($2,000 CAD)',
         content: `### 🎓 Confirmation Tuition Deposit
-* **Deposit Amount:** **$2,000 CAD** across all academic programs (Certificates, Diplomas, Bachelor's, and Master's).
+* **Deposit Amount:** **$2,000 CAD** across all academic programs (Certificates, Diplomas, Advanced Diplomas, and Bachelor's).
 * **Purpose:** Confirms your admission offer, reserves your seat in your chosen intake cohort, and initiates the immediate issuance of your **Provincial Attestation Letter (PAL)** and official Letter of Acceptance (LOA) for international students.
 * **Credited 100%:** The full $2,000 CAD is credited directly against your first-term tuition fees balance.
 * **Refund Exception:** The deposit is non-refundable; however, if an international applicant receives an official **Study Permit / Visa Refusal** from IRCC, **100% of the tuition deposit and prepaid fees will be refunded** (minus a standard $100 CAD administrative processing fee) upon submitting the refusal letter within 14 calendar days.
@@ -29,9 +29,9 @@ const CANNOGA_VERIFIED_KNOWLEDGE = [
 | Credential Level | Domestic Students | International Students | Tuition Deposit |
 | :--- | :--- | :--- | :--- |
 | **Postgraduate Certificate (6m–1y)** | CAD $2,400 / yr | CAD $4,000 / yr | CAD $2,000 |
-| **Diploma & Adv. Diploma (2–3y)** | CAD $2,400 / yr | CAD $4,000 / yr | CAD $2,000 |
+| **Diploma (2y)** | CAD $2,400 / yr | CAD $4,000 / yr | CAD $2,000 |
+| **Advanced Diploma (3y)** | CAD $5,600 / yr | CAD $9,600 / yr | CAD $2,000 |
 | **Bachelor's Degree (4y)** | CAD $4,000 / yr | CAD $6,400 / yr | CAD $2,000 |
-| **Master's Degree (2y)** | CAD $4,000 / yr | CAD $6,400 / yr | CAD $2,000 |
 
 * **Financial Aid & OSAP:** Domestic Ontario students are eligible for the Ontario Student Assistance Program (OSAP) and flexible repayment plans (RAP).
 * **Payment Options:** Flexible installment plans per semester are available upon request through the Registrar.`
@@ -54,7 +54,7 @@ const CANNOGA_VERIFIED_KNOWLEDGE = [
         content: `### 🍁 Post-Graduation Work Permit (PGWP) & Canadian Careers
 * **PGWP Eligibility:** Graduates of eligible full-time Cannoga College academic programs qualify to apply for an open Post-Graduation Work Permit (PGWP) without requiring a job offer beforehand.
 * **Duration:**
-  * **2+ Year Programs (Diplomas, Bachelor's, Master's):** Up to a **3-Year Open Work Permit**.
+  * **2+ Year Programs (Diplomas, Advanced Diplomas, Bachelor's):** Up to a **3-Year Open Work Permit**.
   * **Programs 8 months to 2 years:** Work permit length matches your study duration.
 * **Permanent Residency (PR) Transitions:**
   * **Canadian Experience Class (Express Entry):** Eligible after 1 year of skilled work in Canada.
@@ -203,7 +203,7 @@ export async function POST(req: NextRequest) {
             answerText = `👋 **Welcome to Cannoga College in Ottawa, Ontario, Canada.**
 
 I can provide verified information directly from our database and admissions portal:
-* 🎓 **Programs & Degrees** (Certificates, Diplomas, Bachelor's & Master's)
+* 🎓 **Programs & Degrees** (Certificates, Diplomas, Advanced Diplomas & Bachelor's)
 * 💰 **Tuition Fees & the $2,000 CAD Confirmation Deposit**
 * 🇨🇦 **Provincial Attestation Letter (PAL) & Study Permits**
 * 🏠 **Living in Ottawa, Residences & Living Costs**
@@ -237,7 +237,7 @@ How can I help you today?`;
             answerText = `### 🏛️ Cannoga College & Study in Canada
 Cannoga College is located at **81 Montreal Rd in Ottawa, Ontario, Canada**.
 
-* **Programs:** Industry-aligned Diplomas, Bachelor's, and Master's programs.
+* **Programs:** Industry-aligned Diplomas, Advanced Diplomas, and Bachelor's programs.
 * **Tuition Deposit:** A **$2,000 CAD non-refundable deposit** is required to secure your seat and issue your **Provincial Attestation Letter (PAL)**. It is credited 100% towards your first-term tuition.
 * **Work Opportunities:** Work up to **24 hours/week** off-campus during studies and qualify for up to a **3-Year Post-Graduation Work Permit (PGWP)** upon graduation.
 * **Admissions Contact:** [admissions@cannogacollege.ca](mailto:admissions@cannogacollege.ca) | Phone: +1 (613) 727-4723.

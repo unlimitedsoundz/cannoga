@@ -18,8 +18,8 @@ const STUDY_OPTIONS: MasterStudyOption[] = [
     {
         id: 'art-design',
         title: 'ART & DESIGN',
-        description: 'MA in Design, Architecture, Visual Arts, and Media Practices.',
-        degreeText: 'Master of Arts (MA)',
+        description: 'Advanced Diploma in Design, Architecture, Visual Arts, and Media Practices.',
+        degreeText: 'Advanced Diploma (3 Years)',
         href: '/schools/arts-design',
         bgColor: 'bg-[#ec4899]', // Vibrant Rose/Pink
         borderColor: 'border-[#ec4899]',
@@ -27,8 +27,8 @@ const STUDY_OPTIONS: MasterStudyOption[] = [
     {
         id: 'business-economics',
         title: 'BUSINESS & ECONOMICS',
-        description: 'MSc in Accounting & Finance, Strategic Management, and Economics.',
-        degreeText: 'Master of Science (MSc)',
+        description: 'Advanced Diploma in Accounting & Finance, Strategic Management, and Economics.',
+        degreeText: 'Advanced Diploma (3 Years)',
         href: '/schools/business',
         bgColor: 'bg-[#f97316]', // Vibrant Orange
         borderColor: 'border-[#f97316]',
@@ -36,8 +36,8 @@ const STUDY_OPTIONS: MasterStudyOption[] = [
     {
         id: 'technology-engineering',
         title: 'TECHNOLOGY & ENGINEERING',
-        description: 'MSc in Engineering, Computer Science, Data Analytics, and Architecture.',
-        degreeText: 'Master of Science (MSc)',
+        description: 'Advanced Diploma in Engineering, Computer Science, Data Analytics, and Architecture.',
+        degreeText: 'Advanced Diploma (3 Years)',
         href: '/schools/technology',
         bgColor: 'bg-[#6366f1]', // Electric Indigo
         borderColor: 'border-[#6366f1]',
@@ -45,8 +45,8 @@ const STUDY_OPTIONS: MasterStudyOption[] = [
     {
         id: 'education',
         title: 'EDUCATION',
-        description: 'MA/MSc in Pedagogy, Educational Leadership, and Curriculum Design.',
-        degreeText: 'Master of Arts / Science (MA/MSc)',
+        description: 'Advanced Diploma in Pedagogy, Educational Leadership, and Curriculum Design.',
+        degreeText: 'Advanced Diploma (3 Years)',
         href: '/schools/education-social-sciences',
         bgColor: 'bg-[#ef4444]', // Electric Crimson
         borderColor: 'border-[#ef4444]',
@@ -54,8 +54,8 @@ const STUDY_OPTIONS: MasterStudyOption[] = [
     {
         id: 'science',
         title: 'SCIENCE',
-        description: 'MSc in Environmental Science, Applied Physics, and Bio-Analytics.',
-        degreeText: 'Master of Science (MSc)',
+        description: 'Advanced Diploma in Environmental Science, Applied Physics, and Bio-Analytics.',
+        degreeText: 'Advanced Diploma (3 Years)',
         href: '/schools/science',
         bgColor: 'bg-[#06b6d4]', // Electric Cyan
         borderColor: 'border-[#06b6d4]',
@@ -63,8 +63,8 @@ const STUDY_OPTIONS: MasterStudyOption[] = [
     {
         id: 'health-life-sciences',
         title: 'HEALTH & LIFE SCIENCES',
-        description: 'MSc in Healthcare Leadership, Clinical Management, and Public Health.',
-        degreeText: 'Master of Science (MSc)',
+        description: 'Advanced Diploma in Healthcare Leadership, Clinical Management, and Public Health.',
+        degreeText: 'Advanced Diploma (3 Years)',
         href: '/schools/health-community',
         bgColor: 'bg-[#10b981]', // Electric Emerald
         borderColor: 'border-[#10b981]',
@@ -72,8 +72,8 @@ const STUDY_OPTIONS: MasterStudyOption[] = [
     {
         id: 'transportation-aviation',
         title: 'TRANSPORTATION & AVIATION',
-        description: 'MSc in Aviation Operations, Supply Chain Logistics, and Transport Safety.',
-        degreeText: 'Master of Science (MSc)',
+        description: 'Advanced Diploma in Aviation Operations, Supply Chain Logistics, and Transport Safety.',
+        degreeText: 'Advanced Diploma (3 Years)',
         href: '/schools/transportation-aviation',
         bgColor: 'bg-[#8b5cf6]', // Deep Purple
         borderColor: 'border-[#8b5cf6]',

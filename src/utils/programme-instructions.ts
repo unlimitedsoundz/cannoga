@@ -25,7 +25,7 @@ export const PROGRAMME_INSTRUCTIONS: Record<string, ProgrammeInstruction> = {
     'business-admin': {
         welcomeMessage: 'Welcome to the Business Administration Programme.',
         instructions: [
-            'Have your work experience details ready if applying for a Master\'s.',
+            'Have your academic and work experience details ready if applying for an Advanced Diploma.',
             'Prepare your secondary school or previous degree certificates.',
             'A short statement on your career goals will be required.',
             'Ensure your contact details are accurate for interview scheduling.'

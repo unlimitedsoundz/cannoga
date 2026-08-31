@@ -72,15 +72,15 @@ export default async function DegreeProgrammesPage() {
     }
 
     const domesticFees = [
-        ["Certificate & Diploma programs", `$${tuitionDataMap.DIPLOMA.domestic.toLocaleString()}/year`],
-        ["Bachelor's degree programs", `$${tuitionDataMap.BACHELOR.domestic.toLocaleString()}/year`],
-        ["Master's degree programs", `$${tuitionDataMap.MASTER.domestic.toLocaleString()}/year`],
+        ["Certificate & Diploma programs (1-2 Years)", `$${tuitionDataMap.DIPLOMA.domestic.toLocaleString()}/year`],
+        ["Advanced Diploma programs (3 Years)", `$${tuitionDataMap.MASTER.domestic.toLocaleString()}/year`],
+        ["Bachelor's degree programs (4 Years)", `$${tuitionDataMap.BACHELOR.domestic.toLocaleString()}/year`],
     ];
 
     const internationalFees = [
-        ["Certificate & Diploma programs", `$${tuitionDataMap.DIPLOMA.international.toLocaleString()}/year`],
-        ["Bachelor's degree programs", `$${tuitionDataMap.BACHELOR.international.toLocaleString()}/year`],
-        ["Master's degree programs", `$${tuitionDataMap.MASTER.international.toLocaleString()}/year`],
+        ["Certificate & Diploma programs (1-2 Years)", `$${tuitionDataMap.DIPLOMA.international.toLocaleString()}/year`],
+        ["Advanced Diploma programs (3 Years)", `$${tuitionDataMap.MASTER.international.toLocaleString()}/year`],
+        ["Bachelor's degree programs (4 Years)", `$${tuitionDataMap.BACHELOR.international.toLocaleString()}/year`],
     ];
 
     return (
@@ -93,8 +93,8 @@ export default async function DegreeProgrammesPage() {
                         <h1 className="cc-h1 mb-6">Programs &amp; Degrees</h1>
                         <p className="text-lg text-slate-700 leading-relaxed max-w-2xl">
                             Discover our diverse range of career-focused programs designed to prepare you for success.
-                            From certificates and diplomas to undergraduate and graduate degrees, we offer world-class education in Ottawa.
-                            Graduates of eligible diploma, undergraduate, and graduate programs can qualify for the Post-Graduation Work Permit (PGWP).
+                            From certificates and diplomas to 3-year advanced diplomas and bachelor degrees, we offer world-class education in Ottawa.
+                            Graduates of eligible diploma, advanced diploma, and degree programs can qualify for the Post-Graduation Work Permit (PGWP).
                         </p>
                         <div className="flex flex-wrap gap-4 mt-8">
                             <Link href="/admissions/" className="cc-btn-primary no-underline">Apply Now <ArrowRight size={14} weight="bold" /></Link>
@@ -134,9 +134,9 @@ export default async function DegreeProgrammesPage() {
                                 </ul>
                             </div>
                             <div className="cc-card cc-card-body">
-                                <h3 className="cc-h3 mb-6">Degrees <span className="text-[#000000]">(Bachelor's &amp; Master's)</span></h3>
+                                <h3 className="cc-h3 mb-6">Degrees &amp; Advanced Diplomas <span className="text-[#000000]">(Bachelor's &amp; Adv. Diplomas)</span></h3>
                                 <ul className="space-y-4">
-                                    {["Bachelor's degree or equivalent (for Master's)", "High school diploma with required subject prerequisites (for Bachelor's)", "Official academic transcripts and qualification certificates", "Language proficiency and identification documents"].map((r, i) => (
+                                    {["High school diploma or equivalent with required subject prerequisites", "Academic transcripts and qualification certificates", "English language proficiency (IELTS 6.0/6.5 or equivalent)", "Government-issued photo identification and statement of intent"].map((r, i) => (
                                         <li key={i} className="flex items-start gap-3 text-slate-700 text-lg">
                                             <span className="w-2 h-2 rounded-full bg-[#0f2027] flex-shrink-0 mt-2.5" />
                                             <span>{r}</span>

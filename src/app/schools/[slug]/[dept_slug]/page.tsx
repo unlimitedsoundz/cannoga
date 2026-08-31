@@ -58,12 +58,12 @@ function getEstimatedTuitionFee(schoolSlug: string, degreeLevel: string) {
 function getCredentialName(degreeLevel: string, duration: string) {
     const lvl = (degreeLevel || '').toUpperCase();
     const dur = (duration || '').toLowerCase();
-    if (lvl === 'MASTER') {
-        return "Master's Degree";
+    if (lvl === 'MASTER' || lvl === 'ADVANCED_DIPLOMA') {
+        return "Ontario College Advanced Diploma";
     } else if (lvl === 'BACHELOR') {
         return "Bachelor's Degree";
     } else if (lvl === 'DIPLOMA') {
-        if (dur.includes('3 year')) {
+        if (dur.includes('3 year') || dur.includes('3-year')) {
             return "Ontario College Advanced Diploma";
         }
         return "Ontario College Diploma";

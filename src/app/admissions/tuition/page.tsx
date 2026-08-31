@@ -104,8 +104,8 @@ export default async function TuitionPaymentPage() {
     const credentialDisplay: Record<string, { label: string; duration: string; credits: string }> = {
         CERTIFICATE: { label: 'Certificate', duration: '1 Year', credits: '30 Credits' },
         DIPLOMA: { label: 'Ontario College Diploma', duration: '2 Years', credits: '60 Credits' },
-        BACHELOR: { label: "Bachelor's Degree", duration: '4 Years', credits: '90 Credits' },
-        MASTER: { label: "Master's Degree", duration: '2 Years', credits: '60 Credits' },
+        BACHELOR: { label: "Bachelor's Degree", duration: '4 Years', credits: '120 Credits' },
+        MASTER: { label: "Advanced Diploma", duration: '3 Years', credits: '90 Credits' },
     };
 
     const fallbackRates: Record<string, { domestic: number; international: number }> = {
@@ -215,7 +215,7 @@ export default async function TuitionPaymentPage() {
                                     <DbPageContent pageSlug={pageSlug} sectionKey="bachelor_fees_content" fallbackContent={getContent('bachelor_fees_content')} className="space-y-3 text-lg font-normal text-slate-700 leading-relaxed" />
                                 </div>
                                 <div className="space-y-2">
-                                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Master's Program Fees</h3>
+                                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Advanced Diploma Program Fees</h3>
                                     <DbPageContent pageSlug={pageSlug} sectionKey="master_fees_content" fallbackContent={getContent('master_fees_content')} className="space-y-3 text-lg font-normal text-slate-700 leading-relaxed" />
                                 </div>
                             </div>

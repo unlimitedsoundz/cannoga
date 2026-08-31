@@ -87,15 +87,15 @@ export const CANNOGA_VIEWBOOK_2026_2027: Publication = {
         },
         {
             pageNumber: 7,
-            title: 'Masters Degrees & Postgraduate Programs',
-            section: 'Graduate',
-            subtitle: 'Advanced Specialization & Research',
+            title: 'Advanced Diplomas & 3-Year Programs',
+            section: 'Advanced Diploma',
+            subtitle: 'Advanced Specialization & Practicums',
             image: '/viewbook/pages/page-7.webp',
             thumbnail: '/viewbook/thumbnails/thumb-7.webp',
             width: 576,
             height: 576,
             aspectRatio: 1.0,
-            fullText: 'MASTERS DEGREES Graduate-level study for advanced specialization, research opportunities, leadership training, and professional recognition in high-demand Canadian and global industries.'
+            fullText: 'ADVANCED DIPLOMAS 3-year study for advanced technical specialization, applied practicums, leadership training, and professional recognition in high-demand Canadian and global industries.'
         },
         {
             pageNumber: 8,
@@ -143,7 +143,7 @@ export const CANNOGA_VIEWBOOK_2026_2027: Publication = {
             width: 576,
             height: 576,
             aspectRatio: 1.0,
-            fullText: 'Programme Duration Credits Domestic International Tuition breakdown table: Bachelor of Science, Bachelor of Business Administration, Master of Technology, Postgraduate Diplomas with fee schedules.'
+            fullText: 'Programme Duration Credits Domestic International Tuition breakdown table: Bachelor of Science, Bachelor of Business Administration, Advanced Diploma in Technology, Diplomas with fee schedules.'
         },
         {
             pageNumber: 12,

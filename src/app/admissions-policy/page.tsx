@@ -59,11 +59,11 @@ const admissionsPolicies = [
     },
     {
         id: "adm-3",
-        question: "3. Postgraduate & Master's Entry Requirements",
+        question: "3. Advanced Diploma & Postgraduate Entry Requirements",
         order_index: 3,
         answer: (
             <div className="space-y-3">
-                <p>Criteria for entry into postgraduate certificate and Master&apos;s degree programmes:</p>
+                <p>Criteria for entry into 3-year Advanced Diploma and postgraduate certificate programmes:</p>
                 <ul className="space-y-2.5 pl-1">
                     <li className="flex items-start gap-3">
                         <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2 shrink-0" />
@@ -219,7 +219,7 @@ export default function AdmissionsPolicyPage() {
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">
-                                <span>Master's Admissions</span>
+                                <span>Advanced Diploma Admissions</span>
                                 <ArrowRight size={16} weight="bold" />
                             </div>
                             <p className="text-sm text-slate-600 font-normal leading-normal">Entry criteria and deadlines</p>

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -113,7 +113,7 @@ export default function EditTuitionPage() {
                         <option value="CERTIFICATE">Certificate</option>
                         <option value="DIPLOMA">Diploma</option>
                         <option value="BACHELOR">Bachelor</option>
-                        <option value="MASTER">Master</option>
+                        <option value="MASTER">Advanced Diploma (Master Level)</option>
                     </select>
                 </div>
 

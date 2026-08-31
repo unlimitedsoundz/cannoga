@@ -140,10 +140,10 @@ export default function CountryRequirementsDropdown() {
             </ul>
           </div>
 
-          {/* Master's Degree Program */}
+          {/* Advanced Diploma Program */}
           <div>
             <h3 className="text-xl font-black text-black mb-4">
-              Admission To Master's Degree Program (2 years)
+              Admission To Advanced Diploma Program (3 years)
             </h3>
             <ul className="space-y-3">
               {requirements.mastersDegree.map((req, idx) => {

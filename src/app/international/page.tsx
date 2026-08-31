@@ -274,7 +274,7 @@ export default function InternationalPage() {
                                                 </a>
                                             </h3>
                                             <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-1">
-                                                Cannoga College students can obtain a post-graduation work permit if they have continuously studied full-time in Canada and have completed an eligible program (such as a Bachelor’s Degree, Master’s Degree, or qualifying credential).
+                                                Cannoga College students can obtain a post-graduation work permit if they have continuously studied full-time in Canada and have completed an eligible program (such as an Advanced Diploma, Bachelor’s Degree, or qualifying credential).
                                             </p>
                                             <div className="pt-2">
                                                 <a
@@ -365,7 +365,7 @@ export default function InternationalPage() {
                                                 >
                                                     Ontario Immigrant Nominee Program (OINP) <ArrowSquareOut size={14} weight="bold" />
                                                 </a>
-                                                <p className="text-sm text-slate-600">Ontario has specific streams under the Ontario Immigrant Nominee Program for international students with job offers, Master’s degrees, or in-demand skills.</p>
+                                                <p className="text-sm text-slate-600">Ontario has specific streams under the Ontario Immigrant Nominee Program for international students with job offers, Advanced Diplomas, or in-demand skills.</p>
                                             </div>
                                         </div>
 
