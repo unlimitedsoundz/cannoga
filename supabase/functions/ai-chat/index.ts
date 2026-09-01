@@ -11,7 +11,7 @@ Cannoga College is a higher education institution in Ottawa, Ontario, Canada, de
 
 Key Information:
 - Location: Ottawa campus, Malmin kauppatie 8, 00700 Ottawa, Ontario, Canada.
-- Programs: Bachelor's and Master's degrees in sustainability, technology, business, and arts.
+- Programs: Bachelor's, Advanced Diploma, and Diploma programs in sustainability, technology, business, and arts.
 - Core Schools: School of Arts & Design, School of Business, School of Technology, School of Science.
 - Mission: To empower the next generation of leaders with the skills to build a regenerative future.
 - Admissions: Open for Fall 2026. Process is transparent and supportive.

@@ -265,14 +265,8 @@ function ViewApplicationContent() {
             const passportUploaded = uploadedTypes.has('PASSPORT');
             const allRequiredUploaded = academicDocsUploaded && passportUploaded;
 
-            // Step 5: Update status if all required docs uploaded or if fulfilling DOCS_REQUIRED
-            if (application.status === 'DOCS_REQUIRED' || (allRequiredUploaded && application.status === 'DRAFT')) {
-                const { updateApplicationStatus } = await import('@/app/portal/actions');
-                await updateApplicationStatus(id!, 'UNDER_REVIEW');
-                toast.success('Document uploaded and submitted for review!');
-            } else {
-                toast.success('Document uploaded successfully!');
-            }
+            // Step 5: Notify user
+            toast.success('Document uploaded and application is in review!');
 
             setRefreshFlag((count) => count + 1);
             setUploadError(null);

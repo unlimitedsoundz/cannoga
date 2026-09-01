@@ -138,6 +138,23 @@ export async function addApplicationDocument(applicationId: string, type: string
         console.error('Error adding document meta:', error);
         throw new Error(`Failed to save document info: ${error.message || JSON.stringify(error)}`);
     }
+
+    // When documents are uploaded, transition application to UNDER_REVIEW and send notification
+    try {
+        const { data: app } = await supabase
+            .from('applications')
+            .select('status')
+            .eq('id', applicationId)
+            .eq('user_id', user.id)
+            .maybeSingle();
+
+        if (app && (app.status === 'DRAFT' || app.status === 'DOCS_REQUIRED' || app.status === 'SUBMITTED')) {
+            await updateApplicationStatus(applicationId, 'UNDER_REVIEW');
+        }
+    } catch (statusErr) {
+        console.error('Error auto-updating status to UNDER_REVIEW on document upload:', statusErr);
+    }
+
     return { success: true };
 }
 
@@ -229,6 +246,16 @@ export async function updateApplicationStatus(applicationId: string, status: 'SU
 
     if (!user) throw new Error('Unauthorized');
 
+    // Check previous status before updating
+    const { data: currentApp } = await supabase
+        .from('applications')
+        .select('status')
+        .eq('id', applicationId)
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+    const previousStatus = currentApp?.status;
+
     const { error } = await supabase
         .from('applications')
         .update({
@@ -243,7 +270,8 @@ export async function updateApplicationStatus(applicationId: string, status: 'SU
         throw new Error('Failed to update application status');
     }
 
-    if (status === 'SUBMITTED' || status === 'UNDER_REVIEW') {
+    // Only send review notification if transitioning to SUBMITTED or UNDER_REVIEW from a non-review status
+    if ((status === 'SUBMITTED' || status === 'UNDER_REVIEW') && previousStatus !== 'UNDER_REVIEW' && previousStatus !== 'SUBMITTED') {
         try {
             await supabase.functions.invoke('send-notification', {
                 body: {

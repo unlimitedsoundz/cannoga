@@ -64,10 +64,10 @@ function getIntakeStartDate(intake?: string | null): string {
 
 function getProgramYearsByLevel(level?: string): number {
     const lvl = (level || '').toUpperCase();
-    if (lvl.includes('BACHELOR') || lvl.includes('BSC')) return 3;
-    if (lvl.includes('MASTER') || lvl.includes('MSC')) return 2;
+    if (lvl.includes('BACHELOR') || lvl.includes('BSC')) return 4;
+    if (lvl.includes('ADVANCED') || lvl.includes('MASTER') || lvl.includes('MSC')) return 3;
     if (lvl.includes('DIPLOMA')) return 2;
-    if (lvl.includes('CERTICACATE')) return 1;
+    if (lvl.includes('CERTICACATE') || lvl.includes('CERTIFICATE')) return 1;
     return 1;
 }
 
@@ -169,7 +169,7 @@ serve(async (req: any) => {
         const lastName = app.personal_info?.lastName || app.user?.last_name || '';
         const fullName = `${firstName} ${lastName}`;
         const programTitle = app.course?.title || 'N/A';
-        const degreeLevel = app.course?.degreeLevel === 'MASTER' ? "Master's Degree" : app.course?.degreeLevel === 'BACHELOR' ? "Bachelor's Degree" : app.course?.degreeLevel === 'DIPLOMA' ? "Diploma" : app.course?.degreeLevel === 'CERTICACATE' ? "Certificate" : "Bachelor's Degree";
+        const degreeLevel = (app.course?.degreeLevel === 'MASTER' || app.course?.degreeLevel === 'ADVANCED_DIPLOMA') ? "Ontario College Advanced Diploma" : app.course?.degreeLevel === 'BACHELOR' ? "Honours Bachelor's Degree" : app.course?.degreeLevel === 'DIPLOMA' ? "Ontario College Diploma" : (app.course?.degreeLevel === 'CERTICACATE' || app.course?.degreeLevel === 'CERTIFICATE') ? "Canadian Certificate" : "Ontario College Advanced Diploma";
         const studentId = (app.user?.student_id || 'PENDING').replace(/^(SYK|KC|KU|HU)/, 'CC');
         const today = new Date();
         const admissionTimestamp = offerData?.accepted_at || offerData?.created_at || app.updated_at || app.submitted_at || app.created_at || today.toISOString();
@@ -223,8 +223,8 @@ serve(async (req: any) => {
         // =====================================================
 // TUITION FEE COMPUTATION (fetched from tuition_rates table)
 // ==========================================================
-        let DOMESTIC_TUITION = { CERTICACATE_DIPLOMA: 1500, BACHELOR: 2500, MASTER: 3500 };
-        let INTERNATIONAL_TUITION = { CERTICACATE_DIPLOMA: 2500, BACHELOR: 4000, MASTER: 6000 };
+        let DOMESTIC_TUITION = { CERTICACATE_DIPLOMA: 1500, BACHELOR: 2500, ADVANCED_DIPLOMA: 3500 };
+        let INTERNATIONAL_TUITION = { CERTICACATE_DIPLOMA: 2500, BACHELOR: 4000, ADVANCED_DIPLOMA: 6000 };
 
         async function loadTuitionRates() {
             const { data: rates } = await supabase
@@ -241,7 +241,7 @@ serve(async (req: any) => {
                 DOMESTIC_TUITION = {
                     CERTICACATE_DIPLOMA: rateMap['CERTICACATE'] || 1500,
                     BACHELOR: rateMap['BACHELOR'] || 4000,
-                    MASTER: rateMap['MASTER'] || 6000
+                    ADVANCED_DIPLOMA: rateMap['ADVANCED_DIPLOMA'] || rateMap['MASTER'] || 6000
                 };
                 INTERNATIONAL_TUITION = { ...DOMESTIC_TUITION };
             }
@@ -251,24 +251,24 @@ serve(async (req: any) => {
 
         function getTuitionFee(level: string, isDomestic: boolean): number {
             const lvl = (level || '').toUpperCase();
-            if (lvl.includes('CERTICACATE') || lvl.includes('DIPLOMA')) {
+            if (lvl.includes('CERTICACATE') || lvl.includes('DIPLOMA') && !lvl.includes('ADVANCED')) {
                 return isDomestic ? DOMESTIC_TUITION.CERTICACATE_DIPLOMA : INTERNATIONAL_TUITION.CERTICACATE_DIPLOMA;
             }
             if (lvl.includes('BACHELOR') || lvl.includes('BSC')) {
                 return isDomestic ? DOMESTIC_TUITION.BACHELOR : INTERNATIONAL_TUITION.BACHELOR;
             }
-            if (lvl.includes('MASTER') || lvl.includes('MSC')) {
-                return isDomestic ? DOMESTIC_TUITION.MASTER : INTERNATIONAL_TUITION.MASTER;
+            if (lvl.includes('ADVANCED') || lvl.includes('MASTER') || lvl.includes('MSC')) {
+                return isDomestic ? DOMESTIC_TUITION.ADVANCED_DIPLOMA : INTERNATIONAL_TUITION.ADVANCED_DIPLOMA;
             }
             return isDomestic ? DOMESTIC_TUITION.BACHELOR : INTERNATIONAL_TUITION.BACHELOR;
         }
 
         function getProgramYears(level?: string, duration?: string): number {
             const lvl = (level || '').toUpperCase();
-            if (lvl.includes('BACHELOR') || lvl.includes('BSC')) return 3;
-            if (lvl.includes('MASTER') || lvl.includes('MSC')) return 2;
+            if (lvl.includes('BACHELOR') || lvl.includes('BSC')) return 4;
+            if (lvl.includes('ADVANCED') || lvl.includes('MASTER') || lvl.includes('MSC')) return 3;
             if (lvl.includes('DIPLOMA')) return 2;
-            if (lvl.includes('CERTICACATE')) return 1;
+            if (lvl.includes('CERTICACATE') || lvl.includes('CERTIFICATE')) return 1;
             const dur = (duration || '').toLowerCase();
             if (dur.includes('6 months') || dur.includes('1 year') || dur.includes('1st year') || dur.includes('1-year')) return 1;
             if (dur.includes('2 year') || dur.includes('2-year')) return 2;
@@ -300,7 +300,7 @@ serve(async (req: any) => {
                 { label: 'FULL NAME (PASSPORT MATCH)', value: fullName },
                 { label: 'INTENDED PROGRAMME', value: programTitle },
                 { label: 'PROGRAMME START DATE', value: getIntakeStartDate(app.intake) },
-                { label: 'TOTAL CREDITS', value: courseDegreeLevel === 'MASTER' ? '60 Credits' : '90 Credits' },
+                { label: 'TOTAL CREDITS', value: (courseDegreeLevel === 'MASTER' || courseDegreeLevel === 'ADVANCED_DIPLOMA') ? '90 Credits' : courseDegreeLevel === 'BACHELOR' ? '120 Credits' : courseDegreeLevel === 'DIPLOMA' ? '60 Credits' : '30 Credits' },
             ];
             const dr = [
                 { label: 'INTAKE & YEAR', value: intakeLabel },
@@ -484,7 +484,7 @@ serve(async (req: any) => {
                 { label: 'Intake', value: intakeLabel },
                 { label: 'Programme Start Date', value: getIntakeStartDate(app.intake) },
                 { label: 'Programme End Date', value: getProgramEndDate(app.intake, courseDegreeLevel) },
-                { label: 'Total Credits', value: courseDegreeLevel === 'MASTER' ? '60 Credits' : '90 Credits' },
+                { label: 'Total Credits', value: (courseDegreeLevel === 'MASTER' || courseDegreeLevel === 'ADVANCED_DIPLOMA') ? '90 Credits' : courseDegreeLevel === 'BACHELOR' ? '120 Credits' : courseDegreeLevel === 'DIPLOMA' ? '60 Credits' : '30 Credits' },
                 { label: 'Programme of Study', value: `${programTitle} (${app.course?.programType || 'Full-time'})` },
             ];
 
