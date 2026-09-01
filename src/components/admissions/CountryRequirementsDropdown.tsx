@@ -32,7 +32,7 @@ export default function CountryRequirementsDropdown() {
         'English language proficiency: IELTS 6.5 (minimum 6.0 in each band), TOEFL iBT 88, Duolingo 115, or Cannoga EAP completion',
         'Certified academic transcripts translated into English'
       ],
-      mastersDegree: [
+      advancedDiploma: [
         `Recognized 4-year Bachelor's degree (or equivalent international qualification) from an accredited institution in ${countryName} with minimum 70% (B / 3.0 GPA average)`,
         'English language proficiency: IELTS 6.5 (minimum 6.0 in each band), TOEFL iBT 88, or equivalent',
         'Statement of Intent, 2 Letters of Recommendation, and Updated Resume / CV'
@@ -146,7 +146,7 @@ export default function CountryRequirementsDropdown() {
               Admission To Advanced Diploma Program (3 years)
             </h3>
             <ul className="space-y-3">
-              {requirements.mastersDegree.map((req, idx) => {
+              {requirements.advancedDiploma.map((req, idx) => {
                 const cleaned = req.replace(/^\d+\.\s*/, '').trim();
                 return (
                   <li key={idx} className="flex gap-3 items-start">
