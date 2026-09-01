@@ -138,9 +138,14 @@ export default function InternationalGuidePage() {
                             <h2 className="text-aalto-5 font-bold text-black tracking-tight">Practical Things to Do After Admission</h2>
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Study Permit</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">Apply for your Canadian study permit through Immigration, Refugees and Citizenship Canada (IRCC) as soon as you receive your acceptance letter. Processing times vary but typically take 1-3 months.</p>
-                                    <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">Apply via IRCC <ArrowSquareOut size={14} weight="bold" /></Link>
+                                    <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Study Permit &amp; Financial Support</h3>
+                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">
+                                        Apply for your Canadian study permit through IRCC as soon as you receive your acceptance letter. <strong>Starting September 1, 2026</strong>, a single international study permit applicant outside Quebec must demonstrate <strong>CAD $23,448</strong> for one year of living expenses (plus first-year tuition and travel costs).
+                                    </p>
+                                    <div className="flex flex-wrap gap-3 pt-1">
+                                        <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">Apply via IRCC <ArrowSquareOut size={14} weight="bold" /></Link>
+                                        <Link href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/get-documents.html#doc3" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">IRCC Proof of Funds <ArrowSquareOut size={14} weight="bold" /></Link>
+                                    </div>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Housing</h3>

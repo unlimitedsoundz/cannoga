@@ -79,9 +79,10 @@ const CANNOGA_VERIFIED_KNOWLEDGE = [
 * **Transit:** High-frequency OC Transpo bus routes and O-Train light rail system connect the campus to downtown Ottawa in under 15 minutes.`
     },
     {
-        keywords: ['housing', 'residence', 'accommodation', 'rent', 'living cost', 'apartment', 'dorm', 'homestay'],
-        title: 'Student Housing & Cost of Living in Ottawa',
-        content: `### 🏠 Housing & Living Costs in Ottawa
+        keywords: ['housing', 'residence', 'accommodation', 'rent', 'living cost', 'living expenses', 'proof of funds', 'financial support', 'ircc funds', 'apartment', 'dorm', 'homestay'],
+        title: 'Student Housing, Cost of Living & IRCC Financial Criteria',
+        content: `### 🏠 Housing, Living Costs & IRCC Financial Proof
+* **IRCC Living Expenses Requirement:** Starting **September 1, 2026**, a single international study permit applicant studying outside Quebec must demonstrate **CAD $23,448** for one year of living expenses (plus first-year tuition and travel costs) in accordance with official [IRCC Financial Guidelines](https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/get-documents.html#doc3).
 * **On-Campus & Partner Residences:** Furnished student residences from **$600 to $1,100 CAD/month** including high-speed internet and utilities.
 * **Off-Campus Apartments:** Shared student apartments in Ottawa range from **$700 to $1,300 CAD/month**.
 * **Homestay Options:** Canadian homestay families offer private rooms with meal plans ($900 – $1,200/mo).

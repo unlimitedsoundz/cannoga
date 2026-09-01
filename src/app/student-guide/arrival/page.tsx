@@ -109,7 +109,7 @@ export default function ArrivalGuidePage() {
                                             </li>
                                             <li className="flex gap-2.5 items-start">
                                                 <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
-                                                <span><strong>Proof of Financial Support:</strong> GIC confirmation, bank statements, or scholarship letters.</span>
+                                                <span><strong>Proof of Financial Support:</strong> GIC certificate, bank statements, or sponsor letters meeting the <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/get-documents.html#doc3" target="_blank" rel="noopener noreferrer" className="underline font-semibold text-black hover:text-neutral-500">IRCC financial criteria</a> (CAD $23,448 for one year of living expenses for single applicants outside Quebec starting Sept 1, 2026, plus tuition &amp; travel).</span>
                                             </li>
                                         </ul>
                                     </div>

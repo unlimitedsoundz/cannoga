@@ -687,7 +687,7 @@ export default function PayGoWireCheckout({
                                 </div>
                                 <div className="flex justify-between text-xs md:text-sm font-normal">
                                     <span>Country</span>
-                                    <span className="text-black">{selectedBank.country_flag} {selectedBank.country_name}</span>
+                                    <span className="text-black">{selectedBank.country_name}</span>
                                 </div>
                             </div>
                         </div>

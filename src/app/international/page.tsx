@@ -137,9 +137,9 @@ export default function InternationalPage() {
                             </div>
                             <div className="grid md:grid-cols-2 gap-6">
                                 <Card
-                                    title="Study Permit"
-                                    body="Apply for your Canadian study permit through Immigration, Refugees and Citizenship Canada (IRCC) as soon as you receive your acceptance letter. Processing times vary but typically take 1-3 months."
-                                    cta={{ label: "Apply via IRCC", linkComponentProps: { href: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html", target: "_blank" } }}
+                                    title="Study Permit & Financial Support"
+                                    body="Apply for your Canadian study permit through IRCC upon receiving admission. Starting September 1, 2026, a single international study permit applicant outside Quebec must show CAD $23,448 for one year of living expenses (plus tuition & travel costs)."
+                                    cta={{ label: "IRCC Proof of Funds Guide", linkComponentProps: { href: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/get-documents.html#doc3", target: "_blank" } }}
                                 />
                                 <Card
                                     title="Housing"

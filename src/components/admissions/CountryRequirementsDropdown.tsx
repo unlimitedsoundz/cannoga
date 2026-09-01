@@ -68,7 +68,7 @@ export default function CountryRequirementsDropdown() {
             <option value="">Select a country</option>
             {allWorldCountries.map((c) => (
               <option key={c.name} value={c.name}>
-                {c.flag} {c.name}
+                {c.name}
               </option>
             ))}
           </select>
@@ -191,9 +191,25 @@ export default function CountryRequirementsDropdown() {
             </div>
           )}
 
-          {/* IRCC Official Resources */}
-          <div className="bg-neutral-100 p-6 rounded-sm space-y-4">
+          {/* IRCC Official Resources & Financial Requirements */}
+          <div className="bg-neutral-100 p-6 rounded-sm space-y-4 border border-neutral-200">
             <h4 className="font-black text-black text-base uppercase tracking-wider">Official Canadian Immigration Resources (IRCC)</h4>
+            
+            <div className="bg-white p-4 border-l-4 border-[#0f2027] rounded-sm space-y-2">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#0f2027]">IRCC Proof of Financial Support Update</p>
+              <p className="text-sm text-neutral-800 leading-relaxed font-normal">
+                <strong>Starting September 1, 2026</strong>, a single international study permit applicant studying outside Quebec must show <strong>CAD $23,448</strong> for one year of living expenses (in addition to first-year tuition and travel costs) to meet Immigration, Refugees and Citizenship Canada (IRCC) financial criteria.
+              </p>
+              <a
+                href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/get-documents.html#doc3"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-[#0f2027] underline hover:text-neutral-500 transition-colors inline-flex items-center gap-1.5 pt-1"
+              >
+                IRCC Proof of Financial Support Guidelines <ExternalLink size={13} className="shrink-0" />
+              </a>
+            </div>
+
             <p className="text-sm text-neutral-700">
               International students should verify their study permit and visa requirements directly on the official Government of Canada Immigration portal:
             </p>
@@ -221,6 +237,14 @@ export default function CountryRequirementsDropdown() {
                 className="text-xs font-bold text-[#0f2027] underline hover:text-neutral-500 transition-colors inline-flex items-center gap-1.5"
               >
                 Provincial Attestation Letter (PAL) Info <ExternalLink size={13} className="shrink-0" />
+              </a>
+              <a
+                href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/get-documents.html#doc3"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-[#0f2027] underline hover:text-neutral-500 transition-colors inline-flex items-center gap-1.5"
+              >
+                Proof of Financial Support (IRCC) <ExternalLink size={13} className="shrink-0" />
               </a>
               <a
                 href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides.html"
