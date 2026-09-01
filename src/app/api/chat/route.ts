@@ -38,9 +38,10 @@ const CANNOGA_VERIFIED_KNOWLEDGE = [
 * **Payment Options:** Flexible installment plans per semester are available upon request through the Registrar.`
     },
     {
-        keywords: ['pal', 'provincial attestation letter', 'attestation', 'cap', 'ircc cap', 'visa letter'],
-        title: 'Provincial Attestation Letter (PAL) Guide',
-        content: `### 🇨🇦 Provincial Attestation Letter (PAL) Process
+        keywords: ['pal', 'provincial attestation letter', 'attestation', 'cap', 'ircc cap', 'visa letter', 'dli', 'dli number', 'designated learning institution'],
+        title: 'Provincial Attestation Letter (PAL) & DLI Guide',
+        content: `### 🇨🇦 Provincial Attestation Letter (PAL) & DLI Details
+* **Designated Learning Institution (DLI) #:** **O19387496264**
 * **What is a PAL:** A mandatory Canadian provincial certification required by Immigration, Refugees and Citizenship Canada (IRCC) to accompany study permit applications.
 * **How to receive a PAL at Cannoga College:**
   1. Receive your official Offer of Admission.
@@ -129,6 +130,7 @@ Cannoga College offers industry-accredited programs across **4 Credential Levels
         keywords: ['contact', 'email', 'phone', 'advisor', 'help', 'office', 'reach', 'talk to human', 'support'],
         title: 'Contact Admissions & Support Team',
         content: `### 📞 Contact Cannoga College Admissions
+* **Designated Learning Institution (DLI) #:** **O19387496264**
 * **Admissions Email:** [admissions@cannogacollege.ca](mailto:admissions@cannogacollege.ca)
 * **General Inquiries:** [info@cannogacollege.ca](mailto:info@cannogacollege.ca)
 * **Phone / WhatsApp:** **+1 (613) 727-4723**
