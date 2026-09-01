@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { STATIC_SCHOOLS } from '@/lib/schools';
 
 export const dynamic = 'force-dynamic';
 
@@ -89,18 +90,26 @@ const CANNOGA_VERIFIED_KNOWLEDGE = [
 * **Monthly Living Budget:** Estimated living expenses (groceries, transport, phone, recreation) average **$800 – $1,200 CAD/month** outside tuition.`
     },
     {
-        keywords: ['program', 'programs', 'course', 'courses', 'bachelor', 'master', 'diploma', 'certificate', 'degrees', 'what do you offer', 'school', 'schools', 'faculty'],
-        title: 'Academic Programs & Faculties',
-        content: `### 📚 Cannoga College Academic Faculties
-Cannoga College offers career-focused degrees across 6 specialized schools:
-1. **School of Business & Management:** International Business, Finance, Project Management, Digital Marketing, Entrepreneurship.
-2. **School of Computer Science & Technology:** Software Engineering, AI & Machine Learning, Cybersecurity, Cloud Computing, Data Analytics.
-3. **School of Health & Community Studies:** Healthcare Administration, Community Services, Health Informatics.
-4. **School of Engineering & Applied Technology:** Robotics, Civil Tech, Renewable Energy Systems.
-5. **School of Creative Arts & Media:** Digital Media Design, UI/UX Architecture, Interactive Animation.
-6. **School of Hospitality & Tourism Management:** Global Hospitality Leadership, Event Management.
+        keywords: ['program', 'programs', 'course', 'courses', 'bachelor', 'master', 'diploma', 'certificate', 'degrees', 'what do you offer', 'school', 'schools', 'faculty', 'faculties'],
+        title: 'Academic Programs & 8 Academic Schools',
+        content: `### 📚 Cannoga College Academic Schools & Credentials
+Cannoga College offers industry-accredited programs across **4 Credential Levels**:
+* **1-Year Certificates (30 Credits)** (e.g., Accounting Fundamentals, Cybersecurity Foundations, PSW, Data Analytics)
+* **2-Year Ontario College Diplomas (60 Credits)** (e.g., Business Administration, Practical Nursing, Computer Systems Technician, Early Childhood Education)
+* **3-Year Advanced Diplomas (90 Credits)** (e.g., AI, Computer Science, Civil Engineering, Architectural Technology, Design)
+* **4-Year Bachelor's Degrees (120 Credits)** (e.g., BBA, Applied Computer Science, BScN Nursing, B.Arch, B.Eng, BSW Social Work, Global Finance)
 
-*Explore the complete interactive [Viewbook](https://cannogacollege.ca/viewbook) or view all programs on our [Programs Hub](https://cannogacollege.ca/schools).*`
+#### 🏛️ Our 8 Academic Schools:
+1. **School of Arts, Design and Architecture:** Architecture (B.Arch), Art & Media, Interactive Design, Film & Television Production, Animation.
+2. **School of Business:** Accounting & Business Law, Global Finance, Business Administration (BBA), Management Studies, Marketing, Supply Chain & Logistics.
+3. **School of Education and Social Sciences:** Early Childhood Education, Child and Youth Care, Social Work (BSW), Community & Justice Services, Developmental Services.
+4. **School of Health and Community Services:** Practical Nursing, BScN Nursing, Dental Hygiene, Pharmacy Technician, Personal Support Worker (PSW), Physiotherapist Assistant.
+5. **School of Hospitality and Tourism:** Culinary Skills & Culinary Management, Baking and Pastry Arts, Hotel Operations, Hospitality & Tourism Management, Event Planning.
+6. **School of Science:** Applied Physics & Mathematics, Chemical & Materials Science, Environmental Science, Systems Analysis, Data Science.
+7. **School of Technology:** Applied Computer Science & Software Engineering, Artificial Intelligence, Cybersecurity, Electrical & Automation Engineering, Civil Engineering, Mechanical & Energy Engineering.
+8. **School of Transportation and Aviation:** Aviation Management, Flight Services, Aircraft Maintenance Technician, Automotive Service Technician, Transportation Logistics.
+
+*Explore all courses on our [Programs Hub](https://cannogacollege.ca/schools) or view the interactive [Digital Viewbook](https://cannogacollege.ca/viewbook).*`
     },
     {
         keywords: ['apply', 'admission', 'requirements', 'deadline', 'how to apply', 'ielts', 'toefl', 'english', 'intake', 'september', 'january', 'may'],
@@ -142,7 +151,7 @@ export async function POST(req: NextRequest) {
 
         // 1. Live Database Queries (Supabase `faqs`, `School`, `Course`)
         let dbFaqMatch: { question: string; answer: string } | null = null;
-        let dbSchools: any[] = [];
+        let dbSchools: any[] = STATIC_SCHOOLS;
         let dbCourses: any[] = [];
 
         try {
@@ -173,8 +182,8 @@ export async function POST(req: NextRequest) {
                     }
                 }
 
-                if (schoolsRes.data) dbSchools = schoolsRes.data;
-                if (coursesRes.data) dbCourses = coursesRes.data;
+                if (schoolsRes.data && schoolsRes.data.length > 0) dbSchools = schoolsRes.data;
+                if (coursesRes.data && coursesRes.data.length > 0) dbCourses = coursesRes.data;
             }
         } catch (dbErr) {
             console.error('DB query error:', dbErr);
