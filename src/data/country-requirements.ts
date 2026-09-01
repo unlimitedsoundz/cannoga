@@ -238,7 +238,7 @@ export const countryRequirements: Record<string, CountryRequirements> = {
     bachelorDegree: ['One of the following:', 'West African School Certificate/General Certificate of Education A Levels with a minimum grade of two in required program subjects', 'Senior School Certificate with a minimum grade of B in required program subjects', 'A complete educational history including transcripts for any postsecondary courses or programs completed.'],
     mastersDegree: ["Bachelor's degree and University transcripts (2nd class upper division)"],
     postGraduateCertificate: ["Bachelor's degree and University transcripts (2nd class upper division)"],
-    additionalNotes: ['Please note that, for admissions purposes, transcripts from Bachelor Degree programs only will be accepted. Masters Degree transcripts will not be accepted for assessment purposes.', 'These are minimums cut-offs and the admissions decision is at the discretion of Cannoga College. Admissions requirements may change at any time.', 'Please note that IELTS refers to Academic IELTS and not General IELTS']
+    additionalNotes: ['Please note that, for admissions purposes, transcripts from Bachelor Degree programs only will be accepted. Advanced Diploma transcripts will not be accepted for assessment purposes.', 'These are minimums cut-offs and the admissions decision is at the discretion of Cannoga College. Admissions requirements may change at any time.', 'Please note that IELTS refers to Academic IELTS and not General IELTS']
   },
   pakistan: {
     country: 'Pakistan',

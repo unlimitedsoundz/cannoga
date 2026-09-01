@@ -26,7 +26,7 @@ export const metadata = {
 
 const sections = [
     { id: 'benefits', title: 'How You Benefit', content: '' },
-    { id: 'progression', title: 'Bachelor\'s to Master\'s', content: '' },
+    { id: 'progression', title: 'Bachelor\'s to Advanced Diploma', content: '' },
     { id: 'scholarships', title: 'Scholarships & Tuition Fees', content: '' },
     { id: 'admissions', title: 'Admission Info', content: '' },
     { id: 'events', title: 'Fairs & Events', content: '' },
@@ -129,10 +129,10 @@ export default async function BachelorAdmissionsPage() {
                         />
                     </section>
 
-                    {/* From Bachelor's to Master's */}
+                    {/* From Bachelor's to Advanced Diploma */}
                     <section id="progression" className="scroll-mt-32 space-y-2">
                         <div className="cc-section-divider !mb-3 !pb-2">
-                            <h2 className="cc-h2">From Bachelor's to Master's</h2>
+                            <h2 className="cc-h2">From Bachelor's to Advanced Diploma</h2>
                         </div>
                         <DbPageContent
                             pageSlug={pageSlug}

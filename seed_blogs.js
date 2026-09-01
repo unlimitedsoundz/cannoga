@@ -214,7 +214,7 @@ const blogPosts = [
 <p>Start by exploring Cannoga's offerings. Visit the website and read detailed program descriptions. Consider your interests, career goals, and the entry requirements. I recommend attending virtual information sessions to ask questions.</p>
 
 <p><strong>Step 2: Check Eligibility</strong></p>
-<p>Review the admission requirements for your chosen program. Most bachelor's programs require a high school diploma, while master's programs need a relevant bachelor's degree. English proficiency tests (TOEFL/IELTS) are required for non-native speakers.</p>
+<p>Review the admission requirements for your chosen program. Most bachelor's programs require a high school diploma, while Advanced Diploma programs need a relevant bachelor's degree. English proficiency tests (TOEFL/IELTS) are required for non-native speakers.</p>
 
 <p><strong>Step 3: Prepare Documents</strong></p>
 <p>Gather all required documents early:

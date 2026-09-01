@@ -216,7 +216,7 @@ async function main() {
             {
                 title: 'Applications Open for Fall 2026',
                 slug: 'applications-open-fall-2026',
-                content: 'Apply now for our Bachelor and Master programs...',
+                content: 'Apply now for our Bachelor and Advanced Diploma programs...',
                 excerpt: 'Don\'t miss the deadline for the upcoming academic year.',
                 published: true,
                 publishDate: new Date().toISOString(),
