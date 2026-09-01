@@ -117,7 +117,7 @@ Cannoga College offers industry-accredited programs across **4 Credential Levels
         content: `### 📝 How to Apply & Entry Requirements
 * **Intakes:** Fall (September), Winter (January), and Spring/Summer (May).
 * **General Requirements:**
-  * **Secondary / High School Diploma** (for Diplomas & Bachelor's) or Undergraduate Degree (for Master's/Postgrad Certificates).
+  * **Secondary / High School Diploma** (for Diplomas & Bachelor's) or Post-Secondary Credential (for Advanced Diplomas & Postgraduate Certificates).
   * **English Language Proficiency:** IELTS Academic 6.0–6.5 (minimum 5.5 in each band), TOEFL iBT 80+, PTE Academic 58+, or Duolingo 105–115. *(English waivers available for applicants from recognized English-speaking curricula)*.
 * **Application Steps:**
   1. Submit your online application via the [Admissions Portal](https://cannogacollege.ca/portal/apply).

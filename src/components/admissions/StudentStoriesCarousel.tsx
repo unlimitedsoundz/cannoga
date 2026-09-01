@@ -50,7 +50,7 @@ const peers: Peer[] = [
         firstName: "MARIA",
         country: "UKRAINE",
         flag: "🇺🇦",
-        programme: "Master's in Design Management",
+        programme: "Advanced Diploma in Design Management",
         image: "/images/student-story-2.jpg",
         quote: "Studying in Ottawa has been life-changing. Collaborative research and welcoming community at Cannoga are truly world-class.",
         cardBgClass: "bg-[#d97706] hover:bg-[#b45309]",

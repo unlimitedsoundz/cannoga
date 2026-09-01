@@ -100,7 +100,7 @@ export function FlipbookSearch({
                             Suggested Topics
                         </p>
                         <div className="flex flex-wrap gap-2">
-                            {['Bachelors', 'Masters', 'Tuition', 'Ottawa', 'Scholarships', 'Schools', 'Apply', 'Hub'].map((term) => (
+                            {['Bachelors', 'Advanced Diplomas', 'Tuition', 'Ottawa', 'Scholarships', 'Schools', 'Apply', 'Hub'].map((term) => (
                                 <button
                                     key={term}
                                     type="button"

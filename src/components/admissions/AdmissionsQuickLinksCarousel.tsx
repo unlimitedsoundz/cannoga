@@ -19,7 +19,7 @@ const ADMISSIONS_QUICK_LINKS: AdmissionsQuickLinkItem[] = [
     {
         id: 'start-application',
         title: 'START APPLICATION',
-        description: 'Begin your 2026 application for Bachelor’s, Master’s, Diploma, or Certificate programs at Cannoga College.',
+        description: 'Begin your 2026 application for Bachelor’s, Advanced Diploma, Diploma, or Certificate programs at Cannoga College.',
         href: '/portal/apply',
         bgColor: 'bg-[#6366f1]', // Electric Indigo
         borderColor: 'border-[#6366f1]',
