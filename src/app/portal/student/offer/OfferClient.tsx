@@ -319,7 +319,7 @@ export function OfferClient({ admission }: OfferClientProps) {
                         <div className="pt-3 md:pt-4 border-t border-neutral-100">
                             <div className="flex items-start gap-2">
                                 <p className="text-[8px] md:text-[9px] font-bold text-neutral-400 uppercase leading-snug tracking-wider md:tracking-widest">
-                                    BY ACCEPTING, YOU AGREE TO THE CODE OF CONDUCT, ACADEMIC REGULATIONS, AND TERMS OUTLINED IN THE OFCACIAL OFFER LETTER.
+                                    BY ACCEPTING, YOU AGREE TO THE CODE OF CONDUCT, ACADEMIC REGULATIONS, AND TERMS OUTLINED IN THE OFFICIAL OFFER LETTER.
                                 </p>
                             </div>
                         </div>

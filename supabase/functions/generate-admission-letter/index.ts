@@ -184,7 +184,7 @@ serve(async (req: any) => {
         // =====================================================
         page.drawText('CANNOGA COLLEGE', { x: margin, y, size: 14, font: boldFont, color: black });
         y -= 16;
-        page.drawText('\u2013 Ottawa campus', { x: margin, y, size: 9, font: regularFont, color: darkGrey });
+        page.drawText('- Ottawa campus', { x: margin, y, size: 9, font: regularFont, color: darkGrey });
 
         // Right-aligned address
         const addr = ['81 Montreal Rd', 'K1L 6E8 Ottawa, Ontario, Canada', 'Phone: +1 782 206-3309', 'cannogacollege.ca', 'admissions@cannogacollege.ca'];
@@ -202,7 +202,7 @@ serve(async (req: any) => {
         // =====================================================
         // DOCUMENT TITLE
         // =====================================================
-        const title = isOffer ? 'OFCACIAL LETTER OF OFFER' : 'OFCACIAL LETTER OF ADMISSION';
+        const title = isOffer ? 'OFFICIAL LETTER OF OFFER' : 'OFFICIAL LETTER OF ADMISSION';
         const tw = boldFont.widthOfTextAtSize(title, 16);
         page.drawText(title, { x: (width - tw) / 2, y, size: 16, font: boldFont, color: black });
         y -= 30;
@@ -342,7 +342,7 @@ serve(async (req: any) => {
             y -= 5;
 
             // Tuition info — computed from programme data
-            y = drawSectionHeading(page, 'TUITION & CANANCIAL INFORMATION', margin, y, cw, boldFont, black);
+            y = drawSectionHeading(page, 'TUITION & FINANCIAL INFORMATION', margin, y, cw, boldFont, black);
             const isDepositOffer = offerData?.offer_type === 'DEPOSIT';
             const isFullProgram = offerData?.offer_type === 'FULL_TUITION';
             
@@ -500,7 +500,7 @@ serve(async (req: any) => {
             const sections = [
                 {
                     title: 'Student Rights & Access',
-                    content: 'As an enrolled student, you are granted full access to:\n\u2022 Campus facilities (Library, Labs, Study Areas)\n\u2022 Digital learning resources and student portal\n\u2022 Academic advising and student support services'
+                    content: 'As an enrolled student, you are granted full access to:\n- Campus facilities (Library, Labs, Study Areas)\n- Digital learning resources and student portal\n- Academic advising and student support services'
                 },
                 {
                     title: 'Immigration / Official Use',
@@ -512,7 +512,7 @@ serve(async (req: any) => {
                 },
                 {
                     title: 'Refund Policy',
-                    content: 'Tuition fees are subject to the university\u2019s refund policy. Full details can be found at https://cannogacollege.ca/refund-withdrawal-policy/.'
+                    content: "Tuition fees are subject to the college's refund policy. Full details can be found at https://cannogacollege.ca/refund-withdrawal-policy/."
                 }
             ];
 
