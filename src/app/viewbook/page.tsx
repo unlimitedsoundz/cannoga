@@ -77,7 +77,7 @@ export default function ViewbookPage() {
                 </div>
 
                 {/* Subtitle Caption Underneath the Main Player */}
-                <div className="mt-4 sm:mt-5 text-sm sm:text-base font-medium text-neutral-600">
+                <div className="mt-4 sm:mt-5 text-sm sm:text-base font-medium text-black">
                     Cannoga College • 2026/2027 Official Prospectus (2-Page Spread View)
                 </div>
 
@@ -87,7 +87,7 @@ export default function ViewbookPage() {
                         <h2 className="text-2xl sm:text-4xl font-black text-[#273a60] uppercase tracking-tight font-sans">
                             Single-Page Reader View
                         </h2>
-                        <p className="text-sm sm:text-base text-neutral-600 mt-1">
+                        <p className="text-sm sm:text-base text-black mt-1">
                             Browse each page individually in high definition, optimized for single-page reading and vertical screens.
                         </p>
                     </div>
@@ -105,7 +105,7 @@ export default function ViewbookPage() {
                     </div>
 
                     {/* Subtitle Caption for 1-Page Viewer */}
-                    <div className="max-w-4xl mx-auto mt-4 text-sm sm:text-base font-medium text-neutral-600">
+                    <div className="max-w-4xl mx-auto mt-4 text-sm sm:text-base font-medium text-black">
                         Cannoga College • Single-Page Reader Mode
                     </div>
                 </div>

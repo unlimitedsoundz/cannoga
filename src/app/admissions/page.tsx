@@ -181,7 +181,7 @@ export default async function AdmissionsPage() {
                             <div className="pt-2">
                                 <div className="mb-6">
                                     <h3 className="text-2xl font-black text-black tracking-tight">Admissions Quick Links</h3>
-                                    <p className="text-sm text-neutral-600 font-medium mt-1">Essential portals, fee payments, and Canadian immigration application resources.</p>
+                                    <p className="text-sm text-black font-medium mt-1">Essential portals, fee payments, and Canadian immigration application resources.</p>
                                 </div>
                                 <AdmissionsQuickLinksCarousel />
                             </div>
@@ -243,7 +243,7 @@ export default async function AdmissionsPage() {
                             <div className="pt-2">
                                 <div className="mb-6">
                                     <h2 className="text-2xl font-black text-black tracking-tight">Career Opportunities</h2>
-                                    <p className="text-sm text-neutral-600 font-medium mt-1">Support and services to help plan and pursue post-graduation careers, powered by strong industry ties.</p>
+                                    <p className="text-sm text-black font-medium mt-1">Support and services to help plan and pursue post-graduation careers, powered by strong industry ties.</p>
                                 </div>
                                 <AdmissionsCareerOpportunitiesCarousel />
                             </div>
@@ -297,7 +297,7 @@ export default async function AdmissionsPage() {
                                 <div className="cc-section-divider mb-10">
                                     <h2 className="cc-h2">After Graduation</h2>
                                 </div>
-                                <p className="text-neutral-600 text-lg leading-relaxed mb-8 max-w-3xl">
+                                <p className="text-black text-lg leading-relaxed mb-8 max-w-3xl">
                                     After graduating as an international student in Cannoga College Ontario, you can apply for a Post-Graduation Work Permit (PGWP) to live, find a job, and gain valuable work experience in Canada.
                                 </p>
                                 <div className="space-y-8">
@@ -305,7 +305,7 @@ export default async function AdmissionsPage() {
                                         <StepBadge step={1} size="w-9 h-9" />
                                         <div className="flex-1 space-y-3">
                                             <h3 className="text-xl font-bold text-black">Apply for a Post-Graduation Work Permit (PGWP)</h3>
-                                            <div className="space-y-3 text-neutral-600 leading-relaxed font-normal">
+                                            <div className="space-y-3 text-black leading-relaxed font-normal">
                                                 <p><strong>What it is:</strong> An open work permit that allows you to work for almost any employer in Canada.</p>
                                                 <p><strong>Duration:</strong> Valid for 8 months up to 3 years, depending on the length of your study program. Programs of 2 years or longer generally qualify for a 3-year work permit.</p>
                                                 <p><strong>Deadline:</strong> You must apply within 180 days of receiving your final transcript and an official letter from your school confirming you completed your program.</p>
@@ -318,7 +318,7 @@ export default async function AdmissionsPage() {
                                         <StepBadge step={2} size="w-9 h-9" />
                                         <div className="flex-1 space-y-2">
                                             <h3 className="text-xl font-bold text-black">Gain Canadian Work Experience</h3>
-                                            <p className="text-neutral-600 leading-relaxed font-normal">
+                                            <p className="text-black leading-relaxed font-normal">
                                                 Working on a PGWP allows you to build a professional network and earn Canadian work experience. This work experience is essential if you want to apply to stay in Canada permanently.
                                             </p>
                                         </div>
@@ -328,7 +328,7 @@ export default async function AdmissionsPage() {
                                         <StepBadge step={3} size="w-9 h-9" />
                                         <div className="flex-1 space-y-3">
                                             <h3 className="text-xl font-bold text-black">Transition to Permanent Residency (PR)</h3>
-                                            <div className="space-y-3 text-neutral-600 leading-relaxed font-normal">
+                                            <div className="space-y-3 text-black leading-relaxed font-normal">
                                                 <div>
                                                     <p className="font-bold text-black">Express Entry (Canadian Experience Class):</p>
                                                     <p>After completing at least 1 year of skilled work experience in Canada, you can apply through the Express Entry System. Your Canadian education and work history give you higher ranking points.</p>

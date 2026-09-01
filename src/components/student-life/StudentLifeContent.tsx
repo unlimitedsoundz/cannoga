@@ -56,7 +56,7 @@ export default function StudentLifeContent() {
                             <h2 className="text-3xl md:text-4xl font-black text-[#0f2027] tracking-tight leading-tight font-serif">
                                 An Urban Academic District in Canada’s Capital
                             </h2>
-                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-medium">
+                            <p className="text-base md:text-lg text-black leading-relaxed font-medium">
                                 Cannoga College forms a compact, accessible academic district in Ottawa where teaching facilities, student lounges, research labs, and transit routes are seamlessly integrated.
                             </p>
                         </div>
@@ -141,7 +141,7 @@ export default function StudentLifeContent() {
                 <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-7xl relative z-20">
                     <div className="mb-12">
                         <h2 className="text-3xl font-serif font-bold text-[#0f2027]">Student Resource Hub</h2>
-                        <p className="text-slate-700 text-sm mt-1">Direct access to campus services, health support, and academic governance.</p>
+                        <p className="text-black text-sm mt-1">Direct access to campus services, health support, and academic governance.</p>
                     </div>
 
                     <StudentResourceHubCarousel />

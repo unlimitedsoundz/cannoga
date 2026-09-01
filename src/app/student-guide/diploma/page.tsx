@@ -92,7 +92,7 @@ export default async function DiplomaGuidePage() {
                     { label: "Diploma's Guide" }
                 ]}
             >
-                <div className="cc-container py-8 md:py-12 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                <div className="cc-container py-8 md:py-12 text-base md:text-lg font-normal text-black leading-relaxed">
                     <div className="space-y-10 md:space-y-14">
 
                         {/* Welcome Overview */}
@@ -100,7 +100,7 @@ export default async function DiplomaGuidePage() {
                             <h2 className="text-aalto-5 font-bold text-black tracking-tight">
                                 Welcome to Cannoga Diploma Programmes
                             </h2>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Congratulations on your admission to Cannoga College. Our career-focused 2-year Diploma (60 credits) and 3-year Advanced Diploma (90 credits) programmes provide hands-on applied learning and co-op work terms aligned with Canadian industry standards. Complete this 8-step guide to finalize your admissions, immigration, and course scheduling.
                             </p>
                         </section>
@@ -113,7 +113,7 @@ export default async function DiplomaGuidePage() {
                                     Accept Your Offer of Admission
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 To confirm your seat in your diploma stream, log into the <Link href="/portal/account/login/" className="text-black font-bold underline hover:text-[#c89211]">Cannoga Student Application Portal</Link> and accept your offer prior to the date listed on your Letter of Acceptance (LOA).
                             </p>
 
@@ -130,7 +130,7 @@ export default async function DiplomaGuidePage() {
                                 </div>
                             </div>
 
-                            <div className="p-5 bg-neutral-100 text-sm text-slate-700">
+                            <div className="p-5 bg-neutral-100 text-sm text-black">
                                 <strong className="text-black block mb-0.5">Confirmation Tuition Deposit</strong>
                                 A non-refundable tuition deposit (${tuitionDeposit.toLocaleString()} CAD) is credited directly towards your first-term diploma tuition balance.
                             </div>
@@ -144,7 +144,7 @@ export default async function DiplomaGuidePage() {
                                     Tuition Fees, Payment Schedule &amp; Scholarships
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Diploma tuition is billed per semester across Fall and Winter terms. Access your official student statements and tax receipts through the SIS portal.
                             </p>
 
@@ -179,7 +179,7 @@ export default async function DiplomaGuidePage() {
                                     Canadian Study Permit &amp; Visa (IRCC)
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 International students admitted to diploma programmes must obtain a valid Canadian Study Permit from IRCC before traveling to Canada.
                             </p>
 
@@ -202,7 +202,7 @@ export default async function DiplomaGuidePage() {
                                 </div>
                             </div>
 
-                            <div className="p-5 bg-neutral-100 text-sm text-slate-700">
+                            <div className="p-5 bg-neutral-100 text-sm text-black">
                                 <strong>Off-Campus Work Authorization:</strong> Full-time diploma students on a study permit are authorized to work off-campus in Canada during academic semesters and full-time during official scheduled breaks.
                             </div>
                         </section>
@@ -215,7 +215,7 @@ export default async function DiplomaGuidePage() {
                                     Course Enrolment &amp; Co-op Practicum
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Standard full-time diploma load is 5 courses (15 credits) per semester. Enrolment opens 6 weeks prior to the start of classes through the Cannoga SIS.
                             </p>
 
@@ -243,7 +243,7 @@ export default async function DiplomaGuidePage() {
                                     Activate Student IT &amp; Learning Portal
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 After your confirmation deposit is processed, your official student ID and digital accounts are provisioned within 24 to 48 hours.
                             </p>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -294,7 +294,7 @@ export default async function DiplomaGuidePage() {
                                     Campus Orientation &amp; Arrival in Ottawa
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Orientation sessions occur the week prior to classes starting. Learn how to navigate campus, connect with faculty instructors, and access career labs.
                             </p>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">

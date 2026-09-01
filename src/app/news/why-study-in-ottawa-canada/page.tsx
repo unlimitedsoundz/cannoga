@@ -119,7 +119,7 @@ export default function WhyStudyInOttawaCanadaPage() {
                             <h2 className="text-2xl md:text-3xl font-black text-black tracking-tight mb-4 leading-snug">
                                 {reason.title}
                             </h2>
-                            <p className="text-base md:text-lg text-neutral-700 leading-relaxed font-normal">
+                            <p className="text-base md:text-lg text-black leading-relaxed font-normal">
                                 {reason.content}
                             </p>
                         </article>

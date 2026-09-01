@@ -58,9 +58,9 @@ export function CookieConsent() {
                             <h3 className="text-xl font-bold text-black tracking-tight flex items-center justify-center md:justify-start gap-2">
                                 Cookies & Privacy
                             </h3>
-                            <p className="text-sm text-neutral-600 leading-relaxed max-w-2xl">
+                            <p className="text-sm text-black leading-relaxed max-w-2xl">
                                 We use cookies to enhance your experience and analyze site traffic. You can choose to accept all cookies or customize your preferences below. Learn more in our {' '}
-                                <Link href="/cookies/" className="text-black font-bold underline hover:text-neutral-700 transition-colors cursor-pointer">
+                                <Link href="/cookies/" className="text-black font-bold underline hover:text-black transition-colors cursor-pointer">
                                     Cookie Policy
                                 </Link>.
                             </p>
@@ -68,7 +68,7 @@ export function CookieConsent() {
                         <div className="flex flex-wrap items-center justify-center gap-3 w-full md:w-auto shrink-0">
                             <button
                                 onClick={() => setShowDetails(!showDetails)}
-                                className="px-6 py-2.5 rounded-xl border border-neutral-200 text-neutral-600 font-bold text-sm hover:bg-neutral-50 transition-all cursor-pointer flex items-center gap-2"
+                                className="px-6 py-2.5 rounded-xl border border-neutral-200 text-black font-bold text-sm hover:bg-neutral-50 transition-all cursor-pointer flex items-center gap-2"
                             >
                                 {showDetails ? 'Hide Details' : 'Customize'}
                                 {showDetails ? <CaretUp size={16} weight="bold" /> : <CaretDown size={16} weight="bold" />}

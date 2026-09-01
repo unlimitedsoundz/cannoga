@@ -43,7 +43,7 @@ export function Hero({
     overlayOpacity = 'opacity-40'
 }: HeroProps) {
     const textColorClass = lightText ? 'text-white' : 'text-black';
-    const bodyColorClass = lightText ? 'text-white' : 'text-neutral-700';
+    const bodyColorClass = lightText ? 'text-white' : 'text-black';
     return (
         <>
             <div className="w-full container mx-auto px-4 sm:px-6 lg:px-8 pt-0">

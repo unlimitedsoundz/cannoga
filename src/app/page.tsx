@@ -119,7 +119,7 @@ export default async function Home() {
                 <div className="container mx-auto px-4 md:px-28 lg:px-40 relative z-20">
                     <div className="mb-12">
                         <h2 className="text-3xl font-serif font-bold text-[#0f2027]">Student Resource Hub</h2>
-                        <p className="text-slate-700 text-sm mt-1">Direct access to campus services, financial aid, and academic governance.</p>
+                        <p className="text-black text-sm mt-1">Direct access to campus services, financial aid, and academic governance.</p>
                     </div>
 
                     <StudentResourceHubCarousel />

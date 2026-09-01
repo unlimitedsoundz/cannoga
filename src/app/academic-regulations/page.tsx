@@ -154,7 +154,7 @@ const regulations = [
                                 <th className="p-3 font-bold border border-slate-700">Performance Description</th>
                             </tr>
                         </thead>
-                        <tbody className="text-slate-700 divide-y divide-slate-200">
+                        <tbody className="text-black divide-y divide-slate-200">
                             <tr><td className="p-2.5 font-bold border">A+ / A</td><td className="p-2.5 border">85% – 100%</td><td className="p-2.5 font-bold border">4.00</td><td className="p-2.5 border">Exceptional / Outstanding mastery</td></tr>
                             <tr><td className="p-2.5 font-bold border">A-</td><td className="p-2.5 border">80% – 84%</td><td className="p-2.5 font-bold border">3.70</td><td className="p-2.5 border">Excellent command of concepts</td></tr>
                             <tr><td className="p-2.5 font-bold border">B+ / B</td><td className="p-2.5 border">73% – 79%</td><td className="p-2.5 font-bold border">3.00 – 3.30</td><td className="p-2.5 border">Very Good / Solid comprehension</td></tr>
@@ -337,10 +337,10 @@ export default function AcademicRegulationsPage() {
             />
 
             {/* MAIN CONTENT ACCORDION */}
-            <main className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+            <main className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-black leading-relaxed">
                 <section className="space-y-4">
                     <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight">Official Policies &amp; Standards</h2>
-                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed max-w-3xl">
+                    <p className="text-black text-base md:text-lg font-normal leading-relaxed max-w-3xl">
                         Select any regulation below to review full policy guidelines, student responsibilities, and procedural details.
                     </p>
                 </section>

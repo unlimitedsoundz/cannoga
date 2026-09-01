@@ -30,7 +30,7 @@ export function List({ items, className = "", depth = 0 }: ListProps) {
                     <Link 
                         label={item.label} 
                         linkComponentProps={item.linkComponentProps}
-                        className={`${depth === 0 ? 'text-sm font-medium tracking-normal' : 'text-xs font-normal text-neutral-600 hover:opacity-70'} transition-colors`}
+                        className={`${depth === 0 ? 'text-sm font-medium tracking-normal' : 'text-xs font-normal text-black hover:opacity-70'} transition-colors`}
                     />
                     {item.subItems && item.subItems.length > 0 && (
                         <List items={item.subItems} depth={depth + 1} />

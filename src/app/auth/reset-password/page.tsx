@@ -140,12 +140,12 @@ export default function ResetPasswordPage() {
             <div className="cc-container max-w-3xl mx-auto py-10">
                 <div className="bg-white p-8 rounded-2xl shadow-sm border border-neutral-100 text-[#2d2d2d]">
                     <h1 className="text-2xl font-bold mb-1 text-center text-neutral-900">Set New Password</h1>
-                    <p className="text-neutral-600 text-sm text-center mb-6">Please enter your new password below</p>
+                    <p className="text-black text-sm text-center mb-6">Please enter your new password below</p>
 
                     {success ? (
                         <div className="text-center py-4 space-y-4">
                             <h2 className="text-lg font-bold text-neutral-900">Password Reset Successful!</h2>
-                            <p className="text-sm text-neutral-600">
+                            <p className="text-sm text-black">
                                 Your password has been updated successfully. You can now log in with your new password.
                             </p>
                             <div className="pt-4">
@@ -166,7 +166,7 @@ export default function ResetPasswordPage() {
                             )}
 
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">
+                                <label className="block text-xs font-medium font-black text-black mb-1">
                                     New Password
                                 </label>
                                 <input
@@ -180,7 +180,7 @@ export default function ResetPasswordPage() {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-medium font-black text-neutral-700 mb-1">
+                                <label className="block text-xs font-medium font-black text-black mb-1">
                                     Confirm New Password
                                 </label>
                                 <input

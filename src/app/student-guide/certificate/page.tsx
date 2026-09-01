@@ -92,7 +92,7 @@ export default async function CertificateGuidePage() {
                     { label: "Certificate's Guide" }
                 ]}
             >
-                <div className="cc-container py-8 md:py-12 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                <div className="cc-container py-8 md:py-12 text-base md:text-lg font-normal text-black leading-relaxed">
                     <div className="space-y-10 md:space-y-14">
 
                         {/* Welcome Overview */}
@@ -100,7 +100,7 @@ export default async function CertificateGuidePage() {
                             <h2 className="text-aalto-5 font-bold text-black tracking-tight">
                                 Welcome to Cannoga Certificate Programmes
                             </h2>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Congratulations on your admission to Cannoga College. Our 1-year Certificate (30 credits) and Post-Graduate Certificate programmes provide intensive, career-focused training with hands-on technical labs and immediate workforce readiness in Ottawa. Follow this 8-step roadmap to finalize your enrollment and prepare for your arrival.
                             </p>
                         </section>
@@ -113,7 +113,7 @@ export default async function CertificateGuidePage() {
                                     Accept Your Offer of Admission
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 To confirm your seat in your certificate stream, log into the <Link href="/portal/account/login/" className="text-black font-bold underline hover:text-[#c89211]">Cannoga Student Application Portal</Link> and submit your formal acceptance prior to the deadline on your Letter of Acceptance (LOA).
                             </p>
 
@@ -130,7 +130,7 @@ export default async function CertificateGuidePage() {
                                 </div>
                             </div>
 
-                            <div className="p-5 bg-neutral-100 text-sm text-slate-700">
+                            <div className="p-5 bg-neutral-100 text-sm text-black">
                                 <strong className="text-black block mb-0.5">Confirmation Tuition Deposit</strong>
                                 A non-refundable tuition deposit (${tuitionDeposit.toLocaleString()} CAD) is credited directly towards your first-term tuition balance.
                             </div>
@@ -144,7 +144,7 @@ export default async function CertificateGuidePage() {
                                     Tuition Fees, Payment Schedule &amp; Bursaries
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Certificate programme tuition covers direct course instruction, technical lab licensing, and studio access across both terms. Fee statements are available on the SIS portal.
                             </p>
 
@@ -179,7 +179,7 @@ export default async function CertificateGuidePage() {
                                     Canadian Study Permit &amp; Visa (IRCC)
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 International students admitted to full-time certificate programmes must hold a valid Canadian Study Permit issued by IRCC prior to arrival.
                             </p>
 
@@ -202,7 +202,7 @@ export default async function CertificateGuidePage() {
                                 </div>
                             </div>
 
-                            <div className="p-5 bg-neutral-100 text-sm text-slate-700">
+                            <div className="p-5 bg-neutral-100 text-sm text-black">
                                 <strong>Off-Campus Work Authorization:</strong> Full-time certificate students on a study permit are authorized to work off-campus in Canada during academic semesters and full-time during official scheduled breaks.
                             </div>
                         </section>
@@ -215,7 +215,7 @@ export default async function CertificateGuidePage() {
                                     Course Enrolment &amp; Intensive Lab Training
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Certificate programmes require 30 total credits (typically 5 courses / 15 credits per semester). Course enrolment opens 6 weeks prior to term commencement via the Cannoga SIS.
                             </p>
 
@@ -243,7 +243,7 @@ export default async function CertificateGuidePage() {
                                     Activate Student IT &amp; Learning Portal
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Following confirmation deposit verification, your official Cannoga College Student ID and digital accounts are provisioned within 24 to 48 hours.
                             </p>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -294,7 +294,7 @@ export default async function CertificateGuidePage() {
                                     Campus Orientation &amp; Arrival in Ottawa
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Orientation sessions occur the week prior to classes starting. Learn about campus resources, meet your instructors, and explore technical facilities.
                             </p>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">

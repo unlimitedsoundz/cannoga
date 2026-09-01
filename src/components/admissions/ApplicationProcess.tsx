@@ -11,7 +11,7 @@ const steps = [
       <div className="space-y-4">
         <p>Confirm your program is open for international students. Check the program details for availability.</p>
         <div className="border-l-2 border-black pl-3 py-1 my-2">
-          <p className="text-base text-neutral-700 font-medium">
+          <p className="text-base text-black font-medium">
             <strong>Note:</strong> When choosing a program, ensure it is not an online-only program. Cannoga College is located in Ottawa, Ontario, Canada.
           </p>
         </div>
@@ -126,7 +126,7 @@ export default function ApplicationProcess() {
   return (
     <div className="max-w-4xl">
       <h2 className="text-2xl font-black text-black mb-4">Steps to Apply</h2>
-      <p className="text-lg text-neutral-700 font-medium mb-8 leading-relaxed">
+      <p className="text-lg text-black font-medium mb-8 leading-relaxed">
         To ensure your application to Cannoga College has the best chance of success, follow our simple {steps.length}-step process.
       </p>
 
@@ -137,7 +137,7 @@ export default function ApplicationProcess() {
                 <StepBadge step={step.step} />
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-black mb-2">{step.title}</h3>
-                  <div className="text-lg text-neutral-700 font-medium leading-relaxed">
+                  <div className="text-lg text-black font-medium leading-relaxed">
                     {step.content}
                   </div>
                 </div>

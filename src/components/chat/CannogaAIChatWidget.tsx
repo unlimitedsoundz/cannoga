@@ -201,7 +201,7 @@ export function CannogaAIChatWidget() {
             if (line.startsWith('* ') || line.startsWith('- ')) {
                 const itemText = line.replace(/^[\*\-]\s+/, '');
                 return (
-                    <div key={idx} className="flex items-start gap-2 my-1 text-slate-700">
+                    <div key={idx} className="flex items-start gap-2 my-1 text-black">
                         <span className="w-1.5 h-1.5 rounded-full bg-slate-900 mt-2 shrink-0" />
                         <span dangerouslySetInnerHTML={{ __html: parseInline(itemText) }} />
                     </div>
@@ -331,12 +331,12 @@ export function CannogaAIChatWidget() {
                                     {msg.role === 'assistant' ? (
                                         <div>
                                             <div className="flex items-center justify-between pb-1 mb-1 border-b border-slate-100 text-[10px] text-slate-400 font-semibold">
-                                                <span className="text-slate-700 font-bold">
+                                                <span className="text-black font-bold">
                                                     Cannoga Advisor
                                                 </span>
                                                 <button
                                                     onClick={() => handleSpeak(msg.text)}
-                                                    className="hover:text-slate-700 flex items-center gap-1 text-slate-400"
+                                                    className="hover:text-black flex items-center gap-1 text-slate-400"
                                                     title="Read out loud"
                                                 >
                                                     <SpeakerHigh size={13} />
@@ -355,7 +355,7 @@ export function CannogaAIChatWidget() {
                         {/* Typing Animation */}
                         {isTyping && (
                             <div className="flex items-center gap-2.5 bg-white border border-slate-200 rounded-2xl px-3.5 py-2.5 shadow-xs w-fit">
-                                <div className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
+                                <div className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-black shrink-0">
                                     <PencilSimpleLine size={12} weight="bold" className="animate-pulse text-slate-800" />
                                 </div>
                                 <span className="text-xs text-slate-600 font-medium">Cannoga is typing...</span>

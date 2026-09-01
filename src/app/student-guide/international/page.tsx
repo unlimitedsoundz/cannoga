@@ -83,13 +83,13 @@ export default function InternationalGuidePage() {
                     { label: 'International Students' }
                 ]}
             >
-                <div className="cc-container py-8 md:py-12 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                <div className="cc-container py-8 md:py-12 text-base md:text-lg font-normal text-black leading-relaxed">
                     <div className="space-y-10 md:space-y-14">
 
                         {/* Purpose */}
                         <section id="intro" className="scroll-mt-32 space-y-4">
                             <h2 className="text-aalto-5 font-bold text-black tracking-tight">Purpose of This Guide</h2>
-                            <p className="text-base md:text-lg text-slate-700 leading-relaxed max-w-3xl font-normal">
+                            <p className="text-base md:text-lg text-black leading-relaxed max-w-3xl font-normal">
                                 This section provides international degree and exchange students with practical guidance on what to do after admission and after arrival in Ottawa, Ontario, Canada. It covers study permits, housing, transportation, health coverage, and settling into your new community.
                             </p>
                         </section>
@@ -99,10 +99,10 @@ export default function InternationalGuidePage() {
                             <h2 className="text-aalto-5 font-bold text-black tracking-tight">Why Study in Ottawa, Ontario, Canada?</h2>
                             <div className="grid lg:grid-cols-2 gap-6 items-center">
                                 <div className="space-y-3">
-                                    <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed">
+                                    <p className="text-base md:text-lg text-black font-normal leading-relaxed">
                                         Ottawa is Canada&apos;s capital — a bilingual, safe, and cosmopolitan city that consistently ranks among the best places in the world to live and study. With a thriving tech sector, world-class research institutions, and a welcoming multicultural community, Ottawa offers international students an unparalleled experience.
                                     </p>
-                                    <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed">
+                                    <p className="text-base md:text-lg text-black font-normal leading-relaxed">
                                         The Canadian education system is internationally recognized for its high quality, student-centered approach, and strong focus on research and innovation.
                                     </p>
                                     <div className="pt-1">
@@ -139,7 +139,7 @@ export default function InternationalGuidePage() {
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Study Permit &amp; Financial Support</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">
+                                    <p className="text-base md:text-lg text-black leading-relaxed font-normal mb-2">
                                         Apply for your Canadian study permit through IRCC as soon as you receive your acceptance letter. <strong>Starting September 1, 2026</strong>, a single international study permit applicant outside Quebec must demonstrate <strong>CAD $23,448</strong> for one year of living expenses (plus first-year tuition and travel costs).
                                     </p>
                                     <div className="flex flex-wrap gap-3 pt-1">
@@ -149,17 +149,17 @@ export default function InternationalGuidePage() {
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Housing</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">Arrange accommodation before arrival. Ottawa student housing providers and private rentals should be booked early, especially for August/September intake.</p>
+                                    <p className="text-base md:text-lg text-black leading-relaxed font-normal mb-2">Arrange accommodation before arrival. Ottawa student housing providers and private rentals should be booked early, especially for August/September intake.</p>
                                     <Link href="/housing/" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Housing Guide →</Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Health Insurance</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">All residents in Canada are entitled to public healthcare through provincial health insurance (OHIP in Ontario). International students may need private insurance for the first 3 months until eligible for provincial coverage. Cannoga partners with local clinics for walk-in care.</p>
+                                    <p className="text-base md:text-lg text-black leading-relaxed font-normal mb-2">All residents in Canada are entitled to public healthcare through provincial health insurance (OHIP in Ontario). International students may need private insurance for the first 3 months until eligible for provincial coverage. Cannoga partners with local clinics for walk-in care.</p>
                                     <Link href="https://www.ontario.ca/page/apply-ohip-health-card" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">OHIP Info <ArrowSquareOut size={14} weight="bold" /></Link>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Tuition &amp; Scholarships</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mb-2">International tuition fees apply. Check our merit scholarship opportunities — awards of up to 50% tuition waiver are available.</p>
+                                    <p className="text-base md:text-lg text-black leading-relaxed font-normal mb-2">International tuition fees apply. Check our merit scholarship opportunities — awards of up to 50% tuition waiver are available.</p>
                                     <Link href="/admissions/tuition/" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a]">Tuition Info →</Link>
                                 </div>
                             </div>
@@ -171,7 +171,7 @@ export default function InternationalGuidePage() {
                             <div className="grid lg:grid-cols-2 gap-6">
                                 <div className="space-y-4">
                                     <h3 className="font-bold text-lg md:text-xl text-black">Getting Around</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
+                                    <p className="text-base md:text-lg text-black leading-relaxed font-normal">
                                         Ottawa&apos;s public transport is operated by <strong>OC Transpo</strong>, offering bus, light rail, and paratransit services. Students qualify for discounted fares with a valid student card.
                                     </p>
                                     <div className="flex flex-wrap gap-4">
@@ -179,7 +179,7 @@ export default function InternationalGuidePage() {
                                         <Link href="https://www.octranspo.com/en/fares/student-fares" target="_blank" className="font-bold underline text-sm uppercase tracking-widest text-[#0a151a] inline-flex items-center gap-1">Student Tickets <ArrowSquareOut size={14} weight="bold" /></Link>
                                     </div>
                                     <h3 className="font-bold text-lg md:text-xl text-black pt-2">Registering with Authorities</h3>
-                                    <div className="space-y-2 text-base md:text-lg font-normal text-slate-700">
+                                    <div className="space-y-2 text-base md:text-lg font-normal text-black">
                                         <p className="flex gap-2.5 items-start"><span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" /> All international students must register their address with ServiceOntario after arrival.</p>
                                         <p className="flex gap-2.5 items-start"><span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" /> Canadian citizens and permanent residents must carry valid identification; international students apply for a study permit through IRCC.</p>
                                         <p className="flex gap-2.5 items-start"><span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" /> Open a Canadian bank account early — RBC, TD, Scotiabank, and others offer student accounts with low fees.</p>
@@ -203,7 +203,7 @@ export default function InternationalGuidePage() {
                                             "Attend mandatory orientation week",
                                             "Join the Cannoga student community platform",
                                         ].map((item, i) => (
-                                            <li key={i} className="flex gap-2.5 items-start font-normal text-slate-700">
+                                            <li key={i} className="flex gap-2.5 items-start font-normal text-black">
                                                 <StepBadge step={i + 1} size="w-6 h-6" fontSize="text-xs" />
                                                 <span>{item}</span>
                                             </li>
@@ -234,15 +234,15 @@ export default function InternationalGuidePage() {
                             <div className="grid md:grid-cols-3 gap-6">
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Peer Advice</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">Connect with current international students for practical tips on student life, housing, and finding your feet in Ottawa.</p>
+                                    <p className="text-base md:text-lg text-black leading-relaxed font-normal">Connect with current international students for practical tips on student life, housing, and finding your feet in Ottawa.</p>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">International Student Office</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">Guidance on study permits, enrollment, academic procedures, and immigration compliance throughout your studies.</p>
+                                    <p className="text-base md:text-lg text-black leading-relaxed font-normal">Guidance on study permits, enrollment, academic procedures, and immigration compliance throughout your studies.</p>
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg md:text-xl mb-1 text-black">Career &amp; Settlement</h3>
-                                    <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">Dedicated career support to help you plan your professional future and integrate into Ottawa&apos;s vibrant job market.</p>
+                                    <p className="text-base md:text-lg text-black leading-relaxed font-normal">Dedicated career support to help you plan your professional future and integrate into Ottawa&apos;s vibrant job market.</p>
                                 </div>
                             </div>
                         </section>
@@ -251,7 +251,7 @@ export default function InternationalGuidePage() {
                         <section id="after-graduation" className="scroll-mt-32 space-y-6">
                             <div>
                                 <h2 className="text-aalto-5 font-bold text-black tracking-tight">After Graduation</h2>
-                                <p className="text-base md:text-lg text-slate-700 leading-relaxed max-w-3xl font-normal mt-2">
+                                <p className="text-base md:text-lg text-black leading-relaxed max-w-3xl font-normal mt-2">
                                     After graduating as an international student at Cannoga College in Ontario, you can apply for a Post-Graduation Work Permit (PGWP) to live, find a job, and gain valuable work experience in Canada.
                                 </p>
                             </div>
@@ -272,7 +272,7 @@ export default function InternationalGuidePage() {
                                                     Post-Graduation Work Permit (PGWP) <ArrowSquareOut size={16} weight="bold" />
                                                 </a>
                                             </h3>
-                                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-1">
+                                            <p className="text-base md:text-lg text-black leading-relaxed font-normal mt-1">
                                                 Cannoga College students can obtain a post-graduation work permit if they have continuously studied full-time in Canada and have completed an eligible program (such as an Advanced Diploma, Bachelor’s Degree, or qualifying credential).
                                             </p>
                                             <div className="pt-2">
@@ -287,7 +287,7 @@ export default function InternationalGuidePage() {
                                             </div>
                                         </div>
 
-                                        <div className="space-y-2 text-base md:text-lg text-slate-700 leading-relaxed font-normal pt-1">
+                                        <div className="space-y-2 text-base md:text-lg text-black leading-relaxed font-normal pt-1">
                                             <p><strong>What it is:</strong> An open work permit that allows you to work for almost any employer in Canada without needing a job offer beforehand.</p>
                                             <p><strong>Duration:</strong> Valid for 8 months up to 3 years, depending on the length of your study program. Programs of 2 years or longer generally qualify for a full 3-year work permit.</p>
                                             <p><strong>Deadline:</strong> You must apply within 180 days of receiving your final transcript and an official completion letter confirming your graduation.</p>
@@ -304,7 +304,7 @@ export default function InternationalGuidePage() {
                                     <StepBadge step={2} size="w-9 h-9" />
                                     <div className="flex-1 space-y-2">
                                         <h3 className="text-lg md:text-xl font-bold text-black">Gain Canadian Work Experience</h3>
-                                        <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
+                                        <p className="text-base md:text-lg text-black leading-relaxed font-normal">
                                             Working on a PGWP allows you to build a professional network and earn Canadian work experience. This work experience is essential if you want to apply to stay in Canada permanently.
                                         </p>
                                     </div>
@@ -325,12 +325,12 @@ export default function InternationalGuidePage() {
                                                     Permanent Residency (PR) <ArrowSquareOut size={16} weight="bold" />
                                                 </a>
                                             </h3>
-                                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-1">
+                                            <p className="text-base md:text-lg text-black leading-relaxed font-normal mt-1">
                                                 Some students choose to apply for permanent residency (PR) so they can remain in Canada permanently as immigrants. Refer to the following resources as a starting point:
                                             </p>
                                         </div>
 
-                                        <div className="space-y-4 text-base md:text-lg text-slate-700 leading-relaxed font-normal pt-1">
+                                        <div className="space-y-4 text-base md:text-lg text-black leading-relaxed font-normal pt-1">
                                             <div className="space-y-1">
                                                 <a 
                                                     href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada.html"
@@ -368,7 +368,7 @@ export default function InternationalGuidePage() {
                                             </div>
                                         </div>
 
-                                        <p className="pt-2 text-base text-slate-700 font-normal">
+                                        <p className="pt-2 text-base text-black font-normal">
                                             <strong>Immigration Advising:</strong> We regularly offer immigration workshops each semester to guide students on work permits and pathways to permanent residency.
                                         </p>
                                     </div>
@@ -380,7 +380,7 @@ export default function InternationalGuidePage() {
                         <section id="resource-hub" className="scroll-mt-32 pt-8 border-t border-neutral-200 space-y-4">
                             <div className="mb-4">
                                 <h2 className="text-aalto-5 font-bold mb-1 text-black tracking-tight">Student Resource Hub</h2>
-                                <p className="text-base md:text-lg text-slate-700 font-normal">Access additional campus services, health support, careers, and student policies.</p>
+                                <p className="text-base md:text-lg text-black font-normal">Access additional campus services, health support, careers, and student policies.</p>
                             </div>
                             <StudentResourceHubCarousel />
                         </section>

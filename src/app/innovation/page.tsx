@@ -144,11 +144,11 @@ export default function InnovationPage() {
                 </div>
             </Hero>
 
-            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-black leading-relaxed">
                 {/* Introduction & Overview */}
                 <section className="space-y-6">
                     <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight">Ottawa Technology Ecosystem</h2>
-                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                    <p className="text-black text-base md:text-lg font-normal leading-relaxed">
                         The Cannoga Innovation Hub connects ambitious student entrepreneurs, faculty researchers, and industry partners across the National Capital Region. Through non-dilutive seed funding, prototyping labs, and direct connections to Ottawa’s technology investment sector, we accelerate early-stage ventures from initial concept to commercial viability.
                     </p>
                 </section>
@@ -157,7 +157,7 @@ export default function InnovationPage() {
                 <section id="incubator-programs" className="scroll-mt-32 space-y-8 pt-8 border-t border-slate-200">
                     <div>
                         <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight mb-2">Core Programs &amp; Support Services</h2>
-                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                        <p className="text-black text-base md:text-lg font-normal leading-relaxed">
                             Structured incubation frameworks tailored for students, faculty founders, and regional spin-offs.
                         </p>
                     </div>
@@ -212,7 +212,7 @@ export default function InnovationPage() {
                 <section className="space-y-8 pt-8 border-t border-slate-200">
                     <div>
                         <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight mb-2">Venture Portfolio &amp; Spin-Offs</h2>
-                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                        <p className="text-black text-base md:text-lg font-normal leading-relaxed">
                             Select early-stage ventures launched through Cannoga Innovation Hub acceleration cohorts.
                         </p>
                     </div>

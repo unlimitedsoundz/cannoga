@@ -22,7 +22,7 @@ export default async function ProjectsPage() {
         <div className="min-h-screen bg-neutral-50 pt-32 pb-16 md:py-24">
             <div className="container mx-auto px-4">
                 <h1 className="text-4xl font-bold mb-8 text-neutral-900 pt-8">Research Projects</h1>
-                <p className="text-neutral-600 mb-12 max-w-2xl text-lg">
+                <p className="text-black mb-12 max-w-2xl text-lg">
                     Discover our ongoing initiatives driving innovation in sustainability, technology, and urban development.
                 </p>
                 <div className="grid gap-8">
@@ -56,7 +56,7 @@ export default async function ProjectsPage() {
                                 </div>
                             </div>
 
-                            <p className="text-neutral-600 mb-8 max-w-4xl text-lg leading-relaxed">{project.description}</p>
+                            <p className="text-black mb-8 max-w-4xl text-lg leading-relaxed">{project.description}</p>
 
                             <div className="flex flex-wrap items-center justify-between gap-4 pt-6">
                                 <div className="flex items-center gap-2 text-sm text-neutral-500">

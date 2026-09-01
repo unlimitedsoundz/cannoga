@@ -92,7 +92,7 @@ export default async function BachelorsGuidePage() {
                     { label: "Bachelor's Guide" }
                 ]}
             >
-                <div className="cc-container py-8 md:py-12 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                <div className="cc-container py-8 md:py-12 text-base md:text-lg font-normal text-black leading-relaxed">
                     <div className="space-y-10 md:space-y-14">
 
                         {/* Welcome Overview */}
@@ -100,7 +100,7 @@ export default async function BachelorsGuidePage() {
                             <h2 className="text-aalto-5 font-bold text-black tracking-tight">
                                 Welcome to Cannoga College
                             </h2>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Congratulations on your admission to Cannoga College. Our 4-year Bachelor’s degree programmes combine rigorous academic theory with real-world co-op placements in Ottawa. Follow this 8-step roadmap to complete admissions requirements, secure your immigration status, register for courses, and prepare for campus life.
                             </p>
                         </section>
@@ -113,7 +113,7 @@ export default async function BachelorsGuidePage() {
                                     Accept Your Offer of Admission
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 To confirm your seat in your chosen undergraduate programme, log into the <Link href="/portal/account/login/" className="text-black font-bold underline hover:text-[#c89211]">Cannoga Student Application Portal</Link> and submit your formal acceptance before the deadline stated on your Letter of Acceptance (LOA).
                             </p>
 
@@ -130,7 +130,7 @@ export default async function BachelorsGuidePage() {
                                 </div>
                             </div>
 
-                            <div className="p-5 bg-neutral-100 text-sm text-slate-700">
+                            <div className="p-5 bg-neutral-100 text-sm text-black">
                                 <strong className="text-black block mb-0.5">Confirmation Tuition Deposit</strong>
                                 A non-refundable tuition deposit (${tuitionDeposit.toLocaleString()} CAD) is credited directly towards your first-term tuition balance.
                             </div>
@@ -144,7 +144,7 @@ export default async function BachelorsGuidePage() {
                                     Tuition Fees, Payment Schedule &amp; Scholarships
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Bachelor’s degree tuition is assessed per academic term (Fall and Winter semesters). All fee schedules and official receipts are accessible inside your SIS Finance portal.
                             </p>
 
@@ -179,7 +179,7 @@ export default async function BachelorsGuidePage() {
                                     Canadian Study Permit &amp; Visa (IRCC)
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 International students must obtain a valid Canadian Study Permit from Immigration, Refugees and Citizenship Canada (IRCC) before traveling to Ottawa.
                             </p>
 
@@ -202,7 +202,7 @@ export default async function BachelorsGuidePage() {
                                 </div>
                             </div>
 
-                            <div className="p-5 bg-neutral-100 text-sm text-slate-700">
+                            <div className="p-5 bg-neutral-100 text-sm text-black">
                                 <strong>Off-Campus Work Authorization:</strong> Full-time undergraduate degree students holding a valid study permit are authorized to work off-campus in Canada during academic semesters and full-time during official semester breaks.
                             </div>
                         </section>
@@ -215,7 +215,7 @@ export default async function BachelorsGuidePage() {
                                     Course Registration &amp; Academic Advising
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Undergraduate degrees at Cannoga College require 120 total academic credits (typically 30 credits / 10 courses per year across Fall and Winter terms). Course registration opens 6 weeks prior to term commencement.
                             </p>
 
@@ -243,7 +243,7 @@ export default async function BachelorsGuidePage() {
                                     Activate Student IT &amp; Learning Portal
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Once your admission confirmation deposit is verified, your official Cannoga College Student ID and digital accounts are provisioned within 24 to 48 hours.
                             </p>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -294,7 +294,7 @@ export default async function BachelorsGuidePage() {
                                     Campus Orientation &amp; Arrival in Ottawa
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Orientation Week is held during the week prior to classes starting. Attendance is strongly recommended for all incoming Bachelor’s degree students.
                             </p>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">

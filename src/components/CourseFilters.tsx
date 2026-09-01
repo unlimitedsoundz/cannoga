@@ -26,7 +26,7 @@ export default function CourseFilters() {
     return (
         <div className="mb-8 p-4 bg-white rounded-lg border border-neutral-200">
             <div className="flex flex-wrap gap-4 items-center">
-                <span className="font-semibold text-neutral-700">Filter by Degree:</span>
+                <span className="font-semibold text-black">Filter by Degree:</span>
                 <div className="flex gap-2">
                     {[
                         { label: 'All', value: 'all' },
@@ -38,7 +38,7 @@ export default function CourseFilters() {
                             onClick={() => router.push(`?${createQueryString('degree', opt.value)}`, { scroll: false })}
                             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${currentDegree === opt.value
                                     ? 'bg-neutral-600 text-white'
-                                    : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                                    : 'bg-neutral-100 text-black hover:bg-neutral-200'
                                 }`}
                         >
                             {opt.label}

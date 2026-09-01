@@ -347,7 +347,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
                                 <div key={member.id || member.email || `faculty-${idx}`} className="flex gap-4 items-start">
                                     <div className="flex-1">
                                         <h4 className="font-bold text-neutral-900">{member.name}</h4>
-                                        <p className="text-neutral-700 text-sm font-medium mb-1">{member.role}</p>
+                                        <p className="text-black text-sm font-medium mb-1">{member.role}</p>
                                         <p className="text-xs text-neutral-500 line-clamp-2">{member.bio}</p>
                                         {member.email && (
                                             <a href={`mailto:${member.email}`} className="text-xs text-neutral-400 hover:text-blue-600 mt-1 block">

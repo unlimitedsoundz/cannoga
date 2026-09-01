@@ -130,12 +130,12 @@ export default function AlumniPage() {
                 </div>
             </section>
 
-            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-black leading-relaxed">
 
                 {/* OVERVIEW SECTION */}
                 <section className="space-y-6">
                     <h2 className="text-3xl font-black text-black tracking-tight">Lifelong Connection &amp; Impact</h2>
-                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                    <p className="text-black text-base md:text-lg font-normal leading-relaxed">
                         Cannoga College Advanced Diploma, Diploma, and Undergraduate Alumni represent an active global community leading projects across sustainability, public policy, technology, business, and health sciences. Our alumni office provides continuous services, event invitations, and career advancement tools to support your lifelong journey.
                     </p>
                 </section>
@@ -144,7 +144,7 @@ export default function AlumniPage() {
                 <section id="benefits" className="scroll-mt-32 space-y-8 pt-8 border-t border-slate-200">
                     <div>
                         <h2 className="text-3xl font-black text-black tracking-tight mb-2">Alumni Privileges &amp; Services</h2>
-                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                        <p className="text-black text-base md:text-lg font-normal leading-relaxed">
                             As a verified Cannoga graduate, you hold lifetime access to institutional resources and career networks.
                         </p>
                     </div>
@@ -182,7 +182,7 @@ export default function AlumniPage() {
                 {/* REGIONAL CHAPTERS DIRECTORY */}
                 <section id="chapters" className="pt-8 border-t border-slate-200 space-y-6">
                     <h2 className="text-2xl md:text-3xl font-black text-black tracking-tight">Regional Alumni Chapters</h2>
-                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                    <p className="text-black text-base md:text-lg font-normal leading-relaxed">
                         Connect with local chapter leaders, participate in regional networking mixers, and attend Cannoga speaker panels in your area.
                     </p>
 

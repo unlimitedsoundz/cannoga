@@ -35,7 +35,7 @@ export default function AdmissionsContactInfo() {
                                 <h1 className="text-4xl md:text-5xl font-black tracking-tight text-neutral-900 mb-6 leading-tight">
                                     Contact Information for Cannoga College Admission Services
                                 </h1>
-                                <p className="text-lg md:text-xl text-slate-700 leading-relaxed max-w-3xl font-medium">
+                                <p className="text-lg md:text-xl text-black leading-relaxed max-w-3xl font-medium">
                                     You can contact Cannoga College Admission Services by email or by phone during our customer service hours. If your inquiry concerns a specific study programme, please include the name of the programme in the subject line of your message.
                                 </p>
                             </div>
@@ -49,7 +49,7 @@ export default function AdmissionsContactInfo() {
                             <section id="ask-about-applying" className="scroll-mt-32 mb-16 space-y-8">
                                 <div>
                                     <h2 className="text-3xl font-black text-black tracking-tight mb-2">Ask About Applying</h2>
-                                    <p className="text-slate-700 text-base md:text-lg font-medium leading-relaxed">
+                                    <p className="text-black text-base md:text-lg font-medium leading-relaxed">
                                         Get direct guidance from the Cannoga College admissions team and international student advisors.
                                     </p>
                                 </div>
@@ -58,7 +58,7 @@ export default function AdmissionsContactInfo() {
                                      {/* Email */}
                                      <div>
                                          <h3 className="text-slate-900 font-bold text-base leading-snug">Email</h3>
-                                         <a href="mailto:admissions@cannogacollege.ca" className="text-slate-500 font-bold underline hover:text-slate-700 transition-colors text-sm mt-1 block">
+                                         <a href="mailto:admissions@cannogacollege.ca" className="text-slate-500 font-bold underline hover:text-black transition-colors text-sm mt-1 block">
                                              admissions@cannogacollege.ca
                                          </a>
                                      </div>
@@ -69,7 +69,7 @@ export default function AdmissionsContactInfo() {
                                              <h3 className="text-slate-900 font-bold text-base leading-snug">Talk to Cannoga</h3>
                                              <div className="mt-1 space-y-1">
                                                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
-                                                 <a href="tel:+12272500427" className="text-slate-500 font-bold underline hover:text-slate-700 transition-colors text-sm block">
+                                                 <a href="tel:+12272500427" className="text-slate-500 font-bold underline hover:text-black transition-colors text-sm block">
                                                      Talk to Admissions
                                                  </a>
                                              </div>
@@ -86,7 +86,7 @@ export default function AdmissionsContactInfo() {
                                                      href="https://wa.me/17822063309"
                                                      target="_blank"
                                                      rel="noopener noreferrer"
-                                                     className="text-slate-500 font-bold underline hover:text-slate-700 transition-colors text-sm block"
+                                                     className="text-slate-500 font-bold underline hover:text-black transition-colors text-sm block"
                                                  >
                                                      Chat on WhatsApp (Admissions)
                                                  </a>
@@ -97,7 +97,7 @@ export default function AdmissionsContactInfo() {
                                      {/* Where to reach us */}
                                      <div>
                                          <h3 className="text-slate-900 font-bold text-base leading-snug">Where to reach us</h3>
-                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2 text-sm text-slate-700">
+                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2 text-sm text-black">
                                              <div>
                                                  <h4 className="font-bold text-slate-900 text-sm">Campus Address</h4>
                                                  <p className="leading-relaxed mt-0.5">

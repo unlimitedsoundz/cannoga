@@ -352,7 +352,7 @@ export default async function CourseDetailPage({ params }: Props) {
                     </div>
                     <Link
                         href={c.department ? `/schools/${deptSchoolSlug}/${c.department.slug}` : '/studies'}
-                        className="text-slate-700 hover:text-slate-900 text-[11px] sm:text-xs font-bold tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors shrink-0 max-w-full"
+                        className="text-black hover:text-slate-900 text-[11px] sm:text-xs font-bold tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors shrink-0 max-w-full"
                     >
                         <ChevronLeft size={14} weight="bold" className="shrink-0" />
                         <span className="truncate">{c.department ? `Back to ${c.department.name}` : 'Back to Programs'}</span>
@@ -367,10 +367,10 @@ export default async function CourseDetailPage({ params }: Props) {
                     {/* 1. Program Overview & Key Highlights */}
                     <section className="pb-8">
                         <h2 className="text-2xl font-black text-slate-900 mb-6 tracking-tight">Program Overview & Objectives</h2>
-                        <p className="text-slate-700 text-base leading-relaxed mb-6">
+                        <p className="text-black text-base leading-relaxed mb-6">
                             {c.description?.replace(/Cannoga College|Cannoga|Cannoga C\x6Fllege|SYKLI|College/gi, 'Cannoga College')}
                         </p>
-                        <p className="text-slate-700 text-base leading-relaxed mb-8">
+                        <p className="text-black text-base leading-relaxed mb-8">
                             Offered through the <Link href={c.department ? `/schools/${deptSchoolSlug}/${c.department.slug}` : '/schools'} className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">{c.department?.name || 'Department'}</Link> within the <Link href={`/schools/${deptSchoolSlug}/`} className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">{c.school?.name || 'School'}</Link>, this program provides students with direct access to Cannoga’s state-of-the-art academic resources, experiential learning laboratories, and comprehensive <Link href="/admissions/" className="text-[#0a151a] font-bold underline hover:text-sky-700 transition-colors">Admissions Services</Link>.
                         </p>
 
@@ -411,14 +411,14 @@ export default async function CourseDetailPage({ params }: Props) {
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">
                                     {(c.subjects && c.subjects.length > 0 ? c.subjects : getDetailedSubjects(slug, c.title)).map((subject: any) => (
-                                        <tr key={subject.id} className="hover:bg-slate-50 transition-colors text-slate-700 font-normal">
-                                            <td className="p-3.5 px-4 font-mono text-slate-700 text-xs font-normal">{subject.code || 'CAN-100'}</td>
+                                        <tr key={subject.id} className="hover:bg-slate-50 transition-colors text-black font-normal">
+                                            <td className="p-3.5 px-4 font-mono text-black text-xs font-normal">{subject.code || 'CAN-100'}</td>
                                             <td className="p-3.5 px-4 text-slate-600 text-xs font-normal">{subject.area || 'Core'}</td>
                                             <td className="p-3.5 px-4">
                                                 <div className="text-slate-900 text-sm font-normal">{subject.name}</div>
                                                 {subject.semester && <div className="text-[11px] text-slate-400 mt-0.5 font-normal">Semester {subject.semester}</div>}
                                             </td>
-                                            <td className="p-3.5 px-4 text-slate-700 font-normal">{subject.creditUnits || 6} CR</td>
+                                            <td className="p-3.5 px-4 text-black font-normal">{subject.creditUnits || 6} CR</td>
                                             <td className="p-3.5 px-4 text-slate-600 text-xs font-normal">{subject.eligibility || 'Open Enrollment'}</td>
                                         </tr>
                                     ))}

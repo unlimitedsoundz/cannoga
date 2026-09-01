@@ -180,7 +180,7 @@ export default function CountryRequirementsDropdown() {
           {requirements.additionalNotes.length > 0 && (
             <div className="bg-neutral-50 p-4 border border-neutral-200 rounded-sm">
               <h4 className="font-black text-black text-base uppercase tracking-wider mb-2">Important Information:</h4>
-              <ul className="space-y-2 text-sm text-neutral-700">
+              <ul className="space-y-2 text-sm text-black">
                 {requirements.additionalNotes.map((note, idx) => (
                   <li key={idx} className="flex gap-2">
                     <span className="font-bold">•</span>
@@ -210,7 +210,7 @@ export default function CountryRequirementsDropdown() {
               </a>
             </div>
 
-            <p className="text-sm text-neutral-700">
+            <p className="text-sm text-black">
               International students should verify their study permit and visa requirements directly on the official Government of Canada Immigration portal:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">

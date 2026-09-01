@@ -33,7 +33,7 @@ export default function ResearchPage() {
                 <div className="cc-section-divider">
                     <h2 className="cc-h2">Where Curiosity Meets Creation</h2>
                 </div>
-                <div className="text-base md:text-lg text-slate-700 max-w-3xl leading-relaxed font-normal space-y-4">
+                <div className="text-base md:text-lg text-black max-w-3xl leading-relaxed font-normal space-y-4">
                     <p>
                         At <strong className="text-[#000000] font-bold">Cannoga College</strong>, research is not locked away in labs or journals it lives in studios, classrooms, communities, and real-world projects. We explore questions that matter now and ideas that shape what comes next, blending <strong className="text-[#000000] font-bold">technology, design, business, science, and culture</strong> into a shared space of experimentation and discovery.
                     </p>
@@ -57,7 +57,7 @@ export default function ResearchPage() {
                                 "Support sustainable, ethical, and inclusive futures",
                                 "Empower students to challenge norms and create alternatives"
                             ].map((item, i) => (
-                                <li key={i} className="flex items-center gap-3 text-base md:text-lg text-slate-700 font-normal">
+                                <li key={i} className="flex items-center gap-3 text-base md:text-lg text-black font-normal">
                                     <span className="w-2 h-2 bg-[#0a151a] rounded-full shrink-0" />
                                     <span>{item}</span>
                                 </li>
@@ -66,7 +66,7 @@ export default function ResearchPage() {
                     </div>
                      <div className="cc-card cc-card-body">
                          <h3 className="cc-h3 mb-4">Core Values</h3>
-                         <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal">
+                         <p className="text-base md:text-lg text-black leading-relaxed font-normal">
                              We value <strong className="text-slate-900 font-bold">applied research</strong>, <strong className="text-slate-900 font-bold">creative inquiry</strong>, and <strong className="text-slate-900 font-bold">practice-based exploration</strong> equally because innovation rarely comes from just one way of thinking.
                         </p>
                     </div>
@@ -294,7 +294,7 @@ export default function ResearchPage() {
                 <div className="cc-container">
                     <p className="cc-label uppercase tracking-widest mb-3">Join the Research Community</p>
                     <h2 className="cc-h2 mb-6">Manifest Your Research</h2>
-                    <p className="text-lg text-neutral-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    <p className="text-lg text-black max-w-2xl mx-auto mb-10 leading-relaxed">
                         Students and staff are invited to actively engage in exploration. At Cannoga College, research is not just something you study <strong>it's something you do</strong>.
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-4">

@@ -105,7 +105,7 @@ export default function WelcomeFromPresidentPage() {
                                         weight="fill"
                                         className="text-blue-500 mb-3"
                                     />
-                                    <div className="space-y-5 text-slate-700 leading-relaxed text-base md:text-lg font-normal pl-2 border-l-4 border-blue-400">
+                                    <div className="space-y-5 text-black leading-relaxed text-base md:text-lg font-normal pl-2 border-l-4 border-blue-400">
                                         <p>
                                             On behalf of our faculty, staff, and the entire Cannoga College community, it is my honour and privilege to welcome you to our institution.
                                         </p>
@@ -123,7 +123,7 @@ export default function WelcomeFromPresidentPage() {
 
                     {/* Continued letter */}
                     <section id="vision" className="scroll-mt-32 mb-20 max-w-4xl">
-                        <div className="space-y-6 text-slate-700 leading-relaxed text-base md:text-lg font-normal">
+                        <div className="space-y-6 text-black leading-relaxed text-base md:text-lg font-normal">
                             <h2 className="text-2xl md:text-3xl font-black text-[#0f2027] tracking-tight">Our Vision for the Future</h2>
 
                             <p>
@@ -155,7 +155,7 @@ export default function WelcomeFromPresidentPage() {
                                 <div>
                                     <p className="text-xl font-black text-[#0f2027] tracking-tight">Dr. Luke Schaffner</p>
                                     <p className="text-sm font-semibold text-neutral-500 uppercase tracking-widest">President</p>
-                                    <p className="text-base text-slate-700 mt-0.5">Cannoga College · Ottawa, Ontario</p>
+                                    <p className="text-base text-black mt-0.5">Cannoga College · Ottawa, Ontario</p>
                                 </div>
                             </div>
                         </div>

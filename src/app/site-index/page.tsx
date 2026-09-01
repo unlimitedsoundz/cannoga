@@ -238,7 +238,7 @@ export default function SiteIndexPage() {
             <div className="container mx-auto max-w-6xl px-4 py-12 md:py-20 grid grid-cols-1 lg:grid-cols-4 gap-12">
                 {/* STICKY SECTION NAV */}
                 <div className="hidden lg:block lg:col-span-1">
-                    <div className="sticky top-28 space-y-4 p-6 bg-slate-50 border border-slate-200 rounded-none text-xs font-bold uppercase tracking-wider text-slate-700">
+                    <div className="sticky top-28 space-y-4 p-6 bg-slate-50 border border-slate-200 rounded-none text-xs font-bold uppercase tracking-wider text-black">
                         <p className="text-slate-400 text-[10px] pb-2 border-b border-slate-200">Directory Sections</p>
                         <nav className="flex flex-col space-y-2">
                             <a href="#schools-departments" className="hover:text-black transition-colors">0. Schools &amp; Departments</a>
@@ -284,7 +284,7 @@ export default function SiteIndexPage() {
                                             <li key={dept.href}>
                                                 <Link
                                                     href={dept.href}
-                                                    className="group flex items-center justify-between text-sm font-semibold text-slate-700 hover:text-[#0a151a] py-1.5 border-b border-slate-50 transition-colors no-underline"
+                                                    className="group flex items-center justify-between text-sm font-semibold text-black hover:text-[#0a151a] py-1.5 border-b border-slate-50 transition-colors no-underline"
                                                 >
                                                     <span className="group-hover:underline underline-offset-4">{dept.name}</span>
                                                     <ArrowRight size={14} weight="bold" className="text-slate-400 group-hover:text-[#0a151a] group-hover:translate-x-1 transition-all shrink-0 ml-2" />

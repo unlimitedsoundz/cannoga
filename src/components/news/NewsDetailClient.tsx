@@ -187,7 +187,7 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
                     <div className="flex justify-between items-end mb-16 max-w-6xl mx-auto">
                         <div>
                             <h2 className="text-aalto-6 font-bold mb-4 tracking-tight">Read more news</h2>
-                            <p className="text-aalto-3 text-neutral-600 font-medium">Discover more stories and updates from Cannoga College.</p>
+                            <p className="text-aalto-3 text-black font-medium">Discover more stories and updates from Cannoga College.</p>
                         </div>
                         <Link href="/news/" className="hidden md:flex items-center gap-3 font-bold uppercase tracking-widest text-xs hover:underline">
                             All news <ArrowRight size={20} weight="bold" />

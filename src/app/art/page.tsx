@@ -61,7 +61,7 @@ export default function ArtPage() {
                                 <Palette size={14} weight="regular" />
                                 {ex.artist}
                             </p>
-                            <p className="text-xs text-neutral-600 uppercase tracking-widest mt-2 flex items-center gap-2">
+                            <p className="text-xs text-black uppercase tracking-widest mt-2 flex items-center gap-2">
                                 <Calendar size={12} weight="regular" />
                                 {ex.date}
                             </p>

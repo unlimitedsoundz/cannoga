@@ -121,12 +121,12 @@ export default function CareersPage() {
                 </div>
             </Hero>
 
-            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+            <div className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-black leading-relaxed">
 
                 {/* INSTITUTIONAL CULTURE & OVERVIEW */}
                 <section className="space-y-6">
                     <h2 className="text-3xl font-black text-black tracking-tight">Academic Excellence &amp; Culture</h2>
-                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                    <p className="text-black text-base md:text-lg font-normal leading-relaxed">
                         Cannoga College is a dynamic higher education institution located in Ottawa, Ontario, Canada. Our multidisciplinary faculty spans eight specialized academic schools, offering career-focused programs in technology, business, applied sciences, health, and design.
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
@@ -188,7 +188,7 @@ export default function CareersPage() {
                 <section id="positions" className="scroll-mt-32 space-y-8 pt-8 border-t border-slate-200">
                     <div>
                         <h2 className="text-3xl font-black text-black tracking-tight mb-2">Current Faculty &amp; Staff Vacancies</h2>
-                        <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                        <p className="text-black text-base md:text-lg font-normal leading-relaxed">
                             Review open academic appointments, research grants, and administrative roles.
                         </p>
                     </div>
@@ -205,7 +205,7 @@ export default function CareersPage() {
                                 <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                                     {pos.department} • {pos.location}
                                 </p>
-                                <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                                <p className="text-black text-base md:text-lg font-normal leading-relaxed">
                                     {pos.description}
                                 </p>
                                 <div className="pt-2 flex items-center gap-4 text-sm font-bold">
@@ -231,7 +231,7 @@ export default function CareersPage() {
                         {benefitsList.map((benefit, idx) => (
                             <div key={idx} className="space-y-1">
                                 <h3 className="font-bold text-base md:text-lg text-slate-900">{benefit.title}</h3>
-                                <p className="text-base text-slate-700 font-normal leading-relaxed">{benefit.desc}</p>
+                                <p className="text-base text-black font-normal leading-relaxed">{benefit.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -240,7 +240,7 @@ export default function CareersPage() {
                 {/* INTERNAL LINKING DIRECTORY */}
                 <section className="pt-8 border-t border-slate-200 space-y-6">
                     <h2 className="text-2xl md:text-3xl font-black text-black tracking-tight">Explore Cannoga Academic Departments</h2>
-                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed">
+                    <p className="text-black text-base md:text-lg font-normal leading-relaxed">
                         Interested in joining our faculty? Learn more about our academic programs, admissions criteria, and institutional regulations:
                     </p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs sm:text-sm font-bold uppercase tracking-wider">

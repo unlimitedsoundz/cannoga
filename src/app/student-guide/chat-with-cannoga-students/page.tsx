@@ -46,7 +46,7 @@ export default function ChatWithStudentsPage() {
                 ]}
             >
 
-                <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl text-base md:text-lg font-normal text-black leading-relaxed">
                     <div className="space-y-16 md:space-y-20">
                         {/* Intro */}
                         <section id="connect" className="scroll-mt-32">
@@ -55,10 +55,10 @@ export default function ChatWithStudentsPage() {
                                 title="Real Conversations, Real Insights"
                                 body={
                                     <div className="space-y-6 text-left">
-                                        <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed">
+                                        <p className="text-base md:text-lg text-black font-normal leading-relaxed">
                                             Choosing the right university is a big decision. While brochures and websites provide important information, nothing beats talking to someone who is already here.
                                         </p>
-                                        <p className="text-base md:text-lg text-slate-700 font-normal">
+                                        <p className="text-base md:text-lg text-black font-normal">
                                             Our digital platform allows you to connect with current students from various programs and backgrounds.
                                         </p>
                                     </div>
@@ -99,7 +99,7 @@ export default function ChatWithStudentsPage() {
                                 }}
                                 body={
                                     <div className="space-y-6 text-left">
-                                        <p className="text-base md:text-lg text-slate-700 font-normal leading-relaxed">
+                                        <p className="text-base md:text-lg text-black font-normal leading-relaxed">
                                             Our ambassadors represent different schools and programs. They are passionate about Cannoga and eager to share their experiences.
                                         </p>
                                         <Link 

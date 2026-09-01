@@ -114,7 +114,7 @@ export default async function BachelorAdmissionsPage() {
             >
 
             <div className="cc-container py-8 md:py-16">
-                <main className="space-y-10 md:space-y-14 text-sm sm:text-base font-normal text-slate-700 leading-relaxed">
+                <main className="space-y-10 md:space-y-14 text-sm sm:text-base font-normal text-black leading-relaxed">
 
                     {/* How You Benefit */}
                     <section id="benefits" className="scroll-mt-32 space-y-2">
@@ -125,7 +125,7 @@ export default async function BachelorAdmissionsPage() {
                             pageSlug={pageSlug}
                             sectionKey="benefits_content"
                             fallbackContent={getContent('benefits_content')}
-                            className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
+                            className="space-y-2 text-sm sm:text-base font-normal text-black leading-relaxed"
                         />
                     </section>
 
@@ -138,7 +138,7 @@ export default async function BachelorAdmissionsPage() {
                             pageSlug={pageSlug}
                             sectionKey="progression_content"
                             fallbackContent={getContent('progression_content')}
-                            className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
+                            className="space-y-2 text-sm sm:text-base font-normal text-black leading-relaxed"
                         />
                     </section>
 
@@ -151,7 +151,7 @@ export default async function BachelorAdmissionsPage() {
                             pageSlug={pageSlug}
                             sectionKey="scholarships_content"
                             fallbackContent={getContent('scholarships_content')}
-                            className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
+                            className="space-y-2 text-sm sm:text-base font-normal text-black leading-relaxed"
                         />
                     </section>
 
@@ -164,7 +164,7 @@ export default async function BachelorAdmissionsPage() {
                             pageSlug={pageSlug}
                             sectionKey="admissions_content"
                             fallbackContent={getContent('admissions_content')}
-                            className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
+                            className="space-y-2 text-sm sm:text-base font-normal text-black leading-relaxed"
                         />
                     </section>
 
@@ -186,7 +186,7 @@ export default async function BachelorAdmissionsPage() {
                             pageSlug={pageSlug}
                             sectionKey="events_content"
                             fallbackContent={getContent('events_content')}
-                            className="space-y-2 text-sm sm:text-base font-normal text-slate-700 leading-relaxed"
+                            className="space-y-2 text-sm sm:text-base font-normal text-black leading-relaxed"
                         />
                     </section>
 

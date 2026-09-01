@@ -38,13 +38,13 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
                         {item.linkComponentProps && !isLast ? (
                             <Link 
                                 linkComponentProps={item.linkComponentProps}
-                                className="text-black hover:text-neutral-600 transition-colors flex items-center gap-1 font-bold no-underline"
+                                className="text-black hover:text-black transition-colors flex items-center gap-1 font-bold no-underline"
                             >
                                 {IconComponent && <IconComponent size={14} weight="fill" className="text-black" />}
                                 {item.label}
                             </Link>
                         ) : (
-                            <span className={`flex items-center gap-1 ${isLast ? "text-neutral-600 font-medium" : "text-black font-bold"}`}>
+                            <span className={`flex items-center gap-1 ${isLast ? "text-black font-medium" : "text-black font-bold"}`}>
                                 {IconComponent && <IconComponent size={14} weight="fill" className="text-black" />}
                                 {item.label}
                             </span>

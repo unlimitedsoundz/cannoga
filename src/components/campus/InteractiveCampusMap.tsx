@@ -350,7 +350,7 @@ export function InteractiveCampusMap() {
                         <button
                             onClick={handleZoomIn}
                             title="Zoom In (+)"
-                            className="p-2 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors border-b border-slate-200 flex items-center justify-center"
+                            className="p-2 hover:bg-slate-100 text-black hover:text-black transition-colors border-b border-slate-200 flex items-center justify-center"
                             aria-label="Zoom In"
                         >
                             <Plus size={14} weight="bold" />
@@ -364,7 +364,7 @@ export function InteractiveCampusMap() {
                         <button
                             onClick={handleZoomOut}
                             title="Zoom Out (-)"
-                            className="p-2 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors border-b border-slate-200 flex items-center justify-center"
+                            className="p-2 hover:bg-slate-100 text-black hover:text-black transition-colors border-b border-slate-200 flex items-center justify-center"
                             aria-label="Zoom Out"
                         >
                             <Minus size={14} weight="bold" />
@@ -372,7 +372,7 @@ export function InteractiveCampusMap() {
                         <button
                             onClick={handleResetView}
                             title="Reset View & Recenter"
-                            className="p-2 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors border-b border-slate-200 flex items-center justify-center"
+                            className="p-2 hover:bg-slate-100 text-black hover:text-black transition-colors border-b border-slate-200 flex items-center justify-center"
                             aria-label="Recenter Map"
                         >
                             <Target size={14} weight="bold" />
@@ -380,7 +380,7 @@ export function InteractiveCampusMap() {
                         <button
                             onClick={() => setIsLightboxOpen(true)}
                             title="Expand Full View"
-                            className="p-2 hover:bg-slate-100 text-slate-700 hover:text-black transition-colors flex items-center justify-center"
+                            className="p-2 hover:bg-slate-100 text-black hover:text-black transition-colors flex items-center justify-center"
                             aria-label="Fullscreen Map"
                         >
                             <ArrowsOut size={14} weight="bold" />

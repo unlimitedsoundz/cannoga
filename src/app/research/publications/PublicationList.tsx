@@ -48,7 +48,7 @@ export default function PublicationList({ publications }: PublicationListProps) 
                                 <h3 className="text-lg md:text-xl font-bold text-black group-hover:underline transition-colors leading-snug">
                                     {pub.title}
                                 </h3>
-                                <p className="text-xs md:text-sm text-neutral-700 font-semibold">{pub.authors} ({pub.year})</p>
+                                <p className="text-xs md:text-sm text-black font-semibold">{pub.authors} ({pub.year})</p>
                                 <p className="text-xs text-neutral-500 italic font-normal">{pub.journal}</p>
                             </div>
                             <div className="flex-shrink-0 bg-[#0a151a] text-white p-2">
@@ -69,7 +69,7 @@ export default function PublicationList({ publications }: PublicationListProps) 
                                 <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#0a151a]">
                                     <FileText size={16} weight="bold" /> Research Abstract
                                 </div>
-                                <p className="text-sm md:text-base text-neutral-700 leading-relaxed font-normal">
+                                <p className="text-sm md:text-base text-black leading-relaxed font-normal">
                                     {pub.abstract}
                                 </p>
                             </div>

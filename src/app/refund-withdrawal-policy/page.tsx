@@ -105,7 +105,7 @@ const refundPolicies = [
                                 <th className="p-3 font-bold border border-slate-700">Transcript Record</th>
                             </tr>
                         </thead>
-                        <tbody className="text-slate-700 divide-y divide-slate-200">
+                        <tbody className="text-black divide-y divide-slate-200">
                             <tr><td className="p-2.5 font-bold border">Prior to Term Start Date</td><td className="p-2.5 border">100% tuition (minus $100 CAD admin fee)</td><td className="p-2.5 border">No record on transcript</td></tr>
                             <tr><td className="p-2.5 font-bold border">Day 1 to Day 10 of Term</td><td className="p-2.5 border">80% tuition refund</td><td className="p-2.5 border">No record on transcript</td></tr>
                             <tr><td className="p-2.5 font-bold border">Day 11 to Day 20 of Term</td><td className="p-2.5 border">50% tuition refund</td><td className="p-2.5 border">Recorded as &apos;W&apos; (Withdrawn)</td></tr>
@@ -190,10 +190,10 @@ export default function RefundWithdrawalPolicyPage() {
             />
 
             {/* MAIN CONTENT ACCORDION */}
-            <main className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+            <main className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-black leading-relaxed">
                 <section className="space-y-4">
                     <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight">Tuition Disbursement &amp; Withdrawal Guidelines</h2>
-                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed max-w-3xl">
+                    <p className="text-black text-base md:text-lg font-normal leading-relaxed max-w-3xl">
                         Review refund schedules, Canadian study permit refusal rules, processing timelines, and withdrawal procedures.
                     </p>
                 </section>

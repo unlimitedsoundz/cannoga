@@ -57,7 +57,7 @@ export default function AcademicRegulationsAccordion({ items }: AcademicRegulati
                                 isOpen ? 'max-h-[3000px] opacity-100 pb-8 md:pb-10' : 'max-h-0 opacity-0'
                             } overflow-hidden`}
                         >
-                            <div className="text-slate-700 text-base md:text-lg font-normal leading-relaxed text-left">
+                            <div className="text-black text-base md:text-lg font-normal leading-relaxed text-left">
                                 {typeof item.answer === 'string' ? (
                                     <p>{item.answer}</p>
                                 ) : (

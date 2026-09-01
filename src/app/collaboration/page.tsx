@@ -71,7 +71,7 @@ export default function CollaborationPage() {
                 <section className="mb-32">
                     <div className="text-center mb-16 max-w-3xl mx-auto">
                         <h2 className="text-3xl md:text-4xl font-bold mb-6">Why Partner with Us?</h2>
-                        <p className="text-lg text-neutral-600 leading-relaxed">
+                        <p className="text-lg text-black leading-relaxed">
                             Cannoga College offers a dynamic ecosystem where organizations can access top-tier talent, engage agile R&D capabilities, and upskill their workforce.
                         </p>
                     </div>
@@ -104,7 +104,7 @@ export default function CollaborationPage() {
                                         <Icon size={28} weight="fill" />
                                     </div>
                                     <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
-                                    <p className="text-neutral-600 leading-relaxed">{item.desc}</p>
+                                    <p className="text-black leading-relaxed">{item.desc}</p>
                                 </div>
                             );
                         })}
@@ -128,7 +128,7 @@ export default function CollaborationPage() {
                                         </div>
                                         <div>
                                             <h4 className="text-xl font-bold mb-2">{item.title}</h4>
-                                            <p className="text-neutral-600">{item.desc}</p>
+                                            <p className="text-black">{item.desc}</p>
                                         </div>
                                     </li>
                                 ))}

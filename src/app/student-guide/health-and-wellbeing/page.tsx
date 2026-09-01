@@ -83,7 +83,7 @@ export default function HealthAndWellbeingPage() {
                             <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-black tracking-tight text-[#0a151a]">
                                 Wellness, Medical &amp; Support Services
                             </h2>
-                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-2">
+                            <p className="text-base md:text-lg text-black leading-relaxed font-normal mt-2">
                                 Cannoga College provides inclusive, culturally sensitive health and wellness services for all registered students. Whether you require routine medical care, confidential mental health counseling, specialized academic accommodations, or help navigating Canadian health insurance, our dedicated wellness teams are here for you.
                             </p>
                         </div>
@@ -101,7 +101,7 @@ export default function HealthAndWellbeingPage() {
                             <h2 className="text-2xl sm:text-3xl font-serif font-black tracking-tight text-[#0a151a]">
                                 On-Campus Health Clinic &amp; Nursing Care
                             </h2>
-                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-2">
+                            <p className="text-base md:text-lg text-black leading-relaxed font-normal mt-2">
                                 Our campus health clinic provides primary care services, walk-in nursing triage, health assessments, preventative care, and specialized medical referrals.
                             </p>
                         </div>
@@ -109,7 +109,7 @@ export default function HealthAndWellbeingPage() {
                         <div className="grid md:grid-cols-2 gap-8 pt-2">
                             <div className="space-y-3">
                                 <h3 className="text-lg md:text-xl font-bold text-slate-900">Clinical &amp; Nursing Services</h3>
-                                <ul className="space-y-2 text-base text-slate-700 list-disc list-outside pl-5">
+                                <ul className="space-y-2 text-base text-black list-disc list-outside pl-5">
                                     <li>Assessment and treatment of minor illnesses, cuts, and acute injuries</li>
                                     <li>Routine immunizations, flu vaccines, and TB testing compliance</li>
                                     <li>Sexual health counseling, STI testing, and birth control advising</li>
@@ -120,7 +120,7 @@ export default function HealthAndWellbeingPage() {
 
                             <div className="space-y-3">
                                 <h3 className="text-lg md:text-xl font-bold text-slate-900">Clinic Hours &amp; Location</h3>
-                                <div className="space-y-2 text-base text-slate-700">
+                                <div className="space-y-2 text-base text-black">
                                     <p><strong>Location:</strong> 81 Montreal Rd, Student Wellness Center (Room W-102), Ottawa, ON</p>
                                     <p><strong>Hours:</strong> Monday – Friday: 8:30 AM – 4:30 PM (Closed on statutory holidays)</p>
                                     <p><strong>Appointment:</strong> Walk-ins welcome for urgent triage; booked appointments recommended via the <Link href="/portal/" className="font-bold underline text-slate-900">Student Portal</Link>.</p>
@@ -142,7 +142,7 @@ export default function HealthAndWellbeingPage() {
                             <h2 className="text-2xl sm:text-3xl font-serif font-black tracking-tight text-[#0a151a]">
                                 Mental Health &amp; Psychological Counseling
                             </h2>
-                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-2">
+                            <p className="text-base md:text-lg text-black leading-relaxed font-normal mt-2">
                                 We believe mental wellness is just as vital as academic performance. Cannoga College offers free, 100% confidential personal counseling with registered psychotherapists and social workers.
                             </p>
                         </div>
@@ -150,19 +150,19 @@ export default function HealthAndWellbeingPage() {
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
                             <div className="space-y-2">
                                 <h4 className="font-bold text-base md:text-lg text-slate-900">1-on-1 Personal Counseling</h4>
-                                <p className="text-sm md:text-base text-slate-700 leading-relaxed">
+                                <p className="text-sm md:text-base text-black leading-relaxed">
                                     Confidential individual sessions to navigate anxiety, depression, academic stress, relationships, homesickness, or grief.
                                 </p>
                             </div>
                             <div className="space-y-2">
                                 <h4 className="font-bold text-base md:text-lg text-slate-900">Peer Wellness Network</h4>
-                                <p className="text-sm md:text-base text-slate-700 leading-relaxed">
+                                <p className="text-sm md:text-base text-black leading-relaxed">
                                     Student-led wellness champions offering study-break coffee chats, mindfulness workshops, and peer connection groups.
                                 </p>
                             </div>
                             <div className="space-y-2">
                                 <h4 className="font-bold text-base md:text-lg text-slate-900">Stress &amp; Exam Resilience</h4>
-                                <p className="text-sm md:text-base text-slate-700 leading-relaxed">
+                                <p className="text-sm md:text-base text-black leading-relaxed">
                                     Practical strategy workshops covering time management, sleep hygiene, meditation, and healthy study habits.
                                 </p>
                             </div>
@@ -175,7 +175,7 @@ export default function HealthAndWellbeingPage() {
                             <h2 className="text-2xl sm:text-3xl font-serif font-black tracking-tight text-[#0a151a]">
                                 University Health Insurance Plan (UHIP)
                             </h2>
-                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-2">
+                            <p className="text-base md:text-lg text-black leading-relaxed font-normal mt-2">
                                 Mandatory medical protection for all international students in Ontario. Every international and domestic student at Cannoga College is backed by comprehensive medical insurance to ensure full access to healthcare services across Ottawa and Ontario without out-of-pocket stress.
                             </p>
                         </div>
@@ -191,7 +191,7 @@ export default function HealthAndWellbeingPage() {
                             <h2 className="text-2xl sm:text-3xl font-serif font-black tracking-tight text-[#0a151a]">
                                 Accessibility &amp; Academic Accommodations
                             </h2>
-                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-2">
+                            <p className="text-base md:text-lg text-black leading-relaxed font-normal mt-2">
                                 Cannoga College is committed to creating an equitable learning environment under the <em>Accessibility for Ontarians with Disabilities Act (AODA)</em>. Our Accessibility Consultants work confidentially with students experiencing temporary or permanent disabilities.
                             </p>
                         </div>
@@ -199,7 +199,7 @@ export default function HealthAndWellbeingPage() {
                         <div className="grid md:grid-cols-2 gap-8 pt-2">
                             <div className="space-y-3">
                                 <h3 className="font-bold text-lg md:text-xl text-slate-900">Types of Supported Accommodations</h3>
-                                <ul className="space-y-2 text-base text-slate-700 list-disc list-outside pl-5">
+                                <ul className="space-y-2 text-base text-black list-disc list-outside pl-5">
                                     <li><strong>Exam Accommodations:</strong> Extra time, quiet testing rooms, and assistive software.</li>
                                     <li><strong>Classroom Adjustments:</strong> Peer note-takers, audio recording permissions, and accessible seating.</li>
                                     <li><strong>Assistive Tech:</strong> Screen readers, speech-to-text tools, and ergonomic equipment.</li>
@@ -209,7 +209,7 @@ export default function HealthAndWellbeingPage() {
 
                             <div className="space-y-3">
                                 <h3 className="font-bold text-lg md:text-xl text-slate-900">How to Register for Accommodations</h3>
-                                <div className="space-y-2 text-base text-slate-700">
+                                <div className="space-y-2 text-base text-black">
                                     <p>1. Complete the confidential Accessibility Intake Form in the <Link href="/portal/" className="font-bold underline text-slate-900">Student Portal</Link>.</p>
                                     <p>2. Provide supporting medical or psycho-educational documentation from a qualified healthcare practitioner.</p>
                                     <p>3. Attend a collaborative intake appointment with an Accessibility Advisor to build your individualized accommodation plan.</p>
@@ -224,7 +224,7 @@ export default function HealthAndWellbeingPage() {
                             <h2 className="text-2xl sm:text-3xl font-serif font-black tracking-tight text-[#0a151a]">
                                 24/7 Emergency &amp; Crisis Helplines
                             </h2>
-                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-normal mt-2">
+                            <p className="text-base md:text-lg text-black leading-relaxed font-normal mt-2">
                                 If you or someone you know is in immediate danger, experiencing a mental health emergency, or requires urgent medical care, access these 24/7 free resources immediately.
                             </p>
                         </div>

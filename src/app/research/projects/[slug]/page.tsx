@@ -53,7 +53,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                             {project.title}
                         </h1>
 
-                        <div className="flex flex-wrap items-center gap-6 text-neutral-600 pt-4">
+                        <div className="flex flex-wrap items-center gap-6 text-black pt-4">
                             <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
                                 <span className="text-black">{project.leadResearcher}</span>
                             </div>

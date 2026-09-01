@@ -92,7 +92,7 @@ export default async function AdvancedDiplomaGuidePage() {
                     { label: "Advanced Diploma Guide" }
                 ]}
             >
-                <div className="cc-container py-8 md:py-12 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+                <div className="cc-container py-8 md:py-12 text-base md:text-lg font-normal text-black leading-relaxed">
                     <div className="space-y-10 md:space-y-14">
 
                         {/* Welcome Overview */}
@@ -100,7 +100,7 @@ export default async function AdvancedDiplomaGuidePage() {
                             <h2 className="text-aalto-5 font-bold text-black tracking-tight">
                                 Welcome to Advanced Diploma Studies at Cannoga
                             </h2>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Congratulations on your admission to Cannoga College. Our 3-year Advanced Diploma programmes combine comprehensive interdisciplinary coursework with applied technology projects, laboratory practice, and executive industry practicums in Ottawa. Follow this 8-step guide to confirm your enrollment, secure your funding and permits, and prepare for your academic journey.
                             </p>
                         </section>
@@ -113,7 +113,7 @@ export default async function AdvancedDiplomaGuidePage() {
                                     Accept Your Advanced Diploma Offer of Admission
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 To confirm your place in your programme, sign into the <Link href="/portal/account/login/" className="text-black font-bold underline hover:text-[#c89211]">Cannoga Student Application Portal</Link> and submit your formal acceptance before the deadline stated on your Letter of Acceptance (LOA).
                             </p>
 
@@ -130,7 +130,7 @@ export default async function AdvancedDiplomaGuidePage() {
                                 </div>
                             </div>
 
-                            <div className="p-5 bg-neutral-100 text-sm text-slate-700">
+                            <div className="p-5 bg-neutral-100 text-sm text-black">
                                 <strong className="text-black block mb-0.5">Confirmation Tuition Deposit</strong>
                                 A non-refundable tuition deposit (${tuitionDeposit.toLocaleString()} CAD) is credited directly towards your first-term tuition balance.
                             </div>
@@ -144,7 +144,7 @@ export default async function AdvancedDiplomaGuidePage() {
                                     Advanced Diploma Tuition Fees &amp; Scholarships
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Advanced Diploma tuition is billed per academic term. You can view all invoices, fee breakdowns, and payment receipts directly inside the SIS Finance portal.
                             </p>
 
@@ -179,7 +179,7 @@ export default async function AdvancedDiplomaGuidePage() {
                                     Canadian Study Permit &amp; Visa (IRCC)
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 International students must secure an approved Canadian Study Permit prior to arriving in Ottawa.
                             </p>
 
@@ -202,7 +202,7 @@ export default async function AdvancedDiplomaGuidePage() {
                                 </div>
                             </div>
 
-                            <div className="p-5 bg-neutral-100 text-sm text-slate-700">
+                            <div className="p-5 bg-neutral-100 text-sm text-black">
                                 <strong>Work Authorization in Canada:</strong> Full-time Advanced Diploma students holding a valid study permit are authorized to work off-campus in Canada during academic semesters and full-time during official scheduled breaks.
                             </div>
                         </section>
@@ -215,7 +215,7 @@ export default async function AdvancedDiplomaGuidePage() {
                                     Advanced Diploma Course Enrolment &amp; Academic Advising
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Advanced Diploma programmes require 90 credits across 3 years, comprising core technical methodology, advanced electives, and an Applied Capstone Practicum Project.
                             </p>
 
@@ -243,7 +243,7 @@ export default async function AdvancedDiplomaGuidePage() {
                                     Activate Student IT &amp; Lab Portal
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Following confirmation deposit verification, your official Cannoga College Student ID and computing credentials are created within 24 to 48 hours.
                             </p>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -294,7 +294,7 @@ export default async function AdvancedDiplomaGuidePage() {
                                     Orientation &amp; Arrival in Ottawa
                                 </h2>
                             </div>
-                            <p className="text-slate-700 leading-relaxed font-normal">
+                            <p className="text-black leading-relaxed font-normal">
                                 Orientation Week takes place the week before semester classes begin. All incoming Advanced Diploma students are strongly encouraged to participate.
                             </p>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">

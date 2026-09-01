@@ -126,7 +126,7 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
                     href={item.href}
                     onClick={() => setMobileAccordionOpen(false)}
                     className={`block py-2.5 px-4 text-xs font-bold transition-colors no-underline rounded-sm ${
-                      isActive ? 'bg-white text-black font-black shadow-xs' : 'text-neutral-700 hover:bg-white/60'
+                      isActive ? 'bg-white text-black font-black shadow-xs' : 'text-black hover:bg-white/60'
                     }`}
                   >
                     {item.label}
@@ -169,7 +169,7 @@ export default function GuideSidebarLayout({ sections, breadcrumbs, children }: 
                     className={`shrink-0 whitespace-nowrap text-xs sm:text-sm md:text-base font-bold transition-all no-underline py-1.5 border-b-2 ${
                       isActive 
                         ? 'text-black font-extrabold' 
-                        : 'text-neutral-600 hover:text-black font-medium'
+                        : 'text-black hover:text-black font-medium'
                     }`}
                   >
                     {item.label}

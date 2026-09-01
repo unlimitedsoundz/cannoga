@@ -33,7 +33,7 @@ export default function AccessibilityPage() {
             <div className="container mx-auto max-w-6xl px-4 py-12 md:py-20 grid grid-cols-1 lg:grid-cols-4 gap-12">
                 {/* STICKY SECTION NAV */}
                 <div className="hidden lg:block lg:col-span-1">
-                    <div className="sticky top-28 space-y-4 p-6 bg-slate-50 border border-slate-200 rounded-none text-xs font-bold uppercase tracking-wider text-slate-700">
+                    <div className="sticky top-28 space-y-4 p-6 bg-slate-50 border border-slate-200 rounded-none text-xs font-bold uppercase tracking-wider text-black">
                         <p className="text-slate-400 text-[10px] pb-2 border-b border-slate-200">Accessibility Table of Contents</p>
                         <nav className="flex flex-col space-y-2">
                             <a href="#commitment" className="hover:text-black transition-colors">1. Commitment</a>
@@ -61,10 +61,10 @@ export default function AccessibilityPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">01</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Commitment to Accessibility</h2>
                         </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
+                        <p className="text-base text-black leading-relaxed mb-4">
                             Cannoga College is dedicated to ensuring digital accessibility for all users, including students, applicants, faculty, staff, and community members. We strive to provide an inclusive online environment that enables equal access to educational resources and institutional content.
                         </p>
-                        <p className="text-base text-slate-700 leading-relaxed">
+                        <p className="text-base text-black leading-relaxed">
                             This Accessibility Statement details how Cannoga College complies with accessibility legislation and how users can request accommodations or report barriers.
                         </p>
                     </section>
@@ -75,7 +75,7 @@ export default function AccessibilityPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">02</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Scope of This Statement</h2>
                         </div>
-                        <p className="text-base text-slate-700 leading-relaxed">
+                        <p className="text-base text-black leading-relaxed">
                             This statement applies to all official Cannoga College web platforms, application portals, learning management systems (LMS), and digital publications published under the cannogacollege.ca domain.
                         </p>
                     </section>
@@ -86,7 +86,7 @@ export default function AccessibilityPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">03</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Accessibility Standards &amp; Legislation</h2>
                         </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
+                        <p className="text-base text-black leading-relaxed mb-4">
                             Cannoga College aligns its digital platforms with the following standards and frameworks:
                         </p>
                         <ul className="list-disc pl-6 space-y-2 text-base text-slate-800 marker:text-black">
@@ -102,7 +102,7 @@ export default function AccessibilityPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">04</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Compliance Status</h2>
                         </div>
-                        <p className="text-base text-slate-700 leading-relaxed">
+                        <p className="text-base text-black leading-relaxed">
                             Cannoga College web portals are substantially compliant with WCAG 2.1 Level AA standards. Active testing and technical auditing are conducted continually to identify and resolve accessibility gaps.
                         </p>
                     </section>
@@ -128,7 +128,7 @@ export default function AccessibilityPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">06</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Non-Accessible Content</h2>
                         </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-4">
+                        <p className="text-base text-black leading-relaxed mb-4">
                             Certain legacy PDF publications or third-party embedded services may not fully satisfy WCAG 2.1 AA requirements. Cannoga College prioritizes remedying these items upon notification.
                         </p>
                     </section>
@@ -139,7 +139,7 @@ export default function AccessibilityPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">07</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Alternative Formats</h2>
                         </div>
-                        <p className="text-base text-slate-700 leading-relaxed">
+                        <p className="text-base text-black leading-relaxed">
                             Upon request, Cannoga College will provide digital documentation in alternative accessible formats (e.g. large print, structured text files) within reasonable turnaround windows.
                         </p>
                     </section>
@@ -150,7 +150,7 @@ export default function AccessibilityPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">08</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Feedback &amp; Assistance</h2>
                         </div>
-                        <p className="text-base text-slate-700 leading-relaxed">
+                        <p className="text-base text-black leading-relaxed">
                             If you encounter accessibility barriers on our digital platforms, please contact the Accessibility Services Desk via the official contact page.
                         </p>
                     </section>
@@ -161,7 +161,7 @@ export default function AccessibilityPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">09</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Enforcement Procedure</h2>
                         </div>
-                        <p className="text-base text-slate-700 leading-relaxed">
+                        <p className="text-base text-black leading-relaxed">
                             Users unsatisfied with an accessibility grievance response may escalate inquiries to the relevant provincial accessibility authority in Ontario, Canada.
                         </p>
                     </section>
@@ -172,7 +172,7 @@ export default function AccessibilityPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">10</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Continuous Review</h2>
                         </div>
-                        <p className="text-base text-slate-700 leading-relaxed">
+                        <p className="text-base text-black leading-relaxed">
                             Accessibility protocols are reviewed during each major software release to maintain compliance with evolving standards.
                         </p>
                     </section>
@@ -183,7 +183,7 @@ export default function AccessibilityPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">11</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Statement Preparation</h2>
                         </div>
-                        <p className="text-base text-slate-700 leading-relaxed">
+                        <p className="text-base text-black leading-relaxed">
                             This statement was prepared following internal technical audits of core portal components.
                         </p>
                     </section>
@@ -194,7 +194,7 @@ export default function AccessibilityPage() {
                             <span className="text-xs font-bold uppercase bg-[#0a151a] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">12</span>
                             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Statement Date</h2>
                         </div>
-                        <p className="text-base text-slate-700 leading-relaxed mb-6">
+                        <p className="text-base text-black leading-relaxed mb-6">
                             This Accessibility Statement is effective for the 2026–2027 Academic Year.
                         </p>
                         <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-200">

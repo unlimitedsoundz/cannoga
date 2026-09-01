@@ -278,7 +278,7 @@ export default function LeadershipGovernancePage() {
                                             <div className="pb-6 pt-1 px-1 overflow-x-auto">
                                                 <table className="w-full text-left border-collapse text-base md:text-lg">
                                                     <thead>
-                                                        <tr className="border-b-2 border-slate-200 text-slate-700 font-bold uppercase tracking-wider text-xs sm:text-sm">
+                                                        <tr className="border-b-2 border-slate-200 text-black font-bold uppercase tracking-wider text-xs sm:text-sm">
                                                             <th className="py-2.5 pr-4">Name</th>
                                                             <th className="py-2.5 pr-4">Title</th>
                                                             <th className="py-2.5 pr-4">Academic Credential / Status</th>
@@ -291,7 +291,7 @@ export default function LeadershipGovernancePage() {
                                                                 <td className="py-3.5 pr-4 text-black font-semibold whitespace-nowrap">
                                                                     {staff.name}
                                                                 </td>
-                                                                <td className="py-3.5 pr-4 text-slate-700 font-normal">
+                                                                <td className="py-3.5 pr-4 text-black font-normal">
                                                                     {staff.title}
                                                                 </td>
                                                                 <td className="py-3.5 pr-4 text-slate-600 font-mono text-sm">

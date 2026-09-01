@@ -140,7 +140,7 @@ export default function NewsList({ staticArticles = [] }: NewsListProps) {
                             className={`px-4 md:px-6 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-bold transition-all whitespace-nowrap ${
                                 selectedCategory === cat
                                     ? 'bg-[#0a151a] text-white'
-                                    : 'bg-white text-neutral-600 hover:text-black'
+                                    : 'bg-white text-black hover:text-black'
                             }`}
                         >
                             {cat}

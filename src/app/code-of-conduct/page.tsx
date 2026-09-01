@@ -303,10 +303,10 @@ export default function CodeOfConductPage() {
             />
 
             {/* MAIN CONTENT ACCORDION */}
-            <main className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-slate-700 leading-relaxed">
+            <main className="container mx-auto max-w-5xl px-4 py-16 space-y-16 text-base md:text-lg font-normal text-black leading-relaxed">
                 <section className="space-y-4">
                     <h2 className="text-3xl md:text-4xl font-black text-black tracking-tight">Community Standards &amp; Disciplinary Framework</h2>
-                    <p className="text-slate-700 text-base md:text-lg font-normal leading-relaxed max-w-3xl">
+                    <p className="text-black text-base md:text-lg font-normal leading-relaxed max-w-3xl">
                         Review the official behavioural guidelines, natural justice procedures, and sanctions governing all Cannoga students, faculty, and visitors.
                     </p>
                 </section>

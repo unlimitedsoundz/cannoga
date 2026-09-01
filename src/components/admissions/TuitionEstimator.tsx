@@ -298,7 +298,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                             <h3 className="text-2xl font-black text-[#000000] uppercase tracking-tight mb-2 underline decoration-[#000000] decoration-2 underline-offset-4">
                                 {submittedData.course.title.toUpperCase()}
                             </h3>
-                            <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-bold text-neutral-600">
+                            <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-bold text-black">
                                 <span>• Full-time</span>
                                 <span>• On Campus</span>
                                 <span>• {submittedData.years} {submittedData.years === 1 ? 'Year' : 'Years'}</span>
@@ -334,7 +334,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                                              <div className="p-4 bg-white divide-y divide-[#f3f4f6]">
                                                  {/* Tuition Base */}
                                                  <div className="flex justify-between py-2 text-xs items-center">
-                                                     <span className="font-semibold text-neutral-700 flex items-center gap-1">
+                                                     <span className="font-semibold text-black flex items-center gap-1">
                                                          Program Tuition Fee
                                                          <Tooltip text={FEE_DESCRIPTIONS['Program Tuition Fee']} />
                                                      </span>
@@ -344,7 +344,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                                                  {/* Ancillary Fees */}
                                                  {ANCILLARY_FEES.map((fee) => (
                                                      <div key={fee.name} className="flex justify-between py-2 text-xs items-center">
-                                                         <span className="font-semibold text-neutral-700 flex items-center gap-1">
+                                                         <span className="font-semibold text-black flex items-center gap-1">
                                                              {fee.name}
                                                              <Tooltip text={fee.description} />
                                                          </span>

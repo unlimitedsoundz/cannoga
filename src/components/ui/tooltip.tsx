@@ -9,7 +9,7 @@ interface TooltipProps {
 
 export default function Tooltip({ text, className = '' }: TooltipProps) {
     return (
-        <span className={`inline-flex items-center text-neutral-400 hover:text-neutral-600 cursor-help ${className}`} title={text}>
+        <span className={`inline-flex items-center text-neutral-400 hover:text-black cursor-help ${className}`} title={text}>
             <Info size={14} strokeWidth={2} />
         </span>
     );

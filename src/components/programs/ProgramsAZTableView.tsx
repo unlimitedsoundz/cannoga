@@ -656,7 +656,7 @@ export function ProgramsAZTableView() {
                         <button
                             onClick={() => setViewMode('table')}
                             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-none transition-all ${
-                                viewMode === 'table' ? 'bg-[#0a151a] text-white shadow-sm' : 'text-neutral-600 hover:text-black'
+                                viewMode === 'table' ? 'bg-[#0a151a] text-white shadow-sm' : 'text-black hover:text-black'
                             }`}
                         >
                             <ListBullets size={15} weight="bold" />
@@ -665,7 +665,7 @@ export function ProgramsAZTableView() {
                         <button
                             onClick={() => setViewMode('grid')}
                             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-none transition-all ${
-                                viewMode === 'grid' ? 'bg-[#0a151a] text-white shadow-sm' : 'text-neutral-600 hover:text-black'
+                                viewMode === 'grid' ? 'bg-[#0a151a] text-white shadow-sm' : 'text-black hover:text-black'
                             }`}
                         >
                             <SquaresFour size={15} weight="bold" />
@@ -697,7 +697,7 @@ export function ProgramsAZTableView() {
                                 className={`px-3 py-2 text-[11px] font-bold uppercase tracking-wider rounded-none whitespace-nowrap transition-all border ${
                                     selectedLevel === lvl 
                                         ? 'bg-[#0a151a] text-white border-[#0a151a]' 
-                                        : 'bg-neutral-50 text-neutral-600 border-neutral-200 hover:bg-neutral-100 hover:text-black'
+                                        : 'bg-neutral-50 text-black border-neutral-200 hover:bg-neutral-100 hover:text-black'
                                 }`}
                             >
                                 {lvl}
@@ -746,7 +746,7 @@ export function ProgramsAZTableView() {
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left text-xs sm:text-sm text-slate-600 border-collapse min-w-[950px]">
-                            <thead className="bg-slate-50 text-slate-700 text-xs uppercase border-b border-slate-200">
+                            <thead className="bg-slate-50 text-black text-xs uppercase border-b border-slate-200">
                                 <tr>
                                     <th className="p-3.5 font-extrabold w-32">Program Code</th>
                                     <th className="p-3.5 font-extrabold">Program Name</th>
@@ -786,7 +786,7 @@ export function ProgramsAZTableView() {
                                             <span className="block text-xs font-normal text-slate-400">({p.credits} Credits)</span>
                                         </td>
                                         <td className="p-3.5 text-center">
-                                            <div className="flex flex-col items-center gap-0.5 text-xs font-normal text-slate-700 whitespace-nowrap">
+                                            <div className="flex flex-col items-center gap-0.5 text-xs font-normal text-black whitespace-nowrap">
                                                 {p.pgwp ? (
                                                     <span className="text-emerald-700 font-semibold">PGWP Eligible</span>
                                                 ) : (
@@ -909,7 +909,7 @@ export function ProgramsAZTableView() {
                         <button
                             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                             disabled={validCurrentPage === 1}
-                            className="inline-flex items-center gap-1 px-3 py-2 text-xs font-bold bg-white border border-neutral-200 rounded-xl text-slate-700 hover:bg-slate-50 hover:border-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
+                            className="inline-flex items-center gap-1 px-3 py-2 text-xs font-bold bg-white border border-neutral-200 rounded-xl text-black hover:bg-slate-50 hover:border-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
                         >
                             <CaretLeft size={14} weight="bold" />
                             <span>Previous</span>
@@ -922,7 +922,7 @@ export function ProgramsAZTableView() {
                                 className={`px-3.5 py-2 text-xs font-bold rounded-xl transition-all ${
                                     validCurrentPage === pageNum
                                         ? 'bg-[#0a151a] text-white shadow-sm'
-                                        : 'bg-white text-slate-700 border border-neutral-200 hover:bg-slate-50 hover:border-slate-300'
+                                        : 'bg-white text-black border border-neutral-200 hover:bg-slate-50 hover:border-slate-300'
                                 }`}
                             >
                                 {pageNum}
@@ -932,7 +932,7 @@ export function ProgramsAZTableView() {
                         <button
                             onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                             disabled={validCurrentPage === totalPages}
-                            className="inline-flex items-center gap-1 px-3 py-2 text-xs font-bold bg-white border border-neutral-200 rounded-xl text-slate-700 hover:bg-slate-50 hover:border-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
+                            className="inline-flex items-center gap-1 px-3 py-2 text-xs font-bold bg-white border border-neutral-200 rounded-xl text-black hover:bg-slate-50 hover:border-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
                         >
                             <span>Next</span>
                             <CaretRight size={14} weight="bold" />
