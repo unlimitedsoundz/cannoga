@@ -60,7 +60,7 @@ export default async function AboutPage() {
                 "mainEntity": {
                     "@type": "EducationalOrganization",
                     "name": "Cannoga College",
-                    "description": "Cannoga College is a career-focused college located in Ottawa, Ontario, Canada.",
+                    "description": "Cannoga College is a private career college located in Ottawa, Ontario, Canada.",
                     "url": "https://cannogacollege.ca",
                     "sameAs": [
                         "https://www.linkedin.com/company/cannoga-college/",
@@ -72,7 +72,7 @@ export default async function AboutPage() {
 
             <Hero
                 title="About Cannoga College"
-                body="Cannoga College is a career-focused post-secondary institution located in Ottawa, Ontario, Canada, committed to practical education, applied research, and student success."
+                body="Cannoga College is a private career college located in Ottawa, Ontario, Canada, committed to practical education, industry-aligned training, and student success."
                 backgroundColor="#0f2027"
                 tinted
                 lightText={true}
@@ -92,7 +92,7 @@ export default async function AboutPage() {
                     {/* Overview */}
                     <section id="overview" className="scroll-mt-32 max-w-4xl space-y-5 text-base md:text-lg font-normal text-black leading-relaxed">
                         <p className="font-semibold text-lg md:text-xl text-[#0f2027]">
-                            Cannoga College is an approved Ontario post-secondary college located in Ottawa, Ontario. We deliver certificate, diploma, and degree <Link href="/studies/" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">programs</Link> designed to equip graduates with practical skills for the Canadian and global workforce.
+                            Cannoga College is a private career college located in Ottawa, Ontario. We deliver certificate and diploma <Link href="/studies/" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">programs</Link> designed to equip graduates with practical skills for the Canadian and global workforce.
                         </p>
                         <p className="text-black font-normal">
                             The college welcomes domestic and <Link href="/international/" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">international students</Link> into a diverse academic community. Programs span key fields including <Link href="/schools/business/" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Business Administration</Link>, <Link href="/schools/technology/" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Information Technology</Link>, <Link href="/schools/health-community/" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Health Sciences</Link>, <Link href="/schools/hospitality-tourism/" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Hospitality and Tourism</Link>, and <Link href="/schools/science/" className="text-[#0a151a] underline hover:text-[#c89211] transition-colors">Applied Sciences</Link>.

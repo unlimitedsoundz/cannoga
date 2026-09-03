@@ -107,7 +107,7 @@ export default function InternationalGuidePage() {
                                     </p>
                                     <div className="pt-1">
                                         <p className="font-semibold text-black text-base md:text-lg leading-relaxed">
-                                            Cannoga College operates in the heart of Ottawa with strong ties to Canada&apos;s public service, tech industry, and research community.
+                                            Cannoga College is a private career college operating in the heart of Ottawa with strong ties to healthcare, industry, and regional employers.
                                         </p>
                                     </div>
                                     <div className="flex flex-wrap gap-4 pt-1">

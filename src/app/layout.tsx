@@ -17,8 +17,8 @@ export const metadata: Metadata = {
         default: "Cannoga College Ottawa, Ontario",
         template: "%s | Cannoga College"
     },
-    description: "Cannoga College is a career-focused college located in Ottawa, Ontario, Canada. Explore our programs, admissions, and support for international students.",
-    keywords: ["Cannoga College", "Cannoga College Ottawa", "college Ottawa", "study in Canada", "Ontario college", "college programs", "international students"],
+    description: "Cannoga College is a private career college located in Ottawa, Ontario, Canada. Explore our diploma programs, admissions, and support for international students.",
+    keywords: ["Cannoga College", "Cannoga College Ottawa", "private career college Ottawa", "study in Canada", "Ontario career college", "college programs", "international students"],
     applicationName: "Cannoga College",
     appleWebApp: {
         title: "Cannoga College",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
         locale: 'en_CA',
         siteName: 'Cannoga College',
         title: 'Cannoga College Ottawa, Ontario',
-        description: "Cannoga College is a career-focused college located in Ottawa, Ontario, Canada. Explore our programs, admissions, and support for international students.",
+        description: "Cannoga College is a private career college located in Ottawa, Ontario, Canada. Explore our diploma programs, admissions, and support for international students.",
         images: [
             {
                 url: '/images/logo-cannoga.png',
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
         site: '@CannogaCollege',
         creator: '@CannogaCollege',
         title: 'Cannoga College Ottawa, Ontario',
-        description: "Cannoga College is a career-focused college located in Ottawa, Ontario, Canada. Explore our programs, admissions, and support for international students.",
+        description: "Cannoga College is a private career college located in Ottawa, Ontario, Canada. Explore our diploma programs, admissions, and support for international students.",
         images: ['/images/logo-cannoga.png'],
     }
 };
@@ -88,7 +88,7 @@ export default function RootLayout({
                             "@context": "https://schema.org",
                             "@type": "CollegeOrUniversity",
                             "name": "Cannoga College",
-                            "description": "Cannoga College is a career-focused college located in Ottawa, Ontario, Canada.",
+                            "description": "Cannoga College is a private career college located in Ottawa, Ontario, Canada.",
                             "alternateName": "Cannoga College Ottawa Campus",
                             "url": "https://cannogacollege.ca",
                             "logo": "https://cannogacollege.ca/images/logo-cannoga.png",

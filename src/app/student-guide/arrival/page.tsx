@@ -115,7 +115,7 @@ export default function ArrivalGuidePage() {
                                             </li>
                                             <li className="flex gap-2.5 items-start">
                                                 <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
-                                                <span><strong>Letter of Acceptance (LOA):</strong> Official acceptance from Cannoga College.</span>
+                                                <span><strong>Letter of Acceptance (LOA):</strong> Official acceptance from Cannoga College (Registered Private Career College).</span>
                                             </li>
                                             <li className="flex gap-2.5 items-start">
                                                 <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
