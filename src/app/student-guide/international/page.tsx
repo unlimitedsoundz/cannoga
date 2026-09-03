@@ -8,6 +8,8 @@ import { SchemaLD } from '@/components/seo/SchemaLD';
 import { Highlight } from '@/components/ui/Highlight';
 import { StudentResourceHubCarousel } from '@/components/home/StudentResourceHubCarousel';
 import { LivingInOttawaQuickLinksCarousel } from '@/components/international/LivingInOttawaQuickLinksCarousel';
+import { WikipediaCitations } from '@/components/ui/WikipediaCitations';
+import { WIKIPEDIA_CITATIONS } from '@/data/wikipediaCitations';
 
 const tocSections = [
     { id: 'intro', title: 'Purpose of Guide', content: '' },
@@ -17,6 +19,7 @@ const tocSections = [
     { id: 'living', title: 'Living in Ottawa', content: '' },
     { id: 'support', title: 'Support Services', content: '' },
     { id: 'after-graduation', title: 'After Graduation', content: '' },
+    { id: 'references', title: 'Knowledge Base & Citations', content: '' },
 ];
 
 export const metadata = {
@@ -374,6 +377,15 @@ export default function InternationalGuidePage() {
                                     </div>
                                 </div>
                             </div>
+                        </section>
+
+                        {/* Wikipedia Citations & Reference Section */}
+                        <section id="references" className="scroll-mt-32">
+                            <WikipediaCitations
+                                citations={WIKIPEDIA_CITATIONS['international']}
+                                pageUrl="https://cannogacollege.ca/student-guide/international/"
+                                pageName="Global Students Checklist & Resource Guide"
+                            />
                         </section>
 
                         {/* Student Resource Hub */}
