@@ -166,7 +166,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                                     : 'bg-white text-black border-neutral-200 hover:border-neutral-400'
                                     }`}
                             >
-                                {level === 'ALL' ? 'All Programs' : level === 'CERTIFICATE' ? 'Certificate' : level === 'DIPLOMA' ? 'Diploma' : level === 'BACHELOR' ? 'Bachelors' : 'Masters'}
+                                {level === 'ALL' ? 'All Programs' : level === 'CERTIFICATE' ? 'Certificate' : level === 'DIPLOMA' ? 'Diploma' : level === 'BACHELOR' ? 'Bachelors' : 'Advanced Diploma'}
                             </button>
                         ))}
                     </div>
@@ -218,7 +218,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                                      : course.degreeLevel === 'DIPLOMA' ? 'border-blue-300 text-blue-700 bg-blue-50'
                                      : 'border-neutral-300 text-black'
                                      }`}>
-                                     {course.degreeLevel === 'MASTER' ? 'Masters' : course.degreeLevel === 'CERTIFICATE' ? 'Certificate' : course.degreeLevel === 'DIPLOMA' ? 'Diploma' : 'Bachelors'}
+                                     {course.degreeLevel === 'MASTER' ? 'Advanced Diploma' : course.degreeLevel === 'CERTIFICATE' ? 'Certificate' : course.degreeLevel === 'DIPLOMA' ? 'Diploma' : 'Bachelors'}
                                  </span>
                             </div>
                             <p className="text-[13px] text-black font-medium mb-6 line-clamp-2 leading-relaxed">

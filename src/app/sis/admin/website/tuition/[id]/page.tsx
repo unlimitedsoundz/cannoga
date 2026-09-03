@@ -113,7 +113,7 @@ export default function EditTuitionPage() {
                         <option value="CERTIFICATE">Certificate</option>
                         <option value="DIPLOMA">Diploma</option>
                         <option value="BACHELOR">Bachelor</option>
-                        <option value="MASTER">Advanced Diploma (Master Level)</option>
+                        <option value="MASTER">Advanced Diploma (3 Years)</option>
                     </select>
                 </div>
 
