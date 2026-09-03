@@ -9,8 +9,6 @@ import { HealthServicesCarousel } from '@/components/student-guide/HealthService
 import { UhipQuickLinksCarousel } from '@/components/student-guide/UhipQuickLinksCarousel';
 import { Highlight } from '@/components/ui/Highlight';
 import FAQ, { type FAQItem } from '@/components/FAQ';
-import { WikipediaCitations } from '@/components/ui/WikipediaCitations';
-import { WIKIPEDIA_CITATIONS } from '@/data/wikipediaCitations';
 
 export const metadata: Metadata = {
     title: 'Student Health & Wellbeing | Medical, Counseling & Accessibility',
@@ -27,7 +25,6 @@ const sections = [
     { id: 'health-insurance', title: 'Health Insurance (UHIP)', content: '' },
     { id: 'accessibility', title: 'Accessibility Services', content: '' },
     { id: 'emergency', title: '24/7 Crisis & Emergency', content: '' },
-    { id: 'references', title: 'Knowledge Base & Citations', content: '' },
     { id: 'faq', title: 'Health & Wellness FAQs', content: '' },
 ];
 
@@ -257,15 +254,6 @@ export default function HealthAndWellbeingPage() {
                                 <p className="text-xs sm:text-sm text-slate-600">24/7 free access to registered nurse medical advice and health guidance.</p>
                             </div>
                         </div>
-                    </section>
-
-                    {/* Encyclopedic Knowledge & Wikipedia Citations Section */}
-                    <section id="references" className="scroll-mt-32">
-                        <WikipediaCitations
-                            citations={WIKIPEDIA_CITATIONS['health-and-wellbeing']}
-                            pageUrl="https://cannogacollege.ca/student-guide/health-and-wellbeing/"
-                            pageName="Student Health & Wellbeing Guide"
-                        />
                     </section>
 
                     {/* FREQUENTLY ASKED QUESTIONS */}

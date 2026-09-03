@@ -6,8 +6,7 @@ import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { ContentBox } from '@/components/ui/ContentBox';
 import { CTA } from "@aalto-dx/react-modules";
 import { BeforeYouArriveCarousel } from '@/components/student-guide/BeforeYouArriveCarousel';
-import { WikipediaCitations, WikipediaInlineCite } from '@/components/ui/WikipediaCitations';
-import { WIKIPEDIA_CITATIONS } from '@/data/wikipediaCitations';
+import { WikipediaInlineCite } from '@/components/ui/WikipediaCitations';
 
 export const metadata = {
     title: 'New Student Arrival & Campus Welcome Guide',
@@ -23,7 +22,6 @@ const sections = [
     { id: 'starting', title: 'Starting at', content: '' },
     { id: 'living', title: 'Living & Studying', content: '' },
     { id: 'campus-life', title: 'Campus Experience', content: '' },
-    { id: 'references', title: 'Knowledge Base & Citations', content: '' },
     { id: 'welcome', title: 'Welcome Message', content: '' },
 ];
 
@@ -348,15 +346,6 @@ export default function ArrivalGuidePage() {
                                 </div>
                             </div>
                         </div>
-                    </section>
-
-                    {/* Encyclopedic Knowledge & Wikipedia Citations Section */}
-                    <section id="references" className="scroll-mt-32">
-                        <WikipediaCitations
-                            citations={WIKIPEDIA_CITATIONS['arrival']}
-                            pageUrl="https://cannogacollege.ca/student-guide/arrival/"
-                            pageName="New Student Arrival & Campus Welcome Guide"
-                        />
                     </section>
 
                     {/* Welcome Message */}

@@ -8,8 +8,6 @@ import { CheckCircle, Quotes, ArrowSquareOut } from "@phosphor-icons/react/dist/
 import { HousingOptionsHubCarousel } from '@/components/housing/HousingOptionsHubCarousel';
 import { ExploreHousingCarousel } from '@/components/housing/ExploreHousingCarousel';
 import { RelatedStudentGuidesCarousel } from '@/components/housing/RelatedStudentGuidesCarousel';
-import { WikipediaCitations } from '@/components/ui/WikipediaCitations';
-import { WIKIPEDIA_CITATIONS } from '@/data/wikipediaCitations';
 
 export const metadata: Metadata = {
     title: 'Student Housing & Residences',
@@ -25,7 +23,6 @@ const sections = [
     { id: 'pricing', title: 'Monthly Costs', content: '' },
     { id: 'application', title: 'Application Process', content: '' },
     { id: 'tenant-rights', title: 'Tenant Rights', content: '' },
-    { id: 'references', title: 'Knowledge Base & Citations', content: '' },
     { id: 'related', title: 'Related Guides', content: '' },
 ];
 
@@ -216,15 +213,6 @@ export default function HousingPage() {
                                 </a>
                             </div>
                         </div>
-                    </section>
-
-                    {/* Encyclopedic Knowledge & Wikipedia Citations Section */}
-                    <section id="references" className="scroll-mt-32">
-                        <WikipediaCitations
-                            citations={WIKIPEDIA_CITATIONS['housing']}
-                            pageUrl="https://cannogacollege.ca/housing/"
-                            pageName="Student Housing & Residences Guide"
-                        />
                     </section>
 
                     {/* RELATED INTERNAL GUIDES */}
