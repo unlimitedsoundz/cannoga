@@ -164,7 +164,13 @@ function ApplicationReviewContent() {
                                     <h2 className="text-xl font-black uppercase tracking-tight">
                                         {user.first_name} {user.last_name}
                                     </h2>
-                                    <p className="text-neutral-400 text-[10px] font-black uppercase tracking-widest mt-1">Student ID: {user.student_id || 'Generating...'}</p>
+                                    <div className="flex items-center gap-3 mt-1">
+                                        <p className="text-neutral-400 text-[10px] font-black uppercase tracking-widest">Student ID: {user.student_id || 'Generating...'}</p>
+                                        <span className="text-neutral-600 text-[10px] font-black">•</span>
+                                        <p className="text-neutral-400 text-[10px] font-black uppercase tracking-widest">
+                                            Submitted: {app.submitted_at ? formatToDDMMYYYY(app.submitted_at) : (app as any).created_at ? formatToDDMMYYYY((app as any).created_at) : 'In Draft'}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                             <div className="text-right">

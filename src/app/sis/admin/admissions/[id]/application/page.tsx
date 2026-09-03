@@ -422,7 +422,7 @@ export default function AdmissionApplicationPage() {
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Status</dt><dd className="mt-1"><StatusBadge status={application.status?.replace('_', ' ') || 'DRAFT'} /></dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Program</dt><dd className="font-medium text-white mt-1">{course?.title || '—'}{course?.degreeLevel ? ` ${formatDegreeLevel(course?.degreeLevel)}` : ''}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Intake</dt><dd className="font-medium text-white mt-1">{application.intake || '—'}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Submitted</dt><dd className="font-medium text-white mt-1">{application.submitted_at ? new Date(application.submitted_at).toLocaleDateString('en-CA') : '—'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Submitted</dt><dd className="font-medium text-white mt-1">{application.submitted_at ? new Date(application.submitted_at).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : (application as any).created_at ? new Date((application as any).created_at).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' }) : 'In Draft'}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student ID</dt><dd className="font-medium text-white mt-1">{student?.student_id || 'Not yet enrolled'}</dd></div>
             </dl>
           </div>

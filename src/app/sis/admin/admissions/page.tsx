@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -99,8 +99,22 @@ export default function AdmissionsPage() {
     { key: 'program', header: 'Program', render: (a: ApplicationRow) => <span className="text-xs text-slate-400">{`${a.course?.title || '—'}${a.course?.degreeLevel ? ` ${formatDegreeLevel(a.course.degreeLevel)}` : ''}`}</span> },
     {
       key: 'submitted_at',
-      header: 'Submitted',
-      render: (a: ApplicationRow) => <span className="text-xs text-neutral-500">{a.submitted_at ? new Date(a.submitted_at).toLocaleDateString('en-CA') : '—'}</span>,
+      header: 'Submitted Date',
+      render: (a: ApplicationRow & { created_at?: string }) => {
+        const rawDate = a.submitted_at || a.created_at;
+        if (!rawDate) return <span className="text-xs text-neutral-500">In Draft</span>;
+        const d = new Date(rawDate);
+        return (
+          <div className="flex flex-col">
+            <span className="text-xs font-semibold text-neutral-200">
+              {d.toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' })}
+            </span>
+            <span className="text-[10px] text-neutral-500 font-mono">
+              {d.toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' })}
+            </span>
+          </div>
+        );
+      },
     },
     { key: 'status', header: 'Status', render: (a: ApplicationRow) => <StatusBadge status={a.status.replace('_', ' ')} /> },
     {
