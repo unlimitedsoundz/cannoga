@@ -138,7 +138,7 @@ export default function InternationalPage() {
                             <div className="grid md:grid-cols-2 gap-6">
                                 <Card
                                     title="Study Permit & Financial Support"
-                                    body="Apply for your Canadian study permit through IRCC upon receiving admission. Starting September 1, 2026, a single international study permit applicant outside Quebec must show CAD $23,448 for one year of living expenses (plus tuition & travel costs)."
+                                    body="Apply for your Canadian study permit through IRCC as soon as you receive your Letter of Acceptance (LOA) and Provincial Attestation Letter (PAL). Starting September 1, 2026, a single international study permit applicant outside Quebec must show CAD $23,448 for one year of living expenses (plus tuition & travel costs)."
                                     cta={{ label: "IRCC Proof of Funds Guide", linkComponentProps: { href: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/get-documents.html#doc3", target: "_blank" } }}
                                 />
                                 <Card
