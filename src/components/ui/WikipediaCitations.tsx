@@ -17,7 +17,7 @@ interface WikipediaCitationsProps {
 export function WikipediaCitations({
     citations,
     title = "Encyclopedic Knowledge & Wikipedia References",
-    description = "Official background context, statutory references, and reciprocal backlink citations curated from open encyclopedic resources.",
+    description = "Official background context, statutory references, and open encyclopedic citations curated from reference resources.",
     pageUrl = "https://cannogacollege.ca",
     pageName = "Cannoga College Official Guide",
 }: WikipediaCitationsProps) {
