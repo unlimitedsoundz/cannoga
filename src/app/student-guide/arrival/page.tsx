@@ -6,7 +6,6 @@ import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { ContentBox } from '@/components/ui/ContentBox';
 import { CTA } from "@aalto-dx/react-modules";
 import { BeforeYouArriveCarousel } from '@/components/student-guide/BeforeYouArriveCarousel';
-import { WikipediaInlineCite } from '@/components/ui/WikipediaCitations';
 
 export const metadata = {
     title: 'New Student Arrival & Campus Welcome Guide',
@@ -69,13 +68,7 @@ export default function ArrivalGuidePage() {
                                         International Students: Border Clearance in Canada
                                     </h3>
                                     <p className="text-base md:text-lg text-black leading-relaxed font-normal">
-                                        International students arriving in Ontario, Canada must carry essential identification documents in their carry-on luggage and complete standard border clearance procedures with the{' '}
-                                        <WikipediaInlineCite
-                                            href="https://en.wikipedia.org/wiki/Canada_Border_Services_Agency"
-                                            label="CBSA"
-                                            num={1}
-                                        />{' '}
-                                        (Canada Border Services Agency) at their initial Canadian port of entry.
+                                        International students arriving in Ontario, Canada must carry essential identification documents in their carry-on luggage and complete standard border clearance procedures with the Canada Border Services Agency (CBSA) at their initial Canadian port of entry.
                                     </p>
                                 </div>
                                 <div className="md:col-span-6 lg:col-span-5 relative h-64 sm:h-72 md:h-80 lg:h-96 rounded-xl overflow-hidden w-full border border-slate-200">
@@ -104,14 +97,7 @@ export default function ArrivalGuidePage() {
                                             </li>
                                             <li className="flex gap-2.5 items-start">
                                                 <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
-                                                <span>
-                                                    <strong>Port of Entry Letter of Introduction:</strong> Confirmation of study permit approval from{' '}
-                                                    <WikipediaInlineCite
-                                                        href="https://en.wikipedia.org/wiki/Immigration,_Refugees_and_Citizenship_Canada"
-                                                        label="IRCC"
-                                                        num={2}
-                                                    />.
-                                                </span>
+                                                <span><strong>Port of Entry Letter of Introduction:</strong> Confirmation of study permit approval from IRCC.</span>
                                             </li>
                                             <li className="flex gap-2.5 items-start">
                                                 <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
@@ -119,7 +105,7 @@ export default function ArrivalGuidePage() {
                                             </li>
                                             <li className="flex gap-2.5 items-start">
                                                 <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
-                                                <span><strong>Provincial Attestation Letter (PAL):</strong> If applicable.</span>
+                                                <span><strong>Provincial Attestation Letter (PAL):</strong> Mandatory official document issued by the Province of Ontario confirming your study permit allocation.</span>
                                             </li>
                                             <li className="flex gap-2.5 items-start">
                                                 <span className="w-2 h-2 bg-[#0a151a] rounded-full mt-2.5 shrink-0" />
@@ -138,14 +124,7 @@ export default function ArrivalGuidePage() {
                                         <div className="space-y-3">
                                             <div className="pl-3 border-l-2 border-black space-y-1">
                                                 <span className="text-xs font-bold uppercase tracking-wider text-black">Step 1: Customs</span>
-                                                <p className="text-base md:text-lg font-bold text-black">
-                                                    CBSA Declaration Kiosk &amp;{' '}
-                                                    <WikipediaInlineCite
-                                                        href="https://en.wikipedia.org/wiki/ArriveCAN"
-                                                        label="ArriveCAN"
-                                                        num={6}
-                                                    />
-                                                </p>
+                                                <p className="text-base md:text-lg font-bold text-black">CBSA Declaration Kiosk &amp; ArriveCAN</p>
                                                 <p className="text-base text-black">Complete your customs declaration at an airport kiosk or via the ArriveCAN digital application upon landing.</p>
                                             </div>
                                             <div className="pl-3 border-l-2 border-black space-y-1">
@@ -163,14 +142,7 @@ export default function ArrivalGuidePage() {
                                 <h4 className="font-bold text-lg md:text-xl mb-2 text-black">Immediate Settlement Steps</h4>
                                 <div className="grid sm:grid-cols-3 gap-4">
                                     <div>
-                                        <span className="font-bold text-base md:text-lg block text-black mb-1">
-                                            1. Social Insurance Number
-                                            <WikipediaInlineCite
-                                                href="https://en.wikipedia.org/wiki/Social_Insurance_Number"
-                                                label="SIN"
-                                                num={3}
-                                            />
-                                        </span>
+                                        <span className="font-bold text-base md:text-lg block text-black mb-1">1. Social Insurance Number (SIN)</span>
                                         <p className="text-base text-black leading-relaxed font-normal">Apply for a SIN at Service Canada to work on or off campus legally.</p>
                                     </div>
                                     <div>
@@ -178,14 +150,7 @@ export default function ArrivalGuidePage() {
                                         <p className="text-base text-black leading-relaxed font-normal">Open a Canadian student bank account (RBC, TD, Scotiabank) and setup a local SIM.</p>
                                     </div>
                                     <div>
-                                        <span className="font-bold text-base md:text-lg block text-black mb-1">
-                                            3. Transportation &amp; Housing
-                                            <WikipediaInlineCite
-                                                href="https://en.wikipedia.org/wiki/OC_Transpo"
-                                                label="OC Transpo"
-                                                num={4}
-                                            />
-                                        </span>
+                                        <span className="font-bold text-base md:text-lg block text-black mb-1">3. Transportation &amp; Housing (OC Transpo)</span>
                                         <p className="text-base text-black leading-relaxed font-normal">Confirm your housing address and familiarize with OC Transpo bus &amp; O-Train routes across Ottawa.</p>
                                     </div>
                                 </div>
@@ -201,13 +166,7 @@ export default function ArrivalGuidePage() {
                             <div>
                                 <h4 className="font-bold text-lg md:text-xl mb-1 text-black">Welcome to Your First Week on Campus</h4>
                                 <p className="text-base md:text-lg text-black leading-relaxed font-normal">
-                                    Your first week at Cannoga College is designed to connect you with academic leaders, peer mentors, and essential campus resources so you can start your degree in{' '}
-                                    <WikipediaInlineCite
-                                        href="https://en.wikipedia.org/wiki/Higher_education_in_Ontario"
-                                        label="Ontario Higher Ed"
-                                        num={7}
-                                    />{' '}
-                                    with confidence.
+                                    Your first week at Cannoga College is designed to connect you with academic leaders, peer mentors, and essential campus resources so you can start your studies in Ontario with confidence.
                                 </p>
                             </div>
 
@@ -296,12 +255,7 @@ export default function ArrivalGuidePage() {
                         <div className="space-y-4">
                             <div>
                                 <h2 className="text-aalto-5 font-bold text-black tracking-tight mb-1.5">
-                                    Campus Experience &amp; Arrival in{' '}
-                                    <WikipediaInlineCite
-                                        href="https://en.wikipedia.org/wiki/Ottawa"
-                                        label="Ottawa"
-                                        num={5}
-                                    />
+                                    Campus Experience &amp; Arrival in Ottawa
                                 </h2>
                                 <p className="text-black font-medium text-sm">Experience the vibrant atmosphere, modern spaces, and student community awaiting you in Ottawa.</p>
                             </div>
