@@ -267,7 +267,7 @@ export default function InternationalGuidePage() {
                                                     href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/about.html"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="text-black hover:text-neutral-500 underline transition-colors inline-flex items-center gap-1.5"
+                                                    className="text-black hover:text-[#c89211] underline transition-colors inline-flex items-center gap-1.5"
                                                 >
                                                     Post-Graduation Work Permit (PGWP) <ArrowSquareOut size={16} weight="bold" />
                                                 </a>
@@ -280,7 +280,7 @@ export default function InternationalGuidePage() {
                                                     href="/uploads/Cannoga_College_PGWP_Application_Guide_2025.pdf"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-flex items-center gap-1.5 font-bold underline text-sm md:text-base text-slate-900 hover:text-neutral-500 transition-colors"
+                                                    className="inline-flex items-center gap-1.5 font-bold underline text-sm md:text-base text-black hover:text-[#c89211] transition-colors"
                                                 >
                                                     PGWP Application Guide 2025 (PDF) <ArrowSquareOut size={15} weight="bold" />
                                                 </a>
@@ -292,8 +292,8 @@ export default function InternationalGuidePage() {
                                             <p><strong>Duration:</strong> Valid for 8 months up to 3 years, depending on the length of your study program. Programs of 2 years or longer generally qualify for a full 3-year work permit.</p>
                                             <p><strong>Deadline:</strong> You must apply within 180 days of receiving your final transcript and an official completion letter confirming your graduation.</p>
                                             <p><strong>Working while waiting:</strong> If you apply before your study permit expires, you can work full-time in Canada while waiting for a decision on your PGWP.</p>
-                                            <p className="pt-1 text-sm text-slate-600">
-                                                Please visit International Student Services or the <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/about.html" target="_blank" rel="noopener noreferrer" className="font-bold underline text-slate-900 hover:text-neutral-500 transition-colors">IRCC Website</a> for more information.
+                                            <p className="pt-1 text-sm text-black font-normal">
+                                                Please visit International Student Services or the <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/about.html" target="_blank" rel="noopener noreferrer" className="font-bold underline text-black hover:text-[#c89211] transition-colors">IRCC Website</a> for more information.
                                             </p>
                                         </div>
                                     </div>
@@ -320,7 +320,7 @@ export default function InternationalGuidePage() {
                                                     href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada.html"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="text-black hover:text-neutral-500 underline transition-colors inline-flex items-center gap-1.5"
+                                                    className="text-black hover:text-[#c89211] underline transition-colors inline-flex items-center gap-1.5"
                                                 >
                                                     Permanent Residency (PR) <ArrowSquareOut size={16} weight="bold" />
                                                 </a>
@@ -336,11 +336,11 @@ export default function InternationalGuidePage() {
                                                     href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada.html"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="font-bold text-slate-900 hover:text-neutral-500 underline inline-flex items-center gap-1 transition-colors"
+                                                    className="font-bold text-black hover:text-[#c89211] underline inline-flex items-center gap-1 transition-colors"
                                                 >
                                                     How to Immigrate to Canada <ArrowSquareOut size={14} weight="bold" />
                                                 </a>
-                                                <p className="text-sm text-slate-600">Official Government of Canada guide for economic immigration, qualification tools, and requirements.</p>
+                                                <p className="text-sm text-black font-normal">Official Government of Canada guide for economic immigration, qualification tools, and requirements.</p>
                                             </div>
 
                                             <div className="space-y-1 pt-1">
@@ -348,11 +348,11 @@ export default function InternationalGuidePage() {
                                                     href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry.html"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="font-bold text-slate-900 hover:text-neutral-500 underline inline-flex items-center gap-1 transition-colors"
+                                                    className="font-bold text-black hover:text-[#c89211] underline inline-flex items-center gap-1 transition-colors"
                                                 >
                                                     Express Entry Program (Canadian Experience Class) <ArrowSquareOut size={14} weight="bold" />
                                                 </a>
-                                                <p className="text-sm text-slate-600">After completing at least 1 year of skilled work experience in Canada, you can apply through Express Entry where Canadian education gives higher ranking points.</p>
+                                                <p className="text-sm text-black font-normal">After completing at least 1 year of skilled work experience in Canada, you can apply through Express Entry where Canadian education gives higher ranking points.</p>
                                             </div>
 
                                             <div className="space-y-1 pt-1">
@@ -360,11 +360,11 @@ export default function InternationalGuidePage() {
                                                     href="https://www.ontario.ca/page/ontario-immigrant-nominee-program-oinp"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="font-bold text-slate-900 hover:text-neutral-500 underline inline-flex items-center gap-1 transition-colors"
+                                                    className="font-bold text-black hover:text-[#c89211] underline inline-flex items-center gap-1 transition-colors"
                                                 >
                                                     Ontario Immigrant Nominee Program (OINP) <ArrowSquareOut size={14} weight="bold" />
                                                 </a>
-                                                <p className="text-sm text-slate-600">Ontario has specific streams under the Ontario Immigrant Nominee Program for international students with job offers, Advanced Diplomas, or in-demand skills.</p>
+                                                <p className="text-sm text-black font-normal">Ontario has specific streams under the Ontario Immigrant Nominee Program for international students with job offers, Advanced Diplomas, or in-demand skills.</p>
                                             </div>
                                         </div>
 
@@ -385,7 +385,7 @@ export default function InternationalGuidePage() {
                             <StudentResourceHubCarousel />
                         </section>
 
-                        <div className="pt-4 border-t border-neutral-100 text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400">
+                        <div className="pt-4 border-t border-neutral-200 text-[10px] font-bold uppercase tracking-[0.2em] text-black">
                             <p>Updated: June 2026 | Cannoga College International Student Services</p>
                         </div>
                     </div>

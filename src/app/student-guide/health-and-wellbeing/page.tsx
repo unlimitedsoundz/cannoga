@@ -149,20 +149,20 @@ export default function HealthAndWellbeingPage() {
 
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
                             <div className="space-y-2">
-                                <h4 className="font-bold text-base md:text-lg text-slate-900">1-on-1 Personal Counseling</h4>
-                                <p className="text-sm md:text-base text-black leading-relaxed">
+                                <h4 className="font-bold text-base md:text-lg text-black">1-on-1 Personal Counseling</h4>
+                                <p className="text-sm md:text-base text-black leading-relaxed font-normal">
                                     Confidential individual sessions to navigate anxiety, depression, academic stress, relationships, homesickness, or grief.
                                 </p>
                             </div>
                             <div className="space-y-2">
-                                <h4 className="font-bold text-base md:text-lg text-slate-900">Peer Wellness Network</h4>
-                                <p className="text-sm md:text-base text-black leading-relaxed">
+                                <h4 className="font-bold text-base md:text-lg text-black">Peer Wellness Network</h4>
+                                <p className="text-sm md:text-base text-black leading-relaxed font-normal">
                                     Student-led wellness champions offering study-break coffee chats, mindfulness workshops, and peer connection groups.
                                 </p>
                             </div>
                             <div className="space-y-2">
-                                <h4 className="font-bold text-base md:text-lg text-slate-900">Stress &amp; Exam Resilience</h4>
-                                <p className="text-sm md:text-base text-black leading-relaxed">
+                                <h4 className="font-bold text-base md:text-lg text-black">Stress &amp; Exam Resilience</h4>
+                                <p className="text-sm md:text-base text-black leading-relaxed font-normal">
                                     Practical strategy workshops covering time management, sleep hygiene, meditation, and healthy study habits.
                                 </p>
                             </div>
@@ -198,8 +198,8 @@ export default function HealthAndWellbeingPage() {
 
                         <div className="grid md:grid-cols-2 gap-8 pt-2">
                             <div className="space-y-3">
-                                <h3 className="font-bold text-lg md:text-xl text-slate-900">Types of Supported Accommodations</h3>
-                                <ul className="space-y-2 text-base text-black list-disc list-outside pl-5">
+                                <h3 className="font-bold text-lg md:text-xl text-black">Types of Supported Accommodations</h3>
+                                <ul className="space-y-2 text-base text-black list-disc list-outside pl-5 font-normal">
                                     <li><strong>Exam Accommodations:</strong> Extra time, quiet testing rooms, and assistive software.</li>
                                     <li><strong>Classroom Adjustments:</strong> Peer note-takers, audio recording permissions, and accessible seating.</li>
                                     <li><strong>Assistive Tech:</strong> Screen readers, speech-to-text tools, and ergonomic equipment.</li>
@@ -208,9 +208,9 @@ export default function HealthAndWellbeingPage() {
                             </div>
 
                             <div className="space-y-3">
-                                <h3 className="font-bold text-lg md:text-xl text-slate-900">How to Register for Accommodations</h3>
-                                <div className="space-y-2 text-base text-black">
-                                    <p>1. Complete the confidential Accessibility Intake Form in the <Link href="/portal/" className="font-bold underline text-slate-900">Student Portal</Link>.</p>
+                                <h3 className="font-bold text-lg md:text-xl text-black">How to Register for Accommodations</h3>
+                                <div className="space-y-2 text-base text-black font-normal">
+                                    <p>1. Complete the confidential Accessibility Intake Form in the <Link href="/portal/" className="font-bold underline text-black hover:text-[#c89211]">Student Portal</Link>.</p>
                                     <p>2. Provide supporting medical or psycho-educational documentation from a qualified healthcare practitioner.</p>
                                     <p>3. Attend a collaborative intake appointment with an Accessibility Advisor to build your individualized accommodation plan.</p>
                                 </div>
@@ -232,26 +232,26 @@ export default function HealthAndWellbeingPage() {
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
                             <div className="space-y-1">
                                 <div className="text-red-700 font-black text-2xl">911</div>
-                                <h4 className="font-bold text-base text-slate-900">Emergency Services</h4>
-                                <p className="text-xs sm:text-sm text-slate-600">Police, Ambulance, and Fire in Canada. Call immediately for life-threatening emergencies.</p>
+                                <h4 className="font-bold text-base text-black">Emergency Services</h4>
+                                <p className="text-xs sm:text-sm text-black font-normal">Police, Ambulance, and Fire in Canada. Call immediately for life-threatening emergencies.</p>
                             </div>
 
                             <div className="space-y-1">
                                 <div className="text-blue-700 font-black text-xl">1-866-925-5454</div>
-                                <h4 className="font-bold text-base text-slate-900">Good2Talk Helpline</h4>
-                                <p className="text-xs sm:text-sm text-slate-600">Free, confidential 24/7 post-secondary student helpline. Or text <strong>GOOD2TALKON to 686868</strong>.</p>
+                                <h4 className="font-bold text-base text-black">Good2Talk Helpline</h4>
+                                <p className="text-xs sm:text-sm text-black font-normal">Free, confidential 24/7 post-secondary student helpline. Or text <strong>GOOD2TALKON to 686868</strong>.</p>
                             </div>
 
                             <div className="space-y-1">
                                 <div className="text-emerald-700 font-black text-xl">613-238-3311</div>
-                                <h4 className="font-bold text-base text-slate-900">Distress Centre of Ottawa</h4>
-                                <p className="text-xs sm:text-sm text-slate-600">24/7 confidential mental health and distress response for the National Capital Region.</p>
+                                <h4 className="font-bold text-base text-black">Distress Centre of Ottawa</h4>
+                                <p className="text-xs sm:text-sm text-black font-normal">24/7 confidential mental health and distress response for the National Capital Region.</p>
                             </div>
 
                             <div className="space-y-1">
                                 <div className="text-amber-700 font-black text-xl">811</div>
-                                <h4 className="font-bold text-base text-slate-900">Health Connect Ontario</h4>
-                                <p className="text-xs sm:text-sm text-slate-600">24/7 free access to registered nurse medical advice and health guidance.</p>
+                                <h4 className="font-bold text-base text-black">Health Connect Ontario</h4>
+                                <p className="text-xs sm:text-sm text-black font-normal">24/7 free access to registered nurse medical advice and health guidance.</p>
                             </div>
                         </div>
                     </section>

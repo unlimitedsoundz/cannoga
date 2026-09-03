@@ -258,11 +258,11 @@ export function WikipediaInlineCite({ href, label, num }: InlineCiteProps) {
             target="_blank"
             rel="noopener noreferrer"
             title={`Wikipedia Reference: ${label}`}
-            className="inline-flex items-center gap-0.5 text-xs font-bold text-neutral-700 hover:text-black hover:underline bg-neutral-100 hover:bg-neutral-200 px-1.5 py-0.5 rounded mx-1 align-baseline border border-neutral-300 transition-colors"
+            className="inline-flex items-center gap-0.5 text-xs font-bold text-black hover:text-[#c89211] hover:underline bg-neutral-100 hover:bg-neutral-200 px-1.5 py-0.5 rounded mx-1 align-baseline border border-neutral-300 transition-colors"
         >
             <span>{label}</span>
-            {num && <span className="font-mono text-[10px] text-neutral-600">[{num}]</span>}
-            <ArrowUpRight size={10} weight="bold" className="text-neutral-500" />
+            {num && <span className="font-mono text-[10px] text-black">[{num}]</span>}
+            <ArrowUpRight size={10} weight="bold" className="text-black" />
         </a>
     );
 }
