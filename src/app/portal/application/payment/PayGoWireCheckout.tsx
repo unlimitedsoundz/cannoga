@@ -458,18 +458,19 @@ export default function PayGoWireCheckout({
 
                                     {/* Dropdown Options List */}
                                     {isCountryOpen && (
-                                        <div className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-300 rounded-md shadow-2xl z-50 max-h-72 overflow-y-auto py-1">
+                                        <div className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-300 rounded-md z-50 max-h-72 overflow-y-auto py-1">
                                             {/* Search Input Box */}
-                                            <div className="sticky top-0 bg-white px-2 py-1.5 border-b border-slate-100 z-10 shadow-2xs">
+                                            <div className="sticky top-0 bg-white px-2 py-1.5 border-b border-slate-100 z-10">
                                                 <div className="relative flex items-center">
-                                                    <MagnifyingGlass size={14} className="absolute left-3 text-slate-400 pointer-events-none shrink-0" />
+                                                    <MagnifyingGlass size={14} className="absolute text-slate-400 pointer-events-none shrink-0" style={{ left: '10px', top: '50%', transform: 'translateY(-50%)' }} />
                                                     <input
                                                         type="text"
                                                         placeholder="Search country or region..."
                                                         value={countrySearch}
                                                         onChange={(e) => setCountrySearch(e.target.value)}
                                                         onClick={(e) => e.stopPropagation()}
-                                                        className="w-full pl-9 pr-8 py-1.5 text-xs md:text-sm border border-slate-200 rounded focus:outline-none focus:border-[#0066cc] bg-slate-50 focus:bg-white text-slate-900"
+                                                        style={{ paddingLeft: '32px', paddingRight: countrySearch ? '28px' : '10px' }}
+                                                        className="w-full py-1.5 text-xs md:text-sm border border-slate-200 rounded focus:outline-none focus:border-[#0066cc] bg-slate-50 focus:bg-white text-slate-900"
                                                         autoFocus
                                                     />
                                                     {countrySearch && (
