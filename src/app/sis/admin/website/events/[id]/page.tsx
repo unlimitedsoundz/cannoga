@@ -117,7 +117,7 @@ export default function EditWebsiteEventPage() {
                 actions={
                     <Link
                         href="/sis/admin/website/events/"
-                        className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-neutral-50 transition-colors no-underline"
+                        className="inline-flex items-center gap-2 px-4 py-2 border border-white/20 text-white text-xs font-bold uppercase tracking-wider rounded-sm hover:bg-white/10 transition-colors no-underline"
                     >
                         <HugeiconsIcon icon={ArrowLeft} size={14} strokeWidth={2.5} /> Back to Events
                     </Link>
@@ -130,10 +130,10 @@ export default function EditWebsiteEventPage() {
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl border border-neutral-200 space-y-6 shadow-sm">
+            <form onSubmit={handleSubmit} className="bg-[#0f2027] p-6 rounded-2xl border border-white/10 space-y-6 shadow-sm">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="md:col-span-2 space-y-2">
-                        <Label htmlFor="title" className="text-xs font-bold uppercase tracking-wider text-neutral-700">Event Title *</Label>
+                        <Label htmlFor="title" className="text-xs font-bold uppercase tracking-wider text-slate-300">Event Title *</Label>
                         <Input
                             id="title"
                             value={title}
@@ -143,7 +143,7 @@ export default function EditWebsiteEventPage() {
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="slug" className="text-xs font-bold uppercase tracking-wider text-neutral-700">URL Slug *</Label>
+                        <Label htmlFor="slug" className="text-xs font-bold uppercase tracking-wider text-slate-300">URL Slug *</Label>
                         <Input
                             id="slug"
                             value={slug}
@@ -153,12 +153,12 @@ export default function EditWebsiteEventPage() {
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="category" className="text-xs font-bold uppercase tracking-wider text-neutral-700">Category *</Label>
+                        <Label htmlFor="category" className="text-xs font-bold uppercase tracking-wider text-slate-300">Category *</Label>
                         <select
                             id="category"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
-                            className="w-full h-10 px-3 rounded-md border border-neutral-200 bg-white text-sm outline-none"
+                            className="w-full h-10 px-3 rounded-md border border-white/20 bg-[#0a151a] text-white text-sm outline-none"
                         >
                             <option value="General">General</option>
                             <option value="Admissions">Admissions</option>
@@ -169,7 +169,7 @@ export default function EditWebsiteEventPage() {
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="date" className="text-xs font-bold uppercase tracking-wider text-neutral-700">Date & Time *</Label>
+                        <Label htmlFor="date" className="text-xs font-bold uppercase tracking-wider text-slate-300">Date & Time *</Label>
                         <Input
                             id="date"
                             type="datetime-local"
@@ -180,7 +180,7 @@ export default function EditWebsiteEventPage() {
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="location" className="text-xs font-bold uppercase tracking-wider text-neutral-700">Location</Label>
+                        <Label htmlFor="location" className="text-xs font-bold uppercase tracking-wider text-slate-300">Location</Label>
                         <Input
                             id="location"
                             value={location}
@@ -189,7 +189,7 @@ export default function EditWebsiteEventPage() {
                     </div>
 
                     <div className="md:col-span-2 space-y-2">
-                        <Label htmlFor="imageUrl" className="text-xs font-bold uppercase tracking-wider text-neutral-700">Cover Image URL</Label>
+                        <Label htmlFor="imageUrl" className="text-xs font-bold uppercase tracking-wider text-slate-300">Cover Image URL</Label>
                         <Input
                             id="imageUrl"
                             type="url"
@@ -199,7 +199,7 @@ export default function EditWebsiteEventPage() {
                     </div>
 
                     <div className="md:col-span-2 space-y-2">
-                        <Label className="text-xs font-bold uppercase tracking-wider text-neutral-700">Event Description (Rich Text & Images)</Label>
+                        <Label className="text-xs font-bold uppercase tracking-wider text-slate-300">Event Description (Rich Text & Images)</Label>
                         <RichTextEditor
                             value={content}
                             onChange={setContent}
@@ -207,15 +207,15 @@ export default function EditWebsiteEventPage() {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-neutral-200">
+                <div className="flex items-center justify-between pt-4 border-t border-white/10">
                     <label className="flex items-center gap-2 cursor-pointer">
                         <input
                             type="checkbox"
                             checked={published}
                             onChange={(e) => setPublished(e.target.checked)}
-                            className="rounded border-neutral-300 text-neutral-900 focus:ring-black"
+                            className="rounded border-white/20 accent-sky-400 outline-none"
                         />
-                        <span className="text-xs font-bold uppercase tracking-wider text-neutral-700">Published</span>
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-300">Published</span>
                     </label>
 
                     <button

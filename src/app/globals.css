@@ -1178,6 +1178,27 @@ button.sis-btn,
   color: #0f172a !important;
 }
 
+/* Dark form cards: style inputs, textareas, and selects for dark backgrounds */
+[data-theme="sis-dark"] .bg-\[#0f2027\] input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="sis-dark"] .bg-\[#0f2027\] textarea,
+[data-theme="sis-dark"] .bg-\[#0f2027\] select {
+  background-color: #0a151a !important;
+  border-color: rgba(255,255,255,0.15) !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="sis-dark"] .bg-\[#0f2027\] input:not([type="checkbox"]):not([type="radio"])::placeholder,
+[data-theme="sis-dark"] .bg-\[#0f2027\] textarea::placeholder {
+  color: #64748b !important;
+}
+
+[data-theme="sis-dark"] .bg-\[#0f2027\] input:focus:not([type="checkbox"]):not([type="radio"]),
+[data-theme="sis-dark"] .bg-\[#0f2027\] textarea:focus,
+[data-theme="sis-dark"] .bg-\[#0f2027\] select:focus {
+  border-color: rgba(255,255,255,0.4) !important;
+  outline: none;
+}
+
 @keyframes drawerSlideDown {
   0% {
     opacity: 0;
