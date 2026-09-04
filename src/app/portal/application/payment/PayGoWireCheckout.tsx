@@ -444,7 +444,7 @@ export default function PayGoWireCheckout({
                                     >
                                         <div className="flex flex-col justify-center min-w-0 flex-1 mr-2">
                                             <span className="text-[13px] md:text-[14px] font-normal text-slate-700 leading-none truncate">
-                                                {selectedBank ? `${selectedBank.country_flag ? selectedBank.country_flag + ' ' : ''}${selectedBank.country_name}` : 'Country or region *'}
+                                                {selectedBank ? selectedBank.country_name : 'Country or region *'}
                                             </span>
                                         </div>
                                         <div className="text-slate-700 shrink-0">
@@ -462,14 +462,14 @@ export default function PayGoWireCheckout({
                                             {/* Search Input Box */}
                                             <div className="sticky top-0 bg-white px-2 py-1.5 border-b border-slate-100 z-10 shadow-2xs">
                                                 <div className="relative flex items-center">
-                                                    <MagnifyingGlass size={15} className="absolute left-2.5 text-slate-400 pointer-events-none" />
+                                                    <MagnifyingGlass size={14} className="absolute left-3 text-slate-400 pointer-events-none shrink-0" />
                                                     <input
                                                         type="text"
                                                         placeholder="Search country or region..."
                                                         value={countrySearch}
                                                         onChange={(e) => setCountrySearch(e.target.value)}
                                                         onClick={(e) => e.stopPropagation()}
-                                                        className="w-full pl-8 pr-7 py-1.5 text-xs md:text-sm border border-slate-200 rounded focus:outline-none focus:border-[#0066cc] bg-slate-50 focus:bg-white text-slate-900"
+                                                        className="w-full pl-9 pr-8 py-1.5 text-xs md:text-sm border border-slate-200 rounded focus:outline-none focus:border-[#0066cc] bg-slate-50 focus:bg-white text-slate-900"
                                                         autoFocus
                                                     />
                                                     {countrySearch && (
@@ -548,7 +548,6 @@ export default function PayGoWireCheckout({
                                                             }`}
                                                         >
                                                             <span className="truncate">{c.country_name}</span>
-                                                            {c.country_flag && <span className="text-sm shrink-0">{c.country_flag}</span>}
                                                         </div>
                                                     );
                                                 })
