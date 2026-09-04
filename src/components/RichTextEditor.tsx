@@ -56,30 +56,67 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
 
                     async upload() {
                         const file = await this.loader.file;
-                        const { createBlogClient } = await import('@/utils/supabase/blogClient');
-                        const supabase = createBlogClient();
                         const fileExt = file.name ? file.name.split('.').pop() : 'jpg';
                         const fileName = `blog-${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
 
-                        const { error } = await supabase.storage
-                            .from('blog-images')
-                            .upload(fileName, file, {
-                                cacheControl: '31536000',
-                                upsert: false,
-                            });
+                        // 1. Try Supabase storage first
+                        try {
+                            const { createBlogClient } = await import('@/utils/supabase/blogClient');
+                            const supabase = createBlogClient();
 
-                        if (error) {
-                            console.error('Supabase storage upload error:', error);
-                            throw error;
+                            const { error } = await supabase.storage
+                                .from('blog-images')
+                                .upload(fileName, file, {
+                                    cacheControl: '31536000',
+                                    upsert: false,
+                                });
+
+                            if (!error) {
+                                const { data: { publicUrl } } = supabase.storage
+                                    .from('blog-images')
+                                    .getPublicUrl(fileName);
+
+                                if (publicUrl) {
+                                    return { default: publicUrl };
+                                }
+                            } else {
+                                console.warn('Supabase storage upload error, falling back:', error.message);
+                            }
+                        } catch (err) {
+                            console.warn('Supabase storage upload failed, attempting fallback endpoint:', err);
                         }
 
-                        const { data: { publicUrl } } = supabase.storage
-                            .from('blog-images')
-                            .getPublicUrl(fileName);
+                        // 2. Fallback to /api/upload
+                        try {
+                            const formData = new FormData();
+                            formData.append('file', file);
+                            const res = await fetch('/api/upload', {
+                                method: 'POST',
+                                body: formData,
+                            });
+                            if (res.ok) {
+                                const resData = await res.json();
+                                if (resData.success && resData.url) {
+                                    return { default: resData.url };
+                                }
+                            }
+                        } catch (apiErr) {
+                            console.warn('API /api/upload route failed, attempting hosting upload:', apiErr);
+                        }
 
-                        return {
-                            default: publicUrl,
-                        };
+                        // 3. Fallback to /upload.php (Hostinger environment)
+                        try {
+                            const { uploadToHosting } = await import('@/utils/hostingUpload');
+                            const hostUrl = await uploadToHosting(file);
+                            if (hostUrl) {
+                                return { default: hostUrl };
+                            }
+                        } catch (hostErr) {
+                            console.error('All upload methods failed:', hostErr);
+                            throw hostErr;
+                        }
+
+                        throw new Error('Image upload failed across all available storage adapters.');
                     }
 
                     abort() {

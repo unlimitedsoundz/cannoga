@@ -12,12 +12,16 @@ import DynamicNewsSection from './DynamicNewsSection';
 import { Info } from '@/components/ui/Info';
 import { Hero } from '@/components/layout/Hero';
 
+import '@/styles/ckeditor-content.css';
+
 interface NewsDetailClientProps {
     initialNews: News;
 }
 
 export default function NewsDetailClient({ initialNews }: NewsDetailClientProps) {
     const [currentNews, setNews] = useState<News>(initialNews);
+    const [coverImageFailed, setCoverImageFailed] = useState(false);
+    const [heroImageFailed, setHeroImageFailed] = useState(false);
 
     useEffect(() => {
         async function fetchLatest() {
@@ -37,6 +41,8 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
         fetchLatest();
     }, [initialNews.id, initialNews.content]);
 
+    const isHtmlContent = Boolean(currentNews.content && /<[a-z][\s\S]*>/i.test(currentNews.content));
+
     return (
         <div className="min-h-screen bg-white font-sans text-black">
             {/* Hero */}
@@ -44,7 +50,7 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
                 title={currentNews.title}
                 body={currentNews.excerpt || "Official institutional announcement and updates from Cannoga College Ottawa campus."}
                 image={{
-                    src: currentNews.imageUrl || "/images/home-carousel-1.png",
+                    src: (!heroImageFailed && currentNews.imageUrl) ? currentNews.imageUrl : "/images/home-carousel-1.png",
                     alt: currentNews.title
                 }}
                 breadcrumbs={[
@@ -90,9 +96,9 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
                 )}
 
                 {/* Content Image if exists */}
-                {currentNews.imageUrl && (
+                {currentNews.imageUrl && !coverImageFailed && (
                     <div className="mb-12">
-                        <div className="relative aspect-[16/9] overflow-hidden rounded-sm">
+                        <div className="relative aspect-[16/9] overflow-hidden rounded-sm bg-neutral-100">
                             <Image
                                 src={currentNews.imageUrl}
                                 alt={currentNews.title}
@@ -100,6 +106,7 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
                                 unoptimized
                                 className="object-cover object-top"
                                 sizes="(max-width: 768px) 100vw, 800px"
+                                onError={() => setCoverImageFailed(true)}
                             />
                         </div>
                     </div>
@@ -107,9 +114,16 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
 
                 {/* Main Content Body */}
                 <div className="my-10">
-                    <div className="whitespace-pre-wrap text-base md:text-lg text-neutral-800 leading-relaxed font-normal space-y-6">
-                        {currentNews.content}
-                    </div>
+                    {isHtmlContent ? (
+                        <div
+                            className="ck-content prose prose-neutral max-w-none text-base md:text-lg text-neutral-800 leading-relaxed font-normal [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-xl [&_img]:my-6 [&_img]:shadow-sm [&_figure]:my-6 [&_figure]:max-w-full [&_a]:text-blue-600 [&_a]:underline hover:[&_a]:text-blue-800"
+                            dangerouslySetInnerHTML={{ __html: currentNews.content }}
+                        />
+                    ) : (
+                        <div className="whitespace-pre-wrap text-base md:text-lg text-neutral-800 leading-relaxed font-normal space-y-6">
+                            {currentNews.content}
+                        </div>
+                    )}
                 </div>
 
                 {/* Social Share Section */}

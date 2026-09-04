@@ -10,8 +10,15 @@ import { Label } from '@/components/ui/Label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
+import dynamicImport from 'next/dynamic';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowLeft, Save } from '@hugeicons/core-free-icons';
+import '@/styles/ckeditor-content.css';
+
+const RichTextEditor = dynamicImport(() => import('@/components/RichTextEditor'), {
+    ssr: false,
+    loading: () => <div className="p-4 border border-neutral-200 text-sm text-neutral-500 rounded bg-neutral-50 animate-pulse">Loading rich text editor...</div>
+});
 
 export default function NewNewsPage() {
     const router = useRouter();
@@ -101,7 +108,10 @@ export default function NewNewsPage() {
 
                 <div className="space-y-2">
                     <Label htmlFor="content">Content</Label>
-                    <textarea id="content" value={content} onChange={e => setContent(e.target.value)} placeholder="Full article content (Markdown supported)" rows={8} className="w-full px-3 py-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none font-sans font-mono" />
+                    <RichTextEditor
+                        value={content}
+                        onChange={(data: string) => setContent(data)}
+                    />
                 </div>
 
                 <div className="space-y-2">

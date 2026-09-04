@@ -2,9 +2,20 @@
 
 import { createClient } from '@/utils/supabase/client';
 import { uploadToHosting } from '@/utils/hostingUpload';
-import { FloppyDisk as Save, Image as ImageIcon, Calendar, FileText, Globe } from "@phosphor-icons/react/dist/ssr";
+import { FloppyDisk as Save, Image as ImageIcon, Calendar, Globe, LinkSimple } from "@phosphor-icons/react/dist/ssr";
 import Image from 'next/image';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
+import '@/styles/ckeditor-content.css';
+
+const RichTextEditor = dynamic(() => import('@/components/RichTextEditor'), {
+    ssr: false,
+    loading: () => (
+        <div className="h-64 w-full bg-neutral-50 border border-neutral-200 rounded-xl flex items-center justify-center text-neutral-400 font-sans text-sm animate-pulse">
+            Loading Editor...
+        </div>
+    )
+});
 
 interface NewsFormProps {
     id: string;
@@ -15,6 +26,8 @@ interface NewsFormProps {
 export default function NewsForm({ id, isNew, newsItem }: NewsFormProps) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [previewImage, setPreviewImage] = useState<string | null>(newsItem?.imageUrl || null);
+    const [imageUrlInput, setImageUrlInput] = useState<string>(newsItem?.imageUrl || '');
+    const [content, setContent] = useState<string>(newsItem?.content || '');
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -22,18 +35,15 @@ export default function NewsForm({ id, isNew, newsItem }: NewsFormProps) {
         setIsSubmitting(true);
 
         const formData = new FormData(event.currentTarget);
-        const supabase = createClient();
 
         try {
             const title = formData.get('title') as string;
-            const content = formData.get('content') as string;
             const slug = formData.get('slug') as string;
             const publishDate = formData.get('publishDate') as string;
 
-            // Generate excerpt (first 160 chars)
-            const excerpt = content
-                ? content.replace(/[#*`]/g, '').slice(0, 160).trim() + '...'
-                : '';
+            // Generate excerpt (first 160 chars) without HTML tags
+            const plainText = content ? content.replace(/<[^>]*>/g, '').replace(/[#*`]/g, '').trim() : '';
+            const excerpt = plainText ? plainText.slice(0, 160).trim() + '...' : '';
 
             const newsData: any = {
                 title,
@@ -44,12 +54,17 @@ export default function NewsForm({ id, isNew, newsItem }: NewsFormProps) {
                 published: true
             };
 
-            // Handle Image Upload (Hostinger PHP)
+            // Direct image URL
+            if (imageUrlInput.trim()) {
+                newsData.imageUrl = imageUrlInput.trim();
+            }
+
+            // Handle Image Upload (Hostinger PHP) - overrides direct URL if file selected
             const imageFile = formData.get('image') as File;
             if (imageFile && imageFile.size > 0) {
-                const imageUrl = await uploadToHosting(imageFile);
-                if (imageUrl) {
-                    newsData.imageUrl = imageUrl;
+                const uploadedUrl = await uploadToHosting(imageFile);
+                if (uploadedUrl) {
+                    newsData.imageUrl = uploadedUrl;
                 }
             }
 
@@ -61,7 +76,7 @@ export default function NewsForm({ id, isNew, newsItem }: NewsFormProps) {
                 });
                 if (!response.ok) {
                     const data = await response.json();
-                    throw new Error(data.error || 'Failed to save news article');
+                    throw new Error(data.error || 'Failed to create news article');
                 }
             } else {
                 const response = await fetch('/api/sis/admin/news', {
@@ -79,13 +94,7 @@ export default function NewsForm({ id, isNew, newsItem }: NewsFormProps) {
             window.location.href = '/admin/news';
 
         } catch (error: any) {
-            console.error('Error submitting form:', {
-                message: error.message,
-                details: error.details,
-                hint: error.hint,
-                code: error.code,
-                error
-            });
+            console.error('Error submitting form:', error);
             alert(`Failed to save: ${error.message || 'Unknown error'}`);
             setIsSubmitting(false);
         }
@@ -99,28 +108,40 @@ export default function NewsForm({ id, isNew, newsItem }: NewsFormProps) {
         }
     };
 
+    const handleImageUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const url = e.target.value;
+        setImageUrlInput(url);
+        if (url.trim()) {
+            setPreviewImage(url.trim());
+        } else if (!newsItem?.imageUrl) {
+            setPreviewImage(null);
+        }
+    };
+
     return (
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-neutral-200 shadow-xl overflow-hidden">
             <div className="p-8 space-y-6">
-                {/* Image Upload Selection */}
-                <div className="space-y-1.5">
+                {/* Image Upload / Link Selection */}
+                <div className="space-y-3">
                     <label className="text-sm font-bold text-neutral-600 flex items-center gap-1">
                         <ImageIcon size={14} weight="bold" /> Featured Image
                     </label>
-                    <div className="flex items-start gap-4">
+                    <div className="flex flex-col sm:flex-row items-start gap-4">
                         {previewImage && (
-                            <div className="w-32 h-20 bg-neutral-100 rounded-lg overflow-hidden border border-neutral-200 flex-shrink-0 relative">
+                            <div className="w-36 h-24 bg-neutral-100 rounded-lg overflow-hidden border border-neutral-200 flex-shrink-0 relative">
                                 <Image
                                     src={previewImage}
                                     alt="Preview"
                                     fill
                                     className="object-cover object-top"
                                     unoptimized
+                                    onError={() => setPreviewImage(null)}
                                 />
                             </div>
                         )}
-                        <div className="flex-1">
-                            <div className="relative group">
+                        <div className="flex-1 space-y-3 w-full">
+                            <div>
+                                <label className="text-xs text-neutral-500 font-medium mb-1 block">Upload Image File</label>
                                 <input
                                     name="image"
                                     type="file"
@@ -129,7 +150,19 @@ export default function NewsForm({ id, isNew, newsItem }: NewsFormProps) {
                                     className="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-neutral-100 file:text-black hover:file:bg-neutral-200 cursor-pointer border border-neutral-200 rounded-lg p-1"
                                 />
                             </div>
-                            <p className="text-[10px] text-neutral-400 mt-2 italic">Recommended size: 1200x630px. Max 5MB.</p>
+                            <div>
+                                <label className="text-xs text-neutral-500 font-medium mb-1 flex items-center gap-1">
+                                    <LinkSimple size={12} /> Or Paste Direct Image Link (URL)
+                                </label>
+                                <input
+                                    type="url"
+                                    value={imageUrlInput}
+                                    onChange={handleImageUrlChange}
+                                    placeholder="https://..."
+                                    className="w-full p-2.5 bg-neutral-50 border border-neutral-200 rounded-lg text-sm outline-none focus:border-black"
+                                />
+                            </div>
+                            <p className="text-[10px] text-neutral-400 italic">Recommended size: 1200x630px. Max 5MB.</p>
                         </div>
                     </div>
                 </div>
@@ -168,15 +201,11 @@ export default function NewsForm({ id, isNew, newsItem }: NewsFormProps) {
                         </div>
                     </div>
 
-                    <div className="space-y-1.5">
-                        <label className="text-sm font-bold text-neutral-600 flex items-center gap-2"><FileText size={14} weight="bold" /> Content (Markdown supported)</label>
-                        <textarea
-                            name="content"
-                            defaultValue={newsItem?.content || ''}
-                            rows={15}
-                            required
-                            className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl outline-none resize-none font-mono text-sm leading-relaxed"
-                            placeholder="# Heading\n\nWrite your content here..."
+                    <div className="space-y-2">
+                        <label className="text-sm font-bold text-neutral-600">Content (Rich Text & Images)</label>
+                        <RichTextEditor
+                            value={content}
+                            onChange={setContent}
                         />
                     </div>
                 </div>
