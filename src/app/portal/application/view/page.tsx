@@ -12,6 +12,11 @@ import { useState, useEffect, Suspense } from 'react';
 import { addApplicationDocument, deleteApplicationDocument, updateApplicationStatus, regenerateLOA } from '@/app/portal/actions';
 import { toast } from 'sonner';
 
+const formatDegreeLevel = (level?: string) => {
+    if (!level) return '';
+    return level.charAt(0) + level.slice(1).toLowerCase();
+};
+
 function ViewApplicationContent() {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
@@ -675,17 +680,22 @@ function ViewApplicationContent() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <p className="text-[11px] font-black uppercase tracking-[0.22em] text-neutral-500 mb-1">Program</p>
-                                        <p className="text-sm font-bold text-black">{application.course?.title}</p>
+                                        <p className="text-sm font-bold text-black">
+                                            {application.course?.title}
+                                            {application.course?.degreeLevel ? ` ${formatDegreeLevel(application.course.degreeLevel)}` : ''}
+                                        </p>
                                     </div>
                                     <div>
                                         <p className="text-[11px] font-black uppercase tracking-[0.22em] text-neutral-500 mb-1">Offer Type</p>
-                                        <p className="text-sm font-bold text-black">{offer.offer_type?.replace(/_/g, ' ') || 'Full Tuition'}</p>
+                                        <p className="text-sm font-bold text-black">{offer.offer_type?.replace(/_/g, ' ') || 'Tuition Deposit'}</p>
                                     </div>
                                     <div>
                                         <p className="text-[11px] font-black uppercase tracking-[0.22em] text-neutral-500 mb-1">
-                                            {offer.offer_type === 'TUITION_DEPOSIT' ? 'Tuition Deposit' : 'Annual Tuition'}
+                                            Tuition Deposit
                                         </p>
-                                        <p className="text-sm font-bold text-black">${Number(offer.tuition_fee).toLocaleString()} CAD</p>
+                                        <p className="text-sm font-bold text-black">
+                                            ${(offer.offer_type === 'TUITION_DEPOSIT' ? Number(offer.tuition_fee) : 2000).toLocaleString()} CAD
+                                        </p>
                                     </div>
                                     <div>
                                         <p className="text-[11px] font-black uppercase tracking-[0.22em] text-neutral-500 mb-1">Payment Deadline</p>
@@ -928,7 +938,7 @@ function ViewApplicationContent() {
                             {dataRow('Housing Requirements', application.user?.housing_required)}
                             {dataRow('How Did You Hear About Us?', application.user?.how_did_you_hear)}
                             {dataRow('Questions / Comments', application.user?.questions_comments)}
-                            {dataRow('Academic Program Choice', application.course?.title)}
+                            {dataRow('Academic Program Choice', `${application.course?.title || ''}${application.course?.degreeLevel ? ` ${formatDegreeLevel(application.course?.degreeLevel)}` : ''}`)}
                             {dataRow('Alternate Program Choice', application.alternate_course?.title || 'Not selected')}
                             {dataRow('Desired Academic Term', application.intake || 'Not provided')}
                             {dataRow('Program Type', application.program_type || application.course?.programType || 'Not provided')}

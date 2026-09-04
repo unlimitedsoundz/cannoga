@@ -16,8 +16,9 @@ interface ApplicationRow {
   application_number?: string;
   status: string;
   submitted_at?: string;
+  personal_info?: any;
   course?: { title: string; degreeLevel?: string };
-  user?: { first_name: string; last_name: string; email: string };
+  user?: { first_name: string; last_name: string; email: string; citizenship?: string; country_of_residence?: string };
 }
 
 const formatDegreeLevel = (level: string) => {
@@ -48,6 +49,25 @@ export default function ApplicationsPage() {
   const columns = [
     { key: 'application_number', header: 'Application #', render: (a: ApplicationRow) => <span className="font-mono text-xs text-neutral-200">{a.application_number || a.id.slice(0, 8)}</span> },
     { key: 'user', header: 'Student', render: (a: ApplicationRow) => <span className="font-bold text-xs text-neutral-200">{a.user ? `${a.user.first_name} ${a.user.last_name}` : '—'}</span> },
+    {
+      key: 'student_type',
+      header: 'Type',
+      render: (a: ApplicationRow) => {
+        const rawType = (a.personal_info?.studentType || '').toLowerCase();
+        const rawCountry = (a.personal_info?.country || a.personal_info?.nationality || a.user?.country_of_residence || a.user?.citizenship || '').toLowerCase();
+        const isDomestic = rawType === 'domestic' || (!rawType && (rawCountry === 'canada' || rawCountry === 'canadian'));
+        const label = rawType === 'domestic' ? 'Domestic' : rawType === 'international' ? 'International' : (isDomestic ? 'Domestic' : 'International');
+        return (
+          <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+            isDomestic
+              ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+              : 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
+          }`}>
+            {label}
+          </span>
+        );
+      },
+    },
     { key: 'course', header: 'Program', render: (a: ApplicationRow) => <span className="text-xs text-slate-400">{`${a.course?.title || '—'}${a.course?.degreeLevel ? ` ${formatDegreeLevel(a.course.degreeLevel)}` : ''}`}</span> },
     { key: 'status', header: 'Status', render: (a: ApplicationRow) => <StatusBadge status={a.status} /> },
     {

@@ -105,7 +105,7 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
   const issueDate = new Date(admissionTimestamp).toLocaleDateString('en-CA');
   const issueDateObj = new Date(admissionTimestamp);
   const expiryDate = new Date(issueDateObj);
-  expiryDate.setMonth(expiryDate.getMonth() + 3);
+  expiryDate.setDate(expiryDate.getDate() + 14);
   const expiryLabel = expiryDate.toLocaleDateString('en-CA');
   const dueDate1 = new Date(issueDateObj);
   dueDate1.setDate(dueDate1.getDate() + 14);

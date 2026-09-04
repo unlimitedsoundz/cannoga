@@ -145,8 +145,8 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
     const supabase = createServiceRoleClient();
     const { ANCILLARY_FEES, ANCILLARY_FEES_TOTAL } = await import('@/utils/tuition');
 
-    // Calculate due date
-    const finalDueDate = customDueDate ? new Date(customDueDate) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    // Calculate due date (14 days validity for tuition deposit / invoices)
+    const finalDueDate = customDueDate ? new Date(customDueDate) : new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
 
     // Verify application exists and is in a valid state
     const { data: offer, error: offerError } = await supabase

@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
       const totalFee = annualFee * years;
 
       const deadline = new Date();
-      deadline.setDate(deadline.getDate() + 30);
+      deadline.setDate(deadline.getDate() + 14);
 
       const { error: createOfferError } = await adminSupabase
         .from('admission_offers')

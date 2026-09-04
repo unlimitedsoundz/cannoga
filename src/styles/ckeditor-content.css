@@ -56,10 +56,23 @@
 /* Default image sizing in editor: 50% left-aligned, Author image: 25% */
 .ck-content figure.image:not(.image_resized) {
   width: 50% !important;
-  max-width: 50% !important;
+  max-width: 100% !important;
   margin-left: 0 !important;
   margin-right: auto !important;
   text-align: left !important;
+}
+
+.ck-content figure.image {
+  max-width: 100% !important;
+  display: block;
+}
+
+.ck-content img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  border-radius: 0.5rem;
+  object-fit: cover;
 }
 
 .ck-content figure.image:has(img[alt*="Author" i]),
@@ -71,3 +84,4 @@
   margin-right: auto !important;
   text-align: left !important;
 }
+

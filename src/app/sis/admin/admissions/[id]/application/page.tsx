@@ -114,7 +114,7 @@ export default function AdmissionApplicationPage() {
   const [invoiceType, setInvoiceType] = useState('TUITION_DEPOSIT');
   const [customAmount, setCustomAmount] = useState<number | string>(2000);
   const [customDeadline, setCustomDeadline] = useState(
-    new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+    new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   );
   const [availablePurposes, setAvailablePurposes] = useState<any[]>([]);
 
@@ -403,6 +403,11 @@ export default function AdmissionApplicationPage() {
   const documents = application.documents || [];
   const offer = application.offer || null;
 
+  const rawType = (personalInfo?.studentType || '').toLowerCase();
+  const rawCountry = (personalInfo?.country || personalInfo?.nationality || user?.country_of_residence || user?.citizenship || '').toLowerCase();
+  const isDomestic = rawType === 'domestic' || (!rawType && (rawCountry === 'canada' || rawCountry === 'canadian'));
+  const studentTypeLabel = rawType === 'domestic' ? 'Domestic' : rawType === 'international' ? 'International' : (isDomestic ? 'Domestic' : 'International');
+
   return (
     <div className="space-y-6">
       <PageHeader
@@ -416,14 +421,30 @@ export default function AdmissionApplicationPage() {
         <div className="lg:col-span-2 space-y-6">
           {/* Application Information */}
           <div className="bg-[#0f2027] border border-white/10 p-6 rounded-2xl">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Application Information</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">Application Information</h3>
+              <span className={`px-3 py-1 text-xs font-black uppercase tracking-wider rounded-full border ${
+                isDomestic
+                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                  : 'bg-sky-500/10 text-sky-400 border-sky-500/30'
+              }`}>
+                {studentTypeLabel} Student
+              </span>
+            </div>
             <dl className="grid grid-cols-2 gap-4 text-sm">
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Application ID</dt><dd className="font-mono font-medium text-white mt-1">{application.application_number || application.id?.slice(0, 8)}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Status</dt><dd className="mt-1"><StatusBadge status={application.status?.replace('_', ' ') || 'DRAFT'} /></dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Program</dt><dd className="font-medium text-white mt-1">{course?.title || '—'}{course?.degreeLevel ? ` ${formatDegreeLevel(course?.degreeLevel)}` : ''}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Intake</dt><dd className="font-medium text-white mt-1">{application.intake || '—'}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Submitted</dt><dd className="font-medium text-white mt-1">{application.submitted_at ? new Date(application.submitted_at).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : (application as any).created_at ? new Date((application as any).created_at).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' }) : 'In Draft'}</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student Type</dt><dd className="mt-1 font-bold text-white">
+                <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold ${
+                  isDomestic ? 'bg-emerald-950 text-emerald-300 border border-emerald-700/50' : 'bg-sky-950 text-sky-300 border border-sky-700/50'
+                }`}>
+                  {studentTypeLabel}
+                </span>
+              </dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student ID</dt><dd className="font-medium text-white mt-1">{student?.student_id || 'Not yet enrolled'}</dd></div>
+              <div className="col-span-2"><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Submitted</dt><dd className="font-medium text-white mt-1">{application.submitted_at ? new Date(application.submitted_at).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : (application as any).created_at ? new Date((application as any).created_at).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' }) : 'In Draft'}</dd></div>
             </dl>
           </div>
 
@@ -441,7 +462,13 @@ export default function AdmissionApplicationPage() {
                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Nationality</dt><dd className="font-medium text-white mt-1">{personalInfo?.nationality || user?.citizenship || '—'}</dd></div>
                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Date of Birth</dt><dd className="font-medium text-white mt-1">{personalInfo?.dateOfBirth || user?.date_of_birth || '—'}</dd></div>
                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Gender</dt><dd className="font-medium text-white mt-1 capitalize">{personalInfo?.gender || user?.gender || '—'}</dd></div>
-               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student Type</dt><dd className="font-medium text-white mt-1 capitalize">{personalInfo?.studentType || '—'}</dd></div>
+               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student Type</dt><dd className="mt-1">
+                 <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-bold ${
+                   isDomestic ? 'bg-emerald-950 text-emerald-300 border border-emerald-700/50' : 'bg-sky-950 text-sky-300 border border-sky-700/50'
+                 }`}>
+                   {studentTypeLabel}
+                 </span>
+               </dd></div>
              </dl>
           </div>
 

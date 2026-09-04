@@ -215,12 +215,15 @@ const ConditionalOfferPDF: React.FC<ConditionalOfferPDFProps> = ({ application, 
   const admissionTimestamp = offerData.accepted_at || offerData.created_at || application.updated_at || application.submitted_at || application.created_at || today.toISOString();
   const dateOfIssue = new Date(admissionTimestamp).toLocaleDateString('en-CA');
   const expiryDate = new Date(admissionTimestamp);
-  expiryDate.setMonth(expiryDate.getMonth() + 3);
+  expiryDate.setDate(expiryDate.getDate() + 14);
   const expiryDateLabel = new Date(expiryDate).toLocaleDateString('en-CA');
   const paymentDeadline = offerData.payment_deadline
     ? new Date(offerData.payment_deadline)
-    : new Date(admissionTimestamp);
-  paymentDeadline.setDate(paymentDeadline.getDate() + 30);
+    : (() => {
+        const d = new Date(admissionTimestamp);
+        d.setDate(d.getDate() + 14);
+        return d;
+      })();
   const paymentDeadlineLabel = new Date(paymentDeadline).toLocaleDateString('en-CA');
 
   const degreeLevelRaw = (course.degreeLevel || '').toUpperCase();

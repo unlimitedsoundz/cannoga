@@ -11,12 +11,15 @@ import { CaretLeft, Calendar, MapPin, Clock, Tag } from "@phosphor-icons/react";
 import { Info } from '@/components/ui/Info';
 import { Hero } from '@/components/layout/Hero';
 
+import '@/styles/ckeditor-content.css';
+
 interface EventDetailClientProps {
     initialEvent: Event;
 }
 
 export default function EventDetailClient({ initialEvent }: EventDetailClientProps) {
     const [currentEvent, setEvent] = useState<Event>(initialEvent);
+    const [coverImageFailed, setCoverImageFailed] = useState(false);
 
     useEffect(() => {
         async function fetchLatest() {
@@ -36,9 +39,12 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
         fetchLatest();
     }, [initialEvent.id, initialEvent.updated_at, initialEvent.content]);
 
+    const isHtmlContent = Boolean(
+        currentEvent.content && /<[a-z][\s\S]*>/i.test(currentEvent.content)
+    );
+
     return (
         <div className="min-h-screen bg-white font-sans text-black">
-            {/* Hero */}
             <Hero
                 title={currentEvent.title}
                 body={`Join us on ${formatToDDMMYYYY(currentEvent.date)} at ${currentEvent.location || 'Cannoga Ottawa Campus'}.`}
@@ -47,30 +53,37 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
                     alt: currentEvent.title
                 }}
                 breadcrumbs={[
-                    { label: 'Home', href: '/' },
-                    { label: 'News & Events', href: '/news' },
+                    { label: "Home", href: "/" },
+                    { label: "News & Events", href: "/news" },
                     { label: currentEvent.title }
                 ]}
             />
 
-            {/* Back nav */}
-            <div className="container mx-auto px-4 py-6 max-w-4xl">
-                <Link href="/news/" className="text-neutral-500 hover:text-black font-bold uppercase tracking-wider text-sm inline-flex items-center gap-2 transition-colors">
-                    <CaretLeft size={16} weight="bold" /> Back to News & Events
-                </Link>
-            </div>
+            <div className="max-w-[800px] mx-auto px-4 py-8 md:py-16">
+                <div className="mb-8">
+                    <Link
+                        href="/news#events"
+                        className="inline-flex items-center gap-2 text-sm font-bold text-neutral-500 hover:text-black uppercase tracking-wider"
+                    >
+                        <CaretLeft size={16} weight="bold" /> Back to News & Events
+                    </Link>
+                </div>
 
-            {/* Event detail body */}
-            <div className="container mx-auto px-4 pb-16 md:pb-24 max-w-4xl">
-                <Info 
+                {/* Event Metadata */}
+                <Info
                     items={[
-                        { title: "Event Date", body: formatToDDMMYYYY(currentEvent.date) },
-                        { title: "Location", body: currentEvent.location || "Cannoga Ottawa Campus" },
-                        { title: "Category", body: currentEvent.category || "Campus Event" },
+                        {
+                            title: "Date & Time",
+                            body: `${formatToDDMMYYYY(currentEvent.date)} at ${new Date(currentEvent.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`,
+                        },
+                        {
+                            title: "Location",
+                            body: currentEvent.location || "Ottawa Campus",
+                        },
                         {
                             tagGroup: {
                                 tags: [
-                                    { label: "Event" },
+                                    { label: currentEvent.category || "Event" },
                                     { label: "Ottawa" },
                                     { label: "Campus Life" }
                                 ]
@@ -80,9 +93,9 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
                 />
 
                 {/* Optional Image */}
-                {currentEvent.imageUrl && (
+                {currentEvent.imageUrl && !coverImageFailed && (
                     <div className="mb-12">
-                        <div className="relative aspect-[16/9] overflow-hidden rounded-sm">
+                        <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-neutral-100 border border-neutral-200 shadow-sm">
                             <Image
                                 src={currentEvent.imageUrl}
                                 alt={currentEvent.title}
@@ -90,6 +103,7 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
                                 unoptimized
                                 className="object-cover object-top"
                                 sizes="(max-width: 768px) 100vw, 800px"
+                                onError={() => setCoverImageFailed(true)}
                             />
                         </div>
                     </div>
@@ -97,9 +111,16 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
 
                 {/* Main Content Body */}
                 <div className="my-10">
-                    <div className="whitespace-pre-wrap text-base md:text-lg text-neutral-800 leading-relaxed font-normal space-y-6">
-                        {currentEvent.content || "Join us for this event at Cannoga College Ottawa Campus."}
-                    </div>
+                    {isHtmlContent ? (
+                        <div
+                            className="ck-content prose prose-neutral max-w-none text-base md:text-lg text-neutral-800 leading-relaxed font-normal [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-xl [&_img]:my-6 [&_img]:shadow-sm [&_figure]:my-6 [&_figure]:max-w-full [&_a]:text-blue-600 [&_a]:underline hover:[&_a]:text-blue-800"
+                            dangerouslySetInnerHTML={{ __html: currentEvent.content }}
+                        />
+                    ) : (
+                        <div className="whitespace-pre-wrap text-base md:text-lg text-neutral-800 leading-relaxed font-normal space-y-6">
+                            {currentEvent.content || "Join us for this event at Cannoga College Ottawa Campus."}
+                        </div>
+                    )}
                 </div>
 
                 {/* CTA Section */}

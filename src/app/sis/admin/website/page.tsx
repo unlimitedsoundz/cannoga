@@ -6,7 +6,7 @@ import React from 'react';
 import { PageHeader } from '@/components/sis/PageHeader';
 import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Add01Icon as Plus, Book01Icon as Book, Newspaper as News, HelpCircleIcon as Help, DollarSignIcon as Dollar, MegaphoneIcon as Megaphone, SchoolIcon as School } from '@hugeicons/core-free-icons';
+import { Add01Icon as Plus, Book01Icon as Book, Newspaper as News, HelpCircleIcon as Help, DollarSignIcon as Dollar, MegaphoneIcon as Megaphone, SchoolIcon as School, Calendar01Icon as CalendarIcon } from '@hugeicons/core-free-icons';
 
 export default function WebsiteDashboardPage() {
   const sections = [
@@ -14,6 +14,7 @@ export default function WebsiteDashboardPage() {
     { label: 'Blog', href: '/sis/admin/blog', icon: News, description: 'Manage blog posts & student stories' },
     { label: 'Schools', href: '/sis/admin/website/schools', icon: School, description: 'Manage school listings' },
     { label: 'News', href: '/sis/admin/website/news', icon: News, description: 'Manage news articles' },
+    { label: 'Events', href: '/admin/events', icon: CalendarIcon, description: 'Manage campus events, webinars & workshops' },
     { label: 'FAQs', href: '/sis/admin/website/faqs', icon: Help, description: 'Manage frequently asked questions' },
     { label: 'Tuition', href: '/sis/admin/website/tuition', icon: Dollar, description: 'Manage tuition information' },
     { label: 'Announcements', href: '/sis/admin/website/announcements', icon: Megaphone, description: 'Manage announcements' },

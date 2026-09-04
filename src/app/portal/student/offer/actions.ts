@@ -151,7 +151,7 @@ export async function acceptApplicationOffer(applicationId: string, userId?: str
         const totalFee = annualFee * years;
 
         const deadline = new Date();
-        deadline.setDate(deadline.getDate() + 30);
+        deadline.setDate(deadline.getDate() + 14);
 
         const { error: createOfferError } = await supabase
             .from('admission_offers')

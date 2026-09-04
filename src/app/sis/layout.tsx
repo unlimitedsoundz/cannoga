@@ -195,11 +195,13 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                 { key: 'web-blog', label: 'Blog', href: '/sis/admin/blog' },
                 { key: 'web-schools', label: 'Schools', href: '/sis/admin/website/schools' },
                 { key: 'web-news', label: 'News', href: '/sis/admin/website/news' },
+                { key: 'web-events', label: 'Events', href: '/admin/events' },
                 { key: 'web-faqs', label: 'FAQs', href: '/sis/admin/website/faqs' },
                 { key: 'web-tuition', label: 'Tuition', href: '/sis/admin/website/tuition' },
                 { key: 'web-announcements', label: 'Announcements', href: '/sis/admin/website/announcements' },
             ]
         },
+        { label: 'EVENTS', href: '/admin/events' },
         { label: 'REPORTS', href: '/sis/admin/reports' },
         { label: 'AUDIT', href: '/sis/admin/audit' },
         { label: 'NOTIFICATIONS', href: '/sis/admin/notifications' },
@@ -213,7 +215,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
     if (isAdminPath) {
         return (
             <div className="min-h-screen bg-[#0a151a] font-sans text-white flex flex-col" data-theme="sis-dark">
-                <SISHeader onMenuToggle={() => setSidebarOpen(!sidebarOpen)} role={profile.role} profile={profile} studentId={profile.student_id || ''} />
+                <SISHeader onMenuToggle={() => setSidebarOpen(!sidebarOpen)} role={profile.role as 'ADMIN' | 'STUDENT' | null} profile={profile} studentId={profile.student_id || ''} />
                 <div className="flex flex-1 overflow-hidden">
                     <SISSidebar
                         items={navItems}

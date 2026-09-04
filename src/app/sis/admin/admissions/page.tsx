@@ -19,8 +19,9 @@ interface ApplicationRow {
   application_number?: string;
   status: string;
   submitted_at?: string;
+  personal_info?: any;
   course?: { title: string; degreeLevel?: string };
-  user?: { first_name: string; last_name: string; email: string };
+  user?: { first_name: string; last_name: string; email: string; citizenship?: string; country_of_residence?: string };
 }
 
 const formatDegreeLevel = (level: string) => {
@@ -95,6 +96,25 @@ export default function AdmissionsPage() {
           <div className="text-[10px] text-neutral-500 font-mono">{a.user?.email}</div>
         </div>
       ),
+    },
+    {
+      key: 'student_type',
+      header: 'Type',
+      render: (a: ApplicationRow) => {
+        const rawType = (a.personal_info?.studentType || '').toLowerCase();
+        const rawCountry = (a.personal_info?.country || a.personal_info?.nationality || a.user?.country_of_residence || a.user?.citizenship || '').toLowerCase();
+        const isDomestic = rawType === 'domestic' || (!rawType && (rawCountry === 'canada' || rawCountry === 'canadian'));
+        const label = rawType === 'domestic' ? 'Domestic' : rawType === 'international' ? 'International' : (isDomestic ? 'Domestic' : 'International');
+        return (
+          <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+            isDomestic
+              ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+              : 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
+          }`}>
+            {label}
+          </span>
+        );
+      },
     },
     { key: 'program', header: 'Program', render: (a: ApplicationRow) => <span className="text-xs text-slate-400">{`${a.course?.title || '—'}${a.course?.degreeLevel ? ` ${formatDegreeLevel(a.course.degreeLevel)}` : ''}`}</span> },
     {
