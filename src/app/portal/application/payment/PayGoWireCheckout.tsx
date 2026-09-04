@@ -264,12 +264,16 @@ export default function PayGoWireCheckout({
             });
             const data = await res.json();
             if (!res.ok || !data.success) throw new Error(data.error ?? 'Failed to initialize payment');
+            const effectiveLocalAmount = Math.max(
+                Number(data.localAmount || 0),
+                Number(fxData.localAmount || 0)
+            ) || data.localAmount;
             setInitPayload({
                 paymentId: data.paymentId,
                 trackingRef: data.trackingRef,
-                localAmount: data.localAmount,
-                localCurrency: data.localCurrency,
-                exchangeRate: data.exchangeRate,
+                localAmount: effectiveLocalAmount,
+                localCurrency: data.localCurrency || fxData.localCurrency,
+                exchangeRate: data.exchangeRate || fxData.rate,
                 expiresAt: data.expiresAt,
             });
             setStep('BANK_INSTRUCTIONS');
@@ -787,7 +791,7 @@ export default function PayGoWireCheckout({
 
                         <div className="text-center space-y-2">
                             <h2 className="text-[20px] font-normal text-black pt-1">
-                                Transfer exactly <span className="text-black">{fxData.currencySymbol} {Number(initPayload.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {initPayload.localCurrency}</span>
+                                Transfer exactly <span className="text-black">{fxData.currencySymbol} {Math.max(Number(initPayload.localAmount || 0), Number(fxData.localAmount || 0)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {initPayload.localCurrency || fxData.localCurrency}</span>
                             </h2>
                             <p className="text-xs text-neutral-600 max-w-lg mx-auto">
                                 Use the bank details below. Include your tracking reference in the narration/remarks field.
@@ -802,7 +806,7 @@ export default function PayGoWireCheckout({
 
                         {/* Dynamic Bank Details */}
                         <div className="bg-neutral-50 p-4 rounded-xl space-y-1 shadow-xs">
-                            <BankRow label="Amount" value={`${fxData.currencySymbol} ${Number(initPayload.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${initPayload.localCurrency}`} copyable />
+                            <BankRow label="Amount" value={`${fxData.currencySymbol} ${Math.max(Number(initPayload.localAmount || 0), Number(fxData.localAmount || 0)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${initPayload.localCurrency || fxData.localCurrency}`} copyable />
                             <BankRow label="Bank" value={selectedBank.bank_name} />
                             <BankRow label="Account Name" value={selectedBank.account_name} />
                             <BankRow label="Account Number" value={selectedBank.account_number} copyable />
@@ -901,7 +905,7 @@ export default function PayGoWireCheckout({
                             </div>
                             <div className="flex justify-between text-xs text-neutral-500">
                                 <span className="uppercase tracking-widest">Amount Sent</span>
-                                <span className="text-black">{selectedBank?.currency_symbol} {Number(initPayload.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })} {initPayload.localCurrency}</span>
+                                <span className="text-black">{selectedBank?.currency_symbol} {Math.max(Number(initPayload.localAmount || 0), Number(fxData?.localAmount || 0)).toLocaleString(undefined, { minimumFractionDigits: 2 })} {initPayload.localCurrency || fxData?.localCurrency}</span>
                             </div>
                             <div className="flex justify-between text-xs text-neutral-500">
                                 <span className="uppercase tracking-widest">Bank</span>
@@ -969,7 +973,7 @@ export default function PayGoWireCheckout({
                             </div>
                             <div className="flex justify-between text-xs">
                                 <span className="text-neutral-500 uppercase tracking-widest">Amount Submitted</span>
-                                <span className="text-black">{selectedBank?.currency_symbol} {Number(initPayload.localAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })} {initPayload.localCurrency}</span>
+                                <span className="text-black">{selectedBank?.currency_symbol} {Math.max(Number(initPayload.localAmount || 0), Number(fxData?.localAmount || 0)).toLocaleString(undefined, { minimumFractionDigits: 2 })} {initPayload.localCurrency || fxData?.localCurrency}</span>
                             </div>
                         </div>
 

@@ -136,7 +136,7 @@ export async function POST(request: NextRequest) {
     } else {
         let { data: academicOffer } = await adminSupabase
             .from('admission_offers')
-            .select('id, tuition_fee, status')
+            .select('id, tuition_fee, status, ancillary_charged, invoice_type')
             .eq('id', offerId)
             .maybeSingle();
         offer = academicOffer;
@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
         // Fallback 1: look up by application_id
         const { data: fallbackOffer } = await adminSupabase
             .from('admission_offers')
-            .select('id, tuition_fee, status')
+            .select('id, tuition_fee, status, ancillary_charged, invoice_type')
             .eq('application_id', application.id)
             .order('created_at', { ascending: false })
             .limit(1)
@@ -237,10 +237,36 @@ export async function POST(request: NextRequest) {
 
     // 6. Use authoritative amount: if housing deposit, enforce housing deposit amount (500 CAD)
     const isHousingFlow = isHousingDeposit || invoiceType === 'HOUSING_DEPOSIT' || offerId?.startsWith('hdep');
-    const authorizedCadAmount = isHousingFlow
-        ? Number(cadAmount || 500.00)
-        : Number(offer.tuition_fee);
-    const authorizedLocalAmount = parseFloat((authorizedCadAmount * liveRate).toFixed(2));
+    let authorizedCadAmount = 0;
+    if (isHousingFlow) {
+        authorizedCadAmount = Number(cadAmount || 500.00);
+    } else {
+        const { ANCILLARY_FEES_TOTAL } = await import('@/utils/tuition');
+        const baseTuition = Number(offer?.tuition_fee || 0);
+        const includeAncillary = !offer?.ancillary_charged;
+        const totalAncillary = includeAncillary ? ANCILLARY_FEES_TOTAL : 0;
+        const expectedTotalCad = baseTuition + totalAncillary;
+
+        const numCadAmount = Number(cadAmount);
+        if (
+            numCadAmount > 0 &&
+            (
+                Math.abs(numCadAmount - expectedTotalCad) < 0.01 ||
+                Math.abs(numCadAmount - (baseTuition + ANCILLARY_FEES_TOTAL)) < 0.01 ||
+                Math.abs(numCadAmount - baseTuition) < 0.01
+            )
+        ) {
+            authorizedCadAmount = numCadAmount;
+        } else {
+            authorizedCadAmount = expectedTotalCad > 0 ? expectedTotalCad : (numCadAmount || baseTuition);
+        }
+    }
+
+    let authorizedLocalAmount = parseFloat((authorizedCadAmount * liveRate).toFixed(2));
+    // CAD wire has a $25 processing fee (matching frontend checkout logic)
+    if (currency === 'CAD' && countryCode === 'CA') {
+        authorizedLocalAmount = parseFloat((authorizedCadAmount + 25).toFixed(2));
+    }
 
     // 7. Generate tracking reference
     const trackingRef = generateTrackingRef(countryCode);
