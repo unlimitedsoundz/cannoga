@@ -462,15 +462,14 @@ export default function PayGoWireCheckout({
                                             {/* Search Input Box */}
                                             <div className="sticky top-0 bg-white px-2 py-1.5 border-b border-slate-100 z-10">
                                                 <div className="relative flex items-center">
-                                                    <MagnifyingGlass size={14} className="absolute text-slate-400 pointer-events-none shrink-0" style={{ left: '10px', top: '50%', transform: 'translateY(-50%)' }} />
                                                     <input
                                                         type="text"
                                                         placeholder="Search country or region..."
                                                         value={countrySearch}
                                                         onChange={(e) => setCountrySearch(e.target.value)}
                                                         onClick={(e) => e.stopPropagation()}
-                                                        style={{ paddingLeft: '32px', paddingRight: countrySearch ? '28px' : '10px' }}
-                                                        className="w-full py-1.5 text-xs md:text-sm border border-slate-200 rounded focus:outline-none focus:border-[#0066cc] bg-slate-50 focus:bg-white text-slate-900"
+                                                        style={{ padding: '6px 32px 6px 10px' }}
+                                                        className="w-full text-xs md:text-sm border border-slate-200 rounded focus:outline-none focus:border-[#0066cc] bg-slate-50 focus:bg-white text-slate-900"
                                                         autoFocus
                                                     />
                                                     {countrySearch && (
@@ -480,7 +479,8 @@ export default function PayGoWireCheckout({
                                                                 e.stopPropagation();
                                                                 setCountrySearch('');
                                                             }}
-                                                            className="absolute right-2 text-slate-400 hover:text-slate-600 p-0.5"
+                                                            className="absolute right-2 text-slate-400 p-0.5"
+                                                            style={{ top: '50%', transform: 'translateY(-50%)' }}
                                                         >
                                                             <X size={13} weight="bold" />
                                                         </button>
@@ -499,6 +499,8 @@ export default function PayGoWireCheckout({
                                                     return (
                                                         <div
                                                             key={c.country_code}
+                                                            onMouseEnter={(e) => { if (!isSelected) { (e.currentTarget as HTMLDivElement).style.backgroundColor = '#0066cc'; (e.currentTarget as HTMLDivElement).style.color = '#ffffff'; } }}
+                                                            onMouseLeave={(e) => { if (!isSelected) { (e.currentTarget as HTMLDivElement).style.backgroundColor = ''; (e.currentTarget as HTMLDivElement).style.color = ''; } }}
                                                             onClick={() => {
                                                                 setSelectedCountryCode(c.country_code);
                                                                 setIsCountryOpen(false);
@@ -544,9 +546,8 @@ export default function PayGoWireCheckout({
                                                                     });
                                                                 }
                                                             }}
-                                                            className={`px-4 py-2.5 text-[14px] cursor-pointer transition-colors flex items-center justify-between gap-2 ${
-                                                                isSelected ? 'bg-blue-50 text-[#0066cc] font-medium' : 'text-slate-800 hover:bg-[#0066cc] hover:text-white'
-                                                            }`}
+                                                            style={isSelected ? { backgroundColor: '#eff6ff', color: '#0066cc' } : { color: '#1e293b' }}
+                                                            className="px-4 py-2.5 text-[14px] cursor-pointer transition-colors"
                                                         >
                                                             <span className="truncate">{c.country_name}</span>
                                                         </div>
