@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import {
     ArrowRight,
     ArrowLeft,
@@ -17,6 +17,8 @@ import {
     Spinner,
     Warning,
     FileText,
+    MagnifyingGlass,
+    X,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from 'next/image';
 import type { InstitutionalBankAccount, InstitutionalExchangeRate } from '@/types/payments';
@@ -97,6 +99,24 @@ export default function PayGoWireCheckout({
     const [isCountryOpen, setIsCountryOpen] = useState<boolean>(false);
     const [countrySearch, setCountrySearch] = useState<string>('');
     const [isImportantInfoOpen, setIsImportantInfoOpen] = useState<boolean>(false);
+    const countryDropdownRef = useRef<HTMLDivElement>(null);
+
+    // Close country dropdown on outside click or touch
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+            if (countryDropdownRef.current && !countryDropdownRef.current.contains(event.target as Node)) {
+                setIsCountryOpen(false);
+            }
+        };
+        if (isCountryOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+            document.addEventListener('touchstart', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside);
+        };
+    }, [isCountryOpen]);
 
     // Initialized payment state
     const [initPayload, setInitPayload] = useState<{
@@ -319,26 +339,28 @@ export default function PayGoWireCheckout({
     }
 
     return (
-        <div className="bg-white rounded-4px overflow-hidden max-w-none md:max-w-2xl mx-auto font-rubik">
+        <div className="bg-white rounded-4px max-w-none md:max-w-2xl mx-auto font-rubik relative shadow-xs border border-slate-100">
 
             {/* ── Step Header ── */}
-            <div className="bg-neutral-50 py-3 px-4 flex justify-between items-center overflow-x-auto no-scrollbar gap-4">
-                {[
-                    { id: 'COUNTRY', label: 'Country' },
-                    { id: 'FX', label: 'Review' },
-                    { id: 'BANK_INSTRUCTIONS', label: 'Transfer' },
-                    { id: 'PROOF', label: 'Confirm' },
-                ].map((s, idx) => {
-                    const isActive = step === s.id || (s.id === 'BANK_INSTRUCTIONS' && step === 'SUBMITTED');
-                    const isDone = progress > (idx + 1) * 25;
-                    return (
-                        <div key={s.id} className={`flex items-center gap-1.5 whitespace-nowrap text-xs md:text-sm font-normal transition-colors duration-300 ${isActive ? 'text-[#147BD1]' : 'text-neutral-400'}`}>
-                            <span className={`w-4 h-4 force-circle flex items-center justify-center text-[8px] border ${isActive ? 'border-[#147BD1] bg-[#147BD1] text-white' : isDone ? 'border-green-500 bg-green-500 text-white' : 'border-neutral-100'}`}>{isDone ? '✓' : idx + 1}</span>
-                            <span className="hidden sm:inline">{s.label}</span>
-                            {idx < 3 && <ArrowRight size={10} className="text-neutral-300 ml-1" />}
-                        </div>
-                    );
-                })}
+            <div className="rounded-t-4px overflow-hidden">
+                <div className="bg-neutral-50 py-3 px-4 flex justify-between items-center overflow-x-auto no-scrollbar gap-4">
+                    {[
+                        { id: 'COUNTRY', label: 'Country' },
+                        { id: 'FX', label: 'Review' },
+                        { id: 'BANK_INSTRUCTIONS', label: 'Transfer' },
+                        { id: 'PROOF', label: 'Confirm' },
+                    ].map((s, idx) => {
+                        const isActive = step === s.id || (s.id === 'BANK_INSTRUCTIONS' && step === 'SUBMITTED');
+                        const isDone = progress > (idx + 1) * 25;
+                        return (
+                            <div key={s.id} className={`flex items-center gap-1.5 whitespace-nowrap text-xs md:text-sm font-normal transition-colors duration-300 ${isActive ? 'text-[#147BD1]' : 'text-neutral-400'}`}>
+                                <span className={`w-4 h-4 force-circle flex items-center justify-center text-[8px] border ${isActive ? 'border-[#147BD1] bg-[#147BD1] text-white' : isDone ? 'border-green-500 bg-green-500 text-white' : 'border-neutral-100'}`}>{isDone ? '✓' : idx + 1}</span>
+                                <span className="hidden sm:inline">{s.label}</span>
+                                {idx < 3 && <ArrowRight size={10} className="text-neutral-300 ml-1" />}
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
 
             {/* ── FX Summary Bar (visible after country selected) ── */}
@@ -410,16 +432,19 @@ export default function PayGoWireCheckout({
                                 </label>
                                 
                                 {/* Exact Flywire Country Selector Dropdown */}
-                                <div className="relative">
+                                <div className="relative" ref={countryDropdownRef}>
                                     <div
-                                        onClick={() => setIsCountryOpen(prev => !prev)}
+                                        onClick={() => {
+                                            setIsCountryOpen(prev => !prev);
+                                            setCountrySearch('');
+                                        }}
                                         className={`country-trigger w-full bg-white rounded-md cursor-pointer transition-all flex items-center justify-between px-4 border ${
                                             isCountryOpen ? 'border-[#C8102E] ring-1 ring-[#C8102E]' : 'border-slate-300 hover:border-slate-400'
                                         }`}
                                     >
-                                        <div className="flex flex-col justify-center">
-                                            <span className="text-[13px] md:text-[14px] font-normal text-slate-600 leading-none">
-                                                {selectedBank ? selectedBank.country_name : 'Country or region *'}
+                                        <div className="flex flex-col justify-center min-w-0 flex-1 mr-2">
+                                            <span className="text-[13px] md:text-[14px] font-normal text-slate-700 leading-none truncate">
+                                                {selectedBank ? `${selectedBank.country_flag ? selectedBank.country_flag + ' ' : ''}${selectedBank.country_name}` : 'Country or region *'}
                                             </span>
                                         </div>
                                         <div className="text-slate-700 shrink-0">
@@ -431,61 +456,103 @@ export default function PayGoWireCheckout({
                                         </div>
                                     </div>
 
-                                    {/* Dropdown Options List (Clean, No Line Separators) */}
+                                    {/* Dropdown Options List */}
                                     {isCountryOpen && (
-                                        <div className="absolute left-0 right-0 top-full mt-1 bg-white border border-slate-300 rounded-md shadow-lg z-50 max-h-72 overflow-y-auto py-1">
-                                            {fullCountryList.map((c) => (
-                                                <div
-                                                    key={c.country_code}
-                                                    onClick={() => {
-                                                        setSelectedCountryCode(c.country_code);
-                                                        setIsCountryOpen(false);
-
-                                                        const code = c.country_code.toUpperCase();
-                                                        const name = c.country_name.toLowerCase();
-
-                                                        const isNigeria = code === 'NG' || name === 'nigeria';
-                                                        const isGhana = code === 'GH' || name === 'ghana';
-                                                        const isIndia = code === 'IN' || name === 'india';
-                                                        const isCanada = code === 'CA' || name === 'canada';
-                                                        const isUK = code === 'GB' || code === 'UK' || name === 'united kingdom';
-                                                        const isUSA = code === 'US' || code === 'USA' || name === 'united states' || name === 'united states of america';
-
-                                                        let matchedBank: any = null;
-
-                                                        if (isNigeria) {
-                                                            matchedBank = countries.find(b => b.country_code === 'NG' || b.currency === 'NGN');
-                                                        } else if (isGhana) {
-                                                            matchedBank = countries.find(b => b.country_code === 'GH' || b.currency === 'GHS');
-                                                        } else if (isIndia) {
-                                                            matchedBank = countries.find(b => b.country_code === 'IN' || b.currency === 'INR');
-                                                        } else if (isCanada) {
-                                                            matchedBank = countries.find(b => b.country_code === 'CA' || b.currency === 'CAD');
-                                                        } else if (isUK) {
-                                                            matchedBank = countries.find(b => b.country_code === 'GB' || b.currency === 'GBP');
-                                                        } else if (isUSA) {
-                                                            matchedBank = countries.find(b => b.country_code === 'US' || b.currency === 'USD');
-                                                        } else {
-                                                            // General International fallback for all other countries: USD / CAD / GBP general accounts
-                                                            matchedBank = countries.find(b => b.country_code === 'US') ||
-                                                                          countries.find(b => b.country_code === 'CA') ||
-                                                                          countries.find(b => b.country_code === 'GB') ||
-                                                                          countries.find(b => !['NG', 'GH', 'IN'].includes(b.country_code));
-                                                        }
-
-                                                        if (matchedBank) {
-                                                            setSelectedBank({
-                                                                ...matchedBank,
-                                                                country_name: c.country_name,
-                                                                country_flag: c.country_flag ?? '🌐',
-                                                            });
-                                                        }
-                                                    }}
-                                                    className="px-4 py-2.5 text-[14px] text-slate-800 hover:bg-[#0066cc] hover:text-white cursor-pointer transition-colors"
-                                                >
-                                                    {c.country_name}
+                                        <div className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-300 rounded-md shadow-2xl z-50 max-h-72 overflow-y-auto py-1">
+                                            {/* Search Input Box */}
+                                            <div className="sticky top-0 bg-white px-2 py-1.5 border-b border-slate-100 z-10 shadow-2xs">
+                                                <div className="relative flex items-center">
+                                                    <MagnifyingGlass size={15} className="absolute left-2.5 text-slate-400 pointer-events-none" />
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Search country or region..."
+                                                        value={countrySearch}
+                                                        onChange={(e) => setCountrySearch(e.target.value)}
+                                                        onClick={(e) => e.stopPropagation()}
+                                                        className="w-full pl-8 pr-7 py-1.5 text-xs md:text-sm border border-slate-200 rounded focus:outline-none focus:border-[#0066cc] bg-slate-50 focus:bg-white text-slate-900"
+                                                        autoFocus
+                                                    />
+                                                    {countrySearch && (
+                                                        <button
+                                                            type="button"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                setCountrySearch('');
+                                                            }}
+                                                            className="absolute right-2 text-slate-400 hover:text-slate-600 p-0.5"
+                                                        >
+                                                            <X size={13} weight="bold" />
+                                                        </button>
+                                                    )}
                                                 </div>
-                                            ))}
+                                            </div>
+
+                                            {/* Country List Items */}
+                                            {filteredCountryList.length === 0 ? (
+                                                <div className="px-4 py-4 text-xs text-slate-400 text-center">
+                                                    No countries matching &quot;{countrySearch}&quot;
+                                                </div>
+                                            ) : (
+                                                filteredCountryList.map((c) => {
+                                                    const isSelected = selectedCountryCode === c.country_code || (selectedBank?.country_name && selectedBank.country_name.toLowerCase() === c.country_name.toLowerCase());
+                                                    return (
+                                                        <div
+                                                            key={c.country_code}
+                                                            onClick={() => {
+                                                                setSelectedCountryCode(c.country_code);
+                                                                setIsCountryOpen(false);
+                                                                setCountrySearch('');
+
+                                                                const code = c.country_code.toUpperCase();
+                                                                const name = c.country_name.toLowerCase();
+
+                                                                const isNigeria = code === 'NG' || name === 'nigeria';
+                                                                const isGhana = code === 'GH' || name === 'ghana';
+                                                                const isIndia = code === 'IN' || name === 'india';
+                                                                const isCanada = code === 'CA' || name === 'canada';
+                                                                const isUK = code === 'GB' || code === 'UK' || name === 'united kingdom';
+                                                                const isUSA = code === 'US' || code === 'USA' || name === 'united states' || name === 'united states of america';
+
+                                                                let matchedBank: any = null;
+
+                                                                if (isNigeria) {
+                                                                    matchedBank = countries.find(b => b.country_code === 'NG' || b.currency === 'NGN');
+                                                                } else if (isGhana) {
+                                                                    matchedBank = countries.find(b => b.country_code === 'GH' || b.currency === 'GHS');
+                                                                } else if (isIndia) {
+                                                                    matchedBank = countries.find(b => b.country_code === 'IN' || b.currency === 'INR');
+                                                                } else if (isCanada) {
+                                                                    matchedBank = countries.find(b => b.country_code === 'CA' || b.currency === 'CAD');
+                                                                } else if (isUK) {
+                                                                    matchedBank = countries.find(b => b.country_code === 'GB' || b.currency === 'GBP');
+                                                                } else if (isUSA) {
+                                                                    matchedBank = countries.find(b => b.country_code === 'US' || b.currency === 'USD');
+                                                                } else {
+                                                                    // General International fallback for all other countries: USD / CAD / GBP general accounts
+                                                                    matchedBank = countries.find(b => b.country_code === 'US') ||
+                                                                                  countries.find(b => b.country_code === 'CA') ||
+                                                                                  countries.find(b => b.country_code === 'GB') ||
+                                                                                  countries.find(b => !['NG', 'GH', 'IN'].includes(b.country_code));
+                                                                }
+
+                                                                if (matchedBank) {
+                                                                    setSelectedBank({
+                                                                        ...matchedBank,
+                                                                        country_name: c.country_name,
+                                                                        country_flag: c.country_flag ?? '🌐',
+                                                                    });
+                                                                }
+                                                            }}
+                                                            className={`px-4 py-2.5 text-[14px] cursor-pointer transition-colors flex items-center justify-between gap-2 ${
+                                                                isSelected ? 'bg-blue-50 text-[#0066cc] font-medium' : 'text-slate-800 hover:bg-[#0066cc] hover:text-white'
+                                                            }`}
+                                                        >
+                                                            <span className="truncate">{c.country_name}</span>
+                                                            {c.country_flag && <span className="text-sm shrink-0">{c.country_flag}</span>}
+                                                        </div>
+                                                    );
+                                                })
+                                            )}
                                         </div>
                                     )}
                                 </div>
