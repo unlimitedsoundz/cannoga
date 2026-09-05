@@ -44,6 +44,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                     .eq('id', sbUser.id)
                     .single();
 
+
                 if (profError || !prof) {
                     window.location.href = '/portal/account/login';
                     return;
@@ -58,11 +59,34 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                         window.location.href = '/sis/admin';
                         return;
                     }
-                } else if (prof.role === 'STUDENT' || prof.role === 'APPLICANT') {
+                } else if (prof.role === 'STUDENT') {
                     if (isAdminPath) {
                         window.location.href = '/portal/dashboard';
                         return;
                     }
+
+                    // Verify tuition deposit has been paid and admin-verified.
+                    // If not, keep the user in the applicant portal.
+                    const { data: studentRecord } = await supabase
+                        .from('students')
+                        .select('tuition_deposit_paid, enrollment_status')
+                        .eq('user_id', sbUser.id)
+                        .maybeSingle();
+
+                    const depositVerified =
+                        studentRecord?.tuition_deposit_paid === true &&
+                        (studentRecord?.enrollment_status === 'ACTIVE' ||
+                            studentRecord?.enrollment_status === 'CONFIRMED');
+
+                    if (!depositVerified) {
+                        window.location.href = '/portal/dashboard';
+                        return;
+                    }
+                } else if (prof.role === 'APPLICANT') {
+                    // APPLICANTs must stay in the applicant portal until
+                    // their tuition deposit is paid and admin-verified.
+                    window.location.href = '/portal/dashboard';
+                    return;
                 } else {
                     window.location.href = '/portal/account/login';
                     return;

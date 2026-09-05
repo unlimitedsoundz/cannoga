@@ -25,11 +25,15 @@ export default async function DashboardPage() {
 
     const { data: enrollment } = await adminClient
         .from('students')
-        .select('enrollment_status')
+        .select('enrollment_status, tuition_deposit_paid')
         .eq('user_id', user.id)
         .single();
 
-    if (enrollment?.enrollment_status === 'CONFIRMED' || enrollment?.enrollment_status === 'ACTIVE') {
+    const sisReady =
+        (enrollment?.enrollment_status === 'CONFIRMED' || enrollment?.enrollment_status === 'ACTIVE') &&
+        enrollment?.tuition_deposit_paid === true;
+
+    if (sisReady) {
         redirect('/sis');
         return null;
     }

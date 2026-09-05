@@ -24,17 +24,32 @@ export default function PortalIndexPage() {
                 .eq('id', user.id)
                 .single();
 
-            if (profile?.role === 'STUDENT') {
-                router.replace('/sis/');
-                return;
-            }
-
             if (profile?.role === 'ADMIN') {
-                router.replace('/sis/');
+                router.replace('/sis/admin/');
                 return;
             }
 
-            router.replace('/sis/');
+            if (profile?.role === 'STUDENT') {
+                // Only allow SIS access once tuition deposit is confirmed
+                const { data: studentRecord } = await supabase
+                    .from('students')
+                    .select('tuition_deposit_paid, enrollment_status')
+                    .eq('user_id', user.id)
+                    .maybeSingle();
+
+                const depositVerified =
+                    studentRecord?.tuition_deposit_paid === true &&
+                    (studentRecord?.enrollment_status === 'ACTIVE' ||
+                        studentRecord?.enrollment_status === 'CONFIRMED');
+
+                if (depositVerified) {
+                    router.replace('/sis/');
+                    return;
+                }
+            }
+
+            // APPLICANT, unverified STUDENT, and all other roles stay in the portal
+            router.replace('/portal/dashboard/');
         };
 
         checkAuth();

@@ -180,7 +180,27 @@ function ViewApplicationContent() {
 
     useEffect(() => {
         if (application?.status === 'ENROLLED') {
-            router.push('/sis/');
+            // Only redirect to SIS once the tuition deposit is paid and
+            // admin-verified (student record will have tuition_deposit_paid=true).
+            // Until then keep the user on the application view so they can pay.
+            const supabase = createClient();
+            supabase.auth.getUser().then(({ data: { user } }: { data: { user: { id: string } | null } }) => {
+                if (!user) return;
+                supabase
+                    .from('students')
+                    .select('tuition_deposit_paid, enrollment_status')
+                    .eq('user_id', user.id)
+                    .maybeSingle()
+                    .then(({ data: studentRec }: { data: { tuition_deposit_paid: boolean; enrollment_status: string } | null }) => {
+                        const depositVerified =
+                            studentRec?.tuition_deposit_paid === true &&
+                            (studentRec?.enrollment_status === 'ACTIVE' ||
+                                studentRec?.enrollment_status === 'CONFIRMED');
+                        if (depositVerified) {
+                            router.push('/sis/');
+                        }
+                    });
+            });
         }
     }, [application?.status, router]);
 

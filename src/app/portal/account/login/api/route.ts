@@ -103,11 +103,15 @@ export async function POST(request: NextRequest) {
 
     const { data: enrollment } = await serviceClient
         .from('students')
-        .select('enrollment_status')
+        .select('enrollment_status, tuition_deposit_paid')
         .eq('user_id', authData.user.id)
         .single();
 
-    if (enrollment?.enrollment_status === 'CONFIRMED' || enrollment?.enrollment_status === 'ACTIVE') {
+    const sisReady =
+        (enrollment?.enrollment_status === 'CONFIRMED' || enrollment?.enrollment_status === 'ACTIVE') &&
+        enrollment?.tuition_deposit_paid === true;
+
+    if (sisReady) {
         const response = NextResponse.json({ success: true, redirect: '/sis' });
         supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
             response.cookies.set(name, value, options);

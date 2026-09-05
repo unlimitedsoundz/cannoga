@@ -99,6 +99,34 @@ export async function proxy(request: NextRequest) {
             return NextResponse.redirect(adminUrl);
         }
 
+        // APPLICANTs must stay in the applicant portal until their tuition
+        // deposit has been paid and verified by an admin.
+        if (profile?.role === 'APPLICANT') {
+            const dashboardUrl = request.nextUrl.clone();
+            dashboardUrl.pathname = '/portal/dashboard';
+            return NextResponse.redirect(dashboardUrl);
+        }
+
+        // STUDENTs must have a verified tuition deposit before accessing SIS.
+        if (profile?.role === 'STUDENT') {
+            const { data: studentRecord } = await supabase
+                .from('students')
+                .select('tuition_deposit_paid, enrollment_status')
+                .eq('user_id', user.id)
+                .maybeSingle();
+
+            const depositVerified =
+                studentRecord?.tuition_deposit_paid === true &&
+                (studentRecord?.enrollment_status === 'ACTIVE' ||
+                    studentRecord?.enrollment_status === 'CONFIRMED');
+
+            if (!depositVerified) {
+                const dashboardUrl = request.nextUrl.clone();
+                dashboardUrl.pathname = '/portal/dashboard';
+                return NextResponse.redirect(dashboardUrl);
+            }
+        }
+
         return supabaseResponse;
     }
 

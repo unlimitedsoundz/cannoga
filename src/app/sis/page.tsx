@@ -780,7 +780,14 @@ function formatRelativeTime(dateInput: any): string {
                     return;
                 }
 
-                if (prof.role !== 'STUDENT' && prof.role !== 'APPLICANT') {
+                if (prof.role === 'APPLICANT') {
+                    // APPLICANTs must stay in the applicant portal until their
+                    // tuition deposit is paid and admin-verified.
+                    window.location.href = '/portal/dashboard';
+                    return;
+                }
+
+                if (prof.role !== 'STUDENT') {
                     window.location.href = '/portal/account/login';
                     return;
                 }
@@ -805,6 +812,13 @@ function formatRelativeTime(dateInput: any): string {
                     .select('*')
                     .eq('user_id', user.id)
                     .maybeSingle();
+
+                // Ensure the tuition deposit has been paid and verified before
+                // granting access to the full SIS student dashboard.
+                if (!studentData || studentData.tuition_deposit_paid !== true) {
+                    window.location.href = '/portal/dashboard';
+                    return;
+                }
 
                 let currentStudentId = studentData?.id || '';
 
@@ -851,22 +865,6 @@ function formatRelativeTime(dateInput: any): string {
 
                         if (courseData) {
                             setStudentCourse(courseData);
-                        }
-                    }
-                } else {
-                    // Fallback for admitted applicant with profile before student record
-                    const { data: appData } = await supabase
-                        .from('applications')
-                        .select('id, course_id, Course:course_id(id, title, degreeLevel, schoolId, departmentId, school:School(name), department:Department(name))')
-                        .eq('user_id', user.id)
-                        .order('created_at', { ascending: false })
-                        .limit(1)
-                        .maybeSingle();
-
-                    if (appData) {
-                        resolvedAppId = appData.id;
-                        if (appData?.Course) {
-                            setStudentCourse(appData.Course as any);
                         }
                     }
                 }
