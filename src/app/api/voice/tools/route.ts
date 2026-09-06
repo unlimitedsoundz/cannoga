@@ -40,23 +40,9 @@ export async function POST(request: NextRequest) {
     const applicationId: string | undefined = (body.application_id || body.applicationId || undefined) as string | undefined;
     const studentId: string | undefined = (body.student_id || body.studentId || undefined) as string | undefined;
 
-    if (!callId) {
-      return NextResponse.json({ error: 'call_id is required' }, { status: 400 });
-    }
-
-    const { data: call, error: callError } = await adminClient
-      .from('voice_calls')
-      .select('id, status')
-      .eq('id', callId)
-      .maybeSingle();
-
-    if (callError || !call) {
-      return NextResponse.json({ error: 'Call not found' }, { status: 404 });
-    }
-
     const context = {
-      callId,
-      sessionId: sessionId || callId,
+      callId: callId || 'direct-execution',
+      sessionId: sessionId || callId || 'direct-execution',
       callerPhone,
       applicationId,
       studentId,
@@ -74,14 +60,24 @@ export async function POST(request: NextRequest) {
 
     const durationMs = Date.now() - startTime;
 
-    await adminClient.from('voice_call_tool_events').insert({
-      call_id: callId,
-      tool_name: toolName,
-      arguments: args,
-      result: result.data || null,
-      success: result.success,
-      error: result.error || null,
-    });
+    if (callId) {
+      const { data: call } = await adminClient
+        .from('voice_calls')
+        .select('id')
+        .eq('id', callId)
+        .maybeSingle();
+
+      if (call) {
+        await adminClient.from('voice_call_tool_events').insert({
+          call_id: callId,
+          tool_name: toolName,
+          arguments: args,
+          result: result.data || null,
+          success: result.success,
+          error: result.error || null,
+        });
+      }
+    }
 
     return NextResponse.json({
       tool_name: toolName,

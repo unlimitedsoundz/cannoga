@@ -56,6 +56,8 @@ export function createConversationEngine(config: ConversationEngineConfig) {
       get_application_status: ['application status', 'my application', 'check status', 'where is my'],
       get_offer_status: ['offer', 'acceptance', 'admission offer', 'letter of acceptance'],
       get_payment_status: ['payment', 'paid', 'invoice', 'balance', 'tuition payment'],
+      lookup_student: ['student id', 'student number', 'student record', 'lookup student', 'find student', 'check student', 'enrolled', 'student status', 'my student id', 'student profile'],
+      lookup_applicant: ['lookup applicant', 'applicant record', 'applicant status', 'applicant id', 'check applicant', 'applicant details'],
       create_admissions_support_case: ['support', 'help me', 'case', 'follow up', 'speak to someone'],
       request_callback: ['callback', 'call me back', 'phone me', 'return call'],
       send_application_link: ['send link', 'email me', 'application form', 'apply online'],

@@ -1,5 +1,6 @@
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import type { ToolDefinition, ToolContext, ToolResult } from './types';
+import { lookupStudentOrApplicant } from './student-lookup';
 
 function createAdminClient() {
   return createServiceRoleClient();
@@ -948,6 +949,88 @@ export const voiceTools: ToolDefinition[] = [
         };
       } catch (err: any) {
         return { success: false, error: err.message || 'Failed to fetch payment status.' };
+      }
+    },
+  },
+  {
+    name: 'lookup_student',
+    description: 'Search and retrieve student or applicant records from the database by student ID (e.g. CC6883340), application number, student name, email, phone, or program. Returns enrollment status, applied/registered program, tuition fee, deposit paid status, balances, and payment deadlines with a voice-optimized summary.',
+    parameters: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'General search term: student ID, name, email, phone number, application number, or program.' },
+        student_id: { type: 'string', description: 'Student ID (e.g. CC6883340 or digits 6883340) or application number.' },
+        name: { type: 'string', description: 'Student or applicant name (first name, last name, or full name).' },
+        email: { type: 'string', description: 'Student or applicant email address.' },
+        phone: { type: 'string', description: 'Student or applicant phone number.' },
+        application_number: { type: 'string', description: 'Application reference number (e.g. SK0782734 or CC3050222).' },
+        record_type: {
+          type: 'string',
+          enum: ['all', 'student', 'applicant'],
+          description: 'Filter by record type: "all" for both students and applicants, "student" for enrolled students only, "applicant" for applicants only. Defaults to "all".'
+        },
+      },
+      required: [],
+    },
+    async execute(args: Record<string, any>, context: ToolContext): Promise<ToolResult> {
+      try {
+        const res = await lookupStudentOrApplicant({
+          query: args.query,
+          student_id: args.student_id || context.studentId,
+          name: args.name,
+          email: args.email,
+          phone: args.phone || context.callerPhone,
+          application_number: args.application_number || context.applicationId,
+          record_type: args.record_type || 'all',
+          limit: args.limit ? Number(args.limit) : 5,
+        }, context.adminClient);
+
+        return {
+          success: res.success,
+          data: res.students,
+          message: res.voice_summary || res.message,
+          error: res.error,
+        };
+      } catch (err: any) {
+        return { success: false, error: err.message || 'Failed to lookup student.' };
+      }
+    },
+  },
+  {
+    name: 'lookup_applicant',
+    description: 'Search and retrieve applicant records from the database by application number, applicant name, student ID, email, phone, or program. Returns application status, program, tuition deposit requirement, and deadlines.',
+    parameters: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Search term: application number, name, email, phone, or program.' },
+        application_number: { type: 'string', description: 'Application reference number (e.g. SK0782734).' },
+        name: { type: 'string', description: 'Applicant full name or last name.' },
+        email: { type: 'string', description: 'Applicant email address.' },
+        phone: { type: 'string', description: 'Applicant phone number.' },
+      },
+      required: [],
+    },
+    async execute(args: Record<string, any>, context: ToolContext): Promise<ToolResult> {
+      try {
+        const res = await lookupStudentOrApplicant({
+          query: args.query,
+          application_number: args.application_number || context.applicationId,
+          student_id: args.student_id || context.studentId,
+          name: args.name,
+          email: args.email,
+          phone: args.phone || context.callerPhone,
+          record_type: 'applicant',
+          limit: args.limit ? Number(args.limit) : 5,
+        }, context.adminClient);
+
+        return {
+          success: res.success,
+          data: res.students,
+          message: res.voice_summary || res.message,
+          error: res.error,
+        };
+      } catch (err: any) {
+        return { success: false, error: err.message || 'Failed to lookup applicant.' };
       }
     },
   },
