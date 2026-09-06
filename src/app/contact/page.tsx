@@ -90,8 +90,8 @@ export default function ContactPage() {
                         <div className="space-y-1">
                             <h3 className="text-slate-900 font-bold text-base md:text-lg leading-snug">Talk to Cannoga</h3>
                             <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Admissions office International students only</p>
-                            <a href="tel:+12272500427" className="text-slate-500 font-bold underline hover:text-black transition-colors text-base md:text-lg block">
-                                Talk to Admissions
+                            <a href="tel:+18312174106" className="text-slate-500 font-bold underline hover:text-black transition-colors text-base md:text-lg block">
+                                +1 (831) 217-4106
                             </a>
                         </div>
 
