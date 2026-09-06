@@ -1205,7 +1205,7 @@ export const voiceTools: ToolDefinition[] = [
           .eq('slug', 'debbie')
           .single();
 
-        const destination = agent?.transfer_number || '+1-416-555-0100';
+        const destination = agent?.transfer_number || '+18312174106';
 
         const { data: transfer, error } = await adminClient
           .from('voice_agent_transfers')
