@@ -10,6 +10,7 @@ import { notFound } from 'next/navigation';
 import { CaretLeft } from '@phosphor-icons/react/dist/ssr';
 import { Breadcrumbs } from '@aalto-dx/react-modules';
 import { getTuitionFeeSync } from '@/utils/tuition';
+import { getCIPCode } from '@/utils/cip-codes';
 
 
 interface Props {
@@ -189,7 +190,8 @@ export default async function DepartmentDetailPage({ params }: Props) {
             degreeLevel: 'DIPLOMA',
             departmentId: dept.id,
             schoolId: dept.school.id,
-            credits: 60
+            credits: 60,
+            cip_code: getCIPCode({ title: `${dept.name.replace('Department of ', '')} & Professional Practice`, degreeLevel: 'DIPLOMA' })
         },
         {
             id: `course-${dept_slug}-2`,
@@ -200,7 +202,8 @@ export default async function DepartmentDetailPage({ params }: Props) {
             degreeLevel: 'BACHELOR',
             departmentId: dept.id,
             schoolId: dept.school.id,
-            credits: 120
+            credits: 120,
+            cip_code: getCIPCode({ title: `Bachelor of Applied ${dept.name.replace('Department of ', '')}`, degreeLevel: 'BACHELOR' })
         }
     ];
 
@@ -296,12 +299,9 @@ export default async function DepartmentDetailPage({ params }: Props) {
                                             {/* Program Details Grid */}
                                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-sm mt-4 pt-4 border-t border-white/10">
                                                 <div>
-                                                    <p className="text-white uppercase tracking-wider text-[10px] font-bold mb-1">Code</p>
+                                                    <p className="text-white uppercase tracking-wider text-[10px] font-bold mb-1">CIP Code</p>
                                                     <p className="font-semibold text-white">
-                                                        {(() => {
-                                                            const digits = course.id.replace(/\D/g, '');
-                                                            return digits ? digits.substring(0, 5).padStart(5, '0') : '10101';
-                                                        })()}
+                                                        {course.cip_code || getCIPCode(course)}
                                                     </p>
                                                 </div>
                                                 <div>

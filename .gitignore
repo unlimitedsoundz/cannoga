@@ -60,3 +60,4 @@ unused_images_backup/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+*.tsbuildinfo

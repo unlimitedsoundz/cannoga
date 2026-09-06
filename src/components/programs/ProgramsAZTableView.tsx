@@ -18,10 +18,12 @@ import {
     CaretRight,
     CircleNotch
 } from '@phosphor-icons/react';
+import { getCIPCode } from '@/utils/cip-codes';
 
 export interface ProgramItem {
     id: string;
     code?: string;
+    cip_code?: string;
     name: string;
     level: 'Certificate' | 'Diploma' | 'Advanced Diploma' | 'Bachelor';
     school: string;
@@ -126,11 +128,9 @@ const programsData: ProgramItem[] = [
         id: 'mba',
         name: 'Business Administration & Executive Leadership (MBA)',
         level: 'Advanced Diploma',
+        school: 'School of Business',
         duration: '3 Years',
         credits: 90,
-        school: 'School of Business',
-        duration: '2 Years',
-        credits: 60,
         coop: true,
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
@@ -156,11 +156,9 @@ const programsData: ProgramItem[] = [
         id: 'cs-se',
         name: 'Computer Science & Software Engineering',
         level: 'Advanced Diploma',
+        school: 'School of Technology',
         duration: '3 Years',
         credits: 90,
-        school: 'School of Technology',
-        duration: '2 Years',
-        credits: 60,
         coop: true,
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
@@ -242,11 +240,9 @@ const programsData: ProgramItem[] = [
         id: 'health-admin',
         name: 'Health Care Administration & Clinical Management',
         level: 'Advanced Diploma',
+        school: 'School of Health & Life Sciences',
         duration: '3 Years',
         credits: 90,
-        school: 'School of Health & Life Sciences',
-        duration: '2 Years',
-        credits: 60,
         coop: true,
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
@@ -300,11 +296,9 @@ const programsData: ProgramItem[] = [
         id: 'public-policy',
         name: 'Public Policy, Governance & International Affairs',
         level: 'Advanced Diploma',
+        school: 'School of Education & Social Sciences',
         duration: '3 Years',
         credits: 90,
-        school: 'School of Education & Social Sciences',
-        duration: '2 Years',
-        credits: 60,
         coop: true,
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
@@ -372,11 +366,9 @@ const programsData: ProgramItem[] = [
         id: 'data-sci',
         name: 'Data Science & Big Analytics',
         level: 'Advanced Diploma',
+        school: 'School of Technology',
         duration: '3 Years',
         credits: 90,
-        school: 'School of Technology',
-        duration: '2 Years',
-        credits: 60,
         coop: true,
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
@@ -458,11 +450,9 @@ const programsData: ProgramItem[] = [
         id: 'optics-phot',
         name: 'Optoelectronics & Photonics Engineering',
         level: 'Advanced Diploma',
+        school: 'School of Technology',
         duration: '3 Years',
         credits: 90,
-        school: 'School of Technology',
-        duration: '2 Years',
-        credits: 60,
         coop: true,
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
@@ -488,11 +478,9 @@ const programsData: ProgramItem[] = [
         id: 'urban-plan',
         name: 'Urban Planning & Smart City Development',
         level: 'Advanced Diploma',
+        school: 'School of Science',
         duration: '3 Years',
         credits: 90,
-        school: 'School of Science',
-        duration: '2 Years',
-        credits: 60,
         coop: true,
         pgwp: true,
         tuitionDomestic: '$3,500/yr',
@@ -550,7 +538,8 @@ export function ProgramsAZTableView() {
                 const supabase = createClient();
                 const { data: dbData, error } = await supabase
                     .from('Course')
-                    .select('id, code, title, degreeLevel, duration, credits, slug, description, schoolId, School(name, slug)');
+                    .select('id, code, cip_code, title, degreeLevel, duration, credits, slug, description, schoolId, School(name, slug)')
+                    .order('title', { ascending: true });
 
                 if (!error && dbData && dbData.length > 0 && isMounted) {
                     const dbMapped: ProgramItem[] = dbData.map((item: any) => {
@@ -569,6 +558,7 @@ export function ProgramsAZTableView() {
                         return {
                             id: item.id,
                             code: item.code || 'CAN-100',
+                            cip_code: item.cip_code || getCIPCode({ title: item.title, degreeLevel: item.degreeLevel }),
                             name: item.title,
                             level: levelFormatted as any,
                             school: schoolName,
@@ -748,7 +738,7 @@ export function ProgramsAZTableView() {
                         <table className="w-full text-left text-xs sm:text-sm text-slate-600 border-collapse min-w-[950px]">
                             <thead className="bg-slate-50 text-black text-xs uppercase border-b border-slate-200">
                                 <tr>
-                                    <th className="p-3.5 font-extrabold w-32">Program Code</th>
+                                    <th className="p-3.5 font-extrabold w-36">Program / CIP Code</th>
                                     <th className="p-3.5 font-extrabold">Program Name</th>
                                     <th className="p-3.5 font-extrabold">Credential Level</th>
                                     <th className="p-3.5 font-extrabold">School</th>
@@ -764,8 +754,13 @@ export function ProgramsAZTableView() {
                                         key={p.id} 
                                         className="hover:bg-slate-50 transition-colors"
                                     >
-                                        <td className="p-3.5 font-mono font-normal text-slate-900 text-xs whitespace-nowrap">
-                                            {p.code}
+                                        <td className="p-3.5 font-mono font-normal text-xs whitespace-nowrap">
+                                            <span className="text-slate-900 font-semibold block">{p.code}</span>
+                                            {p.cip_code && (
+                                                <span className="text-slate-400 text-[10px] font-normal block mt-0.5" title="Canadian CIP 2021 Code (Statistics Canada)">
+                                                    CIP {p.cip_code}
+                                                </span>
+                                            )}
                                         </td>
                                         <td className="p-3.5">
                                             <Link 
@@ -828,9 +823,16 @@ export function ProgramsAZTableView() {
                         >
                             <div>
                                 <div className="flex items-center justify-between gap-2 mb-3">
-                                    <span className="font-mono text-xs font-bold text-slate-900">
-                                        {p.code}
-                                    </span>
+                                    <div className="flex flex-col">
+                                        <span className="font-mono text-xs font-semibold text-slate-900">
+                                            {p.code}
+                                        </span>
+                                        {p.cip_code && (
+                                            <span className="text-[10px] text-slate-400 font-normal" title="Canadian CIP 2021 Code">
+                                                CIP {p.cip_code}
+                                            </span>
+                                        )}
+                                    </div>
                                     <span className="text-xs font-bold uppercase tracking-wider text-slate-900">
                                         {p.level}
                                     </span>

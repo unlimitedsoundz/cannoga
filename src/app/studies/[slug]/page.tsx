@@ -8,6 +8,7 @@ import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { Breadcrumbs } from '@aalto-dx/react-modules';
 import { ArrowLeft, CaretLeft as ChevronLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { getTuitionFeeSync } from '@/utils/tuition';
+import { getCIPCode } from '@/utils/cip-codes';
 import { RelatedAcademicProgramsCarousel, RelatedProgramItem } from '@/components/programs/RelatedAcademicProgramsCarousel';
 // Revalidate every hour. Admin mutations call revalidatePath() for immediate cache busting.
 export const revalidate = 3600;
@@ -311,11 +312,17 @@ export default async function CourseDetailPage({ params }: Props) {
                     </p>
 
                     {/* Key Stats Bar */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 pt-8 border-t border-slate-800 text-sm">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 pt-8 border-t border-slate-800 text-sm">
                         <div>
                             <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Credential</p>
                             <p className="font-bold text-white text-base">
                                 {c.degreeLevel === 'MASTER' || c.degreeLevel === 'ADVANCED_DIPLOMA' ? 'Ontario College Advanced Diploma' : c.degreeLevel === 'BACHELOR' ? "Bachelor's Degree" : c.degreeLevel === 'DIPLOMA' ? 'Ontario College Diploma' : 'Ontario College Certificate'}
+                            </p>
+                        </div>
+                        <div>
+                            <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">CIP Code</p>
+                            <p className="font-bold text-white text-base font-mono">
+                                {c.cip_code || getCIPCode(c)}
                             </p>
                         </div>
                         <div>
@@ -330,7 +337,7 @@ export default async function CourseDetailPage({ params }: Props) {
                             <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Campus Location</p>
                             <p className="font-bold text-white text-base">Ottawa, ON (Main)</p>
                         </div>
-                        <div className="col-span-2 md:col-span-1">
+                        <div>
                             <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Study Format</p>
                             <p className="font-bold text-white text-base">Full-Time & Co-op</p>
                         </div>

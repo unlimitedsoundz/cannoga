@@ -163,6 +163,7 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
       })(),
       credential: credential,
       level: (degreeLevelRaw === 'MASTER' || degreeLevelRaw === 'ADVANCED_DIPLOMA') ? 'Level 6' : degreeLevelRaw === 'BACHELOR' ? 'Level 6' : 'Level 5',
+      cipCode: course.cip_code || undefined,
       hoursPerWeek: (degreeLevelRaw === 'MASTER' || degreeLevelRaw === 'ADVANCED_DIPLOMA') ? '2,400' : degreeLevelRaw === 'BACHELOR' ? '2,400' : '1,200',
       exchangeProgram: 'No',
       internship: 'Available',

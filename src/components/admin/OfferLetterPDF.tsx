@@ -1,8 +1,8 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/renderer';
-import { 
-    mapSchoolToTuitionField, 
-    getTuitionFee, 
+import {
+    mapSchoolToTuitionField,
+    getTuitionFee,
     getProgramYears,
     getAnnualFeeFromTotal,
     calculateTuitionDeposit
@@ -185,6 +185,7 @@ interface OfferLetterProps {
         course: string;
         program_length: string;
         total_ects: number;
+        cip_code?: string;
         issue_date: string;
         expiry_date: string;
         tuition_fee?: number;
@@ -267,6 +268,12 @@ export const OfferLetterPDF = ({ data }: OfferLetterProps) => {
                             <Text style={styles.gridLabel}>Total Credits</Text>
                             <Text style={styles.gridValue}>{data.total_ects} Credits</Text>
                         </View>
+                        {data.cip_code ? (
+                            <View style={styles.gridItem}>
+                                <Text style={styles.gridLabel}>CIP Code</Text>
+                                <Text style={styles.gridValue}>{data.cip_code}</Text>
+                            </View>
+                        ) : null}
                     </View>
                 </View>
 

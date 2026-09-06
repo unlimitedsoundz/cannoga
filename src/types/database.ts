@@ -2322,6 +2322,8 @@ export type Course = {
   departmentId: string | null;
   sections?: any[];
   programType?: string;
+  code?: string | null;
+  cip_code?: string | null;
   createdAt: string;
   updatedAt: string;
 }

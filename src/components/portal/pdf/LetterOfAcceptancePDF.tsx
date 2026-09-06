@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     height: 30,
     marginBottom: 3,
   },
-  
+
   /* Page 2 Specific Styles */
   h3: {
     fontFamily: 'Helvetica-Bold',
@@ -149,6 +149,7 @@ interface LetterOfAcceptancePDFProps {
       completionDate: string;
       credential: string;
       level: string;
+      cipCode?: string;
       hoursPerWeek: string;
       exchangeProgram: string;
       internship: string;
@@ -277,6 +278,7 @@ const LetterOfAcceptancePDF: React.FC<LetterOfAcceptancePDFProps> = ({ data }) =
               <Text><Text style={styles.bold}>Approx. Completion Date:</Text> {program.completionDate}</Text>
               <Text><Text style={styles.bold}>Credential:</Text> {program.credential}</Text>
               <Text><Text style={styles.bold}>Level of Study:</Text> {program.level}</Text>
+              {program.cipCode ? <Text><Text style={styles.bold}>CIP Code:</Text> {program.cipCode}</Text> : null}
               <Text><Text style={styles.bold}>Hours of Instruction:</Text> {program.hoursPerWeek}</Text>
               <Text><Text style={styles.bold}>Exchange Program:</Text> {program.exchangeProgram}</Text>
             </View>
