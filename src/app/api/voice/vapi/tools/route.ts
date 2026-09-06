@@ -184,11 +184,12 @@ export async function GET(request: NextRequest) {
   }
 
   // Otherwise, return the Vapi tool specification
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cannogacollege.ca';
   return NextResponse.json({
     tool: VAPI_STUDENT_LOOKUP_TOOL_DEFINITION,
     vapi_configuration: {
       type: 'function',
-      server_url: `${request.nextUrl.origin}/api/voice/vapi/tools`,
+      server_url: `${siteUrl}/api/voice/vapi/tools`,
       instructions: 'In your Vapi dashboard, add a Custom Tool / Server Tool. Set Server URL to this endpoint and copy the "tool" object into the tool definition.'
     }
   });
