@@ -103,7 +103,9 @@ export default function SectionsPage() {
       const data = await res.json();
       if (data.success) {
         setTerms(data.data || []);
-        const current = (data.data || []).find((t: any) => t.status === 'ACTIVE' || t.status === 'UPCOMING');
+        const current = (data.data || []).find((t: any) => !t.name?.toLowerCase().includes('fall 2026') && (t.status === 'ACTIVE' || t.status === 'UPCOMING')) ||
+          (data.data || []).find((t: any) => !t.name?.toLowerCase().includes('fall 2026')) ||
+          data.data?.[0];
         if (current) setTermId(current.id);
       }
     } catch (e: any) {
@@ -358,7 +360,19 @@ export default function SectionsPage() {
           className="px-3 py-2 border border-neutral-200 rounded text-xs font-medium text-neutral-700 bg-white"
         >
           <option value="">Select term</option>
-          {terms.map((t: any) => <option key={t.id} value={t.id}>{t.name}</option>)}
+          {terms.map((t: any) => {
+            const isFall2026 = t.name?.toLowerCase().includes('fall 2026');
+            return (
+              <option 
+                key={t.id} 
+                value={t.id}
+                disabled={isFall2026}
+                className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
+              >
+                {t.name}
+              </option>
+            );
+          })}
         </select>
         <select
           value={statusFilter}

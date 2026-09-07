@@ -987,9 +987,19 @@ export default function RegistrarClient({
                                         className="w-full bg-neutral-50 border border-neutral-100 p-3 rounded-xl text-sm font-bold focus:ring-2 focus:ring-black outline-none transition-all"
                                     >
                                         <option value="">Select Semester...</option>
-                                        {semesters.map(s => (
-                                            <option key={s.id} value={s.id}>{s.name}</option>
-                                        ))}
+                                        {semesters.map(s => {
+                                            const isFall2026 = s.name?.toLowerCase().includes('fall 2026');
+                                            return (
+                                                <option 
+                                                    key={s.id} 
+                                                    value={s.id}
+                                                    disabled={isFall2026}
+                                                    className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
+                                                >
+                                                    {s.name}
+                                                </option>
+                                            );
+                                        })}
                                     </select>
                                 </div>
                             </div>

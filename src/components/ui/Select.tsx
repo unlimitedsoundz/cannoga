@@ -17,6 +17,7 @@ export interface SelectContentProps {
 export interface SelectItemProps {
     value: string;
     children?: React.ReactNode;
+    disabled?: boolean;
 }
 
 export interface SelectValueProps {
@@ -68,8 +69,17 @@ const SelectContent = ({ children }: SelectContentProps) => {
 
 SelectContent.displayName = 'SelectContent';
 
-const SelectItem = ({ value, children }: SelectItemProps) => {
-    return <option value={value}>{children}</option>;
+const SelectItem = ({ value, children, disabled }: SelectItemProps) => {
+    const isFall2026 = disabled || (typeof children === 'string' && children.toLowerCase().includes('fall 2026')) || (typeof value === 'string' && value.toLowerCase().includes('fall 2026'));
+    return (
+        <option 
+            value={value} 
+            disabled={isFall2026}
+            className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
+        >
+            {children}
+        </option>
+    );
 };
 
 SelectItem.displayName = 'SelectItem';

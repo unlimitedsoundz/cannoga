@@ -71,13 +71,17 @@ export default function SchedulingPage() {
       const data = await res.json();
       if (data.success) {
         setTerms(data.data || []);
-        const fall2026 = (data.data || []).find((t: any) => 
-          t.name?.toLowerCase().includes('fall 2026') || 
-          t.code?.toLowerCase().includes('fall-2026') ||
-          t.name === 'Fall 2026'
-        );
-        const current = fall2026 || (data.data || []).find((t: any) => t.status === 'ACTIVE' || t.status === 'UPCOMING') || data.data?.[0];
-        if (current) setTermId(current.id);
+        const nonFall2026 = (data.data || []).find((t: any) => 
+          !t.name?.toLowerCase().includes('fall 2026') && 
+          !t.code?.toLowerCase().includes('fall-2026') &&
+          t.name !== 'Fall 2026' &&
+          (t.status === 'ACTIVE' || t.status === 'UPCOMING')
+        ) || (data.data || []).find((t: any) => 
+          !t.name?.toLowerCase().includes('fall 2026') && 
+          !t.code?.toLowerCase().includes('fall-2026') &&
+          t.name !== 'Fall 2026'
+        ) || data.data?.[0];
+        if (nonFall2026) setTermId(nonFall2026.id);
       }
     } catch (e: any) {
       toast.error(e.message || 'Failed to load terms');
@@ -199,9 +203,19 @@ export default function SchedulingPage() {
               className="px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-neutral-900 outline-none"
             >
               <option value="">Select term</option>
-              {terms.map((t: any) => (
-                <option key={t.id} value={t.id}>{t.name}</option>
-              ))}
+              {terms.map((t: any) => {
+                const isFall2026 = t.name?.toLowerCase().includes('fall 2026');
+                return (
+                  <option 
+                    key={t.id} 
+                    value={t.id}
+                    disabled={isFall2026}
+                    className={isFall2026 ? 'text-gray-400 bg-neutral-900' : ''}
+                  >
+                    {t.name}
+                  </option>
+                );
+              })}
             </select>
             <button
               onClick={() => setShowGenerateModal(true)}

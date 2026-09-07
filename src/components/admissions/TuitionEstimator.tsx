@@ -65,7 +65,7 @@ const FALLBACK_INTERNATIONAL = {
 export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
     const [tuitionInfo, setTuitionInfo] = useState<TuitionInfo[]>([]);
     const [campus, setCampus] = useState('Ottawa');
-    const [startTerm, setStartTerm] = useState('2026 Fall');
+    const [startTerm, setStartTerm] = useState('2027 Winter');
     const [residency, setResidency] = useState('International');
     const [selectedCourseId, setSelectedCourseId] = useState('');
     const [submittedData, setSubmittedData] = useState<any | null>(null);
@@ -220,7 +220,7 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
                             onChange={(e) => setStartTerm(e.target.value)}
                             className="w-full bg-white border border-[#e2e8f0] px-4 py-3 text-sm font-bold text-black focus:outline-none focus:border-[#0f2027] transition-colors"
                         >
-                            <option value="2026 Fall">2026 Fall</option>
+                            <option value="2026 Fall" disabled className="text-gray-400 bg-gray-100">2026 Fall</option>
                             <option value="2027 Winter">2027 Winter</option>
                             <option value="2027 Fall">2027 Fall</option>
                         </select>

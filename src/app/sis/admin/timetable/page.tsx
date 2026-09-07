@@ -152,13 +152,13 @@ export default function TimetablePage() {
       setRooms(roomsData);
       setInstructors(instructorsData);
       if (semestersData.length > 0) {
-        const fall2026 = semestersData.find(s => 
-          s.name?.toLowerCase().includes('fall 2026') || 
-          (s as any).code?.toLowerCase().includes('fall-2026') || 
-          (s as any).code?.toLowerCase().includes('2026-fall') ||
-          s.name === 'Fall 2026'
+        const nonFall2026 = semestersData.find(s => 
+          !s.name?.toLowerCase().includes('fall 2026') && 
+          !(s as any).code?.toLowerCase().includes('fall-2026') && 
+          !(s as any).code?.toLowerCase().includes('2026-fall') &&
+          s.name !== 'Fall 2026'
         );
-        setSelectedTerm(fall2026 ? fall2026.id : semestersData[0].id);
+        setSelectedTerm(nonFall2026 ? nonFall2026.id : semestersData[0].id);
       }
     } catch (err: any) {
       toast.error(err.message || 'Failed to load lookups');
@@ -728,9 +728,19 @@ export default function TimetablePage() {
               className="px-3 py-2 border border-neutral-200 rounded-xl text-xs font-bold uppercase tracking-wider text-neutral-700 bg-white"
             >
               <option value="">Select Term</option>
-              {semesters.map(s => (
-                <option key={s.id} value={s.id}>{s.name}</option>
-              ))}
+              {semesters.map(s => {
+                const isFall2026 = s.name?.toLowerCase().includes('fall 2026');
+                return (
+                  <option 
+                    key={s.id} 
+                    value={s.id}
+                    disabled={isFall2026}
+                    className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
+                  >
+                    {s.name}
+                  </option>
+                );
+              })}
             </select>
             <button
               onClick={handleAutoAssign}

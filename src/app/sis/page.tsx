@@ -3209,7 +3209,7 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
     const [search, setSearch] = useState('');
     const [subjectFilter, setSubjectFilter] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
-    const [termFilter, setTermFilter] = useState('Fall 2026');
+    const [termFilter, setTermFilter] = useState('Winter 2027');
     const [courses, setCourses] = useState<any[]>([]);
     const [subjects, setSubjects] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
@@ -3292,7 +3292,7 @@ function RegistrationSection({ studentId, programId }: RegistrationSectionProps)
                             onChange={e => setTermFilter(e.target.value)}
                             className="w-full bg-slate-50 border-0 rounded-xl p-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none"
                         >
-                            <option value="Fall 2026">Fall 2026</option>
+                            <option value="Fall 2026" disabled className="text-gray-400 bg-gray-100">Fall 2026</option>
                             <option value="Winter 2027">Winter 2027</option>
                         </select>
                     </div>

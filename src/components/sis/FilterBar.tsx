@@ -32,9 +32,19 @@ export function FilterBar({ filters, onClearAll }: FilterBarProps) {
             className="appearance-none pl-3 pr-8 py-1.5 text-xs font-bold uppercase tracking-wider border border-white/10 bg-white/5 !text-white text-white focus:border-white/20 focus:outline-none cursor-pointer rounded-lg transition-colors"
           >
             <option value="" className="bg-neutral-900 text-white">{filter.placeholder || filter.label}</option>
-            {filter.options.map(opt => (
-              <option key={`${filter.key}-${opt.value}`} value={opt.value} className="bg-neutral-900 text-white">{opt.label}</option>
-            ))}
+            {filter.options.map(opt => {
+              const isFall2026 = opt.label?.toLowerCase().includes('fall 2026') || opt.value?.toLowerCase().includes('fall 2026');
+              return (
+                <option 
+                  key={`${filter.key}-${opt.value}`} 
+                  value={opt.value} 
+                  disabled={isFall2026}
+                  className={isFall2026 ? 'bg-neutral-900 text-neutral-500' : 'bg-neutral-900 text-white'}
+                >
+                  {opt.label}
+                </option>
+              );
+            })}
           </select>
           <HugeiconsIcon icon={ChevronDown} size={11} strokeWidth={2.5} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none" />
         </div>

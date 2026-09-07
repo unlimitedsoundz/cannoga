@@ -36,7 +36,7 @@ interface Course {
 
 export default function RegistrationPage() {
   const [activeTab, setActiveTab] = React.useState<'registered' | 'search'>('registered');
-  const [selectedTerm, setSelectedTerm] = React.useState('Fall 2026');
+  const [selectedTerm, setSelectedTerm] = React.useState('Winter 2027');
   const [search, setSearch] = useState('');
   const [subjectFilter, setSubjectFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
@@ -142,9 +142,19 @@ export default function RegistrationPage() {
             onChange={e => setSelectedTerm(e.target.value)}
             className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-neutral-200 bg-white focus:border-neutral-400 focus:outline-none"
           >
-            {['Fall 2026', 'Winter 2027'].map(t => (
-              <option key={t} value={t}>{t}</option>
-            ))}
+            {['Fall 2026', 'Winter 2027'].map(t => {
+              const isFall2026 = t.toLowerCase().includes('fall 2026');
+              return (
+                <option 
+                  key={t} 
+                  value={t}
+                  disabled={isFall2026}
+                  className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
+                >
+                  {t}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div className="flex items-center gap-4 text-sm">

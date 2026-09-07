@@ -552,9 +552,19 @@ export default function HousingDashboardClient({ student, application, assignmen
                                         className="w-full px-4 py-3 border border-neutral-200 rounded-none focus:border-[#0a151a] focus:outline-none text-black"
                                     >
                                         <option value="">Select Semester</option>
-                                        {semesters.map(sem => (
-                                            <option key={sem.id} value={sem.id}>{sem.name}</option>
-                                        ))}
+                                        {semesters.map(sem => {
+                                            const isFall2026 = sem.name?.toLowerCase().includes('fall 2026');
+                                            return (
+                                                <option 
+                                                    key={sem.id} 
+                                                    value={sem.id}
+                                                    disabled={isFall2026}
+                                                    className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
+                                                >
+                                                    {sem.name}
+                                                </option>
+                                            );
+                                        })}
                                     </select>
                                 </div>
 

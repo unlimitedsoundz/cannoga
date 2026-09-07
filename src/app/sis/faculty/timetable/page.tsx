@@ -10,7 +10,14 @@ import { getFacultyTimetable, getFacultySections } from './actions';
 interface SessionRow extends TimetableAssignment {
   module: { code: string; title: string; credits: number } | null;
   room: { name: string; building: string; room_number: string } | null;
-  section: { code: string; session_type: string; capacity: number; enrolled_count: number } | null;
+  section: {
+    id?: string;
+    code: string;
+    session_type: string;
+    capacity: number;
+    enrolled_count: number;
+    module?: { id?: string; code: string; title: string; credits: number } | null;
+  } | null;
 }
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -52,7 +59,9 @@ export default function FacultyTimetablePage() {
         .order('start_date', { ascending: false });
 
       setTerms(semesters || []);
-      const active = semesters?.find((s: { status: string }) => s.status === 'ACTIVE');
+      const nonFall2026 = semesters?.find((s: { status: string; name?: string }) => !s.name?.toLowerCase().includes('fall 2026') && s.status === 'ACTIVE') ||
+        semesters?.find((s: { status: string; name?: string }) => !s.name?.toLowerCase().includes('fall 2026'));
+      const active = nonFall2026 || semesters?.find((s: { status: string }) => s.status === 'ACTIVE');
       if (active) setTermId(active.id);
     } catch (err) {
       console.error('Failed to load terms:', err);
@@ -122,9 +131,19 @@ export default function FacultyTimetablePage() {
             className="px-3 py-2 border border-neutral-200 rounded text-xs font-medium text-neutral-700 bg-white"
           >
             <option value="">Select term</option>
-            {terms.map(t => (
-              <option key={t.id} value={t.id}>{t.name}</option>
-            ))}
+            {terms.map(t => {
+              const isFall2026 = t.name?.toLowerCase().includes('fall 2026');
+              return (
+                <option 
+                  key={t.id} 
+                  value={t.id}
+                  disabled={isFall2026}
+                  className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
+                >
+                  {t.name}
+                </option>
+              );
+            })}
           </select>
           <button onClick={() => setWeekOffset(w => w - 1)} className="p-2 border border-neutral-200 rounded hover:bg-neutral-50"><ChevronLeft size={16} weight="bold" /></button>
           <button onClick={() => setWeekOffset(0)} className="px-3 py-2 border border-neutral-200 rounded text-[10px] font-black uppercase tracking-widest hover:bg-neutral-50">Today</button>

@@ -205,9 +205,19 @@ export default function ApplyPage() {
                       className="w-full h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px] bg-white appearance-none pr-8 cursor-pointer"
                     >
                       <option value="">Select term</option>
-                      {CANONICAL_INTAKES.map((it: any) => (
-                        <option key={it.id} value={it.label}>{it.label}</option>
-                      ))}
+                      {CANONICAL_INTAKES.map((it: any) => {
+                        const isFall2026 = it.id === 'FALL_2026' || it.disabled || it.label?.toLowerCase().includes('fall 2026');
+                        return (
+                          <option 
+                            key={it.id} 
+                            value={it.label}
+                            disabled={isFall2026}
+                            className={isFall2026 ? 'text-neutral-400 bg-neutral-100' : ''}
+                          >
+                            {it.label}
+                          </option>
+                        );
+                      })}
                     </select>
                     <CaretDown size={14} weight="bold" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
                   </div>

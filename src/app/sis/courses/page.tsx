@@ -28,7 +28,7 @@ export default function CoursesPage() {
   const [search, setSearch] = React.useState('');
   const [subjectFilter, setSubjectFilter] = React.useState('');
   const [statusFilter, setStatusFilter] = React.useState('');
-  const [termFilter, setTermFilter] = React.useState('Fall 2026');
+  const [termFilter, setTermFilter] = React.useState('Winter 2027');
   const [page, setPage] = React.useState(1);
 
   const termCourses = mockCourses.filter(c => c.term === termFilter);
@@ -64,9 +64,19 @@ export default function CoursesPage() {
             onChange={e => setTermFilter(e.target.value)}
             className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-slate-300 rounded-lg bg-white focus:border-slate-900 focus:outline-none"
           >
-            {availableTerms.map(t => (
-              <option key={t} value={t}>{t}</option>
-            ))}
+            {availableTerms.map(t => {
+              const isFall2026 = t.toLowerCase().includes('fall 2026');
+              return (
+                <option 
+                  key={t} 
+                  value={t} 
+                  disabled={isFall2026}
+                  className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
+                >
+                  {t}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div className="flex items-center gap-4 text-sm">

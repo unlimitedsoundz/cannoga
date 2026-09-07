@@ -24,7 +24,7 @@ export default function SettingsPage() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
 
-  const [academicTerm, setAcademicTerm] = useState('Fall 2026');
+  const [academicTerm, setAcademicTerm] = useState('Winter 2027');
   const [registrationWindow, setRegistrationWindow] = useState('Nov 1 - Dec 15, 2026');
 
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
@@ -254,7 +254,7 @@ export default function SettingsPage() {
                 onChange={e => setAcademicTerm(e.target.value)}
                 className="mt-1 w-full px-3 py-2.5 text-sm bg-neutral-800 text-white rounded-xl focus:outline-none focus:ring-1 focus:ring-[#0a151a] font-sans"
               >
-                <option value="Fall 2026">Fall 2026</option>
+                <option value="Fall 2026" disabled className="text-gray-400 bg-neutral-900">Fall 2026</option>
                 <option value="Winter 2027">Winter 2027</option>
                 <option value="Spring 2027">Spring 2027</option>
               </select>

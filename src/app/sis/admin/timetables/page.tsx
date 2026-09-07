@@ -549,9 +549,19 @@ export default function TimetablesPage() {
                   className="px-3 py-2 border border-neutral-200 rounded text-xs font-medium text-neutral-700 bg-white"
                 >
                   <option value="">All Semesters</option>
-                  {lookups.semesters.map((s: any) => (
-                    <option key={s.id} value={s.id}>{s.name}</option>
-                  ))}
+                  {lookups.semesters.map((s: any) => {
+                    const isFall2026 = s.name?.toLowerCase().includes('fall 2026');
+                    return (
+                      <option 
+                        key={s.id} 
+                        value={s.id}
+                        disabled={isFall2026}
+                        className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
+                      >
+                        {s.name}
+                      </option>
+                    );
+                  })}
                 </select>
                 <select
                   value={subjectFilter}
@@ -645,9 +655,19 @@ export default function TimetablesPage() {
               className="w-full px-3 py-2 border border-neutral-200 rounded text-sm"
             >
               <option value="">Select semester</option>
-              {lookups?.semesters.map((s: any) => (
-                <option key={s.id} value={s.id}>{s.name}</option>
-              ))}
+              {lookups?.semesters.map((s: any) => {
+                const isFall2026 = s.name?.toLowerCase().includes('fall 2026');
+                return (
+                  <option 
+                    key={s.id} 
+                    value={s.id}
+                    disabled={isFall2026}
+                    className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
+                  >
+                    {s.name}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div>
@@ -818,9 +838,19 @@ export default function TimetablesPage() {
               className="w-full px-3 py-2 border border-neutral-200 rounded text-sm"
             >
               <option value="">Select semester</option>
-              {lookups?.semesters.map((s: any) => (
-                <option key={s.id} value={s.id}>{s.name}</option>
-              ))}
+              {lookups?.semesters.map((s: any) => {
+                const isFall2026 = s.name?.toLowerCase().includes('fall 2026');
+                return (
+                  <option 
+                    key={s.id} 
+                    value={s.id}
+                    disabled={isFall2026}
+                    className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
+                  >
+                    {s.name}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div>
