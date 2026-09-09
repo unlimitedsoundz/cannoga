@@ -38,6 +38,20 @@ export default async function DashboardPage() {
         return null;
     }
 
+    // Prefer the application that has an admission offer (student may have multiple apps)
+    const { data: allApps } = await adminClient
+        .from('applications')
+        .select('id, admission_offers(id)')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+    let applicationId: string | null = null;
+    if (allApps && allApps.length > 0) {
+        // Pick the one with an offer first, otherwise the most recent
+        const withOffer = allApps.find((a: any) => a.admission_offers && (Array.isArray(a.admission_offers) ? a.admission_offers.length > 0 : a.admission_offers));
+        applicationId = withOffer?.id ?? allApps[0].id;
+    }
+
     const DashboardClient = (await import('./DashboardClient')).default;
-    return <DashboardClient />;
+    return <DashboardClient applicationId={applicationId} />;
 }

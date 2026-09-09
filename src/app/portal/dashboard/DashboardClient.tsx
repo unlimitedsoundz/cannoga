@@ -1,57 +1,17 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Hero } from '@/components/layout/Hero';
 import { Link } from "@aalto-dx/react-components";
 import { Button } from "@aalto-dx/react-components";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { File01Icon as DocumentIcon } from '@hugeicons/core-free-icons';
-import { useRouter } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
 
-export default function DashboardClient() {
-    const router = useRouter();
-    const [loading, setLoading] = useState(true);
+interface DashboardClientProps {
+    applicationId: string | null;
+}
 
-    useEffect(() => {
-        const redirectToApplication = async () => {
-            try {
-                const supabase = createClient();
-                const { data: { user } } = await supabase.auth.getUser();
-
-                if (!user) {
-                    router.push('/portal/account/login/');
-                    return;
-                }
-
-                const { data: application } = await supabase
-                    .from('applications')
-                    .select('id')
-                    .eq('user_id', user.id)
-                    .single();
-
-                if (application) {
-                    router.push(`/portal/application/view/?id=${application.id}`);
-                } else {
-                    router.push('/portal/apply/');
-                }
-            } catch (err) {
-                console.error('Failed to load application:', err);
-                setLoading(false);
-            }
-        };
-
-        redirectToApplication();
-    }, [router]);
-
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center min-h-[60vh]">
-                <div className="w-8 h-8 border-2 border-neutral-200 border-t-black rounded-full animate-spin"></div>
-            </div>
-        );
-    }
-
+export default function DashboardClient({ applicationId }: DashboardClientProps) {
     return (
         <div className="w-full">
             <Hero
@@ -70,15 +30,27 @@ export default function DashboardClient() {
                     <p className="text-neutral-600 mb-8">Your account is ready! Check your application status below.</p>
 
                     <div className="space-y-4">
-                        <Link href="/portal/apply/" className="block">
-                            <Button
-                                type="primary"
-                                htmlType="button"
-                                label="Start Application"
-                                className="w-full justify-start"
-                                icon={<HugeiconsIcon icon={DocumentIcon} size={20} />}
-                            />
-                        </Link>
+                        {applicationId ? (
+                            <Link href={`/portal/application/view/?id=${applicationId}`} className="block">
+                                <Button
+                                    type="primary"
+                                    htmlType="button"
+                                    label="View My Application"
+                                    className="w-full justify-start"
+                                    icon={<HugeiconsIcon icon={DocumentIcon} size={20} />}
+                                />
+                            </Link>
+                        ) : (
+                            <Link href="/portal/apply/" className="block">
+                                <Button
+                                    type="primary"
+                                    htmlType="button"
+                                    label="Start Application"
+                                    className="w-full justify-start"
+                                    icon={<HugeiconsIcon icon={DocumentIcon} size={20} />}
+                                />
+                            </Link>
+                        )}
                     </div>
 
                     <div className="mt-8 pt-4 border-t border-neutral-100 text-center">
@@ -94,3 +66,4 @@ export default function DashboardClient() {
         </div>
     );
 }
+

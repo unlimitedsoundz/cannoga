@@ -7,7 +7,9 @@ export async function POST(request: NextRequest) {
     const identifier = (formData.get('identifier') || formData.get('email')) as string;
     const password = formData.get('password') as string;
 
-    const supabaseResponse = NextResponse.next({ request });
+    // supabaseResponse is mutated by setAll() during signInWithPassword to hold auth cookies.
+    // We must NOT discard it — copy its cookies to every response we return.
+    let supabaseResponse = NextResponse.next({ request });
 
     const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -18,6 +20,11 @@ export async function POST(request: NextRequest) {
                     return request.cookies.getAll();
                 },
                 setAll(cookiesToSet: { name: string; value: string; options?: any }[]) {
+                    // Write to request so subsequent reads within this handler see the cookies
+                    cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+                    // Re-create supabaseResponse so cookies.set picks up the new request state
+                    supabaseResponse = NextResponse.next({ request });
+                    // Set with FULL options (httpOnly, secure, sameSite, maxAge, path, etc.)
                     cookiesToSet.forEach(({ name, value, options }) =>
                         supabaseResponse.cookies.set(name, value, options)
                     );
@@ -26,14 +33,18 @@ export async function POST(request: NextRequest) {
         } as any
     );
 
-    let email = identifier.trim();
-
-    if (!email) {
-        const response = NextResponse.json({ error: 'Email or identifier is required.' }, { status: 400 });
-        supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
-            response.cookies.set(name, value, options);
+    // Helper: copy all auth cookies (with full options) from supabaseResponse to any response
+    const withAuthCookies = (response: NextResponse) => {
+        supabaseResponse.cookies.getAll().forEach((cookie) => {
+            response.cookies.set(cookie);
         });
         return response;
+    };
+
+    let email = identifier?.trim() ?? '';
+
+    if (!email) {
+        return withAuthCookies(NextResponse.json({ error: 'Email or identifier is required.' }, { status: 400 }));
     }
 
     if (!email.includes('@')) {
@@ -45,20 +56,12 @@ export async function POST(request: NextRequest) {
             .maybeSingle();
 
         if (!student?.user_id) {
-            const response = NextResponse.json({ error: 'Student ID not found. Please check and try again.' }, { status: 401 });
-            supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
-                response.cookies.set(name, value, options);
-            });
-            return response;
+            return withAuthCookies(NextResponse.json({ error: 'Student ID not found. Please check and try again.' }, { status: 401 }));
         }
 
         const { data: authUser } = await serviceClient.auth.admin.getUserById(student.user_id);
         if (!authUser?.user?.email) {
-            const response = NextResponse.json({ error: 'Unable to retrieve account email. Please contact support.' }, { status: 401 });
-            supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
-                response.cookies.set(name, value, options);
-            });
-            return response;
+            return withAuthCookies(NextResponse.json({ error: 'Unable to retrieve account email. Please contact support.' }, { status: 401 }));
         }
 
         email = authUser.user.email;
@@ -70,19 +73,11 @@ export async function POST(request: NextRequest) {
     });
 
     if (authError) {
-        const response = NextResponse.json({ error: authError.message }, { status: 401 });
-        supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
-            response.cookies.set(name, value, options);
-        });
-        return response;
+        return withAuthCookies(NextResponse.json({ error: authError.message }, { status: 401 }));
     }
 
     if (!authData.user) {
-        const response = NextResponse.json({ error: 'login_failed' }, { status: 401 });
-        supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
-            response.cookies.set(name, value, options);
-        });
-        return response;
+        return withAuthCookies(NextResponse.json({ error: 'login_failed' }, { status: 401 }));
     }
 
     const serviceClient = createServiceRoleClient();
@@ -94,11 +89,9 @@ export async function POST(request: NextRequest) {
         .single();
 
     if (profile?.role === 'ADMIN') {
-        const response = NextResponse.json({ success: true, redirect: '/sis/admin' }, { headers: { 'x-auth-success': 'true' } });
-        supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
-            response.cookies.set(name, value, options);
-        });
-        return response;
+        return withAuthCookies(
+            NextResponse.json({ success: true, redirect: '/sis/admin' }, { headers: { 'x-auth-success': 'true' } })
+        );
     }
 
     const { data: enrollment } = await serviceClient
@@ -112,16 +105,8 @@ export async function POST(request: NextRequest) {
         enrollment?.tuition_deposit_paid === true;
 
     if (sisReady) {
-        const response = NextResponse.json({ success: true, redirect: '/sis' });
-        supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
-            response.cookies.set(name, value, options);
-        });
-        return response;
+        return withAuthCookies(NextResponse.json({ success: true, redirect: '/sis' }));
     }
 
-    const response = NextResponse.json({ success: true, redirect: '/portal/dashboard' });
-    supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
-        response.cookies.set(name, value, options);
-    });
-    return response;
-}
+    return withAuthCookies(NextResponse.json({ success: true, redirect: '/portal/dashboard' }));
+}

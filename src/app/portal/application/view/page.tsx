@@ -70,6 +70,7 @@ function ViewApplicationContent() {
                         documents:application_documents(*)
                     `)
                     .eq('id', id)
+                    .eq('user_id', user.id)   // ownership check — never show another student's app
                     .maybeSingle();
 
                 if (!applicationRaw) {
@@ -84,23 +85,28 @@ function ViewApplicationContent() {
                         return;
                     }
 
-                    // Fallback to user's most recent application
-                    const { data: userApp } = await supabase
+                    // Fallback: prefer the user's application that has an offer, else most recent
+                    const { data: userApps } = await supabase
                         .from('applications')
                         .select(`
                             *,
                             course:Course(*, school:School(*)),
                             alternate_course:Course(*) ,
                             user:profiles(*),
-                            documents:application_documents(*)
+                            documents:application_documents(*),
+                            admission_offers(id)
                         `)
                         .eq('user_id', user.id)
-                        .order('created_at', { ascending: false })
-                        .limit(1)
-                        .maybeSingle();
+                        .order('created_at', { ascending: false });
 
-                    if (userApp) {
-                        applicationRaw = userApp;
+                    if (userApps && userApps.length > 0) {
+                        const withOffer = userApps.find((a: any) => a.admission_offers && (Array.isArray(a.admission_offers) ? a.admission_offers.length > 0 : a.admission_offers));
+                        applicationRaw = withOffer ?? userApps[0];
+
+                        // If we found a different app, update the URL silently so the correct ID is shown
+                        if (applicationRaw && applicationRaw.id !== id) {
+                            router.replace(`/portal/application/view/?id=${applicationRaw.id}`);
+                        }
                     } else {
                         setError("Application not found.");
                         return;
@@ -484,16 +490,16 @@ function ViewApplicationContent() {
         { title: 'Pre Orientation' },
     ];
 
-    const progressIndex = ['SUBMITTED', 'DOCS_REQUIRED'].includes(application.status) ? 0
-        : ['UNDER_REVIEW'].includes(application.status) ? 1
-            : ['ADMITTED', 'OFFER_ACCEPTED', 'PAYMENT_SUBMITTED'].includes(application.status) ? 2
-                : ['ENROLLED'].includes(application.status) ? 3
-                    : 0;
-
     const hasOffer = !!offer;
     const hasInvoice = !!offer?.invoice_pushed;
     const hasPayments = payments.length > 0;
     const showOfferButton = hasOffer || ['ADMITTED', 'OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ENROLLED'].includes(application.status);
+
+    // If an offer exists (regardless of whether status was updated to ADMITTED), treat as at least step 2
+    const progressIndex = ['ENROLLED'].includes(application.status) ? 3
+        : ['ADMITTED', 'OFFER_ACCEPTED', 'PAYMENT_SUBMITTED'].includes(application.status) || hasOffer ? 2
+            : ['UNDER_REVIEW'].includes(application.status) ? 1
+                : 0;
 
     return (
         <div className="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8 space-y-6">
@@ -546,7 +552,7 @@ function ViewApplicationContent() {
                     </div>
                 )}
 
-                {application.status === 'ADMITTED' && !isOfferAccepted && (
+                {(application.status === 'ADMITTED' || hasOffer) && !isOfferAccepted && (
                     <div className="p-3">
                         <p className="text-[13px] font-bold text-black">Offer Pending Acceptance</p>
                         <p className="text-[11px] text-black font-medium mt-0.5">You have been admitted! Please accept your offer letter to proceed with enrollment.</p>
