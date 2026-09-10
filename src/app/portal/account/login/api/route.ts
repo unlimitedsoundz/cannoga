@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 
+import { isBlockedEmail } from '@/utils/security-blocklist';
+
 export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const identifier = (formData.get('identifier') || formData.get('email')) as string;
@@ -47,6 +49,10 @@ export async function POST(request: NextRequest) {
         return withAuthCookies(NextResponse.json({ error: 'Email or identifier is required.' }, { status: 400 }));
     }
 
+    if (isBlockedEmail(email)) {
+        return withAuthCookies(NextResponse.json({ error: 'Access restricted: This account is prohibited from accessing cannogacollege.ca.' }, { status: 403 }));
+    }
+
     if (!email.includes('@')) {
         const serviceClient = createServiceRoleClient();
         const { data: student } = await serviceClient
@@ -84,9 +90,13 @@ export async function POST(request: NextRequest) {
 
     const { data: profile } = await serviceClient
         .from('profiles')
-        .select('role')
+        .select('role, portal_access_disabled')
         .eq('id', authData.user.id)
         .single();
+
+    if (profile?.portal_access_disabled) {
+        return withAuthCookies(NextResponse.json({ error: 'Access disabled: Your account has been restricted from accessing cannogacollege.ca.' }, { status: 403 }));
+    }
 
     if (profile?.role === 'ADMIN') {
         return withAuthCookies(

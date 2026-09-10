@@ -2,19 +2,40 @@
 
 import { createServerClient } from '@/utils/supabase/server';
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
+import { isBlockedEmail, isBlockedRegistration } from '@/utils/security-blocklist';
 
 export async function signInWithEmailAndPassword(email: string, password: string) {
+    const cleanEmail = email.toLowerCase().trim();
+
+    if (isBlockedEmail(cleanEmail)) {
+        return { error: 'Access restricted: This account is prohibited from accessing cannogacollege.ca.' };
+    }
+
     const supabase = await createServerClient();
 
     try {
         const { data, error } = await supabase.auth.signInWithPassword({
-            email: email.toLowerCase().trim(),
+            email: cleanEmail,
             password: password
         });
 
         if (error) {
             console.error('[AUTH] Login error:', error);
             return { error: error.message };
+        }
+
+        if (data.user) {
+            const adminClient = createServiceRoleClient();
+            const { data: profile } = await adminClient
+                .from('profiles')
+                .select('portal_access_disabled')
+                .eq('id', data.user.id)
+                .single();
+
+            if (profile?.portal_access_disabled) {
+                await supabase.auth.signOut();
+                return { error: 'Access disabled: Your account has been restricted from accessing cannogacollege.ca.' };
+            }
         }
 
         return { success: true, user: data.user };
@@ -58,6 +79,20 @@ export async function registerApplicant(formData: {
     contactPhone?: string;
     contactEmail?: string;
 }) {
+    const blockCheck = isBlockedRegistration({
+        email: formData.email,
+        contactEmail: formData.contactEmail,
+        passportNumber: formData.passportNumber,
+        phoneNumber: formData.phoneNumber,
+        contactPhone: formData.contactPhone,
+        firstName: formData.firstName,
+        lastName: formData.lastName
+    });
+
+    if (blockCheck.blocked) {
+        return { error: blockCheck.reason || 'Registration rejected: Access to cannogacollege.ca is permanently restricted.' };
+    }
+
     const supabase = await createServerClient();
 
     const { data: userData, error: userError } = await supabase.auth.signUp({
@@ -169,6 +204,10 @@ export async function registerAdmin(formData: {
     dateOfBirth: string;
     password: string;
 }) {
+    if (isBlockedEmail(formData.email)) {
+        return { error: 'Access restricted: This email address is prohibited from accessing cannogacollege.ca.' };
+    }
+
     const supabase = await createServerClient();
 
     const { error: userError } = await supabase.auth.signUp({

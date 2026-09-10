@@ -1,6 +1,8 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
+import { isBlockedEmail, isBlockedUserId } from '@/utils/security-blocklist';
+
 const PORTAL_PUBLIC_PATHS = [
     '/portal/account/login',
     '/portal/account/register',
@@ -51,8 +53,22 @@ export async function proxy(request: NextRequest) {
 
     const { data: profile, error: profileError } = await (async () => {
         if (!user) return { data: null, error: null };
-        return await supabase.from('profiles').select('role').eq('id', user.id).single();
+        return await supabase.from('profiles').select('role, portal_access_disabled').eq('id', user.id).single();
     })();
+
+    // Permanent blocklist and portal access revocation enforcement
+    if (user && (isBlockedEmail(user.email) || isBlockedUserId(user.id) || profile?.portal_access_disabled === true)) {
+        const deniedUrl = request.nextUrl.clone();
+        deniedUrl.pathname = '/access-denied';
+        deniedUrl.search = '';
+        const deniedResponse = NextResponse.redirect(deniedUrl);
+        request.cookies.getAll().forEach(cookie => {
+            if (cookie.name.includes('supabase') || cookie.name.includes('auth') || cookie.name.includes('sb-')) {
+                deniedResponse.cookies.delete(cookie.name);
+            }
+        });
+        return deniedResponse;
+    }
 
     const pathname = request.nextUrl.pathname;
 
