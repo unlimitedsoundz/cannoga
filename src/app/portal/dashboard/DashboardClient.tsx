@@ -9,9 +9,13 @@ import { File01Icon as DocumentIcon } from '@hugeicons/core-free-icons';
 
 interface DashboardClientProps {
     applicationId: string | null;
+    hasOffer?: boolean;
+    applicationStatus?: string | null;
 }
 
-export default function DashboardClient({ applicationId }: DashboardClientProps) {
+export default function DashboardClient({ applicationId, hasOffer, applicationStatus }: DashboardClientProps) {
+    const showOffer = !!applicationId && (hasOffer || ['ADMITTED', 'OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ENROLLED'].includes(applicationStatus || ''));
+
     return (
         <div className="w-full">
             <Hero
@@ -31,15 +35,34 @@ export default function DashboardClient({ applicationId }: DashboardClientProps)
 
                     <div className="space-y-4">
                         {applicationId ? (
-                            <Link href={`/portal/application/view/?id=${applicationId}`} className="block">
-                                <Button
-                                    type="primary"
-                                    htmlType="button"
-                                    label="View My Application"
-                                    className="w-full justify-start"
-                                    icon={<HugeiconsIcon icon={DocumentIcon} size={20} />}
-                                />
-                            </Link>
+                            <>
+                                <Link href={`/portal/application/view/?id=${applicationId}`} className="block">
+                                    <Button
+                                        type="primary"
+                                        htmlType="button"
+                                        label="View My Application"
+                                        className="w-full justify-start"
+                                        icon={<HugeiconsIcon icon={DocumentIcon} size={20} />}
+                                    />
+                                </Link>
+
+                                {showOffer && (
+                                    <Link href={`/portal/application/letter/?id=${applicationId}`} className="block">
+                                        <button
+                                            type="button"
+                                            className="w-full flex items-center justify-start gap-3 px-5 py-3.5 bg-neutral-900 text-white rounded-xl font-bold text-sm hover:bg-neutral-800 transition-all shadow-sm group"
+                                        >
+                                            <HugeiconsIcon icon={DocumentIcon} size={20} className="text-neutral-300 group-hover:text-white transition-colors" />
+                                            <span>View Offer / Letter of Acceptance (LOA)</span>
+                                            {applicationStatus === 'OFFER_ACCEPTED' && (
+                                                <span className="ml-auto text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider font-extrabold">
+                                                    Offer Accepted
+                                                </span>
+                                            )}
+                                        </button>
+                                    </Link>
+                                )}
+                            </>
                         ) : (
                             <Link href="/portal/apply/" className="block">
                                 <Button

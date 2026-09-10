@@ -518,6 +518,14 @@ function ViewApplicationContent() {
                     </p>
                 </div>
                 <div className="flex items-center gap-3">
+                    {showOfferButton && (
+                        <Link
+                            href={`/portal/application/letter/?id=${application.id}`}
+                            className="px-4 py-2 border border-neutral-300 text-neutral-800 rounded-sm text-[11px] font-bold hover:bg-neutral-50 transition-all inline-flex items-center gap-1.5"
+                        >
+                            View Offer
+                        </Link>
+                    )}
                     {hasInvoice && !hasPayments && application.status !== 'PAYMENT_SUBMITTED' && (
                         <Link
                             href={`/portal/application/payment/?id=${application.id}`}
@@ -582,16 +590,42 @@ function ViewApplicationContent() {
                 )}
 
                 {application.status === 'OFFER_ACCEPTED' && (
-                    <div>
-                        <p>Congratulations! Your offer has been accepted.</p>
-                        <p>Next steps: Tuition Deposit and PAL Issue. You will be notified once the invoice is sent.</p>
+                    <div className="p-4 border border-neutral-200 bg-neutral-50 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <p className="text-[13px] font-bold text-black">Congratulations! Your offer has been accepted.</p>
+                            <p className="text-[11px] text-neutral-600 font-medium mt-0.5">Next steps: Tuition Deposit and PAL Issue. You will be notified once your invoice is generated.</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Link
+                                href={`/portal/application/letter/?id=${application.id}`}
+                                className="px-4 py-2 border border-neutral-300 bg-white text-neutral-800 rounded text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors inline-flex items-center shrink-0"
+                            >
+                                View Offer
+                            </Link>
+                        </div>
                     </div>
                 )}
 
-                                        {hasInvoice && !hasPayments && application.status !== 'PAYMENT_SUBMITTED' && (
-                    <div className="p-3">
-                        <p className="text-[13px] font-bold text-black">Your invoice has been generated. Please complete your payment to secure your enrollment.</p>
-                        <p className="text-[11px] text-neutral-700 font-medium mt-0.5">Please note: After tuition deposit has been paid and verified, please allow 6-12 days for Provincial Attestation Letter (PAL) issuance.</p>
+                {hasInvoice && !hasPayments && application.status !== 'PAYMENT_SUBMITTED' && (
+                    <div className="p-4 border border-neutral-200 bg-white rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <p className="text-[13px] font-bold text-black">Your invoice has been generated. Please complete your payment to secure your enrollment.</p>
+                            <p className="text-[11px] text-neutral-700 font-medium mt-0.5">Please note: After tuition deposit has been paid and verified, please allow 6-12 days for Provincial Attestation Letter (PAL) issuance.</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Link
+                                href={`/portal/application/letter/?id=${application.id}`}
+                                className="px-4 py-2 border border-neutral-300 bg-white text-neutral-800 rounded text-xs font-bold uppercase tracking-wider hover:bg-neutral-50 transition-colors inline-flex items-center shrink-0"
+                            >
+                                View Offer
+                            </Link>
+                            <Link
+                                href={`/portal/application/payment/?id=${application.id}`}
+                                className="px-4 py-2 bg-neutral-900 text-white rounded text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors inline-flex items-center shrink-0"
+                            >
+                                Pay Invoice
+                            </Link>
+                        </div>
                     </div>
                 )}
 
@@ -730,6 +764,15 @@ function ViewApplicationContent() {
                                     <div>
                                         <p className="text-[11px] font-black uppercase tracking-[0.22em] text-neutral-500 mb-1">Status</p>
                                         <p className="text-sm font-bold text-black">{offer.status?.replace(/_/g, ' ') || 'Pending'}</p>
+                                    </div>
+                                    <div className="md:col-span-2 pt-3 mt-2 border-t border-neutral-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                        <p className="text-xs text-neutral-600 font-medium">Your official Letter of Acceptance (LOA) and offer terms are accessible anytime.</p>
+                                        <Link
+                                            href={`/portal/application/letter/?id=${application.id}`}
+                                            className="px-4 py-2 bg-neutral-900 text-white rounded text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors inline-flex items-center shrink-0 self-start sm:self-auto"
+                                        >
+                                            View Official Offer Letter
+                                        </Link>
                                     </div>
                                 </div>
                             )}

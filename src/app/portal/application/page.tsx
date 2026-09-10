@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -245,17 +245,25 @@ function ApplicationWizardContent() {
             )}
 
             {application.status === 'OFFER_ACCEPTED' && (
-                <div className="mb-8 bg-blue-50 border border-blue-100 p-6 rounded-sm flex items-center justify-between">
+                <div className="mb-8 bg-blue-50 border border-blue-100 p-6 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                         <h3 className="text-blue-900 font-bold tracking-tight text-sm mb-1">Offer Accepted</h3>
                         <p className="text-blue-700 text-xs font-medium">You have accepted the offer. Please finalize your tuition payment to complete enrollment.</p>
                     </div>
-                    <Link
-                        href={`/portal/application/payment/?id=${application.id}`}
-                        className="bg-blue-600 text-white px-6 py-2 rounded-sm text-[11px] font-bold hover:bg-blue-700 transition-all shadow-sm flex items-center gap-2"
-                    >
-                        Proceed to Payment
-                    </Link>
+                    <div className="flex items-center gap-3 shrink-0">
+                        <Link
+                            href={`/portal/application/letter/?id=${application.id}`}
+                            className="bg-white border border-neutral-300 text-neutral-800 px-5 py-2 rounded-sm text-[11px] font-bold hover:bg-neutral-50 transition-all shadow-sm flex items-center gap-2"
+                        >
+                            View Offer
+                        </Link>
+                        <Link
+                            href={`/portal/application/payment/?id=${application.id}`}
+                            className="bg-blue-600 text-white px-6 py-2 rounded-sm text-[11px] font-bold hover:bg-blue-700 transition-all shadow-sm flex items-center gap-2"
+                        >
+                            Proceed to Payment
+                        </Link>
+                    </div>
                 </div>
             )}
 
