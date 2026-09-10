@@ -83,13 +83,14 @@ export async function updateApplicationStatus(applicationId: string, status: App
             }
 
             const { generateAndStoreOfferLetter } = await import('./pdf-actions');
-            await generateAndStoreOfferLetter(applicationId);
+            const offerResult = await generateAndStoreOfferLetter(applicationId);
 
             try {
                 await supabase.functions.invoke('send-notification', {
                     body: {
                         applicationId: applicationId,
-                        type: 'OFFER_LETTER_READY'
+                        type: 'OFFER_LETTER_READY',
+                        documentUrl: (offerResult as any)?.url
                     }
                 });
             } catch (notifyError) {
@@ -347,10 +348,19 @@ export async function issuePal(applicationId: string) {
         if (error) throw error;
 
         try {
+            const { data: offerRec } = await supabase
+                .from('admission_offers')
+                .select('document_url')
+                .eq('application_id', applicationId)
+                .order('created_at', { ascending: false })
+                .limit(1)
+                .maybeSingle();
+
             await supabase.functions.invoke('send-notification', {
                 body: {
                     applicationId: applicationId,
-                    type: 'OFFER_LETTER_READY'
+                    type: 'OFFER_LETTER_READY',
+                    documentUrl: offerRec?.document_url
                 }
             });
         } catch (notifyError) {

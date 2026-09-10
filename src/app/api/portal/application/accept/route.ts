@@ -106,11 +106,34 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to update application status' }, { status: 500 });
     }
 
+    let documentUrl: string | undefined;
+    try {
+      const { generateAndStoreOfferLetter } = await import('@/app/admin/admissions/pdf-actions');
+      const genRes = await generateAndStoreOfferLetter(applicationId);
+      if (genRes.success && genRes.url) {
+        documentUrl = genRes.url;
+      }
+    } catch (genErr) {
+      console.warn('Failed to ensure LOA on accept:', genErr);
+    }
+
+    if (!documentUrl) {
+      const { data: offerData } = await adminSupabase
+        .from('admission_offers')
+        .select('document_url')
+        .eq('application_id', applicationId)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      documentUrl = offerData?.document_url || undefined;
+    }
+
     try {
       await supabase.functions.invoke('send-notification', {
         body: {
           applicationId: applicationId,
-          type: 'OFFER_ACCEPTED'
+          type: 'OFFER_ACCEPTED',
+          documentUrl: documentUrl
         }
       });
     } catch (notifyError) {

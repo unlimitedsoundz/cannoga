@@ -233,6 +233,16 @@ export async function generateAndStoreLOA(applicationId: string, application: an
       .from('application-documents')
       .getPublicUrl(storagePath);
 
+    // Update admission_offers table with document_url if offer exists
+    try {
+      await supabase
+        .from('admission_offers')
+        .update({ document_url: publicUrl })
+        .eq('application_id', applicationId);
+    } catch (offerUpdateErr) {
+      console.warn('Failed to update admission_offers document_url:', offerUpdateErr);
+    }
+
     const { data: student } = await supabase
       .from('students')
       .select('id')

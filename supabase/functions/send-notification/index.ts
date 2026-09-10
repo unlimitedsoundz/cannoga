@@ -62,6 +62,7 @@ serve(async (req) => {
         const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
         const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
         const supabase = createClient(supabaseUrl, supabaseKey);
+        const supabaseAdmin = supabase;
 
         let applicationData = record;
 
@@ -69,13 +70,22 @@ serve(async (req) => {
         if (!applicationData && applicationId) {
             const { data: app } = await supabase
                 .from('applications')
-                .select('*, user:profiles(*), course:Course(title, degreeLevel)')
+                .select('*, user:profiles(*), course:Course(title, slug, degreeLevel)')
                 .eq('id', applicationId)
                 .single();
 
-
             if (app) {
                 console.log(`[send-notification] Successfully fetched application data for ${applicationId}`);
+
+                // Fetch offer document_url if available
+                const { data: offer } = await supabase
+                    .from('admission_offers')
+                    .select('id, document_url')
+                    .eq('application_id', applicationId)
+                    .order('created_at', { ascending: false })
+                    .limit(1)
+                    .maybeSingle();
+
                 applicationData = {
                     ...app,
                     email: app.user?.email,
@@ -83,7 +93,9 @@ serve(async (req) => {
                     last_name: app.user?.last_name || app.personal_info?.lastName,
                     student_id: app.user?.student_id,
                     course_title: app.course?.title,
-                    course_degree_level: app.course?.degreeLevel
+                    course_slug: app.course?.slug,
+                    course_degree_level: app.course?.degreeLevel,
+                    document_url: documentUrl || offer?.document_url || null,
                 };
 
             } else {
@@ -292,14 +304,65 @@ serve(async (req) => {
                 studentSubject = "Letter of Acceptance (LOA) - Cannoga College";
 
                 // Generate / Fetch LOA PDF and Download URL
-                const offerAppId = applicationData?.id || record?.id || record?.application_id;
-                let loaDocUrl = applicationData?.document_url || null;
+                const offerAppId = applicationData?.id || record?.id || record?.application_id || applicationId;
+                let loaDocUrl = documentUrl || applicationData?.document_url || null;
+
+                // 1. Query admission_offers if document_url not yet found
+                if (!loaDocUrl && offerAppId) {
+                    const { data: offerRec } = await supabase
+                        .from('admission_offers')
+                        .select('document_url')
+                        .eq('application_id', offerAppId)
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .maybeSingle();
+                    if (offerRec?.document_url) {
+                        loaDocUrl = offerRec.document_url;
+                    }
+                }
+
+                // 2. Query document_records if not yet found
+                if (!loaDocUrl && offerAppId) {
+                    const { data: docRec } = await supabase
+                        .from('document_records')
+                        .select('storage_path')
+                        .eq('document_type', 'loa')
+                        .or(`metadata->>application_id.eq.${offerAppId},storage_path.ilike.%${offerAppId}%`)
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .maybeSingle();
+                    if (docRec?.storage_path) {
+                        loaDocUrl = docRec.storage_path;
+                    }
+                }
+
+                // 3. Fallback: check storage path in application-documents
+                if (!loaDocUrl && offerAppId) {
+                    const userId = applicationData?.user_id || applicationData?.user?.id;
+                    const courseSlug = applicationData?.course_slug || applicationData?.course?.slug;
+                    if (userId) {
+                        const candPath = `student-documents/${userId}/letter-of-acceptance-${courseSlug || offerAppId}.pdf`;
+                        const { data: pubData } = supabase.storage
+                            .from('application-documents')
+                            .getPublicUrl(candPath);
+                        if (pubData?.publicUrl) {
+                            try {
+                                const checkHead = await fetch(pubData.publicUrl, { method: 'HEAD' });
+                                if (checkHead.ok) {
+                                    loaDocUrl = pubData.publicUrl;
+                                }
+                            } catch (_) {}
+                        }
+                    }
+                }
+
+                // 4. Try invoke generate-admission-letter function if available
                 if (offerAppId) {
                     try {
-                        const { data: pdfRes } = await supabaseAdmin.functions.invoke('generate-admission-letter', {
+                        const { data: pdfRes } = await supabase.functions.invoke('generate-admission-letter', {
                             body: { applicationId: offerAppId, type: 'OFFER' }
                         });
-                        if (pdfRes?.url) {
+                        if (pdfRes?.url && !loaDocUrl) {
                             loaDocUrl = pdfRes.url;
                         }
                         if (pdfRes?.pdfBase64) {
@@ -308,30 +371,28 @@ serve(async (req) => {
                                 content: pdfRes.pdfBase64
                             });
                             console.log(`[send-notification] Attached LOA PDF as base64 content.`);
-                        } else if (loaDocUrl) {
-                            try {
-                                const fetchRes = await fetch(loaDocUrl);
-                                if (fetchRes.ok) {
-                                    const buf = await fetchRes.arrayBuffer();
-                                    const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
-                                    studentAttachments.push({
-                                        filename: `Cannoga_Letter_of_Acceptance_${firstName || 'Student'}.pdf`,
-                                        content: b64
-                                    });
-                                    console.log(`[send-notification] Fetched and attached LOA PDF from public URL as base64.`);
-                                }
-                            } catch (fErr) {
-                                console.warn("[send-notification] Could not fetch public LOA PDF URL:", fErr);
-                            }
                         }
                     } catch (err) {
                         console.error("[send-notification] Error generating LOA PDF attachment via function:", err);
                     }
                 }
 
-                if (!loaDocUrl && offerAppId) {
-                    const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
-                    loaDocUrl = `${supabaseUrl}/storage/v1/object/public/application-documents/offer-letters/offer_letter_${offerAppId}.pdf`;
+                // 5. If we have loaDocUrl but no attachment yet, fetch and attach
+                if (loaDocUrl && studentAttachments.length === 0) {
+                    try {
+                        const fetchRes = await fetch(loaDocUrl);
+                        if (fetchRes.ok) {
+                            const buf = await fetchRes.arrayBuffer();
+                            const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+                            studentAttachments.push({
+                                filename: `Cannoga_Letter_of_Acceptance_${firstName || 'Student'}.pdf`,
+                                content: b64
+                            });
+                            console.log(`[send-notification] Fetched and attached LOA PDF from public URL as base64.`);
+                        }
+                    } catch (fErr) {
+                        console.warn("[send-notification] Could not fetch public LOA PDF URL for attachment:", fErr);
+                    }
                 }
 
                 studentHtml = `
@@ -355,12 +416,24 @@ serve(async (req) => {
                     <p><strong>Your Next Steps</strong></p>
                     <p>To secure your place, please complete the following steps:</p>
                     <ul>
-                        <li>Review Your Letter of Acceptance (LOA): Log in to your student dashboard to carefully read the terms of your conditional offer.</li>
+                        <li>Review Your Letter of Acceptance (LOA): Carefully read the terms of your conditional offer.</li>
                         <li>Accept Your Offer: Confirm your acceptance of the offer in the portal.</li>
                         <li>Fulfill Your Conditions: Fulfill the conditions outlined in your Letter of Acceptance (LOA) (such as paying your tuition fee deposit). Once the conditions are met, you will be issued your Provincial Attestation Letter (PAL). Please allow 6-10 working days for issuance.</li>
                     </ul>
 
-                    <p><a href="https://cannogacollege.ca/portal">Log In and View Letter of Acceptance</a></p>
+                    ${loaDocUrl ? `
+                    <div style="margin: 28px 0; text-align: left;">
+                        <a href="${loaDocUrl}" target="_blank" style="background-color: #0a151a; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 14px; display: inline-block; letter-spacing: 0.5px;">
+                            Download Official Letter of Acceptance (LOA PDF)
+                        </a>
+                    </div>
+                    ` : ''}
+
+                    <p style="margin-top: 16px;">
+                        <a href="https://cannogacollege.ca/portal/application/letter?id=${offerAppId}" style="color: #0a151a; font-weight: bold; text-decoration: underline;">
+                            Review & Accept Offer in Student Portal →
+                        </a>
+                    </p>
 
                     <p>Important Request: Please act promptly to accept your offer and fulfill the conditions, as places are limited and allocated on a first-come, first-served basis once conditions are met.</p>
                     <p>We are very impressed by your application and look forward to welcoming you to our creative community in Canada.</p>
@@ -378,20 +451,72 @@ serve(async (req) => {
                     <p><strong>Email:</strong> ${userEmail}</p>
                     <p><strong>Program:</strong> ${applicationData?.course_title || 'N/A'}</p>
                     <p>A conditional offer of admission has been sent to the student.</p>
+                    ${loaDocUrl ? `<p><a href="${loaDocUrl}" target="_blank">View Letter of Acceptance (LOA PDF)</a></p>` : ''}
                 `;
                 break;
 
             case 'OFFER_ACCEPTED':
                 studentSubject = "Letter of Acceptance Confirmed - Cannoga College";
 
-                const acceptedAppId = applicationData?.id || record?.id || record?.application_id;
-                let acceptedDocUrl = applicationData?.document_url || null;
+                const acceptedAppId = applicationData?.id || record?.id || record?.application_id || applicationId;
+                let acceptedDocUrl = documentUrl || applicationData?.document_url || null;
+
+                // 1. Query admission_offers if document_url not yet found
+                if (!acceptedDocUrl && acceptedAppId) {
+                    const { data: offerRec } = await supabase
+                        .from('admission_offers')
+                        .select('document_url')
+                        .eq('application_id', acceptedAppId)
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .maybeSingle();
+                    if (offerRec?.document_url) {
+                        acceptedDocUrl = offerRec.document_url;
+                    }
+                }
+
+                // 2. Query document_records if not yet found
+                if (!acceptedDocUrl && acceptedAppId) {
+                    const { data: docRec } = await supabase
+                        .from('document_records')
+                        .select('storage_path')
+                        .eq('document_type', 'loa')
+                        .or(`metadata->>application_id.eq.${acceptedAppId},storage_path.ilike.%${acceptedAppId}%`)
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .maybeSingle();
+                    if (docRec?.storage_path) {
+                        acceptedDocUrl = docRec.storage_path;
+                    }
+                }
+
+                // 3. Fallback: check storage path in application-documents
+                if (!acceptedDocUrl && acceptedAppId) {
+                    const userId = applicationData?.user_id || applicationData?.user?.id;
+                    const courseSlug = applicationData?.course_slug || applicationData?.course?.slug;
+                    if (userId) {
+                        const candPath = `student-documents/${userId}/letter-of-acceptance-${courseSlug || acceptedAppId}.pdf`;
+                        const { data: pubData } = supabase.storage
+                            .from('application-documents')
+                            .getPublicUrl(candPath);
+                        if (pubData?.publicUrl) {
+                            try {
+                                const checkHead = await fetch(pubData.publicUrl, { method: 'HEAD' });
+                                if (checkHead.ok) {
+                                    acceptedDocUrl = pubData.publicUrl;
+                                }
+                            } catch (_) {}
+                        }
+                    }
+                }
+
+                // 4. Try invoke generate-admission-letter function if available
                 if (acceptedAppId) {
                     try {
-                        const { data: pdfRes } = await supabaseAdmin.functions.invoke('generate-admission-letter', {
+                        const { data: pdfRes } = await supabase.functions.invoke('generate-admission-letter', {
                             body: { applicationId: acceptedAppId, type: 'OFFER' }
                         });
-                        if (pdfRes?.url) {
+                        if (pdfRes?.url && !acceptedDocUrl) {
                             acceptedDocUrl = pdfRes.url;
                         }
                         if (pdfRes?.pdfBase64) {
@@ -399,37 +524,41 @@ serve(async (req) => {
                                 filename: `Cannoga_Letter_of_Acceptance_${firstName || 'Student'}.pdf`,
                                 content: pdfRes.pdfBase64
                             });
-                        } else if (acceptedDocUrl) {
-                            try {
-                                const fetchRes = await fetch(acceptedDocUrl);
-                                if (fetchRes.ok) {
-                                    const buf = await fetchRes.arrayBuffer();
-                                    const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
-                                    studentAttachments.push({
-                                        filename: `Cannoga_Letter_of_Acceptance_${firstName || 'Student'}.pdf`,
-                                        content: b64
-                                    });
-                                }
-                            } catch (fErr) {
-                                console.warn("[send-notification] Could not fetch accepted LOA PDF URL:", fErr);
-                            }
                         }
                     } catch (err) {
                         console.error("[send-notification] Error retrieving LOA PDF for offer acceptance:", err);
                     }
                 }
 
-                if (!acceptedDocUrl && acceptedAppId) {
-                    const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
-                    acceptedDocUrl = `${supabaseUrl}/storage/v1/object/public/application-documents/offer-letters/offer_letter_${acceptedAppId}.pdf`;
+                // 5. If we have acceptedDocUrl but no attachment yet, fetch and attach
+                if (acceptedDocUrl && studentAttachments.length === 0) {
+                    try {
+                        const fetchRes = await fetch(acceptedDocUrl);
+                        if (fetchRes.ok) {
+                            const buf = await fetchRes.arrayBuffer();
+                            const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+                            studentAttachments.push({
+                                filename: `Cannoga_Letter_of_Acceptance_${firstName || 'Student'}.pdf`,
+                                content: b64
+                            });
+                        }
+                    } catch (fErr) {
+                        console.warn("[send-notification] Could not fetch accepted LOA PDF URL:", fErr);
+                    }
                 }
 
                 studentHtml = `
                     <p>Dear ${firstName},</p>
                     <p>Congratulations! Thank you for accepting your offer of admission to Cannoga College for the <strong>${applicationData?.course_title || 'degree programme'}</strong>.</p>
                     <p><strong>Fulfill Your Conditions:</strong> Fulfill the conditions outlined in your Letter of Acceptance (LOA) (such as paying your tuition fee deposit). Once the conditions are met, you will be issued your Provincial Attestation Letter (PAL). Please allow 6-10 working days for issuance.</p>
-                    ${acceptedDocUrl ? `<p><a href="${acceptedDocUrl}" target="_blank">Download Official Letter of Acceptance (LOA PDF)</a></p>` : ''}
-                    <p><a href="https://cannogacollege.ca/portal">Log In to Student Portal</a></p>
+                    ${acceptedDocUrl ? `
+                    <div style="margin: 28px 0; text-align: left;">
+                        <a href="${acceptedDocUrl}" target="_blank" style="background-color: #0a151a; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 14px; display: inline-block; letter-spacing: 0.5px;">
+                            Download Official Letter of Acceptance (LOA PDF)
+                        </a>
+                    </div>
+                    ` : ''}
+                    <p><a href="https://cannogacollege.ca/portal/student/offer" style="color: #0a151a; font-weight: bold; text-decoration: underline;">View Offer Details in Student Portal →</a></p>
                     <p>Warm regards,<br>
                     Todd Banning<br>
                     International Admissions Officer<br>
@@ -443,6 +572,7 @@ serve(async (req) => {
                     <p><strong>ID:</strong> ${applicationData?.student_id || 'N/A'}</p>
                     <p><strong>Program:</strong> ${applicationData?.course_title || 'N/A'}</p>
                     <p>The student has officially accepted their admission offer.</p>
+                    ${acceptedDocUrl ? `<p><a href="${acceptedDocUrl}" target="_blank">View Accepted LOA PDF</a></p>` : ''}
                 `;
                 break;
 
@@ -511,38 +641,82 @@ serve(async (req) => {
                     https://cannogacollege.ca</p>
                 `;
 
-                // Attach Official Admission Letter PDF if applicable
-                const admAppId = applicationData?.id || record?.id || record?.application_id;
+                // Resolve and attach Official Admission Letter PDF if applicable
+                const admAppId = applicationData?.id || record?.id || record?.application_id || applicationId;
+                let admDocUrl = documentUrl || applicationData?.document_url || null;
+
+                if (!admDocUrl && admAppId) {
+                    const { data: offerRec } = await supabase
+                        .from('admission_offers')
+                        .select('document_url')
+                        .eq('application_id', admAppId)
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .maybeSingle();
+                    if (offerRec?.document_url) {
+                        admDocUrl = offerRec.document_url;
+                    }
+                }
+
+                if (!admDocUrl && admAppId) {
+                    const { data: docRec } = await supabase
+                        .from('document_records')
+                        .select('storage_path')
+                        .eq('document_type', 'loa')
+                        .or(`metadata->>application_id.eq.${admAppId},storage_path.ilike.%${admAppId}%`)
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .maybeSingle();
+                    if (docRec?.storage_path) {
+                        admDocUrl = docRec.storage_path;
+                    }
+                }
+
                 if (admAppId) {
                     try {
-                        const { data: pdfRes } = await supabaseAdmin.functions.invoke('generate-admission-letter', {
+                        const { data: pdfRes } = await supabase.functions.invoke('generate-admission-letter', {
                             body: { applicationId: admAppId, type: 'ADMISSION' }
                         });
+                        if (pdfRes?.url && !admDocUrl) {
+                            admDocUrl = pdfRes.url;
+                        }
                         if (pdfRes?.pdfBase64) {
                             studentAttachments.push({
                                 filename: `Cannoga_Official_Admission_Letter_${firstName || 'Student'}.pdf`,
                                 content: pdfRes.pdfBase64
                             });
                             console.log(`[send-notification] Attached Official Admission Letter PDF as base64.`);
-                        } else if (pdfRes?.url) {
-                            try {
-                                const fetchRes = await fetch(pdfRes.url);
-                                if (fetchRes.ok) {
-                                    const buf = await fetchRes.arrayBuffer();
-                                    const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
-                                    studentAttachments.push({
-                                        filename: `Cannoga_Official_Admission_Letter_${firstName || 'Student'}.pdf`,
-                                        content: b64
-                                    });
-                                }
-                            } catch (fErr) {
-                                console.warn("[send-notification] Could not fetch public admission letter URL:", fErr);
-                            }
                         }
                     } catch (err) {
                         console.error("[send-notification] Error generating Admission Letter PDF attachment:", err);
                     }
                 }
+
+                if (admDocUrl && studentAttachments.length === 0) {
+                    try {
+                        const fetchRes = await fetch(admDocUrl);
+                        if (fetchRes.ok) {
+                            const buf = await fetchRes.arrayBuffer();
+                            const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+                            studentAttachments.push({
+                                filename: `Cannoga_Official_Admission_Letter_${firstName || 'Student'}.pdf`,
+                                content: b64
+                            });
+                        }
+                    } catch (fErr) {
+                        console.warn("[send-notification] Could not fetch public admission letter URL:", fErr);
+                    }
+                }
+
+                studentHtml += `
+                    ${admDocUrl ? `
+                    <div style="margin: 28px 0; text-align: left;">
+                        <a href="${admDocUrl}" target="_blank" style="background-color: #0a151a; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 14px; display: inline-block; letter-spacing: 0.5px;">
+                            Download Official Admission Letter (PDF)
+                        </a>
+                    </div>
+                    ` : ''}
+                `;
 
                 break;
 

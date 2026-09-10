@@ -67,7 +67,18 @@ export async function respondToOffer(admissionId: string, decision: 'ACCEPTED' |
                 .single();
 
             if (acceptedApp) {
-                await generateAndStoreLOA(acceptedApp.id, acceptedApp);
+                const loaRes = await generateAndStoreLOA(acceptedApp.id, acceptedApp);
+                try {
+                    await supabase.functions.invoke('send-notification', {
+                        body: {
+                            applicationId: acceptedApp.id,
+                            type: 'OFFER_ACCEPTED',
+                            documentUrl: loaRes?.url
+                        }
+                    });
+                } catch (notifyErr) {
+                    console.error('Failed to trigger OFFER_ACCEPTED notification in respondToOffer:', notifyErr);
+                }
             }
         } catch (loaError) {
             console.error('Failed to generate LOA on offer response:', loaError);
@@ -198,7 +209,18 @@ export async function acceptApplicationOffer(applicationId: string, userId?: str
             .single();
 
         if (!appFetchError && application) {
-            await generateAndStoreLOA(applicationId, application);
+            const loaRes = await generateAndStoreLOA(applicationId, application);
+            try {
+                await supabase.functions.invoke('send-notification', {
+                    body: {
+                        applicationId: applicationId,
+                        type: 'OFFER_ACCEPTED',
+                        documentUrl: loaRes?.url
+                    }
+                });
+            } catch (notifyErr) {
+                console.error('Failed to trigger OFFER_ACCEPTED notification in acceptApplicationOffer:', notifyErr);
+            }
         }
     } catch (loaError) {
         console.error('Failed to generate LOA on offer acceptance:', loaError);
