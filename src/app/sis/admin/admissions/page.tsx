@@ -152,43 +152,54 @@ export default function AdmissionsPage() {
         title="Admissions"
         subtitle="Review and process admissions applications"
         actions={
-          <Link href="/sis/admin/admissions/new/" className="inline-flex items-center gap-2 px-4 py-2 bg-white text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-neutral-200 transition-colors no-underline">
+          <Link
+            href="/portal/apply/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white text-neutral-900 text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-neutral-200 transition-colors no-underline"
+          >
             <HugeiconsIcon icon={FileText} size={14} strokeWidth={2.5} /> New Application
           </Link>
         }
       />
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div className="bg-[#1a1a1a] border border-white/8 rounded-2xl p-5">
           <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-600">Total Applications</div>
           <div className="text-2xl font-black text-white mt-1">{data.length}</div>
         </div>
         <div className="bg-[#1a1a1a] border border-white/8 rounded-2xl p-5">
+          <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-600">Draft / New</div>
+          <div className="text-2xl font-black text-amber-400 mt-1">{data.filter(a => a.status === 'DRAFT').length}</div>
+        </div>
+        <div className="bg-[#1a1a1a] border border-white/8 rounded-2xl p-5">
           <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-600">Under Review</div>
-          <div className="text-2xl font-black text-white mt-1">{data.filter(a => a.status === 'UNDER_REVIEW' || a.status === 'DOCS_REQUIRED').length}</div>
+          <div className="text-2xl font-black text-sky-400 mt-1">{data.filter(a => a.status === 'UNDER_REVIEW' || a.status === 'DOCS_REQUIRED' || a.status === 'SUBMITTED').length}</div>
         </div>
         <div className="bg-[#1a1a1a] border border-white/8 rounded-2xl p-5">
           <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-600">Admitted</div>
-          <div className="text-2xl font-black text-white mt-1">{data.filter(a => a.status === 'ADMITTED' || a.status === 'OFFER_ACCEPTED').length}</div>
+          <div className="text-2xl font-black text-emerald-400 mt-1">{data.filter(a => a.status === 'ADMITTED' || a.status === 'OFFER_ACCEPTED').length}</div>
         </div>
         <div className="bg-[#1a1a1a] border border-white/8 rounded-2xl p-5">
-          <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-600">Rejected</div>
-          <div className="text-2xl font-black text-slate-400 mt-1">{data.filter(a => a.status === 'REJECTED' || a.status === 'OFFER_DECLINED').length}</div>
+          <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-600">Enrolled</div>
+          <div className="text-2xl font-black text-purple-400 mt-1">{data.filter(a => a.status === 'ENROLLED').length}</div>
         </div>
       </div>
 
       <ActionToolbar
-        search={<SearchBar value={search} onChange={setSearch} placeholder="Search by application #, name, email, program..." />}
+        search={<SearchBar value={search} onChange={(v) => { setSearch(v); setPage(1); }} placeholder="Search by application #, name, email, program..." />}
         filter={
           <FilterBar
             filters={[
-              { key: 'status', label: 'Status', value: statusFilter, onChange: setStatusFilter, options: [
+              { key: 'status', label: 'Status', value: statusFilter, onChange: (v) => { setStatusFilter(v); setPage(1); }, options: [
                 { value: '', label: 'All Statuses' },
+                { value: 'DRAFT', label: 'Draft / New' },
                 { value: 'SUBMITTED', label: 'Submitted' },
                 { value: 'UNDER_REVIEW', label: 'Under Review' },
                 { value: 'DOCS_REQUIRED', label: 'Documents Required' },
                 { value: 'ADMITTED', label: 'Admitted' },
                 { value: 'OFFER_ACCEPTED', label: 'Offer Accepted' },
+                { value: 'ENROLLED', label: 'Enrolled' },
                 { value: 'REJECTED', label: 'Rejected' },
                 { value: 'OFFER_DECLINED', label: 'Offer Declined' },
               ]},

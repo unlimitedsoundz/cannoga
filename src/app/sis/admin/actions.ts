@@ -36,7 +36,7 @@ export async function getSISAdminDashboardStats() {
       adminClient.from('School').select('*', { count: 'exact', head: true }),
       adminClient.from('audit_logs').select('*', { count: 'exact', head: true }),
       adminClient.from('students').select('id, student_id, enrollment_status, start_date, program_id, user_id, current_stage, pal_status, pal_required, study_permit_status, arrival_status, checkin_status, orientation_status, registration_status').order('created_at', { ascending: false }).limit(5),
-      adminClient.from('applications').select('id, application_number, status, course_id, user_id, submitted_at').order('submitted_at', { ascending: false }).limit(5).neq('status', 'DRAFT'),
+      adminClient.from('applications').select('id, application_number, status, course_id, user_id, submitted_at, created_at').order('created_at', { ascending: false }).limit(5),
       adminClient.from('module_enrollments').select(`
         id, student_id, module_id, semester_id, status, grade,
         student:students(student_id, enrollment_status, user:profiles(first_name, last_name)),
@@ -48,6 +48,7 @@ export async function getSISAdminDashboardStats() {
     ]);
 
     const statusCounts = {
+      DRAFT: allApplications?.filter((s: any) => s.status === 'DRAFT').length || 0,
       SUBMITTED: allApplications?.filter((s: any) => s.status === 'SUBMITTED').length || 0,
       UNDER_REVIEW: allApplications?.filter((s: any) => s.status === 'UNDER_REVIEW' || s.status === 'DOCS_REQUIRED').length || 0,
       ADMITTED: allApplications?.filter((s: any) => s.status === 'ADMITTED' || s.status === 'OFFER_ACCEPTED').length || 0,
@@ -207,9 +208,7 @@ export async function getSISAdmissionsApplications() {
         course:Course(title, slug, degreeLevel),
         user:profiles(first_name, last_name, email, student_id)
       `)
-      .neq('status', 'DRAFT')
-      .order('submitted_at', { ascending: false })
-      .limit(20);
+      .order('created_at', { ascending: false });
 
     if (error) throw error;
 
