@@ -67,15 +67,23 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                     // Even if we have a Supabase user, we verify the profile exists in DB
                     const { data: prof, error: profError } = await supabase
                         .from('profiles')
-                        .select('id, role')
+                        .select('id, role, portal_access_disabled')
                         .eq('id', sbUser.id)
                         .single();
 
                     console.log('[PortalLayout] Profile Check:', {
                         hasProfile: !!prof,
                         role: prof?.role,
+                        portal_access_disabled: prof?.portal_access_disabled,
                         error: profError
                     });
+
+                    if (prof?.portal_access_disabled) {
+                        console.warn('[PortalLayout] User portal access is disabled, logging out');
+                        await supabase.auth.signOut();
+                        router.push('/portal/account/login?message=access_disabled');
+                        return;
+                    }
 
                     if (prof) {
                         setAuthorized(true);

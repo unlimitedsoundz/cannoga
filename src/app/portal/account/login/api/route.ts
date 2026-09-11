@@ -89,7 +89,8 @@ export async function POST(request: NextRequest) {
         .single();
 
     if (profile?.portal_access_disabled) {
-        return withAuthCookies(NextResponse.json({ error: 'Access disabled: Your account has been restricted from accessing cannogacollege.ca.' }, { status: 403 }));
+        await supabase.auth.signOut();
+        return NextResponse.json({ error: 'Access disabled: Your account has been restricted from accessing cannogacollege.ca.' }, { status: 403 });
     }
 
     if (profile?.role === 'ADMIN') {

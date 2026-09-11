@@ -20,9 +20,15 @@ export default function PortalIndexPage() {
 
             const { data: profile } = await supabase
                 .from('profiles')
-                .select('role')
+                .select('role, portal_access_disabled')
                 .eq('id', user.id)
                 .single();
+
+            if (profile?.portal_access_disabled) {
+                await supabase.auth.signOut();
+                router.replace('/portal/account/login?message=access_disabled');
+                return;
+            }
 
             if (profile?.role === 'ADMIN') {
                 router.replace('/sis/admin/');

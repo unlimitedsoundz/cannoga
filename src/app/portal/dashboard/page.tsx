@@ -14,9 +14,14 @@ export default async function DashboardPage() {
     const adminClient = createServiceRoleClient();
     const { data: profile } = await adminClient
         .from('profiles')
-        .select('role')
+        .select('role, portal_access_disabled')
         .eq('id', user.id)
         .single();
+
+    if (profile?.portal_access_disabled) {
+        redirect('/portal/account/login?message=access_disabled');
+        return null;
+    }
 
     if (profile?.role === 'ADMIN') {
         redirect('/sis/admin');

@@ -51,7 +51,7 @@ export async function proxy(request: NextRequest) {
 
     const { data: profile, error: profileError } = await (async () => {
         if (!user) return { data: null, error: null };
-        return await supabase.from('profiles').select('role').eq('id', user.id).single();
+        return await supabase.from('profiles').select('role, portal_access_disabled').eq('id', user.id).single();
     })();
 
     const pathname = request.nextUrl.pathname;
@@ -61,10 +61,14 @@ export async function proxy(request: NextRequest) {
             (p) => pathname === p || pathname.startsWith(p + '/')
         );
 
-        if (!isPublicPortalPath && !user) {
+        if (!isPublicPortalPath && (!user || profile?.portal_access_disabled)) {
             const loginUrl = request.nextUrl.clone();
             loginUrl.pathname = '/portal/account/login';
-            loginUrl.searchParams.set('redirectedFrom', pathname);
+            if (profile?.portal_access_disabled) {
+                loginUrl.searchParams.set('message', 'access_disabled');
+            } else {
+                loginUrl.searchParams.set('redirectedFrom', pathname);
+            }
             return NextResponse.redirect(loginUrl);
         }
     }
@@ -86,10 +90,14 @@ export async function proxy(request: NextRequest) {
     }
 
     if (AUTH_REQUIRED_PATHS.some((p) => pathname.startsWith(p))) {
-        if (!user) {
+        if (!user || profile?.portal_access_disabled) {
             const loginUrl = request.nextUrl.clone();
             loginUrl.pathname = '/portal/account/login';
-            loginUrl.searchParams.set('redirectedFrom', pathname);
+            if (profile?.portal_access_disabled) {
+                loginUrl.searchParams.set('message', 'access_disabled');
+            } else {
+                loginUrl.searchParams.set('redirectedFrom', pathname);
+            }
             return NextResponse.redirect(loginUrl);
         }
 

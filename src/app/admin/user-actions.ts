@@ -12,6 +12,17 @@ export async function togglePortalAccess(userId: string, disabled: boolean) {
             .update({ portal_access_disabled: disabled })
             .eq('id', userId);
         if (error) throw error;
+
+        try {
+            if (disabled) {
+                await adminClient.auth.admin.updateUserById(userId, { ban_duration: '876600h' });
+            } else {
+                await adminClient.auth.admin.updateUserById(userId, { ban_duration: 'none' });
+            }
+        } catch (authErr) {
+            console.error('togglePortalAccess Auth ban/unban error:', authErr);
+        }
+
         return { success: true };
     } catch (e: any) {
         console.error('togglePortalAccess Error:', e);
