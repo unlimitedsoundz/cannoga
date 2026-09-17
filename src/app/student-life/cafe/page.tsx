@@ -26,8 +26,8 @@ export default function CafePage() {
                     { label: 'Campus Cafe' }
                 ]}
                 image={{
-                    src: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000&auto=format&fit=crop",
-                    alt: "Campus Cafe Atmosphere"
+                    src: "/images/cannoga-campus-directory.jpg",
+                    alt: "CAFE Cannoga Campus Wayfinding & Entrance"
                 }}
             >
                 <div className="flex flex-wrap gap-4">

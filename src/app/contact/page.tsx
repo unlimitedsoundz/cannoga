@@ -205,6 +205,28 @@ export default function ContactPage() {
                         Explore learning spaces, laboratories, and administrative centers at our Ottawa campus.
                     </p>
                     <InteractiveCampusMap />
+
+                    {/* On-Site Directory Spotlight */}
+                    <div className="grid md:grid-cols-12 gap-6 items-center bg-slate-50 border border-slate-200 p-4 sm:p-6 rounded-sm mt-6">
+                        <div className="md:col-span-4 relative aspect-[4/3] sm:aspect-[16/10] rounded-sm overflow-hidden border border-slate-200 shadow-sm">
+                            <Image
+                                src="/images/cannoga-campus-directory.jpg"
+                                alt="Cannoga College On-Site Campus Directory & Wayfinding Sign"
+                                fill
+                                className="object-cover object-center"
+                                sizes="(max-width: 768px) 100vw, 380px"
+                            />
+                        </div>
+                        <div className="md:col-span-8 space-y-2">
+                            <span className="text-[11px] font-bold uppercase tracking-widest text-[#0a151a] bg-white border border-slate-200 px-2.5 py-1 inline-block">
+                                On-Site Campus Wayfinding
+                            </span>
+                            <h3 className="text-lg md:text-xl font-bold text-slate-900">Official Campus Directory &amp; Hall Navigation</h3>
+                            <p className="text-sm md:text-base text-slate-700 leading-relaxed font-normal">
+                                Directional directory located at the main campus entrance (81 Montreal Rd) navigating students, faculty, and visitors to Dr. Luke Schaffner Hall 01, Edgar Hanley Hall, Administrative Offices, the Patio, and CAFE Cannoga.
+                            </p>
+                        </div>
+                    </div>
                 </section>
 
             </div>

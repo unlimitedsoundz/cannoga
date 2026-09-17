@@ -275,14 +275,14 @@ export default function ArrivalGuidePage() {
                                 <div className="flex flex-col gap-5">
                                     <div className="relative h-[148px] rounded-2xl overflow-hidden shadow-sm group">
                                         <Image
-                                            src="https://i.pinimg.com/736x/72/02/74/72027422a2b62ce0f06b599060ea5be1.jpg"
-                                            alt="Student Collaboration"
+                                            src="/images/cannoga-campus-directory.jpg"
+                                            alt="Cannoga College Campus Directory & Wayfinding"
                                             fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                            className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                                         />
                                         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
                                         <div className="absolute bottom-3 left-3 text-white">
-                                            <p className="text-xs font-bold text-white">Academic Workspaces</p>
+                                            <p className="text-xs font-bold text-white">Campus Wayfinding & Directory</p>
                                         </div>
                                     </div>
                                     <div className="relative h-[148px] rounded-2xl overflow-hidden shadow-sm group">
