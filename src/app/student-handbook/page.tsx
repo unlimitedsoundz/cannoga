@@ -224,8 +224,8 @@ export default function StudentHandbookPage() {
                     { label: 'Student Handbook' }
                 ]}
                 image={{
-                    src: "/images/alumni-hero.png",
-                    alt: "Cannoga Student Handbook"
+                    src: "/images/cannoga-campus-street.jpg",
+                    alt: "Cannoga College Ottawa Campus"
                 }}
             />
 

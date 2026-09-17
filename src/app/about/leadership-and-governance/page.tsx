@@ -178,7 +178,7 @@ export default function LeadershipGovernancePage() {
                     { label: 'Leadership & Governance' }
                 ]}
                 image={{
-                    src: "/images/about-hero.png",
+                    src: "/images/cannoga-campus-entrance.jpg",
                     alt: "Cannoga College Ottawa Campus Administration Building"
                 }}
             />

@@ -81,7 +81,7 @@ export default async function AboutPage() {
                     { label: 'About' }
                 ]}
                 image={{
-                    src: "/images/about-hero.png",
+                    src: "/images/cannoga-campus-main.jpg",
                     alt: "Cannoga College Ottawa Campus main building"
                 }}
             />

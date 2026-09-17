@@ -262,7 +262,7 @@ export default function ArrivalGuidePage() {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                                 <div className="md:col-span-2 relative h-[320px] rounded-2xl overflow-hidden shadow-sm group">
                                     <Image
-                                        src="https://i.pinimg.com/736x/68/37/06/683706ddb24b3e62f37aecf01fd43be9.jpg"
+                                        src="/images/cannoga-campus-main.jpg"
                                         alt="Cannoga Student Arrival & Campus Experience"
                                         fill
                                         className="object-cover group-hover:scale-105 transition-transform duration-700"

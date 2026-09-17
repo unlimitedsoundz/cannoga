@@ -118,6 +118,15 @@ export default function AdmissionsContactInfo() {
                                                  </p>
                                              </div>
                                          </div>
+                                         <div className="relative aspect-video sm:aspect-[21/9] rounded-sm overflow-hidden border border-slate-200 shadow-sm mt-4">
+                                             <Image
+                                                 src="/images/cannoga-campus-facade.jpg"
+                                                 alt="Cannoga College Ottawa Campus Building at 81 Montreal Rd"
+                                                 fill
+                                                 className="object-cover object-center"
+                                                 sizes="(max-width: 1024px) 100vw, 800px"
+                                             />
+                                         </div>
                                      </div>
 
                                      {/* Application Note */}

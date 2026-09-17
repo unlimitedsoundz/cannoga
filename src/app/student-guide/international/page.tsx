@@ -118,8 +118,8 @@ export default function InternationalGuidePage() {
                                 </div>
                                 <div className="relative aspect-video overflow-hidden rounded-lg">
                                     <Image
-                                        src="https://i.pinimg.com/736x/c8/72/86/c8728659d34059076a2ed84d690fd379.jpg"
-                                        alt="Why Study in Ottawa, Ontario, Canada"
+                                        src="/images/cannoga-campus-aerial.jpg"
+                                        alt="Why Study at Cannoga College in Ottawa, Ontario, Canada"
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 1024px) 100vw, 50vw"

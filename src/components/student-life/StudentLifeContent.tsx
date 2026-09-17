@@ -61,12 +61,12 @@ export default function StudentLifeContent() {
                             </p>
                         </div>
 
-                        <div className="lg:col-span-6 relative aspect-square sm:aspect-[4/3] rounded-xl overflow-hidden border border-slate-200">
+                        <div className="lg:col-span-6 relative aspect-square sm:aspect-[16/10] rounded-xl overflow-hidden border border-slate-200 shadow-sm">
                             <Image
-                                src="/images/ottawa-campus.jpg"
-                                alt="Ottawa Campus Environment"
+                                src="/images/urban-academic-district.jpg"
+                                alt="Cannoga College Urban Academic District in Ottawa"
                                 fill
-                                className="object-cover object-top"
+                                className="object-cover object-center"
                                 sizes="(max-width: 1024px) 100vw, 50vw"
                             />
                         </div>

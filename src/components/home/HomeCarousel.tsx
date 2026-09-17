@@ -31,7 +31,7 @@ const slides: Slide[] = [
     {
         title: "State-of-the-art campus in Ottawa",
         body: "Enjoy advanced facilities, modern laboratories, and collaborative workspaces designed to foster innovation and learning.",
-        image: "/images/home-carousel-3.png",
+        image: "/images/cannoga-campus-aerial.jpg",
         btnText: "Book a campus visit",
         btnHref: "/contact"
     }

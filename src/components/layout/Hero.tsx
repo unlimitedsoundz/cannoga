@@ -73,7 +73,7 @@ export function Hero({
                     {!videoSrc && image && (
                         <div className="absolute inset-0 w-full h-full z-0">
                             <Image
-                                src={image.src || (image.srcSet ? image.srcSet[0].src : '/images/campus-welcome-v2.png')}
+                                src={image.src || (image.srcSet ? image.srcSet[0].src : '/images/cannoga-campus-main.jpg')}
                                 alt={image.alt || "Hero Image"}
                                 fill
                                 priority
