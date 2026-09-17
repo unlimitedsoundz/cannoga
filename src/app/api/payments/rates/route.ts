@@ -21,7 +21,7 @@ export async function GET() {
         return NextResponse.json({ error: 'Failed to fetch rates' }, { status: 500 });
     }
 
-    // Return as a map for easy lookups: { NGN: { rate: 1120, ... }, USD: { ... } }
+    // Return as a map for easy lookups: { NGN: { rate: 920.45, ... }, USD: { ... } }
     const rateMap: Record<string, any> = {};
     for (const r of data ?? []) {
         rateMap[r.to_currency] = r;

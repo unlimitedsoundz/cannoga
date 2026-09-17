@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS institutional_exchange_rates (
 
 INSERT INTO institutional_exchange_rates (from_currency, to_currency, rate_multiplier, lock_duration_hours, notes)
 VALUES
-    ('CAD','NGN',1120.000000, 48,'Institutional locked rate. CBN reference rate with margin.'),
+    ('CAD','NGN',920.450000,  48,'Institutional locked rate. CBN reference rate with margin.'),
     ('CAD','USD',0.730000,    48,'Bank of Canada mid-market rate with margin.'),
     ('CAD','GBP',0.580000,    48,'Bank of Canada mid-market rate with margin.'),
     ('CAD','GHS',11.200000,   48,'Bank of Canada mid-market rate with margin.'),
