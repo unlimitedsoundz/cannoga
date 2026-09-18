@@ -39,7 +39,7 @@ export default function PortalLoginPage() {
             const { error: oauthError } = await supabase.auth.signInWithOAuth({
                 provider: 'azure',
                 options: {
-                    scopes: 'email',
+                    scopes: 'openid email profile',
                     redirectTo,
                 },
             });
