@@ -4,42 +4,43 @@ import { createClient } from '@/lib/supabase/server';
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
+    const requestUrl = new URL(request.url);
+
+    const code = requestUrl.searchParams.get('code');
+    const flowId = requestUrl.searchParams.get('sb_flow_id');
+
+    let next = requestUrl.searchParams.get('next') ?? '/sis';
+
+    if (!next.startsWith('/') || next.startsWith('//')) {
+        next = '/sis';
+    }
+
+    const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
+    const proto = request.headers.get('x-forwarded-proto') || 'https';
+    const publicOrigin = host && !host.includes('0.0.0.0') ? `${proto}://${host}` : requestUrl.origin;
+
+    if (!code) {
+        console.error('[AUTH CALLBACK] Missing code');
+
+        return NextResponse.redirect(
+            new URL('/portal/account/login/?error=missing_code', publicOrigin)
+        );
+    }
+
     try {
-        const requestUrl = new URL(request.url);
-
-        const code = requestUrl.searchParams.get('code');
-        let next = requestUrl.searchParams.get('next') ?? '/sis';
-
-        // Prevent external redirect injection
-        if (!next.startsWith('/') || next.startsWith('//')) {
-            next = '/sis';
-        }
-
-        // Resolve public origin (accounting for Hostinger reverse proxy 0.0.0.0:3000)
-        const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
-        const proto = request.headers.get('x-forwarded-proto') || 'https';
-        const publicOrigin = host && !host.includes('0.0.0.0') ? `${proto}://${host}` : requestUrl.origin;
-
-        if (!code) {
-            console.error('[AUTH CALLBACK] Missing authorization code');
-            return NextResponse.redirect(
-                new URL('/portal/account/login/?error=missing_auth_code', publicOrigin)
-            );
-        }
-
-        console.log('[AUTH CALLBACK] Authorization code received');
-
         const supabase = await createClient();
 
-        console.log('[AUTH CALLBACK] Supabase server client created');
-
-        const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+        const { data, error } = await supabase.auth.exchangeCodeForSession(
+            code,
+            flowId ? { flowId } : undefined
+        );
 
         if (error) {
-            console.error('[AUTH CALLBACK] exchangeCodeForSession failed:', {
+            console.error('[AUTH CALLBACK] Exchange failed:', {
                 message: error.message,
-                status: error.status,
                 code: error.code,
+                status: error.status,
+                flowId,
             });
 
             return NextResponse.redirect(
@@ -50,14 +51,14 @@ export async function GET(request: Request) {
             );
         }
 
-        console.log(
-            '[AUTH CALLBACK] Session created:',
-            Boolean(data.session)
-        );
+        console.log('[AUTH CALLBACK] SUCCESS', {
+            hasSession: !!data.session,
+            userId: data.user?.id,
+        });
 
         // Auto-link student profile if @cannogacollege.ca account
         try {
-            const user = data?.session?.user;
+            const user = data?.session?.user || data?.user;
             const userEmail = user?.email?.toLowerCase().trim() || '';
             if (user && userEmail) {
                 const { createServiceRoleClient } = await import('@/utils/supabase/server-admin');
@@ -88,17 +89,12 @@ export async function GET(request: Request) {
         return NextResponse.redirect(
             new URL(next, publicOrigin)
         );
-    } catch (error: any) {
-        console.error('[AUTH CALLBACK] Unhandled callback error:', error);
-
-        const requestUrl = new URL(request.url);
-        const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
-        const proto = request.headers.get('x-forwarded-proto') || 'https';
-        const publicOrigin = host && !host.includes('0.0.0.0') ? `${proto}://${host}` : requestUrl.origin;
+    } catch (error) {
+        console.error('[AUTH CALLBACK] Unexpected failure:', error);
 
         return NextResponse.redirect(
             new URL(
-                `/portal/account/login/?error=${encodeURIComponent(error?.message || 'callback_server_error')}`,
+                '/portal/account/login/?error=callback_failure',
                 publicOrigin
             )
         );

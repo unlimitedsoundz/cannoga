@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Hero } from '@/components/layout/Hero';
 import { Eye, EyeSlash } from "@phosphor-icons/react";
 import { Toaster, toast } from 'sonner';
+import MicrosoftLoginButton from '@/components/auth/MicrosoftLoginButton';
 
 export default function PortalLoginPage() {
     const [identifier, setIdentifier] = useState('');
@@ -27,31 +28,6 @@ export default function PortalLoginPage() {
         }
     }, [searchParams]);
 
-    const [isMicrosoftLoading, setIsMicrosoftLoading] = useState(false);
-
-    const handleMicrosoftLogin = async () => {
-        setIsMicrosoftLoading(true);
-        setError(null);
-        try {
-            const { createClient } = await import('@/utils/supabase/client');
-            const supabase = createClient();
-            const redirectTo = `${window.location.origin}/auth/callback/?next=/sis`;
-            const { error: oauthError } = await supabase.auth.signInWithOAuth({
-                provider: 'azure',
-                options: {
-                    scopes: 'openid email profile',
-                    redirectTo,
-                },
-            });
-            if (oauthError) {
-                setError(oauthError.message);
-                setIsMicrosoftLoading(false);
-            }
-        } catch (err: any) {
-            setError(err?.message || 'Failed to initiate Microsoft login');
-            setIsMicrosoftLoading(false);
-        }
-    };
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -235,20 +211,7 @@ export default function PortalLoginPage() {
                         </div>
 
                         <div className="sm:pl-39 max-w-[539px]">
-                            <button
-                                type="button"
-                                onClick={handleMicrosoftLogin}
-                                disabled={isMicrosoftLoading}
-                                className="w-full max-w-[400px] h-[38px] flex items-center justify-center gap-3 border border-neutral-300 hover:border-neutral-400 bg-white hover:bg-neutral-50 active:bg-neutral-100 text-neutral-800 font-semibold text-[13px] rounded-md transition-all shadow-xs cursor-pointer disabled:opacity-60"
-                            >
-                                <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 23 23">
-                                    <path fill="#f35325" d="M1 1h10v10H1z"/>
-                                    <path fill="#81bc06" d="M12 1h10v10H12z"/>
-                                    <path fill="#05a6f0" d="M1 12h10v10H1z"/>
-                                    <path fill="#ffba08" d="M12 12h10v10H12z"/>
-                                </svg>
-                                <span>{isMicrosoftLoading ? 'Connecting to Microsoft...' : 'Sign in with Microsoft 365'}</span>
-                            </button>
+                            <MicrosoftLoginButton />
                             <p className="text-[11px] text-neutral-500 mt-2">
                                 For students & faculty with an official <strong>@cannogacollege.ca</strong> account
                             </p>

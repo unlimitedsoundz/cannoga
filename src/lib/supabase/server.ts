@@ -11,7 +11,13 @@ export async function createClient() {
         {
             cookies: {
                 getAll() {
-                    return cookieStore.getAll();
+                    return cookieStore.getAll().map((cookie) => {
+                        let value = cookie.value;
+                        if (typeof value === 'string' && value.startsWith('"') && value.endsWith('"')) {
+                            value = value.slice(1, -1);
+                        }
+                        return { name: cookie.name, value };
+                    });
                 },
 
                 setAll(cookiesToSet) {
@@ -20,7 +26,7 @@ export async function createClient() {
                             cookieStore.set(name, value, options);
                         });
                     } catch (error) {
-                        console.error('[SUPABASE SERVER] Unable to set cookies:', error);
+                        console.error('Supabase cookie write failed:', error);
                     }
                 },
             },

@@ -26,11 +26,18 @@ export async function proxy(request: NextRequest) {
 
     const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
         {
             cookies: {
                 getAll() {
-                    return request.cookies.getAll();
+                    return request.cookies.getAll().map((cookie) => {
+                        let value = cookie.value;
+                        if (typeof value === 'string' && value.startsWith('"') && value.endsWith('"')) {
+                            value = value.slice(1, -1);
+                        }
+                        return { name: cookie.name, value };
+                    });
                 },
                 setAll(cookiesToSet) {
                     cookiesToSet.forEach(({ name, value }) =>
