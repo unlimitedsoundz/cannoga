@@ -228,14 +228,27 @@ export default function StudentMailPage() {
                                 <HugeiconsIcon icon={SpinnerIcon} size={18} strokeWidth={2} style={{ animation: 'spin 1s linear infinite' }} />
                                 <span style={{ fontSize: 13 }}>Loading messages...</span>
                             </div>
+                        ) : needsReauth ? (
+                            <div style={{ padding: 24 }}>
+                                <div style={{ background: '#fef3c7', border: '1px solid #fbbf24', borderRadius: 10, padding: 16, marginBottom: 16 }}>
+                                    <p style={{ margin: '0 0 6px', fontSize: 13, fontWeight: 700, color: '#92400e' }}>🔒 Admin Approval Required</p>
+                                    <p style={{ margin: 0, fontSize: 12, color: '#78350f', lineHeight: 1.6 }}>
+                                        Your Microsoft 365 tenant requires an admin to approve mail access for this app.
+                                        Ask your IT administrator to visit the link below and click <strong>Accept</strong>:
+                                    </p>
+                                </div>
+                                <p style={{ fontSize: 11, fontWeight: 700, color: '#475569', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Admin consent URL</p>
+                                <code style={{ display: 'block', background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: 6, padding: '8px 10px', fontSize: 11, color: '#0f172a', wordBreak: 'break-all', marginBottom: 16 }}>
+                                    https://login.microsoftonline.com/cannogacollege.ca/adminconsent?client_id=YOUR_AZURE_CLIENT_ID
+                                </code>
+                                <p style={{ fontSize: 11, color: '#94a3b8', lineHeight: 1.6 }}>
+                                    Once the admin approves, students sign out and sign back in with Microsoft 365.
+                                    Mail access will then work automatically.
+                                </p>
+                            </div>
                         ) : error ? (
                             <div style={{ padding: 24, textAlign: 'center' }}>
                                 <p style={{ fontSize: 13, color: '#ef4444', marginBottom: 8 }}>{error}</p>
-                                {needsReauth && (
-                                    <a href="/portal/account/login" style={{ fontSize: 12, color: '#0ea5e9', textDecoration: 'underline' }}>
-                                        Sign in again with Microsoft 365
-                                    </a>
-                                )}
                             </div>
                         ) : messages.length === 0 ? (
                             <div style={{ padding: 32, textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
