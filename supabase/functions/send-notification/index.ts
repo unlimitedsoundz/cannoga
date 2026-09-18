@@ -164,7 +164,9 @@ serve(async (req) => {
                     notificationType = 'OFFER_LETTER_READY';
                 } else if (rawStatus === 'OFFER_ACCEPTED') {
                     notificationType = 'OFFER_ACCEPTED';
-                } else if (rawStatus === 'ADMISSION_LETTER_GENERATED' || rawStatus === 'ENROLLED' || record?.enrollment_status === 'Active') {
+                } else if (rawStatus === 'ENROLLED' || record?.enrollment_status === 'Active') {
+                    notificationType = 'PRESIDENT_WELCOME';
+                } else if (rawStatus === 'ADMISSION_LETTER_GENERATED') {
                     notificationType = 'ADMISSION_LETTER_READY';
                 } else if (rawStatus === 'REJECTED') {
                     notificationType = 'APPLICATION_REJECTED';
@@ -190,7 +192,7 @@ serve(async (req) => {
 
         // Configuration
         const adminEmail = Deno.env.get("ADMIN_NOTIFICATION_EMAIL") || "unlymitedsoundz@gmail.com";
-        const sender = Deno.env.get("SENDER_EMAIL") || "Cannoga College <admissions@cannogacollege.ca>";
+        let sender = Deno.env.get("SENDER_EMAIL") || "Cannoga College <admissions@cannogacollege.ca>";
 
         // Fetch User Info if missing
         let userEmail = applicationData?.email;
@@ -586,6 +588,70 @@ serve(async (req) => {
                     <p><strong>Program:</strong> ${applicationData?.course_title || 'N/A'}</p>
                     <p>The student has officially accepted their admission offer.</p>
                     ${acceptedDocUrl ? `<p><a href="${acceptedDocUrl}" target="_blank">View Accepted LOA PDF</a></p>` : ''}
+                `;
+                break;
+
+            case 'PRESIDENT_WELCOME':
+                sender = "Office of the President <president@cannogacollege.ca>";
+                studentSubject = "Welcome to Cannoga College — A Personal Message from the President";
+                studentHtml = `
+                    <p>Dear ${fullName},</p>
+                    
+                    <p>On behalf of our distinguished faculty, dedicated staff, and the entire institutional community, it is my distinct honor and personal pleasure to officially welcome you to <strong>Cannoga College</strong>.</p>
+                    
+                    <p>Your admission and verified enrolment mark the beginning of an exceptional chapter in your academic and professional journey. At Cannoga College, we believe that education must do more than inform—it must transform. Located in Ottawa, Ontario, at the vibrant nexus of public innovation, healthcare excellence, technology, and industry leadership, our institution is dedicated to equipping you with applied knowledge, rigorous intellectual training, and the practical competencies necessary to excel in a rapidly evolving global landscape.</p>
+
+                    <div style="margin: 20px 0; padding: 16px 0; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; line-height: 1.6;">
+                        <p style="margin: 0 0 5px 0;"><strong>Student Name:</strong> ${fullName}</p>
+                        ${applicationData?.student_id ? `<p style="margin: 0 0 5px 0;"><strong>Student ID:</strong> ${applicationData.student_id}</p>` : ''}
+                        ${applicationData?.course_title ? `<p style="margin: 0 0 5px 0;"><strong>Programme of Study:</strong> ${applicationData.course_title}</p>` : ''}
+                        ${applicationData?.intake ? `<p style="margin: 0 0 5px 0;"><strong>Academic Intake:</strong> ${applicationData.intake}</p>` : ''}
+                        <p style="margin: 0 0 5px 0;"><strong>Enrolment Status:</strong> <span style="color: #034737; font-weight: bold;">OFFICIALLY ENROLLED & CONFIRMED</span></p>
+                        <p style="margin: 0;"><strong>Institution:</strong> Cannoga College | Ottawa, Ontario, Canada</p>
+                    </div>
+
+                    <p><strong>What Awaits You at Cannoga College</strong></p>
+                    <p>As an enrolled student, you are now an integral member of a diverse and dynamic academic body representing scholars and aspiring professionals from over 60 nations. Throughout your studies, you will have the privilege of learning from accomplished professors and industry practitioners who bring real-world experience directly into the classroom and specialized laboratories.</p>
+
+                    <p>Beyond academic coursework, you have full access to our comprehensive student support ecosystem, including:</p>
+                    <ul style="margin: 10px 0 16px 20px; padding: 0; line-height: 1.6; font-size: 14px;">
+                        <li><strong>Academic Advising & Faculty Mentorship:</strong> Dedicated guidance to ensure you achieve your academic and professional goals.</li>
+                        <li><strong>Career & Experiential Learning Services:</strong> Direct connections to industry internships, clinical placements, and career development opportunities across Canada.</li>
+                        <li><strong>International Student Support:</strong> Assistance with orientation, settlement in Ottawa, study permits, housing, and integration into Canadian society.</li>
+                        <li><strong>Digital Campus & Research Resources:</strong> 24/7 access to state-of-the-art course modules, digital libraries, and collaborative learning tools via our Student Portal.</li>
+                    </ul>
+
+                    <p><strong>Next Steps & Student Portal Access</strong></p>
+                    <p>Your official student dashboard is active. Please log in regularly to review your course timetable, orientation schedules, required pre-arrival materials, and institutional announcements:</p>
+
+                    <p style="margin: 16px 0; line-height: 1.8;">
+                        &bull; <a href="${portalUrl}/dashboard"><strong>Access Cannoga Student Portal & Dashboard &rarr;</strong></a><br>
+                        &bull; <a href="${portalUrl}/student/timetable">View Academic Timetable & Course Schedule</a><br>
+                        &bull; <a href="${portalUrl}/about/welcome-from-the-president">Read the President's Institutional Vision</a>
+                    </p>
+
+                    <p>We understand that choosing to pursue higher education is one of the most consequential commitments you will make. Please be assured that our faculty and staff are fully invested in your success, your wellbeing, and your future.</p>
+
+                    <p>I look forward to personally greeting you on campus and celebrating your milestones in the years ahead.</p>
+
+                    <div style="margin-top: 24px; padding-top: 14px; border-top: 1px solid #eeeeee;">
+                        <p style="margin: 0 0 4px 0;">With warmest regards and best wishes for your academic journey,</p>
+                        <p style="margin: 12px 0 2px 0; font-size: 15px; font-weight: bold; color: #111111;">Dr. Luke Schaffner, Ph.D., M.Ed.</p>
+                        <p style="margin: 0 0 2px 0; color: #444444; font-size: 13px;">President & Chief Executive Officer</p>
+                        <p style="margin: 0 0 2px 0; color: #444444; font-size: 13px;">Cannoga College</p>
+                        <p style="margin: 0 0 2px 0; font-size: 13px;"><a href="mailto:president@cannogacollege.ca">president@cannogacollege.ca</a> | <a href="https://cannogacollege.ca">https://cannogacollege.ca</a></p>
+                        <p style="margin: 0; color: #666666; font-size: 12px;">Ottawa, Ontario, Canada</p>
+                    </div>
+                `;
+
+                adminSubject = `New Student Enrolled — Welcome Sent: ${fullName}`;
+                adminHtml = `
+                    <h2>Student Enrolled & President's Welcome Dispatched</h2>
+                    <p><strong>Student Name:</strong> ${fullName}</p>
+                    <p><strong>Email:</strong> ${userEmail}</p>
+                    <p><strong>Student ID:</strong> ${applicationData?.student_id || 'N/A'}</p>
+                    <p><strong>Programme:</strong> ${applicationData?.course_title || 'N/A'}</p>
+                    <p>The student's status is officially confirmed as ENROLLED, and the President's Welcome Letter has been automatically sent from president@cannogacollege.ca.</p>
                 `;
                 break;
 

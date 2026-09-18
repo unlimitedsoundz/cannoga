@@ -324,6 +324,25 @@ export async function confirmEnrollment(applicationId: string) {
             console.error('Task generation deferred:', taskError);
         }
 
+        // 10. Automatically dispatch President's Welcome Letter
+        try {
+            const { sendPresidentWelcomeEmail } = await import('@/lib/email');
+            const appUser = application.user;
+            const studentFullName = `${appUser?.first_name || application.personal_info?.firstName || ''} ${appUser?.last_name || application.personal_info?.lastName || ''}`.trim() || 'Student';
+            const studentEmail = appUser?.email || application.personal_info?.email;
+            if (studentEmail) {
+                await sendPresidentWelcomeEmail({
+                    studentEmail,
+                    studentFullName,
+                    studentId: studentId,
+                    courseTitle: (application as any).course?.title || (application as any).Course?.title,
+                    intake: (application as any).intake,
+                });
+            }
+        } catch (presErr) {
+            console.error('President welcome email deferred:', presErr);
+        }
+
         return { success: true, studentId };
 
     } catch (error: any) {

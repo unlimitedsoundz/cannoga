@@ -384,6 +384,26 @@ export async function POST(request: NextRequest) {
                 } catch (emailErr) {
                     console.warn('[verify-wire] email dispatch error:', emailErr);
                 }
+
+                // If academic application was enrolled, send President's Welcome Email
+                if (applicationId && application) {
+                    try {
+                        const { sendPresidentWelcomeEmail } = await import('@/lib/email');
+                        const sEmail = application.user?.email || application.personal_info?.email;
+                        const sFullName = `${application.user?.first_name || application.personal_info?.firstName || 'Student'} ${application.user?.last_name || application.personal_info?.lastName || ''}`.trim();
+                        if (sEmail) {
+                            await sendPresidentWelcomeEmail({
+                                studentEmail: sEmail,
+                                studentFullName: sFullName,
+                                studentId: application.user?.student_id,
+                                courseTitle: application.course?.title,
+                                intake: application.intake,
+                            });
+                        }
+                    } catch (pErr) {
+                        console.error('[verify-wire] Error sending President welcome email:', pErr);
+                    }
+                }
             }
         }
 

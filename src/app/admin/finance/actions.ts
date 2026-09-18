@@ -866,6 +866,27 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
                 .eq('id', applicationId);
 
             if (enrollError) throw enrollError;
+
+            // Automatically dispatch President's Welcome Letter to enrolled student
+            try {
+                const { sendPresidentWelcomeEmail } = await import('@/lib/email');
+                const targetEmail = appUser?.email || application?.personal_info?.email;
+                const fName = appUser?.first_name || application?.personal_info?.firstName || 'Student';
+                const lName = appUser?.last_name || application?.personal_info?.lastName || '';
+                const fullName = `${fName} ${lName}`.trim();
+                const progTitle = (application as any)?.course?.title || (application as any)?.Course?.title || 'Degree Programme';
+                if (targetEmail) {
+                    await sendPresidentWelcomeEmail({
+                        studentEmail: targetEmail,
+                        studentFullName: fullName,
+                        studentId: studentId || undefined,
+                        courseTitle: progTitle,
+                        intake: application?.intake || undefined,
+                    });
+                }
+            } catch (presErr) {
+                console.error('[verifyTuitionPayment] Failed to send President welcome email:', presErr);
+            }
         }
 
         // 6. Update user profile role

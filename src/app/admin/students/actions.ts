@@ -134,14 +134,28 @@ export async function enrollStudent(applicationId: string) {
                 .eq('status', 'PENDING_VERIFICATION');
         }
 
-        // 8. Trigger Post-Enrollment Actions (Docs & Email)
+            // 8. Trigger Post-Enrollment Actions (Docs & Email)
         try {
             const { generateAndStoreAdmissionLetter, generateAndStoreReceipt } = await import('../admissions/pdf-actions');
             await generateAndStoreAdmissionLetter(applicationId);
             await generateAndStoreReceipt(applicationId);
 
-            // Welcome Email and other notifications are now handled by database 
-            // triggers on 'applications' and 'tuition_payments' status changes.
+            // Automatically dispatch President's Welcome Letter to enrolled student
+            try {
+                const { sendPresidentWelcomeEmail } = await import('@/lib/email');
+                const studentFullName = `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'Student';
+                if (user.email) {
+                    await sendPresidentWelcomeEmail({
+                        studentEmail: user.email,
+                        studentFullName,
+                        studentId: studentId,
+                        courseTitle: (application as any).course?.title || (application as any).Course?.title,
+                        intake: (application as any).intake,
+                    });
+                }
+            } catch (pErr) {
+                console.error('Enrollment: President welcome email error', pErr);
+            }
         } catch (postError) {
             console.error('Enrollment: Post-action error', postError);
         }

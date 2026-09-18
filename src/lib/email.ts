@@ -3,6 +3,7 @@ import { Resend } from 'resend';
 
 interface SendEmailParams {
     to: string;
+    from?: string;
     subject: string;
     react?: React.ReactElement;
     html?: string;
@@ -12,13 +13,14 @@ interface SendEmailParams {
     }[];
 }
 
-export async function sendEmail({ to, subject, react, html, attachments }: SendEmailParams) {
+export async function sendEmail({ to, from, subject, react, html, attachments }: SendEmailParams) {
     const apiKey = process.env.RESEND_API_KEY;
 
     // If no API key is provided, log the email content (useful for dev/demo)
     if (!apiKey) {
         console.log('---------------------------------------------------');
         console.log(`[MOCK EMAIL SERVICE]`);
+        console.log(`FROM: ${from || 'Cannoga College <admissions@cannogacollege.ca>'}`);
         console.log(`TO: ${to}`);
         console.log(`SUBJECT: ${subject}`);
         console.log(`ATTACHMENTS: ${attachments?.length || 0} files`);
@@ -31,7 +33,7 @@ export async function sendEmail({ to, subject, react, html, attachments }: SendE
     try {
         const resend = new Resend(apiKey);
         const emailPayload: any = {
-            from: 'Cannoga College <admissions@cannogacollege.ca>',
+            from: from || 'Cannoga College <admissions@cannogacollege.ca>',
             to: [to],
             subject: subject,
             attachments: attachments,
@@ -237,6 +239,77 @@ export async function triggerNotification(payload: {
         console.error('[triggerNotification] Error dispatching to edge function:', err);
         return { success: false, error: err.message };
     }
+}
+
+export interface PresidentWelcomeEmailData {
+    studentEmail: string;
+    studentFullName: string;
+    studentId?: string;
+    courseTitle?: string;
+    intake?: string;
+    portalUrl?: string;
+}
+
+export async function sendPresidentWelcomeEmail(data: PresidentWelcomeEmailData) {
+    const portalUrl = data.portalUrl || process.env.NEXT_PUBLIC_APP_URL || 'https://cannogacollege.ca';
+    const fullName = data.studentFullName || 'Student';
+
+    const welcomeHtml = wrapEmailTemplate(`
+        <p>Dear ${fullName},</p>
+        
+        <p>On behalf of our distinguished faculty, dedicated staff, and the entire institutional community, it is my distinct honor and personal pleasure to officially welcome you to <strong>Cannoga College</strong>.</p>
+        
+        <p>Your admission and verified enrolment mark the beginning of an exceptional chapter in your academic and professional journey. At Cannoga College, we believe that education must do more than inform—it must transform. Located in Ottawa, Ontario, at the vibrant nexus of public innovation, healthcare excellence, technology, and industry leadership, our institution is dedicated to equipping you with applied knowledge, rigorous intellectual training, and the practical competencies necessary to excel in a rapidly evolving global landscape.</p>
+
+        <div style="margin: 20px 0; padding: 16px 0; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; line-height: 1.6;">
+            <p style="margin: 0 0 5px 0;"><strong>Student Name:</strong> ${fullName}</p>
+            ${data.studentId ? `<p style="margin: 0 0 5px 0;"><strong>Student ID:</strong> ${data.studentId}</p>` : ''}
+            ${data.courseTitle ? `<p style="margin: 0 0 5px 0;"><strong>Programme of Study:</strong> ${data.courseTitle}</p>` : ''}
+            ${data.intake ? `<p style="margin: 0 0 5px 0;"><strong>Academic Intake:</strong> ${data.intake}</p>` : ''}
+            <p style="margin: 0 0 5px 0;"><strong>Enrolment Status:</strong> <span style="color: #034737; font-weight: bold;">OFFICIALLY ENROLLED & CONFIRMED</span></p>
+            <p style="margin: 0;"><strong>Institution:</strong> Cannoga College | Ottawa, Ontario, Canada</p>
+        </div>
+
+        <p><strong>What Awaits You at Cannoga College</strong></p>
+        <p>As an enrolled student, you are now an integral member of a diverse and dynamic academic body representing scholars and aspiring professionals from over 60 nations. Throughout your studies, you will have the privilege of learning from accomplished professors and industry practitioners who bring real-world experience directly into the classroom and specialized laboratories.</p>
+
+        <p>Beyond academic coursework, you have full access to our comprehensive student support ecosystem, including:</p>
+        <ul style="margin: 10px 0 16px 20px; padding: 0; line-height: 1.6; font-size: 14px;">
+            <li><strong>Academic Advising & Faculty Mentorship:</strong> Dedicated guidance to ensure you achieve your academic and professional goals.</li>
+            <li><strong>Career & Experiential Learning Services:</strong> Direct connections to industry internships, clinical placements, and career development opportunities across Canada.</li>
+            <li><strong>International Student Support:</strong> Assistance with orientation, settlement in Ottawa, study permits, housing, and integration into Canadian society.</li>
+            <li><strong>Digital Campus & Research Resources:</strong> 24/7 access to state-of-the-art course modules, digital libraries, and collaborative learning tools via our Student Portal.</li>
+        </ul>
+
+        <p><strong>Next Steps & Student Portal Access</strong></p>
+        <p>Your official student dashboard is active. Please log in regularly to review your course timetable, orientation schedules, required pre-arrival materials, and institutional announcements:</p>
+
+        <p style="margin: 16px 0; line-height: 1.8;">
+            &bull; <a href="${portalUrl}/portal/dashboard"><strong>Access Cannoga Student Portal & Dashboard &rarr;</strong></a><br>
+            &bull; <a href="${portalUrl}/portal/student/timetable">View Academic Timetable & Course Schedule</a><br>
+            &bull; <a href="${portalUrl}/about/welcome-from-the-president">Read the President's Institutional Vision</a>
+        </p>
+
+        <p>We understand that choosing to pursue higher education is one of the most consequential commitments you will make. Please be assured that our faculty and staff are fully invested in your success, your wellbeing, and your future.</p>
+
+        <p>I look forward to personally greeting you on campus and celebrating your milestones in the years ahead.</p>
+
+        <div style="margin-top: 24px; padding-top: 14px; border-top: 1px solid #eeeeee;">
+            <p style="margin: 0 0 4px 0;">With warmest regards and best wishes for your academic journey,</p>
+            <p style="margin: 12px 0 2px 0; font-size: 15px; font-weight: bold; color: #111111;">Dr. Luke Schaffner, Ph.D., M.Ed.</p>
+            <p style="margin: 0 0 2px 0; color: #444444; font-size: 13px;">President & Chief Executive Officer</p>
+            <p style="margin: 0 0 2px 0; color: #444444; font-size: 13px;">Cannoga College</p>
+            <p style="margin: 0 0 2px 0; font-size: 13px;"><a href="mailto:president@cannogacollege.ca">president@cannogacollege.ca</a> | <a href="https://cannogacollege.ca">https://cannogacollege.ca</a></p>
+            <p style="margin: 0; color: #666666; font-size: 12px;">Ottawa, Ontario, Canada</p>
+        </div>
+    `);
+
+    return sendEmail({
+        from: 'Office of the President <president@cannogacollege.ca>',
+        to: data.studentEmail,
+        subject: 'Welcome to Cannoga College — A Personal Message from the President',
+        html: welcomeHtml,
+    });
 }
 
 
