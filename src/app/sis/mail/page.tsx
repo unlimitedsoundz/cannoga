@@ -79,25 +79,29 @@ export default function StudentMailPage() {
     const [hasMore, setHasMore] = useState(false);
     const PAGE_SIZE = 25;
 
-    const fetchMessages = useCallback(async (f: Folder, s = 0) => {
-        setLoading(true);
-        setError(null);
-        setSelectedMsg(null);
+    const fetchMessages = useCallback(async (f: Folder, s = 0, silent = false) => {
+        if (!silent) {
+            setLoading(true);
+            setError(null);
+            setSelectedMsg(null);
+        }
         try {
             const res = await fetch(`/api/sis/mail?folder=${f}&top=${PAGE_SIZE}&skip=${s}`);
             const data = await res.json();
             if (!res.ok) {
                 if (data.needsReauth) setNeedsReauth(true);
-                setError(data.error || 'Failed to load messages');
-                setMessages([]);
+                if (!silent) {
+                    setError(data.error || 'Failed to load messages');
+                    setMessages([]);
+                }
                 return;
             }
             setMessages(data.messages || []);
             setHasMore(!!data.nextLink);
         } catch (e: any) {
-            setError('Failed to connect. Check your connection.');
+            if (!silent) setError('Failed to connect. Check your connection.');
         } finally {
-            setLoading(false);
+            if (!silent) setLoading(false);
         }
     }, []);
 
@@ -126,6 +130,17 @@ export default function StudentMailPage() {
     useEffect(() => {
         fetchCounts();
     }, [fetchCounts]);
+
+    // Live auto-refresh: Poll Microsoft 365 every 30 seconds in the background
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (document.visibilityState === 'visible') {
+                fetchMessages(folder, skip, true);
+                fetchCounts();
+            }
+        }, 30000);
+        return () => clearInterval(interval);
+    }, [folder, skip, fetchMessages, fetchCounts]);
 
     const openMessage = async (msg: EmailMessage) => {
         setSelectedMsg(msg);
