@@ -9,29 +9,83 @@ export default function AuthCallbackPage() {
     useEffect(() => {
         const handleCallback = async () => {
             const supabase = createClient();
-            const params = new URLSearchParams(window.location.search);
-            const code = params.get('code');
-            const targetNext = params.get('next');
+            
+            // Check both query string (?code=...) and hash fragment (#access_token=...)
+            const searchParams = new URLSearchParams(window.location.search);
+            const hashString = window.location.hash.startsWith('#') 
+                ? window.location.hash.substring(1) 
+                : window.location.hash;
+            const hashParams = new URLSearchParams(hashString);
 
+            // 1. Check if provider returned an error
+            const errorDesc = searchParams.get('error_description') || 
+                              hashParams.get('error_description') ||
+                              searchParams.get('error') ||
+                              hashParams.get('error');
+
+            if (errorDesc) {
+                console.error('[AuthCallback] Provider error:', errorDesc);
+                setError(decodeURIComponent(errorDesc).replace(/\+/g, ' '));
+                return;
+            }
+
+            const code = searchParams.get('code') || hashParams.get('code');
+            const targetNext = searchParams.get('next') || hashParams.get('next') || '/sis';
+
+            // 2. If authorization code is present, exchange it for session
             if (code) {
-                const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-                if (!error && data?.session?.user) {
-                    if (targetNext) {
+                try {
+                    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+                    if (!error && data?.session?.user) {
+                        const userEmail = data.session.user.email?.toLowerCase() || '';
+                        if (userEmail.endsWith('@cannogacollege.ca')) {
+                            window.location.href = '/sis';
+                            return;
+                        }
                         window.location.href = targetNext;
                         return;
                     }
-                    const userEmail = data.session.user.email?.toLowerCase() || '';
+                    if (error) {
+                        console.error('[AuthCallback] exchangeCodeForSession error:', error);
+                        setError(error.message);
+                        return;
+                    }
+                } catch (err: any) {
+                    console.error('[AuthCallback] Exception during code exchange:', err);
+                    setError(err?.message || 'Authentication exchange failed');
+                    return;
+                }
+            }
+
+            // 3. If no code was in URL, check if Supabase already initialized the session (e.g. from hash tokens)
+            const { data: sessionData } = await supabase.auth.getSession();
+            if (sessionData?.session?.user) {
+                const userEmail = sessionData.session.user.email?.toLowerCase() || '';
+                if (userEmail.endsWith('@cannogacollege.ca')) {
+                    window.location.href = '/sis';
+                    return;
+                }
+                window.location.href = targetNext;
+                return;
+            }
+
+            // 4. Listen for auth state change as final fallback
+            const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+                if (session?.user) {
+                    authListener.subscription.unsubscribe();
+                    const userEmail = session.user.email?.toLowerCase() || '';
                     if (userEmail.endsWith('@cannogacollege.ca')) {
                         window.location.href = '/sis';
                         return;
                     }
-                    window.location.href = '/portal/dashboard';
-                    return;
+                    window.location.href = targetNext;
                 }
-                setError(error?.message || 'Failed to exchange authorization code');
-            } else {
-                setError('No authorization code found');
-            }
+            });
+
+            // If after 2 seconds no session or code is detected, show error
+            setTimeout(() => {
+                setError('No authorization code or active session found. Please try signing in again.');
+            }, 2500);
         };
 
         handleCallback();
