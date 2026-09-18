@@ -628,7 +628,7 @@ serve(async (req) => {
                     <div style="margin-top: 24px;">
                         <p style="margin: 0 0 8px 0;">With warmest regards and best wishes for your academic journey,</p>
                         <div style="margin: 14px 0 8px 0;">
-                            <img src="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/assets/president-signature.png" alt="Luke Schaffner Signature" style="max-height: 58px; width: auto; display: block;" />
+                            <img src="${portalUrl}/images/president-signature.png" alt="Luke Schaffner Signature" style="max-height: 58px; width: auto; display: block;" />
                         </div>
                         <p style="margin: 6px 0 2px 0; font-size: 15px; font-weight: bold; color: #111111;">Dr. Luke Schaffner, Ph.D., M.Ed.</p>
                         <p style="margin: 0 0 2px 0; color: #444444; font-size: 13px;">President & Chief Executive Officer</p>
