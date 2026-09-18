@@ -35,7 +35,7 @@ export default function PortalLoginPage() {
         try {
             const { createClient } = await import('@/utils/supabase/client');
             const supabase = createClient();
-            const redirectTo = `${window.location.origin}/auth/callback?next=/sis`;
+            const redirectTo = `${window.location.origin}/auth/callback/?next=/sis`;
             const { error: oauthError } = await supabase.auth.signInWithOAuth({
                 provider: 'azure',
                 options: {
