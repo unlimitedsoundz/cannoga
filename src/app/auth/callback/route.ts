@@ -3,27 +3,43 @@ import { createClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
 
+function getPublicOrigin(request: Request, requestUrl: URL): string {
+    const forwardedHost = request.headers.get('x-forwarded-host');
+    if (forwardedHost && !forwardedHost.includes('0.0.0.0') && !forwardedHost.includes('127.0.0.1')) {
+        return `https://${forwardedHost.split(',')[0].trim()}`;
+    }
+    const host = request.headers.get('host');
+    if (host && !host.includes('0.0.0.0') && !host.includes('127.0.0.1') && !host.includes('localhost')) {
+        return `https://${host.split(':')[0].trim()}`;
+    }
+    if (requestUrl.origin && !requestUrl.origin.includes('0.0.0.0') && !requestUrl.origin.includes('127.0.0.1')) {
+        return requestUrl.origin;
+    }
+    return 'https://cannogacollege.ca';
+}
+
 export async function GET(request: Request) {
     const requestUrl = new URL(request.url);
 
     const code = requestUrl.searchParams.get('code');
     const flowId = requestUrl.searchParams.get('sb_flow_id');
 
-    let next = requestUrl.searchParams.get('next') ?? '/sis';
+    let next = requestUrl.searchParams.get('next') ?? '/sis/';
 
     if (!next.startsWith('/') || next.startsWith('//')) {
-        next = '/sis';
+        next = '/sis/';
+    }
+    if (next === '/sis') {
+        next = '/sis/';
     }
 
-    const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
-    const proto = request.headers.get('x-forwarded-proto') || 'https';
-    const publicOrigin = host && !host.includes('0.0.0.0') ? `${proto}://${host}` : requestUrl.origin;
+    const publicOrigin = getPublicOrigin(request, requestUrl);
 
     if (!code) {
         console.error('[AUTH CALLBACK] Missing code');
 
         return NextResponse.redirect(
-            new URL('/portal/account/login/?error=missing_code', publicOrigin)
+            `${publicOrigin}/portal/account/login/?error=missing_code`
         );
     }
 
@@ -44,10 +60,7 @@ export async function GET(request: Request) {
             });
 
             return NextResponse.redirect(
-                new URL(
-                    `/portal/account/login/?error=${encodeURIComponent(error.message)}`,
-                    publicOrigin
-                )
+                `${publicOrigin}/portal/account/login/?error=${encodeURIComponent(error.message)}`
             );
         }
 
@@ -87,16 +100,13 @@ export async function GET(request: Request) {
         }
 
         return NextResponse.redirect(
-            new URL(next, publicOrigin)
+            `${publicOrigin}${next}`
         );
-    } catch (error) {
+    } catch (error: any) {
         console.error('[AUTH CALLBACK] Unexpected failure:', error);
 
         return NextResponse.redirect(
-            new URL(
-                '/portal/account/login/?error=callback_failure',
-                publicOrigin
-            )
+            `${publicOrigin}/portal/account/login/?error=callback_failure`
         );
     }
 }

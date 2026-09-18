@@ -10,7 +10,7 @@ export default function MicrosoftLoginButton({ className }: { className?: string
         setIsLoading(true);
         const supabase = createClient();
 
-        const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent('/sis')}`;
+        const redirectTo = `${window.location.origin}/auth/callback/?next=${encodeURIComponent('/sis/')}`;
 
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'azure',
