@@ -1,13 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 
 export default function AuthCallbackPage() {
     const [message, setMessage] = useState('Completing Microsoft sign in...');
 
+    const executedRef = useRef(false);
+
     useEffect(() => {
-        let cancelled = false;
+        if (executedRef.current) return;
+        executedRef.current = true;
 
         async function completeLogin() {
             try {
@@ -21,25 +24,50 @@ export default function AuthCallbackPage() {
                     requestedNext.startsWith('/') && !requestedNext.startsWith('//')
                         ? requestedNext
                         : '/sis';
+                const finalTarget = next.endsWith('/') ? next : `${next}/`;
+
+                // Critical: detectSessionInUrl: false prevents the internal GoTrue constructor
+                // from auto-consuming and clearing the PKCE verifier cookie in the background
+                // before our exchangeCodeForSession can read it.
+                const supabase = createClient({ detectSessionInUrl: false });
+
+                // 1. Check if a session already exists (e.g. already logged in)
+                const { data: existingData } = await supabase.auth.getSession();
+                if (existingData?.session) {
+                    console.log('[CLIENT CALLBACK] Session already active:', existingData.session.user.id);
+                    setMessage('Sign in successful. Redirecting...');
+                    try {
+                        await fetch('/api/auth/link-student/', { method: 'POST' });
+                    } catch {}
+                    window.location.replace(finalTarget);
+                    return;
+                }
 
                 if (!code) {
                     window.location.replace('/portal/account/login/?error=missing_auth_code');
                     return;
                 }
 
-                const supabase = createClient();
-
-                console.log('[CLIENT CALLBACK] code found:', !!code);
-                console.log('[CLIENT CALLBACK] flowId:', flowId);
+                console.log('[CLIENT CALLBACK] Exchanging code for session, flowId:', flowId);
 
                 const { data, error } = await supabase.auth.exchangeCodeForSession(
                     code,
                     flowId ? { flowId } : undefined
                 );
 
-                if (cancelled) return;
-
                 if (error) {
+                    // Fallback: check if session was established despite error
+                    const { data: fallbackData } = await supabase.auth.getSession();
+                    if (fallbackData?.session) {
+                        console.log('[CLIENT CALLBACK] Session found on fallback check:', fallbackData.session.user.id);
+                        setMessage('Sign in successful. Redirecting...');
+                        try {
+                            await fetch('/api/auth/link-student/', { method: 'POST' });
+                        } catch {}
+                        window.location.replace(finalTarget);
+                        return;
+                    }
+
                     console.error('[CLIENT CALLBACK] Exchange failed:', error);
                     setMessage('Authentication failed.');
                     window.location.replace(
@@ -54,11 +82,8 @@ export default function AuthCallbackPage() {
                 // Auto-link student profile if applicable
                 try {
                     await fetch('/api/auth/link-student/', { method: 'POST' });
-                } catch {
-                    // Non-fatal
-                }
+                } catch {}
 
-                const finalTarget = next.endsWith('/') ? next : `${next}/`;
                 window.location.replace(finalTarget);
             } catch (error) {
                 console.error('[CLIENT CALLBACK] Unexpected error:', error);
@@ -71,10 +96,6 @@ export default function AuthCallbackPage() {
         }
 
         completeLogin();
-
-        return () => {
-            cancelled = true;
-        };
     }, []);
 
     return (

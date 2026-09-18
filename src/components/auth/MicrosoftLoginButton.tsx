@@ -10,12 +10,17 @@ export default function MicrosoftLoginButton({ className }: { className?: string
         setIsLoading(true);
         const supabase = createClient();
 
-        const redirectTo = `${window.location.origin}/auth/callback/?next=${encodeURIComponent('/sis/')}`;
+        const origin =
+            typeof window !== 'undefined' && window.location.hostname.includes('cannogacollege.ca')
+                ? 'https://cannogacollege.ca'
+                : window.location.origin;
+
+        const redirectTo = `${origin}/auth/callback/?next=${encodeURIComponent('/sis/')}`;
 
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'azure',
             options: {
-                scopes: 'email',
+                scopes: 'openid email profile',
                 redirectTo,
             },
         });
