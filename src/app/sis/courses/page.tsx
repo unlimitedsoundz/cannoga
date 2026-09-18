@@ -1,123 +1,178 @@
 'use client';
 
-import React from 'react';
-import { PageHeader } from '@/components/sis/PageHeader';
-import { ActionToolbar } from '@/components/sis/ActionToolbar';
-import { CourseTable } from '@/components/sis/CourseTable';
-import { SearchBar } from '@/components/sis/SearchBar';
-import { FilterBar } from '@/components/sis/FilterBar';
-import { StatusBadge } from '@/components/sis/StatusBadge';
-import { HugeiconsIcon } from '@hugeicons/react';
-import { Add01Icon as Plus } from '@hugeicons/core-free-icons';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { PageHeader } from '@/components/sis/PageHeader';
+import { HugeiconsIcon } from '@hugeicons/react';
+import {
+  BookOpen01Icon as BookOpen,
+  Calendar01Icon as CalendarIcon,
+  Loading03Icon as SpinnerIcon,
+  Search01Icon as SearchIcon,
+  ArrowRight01Icon as ArrowRight,
+} from '@hugeicons/core-free-icons';
+import { ExternalLink } from 'lucide-react';
+import { getTeamsClassWebUrl } from '@/lib/microsoft/teams';
 
-const mockCourses = [
-  { id: '1', code: 'NURS 301', title: 'Advanced Nursing Practice', subject: 'Nursing', credits: 3, term: 'Fall 2026', instructor: 'Dr. A. Thompson', schedule: 'Mon/Wed 9:00-10:30', location: 'HS-201', capacity: 30, enrolled: 28, status: 'Open', waitlist: 2 },
-  { id: '2', code: 'NURS 302', title: 'Clinical Pharmacology', subject: 'Nursing', credits: 3, term: 'Fall 2026', instructor: 'Prof. M. Chen', schedule: 'Tue/Thu 10:00-11:30', location: 'HS-205', capacity: 25, enrolled: 25, status: 'Full', waitlist: 5 },
-  { id: '3', code: 'BIOL 310', title: 'Pathophysiology', subject: 'Biology', credits: 4, term: 'Fall 2026', instructor: 'Dr. R. Patel', schedule: 'Mon 1:00-4:00', location: 'SC-101', capacity: 40, enrolled: 35, status: 'Open', waitlist: 0 },
-  { id: '4', code: 'NURS 303', title: 'Community Health Nursing', subject: 'Nursing', credits: 3, term: 'Fall 2026', instructor: 'Prof. J. Rodriguez', schedule: 'Wed 8:00-12:00', location: 'CLINIC-A', capacity: 20, enrolled: 18, status: 'Open', waitlist: 0 },
-  { id: '5', code: 'ETHC 200', title: 'Healthcare Ethics', subject: 'Ethics', credits: 3, term: 'Fall 2026', instructor: 'Dr. K. Williams', schedule: 'Fri 9:00-12:00', location: 'HS-100', capacity: 35, enrolled: 30, status: 'Open', waitlist: 0 },
-  { id: '6', code: 'NURS 401', title: 'Leadership in Nursing', subject: 'Nursing', credits: 3, term: 'Winter 2027', instructor: 'Dr. A. Thompson', schedule: 'TBD', location: 'TBD', capacity: 30, enrolled: 0, status: 'Open', waitlist: 0 },
-  { id: '7', code: 'NURS 402', title: 'Capstone Practicum', subject: 'Nursing', credits: 6, term: 'Winter 2027', instructor: 'Prof. J. Rodriguez', schedule: 'TBD', location: 'CLINIC-A', capacity: 15, enrolled: 0, status: 'Open', waitlist: 0 },
-  { id: '8', code: 'BUSI 101', title: 'Introduction to Business', subject: 'Business', credits: 3, term: 'Fall 2026', instructor: 'Prof. M. Chen', schedule: 'Mon/Wed 11:00-12:30', location: 'BUS-101', capacity: 50, enrolled: 45, status: 'Open', waitlist: 3 },
-  { id: '9', code: 'CS 101', title: 'Introduction to Programming', subject: 'Computer Science', credits: 4, term: 'Fall 2026', instructor: 'Dr. R. Patel', schedule: 'Tue/Thu 1:00-3:00', location: 'TECH-200', capacity: 40, enrolled: 38, status: 'Open', waitlist: 2 },
-  { id: '10', code: 'MATH 101', title: 'Calculus I', subject: 'Mathematics', credits: 4, term: 'Fall 2026', instructor: 'Dr. K. Williams', schedule: 'Mon/Wed/Fri 9:00-10:00', location: 'SC-101', capacity: 60, enrolled: 55, status: 'Open', waitlist: 1 },
-];
+interface CourseItem {
+  id: string;
+  code: string;
+  title: string;
+  credits: number;
+  semester: string;
+  status: string;
+  grade?: number | null;
+  gradeStatus?: string;
+  teamId?: string;
+}
 
 export default function CoursesPage() {
-  const [search, setSearch] = React.useState('');
-  const [subjectFilter, setSubjectFilter] = React.useState('');
-  const [statusFilter, setStatusFilter] = React.useState('');
-  const [termFilter, setTermFilter] = React.useState('Winter 2027');
-  const [page, setPage] = React.useState(1);
+  const [courses, setCourses] = useState<CourseItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [hasMicrosoft, setHasMicrosoft] = useState(false);
+  const [search, setSearch] = useState('');
 
-  const termCourses = mockCourses.filter(c => c.term === termFilter);
-  const filteredCourses = termCourses.filter(c => {
-    const matchesSearch = c.code.toLowerCase().includes(search.toLowerCase()) ||
-      c.title.toLowerCase().includes(search.toLowerCase()) ||
-      c.subject.toLowerCase().includes(search.toLowerCase());
-    const matchesSubject = !subjectFilter || c.subject === subjectFilter;
-    const matchesStatus = !statusFilter || c.status === statusFilter;
-    return matchesSearch && matchesSubject && matchesStatus;
-  });
+  useEffect(() => {
+    async function loadEnrolledCourses() {
+      try {
+        const res = await fetch('/api/sis/education/classes');
+        if (res.ok) {
+          const data = await res.json();
+          setHasMicrosoft(!!data.hasMicrosoftSession);
 
-  const availableSubjects = ['Nursing', 'Biology', 'Ethics', 'Business', 'Computer Science', 'Mathematics'];
-  const availableTerms = ['Fall 2026', 'Winter 2027'];
+          if (data.enrollments && data.enrollments.length > 0) {
+            const mapped: CourseItem[] = data.enrollments.map((e: any) => ({
+              id: e.modules?.id || e.id,
+              code: e.modules?.code || 'CRS',
+              title: e.modules?.title || 'Academic Course',
+              credits: e.modules?.credits || 3,
+              semester: e.semesters?.name || 'Current Term',
+              status: e.status || 'Enrolled',
+              grade: e.grade,
+              gradeStatus: e.grade_status,
+              teamId: e.modules?.code?.toLowerCase().replace(/\s+/g, '-'),
+            }));
+            setCourses(mapped);
+          } else {
+            // Default curriculum fallback for enrolled student
+            setCourses([
+              { id: 'nurs-301', code: 'NURS 301', title: 'Advanced Nursing Practice', credits: 3, semester: 'Winter 2027', status: 'Enrolled', teamId: 'nurs-301' },
+              { id: 'nurs-302', code: 'NURS 302', title: 'Clinical Pharmacology', credits: 3, semester: 'Winter 2027', status: 'Enrolled', teamId: 'nurs-302' },
+              { id: 'biol-310', code: 'BIOL 310', title: 'Pathophysiology', credits: 4, semester: 'Winter 2027', status: 'Enrolled', teamId: 'biol-310' },
+              { id: 'ethc-200', code: 'ETHC 200', title: 'Healthcare Ethics', credits: 3, semester: 'Winter 2027', status: 'Enrolled', teamId: 'ethc-200' },
+            ]);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load courses', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadEnrolledCourses();
+  }, []);
+
+  const filtered = courses.filter(
+    (c) =>
+      c.code.toLowerCase().includes(search.toLowerCase()) ||
+      c.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Course Catalog"
-        subtitle="Search and manage course offerings"
+        title="My Courses & Teams Classes"
+        subtitle="Cannoga registered academic courses synchronized with Microsoft 365 Education"
         actions={
-          <Link href="/sis/courses/new/" className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline">
-            <HugeiconsIcon icon={Plus} size={14} strokeWidth={2.5} /> Add Course
+          <Link
+            href="/sis/microsoft-365/"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors no-underline rounded-lg"
+          >
+            Microsoft 365 Hub &rarr;
           </Link>
         }
       />
 
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 p-4 sm:p-5 bg-white border border-slate-200 rounded-xl shadow-sm">
-        <div className="flex items-center gap-3">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-800">Term:</label>
-          <select
-            value={termFilter}
-            onChange={e => setTermFilter(e.target.value)}
-            className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-slate-300 rounded-lg bg-white focus:border-slate-900 focus:outline-none"
-          >
-            {availableTerms.map(t => {
-              const isFall2026 = t.toLowerCase().includes('fall 2026');
-              return (
-                <option 
-                  key={t} 
-                  value={t} 
-                  disabled={isFall2026}
-                  className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
-                >
-                  {t}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="flex items-center gap-4 text-sm">
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Total Offered:</span>
-            <span className="font-extrabold text-slate-900 bg-slate-100 px-2.5 py-0.5 rounded-full text-xs">{termCourses.length} courses</span>
-          </div>
-        </div>
+      {/* Search Bar */}
+      <div className="bg-white border border-slate-200 rounded-xl p-4 flex items-center gap-3">
+        <HugeiconsIcon icon={SearchIcon} size={18} className="text-slate-400" />
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search by course code or title..."
+          className="flex-1 text-sm bg-transparent border-none outline-none text-slate-800"
+        />
+        {hasMicrosoft && (
+          <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full border border-emerald-200">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Teams Sync Active
+          </span>
+        )}
       </div>
 
-      <ActionToolbar
-        search={<SearchBar value={search} onChange={setSearch} placeholder="Search courses by code, title, subject, instructor..." />}
-        filter={
-          <FilterBar
-            filters={[
-              { key: 'subject', label: 'Subject', value: subjectFilter, onChange: setSubjectFilter, options: [
-                { value: '', label: 'All Subjects' },
-                ...availableSubjects.map(s => ({ value: s, label: s })),
-              ]},
-              { key: 'status', label: 'Status', value: statusFilter, onChange: setStatusFilter, options: [
-                { value: '', label: 'All Statuses' },
-                { value: 'Open', label: 'Open' },
-                { value: 'Full', label: 'Full' },
-                { value: 'Waitlist', label: 'Waitlist' },
-                { value: 'Closed', label: 'Closed' },
-                { value: 'Cancelled', label: 'Cancelled' },
-              ]},
-            ]}
-          />}
-      />
+      {/* Courses Grid */}
+      {loading ? (
+        <div className="bg-white border border-slate-200 rounded-xl p-12 text-center">
+          <div className="inline-flex items-center gap-2 text-slate-500 text-sm">
+            <HugeiconsIcon icon={SpinnerIcon} size={18} className="animate-spin" />
+            Loading registered courses...
+          </div>
+        </div>
+      ) : filtered.length === 0 ? (
+        <div className="bg-white border border-slate-200 rounded-xl p-12 text-center text-slate-500 text-sm">
+          No matching courses found.
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {filtered.map((course) => {
+            const teamsUrl = getTeamsClassWebUrl(course.teamId || course.code);
+            return (
+              <div
+                key={course.id}
+                className="bg-white border border-slate-200 rounded-xl p-5 flex flex-col justify-between hover:shadow-md transition"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="px-2 py-0.5 bg-slate-900 text-white text-[11px] font-bold rounded">
+                      {course.code}
+                    </span>
+                    <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
+                      {course.status}
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-slate-900 text-base mb-1">
+                    {course.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 mb-4">
+                    {course.credits} Credits &bull; {course.semester}
+                  </p>
+                </div>
 
-      <CourseTable
-        courses={filteredCourses}
-        onView={(course) => alert(`Viewing ${course.code} - ${course.title}`)}
-        pagination={{
-          page,
-          pageSize: 10,
-          total: filteredCourses.length,
-          onPageChange: setPage,
-        }}
-      />
+                <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                  <a
+                    href={teamsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#464eb8] hover:text-[#3b419c] transition no-underline"
+                  >
+                    Open Teams
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+
+                  <Link
+                    href={`/sis/courses/${course.id}/`}
+                    className="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-900 text-white text-xs font-semibold rounded hover:bg-slate-800 transition no-underline"
+                  >
+                    Course Details
+                    <HugeiconsIcon icon={ArrowRight} size={13} />
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

@@ -772,6 +772,9 @@ export interface Database {
           department_id: string | null
           notes: string | null
           status: string
+          microsoft_class_id?: string | null
+          microsoft_team_id?: string | null
+          microsoft_group_id?: string | null
           created_at: string
           updated_at: string
         }

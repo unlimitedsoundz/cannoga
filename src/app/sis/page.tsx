@@ -225,7 +225,7 @@ interface BankAccount {
     is_active: boolean;
 }
 
-type PageId = 'dashboard' | 'documents' | 'academics' | 'timetable' | 'registration' | 'financials' | 'payments' | 'housing' | 'grades' | 'holds' | 'news' | 'directory' | 'profile' | 'student-life' | 'mail';
+type PageId = 'dashboard' | 'documents' | 'academics' | 'timetable' | 'registration' | 'financials' | 'payments' | 'housing' | 'grades' | 'holds' | 'news' | 'directory' | 'profile' | 'student-life' | 'mail' | 'courses' | 'assignments' | 'microsoft-365';
 
 interface GradeRecord {
     module_code: string;
@@ -1303,6 +1303,18 @@ function formatRelativeTime(dateInput: any): string {
             router.push('/portal/housing/');
             return;
         }
+        if (pageId === 'courses') {
+            router.push('/sis/courses/');
+            return;
+        }
+        if (pageId === 'assignments') {
+            router.push('/sis/assignments/');
+            return;
+        }
+        if (pageId === 'microsoft-365') {
+            router.push('/sis/microsoft-365/');
+            return;
+        }
         setCurrentPage(pageId);
         setSidebarOpen(false);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1358,6 +1370,9 @@ function formatRelativeTime(dateInput: any): string {
 
     const navItems = [
         { label: 'DASHBOARD', pageId: 'dashboard' as PageId },
+        { label: 'MY COURSES', pageId: 'courses' as PageId },
+        { label: 'ASSIGNMENTS', pageId: 'assignments' as PageId },
+        { label: 'MICROSOFT 365', pageId: 'microsoft-365' as PageId },
         { label: 'MY DOCUMENTS', pageId: 'documents' as PageId },
         { label: 'ACADEMIC PROFILE', pageId: 'academics' as PageId },
         { label: 'TIMETABLE', pageId: 'timetable' as PageId },

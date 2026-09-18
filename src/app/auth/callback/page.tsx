@@ -39,7 +39,9 @@ export default function AuthCallbackPage() {
                     try {
                         await fetch('/api/auth/link-student/', { method: 'POST' });
                     } catch {}
-                    window.location.replace(finalTarget);
+                    const activeEmail = (existingData.session.user.email || '').toLowerCase().trim();
+                    const target = activeEmail.endsWith('@cannogacollege.ca') ? finalTarget : '/portal/dashboard/';
+                    window.location.replace(target);
                     return;
                 }
 
@@ -64,7 +66,9 @@ export default function AuthCallbackPage() {
                         try {
                             await fetch('/api/auth/link-student/', { method: 'POST' });
                         } catch {}
-                        window.location.replace(finalTarget);
+                        const fallbackEmail = (fallbackData.session.user.email || '').toLowerCase().trim();
+                        const target = fallbackEmail.endsWith('@cannogacollege.ca') ? finalTarget : '/portal/dashboard/';
+                        window.location.replace(target);
                         return;
                     }
 
@@ -84,7 +88,9 @@ export default function AuthCallbackPage() {
                     await fetch('/api/auth/link-student/', { method: 'POST' });
                 } catch {}
 
-                window.location.replace(finalTarget);
+                const userEmail = (data?.session?.user?.email || '').toLowerCase().trim();
+                const destination = userEmail.endsWith('@cannogacollege.ca') ? finalTarget : '/portal/dashboard/';
+                window.location.replace(destination);
             } catch (error) {
                 console.error('[CLIENT CALLBACK] Unexpected error:', error);
                 const message =

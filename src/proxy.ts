@@ -177,8 +177,20 @@ export async function proxy(request: NextRequest) {
             );
         }
 
-        // STUDENTs must have a verified tuition deposit before accessing SIS.
+        // STUDENTs must have a verified institutional email and tuition deposit before accessing SIS.
         if (profile?.role === 'STUDENT') {
+            const userEmail = (user.email || '').toLowerCase().trim();
+            const isInstitutional = userEmail.endsWith('@cannogacollege.ca');
+            if (!isInstitutional) {
+                return createRedirectResponse(
+                    request,
+                    '/portal/dashboard/',
+                    undefined,
+                    307,
+                    supabaseResponse
+                );
+            }
+
             const { data: studentRecord } = await supabase
                 .from('students')
                 .select('tuition_deposit_paid, enrollment_status')

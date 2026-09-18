@@ -65,6 +65,13 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                         return;
                     }
 
+                    // Enforce that only institutional email can access SIS
+                    const userEmail = (sbUser.email || '').toLowerCase().trim();
+                    if (!userEmail.endsWith('@cannogacollege.ca')) {
+                        window.location.href = '/portal/dashboard';
+                        return;
+                    }
+
                     // Verify tuition deposit has been paid and admin-verified.
                     // If not, keep the user in the applicant portal.
                     const { data: studentRecord } = await supabase
@@ -230,6 +237,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         { label: 'AUDIT', href: '/sis/admin/audit' },
         { label: 'NOTIFICATIONS', href: '/sis/admin/notifications' },
         { label: 'SETTINGS', href: '/sis/admin/settings' },
+        { label: 'MICROSOFT 365', href: '/sis/admin/integrations/microsoft' },
         { label: 'DEBBIE VOICE', href: '/sis/admin/debbie' },
         { label: 'VOICE AGENT', href: '/sis/admin/voice-agent' },
     ];

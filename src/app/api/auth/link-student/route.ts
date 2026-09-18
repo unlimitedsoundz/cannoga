@@ -37,6 +37,12 @@ export async function POST() {
         const userEmail = user.email.toLowerCase().trim();
         const adminClient = createServiceRoleClient();
 
+        // Extract Microsoft identity metadata if authenticated via Azure OAuth
+        const azureIdentity = user.identities?.find((i: any) => i.provider === 'azure');
+        const microsoftUserId = azureIdentity?.id || (user.user_metadata as any)?.sub || null;
+        const microsoftUpn = (user.user_metadata as any)?.preferred_username || (user.user_metadata as any)?.upn || userEmail;
+        const microsoftTenantId = (user.user_metadata as any)?.tid || null;
+
         const { data: student } = await adminClient
             .from('students')
             .select('id, user_id, student_id')
@@ -44,15 +50,23 @@ export async function POST() {
             .maybeSingle();
 
         if (student) {
-            if (student.user_id !== user.id) {
-                await adminClient
-                    .from('students')
-                    .update({ user_id: user.id })
-                    .eq('id', student.id);
-            }
+            const studentUpdate: Record<string, any> = { user_id: user.id };
+            if (microsoftUserId) studentUpdate.microsoft_user_id = microsoftUserId;
+            if (microsoftUpn) studentUpdate.microsoft_upn = microsoftUpn;
+            if (microsoftTenantId) studentUpdate.microsoft_tenant_id = microsoftTenantId;
+
+            await adminClient
+                .from('students')
+                .update(studentUpdate)
+                .eq('id', student.id);
+
+            const profileUpdate: Record<string, any> = { role: 'STUDENT', student_id: student.student_id };
+            if (microsoftUserId) profileUpdate.microsoft_user_id = microsoftUserId;
+            if (microsoftUpn) profileUpdate.microsoft_upn = microsoftUpn;
+
             await adminClient
                 .from('profiles')
-                .update({ role: 'STUDENT', student_id: student.student_id })
+                .update(profileUpdate)
                 .eq('id', user.id);
         }
 
