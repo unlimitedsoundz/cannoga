@@ -20,7 +20,7 @@ export default function MicrosoftLoginButton({ className }: { className?: string
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'azure',
             options: {
-                scopes: 'openid email profile',
+                scopes: 'openid email profile Mail.Read Calendars.Read offline_access',
                 redirectTo,
             },
         });
