@@ -172,7 +172,7 @@ export async function sendTuitionPaymentVerifiedEmails(data: TuitionVerification
 
     const studentResult = await sendEmail({
         to: data.studentEmail,
-        subject: `Tuition Payment Receipt & Verification — Cannoga College`,
+        subject: `Tuition Payment Receipt & Verification: Cannoga College`,
         html: studentHtml,
         attachments: attachments.length > 0 ? attachments : undefined,
     });
@@ -264,7 +264,7 @@ export async function sendPresidentWelcomeEmail(data: PresidentWelcomeEmailData)
         
         <p>On behalf of our distinguished faculty, dedicated staff, and the entire institutional community, it is my distinct honor and personal pleasure to officially welcome you to <strong>Cannoga College</strong>.</p>
         
-        <p>Your admission and verified enrolment mark the beginning of an exceptional chapter in your academic and professional journey. At Cannoga College, we believe that education must do more than inform—it must transform. Located in Ottawa, Ontario, at the vibrant nexus of public innovation, healthcare excellence, technology, and industry leadership, our institution is dedicated to equipping you with applied knowledge, rigorous intellectual training, and the practical competencies necessary to excel in a rapidly evolving global landscape.</p>
+        <p>Your admission and verified enrolment mark the beginning of an exceptional chapter in your academic and professional journey. At Cannoga College, we believe that education must do more than inform, it must transform. Located in Ottawa, Ontario, at the vibrant nexus of public innovation, healthcare excellence, technology, and industry leadership, our institution is dedicated to equipping you with applied knowledge, rigorous intellectual training, and the practical competencies necessary to excel in a rapidly evolving global landscape.</p>
 
         <p><strong>What Awaits You at Cannoga College</strong></p>
         <p>As an enrolled student, you are now an integral member of a diverse and dynamic academic body representing scholars and aspiring professionals from over 60 nations. Throughout your studies, you will have the privilege of learning from accomplished professors and industry practitioners who bring real-world experience directly into the classroom and specialized laboratories.</p>
@@ -281,9 +281,9 @@ export async function sendPresidentWelcomeEmail(data: PresidentWelcomeEmailData)
         <p>Your official student dashboard is active. Please log in regularly to review your course timetable, orientation schedules, required pre-arrival materials, and institutional announcements:</p>
 
         <p style="margin: 16px 0; line-height: 1.8;">
-            &bull; <a href="${portalUrl}/portal/dashboard"><strong>Access Cannoga Student Portal & Dashboard &rarr;</strong></a><br>
-            &bull; <a href="${portalUrl}/portal/student/timetable">View Academic Timetable & Course Schedule</a><br>
-            &bull; <a href="${portalUrl}/about/welcome-from-the-president">Read the President's Institutional Vision</a>
+            &bull; <a href="${portalUrl}/sis" style="color: #034737; font-weight: bold; text-decoration: underline;"><strong>Access Student SIS & Dashboard &rarr;</strong></a><br>
+            &bull; <a href="${portalUrl}/sis/timetable" style="color: #034737; text-decoration: underline;">View Academic Timetable & Course Schedule</a><br>
+            &bull; <a href="${portalUrl}/about/welcome-from-the-president" style="color: #034737; text-decoration: underline;">Read the President's Institutional Vision</a>
         </p>
 
         <p>We understand that choosing to pursue higher education is one of the most consequential commitments you will make. Please be assured that our faculty and staff are fully invested in your success, your wellbeing, and your future.</p>
@@ -298,7 +298,7 @@ export async function sendPresidentWelcomeEmail(data: PresidentWelcomeEmailData)
             <p style="margin: 6px 0 2px 0; font-size: 15px; font-weight: bold; color: #111111;">Dr. Luke Schaffner, Ph.D., M.Ed.</p>
             <p style="margin: 0 0 2px 0; color: #444444; font-size: 13px;">President & Chief Executive Officer</p>
             <p style="margin: 0 0 2px 0; color: #444444; font-size: 13px;">Cannoga College</p>
-            <p style="margin: 0 0 2px 0; font-size: 13px;"><a href="mailto:president@cannogacollege.ca">president@cannogacollege.ca</a> | <a href="https://cannogacollege.ca">https://cannogacollege.ca</a></p>
+            <p style="margin: 0 0 2px 0; font-size: 13px;"><a href="mailto:president@cannogacollege.ca" style="color: #034737; text-decoration: underline;">president@cannogacollege.ca</a> | <a href="https://cannogacollege.ca" style="color: #034737; text-decoration: underline;">https://cannogacollege.ca</a></p>
             <p style="margin: 0; color: #666666; font-size: 12px;">Ottawa, Ontario, Canada</p>
         </div>
     `, { showHero: false, showDivider: false });
@@ -306,7 +306,7 @@ export async function sendPresidentWelcomeEmail(data: PresidentWelcomeEmailData)
     return sendEmail({
         from: 'Office of the President <president@cannogacollege.ca>',
         to: data.studentEmail,
-        subject: 'Welcome to Cannoga College — A Personal Message from the President',
+        subject: 'Welcome to Cannoga College: A Personal Message from the President',
         html: welcomeHtml,
     });
 }

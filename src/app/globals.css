@@ -68,6 +68,11 @@ select.country-select {
    Use these classes on all public pages.
    ============================================ */
 
+/* Enforce #034737 brand link color across all pages */
+a {
+    color: #034737;
+}
+
 /* Enforce crisp architectural edges everywhere EXCEPT checkout elements */
 :not(.font-rubik):not([data-font="rubik"]):not(.font-rubik *):not([data-font="rubik"] *) {
     border-radius: 0;

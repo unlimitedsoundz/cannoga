@@ -593,13 +593,13 @@ serve(async (req) => {
 
             case 'PRESIDENT_WELCOME':
                 sender = "Office of the President <president@cannogacollege.ca>";
-                studentSubject = "Welcome to Cannoga College — A Personal Message from the President";
+                studentSubject = "Welcome to Cannoga College: A Personal Message from the President";
                 studentHtml = `
                     <p>Dear ${fullName},</p>
                     
                     <p>On behalf of our distinguished faculty, dedicated staff, and the entire institutional community, it is my distinct honor and personal pleasure to officially welcome you to <strong>Cannoga College</strong>.</p>
                     
-                    <p>Your admission and verified enrolment mark the beginning of an exceptional chapter in your academic and professional journey. At Cannoga College, we believe that education must do more than inform—it must transform. Located in Ottawa, Ontario, at the vibrant nexus of public innovation, healthcare excellence, technology, and industry leadership, our institution is dedicated to equipping you with applied knowledge, rigorous intellectual training, and the practical competencies necessary to excel in a rapidly evolving global landscape.</p>
+                    <p>Your admission and verified enrolment mark the beginning of an exceptional chapter in your academic and professional journey. At Cannoga College, we believe that education must do more than inform, it must transform. Located in Ottawa, Ontario, at the vibrant nexus of public innovation, healthcare excellence, technology, and industry leadership, our institution is dedicated to equipping you with applied knowledge, rigorous intellectual training, and the practical competencies necessary to excel in a rapidly evolving global landscape.</p>
 
                     <p><strong>What Awaits You at Cannoga College</strong></p>
                     <p>As an enrolled student, you are now an integral member of a diverse and dynamic academic body representing scholars and aspiring professionals from over 60 nations. Throughout your studies, you will have the privilege of learning from accomplished professors and industry practitioners who bring real-world experience directly into the classroom and specialized laboratories.</p>
@@ -616,9 +616,9 @@ serve(async (req) => {
                     <p>Your official student dashboard is active. Please log in regularly to review your course timetable, orientation schedules, required pre-arrival materials, and institutional announcements:</p>
 
                     <p style="margin: 16px 0; line-height: 1.8;">
-                        &bull; <a href="${portalUrl}/dashboard"><strong>Access Cannoga Student Portal & Dashboard &rarr;</strong></a><br>
-                        &bull; <a href="${portalUrl}/student/timetable">View Academic Timetable & Course Schedule</a><br>
-                        &bull; <a href="${portalUrl}/about/welcome-from-the-president">Read the President's Institutional Vision</a>
+                        &bull; <a href="${portalUrl}/sis" style="color: #034737; font-weight: bold; text-decoration: underline;"><strong>Access Student SIS & Dashboard &rarr;</strong></a><br>
+                        &bull; <a href="${portalUrl}/sis/timetable" style="color: #034737; text-decoration: underline;">View Academic Timetable & Course Schedule</a><br>
+                        &bull; <a href="${portalUrl}/about/welcome-from-the-president" style="color: #034737; text-decoration: underline;">Read the President's Institutional Vision</a>
                     </p>
 
                     <p>We understand that choosing to pursue higher education is one of the most consequential commitments you will make. Please be assured that our faculty and staff are fully invested in your success, your wellbeing, and your future.</p>
@@ -633,12 +633,12 @@ serve(async (req) => {
                         <p style="margin: 6px 0 2px 0; font-size: 15px; font-weight: bold; color: #111111;">Dr. Luke Schaffner, Ph.D., M.Ed.</p>
                         <p style="margin: 0 0 2px 0; color: #444444; font-size: 13px;">President & Chief Executive Officer</p>
                         <p style="margin: 0 0 2px 0; color: #444444; font-size: 13px;">Cannoga College</p>
-                        <p style="margin: 0 0 2px 0; font-size: 13px;"><a href="mailto:president@cannogacollege.ca">president@cannogacollege.ca</a> | <a href="https://cannogacollege.ca">https://cannogacollege.ca</a></p>
+                        <p style="margin: 0 0 2px 0; font-size: 13px;"><a href="mailto:president@cannogacollege.ca" style="color: #034737; text-decoration: underline;">president@cannogacollege.ca</a> | <a href="https://cannogacollege.ca" style="color: #034737; text-decoration: underline;">https://cannogacollege.ca</a></p>
                         <p style="margin: 0; color: #666666; font-size: 12px;">Ottawa, Ontario, Canada</p>
                     </div>
                 `;
 
-                adminSubject = `New Student Enrolled — Welcome Sent: ${fullName}`;
+                adminSubject = `New Student Enrolled: Welcome Sent: ${fullName}`;
                 adminHtml = `
                     <h2>Student Enrolled & President's Welcome Dispatched</h2>
                     <p><strong>Student Name:</strong> ${fullName}</p>
@@ -822,7 +822,7 @@ serve(async (req) => {
             case 'TUITION_PAYMENT_VERIFIED':
             case 'TUITION_PAYMENT_VERICAED':
             case 'PAYMENT_VERIFIED':
-                studentSubject = "Tuition Payment Receipt & Verification — Cannoga College";
+                studentSubject = "Tuition Payment Receipt & Verification: Cannoga College";
 
                 const paymentAppId = applicationData?.id || record?.application_id || record?.id;
                 let receiptUrl = record?.receipt_url || additionalData?.receiptUrl || record?.document_url || applicationData?.document_url || null;
@@ -877,7 +877,7 @@ serve(async (req) => {
                 break;
 
             case 'HOUSING_PAYMENT_VERIFIED':
-                studentSubject = "Housing Reservation Deposit Verified — Cannoga College";
+                studentSubject = "Housing Reservation Deposit Verified: Cannoga College";
                 const hAmount = record?.amount || additionalData?.amount || 500;
                 const hCurr = record?.currency || additionalData?.currency || 'CAD';
                 const formattedHAmount = `$${Number(hAmount).toLocaleString()} ${hCurr}`;
