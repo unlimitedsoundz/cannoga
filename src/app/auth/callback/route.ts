@@ -1,93 +1,106 @@
-import { createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { createServiceRoleClient } from '@/utils/supabase/server-admin';
+import { createClient } from '@/lib/supabase/server';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
-    const { searchParams, origin } = new URL(request.url);
-    const code = searchParams.get('code');
-    const next = searchParams.get('next') ?? '/sis';
-    const errorParam = searchParams.get('error_description') || searchParams.get('error');
-
-    if (errorParam) {
-        console.error('[Auth Callback] Provider error:', errorParam);
-        return NextResponse.redirect(`${origin}/portal/account/login/?error=${encodeURIComponent(errorParam)}`);
-    }
-
-    if (!code) {
-        return NextResponse.redirect(`${origin}/portal/account/login/?error=no_code_provided`);
-    }
-
     try {
-        const cookieStore = await cookies();
-        const supabase = createServerClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-            {
-                cookies: {
-                    getAll() {
-                        return cookieStore.getAll();
-                    },
-                    setAll(cookiesToSet) {
-                        try {
-                            cookiesToSet.forEach(({ name, value, options }) =>
-                                cookieStore.set(name, value, options)
-                            );
-                        } catch {
-                            // Ignored if called in read-only context
-                        }
-                    },
-                },
-            }
-        );
+        const requestUrl = new URL(request.url);
+
+        const code = requestUrl.searchParams.get('code');
+        let next = requestUrl.searchParams.get('next') ?? '/sis';
+
+        // Prevent external redirect injection
+        if (!next.startsWith('/') || next.startsWith('//')) {
+            next = '/sis';
+        }
+
+        // Resolve public origin (accounting for Hostinger reverse proxy 0.0.0.0:3000)
+        const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
+        const proto = request.headers.get('x-forwarded-proto') || 'https';
+        const publicOrigin = host && !host.includes('0.0.0.0') ? `${proto}://${host}` : requestUrl.origin;
+
+        if (!code) {
+            console.error('[AUTH CALLBACK] Missing authorization code');
+            return NextResponse.redirect(
+                new URL('/portal/account/login/?error=missing_auth_code', publicOrigin)
+            );
+        }
+
+        console.log('[AUTH CALLBACK] Authorization code received');
+
+        const supabase = await createClient();
+
+        console.log('[AUTH CALLBACK] Supabase server client created');
 
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
-        if (error || !data?.session?.user) {
-            console.error('[Auth Callback] Code exchange error:', error);
-            return NextResponse.redirect(`${origin}/portal/account/login/?error=${encodeURIComponent(error?.message || 'Authentication exchange failed')}`);
+        if (error) {
+            console.error('[AUTH CALLBACK] exchangeCodeForSession failed:', {
+                message: error.message,
+                status: error.status,
+                code: error.code,
+            });
+
+            return NextResponse.redirect(
+                new URL(
+                    `/portal/account/login/?error=${encodeURIComponent(error.message)}`,
+                    publicOrigin
+                )
+            );
         }
 
-        const user = data.session.user;
-        const userEmail = user.email?.toLowerCase().trim() || '';
+        console.log(
+            '[AUTH CALLBACK] Session created:',
+            Boolean(data.session)
+        );
 
-        // Destination default
-        let destination = userEmail.endsWith('@cannogacollege.ca') ? '/sis' : next;
-
-        // Auto-link student record
+        // Auto-link student profile if @cannogacollege.ca account
         try {
-            const adminClient = createServiceRoleClient();
-            const { data: student } = await adminClient
-                .from('students')
-                .select('id, user_id, student_id')
-                .or(`institutional_email.eq.${userEmail},personal_email.eq.${userEmail}`)
-                .maybeSingle();
+            const user = data?.session?.user;
+            const userEmail = user?.email?.toLowerCase().trim() || '';
+            if (user && userEmail) {
+                const { createServiceRoleClient } = await import('@/utils/supabase/server-admin');
+                const adminClient = createServiceRoleClient();
+                const { data: student } = await adminClient
+                    .from('students')
+                    .select('id, user_id, student_id')
+                    .or(`institutional_email.eq.${userEmail},personal_email.eq.${userEmail}`)
+                    .maybeSingle();
 
-            if (student) {
-                destination = '/sis';
-                if (student.user_id !== user.id) {
+                if (student) {
+                    if (student.user_id !== user.id) {
+                        await adminClient
+                            .from('students')
+                            .update({ user_id: user.id })
+                            .eq('id', student.id);
+                    }
                     await adminClient
-                        .from('students')
-                        .update({ user_id: user.id })
-                        .eq('id', student.id);
+                        .from('profiles')
+                        .update({ role: 'STUDENT', student_id: student.student_id })
+                        .eq('id', user.id);
                 }
-                await adminClient
-                    .from('profiles')
-                    .update({ role: 'STUDENT', student_id: student.student_id })
-                    .eq('id', user.id);
             }
         } catch (linkErr) {
-            console.warn('[Auth Callback] Non-fatal student linking note:', linkErr);
+            console.warn('[AUTH CALLBACK] Non-fatal student linking note:', linkErr);
         }
 
-        const forwardedHost = request.headers.get('x-forwarded-host');
-        const isLocalEnv = origin.includes('localhost');
-        const redirectBase = isLocalEnv ? origin : (forwardedHost ? `https://${forwardedHost}` : origin);
+        return NextResponse.redirect(
+            new URL(next, publicOrigin)
+        );
+    } catch (error: any) {
+        console.error('[AUTH CALLBACK] Unhandled callback error:', error);
 
-        return NextResponse.redirect(`${redirectBase}${destination}`);
+        const requestUrl = new URL(request.url);
+        const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
+        const proto = request.headers.get('x-forwarded-proto') || 'https';
+        const publicOrigin = host && !host.includes('0.0.0.0') ? `${proto}://${host}` : requestUrl.origin;
 
-    } catch (err: any) {
-        console.error('[Auth Callback] Exception:', err);
-        return NextResponse.redirect(`${origin}/portal/account/login/?error=${encodeURIComponent(err?.message || 'Server error')}`);
+        return NextResponse.redirect(
+            new URL(
+                `/portal/account/login/?error=${encodeURIComponent(error?.message || 'callback_server_error')}`,
+                publicOrigin
+            )
+        );
     }
 }

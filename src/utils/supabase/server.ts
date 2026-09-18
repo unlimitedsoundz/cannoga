@@ -11,7 +11,8 @@ export async function createServerClient() {
 
     return createSupabaseServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
         {
             cookies: {
                 getAll() {
@@ -31,6 +32,8 @@ export async function createServerClient() {
         }
     );
 }
+
+export { createServerClient as createClient };
 
 /**
  * Creates a server-side Supabase client with service role privileges.
