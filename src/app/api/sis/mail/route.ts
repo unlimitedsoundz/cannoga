@@ -1,4 +1,4 @@
-﻿import { createServerClient } from '@/utils/supabase/server';
+import { createServerClient } from '@/utils/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 const GRAPH_BASE = 'https://graph.microsoft.com/v1.0/me';
@@ -35,14 +35,13 @@ export async function GET(request: NextRequest) {
         const skip = parseInt(searchParams.get('skip') || '0');
 
         const graphHeaders: HeadersInit = {
-            Authorization: Bearer ,
+            Authorization: 'Bearer ' + providerToken,
             'Content-Type': 'application/json',
         };
 
         if (action === 'message' && messageId) {
             const res = await fetch(
-                ${GRAPH_BASE}/messages/? +
-                select=id,subject,from,toRecipients,ccRecipients,body,receivedDateTime,sentDateTime,isRead,flag,hasAttachments,importance,
+                GRAPH_BASE + '/messages/' + messageId + '?$select=id,subject,from,toRecipients,ccRecipients,body,receivedDateTime,sentDateTime,isRead,flag,hasAttachments,importance',
                 { headers: graphHeaders }
             );
             if (!res.ok) {
@@ -57,18 +56,15 @@ export async function GET(request: NextRequest) {
             const counts = await Promise.all(
                 folderIds.map(async (fid) => {
                     const r = await fetch(
-                        ${GRAPH_BASE}/mailFolders/? +
-                        select=id,displayName,unreadItemCount,totalItemCount,
+                        GRAPH_BASE + '/mailFolders/' + fid + '?$select=id,displayName,unreadItemCount,totalItemCount',
                         { headers: graphHeaders }
                     );
-                    if (!r.ok) return { folder: fid, unreadItemCount: 0, totalItemCount: 0 };
+                    if (!r.ok) return { id: fid, unreadItemCount: 0, totalItemCount: 0 };
                     return r.json();
                 })
             );
             const flagRes = await fetch(
-                ${GRAPH_BASE}/messages? +
-                ilter=flag/flagStatus eq 'flagged'& +
-                select=id&count=true&top=1,
+                GRAPH_BASE + "/messages?$filter=flag/flagStatus eq 'flagged'&$select=id&$count=true&$top=1",
                 { headers: { ...graphHeaders, ConsistencyLevel: 'eventual' } }
             );
             const flagData = flagRes.ok ? await flagRes.json() : {};
@@ -82,20 +78,12 @@ export async function GET(request: NextRequest) {
         // list messages
         let url: string;
         if (folder === 'starred') {
-            url = ${GRAPH_BASE}/messages? +
-                ilter=importance eq 'high'& +
-                select=id,subject,from,toRecipients,bodyPreview,receivedDateTime,isRead,flag,hasAttachments,importance& +
-                orderby=receivedDateTime desc&top=&skip=;
+            url = GRAPH_BASE + "/messages?$filter=importance eq 'high'&$select=id,subject,from,toRecipients,bodyPreview,receivedDateTime,isRead,flag,hasAttachments,importance&$orderby=receivedDateTime desc&$top=" + top + '&$skip=' + skip;
         } else if (folder === 'flagged') {
-            url = ${GRAPH_BASE}/messages? +
-                ilter=flag/flagStatus eq 'flagged'& +
-                select=id,subject,from,toRecipients,bodyPreview,receivedDateTime,isRead,flag,hasAttachments,importance& +
-                orderby=receivedDateTime desc&top=&skip=;
+            url = GRAPH_BASE + "/messages?$filter=flag/flagStatus eq 'flagged'&$select=id,subject,from,toRecipients,bodyPreview,receivedDateTime,isRead,flag,hasAttachments,importance&$orderby=receivedDateTime desc&$top=" + top + '&$skip=' + skip;
         } else {
             const gf = FOLDER_MAP[folder] || 'inbox';
-            url = ${GRAPH_BASE}/mailFolders//messages? +
-                select=id,subject,from,toRecipients,bodyPreview,receivedDateTime,isRead,flag,hasAttachments,importance& +
-                orderby=receivedDateTime desc&top=&skip=;
+            url = GRAPH_BASE + '/mailFolders/' + gf + '/messages?$select=id,subject,from,toRecipients,bodyPreview,receivedDateTime,isRead,flag,hasAttachments,importance&$orderby=receivedDateTime desc&$top=' + top + '&$skip=' + skip;
         }
 
         const needsEventual = folder === 'starred' || folder === 'flagged';
@@ -134,10 +122,10 @@ export async function PATCH(request: NextRequest) {
         const { messageId, ...patch } = body;
         if (!messageId) return NextResponse.json({ error: 'Missing messageId' }, { status: 400 });
 
-        const res = await fetch(${GRAPH_BASE}/messages/, {
+        const res = await fetch(GRAPH_BASE + '/messages/' + messageId, {
             method: 'PATCH',
             headers: {
-                Authorization: Bearer ,
+                Authorization: 'Bearer ' + session.provider_token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(patch),
