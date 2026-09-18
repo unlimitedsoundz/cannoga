@@ -27,6 +27,32 @@ export default function PortalLoginPage() {
         }
     }, [searchParams]);
 
+    const [isMicrosoftLoading, setIsMicrosoftLoading] = useState(false);
+
+    const handleMicrosoftLogin = async () => {
+        setIsMicrosoftLoading(true);
+        setError(null);
+        try {
+            const { createClient } = await import('@/utils/supabase/client');
+            const supabase = createClient();
+            const redirectTo = `${window.location.origin}/auth/callback?next=/sis`;
+            const { error: oauthError } = await supabase.auth.signInWithOAuth({
+                provider: 'azure',
+                options: {
+                    scopes: 'email profile openid offline_access User.Read',
+                    redirectTo,
+                },
+            });
+            if (oauthError) {
+                setError(oauthError.message);
+                setIsMicrosoftLoading(false);
+            }
+        } catch (err: any) {
+            setError(err?.message || 'Failed to initiate Microsoft login');
+            setIsMicrosoftLoading(false);
+        }
+    };
+
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
@@ -198,6 +224,35 @@ export default function PortalLoginPage() {
                                 </button>
                             </div>
                         </form>
+
+                        <div className="relative my-6 max-w-[500px]">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-neutral-200"></div>
+                            </div>
+                            <div className="relative flex justify-center text-xs uppercase">
+                                <span className="bg-white px-3 text-neutral-400 font-semibold tracking-wider text-[11px]">Or sign in with</span>
+                            </div>
+                        </div>
+
+                        <div className="sm:pl-39 max-w-[539px]">
+                            <button
+                                type="button"
+                                onClick={handleMicrosoftLogin}
+                                disabled={isMicrosoftLoading}
+                                className="w-full max-w-[400px] h-[38px] flex items-center justify-center gap-3 border border-neutral-300 hover:border-neutral-400 bg-white hover:bg-neutral-50 active:bg-neutral-100 text-neutral-800 font-semibold text-[13px] rounded-md transition-all shadow-xs cursor-pointer disabled:opacity-60"
+                            >
+                                <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 23 23">
+                                    <path fill="#f35325" d="M1 1h10v10H1z"/>
+                                    <path fill="#81bc06" d="M12 1h10v10H12z"/>
+                                    <path fill="#05a6f0" d="M1 12h10v10H1z"/>
+                                    <path fill="#ffba08" d="M12 12h10v10H12z"/>
+                                </svg>
+                                <span>{isMicrosoftLoading ? 'Connecting to Microsoft...' : 'Sign in with Microsoft 365'}</span>
+                            </button>
+                            <p className="text-[11px] text-neutral-500 mt-2">
+                                For students & faculty with an official <strong>@cannogacollege.ca</strong> account
+                            </p>
+                        </div>
 
                         <div className="mt-6 pt-2 text-center">
                             <p className="text-[13px] text-black">

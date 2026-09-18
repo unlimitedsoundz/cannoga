@@ -11,15 +11,24 @@ export default function AuthCallbackPage() {
             const supabase = createClient();
             const params = new URLSearchParams(window.location.search);
             const code = params.get('code');
-            const next = params.get('next') ?? '/portal/dashboard';
+            const targetNext = params.get('next');
 
             if (code) {
-                const { error } = await supabase.auth.exchangeCodeForSession(code);
-                if (!error) {
-                    window.location.href = next;
+                const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+                if (!error && data?.session?.user) {
+                    if (targetNext) {
+                        window.location.href = targetNext;
+                        return;
+                    }
+                    const userEmail = data.session.user.email?.toLowerCase() || '';
+                    if (userEmail.endsWith('@cannogacollege.ca')) {
+                        window.location.href = '/sis';
+                        return;
+                    }
+                    window.location.href = '/portal/dashboard';
                     return;
                 }
-                setError(error.message);
+                setError(error?.message || 'Failed to exchange authorization code');
             } else {
                 setError('No authorization code found');
             }
