@@ -69,7 +69,10 @@ export async function notifyAdmin({ subject, react, html }: { subject: string; r
     });
 }
 
-export function wrapEmailTemplate(contentHtml: string) {
+export function wrapEmailTemplate(contentHtml: string, options: { showHero?: boolean; showDivider?: boolean } = {}) {
+    const showHero = options.showHero !== false;
+    const showDivider = options.showDivider !== false;
+
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -84,16 +87,18 @@ export function wrapEmailTemplate(contentHtml: string) {
     </head>
     <body>
         <div style="max-width: 600px; margin: 0 auto;">
-            <div style="margin-bottom: 14px;">
+            <div style="margin-bottom: ${showHero ? '14px' : '22px'};">
                 <img src="https://cannogacollege.ca/images/logo-cannoga.png" alt="Cannoga College" style="max-width: 90px; height: auto; display: block;" />
             </div>
+            ${showHero ? `
             <div style="margin-bottom: 18px;">
                 <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; max-height: 190px; object-fit: cover; display: block;" />
             </div>
+            ` : ''}
             <div style="font-size: 14px; color: #111111; line-height: 1.5;">
                 ${contentHtml}
             </div>
-            <div style="margin-top: 28px; padding-top: 14px; border-top: 1px solid #eeeeee; font-size: 12px; color: #666666; line-height: 1.45;">
+            <div style="margin-top: 28px; padding-top: 14px; ${showDivider ? 'border-top: 1px solid #eeeeee;' : ''} font-size: 12px; color: #666666; line-height: 1.45;">
                 <p style="margin: 0 0 3px 0;"><strong>Cannoga College</strong></p>
                 <p style="margin: 0 0 3px 0;">Ottawa, Ontario, Canada | admissions@cannogacollege.ca</p>
                 <p style="margin: 0;">&copy; ${new Date().getFullYear()} Cannoga College. All rights reserved.</p>
@@ -261,15 +266,6 @@ export async function sendPresidentWelcomeEmail(data: PresidentWelcomeEmailData)
         
         <p>Your admission and verified enrolment mark the beginning of an exceptional chapter in your academic and professional journey. At Cannoga College, we believe that education must do more than inform—it must transform. Located in Ottawa, Ontario, at the vibrant nexus of public innovation, healthcare excellence, technology, and industry leadership, our institution is dedicated to equipping you with applied knowledge, rigorous intellectual training, and the practical competencies necessary to excel in a rapidly evolving global landscape.</p>
 
-        <div style="margin: 20px 0; padding: 16px 0; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; line-height: 1.6;">
-            <p style="margin: 0 0 5px 0;"><strong>Student Name:</strong> ${fullName}</p>
-            ${data.studentId ? `<p style="margin: 0 0 5px 0;"><strong>Student ID:</strong> ${data.studentId}</p>` : ''}
-            ${data.courseTitle ? `<p style="margin: 0 0 5px 0;"><strong>Programme of Study:</strong> ${data.courseTitle}</p>` : ''}
-            ${data.intake ? `<p style="margin: 0 0 5px 0;"><strong>Academic Intake:</strong> ${data.intake}</p>` : ''}
-            <p style="margin: 0 0 5px 0;"><strong>Enrolment Status:</strong> <span style="color: #034737; font-weight: bold;">OFFICIALLY ENROLLED & CONFIRMED</span></p>
-            <p style="margin: 0;"><strong>Institution:</strong> Cannoga College | Ottawa, Ontario, Canada</p>
-        </div>
-
         <p><strong>What Awaits You at Cannoga College</strong></p>
         <p>As an enrolled student, you are now an integral member of a diverse and dynamic academic body representing scholars and aspiring professionals from over 60 nations. Throughout your studies, you will have the privilege of learning from accomplished professors and industry practitioners who bring real-world experience directly into the classroom and specialized laboratories.</p>
 
@@ -294,7 +290,7 @@ export async function sendPresidentWelcomeEmail(data: PresidentWelcomeEmailData)
 
         <p>I look forward to personally greeting you on campus and celebrating your milestones in the years ahead.</p>
 
-        <div style="margin-top: 24px; padding-top: 14px; border-top: 1px solid #eeeeee;">
+        <div style="margin-top: 24px;">
             <p style="margin: 0 0 8px 0;">With warmest regards and best wishes for your academic journey,</p>
             <div style="margin: 14px 0 8px 0;">
                 <img src="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/assets/president-signature.png" alt="Luke Schaffner Signature" style="max-height: 58px; width: auto; display: block;" />
@@ -305,7 +301,7 @@ export async function sendPresidentWelcomeEmail(data: PresidentWelcomeEmailData)
             <p style="margin: 0 0 2px 0; font-size: 13px;"><a href="mailto:president@cannogacollege.ca">president@cannogacollege.ca</a> | <a href="https://cannogacollege.ca">https://cannogacollege.ca</a></p>
             <p style="margin: 0; color: #666666; font-size: 12px;">Ottawa, Ontario, Canada</p>
         </div>
-    `);
+    `, { showHero: false, showDivider: false });
 
     return sendEmail({
         from: 'Office of the President <president@cannogacollege.ca>',

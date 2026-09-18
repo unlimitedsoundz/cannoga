@@ -601,15 +601,6 @@ serve(async (req) => {
                     
                     <p>Your admission and verified enrolment mark the beginning of an exceptional chapter in your academic and professional journey. At Cannoga College, we believe that education must do more than inform—it must transform. Located in Ottawa, Ontario, at the vibrant nexus of public innovation, healthcare excellence, technology, and industry leadership, our institution is dedicated to equipping you with applied knowledge, rigorous intellectual training, and the practical competencies necessary to excel in a rapidly evolving global landscape.</p>
 
-                    <div style="margin: 20px 0; padding: 16px 0; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; line-height: 1.6;">
-                        <p style="margin: 0 0 5px 0;"><strong>Student Name:</strong> ${fullName}</p>
-                        ${applicationData?.student_id ? `<p style="margin: 0 0 5px 0;"><strong>Student ID:</strong> ${applicationData.student_id}</p>` : ''}
-                        ${applicationData?.course_title ? `<p style="margin: 0 0 5px 0;"><strong>Programme of Study:</strong> ${applicationData.course_title}</p>` : ''}
-                        ${applicationData?.intake ? `<p style="margin: 0 0 5px 0;"><strong>Academic Intake:</strong> ${applicationData.intake}</p>` : ''}
-                        <p style="margin: 0 0 5px 0;"><strong>Enrolment Status:</strong> <span style="color: #034737; font-weight: bold;">OFFICIALLY ENROLLED & CONFIRMED</span></p>
-                        <p style="margin: 0;"><strong>Institution:</strong> Cannoga College | Ottawa, Ontario, Canada</p>
-                    </div>
-
                     <p><strong>What Awaits You at Cannoga College</strong></p>
                     <p>As an enrolled student, you are now an integral member of a diverse and dynamic academic body representing scholars and aspiring professionals from over 60 nations. Throughout your studies, you will have the privilege of learning from accomplished professors and industry practitioners who bring real-world experience directly into the classroom and specialized laboratories.</p>
 
@@ -634,7 +625,7 @@ serve(async (req) => {
 
                     <p>I look forward to personally greeting you on campus and celebrating your milestones in the years ahead.</p>
 
-                    <div style="margin-top: 24px; padding-top: 14px; border-top: 1px solid #eeeeee;">
+                    <div style="margin-top: 24px;">
                         <p style="margin: 0 0 8px 0;">With warmest regards and best wishes for your academic journey,</p>
                         <div style="margin: 14px 0 8px 0;">
                             <img src="https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/assets/president-signature.png" alt="Luke Schaffner Signature" style="max-height: 58px; width: auto; display: block;" />
@@ -1001,7 +992,16 @@ serve(async (req) => {
         }
 
         // Email Wrapper Helper - Minimalist unstyled HTML with Cannoga Logo & Studies Hero
-        const wrapHtml = (content: string) => `
+        const wrapHtml = (content: string, options: { showHero?: boolean; showDivider?: boolean } = {}) => {
+            const showHero = options.showHero !== false;
+            const showDivider = options.showDivider !== false;
+            const logoMargin = showHero ? '12px' : '22px';
+            const heroHtml = showHero
+                ? '<div style="margin-bottom: 16px;"><img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; max-height: 200px; object-fit: cover; display: block;" /></div>'
+                : '';
+            const dividerStyle = showDivider ? 'border-top: 1px solid #eeeeee;' : '';
+
+            return `
             <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -1017,16 +1017,14 @@ serve(async (req) => {
             </head>
             <body>
                 <div style="max-width: 600px; margin: 0 auto;">
-                    <div style="margin-bottom: 12px;">
+                    <div style="margin-bottom: ${logoMargin};">
                         <img src="https://cannogacollege.ca/images/logo-cannoga.png" alt="Cannoga College Logo" style="max-width: 90px; height: auto; display: block;" />
                     </div>
-                    <div style="margin-bottom: 16px;">
-                        <img src="https://cannogacollege.ca/images/studies-hero.jpg" alt="Cannoga College" style="width: 100%; max-height: 200px; object-fit: cover; display: block;" />
-                    </div>
+                    ${heroHtml}
                     <div style="font-size: 14px; color: #111111;">
                         ${content}
                     </div>
-                    <div style="margin-top: 24px; padding-top: 14px; border-top: 1px solid #eeeeee; font-size: 12px; color: #666666;">
+                    <div style="margin-top: 24px; padding-top: 14px; ${dividerStyle} font-size: 12px; color: #666666;">
                         <p style="margin: 0 0 3px 0;"><strong>Cannoga College</strong></p>
                         <p style="margin: 0 0 3px 0;">Ottawa, Ontario, Canada | admissions@cannogacollege.ca</p>
                         <p style="margin: 0;">&copy; ${new Date().getFullYear()} Cannoga College. All rights reserved.</p>
@@ -1035,6 +1033,7 @@ serve(async (req) => {
             </body>
             </html>
         `;
+        };
 
         let studentSuccess = true;
         let adminSuccess = true;
@@ -1047,7 +1046,8 @@ serve(async (req) => {
         if (studentSubject && userEmail) {
             console.log(`[send-notification] Sending student email to: ${userEmail} (Subject: ${studentSubject})`);
 
-            const finalHtml = wrapHtml(studentHtml);
+            const isPres = notificationType === 'PRESIDENT_WELCOME';
+            const finalHtml = wrapHtml(studentHtml, { showHero: !isPres, showDivider: !isPres });
             const emailOptions: any = {
                 from: sender,
                 to: [userEmail],
