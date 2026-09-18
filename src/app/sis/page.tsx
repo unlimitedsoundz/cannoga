@@ -2142,18 +2142,29 @@ function formatRelativeTime(dateInput: any): string {
                                                  />
                                              </button>
 
-                                             {/* Blackboard Learn LMS Card */}
+                                             {/* Microsoft 365 Education Portal Card */}
                                              <button 
                                                  type="button" 
-                                                 onClick={() => navigateTo('academics')} 
-                                                 className="flex items-center justify-center hover:opacity-80 transition group cursor-pointer py-1"
-                                                 title="Blackboard Learn LMS"
+                                                 onClick={() => navigateTo('microsoft-365')} 
+                                                 className="flex items-center justify-center hover:opacity-85 transition group cursor-pointer py-1 px-2 rounded-lg hover:bg-slate-50"
+                                                 title="Microsoft 365 Education Portal"
                                              >
-                                                 <img 
-                                                     src="https://upload.wikimedia.org/wikipedia/commons/7/77/Blackboard_Inc._logo.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" 
-                                                     alt="Blackboard Learn" 
-                                                     className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform" 
-                                                 />
+                                                 <div className="flex items-center space-x-2">
+                                                     <svg className="h-8 w-8 sm:h-9 sm:w-9 shrink-0 group-hover:scale-105 transition-transform" viewBox="0 0 23 23">
+                                                         <path fill="#f35325" d="M1 1h10v10H1z" />
+                                                         <path fill="#81bc06" d="M12 1h10v10H12z" />
+                                                         <path fill="#05a6f0" d="M1 12h10v10H1z" />
+                                                         <path fill="#ffba08" d="M12 12h10v10H12z" />
+                                                     </svg>
+                                                     <div className="flex flex-col text-left leading-tight">
+                                                         <span className="text-[13px] sm:text-[14px] font-bold text-slate-800 tracking-tight group-hover:text-[#0078d4] transition-colors">
+                                                             Microsoft 365
+                                                         </span>
+                                                         <span className="text-[9px] sm:text-[10px] uppercase font-bold text-[#0078d4] tracking-wider">
+                                                             Education
+                                                         </span>
+                                                     </div>
+                                                 </div>
                                              </button>
 
                                              {/* OCAS Card */}
