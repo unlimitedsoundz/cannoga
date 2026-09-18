@@ -6,6 +6,7 @@ import { generateAndStoreLOA } from '@/utils/loa-pdf-generator';
 import { renderToBuffer } from '@react-pdf/renderer';
 import React from 'react';
 import ReceiptPDF from '@/components/portal/pdf/ReceiptPDF';
+import { sendTuitionPaymentVerifiedEmails } from '@/lib/email';
 
 export async function getAdminInvoiceData() {
     const supabase = createServiceRoleClient();
@@ -415,13 +416,59 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
                     .or(`student_id.eq.${studentId},id.eq.${housingRecord.invoice_id}`);
             }
 
-            // 4. Send confirmation notification to student
+            // 4. Send confirmation notification to student and admin
             try {
+                const { data: studentUser } = await supabase
+                    .from('students')
+                    .select('*, user:profiles(*)')
+                    .eq('id', studentId)
+                    .maybeSingle();
+
+                const hUserEmail = studentUser?.user?.email || studentUser?.personal_email;
+                const hUserName = `${studentUser?.user?.first_name || 'Student'} ${studentUser?.user?.last_name || ''}`.trim();
+                const hAmountStr = `$${Number(housingRecord.amount).toLocaleString()} ${housingRecord.currency || 'CAD'}`;
+
+                if (hUserEmail) {
+                    const { sendEmail, wrapEmailTemplate, notifyAdmin } = await import('@/lib/email');
+                    await sendEmail({
+                        to: hUserEmail,
+                        subject: 'Housing Reservation Deposit Verified — Cannoga College',
+                        html: wrapEmailTemplate(`
+                            <div style="margin-bottom: 16px;">
+                                <span class="badge badge-success">Payment Verified ✓</span>
+                            </div>
+                            <h2 style="font-size: 20px; color: #0f172a; margin: 0 0 16px 0; font-weight: 700;">Housing Deposit Verified</h2>
+                            <p>Dear ${hUserName},</p>
+                            <p>We are pleased to inform you that your housing reservation deposit of <strong>${hAmountStr}</strong> has been officially verified and accepted.</p>
+                            <p>Your room reservation is now secured. You can view your assignment details in the student portal.</p>
+                            <div style="margin: 20px 0;">
+                                <a href="https://cannogacollege.ca/portal/student/housing" class="btn">View Housing Portal</a>
+                            </div>
+                            <p>Warm regards,<br><strong>Cannoga College Residence & Housing Office</strong></p>
+                        `)
+                    });
+
+                    await notifyAdmin({
+                        subject: `Housing Deposit Verified: ${hUserName} (${hAmountStr})`,
+                        html: wrapEmailTemplate(`
+                            <div style="margin-bottom: 16px;">
+                                <span class="badge badge-success">Admin Alert</span>
+                            </div>
+                            <h2 style="font-size: 20px; color: #0f172a; margin: 0 0 16px 0; font-weight: 700;">Housing Deposit Verified</h2>
+                            <p><strong>Student:</strong> ${hUserName} (${hUserEmail})</p>
+                            <p><strong>Amount:</strong> ${hAmountStr}</p>
+                            <p><strong>Ref:</strong> ${housingRecord.transaction_reference || 'N/A'}</p>
+                        `)
+                    });
+                }
+
                 await supabase.functions.invoke('send-notification', {
                     body: {
                         type: 'HOUSING_PAYMENT_VERIFIED',
                         paymentId,
                         studentId,
+                        studentEmail: hUserEmail,
+                        studentName: hUserName,
                         amount: housingRecord.amount,
                         currency: housingRecord.currency || 'CAD',
                     },
@@ -431,6 +478,7 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
             }
 
             return { success: true };
+
         }
 
         // 0. Fetch payment record first so we know amount / type / reference
@@ -653,9 +701,13 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
                 console.error('Error updating admission offer:', offerError);
             }
 
-            // 4f. Create receipt document record and upload PDF
+            // 4f. Create receipt document record and upload PDF (safely isolated)
+            let receiptPublicUrl: string | null = null;
+            let receiptPdfBuffer: Buffer | null = null;
+
             try {
                 const pdfBuffer = Buffer.from(await renderToBuffer(React.createElement(ReceiptPDF, { application, payment: paymentRecord }) as any));
+                receiptPdfBuffer = pdfBuffer;
                 const fileName = `receipt-${paymentRecord.transaction_reference || paymentId}.pdf`;
                 const storagePath = `student-documents/${application.user_id}/${fileName}`;
 
@@ -667,62 +719,141 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
                     });
 
                 if (uploadError) {
-                    console.error('Receipt upload error:', uploadError);
-                    throw new Error(`Failed to upload receipt: ${uploadError.message}`);
+                    console.error('[verifyTuitionPayment] Receipt storage upload error:', uploadError.message || uploadError);
+                } else {
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('application-documents')
+                        .getPublicUrl(storagePath);
+                    receiptPublicUrl = publicUrl;
                 }
 
-                const { data: { publicUrl } } = supabase.storage
-                    .from('application-documents')
-                    .getPublicUrl(storagePath);
+                if (receiptPublicUrl) {
+                    const receiptPayload = {
+                        student_id: newStudent.id,
+                        document_type: 'tuition_receipt',
+                        title: `Tuition Receipt - ${paymentRecord.transaction_reference || paymentId}`,
+                        programme: (application as any).course?.title || '',
+                        status: 'issued',
+                        storage_path: receiptPublicUrl,
+                        is_official: true,
+                        is_student_visible: true,
+                        version: 1,
+                        issue_date: new Date().toISOString(),
+                        metadata: {
+                            payment_id: paymentId,
+                            transaction_reference: paymentRecord.transaction_reference,
+                            amount: paymentRecord.amount,
+                            invoice_type: paymentRecord.invoice_type,
+                            payment_method: paymentRecord.payment_method,
+                        },
+                    };
 
-                const receiptPayload = {
-                    student_id: newStudent.id,
-                    document_type: 'tuition_receipt',
-                    title: `Tuition Receipt - ${paymentRecord.transaction_reference || paymentId}`,
-                    programme: (application as any).course?.title || '',
-                    status: 'issued',
-                    storage_path: publicUrl,
-                    is_official: true,
-                    is_student_visible: true,
-                    version: 1,
-                    issue_date: new Date().toISOString(),
-                    metadata: {
-                        payment_id: paymentId,
-                        transaction_reference: paymentRecord.transaction_reference,
-                        amount: paymentRecord.amount,
-                        invoice_type: paymentRecord.invoice_type,
-                        payment_method: paymentRecord.payment_method,
-                    },
-                };
-
-                await supabase.from('document_records').upsert(receiptPayload, {
-                    onConflict: 'student_id,document_type',
-                });
-
-                // 4g. Trigger notification to student with receipt PDF attachment
-                try {
-                    console.log(`[verifyTuitionPayment] Triggering TUITION_PAYMENT_VERIFIED notification for app: ${applicationId}`);
-                    await supabase.functions.invoke('send-notification', {
-                        body: {
-                            applicationId: applicationId,
-                            type: 'TUITION_PAYMENT_VERIFIED',
-                            record: {
-                                amount: paymentRecord.amount,
-                                currency: paymentRecord.currency || 'CAD',
-                                transaction_reference: paymentRecord.transaction_reference,
-                                receipt_url: publicUrl,
-                                status: 'VERIFIED'
-                            },
-                            applicationData: application
-                        }
+                    await supabase.from('document_records').upsert(receiptPayload, {
+                        onConflict: 'student_id,document_type',
                     });
-                } catch (notifyErr) {
-                    console.error('[verifyTuitionPayment] Failed to trigger payment verification notification:', notifyErr);
                 }
             } catch (receiptError) {
-                console.error('Error creating receipt document record:', receiptError);
+                console.error('[verifyTuitionPayment] Error generating or saving receipt document record:', receiptError);
+            }
+
+            // 4g. Send Email Notifications to Student and Admin & In-App Notification
+            const studentEmail = appUser?.email || application.personal_info?.email;
+            const studentFirstName = appUser?.first_name || application.personal_info?.firstName || 'Student';
+            const studentLastName = appUser?.last_name || application.personal_info?.lastName || '';
+            const studentFullName = `${studentFirstName} ${studentLastName}`.trim();
+            const courseTitle = (application as any).course?.title || 'Degree Programme';
+
+            // 4g-1: Direct Resend email to both student and admin
+            if (studentEmail) {
+                try {
+                    console.log(`[verifyTuitionPayment] Sending direct verification emails to student (${studentEmail}) and admin`);
+                    await sendTuitionPaymentVerifiedEmails({
+                        studentEmail,
+                        studentName: studentFullName,
+                        studentId: studentId,
+                        courseTitle: courseTitle,
+                        amount: paymentAmount,
+                        currency: paymentRecord.currency || 'CAD',
+                        invoiceType: paymentRecord.invoice_type,
+                        transactionReference: paymentRecord.transaction_reference,
+                        receiptUrl: receiptPublicUrl,
+                        receiptBuffer: receiptPdfBuffer,
+                    });
+                } catch (directEmailErr) {
+                    console.error('[verifyTuitionPayment] Error in direct email dispatch:', directEmailErr);
+                }
+            } else {
+                console.warn('[verifyTuitionPayment] No student email found on profile or application; direct student email skipped.');
+            }
+
+            // 4g-2: Invoke send-notification edge function with enriched payload
+            try {
+                console.log(`[verifyTuitionPayment] Triggering TUITION_PAYMENT_VERIFIED edge function notification for app: ${applicationId}`);
+                await supabase.functions.invoke('send-notification', {
+                    body: {
+                        applicationId: applicationId,
+                        type: 'TUITION_PAYMENT_VERIFIED',
+                        studentEmail: studentEmail,
+                        studentName: studentFullName,
+                        record: {
+                            amount: paymentRecord.amount,
+                            currency: paymentRecord.currency || 'CAD',
+                            transaction_reference: paymentRecord.transaction_reference,
+                            receipt_url: receiptPublicUrl,
+                            status: 'VERIFIED',
+                            email: studentEmail,
+                            first_name: studentFirstName,
+                            last_name: studentLastName,
+                            student_id: studentId,
+                        },
+                        additionalData: {
+                            studentEmail: studentEmail,
+                            studentName: studentFullName,
+                            studentId: studentId,
+                            courseTitle: courseTitle,
+                            invoiceType: paymentRecord.invoice_type,
+                            amount: paymentRecord.amount,
+                            currency: paymentRecord.currency || 'CAD',
+                            reference: paymentRecord.transaction_reference,
+                            receiptUrl: receiptPublicUrl,
+                        },
+                        applicationData: {
+                            ...application,
+                            email: studentEmail,
+                            first_name: studentFirstName,
+                            last_name: studentLastName,
+                            student_id: studentId,
+                            course_title: courseTitle,
+                            document_url: receiptPublicUrl,
+                        }
+                    }
+                });
+            } catch (notifyErr) {
+                console.error('[verifyTuitionPayment] Failed to trigger payment verification edge function:', notifyErr);
+            }
+
+            // 4g-3: In-app notification for the student dashboard
+            if (appUser?.id) {
+                try {
+                    await supabase.from('notifications').insert({
+                        title: 'Tuition Payment Verified ✓',
+                        message: `Your payment of ${paymentRecord.currency || 'CAD'} $${paymentAmount.toLocaleString()} has been verified. Your enrollment is confirmed and your official receipt is ready.`,
+                        category: 'Finance',
+                        priority: 'high',
+                        recipient_type: 'individual',
+                        recipient_ids: [newStudent?.id, appUser.id].filter(Boolean) as string[],
+                        related_id: paymentId,
+                        related_type: 'tuition_payment',
+                        link: '/portal/dashboard',
+                        read: false,
+                        created_at: new Date().toISOString(),
+                    });
+                } catch (inAppErr) {
+                    console.error('[verifyTuitionPayment] Error inserting in-app notification:', inAppErr);
+                }
             }
         }
+
 
         // 5. Mark application enrolled if payment covers deposit or full tuition
         if (isDeposit || isFullTuition) {

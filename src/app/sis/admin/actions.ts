@@ -666,7 +666,8 @@ export async function getStudentFinancialDetails(studentId: string) {
   const adminClient = createServiceRoleClient();
 
   try {
-    const { data: student, error: studentError } = await adminClient
+    // 1. Resolve student record (by id, application_id, or user_id)
+    let { data: student, error: studentError } = await adminClient
       .from('students')
       .select(`
         *,
@@ -674,13 +675,48 @@ export async function getStudentFinancialDetails(studentId: string) {
         course:Course(title, school:School(name), degreeLevel, duration, credits),
         application:applications(*, course:Course(title, slug))
       `)
-      .eq('id', studentId)
+      .or(`id.eq.${studentId},application_id.eq.${studentId},user_id.eq.${studentId}`)
       .maybeSingle();
 
-    if (studentError) throw studentError;
+    if (studentError) {
+      console.warn('Student query error:', studentError);
+    }
 
     const application = Array.isArray(student?.application) ? student.application[0] : student?.application;
-    const applicationId = application?.id;
+    let applicationId = student?.application_id || application?.id;
+
+    // If still no student row, resolve via applications table
+    if (!student) {
+      const { data: app } = await adminClient
+        .from('applications')
+        .select(`
+          *,
+          user:profiles(first_name, last_name, email, phone_number, student_id),
+          course:Course(title, school:School(name), degreeLevel, duration, credits)
+        `)
+        .or(`id.eq.${studentId},user_id.eq.${studentId}`)
+        .maybeSingle();
+
+      if (app) {
+        applicationId = app.id;
+        student = {
+          id: app.id,
+          student_id: app.user?.student_id || app.application_number || `CC${app.id.slice(0, 6).toUpperCase()}`,
+          enrollment_status: app.status === 'ENROLLED' ? 'ACTIVE' : (app.status || 'ACTIVE'),
+          user_id: app.user_id,
+          application_id: app.id,
+          tuition_deposit_paid: true,
+          full_tuition_paid: true,
+          user: app.user,
+          course: app.course,
+          application: app,
+        };
+      }
+    }
+
+    // Resolve IDs to match invoices and documents
+    const matchedStudentIds = [student?.id, studentId, student?.application_id, student?.user_id].filter(Boolean) as string[];
+    const uniqueIds = Array.from(new Set(matchedStudentIds));
 
     let offer = null;
     let payments: any[] = [];
@@ -688,28 +724,13 @@ export async function getStudentFinancialDetails(studentId: string) {
     let financeDocuments: any[] = [];
 
     if (applicationId) {
-      const [{ data: offerData }, { data: invoiceData }, { data: documentData }] = await Promise.all([
-        adminClient
-          .from('admission_offers')
-          .select('*')
-          .eq('application_id', applicationId)
-          .maybeSingle(),
-        adminClient
-          .from('invoices')
-          .select('*')
-          .eq('student_id', studentId)
-          .order('issued_date', { ascending: false }),
-        adminClient
-          .from('document_records')
-          .select('*')
-          .eq('student_id', studentId)
-          .in('document_type', ['tuition_receipt', 'tuition_invoice', 'pal', 'loa'])
-          .order('issue_date', { ascending: false }),
-      ]);
+      const { data: offerData } = await adminClient
+        .from('admission_offers')
+        .select('*')
+        .eq('application_id', applicationId)
+        .maybeSingle();
 
       offer = offerData;
-      invoices = invoiceData || [];
-      financeDocuments = documentData || [];
 
       if (offer?.id) {
         const { data: paymentsData } = await adminClient
@@ -722,15 +743,36 @@ export async function getStudentFinancialDetails(studentId: string) {
       }
     }
 
-    const tuitionFee = offer?.tuition_fee || 0;
-    const ancillaryFee = 700;
+    // Fetch invoices matching any of the resolved student IDs
+    const { data: invoiceData } = await adminClient
+      .from('invoices')
+      .select('*')
+      .in('student_id', uniqueIds)
+      .order('issued_date', { ascending: false });
+    invoices = invoiceData || [];
+
+    // Fetch finance documents matching any of the resolved student IDs
+    const { data: documentData } = await adminClient
+      .from('document_records')
+      .select('*')
+      .in('student_id', uniqueIds)
+      .in('document_type', ['tuition_receipt', 'tuition_invoice', 'pal', 'loa', 'receipt'])
+      .order('issue_date', { ascending: false });
+    financeDocuments = documentData || [];
+
+    const tuitionFee = offer?.tuition_fee || 4000;
+    const ancillaryFee = 500;
     const totalAnnual = tuitionFee + ancillaryFee;
     const totalPaid = payments
       .filter((p: any) => p.status === 'COMPLETED' || p.status === 'verified')
       .reduce((sum: number, p: any) => sum + Number(p.amount), 0);
-    const totalInvoiced = invoices.reduce((sum: number, inv: any) => sum + Number(inv.amount || 0), 0);
-    const totalBalance = invoices.reduce((sum: number, inv: any) => sum + Number(inv.balance || 0), 0);
-    const outstandingBalance = Math.max(0, totalInvoiced - totalPaid);
+    const totalInvoiced = invoices.length > 0 
+      ? invoices.reduce((sum: number, inv: any) => sum + Number(inv.amount || 0), 0)
+      : (totalPaid > 0 ? totalPaid : totalAnnual);
+    const totalBalance = invoices.length > 0
+      ? invoices.reduce((sum: number, inv: any) => sum + Number(inv.balance || 0), 0)
+      : Math.max(0, totalInvoiced - totalPaid);
+    const outstandingBalance = Math.max(0, totalBalance);
 
     return {
       success: true,
@@ -748,8 +790,8 @@ export async function getStudentFinancialDetails(studentId: string) {
           totalPaid,
           totalBalance,
           outstandingBalance,
-          depositPaid: student?.tuition_deposit_paid || false,
-          fullTuitionPaid: student?.full_tuition_paid || false,
+          depositPaid: student?.tuition_deposit_paid || totalPaid >= 2000,
+          fullTuitionPaid: student?.full_tuition_paid || totalPaid >= totalAnnual || totalPaid >= 4000,
           housingPaid: student?.housing_fee_paid || false,
           paymentCount: payments.filter((p: any) => p.status === 'COMPLETED' || p.status === 'verified').length,
           pendingPayments: payments.filter((p: any) => p.status === 'PENDING_VERIFICATION' || p.status === 'PENDING').length,

@@ -57,79 +57,91 @@ serve(async (req) => {
         }
 
         const resend = new Resend(resendKey);
-        const { record, old_record, type, table, applicationId, documentUrl, additionalData } = await req.json();
+        const { record, old_record, type, table, applicationId, documentUrl, additionalData, applicationData: passedAppData, studentEmail, studentName } = await req.json();
 
         const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
         const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
         const supabase = createClient(supabaseUrl, supabaseKey);
         const supabaseAdmin = supabase;
 
-        let applicationData = record;
+        let applicationData: any = passedAppData || (table === 'applications' ? record : null);
 
-        // If applicationId is provided but no record, fetch it
-        if (!applicationData && applicationId) {
+        // Target application ID from parameters, record, or additionalData
+        const targetAppId = applicationId || record?.application_id || additionalData?.applicationId;
+
+        // If targetAppId is available and we don't have user info, fetch it
+        if (targetAppId && (!applicationData || !applicationData.email || !applicationData.first_name)) {
             const { data: app } = await supabase
                 .from('applications')
                 .select('*, user:profiles(*), course:Course(title, slug, degreeLevel)')
-                .eq('id', applicationId)
-                .single();
+                .eq('id', targetAppId)
+                .maybeSingle();
 
             if (app) {
-                console.log(`[send-notification] Successfully fetched application data for ${applicationId}`);
+                console.log(`[send-notification] Successfully fetched application data for ${targetAppId}`);
 
                 // Fetch offer document_url if available
                 const { data: offer } = await supabase
                     .from('admission_offers')
                     .select('id, document_url')
-                    .eq('application_id', applicationId)
+                    .eq('application_id', targetAppId)
                     .order('created_at', { ascending: false })
                     .limit(1)
                     .maybeSingle();
 
                 applicationData = {
+                    ...(applicationData || {}),
                     ...app,
-                    email: app.user?.email,
-                    first_name: app.user?.first_name || app.personal_info?.firstName,
-                    last_name: app.user?.last_name || app.personal_info?.lastName,
-                    student_id: app.user?.student_id,
-                    course_title: app.course?.title,
-                    course_slug: app.course?.slug,
-                    course_degree_level: app.course?.degreeLevel,
-                    document_url: documentUrl || offer?.document_url || null,
+                    email: studentEmail || app.user?.email || applicationData?.email,
+                    first_name: studentName ? studentName.split(' ')[0] : (app.user?.first_name || app.personal_info?.firstName || applicationData?.first_name),
+                    last_name: studentName ? studentName.split(' ').slice(1).join(' ') : (app.user?.last_name || app.personal_info?.lastName || applicationData?.last_name),
+                    student_id: app.user?.student_id || applicationData?.student_id,
+                    course_title: app.course?.title || applicationData?.course_title,
+                    course_slug: app.course?.slug || applicationData?.course_slug,
+                    course_degree_level: app.course?.degreeLevel || applicationData?.course_degree_level,
+                    document_url: documentUrl || offer?.document_url || applicationData?.document_url || null,
                 };
 
             } else {
-                console.warn(`[send-notification] Application not found for ID: ${applicationId}`);
+                console.warn(`[send-notification] Application not found for ID: ${targetAppId}`);
             }
-        } else if (table === 'tuition_payments' && record) {
-            // New: Resolve application from payment record
+        } else if (table === 'tuition_payments' && record && !applicationData) {
+            // Resolve application from payment record
             const { data: offer } = await supabase
                 .from('admission_offers')
                 .select('application_id')
                 .eq('id', record.offer_id)
-                .single();
+                .maybeSingle();
 
             if (offer?.application_id) {
                 const { data: app } = await supabase
                     .from('applications')
                     .select('*, user:profiles(*), course:Course(title, degreeLevel)')
                     .eq('id', offer.application_id)
-                    .single();
-
+                    .maybeSingle();
 
                 if (app) {
                     applicationData = {
                         ...app,
-                        email: app.user?.email,
+                        email: studentEmail || app.user?.email,
                         first_name: app.user?.first_name || app.personal_info?.firstName,
                         last_name: app.user?.last_name || app.personal_info?.lastName,
                         student_id: app.user?.student_id,
                         course_title: app.course?.title,
                         course_degree_level: app.course?.degreeLevel
                     };
-
                 }
             }
+        }
+
+        // Fallback for direct studentEmail or names passed in body
+        if (studentEmail && (!applicationData || !applicationData.email)) {
+            applicationData = {
+                ...(applicationData || {}),
+                email: studentEmail,
+                first_name: studentName ? studentName.split(' ')[0] : (applicationData?.first_name || 'Student'),
+                last_name: studentName ? studentName.split(' ').slice(1).join(' ') : (applicationData?.last_name || ''),
+            };
         }
 
         if (!applicationData && !record && !type) {
@@ -137,6 +149,7 @@ serve(async (req) => {
                 headers: { ...corsHeaders, "Content-Type": "application/json" },
             });
         }
+
 
         // Determine notification type
         let notificationType = type;
@@ -748,10 +761,11 @@ serve(async (req) => {
 
             case 'TUITION_PAYMENT_VERIFIED':
             case 'TUITION_PAYMENT_VERICAED':
+            case 'PAYMENT_VERIFIED':
                 studentSubject = "Tuition Payment Receipt & Verification — Cannoga College";
 
                 const paymentAppId = applicationData?.id || record?.application_id || record?.id;
-                let receiptUrl = record?.receipt_url || record?.document_url || applicationData?.document_url || null;
+                let receiptUrl = record?.receipt_url || additionalData?.receiptUrl || record?.document_url || applicationData?.document_url || null;
 
                 if (!receiptUrl && paymentAppId) {
                     const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
@@ -775,7 +789,9 @@ serve(async (req) => {
                     }
                 }
 
-                const paidAmountStr = record?.amount ? `$${Number(record.amount).toLocaleString()} ${record?.currency || 'CAD'}` : 'your tuition deposit';
+                const paidAmountNum = record?.amount || additionalData?.amount;
+                const paidCurrencyStr = record?.currency || additionalData?.currency || 'CAD';
+                const paidAmountStr = paidAmountNum ? `$${Number(paidAmountNum).toLocaleString()} ${paidCurrencyStr}` : 'your tuition deposit';
 
                 studentHtml = `
                     <p>Hello ${firstName},</p>
@@ -794,11 +810,39 @@ serve(async (req) => {
                 adminHtml = `
                     <h2>Payment Confirmation</h2>
                     <p><strong>Student:</strong> ${fullName}</p>
-                    <p><strong>Amount:</strong> ${record?.amount ? `$${record.amount} ${record?.currency || 'CAD'}` : 'N/A'}</p>
-                    <p><strong>Ref:</strong> ${record?.transaction_reference || record?.reference || 'N/A'}</p>
+                    <p><strong>Amount:</strong> ${paidAmountStr}</p>
+                    <p><strong>Ref:</strong> ${record?.transaction_reference || record?.reference || additionalData?.reference || 'N/A'}</p>
                     <p>The student payment has been officially verified, tuition receipt attached, and enrolled status updated.</p>
                 `;
                 break;
+
+            case 'HOUSING_PAYMENT_VERIFIED':
+                studentSubject = "Housing Reservation Deposit Verified — Cannoga College";
+                const hAmount = record?.amount || additionalData?.amount || 500;
+                const hCurr = record?.currency || additionalData?.currency || 'CAD';
+                const formattedHAmount = `$${Number(hAmount).toLocaleString()} ${hCurr}`;
+
+                studentHtml = `
+                    <p>Hello ${firstName},</p>
+                    <p>Great news! Your housing reservation deposit of <strong>${formattedHAmount}</strong> has been officially verified and confirmed by our Residence Office.</p>
+                    <p>Your room reservation is now confirmed. You can log in to your Student Portal to view your residence assignment and move-in instructions.</p>
+                    <p><a href="${portalUrl}/student/housing">View Housing Dashboard</a></p>
+                    <p>Warm regards,<br>
+                    Student Housing & Residence Office<br>
+                    Cannoga College<br>
+                    housing@cannogacollege.ca<br>
+                    https://cannogacollege.ca</p>
+                `;
+                adminSubject = `Housing Deposit Verified: ${fullName}`;
+                adminHtml = `
+                    <h2>Housing Deposit Confirmation</h2>
+                    <p><strong>Student:</strong> ${fullName}</p>
+                    <p><strong>Amount:</strong> ${formattedHAmount}</p>
+                    <p><strong>Ref:</strong> ${record?.transaction_reference || record?.reference || additionalData?.reference || 'N/A'}</p>
+                    <p>The student's housing deposit has been verified and their room reservation is confirmed.</p>
+                `;
+                break;
+
 
             case 'HOUSING_SUBMITTED':
                 studentSubject = "Housing Application Received - Cannoga College";
