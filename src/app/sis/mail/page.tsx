@@ -239,7 +239,7 @@ export default function StudentMailPage() {
                                 </div>
                                 <p style={{ fontSize: 11, fontWeight: 700, color: '#475569', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Admin consent URL</p>
                                 <code style={{ display: 'block', background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: 6, padding: '8px 10px', fontSize: 11, color: '#0f172a', wordBreak: 'break-all', marginBottom: 16 }}>
-                                    https://login.microsoftonline.com/cannogacollege.ca/adminconsent?client_id=559051ae-ebf4-496a-8dbb-128aac57d721
+                                    https://login.microsoftonline.com/559051ae-ebf4-496a-8dbb-128aac57d721/adminconsent?client_id=5548838a-7cd2-4be6-9f5d-116f8e8a200f
                                 </code>
                                 <p style={{ fontSize: 11, color: '#94a3b8', lineHeight: 1.6 }}>
                                     Once the admin approves, students sign out and sign back in with Microsoft 365.
