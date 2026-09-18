@@ -58,7 +58,7 @@ export async function proxy(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
     // Explicitly bypass /auth routes (callback, reset-password, etc.) so middleware never intercepts OAuth exchanges
-    if (pathname.startsWith('/auth/')) {
+    if (pathname === '/auth/callback' || pathname.startsWith('/auth')) {
         return NextResponse.next();
     }
 
