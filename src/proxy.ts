@@ -12,6 +12,39 @@ const ADMIN_PATHS = ['/sis/admin'];
 
 const AUTH_REQUIRED_PATHS = ['/sis'];
 
+function createRedirectResponse(
+    request: NextRequest,
+    pathname: string,
+    searchParams?: Record<string, string>,
+    status = 307,
+    sourceResponse?: NextResponse
+): NextResponse {
+    const forwardedHost = request.headers.get('x-forwarded-host');
+    let host = 'cannogacollege.ca';
+    if (forwardedHost && !forwardedHost.includes('0.0.0.0') && !forwardedHost.includes('127.0.0.1')) {
+        host = forwardedHost.split(',')[0].trim();
+    } else {
+        const reqHost = request.headers.get('host') || '';
+        if (reqHost && !reqHost.includes('0.0.0.0') && !reqHost.includes('127.0.0.1') && !reqHost.includes('localhost')) {
+            host = reqHost.split(':')[0].trim();
+        }
+    }
+    const normalizedPath = pathname.endsWith('/') ? pathname : `${pathname}/`;
+    const url = new URL(`https://${host}${normalizedPath}`);
+    if (searchParams) {
+        for (const [key, value] of Object.entries(searchParams)) {
+            url.searchParams.set(key, value);
+        }
+    }
+    const redirectRes = NextResponse.redirect(url, { status });
+    if (sourceResponse) {
+        sourceResponse.cookies.getAll().forEach((cookie) => {
+            redirectRes.cookies.set(cookie.name, cookie.value);
+        });
+    }
+    return redirectRes;
+}
+
 export async function proxy(request: NextRequest) {
     const host = request.headers.get('host') || '';
     if (host.startsWith('www.cannogacollege.ca')) {
@@ -20,6 +53,13 @@ export async function proxy(request: NextRequest) {
         newUrl.protocol = 'https';
         newUrl.port = '';
         return NextResponse.redirect(newUrl, { status: 301 });
+    }
+
+    const pathname = request.nextUrl.pathname;
+
+    // Explicitly bypass /auth routes (callback, reset-password, etc.) so middleware never intercepts OAuth exchanges
+    if (pathname.startsWith('/auth/')) {
+        return NextResponse.next();
     }
 
     let supabaseResponse = NextResponse.next({ request });
@@ -61,65 +101,80 @@ export async function proxy(request: NextRequest) {
         return await supabase.from('profiles').select('role, portal_access_disabled').eq('id', user.id).single();
     })();
 
-    const pathname = request.nextUrl.pathname;
-
     if (pathname.startsWith('/portal')) {
         const isPublicPortalPath = PORTAL_PUBLIC_PATHS.some(
             (p) => pathname === p || pathname.startsWith(p + '/')
         );
 
         if (!isPublicPortalPath && (!user || profile?.portal_access_disabled)) {
-            const loginUrl = request.nextUrl.clone();
-            loginUrl.pathname = '/portal/account/login';
-            if (profile?.portal_access_disabled) {
-                loginUrl.searchParams.set('message', 'access_disabled');
-            } else {
-                loginUrl.searchParams.set('redirectedFrom', pathname);
-            }
-            return NextResponse.redirect(loginUrl);
+            return createRedirectResponse(
+                request,
+                '/portal/account/login/',
+                profile?.portal_access_disabled
+                    ? { message: 'access_disabled' }
+                    : { redirectedFrom: pathname },
+                307,
+                supabaseResponse
+            );
         }
     }
 
     if (pathname === '/admin' || pathname.startsWith('/admin/')) {
-        const sisAdminUrl = request.nextUrl.clone();
-        sisAdminUrl.pathname = pathname.replace('/admin', '/sis/admin');
-        return NextResponse.redirect(sisAdminUrl);
+        return createRedirectResponse(
+            request,
+            pathname.replace('/admin', '/sis/admin'),
+            undefined,
+            307,
+            supabaseResponse
+        );
     }
 
     if (ADMIN_PATHS.some((p) => pathname.startsWith(p))) {
         if (!user) {
-            const adminLoginUrl = request.nextUrl.clone();
-            adminLoginUrl.pathname = '/portal/account/admin-login';
-            adminLoginUrl.searchParams.set('redirectedFrom', pathname);
-            return NextResponse.redirect(adminLoginUrl);
+            return createRedirectResponse(
+                request,
+                '/portal/account/admin-login/',
+                { redirectedFrom: pathname },
+                307,
+                supabaseResponse
+            );
         }
         return supabaseResponse;
     }
 
     if (AUTH_REQUIRED_PATHS.some((p) => pathname.startsWith(p))) {
         if (!user || profile?.portal_access_disabled) {
-            const loginUrl = request.nextUrl.clone();
-            loginUrl.pathname = '/portal/account/login';
-            if (profile?.portal_access_disabled) {
-                loginUrl.searchParams.set('message', 'access_disabled');
-            } else {
-                loginUrl.searchParams.set('redirectedFrom', pathname);
-            }
-            return NextResponse.redirect(loginUrl);
+            return createRedirectResponse(
+                request,
+                '/portal/account/login/',
+                profile?.portal_access_disabled
+                    ? { message: 'access_disabled' }
+                    : { redirectedFrom: pathname },
+                307,
+                supabaseResponse
+            );
         }
 
         if (profile?.role === 'ADMIN') {
-            const adminUrl = request.nextUrl.clone();
-            adminUrl.pathname = '/sis/admin';
-            return NextResponse.redirect(adminUrl);
+            return createRedirectResponse(
+                request,
+                '/sis/admin/',
+                undefined,
+                307,
+                supabaseResponse
+            );
         }
 
         // APPLICANTs must stay in the applicant portal until their tuition
         // deposit has been paid and verified by an admin.
         if (profile?.role === 'APPLICANT') {
-            const dashboardUrl = request.nextUrl.clone();
-            dashboardUrl.pathname = '/portal/dashboard';
-            return NextResponse.redirect(dashboardUrl);
+            return createRedirectResponse(
+                request,
+                '/portal/dashboard/',
+                undefined,
+                307,
+                supabaseResponse
+            );
         }
 
         // STUDENTs must have a verified tuition deposit before accessing SIS.
@@ -136,9 +191,13 @@ export async function proxy(request: NextRequest) {
                     studentRecord?.enrollment_status === 'CONFIRMED');
 
             if (!depositVerified) {
-                const dashboardUrl = request.nextUrl.clone();
-                dashboardUrl.pathname = '/portal/dashboard';
-                return NextResponse.redirect(dashboardUrl);
+                return createRedirectResponse(
+                    request,
+                    '/portal/dashboard/',
+                    undefined,
+                    307,
+                    supabaseResponse
+                );
             }
         }
 

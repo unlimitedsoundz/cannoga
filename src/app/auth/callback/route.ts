@@ -23,55 +23,60 @@ export async function GET(request: Request) {
 
     const code = requestUrl.searchParams.get('code');
     const flowId = requestUrl.searchParams.get('sb_flow_id');
+    const next = requestUrl.searchParams.get('next') || '/sis';
 
-    let next = requestUrl.searchParams.get('next') ?? '/sis/';
-
-    if (!next.startsWith('/') || next.startsWith('//')) {
-        next = '/sis/';
-    }
-    if (next === '/sis') {
-        next = '/sis/';
-    }
+    console.log('[MICROSOFT CALLBACK] START');
+    console.log('[MICROSOFT CALLBACK] code:', !!code);
+    console.log('[MICROSOFT CALLBACK] flowId:', flowId);
 
     const publicOrigin = getPublicOrigin(request, requestUrl);
 
     if (!code) {
-        console.error('[AUTH CALLBACK] Missing code');
-
         return NextResponse.redirect(
-            `${publicOrigin}/portal/account/login/?error=missing_code`
+            new URL('/portal/account/login/?error=no_code', publicOrigin)
         );
     }
 
     try {
+        console.log('[MICROSOFT CALLBACK] creating Supabase client');
+
         const supabase = await createClient();
 
-        const { data, error } = await supabase.auth.exchangeCodeForSession(
+        console.log('[MICROSOFT CALLBACK] Supabase client created');
+
+        const result = await supabase.auth.exchangeCodeForSession(
             code,
             flowId ? { flowId } : undefined
         );
 
-        if (error) {
-            console.error('[AUTH CALLBACK] Exchange failed:', {
-                message: error.message,
-                code: error.code,
-                status: error.status,
-                flowId,
+        console.log('[MICROSOFT CALLBACK] exchange completed');
+
+        if (result.error) {
+            console.error('[MICROSOFT CALLBACK] exchange error', {
+                message: result.error.message,
+                code: result.error.code,
+                status: result.error.status,
             });
 
             return NextResponse.redirect(
-                `${publicOrigin}/portal/account/login/?error=${encodeURIComponent(error.message)}`
+                new URL(
+                    `/portal/account/login/?error=${encodeURIComponent(
+                        result.error.message
+                    )}`,
+                    publicOrigin
+                )
             );
         }
 
-        console.log('[AUTH CALLBACK] SUCCESS', {
-            hasSession: !!data.session,
-            userId: data.user?.id,
-        });
+        console.log('[MICROSOFT CALLBACK] SUCCESS');
+        console.log(
+            '[MICROSOFT CALLBACK] user:',
+            result.data.user?.id
+        );
 
         // Auto-link student profile if @cannogacollege.ca account
         try {
-            const user = data?.session?.user || data?.user;
+            const user = result.data.user;
             const userEmail = user?.email?.toLowerCase().trim() || '';
             if (user && userEmail) {
                 const { createServiceRoleClient } = await import('@/utils/supabase/server-admin');
@@ -96,17 +101,30 @@ export async function GET(request: Request) {
                 }
             }
         } catch (linkErr) {
-            console.warn('[AUTH CALLBACK] Non-fatal student linking note:', linkErr);
+            console.warn('[MICROSOFT CALLBACK] Non-fatal student linking note:', linkErr);
+        }
+
+        let targetPath = next.startsWith('/') ? next : '/sis';
+        if (!targetPath.endsWith('/')) {
+            targetPath = `${targetPath}/`;
         }
 
         return NextResponse.redirect(
-            `${publicOrigin}${next}`
+            new URL(targetPath, publicOrigin)
         );
-    } catch (error: any) {
-        console.error('[AUTH CALLBACK] Unexpected failure:', error);
+    } catch (error) {
+        console.error('[MICROSOFT CALLBACK] CRASH', error);
+
+        const message =
+            error instanceof Error
+                ? error.message
+                : 'Unknown callback error';
 
         return NextResponse.redirect(
-            `${publicOrigin}/portal/account/login/?error=callback_failure`
+            new URL(
+                `/portal/account/login/?error=${encodeURIComponent(message)}`,
+                publicOrigin
+            )
         );
     }
 }
