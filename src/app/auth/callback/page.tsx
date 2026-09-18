@@ -70,7 +70,7 @@ export default function AuthCallbackPage() {
             }
 
             // 4. Listen for auth state change as final fallback
-            const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+            const { data: authListener } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
                 if (session?.user) {
                     authListener.subscription.unsubscribe();
                     const userEmail = session.user.email?.toLowerCase() || '';
