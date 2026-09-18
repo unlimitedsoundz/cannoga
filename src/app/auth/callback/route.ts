@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,16 +32,45 @@ export async function GET(request: Request) {
 
     const publicOrigin = getPublicOrigin(request, requestUrl);
 
+    // Normalise target path
+    let targetPath = next.startsWith('/') ? next : '/sis';
+    if (!targetPath.endsWith('/')) targetPath = `${targetPath}/`;
+
+    const redirectUrl = new URL(targetPath, publicOrigin);
+    const errorUrl = (msg: string) =>
+        new URL(`/portal/account/login/?error=${encodeURIComponent(msg)}`, publicOrigin);
+
     if (!code) {
-        return NextResponse.redirect(
-            new URL('/portal/account/login/?error=no_code', publicOrigin)
-        );
+        return NextResponse.redirect(errorUrl('no_code'));
     }
 
     try {
         console.log('[MICROSOFT CALLBACK] creating Supabase client');
 
-        const supabase = await createClient();
+        // Build the redirect response FIRST so we can attach cookies to it
+        const response = NextResponse.redirect(redirectUrl);
+
+        const cookieStore = await cookies();
+
+        const supabase = createServerClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+                process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+            {
+                cookies: {
+                    getAll() {
+                        return cookieStore.getAll();
+                    },
+                    // Write cookies to BOTH the cookie store AND the redirect response
+                    setAll(cookiesToSet) {
+                        cookiesToSet.forEach(({ name, value, options }) => {
+                            cookieStore.set(name, value, options);
+                            response.cookies.set(name, value, options);
+                        });
+                    },
+                },
+            }
+        );
 
         console.log('[MICROSOFT CALLBACK] Supabase client created');
 
@@ -57,24 +87,13 @@ export async function GET(request: Request) {
                 code: result.error.code,
                 status: result.error.status,
             });
-
-            return NextResponse.redirect(
-                new URL(
-                    `/portal/account/login/?error=${encodeURIComponent(
-                        result.error.message
-                    )}`,
-                    publicOrigin
-                )
-            );
+            return NextResponse.redirect(errorUrl(result.error.message));
         }
 
         console.log('[MICROSOFT CALLBACK] SUCCESS');
-        console.log(
-            '[MICROSOFT CALLBACK] user:',
-            result.data.user?.id
-        );
+        console.log('[MICROSOFT CALLBACK] user:', result.data.user?.id);
 
-        // Auto-link student profile if @cannogacollege.ca account
+        // Auto-link student profile for @cannogacollege.ca accounts
         try {
             const user = result.data.user;
             const userEmail = user?.email?.toLowerCase().trim() || '';
@@ -104,27 +123,12 @@ export async function GET(request: Request) {
             console.warn('[MICROSOFT CALLBACK] Non-fatal student linking note:', linkErr);
         }
 
-        let targetPath = next.startsWith('/') ? next : '/sis';
-        if (!targetPath.endsWith('/')) {
-            targetPath = `${targetPath}/`;
-        }
+        // Return the redirect response — session cookies are already attached
+        return response;
 
-        return NextResponse.redirect(
-            new URL(targetPath, publicOrigin)
-        );
     } catch (error) {
         console.error('[MICROSOFT CALLBACK] CRASH', error);
-
-        const message =
-            error instanceof Error
-                ? error.message
-                : 'Unknown callback error';
-
-        return NextResponse.redirect(
-            new URL(
-                `/portal/account/login/?error=${encodeURIComponent(message)}`,
-                publicOrigin
-            )
-        );
+        const message = error instanceof Error ? error.message : 'Unknown callback error';
+        return NextResponse.redirect(errorUrl(message));
     }
 }
