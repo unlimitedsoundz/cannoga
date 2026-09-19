@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -62,6 +62,37 @@ function formatDate(dateStr: string) {
 
 function stripHtml(html: string) {
     return html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function getSanitizedHtml(html: string) {
+    const responsiveStyles = `
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
+        <style>
+            html, body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                margin: 0;
+                padding: 12px;
+                color: #1e293b;
+                font-size: 14px;
+                line-height: 1.6;
+                word-break: break-word;
+                overflow-wrap: break-word;
+                background-color: #ffffff;
+                box-sizing: border-box;
+            }
+            img { max-width: 100% !important; height: auto !important; }
+            table { max-width: 100% !important; table-layout: auto !important; }
+            pre { white-space: pre-wrap; word-break: break-all; }
+            a { color: #0284c7; }
+        </style>
+    `;
+    if (html.includes('<head>') || html.includes('<head ')) {
+        return html.replace(/<head[^>]*>/i, `$&${responsiveStyles}`);
+    }
+    if (html.includes('<html') || html.includes('<body')) {
+        return `<!DOCTYPE html><html><head>${responsiveStyles}</head>${html}</html>`;
+    }
+    return `<!DOCTYPE html><html><head>${responsiveStyles}</head><body>${html}</body></html>`;
 }
 
 export default function StudentMailPage() {
@@ -164,58 +195,62 @@ export default function StudentMailPage() {
         setLoadingMsg(false);
     };
 
+    const currentFolderLabel = FOLDERS.find(f => f.id === folder)?.label || 'Inbox';
+
     return (
-        <div style={{ minHeight: '100vh', background: '#f1f5f9', fontFamily: 'Inter, system-ui, sans-serif' }}>
+        <div className="flex flex-col h-screen h-[100dvh] bg-slate-100 overflow-hidden font-sans">
             {/* Header */}
-            <div style={{ background: '#0a151a', color: 'white', padding: '0 24px', display: 'flex', alignItems: 'center', gap: 12, height: 52 }}>
-                <Link href="/sis/" style={{ color: '#94a3b8', display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, textDecoration: 'none' }}>
-                    <HugeiconsIcon icon={BackIcon} size={16} strokeWidth={2} />
-                    Back to SIS
-                </Link>
-                <span style={{ color: '#334155', fontSize: 16 }}>|</span>
-                <HugeiconsIcon icon={MailIcon} size={18} strokeWidth={2} style={{ color: '#60a5fa' }} />
-                <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.01em' }}>Student Mail</span>
-                <span style={{ fontSize: 12, color: '#64748b', marginLeft: 4 }}>— Microsoft 365</span>
-                <div style={{ marginLeft: 'auto' }}>
+            <header className="bg-[#0a151a] text-white px-3 sm:px-6 flex items-center justify-between h-[52px] border-b border-slate-800 shrink-0 z-10">
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                    <Link
+                        href="/sis/"
+                        className="text-slate-400 hover:text-white flex items-center gap-1.5 text-xs sm:text-sm font-medium transition-colors shrink-0"
+                    >
+                        <HugeiconsIcon icon={BackIcon} size={16} strokeWidth={2} />
+                        <span className="hidden sm:inline">Back to SIS</span>
+                        <span className="sm:hidden">SIS</span>
+                    </Link>
+                    <span className="text-slate-700 text-sm hidden sm:inline">|</span>
+                    <div className="flex items-center gap-1.5 min-w-0">
+                        <HugeiconsIcon icon={MailIcon} size={18} strokeWidth={2} className="text-blue-400 shrink-0" />
+                        <span className="font-bold text-sm tracking-tight text-white truncate">Student Mail</span>
+                        <span className="text-xs text-slate-500 hidden md:inline shrink-0">— Microsoft 365</span>
+                    </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
                     <button
                         onClick={() => { fetchMessages(folder, skip); fetchCounts(); }}
-                        style={{ background: 'transparent', border: '1px solid #1e3a47', borderRadius: 6, padding: '5px 12px', color: '#94a3b8', fontSize: 12, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+                        className="bg-transparent hover:bg-white/5 border border-[#1e3a47] hover:border-slate-600 rounded-md px-2.5 sm:px-3 py-1.5 text-slate-300 hover:text-white text-xs flex items-center gap-1.5 transition-colors"
+                        title="Refresh messages"
                     >
                         <HugeiconsIcon icon={RefreshIcon} size={13} strokeWidth={2} />
-                        Refresh
+                        <span className="hidden sm:inline">Refresh</span>
                     </button>
                 </div>
-            </div>
+            </header>
 
-            <div style={{ display: 'flex', height: 'calc(100vh - 52px)' }}>
-                {/* Sidebar */}
-                <div style={{ width: 200, background: 'white', borderRight: '1px solid #e2e8f0', padding: '12px 0', flexShrink: 0 }}>
+            {/* Mobile Folder Selector Tabs (visible on mobile when no message is open) */}
+            {!selectedMsg && (
+                <div className="md:hidden bg-white border-b border-slate-200 px-3 py-2 overflow-x-auto flex gap-1.5 shrink-0 no-scrollbar shadow-xs">
                     {FOLDERS.map(f => {
                         const count = folderCounts[f.id] || 0;
                         const active = folder === f.id;
                         return (
                             <button
                                 key={f.id}
-                                onClick={() => { setFolder(f.id); setSkip(0); }}
-                                style={{
-                                    width: '100%', display: 'flex', alignItems: 'center', gap: 10,
-                                    padding: '9px 16px', background: active ? '#f0f9ff' : 'transparent',
-                                    borderLeft: active ? '3px solid #0ea5e9' : '3px solid transparent',
-                                    border: 'none', cursor: 'pointer', textAlign: 'left',
-                                    fontSize: 13, fontWeight: active ? 700 : 500,
-                                    color: active ? '#0369a1' : '#475569',
-                                    transition: 'all 0.15s',
-                                }}
+                                onClick={() => { setFolder(f.id); setSkip(0); setSelectedMsg(null); }}
+                                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
+                                    active
+                                        ? 'bg-sky-600 text-white shadow-xs'
+                                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200 active:bg-slate-300'
+                                }`}
                             >
-                                <HugeiconsIcon icon={f.icon} size={16} strokeWidth={active ? 2.5 : 2} />
-                                <span style={{ flex: 1 }}>{f.label}</span>
+                                <HugeiconsIcon icon={f.icon} size={14} strokeWidth={active ? 2.5 : 2} />
+                                <span>{f.label}</span>
                                 {count > 0 && (
-                                    <span style={{
-                                        background: active ? '#0ea5e9' : '#e2e8f0',
-                                        color: active ? 'white' : '#475569',
-                                        fontSize: 10, fontWeight: 700, padding: '1px 6px',
-                                        borderRadius: 999, minWidth: 20, textAlign: 'center',
-                                    }}>
+                                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none ${
+                                        active ? 'bg-white/25 text-white' : 'bg-slate-200 text-slate-700'
+                                    }`}>
                                         {count}
                                     </span>
                                 )}
@@ -223,51 +258,102 @@ export default function StudentMailPage() {
                         );
                     })}
                 </div>
+            )}
 
-                {/* Message list */}
-                <div style={{ width: 340, background: 'white', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
-                    {/* Folder title */}
-                    <div style={{ padding: '14px 16px 10px', borderBottom: '1px solid #f1f5f9' }}>
-                        <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: '#0f172a' }}>
-                            {FOLDERS.find(f => f.id === folder)?.label}
-                        </h2>
-                        <p style={{ margin: '2px 0 0', fontSize: 11, color: '#94a3b8' }}>
-                            {messages.length} message{messages.length !== 1 ? 's' : ''}
-                        </p>
+            {/* Main Content Area */}
+            <div className="flex flex-1 overflow-hidden relative">
+                {/* Desktop Sidebar (visible on md+) */}
+                <aside className="w-52 bg-white border-r border-slate-200 py-3 hidden md:flex md:flex-col shrink-0">
+                    <div className="px-4 mb-2">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Folders</span>
+                    </div>
+                    <div className="flex-1 space-y-0.5 overflow-y-auto">
+                        {FOLDERS.map(f => {
+                            const count = folderCounts[f.id] || 0;
+                            const active = folder === f.id;
+                            return (
+                                <button
+                                    key={f.id}
+                                    onClick={() => { setFolder(f.id); setSkip(0); setSelectedMsg(null); }}
+                                    className={`w-full flex items-center gap-2.5 px-4 py-2 text-xs text-left transition-colors border-l-[3px] ${
+                                        active
+                                            ? 'bg-sky-50 border-sky-600 text-sky-700 font-bold'
+                                            : 'border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium'
+                                    }`}
+                                >
+                                    <HugeiconsIcon icon={f.icon} size={16} strokeWidth={active ? 2.5 : 2} />
+                                    <span className="flex-1 truncate">{f.label}</span>
+                                    {count > 0 && (
+                                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-5 text-center leading-none ${
+                                            active ? 'bg-sky-600 text-white' : 'bg-slate-100 text-slate-600'
+                                        }`}>
+                                            {count}
+                                        </span>
+                                    )}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </aside>
+
+                {/* Message List Pane */}
+                <div className={`bg-white border-r border-slate-200 flex flex-col shrink-0 ${
+                    selectedMsg ? 'hidden md:flex md:w-80 lg:w-96' : 'w-full md:w-80 lg:w-96 flex-1 md:flex-initial'
+                }`}>
+                    {/* Folder title bar */}
+                    <div className="px-3.5 py-2.5 sm:px-4 sm:py-3 border-b border-slate-100 flex items-center justify-between shrink-0 bg-white">
+                        <div>
+                            <h2 className="text-sm sm:text-base font-bold text-slate-900 leading-tight">
+                                {currentFolderLabel}
+                            </h2>
+                            <p className="text-[11px] text-slate-400 mt-0.5">
+                                {messages.length} message{messages.length !== 1 ? 's' : ''}
+                            </p>
+                        </div>
+                        {messages.length > 0 && (
+                            <span className="text-[11px] text-slate-400 font-medium bg-slate-50 border border-slate-100 px-2 py-0.5 rounded">
+                                {skip + 1}–{skip + messages.length}
+                            </span>
+                        )}
                     </div>
 
-                    {/* Message list */}
-                    <div style={{ flex: 1, overflowY: 'auto' }}>
+                    {/* Messages Scroll Area */}
+                    <div className="flex-1 overflow-y-auto">
                         {loading ? (
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 200, gap: 10, color: '#94a3b8' }}>
-                                <HugeiconsIcon icon={SpinnerIcon} size={18} strokeWidth={2} style={{ animation: 'spin 1s linear infinite' }} />
-                                <span style={{ fontSize: 13 }}>Loading messages...</span>
+                            <div className="flex items-center justify-center h-48 gap-2.5 text-slate-400">
+                                <HugeiconsIcon icon={SpinnerIcon} size={20} strokeWidth={2} className="animate-spin text-sky-500" />
+                                <span className="text-xs sm:text-sm font-medium">Loading messages...</span>
                             </div>
                         ) : needsReauth ? (
-                            <div style={{ padding: 24 }}>
-                                <div style={{ background: '#fef3c7', border: '1px solid #fbbf24', borderRadius: 10, padding: 16, marginBottom: 16 }}>
-                                    <p style={{ margin: '0 0 6px', fontSize: 13, fontWeight: 700, color: '#92400e' }}>🔒 Admin Approval Required</p>
-                                    <p style={{ margin: 0, fontSize: 12, color: '#78350f', lineHeight: 1.6 }}>
+                            <div className="p-4 sm:p-6">
+                                <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4">
+                                    <p className="text-xs sm:text-sm font-bold text-amber-900 mb-1">🔒 Admin Approval Required</p>
+                                    <p className="text-xs text-amber-800 leading-relaxed">
                                         Your Microsoft 365 tenant requires an admin to approve mail access for this app.
                                         Ask your IT administrator to visit the link below and click <strong>Accept</strong>:
                                     </p>
                                 </div>
-                                <p style={{ fontSize: 11, fontWeight: 700, color: '#475569', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Admin consent URL</p>
-                                <code style={{ display: 'block', background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: 6, padding: '8px 10px', fontSize: 11, color: '#0f172a', wordBreak: 'break-all', marginBottom: 16 }}>
+                                <p className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">Admin consent URL</p>
+                                <code className="block bg-slate-100 border border-slate-200 rounded-lg p-2.5 text-[11px] text-slate-800 break-all mb-4 select-all">
                                     https://login.microsoftonline.com/559051ae-ebf4-496a-8dbb-128aac57d721/adminconsent?client_id=5548838a-7cd2-4be6-9f5d-116f8e8a200f
                                 </code>
-                                <p style={{ fontSize: 11, color: '#94a3b8', lineHeight: 1.6 }}>
-                                    Once the admin approves, students sign out and sign back in with Microsoft 365.
-                                    Mail access will then work automatically.
+                                <p className="text-xs text-slate-500 leading-relaxed">
+                                    Once the admin approves, students sign out and sign back in with Microsoft 365. Mail access will then work automatically.
                                 </p>
                             </div>
                         ) : error ? (
-                            <div style={{ padding: 24, textAlign: 'center' }}>
-                                <p style={{ fontSize: 13, color: '#ef4444', marginBottom: 8 }}>{error}</p>
+                            <div className="p-6 text-center">
+                                <p className="text-xs sm:text-sm text-red-500 mb-3">{error}</p>
+                                <button
+                                    onClick={() => fetchMessages(folder, skip)}
+                                    className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded text-xs font-semibold text-slate-700 transition-colors"
+                                >
+                                    Retry
+                                </button>
                             </div>
                         ) : messages.length === 0 ? (
-                            <div style={{ padding: 32, textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
-                                No messages in {FOLDERS.find(f => f.id === folder)?.label}
+                            <div className="p-8 text-center text-slate-400 text-xs sm:text-sm">
+                                No messages in {currentFolderLabel}
                             </div>
                         ) : (
                             messages.map(msg => {
@@ -276,151 +362,238 @@ export default function StudentMailPage() {
                                     <button
                                         key={msg.id}
                                         onClick={() => openMessage(msg)}
-                                        style={{
-                                            width: '100%', textAlign: 'left', padding: '10px 14px',
-                                            borderBottom: '1px solid #f8fafc',
-                                            background: active ? '#eff6ff' : msg.isRead ? 'white' : '#f8fafc',
-                                            borderLeft: active ? '3px solid #3b82f6' : '3px solid transparent',
-                                            cursor: 'pointer', border: 'none',
-                                            transition: 'background 0.1s',
-                                        }}
+                                        className={`w-full text-left p-3 sm:p-3.5 border-b border-slate-100 transition-colors cursor-pointer border-l-3 ${
+                                            active
+                                                ? 'bg-sky-50 border-l-sky-600'
+                                                : msg.isRead
+                                                ? 'bg-white hover:bg-slate-50 border-l-transparent'
+                                                : 'bg-slate-50/70 hover:bg-slate-100/70 border-l-sky-500'
+                                        }`}
                                     >
-                                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                                            <div style={{ paddingTop: 2, flexShrink: 0 }}>
-                                                <div style={{
-                                                    width: 7, height: 7, borderRadius: '50%',
-                                                    background: msg.isRead ? '#cbd5e1' : '#3b82f6',
-                                                    marginTop: 3,
-                                                }} />
+                                        <div className="flex items-start gap-2.5">
+                                            <div className="pt-1.5 shrink-0">
+                                                <div
+                                                    className={`w-2 h-2 rounded-full ${
+                                                        msg.isRead ? 'bg-slate-300' : 'bg-sky-500'
+                                                    }`}
+                                                />
                                             </div>
-                                            <div style={{ flex: 1, minWidth: 0 }}>
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 }}>
-                                                    <span style={{ fontSize: 12, fontWeight: msg.isRead ? 500 : 700, color: '#0f172a', maxWidth: 180, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                                        {msg.from?.emailAddress?.name || msg.from?.emailAddress?.address}
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex justify-between items-baseline gap-2 mb-0.5">
+                                                    <span className={`text-xs sm:text-[13px] truncate ${
+                                                        msg.isRead ? 'font-medium text-slate-800' : 'font-bold text-slate-950'
+                                                    }`}>
+                                                        {msg.from?.emailAddress?.name || msg.from?.emailAddress?.address || 'Unknown'}
                                                     </span>
-                                                    <span style={{ fontSize: 10, color: '#94a3b8', flexShrink: 0 }}>{formatDate(msg.receivedDateTime)}</span>
+                                                    <span className="text-[10px] sm:text-[11px] text-slate-400 shrink-0 font-normal">
+                                                        {formatDate(msg.receivedDateTime)}
+                                                    </span>
                                                 </div>
-                                                <p style={{ margin: '0 0 2px', fontSize: 12, fontWeight: msg.isRead ? 500 : 600, color: msg.isRead ? '#475569' : '#1e293b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                                <p className={`text-xs sm:text-[13px] mb-0.5 truncate ${
+                                                    msg.isRead ? 'font-normal text-slate-600' : 'font-semibold text-slate-900'
+                                                }`}>
                                                     {msg.subject || '(No subject)'}
                                                 </p>
-                                                <p style={{ margin: 0, fontSize: 11, color: '#94a3b8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                                <p className="text-[11px] sm:text-xs text-slate-400 truncate">
                                                     {msg.bodyPreview}
                                                 </p>
-                                                <div style={{ display: 'flex', gap: 4, marginTop: 3, alignItems: 'center' }}>
-                                                    {msg.importance === 'high' && <span style={{ fontSize: 10, color: '#ef4444', fontWeight: 700 }}>● HIGH</span>}
-                                                    {msg.flag?.flagStatus === 'flagged' && <span style={{ fontSize: 10, color: '#f59e0b' }}>🚩</span>}
-                                                    {msg.hasAttachments && <span style={{ fontSize: 10, color: '#64748b' }}>📎</span>}
-                                                </div>
+                                                {(msg.importance === 'high' || msg.flag?.flagStatus === 'flagged' || msg.hasAttachments) && (
+                                                    <div className="flex flex-wrap gap-1.5 mt-1.5 items-center">
+                                                        {msg.importance === 'high' && (
+                                                            <span className="text-[10px] text-rose-600 font-bold bg-rose-50 border border-rose-100 px-1.5 py-0.5 rounded leading-none">
+                                                                ● HIGH
+                                                            </span>
+                                                        )}
+                                                        {msg.flag?.flagStatus === 'flagged' && (
+                                                            <span className="text-[10px] text-amber-700 bg-amber-50 border border-amber-100 px-1.5 py-0.5 rounded leading-none flex items-center gap-0.5">
+                                                                🚩 Flagged
+                                                            </span>
+                                                        )}
+                                                        {msg.hasAttachments && (
+                                                            <span className="text-[10px] text-slate-600 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded leading-none flex items-center gap-0.5">
+                                                                📎 Attachment
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </button>
                                 );
                             })
                         )}
-
-                        {/* Pagination */}
-                        {!loading && !error && messages.length > 0 && (
-                            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 14px', borderTop: '1px solid #f1f5f9' }}>
-                                <button
-                                    disabled={skip === 0}
-                                    onClick={() => { const ns = Math.max(0, skip - PAGE_SIZE); setSkip(ns); fetchMessages(folder, ns); }}
-                                    style={{ fontSize: 11, color: skip === 0 ? '#cbd5e1' : '#0ea5e9', background: 'none', border: 'none', cursor: skip === 0 ? 'default' : 'pointer', display: 'flex', alignItems: 'center', gap: 3 }}
-                                >
-                                    <HugeiconsIcon icon={ChevronLeftIcon} size={13} strokeWidth={2} /> Prev
-                                </button>
-                                <span style={{ fontSize: 10, color: '#94a3b8' }}>{skip + 1}–{skip + messages.length}</span>
-                                <button
-                                    disabled={!hasMore}
-                                    onClick={() => { const ns = skip + PAGE_SIZE; setSkip(ns); fetchMessages(folder, ns); }}
-                                    style={{ fontSize: 11, color: !hasMore ? '#cbd5e1' : '#0ea5e9', background: 'none', border: 'none', cursor: !hasMore ? 'default' : 'pointer', display: 'flex', alignItems: 'center', gap: 3 }}
-                                >
-                                    Next <HugeiconsIcon icon={ChevronRightIcon} size={13} strokeWidth={2} />
-                                </button>
-                            </div>
-                        )}
                     </div>
+
+                    {/* Pagination */}
+                    {!loading && !error && messages.length > 0 && (
+                        <div className="flex justify-between items-center px-3 sm:px-4 py-2.5 bg-white border-t border-slate-100 shrink-0">
+                            <button
+                                disabled={skip === 0}
+                                onClick={() => { const ns = Math.max(0, skip - PAGE_SIZE); setSkip(ns); fetchMessages(folder, ns); }}
+                                className={`text-xs px-2.5 py-1.5 rounded flex items-center gap-1 font-medium transition-colors ${
+                                    skip === 0
+                                        ? 'text-slate-300 cursor-not-allowed'
+                                        : 'text-sky-600 hover:bg-sky-50 active:bg-sky-100 cursor-pointer'
+                                }`}
+                            >
+                                <HugeiconsIcon icon={ChevronLeftIcon} size={14} strokeWidth={2} />
+                                <span>Prev</span>
+                            </button>
+                            <span className="text-xs text-slate-400 font-medium">
+                                {skip + 1}–{skip + messages.length}
+                            </span>
+                            <button
+                                disabled={!hasMore}
+                                onClick={() => { const ns = skip + PAGE_SIZE; setSkip(ns); fetchMessages(folder, ns); }}
+                                className={`text-xs px-2.5 py-1.5 rounded flex items-center gap-1 font-medium transition-colors ${
+                                    !hasMore
+                                        ? 'text-slate-300 cursor-not-allowed'
+                                        : 'text-sky-600 hover:bg-sky-50 active:bg-sky-100 cursor-pointer'
+                                }`}
+                            >
+                                <span>Next</span>
+                                <HugeiconsIcon icon={ChevronRightIcon} size={14} strokeWidth={2} />
+                            </button>
+                        </div>
+                    )}
                 </div>
 
-                {/* Message body */}
-                <div style={{ flex: 1, overflowY: 'auto', background: 'white', display: 'flex', flexDirection: 'column' }}>
+                {/* Message Body Pane */}
+                <div className={`flex-1 bg-white flex flex-col overflow-y-auto ${
+                    !selectedMsg ? 'hidden md:flex' : 'flex w-full'
+                }`}>
                     {!selectedMsg ? (
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', gap: 12 }}>
-                            <HugeiconsIcon icon={MailIcon} size={48} strokeWidth={1.5} style={{ opacity: 0.3 }} />
-                            <p style={{ margin: 0, fontSize: 14 }}>Select a message to read</p>
+                        <div className="flex-1 flex flex-col items-center justify-center text-slate-400 gap-3 p-6">
+                            <HugeiconsIcon icon={MailIcon} size={48} strokeWidth={1.5} className="opacity-30" />
+                            <p className="text-sm font-medium text-slate-400">Select a message to read</p>
                         </div>
                     ) : (
-                        <div style={{ padding: '24px 32px', maxWidth: 760 }}>
-                            {/* Subject */}
-                            <h1 style={{ margin: '0 0 16px', fontSize: 20, fontWeight: 700, color: '#0f172a', lineHeight: 1.3 }}>
-                                {selectedMsg.subject || '(No subject)'}
-                            </h1>
-
-                            {/* Meta */}
-                            <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: 10, marginBottom: 20, fontSize: 13 }}>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 16px', color: '#475569' }}>
-                                    <div><span style={{ fontWeight: 600 }}>From: </span>{selectedMsg.from?.emailAddress?.name} &lt;{selectedMsg.from?.emailAddress?.address}&gt;</div>
-                                    <div><span style={{ fontWeight: 600 }}>To: </span>{(selectedMsg.toRecipients || []).map(r => r.emailAddress.name || r.emailAddress.address).join(', ')}</div>
-                                    <div style={{ color: '#94a3b8' }}>
-                                        {new Date(selectedMsg.receivedDateTime || selectedMsg.sentDateTime || '').toLocaleString()}
-                                    </div>
-                                </div>
-                                {selectedMsg.hasAttachments && (
-                                    <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 6, color: '#64748b', fontSize: 12 }}>
-                                        <HugeiconsIcon icon={AttachmentIcon} size={14} strokeWidth={2} />
-                                        This email has attachments (open in Outlook to view)
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Body */}
-                            {loadingMsg ? (
-                                <div style={{ color: '#94a3b8', fontSize: 13, display: 'flex', gap: 8, alignItems: 'center' }}>
-                                    <HugeiconsIcon icon={SpinnerIcon} size={16} strokeWidth={2} style={{ animation: 'spin 1s linear infinite' }} />
-                                    Loading message...
-                                </div>
-                            ) : selectedMsg.body ? (
-                                selectedMsg.body.contentType === 'html' ? (
-                                    <iframe
-                                        srcDoc={selectedMsg.body.content}
-                                        style={{ width: '100%', border: 'none', borderRadius: 8, background: 'white', minHeight: 400 }}
-                                        sandbox="allow-same-origin"
-                                        onLoad={e => {
-                                            const frame = e.currentTarget;
-                                            try {
-                                                frame.style.height = (frame.contentDocument?.body?.scrollHeight || 400) + 'px';
-                                            } catch {}
-                                        }}
-                                    />
-                                ) : (
-                                    <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: 14, color: '#1e293b', lineHeight: 1.7 }}>
-                                        {stripHtml(selectedMsg.body.content)}
-                                    </pre>
-                                )
-                            ) : (
-                                <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.7 }}>{selectedMsg.bodyPreview}</p>
-                            )}
-
-                            {/* Open in Outlook */}
-                            <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid #f1f5f9' }}>
+                        <div className="flex flex-col min-h-full">
+                            {/* Mobile Top Navigation Bar (Back to messages list) */}
+                            <div className="md:hidden flex items-center justify-between px-3.5 py-2.5 bg-slate-50 border-b border-slate-200 shrink-0 sticky top-0 z-10">
+                                <button
+                                    onClick={() => setSelectedMsg(null)}
+                                    className="flex items-center gap-1.5 text-xs font-semibold text-sky-600 hover:text-sky-700 active:text-sky-800 transition-colors"
+                                >
+                                    <HugeiconsIcon icon={BackIcon} size={16} strokeWidth={2.5} />
+                                    <span>Back to {currentFolderLabel}</span>
+                                </button>
                                 <a
                                     href="https://outlook.office.com/mail/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    style={{ fontSize: 12, color: '#0ea5e9', textDecoration: 'none', fontWeight: 600 }}
+                                    className="text-[11px] font-semibold text-slate-500 hover:text-sky-600 flex items-center gap-1"
                                 >
-                                    Open in Outlook 365 →
+                                    Outlook ↗
                                 </a>
+                            </div>
+
+                            {/* Message content */}
+                            <div className="p-4 sm:p-6 md:p-8 max-w-3xl w-full mx-auto flex-1 flex flex-col">
+                                {/* Subject */}
+                                <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 leading-snug mb-3 sm:mb-4 break-words">
+                                    {selectedMsg.subject || '(No subject)'}
+                                </h1>
+
+                                {/* Meta Box */}
+                                <div className="p-3 sm:p-4 bg-slate-50 border border-slate-200/80 rounded-xl mb-4 sm:mb-6 text-xs sm:text-sm">
+                                    <div className="flex flex-col gap-1.5 text-slate-600">
+                                        <div className="flex flex-wrap items-baseline gap-x-1.5">
+                                            <span className="font-semibold text-slate-700 shrink-0">From:</span>
+                                            <span className="text-slate-900 font-medium break-all">
+                                                {selectedMsg.from?.emailAddress?.name ? `${selectedMsg.from.emailAddress.name} ` : ''}
+                                                <span className="text-slate-500 font-normal">&lt;{selectedMsg.from?.emailAddress?.address}&gt;</span>
+                                            </span>
+                                        </div>
+                                        <div className="flex flex-wrap items-baseline gap-x-1.5">
+                                            <span className="font-semibold text-slate-700 shrink-0">To:</span>
+                                            <span className="text-slate-700 break-all">
+                                                {(selectedMsg.toRecipients || []).map(r => r.emailAddress.name || r.emailAddress.address).join(', ') || 'Me'}
+                                            </span>
+                                        </div>
+                                        <div className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
+                                            {new Date(selectedMsg.receivedDateTime || selectedMsg.sentDateTime || '').toLocaleString([], {
+                                                dateStyle: 'medium',
+                                                timeStyle: 'short',
+                                            })}
+                                        </div>
+                                    </div>
+                                    {selectedMsg.hasAttachments && (
+                                        <div className="mt-2.5 pt-2 border-t border-slate-200/70 flex items-center gap-1.5 text-slate-600 text-xs">
+                                            <HugeiconsIcon icon={AttachmentIcon} size={14} strokeWidth={2} className="text-slate-400 shrink-0" />
+                                            <span>This email has attachments (open in Outlook to view)</span>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Body Content */}
+                                <div className="flex-1">
+                                    {loadingMsg ? (
+                                        <div className="text-slate-400 text-xs sm:text-sm flex gap-2 items-center py-6">
+                                            <HugeiconsIcon icon={SpinnerIcon} size={16} strokeWidth={2} className="animate-spin text-sky-500" />
+                                            <span>Loading message...</span>
+                                        </div>
+                                    ) : selectedMsg.body ? (
+                                        selectedMsg.body.contentType === 'html' ? (
+                                            <div className="w-full overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-2xs">
+                                                <iframe
+                                                    srcDoc={getSanitizedHtml(selectedMsg.body.content)}
+                                                    className="w-full border-0 min-h-[350px] sm:min-h-[420px]"
+                                                    sandbox="allow-same-origin"
+                                                    onLoad={e => {
+                                                        const frame = e.currentTarget;
+                                                        const resize = () => {
+                                                            try {
+                                                                if (frame.contentDocument?.body) {
+                                                                    frame.style.height = `${Math.max(350, frame.contentDocument.body.scrollHeight + 30)}px`;
+                                                                }
+                                                            } catch {}
+                                                        };
+                                                        resize();
+                                                        setTimeout(resize, 350);
+                                                    }}
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div className="bg-white rounded-lg p-3 sm:p-4 border border-slate-200">
+                                                <pre className="whitespace-pre-wrap font-sans text-xs sm:text-sm text-slate-800 leading-relaxed break-words">
+                                                    {stripHtml(selectedMsg.body.content)}
+                                                </pre>
+                                            </div>
+                                        )
+                                    ) : (
+                                        <div className="bg-white rounded-lg p-3 sm:p-4 border border-slate-200">
+                                            <p className="text-slate-700 text-xs sm:text-sm leading-relaxed break-words">
+                                                {selectedMsg.bodyPreview}
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Bottom Outlook link */}
+                                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between shrink-0">
+                                    <a
+                                        href="https://outlook.office.com/mail/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs sm:text-sm text-sky-600 hover:text-sky-700 font-semibold inline-flex items-center gap-1.5 transition-colors"
+                                    >
+                                        <span>Open in Outlook 365</span>
+                                        <span aria-hidden="true">→</span>
+                                    </a>
+                                    <button
+                                        onClick={() => setSelectedMsg(null)}
+                                        className="md:hidden text-xs text-slate-500 hover:text-slate-700 font-medium px-2.5 py-1 rounded bg-slate-100 active:bg-slate-200"
+                                    >
+                                        Back to list
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     )}
                 </div>
             </div>
-
-            <style>{`
-                @keyframes spin { to { transform: rotate(360deg); } }
-                * { box-sizing: border-box; }
-                button:hover { opacity: 0.9; }
-            `}</style>
         </div>
     );
 }
+
