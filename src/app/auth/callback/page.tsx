@@ -37,8 +37,10 @@ export default function AuthCallbackPage() {
                     console.log('[CLIENT CALLBACK] Session already active:', existingData.session.user.id);
                     setMessage('Sign in successful. Redirecting...');
                     try {
-                        await fetch('/api/auth/link-student/', { method: 'POST' });
-                    } catch {}
+                        await fetch('/api/auth/link-student/', { method: 'POST', credentials: 'include' });
+                    } catch (e) {
+                        console.warn('[CLIENT CALLBACK] link-student fetch error:', e);
+                    }
                     const activeEmail = (existingData.session.user.email || '').toLowerCase().trim();
                     const target = activeEmail.endsWith('@cannogacollege.ca') ? finalTarget : '/portal/dashboard/';
                     window.location.replace(target);
@@ -64,8 +66,10 @@ export default function AuthCallbackPage() {
                         console.log('[CLIENT CALLBACK] Session found on fallback check:', fallbackData.session.user.id);
                         setMessage('Sign in successful. Redirecting...');
                         try {
-                            await fetch('/api/auth/link-student/', { method: 'POST' });
-                        } catch {}
+                            await fetch('/api/auth/link-student/', { method: 'POST', credentials: 'include' });
+                        } catch (e) {
+                            console.warn('[CLIENT CALLBACK] link-student fetch error:', e);
+                        }
                         const fallbackEmail = (fallbackData.session.user.email || '').toLowerCase().trim();
                         const target = fallbackEmail.endsWith('@cannogacollege.ca') ? finalTarget : '/portal/dashboard/';
                         window.location.replace(target);
@@ -85,8 +89,10 @@ export default function AuthCallbackPage() {
 
                 // Auto-link student profile if applicable
                 try {
-                    await fetch('/api/auth/link-student/', { method: 'POST' });
-                } catch {}
+                    await fetch('/api/auth/link-student/', { method: 'POST', credentials: 'include' });
+                } catch (e) {
+                    console.warn('[CLIENT CALLBACK] link-student fetch error:', e);
+                }
 
                 const userEmail = (data?.session?.user?.email || '').toLowerCase().trim();
                 const destination = userEmail.endsWith('@cannogacollege.ca') ? finalTarget : '/portal/dashboard/';

@@ -50,6 +50,8 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                     return;
                 }
 
+                const userEmail = (sbUser.email || '').toLowerCase().trim();
+
                 if (prof.role === 'ADMIN') {
                     if (pathname.startsWith('/sis/payments')) {
                         window.location.href = '/sis/admin/finance';
@@ -59,14 +61,13 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                         window.location.href = '/sis/admin';
                         return;
                     }
-                } else if (prof.role === 'STUDENT') {
+                } else if (prof.role === 'STUDENT' || userEmail.endsWith('@cannogacollege.ca')) {
                     if (isAdminPath) {
                         window.location.href = '/portal/dashboard';
                         return;
                     }
 
                     // Enforce that only institutional email can access SIS
-                    const userEmail = (sbUser.email || '').toLowerCase().trim();
                     if (!userEmail.endsWith('@cannogacollege.ca')) {
                         window.location.href = '/portal/dashboard';
                         return;
@@ -77,7 +78,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                     const { data: studentRecord } = await supabase
                         .from('students')
                         .select('tuition_deposit_paid, enrollment_status')
-                        .eq('user_id', sbUser.id)
+                        .or(`user_id.eq.${sbUser.id},institutional_email.eq.${userEmail}`)
                         .maybeSingle();
 
                     const depositVerified =
@@ -88,6 +89,13 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                     if (!depositVerified) {
                         window.location.href = '/portal/dashboard';
                         return;
+                    }
+
+                    if (prof.role !== 'STUDENT') {
+                        prof.role = 'STUDENT';
+                        try {
+                            fetch('/api/auth/link-student/', { method: 'POST' }).catch(() => {});
+                        } catch {}
                     }
                 } else if (prof.role === 'APPLICANT') {
                     // APPLICANTs must stay in the applicant portal until

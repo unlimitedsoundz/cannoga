@@ -39,6 +39,9 @@ export default async function DashboardPage() {
         enrollment?.tuition_deposit_paid === true;
 
     if (sisReady) {
+        if (profile?.role !== 'STUDENT') {
+            await adminClient.from('profiles').update({ role: 'STUDENT' }).eq('id', user.id);
+        }
         redirect('/sis');
         return null;
     }
