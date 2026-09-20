@@ -19,6 +19,7 @@ import {
     addTeacherToClass,
     removeTeacherFromClass,
     createOrUpdateAssignment,
+    resolveEducationUserId,
 } from './provisioning';
 import { getOrCreateClassworkModule, publishClassworkModule } from './classwork';
 
@@ -304,28 +305,49 @@ async function processQueueItem(item: any): Promise<ProcessResult> {
             const enrollmentId = item.entity_id;
             const { data: enrollment } = await adminClient
                 .from('module_enrollments')
-                .select(`
-                    id, status, module_id, semester_id,
-                    student_id,
-                    students (id, microsoft_user_id),
-                    course_sections!inner (id, microsoft_class_id)
-                `)
+                .select('id, status, module_id, semester_id, student_id')
                 .eq('id', enrollmentId)
                 .maybeSingle();
 
             if (!enrollment) return { success: true, skipped: true, error: 'Enrollment not found' };
 
-            const student = enrollment.students as any;
-            const sections = (enrollment as any).course_sections;
-            const microsoftUserId = student?.microsoft_user_id;
-            const section = Array.isArray(sections) ? sections[0] : sections;
+            // Find student
+            const { data: student } = await adminClient
+                .from('students')
+                .select('id, student_id, institutional_email, microsoft_user_id')
+                .or(`id.eq.${enrollment.student_id},student_id.eq.${enrollment.student_id}`)
+                .maybeSingle();
+
+            // Find course section matching module_id and semester_id
+            const { data: section } = await adminClient
+                .from('course_sections')
+                .select('id, microsoft_class_id, microsoft_team_id')
+                .eq('module_id', enrollment.module_id)
+                .eq('semester_id', enrollment.semester_id)
+                .maybeSingle();
+
             const classId = section?.microsoft_class_id;
+            if (!classId) {
+                return { success: false, error: 'Course section has no Microsoft class provisioned yet' };
+            }
+
+            let microsoftUserId = student?.microsoft_user_id;
+
+            // Resolve Microsoft Entra Object ID if missing or non-UUID (e.g. pairwise OAuth sub)
+            const isGuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(microsoftUserId || '');
+            if (!isGuid && student?.institutional_email) {
+                const resolvedId = await resolveEducationUserId(student.institutional_email);
+                if (resolvedId) {
+                    microsoftUserId = resolvedId;
+                    await adminClient
+                        .from('students')
+                        .update({ microsoft_user_id: resolvedId })
+                        .eq('id', student.id);
+                }
+            }
 
             if (!microsoftUserId) {
                 return { success: true, skipped: true, error: 'Student has no Microsoft identity linked' };
-            }
-            if (!classId) {
-                return { success: false, error: 'Course section has no Microsoft class provisioned yet' };
             }
 
             const result = await addStudentToClass({ educationClassId: classId, microsoftUserId });
@@ -379,21 +401,42 @@ async function processQueueItem(item: any): Promise<ProcessResult> {
         case 'course_section/add_teacher': {
             const { data: section } = await adminClient
                 .from('course_sections')
-                .select('id, microsoft_class_id, instructor_id, profiles!inner(microsoft_user_id)')
+                .select('id, microsoft_class_id, instructor_id')
                 .eq('id', item.entity_id)
                 .maybeSingle();
 
             if (!section) return { success: true, skipped: true, error: 'Section not found' };
 
-            const profile = (section as any).profiles;
-            const microsoftUserId = profile?.microsoft_user_id;
             const classId = section.microsoft_class_id;
-
-            if (!microsoftUserId) {
-                return { success: true, skipped: true, error: 'Faculty has no Microsoft identity linked' };
-            }
             if (!classId) {
                 return { success: false, error: 'Section has no Microsoft class provisioned yet' };
+            }
+
+            let microsoftUserId: string | null = null;
+            if (section.instructor_id) {
+                const { data: profile } = await adminClient
+                    .from('profiles')
+                    .select('id, email, microsoft_user_id')
+                    .eq('id', section.instructor_id)
+                    .maybeSingle();
+
+                microsoftUserId = profile?.microsoft_user_id || null;
+                const isGuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(microsoftUserId || '');
+                if (!isGuid && profile?.email) {
+                    const resolvedId = await resolveEducationUserId(profile.email);
+                    if (resolvedId) {
+                        microsoftUserId = resolvedId;
+                        await adminClient
+                            .from('profiles')
+                            .update({ microsoft_user_id: resolvedId })
+                            .eq('id', profile.id);
+                    }
+                }
+            }
+
+            if (!microsoftUserId) {
+                // Fallback to default tenant administrator/educator
+                microsoftUserId = process.env.AZURE_DEFAULT_OWNER_ID || 'bae9c8de-847f-4e63-a9ba-aa0c085761ad';
             }
 
             const result = await addTeacherToClass({ educationClassId: classId, microsoftUserId });
