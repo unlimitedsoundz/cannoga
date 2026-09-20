@@ -1,6 +1,8 @@
 // ==============================================================================
 // GET /api/sis/education/classes
-// Returns connected Microsoft Education classes and Teams for current user.
+// Returns connected Microsoft Education classes and Cannoga enrollments.
+// Cannoga module_enrollments are the source of truth.
+// Microsoft Graph classes are supplementary/display data only.
 // ==============================================================================
 
 import { NextResponse } from 'next/server';
@@ -28,6 +30,7 @@ export async function GET() {
 
         let localEnrollments: any[] = [];
         if (student) {
+            // Join through course_sections to also include Microsoft mapping fields
             const { data: enrollments } = await supabase
                 .from('module_enrollments')
                 .select(`
@@ -35,12 +38,30 @@ export async function GET() {
                     status,
                     grade,
                     grade_status,
+                    microsoft_sync_status,
                     modules (id, code, title, credits),
-                    semesters (id, name, start_date, end_date)
+                    semesters (id, name, start_date, end_date),
+                    course_sections!inner (
+                        id, code,
+                        microsoft_class_id,
+                        microsoft_team_id,
+                        microsoft_sync_status
+                    )
                 `)
-                .eq('student_id', student.id);
+                .eq('student_id', student.id)
+                .eq('status', 'REGISTERED');
 
-            localEnrollments = enrollments || [];
+            // Flatten the course_sections join into enrollment-level fields
+            localEnrollments = (enrollments || []).map((enr: any) => {
+                const sections = (enr as any).course_sections;
+                const section = Array.isArray(sections) ? sections[0] : sections;
+                return {
+                    ...enr,
+                    microsoft_class_id: section?.microsoft_class_id || null,
+                    microsoft_team_id: section?.microsoft_team_id || null,
+                    course_sections: undefined, // don't expose raw join
+                };
+            });
         }
 
         // If Microsoft provider token exists, fetch live Microsoft Education / Teams classes

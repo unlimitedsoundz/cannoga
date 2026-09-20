@@ -215,6 +215,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         { label: 'SCHEDULING', href: '/sis/admin/scheduling' },
         { label: 'TIMETABLE', href: '/sis/admin/timetable' },
         { label: 'REGISTRATION', href: '/sis/admin/registration' },
+        { label: 'MICROSOFT 365', href: '/sis/admin/integrations/microsoft' },
         { label: 'DOCUMENTS', href: '/sis/admin/documents' },
         { 
             key: 'website-cms', 
@@ -237,7 +238,6 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         { label: 'AUDIT', href: '/sis/admin/audit' },
         { label: 'NOTIFICATIONS', href: '/sis/admin/notifications' },
         { label: 'SETTINGS', href: '/sis/admin/settings' },
-        { label: 'MICROSOFT 365', href: '/sis/admin/integrations/microsoft' },
         { label: 'DEBBIE VOICE', href: '/sis/admin/debbie' },
         { label: 'VOICE AGENT', href: '/sis/admin/voice-agent' },
     ];

@@ -21,16 +21,21 @@ function createRedirectResponse(
 ): NextResponse {
     const forwardedHost = request.headers.get('x-forwarded-host');
     let host = 'cannogacollege.ca';
+    let protocol = 'https';
+
     if (forwardedHost && !forwardedHost.includes('0.0.0.0') && !forwardedHost.includes('127.0.0.1')) {
         host = forwardedHost.split(',')[0].trim();
     } else {
         const reqHost = request.headers.get('host') || '';
-        if (reqHost && !reqHost.includes('0.0.0.0') && !reqHost.includes('127.0.0.1') && !reqHost.includes('localhost')) {
+        if (reqHost && (reqHost.includes('localhost') || reqHost.includes('127.0.0.1') || reqHost.includes('0.0.0.0'))) {
+            host = reqHost;
+            protocol = 'http';
+        } else if (reqHost) {
             host = reqHost.split(':')[0].trim();
         }
     }
     const normalizedPath = pathname.endsWith('/') ? pathname : `${pathname}/`;
-    const url = new URL(`https://${host}${normalizedPath}`);
+    const url = new URL(`${protocol}://${host}${normalizedPath}`);
     if (searchParams) {
         for (const [key, value] of Object.entries(searchParams)) {
             url.searchParams.set(key, value);

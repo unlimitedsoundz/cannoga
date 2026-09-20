@@ -8,9 +8,22 @@ import {
     CheckmarkCircle01Icon as CheckCircle,
     UserWarning02Icon as WarningIcon,
     Loading03Icon as SpinnerIcon,
+    BookOpen01Icon as BookIcon,
+    Calendar01Icon as CalendarIcon,
 } from '@hugeicons/core-free-icons';
 import { ExternalLink } from 'lucide-react';
 import { MICROSOFT_APP_URLS } from '@/lib/microsoft/teams';
+
+interface LocalEnrollment {
+    id: string;
+    status: string;
+    grade?: number;
+    modules: { id: string; code: string; title: string; credits: number } | null;
+    semesters: { id: string; name: string; start_date: string; end_date: string } | null;
+    // Microsoft mapping from course_sections join (included by the API)
+    microsoft_class_id?: string | null;
+    microsoft_team_id?: string | null;
+}
 
 export default function Microsoft365HubPage() {
     const [loading, setLoading] = useState(true);
@@ -34,6 +47,19 @@ export default function Microsoft365HubPage() {
     }, []);
 
     const isConnected = statusData?.hasMicrosoftSession;
+    const enrollments: LocalEnrollment[] = statusData?.enrollments || [];
+    const microsoftClasses: any[] = statusData?.microsoftClasses || [];
+
+    // Match local enrollments to Microsoft classes where possible
+    const enrichedEnrollments = enrollments.map((enr) => {
+        const msClass = microsoftClasses.find(
+            (mc) =>
+                mc.id === enr.microsoft_class_id ||
+                mc.externalId === enr.id ||
+                mc.classCode?.toLowerCase() === enr.modules?.code?.toLowerCase()
+        );
+        return { ...enr, microsoftClass: msClass || null };
+    });
 
     const M365_APPS = [
         {
@@ -53,7 +79,6 @@ export default function Microsoft365HubPage() {
             url: '/sis/mail/',
             internal: true,
             badge: 'Integrated in SIS',
-            highlight: false,
         },
         {
             title: 'OneDrive for Business',
@@ -62,7 +87,6 @@ export default function Microsoft365HubPage() {
             iconBg: '#0078d4',
             url: MICROSOFT_APP_URLS.onedrive,
             badge: '1 TB Storage',
-            highlight: false,
         },
         {
             title: 'OneNote Class Notebook',
@@ -71,7 +95,6 @@ export default function Microsoft365HubPage() {
             iconBg: '#7719aa',
             url: MICROSOFT_APP_URLS.oneNote,
             badge: 'Class Notebook',
-            highlight: false,
         },
         {
             title: 'Word, Excel & PowerPoint',
@@ -80,7 +103,6 @@ export default function Microsoft365HubPage() {
             iconBg: '#d83b01',
             url: MICROSOFT_APP_URLS.officePortal,
             badge: 'M365 Apps',
-            highlight: false,
         },
         {
             title: 'Microsoft Forms',
@@ -89,7 +111,6 @@ export default function Microsoft365HubPage() {
             iconBg: '#008272',
             url: MICROSOFT_APP_URLS.forms,
             badge: 'Forms & Polls',
-            highlight: false,
         },
     ];
 
@@ -121,7 +142,7 @@ export default function Microsoft365HubPage() {
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
                         <div>
                             <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#38bdf8' }}>
-                                Cannoga College &bull; Digital Learning Layer
+                                Cannoga College • Digital Learning Layer
                             </span>
                             <h1 style={{ fontSize: 24, fontWeight: 800, margin: '4px 0 6px', letterSpacing: '-0.02em' }}>
                                 Microsoft 365 Education Suite
@@ -151,7 +172,107 @@ export default function Microsoft365HubPage() {
                     </div>
                 </div>
 
-                {/* Grid of Microsoft 365 Applications */}
+                {/* Your Cannoga Courses in Microsoft */}
+                {!loading && enrichedEnrollments.length > 0 && (
+                    <div style={{
+                        background: 'white',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: 12,
+                        padding: '22px 24px',
+                        marginBottom: 28,
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+                            <HugeiconsIcon icon={BookIcon} size={18} style={{ color: '#6366f1' }} />
+                            <h2 style={{ margin: 0, fontSize: 15, fontWeight: 800, color: '#0f172a' }}>
+                                Your Enrolled Courses
+                            </h2>
+                            <span style={{ fontSize: 11, color: '#64748b', marginLeft: 4 }}>
+                                {enrollments.filter(e => e.status === 'REGISTERED').length} active
+                            </span>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                            {enrichedEnrollments
+                                .filter((e) => e.status === 'REGISTERED')
+                                .map((enr) => (
+                                    <div
+                                        key={enr.id}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            gap: 12,
+                                            padding: '12px 16px',
+                                            background: '#f8fafc',
+                                            border: '1px solid #e2e8f0',
+                                            borderRadius: 8,
+                                            flexWrap: 'wrap',
+                                        }}
+                                    >
+                                        <div>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
+                                                <span style={{
+                                                    fontSize: 10, fontWeight: 700, textTransform: 'uppercase',
+                                                    letterSpacing: '0.04em', background: '#ede9fe',
+                                                    color: '#6d28d9', padding: '2px 7px', borderRadius: 4,
+                                                }}>
+                                                    {enr.modules?.code || 'MODULE'}
+                                                </span>
+                                                {enr.microsoftClass ? (
+                                                    <span style={{ fontSize: 10, fontWeight: 700, background: '#dbeafe', color: '#1d4ed8', padding: '2px 7px', borderRadius: 4 }}>
+                                                        ✓ Linked to Microsoft
+                                                    </span>
+                                                ) : (
+                                                    <span style={{ fontSize: 10, color: '#94a3b8', fontWeight: 500 }}>
+                                                        Microsoft class pending
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
+                                                {enr.modules?.title || 'Module'}
+                                            </p>
+                                            <p style={{ margin: '2px 0 0', fontSize: 11, color: '#64748b' }}>
+                                                {enr.semesters?.name} • {enr.modules?.credits} credits
+                                            </p>
+                                        </div>
+
+                                        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                                            {enr.microsoftClass ? (
+                                                <a
+                                                    href={`https://teams.microsoft.com/l/team/${encodeURIComponent(enr.microsoft_team_id || enr.microsoftClass.id)}/conversations?groupId=${encodeURIComponent(enr.microsoft_team_id || enr.microsoftClass.id)}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    style={{
+                                                        display: 'inline-flex', alignItems: 'center', gap: 5,
+                                                        background: '#464eb8', color: 'white',
+                                                        padding: '7px 14px', borderRadius: 6,
+                                                        fontSize: 11, fontWeight: 700, textDecoration: 'none',
+                                                    }}
+                                                >
+                                                    Open in Teams
+                                                    <ExternalLink size={11} />
+                                                </a>
+                                            ) : (
+                                                <Link
+                                                    href="/sis/assignments"
+                                                    style={{
+                                                        display: 'inline-flex', alignItems: 'center', gap: 5,
+                                                        background: '#f1f5f9', color: '#475569',
+                                                        padding: '7px 14px', borderRadius: 6,
+                                                        fontSize: 11, fontWeight: 700, textDecoration: 'none',
+                                                    }}
+                                                >
+                                                    View Assignments
+                                                </Link>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Microsoft 365 App Grid */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 20 }}>
                     {M365_APPS.map((app) => (
                         <div
@@ -171,18 +292,13 @@ export default function Microsoft365HubPage() {
                             <div>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
                                     <span style={{
-                                        fontSize: 10,
-                                        fontWeight: 700,
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.05em',
-                                        color: '#64748b',
+                                        fontSize: 10, fontWeight: 700,
+                                        textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748b',
                                     }}>
                                         {app.category}
                                     </span>
                                     <span style={{
-                                        fontSize: 10,
-                                        fontWeight: 700,
-                                        padding: '2px 8px',
+                                        fontSize: 10, fontWeight: 700, padding: '2px 8px',
                                         borderRadius: 999,
                                         background: app.highlight ? '#ede9fe' : '#f1f5f9',
                                         color: app.highlight ? '#6d28d9' : '#475569',
@@ -203,13 +319,8 @@ export default function Microsoft365HubPage() {
                                     <Link
                                         href={app.url}
                                         style={{
-                                            display: 'inline-flex',
-                                            alignItems: 'center',
-                                            gap: 6,
-                                            fontSize: 12,
-                                            fontWeight: 700,
-                                            color: '#0f172a',
-                                            textDecoration: 'none',
+                                            display: 'inline-flex', alignItems: 'center', gap: 6,
+                                            fontSize: 12, fontWeight: 700, color: '#0f172a', textDecoration: 'none',
                                         }}
                                     >
                                         Open in SIS &rarr;
@@ -220,13 +331,8 @@ export default function Microsoft365HubPage() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         style={{
-                                            display: 'inline-flex',
-                                            alignItems: 'center',
-                                            gap: 6,
-                                            fontSize: 12,
-                                            fontWeight: 700,
-                                            color: '#2563eb',
-                                            textDecoration: 'none',
+                                            display: 'inline-flex', alignItems: 'center', gap: 6,
+                                            fontSize: 12, fontWeight: 700, color: '#2563eb', textDecoration: 'none',
                                         }}
                                     >
                                         Launch Web App
@@ -251,10 +357,12 @@ export default function Microsoft365HubPage() {
                 }}>
                     <div style={{ flex: 1 }}>
                         <h4 style={{ margin: '0 0 4px', fontSize: 13, fontWeight: 700, color: '#0f172a' }}>
-                            Cannoga SIS System of Record
+                            Cannoga SIS — System of Record
                         </h4>
                         <p style={{ margin: 0, fontSize: 12, color: '#64748b', lineHeight: 1.5 }}>
-                            Course registrations, transcripts, official tuition invoices, and graduation records are authoritatively managed in the Cannoga SIS. Teams coursework and assignment scores represent instructional progress and sync with official registrar grading periods.
+                            Course registrations, transcripts, official tuition invoices, and graduation records are authoritatively managed in the Cannoga SIS.
+                            Teams coursework and assignment scores represent instructional progress and sync with official registrar grading periods.
+                            Microsoft class membership never overrides your official Cannoga enrollment status.
                         </p>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/client';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from "@aalto-dx/react-components";
-import { SquaresFour as LayoutDashboard, BookOpen, Newspaper, Calendar, GraduationCap, Users, Buildings as SchoolIcon, FileText, House as Home, Cpu, Microscope, SignOut as LogOut, CreditCard as InvoiceIcon, Question as HelpCircle, X, Gear } from "@phosphor-icons/react";
+import { SquaresFour as LayoutDashboard, BookOpen, Newspaper, Calendar, GraduationCap, Users, Buildings as SchoolIcon, FileText, House as Home, Cpu, Microscope, SignOut as LogOut, CreditCard as InvoiceIcon, Question as HelpCircle, X, Gear, Cloud } from "@phosphor-icons/react";
 import { Logo } from '@/components/ui/Logo';
 import { UserAvatar } from '@/components/ui/UserAvatar';
 
@@ -136,6 +136,7 @@ export default function AdminLayout({
         { href: '/sis/admin/departments', label: 'Departments', icon: SchoolIcon },
         { href: '/sis/admin/faculty', label: 'Faculty Editor', icon: Users },
         { href: '/sis/admin/registrar', label: 'Registrar', icon: FileText },
+        { href: '/sis/admin/integrations/microsoft', label: 'Microsoft 365', icon: Cloud },
         { href: '/sis/admin/finance/verification-queue', label: 'Wire Verification', icon: InvoiceIcon },
         { href: '/sis/admin/finance/settings', label: 'Finance Settings', icon: Gear },
     ];
