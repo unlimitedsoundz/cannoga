@@ -413,23 +413,39 @@ async function processQueueItem(item: any): Promise<ProcessResult> {
             }
 
             let microsoftUserId: string | null = null;
+
             if (section.instructor_id) {
+                // First check profiles table
                 const { data: profile } = await adminClient
                     .from('profiles')
                     .select('id, email, microsoft_user_id')
                     .eq('id', section.instructor_id)
                     .maybeSingle();
 
+                let instructorEmail = profile?.email;
                 microsoftUserId = profile?.microsoft_user_id || null;
+
+                // If not found in profiles, check Faculty table
+                if (!instructorEmail) {
+                    const { data: faculty } = await adminClient
+                        .from('Faculty')
+                        .select('id, email')
+                        .eq('id', section.instructor_id)
+                        .maybeSingle();
+                    if (faculty?.email) instructorEmail = faculty.email;
+                }
+
                 const isGuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(microsoftUserId || '');
-                if (!isGuid && profile?.email) {
-                    const resolvedId = await resolveEducationUserId(profile.email);
+                if (!isGuid && instructorEmail) {
+                    const resolvedId = await resolveEducationUserId(instructorEmail);
                     if (resolvedId) {
                         microsoftUserId = resolvedId;
-                        await adminClient
-                            .from('profiles')
-                            .update({ microsoft_user_id: resolvedId })
-                            .eq('id', profile.id);
+                        if (profile?.id) {
+                            await adminClient
+                                .from('profiles')
+                                .update({ microsoft_user_id: resolvedId })
+                                .eq('id', profile.id);
+                        }
                     }
                 }
             }

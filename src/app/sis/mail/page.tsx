@@ -127,8 +127,16 @@ export default function StudentMailPage() {
                 }
                 return;
             }
-            setMessages(data.messages || []);
+            const msgs = data.messages || [];
+            setMessages(msgs);
             setHasMore(!!data.nextLink);
+            if (f === 'inbox' && msgs.length > 0) {
+                const unreadInList = msgs.filter((m: EmailMessage) => !m.isRead).length;
+                setFolderCounts(prev => ({
+                    ...prev,
+                    inbox: Math.max(prev.inbox || 0, unreadInList),
+                }));
+            }
         } catch (e: any) {
             if (!silent) setError('Failed to connect. Check your connection.');
         } finally {
@@ -141,13 +149,19 @@ export default function StudentMailPage() {
             const res = await fetch('/api/sis/mail?action=unread_counts');
             if (!res.ok) return;
             const data = await res.json();
-            const map: Record<string, number> = { flagged: data.flaggedCount ?? 0 };
+            if (data.folderCounts) {
+                setFolderCounts(data.folderCounts);
+                return;
+            }
+            const map: Record<string, number> = {
+                flagged: data.flaggedCount ?? 0,
+                starred: data.starredCount ?? 0,
+                inbox: data.inboxUnreadCount ?? 0,
+            };
             (data.counts || []).forEach((c: any) => {
-                if (c.displayName) map[c.displayName.toLowerCase().replace(' ', '')] = c.unreadItemCount ?? 0;
-                if (c.id === 'inbox') map.inbox = c.unreadItemCount ?? 0;
-                if (c.id === 'sentitems') map.sent = c.unreadItemCount ?? 0;
-                if (c.id === 'archive') map.archive = c.unreadItemCount ?? 0;
-                if (c.id === 'drafts') map.drafts = c.unreadItemCount ?? 0;
+                const key = c.folderKey || (c.displayName ? c.displayName.toLowerCase().replace(' ', '') : c.id);
+                if (key === 'sentitems') map.sent = c.unreadItemCount ?? 0;
+                else if (key) map[key] = c.unreadItemCount ?? 0;
             });
             setFolderCounts(map);
         } catch {}
@@ -184,6 +198,10 @@ export default function StudentMailPage() {
                 body: JSON.stringify({ messageId: msg.id, isRead: true }),
             }).catch(() => {});
             setMessages(prev => prev.map(m => m.id === msg.id ? { ...m, isRead: true } : m));
+            setFolderCounts(prev => ({
+                ...prev,
+                inbox: Math.max(0, (prev.inbox || 1) - 1),
+            }));
         }
         try {
             const res = await fetch(`/api/sis/mail?action=message&messageId=${msg.id}`);

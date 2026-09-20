@@ -26,6 +26,7 @@ type StatusData = {
         clientId: string;
         appCredentialsConfigured: boolean;
         graphConfigured: boolean;
+        appConnected?: boolean;
     };
     metrics?: {
         totalStudents: number;

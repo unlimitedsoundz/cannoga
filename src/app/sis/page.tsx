@@ -325,6 +325,14 @@ export default function SISStudentDashboard() {
     const [registrationLoading, setRegistrationLoading] = useState(false);
     const [studentLifeData, setStudentLifeData] = useState<any>(null);
     const [unreadMessageCount, setUnreadMessageCount] = useState(0);
+    const [mailCounts, setMailCounts] = useState<{
+        inboxUnread: number;
+        inboxTotal: number;
+        starred: number;
+        flagged: number;
+        sent: number;
+        archive: number;
+    } | null>(null);
     const [timetableSessions, setTimetableSessions] = useState<any[]>([]);
     const [timetableAssignments, setTimetableAssignments] = useState<any[]>([]);
     const [financialAid, setFinancialAid] = useState<FinancialAid[]>([]);
@@ -1209,6 +1217,33 @@ function formatRelativeTime(dateInput: any): string {
         return () => clearInterval(interval);
     }, []);
 
+    // Live Microsoft 365 Mail unread and total count polling
+    useEffect(() => {
+        let isMounted = true;
+        const fetchMailCounts = async () => {
+            try {
+                const res = await fetch('/api/sis/mail?action=unread_counts');
+                if (!res.ok) return;
+                const data = await res.json();
+                if (!isMounted) return;
+                setMailCounts({
+                    inboxUnread: data.inboxUnreadCount ?? data.folderCounts?.inbox ?? 0,
+                    inboxTotal: data.inboxTotalCount ?? data.totalCounts?.inbox ?? 0,
+                    starred: data.starredCount ?? data.folderCounts?.starred ?? 0,
+                    flagged: data.flaggedCount ?? data.folderCounts?.flagged ?? 0,
+                    sent: data.folderCounts?.sent ?? 0,
+                    archive: data.folderCounts?.archive ?? 0,
+                });
+            } catch {}
+        };
+        fetchMailCounts();
+        const interval = setInterval(fetchMailCounts, 30000);
+        return () => {
+            isMounted = false;
+            clearInterval(interval);
+        };
+    }, []);
+
     // Independent Live Weather & Real-Time News Fetch (runs instantly on mount)
     useEffect(() => {
         const fetchLiveExternalData = async () => {
@@ -1441,7 +1476,9 @@ function formatRelativeTime(dateInput: any): string {
                     <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
                         <button type="button" onClick={() => router.push('/sis/mail/')} className="relative p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition flex items-center justify-center" title="Messages">
                             <HugeiconsIcon icon={Mail} size={18} strokeWidth={2} />
-                            {unreadMessageCount > 0 && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-blue-400 rounded-full border-2 border-slate-900"></span>}
+                            {((mailCounts ? mailCounts.inboxUnread : unreadMessageCount) > 0) && (
+                                <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-blue-400 rounded-full border-2 border-slate-900"></span>
+                            )}
                         </button>
                         <div ref={pageNotifRef} className="relative">
                             <button
@@ -1775,24 +1812,39 @@ function formatRelativeTime(dateInput: any): string {
                                             </div>
                                             <div className="divide-y divide-slate-100 text-xs">
                                                 <button type="button" onClick={() => router.push('/sis/mail/?folder=inbox')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left font-semibold text-slate-800">
-                                                    <span>Inbox</span>
-                                                    <span className="bg-slate-900 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">{unreadMessageCount > 0 ? unreadMessageCount : 0}</span>
+                                                    <span className="flex items-center gap-2">
+                                                        <span>Inbox</span>
+                                                        {mailCounts && mailCounts.inboxTotal > 0 && (
+                                                            <span className="text-[11px] text-slate-400 font-normal">({mailCounts.inboxTotal})</span>
+                                                        )}
+                                                    </span>
+                                                    <span className="bg-slate-900 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">
+                                                        {mailCounts ? mailCounts.inboxUnread : unreadMessageCount}
+                                                    </span>
                                                 </button>
                                                 <button type="button" onClick={() => router.push('/sis/mail/?folder=starred')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
                                                     <span>Starred</span>
-                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">—</span>
+                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">
+                                                        {mailCounts && mailCounts.starred > 0 ? mailCounts.starred : '—'}
+                                                    </span>
                                                 </button>
                                                 <button type="button" onClick={() => router.push('/sis/mail/?folder=flagged')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
                                                     <span>Flagged</span>
-                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">—</span>
+                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">
+                                                        {mailCounts && mailCounts.flagged > 0 ? mailCounts.flagged : '—'}
+                                                    </span>
                                                 </button>
                                                 <button type="button" onClick={() => router.push('/sis/mail/?folder=sent')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
                                                     <span>Sent</span>
-                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">—</span>
+                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">
+                                                        {mailCounts && mailCounts.sent > 0 ? mailCounts.sent : '—'}
+                                                    </span>
                                                 </button>
                                                 <button type="button" onClick={() => router.push('/sis/mail/?folder=archive')} className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 transition text-left text-slate-600">
                                                     <span>Archive</span>
-                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">—</span>
+                                                    <span className="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded-full font-semibold">
+                                                        {mailCounts && mailCounts.archive > 0 ? mailCounts.archive : '—'}
+                                                    </span>
                                                 </button>
                                             </div>
                                         </div>

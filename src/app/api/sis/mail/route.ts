@@ -52,26 +52,75 @@ export async function GET(request: NextRequest) {
         }
 
         if (action === 'unread_counts') {
-            const folderIds = ['inbox', 'sentitems', 'archive', 'drafts'];
+            const folderIds = [
+                { id: 'inbox', key: 'inbox' },
+                { id: 'sentitems', key: 'sent' },
+                { id: 'archive', key: 'archive' },
+                { id: 'drafts', key: 'drafts' },
+            ];
+
+            const folderMap: Record<string, number> = {};
+            const totalMap: Record<string, number> = {};
+
             const counts = await Promise.all(
-                folderIds.map(async (fid) => {
+                folderIds.map(async ({ id: fid, key }) => {
                     const r = await fetch(
                         GRAPH_BASE + '/mailFolders/' + fid + '?$select=id,displayName,unreadItemCount,totalItemCount',
                         { headers: graphHeaders }
                     );
-                    if (!r.ok) return { id: fid, unreadItemCount: 0, totalItemCount: 0 };
-                    return r.json();
+                    if (!r.ok) return { folderKey: key, id: fid, unreadItemCount: 0, totalItemCount: 0 };
+                    const data = await r.json().catch(() => ({}));
+                    return {
+                        folderKey: key,
+                        id: data.id || fid,
+                        displayName: data.displayName || fid,
+                        unreadItemCount: data.unreadItemCount ?? 0,
+                        totalItemCount: data.totalItemCount ?? 0,
+                    };
                 })
             );
-            const flagRes = await fetch(
-                GRAPH_BASE + "/messages?$filter=flag/flagStatus eq 'flagged'&$select=id&$count=true&$top=1",
-                { headers: { ...graphHeaders, ConsistencyLevel: 'eventual' } }
-            );
-            const flagData = flagRes.ok ? await flagRes.json() : {};
+
+            counts.forEach((c) => {
+                folderMap[c.folderKey] = c.unreadItemCount;
+                totalMap[c.folderKey] = c.totalItemCount;
+            });
+
+            // Query real-time unread messages count for inbox + flagged/starred
+            const [inboxUnreadRes, flagRes, starRes] = await Promise.all([
+                fetch(
+                    GRAPH_BASE + "/mailFolders/inbox/messages?$filter=isRead eq false&$select=id&$count=true&$top=1",
+                    { headers: { ...graphHeaders, ConsistencyLevel: 'eventual' } }
+                ).catch(() => null),
+                fetch(
+                    GRAPH_BASE + "/messages?$filter=flag/flagStatus eq 'flagged'&$select=id&$count=true&$top=1",
+                    { headers: { ...graphHeaders, ConsistencyLevel: 'eventual' } }
+                ).catch(() => null),
+                fetch(
+                    GRAPH_BASE + "/messages?$filter=importance eq 'high'&$select=id&$count=true&$top=1",
+                    { headers: { ...graphHeaders, ConsistencyLevel: 'eventual' } }
+                ).catch(() => null),
+            ]);
+
+            const inboxUnreadData = inboxUnreadRes?.ok ? await inboxUnreadRes.json().catch(() => ({})) : {};
+            const flagData = flagRes?.ok ? await flagRes.json().catch(() => ({})) : {};
+            const starData = starRes?.ok ? await starRes.json().catch(() => ({})) : {};
+
+            const realtimeInboxUnread = typeof inboxUnreadData['@odata.count'] === 'number'
+                ? inboxUnreadData['@odata.count']
+                : (folderMap.inbox ?? 0);
+
+            folderMap.inbox = realtimeInboxUnread;
+            folderMap.flagged = flagData['@odata.count'] ?? 0;
+            folderMap.starred = starData['@odata.count'] ?? 0;
+
             return NextResponse.json({
                 counts,
-                flaggedCount: flagData['@odata.count'] ?? 0,
-                starredCount: 0,
+                folderCounts: folderMap,
+                totalCounts: totalMap,
+                inboxUnreadCount: realtimeInboxUnread,
+                inboxTotalCount: totalMap.inbox ?? 0,
+                flaggedCount: folderMap.flagged,
+                starredCount: folderMap.starred,
             });
         }
 
