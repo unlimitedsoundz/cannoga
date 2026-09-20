@@ -7,7 +7,7 @@
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/utils/supabase/server';
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
-import { isAppGraphConfigured } from '@/lib/microsoft/app-auth';
+import { isAppGraphConfigured, getAppAccessToken } from '@/lib/microsoft/app-auth';
 import { getQueueStats } from '@/lib/microsoft/sync-queue';
 
 export const dynamic = 'force-dynamic';
@@ -121,6 +121,49 @@ export async function GET() {
         const tenantId = process.env.AZURE_TENANT_ID || '559051ae-ebf4-496a-8dbb-128aac57d721';
         const appConfigured = isAppGraphConfigured();
 
+        // Live token verification to detect active Entra ID roles
+        let grantedRoles: string[] = [];
+        let tokenError: string | null = null;
+        let isConnected = false;
+
+        if (appConfigured) {
+            try {
+                const tokenResult = await getAppAccessToken();
+                if (tokenResult.accessToken) {
+                    isConnected = true;
+                    const parts = tokenResult.accessToken.split('.');
+                    if (parts.length > 1) {
+                        const payloadJson = JSON.parse(Buffer.from(parts[1], 'base64').toString('utf8'));
+                        grantedRoles = Array.isArray(payloadJson.roles) ? payloadJson.roles : [];
+                    }
+                } else if (tokenResult.error) {
+                    tokenError = tokenResult.error;
+                }
+            } catch (e: any) {
+                tokenError = e?.message || 'Failed to verify token';
+            }
+        }
+
+        const checkAppStatus = (roleName: string) => {
+            if (!appConfigured) return 'Not Configured';
+            if (grantedRoles.includes(roleName)) return 'Active';
+            if (isConnected) return 'Pending Consent';
+            return 'Not Configured';
+        };
+
+        const requiredPermissions = [
+            { name: 'User.Read', type: 'Delegated', purpose: 'Read signed-in student/faculty profile', requirement: 'Required', status: 'Active', appLevel: false },
+            { name: 'Mail.Read', type: 'Delegated', purpose: 'Student Mail integration in SIS', requirement: 'Required', status: 'Active', appLevel: false },
+            { name: 'Calendars.Read', type: 'Delegated', purpose: 'Class schedules & timetable sync', requirement: 'Required', status: 'Active', appLevel: false },
+            { name: 'EduRoster.ReadBasic', type: 'Delegated', purpose: 'View student\'s own classes', requirement: 'Recommended', status: 'Active', appLevel: false },
+            { name: 'EduAssignments.ReadBasic', type: 'Delegated', purpose: 'View student\'s own assignments', requirement: 'Recommended', status: 'Active', appLevel: false },
+            { name: 'EduRoster.ReadWrite.All', type: 'Application', purpose: 'Create classes, manage student/teacher rosters', requirement: 'Required', status: checkAppStatus('EduRoster.ReadWrite.All'), appLevel: true },
+            { name: 'EduAssignments.ReadWrite.All', type: 'Application', purpose: 'Create/update Microsoft Education assignments', requirement: 'Required', status: checkAppStatus('EduAssignments.ReadWrite.All'), appLevel: true },
+            { name: 'Team.Create', type: 'Application', purpose: 'Create Class Teams for course sections', requirement: 'Required', status: checkAppStatus('Team.Create'), appLevel: true },
+            { name: 'Group.ReadWrite.All', type: 'Application', purpose: 'Manage Microsoft 365 class groups', requirement: 'Required', status: checkAppStatus('Group.ReadWrite.All'), appLevel: true },
+            { name: 'Sites.ReadWrite.All', type: 'Application', purpose: 'SharePoint course homepage creation', requirement: 'Optional', status: checkAppStatus('Sites.ReadWrite.All'), appLevel: true },
+        ];
+
         return NextResponse.json({
             ok: true,
             configuration: {
@@ -129,6 +172,9 @@ export async function GET() {
                 clientId,
                 graphConfigured: true,
                 appCredentialsConfigured: appConfigured,
+                appConnected: isConnected,
+                grantedRoles,
+                tokenError,
                 schoolDataSyncConfigured: true,
             },
             metrics: {
@@ -147,18 +193,7 @@ export async function GET() {
             recentFailures: recentFailures || [],
             studentsWithoutMicrosoft: studentsWithoutMs || [],
             sectionSyncStatus: sectionSyncStatus || [],
-            requiredPermissions: [
-                { name: 'User.Read', type: 'Delegated', purpose: 'Read signed-in student/faculty profile', status: 'Active', appLevel: false },
-                { name: 'Mail.Read', type: 'Delegated', purpose: 'Student Mail integration in SIS', status: 'Active', appLevel: false },
-                { name: 'Calendars.Read', type: 'Delegated', purpose: 'Class schedules & timetable sync', status: 'Active', appLevel: false },
-                { name: 'EduRoster.ReadBasic', type: 'Delegated', purpose: 'View student\'s own classes', status: 'Recommended', appLevel: false },
-                { name: 'EduAssignments.ReadBasic', type: 'Delegated', purpose: 'View student\'s own assignments', status: 'Recommended', appLevel: false },
-                { name: 'EduRoster.ReadWrite.All', type: 'Application', purpose: 'Create classes, manage student/teacher rosters', status: appConfigured ? 'Required' : 'Not Configured', appLevel: true },
-                { name: 'EduAssignments.ReadWrite.All', type: 'Application', purpose: 'Create/update Microsoft Education assignments', status: appConfigured ? 'Required' : 'Not Configured', appLevel: true },
-                { name: 'Team.Create', type: 'Application', purpose: 'Create Class Teams for course sections', status: appConfigured ? 'Required' : 'Not Configured', appLevel: true },
-                { name: 'Group.ReadWrite.All', type: 'Application', purpose: 'Manage Microsoft 365 class groups', status: appConfigured ? 'Required' : 'Not Configured', appLevel: true },
-                { name: 'Sites.ReadWrite.All', type: 'Application', purpose: 'SharePoint course homepage creation', status: 'Optional', appLevel: true },
-            ],
+            requiredPermissions,
         });
     } catch (err: any) {
         console.error('[API /sis/admin/integrations/microsoft/status] Error:', err);

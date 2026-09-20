@@ -356,12 +356,20 @@ export default function AdminMicrosoftIntegrationPage() {
                                 <ExternalLink className="w-3.5 h-3.5" />
                             </a>
                         </div>
+                        {statusData?.configuration?.appConnected && (
+                            <div className="flex items-center gap-2.5 px-4 py-2.5 bg-emerald-950/40 border border-emerald-500/30 rounded-xl text-xs text-emerald-300">
+                                <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                                <span className="font-bold">Tenant Admin Consent Active:</span>
+                                <span>Microsoft Graph has verified and granted all application scopes for this tenant.</span>
+                            </div>
+                        )}
                         <div className="overflow-x-auto">
                             <table className="w-full text-left text-xs">
                                 <thead>
                                     <tr className="border-b border-white/10 text-slate-400 uppercase tracking-wider">
                                         <th className="py-2.5 font-bold">Scope</th>
                                         <th className="py-2.5 font-bold">Type</th>
+                                        <th className="py-2.5 font-bold">Requirement</th>
                                         <th className="py-2.5 font-bold">Purpose</th>
                                         <th className="py-2.5 font-bold text-right">Status</th>
                                     </tr>
@@ -379,17 +387,29 @@ export default function AdminMicrosoftIntegrationPage() {
                                                     {perm.type}
                                                 </span>
                                             </td>
+                                            <td className="py-2.5">
+                                                <span className={`text-[10px] font-semibold ${
+                                                    perm.requirement === 'Required'
+                                                        ? 'text-slate-200 font-bold'
+                                                        : perm.requirement === 'Recommended'
+                                                        ? 'text-sky-300'
+                                                        : 'text-slate-400'
+                                                }`}>
+                                                    {perm.requirement || 'Required'}
+                                                </span>
+                                            </td>
                                             <td className="py-2.5 text-slate-300">{perm.purpose}</td>
                                             <td className="py-2.5 text-right">
-                                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                                                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold inline-flex items-center gap-1 ${
                                                     perm.status === 'Active'
                                                         ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                                                        : perm.status === 'Required'
+                                                        : perm.status === 'Pending Consent' || perm.status === 'Required'
                                                         ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
                                                         : perm.status === 'Not Configured'
                                                         ? 'bg-red-500/20 text-red-300 border border-red-500/30'
                                                         : 'bg-white/10 text-slate-300 border border-white/10'
                                                 }`}>
+                                                    {perm.status === 'Active' && <span>✓</span>}
                                                     {perm.status}
                                                 </span>
                                             </td>
