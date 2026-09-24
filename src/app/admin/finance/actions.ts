@@ -494,8 +494,10 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
 
         const paymentAmount = Number(paymentRecord.amount || 0);
         const isDeposit = paymentRecord.invoice_type === 'TUITION_DEPOSIT';
-        const isFullTuition = paymentRecord.invoice_type === 'TUITION_FULL';
+        const isFullTuition = paymentRecord.invoice_type === 'TUITION_FULL' || paymentRecord.invoice_type === 'FULL_PROGRAM_TUITION';
         const isAncillary = paymentRecord.invoice_type === 'ANCILLARY';
+        const isSemesterTuition = paymentRecord.invoice_type === '1ST_YEAR_TUITION' || String(paymentRecord.invoice_type || '').toLowerCase().includes('tuition');
+        const shouldEnroll = isDeposit || isFullTuition || isSemesterTuition || !isAncillary;
 
         // 1. Mark payment as verified / completed
         const { error: updateError } = await supabase
@@ -560,7 +562,7 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
             studentPayload.tuition_deposit_paid_at = new Date().toISOString();
         }
 
-        if (isFullTuition) {
+        if (isFullTuition || isSemesterTuition) {
             studentPayload.full_tuition_paid = true;
             studentPayload.full_tuition_paid_at = new Date().toISOString();
         }
@@ -568,7 +570,7 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
         const { error: studentError, data: newStudent } = await supabase
             .from('students')
             .upsert(studentPayload, { onConflict: 'application_id' })
-            .select('id, pal_tal_required, pal_tal_status')
+            .select('id, pal_required, pal_status')
             .single();
 
         if (studentError) throw studentError;
@@ -855,8 +857,8 @@ export async function verifyTuitionPayment(paymentId: string, applicationId: str
         }
 
 
-        // 5. Mark application enrolled if payment covers deposit or full tuition
-        if (isDeposit || isFullTuition) {
+        // 5. Mark application enrolled if payment covers deposit or tuition
+        if (shouldEnroll) {
             const { error: enrollError } = await supabase
                 .from('applications')
                 .update({

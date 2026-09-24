@@ -75,7 +75,7 @@ export async function enrollStudent(applicationId: string) {
             }, {
                 onConflict: 'application_id'
             })
-            .select('id, pal_tal_required, pal_tal_status')
+            .select('id, pal_required, pal_status')
             .single();
 
         if (studentError) {
@@ -88,15 +88,15 @@ export async function enrollStudent(applicationId: string) {
             await initializePalForStudent(student.id);
         }
 
-        // 4c. Check PAL/TAL status before finalizing enrollment
+        // 4c. Check PAL status before finalizing enrollment
         const { data: updatedStudent } = await supabase
             .from('students')
-            .select('pal_tal_required, pal_tal_status')
+            .select('pal_required, pal_status')
             .eq('id', student.id)
             .single();
 
-        if (updatedStudent?.pal_tal_required && updatedStudent.pal_tal_status !== 'verified') {
-            return { success: false, error: `PAL/TAL verification is required before enrollment. Current status: ${updatedStudent.pal_tal_status}` };
+        if (updatedStudent?.pal_required && updatedStudent.pal_status !== 'verified') {
+            return { success: false, error: `PAL verification is required before enrollment. Current status: ${updatedStudent.pal_status}` };
         }
 
 

@@ -64,13 +64,13 @@ export async function confirmEnrollment(applicationId: string) {
         // 2b. Check if already enrolled (Idempotency)
         const { data: existingStudent } = await adminClient
             .from('students')
-            .select('id, student_id, pal_tal_required, pal_tal_status')
+            .select('id, student_id, pal_required, pal_status')
             .eq('application_id', applicationId)
             .single();
 
         if (existingStudent) {
-            if (existingStudent.pal_tal_required && existingStudent.pal_tal_status !== 'verified') {
-                throw new Error(`PAL/TAL verification is required before enrollment. Current status: ${existingStudent.pal_tal_status}`);
+            if (existingStudent.pal_required && existingStudent.pal_status !== 'verified') {
+                throw new Error(`PAL verification is required before enrollment. Current status: ${existingStudent.pal_status}`);
             }
 
             if (application.status !== 'ENROLLED') {
@@ -184,7 +184,7 @@ export async function confirmEnrollment(applicationId: string) {
                 start_date: admittedAt,
                 expected_graduation_date: new Date(new Date().setFullYear(new Date().getFullYear() + 3)).toISOString(),
             })
-            .select('id, pal_tal_required, pal_tal_status')
+            .select('id, pal_required, pal_status')
             .single();
 
         if (studentError) {
@@ -197,15 +197,15 @@ export async function confirmEnrollment(applicationId: string) {
             await initializePalForStudent(newStudent.id);
         }
 
-        // 4c. Re-fetch student to get updated PAL/TAL status after initialization
+        // 4c. Re-fetch student to get updated PAL status after initialization
         const { data: updatedStudent } = await adminClient
             .from('students')
-            .select('pal_tal_required, pal_tal_status')
+            .select('pal_required, pal_status')
             .eq('id', newStudent.id)
             .single();
 
-        if (updatedStudent?.pal_tal_required && updatedStudent.pal_tal_status !== 'verified') {
-            throw new Error(`PAL/TAL verification is required before enrollment. Current status: ${updatedStudent.pal_tal_status}`);
+        if (updatedStudent?.pal_required && updatedStudent.pal_status !== 'verified') {
+            throw new Error(`PAL verification is required before enrollment. Current status: ${updatedStudent.pal_status}`);
         }
 
         // 4d. Generate LOA document
