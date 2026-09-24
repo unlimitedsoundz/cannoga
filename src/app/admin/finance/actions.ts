@@ -932,3 +932,27 @@ export async function updateSystemSetting(key: string, value: string) {
     }
     return { success: true };
 }
+
+export async function deletePendingPayment(paymentId: string, category: 'TUITION' | 'HOUSING' = 'TUITION') {
+    const supabase = createServiceRoleClient();
+    try {
+        if (category === 'HOUSING') {
+            const { error } = await supabase
+                .from('housing_payments')
+                .delete()
+                .eq('id', paymentId);
+            if (error) throw error;
+        } else {
+            const { error } = await supabase
+                .from('tuition_payments')
+                .delete()
+                .eq('id', paymentId);
+            if (error) throw error;
+        }
+        return { success: true };
+    } catch (err: any) {
+        console.error('deletePendingPayment error:', err);
+        return { success: false, error: err.message || 'Failed to delete payment' };
+    }
+}
+

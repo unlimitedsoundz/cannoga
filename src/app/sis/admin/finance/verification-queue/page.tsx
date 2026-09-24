@@ -6,7 +6,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { PageHeader } from '@/components/sis/PageHeader';
 import { toast } from 'sonner';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { CheckmarkSquare01Icon, Cancel01Icon, AlertCircleIcon, BankIcon } from '@hugeicons/core-free-icons';
+import { CheckmarkSquare01Icon, Cancel01Icon, AlertCircleIcon, BankIcon, Delete02Icon } from '@hugeicons/core-free-icons';
 
 interface QueueItem {
     id: string;
@@ -72,6 +72,26 @@ export default function VerificationQueuePage() {
             fetchQueue();
         } catch (err: any) {
             toast.error(err.message ?? 'Action failed');
+        } finally {
+            setActionLoading(null);
+        }
+    };
+
+    const handleDelete = async (paymentId: string) => {
+        if (!confirm('Are you sure you want to permanently delete this pending wire payment? This will remove it from the verification queue and student dashboard.')) return;
+        setActionLoading(paymentId + 'delete');
+        try {
+            const res = await fetch('/api/payments/admin/verify-wire', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ paymentId, action: 'delete' }),
+            });
+            const data = await res.json();
+            if (!res.ok || !data.success) throw new Error(data.error ?? 'Delete failed');
+            toast.success('Pending payment deleted');
+            fetchQueue();
+        } catch (err: any) {
+            toast.error(err.message ?? 'Delete failed');
         } finally {
             setActionLoading(null);
         }
@@ -206,6 +226,18 @@ export default function VerificationQueuePage() {
                                                     <HugeiconsIcon icon={Cancel01Icon} size={16} />
                                                 )}
                                                 Reject
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(item.id)}
+                                                disabled={!!actionLoading}
+                                                className="px-4 flex items-center justify-center gap-1.5 h-10 bg-neutral-800 text-rose-400 border border-rose-500/20 text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-rose-600 hover:text-white hover:border-rose-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                                            >
+                                                {actionLoading === item.id + 'delete' ? (
+                                                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                ) : (
+                                                    <HugeiconsIcon icon={Delete02Icon} size={16} />
+                                                )}
+                                                Delete
                                             </button>
                                         </div>
                                     </div>

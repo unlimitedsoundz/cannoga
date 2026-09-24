@@ -30,12 +30,16 @@ export async function POST(request: NextRequest) {
     const body: VerifyWireRequest = await request.json();
     const { paymentId, action, adminNotes } = body;
 
-    if (!paymentId || !action || !adminNotes?.trim()) {
-        return NextResponse.json({ error: 'paymentId, action, and adminNotes are required' }, { status: 400 });
+    if (!paymentId || !action) {
+        return NextResponse.json({ error: 'paymentId and action are required' }, { status: 400 });
     }
 
-    if (!['approve', 'reject'].includes(action)) {
-        return NextResponse.json({ error: 'action must be approve or reject' }, { status: 400 });
+    if (!['approve', 'reject', 'delete'].includes(action)) {
+        return NextResponse.json({ error: 'action must be approve, reject, or delete' }, { status: 400 });
+    }
+
+    if (action !== 'delete' && !adminNotes?.trim()) {
+        return NextResponse.json({ error: 'adminNotes is required' }, { status: 400 });
     }
 
     const adminClient = createServiceRoleClient();
@@ -98,6 +102,21 @@ export async function POST(request: NextRequest) {
     const applicationId = application?.id;
 
     const now = new Date().toISOString();
+
+    if (action === 'delete') {
+        const table = isHousing ? 'housing_payments' : 'tuition_payments';
+        const { error: delErr } = await adminClient
+            .from(table)
+            .delete()
+            .eq('id', paymentId);
+
+        if (delErr) {
+            console.error('[verify-wire] delete payment error:', delErr);
+            return NextResponse.json({ error: delErr.message }, { status: 500 });
+        }
+
+        return NextResponse.json({ success: true, action: 'deleted' });
+    }
 
     if (isHousing) {
         if (action === 'approve') {

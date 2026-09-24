@@ -130,6 +130,6 @@ export interface SubmitProofRequest {
 
 export interface VerifyWireRequest {
     paymentId: string;
-    action: 'approve' | 'reject';
-    adminNotes: string;
+    action: 'approve' | 'reject' | 'delete';
+    adminNotes?: string;
 }

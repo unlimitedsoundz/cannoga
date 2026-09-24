@@ -1,9 +1,9 @@
 'use client';
 
 import { createClient } from '@/utils/supabase/client';
-import { CreditCard, Envelope, FileText, CheckCircle, Clock, CircleNotch as Loader2, ShieldCheck } from "@phosphor-icons/react";
+import { CreditCard, Envelope, FileText, CheckCircle, Clock, CircleNotch as Loader2, ShieldCheck, Trash } from "@phosphor-icons/react";
 import { useState, useEffect } from 'react';
-import { pushInvoice, verifyTuitionPayment, getAdminInvoiceData, getPendingPayments } from '../actions';
+import { pushInvoice, verifyTuitionPayment, getAdminInvoiceData, getPendingPayments, deletePendingPayment } from '../actions';
 import { getProgramYears, ANCILLARY_FEES_TOTAL } from '@/utils/tuition';
 
 export default function AdminInvoicesPage() {
@@ -15,6 +15,7 @@ export default function AdminInvoicesPage() {
     const [overrideSettled, setOverrideSettled] = useState<Record<string, boolean>>({});
     const [pendingPayments, setPendingPayments] = useState<any[]>([]);
     const [verifyLoading, setVerifyLoading] = useState<string | null>(null);
+    const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
 
     // Default global fees reference, we could fetch from DB but keeping simple for now
     // A production scenario would fetch these from tuition_rates table
@@ -162,6 +163,25 @@ export default function AdminInvoicesPage() {
             alert(`Failed to verify payment: ${error.message || 'Unknown error'}`);
         } finally {
             setVerifyLoading(null);
+        }
+    };
+
+    const handleDeletePayment = async (payment: any) => {
+        if (!confirm(`Are you sure you want to permanently delete this pending ${payment.invoice_type?.replace(/_/g, ' ') || 'tuition'} payment of $${payment.amount}? This cannot be undone.`)) return;
+
+        try {
+            setDeleteLoading(payment.id);
+            const result = await deletePendingPayment(payment.id, payment.category);
+            if (result.success) {
+                alert("Pending payment deleted.");
+                fetchApplications();
+            } else {
+                alert(`Failed to delete payment: ${result.error || 'Unknown error'}`);
+            }
+        } catch (error: any) {
+            alert(`Failed to delete payment: ${error.message || 'Unknown error'}`);
+        } finally {
+            setDeleteLoading(null);
         }
     };
 
@@ -369,18 +389,33 @@ export default function AdminInvoicesPage() {
                                             {payment.transaction_reference || 'N/A'}
                                         </td>
                                         <td className="block md:table-cell pt-4 pb-2 md:p-4 text-right">
-                                            <button
-                                                onClick={() => handleVerifyPayment(payment)}
-                                                disabled={verifyLoading === payment.id}
-                                                className="inline-flex items-center justify-center gap-2 bg-neutral-900 text-white px-4 py-2 rounded-none text-xs font-bold uppercase tracking-widest hover:bg-neutral-700 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-                                            >
-                                                {verifyLoading === payment.id ? (
-                                                    <Loader2 size={14} className="animate-spin" />
-                                                ) : (
-                                                    <ShieldCheck size={14} weight="bold" />
-                                                )}
-                                                {verifyLoading === payment.id ? 'Verifying...' : (isAutoCompleted ? 'Settle Payment' : 'Verify & Accept')}
-                                            </button>
+                                            <div className="flex items-center justify-end gap-2">
+                                                <button
+                                                    onClick={() => handleVerifyPayment(payment)}
+                                                    disabled={verifyLoading === payment.id || deleteLoading === payment.id}
+                                                    className="inline-flex items-center justify-center gap-2 bg-neutral-900 text-white px-4 py-2 rounded-none text-xs font-bold uppercase tracking-widest hover:bg-neutral-700 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                >
+                                                    {verifyLoading === payment.id ? (
+                                                        <Loader2 size={14} className="animate-spin" />
+                                                    ) : (
+                                                        <ShieldCheck size={14} weight="bold" />
+                                                    )}
+                                                    {verifyLoading === payment.id ? 'Verifying...' : (isAutoCompleted ? 'Settle Payment' : 'Verify & Accept')}
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDeletePayment(payment)}
+                                                    disabled={deleteLoading === payment.id || verifyLoading === payment.id}
+                                                    title="Delete pending payment"
+                                                    className="inline-flex items-center justify-center gap-1.5 bg-rose-50 text-rose-700 border border-rose-200 px-3 py-2 rounded-none text-xs font-bold uppercase tracking-widest hover:bg-rose-100 hover:border-rose-300 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                >
+                                                    {deleteLoading === payment.id ? (
+                                                        <Loader2 size={14} className="animate-spin" />
+                                                    ) : (
+                                                        <Trash size={14} weight="bold" />
+                                                    )}
+                                                    Delete
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                     );
