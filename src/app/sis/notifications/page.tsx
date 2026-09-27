@@ -75,7 +75,7 @@ export default function NotificationsPage() {
           schema: 'public',
           table: 'notifications',
         },
-        (payload) => {
+        (payload: any) => {
           setNotifications(prev => [payload.new as Notification, ...prev]);
         }
       )
@@ -86,7 +86,7 @@ export default function NotificationsPage() {
           schema: 'public',
           table: 'notifications',
         },
-        (payload) => {
+        (payload: any) => {
           setNotifications(prev => prev.map(n => n.id === payload.new.id ? payload.new as Notification : n));
         }
       )

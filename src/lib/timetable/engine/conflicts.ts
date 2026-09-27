@@ -180,7 +180,8 @@ export function detectConflicts(solution: SchedulingSolution, problem: Schedulin
       }
 
       if (sectionA.requiredFeatures.length > 0 && roomA) {
-        const missing = sectionA.requiredFeatures.filter((f) => !roomA.features.includes(f))
+        const roomFeatureIds = new Set(roomA.features.map(rf => rf.featureId || (rf as any).id || (rf as any)));
+        const missing = sectionA.requiredFeatures.filter((f) => !roomFeatureIds.has(f) && !roomA.features.some(rf => rf.name === f || (rf as any) === f))
         if (missing.length > 0) {
           conflicts.push({
             id: `conflict-${conflictIdCounter++}`,

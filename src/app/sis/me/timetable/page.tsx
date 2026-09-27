@@ -98,7 +98,7 @@ export default function StudentTimetablePage() {
       const instructorIds = [
         ...new Set(
           enrichedData
-            .map(a => a.instructor_id || a.section?.instructor_id)
+            .map((a: any) => a.instructor_id || a.section?.instructor_id)
             .filter(Boolean)
         )
       ];
@@ -109,8 +109,8 @@ export default function StudentTimetablePage() {
           .select('id, name, email')
           .in('id', instructorIds);
 
-        const instructorMap = new Map((instructors || []).map(i => [i.id, i]));
-        enrichedData = enrichedData.map(a => ({
+        const instructorMap = new Map<string, any>((instructors || []).map((i: any) => [i.id, i]));
+        enrichedData = enrichedData.map((a: any) => ({
           ...a,
           instructor: instructorMap.get(a.instructor_id || a.section?.instructor_id) ? {
             name: instructorMap.get(a.instructor_id || a.section?.instructor_id)!.name,

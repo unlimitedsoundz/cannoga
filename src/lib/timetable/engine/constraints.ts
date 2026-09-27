@@ -316,7 +316,8 @@ export class RoomFeatureMatch implements Constraint {
       const room = getRoomById(problem, a.roomId)
       const section = getSectionById(problem, a.sectionId)
       if (!room || !section) continue
-      const missing = section.requiredFeatures.filter((f) => !room.features.includes(f))
+      const roomFeatureIds = new Set(room.features.map(rf => rf.featureId || (rf as any).id || (rf as any)));
+      const missing = section.requiredFeatures.filter((f) => !roomFeatureIds.has(f) && !room.features.some(rf => rf.name === f || (rf as any) === f))
       if (missing.length > 0) {
         results.push({
           constraintName: this.name,
