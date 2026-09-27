@@ -33,6 +33,7 @@ interface PayGoWireCheckoutProps {
     invoiceType?: string;
     invoiceId?: string;
     invoiceNumber?: string;
+    returnTo?: string;
     onPaymentComplete: (paymentData: any) => Promise<void>;
     isProcessing?: boolean;
     paymentReference?: string;
@@ -84,6 +85,7 @@ export default function PayGoWireCheckout({
     invoiceType,
     invoiceId,
     invoiceNumber,
+    returnTo,
     onPaymentComplete,
     isProcessing,
     paymentReference,
@@ -986,6 +988,17 @@ export default function PayGoWireCheckout({
                         <p className="text-[11px] text-neutral-400 max-w-xs mx-auto">
                             You will receive an in-portal notification once Finance confirms your payment. Your receipt will appear in your student documents.
                         </p>
+
+                        <div className="pt-2">
+                            <button
+                                onClick={() => {
+                                    window.location.href = returnTo || (invoiceId || invoiceNumber ? '/sis' : '/portal/dashboard/');
+                                }}
+                                className="w-full max-w-sm mx-auto h-[44px] bg-[#0a151a] hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-widest rounded-4px transition-all block cursor-pointer"
+                            >
+                                {returnTo?.startsWith('/sis') || invoiceId || invoiceNumber ? 'Return to SIS' : 'Return to Dashboard'}
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>

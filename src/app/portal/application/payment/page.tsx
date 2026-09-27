@@ -52,6 +52,17 @@ function PaymentContent() {
                     return;
                 }
 
+                // Check if user is an active enrolled student in SIS
+                let currentUserIsEnrolled = false;
+                if (currentUserId) {
+                    const { data: currentStudent } = await supabase
+                        .from('students')
+                        .select('id')
+                        .eq('user_id', currentUserId)
+                        .maybeSingle();
+                    if (currentStudent) currentUserIsEnrolled = true;
+                }
+
                 // 3. PRIORITY 1: Check formal institutional invoices table directly.
                 // This covers all custom invoices issued by admin for enrolled students.
                 const candidateInvoiceIds = [invoiceId, id, invoiceNumberParam].filter(Boolean) as string[];
@@ -140,7 +151,8 @@ function PaymentContent() {
                                 title: `${progTitle} (${dbInv.invoice_number})`,
                                 duration: progDuration
                             },
-                            status: 'enrolled'
+                            status: 'enrolled',
+                            is_enrolled: true
                         };
 
                         setData({ application: syntheticApp, offer: syntheticOffer });
@@ -190,7 +202,8 @@ function PaymentContent() {
                                 title: `Housing Invoice (${bName}${rCode ? ` · Room ${rCode}` : ''})`,
                                 duration: 'Academic Year'
                             },
-                            status: 'contract_signed'
+                            status: currentUserIsEnrolled ? 'enrolled' : 'contract_signed',
+                            is_enrolled: currentUserIsEnrolled
                         };
 
                         setData({ application: syntheticApp, offer: syntheticOffer });
@@ -277,7 +290,8 @@ function PaymentContent() {
                         id: housingApp?.id || id,
                         user_id: currentUserId,
                         course: { title: `Housing Security Deposit (${bName}${rCode ? ` · Room ${rCode}` : ''})`, duration: 'Academic Year' },
-                        status: housingApp?.status || 'contract_signed'
+                        status: currentUserIsEnrolled ? 'enrolled' : (housingApp?.status || 'contract_signed'),
+                        is_enrolled: currentUserIsEnrolled
                     };
 
                     setData({ application: syntheticApp, offer: syntheticOffer });
@@ -315,6 +329,11 @@ function PaymentContent() {
                         }
                         if (invoiceTypeParam) {
                             offer.invoice_type = invoiceTypeParam;
+                        }
+
+                        if (currentUserIsEnrolled) {
+                            application.status = 'enrolled';
+                            application.is_enrolled = true;
                         }
 
                         setData({ application, offer });
@@ -406,11 +425,16 @@ function PaymentContent() {
         return null;
     }
 
+    const returnToParam = searchParams.get('return_to');
+    const isStudentEnrolled = data.application?.is_enrolled || data.application?.status === 'enrolled' || Boolean(invoiceId) || Boolean(invoiceNumberParam);
+
     return (
         <PaymentView
             params={{ id: id || invoiceId || '' }}
             application={data.application}
             admissionOffer={data.offer}
+            returnTo={returnToParam || (isStudentEnrolled ? '/sis' : undefined)}
+            isFromSis={Boolean(isStudentEnrolled || returnToParam)}
         />
     );
 }

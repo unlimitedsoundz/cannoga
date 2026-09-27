@@ -9,10 +9,12 @@ import Image from 'next/image';
 import { FileText, Clock, CheckCircle, CreditCard, ArrowLeft, CaretDown } from "@phosphor-icons/react";
 import { formatToDDMMYYYY } from '@/utils/date';
 
-export default function TuitionPaymentPage({ admissionOffer, application }: {
+export default function TuitionPaymentPage({ admissionOffer, application, returnTo, isFromSis }: {
     params: { id: string },
     admissionOffer: any,
-    application: any
+    application: any,
+    returnTo?: string,
+    isFromSis?: boolean
 }) {
     const router = useRouter();
     const [isProcessing, setIsProcessing] = useState(false);
@@ -22,6 +24,15 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
     // Admin-pushed invoice values
     const finalAmount = admissionOffer.tuition_fee || 0;
     const rawInvoiceType = admissionOffer.invoice_type || 'TUITION_DEPOSIT';
+
+
+    // Determine return destination
+    const isEnrolledOrFromSis = Boolean(isFromSis) ||
+        Boolean(returnTo) ||
+        application?.status === 'enrolled' ||
+        application?.is_enrolled === true;
+
+    const effectiveReturnTo = returnTo || (isEnrolledOrFromSis ? '/sis' : undefined);
     const invoiceTypeLabel = rawInvoiceType.replaceAll('_', ' ');
 
     const ancillaryFees = ANCILLARY_FEES;
@@ -65,8 +76,12 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
     }) => {
         // Payment initialization and proof submission are handled inside PayGoWireCheckout.
         // By the time this callback fires, the payment record already exists and proof has
-        // been submitted — we redirect to housing portal or academic application view.
+        // been submitted.
         console.log('PaymentView: proof submitted, redirecting', details.trackingRef);
+        if (effectiveReturnTo) {
+            window.location.href = effectiveReturnTo;
+            return;
+        }
         if (isHousingPayment || application?.is_housing || application?.id?.toString().startsWith('hdep') || rawInvoiceType === 'HOUSING_DEPOSIT') {
             window.location.href = '/portal/housing';
         } else {
@@ -124,10 +139,10 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                         </button>
                     )}
                     <button
-                        onClick={() => router.push('/portal/dashboard/')}
+                        onClick={() => router.push(effectiveReturnTo || '/portal/dashboard/')}
                         className={`w-fit min-w-[240px] h-[48px] px-8 rounded-4px text-[11px] font-normal uppercase tracking-widest transition-all ${isPaid ? 'bg-white text-black border border-neutral-200 hover:bg-neutral-50' : 'bg-[#0a151a] text-white hover:bg-neutral-800 shadow-lg shadow-black/5'}`}
                     >
-                        Return to Dashboard
+                        {effectiveReturnTo ? 'Return to SIS' : 'Return to Dashboard'}
                     </button>
                 </div>
             </div>
@@ -226,6 +241,7 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                         invoiceType={rawInvoiceType}
                         invoiceId={admissionOffer.invoice_id}
                         invoiceNumber={admissionOffer.invoice_number}
+                        returnTo={effectiveReturnTo}
                         onPaymentComplete={handlePaymentComplete}
                         isProcessing={isProcessing}
                     />
@@ -310,11 +326,11 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
 
             <div className="mt-10">
                 <button
-                    onClick={() => router.push('/portal/dashboard/')}
+                    onClick={() => router.push(effectiveReturnTo || '/portal/dashboard/')}
                     className="flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
                 >
                     <ArrowLeft size={14} weight="bold" />
-                    Back to Dashboard
+                    {effectiveReturnTo ? 'Back to SIS' : 'Back to Dashboard'}
                 </button>
             </div>
         </div>

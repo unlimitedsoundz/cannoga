@@ -293,6 +293,7 @@ const tabs = [
                     invoice_number: String(i.invoice_number || ''),
                     amount: String(targetAmount),
                     invoice_type: String(i.type || i.invoice_type || 'TUITION'),
+                    return_to: '/sis',
                     ...(isHousing ? { type: 'housing' } : {})
                 });
                 return (
@@ -366,7 +367,7 @@ const tabs = [
           <button 
             onClick={() => {
               if (admissionOffer?.invoice_pushed && student?.application_id) {
-                window.location.href = `/portal/application/payment?id=${student.application_id}`;
+                window.location.href = `/portal/application/payment?id=${student.application_id}&return_to=/sis`;
               } else {
                 setShowNoInvoiceModal(true);
               }

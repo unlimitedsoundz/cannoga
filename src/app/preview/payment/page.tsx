@@ -1,7 +1,7 @@
 'use client';
 
 import PaymentView from '@/app/portal/application/payment/PaymentView';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 
 export default function PreviewPaymentPage() {
     const mockApplication = {
@@ -31,11 +31,13 @@ export default function PreviewPaymentPage() {
             <div className="bg-neutral-50 border-b border-neutral-100 py-4 px-8">
                 <h1 className="text-xl font-bold uppercase tracking-tighter text-black">SIS Payment Preview</h1>
             </div>
-            <PaymentView 
-                params={{ id: 'mock-app-id' }}
-                application={mockApplication}
-                admissionOffer={mockOffer}
-            />
+            <Suspense fallback={<div>Loading preview...</div>}>
+                <PaymentView 
+                    params={{ id: 'mock-app-id' }}
+                    application={mockApplication}
+                    admissionOffer={mockOffer}
+                />
+            </Suspense>
         </div>
     );
 }

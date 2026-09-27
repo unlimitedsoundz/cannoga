@@ -402,6 +402,7 @@ export default function PaymentsPage() {
                                                                     invoice_number: String(inv.invoice_number || ''),
                                                                     amount: String(targetAmount),
                                                                     invoice_type: String(inv.invoice_type || 'TUITION'),
+                                                                    return_to: '/sis',
                                                                     ...(isHousing ? { type: 'housing' } : {})
                                                                 });
                                                                 router.push(`/portal/application/payment/?${queryParams.toString()}`);
