@@ -273,6 +273,60 @@ export async function POST(request: NextRequest) {
                 .eq('id', applicationId);
         }
 
+        // 2b. If linked to an institutional invoice in invoices table, settle it
+        if (payment.invoice_id) {
+            const { data: invToSettle } = await adminClient
+                .from('invoices')
+                .select('*')
+                .eq('id', payment.invoice_id)
+                .maybeSingle();
+
+            if (invToSettle) {
+                const newPaid = Number(invToSettle.paid || 0) + Number(payment.amount || 0);
+                const newBal = Math.max(0, Number(invToSettle.amount || 0) - newPaid);
+                await adminClient
+                    .from('invoices')
+                    .update({
+                        paid: newPaid,
+                        balance: newBal,
+                        status: newBal <= 0 ? 'PAID' : 'PARTIALLY_PAID',
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', invToSettle.id);
+            }
+        } else if (applicationId) {
+            const { data: studentRec } = await adminClient
+                .from('students')
+                .select('id')
+                .or(`application_id.eq.${applicationId},user_id.eq.${application?.user_id || ''}`)
+                .maybeSingle();
+
+            if (studentRec) {
+                const { data: matchedInv } = await adminClient
+                    .from('invoices')
+                    .select('*')
+                    .eq('student_id', studentRec.id)
+                    .eq('status', 'OUTSTANDING')
+                    .order('created_at', { ascending: false })
+                    .limit(1)
+                    .maybeSingle();
+
+                if (matchedInv) {
+                    const newPaid = Number(matchedInv.paid || 0) + Number(payment.amount || 0);
+                    const newBal = Math.max(0, Number(matchedInv.amount || 0) - newPaid);
+                    await adminClient
+                        .from('invoices')
+                        .update({
+                            paid: newPaid,
+                            balance: newBal,
+                            status: newBal <= 0 ? 'PAID' : 'PARTIALLY_PAID',
+                            updated_at: new Date().toISOString()
+                        })
+                        .eq('id', matchedInv.id);
+                }
+            }
+        }
+
         // 3. Generate PDF receipt using the existing ReceiptPDF component
         let receiptUrl: string | null = null;
         if (application) {

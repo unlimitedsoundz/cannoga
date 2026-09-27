@@ -31,6 +31,8 @@ interface PayGoWireCheckoutProps {
     offerId?: string;
     applicationId?: string;
     invoiceType?: string;
+    invoiceId?: string;
+    invoiceNumber?: string;
     onPaymentComplete: (paymentData: any) => Promise<void>;
     isProcessing?: boolean;
     paymentReference?: string;
@@ -80,6 +82,8 @@ export default function PayGoWireCheckout({
     offerId,
     applicationId,
     invoiceType,
+    invoiceId,
+    invoiceNumber,
     onPaymentComplete,
     isProcessing,
     paymentReference,
@@ -260,6 +264,8 @@ export default function PayGoWireCheckout({
                     exchangeRate: fxData.rate,
                     paymentMethod: 'direct_bank_wire',
                     invoiceType: invoiceType ?? 'TUITION_DEPOSIT',
+                    invoiceId,
+                    invoiceNumber,
                 }),
             });
             const data = await res.json();

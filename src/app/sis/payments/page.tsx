@@ -393,14 +393,18 @@ export default function PaymentsPage() {
                                                     ) : (
                                                         <button
                                                             onClick={() => {
-                                                                const isHousing = inv.invoice_type === 'HOUSING_DEPOSIT' || inv.invoice_number?.startsWith('HDEP');
-                                                                if (isHousing) {
-                                                                    router.push(`/portal/application/payment/?type=housing&id=${inv.application_id || inv.id}`);
-                                                                } else if (inv.application_id) {
-                                                                    router.push(`/portal/application/payment/?id=${inv.application_id}`);
-                                                                } else {
-                                                                    router.push('/portal/dashboard/');
-                                                                }
+                                                                const isHousing = inv.invoice_type === 'HOUSING_DEPOSIT' || inv.invoice_number?.toLowerCase().includes('housing') || inv.invoice_number?.startsWith('HDEP');
+                                                                const targetAppId = inv.application_id || student?.application_id || inv.id;
+                                                                const targetAmount = (inv.balance !== undefined && Number(inv.balance) > 0) ? inv.balance : (inv.total || 0);
+                                                                const queryParams = new URLSearchParams({
+                                                                    id: String(targetAppId || ''),
+                                                                    invoice_id: String(inv.id || ''),
+                                                                    invoice_number: String(inv.invoice_number || ''),
+                                                                    amount: String(targetAmount),
+                                                                    invoice_type: String(inv.invoice_type || 'TUITION'),
+                                                                    ...(isHousing ? { type: 'housing' } : {})
+                                                                });
+                                                                router.push(`/portal/application/payment/?${queryParams.toString()}`);
                                                             }}
                                                             className="inline-block text-[11px] font-bold px-3.5 py-1.5 bg-[#0a151a] hover:bg-slate-800 text-white transition shadow-xs rounded-lg cursor-pointer"
                                                         >

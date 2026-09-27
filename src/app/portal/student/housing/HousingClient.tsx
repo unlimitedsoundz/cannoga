@@ -236,7 +236,9 @@ export default function HousingDashboardClient({ student, application, assignmen
                         <div className="p-6 md:p-10">
                             <PayGoWireCheckout
                                 amount={checkoutAmount}
-                                currency="USD"
+                                currency="CAD"
+                                offerId={selectedInvoice.id}
+                                invoiceType="HOUSING_DEPOSIT"
                                 onPaymentComplete={handlePayGoWireComplete}
                                 isProcessing={paying}
                                 paymentReference={selectedInvoice.reference_number}

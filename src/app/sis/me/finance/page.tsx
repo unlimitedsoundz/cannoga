@@ -284,15 +284,20 @@ const tabs = [
                 if ((i.balance || 0) <= 0) {
                   return <span className="text-xs font-bold text-emerald-700">✓ Settled</span>;
                 }
+                const isHousing = i.type?.toLowerCase().includes('housing') || i.invoice_number?.toLowerCase().includes('housing') || i.invoice_number?.startsWith('HDEP');
+                const targetAppId = i.application_id || student?.application_id || i.id;
+                const targetAmount = (i.balance !== undefined && Number(i.balance) > 0) ? i.balance : (i.total || i.amount || 0);
+                const queryParams = new URLSearchParams({
+                    id: String(targetAppId || ''),
+                    invoice_id: String(i.id || ''),
+                    invoice_number: String(i.invoice_number || ''),
+                    amount: String(targetAmount),
+                    invoice_type: String(i.type || i.invoice_type || 'TUITION'),
+                    ...(isHousing ? { type: 'housing' } : {})
+                });
                 return (
                   <button
-                    onClick={() => {
-                      if (student?.application_id) {
-                        router.push(`/portal/application/payment/?id=${student.application_id}`);
-                      } else {
-                        router.push('/portal/dashboard/');
-                      }
-                    }}
+                    onClick={() => router.push(`/portal/application/payment/?${queryParams.toString()}`)}
                     className="px-3 py-1.5 bg-[#147BD1] text-white rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-[#1a3399] transition cursor-pointer"
                   >
                     Pay Now

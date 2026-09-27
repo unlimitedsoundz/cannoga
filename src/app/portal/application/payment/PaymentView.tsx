@@ -224,6 +224,8 @@ export default function TuitionPaymentPage({ admissionOffer, application }: {
                         offerId={admissionOffer.id}
                         applicationId={application.id}
                         invoiceType={rawInvoiceType}
+                        invoiceId={admissionOffer.invoice_id}
+                        invoiceNumber={admissionOffer.invoice_number}
                         onPaymentComplete={handlePaymentComplete}
                         isProcessing={isProcessing}
                     />

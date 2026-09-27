@@ -107,6 +107,8 @@ export interface InitializeWirePaymentRequest {
     exchangeRate: number;
     paymentMethod: string;
     invoiceType?: string;
+    invoiceId?: string;
+    invoiceNumber?: string;
 }
 
 export interface InitializeWirePaymentResponse {

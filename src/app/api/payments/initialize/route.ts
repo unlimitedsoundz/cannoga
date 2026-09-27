@@ -35,6 +35,8 @@ export async function POST(request: NextRequest) {
         exchangeRate,
         paymentMethod,
         invoiceType,
+        invoiceId,
+        invoiceNumber,
     } = body;
 
     if (!offerId || !applicationId || !countryCode || !currency) {
@@ -87,7 +89,91 @@ export async function POST(request: NextRequest) {
     // 2. Fetch the admission offer or create synthetic offer
     let offer: any = null;
 
-    if (isHousingDeposit) {
+    // Check if invoiceId or offerId or invoiceNumber matches a formal invoice in invoices table
+    const candidateInvIds = [invoiceId, offerId, applicationId, invoiceNumber].filter(Boolean) as string[];
+    let matchedDbInv: any = null;
+    for (const cand of candidateInvIds) {
+        const isUUID = cand.length === 36 && cand.includes('-');
+        let q = adminSupabase.from('invoices').select('*');
+        if (isUUID) {
+            q = q.or(`id.eq.${cand},invoice_number.eq.${cand}`);
+        } else {
+            q = q.eq('invoice_number', cand);
+        }
+        const { data: found } = await q.maybeSingle();
+        if (found) {
+            matchedDbInv = found;
+            break;
+        }
+    }
+
+    if (matchedDbInv) {
+        const invAmount = Number(
+            (matchedDbInv.balance !== null && matchedDbInv.balance !== undefined && Number(matchedDbInv.balance) > 0)
+                ? matchedDbInv.balance
+                : matchedDbInv.amount
+        );
+
+        // Find linked student and admission offer for foreign key satisfaction
+        let validOfferId: string | null = null;
+        const { data: stRec } = await adminSupabase
+            .from('students')
+            .select('id, application_id, user_id')
+            .or(`id.eq.${matchedDbInv.student_id},user_id.eq.${user.id}`)
+            .maybeSingle();
+
+        const targetAppId = stRec?.application_id || applicationId;
+        if (targetAppId && targetAppId.length === 36) {
+            const { data: realOff } = await adminSupabase
+                .from('admission_offers')
+                .select('id')
+                .eq('application_id', targetAppId)
+                .order('created_at', { ascending: false })
+                .limit(1)
+                .maybeSingle();
+            if (realOff) validOfferId = realOff.id;
+        }
+
+        offer = {
+            id: validOfferId || matchedDbInv.id,
+            invoice_id: matchedDbInv.id,
+            tuition_fee: invAmount,
+            status: 'ACCEPTED',
+            ancillary_charged: true,
+            invoice_type: matchedDbInv.type || invoiceType || 'CUSTOM_INVOICE'
+        };
+    }
+
+    // Check if matched in housing_invoices table
+    if (!offer) {
+        for (const cand of candidateInvIds) {
+            const isUUID = cand.length === 36 && cand.includes('-');
+            let hq = adminSupabase.from('housing_invoices').select('*');
+            if (isUUID) {
+                hq = hq.or(`id.eq.${cand},reference_number.eq.${cand}`);
+            } else {
+                hq = hq.eq('reference_number', cand);
+            }
+            const { data: hFound } = await hq.maybeSingle();
+            if (hFound) {
+                const hAmount = Number((hFound.total_amount - (hFound.paid_amount || 0)) || hFound.total_amount);
+                offer = {
+                    id: hFound.id,
+                    invoice_id: hFound.id,
+                    tuition_fee: hAmount,
+                    status: 'ACCEPTED',
+                    ancillary_charged: true,
+                    invoice_type: 'HOUSING_DEPOSIT'
+                };
+                isHousingDeposit = true;
+                break;
+            }
+        }
+    }
+
+    if (offer) {
+        // Offer successfully populated from formal invoice
+    } else if (isHousingDeposit) {
         // Find existing admission offer or create a synthetic offer record if needed
         const { data: existingOffer } = await adminSupabase
             .from('admission_offers')
@@ -235,31 +321,22 @@ export async function POST(request: NextRequest) {
     // Use client-provided rate only as fallback if DB has no entry (should not happen)
     const liveRate = rateRecord ? Number(rateRecord.rate_multiplier) : (exchangeRate ?? 1);
 
-    // 6. Use authoritative amount: if housing deposit, enforce housing deposit amount (500 CAD)
+    // 6. Use authoritative amount: respect exact invoice or requested CAD amount
     const isHousingFlow = isHousingDeposit || invoiceType === 'HOUSING_DEPOSIT' || offerId?.startsWith('hdep');
     let authorizedCadAmount = 0;
-    if (isHousingFlow) {
-        authorizedCadAmount = Number(cadAmount || 500.00);
-    } else {
-        const { ANCILLARY_FEES_TOTAL } = await import('@/utils/tuition');
-        const baseTuition = Number(offer?.tuition_fee || 0);
-        const includeAncillary = !offer?.ancillary_charged;
-        const totalAncillary = includeAncillary ? ANCILLARY_FEES_TOTAL : 0;
-        const expectedTotalCad = baseTuition + totalAncillary;
 
-        const numCadAmount = Number(cadAmount);
-        if (
-            numCadAmount > 0 &&
-            (
-                Math.abs(numCadAmount - expectedTotalCad) < 0.01 ||
-                Math.abs(numCadAmount - (baseTuition + ANCILLARY_FEES_TOTAL)) < 0.01 ||
-                Math.abs(numCadAmount - baseTuition) < 0.01
-            )
-        ) {
-            authorizedCadAmount = numCadAmount;
-        } else {
-            authorizedCadAmount = expectedTotalCad > 0 ? expectedTotalCad : (numCadAmount || baseTuition);
-        }
+    if (cadAmount && Number(cadAmount) > 0) {
+        // Explicit CAD amount passed from checkout
+        authorizedCadAmount = Number(cadAmount);
+    } else if (offer?.tuition_fee && Number(offer.tuition_fee) > 0) {
+        const baseTuition = Number(offer.tuition_fee);
+        const includeAncillary = !offer.ancillary_charged && !isHousingFlow;
+        const totalAncillary = includeAncillary ? (await import('@/utils/tuition')).ANCILLARY_FEES_TOTAL : 0;
+        authorizedCadAmount = baseTuition + totalAncillary;
+    } else if (isHousingFlow) {
+        authorizedCadAmount = 500.00;
+    } else {
+        authorizedCadAmount = 500.00;
     }
 
     let authorizedLocalAmount = parseFloat((authorizedCadAmount * liveRate).toFixed(2));
@@ -280,6 +357,7 @@ export async function POST(request: NextRequest) {
             .from('tuition_payments')
             .insert({
                 offer_id: offer?.id && !offer.id.startsWith('hdep') ? offer.id : (offer?.id || null),
+                invoice_id: offer?.invoice_id || invoiceId || null,
                 student_id: student?.id ?? null,
                 transaction_reference: trackingRef,
                 payment_method: paymentMethod ?? 'direct_bank_wire',
