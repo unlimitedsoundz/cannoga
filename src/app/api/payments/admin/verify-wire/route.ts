@@ -249,21 +249,31 @@ export async function POST(request: NextRequest) {
             
             // Settle housing invoice
             if (targetStudentId) {
-                await adminClient
+                let hInvUpdate = adminClient
                     .from('housing_invoices')
                     .update({
                         status: 'PAID',
                         paid_amount: Number(payment.amount || 500),
-                    })
-                    .or(`student_id.eq.${targetStudentId},application_id.eq.${applicationId || ''}`);
+                    });
+                if (applicationId) {
+                    hInvUpdate = hInvUpdate.or(`student_id.eq.${targetStudentId},application_id.eq.${applicationId}`);
+                } else {
+                    hInvUpdate = hInvUpdate.eq('student_id', targetStudentId);
+                }
+                await hInvUpdate;
             }
 
             // Settle housing application
             if (targetStudentId) {
-                await adminClient
+                let hAppUpdate = adminClient
                     .from('housing_applications')
-                    .update({ status: 'confirmed' })
-                    .or(`student_id.eq.${targetStudentId},id.eq.${applicationId || ''}`);
+                    .update({ status: 'confirmed' });
+                if (applicationId) {
+                    hAppUpdate = hAppUpdate.or(`student_id.eq.${targetStudentId},id.eq.${applicationId}`);
+                } else {
+                    hAppUpdate = hAppUpdate.eq('student_id', targetStudentId);
+                }
+                await hAppUpdate;
             }
         } else if (applicationId) {
             // Update academic application status to ENROLLED
@@ -294,12 +304,16 @@ export async function POST(request: NextRequest) {
                     })
                     .eq('id', invToSettle.id);
             }
-        } else if (applicationId) {
-            const { data: studentRec } = await adminClient
-                .from('students')
-                .select('id')
-                .or(`application_id.eq.${applicationId},user_id.eq.${application?.user_id || ''}`)
-                .maybeSingle();
+        } else if (applicationId || application?.user_id) {
+            let studentQuery = adminClient.from('students').select('id');
+            if (applicationId && application?.user_id) {
+                studentQuery = studentQuery.or(`application_id.eq.${applicationId},user_id.eq.${application.user_id}`);
+            } else if (applicationId) {
+                studentQuery = studentQuery.eq('application_id', applicationId);
+            } else {
+                studentQuery = studentQuery.eq('user_id', application.user_id);
+            }
+            const { data: studentRec } = await studentQuery.maybeSingle();
 
             if (studentRec) {
                 const { data: matchedInv } = await adminClient
