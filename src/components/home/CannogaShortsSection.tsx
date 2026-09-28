@@ -15,32 +15,37 @@ interface ShortItem {
     caption: string;
     videoId: string;
     publishedAt?: string;
+    views?: string;
+    thumbnailUrl?: string;
 }
 
 const FALLBACK_SHORTS: ShortItem[] = [
     {
-        id: 'short-1',
-        title: 'Dance if you are excited about summer break 😂',
-        caption: 'Dance if you are excited about the summer break 😂 #CannogaOrientation #CampusLife',
-        videoId: 'OJRQFDSUMDY'
+        id: 'b-VP-yWxKZg',
+        title: "Update of Ariana's 1 month journey so far at Cannoga College ❤️",
+        caption: "Update of Ariana's 1 month journey so far at Cannoga College ❤️ #CannogaCollege #Ottawa #CampusLife",
+        videoId: 'b-VP-yWxKZg',
+        views: '62 views'
     },
     {
-        id: 'short-2',
-        title: 'Finding your textbooks just got a lot easier 📚',
-        caption: 'Finding your textbooks just got a lot easier 📚 #CannogaCampus #StudentResources',
-        videoId: 'FNerZMOydps'
+        id: '87Y3tSEXQ4o',
+        title: 'International student orientation and onboarding ongoing. Visit the administrative office 9am-4pm',
+        caption: 'International student orientation and onboarding ongoing. Visit the administrative office 9am-4pm #CannogaCollege #Ottawa #CampusLife',
+        videoId: '87Y3tSEXQ4o',
+        views: '20 views'
     },
     {
-        id: 'short-3',
-        title: 'There\'s always something you will love about Cannoga College',
-        caption: 'There\'s always something you will love about Cannoga College 🇨🇦✨ #CannogaLife #Ottawa',
-        videoId: '_JkrXe53EjI'
+        id: 'b0muxfZzSPg',
+        title: 'Orientation in 1 week ❤️',
+        caption: 'Orientation in 1 week ❤️ #CannogaCollege #Ottawa #CampusLife',
+        videoId: 'b0muxfZzSPg'
     },
     {
-        id: 'short-4',
-        title: 'Meet Love, our Practical Nursing graduate 🇨🇦🎓',
-        caption: 'Meet Love, our Practical Nursing graduate 🇨🇦🎓 #CannogaGrad #NursingExcellence',
-        videoId: 'QorLfVUYanA'
+        id: 'MdUR4hCTXw8',
+        title: "it's fraud prevention week💡 🚨",
+        caption: "it's fraud prevention week💡 🚨 #CannogaCollege #Ottawa #CampusLife",
+        videoId: 'MdUR4hCTXw8',
+        views: '1.3K views'
     }
 ];
 
@@ -57,7 +62,7 @@ export function CannogaShortsSection() {
 
         async function fetchInitialShorts() {
             try {
-                const res = await fetch('/api/shorts/?page=1&limit=4');
+                const res = await fetch('/api/shorts/?page=1&limit=4', { cache: 'no-store' });
                 if (res.ok) {
                     const data = await res.json();
                     if (isMounted && data.shorts && data.shorts.length > 0) {
@@ -87,7 +92,7 @@ export function CannogaShortsSection() {
 
         const nextPage = page + 1;
         try {
-            const res = await fetch(`/api/shorts/?page=${nextPage}&limit=4`);
+            const res = await fetch(`/api/shorts/?page=${nextPage}&limit=4`, { cache: 'no-store' });
             if (res.ok) {
                 const data = await res.json();
                 if (data.shorts && data.shorts.length > 0) {
@@ -162,6 +167,11 @@ export function CannogaShortsSection() {
                                 <p className="text-xs text-slate-800 font-sans font-semibold leading-snug line-clamp-2 group-hover:text-black transition-colors">
                                     {short.caption}
                                 </p>
+                                {short.views && (
+                                    <p className="text-[11px] font-medium text-slate-500 mt-1">
+                                        {short.views}
+                                    </p>
+                                )}
                             </div>
                         </div>
                     ))}
