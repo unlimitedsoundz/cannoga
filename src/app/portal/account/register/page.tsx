@@ -292,13 +292,13 @@ export default function RegisterPage() {
                             </div>
 
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Passport No. <span className="text-red-600">*</span></label>
+                                <label className="w-full sm:w-36 flex-shrink-0 text-[13px] font-normal text-black sm:text-right">Passport No. <span className="text-neutral-400 font-normal text-xs">(Optional)</span></label>
                                 <input
                                     type="text"
                                     name="passportNumber"
-                                    required
                                     value={formData.passportNumber}
                                     onChange={handleChange}
+                                    placeholder="Optional"
                                     className="w-full max-w-[400px] h-[35px] px-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all text-black text-[13px]"
                                 />
                             </div>

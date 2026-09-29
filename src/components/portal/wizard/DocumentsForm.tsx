@@ -17,7 +17,7 @@ interface Props {
 }
 
 const DOCUMENT_TYPES: { type: DocumentType; label: string; description: string; required: boolean }[] = [
-    { type: 'PASSPORT', label: 'Passport', description: 'Copy of your valid passport.', required: true },
+    { type: 'PASSPORT', label: 'Passport', description: 'Copy of your valid passport.', required: false },
     { type: 'TRANSCRIPT', label: 'Academic Transcript', description: 'Official transcript from your previous institution.', required: true },
     { type: 'CERTIFICATE', label: 'Degree Certificate', description: 'Copy of your degree certificate or diploma.', required: true },
     { type: 'CV', label: 'Curriculum Vitae (CV)', description: 'Updated CV detailing your experience and education.', required: true },
@@ -133,7 +133,7 @@ export default function DocumentsForm({ applicationId, existingDocuments, reques
                             <div className="flex-1 text-left">
                                 <div className="flex items-center gap-2 mb-1">
                                     <h3 className="text-[13px] font-semibold text-black flex items-center gap-2">
-                                        {docType.label} {docType.required && <span className="text-red-500">*</span>}
+                                        {docType.label} {docType.required ? <span className="text-red-500">*</span> : <span className="text-neutral-400 font-normal text-xs">(Optional)</span>}
                                         {doc && <CheckCircle className="text-black" size={14} weight="bold" />}
                                     </h3>
                                     {isRequested && (

@@ -147,7 +147,7 @@ function ApplicationWizardContent() {
         const step = stepsConf[index];
         if (step.key === 'instructions') return true;
         if (step.key === 'documents') {
-            const baseRequired = ['PASSPORT', 'TRANSCRIPT', 'CERTIFICATE', 'CV', 'MOTIVATION_LETTER'];
+            const baseRequired = ['TRANSCRIPT', 'CERTIFICATE', 'CV', 'MOTIVATION_LETTER'];
             const requested = application.requested_documents || [];
             const allRequired = Array.from(new Set([...baseRequired, ...requested]));
             const uploadedTypes = application.documents?.map(d => d.type) || [];
@@ -410,7 +410,7 @@ function ApplicationWizardContent() {
                                     <span>Documents</span>
                                     <span className="flex items-center gap-1.5">
                                         {(() => {
-                                            const baseRequired = ['PASSPORT', 'TRANSCRIPT', 'CERTIFICATE', 'CV', 'MOTIVATION_LETTER'];
+                                            const baseRequired = ['TRANSCRIPT', 'CERTIFICATE', 'CV', 'MOTIVATION_LETTER'];
                                             const requested = application.requested_documents || [];
                                             const allRequired = Array.from(new Set([...baseRequired, ...requested]));
                                             const uploadedCount = application.documents?.filter(d => allRequired.includes(d.type)).length || 0;
@@ -433,7 +433,7 @@ function ApplicationWizardContent() {
                                         style={{
                                             width: `${Math.min(100, (
                                                 (() => {
-                                                    const baseRequired = ['PASSPORT', 'TRANSCRIPT', 'CERTIFICATE', 'CV', 'MOTIVATION_LETTER'];
+                                                    const baseRequired = ['TRANSCRIPT', 'CERTIFICATE', 'CV', 'MOTIVATION_LETTER'];
                                                     const requested = application.requested_documents || [];
                                                     const allRequired = Array.from(new Set([...baseRequired, ...requested]));
                                                     const uploadedCount = application.documents?.filter(d => allRequired.includes(d.type)).length || 0;

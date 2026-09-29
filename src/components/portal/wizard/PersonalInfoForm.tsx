@@ -18,7 +18,7 @@ const personalInfoSchema = z.object({
     middleName: z.string().optional(),
     dateOfBirth: z.string().min(1, 'Date of birth is required'),
     nationality: z.string().min(2, 'Nationality is required'),
-    passportNumber: z.string().min(5, 'Passport number is required'),
+    passportNumber: z.string().optional(),
     gender: z.enum(['male', 'female', 'other'], { message: 'Please select a gender' }),
     studentType: z.enum(['domestic', 'international'], { message: 'Please select student type' }),
 });
@@ -167,9 +167,10 @@ export default function PersonalInfoForm({ applicationId, initialData, onUpdate 
                 </div>
 
                 <div>
-                    <label className="block text-[13px] font-semibold text-black mb-1">Passport Number <span className="text-red-500">*</span></label>
+                    <label className="block text-[13px] font-semibold text-black mb-1">Passport Number <span className="text-neutral-400 font-normal text-xs">(Optional)</span></label>
                     <input
                         {...form.register('passportNumber')}
+                        placeholder="e.g. A12345678 (optional)"
                         className="w-full px-3 py-1.5 bg-neutral-50 rounded text-sm focus:ring-1 focus:ring-black outline-none font-medium"
                     />
                     {form.formState.errors.passportNumber && (

@@ -294,7 +294,7 @@ function ViewApplicationContent() {
             const uploadedTypes = new Set((docs || []).map((d: any) => (d.type || '').toUpperCase()));
             const academicDocsUploaded = requiredAcademicTypes.some(t => uploadedTypes.has(t));
             const passportUploaded = uploadedTypes.has('PASSPORT');
-            const allRequiredUploaded = academicDocsUploaded && passportUploaded;
+            const allRequiredUploaded = academicDocsUploaded;
 
             // Step 5: Notify user
             toast.success('Document uploaded and application is in review!');
@@ -411,10 +411,11 @@ function ViewApplicationContent() {
         },
         {
             id: 'PASSPORT_COPY',
-            title: 'Valid Passport Copy',
+            title: 'Valid Passport Copy (Optional)',
+            optional: true,
             description: [
-                'Valid Passport Copy:',
-                'Please upload a clear scan or photo of the first page of your international passport.',
+                'Valid Passport Copy (Optional):',
+                'Upload a clear scan or photo of the first page of your international passport if available.',
             ],
             uploadType: 'PASSPORT',
             submitted: !!application.documents?.some((doc: any) => doc.type?.toUpperCase() === 'PASSPORT'),
@@ -481,7 +482,7 @@ function ViewApplicationContent() {
     const uploadedDocTypes = new Set((application.documents || []).map((d: any) => (d.type || '').toUpperCase()));
     const academicDocsUploaded = requiredAcademicTypes.some(type => uploadedDocTypes.has(type));
     const passportUploaded = uploadedDocTypes.has('PASSPORT');
-    const allRequiredUploaded = requirements.length > 0 ? requirements.every(r => r.submitted) : (academicDocsUploaded && passportUploaded);
+    const allRequiredUploaded = requirements.length > 0 ? requirements.filter(r => !r.optional).every(r => r.submitted) : academicDocsUploaded;
 
     const steps = [
         { title: 'Submit Requirements' },
@@ -934,10 +935,10 @@ function ViewApplicationContent() {
                                                     <div className="flex items-center justify-between gap-3">
                                                         <div>
                                                             <p className="text-sm font-bold text-black">{requirement.title}</p>
-                                                            <p className="mt-0.5 text-xs text-neutral-500">{requirement.submitted ? 'Document uploaded' : 'Upload required'}</p>
+                                                            <p className="mt-0.5 text-xs text-neutral-500">{requirement.submitted ? 'Document uploaded' : requirement.optional ? 'Optional' : 'Upload required'}</p>
                                                         </div>
                                                         <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] bg-[#0a151a] text-white">
-                                                            {requirement.submitted ? 'Completed' : 'Required'}
+                                                            {requirement.submitted ? 'Completed' : requirement.optional ? 'Optional' : 'Required'}
                                                         </span>
                                                     </div>
                                                 </button>
