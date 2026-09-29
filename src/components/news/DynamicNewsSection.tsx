@@ -8,6 +8,7 @@ import { createBlogClient } from '@/utils/supabase/blogClient';
 import { formatToDDMMYYYY } from '@/utils/date';
 import { Calendar, MapPin } from "@phosphor-icons/react";
 import { Card } from '@/components/ui/Card';
+import { normalizeImageUrl } from '@/utils/imageUrl';
 
 interface DynamicNewsSectionProps {
     limit?: number;
@@ -139,7 +140,7 @@ export default function DynamicNewsSection({
                             className: isEvent ? 'bg-amber-500 text-black' : (isBlog ? 'bg-primary text-white' : 'bg-[#0a151a] text-white')
                         }}
                         image={{
-                            src: item.imageUrl || fallbackImage,
+                            src: normalizeImageUrl(item.imageUrl, fallbackImage),
                             alt: item.title
                         }}
                         body={

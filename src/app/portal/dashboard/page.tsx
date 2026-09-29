@@ -14,7 +14,7 @@ export default async function DashboardPage() {
     const adminClient = createServiceRoleClient();
     const { data: profile } = await adminClient
         .from('profiles')
-        .select('role, portal_access_disabled')
+        .select('role, portal_access_disabled, sis_access_disabled')
         .eq('id', user.id)
         .single();
 
@@ -30,11 +30,14 @@ export default async function DashboardPage() {
 
     const { data: enrollment } = await adminClient
         .from('students')
-        .select('enrollment_status, tuition_deposit_paid')
+        .select('enrollment_status, tuition_deposit_paid, sis_access_disabled')
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
+
+    const isSisAccessDisabled = !!(profile?.sis_access_disabled || enrollment?.sis_access_disabled);
 
     const sisReady =
+        !isSisAccessDisabled &&
         (enrollment?.enrollment_status === 'CONFIRMED' || enrollment?.enrollment_status === 'ACTIVE') &&
         enrollment?.tuition_deposit_paid === true;
 
@@ -73,6 +76,7 @@ export default async function DashboardPage() {
             applicationId={applicationId}
             hasOffer={hasOffer}
             applicationStatus={applicationStatus}
+            sisAccessDisabled={isSisAccessDisabled}
         />
     );
 }

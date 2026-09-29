@@ -10,6 +10,7 @@ import { formatToDDMMYYYY } from '@/utils/date';
 import { CaretLeft, Calendar, MapPin, Clock, Tag } from "@phosphor-icons/react";
 import { Info } from '@/components/ui/Info';
 import { Hero } from '@/components/layout/Hero';
+import { normalizeImageUrl } from '@/utils/imageUrl';
 
 import '@/styles/ckeditor-content.css';
 
@@ -49,7 +50,7 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
                 title={currentEvent.title}
                 body={`Join us on ${formatToDDMMYYYY(currentEvent.date)} at ${currentEvent.location || 'Cannoga Ottawa Campus'}.`}
                 image={{
-                    src: currentEvent.imageUrl || "/images/home-carousel-2.png",
+                    src: normalizeImageUrl(currentEvent.imageUrl, "/images/home-carousel-2.png"),
                     alt: currentEvent.title
                 }}
                 breadcrumbs={[
@@ -97,7 +98,7 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
                     <div className="mb-12">
                         <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-neutral-100 border border-neutral-200 shadow-sm">
                             <Image
-                                src={currentEvent.imageUrl}
+                                src={normalizeImageUrl(currentEvent.imageUrl)}
                                 alt={currentEvent.title}
                                 fill
                                 unoptimized

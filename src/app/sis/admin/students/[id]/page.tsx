@@ -11,11 +11,15 @@ import { StatusBadge } from '@/components/sis/StatusBadge';
 import { Edit01Icon as Edit, File01Icon as FileText, Download01Icon as Download, EyeIcon as Eye, Mail01Icon as Envelope, SmartPhone01Icon as Phone, MapPinIcon as MapPin, Calendar01Icon as Calendar, GraduationCapIcon as GraduationCap, Shield01Icon as ShieldCheck, UserIcon as User, BellIcon as Bell, Alert01Icon as AlertTriangle, GavelIcon as Gavel, ClipboardIcon as ClipboardText, ArrowRightIcon as ArrowRight } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import Link from 'next/link';
-import { getSISStudentDetail } from '../../actions';
+import { getSISStudentDetail, toggleStudentPortalAccessAction, toggleStudentSISAccessAction } from '../../actions';
+import { toast } from 'sonner';
 
 interface StudentDetail {
   id: string;
   student_id: string;
+  user_id?: string;
+  portal_access_disabled?: boolean;
+  sis_access_disabled?: boolean;
   first_name: string;
   last_name: string;
   email: string;
@@ -47,6 +51,8 @@ export default function AdminStudentDetailPage() {
   const [student, setStudent] = useState<StudentDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [togglingPortal, setTogglingPortal] = useState(false);
+  const [togglingSis, setTogglingSis] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,6 +89,9 @@ export default function AdminStudentDetailPage() {
           start_date: s.start_date || '',
           expected_graduation: '',
           course: s.program,
+          portal_access_disabled: !!(s.portal_access_disabled ?? s.user?.portal_access_disabled),
+          sis_access_disabled: !!(s.sis_access_disabled ?? s.user?.sis_access_disabled),
+          user_id: s.user_id || s.user?.id,
         });
       } catch (err: any) {
         setError(err.message || 'Failed to load student details');
@@ -93,6 +102,36 @@ export default function AdminStudentDetailPage() {
 
     fetchData();
   }, [studentId]);
+
+  const handleTogglePortal = async (disabled: boolean) => {
+    if (!student) return;
+    try {
+      setTogglingPortal(true);
+      const res = await toggleStudentPortalAccessAction(student.id, disabled);
+      if (!res.success) throw new Error(res.error);
+      setStudent(prev => prev ? { ...prev, portal_access_disabled: disabled } : null);
+      toast.success(disabled ? 'Student portal access disabled' : 'Student portal access enabled');
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to update portal access');
+    } finally {
+      setTogglingPortal(false);
+    }
+  };
+
+  const handleToggleSIS = async (disabled: boolean) => {
+    if (!student) return;
+    try {
+      setTogglingSis(true);
+      const res = await toggleStudentSISAccessAction(student.id, disabled);
+      if (!res.success) throw new Error(res.error);
+      setStudent(prev => prev ? { ...prev, sis_access_disabled: disabled } : null);
+      toast.success(disabled ? 'SIS access disabled' : 'SIS access enabled');
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to update SIS access');
+    } finally {
+      setTogglingSis(false);
+    }
+  };
 
   if (loading) {
     return <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div></div>;
@@ -205,6 +244,73 @@ export default function AdminStudentDetailPage() {
         </div>
 
         <div className="space-y-6">
+          {/* ACCESS MANAGEMENT CARD */}
+          <div className="bg-white border border-neutral-200 p-4">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-1 flex items-center gap-2">
+              <HugeiconsIcon icon={ShieldCheck} size={16} strokeWidth={2.5} className="text-neutral-700" />
+              Portal & SIS Access
+            </h3>
+            <p className="text-[11px] text-neutral-500 mb-4">
+              Control student permissions for their portal account and SIS dashboard.
+            </p>
+
+            <div className="space-y-3">
+              {/* Student Portal Access */}
+              <div className="p-3 bg-neutral-50 border border-neutral-200">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold text-neutral-900">Student Portal</span>
+                  <span className={`px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${
+                    student.portal_access_disabled ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-800'
+                  }`}>
+                    {student.portal_access_disabled ? 'Disabled' : 'Enabled'}
+                  </span>
+                </div>
+                <p className="text-[11px] text-neutral-500 mb-2.5">
+                  Access to /portal (dashboard, profile, tasks, and housing).
+                </p>
+                <button
+                  type="button"
+                  onClick={() => handleTogglePortal(!student.portal_access_disabled)}
+                  disabled={togglingPortal}
+                  className={`w-full py-1.5 px-3 text-xs font-bold uppercase tracking-wider transition-colors text-white ${
+                    student.portal_access_disabled
+                      ? 'bg-emerald-600 hover:bg-emerald-700'
+                      : 'bg-red-600 hover:bg-red-700'
+                  } ${togglingPortal ? 'opacity-60 cursor-not-allowed' : ''}`}
+                >
+                  {togglingPortal ? 'Updating...' : student.portal_access_disabled ? 'Enable Portal Access' : 'Disable Portal Access'}
+                </button>
+              </div>
+
+              {/* SIS Access */}
+              <div className="p-3 bg-neutral-50 border border-neutral-200">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold text-neutral-900">SIS Access</span>
+                  <span className={`px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${
+                    student.sis_access_disabled ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-800'
+                  }`}>
+                    {student.sis_access_disabled ? 'Disabled' : 'Enabled'}
+                  </span>
+                </div>
+                <p className="text-[11px] text-neutral-500 mb-2.5">
+                  Access to /sis (courses, timetable, academics, and finances).
+                </p>
+                <button
+                  type="button"
+                  onClick={() => handleToggleSIS(!student.sis_access_disabled)}
+                  disabled={togglingSis}
+                  className={`w-full py-1.5 px-3 text-xs font-bold uppercase tracking-wider transition-colors text-white ${
+                    student.sis_access_disabled
+                      ? 'bg-emerald-600 hover:bg-emerald-700'
+                      : 'bg-red-600 hover:bg-red-700'
+                  } ${togglingSis ? 'opacity-60 cursor-not-allowed' : ''}`}
+                >
+                  {togglingSis ? 'Updating...' : student.sis_access_disabled ? 'Enable SIS Access' : 'Disable SIS Access'}
+                </button>
+              </div>
+            </div>
+          </div>
+
           <div className="bg-white border border-neutral-200 p-4">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3">Admin Actions</h3>
             <div className="space-y-2">
@@ -223,6 +329,18 @@ export default function AdminStudentDetailPage() {
           <div className="bg-white border border-neutral-200 p-4">
             <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-900 mb-3">Status Summary</h3>
             <div className="space-y-3">
+              <div className="flex justify-between items-center p-2 bg-neutral-50">
+                <span className="text-xs text-neutral-500">Portal Access</span>
+                <span className={`px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${student.portal_access_disabled ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-800'}`}>
+                  {student.portal_access_disabled ? 'Disabled' : 'Allowed'}
+                </span>
+              </div>
+              <div className="flex justify-between items-center p-2 bg-neutral-50">
+                <span className="text-xs text-neutral-500">SIS Access</span>
+                <span className={`px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${student.sis_access_disabled ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-800'}`}>
+                  {student.sis_access_disabled ? 'Disabled' : 'Allowed'}
+                </span>
+              </div>
               <div className="flex justify-between items-center p-2 bg-neutral-50">
                 <span className="text-xs text-neutral-500">Enrollment Status</span>
                 <StatusBadge status={student.enrollment_status} size="sm" />

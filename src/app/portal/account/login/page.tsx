@@ -24,7 +24,15 @@ export default function PortalLoginPage() {
             setError(errorMsg.replace(/_/g, ' '));
         }
         if (msg) {
-            setMessage(msg === 'access_disabled' ? 'Your access has been disabled. Please contact support.' : msg);
+            if (msg === 'access_disabled') {
+                setMessage('Your account access has been disabled by administration. Please contact support.');
+            } else if (msg === 'portal_access_disabled') {
+                setMessage('Your student portal access has been disabled by administration.');
+            } else if (msg === 'sis_access_disabled') {
+                setMessage('Your access to the Student Information System (SIS) has been disabled.');
+            } else {
+                setMessage(msg.replace(/_/g, ' '));
+            }
         }
     }, [searchParams]);
 

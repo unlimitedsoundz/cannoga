@@ -11,9 +11,10 @@ interface DashboardClientProps {
     applicationId: string | null;
     hasOffer?: boolean;
     applicationStatus?: string | null;
+    sisAccessDisabled?: boolean;
 }
 
-export default function DashboardClient({ applicationId, hasOffer, applicationStatus }: DashboardClientProps) {
+export default function DashboardClient({ applicationId, hasOffer, applicationStatus, sisAccessDisabled }: DashboardClientProps) {
     const showOffer = !!applicationId && (hasOffer || ['ADMITTED', 'OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ENROLLED'].includes(applicationStatus || ''));
 
     return (
@@ -29,6 +30,18 @@ export default function DashboardClient({ applicationId, hasOffer, applicationSt
             />
 
             <div className="cc-container max-w-3xl mx-auto py-10">
+                {sisAccessDisabled && (
+                    <div className="mb-6 p-4 rounded-xl border border-amber-200 bg-amber-50 text-amber-900 flex items-start gap-3 shadow-sm">
+                        <div className="w-2 h-2 rounded-full bg-amber-500 mt-2 shrink-0 animate-pulse" />
+                        <div>
+                            <h3 className="font-bold text-sm text-amber-900">Student Information System (SIS) Access Restricted</h3>
+                            <p className="text-xs text-amber-700 mt-0.5">
+                                Your access to the SIS portal has been disabled by the college administration. You can continue accessing your application records, onboarding documents, and tasks here. Please contact the registrar or student services if you have any questions.
+                            </p>
+                        </div>
+                    </div>
+                )}
+
                 <div className="bg-white p-8 rounded-2xl shadow-sm border border-neutral-100 text-[#2d2d2d]">
                     <h1 className="text-2xl font-bold mb-6 text-neutral-900">Your Application Portal</h1>
                     <p className="text-neutral-600 mb-8">Your account is ready! Check your application status below.</p>

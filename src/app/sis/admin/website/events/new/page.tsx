@@ -11,6 +11,8 @@ import Link from 'next/link';
 import dynamicImport from 'next/dynamic';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowLeft01Icon as ArrowLeft, FloppyDiskIcon as Save } from '@hugeicons/core-free-icons';
+import { UploadSimple, Trash, WarningCircle, CheckCircle, Image as ImageIcon } from '@phosphor-icons/react';
+import { normalizeImageUrl } from '@/utils/imageUrl';
 import '@/styles/ckeditor-content.css';
 
 const RichTextEditor = dynamicImport(() => import('@/components/RichTextEditor'), {
@@ -31,9 +33,39 @@ export default function NewWebsiteEventPage() {
     const [location, setLocation] = useState('');
     const [content, setContent] = useState('');
     const [imageUrl, setImageUrl] = useState('');
+    const [uploadingImage, setUploadingImage] = useState(false);
+    const [imageError, setImageError] = useState(false);
     const [published, setPublished] = useState(true);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setUploadingImage(true);
+        setError(null);
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!res.ok) throw new Error('Failed to upload image file');
+            const data = await res.json();
+            if (data.url) {
+                setImageUrl(data.url);
+                setImageError(false);
+            }
+        } catch (err: any) {
+            setError(err.message || 'Image upload failed');
+        } finally {
+            setUploadingImage(false);
+        }
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -156,15 +188,81 @@ export default function NewWebsiteEventPage() {
                         />
                     </div>
 
-                    <div className="md:col-span-2 space-y-2">
-                        <Label htmlFor="imageUrl" className="text-xs font-bold uppercase tracking-wider text-slate-300">Cover Image URL</Label>
-                        <Input
-                            id="imageUrl"
-                            type="url"
-                            value={imageUrl}
-                            onChange={(e) => setImageUrl(e.target.value)}
-                            placeholder="https://..."
-                        />
+                    <div className="md:col-span-2 space-y-3 bg-[#0a151a]/80 p-4 rounded-xl border border-white/10">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <Label htmlFor="imageUrl" className="text-xs font-bold uppercase tracking-wider text-slate-300">
+                                Event Cover Image
+                            </Label>
+                            <span className="text-[11px] text-slate-400">
+                                Upload an image file or paste an image URL (Imgur, Google Drive, direct link)
+                            </span>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row gap-3">
+                            <label className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wider rounded-md cursor-pointer transition-colors shrink-0">
+                                <UploadSimple size={16} weight="bold" />
+                                <span>{uploadingImage ? 'Uploading...' : 'Upload Image File'}</span>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleFileUpload}
+                                    disabled={uploadingImage}
+                                    className="hidden"
+                                />
+                            </label>
+
+                            <Input
+                                id="imageUrl"
+                                type="url"
+                                value={imageUrl}
+                                onChange={(e) => {
+                                    const val = e.target.value;
+                                    setImageUrl(normalizeImageUrl(val, val));
+                                    setImageError(false);
+                                }}
+                                placeholder="Or paste direct image URL (https://...)"
+                                className="flex-1"
+                            />
+                        </div>
+
+                        {/* Image Preview & Status */}
+                        {imageUrl && (
+                            <div className="mt-3 pt-3 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                                <div className="relative w-36 h-24 rounded-lg overflow-hidden bg-black/40 border border-white/20 shrink-0">
+                                    <img
+                                        src={normalizeImageUrl(imageUrl)}
+                                        alt="Cover preview"
+                                        className="w-full h-full object-cover"
+                                        onError={() => setImageError(true)}
+                                        onLoad={() => setImageError(false)}
+                                    />
+                                </div>
+                                <div className="flex-1 space-y-1">
+                                    {imageError ? (
+                                        <div className="flex items-center gap-1.5 text-xs text-amber-400 font-medium">
+                                            <WarningCircle size={15} weight="bold" />
+                                            <span>Could not preview image. Make sure this links directly to an image (.jpg, .png) or upload a file.</span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium">
+                                            <CheckCircle size={15} weight="bold" />
+                                            <span>Image loaded successfully</span>
+                                        </div>
+                                    )}
+                                    <p className="text-[11px] text-slate-400 break-all line-clamp-1">{imageUrl}</p>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setImageUrl('');
+                                            setImageError(false);
+                                        }}
+                                        className="inline-flex items-center gap-1 text-xs text-red-400 hover:text-red-300 font-semibold pt-1"
+                                    >
+                                        <Trash size={14} /> Remove Image
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <div className="md:col-span-2 space-y-2">

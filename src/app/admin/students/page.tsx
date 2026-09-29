@@ -5,6 +5,8 @@ import { Link } from "@aalto-dx/react-components";
 import { User, Envelope as Mail, Globe, CheckCircle, XCircle, Clock, CreditCard, ShieldCheck, CircleNotch as Loader2 } from "@phosphor-icons/react";
 import { formatToDDMMYYYY } from '@/utils/date';
 import DeleteStudentBtn from './DeleteStudentBtn';
+import { toggleStudentPortalAccess, toggleStudentSISAccess } from './actions';
+import { toast } from 'sonner';
 import { useState, useEffect } from 'react';
 
 export default function AdminStudentsPage() {
@@ -40,7 +42,9 @@ export default function AdminStudentsPage() {
                 .from('students')
                 .select(`
                     *,
-                     user:profiles(first_name, middle_name, last_name, email),
+                    portal_access_disabled,
+                    sis_access_disabled,
+                    user:profiles(first_name, middle_name, last_name, email, portal_access_disabled, sis_access_disabled),
                     program:Course(title),
                     application:applications!application_id(personal_info, status)
                 `)
@@ -144,6 +148,34 @@ export default function AdminStudentsPage() {
             ref: allPayments[0].transaction_reference || 'N/A',
             date: formatToDDMMYYYY(allPayments[0].created_at)
         };
+    };
+
+    const handleTogglePortalAccess = async (student: any, disabled: boolean) => {
+        try {
+            setActionLoading(`${student.id}-portal`);
+            const res = await toggleStudentPortalAccess(student.id, disabled);
+            if (!res.success) throw new Error(res.error);
+            setEnrolledStudents(prev => prev.map(s => s.id === student.id ? { ...s, portal_access_disabled: disabled } : s));
+            toast.success(disabled ? 'Student portal access disabled' : 'Student portal access enabled');
+        } catch (err: any) {
+            toast.error(err.message || 'Failed to update portal access');
+        } finally {
+            setActionLoading(null);
+        }
+    };
+
+    const handleToggleSISAccess = async (student: any, disabled: boolean) => {
+        try {
+            setActionLoading(`${student.id}-sis`);
+            const res = await toggleStudentSISAccess(student.id, disabled);
+            if (!res.success) throw new Error(res.error);
+            setEnrolledStudents(prev => prev.map(s => s.id === student.id ? { ...s, sis_access_disabled: disabled } : s));
+            toast.success(disabled ? 'SIS access disabled' : 'SIS access enabled');
+        } catch (err: any) {
+            toast.error(err.message || 'Failed to update SIS access');
+        } finally {
+            setActionLoading(null);
+        }
     };
 
     if (loading) {
@@ -348,11 +380,16 @@ export default function AdminStudentsPage() {
                                 <th className="p-4 font-bold text-neutral-600 text-xs uppercase">Program</th>
                                 <th className="p-4 font-bold text-neutral-600 text-xs uppercase">Email</th>
                                 <th className="p-4 font-bold text-neutral-600 text-xs uppercase">Status</th>
+                                <th className="p-4 font-bold text-neutral-600 text-xs uppercase">Access</th>
                                 <th className="p-4 font-bold text-neutral-600 text-xs uppercase text-right">Actions</th>
                             </tr>
                         </thead>
                     <tbody className="divide-y divide-neutral-100">
-                        {enrolledStudents?.map((student: any) => (
+                        {enrolledStudents?.map((student: any) => {
+                            const isPortalDisabled = !!(student.portal_access_disabled ?? student.user?.portal_access_disabled);
+                            const isSisDisabled = !!(student.sis_access_disabled ?? student.user?.sis_access_disabled);
+
+                            return (
                             <tr key={student.id} className="hover:bg-neutral-50 transition-colors block md:table-row p-4 md:p-0">
                                 <td className="block md:table-cell py-1 md:p-4 text-xs font-mono font-medium text-neutral-400 md:text-neutral-500">
                                     ID: {student.student_id}
@@ -375,19 +412,54 @@ export default function AdminStudentsPage() {
                                         <CheckCircle size={10} weight="bold" /> {student.enrollment_status}
                                     </span>
                                 </td>
+                                <td className="block md:table-cell py-2 md:p-4">
+                                    <div className="flex flex-col gap-1 min-w-[120px]">
+                                        <div className="flex items-center justify-between gap-1 text-[11px]">
+                                            <span className="text-neutral-500 text-[10px]">Portal:</span>
+                                            <button
+                                                type="button"
+                                                disabled={actionLoading === `${student.id}-portal`}
+                                                onClick={() => handleTogglePortalAccess(student, !isPortalDisabled)}
+                                                className={`px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded ${
+                                                    isPortalDisabled
+                                                        ? 'bg-red-100 text-red-700 hover:bg-red-200'
+                                                        : 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200'
+                                                }`}
+                                            >
+                                                {actionLoading === `${student.id}-portal` ? '...' : isPortalDisabled ? 'Disabled' : 'Enabled'}
+                                            </button>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-1 text-[11px]">
+                                            <span className="text-neutral-500 text-[10px]">SIS:</span>
+                                            <button
+                                                type="button"
+                                                disabled={actionLoading === `${student.id}-sis`}
+                                                onClick={() => handleToggleSISAccess(student, !isSisDisabled)}
+                                                className={`px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded ${
+                                                    isSisDisabled
+                                                        ? 'bg-red-100 text-red-700 hover:bg-red-200'
+                                                        : 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200'
+                                                }`}
+                                            >
+                                                {actionLoading === `${student.id}-sis` ? '...' : isSisDisabled ? 'Disabled' : 'Enabled'}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td className="block md:table-cell pt-4 pb-2 md:p-4">
                                     <div className="flex items-center justify-end gap-3">
                                         <Link
-                                            href={`/admin/admissions/review/?id=${student.application_id}`}
+                                            href={`/sis/admin/students/${student.id}/`}
                                             className="text-neutral-400 px-2 py-1 text-xs font-bold uppercase tracking-widest hover:text-black"
                                         >
-                                            View Profile
+                                            View Record
                                         </Link>
                                         <DeleteStudentBtn id={student.id} />
                                     </div>
                                 </td>
                             </tr>
-                        ))}
+                            );
+                        })}
                     </tbody>
                 </table>
 

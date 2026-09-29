@@ -12,11 +12,15 @@ import { StatusBadge } from '@/components/sis/StatusBadge';
 import { UserAdd01Icon as UserPlus } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import Link from 'next/link';
-import { getSISStudents } from '../actions';
+import { getSISStudents, toggleStudentPortalAccessAction, toggleStudentSISAccessAction } from '../actions';
+import { toast } from 'sonner';
 
 interface StudentRow {
   id: string;
   student_id: string;
+  user_id?: string;
+  portal_access_disabled?: boolean;
+  sis_access_disabled?: boolean;
   first_name: string;
   last_name: string;
   email: string;
@@ -38,6 +42,7 @@ export default function AdminStudentsPage() {
   const [data, setData] = useState<StudentRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [togglingId, setTogglingId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,6 +60,34 @@ export default function AdminStudentsPage() {
 
     fetchData();
   }, []);
+
+  const handleTogglePortal = async (student: StudentRow, disabled: boolean) => {
+    try {
+      setTogglingId(`${student.id}-portal`);
+      const res = await toggleStudentPortalAccessAction(student.id, disabled);
+      if (!res.success) throw new Error(res.error);
+      setData(prev => prev.map(s => s.id === student.id ? { ...s, portal_access_disabled: disabled } : s));
+      toast.success(disabled ? `Portal access disabled for ${student.first_name}` : `Portal access enabled for ${student.first_name}`);
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to update portal access');
+    } finally {
+      setTogglingId(null);
+    }
+  };
+
+  const handleToggleSIS = async (student: StudentRow, disabled: boolean) => {
+    try {
+      setTogglingId(`${student.id}-sis`);
+      const res = await toggleStudentSISAccessAction(student.id, disabled);
+      if (!res.success) throw new Error(res.error);
+      setData(prev => prev.map(s => s.id === student.id ? { ...s, sis_access_disabled: disabled } : s));
+      toast.success(disabled ? `SIS access disabled for ${student.first_name}` : `SIS access enabled for ${student.first_name}`);
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to update SIS access');
+    } finally {
+      setTogglingId(null);
+    }
+  };
 
   if (loading) {
     return (
@@ -105,7 +138,46 @@ export default function AdminStudentsPage() {
     { key: 'school', header: 'School', render: (s: StudentRow) => <span className="text-xs text-slate-400">{s.school || '—'}</span> },
     { key: 'status', header: 'Status', render: (s: StudentRow) => <StatusBadge status={s.status} /> },
     { key: 'enrollment_status', header: 'Enrollment', render: (s: StudentRow) => <StatusBadge status={s.enrollment_status} /> },
-    { key: 'advisor', header: 'Advisor', render: (s: StudentRow) => <span className="text-xs text-slate-400">{s.advisor || '—'}</span> },
+    {
+      key: 'access',
+      header: 'Access Control',
+      render: (s: StudentRow) => (
+        <div className="flex flex-col gap-1.5 min-w-[130px]" onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-center justify-between gap-1 text-[11px]">
+            <span className="text-slate-400 font-mono text-[10px]">Portal:</span>
+            <button
+              type="button"
+              disabled={togglingId === `${s.id}-portal`}
+              onClick={() => handleTogglePortal(s, !s.portal_access_disabled)}
+              title={s.portal_access_disabled ? 'Click to enable portal access' : 'Click to disable portal access'}
+              className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider transition-all ${
+                s.portal_access_disabled
+                  ? 'bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30'
+                  : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30'
+              } ${togglingId === `${s.id}-portal` ? 'opacity-50 cursor-wait' : ''}`}
+            >
+              {togglingId === `${s.id}-portal` ? '...' : (s.portal_access_disabled ? 'Disabled' : 'Enabled')}
+            </button>
+          </div>
+          <div className="flex items-center justify-between gap-1 text-[11px]">
+            <span className="text-slate-400 font-mono text-[10px]">SIS:</span>
+            <button
+              type="button"
+              disabled={togglingId === `${s.id}-sis`}
+              onClick={() => handleToggleSIS(s, !s.sis_access_disabled)}
+              title={s.sis_access_disabled ? 'Click to enable SIS access' : 'Click to disable SIS access'}
+              className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider transition-all ${
+                s.sis_access_disabled
+                  ? 'bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30'
+                  : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30'
+              } ${togglingId === `${s.id}-sis` ? 'opacity-50 cursor-wait' : ''}`}
+            >
+              {togglingId === `${s.id}-sis` ? '...' : (s.sis_access_disabled ? 'Disabled' : 'Enabled')}
+            </button>
+          </div>
+        </div>
+      ),
+    },
     {
       key: 'hold',
       header: 'Hold',

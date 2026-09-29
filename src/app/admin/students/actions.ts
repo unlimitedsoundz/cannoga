@@ -248,3 +248,6 @@ export async function deleteStudent(studentId: string) {
         return { success: false, error: e.message };
     }
 }
+
+export { toggleStudentPortalAccess, toggleStudentSISAccess } from '@/app/admin/user-actions';
+

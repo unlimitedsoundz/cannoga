@@ -20,7 +20,7 @@ export default function PortalIndexPage() {
 
             const { data: profile } = await supabase
                 .from('profiles')
-                .select('role, portal_access_disabled')
+                .select('role, portal_access_disabled, sis_access_disabled')
                 .eq('id', user.id)
                 .single();
 
@@ -35,22 +35,24 @@ export default function PortalIndexPage() {
                 return;
             }
 
-            if (profile?.role === 'STUDENT') {
-                // Only allow SIS access once tuition deposit is confirmed
+            if (profile?.role === 'STUDENT' && !profile?.sis_access_disabled) {
+                // Only allow SIS access once tuition deposit is confirmed and SIS access is active
                 const { data: studentRecord } = await supabase
                     .from('students')
-                    .select('tuition_deposit_paid, enrollment_status')
+                    .select('tuition_deposit_paid, enrollment_status, sis_access_disabled')
                     .eq('user_id', user.id)
                     .maybeSingle();
 
-                const depositVerified =
-                    studentRecord?.tuition_deposit_paid === true &&
-                    (studentRecord?.enrollment_status === 'ACTIVE' ||
-                        studentRecord?.enrollment_status === 'CONFIRMED');
+                if (!studentRecord?.sis_access_disabled) {
+                    const depositVerified =
+                        studentRecord?.tuition_deposit_paid === true &&
+                        (studentRecord?.enrollment_status === 'ACTIVE' ||
+                            studentRecord?.enrollment_status === 'CONFIRMED');
 
-                if (depositVerified) {
-                    router.replace('/sis/');
-                    return;
+                    if (depositVerified) {
+                        router.replace('/sis/');
+                        return;
+                    }
                 }
             }
 

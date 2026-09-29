@@ -8,6 +8,7 @@ import { formatToDDMMYYYY } from '@/utils/date';
 import { Calendar, MapPin, ArrowRight, CaretLeft, CaretRight, MagnifyingGlass, Funnel, X } from "@phosphor-icons/react";
 import { Card } from '@/components/ui/Card';
 import { SearchField } from '@aalto-dx/react-modules';
+import { normalizeImageUrl } from '@/utils/imageUrl';
 
 interface NewsListProps {
     staticArticles?: any[];
@@ -185,7 +186,7 @@ export default function NewsList({ staticArticles = [] }: NewsListProps) {
                                 className: isEvent ? 'bg-amber-500 text-black' : 'bg-[#0a151a] text-white'
                             }}
                             image={{
-                                src: item.imageUrl || fallbackImage,
+                                src: normalizeImageUrl(item.imageUrl, fallbackImage),
                                 alt: item.title
                             }}
                             body={

@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Link } from "@aalto-dx/react-components";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 
 interface CardProps {
     title: string;
@@ -40,6 +40,12 @@ export function Card({
     tags,
     className = ""
 }: CardProps) {
+    const [imgSrc, setImgSrc] = useState(image?.src);
+
+    useEffect(() => {
+        setImgSrc(image?.src);
+    }, [image?.src]);
+
     const CardContent = (
         <div 
             className={`bg-transparent rounded-none border-0 shadow-none flex flex-col h-full transition-all duration-300 overflow-hidden ${onClick ? 'cursor-pointer' : ''} ${className}`}
@@ -48,11 +54,13 @@ export function Card({
             {image && (
                 <div className="aspect-[3/2] relative overflow-hidden bg-neutral-100">
                     <Image
-                        src={image.src}
+                        src={imgSrc || image.src || '/images/admissions/events.jpg'}
                         alt={image.alt}
                         fill
+                        unoptimized
                         className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        onError={() => setImgSrc('/images/admissions/events.jpg')}
                     />
                     {badge && (
                         <div className="absolute top-4 left-4">

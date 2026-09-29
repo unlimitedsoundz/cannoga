@@ -103,7 +103,7 @@ export async function proxy(request: NextRequest) {
 
     const { data: profile, error: profileError } = await (async () => {
         if (!user) return { data: null, error: null };
-        return await supabase.from('profiles').select('role, portal_access_disabled').eq('id', user.id).single();
+        return await supabase.from('profiles').select('role, portal_access_disabled, sis_access_disabled').eq('id', user.id).single();
     })();
 
     if (pathname.startsWith('/portal')) {
@@ -148,13 +148,11 @@ export async function proxy(request: NextRequest) {
     }
 
     if (AUTH_REQUIRED_PATHS.some((p) => pathname.startsWith(p))) {
-        if (!user || profile?.portal_access_disabled) {
+        if (!user) {
             return createRedirectResponse(
                 request,
                 '/portal/account/login/',
-                profile?.portal_access_disabled
-                    ? { message: 'access_disabled' }
-                    : { redirectedFrom: pathname },
+                { redirectedFrom: pathname },
                 307,
                 supabaseResponse
             );
@@ -165,6 +163,26 @@ export async function proxy(request: NextRequest) {
                 request,
                 '/sis/admin/',
                 undefined,
+                307,
+                supabaseResponse
+            );
+        }
+
+        // Check if SIS access is disabled for this user
+        if (profile?.sis_access_disabled) {
+            if (!profile?.portal_access_disabled) {
+                return createRedirectResponse(
+                    request,
+                    '/portal/dashboard/',
+                    { message: 'sis_access_disabled' },
+                    307,
+                    supabaseResponse
+                );
+            }
+            return createRedirectResponse(
+                request,
+                '/portal/account/login/',
+                { message: 'access_disabled' },
                 307,
                 supabaseResponse
             );
@@ -198,9 +216,28 @@ export async function proxy(request: NextRequest) {
 
             const { data: studentRecord } = await supabase
                 .from('students')
-                .select('tuition_deposit_paid, enrollment_status')
+                .select('tuition_deposit_paid, enrollment_status, sis_access_disabled')
                 .eq('user_id', user.id)
                 .maybeSingle();
+
+            if (studentRecord?.sis_access_disabled) {
+                if (!profile?.portal_access_disabled) {
+                    return createRedirectResponse(
+                        request,
+                        '/portal/dashboard/',
+                        { message: 'sis_access_disabled' },
+                        307,
+                        supabaseResponse
+                    );
+                }
+                return createRedirectResponse(
+                    request,
+                    '/portal/account/login/',
+                    { message: 'access_disabled' },
+                    307,
+                    supabaseResponse
+                );
+            }
 
             const depositVerified =
                 studentRecord?.tuition_deposit_paid === true &&

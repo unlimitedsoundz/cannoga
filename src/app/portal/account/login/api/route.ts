@@ -84,13 +84,22 @@ export async function POST(request: NextRequest) {
 
     const { data: profile } = await serviceClient
         .from('profiles')
-        .select('role, portal_access_disabled')
+        .select('role, portal_access_disabled, sis_access_disabled')
         .eq('id', authData.user.id)
         .single();
 
-    if (profile?.portal_access_disabled) {
+    const { data: enrollment } = await serviceClient
+        .from('students')
+        .select('enrollment_status, tuition_deposit_paid, portal_access_disabled, sis_access_disabled')
+        .eq('user_id', authData.user.id)
+        .maybeSingle();
+
+    const portalDisabled = !!(profile?.portal_access_disabled || enrollment?.portal_access_disabled);
+    const sisDisabled = !!(profile?.sis_access_disabled || enrollment?.sis_access_disabled);
+
+    if (portalDisabled && sisDisabled) {
         await supabase.auth.signOut();
-        return NextResponse.json({ error: 'Access disabled: Your account has been restricted from accessing cannogacollege.ca.' }, { status: 403 });
+        return NextResponse.json({ error: 'Access disabled: Your account access to both the portal and SIS has been restricted.' }, { status: 403 });
     }
 
     if (profile?.role === 'ADMIN') {
@@ -99,18 +108,18 @@ export async function POST(request: NextRequest) {
         );
     }
 
-    const { data: enrollment } = await serviceClient
-        .from('students')
-        .select('enrollment_status, tuition_deposit_paid')
-        .eq('user_id', authData.user.id)
-        .single();
-
     const sisReady =
+        !sisDisabled &&
         (enrollment?.enrollment_status === 'CONFIRMED' || enrollment?.enrollment_status === 'ACTIVE') &&
         enrollment?.tuition_deposit_paid === true;
 
     if (sisReady) {
         return withAuthCookies(NextResponse.json({ success: true, redirect: '/sis' }));
+    }
+
+    if (portalDisabled) {
+        await supabase.auth.signOut();
+        return NextResponse.json({ error: 'Access disabled: Your student portal access has been disabled by the administration.' }, { status: 403 });
     }
 
     return withAuthCookies(NextResponse.json({ success: true, redirect: '/portal/dashboard' }));

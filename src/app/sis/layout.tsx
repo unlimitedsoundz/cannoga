@@ -40,7 +40,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
 
                 const { data: prof, error: profError } = await supabase
                     .from('profiles')
-                    .select('id, role, email, first_name, last_name, student_id')
+                    .select('id, role, email, first_name, last_name, student_id, portal_access_disabled, sis_access_disabled')
                     .eq('id', sbUser.id)
                     .single();
 
@@ -73,13 +73,23 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                         return;
                     }
 
-                    // Verify tuition deposit has been paid and admin-verified.
+                    // Verify tuition deposit has been paid and admin-verified, and SIS access is not disabled.
                     // If not, keep the user in the applicant portal.
                     const { data: studentRecord } = await supabase
                         .from('students')
-                        .select('tuition_deposit_paid, enrollment_status')
+                        .select('tuition_deposit_paid, enrollment_status, sis_access_disabled')
                         .or(`user_id.eq.${sbUser.id},institutional_email.eq.${userEmail}`)
                         .maybeSingle();
+
+                    if (prof.sis_access_disabled || studentRecord?.sis_access_disabled) {
+                        if (!prof.portal_access_disabled) {
+                            window.location.href = '/portal/dashboard?message=sis_access_disabled';
+                        } else {
+                            await supabase.auth.signOut();
+                            window.location.href = '/portal/account/login?message=access_disabled';
+                        }
+                        return;
+                    }
 
                     const depositVerified =
                         studentRecord?.tuition_deposit_paid === true &&

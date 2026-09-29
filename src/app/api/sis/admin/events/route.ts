@@ -1,5 +1,7 @@
 import { createServerClient, createServiceRoleClient } from '@/utils/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
+import { resolveDirectImageUrl } from '@/utils/imageUrl';
+import { revalidatePath } from 'next/cache';
 
 export async function GET(request: NextRequest) {
     const supabase = await createServerClient();
@@ -75,6 +77,8 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Title, slug, and date are required' }, { status: 400 });
     }
 
+    const resolvedImageUrl = imageUrl ? await resolveDirectImageUrl(imageUrl) : null;
+
     const { data: event, error } = await adminDb
         .from('Event')
         .insert({
@@ -84,7 +88,7 @@ export async function POST(request: NextRequest) {
             date,
             location: location || '',
             content: content || '',
-            imageUrl: imageUrl || null,
+            imageUrl: resolvedImageUrl,
             published: published ?? true,
             updatedAt: new Date().toISOString()
         })
@@ -93,6 +97,14 @@ export async function POST(request: NextRequest) {
 
     if (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    try {
+        revalidatePath('/news');
+        revalidatePath(`/news/events/${slug}`);
+        revalidatePath('/');
+    } catch (e) {
+        // Non-blocking revalidation
     }
 
     return NextResponse.json({ event }, { status: 201 });
@@ -133,7 +145,9 @@ export async function PUT(request: NextRequest) {
     if (date !== undefined) updateData.date = date;
     if (location !== undefined) updateData.location = location;
     if (content !== undefined) updateData.content = content;
-    if (imageUrl !== undefined) updateData.imageUrl = imageUrl;
+    if (imageUrl !== undefined) {
+        updateData.imageUrl = imageUrl ? await resolveDirectImageUrl(imageUrl) : null;
+    }
     if (published !== undefined) updateData.published = published;
 
     const { data: event, error } = await adminDb
@@ -145,6 +159,14 @@ export async function PUT(request: NextRequest) {
 
     if (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    try {
+        revalidatePath('/news');
+        if (slug) revalidatePath(`/news/events/${slug}`);
+        revalidatePath('/');
+    } catch (e) {
+        // Non-blocking revalidation
     }
 
     return NextResponse.json({ event });

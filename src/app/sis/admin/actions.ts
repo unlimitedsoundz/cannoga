@@ -104,7 +104,7 @@ export async function getSISStudentDetail(studentId: string) {
       .from('students')
       .select(`
         *,
-        user:profiles(first_name, last_name, email, phone_number, date_of_birth, address, city, country_of_residence, student_id),
+        user:profiles(first_name, last_name, email, phone_number, date_of_birth, address, city, country_of_residence, student_id, portal_access_disabled, sis_access_disabled),
         program:Course(title, school:School(name)),
         application:applications(*, course:Course(title, slug)),
         enrollments:module_enrollments(*, module:modules(code, title), semester:semesters(name))
@@ -819,7 +819,9 @@ export async function getSISStudents() {
           user_id,
           program_id,
           application_id,
-          user:profiles(first_name, last_name, email, student_id),
+          portal_access_disabled,
+          sis_access_disabled,
+          user:profiles(id, first_name, last_name, email, student_id, portal_access_disabled, sis_access_disabled),
           program:Course(title, school:School(name)),
           application:applications(course:Course(title, school:School(name)))
         `)
@@ -833,14 +835,14 @@ export async function getSISStudents() {
           status,
           submitted_at,
           created_at,
-          user:profiles(first_name, last_name, email, student_id),
+          user:profiles(id, first_name, last_name, email, student_id, portal_access_disabled, sis_access_disabled),
           course:Course(title, school:School(name))
         `)
         .in('status', ['ENROLLED', 'OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ADMITTED', 'ACCEPTED', 'PROVISIONAL_ENROLLED', 'REGISTERED'])
         .order('created_at', { ascending: false }),
       adminClient
         .from('profiles')
-        .select('id, first_name, last_name, email, student_id, role, created_at')
+        .select('id, first_name, last_name, email, student_id, role, portal_access_disabled, sis_access_disabled, created_at')
         .eq('role', 'STUDENT')
         .order('created_at', { ascending: false }),
     ]);
@@ -858,6 +860,7 @@ export async function getSISStudents() {
       return {
         id: s.id,
         student_id: s.student_id || user?.student_id || 'N/A',
+        user_id: s.user_id || user?.id,
         first_name: user?.first_name || '',
         last_name: user?.last_name || '',
         email: user?.email || '',
@@ -867,6 +870,8 @@ export async function getSISStudents() {
         enrollment_status: s.enrollment_status || 'ACTIVE',
         advisor: 'Admissions Office',
         hold: false,
+        portal_access_disabled: !!(s.portal_access_disabled ?? user?.portal_access_disabled),
+        sis_access_disabled: !!(s.sis_access_disabled ?? user?.sis_access_disabled),
       };
     });
 
@@ -882,6 +887,7 @@ export async function getSISStudents() {
         formattedStudents.push({
           id: app.id,
           student_id: user?.student_id || `CC${app.id.slice(0, 6).toUpperCase()}`,
+          user_id: app.user_id || user?.id,
           first_name: user?.first_name || '',
           last_name: user?.last_name || '',
           email: user?.email || '',
@@ -891,6 +897,8 @@ export async function getSISStudents() {
           enrollment_status: app.status || 'ACTIVE',
           advisor: 'Admissions Office',
           hold: false,
+          portal_access_disabled: !!user?.portal_access_disabled,
+          sis_access_disabled: !!user?.sis_access_disabled,
         });
       }
     });
@@ -902,6 +910,7 @@ export async function getSISStudents() {
         formattedStudents.push({
           id: prof.id,
           student_id: prof.student_id || `CC${prof.id.slice(0, 6).toUpperCase()}`,
+          user_id: prof.id,
           first_name: prof.first_name || '',
           last_name: prof.last_name || '',
           email: prof.email || '',
@@ -911,6 +920,8 @@ export async function getSISStudents() {
           enrollment_status: 'ACTIVE',
           advisor: 'Admissions Office',
           hold: false,
+          portal_access_disabled: !!prof.portal_access_disabled,
+          sis_access_disabled: !!prof.sis_access_disabled,
         });
       }
     });
@@ -1069,5 +1080,166 @@ export async function updateSISAdminProfile(payload: { displayName: string; emai
     return { success: false, error: e.message || 'Failed to update admin profile' };
   }
 }
+
+export async function toggleStudentPortalAccessAction(studentIdOrUserId: string, disabled: boolean) {
+  const adminClient = createServiceRoleClient();
+  try {
+    // 1. Resolve student and profile records
+    const { data: student } = await adminClient
+      .from('students')
+      .select('id, user_id, student_id, portal_access_disabled, sis_access_disabled')
+      .or(`id.eq.${studentIdOrUserId},student_id.eq.${studentIdOrUserId},user_id.eq.${studentIdOrUserId}`)
+      .maybeSingle();
+
+    const userId = student?.user_id || studentIdOrUserId;
+
+    const { data: profile } = await adminClient
+      .from('profiles')
+      .select('id, student_id, portal_access_disabled, sis_access_disabled')
+      .or(`id.eq.${userId},student_id.eq.${studentIdOrUserId}`)
+      .maybeSingle();
+
+    const resolvedUserId = profile?.id || student?.user_id;
+
+    // 2. Update profiles table
+    if (resolvedUserId) {
+      const { error: profErr } = await adminClient
+        .from('profiles')
+        .update({ portal_access_disabled: disabled })
+        .eq('id', resolvedUserId);
+      if (profErr) throw profErr;
+    }
+
+    // 3. Update students table
+    if (student?.id) {
+      await adminClient
+        .from('students')
+        .update({ portal_access_disabled: disabled })
+        .eq('id', student.id);
+    } else if (resolvedUserId) {
+      await adminClient
+        .from('students')
+        .update({ portal_access_disabled: disabled })
+        .eq('user_id', resolvedUserId);
+    }
+
+    // 4. Auth ban check: ban only if BOTH portal and SIS access are disabled
+    const sisDisabled = student?.sis_access_disabled ?? profile?.sis_access_disabled ?? false;
+    if (resolvedUserId) {
+      try {
+        if (disabled && sisDisabled) {
+          await adminClient.auth.admin.updateUserById(resolvedUserId, { ban_duration: '876600h' });
+        } else {
+          await adminClient.auth.admin.updateUserById(resolvedUserId, { ban_duration: 'none' });
+        }
+      } catch (authErr) {
+        console.error('toggleStudentPortalAccessAction Auth update error:', authErr);
+      }
+    }
+
+    // 5. Audit Log
+    try {
+      await adminClient.from('audit_logs').insert({
+        action: disabled ? 'DISABLE_STUDENT_PORTAL_ACCESS' : 'ENABLE_STUDENT_PORTAL_ACCESS',
+        entity_table: 'students',
+        entity_id: student?.id || studentIdOrUserId,
+        metadata: {
+          student_id: student?.student_id || profile?.student_id,
+          user_id: resolvedUserId,
+          portal_access_disabled: disabled,
+          sis_access_disabled: sisDisabled,
+        }
+      });
+    } catch (auditErr) {
+      console.warn('Audit log error:', auditErr);
+    }
+
+    return { success: true };
+  } catch (e: any) {
+    console.error('toggleStudentPortalAccessAction Error:', e);
+    return { success: false, error: e.message || 'Failed to update portal access' };
+  }
+}
+
+export async function toggleStudentSISAccessAction(studentIdOrUserId: string, disabled: boolean) {
+  const adminClient = createServiceRoleClient();
+  try {
+    // 1. Resolve student and profile records
+    const { data: student } = await adminClient
+      .from('students')
+      .select('id, user_id, student_id, portal_access_disabled, sis_access_disabled')
+      .or(`id.eq.${studentIdOrUserId},student_id.eq.${studentIdOrUserId},user_id.eq.${studentIdOrUserId}`)
+      .maybeSingle();
+
+    const userId = student?.user_id || studentIdOrUserId;
+
+    const { data: profile } = await adminClient
+      .from('profiles')
+      .select('id, student_id, portal_access_disabled, sis_access_disabled')
+      .or(`id.eq.${userId},student_id.eq.${studentIdOrUserId}`)
+      .maybeSingle();
+
+    const resolvedUserId = profile?.id || student?.user_id;
+
+    // 2. Update profiles table
+    if (resolvedUserId) {
+      const { error: profErr } = await adminClient
+        .from('profiles')
+        .update({ sis_access_disabled: disabled })
+        .eq('id', resolvedUserId);
+      if (profErr) throw profErr;
+    }
+
+    // 3. Update students table
+    if (student?.id) {
+      await adminClient
+        .from('students')
+        .update({ sis_access_disabled: disabled })
+        .eq('id', student.id);
+    } else if (resolvedUserId) {
+      await adminClient
+        .from('students')
+        .update({ sis_access_disabled: disabled })
+        .eq('user_id', resolvedUserId);
+    }
+
+    // 4. Auth ban check: ban only if BOTH portal and SIS access are disabled
+    const portalDisabled = student?.portal_access_disabled ?? profile?.portal_access_disabled ?? false;
+    if (resolvedUserId) {
+      try {
+        if (disabled && portalDisabled) {
+          await adminClient.auth.admin.updateUserById(resolvedUserId, { ban_duration: '876600h' });
+        } else {
+          await adminClient.auth.admin.updateUserById(resolvedUserId, { ban_duration: 'none' });
+        }
+      } catch (authErr) {
+        console.error('toggleStudentSISAccessAction Auth update error:', authErr);
+      }
+    }
+
+    // 5. Audit Log
+    try {
+      await adminClient.from('audit_logs').insert({
+        action: disabled ? 'DISABLE_STUDENT_SIS_ACCESS' : 'ENABLE_STUDENT_SIS_ACCESS',
+        entity_table: 'students',
+        entity_id: student?.id || studentIdOrUserId,
+        metadata: {
+          student_id: student?.student_id || profile?.student_id,
+          user_id: resolvedUserId,
+          sis_access_disabled: disabled,
+          portal_access_disabled: portalDisabled,
+        }
+      });
+    } catch (auditErr) {
+      console.warn('Audit log error:', auditErr);
+    }
+
+    return { success: true };
+  } catch (e: any) {
+    console.error('toggleStudentSISAccessAction Error:', e);
+    return { success: false, error: e.message || 'Failed to update SIS access' };
+  }
+}
+
 
 

@@ -27,6 +27,22 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'i.pinimg.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'i.imgur.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'imgur.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'lh3.googleusercontent.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'dl.dropboxusercontent.com',
+            },
         ],
     },
     trailingSlash: true,
