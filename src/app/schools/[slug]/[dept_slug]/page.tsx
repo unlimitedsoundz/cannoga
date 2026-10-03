@@ -61,9 +61,7 @@ function getCredentialName(degreeLevel: string, duration: string) {
     const dur = (duration || '').toLowerCase();
     if (lvl === 'MASTER' || lvl === 'ADVANCED_DIPLOMA') {
         return "Ontario College Advanced Diploma";
-    } else if (lvl === 'BACHELOR') {
-        return "Bachelor's Degree";
-    } else if (lvl === 'DIPLOMA') {
+    } else if (lvl === 'DIPLOMA' || lvl === 'BACHELOR') {
         if (dur.includes('3 year') || dur.includes('3-year')) {
             return "Ontario College Advanced Diploma";
         }
@@ -71,7 +69,7 @@ function getCredentialName(degreeLevel: string, duration: string) {
     } else if (lvl === 'CERTIFICATE') {
         return "Ontario College Certificate";
     }
-    return "College Credential";
+    return "Ontario College Diploma";
 }
 
 export default async function DepartmentDetailPage({ params }: Props) {
@@ -195,15 +193,15 @@ export default async function DepartmentDetailPage({ params }: Props) {
         },
         {
             id: `course-${dept_slug}-2`,
-            title: `Bachelor of Applied ${dept.name.replace('Department of ', '')}`,
-            slug: `${dept_slug}-bachelor`,
-            description: `Comprehensive 4-year undergraduate degree with co-op work term placement, research capstone, and specialized electives.`,
-            duration: '4 Years',
-            degreeLevel: 'BACHELOR',
+            title: `Advanced Diploma in Applied ${dept.name.replace('Department of ', '')}`,
+            slug: `${dept_slug}-advanced-diploma`,
+            description: `Comprehensive 3-year Ontario College Advanced Diploma with co-op work term placement, applied capstone, and specialized technical electives.`,
+            duration: '3 Years',
+            degreeLevel: 'ADVANCED_DIPLOMA',
             departmentId: dept.id,
             schoolId: dept.school.id,
-            credits: 120,
-            cip_code: getCIPCode({ title: `Bachelor of Applied ${dept.name.replace('Department of ', '')}`, degreeLevel: 'BACHELOR' })
+            credits: 90,
+            cip_code: getCIPCode({ title: `Advanced Diploma in Applied ${dept.name.replace('Department of ', '')}`, degreeLevel: 'ADVANCED_DIPLOMA' })
         }
     ];
 

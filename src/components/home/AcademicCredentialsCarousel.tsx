@@ -38,10 +38,10 @@ const CREDENTIAL_CARDS: CredentialCard[] = [
         waveColor: '#004c80', // Darker blue shade
     },
     {
-        id: 'degrees',
-        title: 'ADVANCED DIPLOMAS & DEGREES',
-        description: "3-year advanced diplomas and 4-year Honours Bachelor's Degrees combining academic depth with co-op pathways.",
-        href: '/degree-programmes',
+        id: 'advanced-diplomas',
+        title: 'ONTARIO ADVANCED DIPLOMAS',
+        description: '3-year advanced technical programs combining intensive applied specialization, labs, and co-op practicums.',
+        href: '/degree-programmes#advanced-diplomas',
         image: '/images/advanced-diploma.jpg',
         bgColor: 'bg-[#e53935]', // Vibrant bold red
         borderColor: 'border-[#e53935]',

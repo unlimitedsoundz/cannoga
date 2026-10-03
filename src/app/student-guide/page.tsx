@@ -22,13 +22,12 @@ export default function StudentGuidePage() {
     const sections = [
         {
             id: 'programmes',
-            title: 'Programs & Degrees',
+            title: 'Programs & Credentials',
             content: '',
             items: [
                 { title: "Certificate Programs", href: "/degree-programmes#certificates" },
                 { title: "Diploma Programs", href: "/degree-programmes#diplomas" },
-                { title: "Bachelor's Degree", href: "/admissions/bachelor" },
-                { title: "Advanced Diploma", href: "/admissions/master" },
+                { title: "Advanced Diploma Programs", href: "/degree-programmes#advanced-diplomas" },
             ]
         },
         {
@@ -75,7 +74,7 @@ export default function StudentGuidePage() {
             title: 'Student Categories',
             content: '',
             items: [
-                { title: "Bachelor's Students", href: "/student-guide/bachelor" },
+                { title: "Diploma Students", href: "/student-guide/bachelor" },
                 { title: "Advanced Diploma Students", href: "/student-guide/master" },
                 { title: "Student Housing", href: "/housing/" },
                 { title: "Health & Wellbeing Guide", href: "/student-guide/health-and-wellbeing/" },
@@ -135,10 +134,10 @@ export default function StudentGuidePage() {
                         {/* Degree Programmes */}
                         <section id="programmes" className="scroll-mt-32 space-y-4">
                             <h2 className="text-aalto-5 font-bold text-black tracking-tight">
-                                Programs &amp; Degrees at Cannoga College
+                                Programs &amp; Credentials at Cannoga College
                             </h2>
                             <p className="text-base md:text-lg text-black font-normal leading-relaxed">
-                                Cannoga College offers Certificate, Diploma, Advanced Diploma, and Bachelor’s programmes across business, economics, management, finance, information systems, entrepreneurship, and interdisciplinary fields. Eligible full-time diploma, advanced diploma, and undergraduate programs qualify for the Post-Graduation Work Permit (PGWP) pathway.
+                                Cannoga College offers Certificate, Diploma, and Advanced Diploma programmes across business, economics, management, finance, information systems, entrepreneurship, and interdisciplinary fields. Eligible full-time diploma and advanced diploma programs qualify for the Post-Graduation Work Permit (PGWP) pathway.
                             </p>
 
                             <ProgramLevelsCarousel />

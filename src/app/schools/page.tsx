@@ -29,7 +29,7 @@ export default async function SchoolsPage() {
             {/* Hero Section */}
             <Hero
                 title="Our Schools"
-                body="Cannoga College is organized into specialized schools, each driving innovation in technology, business, science, and design through English-taught certificate, diploma, advanced diploma, and bachelor’s programmes."
+                body="Cannoga College is organized into specialized schools, each driving innovation in technology, business, science, and design through English-taught certificate, diploma, and advanced diploma programmes."
                 backgroundColor="#000000"
                 tinted
                 lightText={true}

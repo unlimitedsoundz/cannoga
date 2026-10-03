@@ -51,15 +51,13 @@ const ANCILLARY_FEES = [
 const FALLBACK_DOMESTIC = {
     CERTIFICATE: 2400,
     DIPLOMA: 2400,
-    BACHELOR: 4000,
     MASTER: 5600,
 };
 
 const FALLBACK_INTERNATIONAL = {
     CERTIFICATE: 4000,
-    DIPLOMA: 4000,
-    BACHELOR: 6400,
-    MASTER: 9600,
+    DIPLOMA: 8000,
+    MASTER: 16600,
 };
 
 export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
@@ -127,10 +125,9 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
 
         const getAnnualFeeFromDB = (level: string, domestic: boolean): number => {
             const upper = level.toUpperCase();
-            let credentialType: keyof typeof FALLBACK_DOMESTIC = 'BACHELOR';
-            if (upper.includes('CERTIFICATE')) credentialType = 'CERTIFICATE';
-            else if (upper.includes('DIPLOMA')) credentialType = 'DIPLOMA';
-            else if (upper.includes('MASTER')) credentialType = 'MASTER';
+            let credentialType: keyof typeof FALLBACK_DOMESTIC = 'DIPLOMA';
+            if (upper.includes('ADVANCED') || upper.includes('MASTER')) credentialType = 'MASTER';
+            else if (upper.includes('CERTIFICATE')) credentialType = 'CERTIFICATE';
 
             const info = tuitionInfo.find((t: any) => t.credential_type === credentialType);
             if (info) {

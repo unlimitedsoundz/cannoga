@@ -13,7 +13,7 @@ export interface PageContentPage {
 export const pageContentPages: PageContentPage[] = [
     {
         slug: 'admissions-bachelor',
-        name: 'Bachelor Admissions',
+        name: 'Diploma Admissions',
     },
     {
         slug: 'admissions/master',
@@ -93,20 +93,20 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions-bachelor',
         sectionKey: 'hero_title',
         label: 'Hero Title',
-        defaultContent: 'Apply to Bachelor’s Programmes',
+        defaultContent: 'Apply to Diploma Programmes',
     },
     {
         pageSlug: 'admissions-bachelor',
         sectionKey: 'hero_subtitle',
         label: 'Hero Subtitle',
         defaultContent:
-            'Discover our international Bachelor’s programmes, application deadlines, and study pathways for the 2026 intake.',
+            'Discover our 2-year Ontario College Diploma programmes, application deadlines, and study pathways for the 2026 intake.',
     },
     {
         pageSlug: 'admissions-bachelor',
         sectionKey: 'benefits_content',
         label: 'Benefits Section',
-        defaultContent: `<p class="text-sm sm:text-base font-normal text-black leading-relaxed mb-4">Studying at Cannoga combines small-group teaching, practical case work, and a modern campus environment. Our Bachelor’s students benefit from personalised guidance, strong industry links, and a curriculum designed for international careers.</p>
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-black leading-relaxed mb-4">Studying at Cannoga combines small-group teaching, practical case work, and a modern campus environment. Our Diploma students benefit from personalised guidance, strong industry links, and a career-focused curriculum designed for international careers.</p>
 <ul class="space-y-2 text-sm sm:text-base font-normal text-black leading-relaxed list-disc list-outside pl-5">
     <li><strong class="text-slate-900 font-bold">International Classroom:</strong> Study with students from around the world.</li>
     <li><strong class="text-slate-900 font-bold">Career-Ready Skills:</strong> Focus on finance, management, and economics.</li>
@@ -118,12 +118,12 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions-bachelor',
         sectionKey: 'progression_content',
         label: 'Progression Section',
-        defaultContent: `<p class="text-sm sm:text-base font-normal text-black leading-relaxed mb-4">Completing a Bachelor’s degree at Cannoga opens seamless progression paths into Advanced Diploma programmes, specialised tracks, and international partner universities.</p>
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-black leading-relaxed mb-4">Completing a 2-year Ontario College Diploma (60 credits) at Cannoga opens seamless progression paths into Advanced Diploma programmes, specialised tracks, and direct entry into the workforce.</p>
 <ul class="space-y-2 text-sm sm:text-base font-normal text-black leading-relaxed list-disc list-outside pl-5">
     <li><strong class="text-slate-900 font-bold">Internal Continuation:</strong> Direct progression to Cannoga Advanced Diploma programmes.</li>
     <li><strong class="text-slate-900 font-bold">Specialised Tracks:</strong> Accounting, Economics, or Management.</li>
-    <li><strong class="text-slate-900 font-bold">International Opportunities:</strong> Partner universities worldwide.</li>
-    <li><strong class="text-slate-900 font-bold">Research Integration:</strong> Bachelor theses as a bridge to advanced research.</li>
+    <li><strong class="text-slate-900 font-bold">Career Ready:</strong> Applied projects and industry placements throughout the programme.</li>
+    <li><strong class="text-slate-900 font-bold">Work Permit Eligibility:</strong> 2-year diplomas may qualify graduates for a Post-Graduation Work Permit.</li>
 </ul>`,
     },
     {
@@ -132,7 +132,7 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Scholarships Section',
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-black leading-relaxed">
-        Cannoga College offers several financial support and scholarship pathways for undergraduate students:
+        Cannoga College offers several financial support and scholarship pathways for diploma students:
     </p>
     <ul class="space-y-2 text-sm sm:text-base font-normal text-black leading-relaxed list-disc list-outside pl-5">
         <li><strong class="text-slate-900 font-bold">Merit-Based:</strong> For exceptional high school academic records and standardized achievements.</li>
@@ -171,7 +171,7 @@ export const pageContentSections: PageContentSection[] = [
         label: 'Events Section',
         defaultContent: `<div class="space-y-4">
     <p class="text-sm sm:text-base font-normal text-black leading-relaxed">
-        Connect with our admissions team, explore student life, and learn about undergraduate programmes through our upcoming events:
+        Connect with our admissions team, explore student life, and learn about diploma programmes through our upcoming events:
     </p>
     <ul class="space-y-2 text-sm sm:text-base font-normal text-black leading-relaxed list-disc list-outside pl-5">
         <li><strong class="text-slate-900 font-bold">Open Days:</strong> Explore the campus, tour facilities, and meet faculty members.</li>
@@ -188,7 +188,7 @@ export const pageContentSections: PageContentSection[] = [
         sectionKey: 'quote_content',
         label: 'Quote Banner',
         defaultContent: `<h3 class="text-2xl md:text-3xl leading-tight mb-4 font-bold">"We empower students with the analytical skills and global mindset needed for complex financial decision-making."</h3>
-<p class="text-base text-black mb-3">Our undergraduate curriculum bridges foundational economic theory with hands-on fintech modeling, case competitions, and real-world internships. From day one, students receive direct mentorship to navigate international career pathways and graduate school admissions across Canada and globally.</p>
+<p class="text-base text-black mb-3">Our diploma curriculum bridges foundational theory with hands-on modeling, case competitions, and real-world placements. From day one, students receive direct mentorship to navigate international career pathways and further study across Canada and globally.</p>
 <p class="text-sm font-bold tracking-widest">— International Admissions Officer</p>`,
     },
     {
@@ -470,7 +470,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'certificate_fees_content',
         label: 'Certificate Fees Section',
-        defaultContent: `<p class="text-sm sm:text-base font-normal text-black leading-relaxed mb-3">Annual tuition fee and deposit for Certificate programs (6 months – 1 year)</p>
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-black leading-relaxed mb-3">Annual tuition fee and deposit for Certificate programs (1 year, 30 credits) — effective October 1, 2026</p>
 <div class="w-full overflow-x-auto my-2 bg-white">
     <table class="w-full table-auto sm:table-fixed border-collapse">
         <thead>
@@ -499,7 +499,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'diploma_fees_content',
         label: 'Diploma Fees Section',
-        defaultContent: `<p class="text-sm sm:text-base font-normal text-black leading-relaxed mb-3">Annual tuition fee and deposit for Diploma and Advanced Diploma programs (2 – 3 years)</p>
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-black leading-relaxed mb-3">Annual tuition fee and deposit for Ontario College Diploma programs (2 years, 60 credits) — effective October 1, 2026</p>
 <div class="w-full overflow-x-auto my-2 bg-white">
     <table class="w-full table-auto sm:table-fixed border-collapse">
         <thead>
@@ -517,36 +517,7 @@ export const pageContentSections: PageContentSection[] = [
             </tr>
             <tr class="bg-neutral-50/80 hover:bg-neutral-100/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">International Students</td>
-                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-center align-middle whitespace-nowrap">CAD $4,000</td>
-                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-black text-center align-middle whitespace-nowrap">CAD $2,000</td>
-            </tr>
-        </tbody>
-    </table>
-</div>`,
-    },
-    {
-        pageSlug: 'admissions/tuition',
-        sectionKey: 'bachelor_fees_content',
-        label: 'Bachelor Fees Section',
-        defaultContent: `<p class="text-sm sm:text-base font-normal text-black leading-relaxed mb-3">Annual tuition fee and deposit for Bachelor's degree programs (4-year programs)</p>
-<div class="w-full overflow-x-auto my-2 bg-white">
-    <table class="w-full table-auto sm:table-fixed border-collapse">
-        <thead>
-            <tr class="bg-[#0a151a] text-white">
-                <th class="px-3 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-bold uppercase tracking-wide">Student Residency</th>
-                <th class="px-3 py-2 sm:px-4 sm:py-3 text-center text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Fee / yr</th>
-                <th class="px-3 py-2 sm:px-4 sm:py-3 text-center text-xs sm:text-sm font-bold uppercase tracking-wide">Tuition Deposit</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-white hover:bg-neutral-50/60">
-                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">Domestic Students</td>
-                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 text-center align-middle whitespace-nowrap">CAD $4,000</td>
-                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-black text-center align-middle whitespace-nowrap">CAD $2,000</td>
-            </tr>
-            <tr class="bg-neutral-50/80 hover:bg-neutral-100/60">
-                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">International Students</td>
-                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-center align-middle whitespace-nowrap">CAD $6,400</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-center align-middle whitespace-nowrap">CAD $8,000</td>
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-black text-center align-middle whitespace-nowrap">CAD $2,000</td>
             </tr>
         </tbody>
@@ -557,7 +528,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions/tuition',
         sectionKey: 'master_fees_content',
         label: 'Advanced Diploma Fees Section',
-        defaultContent: `<p class="text-sm sm:text-base font-normal text-black leading-relaxed mb-3">Annual tuition fee and deposit for Advanced Diploma programs (3-year programs)</p>
+        defaultContent: `<p class="text-sm sm:text-base font-normal text-black leading-relaxed mb-3">Annual tuition fee and deposit for Advanced Diploma programs (3 years, 90 credits) — effective October 1, 2026</p>
 <div class="w-full overflow-x-auto my-2 bg-white">
     <table class="w-full table-auto sm:table-fixed border-collapse">
         <thead>
@@ -575,7 +546,7 @@ export const pageContentSections: PageContentSection[] = [
             </tr>
             <tr class="bg-neutral-50/80 hover:bg-neutral-100/60">
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-slate-900 align-middle">International Students</td>
-                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-center align-middle whitespace-nowrap">CAD $9,600</td>
+                <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-semibold text-[#0a151a] text-center align-middle whitespace-nowrap">CAD $16,600</td>
                 <td class="px-3 py-2.5 sm:px-4 sm:py-3.5 text-xs sm:text-base font-normal text-black text-center align-middle whitespace-nowrap">CAD $2,000</td>
             </tr>
         </tbody>
@@ -756,7 +727,7 @@ export const pageContentSections: PageContentSection[] = [
         pageSlug: 'admissions',
         sectionKey: 'hero_subtitle',
         label: 'Hero Subtitle',
-        defaultContent: 'Apply to Cannoga College Ottawa and begin your Bachelor’s or Advanced Diploma studies in an internationally focused learning environment. Our admissions process is transparent, supportive, and open to students from around the world.',
+        defaultContent: 'Apply to Cannoga College Ottawa and begin your Certificate, Diploma or Advanced Diploma studies in an internationally focused learning environment. Our admissions process is transparent, supportive, and open to students from around the world.',
     },
 ];
 

@@ -118,13 +118,12 @@ function CourseEditorContent() {
                             <label className="text-[10px] font-black uppercase text-neutral-400 tracking-widest">Degree Level</label>
                             <select
                                 name="degreeLevel"
-                                defaultValue={course?.degreeLevel || 'BACHELOR'}
+                                defaultValue={course?.degreeLevel || 'DIPLOMA'}
                                 className="w-full p-4 bg-neutral-50 border border-neutral-200 rounded-xl outline-none font-bold text-sm"
                             >
                                 <option value="CERTIFICATE">Certificate (1 Year)</option>
                                 <option value="DIPLOMA">Diploma (2 Years)</option>
                                 <option value="MASTER">Advanced Diploma (3 Years)</option>
-                                <option value="BACHELOR">Bachelor's Degree (4 Years)</option>
                             </select>
                         </div>
 

@@ -72,13 +72,14 @@ export default async function AdmissionsPage() {
                 "@type": "WebPage",
                 "name": "Admissions to Cannoga College",
                 "url": "https://cannogacollege.ca/admissions",
-                "description": "Admissions information for Bachelor's and Advanced Diploma level programmes at Cannoga College in Ottawa, Ontario, Canada.",
+                "description": "Admissions information for Diploma, Advanced Diploma, and Certificate level programmes at Cannoga College in Ottawa, Ontario, Canada.",
                 "mainEntity": {
                     "@type": "EducationalOccupationalProgram",
-                    "name": "Degree Programmes at Cannoga College",
+                    "name": "Academic Programmes at Cannoga College",
                     "educationalLevel": [
-                        "BachelorLevel",
-                        "AdvancedDiplomaLevel"
+                        "DiplomaLevel",
+                        "AdvancedDiplomaLevel",
+                        "CertificateLevel"
                     ],
                     "provider": {
                         "@type": "EducationalOrganization",
@@ -127,7 +128,7 @@ export default async function AdmissionsPage() {
             >
                 <div className="flex flex-wrap gap-4">
                     <Link href="/admissions/bachelor/" className="bg-white text-[#0a151a] hover:bg-slate-200 font-bold text-xs uppercase tracking-wider px-6 py-3.5 transition-colors inline-flex items-center gap-2.5 no-underline shrink-0 shadow-md">
-                        Bachelor's Admissions <ArrowRight size={16} weight="bold" />
+                        Diploma Admissions <ArrowRight size={16} weight="bold" />
                     </Link>
                     <Link href="/admissions/master/" className="bg-white text-[#0a151a] hover:bg-slate-200 font-bold text-xs uppercase tracking-wider px-6 py-3.5 transition-colors inline-flex items-center gap-2.5 no-underline shrink-0 shadow-md">
                         Advanced Diploma Admissions <ArrowRight size={16} weight="bold" />
@@ -142,14 +143,14 @@ export default async function AdmissionsPage() {
                         <section id="overview" className="scroll-mt-32">
                             <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Explore our fields</h2>
                             <p className="text-lg text-black leading-relaxed mb-4">
-                                Studying at Cannoga College offers a rich academic experience where innovation, multidisciplinary collaboration, and student community thrive together. You can pursue education at all levels Bachelor's and Advanced Diploma as well as various lifelong learning options. In the Cannoga College community, students have the freedom to specialise in one field or combine courses across several fields.
+                                Studying at Cannoga College offers a rich academic experience where innovation, multidisciplinary collaboration, and student community thrive together. You can pursue education across Certificate, Diploma, and Advanced Diploma programmes as well as various lifelong learning options. In the Cannoga College community, students have the freedom to specialise in one field or combine courses across several fields.
                             </p>
                         </section>
 
                         <section id="degree-programmes" className="scroll-mt-32">
                             <h2 className="text-aalto-5 font-bold mb-aalto-p4 text-black tracking-tight">Programmes &amp; Schools</h2>
                             <p className="text-lg text-black mb-6">
-                                Cannoga College is organised into eight academic schools. Explore each school to discover its Bachelor's and Advanced Diploma programmes, departments, and research.
+                                Cannoga College is organised into eight academic schools. Explore each school to discover its Diploma, Advanced Diploma, and Certificate programmes, departments, and research.
                             </p>
                             <div className="mb-6">
                                 <AcademicSchoolsCarousel schools={schoolList} />

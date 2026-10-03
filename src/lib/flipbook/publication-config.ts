@@ -75,15 +75,15 @@ export const CANNOGA_VIEWBOOK_2026_2027: Publication = {
         },
         {
             pageNumber: 6,
-            title: 'Honours Bachelors Degrees',
-            section: 'Undergraduate',
-            subtitle: 'Undergraduate Pathways & Co-ops',
+            title: 'Ontario College Diplomas',
+            section: 'Diplomas',
+            subtitle: 'Applied Career Pathways & Co-ops',
             image: '/viewbook/pages/page-6.webp',
             thumbnail: '/viewbook/thumbnails/thumb-6.webp',
             width: 576,
             height: 576,
             aspectRatio: 1.0,
-            fullText: 'HONOURS BACHELORS DEGREES How You Benefit from Our Bachelor Programmes: 4-year structured curricula, rigorous academic standards, direct industry placements, research capstones, and career readiness.'
+            fullText: 'ONTARIO COLLEGE DIPLOMAS How You Benefit from Our Diploma Programmes: 2-year structured curricula, rigorous academic standards, direct industry placements, applied capstones, and career readiness.'
         },
         {
             pageNumber: 7,
@@ -143,7 +143,7 @@ export const CANNOGA_VIEWBOOK_2026_2027: Publication = {
             width: 576,
             height: 576,
             aspectRatio: 1.0,
-            fullText: 'Programme Duration Credits Domestic International Tuition breakdown table: Bachelor of Science, Bachelor of Business Administration, Advanced Diploma in Technology, Diplomas with fee schedules.'
+            fullText: 'Programme Duration Credits Domestic International Tuition breakdown table: Ontario College Diplomas, Advanced Diplomas in Technology, Certificates with fee schedules.'
         },
         {
             pageNumber: 12,

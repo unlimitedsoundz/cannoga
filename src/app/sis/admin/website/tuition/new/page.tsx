@@ -77,7 +77,7 @@ export default function NewTuitionPage() {
 
                 <div className="space-y-2">
                     <Label htmlFor="credentialType">Credential Type *</Label>
-                    <Input id="credentialType" value={credentialType} onChange={e => setCredentialType(e.target.value)} required placeholder="e.g. Bachelor Degree" />
+                    <Input id="credentialType" value={credentialType} onChange={e => setCredentialType(e.target.value)} required placeholder="e.g. Diploma" />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

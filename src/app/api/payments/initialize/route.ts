@@ -251,14 +251,14 @@ export async function POST(request: NextRequest) {
     if (!offer) {
         // Fallback 2: dynamically create admission_offer if missing
         const courseData = (application as any)?.Course;
-        const degreeLevel = courseData?.degreeLevel || 'BACHELOR';
+        const degreeLevel = courseData?.degreeLevel || 'DIPLOMA';
         const schoolSlug = courseData?.school?.slug || 'technology';
         const { mapSchoolToTuitionField, getTuitionFee, getProgramYears } = await import('@/utils/tuition');
         const tuitionField = mapSchoolToTuitionField(schoolSlug);
         const personal = (application as any)?.personal_info || {};
         const isDomestic = (personal.studentType || '').toLowerCase() === 'domestic';
         const annualFee = await getTuitionFee(degreeLevel, tuitionField, isDomestic);
-        const years = getProgramYears(courseData?.duration || '4 years', degreeLevel as any);
+        const years = getProgramYears(courseData?.duration || '2 years', degreeLevel as any);
         const totalFee = cadAmount || (annualFee * years);
 
         const deadline = new Date();

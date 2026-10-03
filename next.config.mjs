@@ -1,3 +1,11 @@
+import { readFileSync } from 'node:fs';
+
+// Bachelor programs were converted/merged into Ontario College Diplomas (Oct 2026).
+// Map of old program slug -> new Diploma slug.
+const legacyProgramRedirects = JSON.parse(
+    readFileSync(new URL('./src/data/legacy-program-redirects.json', import.meta.url), 'utf8')
+);
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
@@ -79,6 +87,13 @@ const nextConfig = {
         '@ckeditor/ckeditor5-upload',
         '@ckeditor/ckeditor5-special-characters'
     ],
+    async redirects() {
+        return Object.entries(legacyProgramRedirects).map(([from, to]) => ({
+            source: `/studies/${from}`,
+            destination: `/studies/${to}/`,
+            permanent: true,
+        }));
+    },
 };
 
 export default nextConfig;

@@ -152,11 +152,10 @@ export default async function CourseDetailPage({ params }: Props) {
         c = courseData as any;
     } else {
         const isMaster = slug.includes('master') || slug.includes('msc') || slug.includes('adv') || slug.includes('advanced');
-        const isBachelor = slug.includes('bachelor') || slug.includes('bsc');
         const isCertificate = slug.includes('cert');
-        const degreeLevel = isMaster ? 'MASTER' : isBachelor ? 'BACHELOR' : isCertificate ? 'CERTIFICATE' : 'DIPLOMA';
-        const duration = isMaster ? '3 Years' : isBachelor ? '4 Years' : isCertificate ? '1 Year' : '2 Years';
-        const credits = isMaster ? 90 : isBachelor ? 120 : isCertificate ? 30 : 60;
+        const degreeLevel = isMaster ? 'MASTER' : isCertificate ? 'CERTIFICATE' : 'DIPLOMA';
+        const duration = isMaster ? '3 Years' : isCertificate ? '1 Year' : '2 Years';
+        const credits = isMaster ? 90 : isCertificate ? 30 : 60;
         const title = formatSlugToTitle(slug);
 
         c = {
@@ -316,7 +315,7 @@ export default async function CourseDetailPage({ params }: Props) {
                         <div>
                             <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Credential</p>
                             <p className="font-bold text-white text-base">
-                                {c.degreeLevel === 'MASTER' || c.degreeLevel === 'ADVANCED_DIPLOMA' ? 'Ontario College Advanced Diploma' : c.degreeLevel === 'BACHELOR' ? "Bachelor's Degree" : c.degreeLevel === 'DIPLOMA' ? 'Ontario College Diploma' : 'Ontario College Certificate'}
+                                {c.degreeLevel === 'MASTER' || c.degreeLevel === 'ADVANCED_DIPLOMA' ? 'Ontario College Advanced Diploma' : (c.degreeLevel === 'DIPLOMA' || c.degreeLevel === 'BACHELOR') ? 'Ontario College Diploma' : 'Ontario College Certificate'}
                             </p>
                         </div>
                         <div>

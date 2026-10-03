@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { useParams } from 'next/navigation';
@@ -54,9 +54,9 @@ export default function FinancePage() {
         lastName: 'Mitchell',
         studentId: 'CC10231',
         email: 's.mitchell@cannogacollege.ca',
-        program: 'Bachelor of Science in Nursing',
+        program: 'Diploma in Practical Nursing',
         school: 'School of Health and Community Services',
-        academicLevel: 'Undergraduate',
+        academicLevel: 'Diploma',
         startTerm: 'Fall 2024',
         status: 'Active',
         enrollmentStatus: 'Enrolled',

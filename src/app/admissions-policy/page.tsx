@@ -229,10 +229,10 @@ export default function AdmissionsPolicyPage() {
                             className="p-5 border border-slate-200 hover:border-black transition-colors block text-[#0a151a] font-bold text-base no-underline rounded-sm space-y-1"
                         >
                             <div className="flex items-center justify-between">
-                                <span>Bachelor's Admissions</span>
+                                <span>Diploma Admissions</span>
                                 <ArrowRight size={16} weight="bold" />
                             </div>
-                            <p className="text-sm text-slate-600 font-normal leading-normal">High school entry standards</p>
+                            <p className="text-sm text-slate-600 font-normal leading-normal">Secondary school entry standards</p>
                         </Link>
                         <Link 
                             href="/refund-withdrawal-policy/" 

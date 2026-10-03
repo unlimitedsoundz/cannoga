@@ -16,13 +16,13 @@ interface AcademicAdmissionsLinkItem {
 
 const ACADEMIC_ADMISSIONS_LINKS: AcademicAdmissionsLinkItem[] = [
     {
-        id: 'bachelor',
-        title: "BACHELOR'S ADMISSIONS",
-        description: 'Explore 4-year undergraduate degree programmes, entrance requirements, and Canadian co-op pathways.',
-        href: '/student-guide/bachelor',
-        bgColor: 'bg-[#6366f1]', // Electric Indigo
-        borderColor: 'border-[#6366f1]',
-        waveColor: '#4f46e5',
+        id: 'diploma',
+        title: 'DIPLOMA ADMISSIONS',
+        description: 'Explore 2-year Diploma career pathways, practicums, and requirements.',
+        href: '/student-guide/diploma',
+        bgColor: 'bg-[#10b981]', // Electric Emerald
+        borderColor: 'border-[#10b981]',
+        waveColor: '#059669',
     },
     {
         id: 'master',
@@ -32,15 +32,6 @@ const ACADEMIC_ADMISSIONS_LINKS: AcademicAdmissionsLinkItem[] = [
         bgColor: 'bg-[#ec4899]', // Vibrant Hot Pink
         borderColor: 'border-[#ec4899]',
         waveColor: '#db2777',
-    },
-    {
-        id: 'diploma',
-        title: 'DIPLOMA ADMISSIONS',
-        description: 'Explore 2-year Diploma career pathways, practicums, and requirements.',
-        href: '/student-guide/diploma',
-        bgColor: 'bg-[#10b981]', // Electric Emerald
-        borderColor: 'border-[#10b981]',
-        waveColor: '#059669',
     },
     {
         id: 'certificate',

@@ -118,7 +118,7 @@ export default function AdminPageContentEditor() {
                             ← Back to Admin
                         </Link>
                         <h1 className="text-3xl font-bold text-gray-900">Admissions Page Content</h1>
-                        <p className="text-gray-600">Edit bachelor, master, and tuition page sections with rich text.</p>
+                        <p className="text-gray-600">Edit diploma, master, and tuition page sections with rich text.</p>
                     </div>
                     <button
                         onClick={handleSave}

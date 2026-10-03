@@ -80,7 +80,7 @@ export default function CourseRegistrationPage() {
                 description: `Curriculum subject for ${student.program?.title || 'your program'}.`,
                 capacity: 100,
                 instructor: 'Department Faculty',
-                academic_level: student.program?.degreeLevel || 'Bachelor',
+                academic_level: student.program?.degreeLevel || 'Diploma',
                 prerequisites: 'None'
             }));
 

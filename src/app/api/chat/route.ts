@@ -17,7 +17,7 @@ const CANNOGA_VERIFIED_KNOWLEDGE = [
         keywords: ['deposit', 'tuition deposit', '2000', '2,000', 'seat', 'reserve', 'confirmation deposit', 'pal deposit'],
         title: 'Tuition Deposit Policy ($2,000 CAD)',
         content: `### 🎓 Confirmation Tuition Deposit
-* **Deposit Amount:** **$2,000 CAD** across all academic programs (Certificates, Diplomas, Advanced Diplomas, and Bachelor's).
+* **Deposit Amount:** **$2,000 CAD** across all academic programs (Certificates, Diplomas, and Advanced Diplomas).
 * **Purpose:** Confirms your admission offer, reserves your seat in your chosen intake cohort, and initiates the immediate issuance of your **Provincial Attestation Letter (PAL)** and official Letter of Acceptance (LOA) for international students.
 * **Credited 100%:** The full $2,000 CAD is credited directly against your first-term tuition fees balance.
 * **Refund Exception:** The deposit is non-refundable; however, if an international applicant receives an official **Study Permit / Visa Refusal** from IRCC, **100% of the tuition deposit and prepaid fees will be refunded** (minus a standard $100 CAD administrative processing fee) upon submitting the refusal letter within 14 calendar days.
@@ -25,14 +25,14 @@ const CANNOGA_VERIFIED_KNOWLEDGE = [
     },
     {
         keywords: ['tuition', 'fee', 'fees', 'cost', 'how much', 'price', 'afford', 'payment plan', 'osap'],
-        title: 'Tuition & Academic Fees Breakdown',
-        content: `### 💰 Cannoga College Tuition Schedule (Annual)
+        content: `### 💰 Cannoga College Tuition Schedule (Annual, effective October 1, 2026)
 | Credential Level | Domestic Students | International Students | Tuition Deposit |
 | :--- | :--- | :--- | :--- |
-| **Postgraduate Certificate (6m–1y)** | CAD $2,400 / yr | CAD $4,000 / yr | CAD $2,000 |
-| **Diploma (2y)** | CAD $2,400 / yr | CAD $4,000 / yr | CAD $2,000 |
-| **Advanced Diploma (3y)** | CAD $5,600 / yr | CAD $9,600 / yr | CAD $2,000 |
-| **Bachelor's Degree (4y)** | CAD $4,000 / yr | CAD $6,400 / yr | CAD $2,000 |
+| **Certificate (1y, 30 credits)** | CAD $2,400 / yr | CAD $4,000 / yr | CAD $2,000 |
+| **Ontario College Diploma (2y, 60 credits)** | CAD $2,400 / yr | CAD $8,000 / yr | CAD $2,000 |
+| **Advanced Diploma (3y, 90 credits)** | CAD $5,600 / yr | CAD $16,600 / yr | CAD $2,000 |
+
+* Fees are annual tuition only and exclude accommodation, books, insurance, transportation and other student expenses.
 
 * **Financial Aid & OSAP:** Domestic Ontario students are eligible for the Ontario Student Assistance Program (OSAP) and flexible repayment plans (RAP).
 * **Payment Options:** Flexible installment plans per semester are available upon request through the Registrar.`
@@ -56,7 +56,7 @@ const CANNOGA_VERIFIED_KNOWLEDGE = [
         content: `### 🍁 Post-Graduation Work Permit (PGWP) & Canadian Careers
 * **PGWP Eligibility:** Graduates of eligible full-time Cannoga College academic programs qualify to apply for an open Post-Graduation Work Permit (PGWP) without requiring a job offer beforehand.
 * **Duration:**
-  * **2+ Year Programs (Diplomas, Advanced Diplomas, Bachelor's):** Up to a **3-Year Open Work Permit**.
+  * **2+ Year Programs (Diplomas and Advanced Diplomas):** Up to a **3-Year Open Work Permit**.
   * **Programs 8 months to 2 years:** Work permit length matches your study duration.
 * **Permanent Residency (PR) Transitions:**
   * **Canadian Experience Class (Express Entry):** Eligible after 1 year of skilled work in Canada.
@@ -91,20 +91,19 @@ const CANNOGA_VERIFIED_KNOWLEDGE = [
 * **Monthly Living Budget:** Estimated living expenses (groceries, transport, phone, recreation) average **$800 – $1,200 CAD/month** outside tuition.`
     },
     {
-        keywords: ['program', 'programs', 'course', 'courses', 'bachelor', 'master', 'diploma', 'certificate', 'degrees', 'what do you offer', 'school', 'schools', 'faculty', 'faculties'],
+        keywords: ['program', 'programs', 'course', 'courses', 'diploma', 'certificate', 'advanced diploma', 'what do you offer', 'school', 'schools', 'faculty', 'faculties'],
         title: 'Academic Programs & 8 Academic Schools',
         content: `### 📚 Cannoga College Academic Schools & Credentials
-Cannoga College offers industry-accredited programs across **4 Credential Levels**:
+Cannoga College offers industry-accredited programs across **3 Credential Levels**:
 * **1-Year Certificates (30 Credits)** (e.g., Accounting Fundamentals, Cybersecurity Foundations, PSW, Data Analytics)
-* **2-Year Ontario College Diplomas (60 Credits)** (e.g., Business Administration, Practical Nursing, Computer Systems Technician, Early Childhood Education)
+* **2-Year Ontario College Diplomas (60 Credits)** (e.g., Business Administration, Practical Nursing, Computer Systems Technician, Early Childhood Education, Software Engineering)
 * **3-Year Advanced Diplomas (90 Credits)** (e.g., AI, Computer Science, Civil Engineering, Architectural Technology, Design)
-* **4-Year Bachelor's Degrees (120 Credits)** (e.g., BBA, Applied Computer Science, BScN Nursing, B.Arch, B.Eng, BSW Social Work, Global Finance)
 
 #### 🏛️ Our 8 Academic Schools:
-1. **School of Arts, Design and Architecture:** Architecture (B.Arch), Art & Media, Interactive Design, Film & Television Production, Animation.
-2. **School of Business:** Accounting & Business Law, Global Finance, Business Administration (BBA), Management Studies, Marketing, Supply Chain & Logistics.
-3. **School of Education and Social Sciences:** Early Childhood Education, Child and Youth Care, Social Work (BSW), Community & Justice Services, Developmental Services.
-4. **School of Health and Community Services:** Practical Nursing, BScN Nursing, Dental Hygiene, Pharmacy Technician, Personal Support Worker (PSW), Physiotherapist Assistant.
+1. **School of Arts, Design and Architecture:** Architecture, Art & Media, Interactive Design, Film & Television Production, Animation.
+2. **School of Business:** Accounting & Business Law, Global Finance, Business Administration, Management Studies, Marketing, Supply Chain & Logistics.
+3. **School of Education and Social Sciences:** Early Childhood Education, Child and Youth Care, Social Work, Community & Justice Services, Developmental Services.
+4. **School of Health and Community Services:** Practical Nursing, Dental Hygiene, Pharmacy Technician, Personal Support Worker (PSW), Physiotherapist Assistant.
 5. **School of Hospitality and Tourism:** Culinary Skills & Culinary Management, Baking and Pastry Arts, Hotel Operations, Hospitality & Tourism Management, Event Planning.
 6. **School of Science:** Applied Physics & Mathematics, Chemical & Materials Science, Environmental Science, Systems Analysis, Data Science.
 7. **School of Technology:** Applied Computer Science & Software Engineering, Artificial Intelligence, Cybersecurity, Electrical & Automation Engineering, Civil Engineering, Mechanical & Energy Engineering.
@@ -118,7 +117,7 @@ Cannoga College offers industry-accredited programs across **4 Credential Levels
         content: `### 📝 How to Apply & Entry Requirements
 * **Intakes:** Fall (September), Winter (January), and Spring/Summer (May).
 * **General Requirements:**
-  * **Secondary / High School Diploma** (for Diplomas & Bachelor's) or Post-Secondary Credential (for Advanced Diplomas & Postgraduate Certificates).
+  * **Secondary / High School Diploma** (for Diplomas & Certificates) or Post-Secondary Credential (for Advanced Diplomas).
   * **English Language Proficiency:** IELTS Academic 6.0–6.5 (minimum 5.5 in each band), TOEFL iBT 80+, PTE Academic 58+, or Duolingo 105–115. *(English waivers available for applicants from recognized English-speaking curricula)*.
 * **Application Steps:**
   1. Submit your online application via the [Admissions Portal](https://cannogacollege.ca/portal/apply).
@@ -215,7 +214,7 @@ export async function POST(req: NextRequest) {
             answerText = `👋 **Welcome to Cannoga College in Ottawa, Ontario, Canada.**
 
 I can provide verified information directly from our database and admissions portal:
-* 🎓 **Programs & Degrees** (Certificates, Diplomas, Advanced Diplomas & Bachelor's)
+* 🎓 **Programs & Credentials** (Certificates, Diplomas, Advanced Diplomas)
 * 💰 **Tuition Fees & the $2,000 CAD Confirmation Deposit**
 * 🇨🇦 **Provincial Attestation Letter (PAL) & Study Permits**
 * 🏠 **Living in Ottawa, Residences & Living Costs**
@@ -249,7 +248,7 @@ How can I help you today?`;
             answerText = `### 🏛️ Cannoga College & Study in Canada
 Cannoga College is located at **81 Montreal Rd in Ottawa, Ontario, Canada**.
 
-* **Programs:** Industry-aligned Diplomas, Advanced Diplomas, and Bachelor's programs.
+* **Programs:** Industry-aligned Diplomas, Advanced Diplomas, and Certificate programs.
 * **Tuition Deposit:** A **$2,000 CAD non-refundable deposit** is required to secure your seat and issue your **Provincial Attestation Letter (PAL)**. It is credited 100% towards your first-term tuition.
 * **Work Opportunities:** Work up to **24 hours/week** off-campus during studies and qualify for up to a **3-Year Post-Graduation Work Permit (PGWP)** upon graduation.
 * **Admissions Contact:** [admissions@cannogacollege.ca](mailto:admissions@cannogacollege.ca) | Phone: +1 (613) 727-4723.

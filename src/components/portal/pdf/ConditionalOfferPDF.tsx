@@ -229,15 +229,13 @@ const ConditionalOfferPDF: React.FC<ConditionalOfferPDFProps> = ({ application, 
   const degreeLevelRaw = (course.degreeLevel || '').toUpperCase();
   const degreeLevelLabel =
     (degreeLevelRaw === 'MASTER' || degreeLevelRaw === 'ADVANCED_DIPLOMA') ? "Ontario College Advanced Diploma"
-      : degreeLevelRaw === 'BACHELOR' ? "Bachelor's Degree"
-        : degreeLevelRaw === 'DIPLOMA' ? 'Ontario College Diploma'
-          : degreeLevelRaw === 'CERTIFICATE' ? 'Ontario College Certificate'
-            : "Bachelor's Degree";
+      : degreeLevelRaw === 'CERTIFICATE' ? 'Ontario College Certificate'
+        : 'Ontario College Diploma';
 
-  const years = (degreeLevelRaw === 'MASTER' || degreeLevelRaw === 'ADVANCED_DIPLOMA') ? 3 : degreeLevelRaw === 'BACHELOR' ? 4 : degreeLevelRaw === 'DIPLOMA' ? 2 : 1;
+  const years = (degreeLevelRaw === 'MASTER' || degreeLevelRaw === 'ADVANCED_DIPLOMA') ? 3 : degreeLevelRaw === 'CERTIFICATE' ? 1 : 2;
   const programLength = `${years} Year${years > 1 ? 's' : ''}`;
-  const levelOfStudy = (degreeLevelRaw === 'MASTER' || degreeLevelRaw === 'ADVANCED_DIPLOMA') ? 'Level 6' : degreeLevelRaw === 'BACHELOR' ? 'Level 6' : 'Level 5';
-  const hoursOfInstruction = (degreeLevelRaw === 'MASTER' || degreeLevelRaw === 'ADVANCED_DIPLOMA') ? '2,400' : degreeLevelRaw === 'BACHELOR' ? '2,400' : '1,200';
+  const levelOfStudy = (degreeLevelRaw === 'MASTER' || degreeLevelRaw === 'ADVANCED_DIPLOMA') ? 'Level 6' : 'Level 5';
+  const hoursOfInstruction = (degreeLevelRaw === 'MASTER' || degreeLevelRaw === 'ADVANCED_DIPLOMA') ? '2,400' : '1,200';
 
   const applicantFirstName = personalInfo.firstName || user.first_name || '';
   const applicantLastName = personalInfo.lastName || user.last_name || '';

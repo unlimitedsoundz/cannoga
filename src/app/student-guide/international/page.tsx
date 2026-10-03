@@ -273,7 +273,7 @@ export default function InternationalGuidePage() {
                                                 </a>
                                             </h3>
                                             <p className="text-base md:text-lg text-black leading-relaxed font-normal mt-1">
-                                                Cannoga College students can obtain a post-graduation work permit if they have continuously studied full-time in Canada and have completed an eligible program (such as an Advanced Diploma, Bachelor’s Degree, or qualifying credential).
+                                                Cannoga College students can obtain a post-graduation work permit if they have continuously studied full-time in Canada and have completed an eligible program (such as an Advanced Diploma, Diploma, or qualifying credential).
                                             </p>
                                             <div className="pt-2">
                                                 <a

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default async function AdvancedDiplomaGuidePage() {
     const supabase = createStaticClient();
-    let intlTuition = 9600;
+    let intlTuition = 16600; // effective Oct 1, 2026
     let domesticTuition = 5600;
     const tuitionDeposit = 2000;
 

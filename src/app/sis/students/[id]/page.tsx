@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { useParams } from 'next/navigation';
@@ -33,9 +33,9 @@ const mockStudent = {
   phone: '(613) 555-0123',
   dateOfBirth: '1998-05-15',
   address: '123 College Ave, Ottawa, ON K1L 6E8',
-  program: 'Bachelor of Science in Nursing',
+  program: 'Diploma in Practical Nursing',
   school: 'School of Health and Community Services',
-  academicLevel: 'Undergraduate',
+  academicLevel: 'Diploma',
   startTerm: 'Fall 2024',
   status: 'Active',
   enrollmentStatus: 'Enrolled',
@@ -133,7 +133,7 @@ export default function StudentDetailPage() {
             <dl className="grid grid-cols-2 gap-4 text-sm">
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Program</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.program}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">School</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.school}</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Credential</dt><dd className="font-medium text-neutral-900 mt-1">Bachelor of Science</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Credential</dt><dd className="font-medium text-neutral-900 mt-1">Ontario College Diploma</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Academic Level</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.academicLevel}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Start Term</dt><dd className="font-medium text-neutral-900 mt-1">{mockStudent.startTerm}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Expected Graduation</dt><dd className="font-medium text-neutral-900 mt-1">Spring 2028</dd></div>

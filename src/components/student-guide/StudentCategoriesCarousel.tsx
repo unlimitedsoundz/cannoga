@@ -39,14 +39,6 @@ const CATEGORY_CARDS: StudentCategoryItem[] = [
         borderColor: 'border-[#ec4899]',
     },
     {
-        id: 'bachelor-students',
-        title: "BACHELOR'S GUIDE",
-        description: 'Checklist, course planning, credit requirements, and academic regulations for undergraduates.',
-        href: '/student-guide/bachelor',
-        bgColor: 'bg-[#10b981]', // Electric Emerald
-        borderColor: 'border-[#10b981]',
-    },
-    {
         id: 'master-students',
         title: "ADVANCED DIPLOMA'S GUIDE",
         description: '3-Year advanced technical curricula, applied research projects, labs, and career pathways.',

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Course } from '@/types/database';
 import { createClient } from '@/utils/supabase/client';
+import { getTuitionFeeSync } from '@/utils/tuition';
 import { useRouter } from 'next/navigation';
 import { CANONICAL_INTAKES } from '@/lib/intakes';
 
@@ -12,7 +13,7 @@ interface CourseSelectorProps {
 }
 
 export default function CourseSelector({ initialCourses, initialSelected }: CourseSelectorProps) {
-    const [filter, setFilter] = useState<'ALL' | 'CERTIFICATE' | 'DIPLOMA' | 'BACHELOR' | 'MASTER'>('ALL');
+    const [filter, setFilter] = useState<'ALL' | 'CERTIFICATE' | 'DIPLOMA' | 'MASTER'>('ALL');
     const [searchQuery, setSearchQuery] = useState('');
     const [isSubmitting, setIsSubmitting] = useState<string | null>(null);
     const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
@@ -157,7 +158,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                 <div className="flex flex-col gap-2 w-full md:w-auto">
                     <span className="text-[11px] font-bold text-black">Filter by Level</span>
                     <div className="flex flex-wrap gap-2">
-                        {(['ALL', 'CERTIFICATE', 'DIPLOMA', 'BACHELOR', 'MASTER'] as const).map((level) => (
+                        {(['ALL', 'CERTIFICATE', 'DIPLOMA', 'MASTER'] as const).map((level) => (
                             <button
                                 key={level}
                                 onClick={() => setFilter(level)}
@@ -166,7 +167,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                                     : 'bg-white text-black border-neutral-200 hover:border-neutral-400'
                                     }`}
                             >
-                                {level === 'ALL' ? 'All Programs' : level === 'CERTIFICATE' ? 'Certificate' : level === 'DIPLOMA' ? 'Diploma' : level === 'BACHELOR' ? 'Bachelors' : 'Advanced Diploma'}
+                                {level === 'ALL' ? 'All Programs' : level === 'CERTIFICATE' ? 'Certificate' : level === 'DIPLOMA' ? 'Diploma' : 'Advanced Diploma'}
                             </button>
                         ))}
                     </div>
@@ -221,12 +222,11 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                                     <p className="text-[11px] text-black font-semibold leading-none">{course.school?.name}</p>
                                 </div>
                                  <span className={`px-2 py-1 rounded-sm text-[11px] font-bold border transition-colors ${
-                                     course.degreeLevel === 'MASTER' ? 'border-[#0a151a] text-black'
+                                     course.degreeLevel === 'MASTER' || course.degreeLevel === 'ADVANCED_DIPLOMA' ? 'border-[#0a151a] text-black'
                                      : course.degreeLevel === 'CERTIFICATE' ? 'border-amber-400 text-amber-700 bg-amber-50'
-                                     : course.degreeLevel === 'DIPLOMA' ? 'border-blue-300 text-blue-700 bg-blue-50'
-                                     : 'border-neutral-300 text-black'
+                                     : 'border-blue-300 text-blue-700 bg-blue-50'
                                      }`}>
-                                     {course.degreeLevel === 'MASTER' ? 'Advanced Diploma' : course.degreeLevel === 'CERTIFICATE' ? 'Certificate' : course.degreeLevel === 'DIPLOMA' ? 'Diploma' : 'Bachelors'}
+                                     {course.degreeLevel === 'MASTER' || course.degreeLevel === 'ADVANCED_DIPLOMA' ? 'Advanced Diploma' : course.degreeLevel === 'CERTIFICATE' ? 'Certificate' : 'Diploma'}
                                  </span>
                             </div>
                             <p className="text-[13px] text-black font-medium mb-6 line-clamp-2 leading-relaxed">
@@ -259,7 +259,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                                      
                                      const getRate = (isInternational: boolean) => {
                                          const rateKey = isInternational ? `${field}_INTERNATIONAL` : field;
-                                          return tuitionRates[upper]?.[rateKey] || (isInternational ? 6400 : 2400);
+                                          return tuitionRates[upper]?.[rateKey] || getTuitionFeeSync(upper, field, !isInternational);
                                      };
                                      
                                      const domesticFee = getRate(false);

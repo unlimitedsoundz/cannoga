@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/client';
 import { CreditCard, Envelope, FileText, CheckCircle, Clock, CircleNotch as Loader2, ShieldCheck, Trash } from "@phosphor-icons/react";
 import { useState, useEffect } from 'react';
 import { pushInvoice, verifyTuitionPayment, getAdminInvoiceData, getPendingPayments, deletePendingPayment } from '../actions';
-import { getProgramYears, ANCILLARY_FEES_TOTAL } from '@/utils/tuition';
+import { getProgramYears, ANCILLARY_FEES_TOTAL, INTERNATIONAL_TUITION, getTuitionFeeSync } from '@/utils/tuition';
 
 export default function AdminInvoicesPage() {
     const [applications, setApplications] = useState<any[]>([]);
@@ -17,17 +17,15 @@ export default function AdminInvoicesPage() {
     const [verifyLoading, setVerifyLoading] = useState<string | null>(null);
     const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
 
-    // Default global fees reference, we could fetch from DB but keeping simple for now
-    // A production scenario would fetch these from tuition_rates table
+    // Default global fees reference (international, annual) — sourced from shared tuition schedule
     const defaultFees: Record<string, number> = {
-        'CERTIFICATE': 4000,
-        'DIPLOMA': 4000,
-        'ADVANCED_DIPLOMA': 4000,
-        'BSc': 6400,
-        'BACHELOR': 6400,
-        'PG_DIPLOMA': 4000,
-        'MASTERS': 9600,
-        'MASTER': 9600,
+        'CERTIFICATE': INTERNATIONAL_TUITION.CERTIFICATE,
+        'DIPLOMA': INTERNATIONAL_TUITION.DIPLOMA,
+        'ADVANCED_DIPLOMA': INTERNATIONAL_TUITION.ADVANCED_DIPLOMA,
+        'BACHELOR': INTERNATIONAL_TUITION.DIPLOMA, // legacy: Bachelor programs are now Diplomas
+        'PG_DIPLOMA': INTERNATIONAL_TUITION.DIPLOMA,
+        'MASTERS': INTERNATIONAL_TUITION.MASTER,
+        'MASTER': INTERNATIONAL_TUITION.MASTER,
     };
 
     const fetchApplications = async () => {
@@ -43,16 +41,8 @@ export default function AdminInvoicesPage() {
                 const nationality = app.personal_info?.nationality;
                 const isDomestic = nationality ? (nationality.toLowerCase().trim() === 'canada' || nationality.toLowerCase().trim() === 'canadian' || nationality.toLowerCase().trim() === 'domestic') : false;
 
-                let defaultFee = 4000;
-                if (title.includes('CERTIFICATE') || title.includes('DIPLOMA') || title.includes('ADVANCED')) {
-                    defaultFee = isDomestic ? 2400 : 4000;
-                } else if (title.includes('BACHELOR') || title.includes('BSC')) {
-                    defaultFee = isDomestic ? 4000 : 6400;
-                } else if (title.includes('MASTER') || title.includes('MSC')) {
-                    defaultFee = isDomestic ? 5600 : 9600;
-                } else if (title.includes('POSTGRADUATE') || title.includes('PG')) {
-                    defaultFee = isDomestic ? 5600 : 9600;
-                }
+                const level = program?.degreeLevel || title;
+                const defaultFee = getTuitionFeeSync(level, undefined, isDomestic);
 
                 return {
                     ...app,

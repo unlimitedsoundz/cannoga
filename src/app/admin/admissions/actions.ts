@@ -57,14 +57,14 @@ export async function updateApplicationStatus(applicationId: string, status: App
                     .single();
 
                 const courseData = (appData as any)?.Course;
-                const degreeLevel = courseData?.degreeLevel || 'BACHELOR';
+                const degreeLevel = courseData?.degreeLevel || 'DIPLOMA';
                 const schoolSlug = courseData?.school?.slug || 'technology';
                 const tuitionField = mapSchoolToTuitionField(schoolSlug);
                 const personal = (appData as any)?.personal_info || {};
                 const studentType = personal.studentType;
                 const isDomestic = studentType === 'domestic';
                 const annualFee = await getTuitionFee(degreeLevel, tuitionField, isDomestic);
-                const duration = (appData as any)?.Course?.duration || '4 years';
+                const duration = (appData as any)?.Course?.duration || '2 years';
                 const years = getProgramYears(duration, degreeLevel as any);
                 const totalFee = annualFee * years;
 

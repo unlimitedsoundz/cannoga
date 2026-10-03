@@ -1,7 +1,6 @@
 
 import { Link } from '@/components/ui/Link';
-import Image from 'next/image';
-import { ArrowRight, CheckCircle, Globe, Users, BookOpen, Briefcase, GraduationCap, Calendar, MapPin, Buildings, Headset, GlobeHemisphereWest, Basketball, Quotes } from '@phosphor-icons/react/dist/ssr';
+import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { Hero } from '@/components/layout/Hero';
 import BachelorFAQ from '@/components/admissions/BachelorFAQ';
 import { StudyingAtCannogaCarousel } from '@/components/admissions/StudyingAtCannogaCarousel';
@@ -11,11 +10,12 @@ import { getPageContentSection } from '@/lib/pageContentConfig';
 import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
+// NOTE: This route keeps its legacy /admissions/bachelor/ URL, but Cannoga no longer offers
+// Bachelor's degrees. The page now presents Ontario College Diploma admissions.
 export const metadata = {
-    title: "Undergraduate Admissions & Bachelor's Entry",
-    description: 'Learn about admissions criteria, application pathways, and scholarship options for our English-taught Bachelor\'s programs.',
+    title: "Diploma Admissions | Ontario College Diploma Programs",
+    description: 'Admissions criteria, application pathways, tuition and scholarship options for 2-year Ontario College Diploma programs at Cannoga College, Ottawa.',
     alternates: {
         canonical: 'https://cannogacollege.ca/admissions/bachelor/',
         languages: {
@@ -26,7 +26,7 @@ export const metadata = {
 
 const sections = [
     { id: 'benefits', title: 'How You Benefit', content: '' },
-    { id: 'progression', title: 'Bachelor\'s to Advanced Diploma', content: '' },
+    { id: 'progression', title: 'Diploma to Advanced Diploma', content: '' },
     { id: 'scholarships', title: 'Scholarships & Tuition Fees', content: '' },
     { id: 'admissions', title: 'Admission Info', content: '' },
     { id: 'events', title: 'Fairs & Events', content: '' },
@@ -38,7 +38,7 @@ const sections = [
 
 import { createStaticClient } from '@/lib/supabase/static';
 
-export default async function BachelorAdmissionsPage() {
+export default async function DiplomaAdmissionsPage() {
     const pageSlug = 'admissions/bachelor';
     
     // Server-side fetch DB content
@@ -58,7 +58,7 @@ export default async function BachelorAdmissionsPage() {
             });
         }
     } catch (e) {
-        console.error('Failed to pre-fetch bachelor content from DB:', e);
+        console.error('Failed to pre-fetch diploma admissions content from DB:', e);
     }
 
     const getContent = (sectionKey: string) => 
@@ -91,7 +91,7 @@ export default async function BachelorAdmissionsPage() {
                 lightText={true}
                 image={{
                     src: "/images/admissions/bachelor-hero.png",
-                    alt: "Bachelor's Students"
+                    alt: "Diploma Students"
                 }}
                 imagePosition="object-left-top"
             >
@@ -109,7 +109,7 @@ export default async function BachelorAdmissionsPage() {
                 breadcrumbs={[
                     { label: 'Home', href: '/' },
                     { label: 'Admissions', href: '/admissions' },
-                    { label: "Bachelor's Admissions" }
+                    { label: "Diploma Admissions" }
                 ]}
             >
 
@@ -119,7 +119,7 @@ export default async function BachelorAdmissionsPage() {
                     {/* How You Benefit */}
                     <section id="benefits" className="scroll-mt-32 space-y-2">
                         <div className="cc-section-divider !mb-3 !pb-2">
-                            <h2 className="cc-h2">How You Benefit from Our Programmes</h2>
+                            <h2 className="cc-h2">How You Benefit from Our Diploma Programmes</h2>
                         </div>
                         <DbPageContent
                             pageSlug={pageSlug}
@@ -129,10 +129,10 @@ export default async function BachelorAdmissionsPage() {
                         />
                     </section>
 
-                    {/* From Bachelor's to Advanced Diploma */}
+                    {/* From Diploma to Advanced Diploma */}
                     <section id="progression" className="scroll-mt-32 space-y-2">
                         <div className="cc-section-divider !mb-3 !pb-2">
-                            <h2 className="cc-h2">From Bachelor's to Advanced Diploma</h2>
+                            <h2 className="cc-h2">From Diploma to Advanced Diploma</h2>
                         </div>
                         <DbPageContent
                             pageSlug={pageSlug}
@@ -203,22 +203,23 @@ export default async function BachelorAdmissionsPage() {
             <BreadcrumbSchema items={[
                 { name: 'Home', item: '/' },
                 { name: 'Admissions', item: '/admissions' },
-                { name: 'Bachelor\'s Admissions', item: '/admissions/bachelor' }
+                { name: 'Diploma Admissions', item: '/admissions/bachelor' }
             ]} />
             <SchemaLD data={{
                 "@context": "https://schema.org",
                 "@type": "EducationalOccupationalProgram",
-                "name": "Bachelor's Degree Programmes",
-                "description": "Information on Bachelor's degree programmes taught in English at Cannoga College.",
+                "name": "Ontario College Diploma Programmes",
+                "description": "Information on 2-year Ontario College Diploma programmes taught in English at Cannoga College.",
                 "provider": {
-                    "@type": "UniversityOrUniversity",
+                    "@type": "CollegeOrUniversity",
                     "name": "Cannoga College",
                     "url": "https://cannogacollege.ca"
                 },
-                "educationalLevel": "Bachelor",
+                "educationalLevel": "Diploma",
+                "timeToComplete": "P2Y",
                 "offers": {
                     "@type": "Offer",
-                    "category": "Bachelor's Programmes"
+                    "category": "Diploma Programmes"
                 }
             }} />
             </GuideSidebarLayout>

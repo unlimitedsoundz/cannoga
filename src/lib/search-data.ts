@@ -12,7 +12,7 @@ export const searchablePages: SearchablePage[] = [
     { title: "Certificate Programs", href: "/degree-programmes#certificates", category: "Study & Admissions" },
     { title: "Diploma Programs", href: "/degree-programmes#diplomas", category: "Study & Admissions" },
     { title: "Advanced Diploma Programs", href: "/degree-programmes#advanced-diplomas", category: "Study & Admissions" },
-    { title: "Bachelor's Programmes", href: "/admissions/bachelor", category: "Study & Admissions" },
+    { title: "Diploma Admissions", href: "/admissions/bachelor", category: "Study & Admissions" },
     { title: "Advanced Diploma Programmes", href: "/admissions/master", category: "Study & Admissions" },
     { title: "Tuition Fees & Scholarships", href: "/admissions/tuition", category: "Study & Admissions" },
     { title: "Application Process", href: "/admissions/application-process", category: "Study & Admissions" },
@@ -49,7 +49,7 @@ export const searchablePages: SearchablePage[] = [
     { title: "Energy & Mechanical Engineering", href: "/schools/technology/energy-mechanical", category: "Departments" },
 
     // Student Life & Guides
-    { title: "Bachelor's Student Guide", href: "/student-guide/bachelor", category: "Student Life & Guides" },
+    { title: "Diploma Student Guide", href: "/student-guide/bachelor", category: "Student Life & Guides" },
     { title: "Advanced Diploma Student Guide", href: "/student-guide/master", category: "Student Life & Guides" },
     { title: "Diploma Students Guide", href: "/student-guide/diploma", category: "Student Life & Guides" },
     { title: "Certificate Students Guide", href: "/student-guide/certificate", category: "Student Life & Guides" },

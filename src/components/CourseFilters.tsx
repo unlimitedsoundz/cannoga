@@ -30,8 +30,9 @@ export default function CourseFilters() {
                 <div className="flex gap-2">
                     {[
                         { label: 'All', value: 'all' },
-                        { label: 'Bachelor', value: 'BACHELOR' },
+                        { label: 'Diploma', value: 'DIPLOMA' },
                         { label: 'Advanced Diploma', value: 'MASTER' },
+                        { label: 'Certificate', value: 'CERTIFICATE' },
                     ].map((opt) => (
                         <button
                             key={opt.value}

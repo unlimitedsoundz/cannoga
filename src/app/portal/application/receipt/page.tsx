@@ -161,7 +161,7 @@ function ReceiptContent() {
     }
 
     // Calculate deposit status and other needed values
-    const level = application.course?.level || 'BACHELOR';
+    const level = application.course?.level || 'DIPLOMA';
     const field = application.course?.field || 'TECHNOLOGY';
     const isDomestic = application.personal_info?.studentType === 'domestic';
     const tuitionFee = getTuitionFeeSync(level, field, isDomestic);

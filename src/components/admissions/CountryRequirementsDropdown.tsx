@@ -21,7 +21,7 @@ export default function CountryRequirementsDropdown() {
     return {
       country: countryName,
       basicRequirements: ['International Application Form', 'Application fee: Free'],
-      notes: ['Applications from applicants with a study gap of more than 3 years following secondary school graduation or 5 years following completion of their Bachelor Degree may require additional CV/resume verification.'],
+      notes: ['Applications from applicants with a study gap of more than 3 years following secondary school graduation or post-secondary completion may require additional CV/resume verification.'],
       undergraduateCertificate: [
         `Official High School Certificate / Secondary School Diploma from ${countryName} with minimum passing grades`,
         'English language proficiency: IELTS 6.0 (minimum 5.5 in each band), TOEFL iBT 80, Duolingo 105, or Cannoga English Placement Test',
@@ -29,7 +29,7 @@ export default function CountryRequirementsDropdown() {
       ],
       bachelorDegree: [
         `Recognized High School Completion / Senior Secondary School Certificate from ${countryName} with strong academic standing in relevant prerequisites`,
-        'English language proficiency: IELTS 6.5 (minimum 6.0 in each band), TOEFL iBT 88, Duolingo 115, or Cannoga EAP completion',
+        'English language proficiency: IELTS 6.0 (minimum 5.5 in each band), TOEFL iBT 80, Duolingo 105, or Cannoga EAP completion',
         'Certified academic transcripts translated into English'
       ],
       advancedDiploma: [
@@ -122,10 +122,10 @@ export default function CountryRequirementsDropdown() {
             </ul>
           </div>
 
-          {/* Bachelor's Degree */}
+          {/* Diploma Program */}
           <div>
             <h3 className="text-xl font-black text-black mb-4">
-              Admission To Honours Bachelor's Degree Program (4 years)
+              Admission To Ontario College Diploma Program (2 years)
             </h3>
             <ul className="space-y-3">
               {requirements.bachelorDegree.map((req, idx) => {

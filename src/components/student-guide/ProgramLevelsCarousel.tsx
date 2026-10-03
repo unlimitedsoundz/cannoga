@@ -31,14 +31,6 @@ const PROGRAM_LEVELS: ProgramLevelItem[] = [
         borderColor: 'border-[#ec4899]',
     },
     {
-        id: 'bachelor',
-        title: "BACHELOR'S DEGREE",
-        description: 'Structured curriculum focused on core knowledge, innovation, and career skills.',
-        href: '/admissions/bachelor',
-        bgColor: 'bg-[#10b981]', // Electric Emerald
-        borderColor: 'border-[#10b981]',
-    },
-    {
         id: 'master',
         title: "ADVANCED DIPLOMA",
         description: 'Comprehensive 3-year advanced studies focusing on specialized technical expertise and applied practicums.',

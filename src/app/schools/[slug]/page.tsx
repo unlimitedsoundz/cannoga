@@ -289,7 +289,7 @@ export default async function SchoolDetails({ params }: Props) {
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
                                                 <span className="absolute top-3 right-3 bg-[#0a151a] text-white text-[11px] font-extrabold uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md border border-white/10 z-10">
-                                                    {(course.degreeLevel === "MASTER" || course.degreeLevel === "ADVANCED_DIPLOMA") ? "Adv Dip" : course.degreeLevel === "BACHELOR" ? "BSc" : course.degreeLevel === "DIPLOMA" ? "Dip" : "Cert"}
+                                                    {(course.degreeLevel === "MASTER" || course.degreeLevel === "ADVANCED_DIPLOMA") ? "Adv Dip" : (course.degreeLevel === "DIPLOMA" || course.degreeLevel === "BACHELOR") ? "Dip" : "Cert"}
                                                 </span>
                                             </div>
                                             <div className="p-5 flex flex-col justify-between flex-grow space-y-3">
@@ -297,7 +297,7 @@ export default async function SchoolDetails({ params }: Props) {
                                                     {course.title}
                                                 </h3>
                                                 <div className="flex items-center justify-between text-xs text-neutral-500 font-medium pt-2 border-t border-neutral-100">
-                                                    <span>{course.duration || "Multi-Year Degree"}</span>
+                                                    <span>{course.duration || "2 Years"}</span>
                                                     <span className="text-black font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1">
                                                         Details <ArrowRight size={12} weight="bold" />
                                                     </span>

@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
+import { getTuitionFeeSync } from '@/utils/tuition';
 import { 
     MagnifyingGlass, 
     SquaresFour, 
@@ -25,7 +26,7 @@ export interface ProgramItem {
     code?: string;
     cip_code?: string;
     name: string;
-    level: 'Certificate' | 'Diploma' | 'Advanced Diploma' | 'Bachelor';
+    level: 'Certificate' | 'Diploma' | 'Advanced Diploma';
     school: string;
     duration: string;
     credits: number;
@@ -85,14 +86,14 @@ const programsData: ProgramItem[] = [
     {
         id: 'ai-ml',
         name: 'Applied Artificial Intelligence & Machine Learning',
-        level: 'Bachelor',
+        level: 'Diploma',
         school: 'School of Technology',
-        duration: '4 Years',
-        credits: 120,
+        duration: '2 Years',
+        credits: 60,
         coop: true,
         pgwp: true,
-        tuitionDomestic: '$2,500/yr',
-        tuitionInternational: '$4,000/yr',
+        tuitionDomestic: '$2,400/yr',
+        tuitionInternational: '$8,000/yr',
         href: '/admissions/bachelor',
         description: 'Advanced neural networks, natural language processing, computer vision, and machine learning deployment in enterprise systems.'
     },
@@ -105,22 +106,22 @@ const programsData: ProgramItem[] = [
         credits: 90,
         coop: true,
         pgwp: true,
-        tuitionDomestic: '$1,500/yr',
-        tuitionInternational: '$2,500/yr',
+        tuitionDomestic: '$5,600/yr',
+        tuitionInternational: '$16,600/yr',
         href: '/admissions',
         description: 'Building Information Modeling (BIM), sustainable architectural drafting, structural codes, and construction project management.'
     },
     {
         id: 'biomed',
         name: 'Biomedical Science & Biotechnology',
-        level: 'Bachelor',
+        level: 'Diploma',
         school: 'School of Health & Life Sciences',
-        duration: '4 Years',
-        credits: 120,
+        duration: '2 Years',
+        credits: 60,
         coop: true,
         pgwp: true,
-        tuitionDomestic: '$2,500/yr',
-        tuitionInternational: '$4,000/yr',
+        tuitionDomestic: '$2,400/yr',
+        tuitionInternational: '$8,000/yr',
         href: '/admissions/bachelor',
         description: 'Molecular biology, genetic engineering, pharmaceutical manufacturing, and bio-laboratory research methods.'
     },
@@ -211,15 +212,15 @@ const programsData: ProgramItem[] = [
     {
         id: 'env-sci',
         name: 'Environmental Science & Resource Sustainability',
-        level: 'Bachelor',
+        level: 'Diploma',
         school: 'School of Science',
-        duration: '4 Years',
-        credits: 120,
+        duration: '2 Years',
+        credits: 60,
         coop: true,
         pgwp: true,
-        tuitionDomestic: '$2,500/yr',
-        tuitionInternational: '$4,000/yr',
-        href: '/admissions/bachelor',
+        tuitionDomestic: '$2,400/yr',
+        tuitionInternational: '$8,000/yr',
+        href: '/degree-programmes#diplomas',
         description: 'Climate change modeling, renewable energy systems, environmental policy analysis, and ecological field research.'
     },
     {
@@ -231,8 +232,8 @@ const programsData: ProgramItem[] = [
         credits: 60,
         coop: true,
         pgwp: true,
-        tuitionDomestic: '$1,500/yr',
-        tuitionInternational: '$2,500/yr',
+        tuitionDomestic: '$2,400/yr',
+        tuitionInternational: '$8,000/yr',
         href: '/admissions',
         description: 'User interface design, Figma prototyping, typography, visual branding, and interactive digital portfolio development.'
     },
@@ -245,8 +246,8 @@ const programsData: ProgramItem[] = [
         credits: 90,
         coop: true,
         pgwp: true,
-        tuitionDomestic: '$3,500/yr',
-        tuitionInternational: '$6,000/yr',
+        tuitionDomestic: '$5,600/yr',
+        tuitionInternational: '$16,600/yr',
         href: '/admissions',
         description: 'Healthcare economics, hospital operations, public health policy, biostatistics, and medical informatics leadership.'
     },
@@ -259,23 +260,23 @@ const programsData: ProgramItem[] = [
         credits: 60,
         coop: true,
         pgwp: true,
-        tuitionDomestic: '$1,500/yr',
-        tuitionInternational: '$2,500/yr',
+        tuitionDomestic: '$2,400/yr',
+        tuitionInternational: '$8,000/yr',
         href: '/admissions',
         description: 'Hotel operations, international event management, culinary administration, and hospitality guest relations.'
     },
     {
         id: 'mech-eng',
         name: 'Mechanical Engineering & Autonomous Robotics',
-        level: 'Bachelor',
+        level: 'Advanced Diploma',
         school: 'School of Technology',
-        duration: '4 Years',
-        credits: 120,
+        duration: '3 Years',
+        credits: 90,
         coop: true,
         pgwp: true,
-        tuitionDomestic: '$2,500/yr',
-        tuitionInternational: '$4,000/yr',
-        href: '/admissions/bachelor',
+        tuitionDomestic: '$5,600/yr',
+        tuitionInternational: '$16,600/yr',
+        href: '/degree-programmes#advanced-diplomas',
         description: 'Thermodynamics, mechatronics robotics, CAD design, fluid dynamics, and manufacturing process automation.'
     },
     {
@@ -407,29 +408,29 @@ const programsData: ProgramItem[] = [
     {
         id: 'ind-design',
         name: 'Industrial & Product Design',
-        level: 'Bachelor',
+        level: 'Diploma',
         school: 'School of Arts & Design',
-        duration: '4 Years',
-        credits: 120,
+        duration: '2 Years',
+        credits: 60,
         coop: true,
         pgwp: true,
-        tuitionDomestic: '$2,500/yr',
-        tuitionInternational: '$4,000/yr',
-        href: '/admissions/bachelor',
+        tuitionDomestic: '$2,400/yr',
+        tuitionInternational: '$8,000/yr',
+        href: '/degree-programmes#diplomas',
         description: 'Ergonomic physical product design, 3D printing prototyping, SolidWorks 3D modeling, and sustainable material science.'
     },
     {
         id: 'kinesiology',
         name: 'Kinesiology & Human Performance',
-        level: 'Bachelor',
+        level: 'Diploma',
         school: 'School of Health & Life Sciences',
-        duration: '4 Years',
-        credits: 120,
+        duration: '2 Years',
+        credits: 60,
         coop: true,
         pgwp: true,
-        tuitionDomestic: '$2,500/yr',
-        tuitionInternational: '$4,000/yr',
-        href: '/admissions/bachelor',
+        tuitionDomestic: '$2,400/yr',
+        tuitionInternational: '$8,000/yr',
+        href: '/degree-programmes#diplomas',
         description: 'Biomechanics, exercise physiology, sports injury rehabilitation, athletic training, and human movement science.'
     },
     {
@@ -504,13 +505,16 @@ const programsData: ProgramItem[] = [
     }
 ];
 
+const formatTuitionLabel = (level: string, isDomestic: boolean) =>
+    `$${getTuitionFeeSync(level, undefined, isDomestic).toLocaleString('en-US')}/yr`;
+
 export function ProgramsAZTableView() {
     const [allPrograms, setAllPrograms] = useState<ProgramItem[]>(() => 
         programsData.map((p, idx) => {
             const schSlug = getSchoolSlug(p.school);
             const deptSlug = getDeptSlug(p.name, p.school);
-            const domesticTuition = p.level === 'Advanced Diploma' ? '$5,600/yr' : p.level === 'Bachelor' ? '$4,000/yr' : '$2,400/yr';
-            const intlTuition = p.level === 'Advanced Diploma' ? '$9,600/yr' : p.level === 'Bachelor' ? '$6,400/yr' : '$4,000/yr';
+            const domesticTuition = formatTuitionLabel(p.level, true);
+            const intlTuition = formatTuitionLabel(p.level, false);
             return {
                 ...p,
                 code: `CAN-${100 + idx * 5}`,
@@ -528,7 +532,7 @@ export function ProgramsAZTableView() {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
-    const levels = ['All', 'Certificate', 'Diploma', 'Advanced Diploma', 'Bachelor'];
+    const levels = ['All', 'Certificate', 'Diploma', 'Advanced Diploma'];
 
     // Fetch dynamic programs from Supabase Course table
     useEffect(() => {
@@ -544,26 +548,25 @@ export function ProgramsAZTableView() {
                 if (!error && dbData && dbData.length > 0 && isMounted) {
                     const dbMapped: ProgramItem[] = dbData.map((item: any) => {
                         const schoolName = item.School?.name || 'School of Academic Studies';
-                        const levelFormatted = item.degreeLevel ? (
-                            item.degreeLevel === 'BACHELOR' ? 'Bachelor' :
+                        const levelFormatted: 'Certificate' | 'Diploma' | 'Advanced Diploma' = item.degreeLevel ? (
                             (item.degreeLevel === 'MASTER' || item.degreeLevel === 'ADVANCED_DIPLOMA') ? 'Advanced Diploma' :
                             item.degreeLevel === 'CERTIFICATE' ? 'Certificate' : 'Diploma'
                         ) : 'Diploma';
 
-                        const domesticTuition = levelFormatted === 'Advanced Diploma' ? '$5,600/yr' : levelFormatted === 'Bachelor' ? '$4,000/yr' : '$2,400/yr';
-                        const intlTuition = levelFormatted === 'Advanced Diploma' ? '$9,600/yr' : levelFormatted === 'Bachelor' ? '$6,400/yr' : '$4,000/yr';
+                        const domesticTuition = formatTuitionLabel(levelFormatted, true);
+                        const intlTuition = formatTuitionLabel(levelFormatted, false);
 
-                        const isPgwpEligible = levelFormatted === 'Advanced Diploma' || levelFormatted === 'Bachelor' || levelFormatted === 'Diploma';
+                        const isPgwpEligible = levelFormatted === 'Advanced Diploma' || levelFormatted === 'Diploma';
 
                         return {
                             id: item.id,
                             code: item.code || 'CAN-100',
                             cip_code: item.cip_code || getCIPCode({ title: item.title, degreeLevel: item.degreeLevel }),
                             name: item.title,
-                            level: levelFormatted as any,
+                            level: levelFormatted,
                             school: schoolName,
                             duration: item.duration || '2 Years',
-                            credits: Number(item.credits) || (levelFormatted === 'Bachelor' ? 120 : levelFormatted === 'Advanced Diploma' ? 90 : 60),
+                            credits: Number(item.credits) || (levelFormatted === 'Advanced Diploma' ? 90 : 60),
                             coop: true,
                             pgwp: isPgwpEligible,
                             tuitionDomestic: domesticTuition,

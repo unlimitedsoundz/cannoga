@@ -217,13 +217,13 @@ export default function AdmissionApplicationPage() {
     try {
       const { getTuitionFee, mapSchoolToTuitionField, getProgramYears } = await import('@/utils/tuition');
       const schoolSlug = application?.course?.school?.slug || 'technology';
-      const degreeLevel = application?.course?.degreeLevel || 'BACHELOR';
+      const degreeLevel = application?.course?.degreeLevel || 'DIPLOMA';
       const tuitionField = mapSchoolToTuitionField(schoolSlug);
       const personal = application?.personal_info || {};
       const studentType = personal.studentType;
       const isDomestic = studentType === 'domestic';
       const annualFee = await getTuitionFee(degreeLevel, tuitionField, isDomestic);
-      const duration = application?.course?.duration || '4 years';
+      const duration = application?.course?.duration || '2 years';
       const years = getProgramYears(duration, degreeLevel);
       const tuitionFee = annualFee * years;
       const result = await createAdmissionOffer(id, tuitionFee, new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString());

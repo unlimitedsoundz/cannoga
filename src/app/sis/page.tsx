@@ -1396,7 +1396,7 @@ function formatRelativeTime(dateInput: any): string {
     if (invoices.length === 0 && tuitionFee > 0) {
         totalBalance = Math.max(0, tuitionFee - totalPaid);
     }
-    const totalRequiredCredits = studentCourse?.credits || (studentCourse?.degreeLevel === 'MASTER' ? 60 : studentCourse?.degreeLevel === 'DIPLOMA' ? 60 : studentCourse?.degreeLevel === 'CERTIFICATE' ? 30 : studentCourse?.degreeLevel === 'BACHELOR' ? 90 : 120);
+    const totalRequiredCredits = studentCourse?.credits || (studentCourse?.degreeLevel === 'MASTER' || studentCourse?.degreeLevel === 'ADVANCED_DIPLOMA' ? 90 : studentCourse?.degreeLevel === 'CERTIFICATE' ? 30 : 60);
     const activeHolds = holds.filter(h => h.status === 'active');
     const activeTasks = tasks.filter(t => t.status === 'pending' || t.status === 'in_progress');
     const activeEnrollments = enrollments.filter(e => e.status === 'REGISTERED' || e.status === 'ACTIVE');

@@ -18,7 +18,7 @@ export async function getAdminInvoiceData() {
             personal_info,
             status,
             user:profiles(first_name, last_name, email),
-            program:Course(title, duration),
+            program:Course(title, duration, degreeLevel),
             offer:admission_offers(
                 id,
                 tuition_fee,
@@ -177,7 +177,7 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
         }
 
         const courseData = (application as any).course;
-        const degreeLevel = courseData?.degreeLevel || 'BACHELOR';
+        const degreeLevel = courseData?.degreeLevel || 'DIPLOMA';
         const schoolSlug = courseData?.school?.slug || 'technology';
 
         const { getTuitionFee, mapSchoolToTuitionField, getProgramYears } = await import('@/utils/tuition');

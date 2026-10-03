@@ -104,15 +104,14 @@ export default async function TuitionPaymentPage() {
     const credentialDisplay: Record<string, { label: string; duration: string; credits: string }> = {
         CERTIFICATE: { label: 'Certificate', duration: '1 Year', credits: '30 Credits' },
         DIPLOMA: { label: 'Ontario College Diploma', duration: '2 Years', credits: '60 Credits' },
-        BACHELOR: { label: "Bachelor's Degree", duration: '4 Years', credits: '120 Credits' },
         MASTER: { label: "Advanced Diploma", duration: '3 Years', credits: '90 Credits' },
     };
 
+    // Fallbacks — tuition schedule effective October 1, 2026
     const fallbackRates: Record<string, { domestic: number; international: number }> = {
         CERTIFICATE: { domestic: 2400, international: 4000 },
-        DIPLOMA: { domestic: 2400, international: 4000 },
-        BACHELOR: { domestic: 4000, international: 6400 },
-        MASTER: { domestic: 5600, international: 9600 },
+        DIPLOMA: { domestic: 2400, international: 8000 },
+        MASTER: { domestic: 5600, international: 16600 },
     };
 
     const tuitionRates = tuitionInfo || [];
@@ -181,7 +180,7 @@ export default async function TuitionPaymentPage() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {['CERTIFICATE', 'DIPLOMA', 'BACHELOR', 'MASTER'].map((credentialType, idx) => {
+                                        {['CERTIFICATE', 'DIPLOMA', 'MASTER'].map((credentialType, idx) => {
                                             const info = tuitionRates.find((t: any) => t.credential_type === credentialType);
                                             const display = credentialDisplay[credentialType] || { label: credentialType, duration: '—', credits: '—' };
                                             const fallback = fallbackRates[credentialType] || { domestic: 0, international: 0 };
@@ -209,10 +208,6 @@ export default async function TuitionPaymentPage() {
                                 <div className="space-y-2">
                                     <h3 className="text-xl font-bold text-slate-900 tracking-tight">Diploma Program Fees</h3>
                                     <DbPageContent pageSlug={pageSlug} sectionKey="diploma_fees_content" fallbackContent={getContent('diploma_fees_content')} className="space-y-3 text-lg font-normal text-black leading-relaxed" />
-                                </div>
-                                <div className="space-y-2">
-                                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Bachelor's Program Fees</h3>
-                                    <DbPageContent pageSlug={pageSlug} sectionKey="bachelor_fees_content" fallbackContent={getContent('bachelor_fees_content')} className="space-y-3 text-lg font-normal text-black leading-relaxed" />
                                 </div>
                                 <div className="space-y-2">
                                     <h3 className="text-xl font-bold text-slate-900 tracking-tight">Advanced Diploma Program Fees</h3>

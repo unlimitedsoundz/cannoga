@@ -112,7 +112,6 @@ export default function EditTuitionPage() {
                     <select id="credentialType" value={credentialType} onChange={e => setCredentialType(e.target.value)} className="w-full px-3 py-2 text-sm border border-neutral-200 focus:border-neutral-400 focus:outline-none font-sans bg-white">
                         <option value="CERTIFICATE">Certificate</option>
                         <option value="DIPLOMA">Diploma</option>
-                        <option value="BACHELOR">Bachelor</option>
                         <option value="MASTER">Advanced Diploma (3 Years)</option>
                     </select>
                 </div>
