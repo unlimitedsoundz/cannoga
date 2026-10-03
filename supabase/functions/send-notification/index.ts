@@ -22,11 +22,10 @@ function getIntakeStartDate(intake?: string | null): string {
 
 function getProgramYearsByLevel(level?: string): number {
     const lvl = (level || '').toUpperCase();
-    if (lvl.includes('BACHELOR') || lvl.includes('BSC')) return 4;
     if (lvl.includes('ADVANCED') || lvl.includes('MASTER') || lvl.includes('MSC')) return 3;
-    if (lvl.includes('DIPLOMA')) return 2;
+    if (lvl.includes('DIPLOMA') || lvl.includes('BACHELOR')) return 2;
     if (lvl.includes('CERTICACATE') || lvl.includes('CERTIFICATE')) return 1;
-    return 1;
+    return 2;
 }
 
 function addYearsToDate(dateStr: string, years: number): string {
@@ -239,14 +238,14 @@ serve(async (req) => {
         const appNationality = (applicationData?.personal_info?.nationality || applicationData?.user?.country_of_residence || '').toLowerCase();
         const isAppDomestic = appNationality === 'finland' || appNationality === 'finnish' || appNationality === 'eu' || appNationality === 'domestic';
         const appDegreeLevel = (applicationData?.course_degree_level || '').toUpperCase();
-        let appAnnualTuition = 6400;
+        let appAnnualTuition = 8000;
         const appDepositTuition = 2000;
-        if (appDegreeLevel.includes('CERTICACATE') || (appDegreeLevel.includes('DIPLOMA') && !appDegreeLevel.includes('ADVANCED'))) {
+        if (appDegreeLevel.includes('CERTICACATE') || appDegreeLevel.includes('CERTIFICATE')) {
             appAnnualTuition = isAppDomestic ? 2400 : 4000;
-        } else if (appDegreeLevel.includes('BACHELOR')) {
-            appAnnualTuition = isAppDomestic ? 4000 : 6400;
         } else if (appDegreeLevel.includes('ADVANCED') || appDegreeLevel.includes('MASTER')) {
-            appAnnualTuition = isAppDomestic ? 5600 : 9600;
+            appAnnualTuition = isAppDomestic ? 5600 : 16600;
+        } else {
+            appAnnualTuition = isAppDomestic ? 2400 : 8000;
         }
 
         switch (notificationType) {
@@ -415,10 +414,10 @@ serve(async (req) => {
                     <p>I am delighted to inform you that you have been offered a conditional place to study at Cannoga College.</p>
                     <p><strong>Programme Details:</strong></p>
                     <p>Programme: ${applicationData?.course_title || 'Your Degree Programme'}</p>
-                    <p>Degree Level: ${applicationData?.course_degree_level === 'MASTER' || applicationData?.course_degree_level === 'ADVANCED_DIPLOMA' ? "Ontario College Advanced Diploma" : applicationData?.course_degree_level === 'BACHELOR' ? "Honours Bachelor's Degree" : applicationData?.course_degree_level === 'DIPLOMA' ? "Ontario College Diploma" : applicationData?.course_degree_level === 'CERTICACATE' || applicationData?.course_degree_level === 'CERTIFICATE' ? "Canadian Certificate" : "Ontario College Advanced Diploma"}</p>
+                    <p>Degree Level: ${applicationData?.course_degree_level === 'MASTER' || applicationData?.course_degree_level === 'ADVANCED_DIPLOMA' ? "Ontario College Advanced Diploma" : (applicationData?.course_degree_level === 'CERTICACATE' || applicationData?.course_degree_level === 'CERTIFICATE') ? "Ontario College Certificate" : "Ontario College Diploma"}</p>
                     <p>Intake: ${applicationData?.intake || 'Fall 2026'}</p>
                     <p>Duration: ${getIntakeStartDate(applicationData?.intake)} - ${getProgramEndDate(applicationData?.intake, applicationData?.course_degree_level)}</p>
-                    <p>Total Credits: ${applicationData?.course_degree_level === 'MASTER' || applicationData?.course_degree_level === 'ADVANCED_DIPLOMA' ? '90 Credits' : applicationData?.course_degree_level === 'BACHELOR' ? '120 Credits' : applicationData?.course_degree_level === 'DIPLOMA' ? '60 Credits' : '30 Credits'}</p>
+                    <p>Total Credits: ${applicationData?.course_degree_level === 'MASTER' || applicationData?.course_degree_level === 'ADVANCED_DIPLOMA' ? '90 Credits' : (applicationData?.course_degree_level === 'CERTIFICATE' || applicationData?.course_degree_level === 'CERTICACATE') ? '30 Credits' : '60 Credits'}</p>
                     
                     <p><strong>Financial Summary (1st Year):</strong></p>
                     <p>Tuition Rate Classification: ${isAppDomestic ? 'Domestic (Canadian / EU Resident)' : 'International Student'}</p>
@@ -661,10 +660,10 @@ serve(async (req) => {
                     <p>You have been admitted to study:</p>
                     <p><strong>Enrolment Details:</strong></p>
                     <p>Programme: ${applicationData?.course_title || 'Your Degree Programme'}</p>
-                    <p>Degree Level: ${applicationData?.course_degree_level === 'MASTER' || applicationData?.course_degree_level === 'ADVANCED_DIPLOMA' ? "Ontario College Advanced Diploma" : applicationData?.course_degree_level === 'BACHELOR' ? "Honours Bachelor's Degree" : applicationData?.course_degree_level === 'DIPLOMA' ? "Ontario College Diploma" : applicationData?.course_degree_level === 'CERTICACATE' || applicationData?.course_degree_level === 'CERTIFICATE' ? "Canadian Certificate" : "Ontario College Advanced Diploma"}</p>
+                    <p>Degree Level: ${applicationData?.course_degree_level === 'MASTER' || applicationData?.course_degree_level === 'ADVANCED_DIPLOMA' ? "Ontario College Advanced Diploma" : (applicationData?.course_degree_level === 'CERTICACATE' || applicationData?.course_degree_level === 'CERTIFICATE') ? "Ontario College Certificate" : "Ontario College Diploma"}</p>
                     <p>Intake: ${applicationData?.intake || 'Fall 2026'}</p>
                     <p>Duration: ${getIntakeStartDate(applicationData?.intake)} - ${getProgramEndDate(applicationData?.intake, applicationData?.course_degree_level)}</p>
-                    <p>Total Credits: ${applicationData?.course_degree_level === 'MASTER' || applicationData?.course_degree_level === 'ADVANCED_DIPLOMA' ? '90 Credits' : applicationData?.course_degree_level === 'BACHELOR' ? '120 Credits' : applicationData?.course_degree_level === 'DIPLOMA' ? '60 Credits' : '30 Credits'}</p>
+                    <p>Total Credits: ${applicationData?.course_degree_level === 'MASTER' || applicationData?.course_degree_level === 'ADVANCED_DIPLOMA' ? '90 Credits' : (applicationData?.course_degree_level === 'CERTIFICATE' || applicationData?.course_degree_level === 'CERTICACATE') ? '30 Credits' : '60 Credits'}</p>
                     <p>Student ID: ${applicationData?.student_id || ''}</p>
                     
                     <p>This marks a significant milestone, and we are confident that you will thrive academically and personally as part of the Cannoga community.</p>
