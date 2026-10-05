@@ -13,6 +13,7 @@ export default function AdminInvoicesPage() {
     const [customFee, setCustomFee] = useState<Record<string, number>>({});
     const [customInvoiceType, setCustomInvoiceType] = useState<Record<string, string>>({});
     const [overrideSettled, setOverrideSettled] = useState<Record<string, boolean>>({});
+    const [disableAncillary, setDisableAncillary] = useState<Record<string, boolean>>({});
     const [pendingPayments, setPendingPayments] = useState<any[]>([]);
     const [verifyLoading, setVerifyLoading] = useState<string | null>(null);
     const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
@@ -120,14 +121,15 @@ export default function AdminInvoicesPage() {
         const invoiceType = customInvoiceType[appId] || 'TUITION_DEPOSIT';
         // Ancillary fees are only charged on the first (initial) invoice
         const app = applications.find(a => a.id === appId);
-        const isFirstInvoice = !app?.offer?.ancillary_charged;
+        const noAncillary = !!disableAncillary[appId];
+        const isFirstInvoice = !app?.offer?.ancillary_charged && !noAncillary;
         const ancillaryTotal = isFirstInvoice ? ANCILLARY_FEES_TOTAL : 0;
 
         if (!confirm(`Are you sure you want to push a ${invoiceType.replace(/_/g, ' ')} invoice of $${feeToPush} (tuition)${isFirstInvoice ? ` + $${ANCILLARY_FEES_TOTAL} ancillary` : ''} = $${feeToPush + ancillaryTotal} total to this student?`)) return;
 
         try {
             setActionLoading(appId);
-            const result = await pushInvoice(appId, feeToPush, invoiceType);
+            const result = await pushInvoice(appId, feeToPush, invoiceType, undefined, noAncillary);
             if (result.success) {
                 alert("Invoice successfully pushed!");
                 fetchApplications(); // Refresh list
@@ -281,6 +283,22 @@ export default function AdminInvoicesPage() {
                                                         disabled={(isEnrolledOrPaid && !overrideSettled[app.id]) || actionLoading === app.id}
                                                     />
                                                 </div>
+                                                {!app.offer.ancillary_charged && (
+                                                    <label className="flex items-center gap-1.5 text-[10px] text-neutral-500 font-bold uppercase cursor-pointer select-none">
+                                                        <input
+                                                            type="checkbox"
+                                                            id={`disable-ancillary-${app.id}`}
+                                                            checked={!!disableAncillary[app.id]}
+                                                            onChange={(e) => setDisableAncillary(prev => ({
+                                                                ...prev,
+                                                                [app.id]: e.target.checked
+                                                            }))}
+                                                            disabled={(isEnrolledOrPaid && !overrideSettled[app.id]) || actionLoading === app.id}
+                                                            className="rounded border-neutral-300 text-neutral-600 focus:ring-neutral-500 h-3.5 w-3.5 border-2"
+                                                        />
+                                                        Disable Ancillary
+                                                    </label>
+                                                )}
                                             </div>
                                             {isPushed && app.offer.invoice_sent_at && (
                                                 <div className="text-[10px] text-neutral-400 mt-1">

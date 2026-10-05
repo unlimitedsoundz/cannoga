@@ -117,6 +117,7 @@ export default function AdmissionApplicationPage() {
     new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   );
   const [availablePurposes, setAvailablePurposes] = useState<any[]>([]);
+  const [disableAncillary, setDisableAncillary] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -299,7 +300,7 @@ export default function AdmissionApplicationPage() {
         setActionLoading(null);
         return;
       }
-      const result = await pushInvoice(id, amount, invoiceType, customDeadline ? new Date(customDeadline).toISOString() : undefined);
+      const result = await pushInvoice(id, amount, invoiceType, customDeadline ? new Date(customDeadline).toISOString() : undefined, disableAncillary);
       if ((result as any).success) {
         toast.success('Invoice issued successfully');
         setShowInvoiceModal(false);
@@ -1165,6 +1166,28 @@ export default function AdmissionApplicationPage() {
                   onChange={e => setCustomDeadline(e.target.value)}
                   className="w-full px-3.5 py-2.5 text-sm bg-white/5 border border-white/10 text-white focus:border-sky-500 focus:outline-none rounded-xl cursor-pointer"
                 />
+              </div>
+
+              {/* Ancillary Fees Toggle */}
+              <div className="flex items-center justify-between gap-4 bg-white/5 border border-white/10 rounded-xl p-4">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-slate-200">Disable Ancillary Fees</p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    When on, mandatory ancillary fees will not be added at checkout for this invoice.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  role="switch"
+                  id="toggle-disable-ancillary"
+                  aria-checked={disableAncillary}
+                  onClick={() => setDisableAncillary(v => !v)}
+                  className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors cursor-pointer ${disableAncillary ? 'bg-sky-500' : 'bg-white/20'}`}
+                >
+                  <span
+                    className={`inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform ${disableAncillary ? 'translate-x-5' : 'translate-x-0.5'}`}
+                  />
+                </button>
               </div>
 
               {/* Summary Card */}

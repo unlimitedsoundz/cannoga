@@ -142,7 +142,7 @@ export async function getPendingPayments() {
     return list.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 }
 
-export async function pushInvoice(applicationId: string, customFee: number, invoiceType: string, customDueDate?: string) {
+export async function pushInvoice(applicationId: string, customFee: number, invoiceType: string, customDueDate?: string, disableAncillary: boolean = false) {
     const supabase = createServiceRoleClient();
     const { ANCILLARY_FEES, ANCILLARY_FEES_TOTAL } = await import('@/utils/tuition');
 
@@ -216,7 +216,10 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
             payment_deadline: finalDueDate.toISOString(),
             offer_type: invoiceType === 'TUITION_DEPOSIT' ? 'TUITION_DEPOSIT' : invoiceType === 'ANCILLARY' ? 'FULL_TUITION' : invoiceType,
             invoice_pushed: true,
-            invoice_sent_at: new Date().toISOString()
+            invoice_sent_at: new Date().toISOString(),
+            // When admin disables ancillary for this invoice, flag the offer as already
+            // charged so checkout (PaymentView / payments/initialize / edge fn) skips it.
+            ...(disableAncillary ? { ancillary_charged: true } : {})
         })
         .eq('application_id', applicationId);
 
@@ -347,7 +350,7 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
                     amount: customFee,
                     currency: 'CAD',
                     invoiceType: invoiceType,
-                    ancillaryFees: ANCILLARY_FEES
+                    ancillaryFees: disableAncillary ? [] : ANCILLARY_FEES
                 }
             }
         });
