@@ -117,6 +117,44 @@ serve(async (req: any) => {
             .eq("application_id", applicationId)
             .maybeSingle();
 
+        // If type is OFFER and updated canonical LOA exists in student-documents, serve it directly
+        if (isOffer) {
+            const userId = app.user_id || app.user?.id;
+            const courseSlug = app.course?.slug;
+            if (userId) {
+                const candPath = `student-documents/${userId}/letter-of-acceptance-${courseSlug || applicationId}.pdf`;
+                const { data: pubData } = supabase.storage
+                    .from("application-documents")
+                    .getPublicUrl(candPath);
+                
+                try {
+                    const checkRes = await fetch(pubData.publicUrl);
+                    if (checkRes.ok) {
+                        const buf = await checkRes.arrayBuffer();
+                        const binary = String.fromCharCode(...new Uint8Array(buf));
+                        const pdfBase64 = btoa(binary);
+                        
+                        // Sync to offer-letters path so existing links serve the updated LOA
+                        const oldPath = `offer-letters/offer_letter_${applicationId}.pdf`;
+                        await supabase.storage
+                            .from("application-documents")
+                            .upload(oldPath, new Uint8Array(buf), { contentType: "application/pdf", upsert: true });
+
+                        if (offerData?.id) {
+                            await supabase
+                                .from("admission_offers")
+                                .update({ document_url: pubData.publicUrl })
+                                .eq("id", offerData.id);
+                        }
+
+                        return new Response(JSON.stringify({ success: true, url: pubData.publicUrl, pdfBase64 }), {
+                            headers: { ...corsHeaders, "Content-Type": "application/json" },
+                        });
+                    }
+                } catch (_) {}
+            }
+        }
+
         // ADMISSION LETTER GUARD: if type is ADMISSION, verify payment exists
         if (!isOffer) {
             const { data: payments } = await supabase
@@ -562,18 +600,16 @@ serve(async (req: any) => {
             .from("application-documents")
             .getPublicUrl(filePath);
 
-        // 4. Update application status and document_url in DB
-        const appUpdate: any = { document_url: publicUrl };
+        // 4. Update application status if enrollment
         if (!isOffer) {
-            appUpdate.status = "ENROLLED";
+            await supabase
+                .from("applications")
+                .update({ status: "ENROLLED" })
+                .eq("id", applicationId);
         }
-        await supabase
-            .from("applications")
-            .update(appUpdate)
-            .eq("id", applicationId);
 
-        // 5. Update admission_offers document_url
-        if (offerData?.id) {
+        // 5. Update admission_offers document_url if not already pointing to updated LOA
+        if (offerData?.id && (!offerData.document_url || !offerData.document_url.includes('student-documents'))) {
             await supabase
                 .from("admission_offers")
                 .update({ document_url: publicUrl })

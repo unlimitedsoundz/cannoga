@@ -233,6 +233,19 @@ export async function generateAndStoreLOA(applicationId: string, application: an
       .from('application-documents')
       .getPublicUrl(storagePath);
 
+    // Also sync to offer-letters/offer_letter_${applicationId}.pdf so existing offer letter URLs serve the updated LOA
+    try {
+      const offerLetterPath = `offer-letters/offer_letter_${applicationId}.pdf`;
+      await supabase.storage
+        .from('application-documents')
+        .upload(offerLetterPath, pdfBuffer, {
+          contentType: 'application/pdf',
+          upsert: true,
+        });
+    } catch (syncErr) {
+      console.warn('Failed to sync LOA to offer-letters path:', syncErr);
+    }
+
     // Update admission_offers table with document_url if offer exists
     try {
       await supabase

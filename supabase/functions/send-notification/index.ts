@@ -319,10 +319,28 @@ serve(async (req) => {
 
                 // Generate / Fetch LOA PDF and Download URL
                 const offerAppId = applicationData?.id || record?.id || record?.application_id || applicationId;
+                const userId = applicationData?.user_id || applicationData?.user?.id;
+                const courseSlug = applicationData?.course_slug || applicationData?.course?.slug;
                 let loaDocUrl = documentUrl || applicationData?.document_url || null;
 
-                // 1. Query admission_offers if document_url not yet found
-                if (!loaDocUrl && offerAppId) {
+                // 1. Primary check: canonical student-documents storage path (updated LOA PDF layout)
+                if (userId) {
+                    const candPath = `student-documents/${userId}/letter-of-acceptance-${courseSlug || offerAppId}.pdf`;
+                    const { data: pubData } = supabase.storage
+                        .from('application-documents')
+                        .getPublicUrl(candPath);
+                    if (pubData?.publicUrl) {
+                        try {
+                            const checkHead = await fetch(pubData.publicUrl, { method: 'HEAD' });
+                            if (checkHead.ok) {
+                                loaDocUrl = pubData.publicUrl;
+                            }
+                        } catch (_) {}
+                    }
+                }
+
+                // 2. Query admission_offers if document_url not yet found or is old offer-letters link
+                if ((!loaDocUrl || loaDocUrl.includes('offer-letters')) && offerAppId) {
                     const { data: offerRec } = await supabase
                         .from('admission_offers')
                         .select('document_url')
@@ -330,12 +348,14 @@ serve(async (req) => {
                         .order('created_at', { ascending: false })
                         .limit(1)
                         .maybeSingle();
-                    if (offerRec?.document_url) {
+                    if (offerRec?.document_url && !offerRec.document_url.includes('offer-letters')) {
+                        loaDocUrl = offerRec.document_url;
+                    } else if (!loaDocUrl && offerRec?.document_url) {
                         loaDocUrl = offerRec.document_url;
                     }
                 }
 
-                // 2. Query document_records if not yet found
+                // 3. Query document_records if not yet found
                 if (!loaDocUrl && offerAppId) {
                     const { data: docRec } = await supabase
                         .from('document_records')
@@ -350,48 +370,17 @@ serve(async (req) => {
                     }
                 }
 
-                // 3. Fallback: check storage path in application-documents
-                if (!loaDocUrl && offerAppId) {
-                    const userId = applicationData?.user_id || applicationData?.user?.id;
-                    const courseSlug = applicationData?.course_slug || applicationData?.course?.slug;
-                    if (userId) {
-                        const candPath = `student-documents/${userId}/letter-of-acceptance-${courseSlug || offerAppId}.pdf`;
-                        const { data: pubData } = supabase.storage
-                            .from('application-documents')
-                            .getPublicUrl(candPath);
-                        if (pubData?.publicUrl) {
-                            try {
-                                const checkHead = await fetch(pubData.publicUrl, { method: 'HEAD' });
-                                if (checkHead.ok) {
-                                    loaDocUrl = pubData.publicUrl;
-                                }
-                            } catch (_) {}
-                        }
-                    }
-                }
-
-                // 4. Try invoke generate-admission-letter function if available
-                if (offerAppId) {
+                // Ensure admission_offers document_url points to canonical student-documents LOA
+                if (loaDocUrl && offerAppId && loaDocUrl.includes('student-documents')) {
                     try {
-                        const { data: pdfRes } = await supabase.functions.invoke('generate-admission-letter', {
-                            body: { applicationId: offerAppId, type: 'OFFER' }
-                        });
-                        if (pdfRes?.url && !loaDocUrl) {
-                            loaDocUrl = pdfRes.url;
-                        }
-                        if (pdfRes?.pdfBase64) {
-                            studentAttachments.push({
-                                filename: `Cannoga_Letter_of_Acceptance_${firstName || 'Student'}.pdf`,
-                                content: pdfRes.pdfBase64
-                            });
-                            console.log(`[send-notification] Attached LOA PDF as base64 content.`);
-                        }
-                    } catch (err) {
-                        console.error("[send-notification] Error generating LOA PDF attachment via function:", err);
-                    }
+                        await supabase
+                            .from('admission_offers')
+                            .update({ document_url: loaDocUrl })
+                            .eq('application_id', offerAppId);
+                    } catch (_) {}
                 }
 
-                // 5. If we have loaDocUrl but no attachment yet, fetch and attach
+                // 4. Fetch and attach updated LOA PDF as base64 content
                 if (loaDocUrl && studentAttachments.length === 0) {
                     try {
                         const fetchRes = await fetch(loaDocUrl);
@@ -475,8 +464,26 @@ serve(async (req) => {
                 const acceptedAppId = applicationData?.id || record?.id || record?.application_id || applicationId;
                 let acceptedDocUrl = documentUrl || applicationData?.document_url || null;
 
-                // 1. Query admission_offers if document_url not yet found
-                if (!acceptedDocUrl && acceptedAppId) {
+                // 1. Primary check: canonical student-documents storage path (updated LOA PDF layout)
+                const acceptedUserId = applicationData?.user_id || applicationData?.user?.id;
+                const acceptedCourseSlug = applicationData?.course_slug || applicationData?.course?.slug;
+                if (acceptedUserId) {
+                    const candPath = `student-documents/${acceptedUserId}/letter-of-acceptance-${acceptedCourseSlug || acceptedAppId}.pdf`;
+                    const { data: pubData } = supabase.storage
+                        .from('application-documents')
+                        .getPublicUrl(candPath);
+                    if (pubData?.publicUrl) {
+                        try {
+                            const checkHead = await fetch(pubData.publicUrl, { method: 'HEAD' });
+                            if (checkHead.ok) {
+                                acceptedDocUrl = pubData.publicUrl;
+                            }
+                        } catch (_) {}
+                    }
+                }
+
+                // 2. Query admission_offers if document_url not yet found or contains old offer-letters link
+                if ((!acceptedDocUrl || acceptedDocUrl.includes('offer-letters')) && acceptedAppId) {
                     const { data: offerRec } = await supabase
                         .from('admission_offers')
                         .select('document_url')
@@ -484,12 +491,14 @@ serve(async (req) => {
                         .order('created_at', { ascending: false })
                         .limit(1)
                         .maybeSingle();
-                    if (offerRec?.document_url) {
+                    if (offerRec?.document_url && !offerRec.document_url.includes('offer-letters')) {
+                        acceptedDocUrl = offerRec.document_url;
+                    } else if (!acceptedDocUrl && offerRec?.document_url) {
                         acceptedDocUrl = offerRec.document_url;
                     }
                 }
 
-                // 2. Query document_records if not yet found
+                // 3. Query document_records if not yet found
                 if (!acceptedDocUrl && acceptedAppId) {
                     const { data: docRec } = await supabase
                         .from('document_records')
@@ -504,47 +513,17 @@ serve(async (req) => {
                     }
                 }
 
-                // 3. Fallback: check storage path in application-documents
-                if (!acceptedDocUrl && acceptedAppId) {
-                    const userId = applicationData?.user_id || applicationData?.user?.id;
-                    const courseSlug = applicationData?.course_slug || applicationData?.course?.slug;
-                    if (userId) {
-                        const candPath = `student-documents/${userId}/letter-of-acceptance-${courseSlug || acceptedAppId}.pdf`;
-                        const { data: pubData } = supabase.storage
-                            .from('application-documents')
-                            .getPublicUrl(candPath);
-                        if (pubData?.publicUrl) {
-                            try {
-                                const checkHead = await fetch(pubData.publicUrl, { method: 'HEAD' });
-                                if (checkHead.ok) {
-                                    acceptedDocUrl = pubData.publicUrl;
-                                }
-                            } catch (_) {}
-                        }
-                    }
-                }
-
-                // 4. Try invoke generate-admission-letter function if available
-                if (acceptedAppId) {
+                // Ensure admission_offers document_url points to canonical student-documents LOA
+                if (acceptedDocUrl && acceptedAppId && acceptedDocUrl.includes('student-documents')) {
                     try {
-                        const { data: pdfRes } = await supabase.functions.invoke('generate-admission-letter', {
-                            body: { applicationId: acceptedAppId, type: 'OFFER' }
-                        });
-                        if (pdfRes?.url && !acceptedDocUrl) {
-                            acceptedDocUrl = pdfRes.url;
-                        }
-                        if (pdfRes?.pdfBase64) {
-                            studentAttachments.push({
-                                filename: `Cannoga_Letter_of_Acceptance_${firstName || 'Student'}.pdf`,
-                                content: pdfRes.pdfBase64
-                            });
-                        }
-                    } catch (err) {
-                        console.error("[send-notification] Error retrieving LOA PDF for offer acceptance:", err);
-                    }
+                        await supabase
+                            .from('admission_offers')
+                            .update({ document_url: acceptedDocUrl })
+                            .eq('application_id', acceptedAppId);
+                    } catch (_) {}
                 }
 
-                // 5. If we have acceptedDocUrl but no attachment yet, fetch and attach
+                // 4. Fetch and attach accepted LOA PDF
                 if (acceptedDocUrl && studentAttachments.length === 0) {
                     try {
                         const fetchRes = await fetch(acceptedDocUrl);
