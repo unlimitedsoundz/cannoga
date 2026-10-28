@@ -17,7 +17,7 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
     const [searchQuery, setSearchQuery] = useState('');
     const [isSubmitting, setIsSubmitting] = useState<string | null>(null);
     const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
-    const [selectedIntake, setSelectedIntake] = useState<string>('Winter 2027');
+    const [selectedIntake, setSelectedIntake] = useState<string>('Fall 2027');
     const [tuitionRates, setTuitionRates] = useState<Record<string, Record<string, number>>>({});
     const router = useRouter();
     const supabase = createClient();
@@ -181,13 +181,15 @@ export default function CourseSelector({ initialCourses, initialSelected }: Cour
                         className="bg-white border border-neutral-200 px-4 py-2 text-[11px] font-bold text-black focus:outline-none focus:border-[#0a151a] transition-colors w-full"
                     >
                         {CANONICAL_INTAKES.map((it) => {
-                            const isFall2026 = it.id === 'FALL_2026' || it.disabled || it.label?.toLowerCase().includes('fall 2026');
+                            const isFall2026 = it.id === 'FALL_2026' || it.label?.toLowerCase().includes('fall 2026');
+                            const isWinter2027 = it.id === 'WINTER_2027' || it.label?.toLowerCase().includes('winter 2027') || it.month?.toLowerCase() === 'january';
+                            const isDisabled = it.disabled || isFall2026 || isWinter2027;
                             return (
                                 <option 
                                     key={it.id} 
                                     value={it.label}
-                                    disabled={isFall2026}
-                                    className={isFall2026 ? 'text-neutral-400 bg-neutral-100' : ''}
+                                    disabled={isDisabled}
+                                    className={isDisabled ? 'text-neutral-400 bg-neutral-100' : ''}
                                 >
                                     {it.label} ({it.month})
                                 </option>

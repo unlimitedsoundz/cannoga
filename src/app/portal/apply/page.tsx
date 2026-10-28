@@ -206,13 +206,15 @@ export default function ApplyPage() {
                     >
                       <option value="">Select term</option>
                       {CANONICAL_INTAKES.map((it: any) => {
-                        const isFall2026 = it.id === 'FALL_2026' || it.disabled || it.label?.toLowerCase().includes('fall 2026');
+                        const isFall2026 = it.id === 'FALL_2026' || it.label?.toLowerCase().includes('fall 2026');
+                        const isWinter2027 = it.id === 'WINTER_2027' || it.label?.toLowerCase().includes('winter 2027') || it.month?.toLowerCase() === 'january';
+                        const isDisabled = it.disabled || isFall2026 || isWinter2027;
                         return (
                           <option 
                             key={it.id} 
                             value={it.label}
-                            disabled={isFall2026}
-                            className={isFall2026 ? 'text-neutral-400 bg-neutral-100' : ''}
+                            disabled={isDisabled}
+                            className={isDisabled ? 'text-neutral-400 bg-neutral-100' : ''}
                           >
                             {it.label}
                           </option>

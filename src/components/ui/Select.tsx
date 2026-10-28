@@ -70,12 +70,12 @@ const SelectContent = ({ children }: SelectContentProps) => {
 SelectContent.displayName = 'SelectContent';
 
 const SelectItem = ({ value, children, disabled }: SelectItemProps) => {
-    const isFall2026 = disabled || (typeof children === 'string' && children.toLowerCase().includes('fall 2026')) || (typeof value === 'string' && value.toLowerCase().includes('fall 2026'));
+    const isDisabled = disabled || (typeof children === 'string' && (children.toLowerCase().includes('fall 2026') || children.toLowerCase().includes('winter 2027'))) || (typeof value === 'string' && (value.toLowerCase().includes('fall 2026') || value.toLowerCase().includes('winter 2027')));
     return (
         <option 
             value={value} 
-            disabled={isFall2026}
-            className={isFall2026 ? 'text-gray-400 bg-gray-100' : ''}
+            disabled={isDisabled}
+            className={isDisabled ? 'text-gray-400 bg-gray-100' : ''}
         >
             {children}
         </option>
