@@ -365,10 +365,10 @@ const SCHOOLS: SchoolDef[] = [
                         ],
                     },
                     {
-                        slug: 'personal-support-worker-cert',
+                        slug: 'personal-support-worker-diploma',
                         title: 'Personal Support Worker',
-                        degreeLevel: 'CERTIFICATE',
-                        duration: '1 Year',
+                        degreeLevel: 'DIPLOMA',
+                        duration: '2 Years',
                         description: 'Provide compassionate personal care and support to clients in homes, hospitals, and long-term care settings.',
                         entryRequirements: 'High School Diploma.',
                         careerPaths: 'Personal Support Worker, Home Care Aide.',

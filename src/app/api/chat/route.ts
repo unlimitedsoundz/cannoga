@@ -95,8 +95,8 @@ const CANNOGA_VERIFIED_KNOWLEDGE = [
         title: 'Academic Programs & 8 Academic Schools',
         content: `### 📚 Cannoga College Academic Schools & Credentials
 Cannoga College offers industry-accredited programs across **3 Credential Levels**:
-* **1-Year Certificates (30 Credits)** (e.g., Accounting Fundamentals, Cybersecurity Foundations, PSW, Data Analytics)
-* **2-Year Ontario College Diplomas (60 Credits)** (e.g., Business Administration, Practical Nursing, Computer Systems Technician, Early Childhood Education, Software Engineering)
+* **1-Year Certificates (30 Credits)** (e.g., Accounting Fundamentals, Cybersecurity Foundations, Data Analytics)
+* **2-Year Ontario College Diplomas (60 Credits)** (e.g., Business Administration, Practical Nursing, Personal Support Worker (PSW), Computer Systems Technician, Early Childhood Education, Software Engineering)
 * **3-Year Advanced Diplomas (90 Credits)** (e.g., AI, Computer Science, Civil Engineering, Architectural Technology, Design)
 
 #### 🏛️ Our 8 Academic Schools:
