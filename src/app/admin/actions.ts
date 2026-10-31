@@ -494,6 +494,17 @@ export async function getAdmissionsApplicationById(id: string) {
 
         if (error) throw new Error(error.message || 'Failed to fetch application details');
 
+        if (data?.alternate_course_id) {
+            const { data: altCourse } = await adminClient
+                .from('Course')
+                .select('*, school:School(slug)')
+                .eq('id', data.alternate_course_id)
+                .maybeSingle();
+            if (altCourse) {
+                data.alternate_course = altCourse;
+            }
+        }
+
         const { data: admData } = await adminClient
             .from('admissions')
             .select('*')

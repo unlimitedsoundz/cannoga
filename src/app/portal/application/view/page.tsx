@@ -65,7 +65,6 @@ function ViewApplicationContent() {
                     .select(`
                         *,
                         course:Course(*, school:School(*)),
-                        alternate_course:Course(*) ,
                         user:profiles(*),
                         documents:application_documents(*)
                     `)
@@ -91,7 +90,6 @@ function ViewApplicationContent() {
                         .select(`
                             *,
                             course:Course(*, school:School(*)),
-                            alternate_course:Course(*) ,
                             user:profiles(*),
                             documents:application_documents(*),
                             admission_offers(id)
@@ -110,6 +108,18 @@ function ViewApplicationContent() {
                     } else {
                         setError("Application not found.");
                         return;
+                    }
+                }
+
+                // Fetch alternate course if specified
+                if (applicationRaw?.alternate_course_id) {
+                    const { data: altCourse } = await supabase
+                        .from('Course')
+                        .select('*, school:School(*)')
+                        .eq('id', applicationRaw.alternate_course_id)
+                        .maybeSingle();
+                    if (altCourse) {
+                        applicationRaw.alternate_course = altCourse;
                     }
                 }
 

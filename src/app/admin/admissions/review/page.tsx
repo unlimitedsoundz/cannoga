@@ -215,6 +215,7 @@ function ApplicationReviewContent() {
                             <InfoItem label="Application ID" value={app.application_number || app.id.slice(0, 8)} />
                             <InfoItem label="Status" value={app.status.replace(/_/g, ' ')} />
                             <InfoItem label="Program" value={app.course?.title} />
+                            <InfoItem label="Alternate Program" value={app.alternate_course?.title || 'None selected'} />
                             <InfoItem label="Intake" value={app.intake} />
                             <InfoItem label="Program Type" value={app.program_type || app.course?.programType} />
                         </div>

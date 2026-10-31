@@ -308,6 +308,17 @@ export async function getAdmissionApplicationDetail(applicationId: string): Prom
             return { success: false, error: 'Application not found' };
         }
 
+        if (application.alternate_course_id) {
+            const { data: altCourse } = await supabase
+                .from('Course')
+                .select('*, school:School(*)')
+                .eq('id', application.alternate_course_id)
+                .maybeSingle();
+            if (altCourse) {
+                application.alternate_course = altCourse;
+            }
+        }
+
         const { data: student } = await supabase
             .from('students')
             .select('*')
