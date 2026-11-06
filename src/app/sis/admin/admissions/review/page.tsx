@@ -18,6 +18,9 @@ interface ApplicationDetail {
   status: string;
   submitted_at: string;
   intake?: string;
+  course_id?: string;
+  alternate_course_id?: string;
+  alternate_course?: any;
   course?: { title: string; slug: string; degreeLevel?: string };
   user?: { first_name: string; last_name: string; email: string; phone: string; date_of_birth: string; address: string };
   personal_info?: { firstName: string; lastName: string; passportNumber?: string; nationality?: string };
@@ -50,6 +53,7 @@ export default function AdmissionsReviewPage() {
   const [decision, setDecision] = useState('');
   const [notes, setNotes] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [admitChoice, setAdmitChoice] = useState<'FIRST' | 'ALTERNATE'>('FIRST');
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
@@ -74,15 +78,19 @@ export default function AdmissionsReviewPage() {
     setSubmitting(true);
     setMessage(null);
     try {
+      const admittedCourseId = (application as any)?.alternate_course_id
+        ? (admitChoice === 'ALTERNATE' ? (application as any).alternate_course_id : application?.course_id)
+        : null;
+
       let result;
       if (decision === 'APPROVED') {
-        result = await updateApplicationStatus(id, 'ADMITTED');
+        result = await updateApplicationStatus(id, 'ADMITTED', null, null, admittedCourseId);
       } else if (decision === 'REJECTED') {
         result = await updateApplicationStatus(id, 'REJECTED');
       } else if (decision === 'DOCS_REQUIRED') {
         result = await updateApplicationStatus(id, 'DOCS_REQUIRED');
       } else if (decision === 'OFFER_ISSUED') {
-        result = await createAdmissionOffer(id, 0, new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString());
+        result = await createAdmissionOffer(id, 0, new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(), 'TUITION_DEPOSIT', admittedCourseId);
       }
       if ((result as any).success) {
         setMessage({ type: 'success', text: `Decision submitted: ${decision.replace('_', ' ')}` });
@@ -134,6 +142,9 @@ export default function AdmissionsReviewPage() {
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Application ID</dt><dd className="font-mono font-medium text-neutral-900 mt-1">{application.application_number}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Status</dt><dd className="mt-1"><StatusBadge status={application.status?.replace('_', ' ') || 'DRAFT'} /></dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Program</dt><dd className="font-medium text-neutral-900 mt-1">{application.course?.title}{application.course?.degreeLevel ? ` — ${formatDegreeLevel(application.course.degreeLevel)}` : ''}</dd></div>
+              {(application as any)?.alternate_course && (
+                <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Alternate Program</dt><dd className="font-medium text-amber-700 mt-1">{(application as any).alternate_course?.title}{(application as any).alternate_course?.degreeLevel ? ` — ${formatDegreeLevel((application as any).alternate_course.degreeLevel)}` : ''}</dd></div>
+              )}
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Intake</dt><dd className="font-medium text-neutral-900 mt-1">{application.intake || '—'}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Submitted</dt><dd className="font-medium text-neutral-900 mt-1">{application.submitted_at ? new Date(application.submitted_at).toLocaleDateString('en-CA') : '—'}</dd></div>
               <div><dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Assigned Officer</dt><dd className="font-medium text-neutral-900 mt-1">Admissions Team</dd></div>
@@ -209,6 +220,39 @@ export default function AdmissionsReviewPage() {
                 <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2} /> Issue Offer
               </button>
             </div>
+            {(decision === 'APPROVED' || decision === 'OFFER_ISSUED') && (application as any)?.alternate_course && (
+              <div className="mt-3 p-3 bg-neutral-50 rounded-lg border border-neutral-200 space-y-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 block">Admit To Program</span>
+                <label className="flex items-start gap-2 text-xs text-neutral-700 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="admitChoiceReview"
+                    value="FIRST"
+                    checked={admitChoice === 'FIRST'}
+                    onChange={() => setAdmitChoice('FIRST')}
+                    className="mt-0.5 text-neutral-900"
+                  />
+                  <div>
+                    <span className="block font-semibold text-neutral-900">First Choice:</span>
+                    <span className="text-[11px] text-neutral-600">{application?.course?.title}</span>
+                  </div>
+                </label>
+                <label className="flex items-start gap-2 text-xs text-neutral-700 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="admitChoiceReview"
+                    value="ALTERNATE"
+                    checked={admitChoice === 'ALTERNATE'}
+                    onChange={() => setAdmitChoice('ALTERNATE')}
+                    className="mt-0.5 text-neutral-900"
+                  />
+                  <div>
+                    <span className="block font-semibold text-amber-700">Alternate Choice:</span>
+                    <span className="text-[11px] text-neutral-600">{(application as any)?.alternate_course?.title}</span>
+                  </div>
+                </label>
+              </div>
+            )}
             {decision && (
               <button onClick={handleSubmitDecision} disabled={submitting} className="w-full mt-3 px-4 py-2 bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-50">
                 {submitting ? 'Submitting...' : 'Submit Decision'}

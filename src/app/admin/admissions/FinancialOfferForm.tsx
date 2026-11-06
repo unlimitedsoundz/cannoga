@@ -17,33 +17,37 @@ interface FinancialOfferFormProps {
     tuitionField?: TuitionField;
     onSuccess?: () => void;
     isDomestic?: boolean;
+    primaryCourse?: any;
+    alternateCourse?: any;
 }
 
-export function FinancialOfferForm({ applicationId, baseTuition, programYears, degreeLevel, tuitionField = 'TECHNOLOGY', onSuccess, isDomestic = false }: FinancialOfferFormProps) {
+export function FinancialOfferForm({ applicationId, baseTuition, programYears, degreeLevel, tuitionField = 'TECHNOLOGY', onSuccess, isDomestic = false, primaryCourse, alternateCourse }: FinancialOfferFormProps) {
     const [offerType, setOfferType] = useState<'DEPOSIT' | '1ST_YEAR' | 'FULL_PROGRAM'>('1ST_YEAR');
+    const [admitChoice, setAdmitChoice] = useState<'FIRST' | 'ALTERNATE'>('FIRST');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
 
+    // Dynamic calculations depending on program choice if alternate is provided
+    const isAlternate = admitChoice === 'ALTERNATE' && alternateCourse;
+    const activeDegree = isAlternate ? (alternateCourse.degreeLevel || degreeLevel) : degreeLevel;
+    const activeYears = isAlternate ? (alternateCourse.duration?.includes('3') ? 3 : alternateCourse.duration?.includes('1') ? 1 : 2) : programYears;
+    const activeBaseTuition = baseTuition;
+
     // Calculations
     const isDeposit = offerType === 'DEPOSIT';
-    const fullProgramBase = baseTuition * programYears;
-    
-    let currentBase = baseTuition;
-    if (offerType === 'FULL_PROGRAM') currentBase = fullProgramBase;
+    const fullProgramBase = activeBaseTuition * activeYears;
     
     let offerFee: number;
-    let depositAmountForView = 0;
 
     if (isDeposit) {
-        offerFee = calculateTuitionDeposit(baseTuition, tuitionField, false, degreeLevel, isDomestic);
+        offerFee = calculateTuitionDeposit(activeBaseTuition, tuitionField, false, activeDegree, isDomestic);
     } else if (offerType === 'FULL_PROGRAM') {
         offerFee = fullProgramBase;
     } else {
-        offerFee = baseTuition;
+        offerFee = activeBaseTuition;
     }
 
-    const displayDeposit = calculateTuitionDeposit(baseTuition, tuitionField, !isDeposit, degreeLevel, isDomestic);
-
+    const displayDeposit = calculateTuitionDeposit(activeBaseTuition, tuitionField, !isDeposit, activeDegree, isDomestic);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -57,7 +61,9 @@ export function FinancialOfferForm({ applicationId, baseTuition, programYears, d
             if (offerType === '1ST_YEAR') mappedOfferType = '1ST_YEAR_FULL';
             if (offerType === 'FULL_PROGRAM') mappedOfferType = 'FULL_TUITION';
 
-            await createAdmissionOffer(applicationId, offerFee, deadline, mappedOfferType as any);
+            const chosenCourseId = isAlternate ? alternateCourse.id : (primaryCourse?.id || null);
+
+            await createAdmissionOffer(applicationId, offerFee, deadline, mappedOfferType as any, chosenCourseId);
             setShowSuccess(true);
             if (onSuccess) onSuccess();
         } catch (error) {
@@ -92,6 +98,30 @@ export function FinancialOfferForm({ applicationId, baseTuition, programYears, d
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
+            {alternateCourse && (
+                <div className="p-3 bg-neutral-100 rounded-xl space-y-2">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-neutral-500 block">Offer For Program:</span>
+                    <div className="flex gap-2">
+                        <button
+                            type="button"
+                            onClick={() => setAdmitChoice('FIRST')}
+                            className={`flex-1 py-1.5 px-2 text-left rounded-lg text-xs font-bold transition-all ${admitChoice === 'FIRST' ? 'bg-white text-neutral-900 shadow-sm border border-neutral-300' : 'text-neutral-500 hover:bg-neutral-200'}`}
+                        >
+                            <span className="block text-[9px] uppercase tracking-wider text-neutral-400">First Choice</span>
+                            <span className="truncate block">{primaryCourse?.title || 'First Choice'}</span>
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setAdmitChoice('ALTERNATE')}
+                            className={`flex-1 py-1.5 px-2 text-left rounded-lg text-xs font-bold transition-all ${admitChoice === 'ALTERNATE' ? 'bg-white text-amber-700 shadow-sm border border-amber-300' : 'text-neutral-500 hover:bg-neutral-200'}`}
+                        >
+                            <span className="block text-[9px] uppercase tracking-wider text-amber-500">Alternate</span>
+                            <span className="truncate block">{alternateCourse?.title || 'Alternate'}</span>
+                        </button>
+                    </div>
+                </div>
+            )}
+
             <div className="flex bg-neutral-100 p-1 rounded-xl gap-1">
                 <button
                     type="button"

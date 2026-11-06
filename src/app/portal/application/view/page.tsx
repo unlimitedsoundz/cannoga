@@ -421,11 +421,11 @@ function ViewApplicationContent() {
         },
         {
             id: 'PASSPORT_COPY',
-            title: 'Valid Passport Copy (Optional)',
-            optional: true,
+            title: 'Valid Passport Copy',
+            optional: false,
             description: [
-                'Valid Passport Copy (Optional):',
-                'Upload a clear scan or photo of the first page of your international passport if available.',
+                'Valid Passport Copy (Required):',
+                'Upload a clear scan or photo of the bio-data page of your valid international passport.',
             ],
             uploadType: 'PASSPORT',
             submitted: !!application.documents?.some((doc: any) => doc.type?.toUpperCase() === 'PASSPORT'),
@@ -455,7 +455,7 @@ function ViewApplicationContent() {
     const requestedDocList: string[] = Array.isArray(application.requested_documents) ? application.requested_documents : [];
 
     const matchedRequirements = requestedDocList.length > 0
-        ? standardRequirements.filter(r => requestedDocList.includes(r.uploadType) || requestedDocList.includes(r.id))
+        ? standardRequirements.filter(r => requestedDocList.includes(r.uploadType) || requestedDocList.includes(r.id) || (r.id === 'PASSPORT_COPY' && !r.submitted))
         : standardRequirements;
 
     const requirements = matchedRequirements.length > 0 ? matchedRequirements : standardRequirements;
@@ -492,7 +492,7 @@ function ViewApplicationContent() {
     const uploadedDocTypes = new Set((application.documents || []).map((d: any) => (d.type || '').toUpperCase()));
     const academicDocsUploaded = requiredAcademicTypes.some(type => uploadedDocTypes.has(type));
     const passportUploaded = uploadedDocTypes.has('PASSPORT');
-    const allRequiredUploaded = requirements.length > 0 ? requirements.filter(r => !r.optional).every(r => r.submitted) : academicDocsUploaded;
+    const allRequiredUploaded = (requirements.length > 0 ? requirements.filter(r => !r.optional).every(r => r.submitted) : academicDocsUploaded) && passportUploaded;
 
     const steps = [
         { title: 'Submit Requirements' },

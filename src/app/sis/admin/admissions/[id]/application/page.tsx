@@ -20,6 +20,9 @@ interface ApplicationDetail {
   status: string;
   submitted_at: string;
   intake?: string;
+  course_id?: string;
+  alternate_course_id?: string;
+  alternate_course?: any;
   personal_info?: any;
   contact_details?: any;
   education_history?: any;
@@ -118,6 +121,7 @@ export default function AdmissionApplicationPage() {
   );
   const [availablePurposes, setAvailablePurposes] = useState<any[]>([]);
   const [disableAncillary, setDisableAncillary] = useState(false);
+  const [admitChoice, setAdmitChoice] = useState<'FIRST' | 'ALTERNATE'>('FIRST');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -182,11 +186,17 @@ export default function AdmissionApplicationPage() {
   const handleStatusUpdate = async (newStatus: string) => {
     setActionLoading('status');
     try {
-      const result = await updateApplicationStatus(id, newStatus as any);
+      const admittedCourseId = (newStatus === 'ADMITTED' && (application as any)?.alternate_course_id)
+        ? (admitChoice === 'ALTERNATE' ? (application as any).alternate_course_id : application?.course_id)
+        : null;
+      const result = await updateApplicationStatus(id, newStatus as any, null, null, admittedCourseId);
       if ((result as any).success) {
         setStatus(newStatus);
         setApplication(prev => prev ? { ...prev, status: newStatus } : prev);
         toast.success(`Status updated to ${newStatus.replace('_', ' ')}`);
+        if (newStatus === 'ADMITTED') {
+          window.location.reload();
+        }
       } else {
         toast.error((result as any).error || 'Failed to update status');
       }
@@ -217,19 +227,26 @@ export default function AdmissionApplicationPage() {
     setActionLoading('offer');
     try {
       const { getTuitionFee, mapSchoolToTuitionField, getProgramYears } = await import('@/utils/tuition');
-      const schoolSlug = application?.course?.school?.slug || 'technology';
-      const degreeLevel = application?.course?.degreeLevel || 'DIPLOMA';
+      const chosenCourse = (admitChoice === 'ALTERNATE' && (application as any)?.alternate_course)
+        ? (application as any).alternate_course
+        : application?.course;
+      const admittedCourseId = (admitChoice === 'ALTERNATE' && (application as any)?.alternate_course_id)
+        ? (application as any).alternate_course_id
+        : application?.course_id;
+
+      const schoolSlug = chosenCourse?.school?.slug || 'technology';
+      const degreeLevel = chosenCourse?.degreeLevel || 'DIPLOMA';
       const tuitionField = mapSchoolToTuitionField(schoolSlug);
       const personal = application?.personal_info || {};
       const studentType = personal.studentType;
       const isDomestic = studentType === 'domestic';
       const annualFee = await getTuitionFee(degreeLevel, tuitionField, isDomestic);
-      const duration = application?.course?.duration || '2 years';
+      const duration = chosenCourse?.duration || '2 years';
       const years = getProgramYears(duration, degreeLevel);
       const tuitionFee = annualFee * years;
-      const result = await createAdmissionOffer(id, tuitionFee, new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString());
+      const result = await createAdmissionOffer(id, tuitionFee, new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(), 'TUITION_DEPOSIT', admittedCourseId);
       if ((result as any).success) {
-        await updateApplicationStatus(id, 'ADMITTED');
+        await updateApplicationStatus(id, 'ADMITTED', null, null, admittedCourseId);
         toast.success('Admission offer issued successfully');
         window.location.reload();
       } else {
@@ -731,6 +748,41 @@ export default function AdmissionApplicationPage() {
               <option value="ADMITTED">Admitted</option>
               <option value="REJECTED">Rejected</option>
             </select>
+
+            {(status === 'ADMITTED' || !['ADMITTED', 'REJECTED'].includes(application?.status || '')) && (application as any)?.alternate_course && (
+              <div className="mb-3 p-3 bg-white/5 rounded-xl border border-white/10 space-y-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Admit To Program</span>
+                <label className="flex items-start gap-2 text-xs text-slate-200 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="admitChoiceStatus"
+                    value="FIRST"
+                    checked={admitChoice === 'FIRST'}
+                    onChange={() => setAdmitChoice('FIRST')}
+                    className="mt-0.5 text-sky-500"
+                  />
+                  <div>
+                    <span className="block font-semibold text-white">First Choice:</span>
+                    <span className="text-[11px] text-slate-400">{application?.course?.title}</span>
+                  </div>
+                </label>
+                <label className="flex items-start gap-2 text-xs text-slate-200 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="admitChoiceStatus"
+                    value="ALTERNATE"
+                    checked={admitChoice === 'ALTERNATE'}
+                    onChange={() => setAdmitChoice('ALTERNATE')}
+                    className="mt-0.5 text-sky-500"
+                  />
+                  <div>
+                    <span className="block font-semibold text-amber-400">Alternate Choice:</span>
+                    <span className="text-[11px] text-slate-400">{(application as any)?.alternate_course?.title}</span>
+                  </div>
+                </label>
+              </div>
+            )}
+
             <button onClick={() => handleStatusUpdate(status)} disabled={actionLoading === 'status' || !status} className="w-full px-4 py-2.5 bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 rounded-xl shadow-sm">
               {actionLoading === 'status' ? 'Updating...' : 'Update Status'}
             </button>
@@ -739,6 +791,41 @@ export default function AdmissionApplicationPage() {
           {/* Admission Actions */}
           <div className="bg-[#0f2027] border border-white/10 p-5 rounded-2xl">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Admission Actions</h3>
+
+            {(application as any)?.alternate_course && (
+              <div className="mb-3 p-3 bg-white/5 rounded-xl border border-white/10 space-y-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Offer Program</span>
+                <label className="flex items-start gap-2 text-xs text-slate-200 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="admitChoiceOffer"
+                    value="FIRST"
+                    checked={admitChoice === 'FIRST'}
+                    onChange={() => setAdmitChoice('FIRST')}
+                    className="mt-0.5 text-sky-500"
+                  />
+                  <div>
+                    <span className="block font-semibold text-white">First Choice:</span>
+                    <span className="text-[11px] text-slate-400">{application?.course?.title}</span>
+                  </div>
+                </label>
+                <label className="flex items-start gap-2 text-xs text-slate-200 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="admitChoiceOffer"
+                    value="ALTERNATE"
+                    checked={admitChoice === 'ALTERNATE'}
+                    onChange={() => setAdmitChoice('ALTERNATE')}
+                    className="mt-0.5 text-sky-500"
+                  />
+                  <div>
+                    <span className="block font-semibold text-amber-400">Alternate Choice:</span>
+                    <span className="text-[11px] text-slate-400">{(application as any)?.alternate_course?.title}</span>
+                  </div>
+                </label>
+              </div>
+            )}
+
             <div className="space-y-2">
               <button 
                 onClick={handleIssueOffer} 

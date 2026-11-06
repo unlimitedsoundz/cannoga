@@ -40,6 +40,7 @@ function ApplicationReviewContent() {
     const [showDocsModal, setShowDocsModal] = useState(false);
     const [selectedDocs, setSelectedDocs] = useState<string[]>([]);
     const [docsNote, setDocsNote] = useState('');
+    const [admitChoice, setAdmitChoice] = useState<'FIRST' | 'ALTERNATE'>('FIRST');
 
     const DOC_TYPES = [
         { id: 'PASSPORT', label: 'International Passport' },
@@ -80,10 +81,17 @@ function ApplicationReviewContent() {
 
     const handleUpdateStatus = async (status: string) => {
         if (!id) return;
+        let admittedCourseId: string | null = null;
+        if (status === 'ADMITTED' && app?.alternate_course_id) {
+            admittedCourseId = admitChoice === 'ALTERNATE' ? app.alternate_course_id : app.course_id;
+            const programTitle = admitChoice === 'ALTERNATE' ? app.alternate_course?.title : app.course?.title;
+            if (!window.confirm(`Admit this applicant to ${admitChoice === 'ALTERNATE' ? 'their ALTERNATE program' : 'their FIRST CHOICE program'}: ${programTitle}?`)) return;
+        }
         setUpdating(true);
         try {
-            const result = await updateApplicationStatus(id, status as any) as any;
+            const result = await updateApplicationStatus(id, status as any, null, null, admittedCourseId) as any;
             if (!result.success) throw new Error(result.error);
+            setAdmitChoice('FIRST');
             await fetchData();
         } catch (error: any) {
             alert("Error updating status: " + error.message);
@@ -268,7 +276,30 @@ function ApplicationReviewContent() {
                                     onClick={() => setShowDocsModal(true)}
                                     disabled={updating}
                                 />
-                                <StatusBtn label="Admit Student" status="ADMITTED" currentStatus={app.status} variant="success" onClick={() => handleUpdateStatus('ADMITTED')} disabled={updating} />
+                                {app.alternate_course_id && app.alternate_course && !['ADMITTED', 'OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ADMISSION_LETTER_GENERATED', 'ENROLLED'].includes(app.status) && (
+                                    <div className="p-3 bg-neutral-50 border border-neutral-200 rounded-xl space-y-2">
+                                        <span className="text-[10px] font-black text-neutral-500 uppercase tracking-widest block">Admit To Program</span>
+                                        {([
+                                            { key: 'FIRST', label: 'First Choice', title: app.course?.title },
+                                            { key: 'ALTERNATE', label: 'Alternate Program', title: app.alternate_course?.title },
+                                        ] as const).map(opt => (
+                                            <label key={opt.key} className={`flex items-start gap-2 p-2 rounded-lg border cursor-pointer transition-all ${admitChoice === opt.key ? 'border-neutral-900 bg-white' : 'border-transparent hover:bg-white'}`}>
+                                                <input
+                                                    type="radio"
+                                                    name="admitChoice"
+                                                    checked={admitChoice === opt.key}
+                                                    onChange={() => setAdmitChoice(opt.key)}
+                                                    className="mt-0.5"
+                                                />
+                                                <span className="min-w-0">
+                                                    <span className="block text-[10px] font-black uppercase tracking-widest text-neutral-400">{opt.label}</span>
+                                                    <span className="block text-xs font-semibold text-neutral-900">{opt.title}</span>
+                                                </span>
+                                            </label>
+                                        ))}
+                                    </div>
+                                )}
+                                <StatusBtn label={app.alternate_course_id && admitChoice === 'ALTERNATE' ? 'Admit to Alternate Program' : 'Admit Student'} status="ADMITTED" currentStatus={app.status} variant="success" onClick={() => handleUpdateStatus('ADMITTED')} disabled={updating} />
                                 {(app.status === 'PAYMENT_SUBMITTED' || app.status === 'OFFER_ACCEPTED' || app.status === 'ADMISSION_LETTER_GENERATED') && (
                                     <StatusBtn label="Finalize Enrollment" status="ENROLLED" currentStatus={app.status} variant="success" onClick={() => handleUpdateStatus('ENROLLED')} disabled={updating} />
                                 )}

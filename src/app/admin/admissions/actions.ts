@@ -5,7 +5,49 @@ import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 import { ApplicationStatus } from '@/types/database';
 import { getTuitionFee, mapSchoolToTuitionField, getProgramYears } from '@/utils/tuition';
 
-export async function updateApplicationStatus(applicationId: string, status: ApplicationStatus, requestedDocuments: any = null, documentRequestNote: string | null = null) {
+/**
+ * Switches the application's admitted program (applications.course_id) to the chosen course.
+ * Only allows the applicant's first choice or alternate choice. When switching, the previous
+ * first choice is preserved in alternate_course_id so neither choice is lost.
+ */
+async function applyAdmittedProgram(supabase: any, applicationId: string, admittedCourseId?: string | null) {
+    if (!admittedCourseId) return;
+
+    const { data: app, error } = await supabase
+        .from('applications')
+        .select('course_id, alternate_course_id')
+        .eq('id', applicationId)
+        .single();
+
+    if (error || !app) throw new Error('Application not found');
+    if (app.course_id === admittedCourseId) return;
+    if (app.alternate_course_id !== admittedCourseId) {
+        throw new Error('Selected program must be the applicant\'s first choice or alternate program');
+    }
+
+    const { error: swapError } = await supabase
+        .from('applications')
+        .update({
+            course_id: app.alternate_course_id,
+            alternate_course_id: app.course_id,
+            updated_at: new Date().toISOString()
+        })
+        .eq('id', applicationId);
+
+    if (swapError) {
+        console.error('Error switching admitted program:', swapError);
+        throw new Error('Failed to set admitted program');
+    }
+
+    // If an offer already exists for the previous program, drop it so it is recalculated for the new program.
+    await supabase
+        .from('admission_offers')
+        .delete()
+        .eq('application_id', applicationId)
+        .eq('status', 'PENDING');
+}
+
+export async function updateApplicationStatus(applicationId: string, status: ApplicationStatus, requestedDocuments: any = null, documentRequestNote: string | null = null, admittedCourseId: string | null = null) {
     if (status === 'ENROLLED') {
         const { enrollStudent } = await import('@/app/admin/students/actions');
         const result = await enrollStudent(applicationId);
@@ -16,6 +58,10 @@ export async function updateApplicationStatus(applicationId: string, status: App
     }
 
     const supabase = createServiceRoleClient();
+
+    if (status === 'ADMITTED' && admittedCourseId) {
+        await applyAdmittedProgram(supabase, applicationId, admittedCourseId);
+    }
 
     const updateData: any = {
         status,
@@ -52,7 +98,7 @@ export async function updateApplicationStatus(applicationId: string, status: App
             if (!existingOffer) {
                 const { data: appData } = await supabase
                     .from('applications')
-                    .select('course_id, personal_info, Course:course_id(degreeLevel, school:schoolId(slug))')
+                    .select('course_id, personal_info, Course:course_id(degreeLevel, duration, school:schoolId(slug))')
                     .eq('id', applicationId)
                     .single();
 
@@ -210,10 +256,31 @@ export async function updateInternalNotes(applicationId: string, notes: string) 
     return { success: true };
 }
 
-export async function createAdmissionOffer(applicationId: string, tuitionFee: number, deadline: string, offerType: 'TUITION_DEPOSIT' | 'FULL_TUITION' | '1ST_YEAR_FULL' = 'TUITION_DEPOSIT') {
+export async function createAdmissionOffer(applicationId: string, tuitionFee: number, deadline: string, offerType: 'TUITION_DEPOSIT' | 'FULL_TUITION' | '1ST_YEAR_FULL' = 'TUITION_DEPOSIT', admittedCourseId: string | null = null) {
     const supabase = createServiceRoleClient();
 
-    const finalTuitionFee = offerType === 'TUITION_DEPOSIT' ? 2000 : tuitionFee;
+    await applyAdmittedProgram(supabase, applicationId, admittedCourseId);
+
+    let finalTuitionFee = offerType === 'TUITION_DEPOSIT' ? 2000 : tuitionFee;
+    if (finalTuitionFee === 0) {
+        const { data: appData } = await supabase
+            .from('applications')
+            .select('course_id, personal_info, Course:course_id(degreeLevel, duration, school:schoolId(slug))')
+            .eq('id', applicationId)
+            .single();
+
+        const courseData = (appData as any)?.Course;
+        const degreeLevel = courseData?.degreeLevel || 'DIPLOMA';
+        const schoolSlug = courseData?.school?.slug || 'technology';
+        const tuitionField = mapSchoolToTuitionField(schoolSlug);
+        const personal = (appData as any)?.personal_info || {};
+        const studentType = personal.studentType;
+        const isDomestic = studentType === 'domestic';
+        const annualFee = await getTuitionFee(degreeLevel, tuitionField, isDomestic);
+        const duration = (appData as any)?.Course?.duration || '2 years';
+        const years = getProgramYears(duration, degreeLevel as any);
+        finalTuitionFee = offerType === '1ST_YEAR_FULL' ? annualFee : annualFee * years;
+    }
 
     const { data: existingOffer } = await supabase
         .from('admission_offers')

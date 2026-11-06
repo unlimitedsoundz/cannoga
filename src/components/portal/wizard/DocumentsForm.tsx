@@ -17,7 +17,7 @@ interface Props {
 }
 
 const DOCUMENT_TYPES: { type: DocumentType; label: string; description: string; required: boolean }[] = [
-    { type: 'PASSPORT', label: 'Passport', description: 'Copy of your valid passport.', required: false },
+    { type: 'PASSPORT', label: 'Passport', description: 'Copy of your valid passport.', required: true },
     { type: 'TRANSCRIPT', label: 'Academic Transcript', description: 'Official transcript from your previous institution.', required: true },
     { type: 'CERTIFICATE', label: 'Degree Certificate', description: 'Copy of your degree certificate or diploma.', required: true },
     { type: 'CV', label: 'Curriculum Vitae (CV)', description: 'Updated CV detailing your experience and education.', required: true },
