@@ -93,13 +93,21 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
   const studentType = (personalInfo.studentType || '').toLowerCase();
   const isDomestic = studentType === 'domestic';
   const tuitionFee = await getTuitionFee(degreeLevelRaw, tuitionField, isDomestic);
-  const { ANCILLARY_FEES_TOTAL } = await import('@/utils/tuition');
+  const { ANCILLARY_FEES, ANCILLARY_FEES_TOTAL } = await import('@/utils/tuition');
   const ancillaryFee = ANCILLARY_FEES_TOTAL;
+  const ancillaryBreakdown = ANCILLARY_FEES.map(f => ({
+    name: f.name,
+    amount: `$${f.amount.toLocaleString()} CAD`,
+  }));
   const totalAnnual = tuitionFee + ancillaryFee;
   const deposit = 2000;
   const remainingBalance = totalAnnual - deposit;
   const installment2 = Math.round(remainingBalance / 2);
   const installment3 = remainingBalance - installment2;
+
+  const intake = application.intake || '';
+  const resolvedStartDate = getStartDateForIntake(intake, application.start_date);
+  const startDateObj = new Date(resolvedStartDate);
 
   const admissionTimestamp = offer.accepted_at || offer.created_at || application.updated_at || application.submitted_at || application.created_at || new Date().toISOString();
   const issueDate = new Date(admissionTimestamp).toLocaleDateString('en-CA');
@@ -107,19 +115,24 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
   const expiryDate = new Date(issueDateObj);
   expiryDate.setDate(expiryDate.getDate() + 14);
   const expiryLabel = expiryDate.toLocaleDateString('en-CA');
+
+  // Installment 1 (Tuition Deposit): due 14 days from LOA issue date
   const dueDate1 = new Date(issueDateObj);
   dueDate1.setDate(dueDate1.getDate() + 14);
-  const dueDate2 = new Date(dueDate1);
-  dueDate2.setMonth(dueDate2.getMonth() + 3);
-  const dueDate3 = new Date(dueDate2);
-  dueDate3.setMonth(dueDate3.getMonth() + 3);
+
+  // Installment 2: 2 weeks (14 days) into program start date
+  const dueDate2 = new Date(startDateObj);
+  dueDate2.setDate(dueDate2.getDate() + 14);
+
+  // Installment 3: 7 weeks (49 days) into program start date
+  const dueDate3 = new Date(startDateObj);
+  dueDate3.setDate(dueDate3.getDate() + 49);
+
   const dueDate1Label = dueDate1.toLocaleDateString('en-CA');
   const dueDate2Label = dueDate2.toLocaleDateString('en-CA');
   const dueDate3Label = dueDate3.toLocaleDateString('en-CA');
 
   const schoolType = school.slug === 'business' ? 'Private' : 'Private';
-  const intake = application.intake || '';
-  const resolvedStartDate = getStartDateForIntake(intake, application.start_date);
 
   const visaDeadline = getVisaDeadlineForIntake(intake);
   const fallVisaDeadline = getVisaDeadlineForIntake('Fall 2026') || 'August 15, 2026';
@@ -179,6 +192,7 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
       ],
       tuition: `$${tuitionFee.toLocaleString()} CAD`,
       ancillary: `$${ancillaryFee.toLocaleString()} CAD`,
+      ancillaryBreakdown,
       totalAnnual: `$${totalAnnual.toLocaleString()} CAD`,
     },
     registrar: {

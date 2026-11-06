@@ -161,6 +161,7 @@ interface LetterOfAcceptancePDFProps {
       payments: Array<{ amount: string; dueDate: string }>;
       tuition: string;
       ancillary: string;
+      ancillaryBreakdown?: Array<{ name: string; amount: string }>;
       totalAnnual: string;
     };
     registrar: {
@@ -288,8 +289,13 @@ const LetterOfAcceptancePDF: React.FC<LetterOfAcceptancePDFProps> = ({ data }) =
               {fees.payments.map((p, index) => (
                 <Text key={index}>{p.amount} by {p.dueDate}</Text>
               ))}
-              <Text style={{ marginTop: 6 }}>Tuition Fees: {fees.tuition}</Text>
-              <Text>Mandatory Ancillary Fees: {fees.ancillary}</Text>
+              <Text style={{ marginTop: 4 }}>Tuition Fees: {fees.tuition}</Text>
+              <Text style={{ marginTop: 2 }}>Mandatory Ancillary Fees: {fees.ancillary}</Text>
+              {fees.ancillaryBreakdown && fees.ancillaryBreakdown.map((item, index) => (
+                <Text key={index} style={{ fontSize: 6.8, color: '#333333', paddingLeft: 4 }}>
+                  • {item.name}: {item.amount}
+                </Text>
+              ))}
               <Text style={[styles.bold, { marginTop: 4 }]}>Total Annual Fees: {fees.totalAnnual}*</Text>
             </View>
           </View>

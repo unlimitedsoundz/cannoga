@@ -411,7 +411,9 @@ serve(async (req) => {
                     <p><strong>Financial Summary (1st Year):</strong></p>
                     <p>Tuition Rate Classification: ${isAppDomestic ? 'Domestic (Canadian / EU Resident)' : 'International Student'}</p>
                     <p>Annual Tuition Fee (${isAppDomestic ? 'Domestic' : 'International'}): $${appAnnualTuition.toLocaleString()} CAD</p>
-                    <p>Tuition Deposit: $${appDepositTuition.toLocaleString()} CAD</p>
+                    <p>Mandatory Ancillary Fees: $500 CAD (Student Activity $150, Technology $100, Athletics $75, Convocation $50, Counselling $50, Student Experience $50, Transcript $25)</p>
+                    <p>Tuition Deposit: $${appDepositTuition.toLocaleString()} CAD (due within 14 days)</p>
+                    <p>Subsequent Installments: Due 2 weeks and 7 weeks into the date when your program begins.</p>
 
                     <p><strong>What Does a Conditional Offer Mean?</strong></p>
                     <p>A conditional offer means that you have a place reserved for you, provided you meet certain conditions. In most cases, the primary condition is the payment of your tuition fee deposit or the submission of final verified academic documents.</p>

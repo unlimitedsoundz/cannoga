@@ -193,6 +193,13 @@
           <br>
           Tuition Fees: {{fees.tuition}}<br>
           Mandatory Ancillary Fees: {{fees.ancillary}}<br>
+          {{#if fees.ancillaryBreakdown}}
+            <div style="font-size: 8.5px; color: #444; padding-left: 8px; line-height: 1.3; margin: 3px 0;">
+              {{#each fees.ancillaryBreakdown}}
+                • {{this.name}}: {{this.amount}}<br>
+              {{/each}}
+            </div>
+          {{/if}}
           <span class="label">Total Annual Fees: {{fees.totalAnnual}}*</span>
         </td>
       </tr>

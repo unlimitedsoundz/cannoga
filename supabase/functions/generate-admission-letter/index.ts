@@ -53,13 +53,13 @@ function drawParagraph(page: any, text: string, x: number, y: number, font: any,
 
 // Canonical intake start dates
 const INTAKE_START_DATES: Record<string, string> = {
-    'Fall 2026': '11.09.2026',
-    'Winter 2027': '18.1.2027',
-    'Fall 2027': '11.09.2027',
+    'Fall 2026': '19.09.2026',
+    'Winter 2027': '19.01.2027',
+    'Fall 2027': '19.09.2027',
 };
 
 function getIntakeStartDate(intake?: string | null): string {
-    return INTAKE_START_DATES[(intake || '').trim()] || '11.09.2026';
+    return INTAKE_START_DATES[(intake || '').trim()] || '19.09.2026';
 }
 
 function getProgramYearsByLevel(level?: string): number {
@@ -383,8 +383,8 @@ serve(async (req: any) => {
             const isDepositOffer = offerData?.offer_type === 'DEPOSIT';
             const isFullProgram = offerData?.offer_type === 'FULL_TUITION';
             
-            // Deposit is always 50% of the ANNUAL tuition
-            const computedDeposit = Math.round(baseAnnualFee * 0.5);
+            // Deposit is fixed at $2,000 CAD
+            const computedDeposit = 2000;
             
             // Determine total fee based on offer type
             let displayTotalFee = baseAnnualFee;
@@ -396,7 +396,7 @@ serve(async (req: any) => {
                 displayTotalFee = baseAnnualFee;
             }
 
-            y = drawParagraph(page, 'The following tuition information is provided for your reference based on the programme and degree level.', margin, y, regularFont, 8, cw, grey);
+            y = drawParagraph(page, 'The following tuition information is provided for your reference based on the programme and degree level. Mandatory ancillary fees ($500 CAD) include Student Activity ($150), Technology ($100), Athletics ($75), Convocation ($50), Counselling ($50), Student Experience ($50), and Transcript ($25). Remaining balance installments are due 2 weeks and 7 weeks into the program start date.', margin, y, regularFont, 7.5, cw, grey);
             y -= 8;
 
             page.drawRectangle({ x: margin, y: y - 5, width: cw, height: 40, color: rgb(0.97, 0.97, 0.97) });
@@ -412,7 +412,7 @@ serve(async (req: any) => {
             y -= 12;
 
             // Balance Row
-            page.drawText('Remaining Balance (Due before commencement)', { x: margin + 10, y, size: 9, font: regularFont, color: grey });
+            page.drawText('Remaining Balance (Due 2 & 7 weeks into program)', { x: margin + 10, y, size: 9, font: regularFont, color: grey });
             const remainingBalance = displayTotalFee - computedDeposit;
             const balt = `$${remainingBalance.toLocaleString()} CAD`;
             const balw = boldFont.widthOfTextAtSize(balt, 9);
