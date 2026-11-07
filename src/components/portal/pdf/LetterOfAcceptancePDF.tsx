@@ -321,12 +321,6 @@ const LetterOfAcceptancePDF: React.FC<LetterOfAcceptancePDFProps> = ({ data }) =
           *Note: Tuition and fees quoted are for two semesters of the program and are subject to change. Tuition deposit of $2,000 CAD is non-refundable.{"\n"}
           {college.name} reserves the right to revoke an offer of admission should a student fail to meet the payment deadline.
         </Text>
-
-        <View style={styles.signatureBlock}>
-          {registrar.signatureUrl ? <Image style={styles.signatureImg} src={registrar.signatureUrl} /> : null}
-          <Text style={styles.bold}>{registrar.name}, {registrar.title}</Text>
-          <Text>{college.name}</Text>
-        </View>
       </Page>
 
       {/* ================= NEW PAGE 2 ================= */}
