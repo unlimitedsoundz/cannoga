@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState, useEffect, useCallback } from 'react';
+import { ReactNode, useState, useEffect, useCallback, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { SISHeader } from '@/components/sis/SISHeader';
@@ -22,6 +22,11 @@ export default function SISLayout({ children }: { children: ReactNode }) {
     const [error, setError] = useState<string | null>(null);
     const [profile, setProfile] = useState<Profile | null>(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const authCacheRef = useRef<{
+        sbUser: { id: string; email?: string };
+        prof: any;
+        studentRecord?: any;
+    } | null>(null);
     const pathname = usePathname() || '';
 
     const isAdminPath = pathname.startsWith('/sis/admin');
@@ -31,24 +36,34 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         const checkAuth = async () => {
             try {
                 const supabase = createClient();
-                const { data: { user: sbUser }, error: authError } = await supabase.auth.getUser();
+                let sbUser = authCacheRef.current?.sbUser;
+                let prof = authCacheRef.current?.prof;
 
-                if (authError || !sbUser) {
-                    window.location.href = '/portal/account/login?redirectedFrom=' + encodeURIComponent(pathname);
-                    return;
+                if (!sbUser || !prof) {
+                    const { data: { user: fetchedUser }, error: authError } = await supabase.auth.getUser();
+
+                    if (authError || !fetchedUser) {
+                        window.location.href = '/portal/account/login?redirectedFrom=' + encodeURIComponent(pathname);
+                        return;
+                    }
+
+                    const { data: fetchedProf, error: profError } = await supabase
+                        .from('profiles')
+                        .select('id, role, email, first_name, last_name, student_id, portal_access_disabled, sis_access_disabled')
+                        .eq('id', fetchedUser.id)
+                        .single();
+
+                    if (profError || !fetchedProf) {
+                        window.location.href = '/portal/account/login';
+                        return;
+                    }
+
+                    sbUser = { id: fetchedUser.id, email: fetchedUser.email };
+                    prof = fetchedProf;
+                    authCacheRef.current = { sbUser, prof };
                 }
 
-                const { data: prof, error: profError } = await supabase
-                    .from('profiles')
-                    .select('id, role, email, first_name, last_name, student_id, portal_access_disabled, sis_access_disabled')
-                    .eq('id', sbUser.id)
-                    .single();
-
-
-                if (profError || !prof) {
-                    window.location.href = '/portal/account/login';
-                    return;
-                }
+                if (!sbUser || !prof) return;
 
                 const userEmail = (sbUser.email || '').toLowerCase().trim();
 
@@ -75,11 +90,18 @@ export default function SISLayout({ children }: { children: ReactNode }) {
 
                     // Verify tuition deposit has been paid and admin-verified, and SIS access is not disabled.
                     // If not, keep the user in the applicant portal.
-                    const { data: studentRecord } = await supabase
-                        .from('students')
-                        .select('tuition_deposit_paid, enrollment_status, sis_access_disabled')
-                        .or(`user_id.eq.${sbUser.id},institutional_email.eq.${userEmail}`)
-                        .maybeSingle();
+                    let studentRecord = authCacheRef.current?.studentRecord;
+                    if (studentRecord === undefined) {
+                        const { data: fetchedStudent } = await supabase
+                            .from('students')
+                            .select('tuition_deposit_paid, enrollment_status, sis_access_disabled')
+                            .or(`user_id.eq.${sbUser.id},institutional_email.eq.${userEmail}`)
+                            .maybeSingle();
+                        studentRecord = fetchedStudent || null;
+                        if (authCacheRef.current) {
+                            authCacheRef.current.studentRecord = studentRecord;
+                        }
+                    }
 
                     if (prof.sis_access_disabled || studentRecord?.sis_access_disabled) {
                         if (!prof.portal_access_disabled) {

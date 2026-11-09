@@ -7,7 +7,8 @@ import { createClient } from '@/utils/supabase/client';
 import Tooltip from '@/components/ui/tooltip';
 
 interface TuitionEstimatorProps {
-    courses: Course[];
+    courses: Pick<Course, 'id' | 'title' | 'degreeLevel' | 'duration'>[];
+    initialTuitionInfo?: TuitionInfo[];
 }
 
 interface TuitionInfo {
@@ -60,8 +61,8 @@ const FALLBACK_INTERNATIONAL = {
     MASTER: 16600,
 };
 
-export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
-    const [tuitionInfo, setTuitionInfo] = useState<TuitionInfo[]>([]);
+export default function TuitionEstimator({ courses, initialTuitionInfo }: TuitionEstimatorProps) {
+    const [tuitionInfo, setTuitionInfo] = useState<TuitionInfo[]>(initialTuitionInfo || []);
     const [campus, setCampus] = useState('Ottawa');
     const [startTerm, setStartTerm] = useState('2027 Fall');
     const [residency, setResidency] = useState('International');
@@ -81,17 +82,19 @@ export default function TuitionEstimator({ courses }: TuitionEstimatorProps) {
     };
 
     useEffect(() => {
+        if (initialTuitionInfo && initialTuitionInfo.length > 0) return;
         const fetchTuitionInfo = async () => {
             const supabase = createClient();
             const { data } = await supabase
                 .from('tuition_info')
                 .select('id, credential_type, domestic_tuition, international_tuition')
                 .eq('status', 'active')
-                .order('credential_type', { ascending: true });
+                .order('credential_type', { ascending: true })
+                .limit(20);
             if (data) setTuitionInfo(data as TuitionInfo[]);
         };
         fetchTuitionInfo();
-    }, []);
+    }, [initialTuitionInfo]);
 
     // Handle course change
     const selectedCourse = courses.find(c => c.id === selectedCourseId);

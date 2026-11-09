@@ -63,10 +63,27 @@ export default function AvailabilityPage() {
     slots: {} as Record<string, string>,
   });
 
+  const [rawAvailability, setRawAvailability] = useState<any[]>([]);
+
   useEffect(() => {
     fetchInstructors();
+  }, []);
+
+  useEffect(() => {
     fetchData();
-  }, [instructorFilter, typeFilter, search]);
+  }, [instructorFilter]);
+
+  useEffect(() => {
+    setAvailability(rawAvailability.filter((a: any) => {
+      if (typeFilter && a.availability_type !== typeFilter) return false;
+      if (search) {
+        const instructor = instructors.find(i => i.id === a.instructor_id);
+        const name = instructor ? `${instructor.name}`.toLowerCase() : '';
+        return name.includes(search.toLowerCase()) || a.notes?.toLowerCase().includes(search.toLowerCase());
+      }
+      return true;
+    }));
+  }, [rawAvailability, typeFilter, search, instructors]);
 
   const fetchInstructors = async () => {
     const result = await getInstructors();
@@ -81,15 +98,7 @@ export default function AvailabilityPage() {
         fromDate: new Date().toISOString().split('T')[0],
       });
       if (result.success) {
-        setAvailability(result.data.filter((a: any) => {
-          if (typeFilter && a.availability_type !== typeFilter) return false;
-          if (search) {
-            const instructor = instructors.find(i => i.id === a.instructor_id);
-            const name = instructor ? `${instructor.name}`.toLowerCase() : '';
-            return name.includes(search.toLowerCase()) || a.notes?.toLowerCase().includes(search.toLowerCase());
-          }
-          return true;
-        }));
+        setRawAvailability(result.data || []);
       }
     } catch (e: any) {
       toast.error(e.message || 'Failed to load availability');

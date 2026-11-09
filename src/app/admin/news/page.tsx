@@ -16,8 +16,9 @@ export default function AdminNewsPage() {
         try {
             const { data } = await supabase
                 .from('News')
-                .select('*')
-                .order('publishDate', { ascending: false });
+                .select('id, slug, title, excerpt, imageUrl, publishDate, createdAt')
+                .order('publishDate', { ascending: false })
+                .limit(100);
             setNews(data || []);
         } catch (error) {
             console.error("Error fetching news:", error);

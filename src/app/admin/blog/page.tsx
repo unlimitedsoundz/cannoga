@@ -16,7 +16,7 @@ export default function AdminBlogPage() {
 
     async function fetchPosts() {
         const supabase = createBlogClient();
-        const { data, error } = await supabase.from('blogs').select('*').order('publishDate', { ascending: false });
+        const { data, error } = await supabase.from('blogs').select('id, title, slug, excerpt, published, publishDate, imageUrl, createdAt').order('publishDate', { ascending: false }).limit(100);
         if (error) {
             console.error('Error fetching blog posts:', error);
         }

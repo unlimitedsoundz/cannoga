@@ -23,22 +23,8 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
     const [coverImageFailed, setCoverImageFailed] = useState(false);
 
     useEffect(() => {
-        async function fetchLatest() {
-            const supabase = createClient();
-            const { data, error } = await supabase
-                .from('Event')
-                .select('*')
-                .eq('id', initialEvent.id)
-                .single();
-
-            if (data && !error) {
-                if (data.updated_at !== initialEvent.updated_at || data.content !== initialEvent.content) {
-                    setEvent(data as Event);
-                }
-            }
-        }
-        fetchLatest();
-    }, [initialEvent.id, initialEvent.updated_at, initialEvent.content]);
+        setEvent(initialEvent);
+    }, [initialEvent]);
 
     const isHtmlContent = Boolean(
         currentEvent.content && /<[a-z][\s\S]*>/i.test(currentEvent.content)

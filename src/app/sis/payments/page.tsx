@@ -89,10 +89,11 @@ export default function PaymentsPage() {
                 const { data: { user } } = await supabase.auth.getUser();
 
                 if (user) {
-                    const { data: prof } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+                    const [{ data: prof }, { data: stud }] = await Promise.all([
+                        supabase.from('profiles').select('id, first_name, last_name, email, student_id, avatar_url').eq('id', user.id).single(),
+                        supabase.from('students').select('id, student_id, application_id').eq('user_id', user.id).maybeSingle()
+                    ]);
                     setProfile(prof);
-
-                    const { data: stud } = await supabase.from('students').select('*').eq('user_id', user.id).maybeSingle();
                     setStudent(stud);
                 }
 

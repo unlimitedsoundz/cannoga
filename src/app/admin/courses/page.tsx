@@ -15,8 +15,9 @@ export default function AdminCoursesPage() {
             try {
                 const { data } = await supabase
                     .from('Course')
-                    .select('*, school:School(name)')
-                    .order('createdAt', { ascending: false });
+                    .select('id, slug, title, code, degreeLevel, programType, duration, credits, studyMode, schoolId, createdAt, updatedAt, school:School(name)')
+                    .order('createdAt', { ascending: false })
+                    .limit(200);
 
                 setCourses(data || []);
             } catch (error) {

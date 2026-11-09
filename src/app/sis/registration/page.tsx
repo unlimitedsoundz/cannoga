@@ -70,9 +70,10 @@ export default function RegistrationPage() {
 
           const { data: subjects } = await supabase
             .from('Subject')
-            .select('*')
+            .select('id, code, name, creditUnits, semester')
             .eq('courseId', student.program_id)
-            .order('semester', { ascending: true });
+            .order('semester', { ascending: true })
+            .limit(100);
 
           if (!cancelled && subjects) {
             const mappedAvailable: Course[] = subjects.map((subject: any) => ({
@@ -106,7 +107,12 @@ export default function RegistrationPage() {
     return () => {
       cancelled = true;
     };
-  }, [supabase, selectedTerm]);
+  }, [supabase]);
+
+  useEffect(() => {
+    setAvailableCourses(prev => prev.map(c => ({ ...c, term: selectedTerm })));
+    setRegisteredCourses(prev => prev.map(c => ({ ...c, term: selectedTerm })));
+  }, [selectedTerm]);
 
   const filteredAvailable = availableCourses.filter(c => {
     const matchesSearch = c.code.toLowerCase().includes(search.toLowerCase()) ||

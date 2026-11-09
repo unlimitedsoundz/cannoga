@@ -138,34 +138,41 @@ export default function HousingPortalPage() {
                 if (hData.hosts) setHomestayHosts(hData.hosts);
 
                 // Fetch meal plans directly from Supabase
-                const { data: plans } = await supabase.from('residence_meal_plans').select('*').eq('is_active', true);
+                const { data: plans } = await supabase.from('residence_meal_plans').select('id, code, title, description, price_per_term_minor, dining_dollars_included_minor, meals_per_week, is_mandatory_first_year, is_active').eq('is_active', true).limit(20);
                 if (plans) setMealPlans(plans as MealPlan[]);
 
-                // Fetch own profile
-                const profileRes = await fetch('/api/housing/roommate-profile');
+                // Fetch own profile and work orders in parallel
+                const [profileRes, woRes, { data: { user } }] = await Promise.all([
+                    fetch('/api/housing/roommate-profile'),
+                    fetch('/api/housing/work-orders'),
+                    supabase.auth.getUser(),
+                ]);
                 const pData = await profileRes.json();
                 if (pData.profile) setMyProfile(pData.profile);
 
-                // Fetch own work orders
-                const woRes = await fetch('/api/housing/work-orders');
                 const woData = await woRes.json();
                 if (woData.orders) setWorkOrders(woData.orders);
 
                 // Fetch current housing application & user details
-                const { data: { user } } = await supabase.auth.getUser();
                 if (user) {
-                    // Fetch real student profile from database
-                    const { data: studentRecord } = await supabase
-                        .from('students')
-                        .select('student_id')
-                        .eq('user_id', user.id)
-                        .maybeSingle();
-
-                    const { data: profileRecord } = await supabase
-                        .from('profiles')
-                        .select('student_id, first_name, last_name')
-                        .eq('id', user.id)
-                        .maybeSingle();
+                    const [{ data: studentRecord }, { data: profileRecord }, { data: app }] = await Promise.all([
+                        supabase
+                            .from('students')
+                            .select('student_id')
+                            .eq('user_id', user.id)
+                            .maybeSingle(),
+                        supabase
+                            .from('profiles')
+                            .select('student_id, first_name, last_name')
+                            .eq('id', user.id)
+                            .maybeSingle(),
+                        supabase
+                            .from('housing_applications')
+                            .select('id, student_id, housing_type, status, academic_year, term, building_id, assigned_room_id, selected_meal_plan_id, homestay_host_id, deposit_paid, signed_at, signature_text, created_at, building:building_id(id, name, code, campus_location, style), assigned_room:assigned_room_id(id, room_number, floor_number, bed_identifier, full_room_code, room_type_label, price_per_term_minor), meal_plan:selected_meal_plan_id(id, code, title, price_per_term_minor), homestay_host:homestay_host_id(id, host_name, address_city, distance_to_campus_km, price_per_week_minor)')
+                            .eq('student_id', user.id)
+                            .eq('academic_year', '2026/2027')
+                            .maybeSingle(),
+                    ]);
 
                     const officialStudentId = 
                         studentRecord?.student_id ||
@@ -182,12 +189,6 @@ export default function HousingPortalPage() {
                         id: officialStudentId 
                     });
 
-                    const { data: app } = await supabase
-                        .from('housing_applications')
-                        .select('*, building:building_id(*), assigned_room:assigned_room_id(*), meal_plan:selected_meal_plan_id(*), homestay_host:homestay_host_id(*)')
-                        .eq('student_id', user.id)
-                        .eq('academic_year', '2026/2027')
-                        .maybeSingle();
                     if (app) setApplication(app as HousingApplication);
                 }
             } catch (e) {

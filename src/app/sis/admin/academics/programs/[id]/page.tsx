@@ -35,15 +35,18 @@ export default function ProgramsPage() {
         const result = await getSISAcademicProgram(id);
         if (!result.success) throw new Error(result.error);
 
-        const p = result.data;
-        setProgram({
-          id: p.id,
-          name: p.title,
-          school: p.school?.name || '—',
-          credential: p.degreeLevel || '—',
-          duration: p.duration || '—',
-          status: p.isActive ? 'active' : 'inactive',
-        });
+        const p = result.data as any;
+        if (p) {
+          const schoolName = Array.isArray(p.school) ? p.school[0]?.name : p.school?.name;
+          setProgram({
+            id: p.id,
+            name: p.title,
+            school: schoolName || '—',
+            credential: p.degreeLevel || '—',
+            duration: p.duration || '—',
+            status: p.isActive ? 'active' : 'inactive',
+          });
+        }
       } catch (err: any) {
         setError(err.message || 'Failed to load program');
       } finally {

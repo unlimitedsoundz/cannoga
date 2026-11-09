@@ -60,14 +60,16 @@ function ViewApplicationContent() {
                     return;
                 }
 
+                const appSelectQuery = `
+                    id, user_id, status, application_number, alternate_course_id, requested_documents, document_request_note, personal_info, intake, program_type,
+                    course:Course(title, degreeLevel, programType),
+                    user:profiles(first_name, middle_name, last_name, email, gender, date_of_birth, citizenship, passport_number, phone_code, phone_number, address, city, state_province, country_of_residence, zipcode, local_address, local_city, local_state_province, local_country, local_zipcode, is_19_or_older, contact_first_name, contact_last_name, contact_phone, contact_email, has_siblings_at_college, completing_form_person, housing_required, how_did_you_hear, questions_comments),
+                    documents:application_documents(id, type, name, filename, url)
+                `;
+
                 let { data: applicationRaw, error: appError } = await supabase
                     .from('applications')
-                    .select(`
-                        *,
-                        course:Course(*, school:School(*)),
-                        user:profiles(*),
-                        documents:application_documents(*)
-                    `)
+                    .select(appSelectQuery)
                     .eq('id', id)
                     .eq('user_id', user.id)   // ownership check — never show another student's app
                     .maybeSingle();
@@ -88,14 +90,12 @@ function ViewApplicationContent() {
                     const { data: userApps } = await supabase
                         .from('applications')
                         .select(`
-                            *,
-                            course:Course(*, school:School(*)),
-                            user:profiles(*),
-                            documents:application_documents(*),
+                            ${appSelectQuery},
                             admission_offers(id)
                         `)
                         .eq('user_id', user.id)
-                        .order('created_at', { ascending: false });
+                        .order('created_at', { ascending: false })
+                        .limit(10);
 
                     if (userApps && userApps.length > 0) {
                         const withOffer = userApps.find((a: any) => a.admission_offers && (Array.isArray(a.admission_offers) ? a.admission_offers.length > 0 : a.admission_offers));
@@ -111,26 +111,36 @@ function ViewApplicationContent() {
                     }
                 }
 
-                // Fetch alternate course if specified
-                if (applicationRaw?.alternate_course_id) {
-                    const { data: altCourse } = await supabase
-                        .from('Course')
-                        .select('*, school:School(*)')
-                        .eq('id', applicationRaw.alternate_course_id)
-                        .maybeSingle();
-                    if (altCourse) {
-                        applicationRaw.alternate_course = altCourse;
-                    }
+                const targetAppId = applicationRaw.id || id;
+
+                // Parallelize independent queries for alternate course, offer, and student record
+                const [altCourseRes, offerRes, studentRes] = await Promise.all([
+                    applicationRaw?.alternate_course_id
+                        ? supabase
+                            .from('Course')
+                            .select('title')
+                            .eq('id', applicationRaw.alternate_course_id)
+                            .maybeSingle()
+                        : Promise.resolve({ data: null }),
+                    supabase
+                        .from('admission_offers')
+                        .select('id, status, document_url, invoice_pushed, offer_type, tuition_fee, payment_deadline, invoice_type, invoice_sent_at')
+                        .eq('application_id', targetAppId)
+                        .maybeSingle(),
+                    supabase
+                        .from('students')
+                        .select('id, tuition_deposit_paid, enrollment_status')
+                        .eq('user_id', user.id)
+                        .maybeSingle()
+                ]);
+
+                if (altCourseRes.data) {
+                    (applicationRaw as any).alternate_course = altCourseRes.data;
                 }
 
                 setApplication(applicationRaw);
 
-                const { data: offerData } = await supabase
-                    .from('admission_offers')
-                    .select('*')
-                    .eq('application_id', id)
-                    .maybeSingle();
-
+                const offerData = offerRes.data;
                 setOffer(offerData);
 
                 const accepted = offerData?.status === 'ACCEPTED' ||
@@ -138,45 +148,59 @@ function ViewApplicationContent() {
                     applicationRaw.status === 'ENROLLED';
                 setIsOfferAccepted(accepted);
 
-                const { data: paymentsData } = await supabase
-                    .from('tuition_payments')
-                    .select('*')
-                    .eq('offer_id', offerData?.id)
-                    .order('created_at', { ascending: false });
+                const studentData = studentRes.data;
 
-                setPayments(paymentsData || []);
-
-                const { data: studentData } = await supabase
-                    .from('students')
-                    .select('id')
-                    .eq('user_id', user.id)
-                    .maybeSingle();
-
-                if (studentData) {
-                    const { data: palData } = await supabase
-                        .from('document_records')
-                        .select('*')
-                        .eq('student_id', studentData.id)
-                        .eq('document_type', 'pal')
-                        .eq('is_student_visible', true)
-                        .maybeSingle();
-
-                    setPalDocument(palData);
-
-                    const { data: receiptData } = await supabase
-                        .from('document_records')
-                        .select('*')
-                        .eq('student_id', studentData.id)
-                        .eq('document_type', 'tuition_receipt')
-                        .eq('is_student_visible', true)
-                        .order('issue_date', { ascending: false })
-                        .limit(1)
-                        .maybeSingle();
-
-                    setReceiptDocument(receiptData);
+                if (applicationRaw.status === 'ENROLLED' && studentData) {
+                    const depositVerified =
+                        studentData.tuition_deposit_paid === true &&
+                        (studentData.enrollment_status === 'ACTIVE' ||
+                            studentData.enrollment_status === 'CONFIRMED');
+                    if (depositVerified) {
+                        router.push('/sis/');
+                        return;
+                    }
                 }
 
-                if (offerData && ['OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ENROLLED'].includes(applicationRaw.status)) {
+                // Parallelize payments and student documents
+                const [paymentsRes, palRes, receiptRes] = await Promise.all([
+                    offerData?.id
+                        ? supabase
+                            .from('tuition_payments')
+                            .select('id, invoice_type, created_at, amount, currency, status')
+                            .eq('offer_id', offerData.id)
+                            .order('created_at', { ascending: false })
+                            .limit(50)
+                        : Promise.resolve({ data: [] }),
+                    studentData
+                        ? supabase
+                            .from('document_records')
+                            .select('id, storage_path, file_url')
+                            .eq('student_id', studentData.id)
+                            .eq('document_type', 'pal')
+                            .eq('is_student_visible', true)
+                            .maybeSingle()
+                        : Promise.resolve({ data: null }),
+                    studentData
+                        ? supabase
+                            .from('document_records')
+                            .select('id, storage_path, file_url')
+                            .eq('student_id', studentData.id)
+                            .eq('document_type', 'tuition_receipt')
+                            .eq('is_student_visible', true)
+                            .order('issue_date', { ascending: false })
+                            .limit(1)
+                            .maybeSingle()
+                        : Promise.resolve({ data: null })
+                ]);
+
+                setPayments(paymentsRes.data || []);
+                if (studentData) {
+                    setPalDocument(palRes.data);
+                    setReceiptDocument(receiptRes.data);
+                }
+
+                // Only generate LOA once if missing document_url
+                if (offerData && !offerData.document_url && ['OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ENROLLED'].includes(applicationRaw.status)) {
                     try {
                         await regenerateLOA(applicationRaw.id);
                     } catch (loaError) {
@@ -192,51 +216,19 @@ function ViewApplicationContent() {
         }
 
         loadData();
-    }, [id, refreshFlag]);
+    }, [id, refreshFlag, router]);
 
     useEffect(() => {
-        if (application?.status === 'ENROLLED') {
-            // Only redirect to SIS once the tuition deposit is paid and
-            // admin-verified (student record will have tuition_deposit_paid=true).
-            // Until then keep the user on the application view so they can pay.
-            const supabase = createClient();
-            supabase.auth.getUser().then(({ data: { user } }: { data: { user: { id: string } | null } }) => {
-                if (!user) return;
-                supabase
-                    .from('students')
-                    .select('tuition_deposit_paid, enrollment_status')
-                    .eq('user_id', user.id)
-                    .maybeSingle()
-                    .then(({ data: studentRec }: { data: { tuition_deposit_paid: boolean; enrollment_status: string } | null }) => {
-                        const depositVerified =
-                            studentRec?.tuition_deposit_paid === true &&
-                            (studentRec?.enrollment_status === 'ACTIVE' ||
-                                studentRec?.enrollment_status === 'CONFIRMED');
-                        if (depositVerified) {
-                            router.push('/sis/');
-                        }
-                    });
-            });
-        }
-    }, [application?.status, router]);
-
-    useEffect(() => {
+        let lastRefresh = Date.now();
         const handleVisibilityChange = () => {
-            if (document.visibilityState === 'visible') {
+            if (document.visibilityState === 'visible' && Date.now() - lastRefresh > 30000) {
+                lastRefresh = Date.now();
                 setRefreshFlag(prev => prev + 1);
             }
         };
 
         window.addEventListener('visibilitychange', handleVisibilityChange);
         return () => window.removeEventListener('visibilitychange', handleVisibilityChange);
-    }, [id]);
-
-    useEffect(() => {
-        const pollInterval = setInterval(() => {
-            setRefreshFlag(prev => prev + 1);
-        }, 5000);
-
-        return () => clearInterval(pollInterval);
     }, [id]);
 
     const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>, type: string) => {

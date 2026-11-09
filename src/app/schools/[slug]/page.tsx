@@ -12,20 +12,30 @@ interface Props {
     }>;
 }
 
+import { cache } from 'react';
+import { createStaticClient } from '@/lib/supabase/static';
+
 // Revalidate school pages every hour. Admin mutations trigger revalidatePath()
 // for immediate cache invalidation when school content is changed.
 export const revalidate = 3600;
 
+const getSchoolBySlug = cache(async (slug: string) => {
+    const supabase = createStaticClient();
+    return supabase
+        .from('School')
+        .select(`
+            id, name, slug, description, imageUrl,
+            departments:Department(id, name, slug, description, schoolId, headOfDepartment:Faculty!headofdepartmentid(name, role))
+        `)
+        .eq('slug', slug)
+        .maybeSingle();
+});
+
 export async function generateMetadata({ params }: Props) {
     const resolvedParams = await params;
     const { slug } = resolvedParams;
-    const supabase = createStaticClient();
 
-    const { data: school } = await supabase
-        .from('School')
-        .select('name, description')
-        .eq('slug', slug)
-        .maybeSingle();
+    const { data: school } = await getSchoolBySlug(slug);
 
     const schoolNames: Record<string, string> = {
         'business': 'School of Business',
@@ -68,21 +78,12 @@ import { Breadcrumbs } from '@aalto-dx/react-modules';
 import { Hero } from '@/components/layout/Hero';
 import { Card } from '@/components/ui/Card';
 
-import { createStaticClient } from '@/lib/supabase/static';
-
 export default async function SchoolDetails({ params }: Props) {
     const { slug } = await params;
     const supabase = createStaticClient();
 
-    // Fetch school with departments and (optionally) top courses via filtering
-    const { data: schoolData } = await supabase
-        .from('School')
-        .select(`
-      *,
-      departments:Department(*, headOfDepartment:Faculty!headofdepartmentid(name, role))
-    `)
-        .eq('slug', slug)
-        .maybeSingle();
+    // Fetch school with departments (shared with generateMetadata via React.cache)
+    const { data: schoolData } = await getSchoolBySlug(slug);
 
     const schoolNames: Record<string, string> = {
         'business': 'School of Business',
@@ -128,18 +129,19 @@ export default async function SchoolDetails({ params }: Props) {
         ]
     } as any;
 
-    // Fetch latest/top courses for this school
-    const { data: courses } = await supabase
-        .from('Course')
-        .select('*')
-        .eq('schoolId', school.id)
-        .limit(4);
-
-    // Fetch Faculty for this school
-    const { data: faculty } = await supabase
-        .from('Faculty')
-        .select('*')
-        .eq('schoolId', school.id);
+    // Fetch latest/top courses and Faculty for this school in parallel
+    const [{ data: courses }, { data: faculty }] = await Promise.all([
+        supabase
+            .from('Course')
+            .select('id, slug, title, imageUrl, degreeLevel, duration')
+            .eq('schoolId', school.id)
+            .limit(4),
+        supabase
+            .from('Faculty')
+            .select('id, name, role, bio, email')
+            .eq('schoolId', school.id)
+            .limit(30),
+    ]);
 
     return (
         <div className="min-h-screen bg-white">

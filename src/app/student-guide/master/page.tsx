@@ -24,8 +24,9 @@ export default async function AdvancedDiplomaGuidePage() {
     try {
         const { data: tuitionRows } = await supabase
             .from('tuition_info')
-            .select('*')
-            .eq('status', 'active');
+            .select('credential_type, international_tuition, domestic_tuition')
+            .eq('status', 'active')
+            .limit(20);
 
         if (tuitionRows) {
             const masterRow = tuitionRows.find((r: any) => 

@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { createStaticClient } from '@/lib/supabase/static';
 
 // Revalidate every hour; admin mutations call revalidatePath() for immediate updates.
@@ -8,11 +9,18 @@ import Image from 'next/image';
 import { CaretLeft, ArrowRight, Calendar, User } from "@phosphor-icons/react/dist/ssr";
 import { Metadata } from 'next';
 
+const getResearchProjectBySlug = cache(async (slug: string) => {
+    const supabase = createStaticClient();
+    return supabase
+        .from('ResearchProject')
+        .select('id, slug, title, description, content, fundingSource, leadResearcher, imageUrl, createdAt, updatedAt')
+        .eq('slug', slug)
+        .single();
+});
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
-    const supabase = createStaticClient();
-    const { data: project } = await supabase.from('ResearchProject').select('title, description').eq('slug', slug).single();
+    const { data: project } = await getResearchProjectBySlug(slug);
 
     if (!project) return { title: 'Project Not Found' };
 
@@ -27,12 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const supabase = createStaticClient();
-    const { data: project } = await supabase
-        .from('ResearchProject')
-        .select('*')
-        .eq('slug', slug)
-        .single();
+    const { data: project } = await getResearchProjectBySlug(slug);
 
     if (!project) notFound();
 

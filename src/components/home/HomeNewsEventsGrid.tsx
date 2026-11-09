@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/utils/supabase/client';
@@ -28,11 +28,17 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
     const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
+        if ((initialNews && initialNews.length > 0) || (initialEvents && initialEvents.length > 0)) {
+            setLoading(false);
+            return;
+        }
         async function fetchData() {
             try {
                 const supabase = createClient();
-                const { data: newsData } = await supabase.from('News').select('*').eq('published', true).order('publishDate', { ascending: false }).limit(5);
-                const { data: eventsData } = await supabase.from('Event').select('*').eq('published', true).order('date', { ascending: true }).limit(4);
+                const [{ data: newsData }, { data: eventsData }] = await Promise.all([
+                    supabase.from('News').select('id, slug, title, excerpt, imageUrl, publishDate').eq('published', true).order('publishDate', { ascending: false }).limit(5),
+                    supabase.from('Event').select('id, slug, title, date, category').eq('published', true).order('date', { ascending: true }).limit(4),
+                ]);
                 if (newsData) setNews(newsData);
                 if (eventsData) setEvents(eventsData);
             } catch {
@@ -42,7 +48,7 @@ export function HomeNewsEventsGrid({ initialNews, initialEvents }: HomeNewsEvent
             }
         }
         fetchData();
-    }, []);
+    }, [initialNews, initialEvents]);
 
     const prev = useCallback(() => setActiveIndex(i => (i === 0 ? Math.max(0, (news.length || 1) - 1) : i - 1)), [news.length]);
     const next = useCallback(() => setActiveIndex(i => (i >= (news.length || 1) - 1 ? 0 : i + 1)), [news.length]);

@@ -54,10 +54,10 @@ function ApplicationWizardContent() {
                 const { data: applicationRaw, error: appError } = await supabase
                     .from('applications')
                     .select(`
-                        *,
-                        course:Course(*, school:School(*)),
+                        id, application_number, user_id, course_id, status, personal_info, contact_details, education_history, academic_history, motivation, language_proficiency, program_specific_data, submitted_at, created_at, updated_at,
+                        course:Course(id, title, slug, programType, degreeLevel, duration, school:School(name, slug)),
                         user:profiles(email, student_id),
-                        documents:application_documents(*)
+                        documents:application_documents(id, application_id, type, document_type, url, file_url, name, file_name, uploaded_at)
                     `)
                     .eq('id', id)
                     .eq('user_id', currentUserId || '')
@@ -89,7 +89,7 @@ function ApplicationWizardContent() {
         };
 
         fetchApplicationData();
-    }, [id, stepParam, router, supabase]);
+    }, [id, router, supabase]);
 
     const refreshApplication = async () => {
         setLoading(true);
@@ -100,10 +100,10 @@ function ApplicationWizardContent() {
             const { data: applicationRaw } = await supabase
                 .from('applications')
                 .select(`
-                    *,
-                    course:Course(*, school:School(*)),
+                    id, application_number, user_id, course_id, status, personal_info, contact_details, education_history, academic_history, motivation, language_proficiency, program_specific_data, submitted_at, created_at, updated_at,
+                    course:Course(id, title, slug, programType, degreeLevel, duration, school:School(name, slug)),
                     user:profiles(email, student_id),
-                    documents:application_documents(*)
+                    documents:application_documents(id, application_id, type, document_type, url, file_url, name, file_name, uploaded_at)
                 `)
                 .eq('id', id)
                 .eq('user_id', currentUser.id)

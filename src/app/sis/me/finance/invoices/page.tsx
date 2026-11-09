@@ -54,9 +54,10 @@ export default function InvoicesPage() {
 
         const { data: invoiceData, error: invoiceError } = await supabase
           .from('invoices')
-          .select('*')
+          .select('id, invoice_number, type, term, amount, paid, balance, due_date, status, issued_date')
           .eq('student_id', studentData.id)
-          .order('issued_date', { ascending: false });
+          .order('issued_date', { ascending: false })
+          .limit(50);
 
         if (!invoiceError && invoiceData) {
           setInvoices(invoiceData.map((inv: any) => ({

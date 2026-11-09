@@ -1,4 +1,4 @@
-﻿
+
 import { createStaticClient } from '@/lib/supabase/static';
 import { Link } from "@aalto-dx/react-components";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
@@ -15,8 +15,9 @@ export default async function ProjectsPage() {
     const supabase = createStaticClient();
     const { data: projects } = await supabase
         .from('ResearchProject')
-        .select('*')
-        .order('createdAt', { ascending: false });
+        .select('id, slug, title, description, fundingSource, imageUrl, leadResearcher, createdAt')
+        .order('createdAt', { ascending: false })
+        .limit(50);
 
     return (
         <div className="min-h-screen bg-neutral-50 pt-32 pb-16 md:py-24">

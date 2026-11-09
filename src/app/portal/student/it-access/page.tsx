@@ -58,11 +58,12 @@ export default function ItAccessPage() {
                 const { data: accessData, error } = await supabase
                     .from('student_it_access')
                     .select(`
-                        *,
-                        asset:it_assets(*)
+                        id, student_id, asset_id, username, temporary_password, status, provisioned_at, created_at,
+                        asset:it_assets(id, name, asset_type, description, access_url, icon_name)
                     `)
                     .eq('student_id', student.id)
-                    .order('created_at', { ascending: false });
+                    .order('created_at', { ascending: false })
+                    .limit(50);
 
                 if (error) {
                     console.error('Error fetching IT access:', error.message, error.details);

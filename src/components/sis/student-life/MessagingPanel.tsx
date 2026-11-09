@@ -68,7 +68,7 @@ export default function MessagingPanel({ messages, unreadCount, onBack, studentI
                 setForm({ recipientId: '', subject: '', body: '', category: 'GENERAL', priority: 'NORMAL' });
                 setComposeOpen(false);
                 const refreshed = await getMessages(studentId);
-                if (refreshed.success) setAllMessages(refreshed.data);
+                if (refreshed.success) setAllMessages((refreshed.data as any) || []);
             } else {
                 toast.error(result.error || 'Failed to send message');
             }
@@ -93,7 +93,7 @@ export default function MessagingPanel({ messages, unreadCount, onBack, studentI
                 toast.success('Reply sent');
                 setReplyBody('');
                 const refreshed = await getMessages(studentId);
-                if (refreshed.success) setAllMessages(refreshed.data);
+                if (refreshed.success) setAllMessages((refreshed.data as any) || []);
             } else {
                 toast.error(result.error || 'Failed to send reply');
             }

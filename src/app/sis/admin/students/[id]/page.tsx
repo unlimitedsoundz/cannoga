@@ -61,7 +61,7 @@ export default function AdminStudentDetailPage() {
         const result = await getSISStudentDetail(studentId);
         if (!result.success) throw new Error(result.error);
         if (!result.data) throw new Error('Student not found');
-        const s = result.data;
+        const s = result.data as any;
         const courseTitle = s.program?.title || s.program_id || '—';
         const schoolName = s.program?.school?.name || '—';
         setStudent({

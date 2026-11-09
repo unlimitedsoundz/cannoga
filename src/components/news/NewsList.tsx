@@ -14,7 +14,9 @@ interface NewsListProps {
     staticArticles?: any[];
 }
 
-export default function NewsList({ staticArticles = [] }: NewsListProps) {
+const EMPTY_STATIC_ARTICLES: any[] = [];
+
+export default function NewsList({ staticArticles = EMPTY_STATIC_ARTICLES }: NewsListProps) {
     const [items, setItems] = useState<any[]>([]);
     const [filteredItems, setFilteredItems] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -29,24 +31,28 @@ export default function NewsList({ staticArticles = [] }: NewsListProps) {
         async function fetchContent() {
             const supabase = createClient();
 
-            // Fetch news
-            const { data: newsData, error: newsError } = await supabase
-                .from('News')
-                .select('*')
-                .eq('published', true)
-                .order('publishDate', { ascending: false });
+            const [
+                { data: newsData, error: newsError },
+                { data: eventsData, error: eventsError },
+            ] = await Promise.all([
+                supabase
+                    .from('News')
+                    .select('id, slug, title, excerpt, imageUrl, publishDate')
+                    .eq('published', true)
+                    .order('publishDate', { ascending: false })
+                    .limit(100),
+                supabase
+                    .from('Event')
+                    .select('id, slug, title, date, location, imageUrl, category')
+                    .eq('published', true)
+                    .order('date', { ascending: true })
+                    .limit(100),
+            ]);
 
             if (newsError) {
                 console.error('Error fetching news:', newsError.message || newsError);
                 console.debug('Full news error details:', newsError);
             }
-
-            // Fetch events
-            const { data: eventsData, error: eventsError } = await supabase
-                .from('Event')
-                .select('*')
-                .eq('published', true)
-                .order('date', { ascending: true });
 
             if (eventsError) {
                 console.error('Error fetching events:', eventsError.message || eventsError);

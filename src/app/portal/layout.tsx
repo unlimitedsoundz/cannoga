@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState, useEffect, useMemo } from 'react';
+import { ReactNode, useState, useEffect, useMemo, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import PortalHeader from '@/components/portal/PortalHeader';
@@ -9,6 +9,7 @@ import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
 export default function PortalLayout({ children }: { children: ReactNode }) {
     const [loading, setLoading] = useState(true);
     const [authorized, setAuthorized] = useState(false);
+    const verifiedUserRef = useRef(false);
     const router = useRouter();
     const pathname = usePathname() || '';
 
@@ -40,8 +41,14 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
 
             if (isPublicPath) {
                 // Skip auth checks for public paths
-                console.log('Public path detected, skipping auth');
+                verifiedUserRef.current = false;
                 setAuthorized(false);
+                setLoading(false);
+                return;
+            }
+
+            if (verifiedUserRef.current) {
+                setAuthorized(true);
                 setLoading(false);
                 return;
             }
@@ -86,6 +93,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                     }
 
                     if (prof) {
+                        verifiedUserRef.current = true;
                         setAuthorized(true);
                         setLoading(false);
                         return;

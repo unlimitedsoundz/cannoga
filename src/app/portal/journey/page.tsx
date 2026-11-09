@@ -33,7 +33,7 @@ async function JourneyClient() {
 
   const { data: student, error } = await supabase
     .from('students')
-    .select('*')
+    .select('id, current_stage, pal_status, pal_required, study_permit_status, arrival_status, checkin_status, orientation_status, registration_status, enrollment_status')
     .eq('user_id', user.id)
     .single();
 

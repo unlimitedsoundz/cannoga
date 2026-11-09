@@ -39,7 +39,7 @@ export default function PaymentsPage() {
 
         const { data: studentData, error: studentError } = await supabase
           .from('students')
-          .select('id')
+          .select('id, application_id')
           .eq('user_id', user.id)
           .single();
 
@@ -51,25 +51,20 @@ export default function PaymentsPage() {
 
         let tuitionPayments: any[] = [];
         try {
-            const { data: studentApp } = await supabase
-                .from('students')
-                .select('application_id')
-                .eq('id', studentData.id)
-                .single();
-
-            if (studentApp?.application_id) {
+            if (studentData.application_id) {
                 const { data: offerData } = await supabase
                     .from('admission_offers')
                     .select('id')
-                    .eq('application_id', studentApp.application_id);
+                    .eq('application_id', studentData.application_id);
 
                 const offerIds = (offerData || []).map((o: any) => o.id);
                 if (offerIds.length > 0) {
                     const { data: tpData } = await supabase
                         .from('tuition_payments')
-                        .select('*')
+                        .select('id, offer_id, amount, status, payment_method, transaction_reference, receipt_url, created_at')
                         .in('offer_id', offerIds)
-                        .order('created_at', { ascending: false });
+                        .order('created_at', { ascending: false })
+                        .limit(50);
 
                     tuitionPayments = tpData || [];
                 }

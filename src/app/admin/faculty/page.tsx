@@ -15,8 +15,9 @@ export default function AdminFacultyPage() {
             try {
                 const { data } = await supabase
                     .from('Faculty')
-                    .select('*, school:School(name), department:Department!departmentId(name)')
-                    .order('name', { ascending: true });
+                    .select('id, name, role, email, imageUrl, schoolId, departmentId, school:School(name), department:Department!departmentId(name)')
+                    .order('name', { ascending: true })
+                    .limit(200);
 
                 setFaculty(data || []);
             } catch (error) {

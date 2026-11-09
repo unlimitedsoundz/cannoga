@@ -14,7 +14,7 @@ export async function respondToOffer(admissionId: string, decision: 'ACCEPTED' |
     // 2. Fetch the admission record to verify ownership and current status
     const { data: admission, error: fetchError } = await supabase
         .from('admissions')
-        .select('*')
+        .select('id, user_id, offer_status')
         .eq('id', admissionId)
         .eq('user_id', user.id)
         .single();
@@ -57,10 +57,10 @@ export async function respondToOffer(admissionId: string, decision: 'ACCEPTED' |
             const { data: acceptedApp } = await supabase
                 .from('applications')
                 .select(`
-                    *,
-                    course:Course(*, school:School(*)),
-                    user:profiles(*),
-                    offer:admission_offers(*)
+                    id, application_number, user_id, course_id, status, personal_info, contact_details, submitted_at, created_at, updated_at,
+                    course:Course(id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(id, name, slug)),
+                    user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, nationality, student_id),
+                    offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, created_at)
                 `)
                 .eq('user_id', user.id)
                 .eq('status', 'OFFER_ACCEPTED')
@@ -196,19 +196,21 @@ export async function acceptApplicationOffer(applicationId: string, userId?: str
     }
 
     // Generate and store LOA PDF in document_records
+    let resolvedCourseTitle: string | undefined;
     try {
         const { data: application, error: appFetchError } = await supabase
             .from('applications')
             .select(`
-                *,
-                course:Course(*, school:School(*)),
-                user:profiles(*),
-                offer:admission_offers(*)
+                id, application_number, user_id, course_id, status, personal_info, contact_details, submitted_at, created_at, updated_at,
+                course:Course(id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(id, name, slug)),
+                user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, nationality, student_id),
+                offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, created_at)
             `)
             .eq('id', applicationId)
             .single();
 
         if (!appFetchError && application) {
+            resolvedCourseTitle = (application.course as any)?.title;
             const loaRes = await generateAndStoreLOA(applicationId, application);
             try {
                 await supabase.functions.invoke('send-notification', {
@@ -228,23 +230,15 @@ export async function acceptApplicationOffer(applicationId: string, userId?: str
 
     // 5. Try updating legacy admissions table
     try {
-        const { data: courseData } = await supabase
-            .from('applications')
-            .select('course(title)')
-            .eq('id', applicationId)
-            .single();
-
-        const courseTitle = (courseData?.course as any)?.title;
-
-        if (courseTitle) {
+        if (resolvedCourseTitle) {
             await supabase
                 .from('admissions')
                 .update({
                     offer_status: 'ACCEPTED',
                     accepted_at: new Date().toISOString()
                 })
-        .eq('user_id', currentUserId)
-                .eq('program', courseTitle);
+                .eq('user_id', currentUserId)
+                .eq('program', resolvedCourseTitle);
         }
     } catch (err) {
         console.warn('Legacy admission update failed silently', err);

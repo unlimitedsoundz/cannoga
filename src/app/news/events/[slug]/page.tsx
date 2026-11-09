@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { createStaticClient } from '@/lib/supabase/static';
 
 // Revalidate every hour; admin mutations call revalidatePath() for immediate updates.
@@ -16,12 +17,20 @@ interface Props {
     }>;
 }
 
+const getEventBySlug = cache(async (slug: string) => {
+    const supabase = createStaticClient();
+    return supabase
+        .from('Event')
+        .select('id, slug, title, content, date, location, category, imageUrl, published, updatedAt')
+        .eq('slug', slug)
+        .single();
+});
 
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
     const supabase = createStaticClient();
-    const { data: events } = await supabase.from('Event').select('slug');
+    const { data: events } = await supabase.from('Event').select('slug').limit(200);
     return (events || []).map((item) => ({
         slug: item.slug,
     }));
@@ -29,13 +38,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props) {
     const { slug } = await params;
-    const supabase = createStaticClient();
 
-    const { data: event } = await supabase
-        .from('Event')
-        .select('title, content')
-        .eq('slug', slug)
-        .single();
+    const { data: event } = await getEventBySlug(slug);
 
     if (!event) return { title: 'Event Not Found' };
 
@@ -50,20 +54,15 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function EventDetailPage({ params }: Props) {
     const { slug } = await params;
-    const supabase = createStaticClient();
 
-    const { data: eventItem, error } = await supabase
-        .from('Event')
-        .select('*')
-        .eq('slug', slug)
-        .single();
+    const { data: eventItem, error } = await getEventBySlug(slug);
 
     if (error || !eventItem) {
         if (error?.code !== 'PGRST116') console.error('Error fetching event:', error);
         notFound();
     }
 
-    const item = eventItem as Event;
+    const item = eventItem as unknown as Event;
 
     const jsonLd = {
         '@context': 'https://schema.org',

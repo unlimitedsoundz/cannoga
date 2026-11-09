@@ -13,6 +13,40 @@ interface DbPageContentProps {
     skipDbFetch?: boolean;
 }
 
+// Module-level cache & in-flight request deduplication per pageSlug
+const pageContentCache = new Map<string, Promise<Record<string, string>>>();
+
+function fetchPageSections(supabase: ReturnType<typeof createClient>, pageSlug: string): Promise<Record<string, string>> {
+    const cached = pageContentCache.get(pageSlug);
+    if (cached) return cached;
+
+    const promise = (async () => {
+        try {
+            const { data, error } = await supabase
+                .from('page_content')
+                .select('section_key, content')
+                .eq('page_slug', pageSlug)
+                .limit(100);
+
+            if (error || !data) return {};
+            const map: Record<string, string> = {};
+            for (const row of data) {
+                if (row.section_key && row.content) {
+                    map[row.section_key] = row.content;
+                }
+            }
+            return map;
+        } catch (err) {
+            console.error('Failed to load page content:', err);
+            pageContentCache.delete(pageSlug);
+            return {};
+        }
+    })();
+
+    pageContentCache.set(pageSlug, promise);
+    return promise;
+}
+
 export default function DbPageContent({
     pageSlug,
     sectionKey,
@@ -39,49 +73,14 @@ export default function DbPageContent({
         if (!supabase || skipDbFetch) return;
         let mounted = true;
 
-        async function loadPageContent() {
-            try {
-                const { data, error } = await supabase!
-                    .from('page_content')
-                    .select('content')
-                    .eq('page_slug', pageSlug)
-                    .eq('section_key', sectionKey)
-                    .single();
-
-                if (!error && data?.content && mounted) {
-                    setContent(data.content);
-                }
-            } catch (err) {
-                console.error('Failed to load page content:', err);
+        fetchPageSections(supabase, pageSlug).then((sections) => {
+            if (mounted && sections[sectionKey]) {
+                setContent(sanitize(sections[sectionKey]));
             }
-        }
-
-        loadPageContent();
-
-        // ── Realtime Subscription: Instantly reflect edits made from /sis/admin/website/page-contents/ without page refresh ──
-        const channelName = `realtime:page_content:${pageSlug.replace(/[^a-zA-Z0-9]/g, '_')}:${sectionKey.replace(/[^a-zA-Z0-9]/g, '_')}`;
-        const channel = supabase
-            .channel(channelName)
-            .on(
-                'postgres_changes',
-                {
-                    event: '*',
-                    schema: 'public',
-                    table: 'page_content',
-                    filter: `page_slug=eq.${pageSlug}`,
-                },
-                (payload: any) => {
-                    const newRow = payload.new;
-                    if (newRow && newRow.section_key === sectionKey && mounted) {
-                        setContent(newRow.content || '');
-                    }
-                }
-            )
-            .subscribe();
+        });
 
         return () => {
             mounted = false;
-            supabase.removeChannel(channel);
         };
     }, [pageSlug, sectionKey, supabase, skipDbFetch]);
 

@@ -67,13 +67,6 @@ export default function CourseDetailPage() {
                         });
                     }
                 }
-
-                // Fetch assignments
-                const assignRes = await fetch('/api/sis/education/assignments');
-                if (assignRes.ok) {
-                    const aData = await assignRes.json();
-                    setAssignments(aData.assignments || []);
-                }
             } catch (err) {
                 console.error('Error loading course', err);
             } finally {

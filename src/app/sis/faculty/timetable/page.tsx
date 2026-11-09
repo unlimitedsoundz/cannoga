@@ -30,14 +30,15 @@ export default function FacultyTimetablePage() {
   const [termId, setTermId] = useState('');
   const [terms, setTerms] = useState<any[]>([]);
   const [weekOffset, setWeekOffset] = useState(0);
+  const [facultyProfileId, setFacultyProfileId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchTerms();
   }, []);
 
   useEffect(() => {
-    if (termId) fetchData();
-  }, [termId]);
+    if (termId && facultyProfileId) fetchData(facultyProfileId);
+  }, [termId, facultyProfileId]);
 
   const fetchTerms = async () => {
     try {
@@ -52,11 +53,13 @@ export default function FacultyTimetablePage() {
         .maybeSingle();
 
       if (!profile) return;
+      setFacultyProfileId(profile.id);
 
       const { data: semesters } = await supabase
         .from('semesters')
         .select('id, name, start_date, end_date, status')
-        .order('start_date', { ascending: false });
+        .order('start_date', { ascending: false })
+        .limit(20);
 
       setTerms(semesters || []);
       const nonFall2026 = semesters?.find((s: { status: string; name?: string }) => !s.name?.toLowerCase().includes('fall 2026') && s.status === 'ACTIVE') ||
@@ -68,25 +71,14 @@ export default function FacultyTimetablePage() {
     }
   };
 
-  const fetchData = async () => {
-    if (!termId) return;
+  const fetchData = async (profId?: string) => {
+    const resolvedId = profId || facultyProfileId;
+    if (!termId || !resolvedId) return;
     try {
       setLoading(true);
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('id', user.id)
-        .maybeSingle();
-
-      if (!profile) return;
-
       const [timetableResult, sectionsResult] = await Promise.all([
-        getFacultyTimetable(profile.id, termId),
-        getFacultySections(profile.id, termId),
+        getFacultyTimetable(resolvedId, termId),
+        getFacultySections(resolvedId, termId),
       ]);
 
       setSessions(timetableResult as SessionRow[]);

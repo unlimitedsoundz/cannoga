@@ -20,17 +20,18 @@ export async function getFacultyTimetable(facultyId: string, termId: string): Pr
     const { data, error } = await adminClient
       .from('timetable_assignments')
       .select(`
-        *,
+        id, version_id, section_id, room_id, instructor_id, day_of_week, start_time, end_time, assignment_status,
         section:course_sections(id, code, session_type, capacity, enrolled_count, module:modules(id, code, title, credits)),
         room:rooms(id, name, building, room_number, capacity)
       `)
       .eq('version_id', versions[0].id)
       .eq('instructor_id', facultyId)
       .order('day_of_week', { ascending: true })
-      .order('start_time', { ascending: true });
+      .order('start_time', { ascending: true })
+      .limit(100);
 
     if (error) throw error;
-    return (data || []) as TimetableAssignment[];
+    return (data || []) as unknown as TimetableAssignment[];
   } catch (e: any) {
     console.error('getFacultyTimetable Error:', e);
     return [];
@@ -44,15 +45,16 @@ export async function getFacultySections(facultyId: string, termId: string): Pro
     const { data, error } = await adminClient
       .from('course_sections')
       .select(`
-        *,
+        id, semester_id, module_id, code, session_type, capacity, enrolled_count, instructor_id, status,
         module:modules(id, code, title, credits)
       `)
       .eq('semester_id', termId)
       .eq('instructor_id', facultyId)
-      .order('code', { ascending: true });
+      .order('code', { ascending: true })
+      .limit(100);
 
     if (error) throw error;
-    return (data || []) as CourseSection[];
+    return (data || []) as unknown as CourseSection[];
   } catch (e: any) {
     console.error('getFacultySections Error:', e);
     return [];

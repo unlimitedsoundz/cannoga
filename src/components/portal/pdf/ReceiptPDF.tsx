@@ -238,8 +238,8 @@ const ReceiptPDF: React.FC<ReceiptPDFProps> = ({ payment, application }) => {
 
   const receivedAmount = `CAD ${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-  const logoUrl = 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/logo-cannoga.png';
-  const stampUrl = 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/Paid%20stamp.png';
+  const logoUrl = 'https://koujcbwraroiscnjawqm.supabase.co/storage/v1/object/public/application-documents/logo-cannoga.png';
+  const stampUrl = 'https://koujcbwraroiscnjawqm.supabase.co/storage/v1/object/public/application-documents/Paid%20stamp.png';
   const flywireUrl = 'https://www.designyourway.net/blog/wp-content/uploads/2025/09/logo-5.jpg';
 
   return (

@@ -169,7 +169,8 @@ export async function lookupStudentOrApplicant(
           user:profiles!user_id(id, first_name, last_name, middle_name, email, phone_number, student_id, country_of_residence, role),
           course:Course!program_id(id, title, degreeLevel, duration, credits, school:School(name)),
           application:applications!application_id(id, application_number, status)
-        `),
+        `)
+        .limit(100),
       adminClient
         .from('applications')
         .select(`
@@ -177,10 +178,12 @@ export async function lookupStudentOrApplicant(
           user:profiles!user_id(id, first_name, last_name, middle_name, email, phone_number, student_id, country_of_residence, role),
           course:Course!course_id(id, title, degreeLevel, duration, credits, school:School(name)),
           offers:admission_offers(id, tuition_fee, currency, payment_deadline, status, invoice_type, accepted_at)
-        `),
+        `)
+        .limit(100),
       adminClient
         .from('profiles')
         .select('id, first_name, last_name, middle_name, email, phone_number, student_id, country_of_residence, role')
+        .limit(100)
     ]);
 
     const allStudents = studentsQuery.data || [];

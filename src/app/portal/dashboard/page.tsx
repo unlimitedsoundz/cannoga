@@ -12,11 +12,24 @@ export default async function DashboardPage() {
     }
 
     const adminClient = createServiceRoleClient();
-    const { data: profile } = await adminClient
-        .from('profiles')
-        .select('role, portal_access_disabled, sis_access_disabled')
-        .eq('id', user.id)
-        .single();
+    const [{ data: profile }, { data: enrollment }, { data: allApps }] = await Promise.all([
+        adminClient
+            .from('profiles')
+            .select('role, portal_access_disabled, sis_access_disabled')
+            .eq('id', user.id)
+            .single(),
+        adminClient
+            .from('students')
+            .select('enrollment_status, tuition_deposit_paid, sis_access_disabled')
+            .eq('user_id', user.id)
+            .maybeSingle(),
+        adminClient
+            .from('applications')
+            .select('id, status, admission_offers(id, status)')
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false })
+            .limit(20),
+    ]);
 
     if (profile?.portal_access_disabled) {
         redirect('/portal/account/login?message=access_disabled');
@@ -27,12 +40,6 @@ export default async function DashboardPage() {
         redirect('/sis/admin');
         return null;
     }
-
-    const { data: enrollment } = await adminClient
-        .from('students')
-        .select('enrollment_status, tuition_deposit_paid, sis_access_disabled')
-        .eq('user_id', user.id)
-        .maybeSingle();
 
     const isSisAccessDisabled = !!(profile?.sis_access_disabled || enrollment?.sis_access_disabled);
 
@@ -48,13 +55,6 @@ export default async function DashboardPage() {
         redirect('/sis');
         return null;
     }
-
-    // Prefer the application that has an admission offer (student may have multiple apps)
-    const { data: allApps } = await adminClient
-        .from('applications')
-        .select('id, status, admission_offers(id, status)')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
 
     let applicationId: string | null = null;
     let hasOffer = false;

@@ -44,7 +44,7 @@ export default function CourseRegistrationPage() {
             // Fetch Student SIS record
             const { data: student } = await supabase
                 .from('students')
-                .select('*, program:Course(*), user:profiles(*)')
+                .select('id, student_id, user_id, program_id, enrollment_status, current_semester_id, program:Course(id, title, degreeLevel, credits), user:profiles(id, first_name, last_name, email, student_id)')
                 .eq('user_id', currentUserId || '')
                 .order('created_at', { ascending: false })
                 .limit(1)
@@ -58,7 +58,7 @@ export default function CourseRegistrationPage() {
             // 2. Fetch Active Window & Semester
             const { data: regWindow } = await supabase
                 .from('registration_windows')
-                .select('*, semester:semesters(*)')
+                .select('id, semester_id, status, open_at, close_at, semester:semesters(id, name, start_date, end_date, status)')
                 .eq('status', 'OPEN')
                 .order('open_at', { ascending: false })
                 .limit(1)
@@ -67,9 +67,10 @@ export default function CourseRegistrationPage() {
             // 3. Fetch Subjects available for this student's program
             const { data: subjects } = await supabase
                 .from('Subject')
-                .select('*')
+                .select('id, code, name, creditUnits, semester, courseId')
                 .eq('courseId', student.program_id)
-                .order('name', { ascending: true });
+                .order('name', { ascending: true })
+                .limit(100);
 
             // Map subjects to match RegistrationClient's expected "module" structure
             const mappedModules = (subjects || []).map((s: any) => ({
@@ -77,17 +78,17 @@ export default function CourseRegistrationPage() {
                 code: s.code || s.name,
                 title: s.name,
                 credits: s.creditUnits,
-                description: `Curriculum subject for ${student.program?.title || 'your program'}.`,
+                description: `Curriculum subject for ${(student.program as any)?.title || 'your program'}.`,
                 capacity: 100,
                 instructor: 'Department Faculty',
-                academic_level: student.program?.degreeLevel || 'Diploma',
+                academic_level: (student.program as any)?.degreeLevel || 'Diploma',
                 prerequisites: 'None'
             }));
 
             // 4. Fetch Student's current enrollments for this semester
             const { data: enrollments } = await supabase
                 .from('module_enrollments')
-                .select('*, module:modules(*)')
+                .select('id, student_id, module_id, semester_id, status, grade, module:modules(id, code, title, credits)')
                 .eq('student_id', student.id)
                 .eq('semester_id', regWindow?.semester_id)
                 .eq('status', 'REGISTERED');

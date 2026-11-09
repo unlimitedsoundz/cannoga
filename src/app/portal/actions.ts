@@ -197,7 +197,7 @@ export async function submitApplication(applicationId: string) {
     // 1. Basic validation
     const { data: app, error: fetchError } = await supabase
         .from('applications')
-        .select('*')
+        .select('id, personal_info, contact_details, education_history')
         .eq('id', applicationId)
         .eq('user_id', user.id)
         .single();
@@ -301,10 +301,10 @@ export async function getAdmissionLetterData(applicationId: string) {
         const { data: applicationRaw, error: appError } = await adminSupabase
             .from('applications')
             .select(`
-                *,
-                course:Course(*, school:School(*)),
-                user:profiles(*),
-                offer:admission_offers(*)
+                id, application_number, user_id, course_id, status, personal_info, contact_details, submitted_at, created_at, updated_at,
+                course:Course(id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(id, name, slug)),
+                user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, nationality, student_id),
+                offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, invoice_type, invoice_pushed, invoice_sent_at, created_at)
             `)
             .eq('id', applicationId)
             .single();
@@ -347,13 +347,14 @@ export async function getPortalDashboardData() {
 
     try {
         const [profileRes, appsRes, studentRes] = await Promise.all([
-            adminSupabase.from('profiles').select('*').eq('id', user.id).single(),
+            adminSupabase.from('profiles').select('id, first_name, middle_name, last_name, email, role, phone_number, date_of_birth, country_of_residence, student_id, portal_access_disabled, sis_access_disabled').eq('id', user.id).single(),
             adminSupabase.from('applications')
-                .select('*, course:Course(title, duration), offer:admission_offers(*)')
+                .select('id, application_number, user_id, course_id, status, personal_info, submitted_at, created_at, updated_at, course:Course(title, duration), offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, invoice_type, invoice_pushed, created_at)')
                 .eq('user_id', user.id)
-                .order('updated_at', { ascending: false }),
+                .order('updated_at', { ascending: false })
+                .limit(20),
             adminSupabase.from('students')
-                .select('*, program:Course(*), user:profiles(*)')
+                .select('id, student_id, user_id, program_id, application_id, enrollment_status, start_date, expected_graduation, tuition_deposit_paid, full_tuition_paid, housing_fee_paid, portal_access_disabled, sis_access_disabled, program:Course(id, slug, title, degreeLevel, duration, credits, studyMode)')
                 .eq('user_id', user.id)
                 .maybeSingle()
         ]);
@@ -384,11 +385,11 @@ export async function getPortalApplicationDetail(applicationId: string) {
         const { data: applicationRaw, error: appError } = await adminSupabase
             .from('applications')
             .select(`
-                *,
-                course:Course(*, school:School(*)),
+                id, application_number, user_id, course_id, status, personal_info, contact_details, education_history, academic_history, motivation, language_proficiency, program_specific_data, submitted_at, created_at, updated_at,
+                course:Course(id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(id, name, slug)),
                 user:profiles(email),
-                documents:application_documents(*),
-                offer:admission_offers(*)
+                documents:application_documents(id, application_id, type, document_type, url, file_url, name, file_name, uploaded_at),
+                offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, invoice_type, invoice_pushed, invoice_sent_at, created_at)
             `)
             .eq('id', applicationId)
             .single();
@@ -420,10 +421,10 @@ export async function getStudentPortalData() {
         const { data: studentData, error } = await adminSupabase
             .from('students')
             .select(`
-                *,
-                program:Course(*),
-                user:profiles(*),
-                application:applications(*)
+                id, student_id, user_id, program_id, application_id, enrollment_status, start_date, expected_graduation, current_semester_id, current_stage, pal_status, pal_required, study_permit_status, arrival_status, checkin_status, orientation_status, registration_status, tuition_deposit_paid, full_tuition_paid, housing_fee_paid, institutional_email, it_account_status, created_at,
+                program:Course(id, slug, title, code, degreeLevel, programType, duration, credits, studyMode),
+                user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, student_id),
+                application:applications(id, application_number, status, course_id, user_id, personal_info, submitted_at, created_at)
             `)
             .eq('user_id', user.id)
             .order('created_at', { ascending: false })
@@ -448,10 +449,11 @@ export async function getAllCourses() {
         const { data, error } = await adminSupabase
             .from('Course')
             .select(`
-                *,
+                id, slug, title, code, degreeLevel, programType, duration, credits, studyMode, description, schoolId,
                 school:School(name, slug)
             `)
-            .order('title');
+            .order('title')
+            .limit(200);
 
         if (error) throw error;
         return { success: true, data: data || [] };
@@ -480,7 +482,7 @@ export async function processTuitionPayment(
     const { data: offer, error: fetchError } = await supabase
         .from('admission_offers')
         .select(`
-            *, 
+            id, status, tuition_fee, application_id, 
             application:applications(
                 user_id, 
                 status,
@@ -598,10 +600,10 @@ export async function regenerateLOA(applicationId: string) {
     const { data: application, error } = await supabase
         .from('applications')
         .select(`
-            *,
-            course:Course(*, school:School(*)),
-            user:profiles(*),
-            offer:admission_offers(*)
+            id, application_number, user_id, course_id, status, personal_info, contact_details, submitted_at, created_at, updated_at,
+            course:Course(id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(id, name, slug)),
+            user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, nationality, student_id),
+            offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, created_at)
         `)
         .eq('id', applicationId)
         .single();

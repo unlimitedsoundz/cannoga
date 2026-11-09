@@ -26,29 +26,25 @@ export const revalidate = 3600;
 export default async function Home() {
     const supabase = createStaticClient();
 
-    const { data: schools } = await supabase
-        .from('School')
-        .select('name, slug, description, imageUrl')
-        .order('name', { ascending: true });
-
-    const { data: courses } = await supabase
-        .from('Course')
-        .select('title, slug, degreeLevel, duration, description, imageUrl, schoolId')
-        .limit(6);
-
-    const { data: news } = await supabase
-        .from('News')
-        .select('*')
-        .eq('published', true)
-        .order('publishDate', { ascending: false })
-        .limit(5);
-
-    const { data: events } = await supabase
-        .from('Event')
-        .select('*')
-        .eq('published', true)
-        .order('date', { ascending: true })
-        .limit(4);
+    const [{ data: schools }, { data: news }, { data: events }] = await Promise.all([
+        supabase
+            .from('School')
+            .select('name, slug, description, imageUrl')
+            .order('name', { ascending: true })
+            .limit(20),
+        supabase
+            .from('News')
+            .select('id, slug, title, excerpt, imageUrl, publishDate')
+            .eq('published', true)
+            .order('publishDate', { ascending: false })
+            .limit(5),
+        supabase
+            .from('Event')
+            .select('id, slug, title, date, category')
+            .eq('published', true)
+            .order('date', { ascending: true })
+            .limit(4),
+    ]);
 
     return (
         <div className="flex flex-col min-h-screen bg-white text-black font-sans">

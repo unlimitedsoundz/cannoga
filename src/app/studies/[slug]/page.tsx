@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { createStaticClient } from '@/lib/supabase/static';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -16,7 +17,7 @@ export const revalidate = 3600;
 
 export async function generateStaticParams() {
     const supabase = createStaticClient();
-    const { data: courses } = await supabase.from('Course').select('slug');
+    const { data: courses } = await supabase.from('Course').select('slug').limit(200);
     return courses?.map(({ slug }) => ({ slug })) || [];
 }
 
@@ -72,16 +73,25 @@ function getDetailedSubjects(slug: string, title: string) {
     ];
 }
 
+const getCourseBySlug = cache(async (slug: string) => {
+    const supabase = createStaticClient();
+    return supabase
+        .from('Course')
+        .select(`
+            id, title, slug, code, cip_code, degreeLevel, duration, credits, description, imageUrl, language, tuitionFee, entryRequirements, careerPaths, schoolId, departmentId,
+            school:School(id, name, slug),
+            department:Department(id, name, slug, schoolId, school:School(slug)),
+            subjects:Subject(id, code, area, name, semester, creditUnits, eligibility)
+        `)
+        .eq('slug', slug)
+        .maybeSingle();
+});
+
 export async function generateMetadata({ params }: Props) {
     const resolvedParams = await params;
     const { slug } = resolvedParams;
-    const supabase = createStaticClient();
 
-    const { data: course } = await supabase
-        .from('Course')
-        .select('title, description, degreeLevel, credits')
-        .eq('slug', slug)
-        .maybeSingle();
+    const { data: course } = await getCourseBySlug(slug);
 
     const title = course?.title || formatSlugToTitle(slug);
     const degreeLevel = course?.degreeLevel || 'DIPLOMA';
@@ -134,17 +144,8 @@ export default async function CourseDetailPage({ params }: Props) {
 
     const supabase = createStaticClient();
 
-    // Fetch course with related data
-    const { data: courseData } = await supabase
-        .from('Course')
-        .select(`
-      *,
-      school:School(*),
-      department:Department(*),
-      subjects:Subject(*)
-    `)
-        .eq('slug', slug)
-        .maybeSingle();
+    // Fetch course with related data (shared with generateMetadata via React.cache)
+    const { data: courseData } = await getCourseBySlug(slug);
 
     let c: Course & { subjects: Subject[], school: School, department: Department };
 
@@ -187,24 +188,27 @@ export default async function CourseDetailPage({ params }: Props) {
         } as any;
     }
 
-    // Fetch faculty separately since they are linked to Department, not Course directly in our current schema partial
-    let relatedFaculty: Faculty[] = [];
-    if (c.departmentId || c.department?.id) {
-        const { data: facultyData } = await supabase
-            .from('Faculty')
-            .select('*')
-            .eq('departmentId', c.departmentId || c.department.id)
-            .limit(3);
-        if (facultyData) relatedFaculty = facultyData;
-    }
+    // Fetch faculty and related academic courses in parallel
+    const targetDeptId = c.departmentId || c.department?.id;
+    const [facultyRes, siblingCoursesRes] = await Promise.all([
+        targetDeptId
+            ? supabase
+                .from('Faculty')
+                .select('id, name, role')
+                .eq('departmentId', targetDeptId)
+                .limit(3)
+            : Promise.resolve({ data: null }),
+        supabase
+            .from('Course')
+            .select('id, title, slug, degreeLevel, duration, description, school:School(slug)')
+            .neq('slug', slug)
+            .limit(8),
+    ]);
 
-    // Fetch related academic courses (mesh linking across studies)
+    const relatedFaculty: Faculty[] = (facultyRes.data as any) || [];
+
     let relatedCourses: RelatedProgramItem[] = [];
-    const { data: siblingCourses } = await supabase
-        .from('Course')
-        .select('id, title, slug, degreeLevel, duration, description, school:School(slug)')
-        .neq('slug', slug)
-        .limit(8);
+    const siblingCourses = siblingCoursesRes.data;
     if (siblingCourses && siblingCourses.length > 0) {
         relatedCourses = siblingCourses.map((sc: any) => ({
             id: sc.id,
@@ -217,22 +221,10 @@ export default async function CourseDetailPage({ params }: Props) {
         }));
     }
 
-    // Resolve the correct school slug for department back-links
-    let deptSchoolSlug = c.school?.slug || 'business';
-    if (c.department?.schoolId) {
-        const { data: deptSchool } = await supabase
-            .from('School')
-            .select('slug')
-            .eq('id', c.department.schoolId)
-            .maybeSingle();
-        if (deptSchool?.slug) deptSchoolSlug = deptSchool.slug;
-    }
-    const cleanedSections = (c.sections || []).map((section: any) => ({
-        ...section,
-        id: cleanHtml(section.id),
-        title: cleanHtml(section.title),
-        content: cleanHtml(section.content)
-    }));
+    // Resolve the correct school slug for department back-links from joined department.school
+    const deptJoinedSchool = (c.department as any)?.school;
+    const deptSchoolObj = Array.isArray(deptJoinedSchool) ? deptJoinedSchool[0] : deptJoinedSchool;
+    const deptSchoolSlug = deptSchoolObj?.slug || c.school?.slug || 'business';
 
     const schoolStyleMap: Record<string, { bg: string, text: string, accent: string }> = {
         'business': { bg: 'bg-[#0a151a]', text: 'text-white', accent: 'text-white' },

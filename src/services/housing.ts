@@ -68,7 +68,7 @@ export async function submitHousingApplication(data: {
         try {
             const { data: fullInfo } = await supabase
                 .from('housing_applications')
-                .select('*, semester:semesters(name), building:housing_buildings(name)')
+                .select('id, semester:semesters(name), building:housing_buildings(name)')
                 .eq('id', application.id)
                 .single();
 
@@ -187,7 +187,7 @@ export async function allocateRoom(applicationId: string, roomId: string) {
     // Fetch application
     const { data: application } = await supabase
         .from('housing_applications')
-        .select('*, student:students(*)')
+        .select('id, student_id, move_in_date, move_out_date')
         .eq('id', applicationId)
         .single();
 
@@ -196,7 +196,7 @@ export async function allocateRoom(applicationId: string, roomId: string) {
     // Check room availability
     const { data: room } = await supabase
         .from('housing_rooms')
-        .select('*')
+        .select('id, status')
         .eq('id', roomId)
         .single();
 

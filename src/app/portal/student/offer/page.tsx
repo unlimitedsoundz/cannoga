@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
@@ -37,48 +37,46 @@ export default function StudentOfferPage() {
                     return;
                 }
 
-                // 2. Fetch Admission record with Course details
-                const { data: admission } = await supabase
-                    .from('admission_offers')
-                    .select('*, application:applications(*, course:Course(*, school:School(*)))')
-                    .eq('application_id', (
-                        await supabase
-                            .from('applications')
-                            .select('id')
-                            .eq('user_id', currentUserId || '')
-                            .order('created_at', { ascending: false })
-                            .limit(1)
-                            .single()
-                    ).data?.id || '')
-                    .order('created_at', { ascending: false })
-                    .limit(1)
-                    .single();
-
-                // 3. Fetch Application status
-                const { data: app } = await supabase
-                    .from('applications')
-                    .select('status, id')
-                    .eq('user_id', currentUserId || '')
-                    .order('created_at', { ascending: false })
-                    .limit(1)
-                    .single();
+                // 2. Fetch latest Application and Profile in parallel
+                const [{ data: app }, { data: profile }] = await Promise.all([
+                    supabase
+                        .from('applications')
+                        .select('id, status, application_number, user_id, course_id, personal_info, submitted_at, created_at, course:Course(id, title, slug, degreeLevel, programType, duration, credits, studyMode, school:School(name, slug))')
+                        .eq('user_id', currentUserId || '')
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .maybeSingle(),
+                    supabase
+                        .from('profiles')
+                        .select('student_id')
+                        .eq('id', currentUserId || '')
+                        .maybeSingle(),
+                ]);
 
                 const appStatus = app?.status || null;
                 const applicationId = app?.id || null;
 
-                // 4. Fetch Profile to get the current student_id (source of truth)
-                const { data: profile } = await supabase
-                    .from('profiles')
-                    .select('student_id')
-                    .eq('id', currentUserId || '')
-                    .single();
+                // 3. Fetch Admission Offer record
+                let admission: any = null;
+                if (applicationId) {
+                    const { data: offerData } = await supabase
+                        .from('admission_offers')
+                        .select('id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, invoice_type, invoice_pushed, created_at')
+                        .eq('application_id', applicationId)
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .maybeSingle();
+                    if (offerData) {
+                        admission = { ...offerData, application: app };
+                    }
+                }
 
                 // If we have a profile with a student_id, use it to update the admission's student_id
-                if (profile && profile.student_id) {
+                if (admission && profile && profile.student_id) {
                     admission.student_id = profile.student_id;
                 }
 
-                setData({ admission: { ...admission, application_status: appStatus, application_id: applicationId }, appStatus });
+                setData({ admission: admission ? { ...admission, application_status: appStatus, application_id: applicationId } : null, appStatus });
             } catch (err) {
                 console.error('CRITICAL: Fetching offer data failed', err);
             } finally {

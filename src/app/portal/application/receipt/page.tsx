@@ -68,9 +68,9 @@ function ReceiptContent() {
                 const { data: applicationRaw, error } = await supabase
                     .from('applications')
                     .select(`
-                        *,
-                        course:Course(*),
-                        offer:admission_offers(*, payments:tuition_payments(*))
+                        id, application_number, user_id, course_id, status, personal_info, submitted_at, created_at,
+                        course:Course(id, title, slug, degreeLevel, programType, duration, credits, studyMode),
+                        offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, invoice_type, created_at, payments:tuition_payments(id, offer_id, amount, currency, status, payment_method, transaction_reference, receipt_url, invoice_type, created_at))
                     `)
                     .eq('id', targetAppId)
                     .eq('user_id', user.id)
@@ -89,9 +89,10 @@ function ReceiptContent() {
                 if (offer && (!offer.payments || offer.payments.length === 0)) {
                     const { data: paymentsData } = await supabase
                         .from('tuition_payments')
-                        .select('*')
+                        .select('id, offer_id, amount, currency, status, payment_method, transaction_reference, receipt_url, invoice_type, created_at')
                         .eq('offer_id', offer.id)
-                        .order('created_at', { ascending: false });
+                        .order('created_at', { ascending: false })
+                        .limit(50);
 
                     if (paymentsData && paymentsData.length > 0) {
                         offer.payments = paymentsData;
@@ -103,9 +104,9 @@ function ReceiptContent() {
                 // Fetch admission details for intake info
                 const { data: admissionData } = await supabase
                     .from('admissions')
-                    .select('*')
+                    .select('id, user_id, program, intake, offer_status, accepted_at')
                     .eq('user_id', user.id)
-                    .eq('program', applicationRaw.course?.title)
+                    .eq('program', (applicationRaw.course as any)?.title)
                     .maybeSingle();
 
                 if (admissionData) setAdmission(admissionData);

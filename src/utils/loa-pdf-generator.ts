@@ -143,7 +143,7 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
     intake,
     college: {
       name: 'Cannoga College',
-      logoUrl: logoUrl || 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/logo-cannoga.png',
+      logoUrl: logoUrl || 'https://koujcbwraroiscnjawqm.supabase.co/storage/v1/object/public/application-documents/logo-cannoga.png',
       campus: 'Ottawa',
       address: '81 Montreal Road, Ottawa, Ontario, K1L 6E8, Canada',
       phone: '+1 782 206-3309',
@@ -198,7 +198,7 @@ export async function mapApplicationToTemplateData(application: any, logoUrl: st
     registrar: {
       name: 'Todd Banning',
       title: 'Registrar',
-      signatureUrl: signatureUrl || 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/registrar-signature.png',
+      signatureUrl: signatureUrl || 'https://koujcbwraroiscnjawqm.supabase.co/storage/v1/object/public/application-documents/registrar-signature.png',
     },
     visaDeadlines: {
       fall: fallVisaDeadline,

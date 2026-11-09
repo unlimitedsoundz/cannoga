@@ -150,18 +150,16 @@ export async function POST(req: NextRequest) {
 
         const normalized = latestQuery.toLowerCase().trim();
 
-        // 1. Live Database Queries (Supabase `faqs`, `School`, `Course`)
+        // 1. Live Database Queries (Supabase `faqs`, `School`)
         let dbFaqMatch: { question: string; answer: string } | null = null;
         let dbSchools: any[] = STATIC_SCHOOLS;
-        let dbCourses: any[] = [];
 
         try {
             const supabase = getSupabaseClient();
             if (supabase) {
-                const [faqsRes, schoolsRes, coursesRes] = await Promise.all([
+                const [faqsRes, schoolsRes] = await Promise.all([
                     supabase.from('faqs').select('question, answer').eq('status', 'published').limit(60),
-                    supabase.from('School').select('name, slug, description').limit(15),
-                    supabase.from('Course').select('title, code, credits').limit(30)
+                    supabase.from('School').select('name, slug, description').limit(15)
                 ]);
 
                 if (faqsRes.data && faqsRes.data.length > 0) {
@@ -184,7 +182,6 @@ export async function POST(req: NextRequest) {
                 }
 
                 if (schoolsRes.data && schoolsRes.data.length > 0) dbSchools = schoolsRes.data;
-                if (coursesRes.data && coursesRes.data.length > 0) dbCourses = coursesRes.data;
             }
         } catch (dbErr) {
             console.error('DB query error:', dbErr);

@@ -53,9 +53,10 @@ export default function TuitionPaymentPage({ admissionOffer, application, return
                 const supabase = createClient();
                 const { data } = await supabase
                     .from('tuition_payments')
-                    .select('*')
+                    .select('id, offer_id, amount, currency, status, payment_method, transaction_reference, receipt_url, invoice_type, created_at')
                     .eq('offer_id', admissionOffer.id)
-                    .order('created_at', { ascending: false });
+                    .order('created_at', { ascending: false })
+                    .limit(50);
                 setPayments(data || []);
             } catch (e) {
                 console.error('PaymentView: Error fetching payments', e);

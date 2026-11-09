@@ -22,9 +22,10 @@ export async function getStudentTasks(studentId: string): Promise<StudentTask[]>
 
   const { data, error } = await supabase
     .from('student_tasks')
-    .select('*')
+    .select('id, student_id, title, description, task_type, priority, status, due_date, action_url, action_label, created_by, completed_at, created_at, updated_at')
     .eq('student_id', studentId)
-    .order('due_date', { ascending: true });
+    .order('due_date', { ascending: true })
+    .limit(50);
 
   if (error) {
     return [];

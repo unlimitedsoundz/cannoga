@@ -22,18 +22,18 @@ export async function exportTimetablePDF(versionId: string, type: 'master' | 'st
     const { data: assignments, error: assignmentsError } = await adminClient
       .from('timetable_assignments')
       .select(`
-        *,
+        id, version_id, section_id, room_id, instructor_id, day_of_week, start_time, end_time, assignment_status,
         section:course_sections(
-          *,
+          id, code, session_type, delivery_mode, capacity, enrolled_count,
           module:modules(code, title, credits),
-           instructor:Faculty!course_sections_instructor_id_fkey(name, email),
-          enrollments:module_enrollments(student_id, student:students(institutional_email, user:profiles(first_name, last_name)))
+          instructor:Faculty!course_sections_instructor_id_fkey(name, email)
         ),
         room:rooms(id, name, building, campus)
       `)
       .eq('version_id', versionId)
       .order('day_of_week', { ascending: true })
-      .order('start_time', { ascending: true });
+      .order('start_time', { ascending: true })
+      .limit(500);
 
     if (assignmentsError) throw assignmentsError;
 
@@ -79,18 +79,18 @@ export async function exportTimetableCSV(versionId: string, type: 'master' | 'st
     const { data: assignments, error: assignmentsError } = await adminClient
       .from('timetable_assignments')
       .select(`
-        *,
+        id, version_id, section_id, room_id, instructor_id, day_of_week, start_time, end_time, assignment_status,
         section:course_sections(
-          *,
+          id, code, session_type, delivery_mode, capacity, enrolled_count,
           module:modules(code, title, credits),
-           instructor:Faculty!course_sections_instructor_id_fkey(name, email),
-          enrollments:module_enrollments(student_id, student:students(institutional_email, user:profiles(first_name, last_name)))
+          instructor:Faculty!course_sections_instructor_id_fkey(name, email)
         ),
         room:rooms(id, name, building, campus)
       `)
       .eq('version_id', versionId)
       .order('day_of_week', { ascending: true })
-      .order('start_time', { ascending: true });
+      .order('start_time', { ascending: true })
+      .limit(500);
 
     if (assignmentsError) throw assignmentsError;
 
@@ -154,18 +154,18 @@ export async function exportTimetableExcel(versionId: string, type: 'master' | '
     const { data: assignments, error: assignmentsError } = await adminClient
       .from('timetable_assignments')
       .select(`
-        *,
+        id, version_id, section_id, room_id, instructor_id, day_of_week, start_time, end_time, assignment_status,
         section:course_sections(
-          *,
+          id, code, session_type, delivery_mode, capacity, enrolled_count,
           module:modules(code, title, credits),
-           instructor:Faculty!course_sections_instructor_id_fkey(name, email),
-          enrollments:module_enrollments(student_id, student:students(institutional_email, user:profiles(first_name, last_name)))
+          instructor:Faculty!course_sections_instructor_id_fkey(name, email)
         ),
         room:rooms(id, name, building, campus)
       `)
       .eq('version_id', versionId)
       .order('day_of_week', { ascending: true })
-      .order('start_time', { ascending: true });
+      .order('start_time', { ascending: true })
+      .limit(500);
 
     if (assignmentsError) throw assignmentsError;
 

@@ -42,18 +42,20 @@ export async function POST(req: NextRequest) {
     }
 
     // For on-campus: verify room exists
+    let room: any = null;
     if (housingType === 'on_campus' && roomId) {
-        const { data: room, error: roomErr } = await adminClient
+        const { data: fetchedRoom, error: roomErr } = await adminClient
             .from('housing_rooms')
             .select('id, status, building_id, full_room_code')
             .eq('id', roomId)
             .single();
 
-        if (roomErr || !room) {
+        if (roomErr || !fetchedRoom) {
             console.error('[reserve-room] Room query error:', roomErr, 'for roomId:', roomId);
             return NextResponse.json({ error: 'Room not found in inventory' }, { status: 404 });
         }
 
+        room = fetchedRoom;
         const roomStatusUpper = (room.status || '').toUpperCase();
         const isCurrentAppRoom = existingApp?.assigned_room_id === roomId;
 
@@ -70,9 +72,7 @@ export async function POST(req: NextRequest) {
         housing_type:      housingType,
         status:            'room_selected',
         assigned_room_id:  housingType === 'on_campus' ? roomId : null,
-        building_id:       housingType === 'on_campus' && roomId ? (
-            (await adminClient.from('housing_rooms').select('building_id').eq('id', roomId).single()).data?.building_id ?? null
-        ) : null,
+        building_id:       housingType === 'on_campus' && room ? room.building_id : null,
         homestay_host_id:  housingType === 'homestay' ? homestayHostId : null,
         updated_at:        new Date().toISOString(),
     };

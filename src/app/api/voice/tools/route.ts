@@ -9,12 +9,6 @@ export async function POST(request: NextRequest) {
   const adminClient = createServiceRoleClient();
 
   try {
-    await adminClient
-      .from('profiles')
-      .select('role')
-      .eq('id', '00000000-0000-0000-0000-000000000001')
-      .single();
-
     let body: Record<string, unknown> = {};
     try {
       body = await request.json();

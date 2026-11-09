@@ -66,34 +66,46 @@ export default function NotificationsPage() {
     fetchNotifications();
 
     const supabase = createClient();
-    const channel = supabase
-      .channel('notifications-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'notifications',
-        },
-        (payload: any) => {
-          setNotifications(prev => [payload.new as Notification, ...prev]);
-        }
-      )
-      .on(
-        'postgres_changes',
-        {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'notifications',
-        },
-        (payload: any) => {
-          setNotifications(prev => prev.map(n => n.id === payload.new.id ? payload.new as Notification : n));
-        }
-      )
-      .subscribe();
+    let activeChannel: any = null;
+    let isUnmounted = false;
+
+    supabase.auth.getUser().then((res: any) => {
+      const user = res?.data?.user;
+      if (isUnmounted || !user) return;
+      activeChannel = supabase
+        .channel(`notifications-changes-${user.id}`)
+        .on(
+          'postgres_changes',
+          {
+            event: 'INSERT',
+            schema: 'public',
+            table: 'notifications',
+            filter: `user_id=eq.${user.id}`,
+          },
+          (payload: any) => {
+            setNotifications(prev => [payload.new as Notification, ...prev]);
+          }
+        )
+        .on(
+          'postgres_changes',
+          {
+            event: 'UPDATE',
+            schema: 'public',
+            table: 'notifications',
+            filter: `user_id=eq.${user.id}`,
+          },
+          (payload: any) => {
+            setNotifications(prev => prev.map(n => n.id === payload.new.id ? payload.new as Notification : n));
+          }
+        )
+        .subscribe();
+    });
 
     return () => {
-      supabase.removeChannel(channel);
+      isUnmounted = true;
+      if (activeChannel) {
+        supabase.removeChannel(activeChannel);
+      }
     };
   }, []);
 

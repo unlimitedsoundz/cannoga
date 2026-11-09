@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { createClient } from '@/utils/supabase/client';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -36,10 +36,10 @@ function EnrollmentContent() {
             const { data: applicationRaw } = await supabase
                 .from('applications')
                 .select(`
-                    *,
-                    course:Course(*, school:School(*)),
-                    user:profiles(*),
-                    offer:admission_offers(*)
+                    id, status, updated_at, personal_info,
+                    course:Course(title, degreeLevel, programType, studyMode, school:School(name)),
+                    user:profiles(first_name, last_name, email, student_id, date_of_birth),
+                    offer:admission_offers(id, status, tuition_fee)
                 `)
                 .eq('id', id)
                 .eq('user_id', user.id)

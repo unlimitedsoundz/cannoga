@@ -10,6 +10,8 @@ interface DbFAQProps {
     refreshKey?: string | number;
 }
 
+const faqCache = new Map<string, FAQItem[]>();
+
 export default function DbFAQ({ pageSlug, fallbackFaqs, refreshKey }: DbFAQProps) {
     const sanitize = (text: string) => {
         let cleaned = text;
@@ -126,6 +128,14 @@ export default function DbFAQ({ pageSlug, fallbackFaqs, refreshKey }: DbFAQProps
         let mounted = true;
 
         async function loadFaqs() {
+            const cacheKey = `${pageSlug}:${refreshKey}`;
+            const cached = faqCache.get(cacheKey);
+            if (cached) {
+                setFaqs(cached);
+                setLoading(false);
+                return;
+            }
+
             setLoading(true);
             setError(null);
 
@@ -146,7 +156,8 @@ export default function DbFAQ({ pageSlug, fallbackFaqs, refreshKey }: DbFAQProps
                     .select('id, question, answer, order_index')
                     .eq('page_id', pageData.id)
                     .eq('is_published', true)
-                    .order('order_index');
+                    .order('order_index')
+                    .limit(50);
 
                 if (!faqError && mounted) {
                     const sanitizedFaqs = dedupeFaqs((faqData || []).map((faq: { id: string; question: string; answer: string; order_index?: number }) => ({
@@ -154,6 +165,7 @@ export default function DbFAQ({ pageSlug, fallbackFaqs, refreshKey }: DbFAQProps
                         question: sanitize(faq.question),
                         answer: sanitize(faq.answer)
                     })));
+                    faqCache.set(cacheKey, sanitizedFaqs);
                     setFaqs(sanitizedFaqs);
                 }
             } catch (loadError) {
@@ -169,7 +181,7 @@ export default function DbFAQ({ pageSlug, fallbackFaqs, refreshKey }: DbFAQProps
         return () => {
             mounted = false;
         };
-    }, [pageSlug, refreshKey]);
+    }, [pageSlug, refreshKey, supabase]);
 
     const displayFaqs = dedupeFaqs(faqs.length > 0 ? faqs : fallbackFaqs || []);
 

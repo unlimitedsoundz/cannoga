@@ -43,7 +43,7 @@ export default function AdmissionsPage() {
         setLoading(true);
         const result = await getSISAdmissionsApplications();
         if (!result.success) throw new Error(result.error);
-        setData(result.data || []);
+        setData((result.data as any) || []);
       } catch (err: any) {
         setError(err.message || 'Failed to load applications');
       } finally {

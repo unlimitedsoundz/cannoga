@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import type { OccupancySummary, WorkOrder, HomestayHost, ResidenceBuilding, ResidenceRoom } from '@/types/housing';
 
@@ -58,7 +58,7 @@ const statusColor = (s: string) => {
 };
 
 export default function AdminHousingPage() {
-    const supabase = createClient();
+    const supabase = useMemo(() => createClient(), []);
     const [activeTab, setActiveTab]   = useState<AdminTab>('overview');
     const [summary, setSummary]       = useState<OccupancySummary | null>(null);
     const [buildingsList, setBuildingsList] = useState<ResidenceBuilding[]>([]);
@@ -150,7 +150,7 @@ export default function AdminHousingPage() {
             // Applications
             const { data: apps } = await supabase
                 .from('housing_applications')
-                .select('*, building:building_id(name, code), assigned_room:assigned_room_id(full_room_code, room_number), homestay_host:homestay_host_id(host_name), meal_plan:selected_meal_plan_id(title)')
+                .select('id, student_id, housing_type, status, academic_year, term, signed_at, building_id, assigned_room_id, homestay_host_id, selected_meal_plan_id, created_at, building:building_id(name, code), assigned_room:assigned_room_id(full_room_code, room_number), homestay_host:homestay_host_id(host_name), meal_plan:selected_meal_plan_id(title)')
                 .order('created_at', { ascending: false })
                 .limit(200);
             if (apps) setApplications(apps as ApplicationRow[]);
@@ -160,14 +160,19 @@ export default function AdminHousingPage() {
             if (woRes.ok) { const d = await woRes.json(); setWorkOrders(d.orders ?? []); }
 
             // Homestay hosts
-            const { data: hosts } = await supabase.from('homestay_hosts').select('*').order('distance_to_campus_km');
+            const { data: hosts } = await supabase
+                .from('homestay_hosts')
+                .select('id, host_name, host_family_description, address_city, distance_to_campus_km, languages_spoken, dietary_accommodations, max_students, current_students, price_per_week_minor, gender_policy, has_quiet_study_room, is_active')
+                .order('distance_to_campus_km')
+                .limit(100);
             if (hosts) setHomestayHosts(hosts as HomestayHost[]);
 
             // Roommate profiles with friend requests
             const { data: profiles } = await supabase
                 .from('housing_roommate_profiles')
                 .select('student_id, requested_friend_student_ids, gender_preference, floor_type_preference, dietary_needs')
-                .not('requested_friend_student_ids', 'eq', '{}');
+                .not('requested_friend_student_ids', 'eq', '{}')
+                .limit(100);
             if (profiles) setRoommateProfiles(profiles);
 
         } catch (e) { console.error('[Admin Housing] load error:', e); }

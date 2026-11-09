@@ -92,8 +92,8 @@ export async function loadSchedulingData(termId: string): Promise<SchedulingProb
     supabase.from('time_slots').select('*'),
     supabase.from('holidays').select('*'),
     supabase.from('module_enrollments').select('*').eq('semester_id', termId),
-    supabase.from('profiles').select('*'),
-    supabase.from('students').select('*'),
+    supabase.from('profiles').select('id, first_name, last_name, email'),
+    supabase.from('students').select('id, student_id, user_id'),
     supabase.from('semesters').select('start_date, end_date').eq('id', termId).single(),
   ])
 

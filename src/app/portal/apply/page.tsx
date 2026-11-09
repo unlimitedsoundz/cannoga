@@ -41,8 +41,9 @@ export default function ApplyPage() {
         if (currentUser) {
           const { data, error } = await supabase
             .from('Course')
-            .select(`*, school:School(name, slug)`)
-            .order('title');
+            .select(`id, slug, title, degreeLevel, duration, school:School(name, slug)`)
+            .order('title')
+            .limit(200);
 
           if (error) throw error;
           const uniqueCourses = (data || []).filter((course: any, index: number, self: any[]) =>

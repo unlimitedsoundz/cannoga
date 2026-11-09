@@ -6,19 +6,24 @@ import { Search, X } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 import { Course } from '@/types/database';
 
+let cachedSearchCourses: Course[] | null = null;
+
 export default function ProgramSearch() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Course[]>([]);
-  const [allCourses, setAllCourses] = useState<Course[]>([]);
+  const [allCourses, setAllCourses] = useState<Course[]>(cachedSearchCourses || []);
   const [isOpen, setIsOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!cachedSearchCourses);
   const router = useRouter();
 
   useEffect(() => {
+    if (cachedSearchCourses) return;
     const fetchCourses = async () => {
       const supabase = createClient();
-      const { data } = await supabase.from('Course').select('id, title, slug, degreeLevel, duration');
-      setAllCourses((data || []) as any[]);
+      const { data } = await supabase.from('Course').select('id, title, slug, degreeLevel, duration').limit(200);
+      const list = (data || []) as any[];
+      cachedSearchCourses = list;
+      setAllCourses(list);
       setLoading(false);
     };
     fetchCourses();

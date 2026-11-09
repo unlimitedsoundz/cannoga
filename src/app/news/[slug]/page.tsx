@@ -1,4 +1,5 @@
  
+import { cache } from 'react';
 import { createStaticClient } from '@/lib/supabase/static';
 
 // Revalidate every hour; admin mutations call revalidatePath() for immediate updates.
@@ -17,12 +18,20 @@ interface Props {
     }>;
 }
 
+const getNewsBySlug = cache(async (slug: string) => {
+    const supabase = createStaticClient();
+    return supabase
+        .from('News')
+        .select('id, slug, title, excerpt, content, imageUrl, publishDate, published, createdAt, updatedAt')
+        .eq('slug', slug)
+        .single();
+});
 
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
     const supabase = createStaticClient();
-    const { data: news } = await supabase.from('News').select('slug');
+    const { data: news } = await supabase.from('News').select('slug').limit(200);
     return (news || []).map((item) => ({
         slug: item.slug,
     }));
@@ -31,13 +40,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
     const resolvedParams = await params;
     const { slug } = resolvedParams;
-    const supabase = createStaticClient();
 
-    const { data: news } = await supabase
-        .from('News')
-        .select('title, excerpt')
-        .eq('slug', slug)
-        .single();
+    const { data: news } = await getNewsBySlug(slug);
 
     if (!news) return { title: 'News Not Found' };
 
@@ -53,20 +57,15 @@ export async function generateMetadata({ params }: Props) {
 export default async function NewsArticlePage({ params }: Props) {
     const resolvedParams = await params;
     const { slug } = resolvedParams;
-    const supabase = createStaticClient();
 
-    const { data: newsItem, error } = await supabase
-        .from('News')
-        .select('*')
-        .eq('slug', slug)
-        .single();
+    const { data: newsItem, error } = await getNewsBySlug(slug);
 
     if (error || !newsItem) {
         if (error?.code !== 'PGRST116') console.error('Error fetching news:', error);
         notFound();
     }
 
-    const item = newsItem as News;
+    const item = newsItem as unknown as News;
 
     return <NewsDetailClient initialNews={item} />;
 }

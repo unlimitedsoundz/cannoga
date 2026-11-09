@@ -92,14 +92,15 @@ export default function StudentTimetablePage() {
       const { data: assignments } = await supabase
         .from('timetable_assignments')
         .select(`
-          *,
+          id, version_id, section_id, room_id, instructor_id, day_of_week, start_time, end_time, assignment_status,
           room:rooms(id, name, building, room_number),
           section:course_sections(id, code, session_type, delivery_mode, module:modules(id, code, title, credits), instructor_id)
         `)
         .eq('version_id', versions[0].id)
         .in('section_id', sectionIds)
         .order('day_of_week', { ascending: true })
-        .order('start_time', { ascending: true });
+        .order('start_time', { ascending: true })
+        .limit(100);
 
       let enrichedAssignments: any[] = assignments || [];
 

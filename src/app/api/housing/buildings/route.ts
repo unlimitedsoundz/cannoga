@@ -37,26 +37,34 @@ export async function GET(_req: NextRequest) {
         }
     }
 
-    // For each building, compute bed stats
-    const buildingsWithStats = await Promise.all(
-        (buildings ?? []).map(async (b: Record<string, unknown>) => {
-            const { data: rooms } = await supabase
-                .from('housing_rooms')
-                .select('status')
-                .eq('building_id', b.id);
+    // Batch-fetch rooms for all buildings in a single query instead of N+1
+    const buildingList = buildings ?? [];
+    const buildingIds = buildingList.map((b: any) => b.id);
+    const { data: allRooms } = buildingIds.length > 0
+        ? await supabase.from('housing_rooms').select('building_id, status').in('building_id', buildingIds)
+        : { data: [] };
 
-            const available = rooms?.filter((r: Record<string, unknown>) => r.status === 'AVAILABLE').length ?? 0;
-            const occupied  = rooms?.filter((r: Record<string, unknown>) => r.status === 'OCCUPIED').length ?? 0;
-            const total     = rooms?.length ?? 0;
+    const roomsByBuilding = new Map<string, any[]>();
+    for (const r of allRooms || []) {
+        if (!roomsByBuilding.has(r.building_id)) {
+            roomsByBuilding.set(r.building_id, []);
+        }
+        roomsByBuilding.get(r.building_id)!.push(r);
+    }
 
-            return {
-                ...b,
-                available_beds: available,
-                occupied_beds: occupied,
-                total_beds: b.total_beds || total,
-            } as ResidenceBuilding;
-        })
-    );
+    const buildingsWithStats = buildingList.map((b: any) => {
+        const rooms = roomsByBuilding.get(b.id) || [];
+        const available = rooms.filter((r: any) => r.status === 'AVAILABLE').length;
+        const occupied  = rooms.filter((r: any) => r.status === 'OCCUPIED').length;
+        const total     = rooms.length;
+
+        return {
+            ...b,
+            available_beds: available,
+            occupied_beds: occupied,
+            total_beds: b.total_beds || total,
+        } as ResidenceBuilding;
+    });
 
     return NextResponse.json({ buildings: buildingsWithStats });
 }

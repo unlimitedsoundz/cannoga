@@ -13,24 +13,28 @@ export async function getStudentLifeData(studentId: string) {
         const [messagesResult, complianceResult, libraryResult, healthResult, unreadResult] = await Promise.all([
             supabase
                 .from('student_messages')
-                .select('*')
+                .select('id, sender_id, recipient_id, subject, body, category, priority, status, read_at, created_at')
                 .or(`sender_id.eq.${studentId},recipient_id.eq.${studentId}`)
-                .order('created_at', { ascending: false }),
+                .order('created_at', { ascending: false })
+                .limit(50),
             supabase
                 .from('compliance_trackers')
-                .select('*')
+                .select('id, student_id, tracker_type, title, description, status, due_date, document_url, notes')
                 .eq('student_id', studentId)
-                .order('due_date', { ascending: true }),
+                .order('due_date', { ascending: true })
+                .limit(50),
             supabase
                 .from('library_holds')
-                .select('*')
+                .select('id, student_id, book_title, author, isbn, hold_date, expiry_date, status, fine_amount')
                 .eq('student_id', studentId)
-                .order('hold_date', { ascending: false }),
+                .order('hold_date', { ascending: false })
+                .limit(50),
             supabase
                 .from('health_bookings')
-                .select('*')
+                .select('id, student_id, booking_type, provider_name, appointment_date, appointment_time, location, status, notes')
                 .eq('student_id', studentId)
-                .order('appointment_date', { ascending: true }),
+                .order('appointment_date', { ascending: true })
+                .limit(50),
             supabase
                 .from('student_messages')
                 .select('id', { count: 'exact', head: true })
@@ -104,9 +108,10 @@ export async function getMessages(studentId: string) {
     try {
         const { data, error } = await supabase
             .from('student_messages')
-            .select('*, sender:profiles!sender_id(first_name, last_name, email), recipient:profiles!recipient_id(first_name, last_name, email)')
+            .select('id, sender_id, recipient_id, subject, body, category, priority, status, read_at, created_at, sender:profiles!sender_id(first_name, last_name, email), recipient:profiles!recipient_id(first_name, last_name, email)')
             .or(`sender_id.eq.${studentId},recipient_id.eq.${studentId}`)
-            .order('created_at', { ascending: false });
+            .order('created_at', { ascending: false })
+            .limit(50);
 
         if (error) {
             console.error('Get messages error:', error);
@@ -177,9 +182,10 @@ export async function getComplianceTrackers(studentId: string) {
     try {
         const { data, error } = await supabase
             .from('compliance_trackers')
-            .select('*')
+            .select('id, student_id, tracker_type, title, description, status, due_date, document_url, notes')
             .eq('student_id', studentId)
-            .order('due_date', { ascending: true });
+            .order('due_date', { ascending: true })
+            .limit(50);
 
         if (error) {
             console.error('Get compliance trackers error:', error);
@@ -228,9 +234,10 @@ export async function getLibraryHolds(studentId: string) {
     try {
         const { data, error } = await supabase
             .from('library_holds')
-            .select('*')
+            .select('id, student_id, book_title, author, isbn, hold_date, expiry_date, status, fine_amount')
             .eq('student_id', studentId)
-            .order('hold_date', { ascending: false });
+            .order('hold_date', { ascending: false })
+            .limit(50);
 
         if (error) {
             console.error('Get library holds error:', error);
@@ -315,9 +322,10 @@ export async function getHealthBookings(studentId: string) {
     try {
         const { data, error } = await supabase
             .from('health_bookings')
-            .select('*')
+            .select('id, student_id, booking_type, provider_name, appointment_date, appointment_time, location, status, notes')
             .eq('student_id', studentId)
-            .order('appointment_date', { ascending: true });
+            .order('appointment_date', { ascending: true })
+            .limit(50);
 
         if (error) {
             console.error('Get health bookings error:', error);

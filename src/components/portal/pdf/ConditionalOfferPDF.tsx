@@ -254,7 +254,7 @@ const ConditionalOfferPDF: React.FC<ConditionalOfferPDFProps> = ({ application, 
             <Text style={styles.title}>Letter of Offer</Text>
             <Text style={styles.dateText}>Date of Issue: {dateOfIssue}</Text>
           </View>
-          <Image src={logoUrl || 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/logo-cannoga.png'} style={styles.logo} />
+          <Image src={logoUrl || 'https://koujcbwraroiscnjawqm.supabase.co/storage/v1/object/public/application-documents/logo-cannoga.png'} style={styles.logo} />
         </View>
 
         {/* Intro */}
@@ -512,7 +512,7 @@ const ConditionalOfferPDF: React.FC<ConditionalOfferPDFProps> = ({ application, 
               <Text style={[styles.signatureText, { marginTop: 6, fontWeight: 'bold' }]}>Todd Banning</Text>
               <Text style={[styles.signatureText, { fontWeight: 'bold' }]}>Registrar | Cannoga College</Text>
             </View>
-            <Image src={signatureUrl || 'https://lbkrzyqpdqgtqbodkcyi.supabase.co/storage/v1/object/public/application-documents/registrar-signature.png'} style={styles.signatureImage} />
+            <Image src={signatureUrl || 'https://koujcbwraroiscnjawqm.supabase.co/storage/v1/object/public/application-documents/registrar-signature.png'} style={styles.signatureImage} />
           </View>
         </View>
 

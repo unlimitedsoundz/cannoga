@@ -13,6 +13,8 @@ import { getTuitionFeeSync } from '@/utils/tuition';
 import { getCIPCode } from '@/utils/cip-codes';
 
 
+import { cache } from 'react';
+
 interface Props {
     params: Promise<{
         slug: string; // school slug
@@ -20,16 +22,23 @@ interface Props {
     }>;
 }
 
+const getDepartmentBySlug = cache(async (dept_slug: string) => {
+    const supabase = createStaticClient();
+    return supabase
+        .from('Department')
+        .select(`
+            id, name, slug, description, imageUrl, schoolId,
+            school:School!inner(slug, name, id)
+        `)
+        .eq('slug', dept_slug)
+        .maybeSingle();
+});
+
 export async function generateMetadata({ params }: Props) {
     const resolvedParams = await params;
     const { slug, dept_slug } = resolvedParams;
-    const supabase = createStaticClient();
 
-    const { data: dept } = await supabase
-        .from('Department')
-        .select('name, description, school:School(name)')
-        .eq('slug', dept_slug)
-        .maybeSingle();
+    const { data: dept } = await getDepartmentBySlug(dept_slug);
 
     function formatSlugToTitle(slugStr: string): string {
         return slugStr
@@ -77,17 +86,10 @@ export default async function DepartmentDetailPage({ params }: Props) {
     const { slug, dept_slug } = resolvedParams;
     const supabase = createStaticClient();
 
-    // 1. Fetch Department by slug
+    // 1. Fetch Department by slug (shared with generateMetadata via React.cache)
     let dept: Department & { school: School };
     
-    const { data: deptData } = await supabase
-        .from('Department')
-        .select(`
-        *,
-        school:School!inner(slug, name, id) 
-    `)
-        .eq('slug', dept_slug)
-        .maybeSingle();
+    const { data: deptData } = await getDepartmentBySlug(dept_slug);
 
     const deptRaw = deptData as any;
     const school = deptRaw ? (Array.isArray(deptRaw.school) ? deptRaw.school[0] : deptRaw.school) : null;
@@ -129,11 +131,19 @@ export default async function DepartmentDetailPage({ params }: Props) {
         } as any;
     }
 
-    // 2. Fetch Related Faculty
-    const { data: facultyRaw } = await supabase
-        .from('Faculty')
-        .select('*')
-        .eq('departmentId', dept.id);
+    // 2. Fetch Related Faculty & Courses in parallel
+    const [{ data: facultyRaw }, { data: coursesRaw }] = await Promise.all([
+        supabase
+            .from('Faculty')
+            .select('id, name, role, bio, email')
+            .eq('departmentId', dept.id)
+            .limit(30),
+        supabase
+            .from('Course')
+            .select('id, slug, title, description, cip_code, duration, degreeLevel, departmentId, schoolId')
+            .eq('departmentId', dept.id)
+            .limit(50),
+    ]);
 
     function getDepartmentFaculty(deptSlug: string, deptName: string) {
         const cleanDept = deptName.replace('Department of ', '');
@@ -171,12 +181,6 @@ export default async function DepartmentDetailPage({ params }: Props) {
     }
 
     const faculty = (facultyRaw && facultyRaw.length > 0) ? facultyRaw : getDepartmentFaculty(dept.slug, dept.name);
-
-    // 3. Fetch Related Courses
-    const { data: coursesRaw } = await supabase
-        .from('Course')
-        .select('*')
-        .eq('departmentId', dept.id);
 
     const courses = (coursesRaw && coursesRaw.length > 0) ? coursesRaw : [
         {
@@ -342,7 +346,7 @@ export default async function DepartmentDetailPage({ params }: Props) {
                         </h2>
                         <div className="space-y-6">
                             {faculty?.map((member, idx) => (
-                                <div key={member.id || member.email || `faculty-${idx}`} className="flex gap-4 items-start">
+                                <div key={(member as any).id || member.email || `faculty-${idx}`} className="flex gap-4 items-start">
                                     <div className="flex-1">
                                         <h4 className="font-bold text-neutral-900">{member.name}</h4>
                                         <p className="text-black text-sm font-medium mb-1">{member.role}</p>

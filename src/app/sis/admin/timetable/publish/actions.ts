@@ -66,10 +66,7 @@ export async function getVersionSummary(versionId: string) {
       .is('resolution', null)
       .eq('severity', 'HARD');
 
-    const { count: sectionsCount } = await adminClient
-      .from('timetable_assignments')
-      .select('section_id', { count: 'exact', head: true })
-      .eq('version_id', versionId);
+    const sectionsCount = assignmentsCount;
 
     const run = Array.isArray(version.run) ? version.run[0] : version.run;
     const score = Array.isArray(version.score) ? version.score[0] : version.score;

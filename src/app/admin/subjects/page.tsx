@@ -16,8 +16,9 @@ export default function AdminSubjectsPage() {
                 // Fetch subjects with their associated courses
                 const { data } = await supabase
                     .from('Subject')
-                    .select('*, course:Course(title)')
-                    .order('semester', { ascending: true });
+                    .select('id, code, name, creditUnits, semester, courseId, course:Course(title)')
+                    .order('semester', { ascending: true })
+                    .limit(300);
 
                 setSubjects(data || []);
             } catch (error) {

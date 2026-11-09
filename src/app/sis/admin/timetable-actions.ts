@@ -9,19 +9,20 @@ export async function getSISTimetables(filters: { semesterId?: string; subjectId
     let scheduleQuery = adminClient
       .from('class_schedules')
       .select(`
-        *,
+        id, subject_id, semester_id, course_id, instructor_id, day_of_week, start_time, end_time, room, building, session_type, recurrence_pattern, start_date, end_date, notes, is_active,
         subject:Subject(id, name, code, creditUnits),
         semester:semesters(id, name, start_date, end_date),
         course:Course(id, title, slug),
         instructor:profiles!class_schedules_instructor_id_fkey(id, first_name, last_name, email)
       `)
       .order('day_of_week', { ascending: true })
-      .order('start_time', { ascending: true });
+      .order('start_time', { ascending: true })
+      .limit(200);
 
     let sessionQuery = adminClient
       .from('class_sessions')
       .select(`
-        *,
+        id, schedule_id, subject_id, semester_id, course_id, instructor_id, session_date, start_time, end_time, room, building, session_type, status, cancellation_reason, substitute_instructor_id, notes,
         subject:Subject(id, name, code, creditUnits),
         semester:semesters(id, name, start_date, end_date),
         course:Course(id, title, slug),
@@ -29,7 +30,8 @@ export async function getSISTimetables(filters: { semesterId?: string; subjectId
         schedule:class_schedules(id, day_of_week, start_time, end_time, recurrence_pattern)
       `)
       .order('session_date', { ascending: true })
-      .order('start_time', { ascending: true });
+      .order('start_time', { ascending: true })
+      .limit(200);
 
     if (filters.semesterId) {
       scheduleQuery = scheduleQuery.eq('semester_id', filters.semesterId);
@@ -234,10 +236,10 @@ export async function getTimetableLookups() {
 
   try {
     const [subjects, courses, semesters, instructors] = await Promise.all([
-      adminClient.from('Subject').select('id, name, code, courseId').order('name'),
-      adminClient.from('Course').select('id, title, slug').order('title'),
-      adminClient.from('semesters').select('id, name, start_date, end_date, status').order('start_date', { ascending: false }),
-      adminClient.from('profiles').select('id, first_name, last_name, email').in('role', ['ADMIN', 'ADMISSIONS', 'FACULTY']).order('first_name'),
+      adminClient.from('Subject').select('id, name, code, courseId').order('name').limit(500),
+      adminClient.from('Course').select('id, title, slug').order('title').limit(200),
+      adminClient.from('semesters').select('id, name, start_date, end_date, status').order('start_date', { ascending: false }).limit(50),
+      adminClient.from('profiles').select('id, first_name, last_name, email').in('role', ['ADMIN', 'ADMISSIONS', 'FACULTY']).order('first_name').limit(200),
     ]);
 
     if (subjects.error) throw subjects.error;

@@ -62,7 +62,7 @@ export async function initiatePayment(
         // Get Invoice
         const { data: invoice } = await supabase
             .from('housing_invoices')
-            .select('*, student:students(id)')
+            .select('id, student_id, total_amount, paid_amount, currency')
             .eq('id', invoiceId)
             .single();
 
@@ -108,7 +108,7 @@ export async function verifyPayment(
         // 1. Find the pending payment
         const { data: payment } = await supabase
             .from('housing_payments')
-            .select('*, invoice:housing_invoices(*)')
+            .select('id, invoice_id, amount, currency, status, invoice:housing_invoices(id, student_id, application_id, total_amount, paid_amount)')
             .eq('paygowire_transaction_id', transactionId)
             .single();
 
@@ -127,11 +127,7 @@ export async function verifyPayment(
         if (updateError) throw updateError;
 
         // 3. Update Invoice Status manually if needed (or rely on DB triggers/RLS)
-        const { data: updatedInvoice } = await supabase
-            .from('housing_invoices')
-            .select('*')
-            .eq('id', payment.invoice_id)
-            .single();
+        const updatedInvoice: any = Array.isArray(payment.invoice) ? payment.invoice[0] : payment.invoice;
 
         if (updatedInvoice) {
             const newPaid = (updatedInvoice.paid_amount || 0) + payment.amount;
@@ -210,8 +206,9 @@ export async function batchGenerateInvoices(month: number, year: number) {
     // 2. Find all active assignments
     const { data: assignments } = await supabase
         .from('housing_assignments')
-        .select('*, room:housing_rooms(*)')
-        .eq('status', 'ASSIGNED');
+        .select('id, student_id, application_id, room:housing_rooms(monthly_rate)')
+        .eq('status', 'ASSIGNED')
+        .limit(500);
 
     if (!assignments) return { success: true, count: 0 };
 
@@ -353,7 +350,7 @@ export async function searchStudents(query: string) {
 
     const { data: students, error } = await supabase
         .from('students')
-        .select('*, user:profiles(*)')
+        .select('id, student_id, user_id, enrollment_status, user:profiles(id, first_name, last_name, email, student_id)')
         .or(`first_name.ilike.%${query}%,last_name.ilike.%${query}%,student_id.ilike.%${query}%`, { foreignTable: 'profiles' })
         .limit(10);
 
@@ -370,7 +367,7 @@ export async function verifyHousingPaymentManually(invoiceId: string, amount: nu
     // 2. Fetch Invoice
     const { data: invoice } = await supabase
         .from('housing_invoices')
-        .select('*, student:students(*, user:profiles(*))')
+        .select('id, student_id, application_id, total_amount, paid_amount, currency')
         .eq('id', invoiceId)
         .single();
 

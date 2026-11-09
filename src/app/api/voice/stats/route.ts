@@ -33,11 +33,13 @@ export async function GET(request: NextRequest) {
       adminClient.from('voice_calls').select('*', { count: 'exact', head: true }).gte('started_at', startOfDay.toISOString()),
       adminClient.from('voice_calls').select('*', { count: 'exact', head: true }).gte('started_at', startOfWeek.toISOString()),
       adminClient.from('voice_calls').select('*', { count: 'exact', head: true }),
-      adminClient.from('voice_calls').select('duration_seconds').not('duration_seconds', 'is', null),
+      adminClient.from('voice_calls').select('duration_seconds').not('duration_seconds', 'is', null).limit(200),
       adminClient.from('voice_calls').select('*', { count: 'exact', head: true }).eq('transferred', true),
       adminClient.from('voice_agent_callbacks').select('*', { count: 'exact', head: true }),
       adminClient.from('voice_calls').select('*', { count: 'exact', head: true }).in('status', ['pending', 'ringing', 'answered']),
-      adminClient.from('voice_calls').select('id, caller_phone, called_phone, status, started_at, ended_at, duration_seconds, transferred, transfer_target, summary').order('started_at', { ascending: false }).limit(20),
+      recent
+        ? adminClient.from('voice_calls').select('id, caller_phone, called_phone, status, started_at, ended_at, duration_seconds, transferred, transfer_target, summary').order('started_at', { ascending: false }).limit(20)
+        : Promise.resolve({ data: [] }),
     ]);
 
     const callsToday = callsTodayResult.count || 0;

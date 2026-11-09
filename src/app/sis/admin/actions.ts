@@ -43,8 +43,8 @@ export async function getSISAdminDashboardStats() {
         module:modules(code, title),
         semester:semesters(name)
       `).order('created_at', { ascending: false }).limit(5),
-      adminClient.from('applications').select('*, status', { count: 'exact' }),
-      adminClient.from('module_enrollments').select('*, status', { count: 'exact' }),
+      adminClient.from('applications').select('status'),
+      adminClient.from('module_enrollments').select('status'),
     ]);
 
     const statusCounts = {
@@ -103,11 +103,11 @@ export async function getSISStudentDetail(studentId: string) {
     const { data: student, error } = await adminClient
       .from('students')
       .select(`
-        *,
+        id, student_id, user_id, program_id, application_id, enrollment_status, start_date, expected_graduation, current_semester_id, current_stage, pal_status, pal_required, study_permit_status, arrival_status, checkin_status, orientation_status, registration_status, tuition_deposit_paid, full_tuition_paid, housing_fee_paid, portal_access_disabled, sis_access_disabled, created_at, updated_at,
         user:profiles(first_name, last_name, email, phone_number, date_of_birth, address, city, country_of_residence, student_id, portal_access_disabled, sis_access_disabled),
         program:Course(title, school:School(name)),
-        application:applications(*, course:Course(title, slug)),
-        enrollments:module_enrollments(*, module:modules(code, title), semester:semesters(name))
+        application:applications(id, application_number, status, course_id, user_id, personal_info, academic_history, submitted_at, created_at, course:Course(title, slug)),
+        enrollments:module_enrollments(id, student_id, module_id, semester_id, status, grade, grade_points, created_at, module:modules(code, title), semester:semesters(name))
       `)
       .eq('id', studentId)
       .maybeSingle();
@@ -128,9 +128,9 @@ export async function getSISStudentDetail(studentId: string) {
         status,
         submitted_at,
         created_at,
-        user:profiles(*),
+        user:profiles(id, first_name, last_name, email, phone_number, date_of_birth, address, city, country_of_residence, student_id, portal_access_disabled, sis_access_disabled),
         course:Course(title, school:School(name)),
-        offer:admission_offers(*)
+        offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, created_at)
       `)
       .or(`id.eq.${studentId},user_id.eq.${studentId}`)
       .maybeSingle();
@@ -184,7 +184,7 @@ export async function getSISAuditLogs(limit: number = 20) {
   try {
     const { data, error } = await adminClient
       .from('audit_logs')
-      .select('*')
+      .select('id, action, entity_table, entity_id, actor_id, timestamp, metadata')
       .order('timestamp', { ascending: false })
       .limit(limit);
 
@@ -204,11 +204,12 @@ export async function getSISAdmissionsApplications() {
     const { data, error } = await adminClient
       .from('applications')
       .select(`
-        *,
+        id, application_number, user_id, course_id, status, personal_info, submitted_at, created_at, updated_at,
         course:Course(title, slug, degreeLevel),
         user:profiles(first_name, last_name, email, student_id)
       `)
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .limit(200);
 
     if (error) throw error;
 
@@ -352,11 +353,12 @@ export async function getSISAcademicPrograms() {
     const { data, error } = await adminClient
       .from('Course')
       .select(`
-        *,
+        id, slug, title, code, degreeLevel, programType, duration, credits, studyMode, schoolId, departmentId, createdAt, updatedAt,
         school:School(name, slug),
         departmentId:Department(name, slug)
       `)
-      .order('title', { ascending: true });
+      .order('title', { ascending: true })
+      .limit(200);
 
     if (error) throw error;
 
@@ -379,7 +381,7 @@ export async function getSISAcademicProgram(id: string) {
     const { data, error } = await adminClient
       .from('Course')
       .select(`
-        *,
+        id, slug, title, code, degreeLevel, programType, duration, credits, studyMode, description, schoolId, departmentId, createdAt, updatedAt,
         school:School(name, slug),
         departmentId:Department(name, slug)
       `)
@@ -407,7 +409,7 @@ export async function getSISAcademicModules() {
     const { data, error } = await adminClient
       .from('modules')
       .select(`
-        *,
+        id, code, title, credits, description, department_id, school_id, created_at,
         departmentId:Department(name, slug)
       `)
       .order('code', { ascending: true })
@@ -434,7 +436,7 @@ export async function getSISAcademicModule(id: string) {
     const { data, error } = await adminClient
       .from('modules')
       .select(`
-        *,
+        id, code, title, credits, description, department_id, school_id, created_at,
         departmentId:Department(name, slug),
         school:School(name, slug)
       `)
@@ -462,7 +464,7 @@ export async function getSISRegistrationById(id: string) {
     const { data, error } = await adminClient
       .from('module_enrollments')
       .select(`
-        *,
+        id, student_id, module_id, semester_id, status, grade, grade_points, created_at,
         student:students(student_id, enrollment_status, user:profiles(first_name, last_name, email)),
         module:modules(code, title, credits, description),
         semester:semesters(name, start_date, end_date)
@@ -486,7 +488,7 @@ export async function getSISRegistrations() {
     const { data, error } = await adminClient
       .from('module_enrollments')
       .select(`
-        *,
+        id, student_id, module_id, semester_id, status, grade, grade_points, created_at,
         student:students(student_id, enrollment_status, user:profiles(first_name, last_name)),
         module:modules(code, title),
         semester:semesters(name)
@@ -512,7 +514,7 @@ export async function getSISDocuments() {
       .select(`
         id, status, user_id,
         user:profiles(first_name, last_name, email),
-        documents:application_documents(*),
+        documents:application_documents(id, application_id, document_type, file_url, file_name, uploaded_at),
         course:Course(title, degreeLevel)
       `)
       .neq('status', 'DRAFT')
@@ -670,10 +672,10 @@ export async function getStudentFinancialDetails(studentId: string) {
     let { data: student, error: studentError } = await adminClient
       .from('students')
       .select(`
-        *,
+        id, student_id, user_id, program_id, application_id, enrollment_status, tuition_deposit_paid, full_tuition_paid, housing_fee_paid, created_at,
         user:profiles(first_name, last_name, email, phone_number, student_id),
         course:Course(title, school:School(name), degreeLevel, duration, credits),
-        application:applications(*, course:Course(title, slug))
+        application:applications(id, application_number, status, course_id, user_id, personal_info, submitted_at, created_at, course:Course(title, slug))
       `)
       .or(`id.eq.${studentId},application_id.eq.${studentId},user_id.eq.${studentId}`)
       .maybeSingle();
@@ -690,7 +692,7 @@ export async function getStudentFinancialDetails(studentId: string) {
       const { data: app } = await adminClient
         .from('applications')
         .select(`
-          *,
+          id, application_number, status, course_id, user_id, personal_info, submitted_at, created_at,
           user:profiles(first_name, last_name, email, phone_number, student_id),
           course:Course(title, school:School(name), degreeLevel, duration, credits)
         `)
@@ -701,15 +703,18 @@ export async function getStudentFinancialDetails(studentId: string) {
         applicationId = app.id;
         student = {
           id: app.id,
-          student_id: app.user?.student_id || app.application_number || `CC${app.id.slice(0, 6).toUpperCase()}`,
+          student_id: (app.user as any)?.student_id || app.application_number || `CC${app.id.slice(0, 6).toUpperCase()}`,
           enrollment_status: app.status === 'ENROLLED' ? 'ACTIVE' : (app.status || 'ACTIVE'),
           user_id: app.user_id,
+          program_id: app.course_id,
           application_id: app.id,
           tuition_deposit_paid: true,
           full_tuition_paid: true,
+          housing_fee_paid: false,
+          created_at: app.created_at,
           user: app.user,
           course: app.course,
-          application: app,
+          application: app as any,
         };
       }
     }
@@ -726,7 +731,7 @@ export async function getStudentFinancialDetails(studentId: string) {
     if (applicationId) {
       const { data: offerData } = await adminClient
         .from('admission_offers')
-        .select('*')
+        .select('id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, invoice_type, invoice_pushed, invoice_sent_at, created_at')
         .eq('application_id', applicationId)
         .maybeSingle();
 
@@ -735,9 +740,10 @@ export async function getStudentFinancialDetails(studentId: string) {
       if (offer?.id) {
         const { data: paymentsData } = await adminClient
           .from('tuition_payments')
-          .select('*')
+          .select('id, offer_id, amount, currency, status, payment_method, transaction_reference, receipt_url, invoice_type, created_at')
           .eq('offer_id', offer.id)
-          .order('created_at', { ascending: false });
+          .order('created_at', { ascending: false })
+          .limit(50);
 
         payments = paymentsData || [];
       }
@@ -746,18 +752,20 @@ export async function getStudentFinancialDetails(studentId: string) {
     // Fetch invoices matching any of the resolved student IDs
     const { data: invoiceData } = await adminClient
       .from('invoices')
-      .select('*')
+      .select('id, student_id, invoice_number, type, term, amount, paid, balance, due_date, status, issued_date')
       .in('student_id', uniqueIds)
-      .order('issued_date', { ascending: false });
+      .order('issued_date', { ascending: false })
+      .limit(50);
     invoices = invoiceData || [];
 
     // Fetch finance documents matching any of the resolved student IDs
     const { data: documentData } = await adminClient
       .from('document_records')
-      .select('*')
+      .select('id, student_id, document_type, title, programme, status, storage_path, is_official, is_student_visible, version, issue_date, metadata')
       .in('student_id', uniqueIds)
       .in('document_type', ['tuition_receipt', 'tuition_invoice', 'pal', 'loa', 'receipt'])
-      .order('issue_date', { ascending: false });
+      .order('issue_date', { ascending: false })
+      .limit(50);
     financeDocuments = documentData || [];
 
     const tuitionFee = offer?.tuition_fee || 4000;
@@ -825,7 +833,8 @@ export async function getSISStudents() {
           program:Course(title, school:School(name)),
           application:applications(course:Course(title, school:School(name)))
         `)
-        .order('created_at', { ascending: false }),
+        .order('created_at', { ascending: false })
+        .limit(200),
       adminClient
         .from('applications')
         .select(`
@@ -839,12 +848,14 @@ export async function getSISStudents() {
           course:Course(title, school:School(name))
         `)
         .in('status', ['ENROLLED', 'OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ADMITTED', 'ACCEPTED', 'PROVISIONAL_ENROLLED', 'REGISTERED'])
-        .order('created_at', { ascending: false }),
+        .order('created_at', { ascending: false })
+        .limit(200),
       adminClient
         .from('profiles')
         .select('id, first_name, last_name, email, student_id, role, portal_access_disabled, sis_access_disabled, created_at')
         .eq('role', 'STUDENT')
-        .order('created_at', { ascending: false }),
+        .order('created_at', { ascending: false })
+        .limit(200),
     ]);
 
     const existingStudentUserIds = new Set<string>();
@@ -940,7 +951,8 @@ export async function getSISSystemSettings() {
     // 1. Fetch system_settings key-value pairs
     const { data: settingsData, error: settingsError } = await adminClient
       .from('system_settings')
-      .select('*');
+      .select('key, value')
+      .limit(50);
 
     const settingsMap: Record<string, string> = {};
     if (!settingsError && settingsData) {

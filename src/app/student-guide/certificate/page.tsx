@@ -24,8 +24,9 @@ export default async function CertificateGuidePage() {
     try {
         const { data: tuitionRows } = await supabase
             .from('tuition_info')
-            .select('*')
-            .eq('status', 'active');
+            .select('credential_type, international_tuition, domestic_tuition')
+            .eq('status', 'active')
+            .limit(20);
 
         if (tuitionRows) {
             const certRow = tuitionRows.find((r: any) => 

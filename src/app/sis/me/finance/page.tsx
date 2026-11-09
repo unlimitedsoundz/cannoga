@@ -63,7 +63,7 @@ export default function MyFinancePage() {
         const { data: studentData, error: studentError } = await supabase
           .from('students')
           .select(`
-            *,
+            id, student_id, application_id, program_id, enrollment_status,
             profiles(first_name, last_name, email)
           `)
           .eq('user_id', user.id)
@@ -79,9 +79,10 @@ export default function MyFinancePage() {
 
         const { data: invoiceData, error: invoiceError } = await supabase
           .from('invoices')
-          .select('*')
+          .select('id, invoice_number, type, term, amount, paid, balance, due_date, status, issued_date')
           .eq('student_id', studentData.id)
-          .order('issued_date', { ascending: false });
+          .order('issued_date', { ascending: false })
+          .limit(50);
 
         if (!invoiceError && invoiceData) {
           setInvoices(invoiceData.map((inv: any) => ({
@@ -102,17 +103,11 @@ export default function MyFinancePage() {
         let fetchedTuitionFee = 0;
         let fetchedPaymentDeadline = '';
         try {
-            const { data: studentApp } = await supabase
-                .from('students')
-                .select('application_id')
-                .eq('id', studentData.id)
-                .single();
-
-            if (studentApp?.application_id) {
+            if (studentData.application_id) {
                 const { data: offerData } = await supabase
                     .from('admission_offers')
                     .select('id, tuition_fee, payment_deadline, invoice_pushed')
-                    .eq('application_id', studentApp.application_id)
+                    .eq('application_id', studentData.application_id)
                     .maybeSingle();
 
                 if (offerData) {
@@ -125,9 +120,10 @@ export default function MyFinancePage() {
                 if (offerIds.length > 0) {
                     const { data: tpData } = await supabase
                         .from('tuition_payments')
-                        .select('*')
+                        .select('id, offer_id, amount, status, payment_method, transaction_reference, receipt_url, created_at')
                         .in('offer_id', offerIds)
-                        .order('created_at', { ascending: false });
+                        .order('created_at', { ascending: false })
+                        .limit(50);
 
                     tuitionPayments = tpData || [];
                 }

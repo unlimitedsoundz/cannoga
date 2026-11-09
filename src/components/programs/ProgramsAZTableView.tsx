@@ -542,8 +542,9 @@ export function ProgramsAZTableView() {
                 const supabase = createClient();
                 const { data: dbData, error } = await supabase
                     .from('Course')
-                    .select('id, code, cip_code, title, degreeLevel, duration, credits, slug, description, schoolId, School(name, slug)')
-                    .order('title', { ascending: true });
+                    .select('id, code, cip_code, title, degreeLevel, duration, credits, slug, description, School(name)')
+                    .order('title', { ascending: true })
+                    .limit(200);
 
                 if (!error && dbData && dbData.length > 0 && isMounted) {
                     const dbMapped: ProgramItem[] = dbData.map((item: any) => {

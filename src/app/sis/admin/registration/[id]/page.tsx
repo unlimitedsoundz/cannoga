@@ -42,7 +42,7 @@ export default function RegistrationDetailPage() {
         setLoading(true);
         const result = await getSISRegistrationById(id);
         if (!result.success) throw new Error(result.error);
-        setData(result.data as RegistrationDetail);
+        setData((result.data as any) as RegistrationDetail);
       } catch (err: any) {
         setError(err.message || 'Failed to load registration');
       } finally {

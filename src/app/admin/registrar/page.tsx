@@ -45,18 +45,18 @@ export default function RegistrarPage() {
                     { data: auditLogs },
                     { data: tuitionPayments }
                 ] = await Promise.all([
-                    supabase.from('semesters').select('*').order('start_date', { ascending: false }),
-                    supabase.from('registration_windows').select('*, semester:semesters(*)'),
+                    supabase.from('semesters').select('id, name, start_date, end_date, status').order('start_date', { ascending: false }).limit(50),
+                    supabase.from('registration_windows').select('id, semester_id, status, open_at, close_at, semester:semesters(id, name)').limit(50),
                     supabase.from('modules').select(`
                         id, code, title, capacity,
                         module_enrollments(id, status, student:students(id, student_id, user:profiles(first_name, last_name)))
-                    `),
-                    supabase.from('module_enrollments').select('*, student:students(*, user:profiles(*)), module:modules(*)').eq('grade_status', 'PROVISIONAL').not('grade', 'is', null),
-                    supabase.from('students').select('*, user:profiles(*), housing_assignments(status, room:housing_rooms(room_number, building:housing_buildings(name)))').order('created_at', { ascending: false }),
-                    supabase.from('housing_buildings').select('*, housing_rooms(count, status)'),
-                    supabase.from('class_sessions').select('*, module:modules(*), semester:semesters(*)').order('day_of_week', { ascending: true }).order('start_time', { ascending: true }),
-                    supabase.from('audit_logs').select('*').order('timestamp', { ascending: false }).limit(20),
-                    supabase.from('tuition_payments').select('*, offer:admission_offers(*, application:applications(*, user:profiles(*)))').order('created_at', { ascending: false })
+                    `).limit(100),
+                    supabase.from('module_enrollments').select('id, student_id, module_id, semester_id, grade, grade_status, student:students(id, student_id, user:profiles(first_name, last_name)), module:modules(code, title)').eq('grade_status', 'PROVISIONAL').not('grade', 'is', null).limit(100),
+                    supabase.from('students').select('id, student_id, enrollment_status, created_at, user:profiles(first_name, last_name, email), housing_assignments(status, room:housing_rooms(room_number, building:housing_buildings(name)))').order('created_at', { ascending: false }).limit(100),
+                    supabase.from('housing_buildings').select('id, name, code, housing_rooms(count, status)').limit(50),
+                    supabase.from('class_sessions').select('id, session_date, start_time, end_time, room, session_type, status, module:modules(code, title), semester:semesters(name)').order('day_of_week', { ascending: true }).order('start_time', { ascending: true }).limit(100),
+                    supabase.from('audit_logs').select('id, action, entity_table, entity_id, actor_id, timestamp, metadata').order('timestamp', { ascending: false }).limit(20),
+                    supabase.from('tuition_payments').select('id, amount, currency, status, payment_method, transaction_reference, created_at, offer:admission_offers(id, application:applications(id, user:profiles(first_name, last_name)))').order('created_at', { ascending: false }).limit(100)
                 ]);
 
                 setData({

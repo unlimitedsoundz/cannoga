@@ -35,59 +35,45 @@ export default async function TuitionPaymentPage() {
     let courses: any[] = [];
     let tuitionInfo: any[] = [];
     let heroVideoUrl = '/videos/wan2.6-t2v_a_%23_Tuition_Fees_Video.mp4';
+    const dbContentMap: Record<string, string> = {};
 
     try {
-        const { data: coursesData } = await supabase
-            .from('Course')
-            .select('*')
-            .order('title');
-        courses = coursesData || [];
-    } catch (e) {
-        console.error('Error fetching courses for tuition estimator:', e);
-    }
-
-    try {
-        const { data: tuitionData } = await supabase
-            .from('tuition_info')
-            .select('*')
-            .eq('status', 'active')
-            .order('credential_type', { ascending: true });
-        tuitionInfo = tuitionData || [];
-    } catch (e) {
-        console.error('Error fetching tuition_info:', e);
-    }
-
-    // For static build, we use empty FAQs - they will be loaded client-side
-    const faqs: any[] = [];
-    const pageSlug = 'admissions/tuition';
-    // Fetch all page_content sections on the server for instant SSR hydration
-    let dbContentMap: Record<string, string> = {};
-    try {
-        const { data: pageSections } = await supabase
-            .from('page_content')
-            .select('section_key, content')
-            .eq('page_slug', pageSlug);
-        if (pageSections) {
-            pageSections.forEach((s: any) => {
+        const [coursesRes, tuitionRes, pageSectionsRes] = await Promise.all([
+            supabase
+                .from('Course')
+                .select('id, title, degreeLevel, duration')
+                .order('title')
+                .limit(200),
+            supabase
+                .from('tuition_info')
+                .select('id, credential_type, domestic_tuition, international_tuition')
+                .eq('status', 'active')
+                .order('credential_type', { ascending: true })
+                .limit(20),
+            supabase
+                .from('page_content')
+                .select('section_key, content')
+                .eq('page_slug', 'admissions/tuition')
+                .limit(100),
+        ]);
+        courses = coursesRes.data || [];
+        tuitionInfo = tuitionRes.data || [];
+        if (pageSectionsRes.data) {
+            pageSectionsRes.data.forEach((s: any) => {
                 if (s.content) dbContentMap[s.section_key] = s.content;
             });
         }
     } catch (e) {
-        console.error('Error fetching page_content on server:', e);
+        console.error('Error fetching tuition page data on server:', e);
     }
+
+    const pageSlug = 'admissions/tuition';
 
     const getSectionDefault = (sectionKey: string) => getPageContentSection(pageSlug, sectionKey)?.defaultContent ?? '';
     const getContent = (sectionKey: string) => dbContentMap[sectionKey] || getSectionDefault(sectionKey);
 
     if (dbContentMap['hero_video_url']) {
         heroVideoUrl = dbContentMap['hero_video_url'].trim();
-    }
-
-    // Register this page
-    try {
-        registerFaqPage("Tuition", "admissions/tuition");
-    } catch (error) {
-        // Ignore errors
     }
 
     // Helper to extract annual tuition from JSONB
@@ -221,7 +207,7 @@ export default async function TuitionPaymentPage() {
                                 <h2 className="cc-h2">Interactive Tuition &amp; Fees Estimator</h2>
                                 <p className="cc-label">Estimate your tuition and ancillary fees per semester</p>
                             </div>
-                            <TuitionEstimator courses={courses || []} />
+                            <TuitionEstimator courses={courses || []} initialTuitionInfo={tuitionInfo || []} />
                         </section>
 
                         <section id="merit-scholarship" className="scroll-mt-32 space-y-4">

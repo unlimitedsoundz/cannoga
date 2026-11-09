@@ -129,11 +129,11 @@ export async function seedVoiceKnowledgeFromDatabase(): Promise<{ success: boole
       .from('semesters')
       .select('id, name, start_date, end_date, registration_deadline, is_active');
 
+    const existingIntakes = await getActiveKnowledgeEntries();
     for (const semester of semesters || []) {
       if (!semester.is_active) continue;
 
-      const existing = await getActiveKnowledgeEntries();
-      const alreadyExists = existing.some(k => k.sourceReference === `intake-${semester.id}`);
+      const alreadyExists = existingIntakes.some(k => k.sourceReference === `intake-${semester.id}`);
 
       if (!alreadyExists) {
         const content = `${semester.name} intake at Cannoga College. Start date: ${semester.start_date}. End date: ${semester.end_date}. Registration deadline: ${semester.registration_deadline || 'Contact admissions'}.`;

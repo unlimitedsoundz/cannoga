@@ -461,11 +461,12 @@ export async function getAdmissionsApplications() {
         const { data, error } = await adminClient
             .from('applications')
             .select(`
-                *,
+                id, application_number, user_id, course_id, status, personal_info, submitted_at, created_at, updated_at,
                 course:Course(title),
                 user:profiles(first_name, last_name, email, student_id)
             `)
-            .order('created_at', { ascending: false });
+            .order('created_at', { ascending: false })
+            .limit(200);
 
         if (error) throw new Error(error.message || 'Failed to fetch applications');
         return { success: true, data };
@@ -483,11 +484,11 @@ export async function getAdmissionsApplicationById(id: string) {
         const { data, error } = await adminClient
             .from('applications')
             .select(`
-                *,
-                course:Course(*, school:School(slug)),
-                user:profiles(*),
-                documents:application_documents(*),
-                offer:admission_offers(*)
+                id, application_number, user_id, course_id, alternate_course_id, status, internal_notes, personal_info, contact_details, education_history, academic_history, motivation, language_proficiency, program_specific_data, requested_documents, document_request_note, submitted_at, created_at, updated_at,
+                course:Course(id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(slug)),
+                user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, student_id),
+                documents:application_documents(id, application_id, type, document_type, url, file_url, name, file_name, uploaded_at),
+                offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, invoice_type, invoice_pushed, invoice_sent_at, created_at)
             `)
             .eq('id', id)
             .single();
@@ -497,17 +498,17 @@ export async function getAdmissionsApplicationById(id: string) {
         if (data?.alternate_course_id) {
             const { data: altCourse } = await adminClient
                 .from('Course')
-                .select('*, school:School(slug)')
+                .select('id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(slug)')
                 .eq('id', data.alternate_course_id)
                 .maybeSingle();
             if (altCourse) {
-                data.alternate_course = altCourse;
+                (data as any).alternate_course = altCourse;
             }
         }
 
         const { data: admData } = await adminClient
             .from('admissions')
-            .select('*')
+            .select('id, user_id, program, intake, offer_status, accepted_at')
             .eq('user_id', data.user_id)
             .order('created_at', { ascending: false })
             .limit(1)

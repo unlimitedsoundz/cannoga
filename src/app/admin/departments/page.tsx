@@ -19,11 +19,12 @@ export default function AdminDepartmentsPage() {
                 const { data } = await supabase
                     .from('Department')
                     .select(`
-                        *,
+                        id, name, slug, description, schoolId, headOfDepartmentId,
                         school:School(name),
                         headOfDepartment:Faculty!headofdepartmentid(name)
                     `)
-                    .order('name', { ascending: true });
+                    .order('name', { ascending: true })
+                    .limit(100);
 
                 setDepartments(data || []);
             } catch (error) {

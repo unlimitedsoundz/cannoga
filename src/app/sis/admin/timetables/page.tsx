@@ -105,8 +105,14 @@ export default function TimetablesPage() {
   });
 
   useEffect(() => {
+    getTimetableLookups().then(res => {
+      if (res.success) setLookups(res.data);
+    });
+  }, []);
+
+  useEffect(() => {
     fetchData();
-  }, [semesterFilter, subjectFilter, activeTab]);
+  }, [semesterFilter, subjectFilter]);
 
   const fetchData = async () => {
     try {
@@ -115,17 +121,12 @@ export default function TimetablesPage() {
       if (semesterFilter) filters.semesterId = semesterFilter;
       if (subjectFilter) filters.subjectId = subjectFilter;
       
-      const [timetablesResult, lookupsResult] = await Promise.all([
-        getSISTimetables(filters),
-        getTimetableLookups(),
-      ]);
+      const timetablesResult = await getSISTimetables(filters);
 
       if (!timetablesResult.success) throw new Error(timetablesResult.error);
-      if (!lookupsResult.success) throw new Error(lookupsResult.error);
 
       setSchedules(timetablesResult.data?.schedules || []);
       setSessions(timetablesResult.data?.sessions || []);
-      setLookups(lookupsResult.data);
     } catch (err: any) {
       toast.error(err.message || 'Failed to load timetable data');
     } finally {

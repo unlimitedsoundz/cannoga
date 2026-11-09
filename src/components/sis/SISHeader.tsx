@@ -293,9 +293,16 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
       }
     };
 
+    let lastNotifFetch = Date.now();
     fetchNotifications();
-    const interval = setInterval(fetchNotifications, 20000);
-    return () => clearInterval(interval);
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible' && Date.now() - lastNotifFetch > 60000) {
+        lastNotifFetch = Date.now();
+        fetchNotifications();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
   }, [isAdmin]);
 
   useEffect(() => {
@@ -311,9 +318,16 @@ export function SISHeader({ onMenuToggle, role, profile, studentId }: SISHeaderP
         console.error('Error fetching unread message count:', e);
       }
     };
+    let lastUnreadFetch = Date.now();
     fetchUnreadCount();
-    const interval = setInterval(fetchUnreadCount, 30000);
-    return () => clearInterval(interval);
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible' && Date.now() - lastUnreadFetch > 60000) {
+        lastUnreadFetch = Date.now();
+        fetchUnreadCount();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
   }, [studentId, profile?.student_id]);
 
   const handleDeleteNotification = async (id: string) => {

@@ -14,8 +14,9 @@ export default function AdminEventsPage() {
         try {
             const { data } = await supabase
                 .from('Event')
-                .select('*')
-                .order('date', { ascending: false });
+                .select('id, slug, title, date, location, category, createdAt')
+                .order('date', { ascending: false })
+                .limit(100);
             setEvents(data || []);
         } catch (error) {
             console.error("Error fetching events:", error);

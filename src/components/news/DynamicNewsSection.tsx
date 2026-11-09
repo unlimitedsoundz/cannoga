@@ -34,38 +34,36 @@ export default function DynamicNewsSection({
             let eventsData: any[] = [];
             let blogData: any[] = [];
 
-            // Fetch news if needed
-            if (contentType === 'all' || contentType === 'news') {
-                const { data } = await supabase
-                    .from('News')
-                    .select('*')
-                    .eq('published', true)
-                    .order('publishDate', { ascending: false })
-                    .limit(limit);
-                newsData = data || [];
-            }
+            const [newsRes, eventsRes, blogRes] = await Promise.all([
+                contentType === 'all' || contentType === 'news'
+                    ? supabase
+                        .from('News')
+                        .select('id, slug, title, excerpt, imageUrl, publishDate')
+                        .eq('published', true)
+                        .order('publishDate', { ascending: false })
+                        .limit(limit)
+                    : Promise.resolve({ data: [] }),
+                contentType === 'all' || contentType === 'event'
+                    ? supabase
+                        .from('Event')
+                        .select('id, slug, title, date, location, imageUrl')
+                        .eq('published', true)
+                        .order('date', { ascending: true })
+                        .limit(limit)
+                    : Promise.resolve({ data: [] }),
+                contentType === 'all' || contentType === 'blog'
+                    ? blogSupabase
+                        .from('blogs')
+                        .select('id, slug, title, excerpt, imageUrl, publishDate')
+                        .eq('published', true)
+                        .order('publishDate', { ascending: false })
+                        .limit(limit)
+                    : Promise.resolve({ data: [] }),
+            ]);
 
-            // Fetch events if needed
-            if (contentType === 'all' || contentType === 'event') {
-                const { data } = await supabase
-                    .from('Event')
-                    .select('*')
-                    .eq('published', true)
-                    .order('date', { ascending: true })
-                    .limit(limit);
-                eventsData = data || [];
-            }
-
-            // Fetch blogs if needed
-            if (contentType === 'all' || contentType === 'blog') {
-                const { data } = await blogSupabase
-                    .from('blogs')
-                    .select('*')
-                    .eq('published', true)
-                    .order('publishDate', { ascending: false })
-                    .limit(limit);
-                blogData = data || [];
-            }
+            newsData = newsRes.data || [];
+            eventsData = eventsRes.data || [];
+            blogData = blogRes.data || [];
 
             // Combine and sort
             let combined = [

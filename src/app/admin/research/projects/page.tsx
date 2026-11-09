@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { createClient } from '@/utils/supabase/client';
 import { Link } from "@aalto-dx/react-components";
@@ -14,8 +14,9 @@ export default function ResearchProjectsAdmin() {
         try {
             const { data } = await supabase
                 .from('ResearchProject')
-                .select('*')
-                .order('createdAt', { ascending: false });
+                .select('id, slug, title, description, fundingSource, imageUrl, leadResearcher, createdAt')
+                .order('createdAt', { ascending: false })
+                .limit(100);
             setProjects(data || []);
         } catch (error) {
             console.error("Error fetching research projects:", error);

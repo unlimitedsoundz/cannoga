@@ -45,7 +45,7 @@ export default function HousingPage() {
 
                 const { data: student } = await supabase
                     .from('students')
-                    .select('*, user:profiles(*)')
+                    .select('id, student_id, user_id, enrollment_status, user:profiles(id, first_name, last_name, email, student_id)')
                     .eq('user_id', currentUserId || '')
                     .maybeSingle();
 
@@ -55,19 +55,18 @@ export default function HousingPage() {
                 }
 
                 // Parallel fetches
-                const [appRes, assignRes, buildRes, semRes, invRes] = await Promise.all([
-                    supabase.from('housing_applications').select('*, deposit:housing_deposits(*)').eq('student_id', student.id).order('created_at', { ascending: false }).limit(1).maybeSingle(),
-                    supabase.from('housing_assignments').select('*, room:housing_rooms(*, building:housing_buildings(*))').eq('student_id', student.id).order('created_at', { ascending: false }).limit(1).maybeSingle(),
-                    supabase.from('housing_buildings').select('*').order('name'),
-                    supabase.from('semesters').select('*').order('start_date'),
-                    supabase.from('housing_invoices').select('*, items:housing_invoice_items(*), payments:housing_payments(*)').eq('student_id', student.id).order('created_at', { ascending: false })
+                const [appRes, assignRes, semRes, invRes] = await Promise.all([
+                    supabase.from('housing_applications').select('id, student_id, semester_id, status, room_type_preference, dietary_requirements, medical_conditions, emergency_contact, created_at').eq('student_id', student.id).order('created_at', { ascending: false }).limit(1).maybeSingle(),
+                    supabase.from('housing_assignments').select('id, student_id, room_id, status, move_in_date, move_out_date, room:housing_rooms(id, room_number, type, floor, building:housing_buildings(id, name, code, campus_location))').eq('student_id', student.id).order('created_at', { ascending: false }).limit(1).maybeSingle(),
+                    supabase.from('semesters').select('id, name, start_date, end_date, status').order('start_date').limit(20),
+                    supabase.from('housing_invoices').select('id, reference_number, total_amount, paid_amount, status, due_date, created_at').eq('student_id', student.id).order('created_at', { ascending: false }).limit(20)
                 ]);
 
                 setData({
                     student,
                     application: appRes.data,
                     assignment: assignRes.data,
-                    buildings: buildRes.data || [],
+                    buildings: [],
                     semesters: semRes.data || [],
                     invoices: invRes.data || []
                 });

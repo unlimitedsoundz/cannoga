@@ -67,6 +67,27 @@ export async function proxy(request: NextRequest) {
         return NextResponse.next();
     }
 
+    if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+        return createRedirectResponse(
+            request,
+            pathname.replace('/admin', '/sis/admin'),
+            undefined,
+            307
+        );
+    }
+
+    const isPortalPath = pathname.startsWith('/portal');
+    const isPublicPortalPath = isPortalPath && PORTAL_PUBLIC_PATHS.some(
+        (p) => pathname === p || pathname.startsWith(p + '/')
+    );
+    const isAdminPath = ADMIN_PATHS.some((p) => pathname.startsWith(p));
+    const isSisPath = AUTH_REQUIRED_PATHS.some((p) => pathname.startsWith(p));
+
+    // Public routes outside /portal, /sis, and /admin do not require auth or profile queries
+    if (!isPortalPath && !isAdminPath && !isSisPath) {
+        return NextResponse.next();
+    }
+
     let supabaseResponse = NextResponse.next({ request });
 
     const supabase = createServerClient(
@@ -97,44 +118,15 @@ export async function proxy(request: NextRequest) {
         }
     );
 
+    if (isPublicPortalPath) {
+        return supabaseResponse;
+    }
+
     const {
         data: { user },
     } = await supabase.auth.getUser();
 
-    const { data: profile, error: profileError } = await (async () => {
-        if (!user) return { data: null, error: null };
-        return await supabase.from('profiles').select('role, portal_access_disabled, sis_access_disabled').eq('id', user.id).single();
-    })();
-
-    if (pathname.startsWith('/portal')) {
-        const isPublicPortalPath = PORTAL_PUBLIC_PATHS.some(
-            (p) => pathname === p || pathname.startsWith(p + '/')
-        );
-
-        if (!isPublicPortalPath && (!user || profile?.portal_access_disabled)) {
-            return createRedirectResponse(
-                request,
-                '/portal/account/login/',
-                profile?.portal_access_disabled
-                    ? { message: 'access_disabled' }
-                    : { redirectedFrom: pathname },
-                307,
-                supabaseResponse
-            );
-        }
-    }
-
-    if (pathname === '/admin' || pathname.startsWith('/admin/')) {
-        return createRedirectResponse(
-            request,
-            pathname.replace('/admin', '/sis/admin'),
-            undefined,
-            307,
-            supabaseResponse
-        );
-    }
-
-    if (ADMIN_PATHS.some((p) => pathname.startsWith(p))) {
+    if (isAdminPath) {
         if (!user) {
             return createRedirectResponse(
                 request,
@@ -147,7 +139,26 @@ export async function proxy(request: NextRequest) {
         return supabaseResponse;
     }
 
-    if (AUTH_REQUIRED_PATHS.some((p) => pathname.startsWith(p))) {
+    const { data: profile } = await (async () => {
+        if (!user) return { data: null };
+        return await supabase.from('profiles').select('role, portal_access_disabled, sis_access_disabled').eq('id', user.id).single();
+    })();
+
+    if (isPortalPath) {
+        if (!user || profile?.portal_access_disabled) {
+            return createRedirectResponse(
+                request,
+                '/portal/account/login/',
+                profile?.portal_access_disabled
+                    ? { message: 'access_disabled' }
+                    : { redirectedFrom: pathname },
+                307,
+                supabaseResponse
+            );
+        }
+    }
+
+    if (isSisPath) {
         if (!user) {
             return createRedirectResponse(
                 request,

@@ -54,12 +54,13 @@ export default function TranscriptPage() {
                 const { data: enrollments } = await supabase
                     .from('module_enrollments')
                     .select(`
-                        *,
-                        module:modules(*),
-                        semester:semesters(*)
+                        id, student_id, module_id, semester_id, status, grade, grade_points, created_at,
+                        module:modules(id, code, title, credits),
+                        semester:semesters(id, name, start_date, end_date)
                     `)
                     .eq('student_id', student.id)
-                    .order('created_at', { ascending: false });
+                    .order('created_at', { ascending: false })
+                    .limit(100);
 
                 setData({
                     studentId: student.student_id,

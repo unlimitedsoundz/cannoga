@@ -49,7 +49,7 @@ export default function LmsPage() {
                 if (student) {
                     const { data: itAccess } = await supabase
                         .from('student_it_access')
-                        .select('*, asset:it_assets(*)')
+                        .select('id, student_id, asset_id, username, status, provisioned_at, asset:it_assets(id, name, asset_type, access_url)')
                         .eq('student_id', student.id)
                         .eq('asset.asset_type', 'LMS')
                         .eq('status', 'ACTIVE')

@@ -86,14 +86,19 @@ export default function SectionsPage() {
 
   useEffect(() => {
     fetchTerms();
+    fetchInstructors();
+    fetchStudentGroups();
   }, []);
 
   useEffect(() => {
     if (termId) {
-      fetchSections();
       fetchModules();
-      fetchInstructors();
-      fetchStudentGroups();
+    }
+  }, [termId]);
+
+  useEffect(() => {
+    if (termId) {
+      fetchSections();
     }
   }, [termId, statusFilter, search]);
 

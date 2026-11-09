@@ -39,7 +39,7 @@ export default function ProfilePage() {
 
                 const { data: profileData, error: profileError } = await supabase
                     .from('profiles')
-                    .select('*')
+                    .select('id, first_name, middle_name, last_name, email, role, date_of_birth, country_of_residence, student_id, avatar_url, created_at')
                     .eq('id', authUser.id)
                     .maybeSingle();
 

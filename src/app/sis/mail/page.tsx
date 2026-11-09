@@ -176,15 +176,18 @@ export default function StudentMailPage() {
         fetchCounts();
     }, [fetchCounts]);
 
-    // Live auto-refresh: Poll Microsoft 365 every 30 seconds in the background
+    // Live auto-refresh: Refresh when tab returns to visibility (minimum 60s interval)
     useEffect(() => {
-        const interval = setInterval(() => {
-            if (document.visibilityState === 'visible') {
+        let lastFetch = Date.now();
+        const handleVisibility = () => {
+            if (document.visibilityState === 'visible' && Date.now() - lastFetch > 60000) {
+                lastFetch = Date.now();
                 fetchMessages(folder, skip, true);
                 fetchCounts();
             }
-        }, 30000);
-        return () => clearInterval(interval);
+        };
+        document.addEventListener('visibilitychange', handleVisibility);
+        return () => document.removeEventListener('visibilitychange', handleVisibility);
     }, [folder, skip, fetchMessages, fetchCounts]);
 
     const openMessage = async (msg: EmailMessage) => {

@@ -50,9 +50,10 @@ export default function ReceiptsPage() {
 
         const { data: receiptData, error: receiptError } = await supabase
           .from('receipts')
-          .select('*')
+          .select('id, receipt_number, payment_id, amount, issued_date, status')
           .eq('student_id', studentData.id)
-          .order('issued_date', { ascending: false });
+          .order('issued_date', { ascending: false })
+          .limit(50);
 
         if (!receiptError && receiptData) {
           setReceipts(receiptData.map((r: any) => ({

@@ -65,7 +65,8 @@ export async function getPendingPayments() {
             )
         `)
         .in('status', ['PENDING_VERIFICATION', 'pending_proof', 'PENDING'])
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .limit(100);
 
     if (tuitionError) {
         console.error("Error fetching pending tuition payments:", tuitionError.message || tuitionError);
@@ -93,7 +94,8 @@ export async function getPendingPayments() {
             )
         `)
         .in('status', ['pending', 'PENDING_VERIFICATION', 'PENDING', 'completed', 'COMPLETED'])
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .limit(100);
 
     if (housingError) {
         console.error("Error fetching pending housing payments:", housingError.message || housingError);
@@ -165,8 +167,8 @@ export async function pushInvoice(applicationId: string, customFee: number, invo
         const { data: application, error: appError } = await supabase
             .from('applications')
             .select(`
-                *,
-                course:Course(*, school:School(*))
+                id, personal_info, course_id,
+                course:Course(id, slug, degreeLevel, duration, school:School(slug))
             `)
             .eq('id', applicationId)
             .single();

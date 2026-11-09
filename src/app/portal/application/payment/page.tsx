@@ -54,13 +54,17 @@ function PaymentContent() {
 
                 // Check if user is an active enrolled student in SIS
                 let currentUserIsEnrolled = false;
+                let currentStudentId: string | null = null;
                 if (currentUserId) {
                     const { data: currentStudent } = await supabase
                         .from('students')
                         .select('id')
                         .eq('user_id', currentUserId)
                         .maybeSingle();
-                    if (currentStudent) currentUserIsEnrolled = true;
+                    if (currentStudent) {
+                        currentUserIsEnrolled = true;
+                        currentStudentId = currentStudent.id;
+                    }
                 }
 
                 // 3. PRIORITY 1: Check formal institutional invoices table directly.
@@ -68,7 +72,7 @@ function PaymentContent() {
                 const candidateInvoiceIds = [invoiceId, id, invoiceNumberParam].filter(Boolean) as string[];
                 for (const candidate of candidateInvoiceIds) {
                     const isUUID = candidate.length === 36 && candidate.includes('-');
-                    let invQuery = supabase.from('invoices').select('*');
+                    let invQuery = supabase.from('invoices').select('id, student_id, invoice_number, type, term, description, amount, paid, balance, due_date, status, issued_date');
                     if (isUUID) {
                         invQuery = invQuery.or(`id.eq.${candidate},invoice_number.eq.${candidate}`);
                     } else {
@@ -164,10 +168,10 @@ function PaymentContent() {
                 for (const candidate of candidateInvoiceIds) {
                     const isUUID = candidate.length === 36 && candidate.includes('-');
                     let hQuery = supabase.from('housing_invoices').select(`
-                        *,
+                        id, application_id, reference_number, total_amount, paid_amount, due_date, status,
                         application:housing_applications(
-                            *,
-                            assigned_room:assigned_room_id(*),
+                            id, status,
+                            assigned_room:assigned_room_id(full_room_code, room_number),
                             building:building_id(name),
                             homestay_host:homestay_host_id(host_name)
                         )
@@ -223,8 +227,8 @@ function PaymentContent() {
                         const { data: byId } = await supabase
                             .from('housing_applications')
                             .select(`
-                                *,
-                                assigned_room:assigned_room_id(*),
+                                id, status,
+                                assigned_room:assigned_room_id(full_room_code, room_number),
                                 building:building_id(name),
                                 homestay_host:homestay_host_id(host_name)
                             `)
@@ -234,19 +238,13 @@ function PaymentContent() {
                     }
 
                     if (!housingApp) {
-                        const { data: studentRec } = await supabase
-                            .from('students')
-                            .select('id')
-                            .eq('user_id', currentUserId || '')
-                            .maybeSingle();
-
-                        const queryIds = [currentUserId, studentRec?.id].filter(Boolean);
+                        const queryIds = [currentUserId, currentStudentId].filter(Boolean);
 
                         const { data: byUser } = await supabase
                             .from('housing_applications')
                             .select(`
-                                *,
-                                assigned_room:assigned_room_id(*),
+                                id, status,
+                                assigned_room:assigned_room_id(full_room_code, room_number),
                                 building:building_id(name),
                                 homestay_host:homestay_host_id(host_name)
                             `)
@@ -303,15 +301,15 @@ function PaymentContent() {
                     const { data: applicationRaw } = await supabase
                         .from('applications')
                         .select(`
-                            *,
-                            offer:admission_offers(*),
-                            course:Course(duration)
+                            id, application_number, user_id, course_id, status, personal_info, submitted_at, created_at,
+                            offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, invoice_type, invoice_pushed, ancillary_charged, created_at),
+                            course:Course(title, duration)
                         `)
                         .eq('id', id)
                         .maybeSingle();
 
                     if (applicationRaw && applicationRaw.offer) {
-                        const application = applicationRaw;
+                        const application: any = applicationRaw;
                         const rawOffers = Array.isArray(application.offer) ? application.offer : [application.offer];
                         const sortedOffers = rawOffers.sort((a: any, b: any) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
                         const offer = sortedOffers[0];
@@ -342,12 +340,12 @@ function PaymentContent() {
                 }
 
                 // Fallback: check if id belongs to any housing application before failing
-                if (id) {
+                if (id && !isHousing) {
                     const { data: fallbackHousing } = await supabase
                         .from('housing_applications')
                         .select(`
-                            *,
-                            assigned_room:assigned_room_id(*),
+                            id, status,
+                            assigned_room:assigned_room_id(full_room_code, room_number),
                             building:building_id(name),
                             homestay_host:homestay_host_id(host_name)
                         `)

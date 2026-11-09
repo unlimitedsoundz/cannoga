@@ -40,8 +40,9 @@ export default function SISAdminBlogPage() {
             const supabase = createBlogClient();
             const { data, error } = await supabase
                 .from('blogs')
-                .select('*')
-                .order('publishDate', { ascending: false });
+                .select('id, title, slug, excerpt, published, publishDate, imageUrl, createdAt, updatedAt')
+                .order('publishDate', { ascending: false })
+                .limit(100);
 
             if (error) {
                 console.error('Error fetching blog posts from DB:', error);

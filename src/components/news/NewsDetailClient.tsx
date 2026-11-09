@@ -24,22 +24,8 @@ export default function NewsDetailClient({ initialNews }: NewsDetailClientProps)
     const [heroImageFailed, setHeroImageFailed] = useState(false);
 
     useEffect(() => {
-        async function fetchLatest() {
-            const supabase = createClient();
-            const { data, error } = await supabase
-                .from('News')
-                .select('*')
-                .eq('id', initialNews.id)
-                .single();
-
-            if (data && !error) {
-                if (data.content !== initialNews.content || data.title !== initialNews.title) {
-                    setNews(data as News);
-                }
-            }
-        }
-        fetchLatest();
-    }, [initialNews.id, initialNews.content]);
+        setNews(initialNews);
+    }, [initialNews]);
 
     const isHtmlContent = Boolean(currentNews.content && /<[a-z][\s\S]*>/i.test(currentNews.content));
 

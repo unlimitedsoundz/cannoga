@@ -41,14 +41,15 @@ export default function AdminStudentsPage() {
             const { data: students, error: studentError } = await supabase
                 .from('students')
                 .select(`
-                    *,
+                    id, student_id, enrollment_status, start_date, created_at,
                     portal_access_disabled,
                     sis_access_disabled,
-                    user:profiles(first_name, middle_name, last_name, email, portal_access_disabled, sis_access_disabled),
+                    user:profiles(id, first_name, middle_name, last_name, email, portal_access_disabled, sis_access_disabled),
                     program:Course(title),
-                    application:applications!application_id(personal_info, status)
+                    application:applications!application_id(id, personal_info, status)
                 `)
-                .order('created_at', { ascending: false });
+                .order('created_at', { ascending: false })
+                .limit(200);
 
             if (studentError) {
                 setError(studentError.message);
@@ -58,8 +59,8 @@ export default function AdminStudentsPage() {
             const { data: apps, error: appError } = await supabase
                 .from('applications')
                 .select(`
-                    *,
-                     user:profiles(first_name, middle_name, last_name, email),
+                    id, application_number, status, personal_info, submitted_at, updated_at,
+                    user:profiles(id, first_name, middle_name, last_name, email),
                     program:Course(title),
                     offer:admission_offers(
                         id,
@@ -68,7 +69,8 @@ export default function AdminStudentsPage() {
                 `)
                 // .in('status', ['OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ENROLLED', 'ADMISSION_LETTER_GENERATED']) // Removed filter to catch ALL potential stuck states
                 .neq('status', 'REJECTED') // Optional: exclude rejected keys to keep list clean, but keep everything else
-                .order('updated_at', { ascending: false });
+                .order('updated_at', { ascending: false })
+                .limit(200);
 
             if (appError) {
                 if (!studentError) setError(appError.message);

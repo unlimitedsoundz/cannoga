@@ -441,8 +441,15 @@ function formatRelativeTime(dateInput: any): string {
             } catch (e) {}
         };
         fetchHeaderNotifs();
-        const interval = setInterval(fetchHeaderNotifs, 20000);
-        return () => clearInterval(interval);
+        let lastNotifFetch = Date.now();
+        const onVisChange = () => {
+            if (document.visibilityState === 'visible' && Date.now() - lastNotifFetch > 60000) {
+                lastNotifFetch = Date.now();
+                fetchHeaderNotifs();
+            }
+        };
+        window.addEventListener('visibilitychange', onVisChange);
+        return () => window.removeEventListener('visibilitychange', onVisChange);
     }, []);
 
     const pageNotifRef = useRef<HTMLDivElement>(null);
@@ -524,13 +531,7 @@ function formatRelativeTime(dateInput: any): string {
                     const { data } = supabase.storage.from('student-documents').getPublicUrl(`avatars/${fileName}`);
                     publicUrl = data.publicUrl;
                 } else {
-                    // Fallback to Data URL base64 representation if storage buckets don't exist
-                    publicUrl = await new Promise<string>((resolve, reject) => {
-                        const reader = new FileReader();
-                        reader.onload = (event) => resolve(event.target?.result as string);
-                        reader.onerror = (error) => reject(error);
-                        reader.readAsDataURL(file);
-                    });
+                    throw new Error('Avatar storage service is unavailable. Please try again later.');
                 }
             }
 
@@ -894,21 +895,21 @@ function formatRelativeTime(dateInput: any): string {
                     dbEventResult,
                     appDocResult,
                 ] = await Promise.all([
-                    supabase.from('module_enrollments').select('*, module:modules(code, title, credits), semester:semesters(name, start_date, end_date)').eq('student_id', currentStudentId),
-                    supabase.from('invoices').select('*').eq('student_id', currentStudentId).order('issued_date', { ascending: false }),
-                    supabase.from('student_holds').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
-                    supabase.from('student_tasks').select('*').eq('student_id', currentStudentId).order('due_date', { ascending: true }),
-                    currentStudentId ? supabase.from('document_records').select('*').eq('student_id', currentStudentId).eq('is_student_visible', true).order('issue_date', { ascending: false }) : Promise.resolve({ data: [] }),
-                    supabase.from('Faculty').select('*').limit(20),
-                    supabase.from('announcements').select('id, title, excerpt, content, priority, status, publish_start, publish_end, display_order, created_at').neq('status', 'draft').order('created_at', { ascending: false }).limit(20),
-                    supabase.from('financial_aid').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
-                    supabase.from('scholarships').select('*').eq('status', 'ACTIVE').order('application_deadline', { ascending: true }),
-                    supabase.from('scholarship_applications').select('*').eq('student_id', currentStudentId).order('submitted_at', { ascending: false }),
-                    supabase.from('installment_plans').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
-                    supabase.from('bank_accounts').select('*').eq('student_id', currentStudentId).order('created_at', { ascending: false }),
-                    supabase.from('News').select('id, title, excerpt, content, imageUrl, publishDate, createdAt').order('createdAt', { ascending: false }).limit(20),
-                    supabase.from('Event').select('id, title, content, imageUrl, date, createdAt').order('createdAt', { ascending: false }).limit(20),
-                    supabase.from('application_documents').select('*, application:applications!inner(user_id)').eq('application.user_id', user.id),
+                    supabase.from('module_enrollments').select('id, student_id, module_id, semester_id, status, grade, grade_status, module:modules(code, title, credits), semester:semesters(name, start_date, end_date)').eq('student_id', currentStudentId).limit(100),
+                    supabase.from('invoices').select('id, invoice_number, type, term, amount, paid, balance, due_date, status, issued_date, description').eq('student_id', currentStudentId).order('issued_date', { ascending: false }).limit(50),
+                    supabase.from('student_holds').select('id, hold_type, reason, status, created_at').eq('student_id', currentStudentId).order('created_at', { ascending: false }).limit(50),
+                    supabase.from('student_tasks').select('id, title, description, due_date, status, priority, category, action_url').eq('student_id', currentStudentId).order('due_date', { ascending: true }).limit(50),
+                    currentStudentId ? supabase.from('document_records').select('id, student_id, document_type, title, programme, status, storage_path, file_url, version, issue_date, is_official, is_student_visible, metadata').eq('student_id', currentStudentId).eq('is_student_visible', true).order('issue_date', { ascending: false }).limit(50) : Promise.resolve({ data: [] }),
+                    supabase.from('Faculty').select('id, name, role, email, bio, imageUrl').limit(20),
+                    supabase.from('announcements').select('id, title, excerpt, content, priority, status, publish_start, publish_end, display_order, created_at').neq('status', 'draft').order('created_at', { ascending: false }).limit(10),
+                    supabase.from('financial_aid').select('id, aid_type, name, amount, status, academic_year, disbursed_amount').eq('student_id', currentStudentId).order('created_at', { ascending: false }).limit(20),
+                    supabase.from('scholarships').select('id, name, description, amount, eligibility_criteria, application_deadline, status').eq('status', 'ACTIVE').order('application_deadline', { ascending: true }).limit(20),
+                    supabase.from('scholarship_applications').select('id, scholarship_id, status, submitted_at').eq('student_id', currentStudentId).order('submitted_at', { ascending: false }).limit(20),
+                    supabase.from('installment_plans').select('id, plan_name, total_amount, paid_amount, installments_count, next_due_date, status').eq('student_id', currentStudentId).order('created_at', { ascending: false }).limit(20),
+                    supabase.from('bank_accounts').select('id, bank_name, account_holder, account_number_last4, routing_number, is_primary, is_verified').eq('student_id', currentStudentId).order('created_at', { ascending: false }).limit(10),
+                    supabase.from('News').select('id, title, excerpt, content, imageUrl, publishDate, createdAt').order('createdAt', { ascending: false }).limit(6),
+                    supabase.from('Event').select('id, title, content, imageUrl, date, createdAt').order('createdAt', { ascending: false }).limit(6),
+                    supabase.from('application_documents').select('id, type, name, url, file_url, created_at, application:applications!inner(user_id)').eq('application.user_id', user.id).limit(30),
                 ]);
 
                 const enrollmentData = enrollmentResult.data;
@@ -972,15 +973,7 @@ function formatRelativeTime(dateInput: any): string {
                 let fetchedPaymentDeadline = '';
                 let fetchedAdmissionOffers: any[] = [];
                 try {
-                    let offerQueryAppId = resolvedAppId;
-                    if (!offerQueryAppId && currentStudentId) {
-                        const { data: studentApp } = await supabase
-                            .from('students')
-                            .select('application_id')
-                            .eq('id', currentStudentId)
-                            .single();
-                        if (studentApp?.application_id) offerQueryAppId = studentApp.application_id;
-                    }
+                    const offerQueryAppId = resolvedAppId || studentData?.application_id || '';
 
                     if (offerQueryAppId) {
                         const { data: offerData } = await supabase
@@ -999,9 +992,10 @@ function formatRelativeTime(dateInput: any): string {
                         if (offerIds.length > 0) {
                             const { data: tpData } = await supabase
                                 .from('tuition_payments')
-                                .select('*')
+                                .select('id, offer_id, invoice_type, status, amount, currency, payment_method, transaction_reference, receipt_url, notes, fx_metadata, created_at')
                                 .in('offer_id', offerIds)
-                                .order('created_at', { ascending: false });
+                                .order('created_at', { ascending: false })
+                                .limit(50);
 
                             tuitionPayments = tpData || [];
                         }
@@ -1011,8 +1005,9 @@ function formatRelativeTime(dateInput: any): string {
                     if (tuitionPayments.length === 0 && user.id) {
                         const { data: userApps } = await supabase
                             .from('applications')
-                            .select('id, admission_offers(id, tuition_fee, tuition_payments(*))')
-                            .eq('user_id', user.id);
+                            .select('id, admission_offers(id, tuition_fee, tuition_payments(id, offer_id, invoice_type, status, amount, currency, payment_method, transaction_reference, receipt_url, notes, fx_metadata, created_at))')
+                            .eq('user_id', user.id)
+                            .limit(10);
 
                         (userApps || []).forEach((app: any) => {
                             (app.admission_offers || []).forEach((o: any) => {
@@ -1111,16 +1106,10 @@ function formatRelativeTime(dateInput: any): string {
                 const studentIdForLife = studentData?.id || '';
                 if (studentIdForLife) {
                     try {
-                        const [lifeResult, unreadResult] = await Promise.all([
-                            getStudentLifeData(studentIdForLife),
-                            getUnreadMessageCount(studentIdForLife),
-                        ]);
+                        const lifeResult = await getStudentLifeData(studentIdForLife);
                         if (lifeResult.success && lifeResult.data) {
                             setStudentLifeData(lifeResult.data);
                             setUnreadMessageCount(lifeResult.data.unreadCount || 0);
-                        }
-                        if (unreadResult.success) {
-                            setUnreadMessageCount(unreadResult.count || 0);
                         }
                     } catch (lifeErr) {
                         console.error('Error fetching student life data:', lifeErr);
@@ -1133,7 +1122,8 @@ function formatRelativeTime(dateInput: any): string {
                             .from('module_enrollments')
                             .select('module_id, semester_id')
                             .eq('student_id', currentStudentId)
-                            .eq('status', 'REGISTERED');
+                            .eq('status', 'REGISTERED')
+                            .limit(50);
 
                         const moduleIds = enrollments?.map((e: { module_id: string }) => e.module_id) || [];
 
@@ -1141,7 +1131,8 @@ function formatRelativeTime(dateInput: any): string {
                             const { data: sections } = await supabase
                                 .from('course_sections')
                                 .select('id, semester_id')
-                                .in('module_id', moduleIds);
+                                .in('module_id', moduleIds)
+                                .limit(100);
 
                             const sectionIds = sections?.map((s: { id: string }) => s.id) || [];
                             const semesterIds = [...new Set(sections?.map((s: { semester_id: string }) => s.semester_id) || [])];
@@ -1159,14 +1150,15 @@ function formatRelativeTime(dateInput: any): string {
                                     const { data: assignments } = await supabase
                                         .from('timetable_assignments')
                                         .select(`
-                                            *,
+                                            id, version_id, section_id, room_id, instructor_id, day_of_week, start_time, end_time, start_date, end_date,
                                             room:rooms(id, name, building, room_number),
                                             section:course_sections(id, code, session_type, delivery_mode, module:modules(id, code, title, credits), instructor_id)
                                         `)
                                         .eq('version_id', versions[0].id)
                                         .in('section_id', sectionIds)
                                         .order('day_of_week', { ascending: true })
-                                        .order('start_time', { ascending: true });
+                                        .order('start_time', { ascending: true })
+                                        .limit(100);
 
                                     let enrichedAssignments: any[] = assignments || [];
 
@@ -1182,7 +1174,8 @@ function formatRelativeTime(dateInput: any): string {
                                         const { data: instructors } = await supabase
                                             .from('Faculty')
                                             .select('id, name, email')
-                                            .in('id', instructorIds);
+                                            .in('id', instructorIds)
+                                            .limit(50);
 
                                         const instructorMap = new Map<string, { name: string; email: string | null }>((instructors || []).map((i: any) => [i.id, i]));
                                         enrichedAssignments = enrichedAssignments.map((a: any) => ({
@@ -1213,13 +1206,12 @@ function formatRelativeTime(dateInput: any): string {
         };
 
         fetchData();
-        const interval = setInterval(fetchData, 30000);
-        return () => clearInterval(interval);
     }, []);
 
-    // Live Microsoft 365 Mail unread and total count polling
+    // Live Microsoft 365 Mail unread and total count fetch on mount & tab visibility
     useEffect(() => {
         let isMounted = true;
+        let lastMailFetch = Date.now();
         const fetchMailCounts = async () => {
             try {
                 const res = await fetch('/api/sis/mail?action=unread_counts');
@@ -1237,10 +1229,16 @@ function formatRelativeTime(dateInput: any): string {
             } catch {}
         };
         fetchMailCounts();
-        const interval = setInterval(fetchMailCounts, 30000);
+        const onVisChange = () => {
+            if (document.visibilityState === 'visible' && Date.now() - lastMailFetch > 60000) {
+                lastMailFetch = Date.now();
+                fetchMailCounts();
+            }
+        };
+        window.addEventListener('visibilitychange', onVisChange);
         return () => {
             isMounted = false;
-            clearInterval(interval);
+            window.removeEventListener('visibilitychange', onVisChange);
         };
     }, []);
 

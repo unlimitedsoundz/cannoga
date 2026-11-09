@@ -35,15 +35,18 @@ export default function ModulesPage() {
         const result = await getSISAcademicModule(id);
         if (!result.success) throw new Error(result.error);
 
-        const m = result.data;
-        setModule({
-          id: m.id,
-          code: m.code,
-          title: m.title,
-          credits: m.credits || 0,
-          school: m.school?.name || '—',
-          status: m.isActive ? 'active' : 'inactive',
-        });
+        const m = result.data as any;
+        if (m) {
+          const schoolName = Array.isArray(m.school) ? m.school[0]?.name : m.school?.name;
+          setModule({
+            id: m.id,
+            code: m.code,
+            title: m.title,
+            credits: m.credits || 0,
+            school: schoolName || '—',
+            status: m.isActive ? 'active' : 'inactive',
+          });
+        }
       } catch (err: any) {
         setError(err.message || 'Failed to load module');
       } finally {

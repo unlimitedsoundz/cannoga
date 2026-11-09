@@ -44,7 +44,7 @@ export default function MyStudentRecordPage() {
                 const { data: studentData, error: studentError } = await supabase
                     .from('students')
                     .select(`
-                        *,
+                        id, student_id, program_id, enrollment_status,
                         profiles(first_name, last_name, email),
                         course:Course(title, code)
                     `)
