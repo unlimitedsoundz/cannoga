@@ -485,9 +485,9 @@ export async function getAdmissionsApplicationById(id: string) {
             .from('applications')
             .select(`
                 id, application_number, user_id, course_id, alternate_course_id, status, internal_notes, personal_info, contact_details, education_history, academic_history, motivation, language_proficiency, program_specific_data, requested_documents, document_request_note, submitted_at, created_at, updated_at,
-                course:Course(id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(slug)),
-                user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, student_id),
-                documents:application_documents(id, application_id, type, document_type, url, file_url, name, file_name, uploaded_at),
+                course:Course(id, slug, title, degreeLevel, duration, credits, school:School(slug)),
+                user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, zipcode, country_of_residence, student_id),
+                documents:application_documents(id, application_id, type, url, name, uploaded_at),
                 offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, invoice_type, invoice_pushed, invoice_sent_at, created_at)
             `)
             .eq('id', id)
@@ -498,7 +498,7 @@ export async function getAdmissionsApplicationById(id: string) {
         if (data?.alternate_course_id) {
             const { data: altCourse } = await adminClient
                 .from('Course')
-                .select('id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(slug)')
+                .select('id, slug, title, degreeLevel, duration, credits, school:School(slug)')
                 .eq('id', data.alternate_course_id)
                 .maybeSingle();
             if (altCourse) {

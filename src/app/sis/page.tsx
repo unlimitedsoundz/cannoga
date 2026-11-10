@@ -992,7 +992,7 @@ function formatRelativeTime(dateInput: any): string {
                         if (offerIds.length > 0) {
                             const { data: tpData } = await supabase
                                 .from('tuition_payments')
-                                .select('id, offer_id, invoice_type, status, amount, currency, payment_method, transaction_reference, receipt_url, notes, fx_metadata, created_at')
+                                .select('id, offer_id, invoice_type, status, amount, currency, payment_method, transaction_reference, fx_metadata, created_at')
                                 .in('offer_id', offerIds)
                                 .order('created_at', { ascending: false })
                                 .limit(50);
@@ -1005,7 +1005,7 @@ function formatRelativeTime(dateInput: any): string {
                     if (tuitionPayments.length === 0 && user.id) {
                         const { data: userApps } = await supabase
                             .from('applications')
-                            .select('id, admission_offers(id, tuition_fee, tuition_payments(id, offer_id, invoice_type, status, amount, currency, payment_method, transaction_reference, receipt_url, notes, fx_metadata, created_at))')
+                            .select('id, admission_offers(id, tuition_fee, tuition_payments(id, offer_id, invoice_type, status, amount, currency, payment_method, transaction_reference, fx_metadata, created_at))')
                             .eq('user_id', user.id)
                             .limit(10);
 

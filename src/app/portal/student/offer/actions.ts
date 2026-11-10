@@ -58,8 +58,8 @@ export async function respondToOffer(admissionId: string, decision: 'ACCEPTED' |
                 .from('applications')
                 .select(`
                     id, application_number, user_id, course_id, status, personal_info, contact_details, submitted_at, created_at, updated_at,
-                    course:Course(id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(id, name, slug)),
-                    user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, nationality, student_id),
+                    course:Course(id, slug, title, degreeLevel, duration, credits, school:School(id, name, slug)),
+                    user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, zipcode, country_of_residence, citizenship, student_id),
                     offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, created_at)
                 `)
                 .eq('user_id', user.id)
@@ -202,8 +202,8 @@ export async function acceptApplicationOffer(applicationId: string, userId?: str
             .from('applications')
             .select(`
                 id, application_number, user_id, course_id, status, personal_info, contact_details, submitted_at, created_at, updated_at,
-                course:Course(id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(id, name, slug)),
-                user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, nationality, student_id),
+                course:Course(id, slug, title, degreeLevel, duration, credits, school:School(id, name, slug)),
+                user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, zipcode, country_of_residence, citizenship, student_id),
                 offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, created_at)
             `)
             .eq('id', applicationId)

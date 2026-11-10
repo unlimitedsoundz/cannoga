@@ -41,7 +41,7 @@ export default function StudentOfferPage() {
                 const [{ data: app }, { data: profile }] = await Promise.all([
                     supabase
                         .from('applications')
-                        .select('id, status, application_number, user_id, course_id, personal_info, submitted_at, created_at, course:Course(id, title, slug, degreeLevel, programType, duration, credits, studyMode, school:School(name, slug))')
+                        .select('id, status, application_number, user_id, course_id, personal_info, submitted_at, created_at, course:Course(id, title, slug, degreeLevel, duration, credits, school:School(name, slug))')
                         .eq('user_id', currentUserId || '')
                         .order('created_at', { ascending: false })
                         .limit(1)

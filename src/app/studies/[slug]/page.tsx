@@ -78,10 +78,10 @@ const getCourseBySlug = cache(async (slug: string) => {
     return supabase
         .from('Course')
         .select(`
-            id, title, slug, code, cip_code, degreeLevel, duration, credits, description, imageUrl, language, tuitionFee, entryRequirements, careerPaths, schoolId, departmentId,
+            id, title, slug, code, cip_code, degreeLevel, duration, credits, description, imageUrl, language, entryRequirements, careerPaths, schoolId, departmentId,
             school:School(id, name, slug),
             department:Department(id, name, slug, schoolId, school:School(slug)),
-            subjects:Subject(id, code, area, name, semester, creditUnits, eligibility)
+            subjects:Subject(id, code, name, semester, creditUnits)
         `)
         .eq('slug', slug)
         .maybeSingle();

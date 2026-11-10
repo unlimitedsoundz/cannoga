@@ -514,7 +514,7 @@ export async function getSISDocuments() {
       .select(`
         id, status, user_id,
         user:profiles(first_name, last_name, email),
-        documents:application_documents(id, application_id, document_type, file_url, file_name, uploaded_at),
+        documents:application_documents(id, application_id, type, url, name, uploaded_at),
         course:Course(title, degreeLevel)
       `)
       .neq('status', 'DRAFT')

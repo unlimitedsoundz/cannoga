@@ -302,8 +302,8 @@ export async function getAdmissionLetterData(applicationId: string) {
             .from('applications')
             .select(`
                 id, application_number, user_id, course_id, status, personal_info, contact_details, submitted_at, created_at, updated_at,
-                course:Course(id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(id, name, slug)),
-                user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, nationality, student_id),
+                course:Course(id, slug, title, degreeLevel, duration, credits, school:School(id, name, slug)),
+                user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, zipcode, country_of_residence, citizenship, student_id),
                 offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, invoice_type, invoice_pushed, invoice_sent_at, created_at)
             `)
             .eq('id', applicationId)
@@ -354,7 +354,7 @@ export async function getPortalDashboardData() {
                 .order('updated_at', { ascending: false })
                 .limit(20),
             adminSupabase.from('students')
-                .select('id, student_id, user_id, program_id, application_id, enrollment_status, start_date, expected_graduation, tuition_deposit_paid, full_tuition_paid, housing_fee_paid, portal_access_disabled, sis_access_disabled, program:Course(id, slug, title, degreeLevel, duration, credits, studyMode)')
+                .select('id, student_id, user_id, program_id, application_id, enrollment_status, start_date, expected_graduation, tuition_deposit_paid, full_tuition_paid, housing_fee_paid, portal_access_disabled, sis_access_disabled, program:Course(id, slug, title, degreeLevel, duration, credits)')
                 .eq('user_id', user.id)
                 .maybeSingle()
         ]);
@@ -386,9 +386,9 @@ export async function getPortalApplicationDetail(applicationId: string) {
             .from('applications')
             .select(`
                 id, application_number, user_id, course_id, status, personal_info, contact_details, education_history, academic_history, motivation, language_proficiency, program_specific_data, submitted_at, created_at, updated_at,
-                course:Course(id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(id, name, slug)),
+                course:Course(id, slug, title, degreeLevel, duration, credits, school:School(id, name, slug)),
                 user:profiles(email),
-                documents:application_documents(id, application_id, type, document_type, url, file_url, name, file_name, uploaded_at),
+                documents:application_documents(id, application_id, type, url, name, uploaded_at),
                 offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, invoice_type, invoice_pushed, invoice_sent_at, created_at)
             `)
             .eq('id', applicationId)
@@ -422,8 +422,8 @@ export async function getStudentPortalData() {
             .from('students')
             .select(`
                 id, student_id, user_id, program_id, application_id, enrollment_status, start_date, expected_graduation, current_semester_id, current_stage, pal_status, pal_required, study_permit_status, arrival_status, checkin_status, orientation_status, registration_status, tuition_deposit_paid, full_tuition_paid, housing_fee_paid, institutional_email, it_account_status, created_at,
-                program:Course(id, slug, title, code, degreeLevel, programType, duration, credits, studyMode),
-                user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, student_id),
+                program:Course(id, slug, title, code, degreeLevel, duration, credits),
+                user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, zipcode, country_of_residence, student_id),
                 application:applications(id, application_number, status, course_id, user_id, personal_info, submitted_at, created_at)
             `)
             .eq('user_id', user.id)
@@ -449,7 +449,7 @@ export async function getAllCourses() {
         const { data, error } = await adminSupabase
             .from('Course')
             .select(`
-                id, slug, title, code, degreeLevel, programType, duration, credits, studyMode, description, schoolId,
+                id, slug, title, code, degreeLevel, duration, credits, description, schoolId,
                 school:School(name, slug)
             `)
             .order('title')
@@ -601,8 +601,8 @@ export async function regenerateLOA(applicationId: string) {
         .from('applications')
         .select(`
             id, application_number, user_id, course_id, status, personal_info, contact_details, submitted_at, created_at, updated_at,
-            course:Course(id, slug, title, degreeLevel, programType, duration, credits, studyMode, school:School(id, name, slug)),
-            user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, nationality, student_id),
+            course:Course(id, slug, title, degreeLevel, duration, credits, school:School(id, name, slug)),
+            user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, zipcode, country_of_residence, citizenship, student_id),
             offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, document_url, created_at)
         `)
         .eq('id', applicationId)

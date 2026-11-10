@@ -62,9 +62,9 @@ function ViewApplicationContent() {
 
                 const appSelectQuery = `
                     id, user_id, status, application_number, alternate_course_id, requested_documents, document_request_note, personal_info, intake, program_type,
-                    course:Course(title, degreeLevel, programType),
+                    course:Course(title, degreeLevel),
                     user:profiles(first_name, middle_name, last_name, email, gender, date_of_birth, citizenship, passport_number, phone_code, phone_number, address, city, state_province, country_of_residence, zipcode, local_address, local_city, local_state_province, local_country, local_zipcode, is_19_or_older, contact_first_name, contact_last_name, contact_phone, contact_email, has_siblings_at_college, completing_form_person, housing_required, how_did_you_hear, questions_comments),
-                    documents:application_documents(id, type, name, filename, url)
+                    documents:application_documents(id, type, name, url)
                 `;
 
                 let { data: applicationRaw, error: appError } = await supabase

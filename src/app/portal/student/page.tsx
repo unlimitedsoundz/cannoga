@@ -39,8 +39,8 @@ export default function StudentPortalPage() {
                     .from('students')
                     .select(`
                         id, student_id, user_id, program_id, application_id, enrollment_status, start_date, expected_graduation, current_semester_id, current_stage, pal_status, pal_required, study_permit_status, arrival_status, checkin_status, orientation_status, registration_status, tuition_deposit_paid, full_tuition_paid, housing_fee_paid, institutional_email, it_account_status, created_at,
-                        program:Course(id, slug, title, code, degreeLevel, programType, duration, credits, studyMode),
-                        user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, postal_code, country_of_residence, student_id),
+                        program:Course(id, slug, title, code, degreeLevel, duration, credits),
+                        user:profiles(id, first_name, middle_name, last_name, email, phone_number, date_of_birth, address, city, zipcode, country_of_residence, student_id),
                         application:applications(id, application_number, status, course_id, user_id, personal_info, submitted_at, created_at)
                     `)
                     .eq('user_id', currentUserId || '')

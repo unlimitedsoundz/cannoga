@@ -59,7 +59,7 @@ export default function ItAccessPage() {
                     .from('student_it_access')
                     .select(`
                         id, student_id, asset_id, username, temporary_password, status, provisioned_at, created_at,
-                        asset:it_assets(id, name, asset_type, description, access_url, icon_name)
+                        asset:it_assets(id, name, asset_type, description, access_url)
                     `)
                     .eq('student_id', student.id)
                     .order('created_at', { ascending: false })

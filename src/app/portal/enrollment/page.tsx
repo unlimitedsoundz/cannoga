@@ -37,7 +37,7 @@ function EnrollmentContent() {
                 .from('applications')
                 .select(`
                     id, status, updated_at, personal_info,
-                    course:Course(title, degreeLevel, programType, studyMode, school:School(name)),
+                    course:Course(title, degreeLevel, school:School(name)),
                     user:profiles(first_name, last_name, email, student_id, date_of_birth),
                     offer:admission_offers(id, status, tuition_fee)
                 `)

@@ -69,8 +69,8 @@ function ReceiptContent() {
                     .from('applications')
                     .select(`
                         id, application_number, user_id, course_id, status, personal_info, submitted_at, created_at,
-                        course:Course(id, title, slug, degreeLevel, programType, duration, credits, studyMode),
-                        offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, invoice_type, created_at, payments:tuition_payments(id, offer_id, amount, currency, status, payment_method, transaction_reference, receipt_url, invoice_type, created_at))
+                        course:Course(id, title, slug, degreeLevel, duration, credits),
+                        offer:admission_offers(id, application_id, offer_type, tuition_fee, status, payment_deadline, invoice_type, created_at, payments:tuition_payments(id, offer_id, amount, currency, status, payment_method, transaction_reference, invoice_type, created_at))
                     `)
                     .eq('id', targetAppId)
                     .eq('user_id', user.id)
@@ -89,7 +89,7 @@ function ReceiptContent() {
                 if (offer && (!offer.payments || offer.payments.length === 0)) {
                     const { data: paymentsData } = await supabase
                         .from('tuition_payments')
-                        .select('id, offer_id, amount, currency, status, payment_method, transaction_reference, receipt_url, invoice_type, created_at')
+                        .select('id, offer_id, amount, currency, status, payment_method, transaction_reference, invoice_type, created_at')
                         .eq('offer_id', offer.id)
                         .order('created_at', { ascending: false })
                         .limit(50);
