@@ -3,9 +3,27 @@ import { createServerClient } from '@supabase/ssr';
 import { createServiceRoleClient } from '@/utils/supabase/server-admin';
 
 export async function POST(request: NextRequest) {
-    const formData = await request.formData();
-    const identifier = (formData.get('identifier') || formData.get('email')) as string;
-    const password = formData.get('password') as string;
+    const contentType = request.headers.get('content-type') || '';
+    let identifier = '';
+    let password = '';
+
+    try {
+        if (contentType.includes('application/json')) {
+            const body = await request.json();
+            identifier = body.identifier || body.email || '';
+            password = body.password || '';
+        } else if (contentType.includes('application/x-www-form-urlencoded')) {
+            const body = new URLSearchParams(await request.text());
+            identifier = body.get('identifier') || body.get('email') || '';
+            password = body.get('password') || '';
+        } else {
+            const body = await request.formData();
+            identifier = String(body.get('identifier') || body.get('email') || '');
+            password = String(body.get('password') || '');
+        }
+    } catch {
+        return NextResponse.json({ error: 'Invalid login request.' }, { status: 400 });
+    }
 
     // supabaseResponse is mutated by setAll() during signInWithPassword to hold auth cookies.
     // We must NOT discard it — copy its cookies to every response we return.
@@ -110,8 +128,7 @@ export async function POST(request: NextRequest) {
 
     const sisReady =
         !sisDisabled &&
-        (enrollment?.enrollment_status === 'CONFIRMED' || enrollment?.enrollment_status === 'ACTIVE') &&
-        enrollment?.tuition_deposit_paid === true;
+        ['CONFIRMED', 'ACTIVE', 'ENROLLED'].includes(enrollment?.enrollment_status || '');
 
     if (sisReady) {
         return withAuthCookies(NextResponse.json({ success: true, redirect: '/sis' }));

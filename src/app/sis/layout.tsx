@@ -82,20 +82,13 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                         return;
                     }
 
-                    // Enforce that only institutional email can access SIS
-                    if (!userEmail.endsWith('@cannogacollege.ca')) {
-                        window.location.href = '/portal/dashboard';
-                        return;
-                    }
-
-                    // Verify tuition deposit has been paid and admin-verified, and SIS access is not disabled.
-                    // If not, keep the user in the applicant portal.
+                    // SIS access follows the enrolled student record, regardless of email provider.
                     let studentRecord = authCacheRef.current?.studentRecord;
                     if (studentRecord === undefined) {
                         const { data: fetchedStudent } = await supabase
                             .from('students')
-                            .select('tuition_deposit_paid, enrollment_status, sis_access_disabled')
-                            .or(`user_id.eq.${sbUser.id},institutional_email.eq.${userEmail}`)
+                            .select('enrollment_status, sis_access_disabled')
+                            .eq('user_id', sbUser.id)
                             .maybeSingle();
                         studentRecord = fetchedStudent || null;
                         if (authCacheRef.current) {
@@ -113,12 +106,9 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                         return;
                     }
 
-                    const depositVerified =
-                        studentRecord?.tuition_deposit_paid === true &&
-                        (studentRecord?.enrollment_status === 'ACTIVE' ||
-                            studentRecord?.enrollment_status === 'CONFIRMED');
+                    const isEnrolled = ['ACTIVE', 'CONFIRMED', 'ENROLLED'].includes(studentRecord?.enrollment_status || '');
 
-                    if (!depositVerified) {
+                    if (!studentRecord || !isEnrolled) {
                         window.location.href = '/portal/dashboard';
                         return;
                     }

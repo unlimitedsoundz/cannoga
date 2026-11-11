@@ -20,7 +20,7 @@ export default async function DashboardPage() {
             .single(),
         adminClient
             .from('students')
-            .select('enrollment_status, tuition_deposit_paid, sis_access_disabled')
+            .select('enrollment_status, sis_access_disabled')
             .eq('user_id', user.id)
             .maybeSingle(),
         adminClient
@@ -45,8 +45,7 @@ export default async function DashboardPage() {
 
     const sisReady =
         !isSisAccessDisabled &&
-        (enrollment?.enrollment_status === 'CONFIRMED' || enrollment?.enrollment_status === 'ACTIVE') &&
-        enrollment?.tuition_deposit_paid === true;
+        ['CONFIRMED', 'ACTIVE', 'ENROLLED'].includes(enrollment?.enrollment_status || '');
 
     if (sisReady) {
         if (profile?.role !== 'STUDENT') {
