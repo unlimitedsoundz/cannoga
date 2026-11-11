@@ -9,9 +9,9 @@ export async function POST(request: NextRequest) {
 
     try {
         if (contentType.includes('application/json')) {
-            const body = await request.json();
-            identifier = body.identifier || body.email || '';
-            password = body.password || '';
+            const body = await request.json() as Record<string, unknown>;
+            identifier = typeof body.identifier === 'string' ? body.identifier : typeof body.email === 'string' ? body.email : '';
+            password = typeof body.password === 'string' ? body.password : '';
         } else if (contentType.includes('application/x-www-form-urlencoded')) {
             const body = new URLSearchParams(await request.text());
             identifier = body.get('identifier') || body.get('email') || '';
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
                 getAll() {
                     return request.cookies.getAll();
                 },
-                setAll(cookiesToSet: { name: string; value: string; options?: any }[]) {
+                setAll(cookiesToSet) {
                     // Write to request so subsequent reads within this handler see the cookies
                     cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
                     // Re-create supabaseResponse so cookies.set picks up the new request state
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
                     );
                 },
             },
-        } as any
+        }
     );
 
     // Helper: copy all auth cookies (with full options) from supabaseResponse to any response
@@ -140,4 +140,4 @@ export async function POST(request: NextRequest) {
     }
 
     return withAuthCookies(NextResponse.json({ success: true, redirect: '/portal/dashboard' }));
-}
+}

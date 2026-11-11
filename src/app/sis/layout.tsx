@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useState, useEffect, useCallback, useRef } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { SISHeader } from '@/components/sis/SISHeader';
 import { SISSidebar } from '@/components/sis/SISSidebar';
@@ -14,6 +14,13 @@ interface Profile {
     first_name: string;
     last_name: string;
     student_id?: string;
+    portal_access_disabled?: boolean;
+    sis_access_disabled?: boolean;
+}
+
+interface StudentAccessRecord {
+    enrollment_status: string | null;
+    sis_access_disabled: boolean | null;
 }
 
 export default function SISLayout({ children }: { children: ReactNode }) {
@@ -22,10 +29,11 @@ export default function SISLayout({ children }: { children: ReactNode }) {
     const [error, setError] = useState<string | null>(null);
     const [profile, setProfile] = useState<Profile | null>(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const router = useRouter();
     const authCacheRef = useRef<{
         sbUser: { id: string; email?: string };
-        prof: any;
-        studentRecord?: any;
+        prof: Profile;
+        studentRecord?: StudentAccessRecord | null;
     } | null>(null);
     const pathname = usePathname() || '';
 
@@ -43,7 +51,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                     const { data: { user: fetchedUser }, error: authError } = await supabase.auth.getUser();
 
                     if (authError || !fetchedUser) {
-                        window.location.href = '/portal/account/login?redirectedFrom=' + encodeURIComponent(pathname);
+                        router.replace('/portal/account/login?redirectedFrom=' + encodeURIComponent(pathname));
                         return;
                     }
 
@@ -54,13 +62,13 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                         .single();
 
                     if (profError || !fetchedProf) {
-                        window.location.href = '/portal/account/login';
+                        router.replace('/portal/account/login');
                         return;
                     }
 
                     sbUser = { id: fetchedUser.id, email: fetchedUser.email };
                     prof = fetchedProf;
-                    authCacheRef.current = { sbUser, prof };
+                    authCacheRef.current = { sbUser, prof: fetchedProf };
                 }
 
                 if (!sbUser || !prof) return;
@@ -69,16 +77,16 @@ export default function SISLayout({ children }: { children: ReactNode }) {
 
                 if (prof.role === 'ADMIN') {
                     if (pathname.startsWith('/sis/payments')) {
-                        window.location.href = '/sis/admin/finance';
+                        router.replace('/sis/admin/finance');
                         return;
                     }
                     if (!isAdminPath && !isStudentDashboard) {
-                        window.location.href = '/sis/admin';
+                        router.replace('/sis/admin');
                         return;
                     }
                 } else if (prof.role === 'STUDENT' || userEmail.endsWith('@cannogacollege.ca')) {
                     if (isAdminPath) {
-                        window.location.href = '/portal/dashboard';
+                        router.replace('/portal/dashboard');
                         return;
                     }
 
@@ -98,10 +106,10 @@ export default function SISLayout({ children }: { children: ReactNode }) {
 
                     if (prof.sis_access_disabled || studentRecord?.sis_access_disabled) {
                         if (!prof.portal_access_disabled) {
-                            window.location.href = '/portal/dashboard?message=sis_access_disabled';
+                            router.replace('/portal/dashboard?message=sis_access_disabled');
                         } else {
                             await supabase.auth.signOut();
-                            window.location.href = '/portal/account/login?message=access_disabled';
+                            router.replace('/portal/account/login?message=access_disabled');
                         }
                         return;
                     }
@@ -109,7 +117,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                     const isEnrolled = ['ACTIVE', 'CONFIRMED', 'ENROLLED'].includes(studentRecord?.enrollment_status || '');
 
                     if (!studentRecord || !isEnrolled) {
-                        window.location.href = '/portal/dashboard';
+                        router.replace('/portal/dashboard');
                         return;
                     }
 
@@ -122,10 +130,10 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                 } else if (prof.role === 'APPLICANT') {
                     // APPLICANTs must stay in the applicant portal until
                     // their tuition deposit is paid and admin-verified.
-                    window.location.href = '/portal/dashboard';
+                    router.replace('/portal/dashboard');
                     return;
                 } else {
-                    window.location.href = '/portal/account/login';
+                    router.replace('/portal/account/login');
                     return;
                 }
 
@@ -139,7 +147,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
         };
 
         checkAuth();
-    }, [pathname, isAdminPath, isStudentDashboard]);
+    }, [pathname, isAdminPath, isStudentDashboard, router]);
 
     const handleLogout = useCallback(async () => {
         try {
@@ -148,15 +156,15 @@ export default function SISLayout({ children }: { children: ReactNode }) {
             toast.success('Signed out due to inactivity');
             setTimeout(() => {
                 if (typeof window !== 'undefined' && window.location.pathname.startsWith('/sis/admin')) {
-                    window.location.href = '/portal/account/admin-login';
+                    router.replace('/portal/account/admin-login');
                 } else {
-                    window.location.href = '/portal/account/login';
+                    router.replace('/portal/account/login');
                 }
             }, 1000);
         } catch (error) {
             console.error('Auto-logout error:', error);
         }
-    }, []);
+    }, [router]);
 
     useEffect(() => {
         if (!authorized || !profile) return;
@@ -219,7 +227,7 @@ export default function SISLayout({ children }: { children: ReactNode }) {
                     <h2 className="text-xl font-bold text-white mb-2">Authentication Error</h2>
                     <p className="text-slate-800 mb-4">{error}</p>
                     <button
-                        onClick={() => window.location.href = '/portal/account/login'}
+                        onClick={() => router.replace('/portal/account/login')}
                         className="px-6 py-2 bg-white text-neutral-900 rounded-lg hover:bg-neutral-200 transition-colors font-bold text-sm"
                     >
                         Return to Login

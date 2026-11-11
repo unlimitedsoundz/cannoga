@@ -61,11 +61,15 @@ export default async function DashboardPage() {
 
     if (allApps && allApps.length > 0) {
         // Pick the one with an offer first, otherwise the most recent
-        const withOffer = allApps.find((a: any) => a.admission_offers && (Array.isArray(a.admission_offers) ? a.admission_offers.length > 0 : a.admission_offers));
+        const withOffer = allApps.find((app) => {
+            const offers = app.admission_offers;
+            return Array.isArray(offers) ? offers.length > 0 : Boolean(offers);
+        });
         const chosenApp = withOffer ?? allApps[0];
         applicationId = chosenApp.id;
         applicationStatus = chosenApp.status;
-        hasOffer = !!(chosenApp.admission_offers && (Array.isArray(chosenApp.admission_offers) ? chosenApp.admission_offers.length > 0 : chosenApp.admission_offers)) ||
+        const offers = chosenApp.admission_offers;
+        hasOffer = (Array.isArray(offers) ? offers.length > 0 : Boolean(offers)) ||
             ['ADMITTED', 'OFFER_ACCEPTED', 'PAYMENT_SUBMITTED', 'ENROLLED'].includes(chosenApp.status);
     }
 
