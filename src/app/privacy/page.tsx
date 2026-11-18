@@ -1,4 +1,5 @@
-﻿import { Link } from "@aalto-dx/react-components";
+import { Link } from "@aalto-dx/react-components";
+import { DliBanner } from '@/components/layout/DliBanner';
 
 export const metadata = {
     title: 'Privacy & Data Protection Notice',
@@ -25,6 +26,8 @@ export default function PrivacyPolicyPage() {
                     </div>
                 </div>
             </section>
+
+            <DliBanner />
 
             {/* 2. Main Content */}
             <div className="container mx-auto px-4 py-8 md:py-24">

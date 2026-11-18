@@ -1,5 +1,6 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Link } from "@aalto-dx/react-components";
+import { DliBanner } from '@/components/layout/DliBanner';
 
 export const metadata: Metadata = {
     title: 'Digital Accessibility Commitment & Policy',
@@ -28,6 +29,8 @@ export default function AccessibilityPage() {
                     </p>
                 </div>
             </section>
+
+            <DliBanner />
 
             {/* MAIN CONTENT WITH SIDEBAR NAVIGATION */}
             <div className="container mx-auto max-w-6xl px-4 py-12 md:py-20 grid grid-cols-1 lg:grid-cols-4 gap-12">

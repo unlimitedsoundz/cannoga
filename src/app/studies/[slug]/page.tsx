@@ -11,6 +11,7 @@ import { ArrowLeft, CaretLeft as ChevronLeft, ArrowRight } from "@phosphor-icons
 import { getTuitionFeeSync } from '@/utils/tuition';
 import { getCIPCode } from '@/utils/cip-codes';
 import { RelatedAcademicProgramsCarousel, RelatedProgramItem } from '@/components/programs/RelatedAcademicProgramsCarousel';
+import { DliBanner } from '@/components/layout/DliBanner';
 // Revalidate every hour. Admin mutations call revalidatePath() for immediate cache busting.
 export const revalidate = 3600;
 
@@ -335,6 +336,8 @@ export default async function CourseDetailPage({ params }: Props) {
                     </div>
                 </div>
             </div>
+
+            <DliBanner />
 
             {/* Breadcrumb Navigation */}
             <div className="border-b border-slate-200 bg-white">

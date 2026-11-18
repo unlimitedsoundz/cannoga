@@ -8,7 +8,6 @@ interface AdmissionsHelpCardProps {
     description?: string;
     email?: string;
     phone?: string;
-    whatsapp?: string;
     variant?: 'indigo' | 'pink' | 'emerald' | 'orange' | 'cyan' | 'purple';
     className?: string;
 }
@@ -18,7 +17,6 @@ export default function AdmissionsHelpCard({
     description = "If you have any questions, please don't hesitate to contact the International Recruitment Team at admissions@cannogacollege.ca. We're always happy to help!",
     email = "admissions@cannogacollege.ca",
     phone = "+1 (227) 250-0427",
-    whatsapp = "+1 (782) 206-3309",
     variant = 'indigo',
     className = "",
 }: AdmissionsHelpCardProps) {
@@ -99,18 +97,7 @@ export default function AdmissionsHelpCard({
                                     Talk to Admissions
                                 </a>
                             )}
-                            {phone && (whatsapp || email) && <span className="text-white/60">•</span>}
-                            {whatsapp && (
-                                <a
-                                    href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-white hover:text-white/80 transition-colors underline inline-flex items-center gap-1"
-                                >
-                                    Chat on WhatsApp (WhatsApp only)
-                                </a>
-                            )}
-                            {whatsapp && email && <span className="text-white/60">•</span>}
+                            {phone && email && <span className="text-white/60">•</span>}
                             <a
                                 href={mailtoHref}
                                 className="text-white hover:text-white/80 transition-colors underline inline-flex items-center"

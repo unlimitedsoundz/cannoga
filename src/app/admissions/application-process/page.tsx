@@ -8,6 +8,7 @@ import GuideSidebarLayout from '@/components/layout/StudentGuideLayout';
 import DbPageContent from '@/components/DbPageContent';
 import { getPageContentSection } from '@/lib/pageContentConfig';
 import { Hero } from '@/components/layout/Hero';
+import { DliBanner } from '@/components/layout/DliBanner';
 import CountryRequirementsDropdown from '@/components/admissions/CountryRequirementsDropdown';
 import ApplicationProcess from '@/components/admissions/ApplicationProcess';
 
@@ -58,6 +59,7 @@ export default function ApplicationProcessPage() {
                     src: "/images/admissions/application-process-hero.jpg",
                     alt: "Application Process at Cannoga College"
                 }}
+                afterHero={<DliBanner />}
             >
                 <div className="flex flex-wrap gap-4">
                     <Link

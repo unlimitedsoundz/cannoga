@@ -132,7 +132,7 @@ Cannoga College offers industry-accredited programs across **3 Credential Levels
 * **Designated Learning Institution (DLI) #:** **O19387496264**
 * **Admissions Email:** [admissions@cannogacollege.ca](mailto:admissions@cannogacollege.ca)
 * **General Inquiries:** [info@cannogacollege.ca](mailto:info@cannogacollege.ca)
-* **Phone / WhatsApp:** **+1 (613) 727-4723**
+* **Phone:** **+1 (613) 727-4723**
 * **Campus Address:** 81 Montreal Rd, Ottawa, ON K1L 6E8, Canada
 * **Admissions Office Hours:** Monday – Friday, 9:00 AM – 5:00 PM (Eastern Time)`
     }

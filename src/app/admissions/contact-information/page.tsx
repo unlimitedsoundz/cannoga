@@ -79,24 +79,6 @@ export default function AdmissionsContactInfo() {
                                          </div>
                                      </div>
 
-                                     {/* WhatsApp */}
-                                     <div className="space-y-2">
-                                         <div>
-                                             <h3 className="text-slate-900 font-bold text-base leading-snug">WhatsApp</h3>
-                                             <div className="mt-1 space-y-1">
-                                                 <p className="text-xs font-bold uppercase tracking-wider text-slate-500">WhatsApp only</p>
-                                                 <a
-                                                     href="https://wa.me/17822063309"
-                                                     target="_blank"
-                                                     rel="noopener noreferrer"
-                                                     className="text-slate-500 font-bold underline hover:text-black transition-colors text-sm block"
-                                                 >
-                                                     Chat on WhatsApp (Admissions)
-                                                 </a>
-                                             </div>
-                                         </div>
-                                     </div>
-
                                      {/* Where to reach us */}
                                      <div>
                                          <h3 className="text-slate-900 font-bold text-base leading-snug">Where to reach us</h3>

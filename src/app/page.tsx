@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Link } from "@/components/ui/Link";
 import { ArrowRight, CaretRight as ChevronRight, Calendar, MapPin, Notebook, GraduationCap } from "@phosphor-icons/react/dist/ssr";
 import { HomeCarousel } from "@/components/home/HomeCarousel";
+import { DliBanner } from "@/components/layout/DliBanner";
 import { HomeNewsEventsGrid } from "@/components/home/HomeNewsEventsGrid";
 import { Metadata } from "next";
 import { createStaticClient } from "@/lib/supabase/static";
@@ -14,11 +15,11 @@ import { AcademicSchoolsCarousel } from "@/components/home/AcademicSchoolsCarous
 import { StudentResourceHubCarousel } from "@/components/home/StudentResourceHubCarousel";
 
 export const metadata: Metadata = {
-  title: { absolute: 'Cannoga College | International Higher Education in Canada' },
-  description: 'Pursue your academic and career goals at Cannoga College. We offer Degree, Diploma, and Certificate programs in Ottawa, Ontario, Canada.',
-  alternates: {
-    canonical: 'https://cannogacollege.ca/',
-  },
+    title: { absolute: 'Cannoga College | International Higher Education in Canada' },
+    description: 'Pursue your academic and career goals at Cannoga College. We offer Degree, Diploma, and Certificate programs in Ottawa, Ontario, Canada.',
+    alternates: {
+        canonical: 'https://cannogacollege.ca/',
+    },
 };
 
 export const revalidate = 3600;
@@ -63,6 +64,9 @@ export default async function Home() {
 
             {/* 1. HERO CAROUSEL */}
             <HomeCarousel />
+
+            {/* 1.5 DESIGNATED LEARNING INSTITUTION (DLI) BANNER */}
+            <DliBanner />
 
             {/* 2. EXPLORE PROGRAMS & COURSES (COLUMBIA COLLEGE STYLE VIBRANT CAROUSEL) */}
             <section className="py-20 bg-white">

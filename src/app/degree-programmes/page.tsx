@@ -5,6 +5,7 @@ import { ProgramsAZTableView } from '@/components/programs/ProgramsAZTableView';
 import { AcademicSchoolsCarousel } from '@/components/home/AcademicSchoolsCarousel';
 import { createStaticClient } from '@/lib/supabase/static';
 import { DOMESTIC_TUITION, INTERNATIONAL_TUITION } from '@/utils/tuition';
+import { DliBanner } from '@/components/layout/DliBanner';
 
 const sections = [
     { id: 'programs-az', title: 'Programs Directory (A-Z)', content: '' },
@@ -95,6 +96,8 @@ export default async function DegreeProgrammesPage() {
                             <Link href="#programs-az" className="cc-btn-outline no-underline">View Programs A-Z Table <ArrowRight size={14} weight="bold" /></Link>
                         </div>
                     </section>
+
+                    <DliBanner />
 
                     {/* Interactive Programs A-Z Directory Table View */}
                     <section id="programs-az" className="scroll-mt-32">

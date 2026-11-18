@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link } from "@aalto-dx/react-components";
 import { Button } from "@aalto-dx/react-components";
 import { Hero } from '@/components/layout/Hero';
+import { DliBanner } from '@/components/layout/DliBanner';
 import { Eye, EyeSlash, CaretDown, ArrowsCounterClockwise } from "@phosphor-icons/react/dist/ssr";
 import { registerApplicant } from '../actions';
 import DateSelector from '@/components/ui/DateSelector';
@@ -193,6 +194,7 @@ export default function RegisterPage() {
                 lightText={true}
                 image={{ src: '/images/international-students-hero.png', alt: 'Students at Cannoga College' }}
                 breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Portal', href: '/portal' }, { label: 'Register' }]}
+                afterHero={<DliBanner />}
             />
 
             <div className="cc-container max-w-2xl mx-auto py-6">

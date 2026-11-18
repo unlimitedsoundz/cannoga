@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Link } from "@aalto-dx/react-components";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { DliBanner } from '@/components/layout/DliBanner';
 
 export const metadata: Metadata = {
     title: 'Complete Master Site Directory',
@@ -233,6 +234,8 @@ export default function SiteIndexPage() {
                     </p>
                 </div>
             </section>
+
+            <DliBanner />
 
             {/* MAIN CONTENT WITH SIDEBAR NAVIGATION */}
             <div className="container mx-auto max-w-6xl px-4 py-12 md:py-20 grid grid-cols-1 lg:grid-cols-4 gap-12">

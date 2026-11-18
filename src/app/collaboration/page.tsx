@@ -4,6 +4,7 @@ import { ArrowRight, Handshake, Lightbulb, Buildings, Users } from '@phosphor-ic
 
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
+import { DliBanner } from '@/components/layout/DliBanner';
 
 export const metadata = {
     title: 'Industry Collaborations & Strategic Partnerships',
@@ -64,6 +65,8 @@ export default function CollaborationPage() {
                     </div>
                 </div>
             </section>
+
+            <DliBanner />
 
             <div className="container mx-auto px-4 py-16 md:py-24 max-w-6xl">
 

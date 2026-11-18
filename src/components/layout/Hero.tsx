@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Breadcrumbs } from '@aalto-dx/react-modules';
 import { ReactNode } from 'react';
+import { DliBanner } from './DliBanner';
 
 interface HeroImage {
     src?: string;
@@ -25,6 +26,7 @@ interface HeroProps {
     className?: string;
     overlay?: boolean;
     overlayOpacity?: string;
+    afterHero?: ReactNode;
 }
 
 export function Hero({
@@ -40,7 +42,8 @@ export function Hero({
     children,
     className,
     overlay = true,
-    overlayOpacity = 'opacity-40'
+    overlayOpacity = 'opacity-40',
+    afterHero = <DliBanner />
 }: HeroProps) {
     const textColorClass = lightText ? 'text-white' : 'text-black';
     const bodyColorClass = lightText ? 'text-white' : 'text-black';
@@ -108,6 +111,8 @@ export function Hero({
                     </div>
                 </section>
             </div>
+
+            {afterHero}
 
             {/* Mobile Breadcrumbs - Outside the background container */}
             {/* Breadcrumbs Bar - Always under the colored background */}

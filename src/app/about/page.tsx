@@ -3,6 +3,7 @@ import { Link } from "@aalto-dx/react-components";
 import Image from 'next/image';
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Hero } from "@/components/layout/Hero";
+import { DliBanner } from "@/components/layout/DliBanner";
 import DynamicNewsSection from "@/components/news/DynamicNewsSection";
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
 import { SchemaLD } from '@/components/seo/SchemaLD';
@@ -84,6 +85,7 @@ export default async function AboutPage() {
                     src: "/images/cannoga-campus-main.jpg",
                     alt: "Cannoga College Ottawa Campus main building"
                 }}
+                afterHero={<DliBanner />}
             />
 
             <GuideSidebarLayout sections={sections}>

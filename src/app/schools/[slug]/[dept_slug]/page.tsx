@@ -11,6 +11,7 @@ import { CaretLeft } from '@phosphor-icons/react/dist/ssr';
 import { Breadcrumbs } from '@aalto-dx/react-modules';
 import { getTuitionFeeSync } from '@/utils/tuition';
 import { getCIPCode } from '@/utils/cip-codes';
+import { DliBanner } from '@/components/layout/DliBanner';
 
 
 import { cache } from 'react';
@@ -257,6 +258,8 @@ export default async function DepartmentDetailPage({ params }: Props) {
                     </p>
                 </div>
             </section>
+
+            <DliBanner />
 
             <div className="border-b border-neutral-100 bg-white">
                 <div className="container mx-auto px-4 py-3">
