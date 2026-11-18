@@ -8,6 +8,12 @@ const legacyProgramRedirects = JSON.parse(
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    experimental: {
+        workerThreads: false,
+        cpus: 4,
+        staticGenerationMaxConcurrency: 4,
+        staticGenerationMinPagesPerWorker: 25,
+    },
     images: {
         unoptimized: true,
         remotePatterns: [
