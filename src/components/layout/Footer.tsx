@@ -3,7 +3,7 @@
 import { Link } from "@aalto-dx/react-components"
 import { usePathname } from "next/navigation"
 import { Logo } from "@/components/ui/Logo"
-import { InstagramLogo, TiktokLogo, YoutubeLogo } from "@phosphor-icons/react"
+import { TiktokLogo, YoutubeLogo } from "@phosphor-icons/react"
 import { PreFooterBanner } from "@/components/layout/PreFooterBanner"
 
 export function Footer() {
@@ -28,9 +28,6 @@ export function Footer() {
                             </div>
                         </div>
                         <div className="flex space-x-5 shrink-0 items-center">
-                            <a href="https://www.instagram.com/cannogacollege" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white hover:text-[#c89211] hover:scale-110 transition-all transform inline-block">
-                                <InstagramLogo className="h-8 w-8" weight="fill" />
-                            </a>
                             <a href="https://www.youtube.com/@CannogaCollege" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-white hover:text-[#c89211] hover:scale-110 transition-all transform inline-block">
                                 <YoutubeLogo className="h-8 w-8" weight="fill" />
                             </a>

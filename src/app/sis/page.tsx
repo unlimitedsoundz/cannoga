@@ -26,7 +26,7 @@ import {
     Delete01Icon as Trash,
 } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
-import { InstagramLogo, TiktokLogo, YoutubeLogo, EnvelopeSimple, MapPin, Camera } from '@phosphor-icons/react';
+import { TiktokLogo, YoutubeLogo, EnvelopeSimple, MapPin, Camera } from '@phosphor-icons/react';
 import { getDocumentUrl } from '@/utils/document';
 import { StatusBadge } from '@/components/sis/StatusBadge';
 import { registerForCourse } from '@/app/sis/registration-actions';
@@ -2086,17 +2086,6 @@ function formatRelativeTime(dateInput: any): string {
                                                 <h3 className="font-extrabold text-white text-xs uppercase tracking-wider">Campus Connect & Channels</h3>
                                             </div>
                                             <div className="grid grid-cols-2 gap-2 text-xs p-4">
-                                                {/* Instagram Official Channel */}
-                                                <a 
-                                                    href="https://www.instagram.com/cannogacollege" 
-                                                    target="_blank" 
-                                                    rel="noopener noreferrer" 
-                                                    className="p-3 bg-[#0a151a] hover:bg-[#12222a]  hover:border-white/20 rounded-xl flex items-center space-x-2.5 font-bold text-white hover:text-[#c89211] transition-all group shadow-sm no-underline"
-                                                >
-                                                    <InstagramLogo className="w-5 h-5 text-white group-hover:text-[#c89211] shrink-0 group-hover:scale-110 transition-all transform" weight="fill" />
-                                                    <span className="truncate">Instagram</span>
-                                                </a>
-
                                                 {/* YouTube Official Channel */}
                                                 <a 
                                                     href="https://www.youtube.com/@CannogaCollege" 

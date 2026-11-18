@@ -106,7 +106,6 @@ export default function RootLayout({
                             },
                             "sameAs": [
                                 "https://www.linkedin.com/company/cannoga-college/",
-                                "https://www.instagram.com/cannogacollege",
                                 "https://www.youtube.com/@CannogaCollege",
                                 "https://www.tiktok.com/@cannoga_college"
                             ],
